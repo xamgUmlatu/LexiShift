@@ -31,9 +31,12 @@ class TestDevWorkflowBuild(unittest.TestCase):
             ["/tmp/python", str(GUI_BUILD_SCRIPT), "--no-clean", "--validate"],
         )
 
-    def test_gui_build_command_skips_validate_on_windows(self) -> None:
+    def test_gui_build_command_enables_validate_on_windows(self) -> None:
         command = gui_build_command("/tmp/python", platform_name="Windows")
-        self.assertEqual(command, ["/tmp/python", str(GUI_BUILD_SCRIPT), "--no-clean"])
+        self.assertEqual(
+            command,
+            ["/tmp/python", str(GUI_BUILD_SCRIPT), "--no-clean", "--validate"],
+        )
 
     def test_collect_artifact_records_for_betterdiscord_bundle(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -146,6 +149,51 @@ class TestDevWorkflowBuild(unittest.TestCase):
         self.assertTrue(labels["gui_main_windows_exe"]["exists"])
         self.assertTrue(labels["gui_helper_windows_exe"]["exists"])
         self.assertTrue(labels["gui_native_host_windows_exe"]["exists"])
+
+    def test_collect_artifact_records_for_windows_prefers_collected_layout(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            project_root = Path(tmpdir)
+            dist_root = project_root / "apps" / "gui" / "dist"
+            nested_main = dist_root / "LexiShift" / "LexiShift.exe"
+            root_main = dist_root / "LexiShift.exe"
+            nested_helper = dist_root / "LexiShiftHelper" / "LexiShiftHelper.exe"
+            root_helper = dist_root / "LexiShiftHelper.exe"
+            nested_host = dist_root / "LexiShiftNativeHost" / "lexishift_native_host.exe"
+            root_host = dist_root / "lexishift_native_host.exe"
+            for path, payload in (
+                (nested_main, b"nested-main"),
+                (root_main, b"root-main"),
+                (nested_helper, b"nested-helper"),
+                (root_helper, b"root-helper"),
+                (nested_host, b"nested-host"),
+                (root_host, b"root-host"),
+            ):
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(payload)
+
+            records = collect_artifact_records(
+                "gui_build_validate",
+                project_root=project_root,
+                platform_name="Windows",
+            )
+
+        labels = {str(record["label"]): record for record in records}
+        self.assertEqual(
+            Path(str(labels["gui_main_windows_exe"]["path"])).name,
+            "LexiShift.exe",
+        )
+        self.assertEqual(
+            Path(str(labels["gui_main_windows_exe"]["path"])).parent.name,
+            "LexiShift",
+        )
+        self.assertEqual(
+            Path(str(labels["gui_helper_windows_exe"]["path"])).parent.name,
+            "LexiShiftHelper",
+        )
+        self.assertEqual(
+            Path(str(labels["gui_native_host_windows_exe"]["path"])).parent.name,
+            "LexiShiftNativeHost",
+        )
 
 
 if __name__ == "__main__":

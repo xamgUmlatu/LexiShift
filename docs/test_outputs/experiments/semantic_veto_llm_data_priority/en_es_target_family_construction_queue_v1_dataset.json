@@ -1,0 +1,1098 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_semantic_veto_llm_data_priority_target_family_construction_en_es_v1",
+  "generated_at": "2026-05-05T20:07:04+00:00",
+  "description": "Source-ready draft target/shadow families constructed from the LLM data-priority inventory bridge. These require review before scored context probes and are not active/shadow/phrase LLM rows.",
+  "source_candidate_inventory_id": "semantic_non_v10_inventory_candidates_en_es",
+  "review_state": "draft_target_shadow_families_need_review",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:separate:separado",
+      "trigger": "separate",
+      "active": {
+        "sense_id": "en-es:sentence-veto:separate:separado:active",
+        "target_lemma": "separado",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "separate adjective sense: apart from; not connected to",
+          "gloss_text": "apart from; not connected to",
+          "sense_gloss_bundle": "separate adjective sense: apart from; not connected to | apart from; not connected to",
+          "all_evidence_text": "separado | separate adjective sense: apart from; not connected to | apart from; not connected to | apart from; not connected to"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 7,
+          "translation_pos": "adj",
+          "translation_sense_text": "apart from; not connected to",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en"
+          ],
+          "reverse_support": false,
+          "freedict_support": true,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "best_wordnet_overlap": [
+            "apart"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:separate:separado:separar:shadow",
+          "target_lemma": "separar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "separate verb sense: to divide into separate parts",
+            "gloss_text": "to divide into separate parts",
+            "sense_gloss_bundle": "separate verb sense: to divide into separate parts | to divide into separate parts",
+            "all_evidence_text": "separar | separate verb sense: to divide into separate parts | to divide into separate parts | to divide into separate parts"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 1,
+            "translation_pos": "verb",
+            "translation_sense_text": "to divide into separate parts",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "divide",
+              "part"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:separate:separado:draft-loader:001",
+          "sentence": "The word separate is being checked for apart from.",
+          "source_phrase": "separate",
+          "gold_winner": "en-es:sentence-veto:separate:separado:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_llm_data_priority_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:any_cross_pos",
+        "source_candidate": {
+          "archetype": "wordnet_noun_verb_cross_pos",
+          "candidate_id": "en-es:wordnet-non-v10-candidate:separate",
+          "complexity_band": "broad",
+          "cross_pos": true,
+          "noun_verb": true,
+          "pos_counts": {
+            "adjective": 4,
+            "noun": 2,
+            "verb": 13
+          },
+          "recommended_next_action": "construct_translation_family",
+          "recommended_wave_role": "candidate_source_probe",
+          "same_pos_polysemy": true,
+          "sample_synsets": [
+            {
+              "definition": "independent; not united or joint",
+              "example": "a problem consisting of two separate issues",
+              "members": [
+                "separate"
+              ],
+              "pos": "adjective",
+              "synset_id": "02116958-a"
+            },
+            {
+              "definition": "standing apart; not attached to or supported by anything",
+              "example": "a freestanding bell tower",
+              "members": [
+                "freestanding",
+                "separate"
+              ],
+              "pos": "adjective",
+              "synset_id": "00162033-s"
+            },
+            {
+              "definition": "separated according to race, sex, class, or religion",
+              "example": "separate but equal",
+              "members": [
+                "separate"
+              ],
+              "pos": "adjective",
+              "synset_id": "01330323-s"
+            },
+            {
+              "definition": "have the connection undone; having become separate",
+              "example": "",
+              "members": [
+                "disjoined",
+                "separate"
+              ],
+              "pos": "adjective",
+              "synset_id": "00570805-s"
+            }
+          ],
+          "score": 16.1,
+          "sense_count": 19,
+          "source_definition_count": 19,
+          "source_example_count": 23,
+          "source_member_count": 65,
+          "trigger": "separate"
+        },
+        "translation_candidates": [
+          {
+            "headword": "separate",
+            "translation": "separar",
+            "translation_lc": "separar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 1,
+            "sense_text": "to divide into separate parts",
+            "raw_glosses": [
+              "to divide into separate parts"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "divide",
+              "part"
+            ],
+            "best_wordnet_synset_id": "01559703-v"
+          },
+          {
+            "headword": "separate",
+            "translation": "separado",
+            "translation_lc": "separado",
+            "pos": "adj",
+            "canonical_pos": "adjective",
+            "rank": 7,
+            "sense_text": "apart from; not connected to",
+            "raw_glosses": [
+              "apart from; not connected to"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "apart"
+            ],
+            "best_wordnet_synset_id": "00162033-s"
+          },
+          {
+            "headword": "separate",
+            "translation": "cisionar",
+            "translation_lc": "cisionar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 2,
+            "sense_text": "to divide into separate parts",
+            "raw_glosses": [
+              "to divide into separate parts"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.4,
+            "best_wordnet_overlap": [
+              "divide",
+              "part"
+            ],
+            "best_wordnet_synset_id": "01559703-v"
+          },
+          {
+            "headword": "separate",
+            "translation": "separarse",
+            "translation_lc": "separarse",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 6,
+            "sense_text": "to divide itself",
+            "raw_glosses": [
+              "to divide itself"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "divide"
+            ],
+            "best_wordnet_synset_id": "02627934-v"
+          },
+          {
+            "headword": "separate",
+            "translation": "apartar",
+            "translation_lc": "apartar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 5,
+            "sense_text": "to cause to be separate",
+            "raw_glosses": [
+              "to cause to be separate"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "separate",
+            "translation": "disgregar",
+            "translation_lc": "disgregar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 3,
+            "sense_text": "to cause to be separate",
+            "raw_glosses": [
+              "to cause to be separate"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "separate",
+            "translation": "disatraer",
+            "translation_lc": "disatraer",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 4,
+            "sense_text": "to cause to be separate",
+            "raw_glosses": [
+              "to cause to be separate"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 9,
+          "bridge_priority_rank": 25,
+          "selected_strategy": "any_cross_pos_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        }
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:split:partido",
+      "trigger": "split",
+      "active": {
+        "sense_id": "en-es:sentence-veto:split:partido:active",
+        "target_lemma": "partido",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "split adjective sense: divided",
+          "gloss_text": "divided",
+          "sense_gloss_bundle": "split adjective sense: divided | divided",
+          "all_evidence_text": "partido | split adjective sense: divided | divided | divided"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 10,
+          "translation_pos": "adj",
+          "translation_sense_text": "divided",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en"
+          ],
+          "reverse_support": true,
+          "freedict_support": false,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.25,
+          "best_wordnet_overlap": [
+            "divid"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:split:partido:escisi-n:shadow",
+          "target_lemma": "escisión",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "split noun sense: breach, division",
+            "gloss_text": "breach, division",
+            "sense_gloss_bundle": "split noun sense: breach, division | breach, division",
+            "all_evidence_text": "escisión | split noun sense: breach, division | breach, division | breach, division"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 14,
+            "translation_pos": "noun",
+            "translation_sense_text": "breach, division",
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "division"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:split:partido:draft-loader:001",
+          "sentence": "The word split is being checked for divided.",
+          "source_phrase": "split",
+          "gold_winner": "en-es:sentence-veto:split:partido:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_llm_data_priority_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:any_cross_pos",
+        "source_candidate": {
+          "archetype": "wordnet_noun_verb_cross_pos",
+          "candidate_id": "en-es:wordnet-non-v10-candidate:split",
+          "complexity_band": "broad",
+          "cross_pos": true,
+          "noun_verb": true,
+          "pos_counts": {
+            "adjective": 2,
+            "noun": 10,
+            "verb": 5
+          },
+          "recommended_next_action": "construct_translation_family",
+          "recommended_wave_role": "candidate_source_probe",
+          "same_pos_polysemy": true,
+          "sample_synsets": [
+            {
+              "definition": "having been divided; having the unity destroyed",
+              "example": "{'source': 'Samuel Lubell', 'text': 'Congress … gave the impression of … a confusing sum of disconnected local forces'}",
+              "members": [
+                "disconnected",
+                "disunited",
+                "fragmented",
+                "split"
+              ],
+              "pos": "adjective",
+              "synset_id": "02490690-s"
+            },
+            {
+              "definition": "(especially of wood) cut or ripped longitudinally with the grain",
+              "example": "we bought split logs for the fireplace",
+              "members": [
+                "split"
+              ],
+              "pos": "adjective",
+              "synset_id": "00665716-s"
+            },
+            {
+              "definition": "extending the legs at right angles to the trunk (one in front and the other in back)",
+              "example": "",
+              "members": [
+                "split"
+              ],
+              "pos": "noun",
+              "synset_id": "00438869-n"
+            },
+            {
+              "definition": "a bottle containing half the usual amount",
+              "example": "",
+              "members": [
+                "split"
+              ],
+              "pos": "noun",
+              "synset_id": "13792216-n"
+            }
+          ],
+          "score": 16.1,
+          "sense_count": 17,
+          "source_definition_count": 17,
+          "source_example_count": 23,
+          "source_member_count": 45,
+          "trigger": "split"
+        },
+        "translation_candidates": [
+          {
+            "headword": "split",
+            "translation": "partido",
+            "translation_lc": "partido",
+            "pos": "adj",
+            "canonical_pos": "adjective",
+            "rank": 10,
+            "sense_text": "divided",
+            "raw_glosses": [
+              "divided"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "divid"
+            ],
+            "best_wordnet_synset_id": "02490690-s"
+          },
+          {
+            "headword": "split",
+            "translation": "escisión",
+            "translation_lc": "escisión",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 14,
+            "sense_text": "breach, division",
+            "raw_glosses": [
+              "breach, division"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "division"
+            ],
+            "best_wordnet_synset_id": "00387484-n"
+          },
+          {
+            "headword": "split",
+            "translation": "partirse",
+            "translation_lc": "partirse",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 7,
+            "sense_text": "(intransitive) separate",
+            "raw_glosses": [
+              "(intransitive) separate"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "separate"
+            ],
+            "best_wordnet_synset_id": "02473085-v"
+          },
+          {
+            "headword": "split",
+            "translation": "separarse",
+            "translation_lc": "separarse",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 8,
+            "sense_text": "(intransitive) separate",
+            "raw_glosses": [
+              "(intransitive) separate"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "separate"
+            ],
+            "best_wordnet_synset_id": "02473085-v"
+          },
+          {
+            "headword": "split",
+            "translation": "dividido",
+            "translation_lc": "dividido",
+            "pos": "adj",
+            "canonical_pos": "adjective",
+            "rank": 9,
+            "sense_text": "divided",
+            "raw_glosses": [
+              "divided"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "divid"
+            ],
+            "best_wordnet_synset_id": "02490690-s"
+          },
+          {
+            "headword": "split",
+            "translation": "hendido",
+            "translation_lc": "hendido",
+            "pos": "adj",
+            "canonical_pos": "adjective",
+            "rank": 11,
+            "sense_text": "divided",
+            "raw_glosses": [
+              "divided"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "divid"
+            ],
+            "best_wordnet_synset_id": "02490690-s"
+          },
+          {
+            "headword": "split",
+            "translation": "partir",
+            "translation_lc": "partir",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 1,
+            "sense_text": "divide along a more or less straight line",
+            "raw_glosses": [
+              "divide along a more or less straight line"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "split",
+            "translation": "dividir",
+            "translation_lc": "dividir",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 2,
+            "sense_text": "divide along a more or less straight line",
+            "raw_glosses": [
+              "divide along a more or less straight line"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "split",
+            "translation": "escindir",
+            "translation_lc": "escindir",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 3,
+            "sense_text": "divide along a more or less straight line",
+            "raw_glosses": [
+              "divide along a more or less straight line"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "split",
+            "translation": "hender",
+            "translation_lc": "hender",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 4,
+            "sense_text": "divide along a more or less straight line",
+            "raw_glosses": [
+              "divide along a more or less straight line"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "split",
+            "translation": "hendir",
+            "translation_lc": "hendir",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 5,
+            "sense_text": "divide along a more or less straight line",
+            "raw_glosses": [
+              "divide along a more or less straight line"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "split",
+            "translation": "repartir",
+            "translation_lc": "repartir",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 6,
+            "sense_text": "share out",
+            "raw_glosses": [
+              "share out"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 12,
+          "bridge_priority_rank": 28,
+          "selected_strategy": "any_cross_pos_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        }
+      }
+    },
+    {
+      "family_id": "en-es:sentence-veto:burn:quemadura",
+      "trigger": "burn",
+      "active": {
+        "sense_id": "en-es:sentence-veto:burn:quemadura:active",
+        "target_lemma": "quemadura",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "burn noun sense: physical injury",
+          "gloss_text": "physical injury",
+          "sense_gloss_bundle": "burn noun sense: physical injury | physical injury",
+          "all_evidence_text": "quemadura | burn noun sense: physical injury | physical injury | physical injury"
+        },
+        "metadata": {
+          "sense_role": "active",
+          "translation_rank": 1,
+          "translation_pos": "noun",
+          "translation_sense_text": "physical injury",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktionary_es_en"
+          ],
+          "reverse_support": true,
+          "freedict_support": false,
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "best_wordnet_overlap": [
+            "injury"
+          ]
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:burn:quemadura:arder:shadow",
+          "target_lemma": "arder",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "burn verb sense: to be consumed by fire",
+            "gloss_text": "to be consumed by fire",
+            "sense_gloss_bundle": "burn verb sense: to be consumed by fire | to be consumed by fire",
+            "all_evidence_text": "arder | burn verb sense: to be consumed by fire | to be consumed by fire | to be consumed by fire"
+          },
+          "metadata": {
+            "sense_role": "shadow",
+            "translation_rank": 8,
+            "translation_pos": "verb",
+            "translation_sense_text": "to be consumed by fire",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "fire"
+            ]
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sentence-veto:burn:quemadura:draft-loader:001",
+          "sentence": "The word burn is being checked for physical injury.",
+          "source_phrase": "burn",
+          "gold_winner": "en-es:sentence-veto:burn:quemadura:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "non_v10_wave_draft",
+            "loader_only",
+            "not_quality_evaluation"
+          ]
+        }
+      ],
+      "metadata": {
+        "wave_id": "semantic_veto_llm_data_priority_target_family_construction_en_es_v1",
+        "construction_method": "wiktionary_forward_translation_with_reverse_support:noun_verb",
+        "source_candidate": {
+          "archetype": "wordnet_noun_verb_cross_pos",
+          "candidate_id": "en-es:wordnet-non-v10-candidate:burn",
+          "complexity_band": "broad",
+          "cross_pos": true,
+          "noun_verb": true,
+          "pos_counts": {
+            "noun": 4,
+            "verb": 15
+          },
+          "recommended_next_action": "construct_translation_family",
+          "recommended_wave_role": "candidate_source_probe",
+          "same_pos_polysemy": true,
+          "sample_synsets": [
+            {
+              "definition": "pain that feels hot as if it were on fire",
+              "example": "",
+              "members": [
+                "burn",
+                "burning"
+              ],
+              "pos": "noun",
+              "synset_id": "14348846-n"
+            },
+            {
+              "definition": "an injury caused by exposure to heat or chemicals or radiation",
+              "example": "",
+              "members": [
+                "burn"
+              ],
+              "pos": "noun",
+              "synset_id": "14313092-n"
+            },
+            {
+              "definition": "a place or area that has been burned (especially on a person's body)",
+              "example": "",
+              "members": [
+                "burn",
+                "burn mark"
+              ],
+              "pos": "noun",
+              "synset_id": "04701438-n"
+            },
+            {
+              "definition": "damage inflicted by fire",
+              "example": "",
+              "members": [
+                "burn"
+              ],
+              "pos": "noun",
+              "synset_id": "00404732-n"
+            }
+          ],
+          "score": 16.1,
+          "sense_count": 19,
+          "source_definition_count": 19,
+          "source_example_count": 25,
+          "source_member_count": 35,
+          "trigger": "burn"
+        },
+        "translation_candidates": [
+          {
+            "headword": "burn",
+            "translation": "quemadura",
+            "translation_lc": "quemadura",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 1,
+            "sense_text": "physical injury",
+            "raw_glosses": [
+              "physical injury"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "injury"
+            ],
+            "best_wordnet_synset_id": "14313092-n"
+          },
+          {
+            "headword": "burn",
+            "translation": "arder",
+            "translation_lc": "arder",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 8,
+            "sense_text": "to be consumed by fire",
+            "raw_glosses": [
+              "to be consumed by fire"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "fire"
+            ],
+            "best_wordnet_synset_id": "00379335-v"
+          },
+          {
+            "headword": "burn",
+            "translation": "quemarse",
+            "translation_lc": "quemarse",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 9,
+            "sense_text": "to be consumed by fire",
+            "raw_glosses": [
+              "to be consumed by fire"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "fire"
+            ],
+            "best_wordnet_synset_id": "00379335-v"
+          },
+          {
+            "headword": "burn",
+            "translation": "quemar",
+            "translation_lc": "quemar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 3,
+            "sense_text": "to cause to be consumed by fire",
+            "raw_glosses": [
+              "to cause to be consumed by fire"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "burn",
+            "translation": "quemar",
+            "translation_lc": "quemar",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 3,
+            "sense_text": "act of burning something",
+            "raw_glosses": [
+              "act of burning something"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "burn",
+            "translation": "quema",
+            "translation_lc": "quema",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 2,
+            "sense_text": "act of burning something",
+            "raw_glosses": [
+              "act of burning something"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "burn",
+            "translation": "quemazón",
+            "translation_lc": "quemazón",
+            "pos": "noun",
+            "canonical_pos": "noun",
+            "rank": 4,
+            "sense_text": "physical sensation in the muscles",
+            "raw_glosses": [
+              "physical sensation in the muscles"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "burn",
+            "translation": "fogarear",
+            "translation_lc": "fogarear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 5,
+            "sense_text": "to cause to be consumed by fire",
+            "raw_glosses": [
+              "to cause to be consumed by fire"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "burn",
+            "translation": "foguerear",
+            "translation_lc": "foguerear",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 6,
+            "sense_text": "to cause to be consumed by fire",
+            "raw_glosses": [
+              "to cause to be consumed by fire"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          },
+          {
+            "headword": "burn",
+            "translation": "combustionar",
+            "translation_lc": "combustionar",
+            "pos": "verb",
+            "canonical_pos": "verb",
+            "rank": 7,
+            "sense_text": "to cause to be consumed by fire",
+            "raw_glosses": [
+              "to cause to be consumed by fire"
+            ],
+            "reverse_support": false,
+            "freedict_support": false,
+            "support_sources": [
+              "wiktionary_en_es"
+            ],
+            "wordnet_linked": false,
+            "best_wordnet_link_score": 0.0,
+            "best_wordnet_overlap": []
+          }
+        ],
+        "requires_independent_cases": true,
+        "requires_wordnet_link": true,
+        "llm_data_priority_target_family_construction": {
+          "construction_rank": 26,
+          "bridge_priority_rank": 42,
+          "selected_strategy": "noun_verb_supported_source_linked",
+          "readiness_stage": "source_supported_family_draft_needs_review",
+          "source_ready_for_scored_probe": true
+        }
+      }
+    }
+  ]
+}

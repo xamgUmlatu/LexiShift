@@ -125,6 +125,8 @@ class TestSrsLpE2E(unittest.TestCase):
             self.assertGreater(init["rulegen"]["rules"], 0)
             self.assertTrue(Path(init["rulegen"]["snapshot_path"]).exists())
             self.assertTrue(Path(init["rulegen"]["ruleset_path"]).exists())
+            self.assertTrue(Path(init["rulegen"]["publication_manifest_path"]).exists())
+            self.assertTrue(Path(init["rulegen"]["semantic_inventory_path"]).exists())
 
             refresh = refresh_srs_set(
                 paths,
@@ -143,11 +145,24 @@ class TestSrsLpE2E(unittest.TestCase):
             self.assertGreater(refresh["rulegen"]["rules"], 0)
             self.assertTrue(Path(refresh["rulegen"]["snapshot_path"]).exists())
             self.assertTrue(Path(refresh["rulegen"]["ruleset_path"]).exists())
+            self.assertTrue(Path(refresh["rulegen"]["publication_manifest_path"]).exists())
+            self.assertTrue(Path(refresh["rulegen"]["semantic_inventory_path"]).exists())
 
             diagnostics = get_srs_runtime_diagnostics(paths, pair=pair)
             self.assertTrue(diagnostics["store_exists"])
             self.assertTrue(diagnostics["ruleset_exists"])
             self.assertTrue(diagnostics["snapshot_exists"])
+            self.assertTrue(diagnostics["semantic_inventory_exists"])
+            self.assertTrue(diagnostics["publication_manifest_exists"])
+            self.assertTrue(diagnostics["semantic_inventory_pointer_modes"])
+            self.assertIsNotNone(diagnostics["semantic_inventory_default_unavailable_reason_code"])
+            self.assertIsNotNone(diagnostics["semantic_inventory_generation_id"])
+            self.assertEqual(
+                diagnostics["publication_manifest_generation_id"],
+                diagnostics["semantic_inventory_generation_id"],
+            )
+            self.assertTrue(diagnostics["publication_manifest_family_valid"])
+            self.assertEqual(diagnostics["publication_manifest_error_count"], 0)
             self.assertEqual(diagnostics["missing_inputs"], [])
             self.assertIn("pair_policy", diagnostics)
             self.assertEqual(diagnostics["pair_policy"]["pair"], pair)

@@ -21,6 +21,7 @@ from lexishift_core.helper.engine import (  # noqa: E402
     refresh_srs_set,
 )
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.helper.rulegen import annotate_rules_with_srs_serving_metadata  # noqa: E402
 from lexishift_core.srs import (  # noqa: E402
     SrsItem,
     SrsSettings,
@@ -93,10 +94,29 @@ def _create_frequency_db(path: Path) -> Path:
     return path
 
 
-def _stub_run_rulegen_for_pair(*, store, pair, **_kwargs):
-    pair_lemmas = sorted({item.lemma for item in store.items if item.language_pair == pair})
+def _stub_run_rulegen_for_pair(*, store, pair, **kwargs):
+    active_item_ids = kwargs.get("active_item_ids")
+    active_item_id_set = (
+        {str(item_id).strip() for item_id in active_item_ids if str(item_id).strip()}
+        if isinstance(active_item_ids, (frozenset, list, set, tuple))
+        else None
+    )
+    pair_lemmas = sorted(
+        {
+            item.lemma
+            for item in store.items
+            if item.language_pair == pair
+            and (active_item_id_set is None or item.item_id in active_item_id_set)
+        }
+    )
     rules = tuple(
         VocabRule(source_phrase=f"src_{lemma}", replacement=lemma) for lemma in pair_lemmas
+    )
+    rules = annotate_rules_with_srs_serving_metadata(
+        rules,
+        store=store,
+        pair=pair,
+        active_item_ids=active_item_ids,
     )
     snapshot_targets = [{"lemma": lemma, "sources": [f"src_{lemma}"]} for lemma in pair_lemmas]
     snapshot = {

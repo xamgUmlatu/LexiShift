@@ -12,6 +12,9 @@ HELPER_BUNDLE_ID = "com.lexishift.helper.agent"
 MAIN_WINDOWS_EXE = "LexiShift.exe"
 HELPER_WINDOWS_EXE = "LexiShiftHelper.exe"
 HOST_WINDOWS_EXE = "lexishift_native_host.exe"
+MAIN_WINDOWS_DIR = "LexiShift"
+HELPER_WINDOWS_DIR = "LexiShiftHelper"
+HOST_WINDOWS_DIR = "LexiShiftNativeHost"
 
 
 def _fail(msg: str) -> None:
@@ -124,16 +127,33 @@ def _validate_single_macos_app(app_path: Path) -> int:
     return 0
 
 
-def _find_windows_exe(dist_path: Path, exe_name: str) -> Path:
-    direct = dist_path / exe_name
-    if direct.exists():
-        return direct
-    candidates = sorted(dist_path.glob(f"*/{exe_name}"))
-    if len(candidates) == 1:
-        return candidates[0]
-    if candidates:
-        joined = ", ".join(str(path) for path in candidates)
-        raise SystemExit(f"Multiple {exe_name} candidates found in {dist_path}: {joined}")
+def _windows_exe_candidates(dist_path: Path, exe_name: str, *, dir_name: str) -> list[Path]:
+    candidates: list[Path] = [
+        dist_path / dir_name / exe_name,
+        dist_path / exe_name,
+    ]
+    candidates.extend(sorted(dist_path.glob(f"*/{exe_name}")))
+    ordered: list[Path] = []
+    seen: set[Path] = set()
+    for candidate in candidates:
+        resolved = candidate.resolve(strict=False)
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        ordered.append(candidate)
+    return ordered
+
+
+def _find_windows_exe(dist_path: Path, exe_name: str, *, dir_name: str) -> Path:
+    matches = [
+        candidate
+        for candidate in _windows_exe_candidates(dist_path, exe_name, dir_name=dir_name)
+        if candidate.exists()
+    ]
+    if len(matches) == 1:
+        return matches[0]
+    if matches:
+        return matches[0]
     raise SystemExit(f"{exe_name} not found in {dist_path}")
 
 
@@ -222,9 +242,13 @@ def _validate_macos_dist(dist_path: Path) -> int:
 
 def _validate_windows_dist(dist_path: Path) -> int:
     try:
-        main_exe = _find_windows_exe(dist_path, MAIN_WINDOWS_EXE)
-        helper_exe = _find_windows_exe(dist_path, HELPER_WINDOWS_EXE)
-        host_exe = _find_windows_exe(dist_path, HOST_WINDOWS_EXE)
+        main_exe = _find_windows_exe(dist_path, MAIN_WINDOWS_EXE, dir_name=MAIN_WINDOWS_DIR)
+        helper_exe = _find_windows_exe(
+            dist_path,
+            HELPER_WINDOWS_EXE,
+            dir_name=HELPER_WINDOWS_DIR,
+        )
+        host_exe = _find_windows_exe(dist_path, HOST_WINDOWS_EXE, dir_name=HOST_WINDOWS_DIR)
     except SystemExit as exc:
         _fail(str(exc))
         return 2

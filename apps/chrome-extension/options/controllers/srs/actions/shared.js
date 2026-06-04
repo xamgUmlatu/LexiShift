@@ -1,6 +1,17 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
+  function renderOutputContent(output, content) {
+    if (!output) {
+      return;
+    }
+    if (content && typeof content === "object" && typeof content.html === "string") {
+      output.innerHTML = content.html;
+      return;
+    }
+    output.textContent = String(content ?? "");
+  }
+
   function createShared(options) {
     const opts = options && typeof options === "object" ? options : {};
     const output = opts.output || null;
@@ -19,10 +30,21 @@
     const log = typeof opts.log === "function" ? opts.log : (() => {});
 
     function setOutputText(text) {
-      if (!output) {
+      renderOutputContent(output, text);
+    }
+
+    function dispatchPreflightBlocked(detail) {
+      if (
+        !globalThis.document
+        || typeof globalThis.document.dispatchEvent !== "function"
+        || typeof globalThis.CustomEvent !== "function"
+      ) {
         return;
       }
-      output.textContent = text;
+      globalThis.document.dispatchEvent(new globalThis.CustomEvent(
+        "lexishift:srs-preflight-blocked",
+        { detail }
+      ));
     }
 
     async function markRulesetUpdatedNow() {
@@ -34,7 +56,16 @@
       });
     }
 
-    async function preflightSrsPairResources(pair, profileId, actionLabel) {
+    async function preflightSrsPairResources(pair, profileId, actionLabel, options) {
+      const runtimeOptions = options && typeof options === "object" ? options : {};
+      const ignoredMissingInputTypes = new Set(
+        Array.isArray(runtimeOptions.ignoredMissingInputTypes)
+          ? runtimeOptions.ignoredMissingInputTypes.map((value) => String(value || "").trim()).filter(Boolean)
+          : []
+      );
+      const setOutputTextOverride = typeof runtimeOptions.setOutputText === "function"
+        ? runtimeOptions.setOutputText
+        : setOutputText;
       if (!helperManager || typeof helperManager.getSrsRuntimeDiagnostics !== "function") {
         return true;
       }
@@ -45,17 +76,33 @@
       if (!helperData) {
         return true;
       }
-      const missingInputs = Array.isArray(helperData.missing_inputs) ? helperData.missing_inputs : [];
+      const missingInputs = Array.isArray(helperData.missing_inputs)
+        ? helperData.missing_inputs.filter((entry) => {
+            const type = entry && entry.type ? String(entry.type).trim() : "";
+            return !ignoredMissingInputTypes.has(type);
+          })
+        : [];
       if (!missingInputs.length) {
         return true;
       }
+      const helperDataForOutput = {
+        ...helperData,
+        missing_inputs: missingInputs
+      };
       const lines = buildPreflightBlockedLines({
         actionLabel,
         pair,
         profileId,
-        helperData
+        helperData: helperDataForOutput
       });
-      setOutputText(lines.join("\n"));
+      dispatchPreflightBlocked({
+        actionLabel,
+        pair,
+        profileId,
+        missingInputs,
+        helperData: helperDataForOutput
+      });
+      setOutputTextOverride(lines.join("\n"));
       setStatus(
         `Missing resources for ${pair}. Add the required files and try again.`,
         colors.ERROR
@@ -63,7 +110,7 @@
       log("SRS preflight failed due to missing resources", {
         pair,
         profileId,
-        helper: helperData
+        helper: helperDataForOutput
       });
       return false;
     }

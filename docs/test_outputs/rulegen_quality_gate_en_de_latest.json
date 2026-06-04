@@ -1,0 +1,122 @@
+{
+  "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_de_latest.json",
+  "policy_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_quality_policy.json",
+  "baseline_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/baselines/rulegen_quality_baseline.json",
+  "dataset_json": null,
+  "pair_scope": "en-de",
+  "pos_probe_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/phase6_pos_inventory/phase6_pos_probe_2026-02-23_final.json",
+  "pos_inventory_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23_final.json",
+  "strict_saturation": false,
+  "fail_on_warn": false,
+  "summary": {
+    "pass_count": 13,
+    "warn_count": 3,
+    "fail_count": 1,
+    "status": "FAIL",
+    "should_fail": true
+  },
+  "findings": [
+    {
+      "level": "PASS",
+      "code": "BENCHMARK_SCOPE_PAIR_PRESENT",
+      "message": "Scoped benchmark pair 'en-de' is present in benchmark artifact.",
+      "details": null
+    },
+    {
+      "level": "FAIL",
+      "code": "QUALITY_FLOOR_BREACH",
+      "message": "Quality floor failed for pair 'en-de'.",
+      "details": "top1_accuracy=0.6552 below min_top1_accuracy=0.8500"
+    },
+    {
+      "level": "WARN",
+      "code": "DELTA_SCOPE_BASELINE_MISSING",
+      "message": "Scoped pair 'en-de' has no baseline metrics; skipping delta checks.",
+      "details": null
+    },
+    {
+      "level": "WARN",
+      "code": "SATURATION_TOP_VECTOR_WARN",
+      "message": "Pair 'en-de' top metric vector share=0.500 indicates low sensitivity (warn threshold>=0.500).",
+      "details": "run_count=32 unique_vectors=3 top_count=16"
+    },
+    {
+      "level": "WARN",
+      "code": "SATURATION_UNIQUE_VECTOR_WARN",
+      "message": "Pair 'en-de' unique metric vectors=3 below expected minimum=5.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "DATASET_REQUIRED_FIELDS",
+      "message": "Dataset required-case fields are present.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "DATASET_TIER_VALUES",
+      "message": "Dataset case tiers use allowed values.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "DATASET_MIN_CASES",
+      "message": "Dataset pair case counts meet policy minimums.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "DATASET_MIN_HARD_CASES",
+      "message": "Dataset hard-case counts meet policy minimums.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "POS_MISMATCH_RATE_OK",
+      "message": "Pair 'en-ja' bucket_mismatch_rate=0.0000 within threshold=0.0100.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "POS_MISMATCH_RATE_OK",
+      "message": "Pair 'en-es' bucket_mismatch_rate=0.0000 within threshold=0.0100.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "POS_MISMATCH_RATE_OK",
+      "message": "Pair 'es-en' bucket_mismatch_rate=0.0000 within threshold=0.0100.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "POS_MISMATCH_RATE_OK",
+      "message": "Pair 'en-de' bucket_mismatch_rate=0.0000 within threshold=0.0100.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "POS_UNKNOWN_GROWTH_OK",
+      "message": "Pack 'freq-de-default.sqlite' unknown_pos_inventory_size=34 within allowed_max=34 (baseline=34, budget=0).",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "POS_UNKNOWN_GROWTH_OK",
+      "message": "Pack 'freq-en-coca.sqlite' unknown_pos_inventory_size=1 within allowed_max=1 (baseline=1, budget=0).",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "POS_UNKNOWN_GROWTH_OK",
+      "message": "Pack 'freq-es-cde.sqlite' unknown_pos_inventory_size=0 within allowed_max=0 (baseline=0, budget=0).",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "POS_UNKNOWN_GROWTH_OK",
+      "message": "Pack 'freq-ja-bccwj.sqlite' unknown_pos_inventory_size=7 within allowed_max=7 (baseline=7, budget=0).",
+      "details": null
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "manifest_id": "semantic_veto_wave2_wave5_draft_input_manifest_en_es_v1",
+  "state": "historical_reference",
+  "purpose": "Preserved historical draft datasets and queues referenced by tracked wave2-wave5 non-v10 reports, heldout cases, or harness defaults.",
+  "authority": "Historical or seed support only; not current candidate evidence and not runtime policy.",
+  "last_updated": "2026-05-01",
+  "inputs": [
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave2_admission_selected_v1_dataset.json",
+      "role": "wave2 admission-selected dataset"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave2_draft_v1_dataset.json",
+      "role": "wave2 draft dataset"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave3_anypos_probe_min0p16_dataset.json",
+      "role": "wave3 any-POS probe dataset"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave3_anypos_unsupported_upper_bound_selected_v1_dataset.json",
+      "role": "wave3 unsupported upper-bound selected dataset"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave3_probe_min0p16_dataset.json",
+      "role": "wave3 probe dataset"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave4_anypos_supported_probe_min0p12_dataset.json",
+      "role": "wave4 any-POS supported probe dataset"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave5_anypos_ranked_slate_selected_v1_dataset.json",
+      "role": "wave5 ranked-slate selected dataset"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave2_admission_selected_queue_en_es_v1.json",
+      "role": "wave2 admission-selected queue"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave2_draft_queue_en_es_v1.json",
+      "role": "wave2 draft queue"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave3_anypos_probe_min0p16_queue_en_es.json",
+      "role": "wave3 any-POS probe queue"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave3_anypos_unsupported_upper_bound_selected_queue_en_es_v1.json",
+      "role": "wave3 unsupported upper-bound selected queue"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave3_probe_min0p16_queue_en_es.json",
+      "role": "wave3 probe queue"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave4_anypos_supported_probe_min0p12_queue_en_es.json",
+      "role": "wave4 any-POS supported probe queue"
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave5_anypos_ranked_slate_selected_queue_en_es_v1.json",
+      "role": "wave5 ranked-slate selected queue"
+    }
+  ]
+}

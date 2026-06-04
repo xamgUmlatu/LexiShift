@@ -31,6 +31,11 @@ if (!uiBridgeFactory) {
   throw new Error("[LexiShift][Options] Missing required bootstrap module: optionsUiBridge");
 }
 const uiBridge = uiBridgeFactory({ ui });
+if (globalThis.LexiShift
+  && globalThis.LexiShift.optionsSrsStartCardPresenter
+  && typeof globalThis.LexiShift.optionsSrsStartCardPresenter.createPresenter === "function") {
+  ui.srsStartCardPresenter = globalThis.LexiShift.optionsSrsStartCardPresenter.createPresenter({ i18n });
+}
 
 const controllerFactoryResolverFactory = globalThis.LexiShift
   && globalThis.LexiShift.optionsControllerFactoryResolver

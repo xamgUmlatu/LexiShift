@@ -1,0 +1,197 @@
+{
+  "artifacts": {
+    "combined_normalized_evidence": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-001-normalized_evidence.json",
+    "semantic_inventory": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-001_semantic_inventory.json"
+  },
+  "component_batches": [
+    {
+      "batch_id": "en-es:semantic-veto:active-only-combined-product-scope-v1",
+      "family_count": 49,
+      "row_count": 112,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-combined-product-scope-v1",
+      "source_type": "llm"
+    },
+    {
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-001",
+      "family_count": 42,
+      "row_count": 84,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-001",
+      "source_type": "llm"
+    }
+  ],
+  "decision": "active_only_full_pack_ready_for_named_install",
+  "duplicate_samples": [
+    {
+      "evidence_text": "The elected council will govern the city for the next four years.",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "target": "gobernar",
+      "trigger": "govern"
+    },
+    {
+      "evidence_text": "The dentist checked my teeth and filled a small cavity.",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "target": "dentista",
+      "trigger": "dentist"
+    }
+  ],
+  "existing_family_append_samples": [],
+  "generated_at": "2026-05-11T22:56:28Z",
+  "inputs": {
+    "add_normalized_evidence_paths": [
+      "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-001_normalized_evidence.json"
+    ],
+    "base_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-inventory-replay-latest_semantic_inventory.json",
+    "base_normalized_evidence_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-normalized_evidence.json"
+  },
+  "issues": [],
+  "methodology": {
+    "existing_family_policy": "append generated evidence to existing active sense by trigger-target key",
+    "merge_scope": "append active-only anchor cues, preserve existing shadows and phrase sets",
+    "new_family_policy": "create active-only competition set when trigger-target pair is absent",
+    "runtime_policy_change": "none",
+    "runtime_publishable_rows": "kept false in source evidence; semantic inventory is the runtime materialization layer"
+  },
+  "new_family_samples": [
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:access:entrada:f606af7f",
+      "target": "entrada",
+      "trigger": "access"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:ask:preguntar:fd844e28",
+      "target": "preguntar",
+      "trigger": "ask"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:away:lejos:4bacff77",
+      "target": "lejos",
+      "trigger": "away"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:beginning:principio:85cb6780",
+      "target": "principio",
+      "trigger": "beginning"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:between:entre:e39f176b",
+      "target": "entre",
+      "trigger": "between"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:break:romper:5975739f",
+      "target": "romper",
+      "trigger": "break"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:car:automovil:993c7cd2",
+      "target": "automóvil",
+      "trigger": "car"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:century:siglo:f6f9470d",
+      "target": "siglo",
+      "trigger": "century"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:chief:jefe:344be945",
+      "target": "jefe",
+      "trigger": "chief"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:close:estrecho:370fec2a",
+      "target": "estrecho",
+      "trigger": "close"
+    }
+  ],
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-001",
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "add_normalized_row_count": 84,
+    "base_normalized_row_count": 112,
+    "combined_normalized_row_count": 194,
+    "competition_set_count": 91,
+    "duplicate_row_count": 2,
+    "existing_family_append_count": 0,
+    "existing_family_append_samples": [],
+    "merged_evidence_row_count": 84,
+    "new_family_count": 42,
+    "new_family_samples": [
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:access:entrada:f606af7f",
+        "target": "entrada",
+        "trigger": "access"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:ask:preguntar:fd844e28",
+        "target": "preguntar",
+        "trigger": "ask"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:away:lejos:4bacff77",
+        "target": "lejos",
+        "trigger": "away"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:beginning:principio:85cb6780",
+        "target": "principio",
+        "trigger": "beginning"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:between:entre:e39f176b",
+        "target": "entre",
+        "trigger": "between"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:break:romper:5975739f",
+        "target": "romper",
+        "trigger": "break"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:car:automovil:993c7cd2",
+        "target": "automóvil",
+        "trigger": "car"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:century:siglo:f6f9470d",
+        "target": "siglo",
+        "trigger": "century"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:chief:jefe:344be945",
+        "target": "jefe",
+        "trigger": "chief"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:close:estrecho:370fec2a",
+        "target": "estrecho",
+        "trigger": "close"
+      }
+    ],
+    "sense_count": 133,
+    "trigger_count": 91
+  }
+}

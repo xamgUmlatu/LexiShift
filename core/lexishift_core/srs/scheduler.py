@@ -13,6 +13,7 @@ from lexishift_core.srs import (
     SrsItem,
     SrsSchedulerSettings,
     SrsSettings,
+    srs_item_is_active,
 )
 from lexishift_core.srs.time import format_ts, now_utc, parse_ts
 
@@ -41,6 +42,8 @@ def select_active_items(
     due: list[tuple[datetime, SrsItem]] = []
     for item in items:
         if allowed and item.language_pair not in allowed:
+            continue
+        if not srs_item_is_active(item):
             continue
         next_due = parse_ts(item.next_due)
         due_time = next_due or datetime.min.replace(tzinfo=now.tzinfo)

@@ -6,7 +6,7 @@
 - Pair: `en-es`
 - Lane: `installed_resource_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T05:21:30.372760+00:00`
+- Generated at: `2026-05-27T03:43:05.065555+00:00`
 
 ## Phases
 

@@ -1,0 +1,33 @@
+{
+  "artifacts": {
+    "ruleset": {
+      "bytes": 34481,
+      "exists": true,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-native-host-install-data-root/srs/profiles/semantic-alpha/srs_ruleset_en-es.json",
+      "sha1": "60a2ee22e8210c1aa89d9dc319bb6ba81614148c"
+    },
+    "semantic_inventory": {
+      "bytes": 136750,
+      "exists": true,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-native-host-install-data-root/srs/profiles/semantic-alpha/srs_semantic_inventory_en-es.json",
+      "sha1": "c9c824dc48f07ab4922a675cb4e9c88161b91e89"
+    },
+    "snapshot": {
+      "bytes": 4243,
+      "exists": true,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-native-host-install-data-root/srs/profiles/semantic-alpha/srs_rulegen_snapshot_en-es.json",
+      "sha1": "2ea2875788c6b4bc8950181d1ca21cc5334251d7"
+    }
+  },
+  "generated_at": "2026-05-10T00:00:00Z",
+  "generation_id": "en-es:semantic-alpha:44bc3f73dd85d72e",
+  "pair": "en-es",
+  "profile_id": "semantic-alpha",
+  "published_at": "2026-05-10T01:43:23Z",
+  "schema_version": 1,
+  "validation": {
+    "errors": [],
+    "family_valid": true,
+    "semantic_inventory_included": true
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:example-frame-missing-rows:example-frame-plant-remediation-v2-20260425a",
+  "pair": "en-es",
+  "source_type": "llm",
+  "source_id": "llm_example_frame_residual_remediation",
+  "source_family": "silver_llm_generation",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-24T23:10:28Z",
+  "ingested_at": "2026-04-24T23:10:28Z",
+  "review_state": "unreviewed",
+  "model_id": "gpt-5.4-mini",
+  "prompt_version": "example-frame-residual-remediation-v1",
+  "temperature": 0.2,
+  "cost_metadata": {
+    "request_count": 1,
+    "requests_with_usage": 1,
+    "input_tokens": 390,
+    "output_tokens": 36,
+    "reasoning_tokens": 0
+  },
+  "provenance": {
+    "generation_plan_batch_id": "",
+    "required_family_source": "semantic_prompt_bakeoff_en_es_v10",
+    "execution_mode": "live",
+    "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-plant-remediation-v2-20260425a_raw_responses.json"
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:llm:active:remediation-active-001-002:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "candidate_pos": "noun",
+      "prompt_slot": "remediation_active_example",
+      "input_ref": "en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "generation_target": "active_example",
+        "source_gap": "remediation_active_example",
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ],
+        "failure_mode": "false_abstain_active_example_gap",
+        "failure_case_ids": [
+          "en-es:sentence-veto:plant:001",
+          "en-es:sentence-veto:plant:002"
+        ],
+        "failure_slice_tags": [
+          "clear_active",
+          "home"
+        ]
+      },
+      "evidence_text": "The plant on my windowsill drooped until I watered its roots.",
+      "confidence": 0.97,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-plant-remediation-v2-20260425a_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    }
+  ]
+}

@@ -5,6 +5,13 @@ const SCRIPT_ROOT = path.resolve(__dirname, "..");
 
 function resolveCandidates() {
 	const candidates = [];
+	const repoVenvCandidates = [
+		path.resolve(SCRIPT_ROOT, "..", ".venv", "Scripts", "python.exe"),
+		path.resolve(SCRIPT_ROOT, "..", ".venv", "bin", "python"),
+	];
+	for (const value of repoVenvCandidates) {
+		candidates.push({ command: value, prefixArgs: [] });
+	}
 	const envCandidates = [
 		process.env.LEXISHIFT_PYTHON,
 		process.env.PYTHON,

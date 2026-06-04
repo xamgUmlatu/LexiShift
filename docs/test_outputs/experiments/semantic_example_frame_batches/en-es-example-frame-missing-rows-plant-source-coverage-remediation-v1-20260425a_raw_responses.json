@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:example-frame-missing-rows:plant-source-coverage-remediation-v1-20260425a",
+  "pair": "en-es",
+  "source_id": "llm_example_frame_residual_remediation",
+  "prompt_version": "example-frame-residual-remediation-v1",
+  "execution_mode": "live",
+  "replay_source": "",
+  "generated_at": "2026-04-25T00:06:17Z",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "request_count": 1,
+  "requests": [
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift residual-remediation semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: unspecified\n- archetype: unspecified\n- likely bucket: unspecified\n\nTask: write one original English example for the active sense.\nThe example must make the active sense more plausible than the competing senses.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only\n\nResidual remediation focus:\n- failure mode: false_abstain_active_example_gap\n- residual case count: 2\n- case ids: en-es:sentence-veto:plant:001, en-es:sentence-veto:plant:002\n- do not copy benchmark sentences\n- use the active sense and competing-sense evidence as the only content anchors\n- residual slice tags are retained in metadata only; do not infer or echo their surface setting\n- prefer distinctive sense cues over generic topical settings",
+      "status": "completed",
+      "response_id": "resp_06581023e26f66f80169ec057a13c48193a2eec23f2fdd689e",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 353,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 389
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"The plant on my windowsill drooped until I watered its roots.\",\"confidence\":0.98}]}",
+      "response_json": {
+        "id": "resp_06581023e26f66f80169ec057a13c48193a2eec23f2fdd689e",
+        "created_at": 1777075578.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift residual-remediation semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+        "metadata": {
+          "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+          "prompt_slot": "remediation_active_example",
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "stage": "example_frame_missing_rows",
+          "prompt_version": "example-frame-residual-remediation-v1"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_06581023e26f66f80169ec057a73108193951cd3bdd206ad69",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"The plant on my windowsill drooped until I watered its roots.\",\"confidence\":0.98}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1777075578.0,
+        "conversation": null,
+        "max_output_tokens": 180,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 353,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 36,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 389
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    }
+  ]
+}

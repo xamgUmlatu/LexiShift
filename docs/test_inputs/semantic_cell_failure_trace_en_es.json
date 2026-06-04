@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "matrix_id": "en_es_semantic_cell_failure_trace_v1",
+  "description": "Focused trace manifest for the remaining active/shadow held-out cell false abstain on the admitted LLM-aligned v2 source lane. This keeps the frozen control intact while exposing row scores and selected evidence for the failing held-out case.",
+  "include_case_results": true,
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "source_evidence_batch_paths": [
+    "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json"
+  ],
+  "evaluation_suites": [
+    {
+      "suite_id": "source_heldout_v2",
+      "suite_role": "locked_active_shadow",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_heldout_cases_v2.json"
+    }
+  ],
+  "defaults": {
+    "scorer_id": "tfidf_cosine",
+    "context_view": "masked_sentence",
+    "evidence_selector_context_view": "before_after_slot_context",
+    "evidence_selector_source_view": "before_after_slot_context",
+    "sense_representation": "source_plus_definition_rows_separate",
+    "aggregation_rule": "max_row_score",
+    "decision_rule": "active_minus_strongest_shadow",
+    "phrase_handling": "phrase_override",
+    "window_tokens": 4,
+    "mask_token": "___",
+    "min_active_score": 0.1,
+    "min_margin": 0.0,
+    "ratio_threshold": 1.0,
+    "softmax_threshold": 0.5,
+    "softmax_temperature": 8.0,
+    "pairwise_min_win_rate": 0.75,
+    "top_k": 2,
+    "selection_top_k": 2,
+    "phrase_guard_pos_scope": "family_all",
+    "evidence_control": "normal",
+    "split_modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ],
+    "source_weights": {
+      "all_evidence": 1.0,
+      "sense_label": 0.8,
+      "definition": 1.0,
+      "qualifier": 0.6,
+      "auxiliary": 0.5,
+      "installed_translation_pack": 0.8,
+      "external_sense_graph": 1.0,
+      "silver_llm_generation": 1.0,
+      "source_row": 1.0
+    }
+  },
+  "rows": [
+    {
+      "config_id": "cell_trace_row_control",
+      "label": "Current best row-level control",
+      "category": "cell_failure_trace",
+      "algorithm_family": "control:definition_rows",
+      "is_control": true,
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "max_row_score"
+    },
+    {
+      "config_id": "cell_trace_source_plus_definition_max",
+      "label": "Source plus definition rows with max score",
+      "category": "cell_failure_trace",
+      "algorithm_family": "source_plus_definition:max",
+      "sense_representation": "source_plus_definition_rows_separate",
+      "aggregation_rule": "max_row_score"
+    },
+    {
+      "config_id": "cell_trace_source_plus_definition_top2",
+      "label": "Source plus definition rows with top-2 mean",
+      "category": "cell_failure_trace",
+      "algorithm_family": "source_plus_definition:top2",
+      "sense_representation": "source_plus_definition_rows_separate",
+      "aggregation_rule": "top_k_mean",
+      "top_k": 2
+    },
+    {
+      "config_id": "cell_trace_context_selected_definition_source",
+      "label": "Context-selected source plus definition rows",
+      "category": "cell_failure_trace",
+      "algorithm_family": "context_selected_definition_source:before_after",
+      "sense_representation": "contextualized_source_plus_definition_rows",
+      "aggregation_rule": "context_selected_top_k_mean",
+      "selection_top_k": 2,
+      "top_k": 1
+    },
+    {
+      "config_id": "cell_trace_source_rows_max",
+      "label": "Source rows only with max score",
+      "category": "cell_failure_trace",
+      "algorithm_family": "source_rows:max",
+      "sense_representation": "source_rows_separate",
+      "aggregation_rule": "max_row_score"
+    },
+    {
+      "config_id": "cell_trace_source_weighted_top2",
+      "label": "Source-weighted top-2 rows",
+      "category": "cell_failure_trace",
+      "algorithm_family": "source_plus_definition:source_weighted_top2",
+      "sense_representation": "source_plus_definition_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "top_k": 2
+    },
+    {
+      "config_id": "cell_trace_sentence_transformer_source_max",
+      "label": "Sentence-transformer source rows with max score",
+      "category": "cell_failure_trace",
+      "algorithm_family": "sentence_transformer:source_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "min_active_score": 0.1,
+      "min_margin": 0.05
+    }
+  ]
+}

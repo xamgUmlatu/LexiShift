@@ -1,0 +1,59 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 0,
+    "coverage_shortfall_count": 2,
+    "coverage_waived_item_count": 0,
+    "decision": "generated_responses_need_repair",
+    "rejected_item_count": 0,
+    "status": "review"
+  },
+  "artifacts": {
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-continue-repair-20260510-001_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-continue-repair-20260510-001_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-continue-repair-20260510-001_raw_responses.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:active-only-scale-tranche-v1-continue-repair-20260510-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T22:51:25Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_active_only_scale_tranche_v1_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "error_message": "ValueError: request_id did not match request packet",
+      "family_id": "en-es:full-family-repaired-full:continue:durar",
+      "item_count": 0,
+      "output_text": "{\"request_id\":\"semantic_veto_active_only_scale_tranche_v1_en-es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:continue:durar\",\"slot_id\":\"en-es:full-family-repaired-full:continue:durar:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"continue\",\"target_lemma\":\"durar\",\"items\":[{\"sentence\":\"The meeting will continue for another two hours.\",\"evidence_note\":\"Shows duration of an ongoing event.\"},{\"sentence\":\"The storm is expected to continue through the night.\",\"evidence_note\":\"Indicates that a state lasts over a period of time.\"}]}",
+      "pilot_arm": "high_need",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0470fd2dcb8a58950169ffba6e87848193b334e0f86ddff827",
+      "slot_id": "en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "invalid_output"
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "status": "error",
+  "summary": {
+    "accepted_generated_item_count": 0,
+    "accepted_items_by_slot_type": {},
+    "accepted_response_count": 0,
+    "accepted_responses_by_arm": {},
+    "accepted_responses_by_slot_type": {},
+    "admission_status": "review",
+    "admitted_item_count": 0,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 2,
+    "coverage_waived_item_count": 0,
+    "input_tokens": 463,
+    "invalid_output_count": 1,
+    "output_tokens": 158,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 0,
+    "selected_request_count": 1
+  }
+}

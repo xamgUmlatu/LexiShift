@@ -1,0 +1,593 @@
+{
+  "schema_version": 1,
+  "status": "review",
+  "decision": "support_conversion_needed",
+  "generated_at": "2026-04-28T01:20:17Z",
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave3_anypos_unsupported_upper_bound_selected_v1",
+  "translation_support_mode": "forward_only_upper_bound",
+  "summary": {
+    "family_count": 16,
+    "fully_supported_family_count": 3,
+    "candidate_swap_review_family_count": 1,
+    "needs_reviewed_source_support_family_count": 12,
+    "selected_sense_count": 37,
+    "supported_sense_count": 20,
+    "unsupported_sense_count": 17,
+    "unsupported_active_count": 7,
+    "unsupported_shadow_count": 10,
+    "unsupported_rows_with_same_pos_supported_alternative": 1,
+    "family_state_counts": {
+      "already_supported": 3,
+      "candidate_swap_review_available": 1,
+      "needs_reviewed_source_support": 12
+    },
+    "unsupported_row_state_counts": {
+      "candidate_swap_review_available": 1,
+      "needs_reviewed_source_support": 16
+    }
+  },
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 3,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 2,
+      "active_target": "permiso",
+      "shadow_targets": [
+        "excedencia",
+        "dejar"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "active",
+          "sense_id": "en-es:sentence-veto:leave:permiso:active",
+          "target_lemma": "permiso",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 13,
+          "translation_sense_text": "permission to be absent",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        },
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "target_lemma": "excedencia",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 15,
+          "translation_sense_text": "absence from work",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.4,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "trigger": "black",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 2,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 1,
+      "active_target": "oscuro",
+      "shadow_targets": [
+        "negro"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "active",
+          "sense_id": "en-es:sentence-veto:black:oscuro:active",
+          "target_lemma": "oscuro",
+          "canonical_pos": "adjective",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 2,
+          "translation_sense_text": "without light",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:change:feria",
+      "trigger": "change",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 2,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 1,
+      "active_target": "feria",
+      "shadow_targets": [
+        "cambiar"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "active",
+          "sense_id": "en-es:sentence-veto:change:feria:active",
+          "target_lemma": "feria",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 16,
+          "translation_sense_text": "small denominations of money given in exchange for a larger denomination",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.3333,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 2,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 1,
+      "active_target": "servicio",
+      "shadow_targets": [
+        "servir"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "active",
+          "sense_id": "en-es:sentence-veto:serve:servicio:active",
+          "target_lemma": "servicio",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 1,
+          "translation_sense_text": "sports: act of putting the ball or shuttlecock in play",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.3333,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "trigger": "look",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 3,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 1,
+      "active_target": "aspecto",
+      "shadow_targets": [
+        "expresión",
+        "parecer"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:look:aspecto:expresi-n:shadow",
+          "target_lemma": "expresión",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 33,
+          "translation_sense_text": "facial expression",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.4,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:dry:seco",
+      "trigger": "dry",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "seco",
+      "shadow_targets": [
+        "secar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:fit:id-neo",
+      "trigger": "fit",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 2,
+      "supported_sense_count": 0,
+      "unsupported_sense_count": 2,
+      "active_target": "idóneo",
+      "shadow_targets": [
+        "caber"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "active",
+          "sense_id": "en-es:sentence-veto:fit:id-neo:active",
+          "target_lemma": "idóneo",
+          "canonical_pos": "adjective",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 1,
+          "translation_sense_text": "suitable, proper",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        },
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:fit:id-neo:caber:shadow",
+          "target_lemma": "caber",
+          "canonical_pos": "verb",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 6,
+          "translation_sense_text": "to conform to in size and shape",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.5,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "trigger": "low",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 2,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 1,
+      "active_target": "bajo",
+      "shadow_targets": [
+        "decaído"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+          "target_lemma": "decaído",
+          "canonical_pos": "adjective",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 2,
+          "translation_sense_text": "depressed, sad",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 3,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 2,
+      "active_target": "parte",
+      "shadow_targets": [
+        "papel",
+        "repartir"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+          "target_lemma": "papel",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 8,
+          "translation_sense_text": "position or role, especially in a play",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2857,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        },
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "target_lemma": "repartir",
+          "canonical_pos": "verb",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 17,
+          "translation_sense_text": "to divide in two",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.4,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 2,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 1,
+      "active_target": "talento",
+      "shadow_targets": [
+        "sentir"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "active",
+          "sense_id": "en-es:sentence-veto:feel:talento:active",
+          "target_lemma": "talento",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 10,
+          "translation_sense_text": "intuitive ability",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:use:uso",
+      "trigger": "use",
+      "support_state": "candidate_swap_review_available",
+      "selected_sense_count": 3,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 1,
+      "active_target": "uso",
+      "shadow_targets": [
+        "función",
+        "usar"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:use:uso:funci-n:shadow",
+          "target_lemma": "función",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 7,
+          "translation_sense_text": "function",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.25,
+          "same_pos_supported_alternatives": [
+            {
+              "translation": "utilización",
+              "canonical_pos": "noun",
+              "rank": 3,
+              "sense_text": "act of using",
+              "reverse_support": true,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en"
+              ],
+              "best_wordnet_link_score": 0.4
+            }
+          ],
+          "conversion_state": "candidate_swap_review_available"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:still:a-n",
+      "trigger": "still",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 2,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 1,
+      "active_target": "aún",
+      "shadow_targets": [
+        "aquietar"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:still:a-n:aquietar:shadow",
+          "target_lemma": "aquietar",
+          "canonical_pos": "verb",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 14,
+          "translation_sense_text": "to calm down",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.25,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 2,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 1,
+      "active_target": "bajista",
+      "shadow_targets": [
+        "llevar"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+          "target_lemma": "llevar",
+          "canonical_pos": "verb",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 6,
+          "translation_sense_text": "to carry",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.25,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "support_state": "needs_reviewed_source_support",
+      "selected_sense_count": 3,
+      "supported_sense_count": 1,
+      "unsupported_sense_count": 2,
+      "active_target": "meta",
+      "shadow_targets": [
+        "acabado",
+        "acabar"
+      ],
+      "unsupported_senses": [
+        {
+          "role": "active",
+          "sense_id": "en-es:sentence-veto:finish:meta:active",
+          "target_lemma": "meta",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 1,
+          "translation_sense_text": "end",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.25,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        },
+        {
+          "role": "shadow",
+          "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+          "target_lemma": "acabado",
+          "canonical_pos": "noun",
+          "has_translation_support": false,
+          "reverse_support": false,
+          "freedict_support": false,
+          "support_sources": [
+            "wiktionary_en_es"
+          ],
+          "translation_rank": 3,
+          "translation_sense_text": "protective coating",
+          "wordnet_linked": true,
+          "best_wordnet_link_score": 0.2,
+          "same_pos_supported_alternatives": [],
+          "conversion_state": "needs_reviewed_source_support"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fast:r-pido",
+      "trigger": "fast",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "rápido",
+      "shadow_targets": [
+        "ayunar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:train:tren",
+      "trigger": "train",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "tren",
+      "shadow_targets": [
+        "adiestrar"
+      ],
+      "unsupported_senses": []
+    }
+  ],
+  "limitations": [
+    "conversion_audit_does_not_change_selected_family_targets",
+    "same_pos_alternatives_require_review_and_re_admission_before_use",
+    "forward_only_rows_are_not_promotion_evidence_without_source_support",
+    "phrase_containment_coverage_is_out_of_scope_for_this_audit"
+  ],
+  "next_steps": [
+    "review same-POS supported alternatives and rerun admission if any target swaps are accepted",
+    "add reverse/FreeDict/Wiktextract/reviewed translation support for rows without supported alternatives",
+    "materialize only a supported selected wave after source support is complete",
+    "add independent active/shadow and phrase held-out cases before quality claims"
+  ],
+  "artifacts": {
+    "dataset_json": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave3_anypos_unsupported_upper_bound_selected_v1_dataset.json"
+  }
+}

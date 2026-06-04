@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "partial",
+  "pair": "en-es",
+  "generated_at": "2026-04-23T23:51:40Z",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+  "prompt_version": "semantic_prompt_bakeoff_v2",
+  "stage": "proxy",
+  "execution_mode": "replay",
+  "replay_source": "docs/test_inputs/semantic_routing/semantic_prompt_replay_fixture_en_es_v10.json",
+  "batch_id": "en-es:proxy:20260423T235140Z:replay",
+  "source_id": "semantic_prompt_bakeoff_en_es_v10:proxy:replay",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 3,
+    "accepted_item_count": 1,
+    "api_error_count": 1,
+    "invalid_output_count": 1,
+    "normalized_row_count": 1,
+    "input_tokens": 244,
+    "output_tokens": 45,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "status": "accepted",
+      "response_id": "replay_resp_plant_ok",
+      "evidence_text": "living organism with leaves or roots, not an industrial facility",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_raw_responses.json#en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "usage": {
+        "input_tokens": 118,
+        "output_tokens": 24,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:drink:beber",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "status": "api_error",
+      "error_message": "RuntimeError: Replay plumbing rehearsal forced API failure"
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "status": "invalid_output",
+      "response_id": "replay_resp_check_bad",
+      "output_text": "{\"items\":[{\"evidence_text\":\"paper payment instrument rather than the action of examining\",\"extra_key\":\"unexpected\"}]}",
+      "error_message": "ValueError: unexpected item keys: ['extra_key']"
+    }
+  ]
+}

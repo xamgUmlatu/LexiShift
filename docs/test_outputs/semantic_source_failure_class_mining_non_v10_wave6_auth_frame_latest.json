@@ -1,0 +1,263 @@
+{
+  "additional_heldouts": [
+    {
+      "case_count": 16,
+      "decision": "heldout_review",
+      "decision_accuracy": 0.875,
+      "delta_vs_empty_baseline": {
+        "decision_accuracy_delta": -0.125,
+        "false_abstain_delta": 0,
+        "harmful_replace_delta": 2,
+        "replace_recall_delta": 0.0
+      },
+      "false_abstain_case_ids": [],
+      "false_abstain_count": 0,
+      "family_count": 16,
+      "family_ids": [
+        "en-es:sentence-veto:advance:avance",
+        "en-es:sentence-veto:bear:bajista",
+        "en-es:sentence-veto:black:oscuro",
+        "en-es:sentence-veto:fair:pastel",
+        "en-es:sentence-veto:feel:talento",
+        "en-es:sentence-veto:finish:meta",
+        "en-es:sentence-veto:leave:permiso",
+        "en-es:sentence-veto:low:bajo",
+        "en-es:sentence-veto:part:parte",
+        "en-es:sentence-veto:piece:trozo",
+        "en-es:sentence-veto:rank:rancio",
+        "en-es:sentence-veto:serve:servicio",
+        "en-es:sentence-veto:show:espect-culo",
+        "en-es:sentence-veto:still:quietud",
+        "en-es:sentence-veto:throw:lanzamiento",
+        "en-es:sentence-veto:upset:disgustado"
+      ],
+      "gold_abstain_cases": 16,
+      "gold_replace_cases": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:low:001",
+        "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:bear:001"
+      ],
+      "harmful_replace_count": 2,
+      "heldout_case_scope": "non_v10_wave6_wiktextract_supported_phrase_no_winner",
+      "heldout_dataset_id": "en_es_source_non_v10_wave6_wiktextract_supported_phrase_cases_v1",
+      "label": "semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest",
+      "replace_recall": 0.0,
+      "status": "review"
+    }
+  ],
+  "comparator_admissions": [
+    {
+      "decision": "analysis_only",
+      "families_total": 16,
+      "final_admitted_row_count": 279,
+      "heldout_validation": {
+        "blocks_offline_semantic_promotion": false,
+        "case_count": 0,
+        "decision": "not_provided",
+        "decision_accuracy": 0.0,
+        "false_abstain_count": 0,
+        "family_count": 0,
+        "harmful_replace_count": 0,
+        "passed": false,
+        "provided": false,
+        "replace_recall": 0.0,
+        "status": "not_provided"
+      },
+      "label": "semantic_source_admission_cycle_alt_phrase_non_v10_wave6_wiktextract_supported_latest",
+      "leakage_rejected_row_count": 9,
+      "phrase_contract_complete_family_count": 16,
+      "phrase_gap_family_keys": [],
+      "role": "comparator",
+      "seed_decision_accuracy": 0.0,
+      "seed_false_abstain_case_ids": [],
+      "seed_false_abstain_count": 0,
+      "seed_harmful_replace_case_ids": [],
+      "seed_harmful_replace_count": 0,
+      "seed_replace_recall": 0.0,
+      "semantic_contract_complete_family_count": 16,
+      "semantic_gap_family_keys": [],
+      "sense_rejected_row_count": 0,
+      "sense_rejection_reason_counts": {},
+      "status": "review"
+    }
+  ],
+  "decision": "fix_blocking_failure_classes",
+  "failure_classes": [
+    {
+      "artifact": "semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_phrase_margin000_phrase002_validation_latest",
+      "blocks_semantic_promotion": true,
+      "class_id": "additional_heldout_1_harmful_replace",
+      "count": 2,
+      "family_tokens": [
+        "bear",
+        "low"
+      ],
+      "ids": [
+        "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:low:001",
+        "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:bear:001"
+      ],
+      "label": "Held-out harmful replacement",
+      "tracked_residual": false
+    }
+  ],
+  "generated_at": "2026-04-30T03:43:00Z",
+  "leverage": {
+    "best_comparator_false_abstain_delta": 0,
+    "best_comparator_label": "semantic_source_admission_cycle_alt_phrase_non_v10_wave6_wiktextract_supported_latest",
+    "best_comparator_sense_reject_delta": 0,
+    "case_breadth_gap": 146,
+    "case_breadth_target": 200,
+    "family_breadth_gap": 34,
+    "family_breadth_target": 50,
+    "generalization_signals": [
+      "no_heldout_false_abstains"
+    ],
+    "heldout_case_count": 54,
+    "heldout_cases_per_admitted_row": 0.1901,
+    "heldout_cases_per_policy_delta": null,
+    "heldout_false_abstain_count": 0,
+    "heldout_family_count": 16,
+    "heldout_harmful_replace_count": 2,
+    "heldout_suite_count": 2,
+    "manual_overfit_reasons": [
+      "family_inventory_below_broad_threshold",
+      "heldout_cases_below_broad_threshold"
+    ],
+    "manual_overfit_risk": "medium",
+    "policy_delta_count": 0,
+    "primary_admitted_row_count": 284,
+    "source_family_count": 0,
+    "source_row_count": 5,
+    "source_rows_per_family": null
+  },
+  "margin_sweep": {
+    "blockers_by_margin": {},
+    "decision": "rescue_policy_candidate_found",
+    "passing_margins": [],
+    "recommended_min_margin": null,
+    "row_count": 50,
+    "status": "ok",
+    "suite_count": 2
+  },
+  "next_steps": [
+    "resolve blocking semantic-risk classes before claiming source expansion",
+    "rerun admission, held-out validation, margin sweep, and this mining harness",
+    "only expand breadth after harmful replacements and semantic contract gaps are clean"
+  ],
+  "primary_admission": {
+    "decision": "analysis_only",
+    "families_total": 16,
+    "final_admitted_row_count": 284,
+    "heldout_validation": {
+      "blocks_offline_semantic_promotion": false,
+      "case_count": 0,
+      "decision": "not_provided",
+      "decision_accuracy": 0.0,
+      "false_abstain_count": 0,
+      "family_count": 0,
+      "harmful_replace_count": 0,
+      "passed": false,
+      "provided": false,
+      "replace_recall": 0.0,
+      "status": "not_provided"
+    },
+    "label": "semantic_source_admission_cycle_auth_frame_non_v10_wave6_wiktextract_supported_latest",
+    "leakage_rejected_row_count": 0,
+    "phrase_contract_complete_family_count": 16,
+    "phrase_gap_family_keys": [],
+    "role": "primary",
+    "seed_decision_accuracy": 0.0,
+    "seed_false_abstain_case_ids": [],
+    "seed_false_abstain_count": 0,
+    "seed_harmful_replace_case_ids": [],
+    "seed_harmful_replace_count": 0,
+    "seed_replace_recall": 0.0,
+    "semantic_contract_complete_family_count": 16,
+    "semantic_gap_family_keys": [],
+    "sense_rejected_row_count": 0,
+    "sense_rejection_reason_counts": {},
+    "status": "ok"
+  },
+  "primary_heldout": {
+    "case_count": 38,
+    "decision": "heldout_pass",
+    "decision_accuracy": 1.0,
+    "delta_vs_empty_baseline": {
+      "decision_accuracy_delta": 0.4211,
+      "false_abstain_delta": -16,
+      "harmful_replace_delta": 0,
+      "replace_recall_delta": 1.0
+    },
+    "false_abstain_case_ids": [],
+    "false_abstain_count": 0,
+    "family_count": 16,
+    "family_ids": [
+      "en-es:sentence-veto:advance:avance",
+      "en-es:sentence-veto:bear:bajista",
+      "en-es:sentence-veto:black:oscuro",
+      "en-es:sentence-veto:fair:pastel",
+      "en-es:sentence-veto:feel:talento",
+      "en-es:sentence-veto:finish:meta",
+      "en-es:sentence-veto:leave:permiso",
+      "en-es:sentence-veto:low:bajo",
+      "en-es:sentence-veto:part:parte",
+      "en-es:sentence-veto:piece:trozo",
+      "en-es:sentence-veto:rank:rancio",
+      "en-es:sentence-veto:serve:servicio",
+      "en-es:sentence-veto:show:espect-culo",
+      "en-es:sentence-veto:still:quietud",
+      "en-es:sentence-veto:throw:lanzamiento",
+      "en-es:sentence-veto:upset:disgustado"
+    ],
+    "gold_abstain_cases": 22,
+    "gold_replace_cases": 16,
+    "harmful_replace_case_ids": [],
+    "harmful_replace_count": 0,
+    "heldout_case_scope": "non_v10_wave6_wiktextract_supported_active_shadow",
+    "heldout_dataset_id": "en_es_source_non_v10_wave6_wiktextract_supported_heldout_cases_v1",
+    "label": "semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest",
+    "replace_recall": 1.0,
+    "status": "ok"
+  },
+  "quality_gate": {
+    "blockers": [
+      "heldout_harmful_replace"
+    ],
+    "distance": "semantic_risk_blockers",
+    "heldout_clean": false,
+    "promotion_readiness": "blocked",
+    "tracked_residuals": [
+      "insufficient_family_breadth",
+      "insufficient_case_breadth"
+    ]
+  },
+  "schema_version": 1,
+  "source_reports": [
+    {
+      "evidence_mode": "authorization_frame_rows_ready",
+      "families_with_active_wordnet": 0,
+      "families_with_phrase_control_examples": 0,
+      "families_with_shadow_wordnet": 0,
+      "label": "semantic_authorization_frame_evidence_non_v10_wave6_wiktextract_supported_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 5,
+      "source_family_count": 0,
+      "target_families_with_active_wordnet": 0,
+      "target_families_with_shadow_wordnet": 0,
+      "target_family_count": 1
+    }
+  ],
+  "status": "review",
+  "summary": {
+    "blocking_failure_class_count": 1,
+    "failure_class_count": 1,
+    "heldout_suite_count": 2,
+    "manual_overfit_risk": "medium",
+    "primary_admission_label": "semantic_source_admission_cycle_auth_frame_non_v10_wave6_wiktextract_supported_latest",
+    "primary_heldout_label": "semantic_source_non_v10_wave6_auth_frame_surface_pos_raw_sentence_heldout_margin000_phrase002_validation_latest",
+    "promotion_readiness": "blocked",
+    "quality_gate_distance": "semantic_risk_blockers",
+    "tracked_residual_class_count": 0
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-30T20:47:27Z",
+  "status": "ok",
+  "batch_id": "en-es:wave7-source-class-breadth-v1:phrase-control-triage:cycle",
+  "source_id": "wordnet_alt_phrase_wave7_source_class_breadth_v1_triage",
+  "summary": {
+    "component_count": 2,
+    "row_count": 326,
+    "family_count": 16,
+    "relation_counts": {
+      "anchor_cue": 70,
+      "shadow_candidate": 83,
+      "phrase_control_example": 173
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:wordnet-translation-sense-source-class:non-v10-wave7-source-class-breadth-v1:cycle:sense-admitted",
+      "source_id": "wordnet_translation_sense_source_class_non_v10_wave7_source_class_breadth_v1",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 153,
+      "accepted_row_count": 153,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:wordnet-alternate-sense-phrase:wordnet-alternate-sense-phrase-non-v10-wave7-source-class-breadth-v1-triage-latest:filtered",
+      "source_id": "wordnet_alternate_sense_phrase",
+      "source_type": "external",
+      "source_family": "external_sense_graph",
+      "input_row_count": 173,
+      "accepted_row_count": 173,
+      "duplicate_row_count": 0
+    }
+  ]
+}

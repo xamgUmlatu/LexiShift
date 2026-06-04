@@ -1,0 +1,394 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave6_wiktextract_supported_heldout_cases_v1",
+  "base_dataset": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json",
+  "description": "Independent active/shadow held-out validation cases for the Wiktextract-supported non-v10 wave6 source lane.",
+  "case_scope": "non_v10_wave6_wiktextract_supported_active_shadow",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:leave:001",
+          "sentence": "The manager approved my leave for next week.",
+          "source_phrase": "leave",
+          "gold_winner": "en-es:sentence-veto:leave:permiso:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:leave:002",
+          "sentence": "Her leave from the university lasted one year.",
+          "source_phrase": "leave",
+          "gold_winner": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_noun"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:leave:003",
+          "sentence": "Please leave the keys on the counter.",
+          "source_phrase": "leave",
+          "gold_winner": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:black:001",
+          "sentence": "The hallway was black after the power failed.",
+          "source_phrase": "black",
+          "gold_winner": "en-es:sentence-veto:black:oscuro:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:black:002",
+          "sentence": "Black is the background color on the poster.",
+          "source_phrase": "black",
+          "gold_winner": "en-es:sentence-veto:black:oscuro:negro:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:serve:001",
+          "sentence": "Her serve landed just inside the line.",
+          "source_phrase": "serve",
+          "gold_winner": "en-es:sentence-veto:serve:servicio:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:serve:002",
+          "sentence": "He will serve the council for two years.",
+          "source_phrase": "serve",
+          "gold_winner": "en-es:sentence-veto:serve:servicio:servir:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:low:001",
+          "sentence": "The hawk flew low over the field.",
+          "source_phrase": "low",
+          "gold_winner": "en-es:sentence-veto:low:bajo:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:low:002",
+          "sentence": "She felt low after the interview.",
+          "source_phrase": "low",
+          "gold_winner": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_adjective"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:part:parte",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:part:001",
+          "sentence": "Only part of the roof was repaired.",
+          "source_phrase": "part",
+          "gold_winner": "en-es:sentence-veto:part:parte:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:part:002",
+          "sentence": "He won the part of the villain.",
+          "source_phrase": "part",
+          "gold_winner": "en-es:sentence-veto:part:parte:papel:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_noun"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:part:003",
+          "sentence": "The stylist will part her hair down the middle.",
+          "source_phrase": "part",
+          "gold_winner": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:feel:001",
+          "sentence": "She has a feel for market trends.",
+          "source_phrase": "feel",
+          "gold_winner": "en-es:sentence-veto:feel:talento:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:feel:002",
+          "sentence": "I can feel the texture through the gloves.",
+          "source_phrase": "feel",
+          "gold_winner": "en-es:sentence-veto:feel:talento:sentir:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:still:001",
+          "sentence": "In the still of the morning, the village slept.",
+          "source_phrase": "still",
+          "gold_winner": "en-es:sentence-veto:still:quietud:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:still:002",
+          "sentence": "The workers cleaned the old still after distilling rum.",
+          "source_phrase": "still",
+          "gold_winner": "en-es:sentence-veto:still:quietud:alambique:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_noun"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:still:003",
+          "sentence": "The mother tried to still the crying child.",
+          "source_phrase": "still",
+          "gold_winner": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:bear:001",
+          "sentence": "The bear expected stock prices to fall.",
+          "source_phrase": "bear",
+          "gold_winner": "en-es:sentence-veto:bear:bajista:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:bear:002",
+          "sentence": "Porters bear the statue during the festival.",
+          "source_phrase": "bear",
+          "gold_winner": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:finish:001",
+          "sentence": "She sprinted toward the finish.",
+          "source_phrase": "finish",
+          "gold_winner": "en-es:sentence-veto:finish:meta:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:finish:002",
+          "sentence": "The table had a glossy finish.",
+          "source_phrase": "finish",
+          "gold_winner": "en-es:sentence-veto:finish:meta:acabado:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_noun"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:finish:003",
+          "sentence": "They finish the report tonight.",
+          "source_phrase": "finish",
+          "gold_winner": "en-es:sentence-veto:finish:meta:acabar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:throw:001",
+          "sentence": "His final throw traveled farther than expected.",
+          "source_phrase": "throw",
+          "gold_winner": "en-es:sentence-veto:throw:lanzamiento:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:throw:002",
+          "sentence": "Please throw the rope across the gap.",
+          "source_phrase": "throw",
+          "gold_winner": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:upset:001",
+          "sentence": "The upset customer asked for a refund.",
+          "source_phrase": "upset",
+          "gold_winner": "en-es:sentence-veto:upset:disgustado:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:upset:002",
+          "sentence": "The late storm could upset the travel schedule.",
+          "source_phrase": "upset",
+          "gold_winner": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:piece:001",
+          "sentence": "She saved a piece of cake for later.",
+          "source_phrase": "piece",
+          "gold_winner": "en-es:sentence-veto:piece:trozo:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:piece:002",
+          "sentence": "Move the piece to the corner square.",
+          "source_phrase": "piece",
+          "gold_winner": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_noun"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:piece:003",
+          "sentence": "They will piece the quilt together by hand.",
+          "source_phrase": "piece",
+          "gold_winner": "en-es:sentence-veto:piece:trozo:montar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:fair:001",
+          "sentence": "Her fair hair shone in the sun.",
+          "source_phrase": "fair",
+          "gold_winner": "en-es:sentence-veto:fair:pastel:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:fair:002",
+          "sentence": "The robotics fair opens on Friday.",
+          "source_phrase": "fair",
+          "gold_winner": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:show:001",
+          "sentence": "The late show sold out quickly.",
+          "source_phrase": "show",
+          "gold_winner": "en-es:sentence-veto:show:espect-culo:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:show:002",
+          "sentence": "The charts show a steady increase.",
+          "source_phrase": "show",
+          "gold_winner": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:advance:001",
+          "sentence": "The army's advance slowed near the river.",
+          "source_phrase": "advance",
+          "gold_winner": "en-es:sentence-veto:advance:avance:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:advance:002",
+          "sentence": "The publisher paid an advance for the book.",
+          "source_phrase": "advance",
+          "gold_winner": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_noun"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:advance:003",
+          "sentence": "Please advance the slides after each topic.",
+          "source_phrase": "advance",
+          "gold_winner": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:rank:001",
+          "sentence": "A rank smell filled the cellar.",
+          "source_phrase": "rank",
+          "gold_winner": "en-es:sentence-veto:rank:rancio:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-heldout:v1:rank:002",
+          "sentence": "The soldiers stood in rank during inspection.",
+          "source_phrase": "rank",
+          "gold_winner": "en-es:sentence-veto:rank:rancio:fila:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave6_wiktextract_supported_heldout", "semantic_shadow", "alternate_noun"]
+        }
+      ]
+    }
+  ]
+}

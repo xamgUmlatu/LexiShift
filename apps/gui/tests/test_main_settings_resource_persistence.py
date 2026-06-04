@@ -11,7 +11,16 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 from PySide6.QtWidgets import QDialog
 
 from lexishift_core import AppSettings, SynonymSourceSettings
+from lexishift_core.helper.installed_packs import write_installed_pack_manifest
+from dialogs import build_synonym_resource_settings_from_panel
 from main import MainWindow
+from settings_language_packs_support import (
+    LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+    LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+    LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+    LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+    LanguageResourceBinding,
+)
 
 
 def _build_resource_panel(*, frequency_paths: dict[str, str]) -> SimpleNamespace:
@@ -19,10 +28,14 @@ def _build_resource_panel(*, frequency_paths: dict[str, str]) -> SimpleNamespace
         paths=lambda: {
             "wordnet-en": "/tmp/wordnet",
             "moby-en": "/tmp/moby",
-            "freedict-en-es": "/tmp/freedict-eng-spa.tei",
         },
-        frequency_paths=lambda: dict(frequency_paths),
+        managed_language_pack_ids=lambda: ["freedict-en-es"],
+        frequency_paths=lambda: {
+            key: value for key, value in dict(frequency_paths).items() if key != "freq-en-coca"
+        },
+        managed_frequency_pack_ids=lambda: ["freq-en-coca"],
         embedding_paths=lambda: {"embed-es-cc": "/tmp/cc.es.300.vec"},
+        embedding_pair_pack_ids=lambda: {"en-es": ["embed-es-cc"]},
         embedding_pair_paths=lambda: {"en-es": ["/tmp/cc.es.300.vec"]},
         embedding_pair_enabled=lambda: {"en-es": True},
     )
@@ -30,7 +43,7 @@ def _build_resource_panel(*, frequency_paths: dict[str, str]) -> SimpleNamespace
 
 def test_sync_resource_settings_from_dialog_updates_pack_maps() -> None:
     base_synonyms = SynonymSourceSettings(
-        frequency_packs={"freq-de-default": "/tmp/freq-de-default.sqlite"},
+        frequency_pack_paths={"freq-de-default": "/tmp/freq-de-default.sqlite"},
     )
     state = SimpleNamespace(
         settings=AppSettings(synonyms=base_synonyms),
@@ -53,13 +66,16 @@ def test_sync_resource_settings_from_dialog_updates_pack_maps() -> None:
     assert synonyms is not None
     assert synonyms.wordnet_dir == "/tmp/wordnet"
     assert synonyms.moby_path == "/tmp/moby"
-    assert synonyms.frequency_packs["freq-en-coca"] == "/tmp/freq-en-coca.sqlite"
-    assert synonyms.language_packs["freedict-en-es"] == "/tmp/freedict-eng-spa.tei"
+    assert synonyms.managed_frequency_pack_ids == ("freq-en-coca",)
+    assert synonyms.managed_language_pack_ids == ("freedict-en-es",)
+    assert "freq-en-coca" not in synonyms.frequency_pack_paths
+    assert "freedict-en-es" not in synonyms.language_pack_paths
+    assert synonyms.embedding_pair_pack_ids["en-es"] == ["embed-es-cc"]
 
 
 def test_open_settings_persists_resource_links_on_cancel() -> None:
     base_synonyms = SynonymSourceSettings(
-        frequency_packs={"freq-de-default": "/tmp/freq-de-default.sqlite"},
+        frequency_pack_paths={"freq-de-default": "/tmp/freq-de-default.sqlite"},
     )
     state = SimpleNamespace(
         settings=AppSettings(synonyms=base_synonyms),
@@ -92,22 +108,201 @@ def test_open_settings_persists_resource_links_on_cancel() -> None:
     assert len(updates) == 1
     synonyms = updates[0].synonyms
     assert synonyms is not None
-    assert synonyms.frequency_packs["freq-en-coca"] == "/tmp/freq-en-coca.sqlite"
+    assert synonyms.managed_frequency_pack_ids == ("freq-en-coca",)
+    assert "freq-en-coca" not in synonyms.frequency_pack_paths
 
 
-def test_resolve_frequency_db_for_pair_falls_back_to_default_app_data_pack() -> None:
+def test_open_settings_resources_starts_on_resource_tab() -> None:
+    called_kwargs: list[dict] = []
+
+    dummy = SimpleNamespace()
+    dummy._open_settings = lambda **kwargs: called_kwargs.append(kwargs)
+
+    MainWindow._open_settings_resources(dummy)
+
+    assert called_kwargs
+    assert called_kwargs[0]["initial_tab"] == "resources"
+
+
+def test_open_settings_resources_passes_pair_focus() -> None:
+    called_kwargs: list[dict] = []
+
+    dummy = SimpleNamespace()
+    dummy._open_settings = lambda **kwargs: called_kwargs.append(kwargs)
+
+    MainWindow._open_settings_resources(dummy, pair="en-es")
+
+    assert called_kwargs
+    assert called_kwargs[0]["initial_tab"] == "resources"
+    assert called_kwargs[0]["initial_resource_pair"] == "en-es"
+
+
+def test_resolve_frequency_pack_for_pair_prefers_manifest_backed_default_app_data_pack() -> None:
     with TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
-        fallback = root / "frequency_packs" / "freq-en-coca.sqlite"
+        pack_root = root / "frequency_packs" / "freq-en-coca"
+        fallback = pack_root / "main.sqlite"
         fallback.parent.mkdir(parents=True, exist_ok=True)
         fallback.write_text("placeholder", encoding="utf-8")
+        write_installed_pack_manifest(
+            root / "frequency_packs",
+            pack_id="freq-en-coca",
+            pack_kind="frequency",
+            provider="wordfrequency",
+            local_kind="file",
+            build_mode="convert_archive",
+            artifact_path=fallback,
+            sqlite_filename="main.sqlite",
+        )
         dummy = SimpleNamespace()
 
-        with patch("main._app_data_dir", return_value=root):
-            resolved = MainWindow._resolve_frequency_db_for_pair(
+        with patch("main_srs_mixin._app_data_dir", return_value=root):
+            resolved = MainWindow._resolve_frequency_pack_for_pair(
                 dummy,
                 "es-en",
-                frequency_packs={},
+                frequency_pack_paths={},
             )
 
-    assert resolved == fallback
+    assert resolved is not None
+    assert resolved.path.resolve(strict=False) == fallback.resolve(strict=False)
+    assert resolved.pack_id == "freq-en-coca"
+
+
+def test_resolve_frequency_pack_for_pair_prefers_managed_artifact_over_same_key_path() -> None:
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        pack_root = root / "frequency_packs" / "freq-en-coca"
+        artifact = pack_root / "main.sqlite"
+        artifact.parent.mkdir(parents=True, exist_ok=True)
+        artifact.write_text("placeholder", encoding="utf-8")
+        stale = root / "manual.sqlite"
+        stale.write_text("placeholder", encoding="utf-8")
+        write_installed_pack_manifest(
+            root / "frequency_packs",
+            pack_id="freq-en-coca",
+            pack_kind="frequency",
+            provider="wordfrequency",
+            local_kind="file",
+            build_mode="convert_archive",
+            artifact_path=artifact,
+            sqlite_filename="main.sqlite",
+        )
+        dummy = SimpleNamespace()
+
+        with patch("main_srs_mixin._app_data_dir", return_value=root):
+            resolved = MainWindow._resolve_frequency_pack_for_pair(
+                dummy,
+                "es-en",
+                frequency_pack_paths={"freq-en-coca": str(stale)},
+                managed_frequency_pack_ids=("freq-en-coca",),
+            )
+
+    assert resolved is not None
+    assert resolved.path.resolve(strict=False) == artifact.resolve(strict=False)
+    assert resolved.pack_id == "freq-en-coca"
+
+
+def test_resolve_frequency_pack_for_pair_falls_back_to_configured_path_when_managed_artifact_missing() -> (
+    None
+):
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        manual = root / "manual.sqlite"
+        manual.write_text("placeholder", encoding="utf-8")
+        dummy = SimpleNamespace()
+
+        with patch("main_srs_mixin._app_data_dir", return_value=root):
+            resolved = MainWindow._resolve_frequency_pack_for_pair(
+                dummy,
+                "es-en",
+                frequency_pack_paths={"freq-en-coca": str(manual)},
+                managed_frequency_pack_ids=("freq-en-coca",),
+            )
+
+    assert resolved is not None
+    assert resolved.path.resolve(strict=False) == manual.resolve(strict=False)
+    assert resolved.pack_id == "manual"
+
+
+def test_build_synonym_resource_settings_from_panel_preserves_non_ui_fields() -> None:
+    base = SynonymSourceSettings(last_selected_pack_ids=("freedict-en-es",))
+    panel = _build_resource_panel(
+        frequency_paths={
+            "freq-de-default": "/tmp/freq-de-default.sqlite",
+            "freq-en-coca": "/tmp/freq-en-coca.sqlite",
+        }
+    )
+
+    resolved = build_synonym_resource_settings_from_panel(
+        panel,
+        base_synonyms=base,
+    )
+
+    assert resolved.last_selected_pack_ids == ("freedict-en-es",)
+    assert resolved.managed_language_pack_ids == ("freedict-en-es",)
+    assert resolved.managed_frequency_pack_ids == ("freq-en-coca",)
+
+
+def test_build_synonym_resource_settings_from_panel_prefers_language_bindings() -> None:
+    panel = SimpleNamespace(
+        language_resource_bindings=lambda: {
+            "freedict-en-es": LanguageResourceBinding(
+                pack_id="freedict-en-es",
+                family=LANGUAGE_RESOURCE_FAMILY_TRANSLATION,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANAGED,
+                effective_path="/tmp/freedict-en-es/main.sqlite",
+            ),
+            "wordnet-en": LanguageResourceBinding(
+                pack_id="wordnet-en",
+                family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                effective_path="/tmp/wordnet",
+            ),
+        },
+        managed_frequency_pack_ids=lambda: ["freq-en-coca"],
+        frequency_paths=lambda: {},
+        embedding_paths=lambda: {},
+        embedding_pair_pack_ids=lambda: {},
+        embedding_pair_paths=lambda: {},
+        embedding_pair_enabled=lambda: {},
+    )
+
+    resolved = build_synonym_resource_settings_from_panel(panel)
+
+    assert resolved.managed_language_pack_ids == ("freedict-en-es",)
+    assert resolved.language_pack_paths == {"wordnet-en": "/tmp/wordnet"}
+    assert resolved.wordnet_dir == "/tmp/wordnet"
+
+
+def test_build_synonym_resource_settings_from_panel_preserves_secondary_bindings() -> None:
+    panel = SimpleNamespace(
+        language_resource_bindings=lambda: {
+            "wordnet-en": LanguageResourceBinding(
+                pack_id="wordnet-en",
+                family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                effective_path="/tmp/wordnet",
+            ),
+            "moby-en": LanguageResourceBinding(
+                pack_id="moby-en",
+                family=LANGUAGE_RESOURCE_FAMILY_SECONDARY,
+                origin=LANGUAGE_RESOURCE_ORIGIN_MANUAL,
+                effective_path="/tmp/moby.txt",
+            ),
+        },
+        managed_frequency_pack_ids=lambda: [],
+        frequency_paths=lambda: {},
+        embedding_paths=lambda: {},
+        embedding_pair_pack_ids=lambda: {},
+        embedding_pair_paths=lambda: {},
+        embedding_pair_enabled=lambda: {},
+    )
+
+    resolved = build_synonym_resource_settings_from_panel(panel)
+
+    assert resolved.language_pack_paths == {
+        "wordnet-en": "/tmp/wordnet",
+        "moby-en": "/tmp/moby.txt",
+    }
+    assert resolved.wordnet_dir == "/tmp/wordnet"
+    assert resolved.moby_path == "/tmp/moby.txt"

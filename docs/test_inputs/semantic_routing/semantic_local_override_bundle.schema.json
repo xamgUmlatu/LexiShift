@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LexiShift Semantic Local Override Bundle",
+  "description": "Planning schema for profile-local semantic safety overrides that suppress or harden behavior without mutating shared semantic truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "pair",
+    "profile_id",
+    "updated_at",
+    "overrides"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "pair": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "overrides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/override"
+      }
+    }
+  },
+  "definitions": {
+    "scopeType": {
+      "type": "string",
+      "enum": [
+        "rule_id",
+        "family_id",
+        "competition_set_id"
+      ]
+    },
+    "actionType": {
+      "type": "string",
+      "enum": [
+        "suppress_rule",
+        "suppress_family",
+        "force_abstain"
+      ]
+    },
+    "statusType": {
+      "type": "string",
+      "enum": [
+        "active",
+        "dismissed",
+        "expired"
+      ]
+    },
+    "reasonType": {
+      "type": "string",
+      "enum": [
+        "user_manual_disable",
+        "user_bad_replace_report",
+        "operator_override",
+        "auto_local_safety"
+      ]
+    },
+    "override": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "override_id",
+        "scope_type",
+        "action",
+        "status",
+        "reason_type",
+        "created_at"
+      ],
+      "properties": {
+        "override_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope_type": {
+          "$ref": "#/definitions/scopeType"
+        },
+        "action": {
+          "$ref": "#/definitions/actionType"
+        },
+        "status": {
+          "$ref": "#/definitions/statusType"
+        },
+        "reason_type": {
+          "$ref": "#/definitions/reasonType"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rule_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sense_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "competition_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_phrase": {
+          "type": "string",
+          "minLength": 1
+        },
+        "replacement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "report_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

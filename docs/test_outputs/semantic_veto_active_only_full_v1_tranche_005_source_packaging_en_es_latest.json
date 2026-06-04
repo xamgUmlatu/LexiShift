@@ -1,0 +1,361 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-005",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:adjacent:adyacente:4d8b8ba6",
+      "packaged_row_count": 2,
+      "targets": [
+        "adyacente"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:afar:lejos:b001ef21",
+      "packaged_row_count": 2,
+      "targets": [
+        "lejos"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:african:africano:bffdb36a",
+      "packaged_row_count": 2,
+      "targets": [
+        "africano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:anonymous:anonimo:fa0192c0",
+      "packaged_row_count": 2,
+      "targets": [
+        "anónimo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:australian:australiano:a28c76bb",
+      "packaged_row_count": 2,
+      "targets": [
+        "australiano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:back:reverso:16db1377",
+      "packaged_row_count": 2,
+      "targets": [
+        "reverso"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:baker:panadero:7cede4ac",
+      "packaged_row_count": 2,
+      "targets": [
+        "panadero"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:bar:taberna:c8ebdb94",
+      "packaged_row_count": 2,
+      "targets": [
+        "taberna"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:base:basar:4d72460f",
+      "packaged_row_count": 2,
+      "targets": [
+        "basar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:basket:cesto:267cb6a1",
+      "packaged_row_count": 2,
+      "targets": [
+        "cesto"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:bed:cauce:35138744",
+      "packaged_row_count": 2,
+      "targets": [
+        "cauce"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:bee:abeja:e7913c38",
+      "packaged_row_count": 2,
+      "targets": [
+        "abeja"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:blow:soplar:80e76972",
+      "packaged_row_count": 2,
+      "targets": [
+        "soplar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:book:reservar:de7e11a6",
+      "packaged_row_count": 2,
+      "targets": [
+        "reservar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:brush:cepillo:02913134",
+      "packaged_row_count": 2,
+      "targets": [
+        "cepillo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:check:reprimir:56a101ec",
+      "packaged_row_count": 2,
+      "targets": [
+        "reprimir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:commencement:principio:f4eeec84",
+      "packaged_row_count": 2,
+      "targets": [
+        "principio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:commonplace:comun:9a2ae8bf",
+      "packaged_row_count": 2,
+      "targets": [
+        "común"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cover:forrar:79548204",
+      "packaged_row_count": 2,
+      "targets": [
+        "forrar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cross:atravesar:37f67d2d",
+      "packaged_row_count": 2,
+      "targets": [
+        "atravesar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:diminutive:pequeno:c72bf9f8",
+      "packaged_row_count": 2,
+      "targets": [
+        "pequeño"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:drive:propulsion:fd0fa8d5",
+      "packaged_row_count": 2,
+      "targets": [
+        "propulsión"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:envelope:sobre:cf91b697",
+      "packaged_row_count": 2,
+      "targets": [
+        "sobre"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:figure:calcular:710b79be",
+      "packaged_row_count": 2,
+      "targets": [
+        "calcular"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:form:formulario:ab99a63f",
+      "packaged_row_count": 2,
+      "targets": [
+        "formulario"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:future:porvenir:ab93f50c",
+      "packaged_row_count": 2,
+      "targets": [
+        "porvenir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:happen:acontecer:55a2e5bf",
+      "packaged_row_count": 2,
+      "targets": [
+        "acontecer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:last:durar:d35f884c",
+      "packaged_row_count": 2,
+      "targets": [
+        "durar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:manufacture:produccion:942e8aa5",
+      "packaged_row_count": 2,
+      "targets": [
+        "producción"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:metropolis:capital:f45bfe12",
+      "packaged_row_count": 2,
+      "targets": [
+        "capital"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:necessity:necesidad:9d1fad28",
+      "packaged_row_count": 2,
+      "targets": [
+        "necesidad"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:note:anotacion:a97dc3f7",
+      "packaged_row_count": 2,
+      "targets": [
+        "anotación"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:quite:enteramente:a472c713",
+      "packaged_row_count": 2,
+      "targets": [
+        "enteramente"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:round:redondo:220b4688",
+      "packaged_row_count": 2,
+      "targets": [
+        "redondo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:single:soltero:566e52cf",
+      "packaged_row_count": 2,
+      "targets": [
+        "soltero"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:wolf:lobo:d67308cc",
+      "packaged_row_count": 2,
+      "targets": [
+        "lobo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:yard:patio:62abba0d",
+      "packaged_row_count": 2,
+      "targets": [
+        "patio"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-13T05:10:05Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_repaired_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_generation_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 19644,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 1,
+    "operator_repairs": [
+      {
+        "family_id": "en-es:srs-source-target:bed:cauce:35138744",
+        "repair_reason": "replace compound riverbed with standalone bed so the source phrase is a browser-replaceable token while preserving the river-channel sense",
+        "repair_type": "runtime_trigger_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-005:en-es:srs-source-target:bed:cauce:35138744:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:bed:cauce:35138744:active_evidence_expansion",
+        "source_phrase": "bed",
+        "target_lemma": "cauce"
+      }
+    ],
+    "output_tokens": 6827,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "operator_repaired_after_generation",
+    "temperature": null
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 74,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 37,
+    "packaged_row_count": 74,
+    "promotion_state_counts": {
+      "proposed": 74
+    },
+    "relation_type_counts": {
+      "anchor_cue": 74
+    },
+    "review_state_counts": {
+      "unreviewed": 74
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

@@ -21,6 +21,8 @@
     && typeof root.contentHelperRulesRuntime.createRuntime === "function"
     && root.contentActiveRulesRuntime
     && typeof root.contentActiveRulesRuntime.createRuntime === "function"
+    && root.contentSemanticGateRuntime
+    && typeof root.contentSemanticGateRuntime.createRuntime === "function"
     && root.contentApplyDiagnosticsReporter
     && typeof root.contentApplyDiagnosticsReporter.createReporter === "function"
     && root.contentFeedbackRuntimeController
@@ -33,6 +35,7 @@
     && typeof root.contentSettingsChangeRouter.createRouter === "function"
     && root.popupModulesRegistry
     && root.popupModuleHistoryStore
+    && root.wordInfoApi
   );
   if (!requiredModulesLoaded) {
     console.warn("[LexiShift] Content modules not loaded.");
@@ -57,6 +60,7 @@
   const srsFeedback = root.srsFeedback;
   const lemmatizer = root.lemmatizer;
   const srsMetrics = root.srsMetrics;
+  const srsBrowsingAdmissionSignals = root.srsBrowsingAdmissionSignals;
   const HelperClient = root.helperClient;
   const helperFeedbackSyncModule = root.helperFeedbackSync;
   const helperTransport = root.helperTransportExtension;
@@ -64,6 +68,7 @@
   const runtimeDiagnostics = root.srsRuntimeDiagnostics;
   const popupModuleHistoryStore = root.popupModuleHistoryStore;
   const popupModulesRegistry = root.popupModulesRegistry;
+  const wordInfoApi = root.wordInfoApi;
   const RULE_ORIGIN_SRS = "srs";
   const RULE_ORIGIN_RULESET = "ruleset";
 
@@ -73,6 +78,9 @@
   let applyingChanges = false;
   let applyToken = 0;
   let helperClient = HelperClient && helperTransport ? new HelperClient(helperTransport) : null;
+  if (wordInfoApi && typeof wordInfoApi.configure === "function") {
+    wordInfoApi.configure({ helperClient });
+  }
 
   function normalizeProfileId(value) {
     const normalized = String(value || "").trim();
@@ -130,6 +138,16 @@
     runtimeDiagnostics.saveLastState(payload).catch(() => {});
   }
 
+  function clearRuntimeState() {
+    if (!isTopFrameWindow()) {
+      return;
+    }
+    if (!runtimeDiagnostics || typeof runtimeDiagnostics.clearLastState !== "function") {
+      return;
+    }
+    runtimeDiagnostics.clearLastState().catch(() => {});
+  }
+
   function log(...args) {
     if (!currentSettings.debugEnabled) {
       return;
@@ -184,39 +202,24 @@
     return { substring: true, token: textHasToken(text, focusWord), index };
   }
 
-  const domScanRuntimeFactory = root.contentDomScanRuntime.createRuntime;
   const helperRulesRuntimeFactory = root.contentHelperRulesRuntime.createRuntime;
   const activeRulesRuntimeFactory = root.contentActiveRulesRuntime.createRuntime;
+  const semanticGateRuntimeFactory = root.contentSemanticGateRuntime.createRuntime;
+  const domScanRuntimeFactory = root.contentDomScanRuntime.createRuntime;
   const applyDiagnosticsReporterFactory = root.contentApplyDiagnosticsReporter.createReporter;
   const feedbackRuntimeFactory = root.contentFeedbackRuntimeController.createController;
   const applyRuntimeActionsFactory = root.contentApplyRuntimeActions.createRunner;
   const applySettingsPipelineFactory = root.contentApplySettingsPipeline.createPipeline;
   const settingsChangeRouterFactory = root.contentSettingsChangeRouter.createRouter;
+  const browsingAdmissionSignalSender = srsBrowsingAdmissionSignals
+    && typeof srsBrowsingAdmissionSignals.createSender === "function"
+      ? srsBrowsingAdmissionSignals.createSender({
+          getHelperClient: () => helperClient,
+          getCurrentSettings: () => currentSettings,
+          log
+        })
+      : null;
 
-  const domScanRuntime = domScanRuntimeFactory({
-    getCurrentSettings: () => currentSettings,
-    getCurrentTrie: () => currentTrie,
-    getProcessedNodes: () => processedNodes,
-    setProcessedNodes: (next) => {
-      processedNodes = next;
-    },
-    isApplyingChanges: () => applyingChanges === true,
-    getFocusWord,
-    getFocusInfo,
-    normalizeRuleOrigin,
-    buildReplacementFragment,
-    describeElement,
-    shorten,
-    describeCodepoints,
-    countOccurrences,
-    collectTextNodes,
-    srsMetrics,
-    lemmatizer,
-    popupModuleHistoryStore,
-    isPopupModuleEnabled,
-    normalizeProfileId,
-    log
-  });
   const helperRulesRuntime = helperRulesRuntimeFactory({
     getHelperClient: () => helperClient,
     helperCache,
@@ -233,6 +236,40 @@
     getRuleOrigin,
     ruleOriginSrs: RULE_ORIGIN_SRS,
     ruleOriginRuleset: RULE_ORIGIN_RULESET
+  });
+  const semanticGateRuntime = semanticGateRuntimeFactory({
+    helperRulesRuntime,
+    getRuleOrigin,
+    normalizeProfileId,
+    ruleOriginSrs: RULE_ORIGIN_SRS,
+    ruleOriginRuleset: RULE_ORIGIN_RULESET,
+    log
+  });
+  const domScanRuntime = domScanRuntimeFactory({
+    getCurrentSettings: () => currentSettings,
+    getCurrentTrie: () => currentTrie,
+    getProcessedNodes: () => processedNodes,
+    setProcessedNodes: (next) => {
+      processedNodes = next;
+    },
+    isApplyingChanges: () => applyingChanges === true,
+    getFocusWord,
+    getFocusInfo,
+    normalizeRuleOrigin,
+    buildReplacementFragment,
+    semanticGateRuntime,
+    describeElement,
+    shorten,
+    describeCodepoints,
+    countOccurrences,
+    collectTextNodes,
+    srsMetrics,
+    browsingAdmissionSignals: browsingAdmissionSignalSender,
+    lemmatizer,
+    popupModuleHistoryStore,
+    isPopupModuleEnabled,
+    normalizeProfileId,
+    log
   });
   const applyDiagnosticsReporter = applyDiagnosticsReporterFactory({
     log,
@@ -310,6 +347,7 @@
     getFocusWord,
     log,
     setDebugEnabled,
+    clearRuntimeState,
     setFeedbackSoundEnabled,
     setPopupModulePrefs,
     ensureStyle,
@@ -351,6 +389,12 @@
       domScanRuntime.rescanDocument("post-load timeout");
     }, 1500);
     window.addEventListener("beforeunload", () => {
+      if (
+        browsingAdmissionSignalSender
+        && typeof browsingAdmissionSignalSender.flush === "function"
+      ) {
+        browsingAdmissionSignalSender.flush().catch(() => {});
+      }
       feedbackRuntime.stop();
       domScanRuntime.disconnect();
     });

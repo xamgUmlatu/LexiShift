@@ -133,6 +133,7 @@ class TestSrsJourneyHarness(unittest.TestCase):
         self.assertTrue(
             all(not str(source).startswith("journey_src_") for source in first_phase_sources)
         )
+        self.assertTrue(phases[0]["runtime"]["ruleset_source_target_pairs"])
         self.assertEqual(phases[2]["relationships"]["due_not_published"], [])
         self.assertEqual(
             phases[2]["runtime"]["diagnostics"]["store_items_with_word_package_for_pair"],
@@ -158,6 +159,65 @@ class TestSrsJourneyHarness(unittest.TestCase):
             if item["cohort"] == "difficult" and item["in_due"]
         ]
         self.assertEqual(difficult_due, ["hora"])
+
+    def test_build_report_supports_en_es_profile_preference_lane(self) -> None:
+        report = build_report(scenario="en-es_profile_preference_journey_v1")
+        findings = report["findings"]
+        phases = report["phases"]
+
+        self.assertEqual(report["summary"]["status"], "WARN")
+        self.assertEqual(report["scenario"]["pair"], "en-es")
+        self.assertEqual(report["scenario"]["lane"], "profile_preference_journey")
+        self.assertEqual(report["scenario"]["strategy"], "profile_bootstrap")
+        self.assertEqual(
+            report["scenario"]["profile_context"],
+            {"topic_weights": {"family": 1.0}},
+        )
+        self.assertEqual(
+            report["initialize"]["bootstrap_diagnostics"]["selection_strategy"],
+            "profile_bootstrap",
+        )
+        self.assertEqual(
+            report["initialize"]["bootstrap_diagnostics"]["selection_policy"],
+            "reserved_topic_lane",
+        )
+        self.assertEqual(
+            report["initialize"]["bootstrap_diagnostics"]["selected_preview"][:3],
+            ["casa", "madre", "libro"],
+        )
+        self.assertEqual(
+            report["initialize"]["bootstrap_diagnostics"]["initial_active_preview"],
+            ["madre", "casa", "libro"],
+        )
+        self.assertEqual(
+            report["scenario"]["candidate_universe"][3]["topics"],
+            ["family", "people"],
+        )
+
+        self.assertEqual(phases[0]["counts"]["admitted"], 3)
+        self.assertEqual(phases[2]["refresh"]["audit"]["selected_lemmas"], ["hora", "campo"])
+        self.assertEqual(
+            phases[2]["refresh"]["payload"]["admission_refresh"]["selection_strategy_effective"],
+            "profile_growth",
+        )
+        self.assertEqual(
+            phases[2]["refresh"]["payload"]["admission_refresh"]["selection_policy"],
+            "reserved_topic_lane",
+        )
+        self.assertEqual(
+            phases[3]["refresh"]["payload"]["admission_refresh"]["reason_code"],
+            "retention_low",
+        )
+        self.assertEqual(phases[4]["refresh"]["audit"]["selected_lemmas"], ["ventana", "mesa"])
+        self.assertTrue(
+            any(item.get("code") == "SRS_JOURNEY_HIGH_RETENTION_ADMITS" for item in findings)
+        )
+        self.assertTrue(
+            any(item.get("code") == "SRS_JOURNEY_LOW_RETENTION_PAUSES" for item in findings)
+        )
+        self.assertTrue(
+            any(item.get("code") == "SRS_JOURNEY_RECOVERY_RESUMES" for item in findings)
+        )
 
     def test_build_report_supports_en_es_real_publication_lane(self) -> None:
         report = build_report(scenario="en-es_real_publication_v1")

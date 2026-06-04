@@ -21,8 +21,16 @@
     const getRuleOrigin = typeof opts.getRuleOrigin === "function"
       ? opts.getRuleOrigin
       : (_rule) => String(opts.ruleOriginRuleset || "ruleset");
+    const nowMs = typeof opts.nowMs === "function"
+      ? opts.nowMs
+      : (() => (
+          globalThis.performance && typeof globalThis.performance.now === "function"
+            ? globalThis.performance.now()
+            : Date.now()
+        ));
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const ruleOriginRuleset = String(opts.ruleOriginRuleset || "ruleset");
+    const DEFAULT_SEMANTIC_FALLBACK_POLICY = "abstain_on_unavailable";
 
     function countRulesByOrigin(rules) {
       const counts = {
@@ -60,14 +68,81 @@
       return withWordPackage;
     }
 
+    function countSemanticCoverage(rules) {
+      let pointerRuleCount = 0;
+      let readyRuleCount = 0;
+      for (const rule of rules || []) {
+        if (getRuleOrigin(rule) !== ruleOriginSrs) {
+          continue;
+        }
+        const metadata = rule && rule.metadata && typeof rule.metadata === "object" ? rule.metadata : null;
+        const admission = metadata && metadata.semantic_admission && typeof metadata.semantic_admission === "object"
+          ? metadata.semantic_admission
+          : null;
+        if (!admission) {
+          continue;
+        }
+        pointerRuleCount += 1;
+        if (String(admission.status || "").trim() === "ready") {
+          readyRuleCount += 1;
+        }
+      }
+      return {
+        pointerRuleCount,
+        readyRuleCount
+      };
+    }
+
+    function resolveSemanticRuntimeCapability(context) {
+      const ctx = context && typeof context === "object" ? context : {};
+      const pointerRuleCount = Number(ctx.pointerRuleCount || 0);
+      const readyRuleCount = Number(ctx.readyRuleCount || 0);
+      if (pointerRuleCount <= 0) {
+        return {
+          capability: "unavailable",
+          reasonCode: "no_semantic_rules"
+        };
+      }
+      if (readyRuleCount <= 0) {
+        return {
+          capability: "published_unready",
+          reasonCode: "no_ready_rules"
+        };
+      }
+      if (ctx.semanticInventoryLoaded === true) {
+        return {
+          capability: "active",
+          reasonCode: "ready_rules_available"
+        };
+      }
+      if (ctx.semanticInventoryError) {
+        return {
+          capability: "error",
+          reasonCode: "semantic_inventory_unavailable"
+        };
+      }
+      return {
+        capability: "error",
+        reasonCode: "semantic_inventory_missing"
+      };
+    }
+
     async function resolveActiveRules(settings, gateLogger, runtimeState) {
+      const startedAtMs = nowMs();
       const runtime = runtimeState && typeof runtimeState === "object" ? runtimeState : {};
       const helperAvailable = runtime.helperAvailable !== false;
       const currentSettings = settings && typeof settings === "object" ? settings : {};
       const srsProfileId = normalizeProfileId(currentSettings.srsProfileId);
+      const semanticFallbackPolicy = DEFAULT_SEMANTIC_FALLBACK_POLICY;
+      let helperRulesResolveMs = null;
+      let srsGateMs = null;
+      let semanticInventoryResolveMs = null;
 
       let rulesSource = "local";
       let helperRulesError = null;
+      let semanticInventoryLoaded = false;
+      let semanticInventorySource = "none";
+      let semanticInventoryError = null;
       const customRulesetEnabled = currentSettings.customRulesetEnabled !== false;
       const localRules = [
         ...tagRulesWithOrigin(currentSettings.profileRules, ruleOriginRuleset),
@@ -83,10 +158,12 @@
         && helperRulesRuntime
         && typeof helperRulesRuntime.resolveHelperRules === "function"
       ) {
+        const helperRulesStartedAtMs = nowMs();
         const helperResolution = await helperRulesRuntime.resolveHelperRules(
           currentSettings.srsPair,
           srsProfileId
         );
+        helperRulesResolveMs = nowMs() - helperRulesStartedAtMs;
         helperRules = Array.isArray(helperResolution.rules) ? helperResolution.rules : [];
         helperRulesError = helperResolution.error || null;
         if (helperResolution.source === "helper") {
@@ -105,12 +182,53 @@
       let srsActiveLemmas = null;
       let srsStats = null;
       if (currentSettings.srsEnabled && srsGate && typeof srsGate.buildSrsGate === "function") {
+        const srsGateStartedAtMs = nowMs();
         const gate = await srsGate.buildSrsGate(currentSettings, enabledRules, gateLogger);
+        srsGateMs = nowMs() - srsGateStartedAtMs;
         activeRules = gate.activeRules || enabledRules;
         srsActiveLemmas = gate.activeLemmas || null;
         srsStats = gate.stats || null;
       }
       const activeOriginCounts = countRulesByOrigin(activeRules);
+      const activeSemanticCoverage = countSemanticCoverage(activeRules);
+
+      if (
+        currentSettings.srsEnabled
+        && activeSemanticCoverage.readyRuleCount > 0
+        && helperAvailable
+        && helperRulesRuntime
+        && typeof helperRulesRuntime.resolveSemanticInventory === "function"
+      ) {
+        const semanticInventoryStartedAtMs = nowMs();
+        const semanticResolution = await helperRulesRuntime.resolveSemanticInventory(
+          currentSettings.srsPair,
+          srsProfileId
+        );
+        semanticInventoryResolveMs = nowMs() - semanticInventoryStartedAtMs;
+        const semanticInventory = semanticResolution && typeof semanticResolution === "object"
+          ? semanticResolution.inventory
+          : null;
+        semanticInventoryLoaded = Boolean(semanticInventory && typeof semanticInventory === "object");
+        semanticInventorySource = semanticResolution && semanticResolution.source
+          ? semanticResolution.source
+          : "none";
+        semanticInventoryError = semanticResolution && semanticResolution.error
+          ? semanticResolution.error
+          : null;
+      } else if (currentSettings.srsEnabled && activeSemanticCoverage.readyRuleCount > 0 && !helperAvailable) {
+        semanticInventoryError = "Helper client unavailable.";
+      }
+
+      const semanticRuntime = resolveSemanticRuntimeCapability({
+        pointerRuleCount: activeSemanticCoverage.pointerRuleCount,
+        readyRuleCount: activeSemanticCoverage.readyRuleCount,
+        semanticInventoryLoaded,
+        semanticInventoryError
+      });
+      const semanticAdmissionEnabled = (
+        currentSettings.srsEnabled === true
+        && semanticRuntime.capability === "active"
+      );
 
       return {
         srsProfileId,
@@ -122,7 +240,22 @@
         activeRules,
         activeOriginCounts,
         srsActiveLemmas,
-        srsStats
+        srsStats,
+        semanticAdmissionEnabled,
+        semanticFallbackPolicy,
+        semanticRuntimeCapability: semanticRuntime.capability,
+        semanticRuntimeReasonCode: semanticRuntime.reasonCode,
+        semanticPointerRuleCount: activeSemanticCoverage.pointerRuleCount,
+        semanticReadyRuleCount: activeSemanticCoverage.readyRuleCount,
+        semanticInventoryLoaded,
+        semanticInventorySource,
+        semanticInventoryError,
+        timings: {
+          activeRulesResolveMs: nowMs() - startedAtMs,
+          helperRulesResolveMs,
+          srsGateMs,
+          semanticInventoryResolveMs
+        }
       };
     }
 

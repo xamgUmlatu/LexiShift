@@ -1,14 +1,50 @@
 from __future__ import annotations
 
+from copy import deepcopy
+from datetime import datetime, timezone
 import json
 from pathlib import Path
+import re
 import sqlite3
+import tempfile
 from types import SimpleNamespace
-from typing import Any, Mapping
-from xml.sax.saxutils import escape
+from typing import Any, Mapping, Sequence
 
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.rulegen import annotate_rules_with_srs_serving_metadata
+from lexishift_core.helper.use_cases.srs_items import list_srs_items
+from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset
 from lexishift_core.replacement.core import VocabRule
+from lexishift_core.srs import (
+    SrsHistoryEntry,
+    SrsInventory,
+    SrsItem,
+    SrsPairInventory,
+    SrsStore,
+    load_srs_store,
+    save_srs_inventory,
+    save_srs_store,
+)
+from lexishift_core.srs.scheduler import select_active_items
+from lexishift_core.srs.time import format_ts, now_utc, parse_ts
+from lexishift_core.srs.browsing_admission import (
+    BrowsingSignalAggregate,
+    BrowsingSignalStore,
+    save_browsing_signal_store,
+)
+from synthetic_translation_fixture_support import (
+    write_jmdict_fixture,
+    write_translation_dictionary_sqlite_fixture,
+)
+
+_TEMP_ROOT = Path(tempfile.gettempdir())
+_TEMP_ROOT_RESOLVED = _TEMP_ROOT.resolve(strict=False)
+_TIMESTAMP_RE = re.compile(r"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|\+00:00)\b")
+_GENERATION_ID_RE = re.compile(r"\b([a-z]{2}-[a-z]{2}:[A-Za-z0-9._-]+):[0-9a-f]{8,}\b")
+_TEMP_PATH_RE = re.compile(
+    r"(?:" + re.escape(str(_TEMP_ROOT)) + r"|" + re.escape(str(_TEMP_ROOT_RESOLVED)) + r')/[^"\s,]+'
+)
+ENCOUNTER_SCENARIO_NOW = datetime(2026, 5, 26, 12, 0, tzinfo=timezone.utc)
 
 
 def _alpha_suffix(index: int) -> str:
@@ -43,42 +79,6 @@ def _write_frequency_db(*, path: Path, lemmas: list[str], pos: str) -> None:
         conn.close()
 
 
-def _write_jmdict(path: Path, *, targets: list[str], sources: list[str]) -> None:
-    entries: list[str] = []
-    for target, source in zip(targets, sources):
-        entries.append(
-            "<entry>"
-            f"<k_ele><keb>{escape(target)}</keb></k_ele>"
-            f"<r_ele><reb>{escape(target)}</reb></r_ele>"
-            f"<sense><gloss>{escape(source)}</gloss></sense>"
-            "</entry>"
-        )
-    payload = "<JMdict>" + "".join(entries) + "</JMdict>"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(payload, encoding="utf-8")
-
-
-def _write_freedict_de_en(path: Path, *, targets: list[str], sources: list[str]) -> None:
-    entries: list[str] = []
-    for target, source in zip(targets, sources):
-        entries.append(
-            "<entry>"
-            f"<form><orth>{escape(target)}</orth></form>"
-            "<sense>"
-            f"<cit type='trans'><quote xml:lang='en'>{escape(source)}</quote></cit>"
-            "</sense>"
-            "</entry>"
-        )
-    payload = (
-        "<?xml version='1.0' encoding='UTF-8'?>"
-        "<TEI xmlns='http://www.tei-c.org/ns/1.0'>"
-        "<text><body>" + "".join(entries) + "</body></text>"
-        "</TEI>"
-    )
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(payload, encoding="utf-8")
-
-
 def _load_ruleset_payload(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -93,6 +93,202 @@ def _load_snapshot_payload(path: Path) -> dict[str, Any]:
     return payload
 
 
+def summarize_findings(
+    findings: Sequence[Mapping[str, Any]],
+    *,
+    fail_on_warn: bool = False,
+) -> dict[str, Any]:
+    pass_count = 0
+    warn_count = 0
+    fail_count = 0
+    for item in findings:
+        level = str(item.get("level") or "").upper()
+        if level == "PASS":
+            pass_count += 1
+        elif level == "WARN":
+            warn_count += 1
+        elif level == "FAIL":
+            fail_count += 1
+    status = "FAIL" if fail_count else "WARN" if warn_count else "PASS"
+    should_fail = fail_count > 0 or (fail_on_warn and warn_count > 0)
+    return {
+        "status": status,
+        "pass_count": pass_count,
+        "warn_count": warn_count,
+        "fail_count": fail_count,
+        "should_fail": should_fail,
+    }
+
+
+def _normalize_temp_path_for_publication(value: str) -> str:
+    try:
+        path = Path(value)
+    except (OSError, RuntimeError, ValueError):
+        return value
+    relative = None
+    for root in (_TEMP_ROOT, _TEMP_ROOT_RESOLVED):
+        try:
+            relative = path.relative_to(root)
+            break
+        except ValueError:
+            pass
+        try:
+            relative = path.resolve(strict=False).relative_to(root)
+            break
+        except (OSError, RuntimeError, ValueError):
+            pass
+    if relative is None:
+        return value
+    stable_parts = relative.parts[1:] if len(relative.parts) > 1 else ()
+    if not stable_parts:
+        return "<temp_root>"
+    return "/".join(("<temp_root>", *stable_parts))
+
+
+def _normalize_string_for_publication(value: str) -> str:
+    normalized = _TEMP_PATH_RE.sub(
+        lambda match: _normalize_temp_path_for_publication(match.group(0)),
+        value,
+    )
+    normalized = _GENERATION_ID_RE.sub(r"\1:<generated>", normalized)
+    normalized = _TIMESTAMP_RE.sub("<timestamp>", normalized)
+    return normalized
+
+
+def _normalize_for_publication(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {key: _normalize_for_publication(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_normalize_for_publication(item) for item in value]
+    if isinstance(value, str):
+        return _normalize_string_for_publication(value)
+    return value
+
+
+def prepare_report_for_publication(report: Mapping[str, Any]) -> dict[str, Any]:
+    published = _normalize_for_publication(deepcopy(dict(report)))
+    published["generated_at"] = "<generated_at>"
+    published["artifact_normalization"] = {
+        "mode": "stable_latest_v1",
+        "generated_at": "<generated_at>",
+        "timestamps": "<timestamp>",
+        "temp_root": "<temp_root>",
+        "generation_ids": "<generated>",
+    }
+    return published
+
+
+def _round_optional(value: object, *, digits: int = 6) -> float | None:
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError):
+        return None
+    if parsed != parsed:
+        return None
+    return round(parsed, digits)
+
+
+def _item_snapshot(item: SrsItem) -> dict[str, Any]:
+    return {
+        "item_id": item.item_id,
+        "lemma": item.lemma,
+        "lifecycle_state": item.lifecycle_state,
+        "scheduler_state": item.scheduler_state,
+        "scheduler_step": item.scheduler_step,
+        "stability": _round_optional(item.stability),
+        "difficulty": _round_optional(item.difficulty),
+        "last_review": item.last_review,
+        "next_due": item.next_due,
+        "exposures": int(item.exposures or 0),
+        "history_count": len(tuple(item.history or ())),
+    }
+
+
+def store_snapshot(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    profile_id: str,
+    max_active: int,
+) -> dict[str, Any]:
+    store = load_srs_store(paths.srs_store_path_for(profile_id))
+    pair_items = sorted(
+        [item for item in store.items if item.language_pair == pair],
+        key=lambda item: item.lemma,
+    )
+    due_items = select_active_items(
+        store.items,
+        max_active=max_active,
+        allowed_pairs=[pair],
+    )
+    return {
+        "total_items_for_pair": len(pair_items),
+        "active_count": sum(1 for item in pair_items if item.lifecycle_state == "active"),
+        "due_count": len(due_items),
+        "lemmas": [item.lemma for item in pair_items],
+        "due_lemmas": [item.lemma for item in due_items],
+        "items": [_item_snapshot(item) for item in pair_items],
+    }
+
+
+def _items_by_lemma(snapshot: Mapping[str, Any] | None) -> dict[str, Mapping[str, Any]]:
+    if not isinstance(snapshot, Mapping):
+        return {}
+    items = snapshot.get("items")
+    if not isinstance(items, list):
+        return {}
+    mapped: dict[str, Mapping[str, Any]] = {}
+    for item in items:
+        if not isinstance(item, Mapping):
+            continue
+        lemma = str(item.get("lemma") or "").strip()
+        if lemma:
+            mapped[lemma] = item
+    return mapped
+
+
+def snapshot_delta(
+    before: Mapping[str, Any] | None,
+    after: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    before_items = _items_by_lemma(before)
+    after_items = _items_by_lemma(after)
+    before_lemmas = set(before_items)
+    after_lemmas = set(after_items)
+    shared_lemmas = sorted(before_lemmas & after_lemmas)
+    changed_lemmas = [
+        lemma for lemma in shared_lemmas if dict(before_items[lemma]) != dict(after_items[lemma])
+    ]
+    reviewed_lemmas = [
+        lemma
+        for lemma in shared_lemmas
+        if int(after_items[lemma].get("history_count") or 0)
+        > int(before_items[lemma].get("history_count") or 0)
+    ]
+    scheduler_fields = ("scheduler_state", "scheduler_step", "stability", "difficulty", "next_due")
+    scheduler_changed_lemmas = [
+        lemma
+        for lemma in shared_lemmas
+        if any(
+            before_items[lemma].get(field) != after_items[lemma].get(field)
+            for field in scheduler_fields
+        )
+    ]
+    return {
+        "total_items_delta": int((after or {}).get("total_items_for_pair") or 0)
+        - int((before or {}).get("total_items_for_pair") or 0),
+        "active_count_delta": int((after or {}).get("active_count") or 0)
+        - int((before or {}).get("active_count") or 0),
+        "due_count_delta": int((after or {}).get("due_count") or 0)
+        - int((before or {}).get("due_count") or 0),
+        "added_lemmas": sorted(after_lemmas - before_lemmas),
+        "removed_lemmas": sorted(before_lemmas - after_lemmas),
+        "changed_lemmas": changed_lemmas,
+        "reviewed_lemmas": reviewed_lemmas,
+        "scheduler_changed_lemmas": scheduler_changed_lemmas,
+    }
+
+
 def ruleset_unique_target_count(path: Path) -> int:
     payload = _load_ruleset_payload(path)
     rules = payload.get("rules", [])
@@ -102,6 +298,37 @@ def ruleset_unique_target_count(path: Path) -> int:
         str(rule.get("replacement") or "").strip()
         for rule in rules
         if isinstance(rule, Mapping) and str(rule.get("replacement") or "").strip()
+    }
+    return len(replacements)
+
+
+def ruleset_srs_due_metadata_count(path: Path) -> int:
+    payload = _load_ruleset_payload(path)
+    rules = payload.get("rules", [])
+    if not isinstance(rules, list):
+        return 0
+    replacements = {
+        str(rule.get("replacement") or "").strip()
+        for rule in rules
+        if isinstance(rule, Mapping)
+        and str(rule.get("replacement") or "").strip()
+        and _srs_serving_metadata(rule) is not None
+    }
+    return len(replacements)
+
+
+def ruleset_due_active_target_count(path: Path) -> int:
+    payload = _load_ruleset_payload(path)
+    rules = payload.get("rules", [])
+    if not isinstance(rules, list):
+        return 0
+    now = now_utc()
+    replacements = {
+        str(rule.get("replacement") or "").strip()
+        for rule in rules
+        if isinstance(rule, Mapping)
+        and str(rule.get("replacement") or "").strip()
+        and _srs_rule_is_due(rule, now=now)
     }
     return len(replacements)
 
@@ -143,6 +370,319 @@ def build_seed_candidates() -> list[SimpleNamespace]:
     return candidates
 
 
+def seed_browsing_preview_store(paths: HelperPaths, *, pair: str, profile_id: str) -> None:
+    prefix_by_pair = {
+        "en-ja": "ja",
+        "en-de": "de",
+    }
+    prefix = prefix_by_pair.get(pair)
+    if not prefix:
+        return
+    save_browsing_signal_store(
+        BrowsingSignalStore(
+            pair=pair,
+            profile_id=profile_id,
+            items={
+                f"{prefix}abw": BrowsingSignalAggregate(
+                    target_lemma=f"{prefix}abw",
+                    target_hit_count=80.0,
+                ),
+                f"{prefix}abx": BrowsingSignalAggregate(
+                    target_lemma=f"{prefix}abx",
+                    target_hit_count=30.0,
+                ),
+            },
+        ),
+        paths.srs_browsing_signal_store_path_for(profile_id, pair),
+    )
+
+
+def browsing_preview_findings(
+    refresh_payload: Mapping[str, Any], *, pair: str
+) -> list[dict[str, Any]]:
+    browsing_preview = refresh_payload.get("browsing_admission_preview")
+    if not isinstance(browsing_preview, Mapping):
+        return [
+            {
+                "level": "FAIL",
+                "code": "SRS_BROWSING_PREVIEW_MISSING",
+                "pair": pair,
+                "message": "Refresh response did not include browsing preview diagnostics.",
+                "details": None,
+            }
+        ]
+    simulations = browsing_preview.get("simulations")
+    balanced = simulations.get("balanced") if isinstance(simulations, Mapping) else None
+    strong = simulations.get("strong") if isinstance(simulations, Mapping) else None
+    balanced_lane_count = (
+        int(balanced.get("browsing_lane_count") or 0) if isinstance(balanced, Mapping) else 0
+    )
+    strong_lane_count = (
+        int(strong.get("browsing_lane_count") or 0) if isinstance(strong, Mapping) else 0
+    )
+    matching_signal_count = int(browsing_preview.get("matching_signal_count") or 0)
+    aggregate_item_count = int(browsing_preview.get("aggregate_item_count") or 0)
+    if aggregate_item_count > 0 and matching_signal_count > 0 and balanced_lane_count > 0:
+        return [
+            {
+                "level": "PASS",
+                "code": "SRS_BROWSING_PREVIEW_SIGNAL_VISIBLE",
+                "pair": pair,
+                "message": (
+                    "Refresh preview shows non-empty browsing signal without mutating actual "
+                    "SRS admission."
+                ),
+                "details": (
+                    f"aggregate_item_count={aggregate_item_count} "
+                    f"matching_signal_count={matching_signal_count} "
+                    f"balanced_browsing_lane_count={balanced_lane_count} "
+                    f"strong_browsing_lane_count={strong_lane_count}"
+                ),
+            }
+        ]
+    return [
+        {
+            "level": "FAIL",
+            "code": "SRS_BROWSING_PREVIEW_SIGNAL_MISSING",
+            "pair": pair,
+            "message": "Refresh preview did not expose the seeded browsing signal.",
+            "details": json.dumps(browsing_preview, ensure_ascii=False),
+        }
+    ]
+
+
+def run_encounter_watch_scenario(paths: HelperPaths) -> dict[str, Any]:
+    profile_id = "default"
+    pair = "en-ja"
+    now = ENCOUNTER_SCENARIO_NOW
+    save_srs_store(
+        SrsStore(
+            items=(
+                SrsItem(
+                    item_id=f"{pair}:fresh",
+                    lemma="fresh",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                    admitted_at=format_ts(now.replace(day=24)),
+                ),
+                SrsItem(
+                    item_id=f"{pair}:stale",
+                    lemma="stale",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                    admitted_at=format_ts(now.replace(day=18)),
+                ),
+                SrsItem(
+                    item_id=f"{pair}:legacy",
+                    lemma="legacy",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                ),
+                SrsItem(
+                    item_id=f"{pair}:seen",
+                    lemma="seen",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                    admitted_at=format_ts(now.replace(day=18)),
+                    exposures=1,
+                    history=(SrsHistoryEntry(ts=format_ts(now.replace(day=19)), rating="good"),),
+                ),
+                SrsItem(
+                    item_id=f"{pair}:orphan",
+                    lemma="orphan",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                    admitted_at=format_ts(now.replace(day=18)),
+                ),
+            )
+        ),
+        paths.srs_store_path_for(profile_id),
+    )
+    active_item_ids = (
+        f"{pair}:fresh",
+        f"{pair}:stale",
+        f"{pair}:legacy",
+        f"{pair}:seen",
+        f"{pair}:orphan",
+    )
+    save_srs_inventory(
+        SrsInventory(pairs={pair: SrsPairInventory(active_item_ids=active_item_ids)}),
+        paths.srs_inventory_path_for(profile_id),
+    )
+    save_vocab_dataset(
+        VocabDataset(
+            rules=(
+                VocabRule(source_phrase="src_fresh", replacement="fresh"),
+                VocabRule(source_phrase="src_stale", replacement="stale"),
+                VocabRule(source_phrase="src_legacy", replacement="legacy"),
+                VocabRule(source_phrase="src_seen", replacement="seen"),
+                VocabRule(source_phrase="src_orphan", replacement="orphan", enabled=False),
+            )
+        ),
+        paths.ruleset_path(pair, profile_id=profile_id),
+    )
+
+    dashboard = list_srs_items(
+        paths,
+        pair=pair,
+        profile_id=profile_id,
+        now=now,
+        resolve_profile_id_fn=_resolve_synthetic_profile_id,
+    )
+    summary = dashboard.get("summary") if isinstance(dashboard, Mapping) else {}
+    items = dashboard.get("items") if isinstance(dashboard, Mapping) else []
+    by_lemma = {
+        str(item.get("lemma")): item
+        for item in items
+        if isinstance(item, Mapping) and item.get("lemma")
+    }
+    findings = _encounter_watch_findings(summary=summary, by_lemma=by_lemma, pair=pair)
+    return {
+        "pair": pair,
+        "now": format_ts(now),
+        "stale_age_days": 7,
+        "dashboard_summary": summary,
+        "item_states_by_lemma": _encounter_state_snapshot(by_lemma),
+        "findings": findings,
+    }
+
+
+def _resolve_synthetic_profile_id(_paths: HelperPaths, *, profile_id: str) -> str:
+    return str(profile_id or "default")
+
+
+def _encounter_watch_findings(
+    *,
+    summary: object,
+    by_lemma: Mapping[str, Mapping[str, Any]],
+    pair: str,
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    expected_summary = {
+        "active_zero_exposure": 4,
+        "active_zero_feedback": 4,
+        "active_zero_exposure_zero_feedback": 4,
+        "active_zero_exposure_zero_feedback_age_unknown": 1,
+        "active_stale_zero_exposure_zero_feedback": 2,
+        "active_without_enabled_rules": 1,
+        "encounter_watch": 4,
+    }
+    summary_ok = isinstance(summary, Mapping) and all(
+        int(summary.get(key) or 0) == value for key, value in expected_summary.items()
+    )
+    if summary_ok:
+        findings.append(
+            {
+                "level": "PASS",
+                "code": "SRS_ENCOUNTER_WATCH_SUMMARY_VERIFIED",
+                "pair": pair,
+                "message": "Encounter-watch summary counts stale, legacy, and no-rule risks.",
+                "details": " ".join(f"{key}={value}" for key, value in expected_summary.items()),
+            }
+        )
+    else:
+        findings.append(
+            {
+                "level": "FAIL",
+                "code": "SRS_ENCOUNTER_WATCH_SUMMARY_MISMATCH",
+                "pair": pair,
+                "message": "Encounter-watch summary counts did not match expected values.",
+                "details": json.dumps(summary, ensure_ascii=False),
+            }
+        )
+
+    stale_state_ok = (
+        by_lemma.get("fresh", {}).get("admitted_age_days") == 2
+        and _encounter_flag(by_lemma, "fresh", "stale_zero_exposure_zero_feedback") is False
+        and by_lemma.get("stale", {}).get("admitted_age_days") == 8
+        and _encounter_flag(by_lemma, "stale", "stale_zero_exposure_zero_feedback") is True
+        and by_lemma.get("legacy", {}).get("admitted_age_days") is None
+        and _encounter_flag(by_lemma, "legacy", "zero_exposure_zero_feedback_age_unknown") is True
+    )
+    if stale_state_ok:
+        findings.append(
+            {
+                "level": "PASS",
+                "code": "SRS_ENCOUNTER_STALE_AGE_CLASSIFICATION",
+                "pair": pair,
+                "message": "Encounter diagnostics distinguish fresh, stale, and age-unknown items.",
+                "details": "fresh_age=2 stale_age=8 threshold_days=7 legacy_age=unknown",
+            }
+        )
+    else:
+        findings.append(
+            {
+                "level": "FAIL",
+                "code": "SRS_ENCOUNTER_STALE_AGE_CLASSIFICATION_BROKEN",
+                "pair": pair,
+                "message": "Encounter diagnostics misclassified age-based risk states.",
+                "details": json.dumps(by_lemma, ensure_ascii=False),
+            }
+        )
+
+    reviewed_and_rule_state_ok = (
+        _encounter_flag(by_lemma, "seen", "needs_attention") is False
+        and _encounter_flag(by_lemma, "orphan", "without_enabled_rules") is True
+    )
+    if reviewed_and_rule_state_ok:
+        findings.append(
+            {
+                "level": "PASS",
+                "code": "SRS_ENCOUNTER_REVIEW_AND_RULE_CLASSIFICATION",
+                "pair": pair,
+                "message": "Reviewed items clear encounter watch and no-rule active items stay visible.",
+                "details": "seen_needs_attention=false orphan_without_enabled_rules=true",
+            }
+        )
+    else:
+        findings.append(
+            {
+                "level": "FAIL",
+                "code": "SRS_ENCOUNTER_REVIEW_AND_RULE_CLASSIFICATION_BROKEN",
+                "pair": pair,
+                "message": "Reviewed/no-rule encounter states did not match expectations.",
+                "details": json.dumps(by_lemma, ensure_ascii=False),
+            }
+        )
+    return findings
+
+
+def _encounter_flag(by_lemma: Mapping[str, Mapping[str, Any]], lemma: str, flag: str) -> object:
+    state = by_lemma.get(lemma, {}).get("encounter_state")
+    if not isinstance(state, Mapping):
+        return None
+    return state.get(flag)
+
+
+def _encounter_state_snapshot(
+    by_lemma: Mapping[str, Mapping[str, Any]],
+) -> dict[str, dict[str, object]]:
+    snapshot: dict[str, dict[str, object]] = {}
+    for lemma, item in sorted(by_lemma.items()):
+        rule_summary = item.get("rule_summary")
+        enabled_rule_count = (
+            int(rule_summary.get("enabled_rule_count") or 0)
+            if isinstance(rule_summary, Mapping)
+            else 0
+        )
+        snapshot[lemma] = {
+            "admitted_age_days": item.get("admitted_age_days"),
+            "exposures": int(item.get("exposures") or 0),
+            "review_count": int(item.get("review_count") or 0),
+            "enabled_rule_count": enabled_rule_count,
+            "zero_exposure_zero_feedback": _encounter_flag(
+                by_lemma, lemma, "zero_exposure_zero_feedback"
+            ),
+            "age_unknown": _encounter_flag(
+                by_lemma, lemma, "zero_exposure_zero_feedback_age_unknown"
+            ),
+            "stale": _encounter_flag(by_lemma, lemma, "stale_zero_exposure_zero_feedback"),
+            "without_enabled_rules": _encounter_flag(by_lemma, lemma, "without_enabled_rules"),
+            "needs_attention": _encounter_flag(by_lemma, lemma, "needs_attention"),
+        }
+    return snapshot
+
+
 def create_frequency_db(path: Path) -> Path:
     conn = sqlite3.connect(path)
     try:
@@ -157,10 +697,29 @@ def create_frequency_db(path: Path) -> Path:
     return path
 
 
-def stub_run_rulegen_for_pair(*, store, pair, **_kwargs):
-    pair_lemmas = sorted({item.lemma for item in store.items if item.language_pair == pair})
+def stub_run_rulegen_for_pair(*, store, pair, **kwargs):
+    active_item_ids = kwargs.get("active_item_ids")
+    active_item_id_set = (
+        {str(item_id).strip() for item_id in active_item_ids if str(item_id).strip()}
+        if isinstance(active_item_ids, (frozenset, list, set, tuple))
+        else None
+    )
+    pair_lemmas = sorted(
+        {
+            item.lemma
+            for item in store.items
+            if item.language_pair == pair
+            and (active_item_id_set is None or item.item_id in active_item_id_set)
+        }
+    )
     rules = tuple(
         VocabRule(source_phrase=f"src_{lemma}", replacement=lemma) for lemma in pair_lemmas
+    )
+    rules = annotate_rules_with_srs_serving_metadata(
+        rules,
+        store=store,
+        pair=pair,
+        active_item_ids=active_item_ids,
     )
     snapshot_targets = [{"lemma": lemma, "sources": [f"src_{lemma}"]} for lemma in pair_lemmas]
     snapshot = {
@@ -176,6 +735,33 @@ def stub_run_rulegen_for_pair(*, store, pair, **_kwargs):
     return store, SimpleNamespace(rules=rules, snapshot=snapshot, target_count=len(pair_lemmas))
 
 
+def _srs_serving_metadata(rule: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    metadata = rule.get("metadata")
+    if not isinstance(metadata, Mapping):
+        return None
+    rulegen = metadata.get("rulegen")
+    if isinstance(rulegen, Mapping):
+        srs = rulegen.get("srs")
+        if isinstance(srs, Mapping):
+            return srs
+    if "next_due" in metadata or "in_due" in metadata:
+        return metadata
+    return None
+
+
+def _srs_rule_is_due(rule: Mapping[str, Any], *, now) -> bool:
+    srs = _srs_serving_metadata(rule)
+    if srs is None:
+        return True
+    next_due = parse_ts(srs.get("next_due"))
+    if next_due is not None:
+        return next_due <= now
+    in_due = srs.get("in_due")
+    if isinstance(in_due, bool):
+        return in_due
+    return True
+
+
 def build_pair_resources(paths: HelperPaths, *, pair: str) -> None:
     if pair == "en-ja":
         targets = _build_tokens("ja", 70)
@@ -185,7 +771,10 @@ def build_pair_resources(paths: HelperPaths, *, pair: str) -> None:
             lemmas=targets,
             pos="名詞-普通名詞-一般",
         )
-        _write_jmdict(paths.language_packs_dir / "JMdict_e", targets=targets, sources=sources)
+        write_jmdict_fixture(
+            paths.language_packs_dir / "JMdict_e",
+            entries=list(zip(targets, sources, strict=True)),
+        )
         return
     if pair == "en-de":
         targets = _build_tokens("de", 70)
@@ -195,10 +784,12 @@ def build_pair_resources(paths: HelperPaths, *, pair: str) -> None:
             lemmas=targets,
             pos="SUB:NOM:SIN:NEU",
         )
-        _write_freedict_de_en(
-            paths.language_packs_dir / "deu-eng.tei",
-            targets=targets,
-            sources=sources,
+        write_translation_dictionary_sqlite_fixture(
+            paths.language_packs_dir / "freedict-de-en.sqlite",
+            entries=[
+                (target, source, "noun") for target, source in zip(targets, sources, strict=True)
+            ],
+            metadata_source="synthetic_srs_quality",
         )
         return
     raise ValueError(f"Unsupported synthetic SRS pair: {pair}")

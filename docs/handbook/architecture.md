@@ -3,6 +3,15 @@ layout: default
 title: Architecture Guide
 ---
 
+<!--
+Status: active Pages architecture guide
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; architecture claims not fully re-audited
+Purpose: route GitHub Pages readers to stable architecture contracts, planning docs, rendered diagrams, and code-level source pointers
+Source-of-truth: routing guide only; authoritative architecture classification lives in `docs/architecture/README.md` and executable truth remains in source code and tests.
+-->
+
 # Architecture Guide
 
 Use this page to navigate stable architecture contracts vs planning docs.

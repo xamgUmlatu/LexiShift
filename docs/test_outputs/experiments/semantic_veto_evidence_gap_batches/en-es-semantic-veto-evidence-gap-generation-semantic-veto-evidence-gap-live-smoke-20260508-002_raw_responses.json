@@ -1,0 +1,336 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-live-smoke-20260508-002",
+  "execution_mode": "live",
+  "generated_at": "2026-05-07T22:39:31Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v1",
+  "replay_source": "",
+  "request_count": 3,
+  "requests": [
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:adjoining:vecino\",\"slot_id\":\"en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"adjoining\",\"target_lemma\":\"vecino\",\"items\":[{\"sentence\":\"The hotel has an adjoining room that connects directly to ours.\",\"evidence_note\":\"Shows the sense of neighboring or directly next to.\"},{\"sentence\":\"We planted herbs in the adjoining garden beside the kitchen.\",\"evidence_note\":\"Clearly indicates an adjacent space.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:adjoining:vecino\nslot_id: en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: adjoining\ntarget_lemma: vecino\nactive_target_lemma: vecino\nactive_evidence_text: adjoining -> vecino | neighboring or adjacent\nknown_shadow_targets: -\nrequested_items: 2\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_072d44176c8c674b0169fd14a4ab3881909f4da29f62f48e69",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778193574.0,
+        "conversation": null,
+        "created_at": 1778193572.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_072d44176c8c674b0169fd14a4ab3881909f4da29f62f48e69",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v1",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+          "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\",\"family_id\":\"en-es:full-family-repaired-full:adjoining:vecino\",\"slot_id\":\"en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"adjoining\",\"target_lemma\":\"vecino\",\"items\":[{\"sentence\":\"The hotel has an adjoining room that connects directly to ours.\",\"evidence_note\":\"Shows the sense of neighboring or directly next to.\"},{\"sentence\":\"We planted herbs in the adjoining garden beside the kitchen.\",\"evidence_note\":\"Clearly indicates an adjacent space.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_072d44176c8c674b0169fd14a527ec8190af21c9b9e3124baa",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 269,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 167,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 436
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 269,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 167,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 436
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:adjoining:vecino\",\"slot_id\":\"en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"adjoining\",\"target_lemma\":\"\",\"proposed_competitor_target_lemma\":\"contiguo\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"The adjoining clauses in the contract were rewritten to avoid ambiguity.\",\"evidence_note\":\"Uses the grammatical sense of adjoining, not the sense of neighboring or adjacent.\"},{\"sentence\":\"She studied the adjoining rooms of the sentence diagram to see how the parts connected.\",\"evidence_note\":\"Uses the structural or connected sense of adjoining, not the spatial neighbor sense.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:adjoining:vecino\nslot_id: en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: adjoining\ntarget_lemma: \nactive_target_lemma: vecino\nactive_evidence_text: adjoining -> vecino | neighboring or adjacent\nknown_shadow_targets: -\nrequested_items: 2\n\nTask: generate competitor-sense evidence. If slot target_lemma is provided, use that competitor sense. If blank, propose one plausible Spanish competitor target only when it is clearly a different English sense from the active target sense. Do not use near-synonyms or examples that still fit the active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. Each English sentence must contain source_phrase and must not fit the active target sense.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_047748dfab69b7860169fd14a693a081948d0a5b30aa103248",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778193576.0,
+        "conversation": null,
+        "created_at": 1778193574.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_047748dfab69b7860169fd14a693a081948d0a5b30aa103248",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v1",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:adjoining:vecino\",\"slot_id\":\"en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"adjoining\",\"target_lemma\":\"\",\"proposed_competitor_target_lemma\":\"contiguo\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"The adjoining clauses in the contract were rewritten to avoid ambiguity.\",\"evidence_note\":\"Uses the grammatical sense of adjoining, not the sense of neighboring or adjacent.\"},{\"sentence\":\"She studied the adjoining rooms of the sentence diagram to see how the parts connected.\",\"evidence_note\":\"Uses the structural or connected sense of adjoining, not the spatial neighbor sense.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_047748dfab69b7860169fd14a6d3dc8194ae7589737b97bba1",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 372,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 230,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 602
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 372,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 230,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 602
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\",\"family_id\":\"en-es:full-family-repaired-full:adjoining:vecino\",\"slot_id\":\"en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\",\"slot_type\":\"no_winner_context_probe\",\"source_phrase\":\"adjoining\",\"target_lemma\":\"\",\"items\":[{\"sentence\":\"The browser tab showed a file named \\\"adjoining_notes.txt\\\" in the downloads folder.\",\"no_winner_reason\":\"The word appears as part of a filename, not in a sense that cues the target meaning.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\nfamily_id: en-es:full-family-repaired-full:adjoining:vecino\nslot_id: en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\nslot_type: no_winner_context_probe\nsource_phrase: adjoining\ntarget_lemma: \nactive_target_lemma: vecino\nactive_evidence_text: adjoining -> vecino | neighboring or adjacent\nknown_shadow_targets: -\nrequested_items: 1\n\nTask: generate browser-like English contexts where source_phrase appears but neither the active Spanish target nor any known competitor target should be inserted. Good contexts include names, titles, file paths, UI labels, quoted fragments, or non-lexical uses when natural.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma:\"\", items:[{sentence, no_winner_reason}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "resp_0d3e3b6548218de10169fd14a860e081948ea2632c6ae5585d",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778193578.0,
+        "conversation": null,
+        "created_at": 1778193576.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0d3e3b6548218de10169fd14a860e081948ea2632c6ae5585d",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v1",
+          "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+          "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\",\"family_id\":\"en-es:full-family-repaired-full:adjoining:vecino\",\"slot_id\":\"en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\",\"slot_type\":\"no_winner_context_probe\",\"source_phrase\":\"adjoining\",\"target_lemma\":\"\",\"items\":[{\"sentence\":\"The browser tab showed a file named \\\"adjoining_notes.txt\\\" in the downloads folder.\",\"no_winner_reason\":\"The word appears as part of a filename, not in a sense that cues the target meaning.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0d3e3b6548218de10169fd14a91f3c8194908b1f5bc0f76267",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 0.2,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 287,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 154,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 441
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 287,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 154,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 441
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2
+}

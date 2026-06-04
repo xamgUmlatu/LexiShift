@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "matrix_id": "en_es_semantic_phrasing_order_surface_bakeoff_v1",
+  "description": "No-spend offline bakeoff for phrasing, token-order, local-frame, and ordered-evidence definitions of c and a. The final YES/NO rule remains active-minus-strongest-shadow with phrase override so this tests score-surface design rather than final decision formulas.",
+  "include_case_results": false,
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "evaluation_suites": [
+    {
+      "suite_id": "frozen_v10",
+      "suite_role": "frozen_current",
+      "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json"
+    },
+    {
+      "suite_id": "source_heldout_v2",
+      "suite_role": "locked_active_shadow",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_heldout_v2",
+      "suite_role": "locked_phrase_no_winner",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_challenge_v1",
+      "suite_role": "locked_phrase_challenge",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_challenge_cases_v1.json"
+    }
+  ],
+  "defaults": {
+    "scorer_id": "tfidf_cosine",
+    "context_view": "masked_sentence",
+    "sense_representation": "all_evidence_text",
+    "aggregation_rule": "single_concatenated_text",
+    "decision_rule": "active_minus_strongest_shadow",
+    "phrase_handling": "phrase_override",
+    "window_tokens": 4,
+    "mask_token": "___",
+    "min_active_score": 0.05,
+    "min_margin": 0.0,
+    "ratio_threshold": 1.0,
+    "softmax_threshold": 0.5,
+    "softmax_temperature": 8.0,
+    "pairwise_min_win_rate": 0.75,
+    "top_k": 2,
+    "phrase_guard_pos_scope": "family_all",
+    "evidence_control": "normal",
+    "split_modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ]
+  },
+  "rows": [
+    {
+      "config_id": "phrasing_control_current_all",
+      "label": "Current all-evidence score surface control",
+      "category": "phrasing_control",
+      "algorithm_family": "control:current_all",
+      "is_control": true,
+      "context_view": "masked_sentence",
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text"
+    },
+    {
+      "config_id": "phrasing_control_rows_max",
+      "label": "Best prior row-level active-score control",
+      "category": "phrasing_control",
+      "algorithm_family": "control:rows_max",
+      "context_view": "masked_sentence",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "min_active_score": 0.1
+    },
+    {
+      "config_id": "phrasing_context_ordered_ngram_ordered_evidence",
+      "label": "Ordered n-gram context against ordered evidence phrases",
+      "category": "phrasing_context",
+      "algorithm_family": "phrasing:ordered_ngram",
+      "context_view": "ordered_ngram_context",
+      "sense_representation": "ordered_evidence_phrase",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_context_skipgram_ordered_evidence",
+      "label": "Skip-gram context against ordered evidence phrases",
+      "category": "phrasing_context",
+      "algorithm_family": "phrasing:skipgram",
+      "context_view": "skipgram_context",
+      "sense_representation": "ordered_evidence_phrase",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_context_before_after_ordered_evidence",
+      "label": "Before/after trigger slots against ordered evidence",
+      "category": "phrasing_context",
+      "algorithm_family": "phrasing:before_after_slots",
+      "context_view": "before_after_slot_context",
+      "sense_representation": "ordered_evidence_phrase",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_context_surface_frame_template",
+      "label": "Surface phrase frame against canonical evidence template",
+      "category": "phrasing_context",
+      "algorithm_family": "phrasing:surface_frame",
+      "context_view": "surface_frame_context",
+      "sense_representation": "canonical_template_evidence",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_context_pos_frame_template",
+      "label": "Coarse POS frame against canonical evidence template",
+      "category": "phrasing_context",
+      "algorithm_family": "phrasing:pos_frame",
+      "context_view": "pos_frame_context",
+      "sense_representation": "canonical_template_evidence",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_context_dependency_role_template",
+      "label": "Heuristic dependency-role frame against canonical evidence template",
+      "category": "phrasing_context",
+      "algorithm_family": "phrasing:dependency_role",
+      "context_view": "dependency_role_context",
+      "sense_representation": "canonical_template_evidence",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_context_negation_modal_template",
+      "label": "Negation/modal context against canonical evidence template",
+      "category": "phrasing_context",
+      "algorithm_family": "phrasing:negation_modal",
+      "context_view": "negation_modal_context",
+      "sense_representation": "canonical_template_evidence",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_context_lexical_only_ordered_evidence",
+      "label": "Lexical-only window without order/frame",
+      "category": "phrasing_control",
+      "algorithm_family": "phrasing:lexical_only_without_frame",
+      "context_view": "lexical_only_without_frame",
+      "sense_representation": "ordered_evidence_phrase",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_context_frame_only_template",
+      "label": "Frame-only context without lexical content",
+      "category": "phrasing_control",
+      "algorithm_family": "phrasing:frame_only_without_lexical_content",
+      "context_view": "frame_only_without_lexical_content",
+      "sense_representation": "canonical_template_evidence",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_evidence_canonical_template",
+      "label": "Masked sentence against canonical evidence templates",
+      "category": "phrasing_evidence",
+      "algorithm_family": "evidence:canonical_template",
+      "context_view": "masked_sentence",
+      "sense_representation": "canonical_template_evidence",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_evidence_paraphrase_variants",
+      "label": "Masked sentence against paraphrase evidence variants",
+      "category": "phrasing_evidence",
+      "algorithm_family": "evidence:paraphrase_variants",
+      "context_view": "masked_sentence",
+      "sense_representation": "paraphrase_variant_evidence",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "phrasing_negative_shuffled_context",
+      "label": "Negative probe: shuffled context tokens against ordered evidence",
+      "category": "phrasing_negative_probe",
+      "algorithm_family": "negative:shuffled_context",
+      "context_view": "shuffled_context_tokens",
+      "sense_representation": "ordered_evidence_phrase",
+      "min_active_score": 0.0,
+      "min_margin": 0.0
+    },
+    {
+      "config_id": "phrasing_negative_reversed_context",
+      "label": "Negative probe: reversed context tokens against ordered evidence",
+      "category": "phrasing_negative_probe",
+      "algorithm_family": "negative:reversed_context",
+      "context_view": "reversed_context_tokens",
+      "sense_representation": "ordered_evidence_phrase",
+      "min_active_score": 0.0,
+      "min_margin": 0.0
+    },
+    {
+      "config_id": "phrasing_negative_shuffled_evidence",
+      "label": "Negative control: shuffled evidence tokens",
+      "category": "phrasing_negative_control",
+      "algorithm_family": "negative:shuffled_evidence",
+      "expected_failure_mode": "lexical_leakage",
+      "context_view": "masked_sentence",
+      "sense_representation": "shuffled_evidence_tokens",
+      "min_active_score": 0.0,
+      "min_margin": 0.0
+    }
+  ]
+}

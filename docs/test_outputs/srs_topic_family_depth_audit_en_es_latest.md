@@ -1,0 +1,123 @@
+# en-es SRS Topic Family Depth Audit
+
+- Status: `ok`
+- Decision: `srs_topic_family_depth_audit_completed`
+- Generated: `2026-05-19T22:39:21+00:00`
+- Frontier count: `2`
+- Missing optional frontiers: `0`
+
+## Scope
+
+This is a read-only coverage/depth audit for the product-owned SRS topic/register taxonomy. It does not download sources, write overlays, mutate SRS state, or enable admission lift.
+
+## Findings
+
+- `PASS` `kaikki_signal_source_available`: Kaikki/Wiktionary signal DB exists.
+- `PASS` `trusted_topic_families_available:current_cde`: At least one topic family has trusted candidate coverage.
+- `PASS` `register_review_signals_available:current_cde`: Register/style has review-only candidate signals.
+- `PASS` `trusted_topic_families_available:spalex_10k_research`: At least one topic family has trusted candidate coverage.
+- `PASS` `register_review_signals_available:spalex_10k_research`: Register/style has review-only candidate signals.
+
+## Frontier Coverage
+
+### `current_cde`
+
+- exists: `True`
+- status: `ok`
+- seeds measured: `2000`
+- unique lemmas: `1984`
+
+| Family | Axis | State | Trusted Rows | Bands | Max Difficulty | Review-Only Rows | Posture |
+| --- | --- | --- | ---: | ---: | ---: | ---: | --- |
+| `science_technology` | `topic` | `source_ready` | 117 | 4 | 0.837 | 0 | `measurable_trusted_coverage` |
+| `medicine_health` | `topic` | `source_ready` | 42 | 3 | 0.837 | 0 | `measurable_trusted_coverage` |
+| `law_politics_civics` | `topic` | `source_ready` | 37 | 3 | 0.845 | 0 | `measurable_trusted_coverage` |
+| `sports_fitness` | `topic` | `source_ready` | 31 | 3 | 0.845 | 0 | `measurable_trusted_coverage` |
+| `music_media_entertainment` | `topic` | `source_ready` | 26 | 4 | 0.824 | 0 | `measurable_trusted_coverage` |
+| `travel_places_transport` | `topic` | `partial` | 23 | 2 | 0.786 | 0 | `measurable_trusted_coverage` |
+| `arts_literature_humanities` | `topic` | `partial` | 21 | 4 | 0.818 | 0 | `measurable_trusted_coverage` |
+| `games` | `topic` | `source_ready` | 21 | 3 | 0.815 | 0 | `measurable_trusted_coverage` |
+| `finance_business` | `topic` | `source_ready` | 17 | 3 | 0.815 | 0 | `measurable_trusted_coverage` |
+| `plants_nature` | `topic` | `p0_enrichment` | 5 | 2 | 0.789 | 0 | `thin_trusted_coverage` |
+| `food_cooking` | `topic` | `p0_enrichment` | 2 | 2 | 0.821 | 0 | `thin_trusted_coverage` |
+| `animals` | `topic` | `p0_enrichment` | 1 | 1 | 0.630 | 0 | `thin_trusted_coverage` |
+| `anime_manga_pop_culture` | `topic` | `p0_enrichment` | 0 | 0 | n/a | 0 | `no_trusted_coverage` |
+| `hobbies_crafts` | `topic` | `p0_enrichment` | 0 | 0 | n/a | 0 | `no_trusted_coverage` |
+| `sat_toefl_exam_prep` | `topic` | `legal_source_gated` | 0 | 0 | n/a | 0 | `no_trusted_coverage` |
+| `casual_slang_register` | `register` | `review_only` | 0 | 0 | n/a | 85 | `review_only_signal_available` |
+| `formal_professional_register` | `register` | `review_only` | 0 | 0 | n/a | 5 | `review_only_signal_available` |
+
+#### Trusted Examples
+
+- `science_technology`: `entrada` (0.463811), `defecto` (0.55838), `cargar` (0.658392), `quemar` (0.658887), `controlador` (0.72922)
+- `medicine_health`: `corazón` (0.441503), `rostro` (0.447399), `órgano` (0.483237), `estadio` (0.519217), `oreja` (0.536867)
+- `law_politics_civics`: `mayor` (0.427453), `jefe` (0.428496), `demanda` (0.469488), `tropa` (0.478046), `órgano` (0.483237)
+- `sports_fitness`: `entrada` (0.463811), `pista` (0.523674), `palo` (0.530825), `titular` (0.536097), `barrera` (0.55531)
+- `music_media_entertainment`: `movimiento` (0.383519), `mayor` (0.427453), `orquesta` (0.449716), `órgano` (0.483237), `pista` (0.523674)
+- `travel_places_transport`: `tren` (0.498631), `bordo` (0.580628), `naval` (0.619745), `propulsión` (0.670474), `quilla` (0.721518)
+- `arts_literature_humanities`: `doble` (0.574759), `enano` (0.760857), `sombra` (0.463097), `mosaico` (0.587468), `naturalismo` (0.674902)
+- `games`: `jefe` (0.428496), `corazón` (0.441503), `pista` (0.523674), `palo` (0.530825), `barrera` (0.55531)
+- `finance_business`: `capital` (0.414113), `par` (0.467531), `fusión` (0.55114), `ecológico` (0.642503), `silicio` (0.650068)
+- `plants_nature`: `estilo` (0.414652), `coral` (0.629617), `vaina` (0.656245), `viudo` (0.716935), `cogollo` (0.789309)
+- `food_cooking`: `careta` (0.602102), `batido` (0.820912)
+- `animals`: `coral` (0.629617)
+
+#### Register Review-Only Examples
+
+- `casual_slang_register`: `hora` (sense_categories:spanish_colloquialisms, sense_tags:colloquial), `hermano` (sense_categories:spanish_informal_terms, sense_tags:informal), `jefe` (sense_categories:spanish_colloquialisms, sense_tags:colloquial), `cuestión` (sense_categories:spanish_colloquialisms, sense_tags:colloquial), `cuento` (sense_categories:spanish_colloquialisms, sense_tags:colloquial)
+- `formal_professional_register`: `mayor` (sense_categories:spanish_literary_terms, sense_tags:literary), `auto` (sense_categories:spanish_formal_terms, sense_tags:formal), `acontecer` (sense_categories:spanish_literary_terms, sense_tags:literary), `revestir` (sense_categories:spanish_formal_terms, sense_tags:formal), `empero` (sense_categories:spanish_formal_terms, sense_tags:formal)
+
+### `spalex_10k_research`
+
+- exists: `True`
+- status: `ok`
+- seeds measured: `10000`
+- unique lemmas: `10000`
+
+| Family | Axis | State | Trusted Rows | Bands | Max Difficulty | Review-Only Rows | Posture |
+| --- | --- | --- | ---: | ---: | ---: | ---: | --- |
+| `science_technology` | `topic` | `source_ready` | 620 | 2 | 0.316 | 0 | `shallow_difficulty_depth` |
+| `law_politics_civics` | `topic` | `source_ready` | 254 | 2 | 0.315 | 0 | `shallow_difficulty_depth` |
+| `sports_fitness` | `topic` | `source_ready` | 205 | 2 | 0.315 | 0 | `shallow_difficulty_depth` |
+| `music_media_entertainment` | `topic` | `source_ready` | 186 | 2 | 0.307 | 0 | `shallow_difficulty_depth` |
+| `medicine_health` | `topic` | `source_ready` | 168 | 2 | 0.306 | 0 | `shallow_difficulty_depth` |
+| `arts_literature_humanities` | `topic` | `partial` | 160 | 2 | 0.609 | 0 | `measurable_trusted_coverage` |
+| `travel_places_transport` | `topic` | `partial` | 132 | 1 | 0.168 | 0 | `shallow_difficulty_depth` |
+| `games` | `topic` | `source_ready` | 100 | 2 | 0.315 | 0 | `shallow_difficulty_depth` |
+| `finance_business` | `topic` | `source_ready` | 91 | 2 | 0.314 | 0 | `shallow_difficulty_depth` |
+| `plants_nature` | `topic` | `p0_enrichment` | 29 | 1 | 0.151 | 0 | `shallow_difficulty_depth` |
+| `animals` | `topic` | `p0_enrichment` | 17 | 2 | 0.306 | 0 | `shallow_difficulty_depth` |
+| `food_cooking` | `topic` | `p0_enrichment` | 17 | 2 | 0.312 | 0 | `shallow_difficulty_depth` |
+| `anime_manga_pop_culture` | `topic` | `p0_enrichment` | 0 | 0 | n/a | 0 | `no_trusted_coverage` |
+| `hobbies_crafts` | `topic` | `p0_enrichment` | 0 | 0 | n/a | 0 | `no_trusted_coverage` |
+| `sat_toefl_exam_prep` | `topic` | `legal_source_gated` | 0 | 0 | n/a | 0 | `no_trusted_coverage` |
+| `casual_slang_register` | `register` | `review_only` | 0 | 0 | n/a | 488 | `review_only_signal_available` |
+| `formal_professional_register` | `register` | `review_only` | 0 | 0 | n/a | 41 | `review_only_signal_available` |
+
+#### Trusted Examples
+
+- `science_technology`: `entrada` (0.000209), `defecto` (0.000641), `controlador` (0.002736), `vida` (0.004283), `cuenta` (0.004413)
+- `law_politics_civics`: `jefe` (0.000122), `demanda` (0.000228), `tropa` (0.000255), `órgano` (0.000273), `competencia` (0.000275)
+- `sports_fitness`: `entrada` (0.000209), `pista` (0.000441), `palo` (0.000475), `titular` (0.000504), `barrera` (0.000622)
+- `music_media_entertainment`: `movimiento` (6.2e-05), `orquesta` (0.000168), `órgano` (0.000273), `pista` (0.000441), `palo` (0.000475)
+- `medicine_health`: `corazón` (0.000149), `rostro` (0.000163), `órgano` (0.000273), `estadio` (0.000421), `oreja` (0.000508)
+- `arts_literature_humanities`: `pie` (0.005291), `género` (0.005341), `concepto` (0.005438), `metro` (0.006482), `arco` (0.007292)
+- `travel_places_transport`: `tren` (0.000333), `bordo` (0.000795), `propulsión` (0.001753), `quilla` (0.002597), `pescante` (0.003957)
+- `games`: `jefe` (0.000122), `corazón` (0.000149), `pista` (0.000441), `palo` (0.000475), `barrera` (0.000622)
+- `finance_business`: `capital` (9.7e-05), `par` (0.000219), `fusión` (0.000595), `silicio` (0.001459), `boom` (0.001614)
+- `plants_nature`: `estilo` (9.9e-05), `coral` (0.001228), `vaina` (0.001547), `cogollo` (0.004054), `planta` (0.00573)
+- `animals`: `coral` (0.001228), `artículo` (0.004918), `pico` (0.00772), `reo` (0.010406), `bonito` (0.011618)
+- `food_cooking`: `careta` (0.000962), `menudo` (0.005528), `masa` (0.006372), `duro` (0.006955), `leche` (0.007319)
+
+#### Register Review-Only Examples
+
+- `casual_slang_register`: `hora` (sense_categories:spanish_colloquialisms, sense_tags:colloquial), `hermano` (sense_categories:spanish_informal_terms, sense_tags:informal), `jefe` (sense_categories:spanish_colloquialisms, sense_tags:colloquial), `cuestión` (sense_categories:spanish_colloquialisms, sense_tags:colloquial), `cuento` (sense_categories:spanish_colloquialisms, sense_tags:colloquial)
+- `formal_professional_register`: `auto` (sense_categories:spanish_formal_terms, sense_tags:formal), `haber` (sense_categories:spanish_formal_terms, sense_tags:formal), `presente` (sense_categories:spanish_formal_terms, sense_tags:formal), `acceso` (sense_categories:spanish_formal_terms, sense_tags:formal), `matrimonio` (sense_categories:spanish_formal_terms, sense_tags:formal)
+
+## Limitations
+
+- This audit is read-only and does not create overlays, mutate packs, or publish SRS sets.
+- Trusted family coverage uses explicit sense-topic-style evidence only.
+- Register/style rows are inventoried as review-only candidates and are not profile-admission proof.
+- Difficulty depth uses the current admission-weight proxy, not a calibrated CEFR or learner-level model.
+- Optional research frontiers are reported as unavailable if their local SQLite path is absent; the audit does not download or rebuild them.

@@ -1,0 +1,1095 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "generated_at": "2026-04-10T22:26:14Z",
+  "status": "ok",
+  "inventory_status": "ok",
+  "inventory_promotion_policy": "same_pos_lenient_v1",
+  "policies": {
+    "same_pos_lenient_v1": {
+      "summary": {
+        "promoted_trigger_count": 126,
+        "promoted_candidate_count": 318
+      },
+      "top1_bucket_counts": {
+        "benchmark_aligned": 64,
+        "same_pos_only": 62,
+        "no_promotion": 22
+      },
+      "sample_rows": [
+        {
+          "target": "acabar",
+          "trigger": "finish",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "acabar",
+          "trigger": "end",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "agua",
+          "trigger": "water",
+          "promoted_target": "wata",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "amigo",
+          "trigger": "friend",
+          "promoted_target": "parcero",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "amor",
+          "trigger": "love",
+          "promoted_target": "nada",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "banco",
+          "trigger": "bank",
+          "promoted_target": "terraplén",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "banco",
+          "trigger": "bench",
+          "promoted_target": "sillete",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "camino",
+          "trigger": "road",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "way",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "path",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "campo",
+          "trigger": "field",
+          "promoted_target": "ámbito",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "campo",
+          "trigger": "countryside",
+          "promoted_target": "provincia",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "campo",
+          "trigger": "country",
+          "promoted_target": "zona",
+          "promotion_reasons": [
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "same_pos_only"
+        },
+        {
+          "target": "canal",
+          "trigger": "canal",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "canal",
+          "trigger": "channel",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "charge",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "position",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "post",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "office",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "function",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        }
+      ]
+    },
+    "support_score_v1": {
+      "summary": {
+        "promoted_trigger_count": 45,
+        "promoted_candidate_count": 64
+      },
+      "top1_bucket_counts": {
+        "benchmark_aligned": 45,
+        "no_promotion": 103
+      },
+      "sample_rows": [
+        {
+          "target": "acabar",
+          "trigger": "finish",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "acabar",
+          "trigger": "end",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "road",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "way",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "path",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "canal",
+          "trigger": "canal",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "canal",
+          "trigger": "channel",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "charge",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "position",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "post",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "promoted_target": "trabajo",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "take",
+          "promoted_target": "llevar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "catch",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "chart",
+          "promoted_target": "plaza",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "table",
+          "promoted_target": "tabla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cura",
+          "trigger": "priest",
+          "promoted_target": "padre",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cura",
+          "trigger": "cure",
+          "promoted_target": "padre",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "derecho",
+          "trigger": "law",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support",
+            "semantic_bridge_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "escuela",
+          "trigger": "school",
+          "promoted_target": "banco",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "fondo",
+          "trigger": "fund",
+          "promoted_target": "capital",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active",
+            "active_side_support"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        }
+      ]
+    },
+    "benchmark_backed_v1": {
+      "summary": {
+        "promoted_trigger_count": 64,
+        "promoted_candidate_count": 88
+      },
+      "top1_bucket_counts": {
+        "benchmark_aligned": 64,
+        "no_promotion": 84
+      },
+      "sample_rows": [
+        {
+          "target": "acabar",
+          "trigger": "finish",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "acabar",
+          "trigger": "end",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "road",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "way",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "path",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "canal",
+          "trigger": "canal",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "canal",
+          "trigger": "channel",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "charge",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "position",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "post",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "office",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "function",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "promoted_target": "trabajo",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "caso",
+          "trigger": "matter",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "take",
+          "promoted_target": "llevar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "catch",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "grab",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "picture",
+          "promoted_target": "plaza",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "painting",
+          "promoted_target": "plaza",
+          "promotion_reasons": [
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "chart",
+          "promoted_target": "plaza",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        }
+      ]
+    },
+    "cross_checked_v1": {
+      "summary": {
+        "promoted_trigger_count": 45,
+        "promoted_candidate_count": 64
+      },
+      "top1_bucket_counts": {
+        "benchmark_aligned": 45,
+        "no_promotion": 103
+      },
+      "sample_rows": [
+        {
+          "target": "acabar",
+          "trigger": "finish",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "acabar",
+          "trigger": "end",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "road",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "way",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "path",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "canal",
+          "trigger": "canal",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "canal",
+          "trigger": "channel",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "charge",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "position",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "post",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "promoted_target": "trabajo",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "take",
+          "promoted_target": "llevar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "catch",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "chart",
+          "promoted_target": "plaza",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "table",
+          "promoted_target": "tabla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cura",
+          "trigger": "priest",
+          "promoted_target": "padre",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cura",
+          "trigger": "cure",
+          "promoted_target": "padre",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "derecho",
+          "trigger": "law",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "escuela",
+          "trigger": "school",
+          "promoted_target": "banco",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "fondo",
+          "trigger": "fund",
+          "promoted_target": "capital",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        }
+      ]
+    },
+    "cross_checked_backoff_missing_active_v1": {
+      "summary": {
+        "promoted_trigger_count": 45,
+        "promoted_candidate_count": 64
+      },
+      "top1_bucket_counts": {
+        "benchmark_aligned": 45,
+        "no_promotion": 103
+      },
+      "sample_rows": [
+        {
+          "target": "acabar",
+          "trigger": "finish",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "acabar",
+          "trigger": "end",
+          "promoted_target": "salir",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "road",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "way",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "camino",
+          "trigger": "path",
+          "promoted_target": "canal",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "canal",
+          "trigger": "canal",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "canal",
+          "trigger": "channel",
+          "promoted_target": "camino",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "charge",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "position",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "post",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cargo",
+          "trigger": "job",
+          "promoted_target": "trabajo",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "take",
+          "promoted_target": "llevar",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "coger",
+          "trigger": "catch",
+          "promoted_target": "sacar",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "chart",
+          "promoted_target": "plaza",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cuadro",
+          "trigger": "table",
+          "promoted_target": "tabla",
+          "promotion_reasons": [
+            "reviewed_trigger_support",
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cura",
+          "trigger": "priest",
+          "promoted_target": "padre",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "cura",
+          "trigger": "cure",
+          "promoted_target": "padre",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "derecho",
+          "trigger": "law",
+          "promoted_target": "punto",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "escuela",
+          "trigger": "school",
+          "promoted_target": "banco",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        },
+        {
+          "target": "fondo",
+          "trigger": "fund",
+          "promoted_target": "capital",
+          "promotion_reasons": [
+            "benchmark_target_present",
+            "same_pos_as_active"
+          ],
+          "reason_bucket": "benchmark_aligned"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_phrase_challenge_cases_v1",
+  "base_dataset": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "description": "Fresh non-benchmark phrase/no-winner challenge cases for the en-es semantic source margin sweep. This suite is intentionally separate from phrase held-out v1/v2 so it can stress candidate margin policy without rewriting earlier evidence.",
+  "case_scope": "phrase_no_winner_only",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:ball:001",
+          "sentence": "The mayor tried to keep the ball rolling after the vote.",
+          "source_phrase": "ball",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:bank:001",
+          "sentence": "We cannot bank on sunny weather for the picnic.",
+          "source_phrase": "bank",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:plant:001",
+          "sentence": "They plan to plant doubts before the hearing.",
+          "source_phrase": "plant",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:cell:001",
+          "sentence": "Drivers lost cell coverage on the mountain road.",
+          "source_phrase": "cell",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "compound"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:spring:001",
+          "sentence": "The latch might spring back into place.",
+          "source_phrase": "spring",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:seal:001",
+          "sentence": "The vote could seal his nomination tonight.",
+          "source_phrase": "seal",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:file:001",
+          "sentence": "Customers file past the window each morning.",
+          "source_phrase": "file",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:match:partido",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:match:001",
+          "sentence": "The gloves match her coat exactly.",
+          "source_phrase": "match",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:board:001",
+          "sentence": "The director brought two interns on board this week.",
+          "source_phrase": "board",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:table:001",
+          "sentence": "Negotiators agreed to table the issue overnight.",
+          "source_phrase": "table",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:branch:001",
+          "sentence": "The lecture may branch toward economics.",
+          "source_phrase": "branch",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:park:parque",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:park:001",
+          "sentence": "Let us park the budget question until Monday.",
+          "source_phrase": "park",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:drink:001",
+          "sentence": "Tourists stopped to drink in the city lights.",
+          "source_phrase": "drink",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:play:001",
+          "sentence": "Small errors can play into larger delays.",
+          "source_phrase": "play",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:watch:001",
+          "sentence": "Watch out for falling ice near the roof.",
+          "source_phrase": "watch",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:check:001",
+          "sentence": "Guests can check in after three.",
+          "source_phrase": "check",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:order:001",
+          "sentence": "Students often order out during finals.",
+          "source_phrase": "order",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:trip:001",
+          "sentence": "Stress can trip up careful speakers.",
+          "source_phrase": "trip",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-challenge:v1:report:001",
+          "sentence": "The analyst will report back by Friday.",
+          "source_phrase": "report",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_challenge_v1", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    }
+  ]
+}

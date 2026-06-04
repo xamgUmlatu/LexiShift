@@ -1,5 +1,12 @@
 # SRS Curriculum Growth Notes
 
+Status: active planning notes
+Role: Planning / WIP
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; curriculum policy not re-audited
+Purpose: preserve high-level SRS growth and curriculum personalization ideas before they become executable policy
+Source-of-truth: planning notes only; current SRS behavior lives in helper/SRS code, SRS tests, and `docs/developer/feature_state_matrix.md`.
+
 ## Core idea
 Grow the SRS set `S` using a hybrid policy:
 - feedback-driven review scheduling for items already in `S`
@@ -21,14 +28,14 @@ Current bootstrap sizing defaults:
 - initial active subset declaration: `40` (`initial_active_count`)
 
 ## Growth strategy (planned)
-1) **User‑context growth**  
-   - Add words observed in the user’s real text streams (reading/writing), but only as admission candidates.  
+1) **User‑context growth**
+   - Add words observed in the user’s real text streams (reading/writing), but only as admission candidates.
    - Prioritize words that recur but are not mastered.
-2) **Gradual coverage expansion**  
-   - Expand beyond the core lexicon in controlled steps.  
+2) **Gradual coverage expansion**
+   - Expand beyond the core lexicon in controlled steps.
    - Keep growth slow and steady to avoid overload.
-3) **Personalized pacing**  
-   - Add new items only when the user’s workload is manageable.  
+3) **Personalized pacing**
+   - Add new items only when the user’s workload is manageable.
    - Reduce new additions when due items are high.
 
 ## Open questions (to flesh out)

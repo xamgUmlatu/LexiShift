@@ -1,0 +1,4997 @@
+{
+  "dataset_id": "en_es_full_family_repaired_full_v1_product_scope:selected",
+  "description": "Full repaired candidate from the 58-family representative sample agent review. Rows were semantically repaired by the agent and approved by the user for the next exploratory sweeps.",
+  "excluded_families": [
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "reason": "Demand/request/economic demand does not match deducción.",
+      "source": "demand",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target": "deducción"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:grow:acontecer",
+      "reason": "Grow does not naturally map to acontecer, which means happen/occur.",
+      "source": "grow",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target": "acontecer"
+    },
+    {
+      "active_sense_status": "source_form_artifact_rejected",
+      "family_disposition": "source_form_artifact_rejected",
+      "family_id": "en-es:full-family-representative:turnon:poner",
+      "reason": "Unspaced trigger turnon is not a normal browser-facing source token for this target.",
+      "source": "turnon",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target": "poner"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:shed:puesto",
+      "reason": "Draft caducous, outbuilding, and remove senses do not justify puesto as a trusted target.",
+      "source": "shed",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target": "puesto"
+    },
+    {
+      "active_sense_status": "questionable_mapping_rejected",
+      "family_disposition": "questionable_mapping_rejected",
+      "family_id": "en-es:full-family-representative:aberration:equivocacion",
+      "reason": "Aberration as deviation/disorder/optical flaw is not reliably equivocación.",
+      "source": "aberration",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target": "equivocación"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:sale:deduccion",
+      "reason": "Sale/selling/discount event does not reliably map to deducción.",
+      "source": "sale",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target": "deducción"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:conversance:notoriedad",
+      "reason": "Conversance means familiarity/knowledge, not notoriety/fame.",
+      "source": "conversance",
+      "source_zipf_band_en": "missing",
+      "target": "notoriedad"
+    },
+    {
+      "active_sense_status": "source_form_artifact_rejected",
+      "family_disposition": "source_form_artifact_rejected",
+      "family_id": "en-es:full-family-representative:femalejournalist:periodista",
+      "reason": "Unspaced source form is an artifact; use journalist/female journalist only in a separate source-form lane.",
+      "source": "femalejournalist",
+      "source_zipf_band_en": "missing",
+      "target": "periodista"
+    },
+    {
+      "active_sense_status": "source_form_artifact_rejected",
+      "family_disposition": "source_form_artifact_rejected",
+      "family_id": "en-es:full-family-representative:mosaicwork:mosaico",
+      "reason": "Unspaced source form is an artifact, even though mosaic work can map to mosaico.",
+      "source": "mosaicwork",
+      "source_zipf_band_en": "missing",
+      "target": "mosaico"
+    }
+  ],
+  "families": [
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "offset -> distancia | a measured displacement or distance from a reference point",
+          "gloss_text": "a measured displacement or distance from a reference point",
+          "sense_gloss_bundle": "offset -> distancia | a measured displacement or distance from a reference point",
+          "sense_label": "offset -> distancia"
+        },
+        "sense_id": "en-es:full-family-repaired-full:offset:distancia:active",
+        "target_lemma": "distancia"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:offset:distancia:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "Set the image offset to twelve pixels from the left edge.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "offset"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:offset:distancia:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The sensor has a small offset from the center line.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "offset"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:offset:distancia:shadow:1:compensar",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The rebate helped offset the higher shipping cost.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "offset"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:offset:distancia:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:offset:distancia:shadow:2:reembolso",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The invoice showed a small offset for the returned item.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "offset"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "repair_metadata": {
+        "active_sense_status": "corrected_active_sense_required",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "salvage_with_corrected_active_sense",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "offset -> compensar | counterbalance or compensate for something | generated evidence: The tax credit will offset part of the renovation cost. ; offset means to balance or reduce a cost here, so compensar is the right Spanish choice. | generated evidence: Her savings helped offset the higher rent this month. ; offset means to make up for or counterbalance an expense here, so compensar fits.",
+            "gloss_text": "counterbalance or compensate for something",
+            "sense_gloss_bundle": "offset -> compensar | counterbalance or compensate for something",
+            "sense_label": "offset -> compensar"
+          },
+          "sense_id": "en-es:full-family-repaired-full:offset:distancia:shadow:1:compensar",
+          "target_lemma": "compensar"
+        },
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "offset -> reembolso | a refund or credit against a charge",
+            "gloss_text": "a refund or credit against a charge",
+            "sense_gloss_bundle": "offset -> reembolso | a refund or credit against a charge",
+            "sense_label": "offset -> reembolso"
+          },
+          "sense_id": "en-es:full-family-repaired-full:offset:distancia:shadow:2:reembolso",
+          "target_lemma": "reembolso"
+        }
+      ],
+      "trigger": "offset"
+    },
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_views": {
+          "all_evidence_text": "bridle -> reprimir | restrain, repress, or hold back an action or reaction",
+          "gloss_text": "restrain, repress, or hold back an action or reaction",
+          "sense_gloss_bundle": "bridle -> reprimir | restrain, repress, or hold back an action or reaction",
+          "sense_label": "bridle -> reprimir"
+        },
+        "sense_id": "en-es:full-family-repaired-full:bridle:reprimir:active",
+        "target_lemma": "reprimir"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:bridle:reprimir:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "She tried to bridle her anger during the meeting.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bridle"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:bridle:reprimir:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The lawyer had to bridle his frustration after the ruling.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bridle"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:bridle:reprimir:shadow:1:brida",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The rider checked the bridle before the parade.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bridle"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:bridle:reprimir:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:bridle:reprimir:shadow:2:ofenderse",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "He began to bridle at the accusation.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bridle"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "repair_metadata": {
+        "active_sense_status": "corrected_active_sense_required",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "salvage_with_corrected_active_sense",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "bridle -> brida | horse headgear with reins | generated evidence: The rider checked the bridle before mounting the horse. ; bridle refers to the leather headgear used on a horse. | generated evidence: She tightened the bridle after cleaning the reins and bit. ; bridle names the tack fitted to the horse's head.",
+            "gloss_text": "horse headgear with reins",
+            "sense_gloss_bundle": "bridle -> brida | horse headgear with reins",
+            "sense_label": "bridle -> brida"
+          },
+          "sense_id": "en-es:full-family-repaired-full:bridle:reprimir:shadow:1:brida",
+          "target_lemma": "brida"
+        },
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "bridle -> ofenderse | react with anger or offense",
+            "gloss_text": "react with anger or offense",
+            "sense_gloss_bundle": "bridle -> ofenderse | react with anger or offense",
+            "sense_label": "bridle -> ofenderse"
+          },
+          "sense_id": "en-es:full-family-repaired-full:bridle:reprimir:shadow:2:ofenderse",
+          "target_lemma": "ofenderse"
+        }
+      ],
+      "trigger": "bridle"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "december -> diciembre | the twelfth month of the year",
+          "gloss_text": "the twelfth month of the year",
+          "sense_gloss_bundle": "december -> diciembre | the twelfth month of the year",
+          "sense_label": "december -> diciembre"
+        },
+        "sense_id": "en-es:full-family-repaired-full:december:diciembre:active",
+        "target_lemma": "diciembre"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:december:diciembre:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:december:diciembre:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The conference moved to December after the venue delay.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "single_sense"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:low_1_to_3",
+            "pos_shape:single_sense",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "december"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:december:diciembre:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:december:diciembre:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "Their lease expires in December.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "single_sense"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:low_1_to_3",
+            "pos_shape:single_sense",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "december"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "december"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "bouillon -> caldo | a clear seasoned broth",
+          "gloss_text": "a clear seasoned broth",
+          "sense_gloss_bundle": "bouillon -> caldo | a clear seasoned broth",
+          "sense_label": "bouillon -> caldo"
+        },
+        "sense_id": "en-es:full-family-repaired-full:bouillon:caldo:active",
+        "target_lemma": "caldo"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:bouillon:caldo:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "Add bouillon to the rice for a richer flavor.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "single_sense"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:single_sense",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bouillon"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:bouillon:caldo:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:bouillon:caldo:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The recipe starts with bouillon and fresh herbs.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "single_sense"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:single_sense",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "bouillon"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "bouillon"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "stall -> cuadra | a compartment in a stable where an animal is kept",
+          "gloss_text": "a compartment in a stable where an animal is kept",
+          "sense_gloss_bundle": "stall -> cuadra | a compartment in a stable where an animal is kept",
+          "sense_label": "stall -> cuadra"
+        },
+        "sense_id": "en-es:full-family-repaired-full:stall:cuadra:active",
+        "target_lemma": "cuadra"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:stall:cuadra:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The horse returned to its stall after training.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "stall"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:stall:cuadra:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "She cleaned each stall before feeding the animals.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "stall"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:stall:cuadra:shadow:1:retrasar",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The committee tried to stall the vote until Friday.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "stall"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:stall:cuadra:shadow:2:calarse",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The old truck may stall on the hill.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:high_10_plus",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "stall"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "stall -> retrasar | delay or postpone action | generated evidence: The broken elevator will stall the meeting for at least twenty minutes. ; stall means to delay or hinder the meeting. | generated evidence: A last-minute paperwork error could stall the sale until next week. ; stall means to postpone or hold up the sale.",
+            "gloss_text": "delay or postpone action",
+            "sense_gloss_bundle": "stall -> retrasar | delay or postpone action",
+            "sense_label": "stall -> retrasar"
+          },
+          "sense_id": "en-es:full-family-repaired-full:stall:cuadra:shadow:1:retrasar",
+          "target_lemma": "retrasar"
+        },
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "stall -> calarse | stop running, as an engine",
+            "gloss_text": "stop running, as an engine",
+            "sense_gloss_bundle": "stall -> calarse | stop running, as an engine",
+            "sense_label": "stall -> calarse"
+          },
+          "sense_id": "en-es:full-family-repaired-full:stall:cuadra:shadow:2:calarse",
+          "target_lemma": "calarse"
+        }
+      ],
+      "trigger": "stall"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "handiwork -> artesanía | work or craft produced by hand",
+          "gloss_text": "work or craft produced by hand",
+          "sense_gloss_bundle": "handiwork -> artesanía | work or craft produced by hand",
+          "sense_label": "handiwork -> artesanía"
+        },
+        "sense_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active",
+        "target_lemma": "artesanía"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:handiwork:artesan-a:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The market stall displayed local handiwork.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "single_sense"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:single_sense",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "handiwork"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:handiwork:artesan-a:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "Each carved bowl showed careful handiwork.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "single_sense"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:single_sense",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "handiwork"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "handiwork"
+    },
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_views": {
+          "all_evidence_text": "begin -> comenzar | start or come into being",
+          "gloss_text": "start or come into being",
+          "sense_gloss_bundle": "begin -> comenzar | start or come into being",
+          "sense_label": "begin -> comenzar"
+        },
+        "sense_id": "en-es:full-family-repaired-full:begin:comenzar:active",
+        "target_lemma": "comenzar"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:begin:comenzar:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:begin:comenzar:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The lecture will begin at nine.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "begin"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:begin:comenzar:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:begin:comenzar:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "They begin work before sunrise.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:high_10_plus",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "begin"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "begin"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "all_evidence_text": "chic -> elegante | elegant and stylish",
+          "gloss_text": "elegant and stylish",
+          "sense_gloss_bundle": "chic -> elegante | elegant and stylish",
+          "sense_label": "chic -> elegante"
+        },
+        "sense_id": "en-es:full-family-repaired-full:chic:elegante:active",
+        "target_lemma": "elegante"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:chic:elegante:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:chic:elegante:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "She chose a chic black coat for the dinner.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "chic"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:chic:elegante:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:chic:elegante:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The hotel lobby has a chic modern style.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "chic"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:chic:elegante:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:chic:elegante:shadow:1:elegancia",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The advertisement promised effortless Parisian chic.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "chic"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "all_evidence_text": "chic -> elegancia | fashionable elegance as a noun",
+            "gloss_text": "fashionable elegance as a noun",
+            "sense_gloss_bundle": "chic -> elegancia | fashionable elegance as a noun",
+            "sense_label": "chic -> elegancia"
+          },
+          "sense_id": "en-es:full-family-repaired-full:chic:elegante:shadow:1:elegancia",
+          "target_lemma": "elegancia"
+        }
+      ],
+      "trigger": "chic"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "billow -> oleaje | a large sea wave or swell",
+          "gloss_text": "a large sea wave or swell",
+          "sense_gloss_bundle": "billow -> oleaje | a large sea wave or swell",
+          "sense_label": "billow -> oleaje"
+        },
+        "sense_id": "en-es:full-family-repaired-full:billow:oleaje:active",
+        "target_lemma": "oleaje"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:billow:oleaje:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "A dark billow rolled across the harbor.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "billow"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:billow:oleaje:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The surfer watched each billow before paddling out.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "billow"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:billow:oleaje:shadow:1:elevarse",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "Smoke began to billow from the warehouse.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "billow"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:billow:oleaje:shadow:2:hincharse",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The curtain started to billow in the wind.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "billow"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "billow -> elevarse | rise up in swelling waves",
+            "gloss_text": "rise up in swelling waves",
+            "sense_gloss_bundle": "billow -> elevarse | rise up in swelling waves",
+            "sense_label": "billow -> elevarse"
+          },
+          "sense_id": "en-es:full-family-repaired-full:billow:oleaje:shadow:1:elevarse",
+          "target_lemma": "elevarse"
+        },
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "billow -> hincharse | swell outward like fabric",
+            "gloss_text": "swell outward like fabric",
+            "sense_gloss_bundle": "billow -> hincharse | swell outward like fabric",
+            "sense_label": "billow -> hincharse"
+          },
+          "sense_id": "en-es:full-family-repaired-full:billow:oleaje:shadow:2:hincharse",
+          "target_lemma": "hincharse"
+        }
+      ],
+      "trigger": "billow"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "all_evidence_text": "adjoining -> contiguo | next to or sharing a boundary with something",
+          "gloss_text": "next to or sharing a boundary with something",
+          "sense_gloss_bundle": "adjoining -> contiguo | next to or sharing a boundary with something",
+          "sense_label": "adjoining -> contiguo"
+        },
+        "sense_id": "en-es:full-family-repaired-full:adjoining:contiguo:active",
+        "target_lemma": "contiguo"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:adjoining:contiguo:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:adjoining:contiguo:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "They booked two adjoining rooms for the family.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "missing"
+            ],
+            "pos_shape": [
+              "missing"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:missing",
+            "pos_shape:missing",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "adjoining"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:adjoining:contiguo:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:adjoining:contiguo:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The adjoining walls share the same foundation.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "missing"
+            ],
+            "pos_shape": [
+              "missing"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:missing",
+            "pos_shape:missing",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "adjoining"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "adjoining"
+    },
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_views": {
+          "all_evidence_text": "snore -> roncar | breathe noisily while sleeping",
+          "gloss_text": "breathe noisily while sleeping",
+          "sense_gloss_bundle": "snore -> roncar | breathe noisily while sleeping",
+          "sense_label": "snore -> roncar"
+        },
+        "sense_id": "en-es:full-family-repaired-full:snore:roncar:active",
+        "target_lemma": "roncar"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:snore:roncar:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "He started to snore as soon as the flight took off.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "snore"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:snore:roncar:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "She could hear her roommate snore through the wall.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "snore"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:snore:roncar:shadow:1:ronquido",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "A loud snore came from the next room.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_below_3_rare"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_below_3_rare",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "snore"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "repair_metadata": {
+        "active_sense_status": "corrected_active_sense_required",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "salvage_with_corrected_active_sense",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "snore -> ronquido | the noise made while snoring | generated evidence: The snore from the next room kept me awake all night. ; snore is a noun naming the sound, not the sleeping action. | generated evidence: Her snore was so loud that the baby stirred in the crib. ; snore refers to the noise produced during sleep.",
+            "gloss_text": "the noise made while snoring",
+            "sense_gloss_bundle": "snore -> ronquido | the noise made while snoring",
+            "sense_label": "snore -> ronquido"
+          },
+          "sense_id": "en-es:full-family-repaired-full:snore:roncar:shadow:1:ronquido",
+          "target_lemma": "ronquido"
+        }
+      ],
+      "trigger": "snore"
+    },
+    {
+      "active": {
+        "canonical_pos": "preposition",
+        "evidence_views": {
+          "all_evidence_text": "upon -> sobre | on, onto, or regarding, depending on context",
+          "gloss_text": "on, onto, or regarding, depending on context",
+          "sense_gloss_bundle": "upon -> sobre | on, onto, or regarding, depending on context",
+          "sense_label": "upon -> sobre"
+        },
+        "sense_id": "en-es:full-family-repaired-full:upon:sobre:active",
+        "target_lemma": "sobre"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:upon:sobre:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:upon:sobre:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The book rested upon the wooden table.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "missing"
+            ],
+            "pos_shape": [
+              "missing"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:missing",
+            "pos_shape:missing",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "upon"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:upon:sobre:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:upon:sobre:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The rule depends upon several earlier decisions.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "missing"
+            ],
+            "pos_shape": [
+              "missing"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:missing",
+            "pos_shape:missing",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "upon"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "upon"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "all_evidence_text": "adjoining -> vecino | neighboring or adjacent",
+          "gloss_text": "neighboring or adjacent",
+          "sense_gloss_bundle": "adjoining -> vecino | neighboring or adjacent",
+          "sense_label": "adjoining -> vecino"
+        },
+        "sense_id": "en-es:full-family-repaired-full:adjoining:vecino:active",
+        "target_lemma": "vecino"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:adjoining:vecino:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:adjoining:vecino:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The adjoining farm belongs to a neighboring family.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "missing"
+            ],
+            "pos_shape": [
+              "missing"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:missing",
+            "pos_shape:missing",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "adjoining"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:adjoining:vecino:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:adjoining:vecino:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "An adjoining district shares the same bus route.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "missing"
+            ],
+            "pos_shape": [
+              "missing"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:missing",
+            "pos_shape:missing",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "adjoining"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "adjoining"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "all_evidence_text": "current -> contemporáneo | belonging to the present time; contemporary",
+          "gloss_text": "belonging to the present time; contemporary",
+          "sense_gloss_bundle": "current -> contemporáneo | belonging to the present time; contemporary",
+          "sense_label": "current -> contemporáneo"
+        },
+        "sense_id": "en-es:full-family-repaired-full:current:contempor-neo:active",
+        "target_lemma": "contemporáneo"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:current:contempor-neo:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The current design reflects contemporary tastes.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "current"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:current:contempor-neo:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "Current research focuses on smaller batteries.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "current"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:current:contempor-neo:shadow:1:corriente-el-ctrica",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The current was measured in amperes.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "current"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:current:contempor-neo:shadow:2:corriente",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The raft moved with the river current.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "current"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "all_evidence_text": "current -> corriente eléctrica | flow of electricity | generated evidence: The current in the wire dropped after the switch was opened. ; current refers to the flow of electricity in a circuit. | generated evidence: A loose connection can interrupt the current and stop the motor. ; current means electrical current in the device.",
+            "gloss_text": "flow of electricity",
+            "sense_gloss_bundle": "current -> corriente eléctrica | flow of electricity",
+            "sense_label": "current -> corriente eléctrica"
+          },
+          "sense_id": "en-es:full-family-repaired-full:current:contempor-neo:shadow:1:corriente-el-ctrica",
+          "target_lemma": "corriente eléctrica"
+        },
+        {
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "all_evidence_text": "current -> corriente | flow of water or air",
+            "gloss_text": "flow of water or air",
+            "sense_gloss_bundle": "current -> corriente | flow of water or air",
+            "sense_label": "current -> corriente"
+          },
+          "sense_id": "en-es:full-family-repaired-full:current:contempor-neo:shadow:2:corriente",
+          "target_lemma": "corriente"
+        }
+      ],
+      "trigger": "current"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "parrot -> loro | a parrot bird",
+          "gloss_text": "a parrot bird",
+          "sense_gloss_bundle": "parrot -> loro | a parrot bird",
+          "sense_label": "parrot -> loro"
+        },
+        "sense_id": "en-es:full-family-repaired-full:parrot:loro:active",
+        "target_lemma": "loro"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:parrot:loro:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "A green parrot perched above the doorway.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "parrot"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:parrot:loro:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The parrot repeated the visitor's greeting.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "parrot"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:parrot:loro:shadow:1:repetir",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The students simply parrot the teacher's words.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "parrot"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:parrot:loro:shadow:2:imitador",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The critic called him a parrot of older writers.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "parrot"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "parrot -> repetir | repeat mindlessly | generated evidence: The parrot perched on the windowsill and watched the room quietly. ; parrot refers to a bird, so Spanish would use loro. | generated evidence: A bright green parrot escaped from the cage and flew into the garden. ; parrot names the animal, making loro the correct Spanish choice.",
+            "gloss_text": "repeat mindlessly",
+            "sense_gloss_bundle": "parrot -> repetir | repeat mindlessly",
+            "sense_label": "parrot -> repetir"
+          },
+          "sense_id": "en-es:full-family-repaired-full:parrot:loro:shadow:1:repetir",
+          "target_lemma": "repetir"
+        },
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "parrot -> imitador | a copycat person",
+            "gloss_text": "a copycat person",
+            "sense_gloss_bundle": "parrot -> imitador | a copycat person",
+            "sense_label": "parrot -> imitador"
+          },
+          "sense_id": "en-es:full-family-repaired-full:parrot:loro:shadow:2:imitador",
+          "target_lemma": "imitador"
+        }
+      ],
+      "trigger": "parrot"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "rebate -> descuento | a refund, reduction, or discount on an amount paid",
+          "gloss_text": "a refund, reduction, or discount on an amount paid",
+          "sense_gloss_bundle": "rebate -> descuento | a refund, reduction, or discount on an amount paid",
+          "sense_label": "rebate -> descuento"
+        },
+        "sense_id": "en-es:full-family-repaired-full:rebate:descuento:active",
+        "target_lemma": "descuento"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:rebate:descuento:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:rebate:descuento:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The store offered a rebate on the new refrigerator.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "rebate"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:rebate:descuento:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:rebate:descuento:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "Customers receive a rebate after mailing the form.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "rebate"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:rebate:descuento:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:rebate:descuento:shadow:1:ranura",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The carpenter cut a rebate along the frame.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "rebate"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:rebate:descuento:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:rebate:descuento:shadow:2:reembolsar",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The vendor will rebate part of the fee.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_rewrite_contexts"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_3_to_4_mid"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_rewrite_contexts",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_3_to_4_mid",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "rebate"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_rewrite_contexts",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "rebate -> ranura | a groove cut into wood or stone | generated evidence: The carpenter cut a rebate along the edge of the board so the glass would sit flush. ; rebate refers to a woodworking slot or step cut in the edge of a board. | generated evidence: The frame has a rebate that holds the panel securely in place. ; rebate refers to a groove or recess in the frame.",
+            "gloss_text": "a groove cut into wood or stone",
+            "sense_gloss_bundle": "rebate -> ranura | a groove cut into wood or stone",
+            "sense_label": "rebate -> ranura"
+          },
+          "sense_id": "en-es:full-family-repaired-full:rebate:descuento:shadow:1:ranura",
+          "target_lemma": "ranura"
+        },
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "rebate -> reembolsar | give money back as a refund",
+            "gloss_text": "give money back as a refund",
+            "sense_gloss_bundle": "rebate -> reembolsar | give money back as a refund",
+            "sense_label": "rebate -> reembolsar"
+          },
+          "sense_id": "en-es:full-family-repaired-full:rebate:descuento:shadow:2:reembolsar",
+          "target_lemma": "reembolsar"
+        }
+      ],
+      "trigger": "rebate"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "adder -> víbora | a small viper snake",
+          "gloss_text": "a small viper snake",
+          "sense_gloss_bundle": "adder -> víbora | a small viper snake",
+          "sense_label": "adder -> víbora"
+        },
+        "sense_id": "en-es:full-family-repaired-full:adder:v-bora:active",
+        "target_lemma": "víbora"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:adder:v-bora:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "An adder slid through the grass near the path.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "adder"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:adder:v-bora:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The field guide warned hikers about the adder.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "adder"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:adder:v-bora:shadow:1:sumador",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The old adder produced totals on paper tape.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_below_3_rare"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_below_3_rare",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:same_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "adder"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "repair_metadata": {
+        "active_sense_status": "corrected_active_sense_required",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "salvage_with_corrected_active_sense",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "adder -> sumador | a person or machine that adds numbers | generated evidence: The engineer used an adder to test the circuit board. ; adder refers to a device that performs addition in electronics. | generated evidence: A simple adder can be built from logic gates. ; adder means a digital circuit that adds binary values.",
+            "gloss_text": "a person or machine that adds numbers",
+            "sense_gloss_bundle": "adder -> sumador | a person or machine that adds numbers",
+            "sense_label": "adder -> sumador"
+          },
+          "sense_id": "en-es:full-family-repaired-full:adder:v-bora:shadow:1:sumador",
+          "target_lemma": "sumador"
+        }
+      ],
+      "trigger": "adder"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "pair -> par | a pair or set of two things",
+          "gloss_text": "a pair or set of two things",
+          "sense_gloss_bundle": "pair -> par | a pair or set of two things",
+          "sense_label": "pair -> par"
+        },
+        "sense_id": "en-es:full-family-repaired-full:pair:par:active",
+        "target_lemma": "par"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:pair:par:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:pair:par:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "She bought a pair of gloves at the market.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "pair"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:pair:par:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:pair:par:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The report compared each pair of measurements.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "pair"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:pair:par:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:pair:par:shadow:1:emparejar",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The app can pair the headphones with the phone.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "pair"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "all_evidence_text": "pair -> emparejar | match two things or people together | generated evidence: I bought a pair of gloves for the winter. ; pair means two matching items, so the noun sense is required. | generated evidence: She kept the pair on the top shelf as a set. ; pair refers to two items considered together, not an action.",
+            "gloss_text": "match two things or people together",
+            "sense_gloss_bundle": "pair -> emparejar | match two things or people together",
+            "sense_label": "pair -> emparejar"
+          },
+          "sense_id": "en-es:full-family-repaired-full:pair:par:shadow:1:emparejar",
+          "target_lemma": "emparejar"
+        }
+      ],
+      "trigger": "pair"
+    },
+    {
+      "active": {
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "all_evidence_text": "acceptable -> razonable | acceptable or reasonable in degree or quality",
+          "gloss_text": "acceptable or reasonable in degree or quality",
+          "sense_gloss_bundle": "acceptable -> razonable | acceptable or reasonable in degree or quality",
+          "sense_label": "acceptable -> razonable"
+        },
+        "sense_id": "en-es:full-family-repaired-full:acceptable:razonable:active",
+        "target_lemma": "razonable"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:acceptable:razonable:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:acceptable:razonable:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The committee considered the compromise acceptable.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "acceptable"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:acceptable:razonable:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:acceptable:razonable:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The offer seemed acceptable after the repairs.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "acceptable"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:acceptable:razonable:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:acceptable:razonable:shadow:1:correcto",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The editor marked the phrase as acceptable English usage.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:same_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "acceptable"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:acceptable:razonable:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:acceptable:razonable:shadow:2:apto",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "The sample was acceptable for laboratory testing.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_4_to_5_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_4_to_5_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:same_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "acceptable"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "all_evidence_text": "acceptable -> correcto | approved usage or correctness | generated evidence: The committee said the proposal was acceptable under the new rules. ; acceptable means permitted or allowed by the rules, so correcto fits as the Spanish replacement. | generated evidence: Her explanation was acceptable to the judge, so the hearing continued. ; acceptable means sufficient or permitted in context, which supports correcto as the Spanish replacement.",
+            "gloss_text": "approved usage or correctness",
+            "sense_gloss_bundle": "acceptable -> correcto | approved usage or correctness",
+            "sense_label": "acceptable -> correcto"
+          },
+          "sense_id": "en-es:full-family-repaired-full:acceptable:razonable:shadow:1:correcto",
+          "target_lemma": "correcto"
+        },
+        {
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "all_evidence_text": "acceptable -> apto | meeting a technical requirement",
+            "gloss_text": "meeting a technical requirement",
+            "sense_gloss_bundle": "acceptable -> apto | meeting a technical requirement",
+            "sense_label": "acceptable -> apto"
+          },
+          "sense_id": "en-es:full-family-repaired-full:acceptable:razonable:shadow:2:apto",
+          "target_lemma": "apto"
+        }
+      ],
+      "trigger": "acceptable"
+    },
+    {
+      "active": {
+        "canonical_pos": "adverb",
+        "evidence_views": {
+          "all_evidence_text": "entirely -> enteramente | completely, wholly, or entirely",
+          "gloss_text": "completely, wholly, or entirely",
+          "sense_gloss_bundle": "entirely -> enteramente | completely, wholly, or entirely",
+          "sense_label": "entirely -> enteramente"
+        },
+        "sense_id": "en-es:full-family-repaired-full:entirely:enteramente:active",
+        "target_lemma": "enteramente"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:entirely:enteramente:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:entirely:enteramente:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The decision was entirely voluntary.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "entirely"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:entirely:enteramente:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:entirely:enteramente:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "She was entirely satisfied with the meal.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "entirely"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "entirely"
+    }
+  ],
+  "manual_review_state": "approved_by_user",
+  "pair": "en-es",
+  "product_scope_filter": {
+    "excluded_scope_ids": [
+      "diagnostic_label_preservation"
+    ],
+    "reason": "Synthetic label-preservation rows are diagnostic for internal-label behavior, but product soft-assist evaluation should not count them as bad replacements.",
+    "scope_id": "browser_soft_assist"
+  },
+  "provenance": {
+    "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+    "source_agent_review_artifact": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+    "source_agent_review_authority": "codex_agent_review_user_approval_required",
+    "trusted_now": true
+  },
+  "schema_version": 1
+}

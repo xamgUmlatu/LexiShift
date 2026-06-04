@@ -17,6 +17,17 @@ from lexishift_core.persistence.settings import AppSettings, Profile, save_app_s
 
 
 class TestHelperProfilesSnapshot(unittest.TestCase):
+    def test_helper_paths_expose_profile_inventory_path(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            inventory_path = paths.srs_inventory_path_for("p1")
+            self.assertEqual(
+                inventory_path,
+                root / "srs" / "profiles" / "p1" / "srs_inventory.json",
+            )
+            self.assertTrue(inventory_path.parent.exists())
+
     def test_snapshot_without_settings_file(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))

@@ -1,0 +1,1527 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T00:44:42Z",
+  "status": "ready",
+  "pair": "en-es",
+  "dataset_id": "en_es_sentence_veto_v10",
+  "required_family_source": "semantic_prompt_bakeoff_en_es_v10",
+  "base_batch_id": "en-es:reverse-aux-example-frames:reverse-aux-example-frames-v10-20260425a",
+  "source_id": "llm_example_frame_missing_rows",
+  "prompt_version": "example-frame-missing-rows-v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "decision_contract": "binary_replace_or_abstain",
+  "review_leakage_policy": "do_not_include_sentence_veto_case_sentences_in_prompts",
+  "generation_targets": [
+    "active_example",
+    "shadow_example"
+  ],
+  "candidate_defaults": {
+    "semantic_candidates_per_row": 5,
+    "hard_semantic_candidates_per_row": 10,
+    "phrase_candidates_per_row": 1,
+    "hard_semantic_condition": "active_and_candidate_sense_share_canonical_pos"
+  },
+  "input_token_heuristic": "ceil(characters / 4.0)",
+  "contract_summary": {
+    "families_total": 8,
+    "semantic_contract_complete_family_count": 5,
+    "semantic_contract_complete": false,
+    "phrase_containment_contract_complete_family_count": 0,
+    "phrase_containment_contract_complete": false,
+    "contract_complete_family_count": 0,
+    "contract_complete": false,
+    "missing_active_family_keys": [
+      "en-es:sentence-veto:play:obra"
+    ],
+    "missing_shadow_family_keys": [
+      "en-es:sentence-veto:check:cheque",
+      "en-es:sentence-veto:plant:planta"
+    ],
+    "semantic_gap_family_keys": [
+      "en-es:sentence-veto:play:obra",
+      "en-es:sentence-veto:check:cheque",
+      "en-es:sentence-veto:plant:planta"
+    ],
+    "missing_phrase_control_family_keys": [
+      "en-es:sentence-veto:check:cheque",
+      "en-es:sentence-veto:drink:bebida",
+      "en-es:sentence-veto:order:pedido",
+      "en-es:sentence-veto:plant:planta",
+      "en-es:sentence-veto:play:obra",
+      "en-es:sentence-veto:report:informe",
+      "en-es:sentence-veto:trip:viaje",
+      "en-es:sentence-veto:watch:reloj"
+    ],
+    "phrase_role_issue_family_keys": [],
+    "phrase_containment_gap_family_keys": [
+      "en-es:sentence-veto:check:cheque",
+      "en-es:sentence-veto:drink:bebida",
+      "en-es:sentence-veto:order:pedido",
+      "en-es:sentence-veto:plant:planta",
+      "en-es:sentence-veto:play:obra",
+      "en-es:sentence-veto:report:informe",
+      "en-es:sentence-veto:trip:viaje",
+      "en-es:sentence-veto:watch:reloj"
+    ],
+    "runtime_publishable_issue_family_keys": [],
+    "semantic_contract": {
+      "complete_family_count": 5,
+      "complete": false,
+      "gap_family_keys": [
+        "en-es:sentence-veto:play:obra",
+        "en-es:sentence-veto:check:cheque",
+        "en-es:sentence-veto:plant:planta"
+      ],
+      "missing_active_family_keys": [
+        "en-es:sentence-veto:play:obra"
+      ],
+      "missing_shadow_family_keys": [
+        "en-es:sentence-veto:check:cheque",
+        "en-es:sentence-veto:plant:planta"
+      ]
+    },
+    "phrase_containment_contract": {
+      "complete_family_count": 0,
+      "complete": false,
+      "gap_family_keys": [
+        "en-es:sentence-veto:check:cheque",
+        "en-es:sentence-veto:drink:bebida",
+        "en-es:sentence-veto:order:pedido",
+        "en-es:sentence-veto:plant:planta",
+        "en-es:sentence-veto:play:obra",
+        "en-es:sentence-veto:report:informe",
+        "en-es:sentence-veto:trip:viaje",
+        "en-es:sentence-veto:watch:reloj"
+      ],
+      "missing_phrase_control_family_keys": [
+        "en-es:sentence-veto:check:cheque",
+        "en-es:sentence-veto:drink:bebida",
+        "en-es:sentence-veto:order:pedido",
+        "en-es:sentence-veto:plant:planta",
+        "en-es:sentence-veto:play:obra",
+        "en-es:sentence-veto:report:informe",
+        "en-es:sentence-veto:trip:viaje",
+        "en-es:sentence-veto:watch:reloj"
+      ],
+      "phrase_role_issue_family_keys": []
+    },
+    "combined_contract": {
+      "complete_family_count": 0,
+      "complete": false,
+      "runtime_publishable_issue_family_keys": []
+    }
+  },
+  "summary": {
+    "request_count": 20,
+    "family_count": 3,
+    "candidate_slot_count": 3,
+    "planned_raw_candidate_count": 20,
+    "planned_semantic_candidate_count": 20,
+    "planned_phrase_candidate_count": 0,
+    "requests_by_generation_target": {
+      "shadow_example": 15,
+      "active_example": 5
+    },
+    "requests_by_candidate_strategy": {
+      "same_pos_hard_semantic": 10,
+      "standard_semantic": 10
+    },
+    "estimated_input_tokens": 7470,
+    "expected_output_tokens": 1000,
+    "max_output_tokens": 3600
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 1,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 1 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-01",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-01",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 1,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 2,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 2 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-02",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-02",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 2,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 3,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 3 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-03",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-03",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 3,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 4,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 4 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-04",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-04",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 4,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 5,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 5 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-05",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-05",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 5,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-06",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 6,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 6 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-06",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-06",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 6,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-07",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 7,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 7 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-07",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-07",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 7,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-08",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 8,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 8 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-08",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-08",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 8,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-09",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 9,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 9 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-09",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-09",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 9,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-10",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "candidate_index": 10,
+      "candidate_count": 10,
+      "candidate_strategy": "same_pos_hard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `plant`\nActive sense: living plant | living organism that grows in soil or water | POS: noun\n\nCompeting senses:\n- competing sense 1: industrial plant | factory where goods are manufactured | POS: noun\n\nQueue context:\n- role: target\n- archetype: ordinary_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: industrial plant | factory where goods are manufactured\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 10 of 10.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1:candidate-10",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "plant",
+        "active_target": "planta",
+        "candidate_target": "fábrica",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow:candidate-10",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+          "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 10,
+          "candidate_count": 10,
+          "candidate_strategy": "same_pos_hard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "ordinary_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+          "queue_priority_rank": 2,
+          "queue_notes": [
+            "Useful same-POS cue calibration family.",
+            "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+          ]
+        }
+      },
+      "estimated_input_tokens": 379,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-01",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "candidate_pos": "verb",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ]
+      },
+      "candidate_index": 1,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `check`\nActive sense: check as a bank payment slip | written order directing a bank to pay money | POS: noun\n\nCompeting senses:\n- competing sense 1: check or inspect carefully | examine, verify, or inspect something carefully | POS: verb\n\nQueue context:\n- role: target\n- archetype: cross_pos_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: check or inspect carefully | examine, verify, or inspect something carefully\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 1 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-check-cheque:llm:shadow:en-es-sentence-veto-check-revisar-shadow:missing:v1:candidate-01",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "check",
+        "active_target": "cheque",
+        "candidate_target": "revisar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-01",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:check:cheque",
+          "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 1,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "cross_pos_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+          "queue_priority_rank": 1,
+          "queue_notes": [
+            "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+          ]
+        }
+      },
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-02",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "candidate_pos": "verb",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ]
+      },
+      "candidate_index": 2,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `check`\nActive sense: check as a bank payment slip | written order directing a bank to pay money | POS: noun\n\nCompeting senses:\n- competing sense 1: check or inspect carefully | examine, verify, or inspect something carefully | POS: verb\n\nQueue context:\n- role: target\n- archetype: cross_pos_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: check or inspect carefully | examine, verify, or inspect something carefully\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 2 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-check-cheque:llm:shadow:en-es-sentence-veto-check-revisar-shadow:missing:v1:candidate-02",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "check",
+        "active_target": "cheque",
+        "candidate_target": "revisar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-02",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:check:cheque",
+          "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 2,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "cross_pos_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+          "queue_priority_rank": 1,
+          "queue_notes": [
+            "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+          ]
+        }
+      },
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-03",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "candidate_pos": "verb",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ]
+      },
+      "candidate_index": 3,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `check`\nActive sense: check as a bank payment slip | written order directing a bank to pay money | POS: noun\n\nCompeting senses:\n- competing sense 1: check or inspect carefully | examine, verify, or inspect something carefully | POS: verb\n\nQueue context:\n- role: target\n- archetype: cross_pos_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: check or inspect carefully | examine, verify, or inspect something carefully\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 3 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-check-cheque:llm:shadow:en-es-sentence-veto-check-revisar-shadow:missing:v1:candidate-03",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "check",
+        "active_target": "cheque",
+        "candidate_target": "revisar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-03",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:check:cheque",
+          "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 3,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "cross_pos_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+          "queue_priority_rank": 1,
+          "queue_notes": [
+            "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+          ]
+        }
+      },
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-04",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "candidate_pos": "verb",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ]
+      },
+      "candidate_index": 4,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `check`\nActive sense: check as a bank payment slip | written order directing a bank to pay money | POS: noun\n\nCompeting senses:\n- competing sense 1: check or inspect carefully | examine, verify, or inspect something carefully | POS: verb\n\nQueue context:\n- role: target\n- archetype: cross_pos_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: check or inspect carefully | examine, verify, or inspect something carefully\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 4 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-check-cheque:llm:shadow:en-es-sentence-veto-check-revisar-shadow:missing:v1:candidate-04",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "check",
+        "active_target": "cheque",
+        "candidate_target": "revisar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-04",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:check:cheque",
+          "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 4,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "cross_pos_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+          "queue_priority_rank": 1,
+          "queue_notes": [
+            "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+          ]
+        }
+      },
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-05",
+      "prompt_slot": "shadow_example",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "candidate_pos": "verb",
+      "relation_type": "shadow_candidate",
+      "roles": [
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ]
+      },
+      "candidate_index": 5,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `check`\nActive sense: check as a bank payment slip | written order directing a bank to pay money | POS: noun\n\nCompeting senses:\n- competing sense 1: check or inspect carefully | examine, verify, or inspect something carefully | POS: verb\n\nQueue context:\n- role: target\n- archetype: cross_pos_weak_active_support\n- likely bucket: needs_cue_data\n- notes: Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay.\n\nTask: write one original English example for competing sense 1.\nCompeting sense details: check or inspect carefully | examine, verify, or inspect something carefully\nThe example must make the competing sense more plausible than the active sense.\n\nCandidate attempt: 5 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-check-cheque:llm:shadow:en-es-sentence-veto-check-revisar-shadow:missing:v1:candidate-05",
+        "relation_type": "shadow_candidate",
+        "roles": [
+          "discrimination"
+        ],
+        "trigger": "check",
+        "active_target": "cheque",
+        "candidate_target": "revisar",
+        "candidate_pos": "verb",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "shadow_example",
+        "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow:candidate-05",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:check:cheque",
+          "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+          "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+          "generation_target": "shadow_example",
+          "source_gap": "shadow_example",
+          "candidate_index": 5,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "target",
+          "queue_archetype": "cross_pos_weak_active_support",
+          "queue_likely_bucket": "needs_cue_data",
+          "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+          "queue_priority_rank": 1,
+          "queue_notes": [
+            "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+          ]
+        }
+      },
+      "estimated_input_tokens": 384,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-01",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "candidate_pos": "noun",
+      "relation_type": "anchor_cue",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "negative_control",
+        "queue_archetype": "phrase_leak_control",
+        "queue_likely_bucket": "needs_phrase_parsing_fix",
+        "queue_priority_rank": 0,
+        "queue_notes": [
+          "Do not spend prompt budget here.",
+          "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+        ]
+      },
+      "candidate_index": 1,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `play`\nActive sense: play as a theater work | dramatic work written for the stage | POS: noun\n\nCompeting senses:\n- competing sense 1: play a game | take part in a game or sport | POS: verb\n\nQueue context:\n- role: negative_control\n- archetype: phrase_leak_control\n- likely bucket: needs_phrase_parsing_fix\n- notes: Do not spend prompt budget here. | Use only as a phrase-sensitive guardrail when evaluating cue prompts.\n\nTask: write one original English example for the active sense.\nThe example must make the active sense more plausible than the competing senses.\n\nCandidate attempt: 1 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-play-obra:llm:active:missing:v1:candidate-01",
+        "relation_type": "anchor_cue",
+        "roles": [
+          "cue_generation",
+          "discrimination"
+        ],
+        "trigger": "play",
+        "active_target": "obra",
+        "candidate_target": "obra",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "active_example",
+        "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-01",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:play:obra",
+          "active_sense_id": "en-es:sentence-veto:play:obra:active",
+          "candidate_sense_id": "en-es:sentence-veto:play:obra:active",
+          "generation_target": "active_example",
+          "source_gap": "active_example",
+          "candidate_index": 1,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "negative_control",
+          "queue_archetype": "phrase_leak_control",
+          "queue_likely_bucket": "needs_phrase_parsing_fix",
+          "queue_priority_rank": 0,
+          "queue_notes": [
+            "Do not spend prompt budget here.",
+            "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+          ]
+        }
+      },
+      "estimated_input_tokens": 352,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-02",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "candidate_pos": "noun",
+      "relation_type": "anchor_cue",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "negative_control",
+        "queue_archetype": "phrase_leak_control",
+        "queue_likely_bucket": "needs_phrase_parsing_fix",
+        "queue_priority_rank": 0,
+        "queue_notes": [
+          "Do not spend prompt budget here.",
+          "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+        ]
+      },
+      "candidate_index": 2,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `play`\nActive sense: play as a theater work | dramatic work written for the stage | POS: noun\n\nCompeting senses:\n- competing sense 1: play a game | take part in a game or sport | POS: verb\n\nQueue context:\n- role: negative_control\n- archetype: phrase_leak_control\n- likely bucket: needs_phrase_parsing_fix\n- notes: Do not spend prompt budget here. | Use only as a phrase-sensitive guardrail when evaluating cue prompts.\n\nTask: write one original English example for the active sense.\nThe example must make the active sense more plausible than the competing senses.\n\nCandidate attempt: 2 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-play-obra:llm:active:missing:v1:candidate-02",
+        "relation_type": "anchor_cue",
+        "roles": [
+          "cue_generation",
+          "discrimination"
+        ],
+        "trigger": "play",
+        "active_target": "obra",
+        "candidate_target": "obra",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "active_example",
+        "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-02",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:play:obra",
+          "active_sense_id": "en-es:sentence-veto:play:obra:active",
+          "candidate_sense_id": "en-es:sentence-veto:play:obra:active",
+          "generation_target": "active_example",
+          "source_gap": "active_example",
+          "candidate_index": 2,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "negative_control",
+          "queue_archetype": "phrase_leak_control",
+          "queue_likely_bucket": "needs_phrase_parsing_fix",
+          "queue_priority_rank": 0,
+          "queue_notes": [
+            "Do not spend prompt budget here.",
+            "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+          ]
+        }
+      },
+      "estimated_input_tokens": 352,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-03",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "candidate_pos": "noun",
+      "relation_type": "anchor_cue",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "negative_control",
+        "queue_archetype": "phrase_leak_control",
+        "queue_likely_bucket": "needs_phrase_parsing_fix",
+        "queue_priority_rank": 0,
+        "queue_notes": [
+          "Do not spend prompt budget here.",
+          "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+        ]
+      },
+      "candidate_index": 3,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `play`\nActive sense: play as a theater work | dramatic work written for the stage | POS: noun\n\nCompeting senses:\n- competing sense 1: play a game | take part in a game or sport | POS: verb\n\nQueue context:\n- role: negative_control\n- archetype: phrase_leak_control\n- likely bucket: needs_phrase_parsing_fix\n- notes: Do not spend prompt budget here. | Use only as a phrase-sensitive guardrail when evaluating cue prompts.\n\nTask: write one original English example for the active sense.\nThe example must make the active sense more plausible than the competing senses.\n\nCandidate attempt: 3 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-play-obra:llm:active:missing:v1:candidate-03",
+        "relation_type": "anchor_cue",
+        "roles": [
+          "cue_generation",
+          "discrimination"
+        ],
+        "trigger": "play",
+        "active_target": "obra",
+        "candidate_target": "obra",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "active_example",
+        "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-03",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:play:obra",
+          "active_sense_id": "en-es:sentence-veto:play:obra:active",
+          "candidate_sense_id": "en-es:sentence-veto:play:obra:active",
+          "generation_target": "active_example",
+          "source_gap": "active_example",
+          "candidate_index": 3,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "negative_control",
+          "queue_archetype": "phrase_leak_control",
+          "queue_likely_bucket": "needs_phrase_parsing_fix",
+          "queue_priority_rank": 0,
+          "queue_notes": [
+            "Do not spend prompt budget here.",
+            "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+          ]
+        }
+      },
+      "estimated_input_tokens": 352,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-04",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "candidate_pos": "noun",
+      "relation_type": "anchor_cue",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "negative_control",
+        "queue_archetype": "phrase_leak_control",
+        "queue_likely_bucket": "needs_phrase_parsing_fix",
+        "queue_priority_rank": 0,
+        "queue_notes": [
+          "Do not spend prompt budget here.",
+          "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+        ]
+      },
+      "candidate_index": 4,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `play`\nActive sense: play as a theater work | dramatic work written for the stage | POS: noun\n\nCompeting senses:\n- competing sense 1: play a game | take part in a game or sport | POS: verb\n\nQueue context:\n- role: negative_control\n- archetype: phrase_leak_control\n- likely bucket: needs_phrase_parsing_fix\n- notes: Do not spend prompt budget here. | Use only as a phrase-sensitive guardrail when evaluating cue prompts.\n\nTask: write one original English example for the active sense.\nThe example must make the active sense more plausible than the competing senses.\n\nCandidate attempt: 4 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-play-obra:llm:active:missing:v1:candidate-04",
+        "relation_type": "anchor_cue",
+        "roles": [
+          "cue_generation",
+          "discrimination"
+        ],
+        "trigger": "play",
+        "active_target": "obra",
+        "candidate_target": "obra",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "active_example",
+        "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-04",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:play:obra",
+          "active_sense_id": "en-es:sentence-veto:play:obra:active",
+          "candidate_sense_id": "en-es:sentence-veto:play:obra:active",
+          "generation_target": "active_example",
+          "source_gap": "active_example",
+          "candidate_index": 4,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "negative_control",
+          "queue_archetype": "phrase_leak_control",
+          "queue_likely_bucket": "needs_phrase_parsing_fix",
+          "queue_priority_rank": 0,
+          "queue_notes": [
+            "Do not spend prompt budget here.",
+            "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+          ]
+        }
+      },
+      "estimated_input_tokens": 352,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    },
+    {
+      "request_id": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-05",
+      "prompt_slot": "active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "candidate_pos": "noun",
+      "relation_type": "anchor_cue",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "queue_metadata": {
+        "queue_role": "negative_control",
+        "queue_archetype": "phrase_leak_control",
+        "queue_likely_bucket": "needs_phrase_parsing_fix",
+        "queue_priority_rank": 0,
+        "queue_notes": [
+          "Do not spend prompt budget here.",
+          "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+        ]
+      },
+      "candidate_index": 5,
+      "candidate_count": 5,
+      "candidate_strategy": "standard_semantic",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic example frame. Return compact JSON only. The example must help discriminate one English trigger sense from its competitor. Write an original English sentence or compact frame that could overlap real user text. Do not use Spanish. Do not copy any benchmark sentence.",
+      "user_prompt": "Return a JSON object with exactly one key `items`.\n`items` must be an array with exactly one object.\nThat object may contain only `evidence_text` and optional numeric `confidence`.\n\nEnglish trigger: `play`\nActive sense: play as a theater work | dramatic work written for the stage | POS: noun\n\nCompeting senses:\n- competing sense 1: play a game | take part in a game or sport | POS: verb\n\nQueue context:\n- role: negative_control\n- archetype: phrase_leak_control\n- likely bucket: needs_phrase_parsing_fix\n- notes: Do not spend prompt budget here. | Use only as a phrase-sensitive guardrail when evaluating cue prompts.\n\nTask: write one original English example for the active sense.\nThe example must make the active sense more plausible than the competing senses.\n\nCandidate attempt: 5 of 5.\nUse a distinct context, subject, and surrounding vocabulary from the other planned attempts.\n\nRules:\n- write 5 to 18 English words\n- include the trigger text naturally\n- do not mention translation targets or non-English words\n- do not explain the answer\n- do not use bullets or multiple examples\n- return JSON only",
+      "expected_row_preview": {
+        "row_id": "en-es-sentence-veto-play-obra:llm:active:missing:v1:candidate-05",
+        "relation_type": "anchor_cue",
+        "roles": [
+          "cue_generation",
+          "discrimination"
+        ],
+        "trigger": "play",
+        "active_target": "obra",
+        "candidate_target": "obra",
+        "candidate_pos": "noun",
+        "evidence_text": "<model-written original example frame>",
+        "prompt_slot": "active_example",
+        "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra:candidate-05",
+        "review_state": "unreviewed",
+        "promotion_state": "proposed",
+        "runtime_publishable": false,
+        "metadata": {
+          "family_id": "en-es:sentence-veto:play:obra",
+          "active_sense_id": "en-es:sentence-veto:play:obra:active",
+          "candidate_sense_id": "en-es:sentence-veto:play:obra:active",
+          "generation_target": "active_example",
+          "source_gap": "active_example",
+          "candidate_index": 5,
+          "candidate_count": 5,
+          "candidate_strategy": "standard_semantic",
+          "queue_role": "negative_control",
+          "queue_archetype": "phrase_leak_control",
+          "queue_likely_bucket": "needs_phrase_parsing_fix",
+          "queue_priority_rank": 0,
+          "queue_notes": [
+            "Do not spend prompt budget here.",
+            "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+          ]
+        }
+      },
+      "estimated_input_tokens": 352,
+      "expected_output_tokens": 50,
+      "max_output_tokens": 180
+    }
+  ],
+  "recommendation": "Execute only these selected candidate requests, preserve raw generated count separately from structurally accepted, leakage-kept, and admitted counts, then merge admitted rows with the base evidence batch and rerun the split contract plus prototype-admission ablation matrix."
+}

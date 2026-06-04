@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "queue_id": "semantic_source_non_v10_probe_en_es_v1",
+  "pair": "en-es",
+  "generated_at": "2026-04-26T00:00:00Z",
+  "source_inventory_id": "semantic_source_non_v10_probe_en_es_v1",
+  "dataset_id": "en_es_source_non_v10_probe_v1",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "trigger": "rock",
+      "role": "target",
+      "archetype": "non_v10_cross_pos_source_probe",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:draft:borrador",
+      "trigger": "draft",
+      "role": "target",
+      "archetype": "non_v10_cross_pos_source_probe",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:case:caso",
+      "trigger": "case",
+      "role": "target",
+      "archetype": "non_v10_mixed_shadow_source_probe",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:scale:escala",
+      "trigger": "scale",
+      "role": "target",
+      "archetype": "non_v10_cross_pos_source_probe",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:line:linea",
+      "trigger": "line",
+      "role": "target",
+      "archetype": "non_v10_cross_pos_source_probe",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:point:punto",
+      "trigger": "point",
+      "role": "target",
+      "archetype": "non_v10_cross_pos_source_probe",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:ring:anillo",
+      "trigger": "ring",
+      "role": "target",
+      "archetype": "non_v10_cross_pos_source_probe",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "trigger": "date",
+      "role": "target",
+      "archetype": "non_v10_mixed_shadow_source_probe",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1
+    }
+  ]
+}

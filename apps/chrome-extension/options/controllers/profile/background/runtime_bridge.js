@@ -119,6 +119,7 @@
       const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
       cardThemeManager.applyCardThemeFromPrefs(prefs);
       const localOptions = options && typeof options === "object" ? options : {};
+      const eagerBackdrop = localOptions.eagerBackdrop === true;
       const enabled = prefs.backgroundEnabled === true;
       const assetId = String(prefs.backgroundAssetId || "").trim();
       const backdropColor = normalizeProfileBackgroundBackdropColor(prefs.backgroundBackdropColor);
@@ -130,6 +131,9 @@
       if (!enabled || !assetId) {
         pageBackgroundManager.applyBackdropOnly(backdropColor);
         return;
+      }
+      if (eagerBackdrop) {
+        pageBackgroundManager.applyBackdropOnly(backdropColor);
       }
       if (preferredBlob) {
         pageBackgroundManager.applyBackgroundFromBlob(

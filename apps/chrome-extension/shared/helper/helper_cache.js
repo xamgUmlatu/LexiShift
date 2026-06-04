@@ -3,6 +3,7 @@
 
   const RULESET_KEY = "helperRulesetCache";
   const SNAPSHOT_KEY = "helperSnapshotCache";
+  const SEMANTIC_INVENTORY_KEY = "helperSemanticInventoryCache";
   const DEFAULT_PROFILE_ID = "default";
 
   function normalizeProfileId(value) {
@@ -69,6 +70,21 @@
     return cache[key] ? cache[key].data : null;
   }
 
+  async function saveSemanticInventory(pair, semanticInventory, options) {
+    const key = scopedKey(pair, options);
+    if (!key || key.endsWith("::")) return;
+    const cache = await readKey(SEMANTIC_INVENTORY_KEY);
+    cache[key] = { saved_at: new Date().toISOString(), data: semanticInventory };
+    await writeKey(SEMANTIC_INVENTORY_KEY, cache);
+  }
+
+  async function loadSemanticInventory(pair, options) {
+    const key = scopedKey(pair, options);
+    if (!key || key.endsWith("::")) return null;
+    const cache = await readKey(SEMANTIC_INVENTORY_KEY);
+    return cache[key] ? cache[key].data : null;
+  }
+
   async function deleteRuleset(pair, options) {
     const key = scopedKey(pair, options);
     if (!key || key.endsWith("::")) return;
@@ -87,10 +103,20 @@
     await writeKey(SNAPSHOT_KEY, cache);
   }
 
+  async function deleteSemanticInventory(pair, options) {
+    const key = scopedKey(pair, options);
+    if (!key || key.endsWith("::")) return;
+    const cache = await readKey(SEMANTIC_INVENTORY_KEY);
+    if (!(key in cache)) return;
+    delete cache[key];
+    await writeKey(SEMANTIC_INVENTORY_KEY, cache);
+  }
+
   async function clearPair(pair, options) {
     await Promise.all([
       deleteRuleset(pair, options),
-      deleteSnapshot(pair, options)
+      deleteSnapshot(pair, options),
+      deleteSemanticInventory(pair, options)
     ]);
   }
 
@@ -99,8 +125,11 @@
     loadRuleset,
     saveSnapshot,
     loadSnapshot,
+    saveSemanticInventory,
+    loadSemanticInventory,
     deleteRuleset,
     deleteSnapshot,
+    deleteSemanticInventory,
     clearPair
   };
 })();

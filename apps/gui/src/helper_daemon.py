@@ -9,9 +9,9 @@ from lexishift_core.helper.engine import RulegenJobConfig, run_rulegen_job
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.status import HelperStatus, load_status, save_status
 from lexishift_core.helper.lp_capabilities import (
-    default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,
+    default_translation_dictionary_path,
     resolve_pair_capability,
     supported_rulegen_pairs,
 )
@@ -46,12 +46,12 @@ def _build_job_config(pair: str, paths, config: DaemonConfig) -> RulegenJobConfi
     jmdict_path = default_jmdict_path(pair, language_packs_dir=paths.language_packs_dir)
     if capability.requires_jmdict_for_rulegen and (jmdict_path is None or not jmdict_path.exists()):
         return None
-    freedict_de_en_path = default_freedict_de_en_path(
+    translation_dict_path = default_translation_dictionary_path(
         pair,
         language_packs_dir=paths.language_packs_dir,
     )
-    if capability.requires_freedict_de_en_for_rulegen and (
-        freedict_de_en_path is None or not freedict_de_en_path.exists()
+    if capability.requires_translation_dictionary_for_rulegen and (
+        translation_dict_path is None or not translation_dict_path.exists()
     ):
         return None
     set_source_db = default_frequency_db_path(pair, frequency_packs_dir=paths.frequency_packs_dir)
@@ -60,7 +60,7 @@ def _build_job_config(pair: str, paths, config: DaemonConfig) -> RulegenJobConfi
     return RulegenJobConfig(
         pair=pair,
         jmdict_path=jmdict_path,
-        freedict_de_en_path=freedict_de_en_path,
+        translation_dict_path=translation_dict_path,
         set_source_db=set_source_db,
         set_top_n=config.set_top_n,
         confidence_threshold=config.confidence_threshold,

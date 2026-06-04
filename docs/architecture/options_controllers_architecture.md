@@ -2,7 +2,7 @@
 
 Status: active architecture reference
 Role: Canonical current
-Last updated: 2026-03-21
+Last updated: 2026-04-21
 Purpose: as-is source-of-truth map for the options app structure and controller composition
 Source-of-truth: current options-controller composition; verify startup truth in `apps/chrome-extension/options.html`, `apps/chrome-extension/options.js`, and `apps/chrome-extension/options/core/bootstrap/controller_graph.js`.
 
@@ -25,7 +25,10 @@ This document is the source-of-truth map for the options app structure and contr
   - controller factory resolver
   - UI bridge
   - language prefs adapter factory
+  - DOM aliases
+  - translation resolver
   - controller adapters factory.
+  - controller graph elements bootstrap
 4. `createControllerGraph(...)` composes all controllers.
 5. App starts with:
   - `eventWiringController.bind()`
@@ -43,6 +46,7 @@ apps/chrome-extension/options/
       translate_resolver.js
       dom_aliases.js
       controller_adapters.js
+      controller_graph_elements.js
       controller_graph.js
     helper/
       base_methods.js
@@ -92,7 +96,13 @@ apps/chrome-extension/options/
       profile_runtime_controller.js
       actions_controller.js
       actions/
+        admission_preview_formatter.js
+        admission_preview_workflow.js
         formatters.js
+        maintenance_workflow.js
+        planning_state_resolver.js
+        rebalance_formatter.js
+        rebalance_workflow.js
         shared.js
         workflows.js
     ui/
@@ -113,7 +123,7 @@ Primary ownership:
 - `srsProfileRuntimeController`
   - profile-scoped SRS settings load/save/publish path.
 - `srsActionsController`
-  - helper-backed SRS actions (initialize/refresh/diagnostics/sample/reset).
+  - helper-backed SRS actions (admission preview, initialize, rebalance preview/apply, refresh, diagnostics, sampled preview, reset).
 - `srsProfileSelectorController`
   - selected-profile selection and helper profile catalog refresh.
 - `profileBackgroundController`
@@ -123,6 +133,8 @@ Primary ownership:
 - `shareCenterController`
   - hierarchical Share Center UX and compatibility bridge to legacy share backend.
   - owns target tree rendering, compact selection summary metadata, JSON-file export, and import actions.
+  - current `Full profile` and `Profile settings` exports still forward to the legacy `profile` / `srs` share envelopes; newer selection-target envelopes are `ruleset`, `module_item`, `srs_pair`, `appearance_theme`, and `bundle`.
+  - export-mode and target-hint copy now state that mapping explicitly so the Share Center labels are not mistaken for already-narrowed schemas.
 - `helperActionsController`
   - helper diagnostics actions.
 - `displayReplacementController`

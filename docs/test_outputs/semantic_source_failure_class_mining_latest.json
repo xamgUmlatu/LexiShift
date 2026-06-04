@@ -1,0 +1,470 @@
+{
+  "comparator_admissions": [
+    {
+      "decision": "analysis_only",
+      "families_total": 8,
+      "final_admitted_row_count": 14,
+      "heldout_validation": {
+        "blocks_offline_semantic_promotion": false,
+        "case_count": 0,
+        "decision": "not_provided",
+        "decision_accuracy": 0.0,
+        "false_abstain_count": 0,
+        "family_count": 0,
+        "harmful_replace_count": 0,
+        "passed": false,
+        "provided": false,
+        "replace_recall": 0.0,
+        "status": "not_provided"
+      },
+      "label": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "leakage_rejected_row_count": 0,
+      "phrase_contract_complete_family_count": 0,
+      "phrase_gap_family_keys": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:draft:borrador",
+        "en-es:sentence-veto:line:linea",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:ring:anillo",
+        "en-es:sentence-veto:rock:roca",
+        "en-es:sentence-veto:scale:escala"
+      ],
+      "role": "comparator",
+      "seed_decision_accuracy": 0.7083,
+      "seed_false_abstain_case_ids": [
+        "en-es:source-non-v10-probe:v1:rock:001",
+        "en-es:source-non-v10-probe:v1:rock:002",
+        "en-es:source-non-v10-probe:v1:case:001",
+        "en-es:source-non-v10-probe:v1:point:001",
+        "en-es:source-non-v10-probe:v1:point:002",
+        "en-es:source-non-v10-probe:v1:date:001",
+        "en-es:source-non-v10-probe:v1:date:002"
+      ],
+      "seed_false_abstain_count": 7,
+      "seed_harmful_replace_case_ids": [],
+      "seed_harmful_replace_count": 0,
+      "seed_replace_recall": 0.5333,
+      "semantic_contract_complete_family_count": 4,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:rock:roca"
+      ],
+      "sense_rejected_row_count": 4,
+      "sense_rejection_reason_counts": {
+        "competitor_sense_not_lower": 4
+      },
+      "status": "review"
+    }
+  ],
+  "decision": "seed_pass_expand_inventory",
+  "failure_classes": [
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_def_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "primary_seed_false_abstain",
+      "count": 4,
+      "family_tokens": [
+        "date",
+        "point",
+        "rock"
+      ],
+      "ids": [
+        "en-es:source-non-v10-probe:v1:rock:001",
+        "en-es:source-non-v10-probe:v1:point:002",
+        "en-es:source-non-v10-probe:v1:date:001",
+        "en-es:source-non-v10-probe:v1:date:002"
+      ],
+      "label": "primary seed ablation false abstain",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_def_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "primary_phrase_contract_gap",
+      "count": 8,
+      "family_tokens": [
+        "case",
+        "date",
+        "draft",
+        "line",
+        "point",
+        "ring",
+        "rock",
+        "scale"
+      ],
+      "ids": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:draft:borrador",
+        "en-es:sentence-veto:line:linea",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:ring:anillo",
+        "en-es:sentence-veto:rock:roca",
+        "en-es:sentence-veto:scale:escala"
+      ],
+      "label": "primary phrase contract gap",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_sense_reject",
+      "count": 4,
+      "family_tokens": [
+        "competitor_sense_not_lower"
+      ],
+      "ids": [
+        "competitor_sense_not_lower:4"
+      ],
+      "label": "comparator sense rejected rows",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_semantic_contract_gap",
+      "count": 4,
+      "family_tokens": [
+        "case",
+        "date",
+        "point",
+        "rock"
+      ],
+      "ids": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:rock:roca"
+      ],
+      "label": "comparator semantic contract gap",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_seed_false_abstain",
+      "count": 7,
+      "family_tokens": [
+        "case",
+        "date",
+        "point",
+        "rock"
+      ],
+      "ids": [
+        "en-es:source-non-v10-probe:v1:rock:001",
+        "en-es:source-non-v10-probe:v1:rock:002",
+        "en-es:source-non-v10-probe:v1:case:001",
+        "en-es:source-non-v10-probe:v1:point:001",
+        "en-es:source-non-v10-probe:v1:point:002",
+        "en-es:source-non-v10-probe:v1:date:001",
+        "en-es:source-non-v10-probe:v1:date:002"
+      ],
+      "label": "comparator seed ablation false abstain",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_phrase_contract_gap",
+      "count": 8,
+      "family_tokens": [
+        "case",
+        "date",
+        "draft",
+        "line",
+        "point",
+        "ring",
+        "rock",
+        "scale"
+      ],
+      "ids": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:draft:borrador",
+        "en-es:sentence-veto:line:linea",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:ring:anillo",
+        "en-es:sentence-veto:rock:roca",
+        "en-es:sentence-veto:scale:escala"
+      ],
+      "label": "comparator phrase contract gap",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_margin_policy_sweep",
+      "blocks_semantic_promotion": false,
+      "class_id": "margin_policy_blockers",
+      "count": 12,
+      "family_tokens": [
+        "ball",
+        "bank",
+        "board",
+        "file",
+        "plant",
+        "seal",
+        "table"
+      ],
+      "ids": [
+        "0:phrase_v2:harmful:en-es:source-phrase-heldout:v2:board:002",
+        "0.001:phrase_v2:harmful:en-es:source-phrase-heldout:v2:board:002",
+        "0.02:active_shadow_v2:false_abstain:en-es:source-heldout:v2:bank:001",
+        "0.02:active_shadow_v2:false_abstain:en-es:source-heldout:v2:seal:001",
+        "0.02:full_v10_ablation:false_abstain:en-es:sentence-veto:ball:002",
+        "0.02:full_v10_ablation:false_abstain:en-es:sentence-veto:table:001",
+        "0.05:active_shadow_v2:false_abstain:en-es:source-heldout:v2:bank:001",
+        "0.05:active_shadow_v2:false_abstain:en-es:source-heldout:v2:seal:001",
+        "0.05:full_v10_ablation:false_abstain:en-es:sentence-veto:ball:002",
+        "0.05:full_v10_ablation:false_abstain:en-es:sentence-veto:plant:002",
+        "0.05:full_v10_ablation:false_abstain:en-es:sentence-veto:file:002",
+        "0.05:full_v10_ablation:false_abstain:en-es:sentence-veto:table:001"
+      ],
+      "label": "margin policy blocker",
+      "tracked_residual": true
+    }
+  ],
+  "generated_at": "2026-04-27T21:54:27Z",
+  "leverage": {
+    "best_comparator_false_abstain_delta": -3,
+    "best_comparator_label": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+    "best_comparator_sense_reject_delta": -4,
+    "case_breadth_gap": 184,
+    "case_breadth_target": 200,
+    "family_breadth_gap": 42,
+    "family_breadth_target": 50,
+    "generalization_signals": [
+      "no_heldout_harmful_replacements",
+      "no_heldout_false_abstains",
+      "source_mode_reduced_seed_false_abstains",
+      "source_mode_reduced_sense_rejects"
+    ],
+    "heldout_case_count": 16,
+    "heldout_cases_per_admitted_row": 0.8889,
+    "heldout_cases_per_policy_delta": null,
+    "heldout_family_count": 8,
+    "manual_overfit_reasons": [
+      "family_inventory_below_broad_threshold",
+      "heldout_cases_below_broad_threshold",
+      "seed_ablation_false_abstains_remain",
+      "phrase_contract_not_yet_sourced"
+    ],
+    "manual_overfit_risk": "medium",
+    "policy_delta_count": 0,
+    "primary_admitted_row_count": 18,
+    "source_family_count": 8,
+    "source_row_count": 18,
+    "source_rows_per_family": 2.25
+  },
+  "margin_sweep": {
+    "blockers_by_margin": {
+      "0": [
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-phrase-heldout:v2:board:002"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "phrase_v2"
+        }
+      ],
+      "0.001": [
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-phrase-heldout:v2:board:002"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "phrase_v2"
+        }
+      ],
+      "0.02": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-heldout:v2:bank:001",
+            "en-es:source-heldout:v2:seal:001"
+          ],
+          "false_abstain_count": 2,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active_shadow_v2"
+        },
+        {
+          "false_abstain_case_ids": [
+            "en-es:sentence-veto:ball:002",
+            "en-es:sentence-veto:table:001"
+          ],
+          "false_abstain_count": 2,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "full_v10_ablation"
+        }
+      ],
+      "0.05": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-heldout:v2:bank:001",
+            "en-es:source-heldout:v2:seal:001"
+          ],
+          "false_abstain_count": 2,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active_shadow_v2"
+        },
+        {
+          "false_abstain_case_ids": [
+            "en-es:sentence-veto:ball:002",
+            "en-es:sentence-veto:plant:002",
+            "en-es:sentence-veto:file:002",
+            "en-es:sentence-veto:table:001"
+          ],
+          "false_abstain_count": 4,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "full_v10_ablation"
+        }
+      ]
+    },
+    "decision": "margin_candidate_found",
+    "passing_margins": [
+      0.005,
+      0.01
+    ],
+    "recommended_min_margin": 0.005,
+    "row_count": 36,
+    "status": "ok",
+    "suite_count": 6
+  },
+  "next_steps": [
+    "build automatic non-v10 inventory candidate generation instead of tuning this small slice further",
+    "run WordNet definition-preferred extraction across the expanded inventory and rerun admission",
+    "use this mining report to separate reusable failure clusters from one-off manual cases",
+    "keep phrase containment as a tracked residual lane until source data or policy exists for it"
+  ],
+  "primary_admission": {
+    "decision": "analysis_only",
+    "families_total": 8,
+    "final_admitted_row_count": 18,
+    "heldout_validation": {
+      "blocks_offline_semantic_promotion": false,
+      "case_count": 16,
+      "decision": "heldout_pass",
+      "decision_accuracy": 1.0,
+      "false_abstain_count": 0,
+      "family_count": 8,
+      "harmful_replace_count": 0,
+      "passed": true,
+      "provided": true,
+      "replace_recall": 1.0,
+      "status": "ok"
+    },
+    "label": "semantic_source_admission_cycle_wordnet_def_source_non_v10_probe_v1_latest",
+    "leakage_rejected_row_count": 0,
+    "phrase_contract_complete_family_count": 0,
+    "phrase_gap_family_keys": [
+      "en-es:sentence-veto:case:caso",
+      "en-es:sentence-veto:date:fecha",
+      "en-es:sentence-veto:draft:borrador",
+      "en-es:sentence-veto:line:linea",
+      "en-es:sentence-veto:point:punto",
+      "en-es:sentence-veto:ring:anillo",
+      "en-es:sentence-veto:rock:roca",
+      "en-es:sentence-veto:scale:escala"
+    ],
+    "role": "primary",
+    "seed_decision_accuracy": 0.8333,
+    "seed_false_abstain_case_ids": [
+      "en-es:source-non-v10-probe:v1:rock:001",
+      "en-es:source-non-v10-probe:v1:point:002",
+      "en-es:source-non-v10-probe:v1:date:001",
+      "en-es:source-non-v10-probe:v1:date:002"
+    ],
+    "seed_false_abstain_count": 4,
+    "seed_harmful_replace_case_ids": [],
+    "seed_harmful_replace_count": 0,
+    "seed_replace_recall": 0.7333,
+    "semantic_contract_complete_family_count": 8,
+    "semantic_gap_family_keys": [],
+    "sense_rejected_row_count": 0,
+    "sense_rejection_reason_counts": {},
+    "status": "ok"
+  },
+  "primary_heldout": {
+    "case_count": 16,
+    "decision": "heldout_pass",
+    "decision_accuracy": 1.0,
+    "delta_vs_empty_baseline": {
+      "decision_accuracy_delta": 0.5,
+      "false_abstain_delta": -8,
+      "harmful_replace_delta": 0,
+      "replace_recall_delta": 1.0
+    },
+    "false_abstain_case_ids": [],
+    "false_abstain_count": 0,
+    "family_count": 8,
+    "gold_abstain_cases": 8,
+    "gold_replace_cases": 8,
+    "harmful_replace_case_ids": [],
+    "harmful_replace_count": 0,
+    "label": "semantic_source_non_v10_heldout_v1_margin005_validation_latest",
+    "replace_recall": 1.0,
+    "status": "ok"
+  },
+  "quality_gate": {
+    "blockers": [],
+    "distance": "breadth_and_residual_tracking",
+    "heldout_clean": true,
+    "promotion_readiness": "ready_for_broader_breadth",
+    "tracked_residuals": [
+      "seed_ablation_false_abstain",
+      "phrase_contract_gap",
+      "insufficient_family_breadth",
+      "insufficient_case_breadth"
+    ]
+  },
+  "schema_version": 1,
+  "source_reports": [
+    {
+      "evidence_mode": "definition_preferred",
+      "families_with_active_wordnet": 8,
+      "families_with_phrase_control_examples": 0,
+      "families_with_shadow_wordnet": 8,
+      "label": "semantic_wordnet_def_source_non_v10_probe_v1_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 18,
+      "source_family_count": 8,
+      "target_families_with_active_wordnet": 8,
+      "target_families_with_shadow_wordnet": 8,
+      "target_family_count": 8
+    },
+    {
+      "evidence_mode": "example_preferred",
+      "families_with_active_wordnet": 8,
+      "families_with_phrase_control_examples": 0,
+      "families_with_shadow_wordnet": 8,
+      "label": "semantic_wordnet_source_non_v10_probe_v1_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 18,
+      "source_family_count": 8,
+      "target_families_with_active_wordnet": 8,
+      "target_families_with_shadow_wordnet": 8,
+      "target_family_count": 8
+    }
+  ],
+  "status": "review",
+  "summary": {
+    "blocking_failure_class_count": 0,
+    "failure_class_count": 7,
+    "manual_overfit_risk": "medium",
+    "primary_admission_label": "semantic_source_admission_cycle_wordnet_def_source_non_v10_probe_v1_latest",
+    "primary_heldout_label": "semantic_source_non_v10_heldout_v1_margin005_validation_latest",
+    "promotion_readiness": "ready_for_broader_breadth",
+    "quality_gate_distance": "breadth_and_residual_tracking",
+    "tracked_residual_class_count": 7
+  }
+}

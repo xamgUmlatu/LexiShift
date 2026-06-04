@@ -1,0 +1,4770 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "dataset_id": "en_es_full_family_trusted_eval_seed_v1",
+  "generated_at": "2026-05-06T22:08:41Z",
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_trusted_eval_seed_v1.json",
+  "config": {
+    "scorer_id": "sentence_transformer_cosine",
+    "model_name": null,
+    "context_view": "masked_sentence",
+    "evidence_view": "all_evidence_text",
+    "min_active_score": 0.05,
+    "min_margin": 0.0,
+    "phrase_control_mode": "off",
+    "phrase_guard_pos_scope": "family_all",
+    "active_rescue_mode": "off",
+    "window_tokens": 4,
+    "mask_token": "___"
+  },
+  "summary": {
+    "cases_total": 27,
+    "gold_replace_cases": 14,
+    "gold_abstain_cases": 13,
+    "gold_active_winner_cases": 14,
+    "gold_shadow_winner_cases": 6,
+    "gold_none_cases": 7,
+    "predicted_replace_cases": 16,
+    "predicted_abstain_cases": 11,
+    "true_replace_count": 11,
+    "true_abstain_count": 8,
+    "harmful_replace_count": 5,
+    "false_abstain_count": 3,
+    "winner_labeled_cases": 20,
+    "winner_correct_count": 17,
+    "shadow_winner_labeled_cases": 6,
+    "shadow_winner_correct_count": 6,
+    "phrase_preemption_hit_count": 1,
+    "phrase_preemption_correct_abstain_count": 0,
+    "phrase_preemption_harmful_block_count": 1,
+    "active_rescue_applied_count": 0,
+    "active_rescue_correct_replace_count": 0,
+    "active_rescue_harmful_replace_count": 0,
+    "decision_accuracy": 0.7037037037037037,
+    "replace_precision": 0.6875,
+    "replace_recall": 0.7857142857142857,
+    "harmful_replace_rate": 0.38461538461538464,
+    "false_abstain_rate": 0.21428571428571427,
+    "winner_accuracy": 0.85,
+    "shadow_winner_accuracy": 1.0,
+    "predicted_replace_rate": 0.5925925925925926,
+    "phrase_preemption_hit_rate": 0.037037037037037035,
+    "phrase_preemption_precision": 0.0,
+    "active_rescue_applied_rate": 0.0,
+    "active_rescue_precision": null
+  },
+  "family_breakdown": [
+    {
+      "family_id": "en-es:full-family-repaired-pilot:bouillon:caldo",
+      "trigger": "bouillon",
+      "active_target": "caldo",
+      "shadow_targets": [],
+      "summary": {
+        "cases_total": 3,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 1,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 3,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "trigger": "break",
+      "active_target": "quebrar",
+      "shadow_targets": [
+        "interrumpir",
+        "oportunidad"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 2,
+        "predicted_abstain_cases": 3,
+        "true_replace_count": 1,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 1,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 3,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6,
+        "replace_precision": 0.5,
+        "replace_recall": 0.5,
+        "harmful_replace_rate": 0.3333333333333333,
+        "false_abstain_rate": 0.5,
+        "winner_accuracy": 0.75,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.4,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "active_target": "reprimir",
+      "shadow_targets": [
+        "ofenderse",
+        "brida"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 5,
+        "true_replace_count": 0,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-pilot:control:gobernar",
+      "trigger": "control",
+      "active_target": "gobernar",
+      "shadow_targets": [
+        "controlar",
+        "grupo de control"
+      ],
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 2,
+        "predicted_abstain_cases": 3,
+        "true_replace_count": 2,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 4,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": 1.0,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.4,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-pilot:december:diciembre",
+      "trigger": "december",
+      "active_target": "diciembre",
+      "shadow_targets": [],
+      "summary": {
+        "cases_total": 3,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 1,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 3,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.3333333333333333,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-pilot:dentist:dentista",
+      "trigger": "dentist",
+      "active_target": "dentista",
+      "shadow_targets": [],
+      "summary": {
+        "cases_total": 3,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 1,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 3,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-pilot:emotion:emoci-n",
+      "trigger": "emotion",
+      "active_target": "emoción",
+      "shadow_targets": [],
+      "summary": {
+        "cases_total": 3,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 1,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 3,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    }
+  ],
+  "slice_tag_breakdown": [
+    {
+      "slice_tag": "approved_by_user",
+      "summary": {
+        "cases_total": 27,
+        "gold_replace_cases": 14,
+        "gold_abstain_cases": 13,
+        "gold_active_winner_cases": 14,
+        "gold_shadow_winner_cases": 6,
+        "gold_none_cases": 7,
+        "predicted_replace_cases": 16,
+        "predicted_abstain_cases": 11,
+        "true_replace_count": 11,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 5,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 20,
+        "winner_correct_count": 17,
+        "shadow_winner_labeled_cases": 6,
+        "shadow_winner_correct_count": 6,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.7037037037037037,
+        "replace_precision": 0.6875,
+        "replace_recall": 0.7857142857142857,
+        "harmful_replace_rate": 0.38461538461538464,
+        "false_abstain_rate": 0.21428571428571427,
+        "winner_accuracy": 0.85,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.5925925925925926,
+        "phrase_preemption_hit_rate": 0.037037037037037035,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "en_es_full_family_trusted_eval_seed_v1",
+      "summary": {
+        "cases_total": 27,
+        "gold_replace_cases": 14,
+        "gold_abstain_cases": 13,
+        "gold_active_winner_cases": 14,
+        "gold_shadow_winner_cases": 6,
+        "gold_none_cases": 7,
+        "predicted_replace_cases": 16,
+        "predicted_abstain_cases": 11,
+        "true_replace_count": 11,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 5,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 20,
+        "winner_correct_count": 17,
+        "shadow_winner_labeled_cases": 6,
+        "shadow_winner_correct_count": 6,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.7037037037037037,
+        "replace_precision": 0.6875,
+        "replace_recall": 0.7857142857142857,
+        "harmful_replace_rate": 0.38461538461538464,
+        "false_abstain_rate": 0.21428571428571427,
+        "winner_accuracy": 0.85,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.5925925925925926,
+        "phrase_preemption_hit_rate": 0.037037037037037035,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "trusted",
+      "summary": {
+        "cases_total": 27,
+        "gold_replace_cases": 14,
+        "gold_abstain_cases": 13,
+        "gold_active_winner_cases": 14,
+        "gold_shadow_winner_cases": 6,
+        "gold_none_cases": 7,
+        "predicted_replace_cases": 16,
+        "predicted_abstain_cases": 11,
+        "true_replace_count": 11,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 5,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 20,
+        "winner_correct_count": 17,
+        "shadow_winner_labeled_cases": 6,
+        "shadow_winner_correct_count": 6,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.7037037037037037,
+        "replace_precision": 0.6875,
+        "replace_recall": 0.7857142857142857,
+        "harmful_replace_rate": 0.38461538461538464,
+        "false_abstain_rate": 0.21428571428571427,
+        "winner_accuracy": 0.85,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.5925925925925926,
+        "phrase_preemption_hit_rate": 0.037037037037037035,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "trusted_eval_seed",
+      "summary": {
+        "cases_total": 27,
+        "gold_replace_cases": 14,
+        "gold_abstain_cases": 13,
+        "gold_active_winner_cases": 14,
+        "gold_shadow_winner_cases": 6,
+        "gold_none_cases": 7,
+        "predicted_replace_cases": 16,
+        "predicted_abstain_cases": 11,
+        "true_replace_count": 11,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 5,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 20,
+        "winner_correct_count": 17,
+        "shadow_winner_labeled_cases": 6,
+        "shadow_winner_correct_count": 6,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.7037037037037037,
+        "replace_precision": 0.6875,
+        "replace_recall": 0.7857142857142857,
+        "harmful_replace_rate": 0.38461538461538464,
+        "false_abstain_rate": 0.21428571428571427,
+        "winner_accuracy": 0.85,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.5925925925925926,
+        "phrase_preemption_hit_rate": 0.037037037037037035,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "no_winner_subtype:not_applicable",
+      "summary": {
+        "cases_total": 20,
+        "gold_replace_cases": 14,
+        "gold_abstain_cases": 6,
+        "gold_active_winner_cases": 14,
+        "gold_shadow_winner_cases": 6,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 11,
+        "predicted_abstain_cases": 9,
+        "true_replace_count": 11,
+        "true_abstain_count": 6,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 20,
+        "winner_correct_count": 17,
+        "shadow_winner_labeled_cases": 6,
+        "shadow_winner_correct_count": 6,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.85,
+        "replace_precision": 1.0,
+        "replace_recall": 0.7857142857142857,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 0.21428571428571427,
+        "winner_accuracy": 0.85,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.55,
+        "phrase_preemption_hit_rate": 0.05,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "target_zipf:zipf_3_to_4_mid",
+      "summary": {
+        "cases_total": 16,
+        "gold_replace_cases": 8,
+        "gold_abstain_cases": 8,
+        "gold_active_winner_cases": 8,
+        "gold_shadow_winner_cases": 4,
+        "gold_none_cases": 4,
+        "predicted_replace_cases": 8,
+        "predicted_abstain_cases": 8,
+        "true_replace_count": 5,
+        "true_abstain_count": 5,
+        "harmful_replace_count": 3,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 12,
+        "winner_correct_count": 9,
+        "shadow_winner_labeled_cases": 4,
+        "shadow_winner_correct_count": 4,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.625,
+        "replace_precision": 0.625,
+        "replace_recall": 0.625,
+        "harmful_replace_rate": 0.375,
+        "false_abstain_rate": 0.375,
+        "winner_accuracy": 0.75,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.5,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "active_sense_corrected",
+      "summary": {
+        "cases_total": 15,
+        "gold_replace_cases": 6,
+        "gold_abstain_cases": 9,
+        "gold_active_winner_cases": 6,
+        "gold_shadow_winner_cases": 6,
+        "gold_none_cases": 3,
+        "predicted_replace_cases": 4,
+        "predicted_abstain_cases": 11,
+        "true_replace_count": 3,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 12,
+        "winner_correct_count": 9,
+        "shadow_winner_labeled_cases": 6,
+        "shadow_winner_correct_count": 6,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.7333333333333333,
+        "replace_precision": 0.75,
+        "replace_recall": 0.5,
+        "harmful_replace_rate": 0.1111111111111111,
+        "false_abstain_rate": 0.5,
+        "winner_accuracy": 0.75,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.26666666666666666,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "pos_shape:cross_pos_polysemy",
+      "summary": {
+        "cases_total": 15,
+        "gold_replace_cases": 6,
+        "gold_abstain_cases": 9,
+        "gold_active_winner_cases": 6,
+        "gold_shadow_winner_cases": 6,
+        "gold_none_cases": 3,
+        "predicted_replace_cases": 4,
+        "predicted_abstain_cases": 11,
+        "true_replace_count": 3,
+        "true_abstain_count": 8,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 12,
+        "winner_correct_count": 9,
+        "shadow_winner_labeled_cases": 6,
+        "shadow_winner_correct_count": 6,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.7333333333333333,
+        "replace_precision": 0.75,
+        "replace_recall": 0.5,
+        "harmful_replace_rate": 0.1111111111111111,
+        "false_abstain_rate": 0.5,
+        "winner_accuracy": 0.75,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.26666666666666666,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "positive_active",
+      "summary": {
+        "cases_total": 14,
+        "gold_replace_cases": 14,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 14,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 11,
+        "predicted_abstain_cases": 3,
+        "true_replace_count": 11,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 14,
+        "winner_correct_count": 11,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.7857142857142857,
+        "replace_precision": 1.0,
+        "replace_recall": 0.7857142857142857,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 0.21428571428571427,
+        "winner_accuracy": 0.7857142857142857,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.7857142857142857,
+        "phrase_preemption_hit_rate": 0.07142857142857142,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "source_zipf:zipf_5_plus_very_common",
+      "summary": {
+        "cases_total": 13,
+        "gold_replace_cases": 6,
+        "gold_abstain_cases": 7,
+        "gold_active_winner_cases": 6,
+        "gold_shadow_winner_cases": 4,
+        "gold_none_cases": 3,
+        "predicted_replace_cases": 7,
+        "predicted_abstain_cases": 6,
+        "true_replace_count": 5,
+        "true_abstain_count": 5,
+        "harmful_replace_count": 2,
+        "false_abstain_count": 1,
+        "winner_labeled_cases": 10,
+        "winner_correct_count": 9,
+        "shadow_winner_labeled_cases": 4,
+        "shadow_winner_correct_count": 4,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.7692307692307693,
+        "replace_precision": 0.7142857142857143,
+        "replace_recall": 0.8333333333333334,
+        "harmful_replace_rate": 0.2857142857142857,
+        "false_abstain_rate": 0.16666666666666666,
+        "winner_accuracy": 0.9,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.5384615384615384,
+        "phrase_preemption_hit_rate": 0.07692307692307693,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "aligned_mapping_contexts_rewritten",
+      "summary": {
+        "cases_total": 12,
+        "gold_replace_cases": 8,
+        "gold_abstain_cases": 4,
+        "gold_active_winner_cases": 8,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 4,
+        "predicted_replace_cases": 12,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 8,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 4,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 8,
+        "winner_correct_count": 8,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.08333333333333333,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "polysemy:low_1_to_3",
+      "summary": {
+        "cases_total": 12,
+        "gold_replace_cases": 8,
+        "gold_abstain_cases": 4,
+        "gold_active_winner_cases": 8,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 4,
+        "predicted_replace_cases": 12,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 8,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 4,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 8,
+        "winner_correct_count": 8,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.08333333333333333,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "pos_shape:single_sense",
+      "summary": {
+        "cases_total": 12,
+        "gold_replace_cases": 8,
+        "gold_abstain_cases": 4,
+        "gold_active_winner_cases": 8,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 4,
+        "predicted_replace_cases": 12,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 8,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 4,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 8,
+        "winner_correct_count": 8,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.08333333333333333,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "polysemy:high_10_plus",
+      "summary": {
+        "cases_total": 10,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 6,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 4,
+        "gold_none_cases": 2,
+        "predicted_replace_cases": 4,
+        "predicted_abstain_cases": 6,
+        "true_replace_count": 3,
+        "true_abstain_count": 5,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 1,
+        "winner_labeled_cases": 8,
+        "winner_correct_count": 7,
+        "shadow_winner_labeled_cases": 4,
+        "shadow_winner_correct_count": 4,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.8,
+        "replace_precision": 0.75,
+        "replace_recall": 0.75,
+        "harmful_replace_rate": 0.16666666666666666,
+        "false_abstain_rate": 0.25,
+        "winner_accuracy": 0.875,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.4,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "source_zipf:zipf_below_3_rare",
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 4,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 2,
+        "predicted_replace_cases": 3,
+        "predicted_abstain_cases": 5,
+        "true_replace_count": 2,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 6,
+        "winner_correct_count": 4,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.625,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 0.5,
+        "harmful_replace_rate": 0.25,
+        "false_abstain_rate": 0.5,
+        "winner_accuracy": 0.6666666666666666,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.375,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "target_zipf:zipf_4_to_5_common",
+      "summary": {
+        "cases_total": 8,
+        "gold_replace_cases": 4,
+        "gold_abstain_cases": 4,
+        "gold_active_winner_cases": 4,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 2,
+        "predicted_replace_cases": 5,
+        "predicted_abstain_cases": 3,
+        "true_replace_count": 4,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 6,
+        "winner_correct_count": 6,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.875,
+        "replace_precision": 0.8,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 0.25,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.625,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "no_winner_subtype:named_entity_or_title",
+      "summary": {
+        "cases_total": 7,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 7,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 7,
+        "predicted_replace_cases": 5,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 5,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.2857142857142857,
+        "replace_precision": 0.0,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.7142857142857143,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.7142857142857143,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "phrase_no_winner",
+      "summary": {
+        "cases_total": 7,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 7,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 7,
+        "predicted_replace_cases": 5,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 5,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.2857142857142857,
+        "replace_precision": 0.0,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.7142857142857143,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.7142857142857143,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "shadow_negative",
+      "summary": {
+        "cases_total": 6,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 6,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 6,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 6,
+        "true_replace_count": 0,
+        "true_abstain_count": 6,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 6,
+        "winner_correct_count": 6,
+        "shadow_winner_labeled_cases": 6,
+        "shadow_winner_correct_count": 6,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "polysemy:medium_4_to_9",
+      "summary": {
+        "cases_total": 5,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 3,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 2,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 5,
+        "true_replace_count": 0,
+        "true_abstain_count": 3,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 2,
+        "winner_labeled_cases": 4,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 2,
+        "shadow_winner_correct_count": 2,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6,
+        "replace_precision": null,
+        "replace_recall": 0.0,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": 1.0,
+        "winner_accuracy": 0.5,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "source_zipf:zipf_3_to_4_mid",
+      "summary": {
+        "cases_total": 3,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 1,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 3,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "source_zipf:zipf_4_to_5_common",
+      "summary": {
+        "cases_total": 3,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 1,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 3,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "slice_tag": "target_zipf:zipf_5_plus_very_common",
+      "summary": {
+        "cases_total": 3,
+        "gold_replace_cases": 2,
+        "gold_abstain_cases": 1,
+        "gold_active_winner_cases": 2,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 1,
+        "predicted_replace_cases": 3,
+        "predicted_abstain_cases": 0,
+        "true_replace_count": 2,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 1,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 2,
+        "winner_correct_count": 2,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.6666666666666666,
+        "replace_precision": 0.6666666666666666,
+        "replace_recall": 1.0,
+        "harmful_replace_rate": 1.0,
+        "false_abstain_rate": 0.0,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 1.0,
+        "phrase_preemption_hit_rate": 0.3333333333333333,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    }
+  ],
+  "gold_winner_type_breakdown": [
+    {
+      "gold_winner_type": "active",
+      "summary": {
+        "cases_total": 14,
+        "gold_replace_cases": 14,
+        "gold_abstain_cases": 0,
+        "gold_active_winner_cases": 14,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 11,
+        "predicted_abstain_cases": 3,
+        "true_replace_count": 11,
+        "true_abstain_count": 0,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 3,
+        "winner_labeled_cases": 14,
+        "winner_correct_count": 11,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 1,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 1,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.7857142857142857,
+        "replace_precision": 1.0,
+        "replace_recall": 0.7857142857142857,
+        "harmful_replace_rate": null,
+        "false_abstain_rate": 0.21428571428571427,
+        "winner_accuracy": 0.7857142857142857,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.7857142857142857,
+        "phrase_preemption_hit_rate": 0.07142857142857142,
+        "phrase_preemption_precision": 0.0,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "gold_winner_type": "shadow",
+      "summary": {
+        "cases_total": 6,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 6,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 6,
+        "gold_none_cases": 0,
+        "predicted_replace_cases": 0,
+        "predicted_abstain_cases": 6,
+        "true_replace_count": 0,
+        "true_abstain_count": 6,
+        "harmful_replace_count": 0,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 6,
+        "winner_correct_count": 6,
+        "shadow_winner_labeled_cases": 6,
+        "shadow_winner_correct_count": 6,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 1.0,
+        "replace_precision": null,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.0,
+        "false_abstain_rate": null,
+        "winner_accuracy": 1.0,
+        "shadow_winner_accuracy": 1.0,
+        "predicted_replace_rate": 0.0,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    },
+    {
+      "gold_winner_type": "none",
+      "summary": {
+        "cases_total": 7,
+        "gold_replace_cases": 0,
+        "gold_abstain_cases": 7,
+        "gold_active_winner_cases": 0,
+        "gold_shadow_winner_cases": 0,
+        "gold_none_cases": 7,
+        "predicted_replace_cases": 5,
+        "predicted_abstain_cases": 2,
+        "true_replace_count": 0,
+        "true_abstain_count": 2,
+        "harmful_replace_count": 5,
+        "false_abstain_count": 0,
+        "winner_labeled_cases": 0,
+        "winner_correct_count": 0,
+        "shadow_winner_labeled_cases": 0,
+        "shadow_winner_correct_count": 0,
+        "phrase_preemption_hit_count": 0,
+        "phrase_preemption_correct_abstain_count": 0,
+        "phrase_preemption_harmful_block_count": 0,
+        "active_rescue_applied_count": 0,
+        "active_rescue_correct_replace_count": 0,
+        "active_rescue_harmful_replace_count": 0,
+        "decision_accuracy": 0.2857142857142857,
+        "replace_precision": 0.0,
+        "replace_recall": null,
+        "harmful_replace_rate": 0.7142857142857143,
+        "false_abstain_rate": null,
+        "winner_accuracy": null,
+        "shadow_winner_accuracy": null,
+        "predicted_replace_rate": 0.7142857142857143,
+        "phrase_preemption_hit_rate": 0.0,
+        "phrase_preemption_precision": null,
+        "active_rescue_applied_rate": 0.0,
+        "active_rescue_precision": null
+      }
+    }
+  ],
+  "row_results": [
+    {
+      "case_id": "en-es:full-family-repaired-pilot:break:quebrar:001",
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "trigger": "break",
+      "sentence": "The plate began to break along the rim.",
+      "source_phrase": "break",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:break:quebrar:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:break:quebrar:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.6762814255808944,
+      "strongest_shadow_score": 0.586950149839955,
+      "margin": 0.08933127574093946,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "context_text": "The plate began to ___ along the rim.",
+      "active_evidence_text": "break -> quebrar | become separated into pieces or crack under force",
+      "strongest_shadow_evidence_text": "break -> oportunidad | an unexpected opportunity or lucky chance",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.08933127574093946,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:break:quebrar:002",
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "trigger": "break",
+      "sentence": "A cheap lock can break under sudden force.",
+      "source_phrase": "break",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:break:quebrar:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.6527023993884784,
+      "strongest_shadow_score": 0.7310561004544538,
+      "margin": -0.07835370106597539,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "context_text": "A cheap lock can ___ under sudden force.",
+      "active_evidence_text": "break -> quebrar | become separated into pieces or crack under force",
+      "strongest_shadow_evidence_text": "break -> oportunidad | an unexpected opportunity or lucky chance",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.07835370106597539,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:break:quebrar:003",
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "trigger": "break",
+      "sentence": "A news alert can break the broadcast without warning.",
+      "source_phrase": "break",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:full-family-repaired-pilot:break:quebrar:shadow:1:interrumpir",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:break:quebrar:shadow:1:interrumpir",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.5160323081455999,
+      "strongest_shadow_score": 0.6192474048571752,
+      "margin": -0.10321509671157536,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:break:quebrar:shadow:1:interrumpir",
+      "context_text": "A news alert can ___ the broadcast without warning.",
+      "active_evidence_text": "break -> quebrar | become separated into pieces or crack under force",
+      "strongest_shadow_evidence_text": "break -> interrumpir | interrupt or stop an ongoing activity",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.10321509671157536,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "shadow_negative",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "shadow_negative"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired shadow context with real Spanish competitor target | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:break:quebrar:004",
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "trigger": "break",
+      "sentence": "Her internship became the big break that launched her career.",
+      "source_phrase": "break",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.49076551930983553,
+      "strongest_shadow_score": 0.5578080569989385,
+      "margin": -0.06704253768910301,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "context_text": "Her internship became the big ___ that launched her career.",
+      "active_evidence_text": "break -> quebrar | become separated into pieces or crack under force",
+      "strongest_shadow_evidence_text": "break -> oportunidad | an unexpected opportunity or lucky chance",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.06704253768910301,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "shadow_negative",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "shadow_negative"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired shadow context with real Spanish competitor target | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:break:quebrar:005",
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "trigger": "break",
+      "sentence": "The keyboard shortcut was labeled Break on the settings page.",
+      "source_phrase": "break",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:break:quebrar:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5626052440745578,
+      "strongest_shadow_score": 0.5492673636787331,
+      "margin": 0.01333788039582473,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:break:quebrar:shadow:1:interrumpir",
+      "context_text": "The keyboard shortcut was labeled ___ on the settings page.",
+      "active_evidence_text": "break -> quebrar | become separated into pieces or crack under force",
+      "strongest_shadow_evidence_text": "break -> interrumpir | interrupt or stop an ongoing activity",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.01333788039582473,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bridle:reprimir:001",
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "sentence": "She tried to bridle her anger during the meeting.",
+      "source_phrase": "bridle",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.6011026705783823,
+      "strongest_shadow_score": 0.7618825831468624,
+      "margin": -0.16077991256848012,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "context_text": "She tried to ___ her anger during the meeting.",
+      "active_evidence_text": "bridle -> reprimir | restrain, repress, or hold back a reaction or action",
+      "strongest_shadow_evidence_text": "bridle -> ofenderse | react with anger or offense",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.16077991256848012,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:medium_4_to_9",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bridle:reprimir:002",
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "sentence": "The manager had to bridle his frustration after the call.",
+      "source_phrase": "bridle",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.590525144476878,
+      "strongest_shadow_score": 0.6751483615544975,
+      "margin": -0.08462321707761955,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "context_text": "The manager had to ___ his frustration after the call.",
+      "active_evidence_text": "bridle -> reprimir | restrain, repress, or hold back a reaction or action",
+      "strongest_shadow_evidence_text": "bridle -> ofenderse | react with anger or offense",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.08462321707761955,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:medium_4_to_9",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bridle:reprimir:003",
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "sentence": "She began to bridle at the suggestion that the project had failed.",
+      "source_phrase": "bridle",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.5505126504632987,
+      "strongest_shadow_score": 0.5835624347231273,
+      "margin": -0.03304978425982863,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "context_text": "She began to ___ at the suggestion that the project had failed.",
+      "active_evidence_text": "bridle -> reprimir | restrain, repress, or hold back a reaction or action",
+      "strongest_shadow_evidence_text": "bridle -> ofenderse | react with anger or offense",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.03304978425982863,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:medium_4_to_9",
+        "pos_shape:cross_pos_polysemy",
+        "shadow_negative",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "shadow_negative"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired shadow context with real Spanish competitor target | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bridle:reprimir:004",
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "sentence": "The rider checked the bridle before the parade.",
+      "source_phrase": "bridle",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:2:brida",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:2:brida",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.5259100836076939,
+      "strongest_shadow_score": 0.7082783889625661,
+      "margin": -0.18236830535487225,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:2:brida",
+      "context_text": "The rider checked the ___ before the parade.",
+      "active_evidence_text": "bridle -> reprimir | restrain, repress, or hold back a reaction or action",
+      "strongest_shadow_evidence_text": "bridle -> brida | headgear with reins used for riding or driving",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.18236830535487225,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:medium_4_to_9",
+        "pos_shape:cross_pos_polysemy",
+        "shadow_negative",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "shadow_negative"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired shadow context with real Spanish competitor target | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bridle:reprimir:005",
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "sentence": "The novel Bridle appeared in the catalog as a title.",
+      "source_phrase": "bridle",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.4862633861845006,
+      "strongest_shadow_score": 0.5250963783824422,
+      "margin": -0.03883299219794156,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "context_text": "The novel ___ appeared in the catalog as a title.",
+      "active_evidence_text": "bridle -> reprimir | restrain, repress, or hold back a reaction or action",
+      "strongest_shadow_evidence_text": "bridle -> ofenderse | react with anger or offense",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.03883299219794156,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:medium_4_to_9",
+        "pos_shape:cross_pos_polysemy",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:december:diciembre:001",
+      "family_id": "en-es:full-family-repaired-pilot:december:diciembre",
+      "trigger": "december",
+      "sentence": "The conference moved to December after the venue delay.",
+      "source_phrase": "december",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:december:diciembre:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:december:diciembre:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5546102215534396,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.5546102215534396,
+      "strongest_shadow_id": "",
+      "context_text": "The conference moved to ___ after the venue delay.",
+      "active_evidence_text": "december -> diciembre | the twelfth month of the year",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "to december",
+      "phrase_reason_code": "infinitive_trigger_frame",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.5546102215534396,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_5_plus_very_common",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_5_plus_very_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:december:diciembre:002",
+      "family_id": "en-es:full-family-repaired-pilot:december:diciembre",
+      "trigger": "december",
+      "sentence": "Their lease expires in December.",
+      "source_phrase": "december",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:december:diciembre:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:december:diciembre:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.537320975968396,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.537320975968396,
+      "strongest_shadow_id": "",
+      "context_text": "Their lease expires in ___",
+      "active_evidence_text": "december -> diciembre | the twelfth month of the year",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.537320975968396,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_5_plus_very_common",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_5_plus_very_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:december:diciembre:003",
+      "family_id": "en-es:full-family-repaired-pilot:december:diciembre",
+      "trigger": "december",
+      "sentence": "The album December stayed on the playlist for weeks.",
+      "source_phrase": "december",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:december:diciembre:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5624200306284576,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.5624200306284576,
+      "strongest_shadow_id": "",
+      "context_text": "The album ___ stayed on the playlist for weeks.",
+      "active_evidence_text": "december -> diciembre | the twelfth month of the year",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.5624200306284576,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_5_plus_very_common",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_5_plus_very_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:emotion:emoci-n:001",
+      "family_id": "en-es:full-family-repaired-pilot:emotion:emoci-n",
+      "trigger": "emotion",
+      "sentence": "The speech stirred strong emotion in the crowd.",
+      "source_phrase": "emotion",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:emotion:emoci-n:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:emotion:emoci-n:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.7310664964794005,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.7310664964794005,
+      "strongest_shadow_id": "",
+      "context_text": "The speech stirred strong ___ in the crowd.",
+      "active_evidence_text": "emotion -> emoción | a strong feeling",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.7310664964794005,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_4_to_5_common",
+        "target_zipf:zipf_4_to_5_common",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_4_to_5_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_4_to_5_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:emotion:emoci-n:002",
+      "family_id": "en-es:full-family-repaired-pilot:emotion:emoci-n",
+      "trigger": "emotion",
+      "sentence": "She hid every emotion during the interview.",
+      "source_phrase": "emotion",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:emotion:emoci-n:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:emotion:emoci-n:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5239575796869869,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.5239575796869869,
+      "strongest_shadow_id": "",
+      "context_text": "She hid every ___ during the interview.",
+      "active_evidence_text": "emotion -> emoción | a strong feeling",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.5239575796869869,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_4_to_5_common",
+        "target_zipf:zipf_4_to_5_common",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_4_to_5_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_4_to_5_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:emotion:emoci-n:003",
+      "family_id": "en-es:full-family-repaired-pilot:emotion:emoci-n",
+      "trigger": "emotion",
+      "sentence": "The startup Emotion released a new design tool.",
+      "source_phrase": "emotion",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:emotion:emoci-n:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.49050247821402604,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.49050247821402604,
+      "strongest_shadow_id": "",
+      "context_text": "The startup ___ released a new design tool.",
+      "active_evidence_text": "emotion -> emoción | a strong feeling",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.49050247821402604,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_4_to_5_common",
+        "target_zipf:zipf_4_to_5_common",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_4_to_5_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_4_to_5_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:dentist:dentista:001",
+      "family_id": "en-es:full-family-repaired-pilot:dentist:dentista",
+      "trigger": "dentist",
+      "sentence": "The dentist repaired the chipped tooth before lunch.",
+      "source_phrase": "dentist",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:dentist:dentista:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:dentist:dentista:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.6827957497530983,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.6827957497530983,
+      "strongest_shadow_id": "",
+      "context_text": "The ___ repaired the chipped tooth before lunch.",
+      "active_evidence_text": "dentist -> dentista | a person qualified to practice dentistry",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.6827957497530983,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_3_to_4_mid",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_3_to_4_mid"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:dentist:dentista:002",
+      "family_id": "en-es:full-family-repaired-pilot:dentist:dentista",
+      "trigger": "dentist",
+      "sentence": "She booked an appointment with a dentist near the station.",
+      "source_phrase": "dentist",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:dentist:dentista:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:dentist:dentista:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5871681424799661,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.5871681424799661,
+      "strongest_shadow_id": "",
+      "context_text": "She booked an appointment with a ___ near the station.",
+      "active_evidence_text": "dentist -> dentista | a person qualified to practice dentistry",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.5871681424799661,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_3_to_4_mid",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_3_to_4_mid"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:dentist:dentista:003",
+      "family_id": "en-es:full-family-repaired-pilot:dentist:dentista",
+      "trigger": "dentist",
+      "sentence": "The game Dentist Pro appeared in the app store.",
+      "source_phrase": "dentist",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:dentist:dentista:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.48193147084612964,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.48193147084612964,
+      "strongest_shadow_id": "",
+      "context_text": "The game ___ Pro appeared in the app store.",
+      "active_evidence_text": "dentist -> dentista | a person qualified to practice dentistry",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.48193147084612964,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_3_to_4_mid",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_3_to_4_mid"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bouillon:caldo:001",
+      "family_id": "en-es:full-family-repaired-pilot:bouillon:caldo",
+      "trigger": "bouillon",
+      "sentence": "Add bouillon to the rice for a richer flavor.",
+      "source_phrase": "bouillon",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:bouillon:caldo:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bouillon:caldo:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.6026010001532818,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.6026010001532818,
+      "strongest_shadow_id": "",
+      "context_text": "Add ___ to the rice for a richer flavor.",
+      "active_evidence_text": "bouillon -> caldo | a clear seasoned broth",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.6026010001532818,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bouillon:caldo:002",
+      "family_id": "en-es:full-family-repaired-pilot:bouillon:caldo",
+      "trigger": "bouillon",
+      "sentence": "The recipe starts with bouillon and fresh herbs.",
+      "source_phrase": "bouillon",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:bouillon:caldo:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bouillon:caldo:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.6917223482787187,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.6917223482787187,
+      "strongest_shadow_id": "",
+      "context_text": "The recipe starts with ___ and fresh herbs.",
+      "active_evidence_text": "bouillon -> caldo | a clear seasoned broth",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.6917223482787187,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bouillon:caldo:003",
+      "family_id": "en-es:full-family-repaired-pilot:bouillon:caldo",
+      "trigger": "bouillon",
+      "sentence": "The restaurant Bouillon opened a second location downtown.",
+      "source_phrase": "bouillon",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bouillon:caldo:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5679060321373225,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.5679060321373225,
+      "strongest_shadow_id": "",
+      "context_text": "The restaurant ___ opened a second location downtown.",
+      "active_evidence_text": "bouillon -> caldo | a clear seasoned broth",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.5679060321373225,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:control:gobernar:001",
+      "family_id": "en-es:full-family-repaired-pilot:control:gobernar",
+      "trigger": "control",
+      "sentence": "The coalition hoped to control parliament after the election.",
+      "source_phrase": "control",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:control:gobernar:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:control:gobernar:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5748172913919479,
+      "strongest_shadow_score": 0.5626773160155651,
+      "margin": 0.012139975376382783,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:control:gobernar:shadow:2:grupo-de-control",
+      "context_text": "The coalition hoped to ___ parliament after the election.",
+      "active_evidence_text": "control -> gobernar | govern, rule, or exercise authority over a place or organization",
+      "strongest_shadow_evidence_text": "control -> grupo de control | a standard comparison group in an experiment",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.012139975376382783,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_4_to_5_common",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_4_to_5_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:control:gobernar:002",
+      "family_id": "en-es:full-family-repaired-pilot:control:gobernar",
+      "trigger": "control",
+      "sentence": "A small council continued to control the territory after the coup.",
+      "source_phrase": "control",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:control:gobernar:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:control:gobernar:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.633510007055153,
+      "strongest_shadow_score": 0.5919225836998497,
+      "margin": 0.0415874233553033,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:control:gobernar:shadow:2:grupo-de-control",
+      "context_text": "A small council continued to ___ the territory after the coup.",
+      "active_evidence_text": "control -> gobernar | govern, rule, or exercise authority over a place or organization",
+      "strongest_shadow_evidence_text": "control -> grupo de control | a standard comparison group in an experiment",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.0415874233553033,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_4_to_5_common",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_4_to_5_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:control:gobernar:003",
+      "family_id": "en-es:full-family-repaired-pilot:control:gobernar",
+      "trigger": "control",
+      "sentence": "Use the slider to control the volume.",
+      "source_phrase": "control",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:full-family-repaired-pilot:control:gobernar:shadow:1:controlar",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:control:gobernar:shadow:1:controlar",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.5761479587592293,
+      "strongest_shadow_score": 0.5969230301751831,
+      "margin": -0.020775071415953805,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:control:gobernar:shadow:1:controlar",
+      "context_text": "Use the slider to ___ the volume.",
+      "active_evidence_text": "control -> gobernar | govern, rule, or exercise authority over a place or organization",
+      "strongest_shadow_evidence_text": "control -> controlar | operate, regulate, or manage a device or setting",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.020775071415953805,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_4_to_5_common",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "shadow_negative",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "shadow_negative"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_4_to_5_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired shadow context with real Spanish competitor target | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:control:gobernar:004",
+      "family_id": "en-es:full-family-repaired-pilot:control:gobernar",
+      "trigger": "control",
+      "sentence": "The study included a control group and a treatment group.",
+      "source_phrase": "control",
+      "gold_decision": "abstain",
+      "gold_winner": "en-es:full-family-repaired-pilot:control:gobernar:shadow:2:grupo-de-control",
+      "gold_winner_type": "shadow",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:control:gobernar:shadow:2:grupo-de-control",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.5734145380547382,
+      "strongest_shadow_score": 0.797106810425294,
+      "margin": -0.22369227237055578,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:control:gobernar:shadow:2:grupo-de-control",
+      "context_text": "The study included a ___ group and a treatment group.",
+      "active_evidence_text": "control -> gobernar | govern, rule, or exercise authority over a place or organization",
+      "strongest_shadow_evidence_text": "control -> grupo de control | a standard comparison group in an experiment",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.22369227237055578,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_4_to_5_common",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "shadow_negative",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "shadow_negative"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_4_to_5_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired shadow context with real Spanish competitor target | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:control:gobernar:005",
+      "family_id": "en-es:full-family-repaired-pilot:control:gobernar",
+      "trigger": "control",
+      "sentence": "The keyboard shortcut uses the Control key.",
+      "source_phrase": "control",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:control:gobernar:shadow:1:controlar",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.5717208313265939,
+      "strongest_shadow_score": 0.6262343691980983,
+      "margin": -0.05451353787150437,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:control:gobernar:shadow:1:controlar",
+      "context_text": "The keyboard shortcut uses the ___ key.",
+      "active_evidence_text": "control -> gobernar | govern, rule, or exercise authority over a place or organization",
+      "strongest_shadow_evidence_text": "control -> controlar | operate, regulate, or manage a device or setting",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.05451353787150437,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_4_to_5_common",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_4_to_5_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    }
+  ],
+  "sample_harmful_replace_rows": [
+    {
+      "case_id": "en-es:full-family-repaired-pilot:break:quebrar:005",
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "trigger": "break",
+      "sentence": "The keyboard shortcut was labeled Break on the settings page.",
+      "source_phrase": "break",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:break:quebrar:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5626052440745578,
+      "strongest_shadow_score": 0.5492673636787331,
+      "margin": 0.01333788039582473,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:break:quebrar:shadow:1:interrumpir",
+      "context_text": "The keyboard shortcut was labeled ___ on the settings page.",
+      "active_evidence_text": "break -> quebrar | become separated into pieces or crack under force",
+      "strongest_shadow_evidence_text": "break -> interrumpir | interrupt or stop an ongoing activity",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.01333788039582473,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:december:diciembre:003",
+      "family_id": "en-es:full-family-repaired-pilot:december:diciembre",
+      "trigger": "december",
+      "sentence": "The album December stayed on the playlist for weeks.",
+      "source_phrase": "december",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:december:diciembre:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5624200306284576,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.5624200306284576,
+      "strongest_shadow_id": "",
+      "context_text": "The album ___ stayed on the playlist for weeks.",
+      "active_evidence_text": "december -> diciembre | the twelfth month of the year",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.5624200306284576,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_5_plus_very_common",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_5_plus_very_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:emotion:emoci-n:003",
+      "family_id": "en-es:full-family-repaired-pilot:emotion:emoci-n",
+      "trigger": "emotion",
+      "sentence": "The startup Emotion released a new design tool.",
+      "source_phrase": "emotion",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:emotion:emoci-n:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.49050247821402604,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.49050247821402604,
+      "strongest_shadow_id": "",
+      "context_text": "The startup ___ released a new design tool.",
+      "active_evidence_text": "emotion -> emoción | a strong feeling",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.49050247821402604,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_4_to_5_common",
+        "target_zipf:zipf_4_to_5_common",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_4_to_5_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_4_to_5_common"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:dentist:dentista:003",
+      "family_id": "en-es:full-family-repaired-pilot:dentist:dentista",
+      "trigger": "dentist",
+      "sentence": "The game Dentist Pro appeared in the app store.",
+      "source_phrase": "dentist",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:dentist:dentista:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.48193147084612964,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.48193147084612964,
+      "strongest_shadow_id": "",
+      "context_text": "The game ___ Pro appeared in the app store.",
+      "active_evidence_text": "dentist -> dentista | a person qualified to practice dentistry",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.48193147084612964,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_3_to_4_mid",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_3_to_4_mid"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bouillon:caldo:003",
+      "family_id": "en-es:full-family-repaired-pilot:bouillon:caldo",
+      "trigger": "bouillon",
+      "sentence": "The restaurant Bouillon opened a second location downtown.",
+      "source_phrase": "bouillon",
+      "gold_decision": "abstain",
+      "gold_winner": "none",
+      "gold_winner_type": "none",
+      "predicted_decision": "replace",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bouillon:caldo:active",
+      "predicted_winner_type": "active",
+      "active_score": 0.5679060321373225,
+      "strongest_shadow_score": 0.0,
+      "margin": 0.5679060321373225,
+      "strongest_shadow_id": "",
+      "context_text": "The restaurant ___ opened a second location downtown.",
+      "active_evidence_text": "bouillon -> caldo | a clear seasoned broth",
+      "strongest_shadow_evidence_text": "",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": 0.5679060321373225,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "aligned_mapping_contexts_rewritten",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:low_1_to_3",
+        "pos_shape:single_sense",
+        "phrase_no_winner",
+        "no_winner_subtype:named_entity_or_title"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "aligned_mapping_contexts_rewritten"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "phrase_no_winner"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "named_entity_or_title"
+        ],
+        "polysemy_band": [
+          "low_1_to_3"
+        ],
+        "pos_shape": [
+          "single_sense"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired no-winner context; subtype=named_entity_or_title | approved_by_user"
+    }
+  ],
+  "sample_false_abstain_rows": [
+    {
+      "case_id": "en-es:full-family-repaired-pilot:break:quebrar:002",
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "trigger": "break",
+      "sentence": "A cheap lock can break under sudden force.",
+      "source_phrase": "break",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:break:quebrar:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.6527023993884784,
+      "strongest_shadow_score": 0.7310561004544538,
+      "margin": -0.07835370106597539,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "context_text": "A cheap lock can ___ under sudden force.",
+      "active_evidence_text": "break -> quebrar | become separated into pieces or crack under force",
+      "strongest_shadow_evidence_text": "break -> oportunidad | an unexpected opportunity or lucky chance",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.07835370106597539,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bridle:reprimir:001",
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "sentence": "She tried to bridle her anger during the meeting.",
+      "source_phrase": "bridle",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.6011026705783823,
+      "strongest_shadow_score": 0.7618825831468624,
+      "margin": -0.16077991256848012,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "context_text": "She tried to ___ her anger during the meeting.",
+      "active_evidence_text": "bridle -> reprimir | restrain, repress, or hold back a reaction or action",
+      "strongest_shadow_evidence_text": "bridle -> ofenderse | react with anger or offense",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.16077991256848012,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:medium_4_to_9",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bridle:reprimir:002",
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "sentence": "The manager had to bridle his frustration after the call.",
+      "source_phrase": "bridle",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.590525144476878,
+      "strongest_shadow_score": 0.6751483615544975,
+      "margin": -0.08462321707761955,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "context_text": "The manager had to ___ his frustration after the call.",
+      "active_evidence_text": "bridle -> reprimir | restrain, repress, or hold back a reaction or action",
+      "strongest_shadow_evidence_text": "bridle -> ofenderse | react with anger or offense",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.08462321707761955,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:medium_4_to_9",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    }
+  ],
+  "sample_winner_error_rows": [
+    {
+      "case_id": "en-es:full-family-repaired-pilot:break:quebrar:002",
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "trigger": "break",
+      "sentence": "A cheap lock can break under sudden force.",
+      "source_phrase": "break",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:break:quebrar:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.6527023993884784,
+      "strongest_shadow_score": 0.7310561004544538,
+      "margin": -0.07835370106597539,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:break:quebrar:shadow:2:oportunidad",
+      "context_text": "A cheap lock can ___ under sudden force.",
+      "active_evidence_text": "break -> quebrar | become separated into pieces or crack under force",
+      "strongest_shadow_evidence_text": "break -> oportunidad | an unexpected opportunity or lucky chance",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.07835370106597539,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_5_plus_very_common",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:high_10_plus",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "high_10_plus"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_5_plus_very_common"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bridle:reprimir:001",
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "sentence": "She tried to bridle her anger during the meeting.",
+      "source_phrase": "bridle",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.6011026705783823,
+      "strongest_shadow_score": 0.7618825831468624,
+      "margin": -0.16077991256848012,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "context_text": "She tried to ___ her anger during the meeting.",
+      "active_evidence_text": "bridle -> reprimir | restrain, repress, or hold back a reaction or action",
+      "strongest_shadow_evidence_text": "bridle -> ofenderse | react with anger or offense",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.16077991256848012,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:medium_4_to_9",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    },
+    {
+      "case_id": "en-es:full-family-repaired-pilot:bridle:reprimir:002",
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "trigger": "bridle",
+      "sentence": "The manager had to bridle his frustration after the call.",
+      "source_phrase": "bridle",
+      "gold_decision": "replace",
+      "gold_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:active",
+      "gold_winner_type": "active",
+      "predicted_decision": "abstain",
+      "predicted_winner": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "predicted_winner_type": "shadow",
+      "active_score": 0.590525144476878,
+      "strongest_shadow_score": 0.6751483615544975,
+      "margin": -0.08462321707761955,
+      "strongest_shadow_id": "en-es:full-family-repaired-pilot:bridle:reprimir:shadow:1:ofenderse",
+      "context_text": "The manager had to ___ his frustration after the call.",
+      "active_evidence_text": "bridle -> reprimir | restrain, repress, or hold back a reaction or action",
+      "strongest_shadow_evidence_text": "bridle -> ofenderse | react with anger or offense",
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "active_rescue_mode": "off",
+      "active_rescue_applied": false,
+      "active_rescue_reason_code": "",
+      "active_rescue_primary_margin": -0.08462321707761955,
+      "active_rescue_backup_margin": null,
+      "active_rescue_backup_predicted_decision": "",
+      "active_rescue_backup_predicted_winner": "",
+      "active_rescue_backup_evidence_view": "",
+      "slice_tags": [
+        "en_es_full_family_trusted_eval_seed_v1",
+        "approved_by_user",
+        "trusted",
+        "trusted_eval_seed",
+        "active_sense_corrected",
+        "source_zipf:zipf_below_3_rare",
+        "target_zipf:zipf_3_to_4_mid",
+        "polysemy:medium_4_to_9",
+        "pos_shape:cross_pos_polysemy",
+        "positive_active",
+        "no_winner_subtype:not_applicable"
+      ],
+      "slice_dimensions": {
+        "approval_id": [
+          "user_step7_repaired_pilot_approval_2026_05_07"
+        ],
+        "context_source": [
+          "agent_curated_independent_context"
+        ],
+        "dataset_lane": [
+          "en_es_full_family_trusted_eval_seed_v1"
+        ],
+        "family_repair_status": [
+          "active_sense_corrected"
+        ],
+        "human_review_status": [
+          "approved_by_user"
+        ],
+        "manual_case_type": [
+          "positive_active"
+        ],
+        "manual_review_state": [
+          "approved_by_user"
+        ],
+        "no_winner_subtype": [
+          "not_applicable"
+        ],
+        "polysemy_band": [
+          "medium_4_to_9"
+        ],
+        "pos_shape": [
+          "cross_pos_polysemy"
+        ],
+        "row_quality_status": [
+          "trusted"
+        ],
+        "source_zipf_band_en": [
+          "zipf_below_3_rare"
+        ],
+        "target_zipf_band_es": [
+          "zipf_3_to_4_mid"
+        ],
+        "trusted_eval_status": [
+          "trusted_seed"
+        ]
+      },
+      "notes": "agent-repaired independent positive context | approved_by_user"
+    }
+  ]
+}

@@ -2,27 +2,74 @@ from __future__ import annotations
 
 import os
 import shutil
+from pathlib import Path
 from typing import Optional
 
+from lexishift_core.helper.installed_packs import (
+    installed_pack_root,
+    load_installed_pack_manifest,
+    resolve_installed_pack_artifact,
+)
 from language_packs import FrequencyPackInfo, LanguagePackInfo
 from settings_language_packs_support import is_sqlite_db_file
 
 
 class LanguagePackPanelPathMixin:
     def _download_archive_path(self, pack: LanguagePackInfo, *, embeddings: bool = False) -> str:
-        base_dir = self._embedding_pack_dir if embeddings else self._language_pack_dir
-        return os.path.join(base_dir, pack.filename)
+        if embeddings:
+            return str(self._embedding_pack_storage_dir(pack) / pack.filename)
+        return str(self._language_pack_storage_dir(pack) / pack.filename)
 
     def _language_pack_sqlite_path(self, pack: LanguagePackInfo) -> str | None:
         if not pack.sqlite_filename:
             return None
-        return os.path.join(self._language_pack_dir, pack.sqlite_filename)
+        return str(self._language_pack_storage_dir(pack) / pack.sqlite_filename)
+
+    def _legacy_language_pack_sqlite_paths(self, pack: LanguagePackInfo) -> tuple[str, ...]:
+        if not pack.sqlite_filename:
+            return ()
+        legacy_name = f"{pack.pack_id}.sqlite"
+        storage_dir = self._language_pack_storage_dir(pack)
+        candidates = [
+            str(storage_dir / legacy_name),
+            str(Path(self._language_pack_dir) / legacy_name),
+        ]
+        unique: list[str] = []
+        for candidate in candidates:
+            if candidate not in unique:
+                unique.append(candidate)
+        return tuple(unique)
+
+    def _language_pack_storage_dir(self, pack: LanguagePackInfo) -> Path:
+        return installed_pack_root(Path(self._language_pack_dir), pack.pack_id)
+
+    def _frequency_pack_storage_dir(self, pack: FrequencyPackInfo) -> Path:
+        return installed_pack_root(Path(self._frequency_pack_dir), pack.pack_id)
 
     def _frequency_archive_path(self, pack: FrequencyPackInfo) -> str:
-        return os.path.join(self._frequency_pack_dir, pack.filename)
+        return str(self._frequency_pack_storage_dir(pack) / pack.filename)
 
     def _frequency_sqlite_path(self, pack: FrequencyPackInfo) -> str:
-        return os.path.join(self._frequency_pack_dir, pack.sqlite_filename)
+        return str(self._frequency_pack_storage_dir(pack) / pack.sqlite_filename)
+
+    def _legacy_frequency_sqlite_paths(self, pack: FrequencyPackInfo) -> tuple[str, ...]:
+        legacy_name = f"{pack.pack_id}.sqlite"
+        storage_dir = self._frequency_pack_storage_dir(pack)
+        candidates = [
+            str(storage_dir / legacy_name),
+            str(Path(self._frequency_pack_dir) / legacy_name),
+        ]
+        unique: list[str] = []
+        for candidate in candidates:
+            if candidate not in unique:
+                unique.append(candidate)
+        return tuple(unique)
+
+    def _embedding_pack_storage_dir(self, pack: LanguagePackInfo) -> Path:
+        return installed_pack_root(Path(self._embedding_pack_dir), pack.pack_id)
+
+    def _embedding_pack_sqlite_path(self, pack: LanguagePackInfo) -> str:
+        return str(self._embedding_pack_storage_dir(pack) / "main.sqlite")
 
     def _embedding_sqlite_path(self, source_path: str) -> str:
         lowered = source_path.lower()
@@ -36,11 +83,38 @@ class LanguagePackPanelPathMixin:
         if not pack:
             return None
         if not embeddings:
-            sqlite_path = self._language_pack_sqlite_path(pack)
-            if sqlite_path and self._is_sqlite_db(sqlite_path):
-                return sqlite_path
+            manifest = load_installed_pack_manifest(Path(self._language_pack_dir), pack.pack_id)
+            if manifest is not None:
+                resolved_artifact = resolve_installed_pack_artifact(
+                    Path(self._language_pack_dir),
+                    pack.pack_id,
+                )
+                if resolved_artifact is not None:
+                    return str(resolved_artifact)
+            sqlite_candidates = [
+                candidate
+                for candidate in (
+                    self._language_pack_sqlite_path(pack),
+                    *self._legacy_language_pack_sqlite_paths(pack),
+                )
+                if candidate
+            ]
+            for sqlite_path in sqlite_candidates:
+                if self._is_sqlite_db(sqlite_path):
+                    return sqlite_path
         archive_path = self._download_archive_path(pack, embeddings=embeddings)
         if embeddings:
+            manifest = load_installed_pack_manifest(Path(self._embedding_pack_dir), pack.pack_id)
+            if manifest is not None:
+                resolved_artifact = resolve_installed_pack_artifact(
+                    Path(self._embedding_pack_dir),
+                    pack.pack_id,
+                )
+                if resolved_artifact is not None:
+                    return str(resolved_artifact)
+            managed_sqlite = self._embedding_pack_sqlite_path(pack)
+            if self._is_sqlite_db(managed_sqlite):
+                return managed_sqlite
             optimized = self._embedding_sqlite_path(archive_path)
             if self._is_sqlite_db(optimized):
                 return optimized
@@ -79,9 +153,21 @@ class LanguagePackPanelPathMixin:
     def _resolve_frequency_pack_path(self, pack: Optional[FrequencyPackInfo]) -> Optional[str]:
         if not pack:
             return None
-        sqlite_path = self._frequency_sqlite_path(pack)
-        if os.path.exists(sqlite_path):
-            return sqlite_path
+        manifest = load_installed_pack_manifest(Path(self._frequency_pack_dir), pack.pack_id)
+        if manifest is not None:
+            resolved_artifact = resolve_installed_pack_artifact(
+                Path(self._frequency_pack_dir),
+                pack.pack_id,
+            )
+            if resolved_artifact is not None:
+                return str(resolved_artifact)
+        sqlite_candidates = [
+            self._frequency_sqlite_path(pack),
+            *self._legacy_frequency_sqlite_paths(pack),
+        ]
+        for sqlite_path in sqlite_candidates:
+            if os.path.exists(sqlite_path):
+                return sqlite_path
         return None
 
     def _is_app_data_path(self, path: str, *, embeddings: bool = False) -> bool:

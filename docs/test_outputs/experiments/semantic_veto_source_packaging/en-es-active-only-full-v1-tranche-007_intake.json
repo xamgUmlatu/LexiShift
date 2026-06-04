@@ -1,0 +1,4019 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-007",
+  "cost_metadata": {
+    "input_tokens": 20068,
+    "output_tokens": 7120,
+    "reasoning_tokens": 0
+  },
+  "generated_at": "2026-05-13T18:00:01Z",
+  "ingested_at": "2026-05-13T18:01:47Z",
+  "items": [
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "sentence -> condenar",
+        "target_key": "condenar"
+      },
+      "active_target": "condenar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "sentence -> condenar",
+        "target_key": "condenar"
+      },
+      "candidate_target": "condenar",
+      "evidence_text": "The judge will sentence the robber to ten years in prison.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 16,
+        "evidence_note": "Legal use where sentence means to condemn with a prison term.",
+        "family_id": "en-es:srs-source-target:sentence:condenar:fe937d64",
+        "global_need_rank": 51,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:001",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:001",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion",
+        "source_sentence": "The judge will sentence the robber to ten years in prison."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-001-sentence-condenar",
+      "runtime_publishable": false,
+      "trigger": "sentence"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "sentence -> condenar",
+        "target_key": "condenar"
+      },
+      "active_target": "condenar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "sentence -> condenar",
+        "target_key": "condenar"
+      },
+      "candidate_target": "condenar",
+      "evidence_text": "A jury may sentence the defendant after the verdict is announced.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 16,
+        "evidence_note": "Court context makes the verb sense clear: impose punishment.",
+        "family_id": "en-es:srs-source-target:sentence:condenar:fe937d64",
+        "global_need_rank": 51,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:002",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:002",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion",
+        "source_sentence": "A jury may sentence the defendant after the verdict is announced."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:sentence:condenar:fe937d64:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-002-sentence-condenar",
+      "runtime_publishable": false,
+      "trigger": "sentence"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "separate -> apartar",
+        "target_key": "apartar"
+      },
+      "active_target": "apartar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "separate -> apartar",
+        "target_key": "apartar"
+      },
+      "candidate_target": "apartar",
+      "evidence_text": "Please separate the red cards from the blue ones before you file them.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 17,
+        "evidence_note": "Active verb use meaning to set items aside into different groups.",
+        "family_id": "en-es:srs-source-target:separate:apartar:0ac512f9",
+        "global_need_rank": 52,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:003",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:003",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion",
+        "source_sentence": "Please separate the red cards from the blue ones before you file them."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-003-separate-apartar",
+      "runtime_publishable": false,
+      "trigger": "separate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "separate -> apartar",
+        "target_key": "apartar"
+      },
+      "active_target": "apartar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "separate -> apartar",
+        "target_key": "apartar"
+      },
+      "candidate_target": "apartar",
+      "evidence_text": "She asked him to separate a few minutes each day for reading.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 17,
+        "evidence_note": "Active verb use meaning to set time aside for a purpose.",
+        "family_id": "en-es:srs-source-target:separate:apartar:0ac512f9",
+        "global_need_rank": 52,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:004",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:004",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion",
+        "source_sentence": "She asked him to separate a few minutes each day for reading."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:separate:apartar:0ac512f9:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-004-separate-apartar",
+      "runtime_publishable": false,
+      "trigger": "separate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "ski -> esquí",
+        "target_key": "esquí"
+      },
+      "active_target": "esquí",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "ski -> esquí",
+        "target_key": "esquí"
+      },
+      "candidate_target": "esquí",
+      "evidence_text": "I rented a ski before heading up the mountain.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 18,
+        "evidence_note": "Refers to a winter-sport ski used for skiing.",
+        "family_id": "en-es:srs-source-target:ski:esqui:0b2a73fb",
+        "global_need_rank": 53,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:005",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:005",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion",
+        "source_sentence": "I rented a ski before heading up the mountain."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-005-ski-esqu",
+      "runtime_publishable": false,
+      "trigger": "ski"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "ski -> esquí",
+        "target_key": "esquí"
+      },
+      "active_target": "esquí",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "ski -> esquí",
+        "target_key": "esquí"
+      },
+      "candidate_target": "esquí",
+      "evidence_text": "Her new ski was light enough to carry on the chairlift.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 18,
+        "evidence_note": "Refers to a piece of skiing equipment in a snow-sport setting.",
+        "family_id": "en-es:srs-source-target:ski:esqui:0b2a73fb",
+        "global_need_rank": 53,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:006",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_subject",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:006",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion",
+        "source_sentence": "Her new ski was light enough to carry on the chairlift."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:ski:esqui:0b2a73fb:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-006-ski-esqu",
+      "runtime_publishable": false,
+      "trigger": "ski"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "stable -> cuadra",
+        "target_key": "cuadra"
+      },
+      "active_target": "cuadra",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "stable -> cuadra",
+        "target_key": "cuadra"
+      },
+      "candidate_target": "cuadra",
+      "evidence_text": "The horse was led back to the stable after the ride.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 19,
+        "evidence_note": "Here stable is a noun meaning a place where horses are kept.",
+        "family_id": "en-es:srs-source-target:stable:cuadra:38ad8110",
+        "global_need_rank": 54,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:007",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:007",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion",
+        "source_sentence": "The horse was led back to the stable after the ride."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-007-stable-cuadra",
+      "runtime_publishable": false,
+      "trigger": "stable"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "stable -> cuadra",
+        "target_key": "cuadra"
+      },
+      "active_target": "cuadra",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "stable -> cuadra",
+        "target_key": "cuadra"
+      },
+      "candidate_target": "cuadra",
+      "evidence_text": "She cleaned the stable before feeding the mare.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 19,
+        "evidence_note": "The context shows stable as the building for horses, not the adjective.",
+        "family_id": "en-es:srs-source-target:stable:cuadra:38ad8110",
+        "global_need_rank": 54,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:008",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:008",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion",
+        "source_sentence": "She cleaned the stable before feeding the mare."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:stable:cuadra:38ad8110:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-008-stable-cuadra",
+      "runtime_publishable": false,
+      "trigger": "stable"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "storm -> tempestad",
+        "target_key": "tempestad"
+      },
+      "active_target": "tempestad",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "storm -> tempestad",
+        "target_key": "tempestad"
+      },
+      "candidate_target": "tempestad",
+      "evidence_text": "The storm knocked out power across the coast overnight.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 20,
+        "evidence_note": "Weather event causing damage and outages, matching the intended weather noun sense.",
+        "family_id": "en-es:srs-source-target:storm:tempestad:b0697466",
+        "global_need_rank": 55,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:009",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:009",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "source_sentence": "The storm knocked out power across the coast overnight."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-009-storm-tempestad",
+      "runtime_publishable": false,
+      "trigger": "storm"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "storm -> tempestad",
+        "target_key": "tempestad"
+      },
+      "active_target": "tempestad",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "storm -> tempestad",
+        "target_key": "tempestad"
+      },
+      "candidate_target": "tempestad",
+      "evidence_text": "We canceled the picnic because a storm was moving in from the west.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 20,
+        "evidence_note": "Natural weather context with incoming severe conditions, clearly using storm as a weather noun.",
+        "family_id": "en-es:srs-source-target:storm:tempestad:b0697466",
+        "global_need_rank": 55,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:010",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:010",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "source_sentence": "We canceled the picnic because a storm was moving in from the west."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-010-storm-tempestad",
+      "runtime_publishable": false,
+      "trigger": "storm"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "supplement -> suplemento",
+        "target_key": "suplemento"
+      },
+      "active_target": "suplemento",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "supplement -> suplemento",
+        "target_key": "suplemento"
+      },
+      "candidate_target": "suplemento",
+      "evidence_text": "The doctor recommended a vitamin supplement to fill the nutritional gap in her diet.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 22,
+        "evidence_note": "Noun sense of an added product taken to improve nutrition.",
+        "family_id": "en-es:srs-source-target:supplement:suplemento:d5d7d4a5",
+        "global_need_rank": 57,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:011",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:011",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion",
+        "source_sentence": "The doctor recommended a vitamin supplement to fill the nutritional gap in her diet."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-011-supplement-suplemento",
+      "runtime_publishable": false,
+      "trigger": "supplement"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "supplement -> suplemento",
+        "target_key": "suplemento"
+      },
+      "active_target": "suplemento",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "supplement -> suplemento",
+        "target_key": "suplemento"
+      },
+      "candidate_target": "suplemento",
+      "evidence_text": "He attached a one-page supplement to the report with the missing sales figures.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 22,
+        "evidence_note": "Noun sense of an extra addition provided with the main document.",
+        "family_id": "en-es:srs-source-target:supplement:suplemento:d5d7d4a5",
+        "global_need_rank": 57,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:012",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:012",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion",
+        "source_sentence": "He attached a one-page supplement to the report with the missing sales figures."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supplement:suplemento:d5d7d4a5:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-012-supplement-suplemento",
+      "runtime_publishable": false,
+      "trigger": "supplement"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "swedish -> sueco",
+        "target_key": "sueco"
+      },
+      "active_target": "sueco",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "swedish -> sueco",
+        "target_key": "sueco"
+      },
+      "candidate_target": "sueco",
+      "evidence_text": "My new neighbor is swedish and moved here from Stockholm.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 23,
+        "evidence_note": "Describes a person's nationality, matching the intended adjective sense.",
+        "family_id": "en-es:srs-source-target:swedish:sueco:2a789fc2",
+        "global_need_rank": 58,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:013",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "predicative",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:013",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion",
+        "source_sentence": "My new neighbor is swedish and moved here from Stockholm."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-013-swedish-sueco",
+      "runtime_publishable": false,
+      "trigger": "swedish"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "swedish -> sueco",
+        "target_key": "sueco"
+      },
+      "active_target": "sueco",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "swedish -> sueco",
+        "target_key": "sueco"
+      },
+      "candidate_target": "sueco",
+      "evidence_text": "She is learning swedish so she can speak with her relatives in Sweden.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 23,
+        "evidence_note": "Uses swedish as a language name, matching the intended source-target sense.",
+        "family_id": "en-es:srs-source-target:swedish:sueco:2a789fc2",
+        "global_need_rank": 58,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:014",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:014",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion",
+        "source_sentence": "She is learning swedish so she can speak with her relatives in Sweden."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:swedish:sueco:2a789fc2:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-014-swedish-sueco",
+      "runtime_publishable": false,
+      "trigger": "swedish"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "transport -> transportar",
+        "target_key": "transportar"
+      },
+      "active_target": "transportar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "transport -> transportar",
+        "target_key": "transportar"
+      },
+      "candidate_target": "transportar",
+      "evidence_text": "The crew will transport the equipment to the remote site before dawn.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 25,
+        "evidence_note": "Physical movement of goods to another location.",
+        "family_id": "en-es:srs-source-target:transport:transportar:d8440aa5",
+        "global_need_rank": 60,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:015",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:015",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion",
+        "source_sentence": "The crew will transport the equipment to the remote site before dawn."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-015-transport-transportar",
+      "runtime_publishable": false,
+      "trigger": "transport"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "transport -> transportar",
+        "target_key": "transportar"
+      },
+      "active_target": "transportar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "transport -> transportar",
+        "target_key": "transportar"
+      },
+      "candidate_target": "transportar",
+      "evidence_text": "Please transport the medical supplies by truck to the clinic today.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 25,
+        "evidence_note": "Active logistics context with a direct object being moved.",
+        "family_id": "en-es:srs-source-target:transport:transportar:d8440aa5",
+        "global_need_rank": 60,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:016",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:016",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion",
+        "source_sentence": "Please transport the medical supplies by truck to the clinic today."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:transport:transportar:d8440aa5:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-016-transport-transportar",
+      "runtime_publishable": false,
+      "trigger": "transport"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "yield -> ceder",
+        "target_key": "ceder"
+      },
+      "active_target": "ceder",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "yield -> ceder",
+        "target_key": "ceder"
+      },
+      "candidate_target": "ceder",
+      "evidence_text": "The driver slowed down and chose to yield to the pedestrians at the crosswalk.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 26,
+        "evidence_note": "yield means give way in traffic, matching the active sense of ceder.",
+        "family_id": "en-es:srs-source-target:yield:ceder:8a2b7b73",
+        "global_need_rank": 61,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:017",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:017",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion",
+        "source_sentence": "The driver slowed down and chose to yield to the pedestrians at the crosswalk."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-017-yield-ceder",
+      "runtime_publishable": false,
+      "trigger": "yield"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "yield -> ceder",
+        "target_key": "ceder"
+      },
+      "active_target": "ceder",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "yield -> ceder",
+        "target_key": "ceder"
+      },
+      "candidate_target": "ceder",
+      "evidence_text": "After a brief argument, she decided to yield and let her brother choose the movie.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 26,
+        "evidence_note": "yield means give in or give up her preference, which fits the intended sense of ceder.",
+        "family_id": "en-es:srs-source-target:yield:ceder:8a2b7b73",
+        "global_need_rank": 61,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:018",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:018",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6485,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion",
+        "source_sentence": "After a brief argument, she decided to yield and let her brother choose the movie."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:yield:ceder:8a2b7b73:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-018-yield-ceder",
+      "runtime_publishable": false,
+      "trigger": "yield"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abiding -> continuo",
+        "target_key": "continuo"
+      },
+      "active_target": "continuo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abiding -> continuo",
+        "target_key": "continuo"
+      },
+      "candidate_target": "continuo",
+      "evidence_text": "The hikers felt an abiding wind all afternoon, steady and unbroken from the ridge.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 27,
+        "evidence_note": "abiding means lasting and continuous, matching the intended active sense.",
+        "family_id": "en-es:srs-source-target:abiding:continuo:7dc7af5e",
+        "global_need_rank": 62,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:019",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:019",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion",
+        "source_sentence": "The hikers felt an abiding wind all afternoon, steady and unbroken from the ridge."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-019-abiding-continuo",
+      "runtime_publishable": false,
+      "trigger": "abiding"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abiding -> continuo",
+        "target_key": "continuo"
+      },
+      "active_target": "continuo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abiding -> continuo",
+        "target_key": "continuo"
+      },
+      "candidate_target": "continuo",
+      "evidence_text": "Her abiding concern for the coastal roads kept her checking the forecasts every hour.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 27,
+        "evidence_note": "abiding describes a continuing, persistent concern rather than loyalty or compliance.",
+        "family_id": "en-es:srs-source-target:abiding:continuo:7dc7af5e",
+        "global_need_rank": 62,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:020",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:020",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion",
+        "source_sentence": "Her abiding concern for the coastal roads kept her checking the forecasts every hour."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:abiding:continuo:7dc7af5e:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-020-abiding-continuo",
+      "runtime_publishable": false,
+      "trigger": "abiding"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "accountable -> responsable",
+        "target_key": "responsable"
+      },
+      "active_target": "responsable",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "accountable -> responsable",
+        "target_key": "responsable"
+      },
+      "candidate_target": "responsable",
+      "evidence_text": "The manager is accountable for the team’s budget and must explain every expense.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 29,
+        "evidence_note": "Shows accountable as being responsible for duties and outcomes.",
+        "family_id": "en-es:srs-source-target:accountable:responsable:ff12b139",
+        "global_need_rank": 64,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:021",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "predicative",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:021",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion",
+        "source_sentence": "The manager is accountable for the team’s budget and must explain every expense."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-021-accountable-responsable",
+      "runtime_publishable": false,
+      "trigger": "accountable"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "accountable -> responsable",
+        "target_key": "responsable"
+      },
+      "active_target": "responsable",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "accountable -> responsable",
+        "target_key": "responsable"
+      },
+      "candidate_target": "responsable",
+      "evidence_text": "She is accountable for the final report, so she will answer any questions from the board.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 29,
+        "evidence_note": "Uses accountable in the sense of being responsible to others for a task.",
+        "family_id": "en-es:srs-source-target:accountable:responsable:ff12b139",
+        "global_need_rank": 64,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:022",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "predicative",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:022",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion",
+        "source_sentence": "She is accountable for the final report, so she will answer any questions from the board."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:accountable:responsable:ff12b139:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-022-accountable-responsable",
+      "runtime_publishable": false,
+      "trigger": "accountable"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "argentine -> argentino",
+        "target_key": "argentino"
+      },
+      "active_target": "argentino",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "argentine -> argentino",
+        "target_key": "argentino"
+      },
+      "candidate_target": "argentino",
+      "evidence_text": "The museum hired an argentine chef from Buenos Aires to design the opening banquet.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 30,
+        "evidence_note": "Argentine is used as a nationality adjective for a person from Argentina.",
+        "family_id": "en-es:srs-source-target:argentine:argentino:90e01172",
+        "global_need_rank": 65,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:023",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:023",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion",
+        "source_sentence": "The museum hired an argentine chef from Buenos Aires to design the opening banquet."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-023-argentine-argentino",
+      "runtime_publishable": false,
+      "trigger": "argentine"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "argentine -> argentino",
+        "target_key": "argentino"
+      },
+      "active_target": "argentino",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "argentine -> argentino",
+        "target_key": "argentino"
+      },
+      "candidate_target": "argentino",
+      "evidence_text": "During the interview, she explained that her argentine grandfather taught her to dance tango.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 30,
+        "evidence_note": "Argentine clearly refers to a person of Argentine national origin.",
+        "family_id": "en-es:srs-source-target:argentine:argentino:90e01172",
+        "global_need_rank": 65,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:024",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:024",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion",
+        "source_sentence": "During the interview, she explained that her argentine grandfather taught her to dance tango."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:argentine:argentino:90e01172:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-024-argentine-argentino",
+      "runtime_publishable": false,
+      "trigger": "argentine"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "axle -> eje",
+        "target_key": "eje"
+      },
+      "active_target": "eje",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "axle -> eje",
+        "target_key": "eje"
+      },
+      "candidate_target": "eje",
+      "evidence_text": "The mechanic replaced the bent axle to stop the wheel from wobbling.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 31,
+        "evidence_note": "axle is used as the mechanical shaft that supports the wheel.",
+        "family_id": "en-es:srs-source-target:axle:eje:824a7d8b",
+        "global_need_rank": 66,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:025",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:025",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion",
+        "source_sentence": "The mechanic replaced the bent axle to stop the wheel from wobbling."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-025-axle-eje",
+      "runtime_publishable": false,
+      "trigger": "axle"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "axle -> eje",
+        "target_key": "eje"
+      },
+      "active_target": "eje",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "axle -> eje",
+        "target_key": "eje"
+      },
+      "candidate_target": "eje",
+      "evidence_text": "A cracked axle can make the cart pull to one side on rough roads.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 31,
+        "evidence_note": "axle clearly refers to the central rod connecting and supporting the wheels.",
+        "family_id": "en-es:srs-source-target:axle:eje:824a7d8b",
+        "global_need_rank": 66,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:026",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:026",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion",
+        "source_sentence": "A cracked axle can make the cart pull to one side on rough roads."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:axle:eje:824a7d8b:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-026-axle-eje",
+      "runtime_publishable": false,
+      "trigger": "axle"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "baton -> palo",
+        "target_key": "palo"
+      },
+      "active_target": "palo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "baton -> palo",
+        "target_key": "palo"
+      },
+      "candidate_target": "palo",
+      "evidence_text": "The conductor lifted the baton and brought the orchestra in with a crisp cue.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 33,
+        "evidence_note": "Batons are slender sticks; the intended meaning is the object sense that maps to palo.",
+        "family_id": "en-es:srs-source-target:baton:palo:9f42189b",
+        "global_need_rank": 68,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:027",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:027",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion",
+        "source_sentence": "The conductor lifted the baton and brought the orchestra in with a crisp cue."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-027-baton-palo",
+      "runtime_publishable": false,
+      "trigger": "baton"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "baton -> palo",
+        "target_key": "palo"
+      },
+      "active_target": "palo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "baton -> palo",
+        "target_key": "palo"
+      },
+      "candidate_target": "palo",
+      "evidence_text": "He used a baton to tap the drum lightly and keep the rhythm steady.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 33,
+        "evidence_note": "Batons can be short sticks used as tools, matching the stick sense for palo.",
+        "family_id": "en-es:srs-source-target:baton:palo:9f42189b",
+        "global_need_rank": 68,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:028",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:028",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion",
+        "source_sentence": "He used a baton to tap the drum lightly and keep the rhythm steady."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:baton:palo:9f42189b:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-028-baton-palo",
+      "runtime_publishable": false,
+      "trigger": "baton"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cane -> palo",
+        "target_key": "palo"
+      },
+      "active_target": "palo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cane -> palo",
+        "target_key": "palo"
+      },
+      "candidate_target": "palo",
+      "evidence_text": "He leaned on his cane after the long walk across the station.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 34,
+        "evidence_note": "Walking-stick sense of cane in a natural mobility context.",
+        "family_id": "en-es:srs-source-target:cane:palo:26b2cc41",
+        "global_need_rank": 69,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:029",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:029",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion",
+        "source_sentence": "He leaned on his cane after the long walk across the station."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-029-cane-palo",
+      "runtime_publishable": false,
+      "trigger": "cane"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cane -> palo",
+        "target_key": "palo"
+      },
+      "active_target": "palo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cane -> palo",
+        "target_key": "palo"
+      },
+      "candidate_target": "palo",
+      "evidence_text": "The doctor told her to use a cane until her knee healed.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 34,
+        "evidence_note": "Supportive walking aid sense of cane is clear from the medical context.",
+        "family_id": "en-es:srs-source-target:cane:palo:26b2cc41",
+        "global_need_rank": 69,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:030",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:030",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion",
+        "source_sentence": "The doctor told her to use a cane until her knee healed."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cane:palo:26b2cc41:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-030-cane-palo",
+      "runtime_publishable": false,
+      "trigger": "cane"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "colleague -> colega",
+        "target_key": "colega"
+      },
+      "active_target": "colega",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "colleague -> colega",
+        "target_key": "colega"
+      },
+      "candidate_target": "colega",
+      "evidence_text": "My colleague stayed late to help finish the report before the deadline.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 36,
+        "evidence_note": "Workplace context shows the intended sense of a professional peer.",
+        "family_id": "en-es:srs-source-target:colleague:colega:611ca572",
+        "global_need_rank": 71,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:031",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:031",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion",
+        "source_sentence": "My colleague stayed late to help finish the report before the deadline."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-031-colleague-colega",
+      "runtime_publishable": false,
+      "trigger": "colleague"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "colleague -> colega",
+        "target_key": "colega"
+      },
+      "active_target": "colega",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "colleague -> colega",
+        "target_key": "colega"
+      },
+      "candidate_target": "colega",
+      "evidence_text": "She asked her colleague for feedback on the presentation after the meeting.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 36,
+        "evidence_note": "The sentence uses colleague as a direct noun for a coworker in a clear office setting.",
+        "family_id": "en-es:srs-source-target:colleague:colega:611ca572",
+        "global_need_rank": 71,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:032",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:032",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion",
+        "source_sentence": "She asked her colleague for feedback on the presentation after the meeting."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:colleague:colega:611ca572:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-032-colleague-colega",
+      "runtime_publishable": false,
+      "trigger": "colleague"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "commence -> comenzar",
+        "target_key": "comenzar"
+      },
+      "active_target": "comenzar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "commence -> comenzar",
+        "target_key": "comenzar"
+      },
+      "candidate_target": "comenzar",
+      "evidence_text": "We will commence the meeting at 9 a.m. sharp.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 37,
+        "evidence_note": "Direct verb use meaning to start an event.",
+        "family_id": "en-es:srs-source-target:commence:comenzar:f16e86f0",
+        "global_need_rank": 72,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:033",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:033",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion",
+        "source_sentence": "We will commence the meeting at 9 a.m. sharp."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-033-commence-comenzar",
+      "runtime_publishable": false,
+      "trigger": "commence"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "commence -> comenzar",
+        "target_key": "comenzar"
+      },
+      "active_target": "comenzar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "commence -> comenzar",
+        "target_key": "comenzar"
+      },
+      "candidate_target": "comenzar",
+      "evidence_text": "Please commence the repairs as soon as the weather clears.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 37,
+        "evidence_note": "Clear active sense of beginning an action.",
+        "family_id": "en-es:srs-source-target:commence:comenzar:f16e86f0",
+        "global_need_rank": 72,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:034",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:034",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion",
+        "source_sentence": "Please commence the repairs as soon as the weather clears."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:commence:comenzar:f16e86f0:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-034-commence-comenzar",
+      "runtime_publishable": false,
+      "trigger": "commence"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "continual -> continuo",
+        "target_key": "continuo"
+      },
+      "active_target": "continuo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "continual -> continuo",
+        "target_key": "continuo"
+      },
+      "candidate_target": "continuo",
+      "evidence_text": "The machine made continual noise all night, so nobody slept well.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 38,
+        "evidence_note": "Describes an unbroken, ongoing state of noise.",
+        "family_id": "en-es:srs-source-target:continual:continuo:dd6785fe",
+        "global_need_rank": 73,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:035",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:035",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion",
+        "source_sentence": "The machine made continual noise all night, so nobody slept well."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-035-continual-continuo",
+      "runtime_publishable": false,
+      "trigger": "continual"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "continual -> continuo",
+        "target_key": "continuo"
+      },
+      "active_target": "continuo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "continual -> continuo",
+        "target_key": "continuo"
+      },
+      "candidate_target": "continuo",
+      "evidence_text": "She faced continual rain during the trip, which kept the roads wet for hours.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 38,
+        "evidence_note": "Shows something happening repeatedly and without pause over time.",
+        "family_id": "en-es:srs-source-target:continual:continuo:dd6785fe",
+        "global_need_rank": 73,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:036",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:036",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion",
+        "source_sentence": "She faced continual rain during the trip, which kept the roads wet for hours."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:continual:continuo:dd6785fe:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-036-continual-continuo",
+      "runtime_publishable": false,
+      "trigger": "continual"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "courtyard -> patio",
+        "target_key": "patio"
+      },
+      "active_target": "patio",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "courtyard -> patio",
+        "target_key": "patio"
+      },
+      "candidate_target": "patio",
+      "evidence_text": "We had coffee in the courtyard after lunch.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 39,
+        "evidence_note": "An open indoor-outdoor space for sitting and eating, matching the intended direct noun sense.",
+        "family_id": "en-es:srs-source-target:courtyard:patio:c222c02d",
+        "global_need_rank": 74,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:037",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:037",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion",
+        "source_sentence": "We had coffee in the courtyard after lunch."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-037-courtyard-patio",
+      "runtime_publishable": false,
+      "trigger": "courtyard"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "courtyard -> patio",
+        "target_key": "patio"
+      },
+      "active_target": "patio",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "courtyard -> patio",
+        "target_key": "patio"
+      },
+      "candidate_target": "patio",
+      "evidence_text": "The children played tag in the courtyard while the adults talked nearby.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 39,
+        "evidence_note": "A central open area used for gathering and play, clearly matching the target sense.",
+        "family_id": "en-es:srs-source-target:courtyard:patio:c222c02d",
+        "global_need_rank": 74,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:038",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:038",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion",
+        "source_sentence": "The children played tag in the courtyard while the adults talked nearby."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:courtyard:patio:c222c02d:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-038-courtyard-patio",
+      "runtime_publishable": false,
+      "trigger": "courtyard"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cramped -> estrecho",
+        "target_key": "estrecho"
+      },
+      "active_target": "estrecho",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cramped -> estrecho",
+        "target_key": "estrecho"
+      },
+      "candidate_target": "estrecho",
+      "evidence_text": "The hallway felt cramped, so we had to turn sideways to pass through.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 40,
+        "evidence_note": "Describes a narrow passage where cramped means physically tight or narrow.",
+        "family_id": "en-es:srs-source-target:cramped:estrecho:bb254e89",
+        "global_need_rank": 75,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:039",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:039",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion",
+        "source_sentence": "The hallway felt cramped, so we had to turn sideways to pass through."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-039-cramped-estrecho",
+      "runtime_publishable": false,
+      "trigger": "cramped"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cramped -> estrecho",
+        "target_key": "estrecho"
+      },
+      "active_target": "estrecho",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cramped -> estrecho",
+        "target_key": "estrecho"
+      },
+      "candidate_target": "estrecho",
+      "evidence_text": "Her cramped office was barely wide enough for the desk and chair.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 40,
+        "evidence_note": "Shows a small, narrow space that matches the intended sense.",
+        "family_id": "en-es:srs-source-target:cramped:estrecho:bb254e89",
+        "global_need_rank": 75,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:040",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:040",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion",
+        "source_sentence": "Her cramped office was barely wide enough for the desk and chair."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cramped:estrecho:bb254e89:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-040-cramped-estrecho",
+      "runtime_publishable": false,
+      "trigger": "cramped"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dial -> marcar",
+        "target_key": "marcar"
+      },
+      "active_target": "marcar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dial -> marcar",
+        "target_key": "marcar"
+      },
+      "candidate_target": "marcar",
+      "evidence_text": "Please dial the customer service number and wait for the greeting.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 42,
+        "evidence_note": "Phone-action context makes the intended sense clear.",
+        "family_id": "en-es:srs-source-target:dial:marcar:11669297",
+        "global_need_rank": 77,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:041",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:041",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion",
+        "source_sentence": "Please dial the customer service number and wait for the greeting."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-041-dial-marcar",
+      "runtime_publishable": false,
+      "trigger": "dial"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dial -> marcar",
+        "target_key": "marcar"
+      },
+      "active_target": "marcar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dial -> marcar",
+        "target_key": "marcar"
+      },
+      "candidate_target": "marcar",
+      "evidence_text": "If the line is busy, dial the office again in a few minutes.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 42,
+        "evidence_note": "Shows placing a phone call, not the noun sense.",
+        "family_id": "en-es:srs-source-target:dial:marcar:11669297",
+        "global_need_rank": 77,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:042",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:042",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion",
+        "source_sentence": "If the line is busy, dial the office again in a few minutes."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:dial:marcar:11669297:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-042-dial-marcar",
+      "runtime_publishable": false,
+      "trigger": "dial"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "elegant -> elegante",
+        "target_key": "elegante"
+      },
+      "active_target": "elegante",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "elegant -> elegante",
+        "target_key": "elegante"
+      },
+      "candidate_target": "elegante",
+      "evidence_text": "She wore an elegant black dress to the gala.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 43,
+        "evidence_note": "Describes stylish, refined appearance in the direct adjective sense.",
+        "family_id": "en-es:srs-source-target:elegant:elegante:aff70883",
+        "global_need_rank": 78,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:043",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:043",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion",
+        "source_sentence": "She wore an elegant black dress to the gala."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-043-elegant-elegante",
+      "runtime_publishable": false,
+      "trigger": "elegant"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "elegant -> elegante",
+        "target_key": "elegante"
+      },
+      "active_target": "elegante",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "elegant -> elegante",
+        "target_key": "elegante"
+      },
+      "candidate_target": "elegante",
+      "evidence_text": "The dining room had an elegant table, soft lighting, and polished silverware.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 43,
+        "evidence_note": "Uses elegant to mean graceful and tasteful in a refined setting.",
+        "family_id": "en-es:srs-source-target:elegant:elegante:aff70883",
+        "global_need_rank": 78,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:044",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:044",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion",
+        "source_sentence": "The dining room had an elegant table, soft lighting, and polished silverware."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:elegant:elegante:aff70883:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-044-elegant-elegante",
+      "runtime_publishable": false,
+      "trigger": "elegant"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "exploit -> explotar",
+        "target_key": "explotar"
+      },
+      "active_target": "explotar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "exploit -> explotar",
+        "target_key": "explotar"
+      },
+      "candidate_target": "explotar",
+      "evidence_text": "The company tried to exploit cheap labor in overseas factories.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 44,
+        "evidence_note": "Active verb sense: taking unfair advantage of people.",
+        "family_id": "en-es:srs-source-target:exploit:explotar:ec3f35a0",
+        "global_need_rank": 79,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:045",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:045",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion",
+        "source_sentence": "The company tried to exploit cheap labor in overseas factories."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-045-exploit-explotar",
+      "runtime_publishable": false,
+      "trigger": "exploit"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "exploit -> explotar",
+        "target_key": "explotar"
+      },
+      "active_target": "explotar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "exploit -> explotar",
+        "target_key": "explotar"
+      },
+      "candidate_target": "explotar",
+      "evidence_text": "Hackers can exploit a security flaw to steal customer data.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 44,
+        "evidence_note": "Active verb sense: using a weakness or vulnerability for gain.",
+        "family_id": "en-es:srs-source-target:exploit:explotar:ec3f35a0",
+        "global_need_rank": 79,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:046",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:046",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion",
+        "source_sentence": "Hackers can exploit a security flaw to steal customer data."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:exploit:explotar:ec3f35a0:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-046-exploit-explotar",
+      "runtime_publishable": false,
+      "trigger": "exploit"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "faint -> débil",
+        "target_key": "débil"
+      },
+      "active_target": "débil",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "faint -> débil",
+        "target_key": "débil"
+      },
+      "candidate_target": "débil",
+      "evidence_text": "The patient felt faint after standing up too quickly.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 45,
+        "evidence_note": "Uses faint as an adjective meaning weak or likely to lose strength.",
+        "family_id": "en-es:srs-source-target:faint:debil:f95344a8",
+        "global_need_rank": 80,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:047",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:047",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion",
+        "source_sentence": "The patient felt faint after standing up too quickly."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-047-faint-d-bil",
+      "runtime_publishable": false,
+      "trigger": "faint"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "faint -> débil",
+        "target_key": "débil"
+      },
+      "active_target": "débil",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "faint -> débil",
+        "target_key": "débil"
+      },
+      "candidate_target": "débil",
+      "evidence_text": "Her voice was faint, barely audible in the back row.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 45,
+        "evidence_note": "Uses faint to describe something weak in intensity.",
+        "family_id": "en-es:srs-source-target:faint:debil:f95344a8",
+        "global_need_rank": 80,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:048",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "predicative",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:048",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion",
+        "source_sentence": "Her voice was faint, barely audible in the back row."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:faint:debil:f95344a8:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-048-faint-d-bil",
+      "runtime_publishable": false,
+      "trigger": "faint"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "grease -> grasa",
+        "target_key": "grasa"
+      },
+      "active_target": "grasa",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "grease -> grasa",
+        "target_key": "grasa"
+      },
+      "candidate_target": "grasa",
+      "evidence_text": "The mechanic wiped away the grease from the engine parts.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 46,
+        "evidence_note": "Noun use referring to oily residue or fat on machinery.",
+        "family_id": "en-es:srs-source-target:grease:grasa:fb197e68",
+        "global_need_rank": 81,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:049",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:049",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion",
+        "source_sentence": "The mechanic wiped away the grease from the engine parts."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-049-grease-grasa",
+      "runtime_publishable": false,
+      "trigger": "grease"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "grease -> grasa",
+        "target_key": "grasa"
+      },
+      "active_target": "grasa",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "grease -> grasa",
+        "target_key": "grasa"
+      },
+      "candidate_target": "grasa",
+      "evidence_text": "She used a paper towel to remove the grease from the frying pan.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 46,
+        "evidence_note": "Noun use referring to cooking fat left on cookware.",
+        "family_id": "en-es:srs-source-target:grease:grasa:fb197e68",
+        "global_need_rank": 81,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:050",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:050",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion",
+        "source_sentence": "She used a paper towel to remove the grease from the frying pan."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:grease:grasa:fb197e68:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-050-grease-grasa",
+      "runtime_publishable": false,
+      "trigger": "grease"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "haste -> prisa",
+        "target_key": "prisa"
+      },
+      "active_target": "prisa",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "haste -> prisa",
+        "target_key": "prisa"
+      },
+      "candidate_target": "prisa",
+      "evidence_text": "She left in haste to catch the last train.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 47,
+        "evidence_note": "haste means a rushed hurry when leaving quickly.",
+        "family_id": "en-es:srs-source-target:haste:prisa:522c32d1",
+        "global_need_rank": 82,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:051",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:051",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion",
+        "source_sentence": "She left in haste to catch the last train."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-051-haste-prisa",
+      "runtime_publishable": false,
+      "trigger": "haste"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "haste -> prisa",
+        "target_key": "prisa"
+      },
+      "active_target": "prisa",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "haste -> prisa",
+        "target_key": "prisa"
+      },
+      "candidate_target": "prisa",
+      "evidence_text": "In his haste, he forgot to lock the front door.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 47,
+        "evidence_note": "haste refers to acting too quickly because of hurry.",
+        "family_id": "en-es:srs-source-target:haste:prisa:522c32d1",
+        "global_need_rank": 82,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:052",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:052",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion",
+        "source_sentence": "In his haste, he forgot to lock the front door."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:haste:prisa:522c32d1:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-052-haste-prisa",
+      "runtime_publishable": false,
+      "trigger": "haste"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "invoke -> llamar",
+        "target_key": "llamar"
+      },
+      "active_target": "llamar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "invoke -> llamar",
+        "target_key": "llamar"
+      },
+      "candidate_target": "llamar",
+      "evidence_text": "The mayor will invoke the emergency clause to call the council into session.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 48,
+        "evidence_note": "invoke means call upon or formally summon, matching the intended sense.",
+        "family_id": "en-es:srs-source-target:invoke:llamar:f7c06ec6",
+        "global_need_rank": 83,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:053",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:053",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+        "source_sentence": "The mayor will invoke the emergency clause to call the council into session."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-053-invoke-llamar",
+      "runtime_publishable": false,
+      "trigger": "invoke"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "invoke -> llamar",
+        "target_key": "llamar"
+      },
+      "active_target": "llamar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "invoke -> llamar",
+        "target_key": "llamar"
+      },
+      "candidate_target": "llamar",
+      "evidence_text": "At the start of the ceremony, she will invoke the ancient oath to call the participants to attention.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 48,
+        "evidence_note": "invoke signals formally calling on a tradition or authority to bring people to a required response.",
+        "family_id": "en-es:srs-source-target:invoke:llamar:f7c06ec6",
+        "global_need_rank": 83,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:054",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:054",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+        "source_sentence": "At the start of the ceremony, she will invoke the ancient oath to call the participants to attention."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-054-invoke-llamar",
+      "runtime_publishable": false,
+      "trigger": "invoke"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "lump -> bola",
+        "target_key": "bola"
+      },
+      "active_target": "bola",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "lump -> bola",
+        "target_key": "bola"
+      },
+      "candidate_target": "bola",
+      "evidence_text": "She found a small lump of clay and rolled it into a neat sphere.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 50,
+        "evidence_note": "Shows a rounded clump that can map to a ball-like object in context.",
+        "family_id": "en-es:srs-source-target:lump:bola:418e0094",
+        "global_need_rank": 85,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:055",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:055",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion",
+        "source_sentence": "She found a small lump of clay and rolled it into a neat sphere."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-055-lump-bola",
+      "runtime_publishable": false,
+      "trigger": "lump"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "lump -> bola",
+        "target_key": "bola"
+      },
+      "active_target": "bola",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "lump -> bola",
+        "target_key": "bola"
+      },
+      "candidate_target": "bola",
+      "evidence_text": "He packed the snow into a lump before tossing it across the yard.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 50,
+        "evidence_note": "Describes a rounded clump of snow with a ball-like shape.",
+        "family_id": "en-es:srs-source-target:lump:bola:418e0094",
+        "global_need_rank": 85,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:056",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:056",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion",
+        "source_sentence": "He packed the snow into a lump before tossing it across the yard."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:lump:bola:418e0094:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-056-lump-bola",
+      "runtime_publishable": false,
+      "trigger": "lump"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "nationality -> nacionalidad",
+        "target_key": "nacionalidad"
+      },
+      "active_target": "nacionalidad",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "nationality -> nacionalidad",
+        "target_key": "nacionalidad"
+      },
+      "candidate_target": "nacionalidad",
+      "evidence_text": "The form asks for your nationality before you can submit the application.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 51,
+        "evidence_note": "Direct noun use referring to citizenship or country affiliation on a form.",
+        "family_id": "en-es:srs-source-target:nationality:nacionalidad:8b8ed371",
+        "global_need_rank": 86,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:057",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:057",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion",
+        "source_sentence": "The form asks for your nationality before you can submit the application."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-057-nationality-nacionalidad",
+      "runtime_publishable": false,
+      "trigger": "nationality"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "nationality -> nacionalidad",
+        "target_key": "nacionalidad"
+      },
+      "active_target": "nacionalidad",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "nationality -> nacionalidad",
+        "target_key": "nacionalidad"
+      },
+      "candidate_target": "nacionalidad",
+      "evidence_text": "She listed her nationality as Canadian on the immigration paperwork.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 51,
+        "evidence_note": "Clear identity-by-country context that matches the intended noun meaning.",
+        "family_id": "en-es:srs-source-target:nationality:nacionalidad:8b8ed371",
+        "global_need_rank": 86,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:058",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:058",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion",
+        "source_sentence": "She listed her nationality as Canadian on the immigration paperwork."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:nationality:nacionalidad:8b8ed371:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-058-nationality-nacionalidad",
+      "runtime_publishable": false,
+      "trigger": "nationality"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "supper -> cena",
+        "target_key": "cena"
+      },
+      "active_target": "cena",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "supper -> cena",
+        "target_key": "cena"
+      },
+      "candidate_target": "cena",
+      "evidence_text": "We had supper at eight, after the movie ended.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 53,
+        "evidence_note": "Clear evening meal use of supper.",
+        "family_id": "en-es:srs-source-target:supper:cena:b34f3646",
+        "global_need_rank": 88,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:059",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:059",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion",
+        "source_sentence": "We had supper at eight, after the movie ended."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-059-supper-cena",
+      "runtime_publishable": false,
+      "trigger": "supper"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "supper -> cena",
+        "target_key": "cena"
+      },
+      "active_target": "cena",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "supper -> cena",
+        "target_key": "cena"
+      },
+      "candidate_target": "cena",
+      "evidence_text": "Grandma always serves soup and bread for supper on cold nights.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 53,
+        "evidence_note": "Natural dinner-like meal context for supper.",
+        "family_id": "en-es:srs-source-target:supper:cena:b34f3646",
+        "global_need_rank": 88,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:060",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:060",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion",
+        "source_sentence": "Grandma always serves soup and bread for supper on cold nights."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:supper:cena:b34f3646:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-060-supper-cena",
+      "runtime_publishable": false,
+      "trigger": "supper"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "tasty -> rico",
+        "target_key": "rico"
+      },
+      "active_target": "rico",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "tasty -> rico",
+        "target_key": "rico"
+      },
+      "candidate_target": "rico",
+      "evidence_text": "The soup was tasty and full of fresh vegetables.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 54,
+        "evidence_note": "Used as a direct adjective for food with a pleasant flavor.",
+        "family_id": "en-es:srs-source-target:tasty:rico:690a6d05",
+        "global_need_rank": 89,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:061",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "predicative",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:061",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion",
+        "source_sentence": "The soup was tasty and full of fresh vegetables."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-061-tasty-rico",
+      "runtime_publishable": false,
+      "trigger": "tasty"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "tasty -> rico",
+        "target_key": "rico"
+      },
+      "active_target": "rico",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "tasty -> rico",
+        "target_key": "rico"
+      },
+      "candidate_target": "rico",
+      "evidence_text": "She made a tasty pasta dish for dinner.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 54,
+        "evidence_note": "Describes appetizing food in a natural direct-mapping context.",
+        "family_id": "en-es:srs-source-target:tasty:rico:690a6d05",
+        "global_need_rank": 89,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:062",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:062",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion",
+        "source_sentence": "She made a tasty pasta dish for dinner."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tasty:rico:690a6d05:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-062-tasty-rico",
+      "runtime_publishable": false,
+      "trigger": "tasty"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "thief -> ladrón",
+        "target_key": "ladrón"
+      },
+      "active_target": "ladrón",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "thief -> ladrón",
+        "target_key": "ladrón"
+      },
+      "candidate_target": "ladrón",
+      "evidence_text": "The thief slipped through the open window and took the jewelry from the dresser.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 55,
+        "evidence_note": "Clear criminal context: a person steals property, matching the intended noun sense.",
+        "family_id": "en-es:srs-source-target:thief:ladron:b47556b9",
+        "global_need_rank": 90,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:063",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:063",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion",
+        "source_sentence": "The thief slipped through the open window and took the jewelry from the dresser."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-063-thief-ladr-n",
+      "runtime_publishable": false,
+      "trigger": "thief"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "thief -> ladrón",
+        "target_key": "ladrón"
+      },
+      "active_target": "ladrón",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "thief -> ladrón",
+        "target_key": "ladrón"
+      },
+      "candidate_target": "ladrón",
+      "evidence_text": "Police caught the thief after he tried to steal a cyclist's backpack at the station.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 55,
+        "evidence_note": "Describes a person committing theft, which directly matches the target sense.",
+        "family_id": "en-es:srs-source-target:thief:ladron:b47556b9",
+        "global_need_rank": 90,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:064",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:064",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion",
+        "source_sentence": "Police caught the thief after he tried to steal a cyclist's backpack at the station."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:thief:ladron:b47556b9:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-064-thief-ladr-n",
+      "runtime_publishable": false,
+      "trigger": "thief"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "tidy -> arreglar",
+        "target_key": "arreglar"
+      },
+      "active_target": "arreglar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "tidy -> arreglar",
+        "target_key": "arreglar"
+      },
+      "candidate_target": "arreglar",
+      "evidence_text": "Please tidy the desk before the meeting starts.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 56,
+        "evidence_note": "Verb use meaning to put things in order or straighten up a space.",
+        "family_id": "en-es:srs-source-target:tidy:arreglar:9dbc8b04",
+        "global_need_rank": 91,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:065",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:065",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion",
+        "source_sentence": "Please tidy the desk before the meeting starts."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-065-tidy-arreglar",
+      "runtime_publishable": false,
+      "trigger": "tidy"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "tidy -> arreglar",
+        "target_key": "arreglar"
+      },
+      "active_target": "arreglar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "tidy -> arreglar",
+        "target_key": "arreglar"
+      },
+      "candidate_target": "arreglar",
+      "evidence_text": "She had to tidy the cables behind the TV so the room looked neat.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 56,
+        "evidence_note": "Verb use meaning to organize and fix the arrangement of items.",
+        "family_id": "en-es:srs-source-target:tidy:arreglar:9dbc8b04",
+        "global_need_rank": 91,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:066",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:066",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion",
+        "source_sentence": "She had to tidy the cables behind the TV so the room looked neat."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:tidy:arreglar:9dbc8b04:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-066-tidy-arreglar",
+      "runtime_publishable": false,
+      "trigger": "tidy"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "urgency -> prisa",
+        "target_key": "prisa"
+      },
+      "active_target": "prisa",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "urgency -> prisa",
+        "target_key": "prisa"
+      },
+      "candidate_target": "prisa",
+      "evidence_text": "I left with urgency so I would not miss the train.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 57,
+        "evidence_note": "urgency means haste in a time-sensitive departure.",
+        "family_id": "en-es:srs-source-target:urgency:prisa:892de2a1",
+        "global_need_rank": 92,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:067",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:067",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion",
+        "source_sentence": "I left with urgency so I would not miss the train."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-067-urgency-prisa",
+      "runtime_publishable": false,
+      "trigger": "urgency"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "urgency -> prisa",
+        "target_key": "prisa"
+      },
+      "active_target": "prisa",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "urgency -> prisa",
+        "target_key": "prisa"
+      },
+      "candidate_target": "prisa",
+      "evidence_text": "She answered the question with urgency because the deadline was only minutes away.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 57,
+        "evidence_note": "urgency shows the need to act quickly, matching the sense of haste.",
+        "family_id": "en-es:srs-source-target:urgency:prisa:892de2a1",
+        "global_need_rank": 92,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:068",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:068",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5935,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion",
+        "source_sentence": "She answered the question with urgency because the deadline was only minutes away."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:urgency:prisa:892de2a1:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-068-urgency-prisa",
+      "runtime_publishable": false,
+      "trigger": "urgency"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "adjacent -> contiguo",
+        "target_key": "contiguo"
+      },
+      "active_target": "contiguo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "adjacent -> contiguo",
+        "target_key": "contiguo"
+      },
+      "candidate_target": "contiguo",
+      "evidence_text": "The pharmacy is adjacent to the clinic, so patients can walk there without crossing a street.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 60,
+        "evidence_note": "Clear physical proximity; direct adjective mapping.",
+        "family_id": "en-es:srs-source-target:adjacent:contiguo:f84671dc",
+        "global_need_rank": 95,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:069",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "predicative",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:069",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5785,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion",
+        "source_sentence": "The pharmacy is adjacent to the clinic, so patients can walk there without crossing a street."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-069-adjacent-contiguo",
+      "runtime_publishable": false,
+      "trigger": "adjacent"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "adjacent -> contiguo",
+        "target_key": "contiguo"
+      },
+      "active_target": "contiguo",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "adjacent -> contiguo",
+        "target_key": "contiguo"
+      },
+      "candidate_target": "contiguo",
+      "evidence_text": "Her office is adjacent to mine, which makes it easy to answer quick questions during the day.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 60,
+        "evidence_note": "Shows side-by-side locations in everyday context.",
+        "family_id": "en-es:srs-source-target:adjacent:contiguo:f84671dc",
+        "global_need_rank": 95,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:070",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "predicative",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:070",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5785,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion",
+        "source_sentence": "Her office is adjacent to mine, which makes it easy to answer quick questions during the day."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:adjacent:contiguo:f84671dc:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-070-adjacent-contiguo",
+      "runtime_publishable": false,
+      "trigger": "adjacent"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cap -> birrete",
+        "target_key": "birrete"
+      },
+      "active_target": "birrete",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cap -> birrete",
+        "target_key": "birrete"
+      },
+      "candidate_target": "birrete",
+      "evidence_text": "She adjusted her cap before walking across the stage at graduation.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 61,
+        "evidence_note": "Academic graduation context clearly points to a cap worn for ceremony.",
+        "family_id": "en-es:srs-source-target:cap:birrete:2c38ba9f",
+        "global_need_rank": 96,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:071",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:071",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5785,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion",
+        "source_sentence": "She adjusted her cap before walking across the stage at graduation."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-071-cap-birrete",
+      "runtime_publishable": false,
+      "trigger": "cap"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cap -> birrete",
+        "target_key": "birrete"
+      },
+      "active_target": "birrete",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cap -> birrete",
+        "target_key": "birrete"
+      },
+      "candidate_target": "birrete",
+      "evidence_text": "He tossed his cap in the air when his name was called at the ceremony.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 61,
+        "evidence_note": "The graduation celebration context makes the cap an academic cap, not a casual hat.",
+        "family_id": "en-es:srs-source-target:cap:birrete:2c38ba9f",
+        "global_need_rank": 96,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:072",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:072",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5785,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion",
+        "source_sentence": "He tossed his cap in the air when his name was called at the ceremony."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:cap:birrete:2c38ba9f:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-072-cap-birrete",
+      "runtime_publishable": false,
+      "trigger": "cap"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "command -> capitanear",
+        "target_key": "capitanear"
+      },
+      "active_target": "capitanear",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "command -> capitanear",
+        "target_key": "capitanear"
+      },
+      "candidate_target": "capitanear",
+      "evidence_text": "She was chosen to command the rescue team through the storm.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 62,
+        "evidence_note": "command means to lead and direct a group in action.",
+        "family_id": "en-es:srs-source-target:command:capitanear:f0a3599a",
+        "global_need_rank": 97,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:073",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:073",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5785,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion",
+        "source_sentence": "She was chosen to command the rescue team through the storm."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-073-command-capitanear",
+      "runtime_publishable": false,
+      "trigger": "command"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "command -> capitanear",
+        "target_key": "capitanear"
+      },
+      "active_target": "capitanear",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "command -> capitanear",
+        "target_key": "capitanear"
+      },
+      "candidate_target": "capitanear",
+      "evidence_text": "At dawn, the admiral will command the fleet during the training exercise.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 62,
+        "evidence_note": "command means to take charge of a group as its leader.",
+        "family_id": "en-es:srs-source-target:command:capitanear:f0a3599a",
+        "global_need_rank": 97,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:074",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:074",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5785,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion",
+        "source_sentence": "At dawn, the admiral will command the fleet during the training exercise."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:command:capitanear:f0a3599a:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-074-command-capitanear",
+      "runtime_publishable": false,
+      "trigger": "command"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "decrease -> decrecer",
+        "target_key": "decrecer"
+      },
+      "active_target": "decrecer",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "decrease -> decrecer",
+        "target_key": "decrecer"
+      },
+      "candidate_target": "decrecer",
+      "evidence_text": "Sales will decrease again if prices keep rising.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 63,
+        "evidence_note": "The verb refers to becoming smaller in amount.",
+        "family_id": "en-es:srs-source-target:decrease:decrecer:12483615",
+        "global_need_rank": 98,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:075",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:075",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5785,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion",
+        "source_sentence": "Sales will decrease again if prices keep rising."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-075-decrease-decrecer",
+      "runtime_publishable": false,
+      "trigger": "decrease"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "decrease -> decrecer",
+        "target_key": "decrecer"
+      },
+      "active_target": "decrecer",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "decrease -> decrecer",
+        "target_key": "decrecer"
+      },
+      "candidate_target": "decrecer",
+      "evidence_text": "We need to decrease the volume before the meeting starts.",
+      "input_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 63,
+        "evidence_note": "The context shows a reduction in level.",
+        "family_id": "en-es:srs-source-target:decrease:decrecer:12483615",
+        "global_need_rank": 98,
+        "item_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:076",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:076",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5785,
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion",
+        "source_sentence": "We need to decrease the volume before the meeting starts."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:decrease:decrecer:12483615:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-007-source-row-076-decrease-decrecer",
+      "runtime_publishable": false,
+      "trigger": "decrease"
+    }
+  ],
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "provenance": {
+    "admission_generated_at": "2026-05-13T18:01:19Z",
+    "admitted_input_item_count": 76,
+    "evidence_variant": "sentence_only",
+    "excluded_item_count": 0,
+    "operator_repair_count": 2,
+    "operator_repairs": [
+      {
+        "family_id": "en-es:srs-source-target:storm:tempestad:b0697466",
+        "invalid_output_family_id": "en-es-srs-source-target:storm:tempestad:b0697466",
+        "invalid_output_request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "invalid_output_slot_id": "en-es-srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "repair_reason": "generator repeatedly changed en-es colon metadata to en-es hyphen metadata for storm; sentence content preserved and metadata restored to the reviewed request packet",
+        "repair_type": "metadata_id_restoration_after_repeated_invalid_output",
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": false,
+        "slot_id": "en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "source_phrase": "storm",
+        "target_lemma": "tempestad"
+      },
+      {
+        "family_id": "en-es:srs-source-target:invoke:llamar:f7c06ec6",
+        "repair_reason": "replace inflected invoked with exact standalone invoke so the generated sentence exercises the browser-replaceable runtime token while preserving the intended call-upon sense",
+        "repair_type": "runtime_trigger_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+        "source_phrase": "invoke",
+        "target_lemma": "llamar"
+      }
+    ],
+    "postprocess_generated_at": "2026-05-13T18:01:36Z",
+    "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+    "raw_output_mutation": "operator_repaired_after_generation",
+    "selected_item_count": 76,
+    "source_packaging_run_id": "active-only-full-v1-tranche-007"
+  },
+  "review_state": "unreviewed",
+  "roles": [
+    "cue_generation"
+  ],
+  "schema_version": 1,
+  "source_family": "silver_llm_generation",
+  "source_id": "active-only-full-v1-tranche-007",
+  "source_type": "llm",
+  "temperature": null
+}

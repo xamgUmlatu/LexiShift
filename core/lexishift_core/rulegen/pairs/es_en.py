@@ -69,8 +69,8 @@ DEFAULT_SPANISH_STOPWORDS = {
 
 @dataclass(frozen=True)
 class EsEnRulegenConfig:
-    freedict_en_es_path: Path
-    reverse_freedict_es_en_path: Optional[Path] = None
+    translation_dict_path: Path
+    reverse_translation_dict_path: Optional[Path] = None
     reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     gloss_mapping: Optional[Mapping[str, Sequence[str]]] = None
     gloss_records_by_target: Optional[Mapping[str, Sequence[FreedictGlossRecord]]] = None
@@ -95,6 +95,7 @@ class EsEnRulegenConfig:
     generic_gloss_demotions: Mapping[str, float] = field(
         default_factory=lambda: resolve_pair_generic_gloss_demotions("es-en")
     )
+    enable_exact_gloss_demotions: bool = False
 
 
 def build_es_en_pipeline(config: EsEnRulegenConfig) -> RuleGenerationPipeline:
@@ -107,7 +108,9 @@ def build_es_en_pipeline(config: EsEnRulegenConfig) -> RuleGenerationPipeline:
         reverse_records_by_source=reverse_records_by_source,
         reverse_source_dict="freedict_es_en",
         word_packages_by_target=config.word_packages_by_target,
-        generic_gloss_demotions=config.generic_gloss_demotions,
+        generic_gloss_demotions=(
+            config.generic_gloss_demotions if config.enable_exact_gloss_demotions else {}
+        ),
     )
     normalizers = [BasicStringNormalizer()]
 
@@ -277,7 +280,7 @@ def _resolve_gloss_records(config: EsEnRulegenConfig) -> dict[str, list[Freedict
     if config.gloss_mapping is not None:
         return _coerce_gloss_records(config.gloss_mapping)
     return load_freedict_gloss_records_ordered(
-        config.freedict_en_es_path,
+        config.translation_dict_path,
         target_lang="es",
     )
 
@@ -287,12 +290,12 @@ def _resolve_reverse_gloss_records(
 ) -> Optional[dict[str, list[FreedictGlossRecord]]]:
     if config.reverse_gloss_records_by_source is not None:
         return _coerce_gloss_records(config.reverse_gloss_records_by_source)
-    if config.reverse_freedict_es_en_path is None:
+    if config.reverse_translation_dict_path is None:
         return None
-    if not config.reverse_freedict_es_en_path.exists():
+    if not config.reverse_translation_dict_path.exists():
         return None
     return load_freedict_gloss_records_ordered(
-        config.reverse_freedict_es_en_path,
+        config.reverse_translation_dict_path,
         target_lang="en",
     )
 

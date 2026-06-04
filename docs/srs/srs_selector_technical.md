@@ -1,5 +1,12 @@
 # SRS Wi Selector — Weighted Scoring Technical Spec
 
+Status: active planning spec
+Role: Planning / WIP
+Last updated: 2026-05-19
+Last verified: 2026-05-19 profile-bootstrap readiness gate and focused selector tests
+Purpose: preserve the planned weighted selector model for future candidate ranking and personalization work
+Source-of-truth: planning spec only; current executable selector/admission truth lives in `core/lexishift_core/srs/selector.py`, `admission_policy.py`, `profile_bootstrap.py`, and SRS tests.
+
 ## Purpose
 Define a stable, modular weighting algorithm for selecting Wi (new and active learning words)
 from a candidate pool. The algorithm must be:
@@ -75,6 +82,11 @@ Apply after the sum to avoid extreme values:
 - **recently seen**: `score *= 0.3` if recency below threshold
 - **too easy / mastered**: `score *= 0.2`
 - **oversubscribed source** (optional): `score *= 0.8`
+- **readiness gate** (profile-bootstrap metadata): `score *= readiness_multiplier`
+  when proficiency/difficulty evidence says a candidate is far outside the
+  learner's current band. Weighted sampling also applies the same multiplier to
+  the frequency baseline so too-easy words do not leak back through baseline
+  mass.
 
 ---
 

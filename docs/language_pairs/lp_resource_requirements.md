@@ -1,5 +1,11 @@
 # LP Resource Requirements Matrix
 
+Status: active mixed requirements matrix
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; LP requirement claims not fully re-audited
+Source-of-truth: mixed LP requirements matrix; current implementation truth lives in LP capability/resource code, rulegen/SRS code, tests, and regenerated resource/POS audits.
+
 Purpose:
 - List all known LPs (Language Pairs).
 - Separate resource classes (translation dictionary, synonym dictionary, frequency DB, stopwords).
@@ -64,8 +70,8 @@ Legend:
 | LP | Rulegen type | Dictionary source(s) | Frequency DB for SRS init/refresh | Stopwords | Required by current code | Logical E2E requirement |
 | --- | --- | --- | --- | --- | --- | --- |
 | `en-ja` | Cross-lingual translation | `jmdict-ja-en` (`JMdict_e`) | `freq-ja-bccwj.sqlite` | `stopwords-ja.json` (optional) | `JMdict_e`: Hard for seed + rulegen. Frequency DB: Hard. | Same as code. Implemented baseline path. |
-| `de-en` | Cross-lingual translation | `freedict-en-de` (`eng-deu.tei`) for EN targets, DE sources | `freq-en-coca.sqlite` (current default) | `stopwords-en.json` (optional) | Frequency DB: Hard. No dictionary hard-check today. Rulegen adapter missing. | Needs `de-en` adapter + FreeDict TEI wiring for publishable rules. |
-| `en-de` | Cross-lingual translation | `freedict-de-en` (`deu-eng.tei`) for DE targets, EN sources | `freq-de-default.sqlite` fallback path (placeholder, not bundled) | `stopwords-de.json` (optional, currently missing) | Frequency DB: Hard (will fail if missing). FreeDict DE->EN TEI: Hard for rulegen/publish. | Adapter implemented; still needs real German frequency DB for practical initialize/refresh. |
+| `de-en` | Cross-lingual translation | `freedict-en-de` (`eng-deu.tei`) for EN targets, DE sources | `freq-en-coca.sqlite` (current default) | `stopwords-en.json` for target-side seed filtering (optional); German source-side stopword filtering is pair-local rulegen behavior | Frequency DB: Hard. FreeDict EN->DE TEI: Hard for rulegen/publish. | Adapter implemented baseline path; benchmark seeding and pair-specific quality tuning still needed. |
+| `en-de` | Cross-lingual translation | `freedict-de-en` (`deu-eng.tei`) for DE targets, EN sources; optional experimental `wiktionary-de-en` compatibility SQLite when manually supplied or app-built | `freq-de-default.sqlite` fallback path (placeholder, not bundled) | `stopwords-de.json` (optional, currently missing) | Frequency DB: Hard (will fail if missing). FreeDict DE->EN TEI: Hard for current baseline rulegen/publish. | Adapter implemented; Kaikki/Wiktionary DE->EN build path now exists, but the canonical lane still needs real German frequency DB and benchmark evidence before any source-family promotion. |
 | `en-es` | Cross-lingual translation | `freedict-es-en` (`spa-eng.tei`) for ES targets, EN sources | `freq-es-cde.sqlite` | `stopwords-es.json` (optional, currently missing) | Frequency DB: Hard. FreeDict ES->EN TEI/SQLite: Hard for rulegen/publish. | Adapter implemented and wired, but current FreeDict ES->EN coverage is not adequate as the sole production SRS publication source; installed-resource journey still shows admitted/due words such as `movimiento` with no publishable rule. |
 | `es-en` | Cross-lingual translation | `freedict-en-es` (`eng-spa.tei`) for EN targets, ES sources | `freq-en-coca.sqlite` | `stopwords-en.json` (optional) | Frequency DB: Hard. FreeDict EN->ES TEI/SQLite: Hard for rulegen/publish. | Adapter implemented baseline path. |
 | `es-es` | Monolingual synonyms | Spanish monolingual source TBD (for example ES WordNet/OpenThesaurus-like source) | `freq-es-cde.sqlite` | `stopwords-es.json` (optional, currently missing) | Frequency DB: Hard. Rulegen adapter missing. | Needs monolingual ES adapter + source selection. |
@@ -95,12 +101,16 @@ Both files are TEI dictionaries; they support opposite directional rulegen needs
 ## 5) Current Gaps Summary
 
 - Hard blocker for several LPs: missing real target-language frequency DB (DE, ZH).
-- Hard blocker for several LPs publish path: missing rulegen adapters (`de-en`, `es-es`, `en-en`, `de-de`, `ja-ja`, `en-zh`).
+- Hard blocker for several LPs publish path: missing rulegen adapters (`es-es`, `en-en`, `de-de`, `ja-ja`, `en-zh`).
 - Current dictionary hard requirements in code: `en-ja` (JMDict) and FreeDict-backed pairs (`en-de`, `en-es`, `es-en`).
 - Important adequacy distinction:
   - `en-es` currently has a wired bilingual source (`freedict-es-en`), but that source is not coverage-adequate for production SRS publication on its own.
   - The current failure mode is not just ranking noise; some normal admitted lemmas have no usable ES->EN headword coverage in the installed FreeDict inventory.
   - Evidence: installed-resource SRS journey leaves `movimiento` due-but-unpublished in `docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.md`.
+- Future Spanish SRS-corpus expansion:
+  - The current `freq-es-cde` pack is a sample-sized Spanish frequency resource; observed local metadata contains `2,000` rows and produces `1,984` unique Spanish SRS target lemmas after dedupe in the current semantic-veto bridge.
+  - Treat that as a current installed-resource boundary, not as a final `en-es` product corpus cap.
+  - Future research should identify a broader licensing-safe Spanish frequency source or pack strategy, verify POS/rank quality, and re-run SRS admission/rulegen/semantic-veto denominator reports before expanding paid evidence generation beyond the current corpus.
 - Current replacement direction:
   - The active replacement plan for `en-es` is a Kaikki/Wiktionary-backed compatibility SQLite generated from Spanish entries in the English-edition Kaikki dump.
   - The active reverse-check replacement plan is a separate Kaikki/Wiktionary compatibility SQLite generated from English entries in the same English-edition dump.

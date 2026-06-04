@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-24T20:18:59Z",
+  "status": "review",
+  "pair": "en-es",
+  "batch_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_normalized_evidence.json",
+  "batch_id": "en-es:target:prompt-target-overlap-v3-20260425a",
+  "source_id": "semantic_prompt_bakeoff_en_es_v10:target",
+  "prompt_version": "semantic_prompt_bakeoff_v3",
+  "model_id": "gpt-5.4",
+  "row_count": 6,
+  "contract": {
+    "required_relation_sets": {
+      "active_examples": [
+        "anchor_cue"
+      ],
+      "shadow_examples": [
+        "bridge_candidate",
+        "shadow_candidate"
+      ],
+      "phrase_control_examples": [
+        "phrase_control_example"
+      ]
+    },
+    "required_batch_role_for_phrase_rows": "phrase_containment",
+    "runtime_publishable_required": false,
+    "required_family_keys": []
+  },
+  "summary": {
+    "families_total": 6,
+    "contract_complete_family_count": 0,
+    "contract_complete": false,
+    "missing_active_family_keys": [],
+    "missing_shadow_family_keys": [
+      "en-es:sentence-veto:check:cheque",
+      "en-es:sentence-veto:drink:bebida",
+      "en-es:sentence-veto:order:pedido",
+      "en-es:sentence-veto:plant:planta",
+      "en-es:sentence-veto:report:informe",
+      "en-es:sentence-veto:trip:viaje"
+    ],
+    "missing_phrase_control_family_keys": [
+      "en-es:sentence-veto:check:cheque",
+      "en-es:sentence-veto:drink:bebida",
+      "en-es:sentence-veto:order:pedido",
+      "en-es:sentence-veto:plant:planta",
+      "en-es:sentence-veto:report:informe",
+      "en-es:sentence-veto:trip:viaje"
+    ],
+    "phrase_role_issue_family_keys": [],
+    "runtime_publishable_issue_family_keys": []
+  },
+  "family_rows": [
+    {
+      "family_key": "en-es:sentence-veto:check:cheque",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es:target:cue-cross-pos-overlap-v1:check:revisar:row"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:drink:bebida",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es:target:cue-contrastive-overlap-v1:drink:beber:row"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:order:pedido",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es:target:cue-cross-pos-overlap-v1:order:ordenar:row"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:plant:planta",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es:target:cue-contrastive-overlap-v1:plant:fabrica:row"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:report:informe",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es:target:cue-cross-pos-overlap-v1:report:informar:row"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    },
+    {
+      "family_key": "en-es:sentence-veto:trip:viaje",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "active_example_count": 1,
+      "shadow_example_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1,
+      "contract_complete": false,
+      "missing_requirements": [
+        "shadow_examples",
+        "phrase_control_examples"
+      ],
+      "active_row_ids": [
+        "en-es:target:cue-cross-pos-overlap-v1:trip:tropezar:row"
+      ],
+      "shadow_row_ids": [],
+      "phrase_control_row_ids": [],
+      "phrase_rows_missing_role": [],
+      "runtime_publishable_row_ids": []
+    }
+  ],
+  "recommendation": "Do not treat this batch as promotion-relevant for prototype admission. Missing families: active=0, shadow=6, phrase_control=6. Generate or ingest active, shadow, and phrase-control rows together before downstream spend."
+}

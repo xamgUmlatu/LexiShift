@@ -9,8 +9,10 @@ from PySide6.QtWidgets import QListWidgetItem
 
 from i18n import t
 from lexishift_core import SynonymSourceSettings, VocabRule
+from lexishift_core.helper.embedding_packs import resolve_embedding_pack_artifact
 from lexishift_core.resources.synonyms import EmbeddingIndex
 from main_embedding_loader import EmbeddingLoaderThread
+from main_paths import _app_data_dir
 
 
 class MainWindowReplacementFilterMixin:
@@ -172,12 +174,39 @@ class MainWindowReplacementFilterMixin:
         enabled = dict(settings.embedding_pair_enabled or {})
         if pair_key in enabled and not enabled[pair_key]:
             return []
+        resolved_paths: list[Path] = []
+        seen: set[Path] = set()
+        embedding_pack_paths = dict(settings.embedding_pack_paths or {})
+        pair_pack_ids = dict(getattr(settings, "embedding_pair_pack_ids", {}) or {}).get(pair_key)
+        if isinstance(pair_pack_ids, (list, tuple)):
+            base_dir = _app_data_dir() / "embedding_packs"
+            for pack_id in pair_pack_ids:
+                pack_key = str(pack_id or "").strip()
+                if not pack_key:
+                    continue
+                configured_path = embedding_pack_paths.get(pack_key)
+                resolved = resolve_embedding_pack_artifact(
+                    base_dir,
+                    pack_id=pack_key,
+                    configured_path=Path(configured_path) if configured_path else None,
+                )
+                if resolved is None or not resolved.exists():
+                    continue
+                if resolved in seen:
+                    continue
+                seen.add(resolved)
+                resolved_paths.append(resolved)
         pair_paths = dict(settings.embedding_pair_paths or {}).get(pair_key)
-        paths: list[Path] = []
-        if pair_paths:
-            paths = [Path(path) for path in pair_paths if path]
-        existing = [path for path in paths if path.exists()]
-        return existing
+        if isinstance(pair_paths, (list, tuple)):
+            for raw_path in pair_paths:
+                candidate = Path(raw_path) if raw_path else None
+                if candidate is None or not candidate.exists():
+                    continue
+                if candidate in seen:
+                    continue
+                seen.add(candidate)
+                resolved_paths.append(candidate)
+        return resolved_paths
 
     def _replacement_filter_scope(self, replacement: Optional[str]) -> str:
         if not replacement:

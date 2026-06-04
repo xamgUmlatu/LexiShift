@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+  "base_dataset": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json",
+  "description": "Independent active/shadow held-out validation cases for the non-v10 wave7 source-class breadth gate.",
+  "case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:like:gustos",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+          "sentence": "Her likes include jazz and old films.",
+          "source_phrase": "like",
+          "gold_winner": "en-es:sentence-veto:like:gustos:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "affective_response"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:002",
+          "sentence": "The new tenant seems to like the quiet street.",
+          "source_phrase": "like",
+          "gold_winner": "en-es:sentence-veto:like:gustos:atraer:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame", "affective_response"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:001",
+          "sentence": "The gross smell from the bin made everyone gag.",
+          "source_phrase": "gross",
+          "gold_winner": "en-es:sentence-veto:gross:repulsivo:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "affective_response"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+          "sentence": "The shop ordered a gross of pencils.",
+          "source_phrase": "gross",
+          "gold_winner": "en-es:sentence-veto:gross:repulsivo:gruesa:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cast:lanzamiento",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+          "sentence": "His cast of the fishing line reached the dock.",
+          "source_phrase": "cast",
+          "gold_winner": "en-es:sentence-veto:cast:lanzamiento:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "physical_manipulation"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:002",
+          "sentence": "The bronze cast cooled in the workshop.",
+          "source_phrase": "cast",
+          "gold_winner": "en-es:sentence-veto:cast:lanzamiento:molde:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "alternate_noun", "physical_manipulation"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+          "sentence": "Losing the only key left us in a real fix.",
+          "source_phrase": "fix",
+          "gold_winner": "en-es:sentence-veto:fix:aprieto:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "difficulty_constraint"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:002",
+          "sentence": "The mechanic will fix the brake tomorrow.",
+          "source_phrase": "fix",
+          "gold_winner": "en-es:sentence-veto:fix:aprieto:reparar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:full:lleno",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+          "sentence": "The full jar could not hold another spoonful.",
+          "source_phrase": "full",
+          "gold_winner": "en-es:sentence-veto:full:lleno:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:002",
+          "sentence": "Workers full the wool cloth to make it denser.",
+          "source_phrase": "full",
+          "gold_winner": "en-es:sentence-veto:full:lleno:abatanar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame", "physical_manipulation"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:waste:desperdicio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:001",
+          "sentence": "Food waste filled the bin after dinner.",
+          "source_phrase": "waste",
+          "gold_winner": "en-es:sentence-veto:waste:desperdicio:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:002",
+          "sentence": "Factories should not waste clean water.",
+          "source_phrase": "waste",
+          "gold_winner": "en-es:sentence-veto:waste:desperdicio:malgastar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:firm:firma",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:firm:001",
+          "sentence": "The accounting firm hired two auditors.",
+          "source_phrase": "firm",
+          "gold_winner": "en-es:sentence-veto:firm:firma:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "commercial_organization"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:firm:002",
+          "sentence": "Please firm the post into the soil.",
+          "source_phrase": "firm",
+          "gold_winner": "en-es:sentence-veto:firm:firma:afirmar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame", "physical_manipulation"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:even:tarde",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:001",
+          "sentence": "At even, the village lamps began to glow.",
+          "source_phrase": "even",
+          "gold_winner": "en-es:sentence-veto:even:tarde:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "archaic_noun"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:even:002",
+          "sentence": "The carpenter will even the surface.",
+          "source_phrase": "even",
+          "gold_winner": "en-es:sentence-veto:even:tarde:allanar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:wrong:incorrecto",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+          "sentence": "The wrong address delayed the package.",
+          "source_phrase": "wrong",
+          "gold_winner": "en-es:sentence-veto:wrong:incorrecto:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "correctness_suitability"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:002",
+          "sentence": "They will wrong the workers if wages are withheld.",
+          "source_phrase": "wrong",
+          "gold_winner": "en-es:sentence-veto:wrong:incorrecto:herir:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:meet:adecuado",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+          "sentence": "It is meet to thank the volunteers before dinner.",
+          "source_phrase": "meet",
+          "gold_winner": "en-es:sentence-veto:meet:adecuado:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "correctness_suitability", "archaic_adjective"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:002",
+          "sentence": "We will meet the guide at noon.",
+          "source_phrase": "meet",
+          "gold_winner": "en-es:sentence-veto:meet:adecuado:encontrar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:stretch:estir-n",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+          "sentence": "The morning stretch loosened his shoulders.",
+          "source_phrase": "stretch",
+          "gold_winner": "en-es:sentence-veto:stretch:estir-n:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "physical_manipulation"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:002",
+          "sentence": "Pull the rope to stretch the canvas.",
+          "source_phrase": "stretch",
+          "gold_winner": "en-es:sentence-veto:stretch:estir-n:estirar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame", "physical_manipulation"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:score:tantos",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+          "sentence": "The final score was tied at ten.",
+          "source_phrase": "score",
+          "gold_winner": "en-es:sentence-veto:score:tantos:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "sports_points_offense"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:002",
+          "sentence": "The striker will score before halftime.",
+          "source_phrase": "score",
+          "gold_winner": "en-es:sentence-veto:score:tantos:anotar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame", "sports_points_offense"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:crash:choque",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:001",
+          "sentence": "The crash blocked both lanes after midnight.",
+          "source_phrase": "crash",
+          "gold_winner": "en-es:sentence-veto:crash:choque:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "collision_malfunction"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:002",
+          "sentence": "The old laptop will crash during startup.",
+          "source_phrase": "crash",
+          "gold_winner": "en-es:sentence-veto:crash:choque:fallo:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "alternate_noun", "collision_malfunction"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trim:compensador",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+          "sentence": "The pilot adjusted the trim before landing.",
+          "source_phrase": "trim",
+          "gold_winner": "en-es:sentence-veto:trim:compensador:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:002",
+          "sentence": "The tailor will trim the sleeve.",
+          "source_phrase": "trim",
+          "gold_winner": "en-es:sentence-veto:trim:compensador:recortar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame", "physical_manipulation"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:squeeze:crisis",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+          "sentence": "The rent increase put the family in a squeeze.",
+          "source_phrase": "squeeze",
+          "gold_winner": "en-es:sentence-veto:squeeze:crisis:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "difficulty_constraint"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:002",
+          "sentence": "Please squeeze the boxes into the closet.",
+          "source_phrase": "squeeze",
+          "gold_winner": "en-es:sentence-veto:squeeze:crisis:apretujar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame", "difficulty_constraint"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:foul:falta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+          "sentence": "The referee called a foul near the basket.",
+          "source_phrase": "foul",
+          "gold_winner": "en-es:sentence-veto:foul:falta:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_active", "sports_points_offense"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:002",
+          "sentence": "Oil can foul the water filter.",
+          "source_phrase": "foul",
+          "gold_winner": "en-es:sentence-veto:foul:falta:ensuciar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave7_source_class_breadth_heldout", "semantic_shadow", "verb_frame", "physical_manipulation"]
+        }
+      ]
+    }
+  ]
+}

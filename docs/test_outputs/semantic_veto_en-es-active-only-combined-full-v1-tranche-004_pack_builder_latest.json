@@ -1,0 +1,184 @@
+{
+  "artifacts": {
+    "combined_normalized_evidence": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-004-normalized_evidence.json",
+    "semantic_inventory": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-004_semantic_inventory.json"
+  },
+  "component_batches": [
+    {
+      "batch_id": "en-es:semantic-veto:en-es-active-only-combined-full-v1-tranche-003",
+      "family_count": 178,
+      "row_count": 368,
+      "source_family": "internal_rulegen_artifact",
+      "source_id": "en-es-active-only-combined-full-v1-tranche-003",
+      "source_type": "internal"
+    },
+    {
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-004",
+      "family_count": 46,
+      "row_count": 92,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-004",
+      "source_type": "llm"
+    }
+  ],
+  "decision": "active_only_full_pack_ready_for_named_install",
+  "duplicate_samples": [],
+  "existing_family_append_samples": [],
+  "generated_at": "2026-05-13T02:47:12Z",
+  "inputs": {
+    "add_normalized_evidence_paths": [
+      "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-004_normalized_evidence.json"
+    ],
+    "base_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-003_semantic_inventory.json",
+    "base_normalized_evidence_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-003-normalized_evidence.json"
+  },
+  "issues": [],
+  "methodology": {
+    "existing_family_policy": "append generated evidence to existing active sense by trigger-target key",
+    "merge_scope": "append active-only anchor cues, preserve existing shadows and phrase sets",
+    "new_family_policy": "create active-only competition set when trigger-target pair is absent",
+    "runtime_policy_change": "none",
+    "runtime_publishable_rows": "kept false in source evidence; semantic inventory is the runtime materialization layer"
+  },
+  "new_family_samples": [
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:jack:gato:21a0c7d2",
+      "target": "gato",
+      "trigger": "jack"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:japanese:japones:7c592e26",
+      "target": "japonés",
+      "trigger": "japanese"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:journalist:periodista:c76583ad",
+      "target": "periodista",
+      "trigger": "journalist"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:judge:juzgar:910b13c1",
+      "target": "juzgar",
+      "trigger": "judge"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:knock:llamar:f8f82ff1",
+      "target": "llamar",
+      "trigger": "knock"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:latin:latino:d0454267",
+      "target": "latino",
+      "trigger": "latin"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:lie:mentir:6bb59bc8",
+      "target": "mentir",
+      "trigger": "lie"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:load:cargar:6c55b531",
+      "target": "cargar",
+      "trigger": "load"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:male:masculino:fad87de3",
+      "target": "masculino",
+      "trigger": "male"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:measure:medir:c4ec7b4d",
+      "target": "medir",
+      "trigger": "measure"
+    }
+  ],
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-004",
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "add_normalized_row_count": 92,
+    "base_normalized_row_count": 368,
+    "combined_normalized_row_count": 460,
+    "competition_set_count": 224,
+    "duplicate_row_count": 0,
+    "existing_family_append_count": 0,
+    "existing_family_append_samples": [],
+    "merged_evidence_row_count": 92,
+    "new_family_count": 46,
+    "new_family_samples": [
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:jack:gato:21a0c7d2",
+        "target": "gato",
+        "trigger": "jack"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:japanese:japones:7c592e26",
+        "target": "japonés",
+        "trigger": "japanese"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:journalist:periodista:c76583ad",
+        "target": "periodista",
+        "trigger": "journalist"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:judge:juzgar:910b13c1",
+        "target": "juzgar",
+        "trigger": "judge"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:knock:llamar:f8f82ff1",
+        "target": "llamar",
+        "trigger": "knock"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:latin:latino:d0454267",
+        "target": "latino",
+        "trigger": "latin"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:lie:mentir:6bb59bc8",
+        "target": "mentir",
+        "trigger": "lie"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:load:cargar:6c55b531",
+        "target": "cargar",
+        "trigger": "load"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:male:masculino:fad87de3",
+        "target": "masculino",
+        "trigger": "male"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:measure:medir:c4ec7b4d",
+        "target": "medir",
+        "trigger": "measure"
+      }
+    ],
+    "sense_count": 266,
+    "trigger_count": 224
+  }
+}

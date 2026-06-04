@@ -2,7 +2,7 @@
 
 Status: active mixed reference
 Role: Mixed
-Last updated: 2026-03-21
+Last updated: 2026-04-21
 Purpose: module-level technical reference for current extension behavior plus known gaps and ongoing areas
 Source-of-truth: mixed as-is + known-gaps reference; verify live runtime behavior in `extension_system_map.md`, `apps/chrome-extension/manifest.json`, `apps/chrome-extension/options/core/bootstrap/controller_graph.js`, and the linked source modules.
 
@@ -81,6 +81,10 @@ Module layout
   - Filters matches based on settings (max-one-per-block, allow-adjacent, page budgets).
   - Keeps optional replacement detail logs for debug mode.
   - Adds `data-origin`, `data-language-pair`, and `data-source` for downstream UI control.
+- `apps/chrome-extension/content/processing/replacement_semantic_debug.js`
+  - Serializes semantic admission decisions onto debug replacement metadata.
+- `apps/chrome-extension/content/processing/replacement_semantic_override.js`
+  - Builds stable per-match semantic-result overrides so budgeted scan preflight can reuse helper decisions during ordered DOM rendering.
 - `apps/chrome-extension/content/runtime/dom_scan_runtime.js`
   - Owns DOM text-node scanning, mutation observer updates, and page budget enforcement orchestration.
   - Delegates node filtering, budget tracking, counter construction, and text-node replacement handling to `content/runtime/dom_scan/*`.
@@ -88,6 +92,11 @@ Module layout
   - Central node guards for editable fields, excluded tags, and already-replaced LexiShift spans.
 - `apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js`
   - Builds and updates page-level replacement budget state (`maxReplacementsPerPage`, per-lemma cap).
+- `apps/chrome-extension/content/runtime/dom_scan/scan_order.js`
+  - Prioritizes visible and near-viewport text nodes during full scans.
+  - When page budgets are active, deterministically redistributes node order within viewport bands by page/profile seed.
+- `apps/chrome-extension/content/runtime/dom_scan/semantic_node_scheduler.js`
+  - Batches semantic text-node preflight work, including the two-phase path that preserves ordered page-budget rendering.
 - `apps/chrome-extension/content/runtime/dom_scan/scan_counters.js`
   - Constructs scan diagnostics counters for full scans and mutation scans.
 - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
@@ -167,7 +176,7 @@ Module layout
 Manifest ordering
 - `apps/chrome-extension/manifest.json` loads modules before `content_script.js`.
 - Load order is required to populate `globalThis.LexiShift` with module APIs.
-- `content/runtime/dom_scan/node_filters.js`, `content/runtime/dom_scan/page_budget_tracker.js`, `content/runtime/dom_scan/scan_counters.js`, and `content/runtime/dom_scan/text_node_processor.js` must load before `content/runtime/dom_scan_runtime.js`.
+- `content/runtime/dom_scan/node_filters.js`, `content/runtime/dom_scan/page_budget_tracker.js`, `content/runtime/dom_scan/scan_order.js`, `content/runtime/dom_scan/scan_counters.js`, and `content/runtime/dom_scan/text_node_processor.js` must load before `content/runtime/dom_scan_runtime.js`.
 - `content/runtime/dom_scan_runtime.js`, `content/runtime/rules/helper_rules_runtime.js`, `content/runtime/rules/active_rules_runtime.js`, `content/runtime/diagnostics/apply_diagnostics_reporter.js`, `content/runtime/apply_runtime_actions.js`, `content/runtime/apply_settings_pipeline.js`, `content/runtime/feedback/feedback_runtime_controller.js`, and `content/runtime/settings_change_router.js` must load before `content_script.js`.
 - `content/ui/popup_modules/module_registry.js` and `content/ui/popup_modules/japanese_script_module.js` must load before `content/ui/feedback_popup_controller.js`, which must load before `content/ui/ui.js`.
 - The options page also loads `shared/settings/settings_defaults.js` before `options.js`.
@@ -236,7 +245,7 @@ SRS settings (extension)
 - `srsInitialActiveCount` (int): initial active subset size declared for planner/policy.
 - `srsHighlightColor` (hex): highlight color for SRS-origin spans.
 - `srsFeedbackSrsEnabled` (bool): allow feedback popup on SRS-origin spans.
-- `srsFeedbackRulesEnabled` (bool): allow feedback popup on ruleset-origin spans.
+- `srsFeedbackRulesEnabled` (bool): reserved compatibility flag for ruleset-origin spans; normalized off/not exposed for MVP.
 - `srsSoundEnabled` (bool): enable/disable feedback sound.
 - `srsExposureLoggingEnabled` (bool): enable/disable logging of exposure events.
 - `srsSelectedProfileId` (string): extension-local selected profile id for SRS runtime/options.
@@ -253,8 +262,8 @@ SRS settings (extension)
   - Background runtime mirrors are now used by the options page flow only (not injected into general web pages).
 - `profileBackgroundOpacity` (float): selected profile background opacity (0..1).
 - `profileBackgroundBackdropColor` (hex): selected profile backdrop color for options page (`#RRGGBB`).
-- `maxReplacementsPerPage` (int): hard cap for total replacements on a page (`0` = unlimited).
-- `maxReplacementsPerLemmaPerPage` (int): cap for each replacement lemma on a page (`0` = unlimited).
+- `maxReplacementsPerPage` (int): hard cap for total replacements on a page (standard default `20`; `0` = unlimited).
+- `maxReplacementsPerLemmaPerPage` (int): cap for each replacement lemma on a page (standard default `2`; `0` = unlimited).
 
 Replacement pipeline (content script)
 1. Load and normalize settings from storage.
@@ -263,7 +272,8 @@ Replacement pipeline (content script)
 4. Filter rules to those whose `replacement` is in the active lemma set.
 5. Build a trie of word tokens from the filtered rules.
 6. Collect all text nodes using a TreeWalker.
-7. For each node:
+7. If page budgets are active, deterministically reorder the full-scan node list by page/profile seed before processing.
+8. For each node:
    - Skip if empty, whitespace-only, in editable fields, excluded tags, or already replaced.
    - Tokenize and find longest matches via the trie.
    - Optionally filter matches:
@@ -271,11 +281,14 @@ Replacement pipeline (content script)
      - `allowAdjacentReplacements=false`: skip back-to-back word matches.
      - `maxReplacementsPerPage`: stop replacing when page budget is exhausted.
      - `maxReplacementsPerLemmaPerPage`: skip lemmas that reached per-page cap.
+     - When helper SRS metadata is present and replacement-load constraints
+       apply, prefer new/learning/lower-stability due SRS items before mature
+       or future-due SRS items.
    - Replace the node with a fragment containing spans and text nodes.
    - For Japanese targets, replacement display uses selected primary script when rule metadata includes script forms.
    - For morphology-tagged rules, display can use `metadata.morphology.target_surface` while canonical lemma remains `rule.replacement` for gating/feedback keys.
    - Each replacement span is tagged with `data-origin` (`srs` or `ruleset`).
-8. Track processed nodes in a `WeakMap` to avoid repeated replacements.
+9. Track processed nodes in a `WeakMap` to avoid repeated replacements.
 
 SRS gating behavior (extension)
 - The selector uses a fixed test dataset (`shared/srs/srs_selector_test_dataset.json`).
@@ -324,9 +337,9 @@ SRS feedback UX (extension)
   - `helperFeedbackSyncQueue`
   - `helperFeedbackSyncLock`
   - `helperFeedbackSyncDropped`
-- Feedback popup appears when the origin is enabled:
-  - SRS words: `srsFeedbackSrsEnabled`
-  - Ruleset words: `srsFeedbackRulesEnabled`
+- Feedback popup appears for SRS learning words in MVP. Ruleset-origin feedback
+  remains an internal compatibility path gated by `srsFeedbackRulesEnabled`, but
+  Options normalizes that flag off and does not expose a learner-facing toggle.
 
 Exposure tracking (extension)
 - Each replacement detail is logged with origin (`srs` or `ruleset`).
@@ -349,15 +362,20 @@ Debug tooling
   - replaced or skipped.
 - Detail logs are capped to avoid flooding the console.
 
-Settings added for replacement behavior
+Settings added for page replacement density
 - `maxOnePerTextBlock` (default: false)
   - Limits each text node to a single replacement.
-- `allowAdjacentReplacements` (default: true)
+- `allowAdjacentReplacements` (default: false)
   - When disabled, prevents replacements that occur on immediately adjacent words.
-- `maxReplacementsPerPage` (default: 0)
+- `maxReplacementsPerPage` (default: 20)
   - Caps the total number of replacements per page scan/session (`0` means unlimited).
-- `maxReplacementsPerLemmaPerPage` (default: 0)
+- `maxReplacementsPerLemmaPerPage` (default: 2)
   - Caps repeated replacements of the same lemma on a page (`0` means unlimited).
+  - When replacement-load constraints are active, SRS candidates are selected
+    with scheduler metadata-aware priority before deterministic tie-breaking.
+- The defaults are declared as `replacementDensityDefaults.standard` in the
+  extension settings defaults so the MVP density policy has one explicit tuning
+  point.
 
 ## Known Gap To Preserve Explicitly
 

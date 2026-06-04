@@ -68,6 +68,11 @@ def render_summary(
             lines.append(
                 f"- Ruleset unique targets: {int(scenario.get('ruleset_unique_targets') or 0)}"
             )
+            lines.append(
+                "- SRS due metadata/runtime-active targets: "
+                f"{int(scenario.get('srs_due_metadata_count') or 0)}/"
+                f"{int(scenario.get('runtime_due_active_count') or 0)}"
+            )
             diagnostics = scenario.get("diagnostics")
             if isinstance(diagnostics, dict):
                 lines.append(
@@ -84,15 +89,70 @@ def render_summary(
         for phase in feedback.get("phases", []):
             if not isinstance(phase, dict):
                 continue
+            feedback_delta = (
+                phase.get("feedback_delta") if isinstance(phase.get("feedback_delta"), dict) else {}
+            )
+            refresh_delta = (
+                phase.get("refresh_delta") if isinstance(phase.get("refresh_delta"), dict) else {}
+            )
+            selected_lemmas = [
+                str(item) for item in phase.get("selected_lemmas", []) if str(item or "").strip()
+            ]
+            reviewed_lemmas = [
+                str(item)
+                for item in feedback_delta.get("reviewed_lemmas", [])
+                if str(item or "").strip()
+            ]
+            added_lemmas = [
+                str(item)
+                for item in refresh_delta.get("added_lemmas", [])
+                if str(item or "").strip()
+            ]
             lines.append(
                 "- "
                 f"{str(phase.get('label') or '<phase>')}: "
                 f"applied={'yes' if bool(phase.get('applied')) else 'no'}, "
                 f"reason=`{str(phase.get('reason_code') or '')}`, "
                 f"total_items={int(phase.get('total_items_for_pair') or 0)}, "
-                f"ruleset={int(phase.get('ruleset_count') or 0)}"
+                f"ruleset={int(phase.get('ruleset_count') or 0)}, "
+                f"runtime_due_active={int(phase.get('runtime_due_active_count') or 0)}"
             )
+            if feedback_delta or refresh_delta or selected_lemmas:
+                lines.append(
+                    "  - "
+                    f"selected={', '.join(selected_lemmas) or 'none'}, "
+                    f"feedback_reviewed={', '.join(reviewed_lemmas) or 'none'}, "
+                    f"refresh_added={', '.join(added_lemmas) or 'none'}"
+                )
         lines.append("")
+
+    encounter = payload.get("encounter_watch_scenario")
+    if isinstance(encounter, dict):
+        encounter_summary = encounter.get("dashboard_summary")
+        if isinstance(encounter_summary, dict):
+            stale_age_days = int(encounter.get("stale_age_days") or 0)
+            lines.extend(["## Encounter Watch", ""])
+            lines.append(
+                "- Active unseen/no-feedback: "
+                f"{int(encounter_summary.get('active_zero_exposure_zero_feedback') or 0)}"
+            )
+            lines.append(
+                "- Stale unseen/no-feedback: "
+                f"{int(encounter_summary.get('active_stale_zero_exposure_zero_feedback') or 0)} "
+                f"over {stale_age_days}d"
+            )
+            lines.append(
+                "- Age unknown: "
+                f"{int(encounter_summary.get('active_zero_exposure_zero_feedback_age_unknown') or 0)}"
+            )
+            lines.append(
+                "- Active without enabled rules: "
+                f"{int(encounter_summary.get('active_without_enabled_rules') or 0)}"
+            )
+            lines.append(
+                f"- Encounter watch total: {int(encounter_summary.get('encounter_watch') or 0)}"
+            )
+            lines.append("")
 
     actionable = [
         item

@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "normalization_version": "semantic_evidence_v1",
+  "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a:filtered",
+  "pair": "en-es",
+  "source_type": "internal",
+  "source_id": "manual_leakage_safe_example_frames",
+  "source_family": "internal_rulegen_artifact",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-25T00:09:35Z",
+  "ingested_at": "2026-04-25T00:09:35Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "manual-leakage-safe-v1",
+  "row_count": 4,
+  "rows": [
+    {
+      "evidence_id": "evidence:72e27c5de5ccd820f7c196de4d5905fdddfdfb92",
+      "dedupe_key": "dedupe:db3ac732e06b0b44e216b06fbf2ca17e3be2e769",
+      "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+      "row_id": "en-es-sentence-veto-ball-pelota:manual:active:leakage-safe:v1",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "manual_leakage_safe_example_frames",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "ball",
+      "normalized_trigger": "ball",
+      "active_target": "pelota",
+      "normalized_active_target": "pelota",
+      "candidate_target": "pelota",
+      "normalized_candidate_target": "pelota",
+      "is_multiword": false,
+      "evidence_text": "A rubber ball bounced across the kitchen floor.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "manual_leakage_safe_example_frames",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+        "row_id": "en-es-sentence-veto-ball-pelota:manual:active:leakage-safe:v1",
+        "model_id": "not_applicable",
+        "prompt_version": "manual-leakage-safe-v1",
+        "generated_at": "2026-04-25T00:09:35Z",
+        "ingested_at": "2026-04-25T00:09:35Z",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "leakage_safe_active_example",
+        "input_ref": "manual:leakage-safe:ball:active",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "note": "manual_leakage_safe_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:ball:pelota:active",
+        "canonical_pos": "noun",
+        "note": "manual_leakage_safe_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.98,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:ball:pelota",
+        "active_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "candidate_sense_id": "en-es:sentence-veto:ball:pelota:active",
+        "generation_target": "active_example",
+        "source_gap": "leaked_active_replacement",
+        "replaces_filtered_row_id": "en-es-sentence-veto-ball-pelota:llm:active:missing:v1"
+      }
+    },
+    {
+      "evidence_id": "evidence:80c398faf1e27463de7902e297a0bbf297be9222",
+      "dedupe_key": "dedupe:33519c87e297498336d3bb575e04b2b8207ebab7",
+      "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+      "row_id": "en-es-sentence-veto-file-archivo:manual:shadow:en-es-sentence-veto-file-lima-shadow:leakage-safe:v1",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "manual_leakage_safe_example_frames",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "file",
+      "normalized_trigger": "file",
+      "active_target": "archivo",
+      "normalized_active_target": "archivo",
+      "candidate_target": "lima",
+      "normalized_candidate_target": "lima",
+      "is_multiword": false,
+      "evidence_text": "The carpenter shaped the latch with a coarse file.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "manual_leakage_safe_example_frames",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+        "row_id": "en-es-sentence-veto-file-archivo:manual:shadow:en-es-sentence-veto-file-lima-shadow:leakage-safe:v1",
+        "model_id": "not_applicable",
+        "prompt_version": "manual-leakage-safe-v1",
+        "generated_at": "2026-04-25T00:09:35Z",
+        "ingested_at": "2026-04-25T00:09:35Z",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "leakage_safe_shadow_example",
+        "input_ref": "manual:leakage-safe:file:shadow:lima",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:archivo:active",
+        "note": "manual_leakage_safe_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:file:lima:shadow",
+        "canonical_pos": "noun",
+        "note": "manual_leakage_safe_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.98,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:file:archivo",
+        "active_sense_id": "en-es:sentence-veto:file:archivo:active",
+        "candidate_sense_id": "en-es:sentence-veto:file:lima:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "leaked_shadow_replacement",
+        "replaces_filtered_row_id": "en-es-sentence-veto-file-archivo:llm:shadow:en-es-sentence-veto-file-lima-shadow:missing:v1"
+      }
+    },
+    {
+      "evidence_id": "evidence:99e582e633fa617859573536237c6de46fb93fb9",
+      "dedupe_key": "dedupe:1d39abeff5f7b55611b4b96b91b47beff2107029",
+      "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+      "row_id": "en-es-sentence-veto-board-tablero:manual:shadow:en-es-sentence-veto-board-junta-shadow:leakage-safe:v1",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "manual_leakage_safe_example_frames",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "board",
+      "normalized_trigger": "board",
+      "active_target": "tablero",
+      "normalized_active_target": "tablero",
+      "candidate_target": "junta",
+      "normalized_candidate_target": "junta",
+      "is_multiword": false,
+      "evidence_text": "The board voted to hire a new director.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "manual_leakage_safe_example_frames",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+        "row_id": "en-es-sentence-veto-board-tablero:manual:shadow:en-es-sentence-veto-board-junta-shadow:leakage-safe:v1",
+        "model_id": "not_applicable",
+        "prompt_version": "manual-leakage-safe-v1",
+        "generated_at": "2026-04-25T00:09:35Z",
+        "ingested_at": "2026-04-25T00:09:35Z",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "leakage_safe_shadow_example",
+        "input_ref": "manual:leakage-safe:board:shadow:junta",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:tablero:active",
+        "note": "manual_leakage_safe_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:board:junta:shadow",
+        "canonical_pos": "noun",
+        "note": "manual_leakage_safe_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.98,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:board:tablero",
+        "active_sense_id": "en-es:sentence-veto:board:tablero:active",
+        "candidate_sense_id": "en-es:sentence-veto:board:junta:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "leaked_shadow_replacement",
+        "replaces_filtered_row_id": "en-es-sentence-veto-board-tablero:llm:shadow:en-es-sentence-veto-board-junta-shadow:missing:v1"
+      }
+    },
+    {
+      "evidence_id": "evidence:b8c94abfecd7682ebaab3acc49259914ff78c0ae",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:manual:active:leakage-safe:v1",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "manual_leakage_safe_example_frames",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "A leafy plant grew taller in the clay pot.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "manual_leakage_safe_example_frames",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:manual:active:leakage-safe:v1",
+        "model_id": "not_applicable",
+        "prompt_version": "manual-leakage-safe-v1",
+        "generated_at": "2026-04-25T00:09:35Z",
+        "ingested_at": "2026-04-25T00:09:35Z",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "leakage_safe_active_example",
+        "input_ref": "manual:leakage-safe:plant:active",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "manual_leakage_safe_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "manual_leakage_safe_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.98,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "generation_target": "active_example",
+        "source_gap": "residual_false_abstain_active_replacement",
+        "replaces_filtered_row_id": "en-es-sentence-veto-plant-planta:llm:active:remediation-active-001-002:v1"
+      }
+    }
+  ],
+  "provenance": {
+    "source_type": "internal",
+    "source_id": "manual_leakage_safe_example_frames",
+    "source_family": "internal_rulegen_artifact",
+    "batch_id": "en-es:manual-example-frame-replacements:source-coverage-leakage-safe-v1-20260425a",
+    "model_id": "not_applicable",
+    "prompt_version": "manual-leakage-safe-v1",
+    "generated_at": "2026-04-25T00:09:35Z",
+    "ingested_at": "2026-04-25T00:09:35Z",
+    "normalization_version": "semantic_evidence_v1",
+    "upstream": {
+      "source_note": "Manual leakage-safe replacements for rows removed by semantic example-frame leakage audit; analysis-only, not runtime-publishable."
+    },
+    "leakage_audit": {
+      "status": "ok",
+      "removed_row_count": 0,
+      "leakage_hit_count": 0,
+      "duplicate_hit_count": 0,
+      "jaccard_threshold": 0.75,
+      "duplicate_jaccard_threshold": 0.92,
+      "min_contained_tokens": 5,
+      "min_duplicate_tokens": 4
+    }
+  }
+}

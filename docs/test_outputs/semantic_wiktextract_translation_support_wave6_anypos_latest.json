@@ -1,0 +1,1283 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "wiktextract_support_complete",
+  "generated_at": "2026-04-29T01:27:32Z",
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+  "supported_dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+  "source_id": "wiktextract_en_es_translation_table",
+  "resource_status": {
+    "raw_wiktextract_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/raw-wiktextract-data.jsonl.gz",
+    "raw_wiktextract_exists": true
+  },
+  "summary": {
+    "family_count": 16,
+    "fully_supported_family_count": 16,
+    "selected_sense_count": 38,
+    "already_supported_sense_count": 13,
+    "wiktextract_supported_sense_count": 38,
+    "newly_supported_sense_count": 25,
+    "unsupported_sense_count": 0
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "wiktextract_supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:active",
+          "target_lemma": "permiso",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "leave",
+              "record_pos": "noun",
+              "translation_word": "permiso",
+              "translation_sense": "permission to be absent",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "absent",
+                "permission"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "target_lemma": "excedencia",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "leave",
+              "record_pos": "noun",
+              "translation_word": "excedencia",
+              "translation_sense": "absence from work",
+              "translation_tags": [
+                "feminine"
+              ],
+              "sense_overlap": [
+                "absence",
+                "work"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+          "target_lemma": "dejar",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "leave",
+              "record_pos": "verb",
+              "translation_word": "dejar",
+              "translation_sense": "to cause to remain as available, not take away, refrain from depleting",
+              "translation_tags": [],
+              "sense_overlap": [
+                "available",
+                "away",
+                "cause",
+                "deplet",
+                "refrain",
+                "remain",
+                "take"
+              ]
+            },
+            {
+              "record_word": "leave",
+              "record_pos": "verb",
+              "translation_word": "dejar",
+              "translation_sense": "to transfer possession after death",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "leave",
+              "record_pos": "verb",
+              "translation_word": "dejar",
+              "translation_sense": "to give (something) to someone; to deliver (something) to a repository; to deposit",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "leave",
+              "record_pos": "verb",
+              "translation_word": "dejar",
+              "translation_sense": "to transfer responsibility or attention",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "leave",
+              "record_pos": "verb",
+              "translation_word": "dejar",
+              "translation_sense": "to depart from, end one's connection or affiliation with",
+              "translation_tags": [],
+              "sense_overlap": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "trigger": "black",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:black:oscuro:active",
+          "target_lemma": "oscuro",
+          "canonical_pos": "adjective",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "black",
+              "record_pos": "adj",
+              "translation_word": "oscuro",
+              "translation_sense": "without light",
+              "translation_tags": [],
+              "sense_overlap": [
+                "light",
+                "without"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:black:oscuro:negro:shadow",
+          "target_lemma": "negro",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "black",
+              "record_pos": "noun",
+              "translation_word": "negro",
+              "translation_sense": "colour/color",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "color",
+                "colour"
+              ]
+            },
+            {
+              "record_word": "black",
+              "record_pos": "noun",
+              "translation_word": "negro",
+              "translation_sense": "dark-skinned person — see also Negro",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "negro"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:serve:servicio:active",
+          "target_lemma": "servicio",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "serve",
+              "record_pos": "noun",
+              "translation_word": "servicio",
+              "translation_sense": "sports: act of putting the ball or shuttlecock in play",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "act",
+                "ball",
+                "play",
+                "putt",
+                "shuttlecock",
+                "sport"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+          "target_lemma": "servir",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to work for",
+              "translation_tags": [],
+              "sense_overlap": [
+                "work"
+              ]
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "religion: to obey and worship",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to be subordinate to",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to be suitor to",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to attend, supply the wants of",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to bring food to",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to perform duties",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to treat (someone)",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to spend time (of punishment)",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "sports: to lead off with first delivery (of the ball)",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to be a servant",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "serve",
+              "record_pos": "verb",
+              "translation_word": "servir",
+              "translation_sense": "to be of use",
+              "translation_tags": [],
+              "sense_overlap": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "trigger": "low",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:low:bajo:active",
+          "target_lemma": "bajo",
+          "canonical_pos": "adverb",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "low",
+              "record_pos": "adv",
+              "translation_word": "bajo",
+              "translation_sense": "close to the ground",
+              "translation_tags": [],
+              "sense_overlap": [
+                "close",
+                "ground"
+              ]
+            },
+            {
+              "record_word": "low",
+              "record_pos": "adv",
+              "translation_word": "bajo",
+              "translation_sense": "at a lower frequency",
+              "translation_tags": [],
+              "sense_overlap": []
+            },
+            {
+              "record_word": "low",
+              "record_pos": "adv",
+              "translation_word": "bajo",
+              "translation_sense": "with a low voice or sound",
+              "translation_tags": [],
+              "sense_overlap": []
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+          "target_lemma": "decaído",
+          "canonical_pos": "adjective",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "low",
+              "record_pos": "adj",
+              "translation_word": "decaído",
+              "translation_sense": "depressed, sad",
+              "translation_tags": [],
+              "sense_overlap": [
+                "depress",
+                "sad"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "wiktextract_supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:active",
+          "target_lemma": "parte",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "part",
+              "record_pos": "noun",
+              "translation_word": "parte",
+              "translation_sense": "fraction of a whole",
+              "translation_tags": [
+                "feminine"
+              ],
+              "sense_overlap": [
+                "fraction",
+                "whole"
+              ]
+            },
+            {
+              "record_word": "part",
+              "record_pos": "noun",
+              "translation_word": "parte",
+              "translation_sense": "group inside a larger group",
+              "translation_tags": [
+                "feminine"
+              ],
+              "sense_overlap": []
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+          "target_lemma": "papel",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "part",
+              "record_pos": "noun",
+              "translation_word": "papel",
+              "translation_sense": "position or role, especially in a play",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "especially",
+                "play",
+                "position",
+                "role"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "target_lemma": "repartir",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "part",
+              "record_pos": "verb",
+              "translation_word": "repartir",
+              "translation_sense": "to divide in two",
+              "translation_tags": [],
+              "sense_overlap": [
+                "divide",
+                "two"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:feel:talento:active",
+          "target_lemma": "talento",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "feel",
+              "record_pos": "noun",
+              "translation_word": "talento",
+              "translation_sense": "intuitive ability",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "ability",
+                "intuitive"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+          "target_lemma": "sentir",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "feel",
+              "record_pos": "verb",
+              "translation_word": "sentir",
+              "translation_sense": "transitive: to sense by touch",
+              "translation_tags": [],
+              "sense_overlap": [
+                "sense",
+                "touch",
+                "transitive"
+              ]
+            },
+            {
+              "record_word": "feel",
+              "record_pos": "verb",
+              "translation_word": "sentir",
+              "translation_sense": "transitive: to experience an emotion or other mental state about",
+              "translation_tags": [],
+              "sense_overlap": [
+                "transitive"
+              ]
+            },
+            {
+              "record_word": "feel",
+              "record_pos": "verb",
+              "translation_word": "sentir",
+              "translation_sense": "transitive: to think or believe",
+              "translation_tags": [],
+              "sense_overlap": [
+                "transitive"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "wiktextract_supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:active",
+          "target_lemma": "quietud",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "still",
+              "record_pos": "noun",
+              "translation_word": "quietud",
+              "translation_sense": "period of calm or silence",
+              "translation_tags": [
+                "feminine"
+              ],
+              "sense_overlap": [
+                "calm",
+                "period",
+                "silence"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+          "target_lemma": "alambique",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "still",
+              "record_pos": "noun",
+              "translation_word": "alambique",
+              "translation_sense": "a device for distilling liquids",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "device",
+                "distill",
+                "liquid"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+          "target_lemma": "aquietar",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "still",
+              "record_pos": "verb",
+              "translation_word": "aquietar",
+              "translation_sense": "to calm down",
+              "translation_tags": [],
+              "sense_overlap": [
+                "calm"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:bear:bajista:active",
+          "target_lemma": "bajista",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "bear",
+              "record_pos": "noun",
+              "translation_word": "bajista",
+              "translation_sense": "investor who sells in anticipation of falling prices",
+              "translation_tags": [
+                "feminine",
+                "masculine"
+              ],
+              "sense_overlap": [
+                "anticipation",
+                "fall",
+                "investor",
+                "pric",
+                "sell"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+          "target_lemma": "llevar",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "bear",
+              "record_pos": "verb",
+              "translation_word": "llevar",
+              "translation_sense": "to carry",
+              "translation_tags": [],
+              "sense_overlap": [
+                "carry"
+              ]
+            },
+            {
+              "record_word": "bear",
+              "record_pos": "verb",
+              "translation_word": "llevar",
+              "translation_sense": "to be equipped with",
+              "translation_tags": [],
+              "sense_overlap": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "wiktextract_supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:active",
+          "target_lemma": "meta",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "finish",
+              "record_pos": "noun",
+              "translation_word": "meta",
+              "translation_sense": "end",
+              "translation_tags": [
+                "feminine"
+              ],
+              "sense_overlap": [
+                "end"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+          "target_lemma": "acabado",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "finish",
+              "record_pos": "noun",
+              "translation_word": "acabado",
+              "translation_sense": "protective coating",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "coat",
+                "protective"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+          "target_lemma": "acabar",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "finish",
+              "record_pos": "verb",
+              "translation_word": "acabar",
+              "translation_sense": "to complete",
+              "translation_tags": [],
+              "sense_overlap": [
+                "complete"
+              ]
+            },
+            {
+              "record_word": "finish",
+              "record_pos": "verb",
+              "translation_word": "acabar",
+              "translation_sense": "to come to an end",
+              "translation_tags": [],
+              "sense_overlap": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "trigger": "throw",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+          "target_lemma": "lanzamiento",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "throw",
+              "record_pos": "noun",
+              "translation_word": "lanzamiento",
+              "translation_sense": "flight of a thrown object",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "flight",
+                "object",
+                "thrown"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+          "target_lemma": "lanzar",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "throw",
+              "record_pos": "verb",
+              "translation_word": "lanzar",
+              "translation_sense": "to cause an object to move rapidly through the air",
+              "translation_tags": [],
+              "sense_overlap": [
+                "air",
+                "cause",
+                "move",
+                "object",
+                "rapidly"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "trigger": "upset",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:upset:disgustado:active",
+          "target_lemma": "disgustado",
+          "canonical_pos": "adjective",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "upset",
+              "record_pos": "adj",
+              "translation_word": "disgustado",
+              "translation_sense": "angry, distressed, unhappy",
+              "translation_tags": [],
+              "sense_overlap": [
+                "angry",
+                "distress",
+                "unhappy"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+          "target_lemma": "trastrocar",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "upset",
+              "record_pos": "verb",
+              "translation_word": "trastrocar",
+              "translation_sense": "disturb, disrupt, unfavorably alter",
+              "translation_tags": [],
+              "sense_overlap": [
+                "alter",
+                "disrupt",
+                "disturb",
+                "unfavorably"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "wiktextract_supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:active",
+          "target_lemma": "trozo",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "piece",
+              "record_pos": "noun",
+              "translation_word": "trozo",
+              "translation_sense": "part of a larger whole",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "larger",
+                "part",
+                "whole"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+          "target_lemma": "ficha",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "piece",
+              "record_pos": "noun",
+              "translation_word": "ficha",
+              "translation_sense": "chess: figure other than pawn; similar counter in other games",
+              "translation_tags": [],
+              "sense_overlap": [
+                "ches",
+                "counter",
+                "figure",
+                "gam",
+                "pawn",
+                "similar"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+          "target_lemma": "montar",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "piece",
+              "record_pos": "verb",
+              "translation_word": "montar",
+              "translation_sense": "to create or construct by assembling parts",
+              "translation_tags": [],
+              "sense_overlap": [
+                "assembl",
+                "construct",
+                "create",
+                "part"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "trigger": "fair",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:fair:pastel:active",
+          "target_lemma": "pastel",
+          "canonical_pos": "adjective",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "fair",
+              "record_pos": "adj",
+              "translation_word": "pastel",
+              "translation_sense": "light in color or pale",
+              "translation_tags": [],
+              "sense_overlap": [
+                "color",
+                "light",
+                "pale"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+          "target_lemma": "feria de muestras",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "fair",
+              "record_pos": "noun",
+              "translation_word": "feria de muestras",
+              "translation_sense": "professional event, trade fair",
+              "translation_tags": [
+                "feminine"
+              ],
+              "sense_overlap": [
+                "event",
+                "professional",
+                "trade"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:show:espect-culo:active",
+          "target_lemma": "espectáculo",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "show",
+              "record_pos": "noun",
+              "translation_word": "espectáculo",
+              "translation_sense": "entertainment",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "entertainment"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+          "target_lemma": "demostrar",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "show",
+              "record_pos": "verb",
+              "translation_word": "demostrar",
+              "translation_sense": "to indicate (a fact) to be true",
+              "translation_tags": [],
+              "sense_overlap": [
+                "fact",
+                "indicate",
+                "true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "wiktextract_supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:active",
+          "target_lemma": "avance",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "advance",
+              "record_pos": "noun",
+              "translation_word": "avance",
+              "translation_sense": "forward move",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "forward",
+                "move"
+              ]
+            },
+            {
+              "record_word": "advance",
+              "record_pos": "noun",
+              "translation_word": "avance",
+              "translation_sense": "amount of money",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": []
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+          "target_lemma": "adelanto",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "advance",
+              "record_pos": "noun",
+              "translation_word": "adelanto",
+              "translation_sense": "amount of money",
+              "translation_tags": [
+                "masculine"
+              ],
+              "sense_overlap": [
+                "amount",
+                "money"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+          "target_lemma": "avanzar",
+          "canonical_pos": "verb",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "advance",
+              "record_pos": "verb",
+              "translation_word": "avanzar",
+              "translation_sense": "to bring forward; to move towards the front; to make to go on",
+              "translation_tags": [],
+              "sense_overlap": [
+                "bring",
+                "forward",
+                "front",
+                "make",
+                "move",
+                "toward"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "trigger": "rank",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "wiktextract_supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:rank:rancio:active",
+          "target_lemma": "rancio",
+          "canonical_pos": "adjective",
+          "preexisting_translation_support": false,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "rank",
+              "record_pos": "adj",
+              "translation_word": "rancio",
+              "translation_sense": "having a very strong and bad odor",
+              "translation_tags": [],
+              "sense_overlap": [
+                "bad",
+                "hav",
+                "odor",
+                "strong"
+              ]
+            }
+          ]
+        },
+        {
+          "sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+          "target_lemma": "fila",
+          "canonical_pos": "noun",
+          "preexisting_translation_support": true,
+          "wiktextract_translation_support": true,
+          "has_translation_support": true,
+          "matches": [
+            {
+              "record_word": "rank",
+              "record_pos": "noun",
+              "translation_word": "fila",
+              "translation_sense": "row of people or things organized in a grid pattern",
+              "translation_tags": [
+                "feminine"
+              ],
+              "sense_overlap": [
+                "grid",
+                "organiz",
+                "pattern",
+                "people",
+                "row",
+                "thing"
+              ]
+            },
+            {
+              "record_word": "rank",
+              "record_pos": "noun",
+              "translation_word": "fila",
+              "translation_sense": "chess: one of the horizontal lines of squares",
+              "translation_tags": [
+                "feminine"
+              ],
+              "sense_overlap": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "translation_table_support_requires_admission_and_heldout_validation_before_promotion",
+    "raw_wiktextract_sense_labels_are_source_evidence_not reviewed gold",
+    "phrase_containment_rows_are_out_of_scope_for_this_overlay"
+  ],
+  "artifacts": {
+    "dataset_json": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1_dataset.json",
+    "dataset_out": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json"
+  }
+}

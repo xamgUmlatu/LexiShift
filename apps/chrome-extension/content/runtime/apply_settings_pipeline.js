@@ -31,6 +31,13 @@
     const applyRuntimeActions = opts.applyRuntimeActions && typeof opts.applyRuntimeActions === "object"
       ? opts.applyRuntimeActions
       : null;
+    const nowMs = typeof opts.nowMs === "function"
+      ? opts.nowMs
+      : (() => (
+          globalThis.performance && typeof globalThis.performance.now === "function"
+            ? globalThis.performance.now()
+            : Date.now()
+        ));
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const ruleOriginRuleset = String(opts.ruleOriginRuleset || "ruleset");
 
@@ -43,6 +50,7 @@
     }
 
     async function run(settings, context) {
+      const pipelineStartedAtMs = nowMs();
       const rawSettings = settings && typeof settings === "object" ? settings : {};
       const runtimeContext = context && typeof context === "object" ? context : {};
       const isTokenCurrent = typeof runtimeContext.isTokenCurrent === "function"
@@ -63,6 +71,7 @@
       setCurrentSettings(nextSettings);
       resetProcessedNodes();
 
+      const activeRulesResolveStartedAtMs = nowMs();
       const activeRulesState = activeRulesRuntime && typeof activeRulesRuntime.resolveActiveRules === "function"
         ? await activeRulesRuntime.resolveActiveRules(
             nextSettings,
@@ -70,6 +79,7 @@
             { helperAvailable: getHelperClientAvailable() }
           )
         : null;
+      const activeRulesResolveMs = nowMs() - activeRulesResolveStartedAtMs;
       const srsProfileId = activeRulesState && activeRulesState.srsProfileId
         ? activeRulesState.srsProfileId
         : String(nextSettings.srsProfileId || "default");
@@ -96,6 +106,36 @@
         ? activeRulesState.srsStats
         : null;
       const activeOriginCounts = normalizeOriginCounts(activeRulesState && activeRulesState.activeOriginCounts);
+      const semanticAdmissionEnabled = activeRulesState && activeRulesState.semanticAdmissionEnabled === true;
+      const semanticFallbackPolicy = activeRulesState && activeRulesState.semanticFallbackPolicy
+        ? activeRulesState.semanticFallbackPolicy
+        : "abstain_on_unavailable";
+      const semanticRuntimeCapability = activeRulesState && activeRulesState.semanticRuntimeCapability
+        ? activeRulesState.semanticRuntimeCapability
+        : "unavailable";
+      const semanticRuntimeReasonCode = activeRulesState && activeRulesState.semanticRuntimeReasonCode
+        ? activeRulesState.semanticRuntimeReasonCode
+        : "no_semantic_rules";
+      const semanticPointerRuleCount = activeRulesState
+        && Number.isFinite(Number(activeRulesState.semanticPointerRuleCount))
+        ? Number(activeRulesState.semanticPointerRuleCount)
+        : 0;
+      const semanticReadyRuleCount = activeRulesState
+        && Number.isFinite(Number(activeRulesState.semanticReadyRuleCount))
+        ? Number(activeRulesState.semanticReadyRuleCount)
+        : 0;
+      const semanticInventoryLoaded = activeRulesState && activeRulesState.semanticInventoryLoaded === true;
+      const semanticInventorySource = activeRulesState && activeRulesState.semanticInventorySource
+        ? activeRulesState.semanticInventorySource
+        : "none";
+      const semanticInventoryError = activeRulesState && activeRulesState.semanticInventoryError
+        ? activeRulesState.semanticInventoryError
+        : null;
+      nextSettings.srsSemanticAdmissionEnabled = semanticAdmissionEnabled;
+      nextSettings.srsSemanticAdmissionFallbackPolicy = semanticFallbackPolicy;
+      nextSettings.semanticRuntimeCapability = semanticRuntimeCapability;
+      nextSettings.semanticRuntimeReasonCode = semanticRuntimeReasonCode;
+      setCurrentSettings(nextSettings);
 
       if (!isTokenCurrent()) {
         return { stale: true };
@@ -105,7 +145,50 @@
       const focusRulesCount = focusWord
         ? enabledRules.filter((rule) => String(rule.source_phrase || "").toLowerCase() === focusWord).length
         : 0;
+      let runtimeApplyResult = null;
+      let runtimeApplyStartedAtMs = null;
+      if (applyRuntimeActions && typeof applyRuntimeActions.run === "function") {
+        runtimeApplyStartedAtMs = nowMs();
+        runtimeApplyResult = await applyRuntimeActions.run({
+          currentSettings: nextSettings,
+          activeRules,
+          focusWord
+        });
+      }
+
+      if (!isTokenCurrent()) {
+        return { stale: true };
+      }
+
       if (applyDiagnosticsReporter && typeof applyDiagnosticsReporter.report === "function") {
+        const activeRulesTimings = (
+          activeRulesState
+          && activeRulesState.timings
+          && typeof activeRulesState.timings === "object"
+        )
+          ? activeRulesState.timings
+          : null;
+        const runtimeApplyTimings = (
+          runtimeApplyResult
+          && runtimeApplyResult.timings
+          && typeof runtimeApplyResult.timings === "object"
+        )
+          ? runtimeApplyResult.timings
+          : null;
+        const firstReplacementLatencyMs = (
+          runtimeApplyTimings
+          && Number.isFinite(Number(runtimeApplyTimings.firstReplacementMs))
+          && Number.isFinite(Number(runtimeApplyStartedAtMs))
+        )
+          ? (runtimeApplyStartedAtMs - pipelineStartedAtMs) + Number(runtimeApplyTimings.firstReplacementMs)
+          : null;
+        const firstVisibleReplacementLatencyMs = (
+          runtimeApplyTimings
+          && Number.isFinite(Number(runtimeApplyTimings.firstVisibleReplacementMs))
+          && Number.isFinite(Number(runtimeApplyStartedAtMs))
+        )
+          ? (runtimeApplyStartedAtMs - pipelineStartedAtMs) + Number(runtimeApplyTimings.firstVisibleReplacementMs)
+          : null;
         applyDiagnosticsReporter.report({
           currentSettings: nextSettings,
           normalizedRules,
@@ -118,14 +201,32 @@
           srsProfileId,
           srsStats,
           focusWord,
-          focusRulesCount
-        });
-      }
-      if (applyRuntimeActions && typeof applyRuntimeActions.run === "function") {
-        applyRuntimeActions.run({
-          currentSettings: nextSettings,
-          activeRules,
-          focusWord
+          focusRulesCount,
+          semanticAdmissionEnabled,
+          semanticFallbackPolicy,
+          semanticRuntimeCapability,
+          semanticRuntimeReasonCode,
+          semanticPointerRuleCount,
+          semanticReadyRuleCount,
+          semanticInventoryLoaded,
+          semanticInventorySource,
+          semanticInventoryError,
+          timings: {
+            applyTotalMs: nowMs() - pipelineStartedAtMs,
+            activeRulesResolveMs,
+            helperRulesResolveMs: activeRulesTimings ? activeRulesTimings.helperRulesResolveMs : null,
+            srsGateMs: activeRulesTimings ? activeRulesTimings.srsGateMs : null,
+            semanticInventoryResolveMs: activeRulesTimings
+              ? activeRulesTimings.semanticInventoryResolveMs
+              : null,
+            runtimeApplyMs: runtimeApplyTimings ? runtimeApplyTimings.runtimeApplyMs : null,
+            scanMs: runtimeApplyTimings ? runtimeApplyTimings.scanMs : null,
+            firstReplacementLatencyMs,
+            firstVisibleReplacementLatencyMs
+          },
+          scanSummary: runtimeApplyResult && runtimeApplyResult.scanSummary
+            ? runtimeApplyResult.scanSummary
+            : null
         });
       }
 

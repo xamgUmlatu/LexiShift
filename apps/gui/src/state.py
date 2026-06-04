@@ -11,6 +11,7 @@ from lexishift_core import (
     AppSettings,
     Profile,
     SrsStore,
+    SynonymSourceSettings,
     VocabDataset,
     load_app_settings,
     load_srs_store,
@@ -19,6 +20,20 @@ from lexishift_core import (
     save_srs_store,
     save_vocab_dataset,
 )
+from lexishift_core.helper.installed_packs import (
+    installed_pack_root,
+    load_installed_pack_manifest,
+    resolve_installed_pack_artifact,
+)
+from language_packs import CROSS_EMBEDDING_PACKS, EMBEDDING_PACKS
+from main_paths import _app_data_dir
+
+
+_EMBEDDING_PAIR_KEY_BY_PACK_ID: dict[str, str] = {
+    str(pack.pack_id): str(pack.pair_key)
+    for pack in (*EMBEDDING_PACKS, *CROSS_EMBEDDING_PACKS)
+    if str(getattr(pack, "pack_id", "")).strip() and str(getattr(pack, "pair_key", "")).strip()
+}
 
 
 def _normalize_profile_path(path: Optional[str], *, base_dir: Path) -> Optional[str]:
@@ -104,6 +119,175 @@ def _normalize_profiles(
     return normalized, resolved_active
 
 
+def _normalize_synonym_pack_settings(
+    settings: Optional[SynonymSourceSettings],
+) -> Optional[SynonymSourceSettings]:
+    if settings is None:
+        return None
+    app_data_dir = _app_data_dir()
+    managed_language_pack_ids, language_pack_paths = _split_managed_pack_paths(
+        base_dir=app_data_dir / "language_packs",
+        configured_paths=settings.language_pack_paths,
+        configured_ids=settings.managed_language_pack_ids,
+    )
+    managed_frequency_pack_ids, frequency_pack_paths = _split_managed_pack_paths(
+        base_dir=app_data_dir / "frequency_packs",
+        configured_paths=settings.frequency_pack_paths,
+        configured_ids=settings.managed_frequency_pack_ids,
+    )
+    embedding_pack_paths, embedding_pair_pack_ids, embedding_pair_paths, embedding_pair_enabled = (
+        _normalize_embedding_pack_settings(
+            app_data_dir=app_data_dir,
+            settings=settings,
+        )
+    )
+    normalized = replace(
+        settings,
+        managed_language_pack_ids=managed_language_pack_ids,
+        language_pack_paths=language_pack_paths,
+        managed_frequency_pack_ids=managed_frequency_pack_ids,
+        frequency_pack_paths=frequency_pack_paths,
+        embedding_pack_paths=embedding_pack_paths,
+        embedding_pair_pack_ids=embedding_pair_pack_ids,
+        embedding_pair_paths=embedding_pair_paths,
+        embedding_pair_enabled=embedding_pair_enabled,
+    )
+    return normalized
+
+
+def _normalize_embedding_pack_settings(
+    *,
+    app_data_dir: Path,
+    settings: SynonymSourceSettings,
+) -> tuple[dict[str, str], dict[str, list[str]], dict[str, list[str]], dict[str, bool]]:
+    base_dir = app_data_dir / "embedding_packs"
+    managed_pack_ids: set[str] = set()
+    manual_embedding_packs: dict[str, str] = {}
+    for pack_id, raw_path in dict(settings.embedding_pack_paths or {}).items():
+        pack_key = str(pack_id or "").strip()
+        path_text = str(raw_path or "").strip()
+        if not pack_key or not path_text:
+            continue
+        if _is_managed_pack_path(base_dir=base_dir, pack_id=pack_key, raw_path=path_text):
+            managed_pack_ids.add(pack_key)
+            continue
+        manual_embedding_packs[pack_key] = path_text
+
+    pair_pack_ids: dict[str, list[str]] = {
+        str(pair_key): [str(value) for value in values if str(value).strip()]
+        for pair_key, values in dict(settings.embedding_pair_pack_ids or {}).items()
+        if str(pair_key).strip() and isinstance(values, (list, tuple))
+    }
+    pair_paths: dict[str, list[str]] = {}
+    pair_enabled = dict(settings.embedding_pair_enabled or {})
+
+    for managed_pack_id in sorted(managed_pack_ids):
+        _promote_managed_embedding_pack_id(
+            pair_pack_ids=pair_pack_ids,
+            pair_enabled=pair_enabled,
+            pair_key=_EMBEDDING_PAIR_KEY_BY_PACK_ID.get(managed_pack_id),
+            pack_id=managed_pack_id,
+        )
+
+    for pair_key, values in dict(settings.embedding_pair_paths or {}).items():
+        normalized_pair_key = str(pair_key or "").strip()
+        if not normalized_pair_key or not isinstance(values, (list, tuple)):
+            continue
+        kept_paths: list[str] = []
+        for raw_path in values:
+            path_text = str(raw_path or "").strip()
+            if not path_text:
+                continue
+            managed_pack_id = _resolve_managed_embedding_pack_id_for_path(
+                base_dir=base_dir,
+                raw_path=path_text,
+            )
+            if (
+                managed_pack_id
+                and _EMBEDDING_PAIR_KEY_BY_PACK_ID.get(managed_pack_id) == normalized_pair_key
+            ):
+                _promote_managed_embedding_pack_id(
+                    pair_pack_ids=pair_pack_ids,
+                    pair_enabled=pair_enabled,
+                    pair_key=normalized_pair_key,
+                    pack_id=managed_pack_id,
+                )
+                continue
+            kept_paths.append(path_text)
+        if kept_paths:
+            pair_paths[normalized_pair_key] = kept_paths
+
+    return manual_embedding_packs, pair_pack_ids, pair_paths, pair_enabled
+
+
+def _promote_managed_embedding_pack_id(
+    *,
+    pair_pack_ids: dict[str, list[str]],
+    pair_enabled: dict[str, bool],
+    pair_key: str | None,
+    pack_id: str,
+) -> None:
+    normalized_pair_key = str(pair_key or "").strip()
+    normalized_pack_id = str(pack_id or "").strip()
+    if not normalized_pair_key or not normalized_pack_id:
+        return
+    pack_ids = pair_pack_ids.setdefault(normalized_pair_key, [])
+    if normalized_pack_id not in pack_ids:
+        pack_ids.append(normalized_pack_id)
+    pair_enabled.setdefault(normalized_pair_key, True)
+
+
+def _resolve_managed_embedding_pack_id_for_path(*, base_dir: Path, raw_path: str) -> Optional[str]:
+    path_text = str(raw_path or "").strip()
+    if not path_text:
+        return None
+    for pack_id in sorted(_EMBEDDING_PAIR_KEY_BY_PACK_ID):
+        if _is_managed_pack_path(base_dir=base_dir, pack_id=pack_id, raw_path=path_text):
+            return pack_id
+    return None
+
+
+def _split_managed_pack_paths(
+    *,
+    base_dir: Path,
+    configured_paths: object,
+    configured_ids: object,
+) -> tuple[tuple[str, ...], dict[str, str]]:
+    managed_ids: set[str] = {
+        str(pack_id).strip() for pack_id in tuple(configured_ids or ()) if str(pack_id).strip()
+    }
+    manual_paths: dict[str, str] = {}
+    for pack_id, raw_path in dict(configured_paths or {}).items():
+        pack_key = str(pack_id or "").strip()
+        path_text = str(raw_path or "").strip()
+        if not pack_key or not path_text:
+            continue
+        if _is_managed_pack_path(base_dir=base_dir, pack_id=pack_key, raw_path=path_text):
+            managed_ids.add(pack_key)
+            continue
+        manual_paths[pack_key] = path_text
+    return tuple(sorted(managed_ids)), manual_paths
+
+
+def _is_managed_pack_path(*, base_dir: Path, pack_id: str, raw_path: str) -> bool:
+    manifest = load_installed_pack_manifest(base_dir, pack_id)
+    if manifest is None or str(manifest.artifact_kind or "").strip().lower() != "sqlite":
+        return False
+    resolved_artifact = resolve_installed_pack_artifact(base_dir, pack_id)
+    if resolved_artifact is None:
+        return False
+    candidate = Path(raw_path).expanduser()
+    try:
+        candidate = candidate.resolve()
+        resolved_artifact = resolved_artifact.resolve()
+        pack_root = installed_pack_root(base_dir, pack_id).resolve()
+    except OSError:
+        return False
+    return (
+        candidate == resolved_artifact or candidate == pack_root or pack_root in candidate.parents
+    )
+
+
 class AppState(QObject):
     datasetChanged = Signal(object)
     dirtyChanged = Signal(bool)
@@ -148,7 +332,13 @@ class AppState(QObject):
                 active_profile_id=loaded.active_profile_id,
                 base_dir=self._settings_path.parent,
             )
-            self._settings = replace(loaded, profiles=profiles, active_profile_id=active_id)
+            synonyms = _normalize_synonym_pack_settings(loaded.synonyms)
+            self._settings = replace(
+                loaded,
+                profiles=profiles,
+                active_profile_id=active_id,
+                synonyms=synonyms,
+            )
             if self._settings != loaded:
                 self.save_settings()
         else:
@@ -200,10 +390,12 @@ class AppState(QObject):
             active_profile_id=settings.active_profile_id,
             base_dir=self._settings_path.parent,
         )
+        normalized_synonyms = _normalize_synonym_pack_settings(settings.synonyms)
         self._settings = replace(
             settings,
             profiles=normalized_profiles,
             active_profile_id=normalized_active,
+            synonyms=normalized_synonyms,
         )
         self.save_settings()
         self.profilesChanged.emit(self._settings.profiles)

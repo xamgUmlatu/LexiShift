@@ -2,6 +2,8 @@
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
   const DEFAULT_TIMEOUT_MS = 4000;
+  const INSTALL_SEMANTIC_PACK_TIMEOUT_MS = 60000;
+  const SRS_REFRESH_TIMEOUT_MS = 60000;
 
   class HelperClient {
     constructor(transport) {
@@ -19,8 +21,9 @@
       return this.send("hello");
     }
 
-    getStatus() {
-      return this.send("status");
+    getStatus(profileId) {
+      const payload = profileId ? { profile_id: profileId } : {};
+      return this.send("status", payload);
     }
 
     getSnapshot(pair, profileId) {
@@ -31,8 +34,44 @@
       return this.send("get_ruleset", { pair, profile_id: profileId });
     }
 
+    getSemanticInventory(pair, profileId) {
+      return this.send("get_semantic_inventory", { pair, profile_id: profileId });
+    }
+
+    semanticAdmitBatch(payload, timeoutMs = DEFAULT_TIMEOUT_MS) {
+      return this.send(
+        "semantic_admit_batch",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
+    }
+
+    installSemanticPack(payload, timeoutMs = INSTALL_SEMANTIC_PACK_TIMEOUT_MS) {
+      return this.send(
+        "install_semantic_pack",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
+    }
+
     getSrsDiagnostics(pair, profileId) {
       return this.send("srs_diagnostics", { pair, profile_id: profileId });
+    }
+
+    listSrsItems(pair, profileId) {
+      return this.send("srs_items_list", { pair, profile_id: profileId });
+    }
+
+    getSrsItemRuleDetails(pair, profileId, lemma, limit) {
+      return this.send("srs_item_rule_details", { pair, profile_id: profileId, lemma, limit });
+    }
+
+    lookupWordInfo(payload, timeoutMs = DEFAULT_TIMEOUT_MS) {
+      return this.send(
+        "word_info_lookup",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
     }
 
     getProfiles() {
@@ -47,12 +86,34 @@
       return this.send("open_data_dir");
     }
 
+    openResourceSettings(payload) {
+      return this.send(
+        "open_resource_settings",
+        payload && typeof payload === "object" ? payload : {}
+      );
+    }
+
     recordFeedback(payload) {
       return this.send("record_feedback", payload);
     }
 
     recordExposure(payload) {
       return this.send("record_exposure", payload);
+    }
+
+    suppressSrsAdmission(payload) {
+      return this.send(
+        "srs_admission_suppress",
+        payload && typeof payload === "object" ? payload : {}
+      );
+    }
+
+    ingestBrowsingAdmissionSignals(payload, timeoutMs = DEFAULT_TIMEOUT_MS) {
+      return this.send(
+        "srs_browsing_signal_ingest",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
     }
 
     triggerRulegen(payload, timeoutMs) {
@@ -67,8 +128,28 @@
       return this.send("srs_plan_set", payload, timeoutMs);
     }
 
+    previewSrsAdmission(payload, timeoutMs) {
+      return this.send("srs_preview_admission", payload, timeoutMs);
+    }
+
     refreshSrsSet(payload, timeoutMs) {
       return this.send("srs_refresh", payload, timeoutMs);
+    }
+
+    autoRefreshSrsSet(payload, timeoutMs = SRS_REFRESH_TIMEOUT_MS) {
+      return this.send(
+        "srs_auto_refresh",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
+    }
+
+    planSrsRebalance(payload, timeoutMs) {
+      return this.send("srs_rebalance_plan", payload, timeoutMs);
+    }
+
+    applySrsRebalance(payload, timeoutMs) {
+      return this.send("srs_rebalance_apply", payload, timeoutMs);
     }
 
     resetSrs(payload) {

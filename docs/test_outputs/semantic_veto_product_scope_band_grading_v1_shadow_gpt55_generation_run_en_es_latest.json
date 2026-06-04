@@ -1,0 +1,196 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 12,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 0,
+    "decision": "generated_items_admitted_for_pilot_rescoring",
+    "rejected_item_count": 0,
+    "status": "ok"
+  },
+  "artifacts": {
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:product-scope-band-grading-v1-shadow-gpt55-20260510-002",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T21:41:41Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "first_sentence": "The officer will cite any driver who parks in the fire lane.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0e88a13d043b959e0169ffaa165e7881978b91fda7f6812b30",
+      "slot_id": "en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 866,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 744,
+        "output_tokens_details": {
+          "reasoning_tokens": 389
+        },
+        "total_tokens": 1610
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "first_sentence": "Her smile made the nervous child feel welcome.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_04ea7ec139cc91b80169ffa9967478819595b016b5d0267a9d",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 882,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 640,
+        "output_tokens_details": {
+          "reasoning_tokens": 296
+        },
+        "total_tokens": 1522
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "first_sentence": "We met at the bar after work to celebrate the promotion.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_08f91fca835649110169ffa9a1aee88193a3986efd3ab87c07",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 870,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 665,
+        "output_tokens_details": {
+          "reasoning_tokens": 335
+        },
+        "total_tokens": 1535
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "first_sentence": "Turn the dial to control the oven temperature before baking the bread.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0a761ec8664c98700169ffa9b7b8888193b3ff1057347cb972",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 873,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 700,
+        "output_tokens_details": {
+          "reasoning_tokens": 349
+        },
+        "total_tokens": 1573
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "first_sentence": "During the appeal, counsel will except to the judge's refusal to admit the exhibit.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_00386ccc6f4231700169ffaa306ec48190b092f849cba15479",
+      "slot_id": "en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 863,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 856,
+        "output_tokens_details": {
+          "reasoning_tokens": 516
+        },
+        "total_tokens": 1719
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "first_sentence": "The doctor examined the region around the patient's knee for swelling.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0a0fd6fdf33c74750169ffaa4586008196914313b57eb61a39",
+      "slot_id": "en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 862,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 744,
+        "output_tokens_details": {
+          "reasoning_tokens": 404
+        },
+        "total_tokens": 1606
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.5",
+  "selected_temperature": null,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 12,
+    "accepted_items_by_slot_type": {
+      "shadow_or_competitor_evidence_probe": 12
+    },
+    "accepted_response_count": 6,
+    "accepted_responses_by_arm": {
+      "high_need": 6
+    },
+    "accepted_responses_by_slot_type": {
+      "shadow_or_competitor_evidence_probe": 6
+    },
+    "admission_status": "ok",
+    "admitted_item_count": 12,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 0,
+    "input_tokens": 5216,
+    "invalid_output_count": 0,
+    "output_tokens": 4349,
+    "reasoning_tokens": 2289,
+    "rejected_item_count": 0,
+    "selected_request_count": 6
+  }
+}

@@ -1,0 +1,1590 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:product-scope-allocation-20260509-003",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T05:25:39Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows the sense of being satisfactory or adequate in quality.",
+          "sentence": "The draft is acceptable for a first review, but it still needs a few edits before publication."
+        },
+        {
+          "evidence_note": "Shows the sense of being reasonable in degree or quality.",
+          "sentence": "Her explanation was acceptable to the committee because it was clear, balanced, and within the expected standard."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "acceptable",
+      "target_lemma": "razonable",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses acceptable in the sense of permitted or not objectionable, not in the sense of reasonable in degree or quality.",
+      "competitor_sense_label": "morally or socially permissible",
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "razonable is wrong here because the sentence is about rule compliance, not about being reasonable in degree or quality.",
+          "evidence_note": "acceptable means permitted or allowed by the rules, so correcto fits as the Spanish replacement.",
+          "sentence": "The committee said the proposal was acceptable under the new rules."
+        },
+        {
+          "active_mismatch_note": "razonable is wrong here because the sentence describes approval by the judge, not a judgment about degree or quality.",
+          "evidence_note": "acceptable means sufficient or permitted in context, which supports correcto as the Spanish replacement.",
+          "sentence": "Her explanation was acceptable to the judge, so the hearing continued."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "correcto",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:acceptable:razonable:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "acceptable",
+      "target_lemma": "correcto",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "The visible anchor called and song makes acceptable part of a title, so it should not be translated as a descriptive adjective in context.",
+          "runtime_trigger_note": "acceptable appears as a standalone title token separated by spaces in the quoted song name.",
+          "sentence": "The song called acceptable was added to the playlist, but the title is just a word choice and not a quality judgment."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:acceptable:razonable:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "acceptable",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes a large sea wave or swell moving through the water.",
+          "sentence": "A billow rolled across the harbor and lifted the small boat."
+        },
+        {
+          "evidence_note": "Uses billow in the sense of a large wave or swell at sea.",
+          "sentence": "From the cliff, we watched a billow surge toward the rocks after the storm."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "billow",
+      "target_lemma": "oleaje",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active sense is a sea wave or swell, but here billow means to expand or puff out.",
+      "competitor_sense_label": "to swell or puff out",
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "elevarse is wrong here because the sentence is about curtains swelling outward, not a wave rising.",
+          "evidence_note": "billow describes fabric swelling and puffing out in the wind.",
+          "sentence": "The curtains billow in the warm breeze."
+        },
+        {
+          "active_mismatch_note": "elevarse is wrong here because the sentence describes smoke spreading and puffing out, not a sea swell.",
+          "evidence_note": "billow describes smoke pouring out and swelling into the air.",
+          "sentence": "Smoke began to billow from the chimney."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "elevarse",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:billow:oleaje:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:billow:oleaje:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:billow:oleaje:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "billow",
+      "target_lemma": "elevarse",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "This is a title reference, not a semantic use of the word for a sea swell, so no translation should happen.",
+          "runtime_trigger_note": "billow appears as a standalone quoted title token separated by spaces and punctuation.",
+          "sentence": "The song called \"billow\" is a title, so the word should stay as written and not be translated."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:billow:oleaje:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:billow:oleaje:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:billow:oleaje:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "billow",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows restraining or repressing an emotion.",
+          "sentence": "She had to bridle her anger before answering the rude remark."
+        },
+        {
+          "evidence_note": "Shows holding back an action or reaction.",
+          "sentence": "He tried to bridle his impulse to interrupt and let her finish speaking."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "bridle",
+      "target_lemma": "reprimir",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses bridle as a noun for horse equipment, not as a verb meaning restrain or repress.",
+      "competitor_sense_label": "horse tack / headgear",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "reprimir is wrong here because the sentence is about horse equipment, not restraining an action or reaction.",
+          "evidence_note": "bridle refers to the leather headgear used on a horse.",
+          "sentence": "The rider checked the bridle before mounting the horse."
+        },
+        {
+          "active_mismatch_note": "reprimir is wrong here because the context is equestrian gear, not suppressing behavior or emotion.",
+          "evidence_note": "bridle names the tack fitted to the horse's head.",
+          "sentence": "She tightened the bridle after cleaning the reins and bit."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "brida",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:bridle:reprimir:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "bridle",
+      "target_lemma": "brida",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "source_language_meta_use",
+          "no_winner_reason": "This is a meta-language dictionary context about the English word itself, so the Spanish target should not be inserted as a normal translation.",
+          "runtime_trigger_note": "bridle appears as a standalone token in the dictionary text, separated by spaces and punctuation.",
+          "sentence": "The dictionary entry for bridle gives the English word and its pronunciation, but the translation note does not call for any Spanish replacement here."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:bridle:reprimir:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "bridle",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "current means happening now; the exhibition is contemporary, not electrical.",
+          "sentence": "The museum opened a current exhibition of contemporary sculpture."
+        },
+        {
+          "evidence_note": "current refers to present-day work, clearly matching the contemporary sense.",
+          "sentence": "Her current research focuses on contemporary urban design."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "current",
+      "target_lemma": "contemporáneo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "present-time sense vs electrical-flow sense",
+      "competitor_sense_label": "electrical current",
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "contemporáneo is wrong here because the sentence is about electricity flowing in a wire, not something belonging to the present time.",
+          "evidence_note": "current refers to the flow of electricity in a circuit.",
+          "sentence": "The current in the wire dropped after the switch was opened."
+        },
+        {
+          "active_mismatch_note": "contemporáneo is wrong here because the sentence describes an electrical circuit, not a contemporary or modern object.",
+          "evidence_note": "current means electrical current in the device.",
+          "sentence": "A loose connection can interrupt the current and stop the motor."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "corriente eléctrica",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:current:contempor-neo:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:current:contempor-neo:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:current:contempor-neo:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "current",
+      "target_lemma": "corriente eléctrica",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "source_language_meta_use",
+          "no_winner_reason": "This is meta-language about the English word itself, so the Spanish contemporary sense should not be chosen and the electrical-flow competitor is only mentioned as a definition, not used as the intended meaning.",
+          "runtime_trigger_note": "current appears as a standalone token in the phrase 'for current says' and can be matched by a browser-style word boundary search.",
+          "sentence": "The dictionary entry for current says it can mean a flow of water or electricity, but here the word is only being discussed as a term."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:current:contempor-neo:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:current:contempor-neo:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:current:contempor-neo:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "current",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows offset as a measured displacement from a reference point.",
+          "sentence": "The survey marked an offset of 12 meters from the original benchmark."
+        },
+        {
+          "evidence_note": "Uses offset as a physical distance separating two points.",
+          "sentence": "We measured the offset between the two sensors to check their alignment."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "offset",
+      "target_lemma": "distancia",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses offset in the sense of balancing a cost or loss, not a measured displacement or distance.",
+      "competitor_sense_label": "financial balancing / counterbalancing",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "distancia is wrong here because the sentence is about balancing a cost, not a measured displacement or distance.",
+          "evidence_note": "offset means to balance or reduce a cost here, so compensar is the right Spanish choice.",
+          "sentence": "The tax credit will offset part of the renovation cost."
+        },
+        {
+          "active_mismatch_note": "distancia is wrong here because the context is financial balancing, not a reference-point displacement.",
+          "evidence_note": "offset means to make up for or counterbalance an expense here, so compensar fits.",
+          "sentence": "Her savings helped offset the higher rent this month."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "compensar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:offset:distancia:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "offset",
+      "target_lemma": "compensar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "The word is used as a quoted title, so the context does not call for the distance sense or any competitor sense.",
+          "runtime_trigger_note": "offset appears as a standalone quoted token separated by spaces and punctuation.",
+          "sentence": "The song title \"offset\" appears in the playlist, but it is being discussed as a title, not as a measurement."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:offset:distancia:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "offset",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Bird sense: a living parrot as a pet animal.",
+          "sentence": "The parrot perched on the cage and repeated the greeting it had learned from its owner."
+        },
+        {
+          "evidence_note": "Bird sense: a real parrot in an animal setting.",
+          "sentence": "At the wildlife sanctuary, a bright green parrot cracked seeds with its beak and watched the visitors."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "parrot",
+      "target_lemma": "loro",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses parrot as the animal, not as the verb meaning to repeat.",
+      "competitor_sense_label": "bird sense",
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "loro is wrong here because the sentence is about an animal perched on a windowsill, not about repeating words.",
+          "evidence_note": "parrot refers to a bird, so Spanish would use loro.",
+          "sentence": "The parrot perched on the windowsill and watched the room quietly."
+        },
+        {
+          "active_mismatch_note": "loro is wrong here because the sentence describes a flying bird, not an act of repeating.",
+          "evidence_note": "parrot names the animal, making loro the correct Spanish choice.",
+          "sentence": "A bright green parrot escaped from the cage and flew into the garden."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "repetir",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:parrot:loro:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:parrot:loro:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:parrot:loro:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "parrot",
+      "target_lemma": "repetir",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "The quoted token is a title-like name for a song, so it should not be replaced with a bird sense or any competitor sense.",
+          "runtime_trigger_note": "parrot appears as a standalone quoted word separated by spaces and punctuation.",
+          "sentence": "The song \"parrot\" was called a joke by the band after the live show."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:parrot:loro:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:parrot:loro:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:parrot:loro:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "parrot",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "rebate means a refund or discount that reduces the amount paid.",
+          "sentence": "The store offered a rebate on the laptop after checkout, lowering the final price."
+        },
+        {
+          "evidence_note": "rebate refers to money returned to the buyer as a discount or refund.",
+          "sentence": "Customers received a rebate when they mailed in the form and proof of purchase."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "rebate",
+      "target_lemma": "descuento",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active sense is financial discount/refund, but here rebate means a physical slot or opening.",
+      "competitor_sense_label": "slot/opening sense",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "descuento is wrong here because this sentence is about a physical cut in wood, not a reduction in price.",
+          "evidence_note": "rebate refers to a woodworking slot or step cut in the edge of a board.",
+          "sentence": "The carpenter cut a rebate along the edge of the board so the glass would sit flush."
+        },
+        {
+          "active_mismatch_note": "descuento is wrong here because the sentence describes a structural recess, not a refund or price reduction.",
+          "evidence_note": "rebate refers to a groove or recess in the frame.",
+          "sentence": "The frame has a rebate that holds the panel securely in place."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "ranura",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:rebate:descuento:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "rebate",
+      "target_lemma": "ranura",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "source_language_meta_use",
+          "no_winner_reason": "This is a meta discussion about the English word itself, not a purchase discount, so the Spanish target should not be inserted.",
+          "runtime_trigger_note": "rebate appears as a standalone quoted word separated by spaces and punctuation.",
+          "sentence": "The word rebate was quoted in the translation note, but the dictionary entry stayed in English."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:rebate:descuento:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "rebate",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows stall as a stable compartment where an animal is kept.",
+          "sentence": "The horse was led into a clean stall after the ride."
+        },
+        {
+          "evidence_note": "Uses stall in the sense of an animal enclosure inside a stable.",
+          "sentence": "Each stall in the barn had fresh hay and a water bucket."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "stall",
+      "target_lemma": "cuadra",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active sense is a stable compartment for an animal, but these sentences use stall as a verb meaning to delay or obstruct progress.",
+      "competitor_sense_label": "delay / hinder",
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "cuadra is wrong here because the sentence is about delaying a meeting, not a stable compartment for an animal.",
+          "evidence_note": "stall means to delay or hinder the meeting.",
+          "sentence": "The broken elevator will stall the meeting for at least twenty minutes."
+        },
+        {
+          "active_mismatch_note": "cuadra is wrong here because the sentence describes a delay in a sale, not a place where an animal is kept.",
+          "evidence_note": "stall means to postpone or hold up the sale.",
+          "sentence": "A last-minute paperwork error could stall the sale until next week."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "retrasar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:stall:cuadra:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:stall:cuadra:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:stall:cuadra:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "stall",
+      "target_lemma": "retrasar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "source_language_meta_use",
+          "no_winner_reason": "This is a meta discussion about English vocabulary, not a context that calls for the Spanish target sense, so no replacement should happen.",
+          "runtime_trigger_note": "stall appears as a standalone word between says and is, so it is a direct token match.",
+          "sentence": "The translation note says stall is a noun in this glossary, but the English word stays unchanged here."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "normalization_notes": [
+        "source_phrase_filled_from_request_trigger"
+      ],
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:stall:cuadra:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:stall:cuadra:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:stall:cuadra:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "stall",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "adder refers to a small venomous snake.",
+          "sentence": "The hiker spotted an adder basking on the warm stone path."
+        },
+        {
+          "evidence_note": "adder is used as a snake, matching the active sense.",
+          "sentence": "She froze when the adder slid through the grass beside the trail."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "adder",
+      "target_lemma": "víbora",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses adder as a computing device, not as a snake.",
+      "competitor_sense_label": "calculator device",
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "víbora is wrong here because the sentence is about an electronic device, not a snake.",
+          "evidence_note": "adder refers to a device that performs addition in electronics.",
+          "sentence": "The engineer used an adder to test the circuit board."
+        },
+        {
+          "active_mismatch_note": "víbora is wrong here because logic gates describe a circuit component, not a snake.",
+          "evidence_note": "adder means a digital circuit that adds binary values.",
+          "sentence": "A simple adder can be built from logic gates."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "sumador",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adder:v-bora:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adder:v-bora:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:adder:v-bora:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "adder",
+      "target_lemma": "sumador",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "The context marks adder as a title of a book, so the Spanish animal sense should not be chosen.",
+          "runtime_trigger_note": "adder appears as a standalone quoted token separated by spaces and punctuation.",
+          "sentence": "The book called \"Adder\" is a thriller, so the word is a title and not a snake term."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adder:v-bora:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adder:v-bora:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:adder:v-bora:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "adder",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes a stylish, sophisticated appearance.",
+          "sentence": "Her apartment looks chic, with clean lines, soft lighting, and carefully chosen furniture."
+        },
+        {
+          "evidence_note": "Uses chic to mean fashionable and stylish.",
+          "sentence": "He wore a chic black suit to the gala, and everyone noticed how polished he looked."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "chic",
+      "target_lemma": "elegante",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active sense is elegant/stylish, not a different dictionary sense.",
+      "competitor_sense_label": "fashionable style / sophistication",
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "generator_id": "gpt-5.4-mini",
+      "items": [],
+      "no_distinct_competitor_reason": "chic in English most naturally maps to the active sense elegante/elegante-style; there is no clearly distinct competitor sense that would make elegancia the correct Spanish replacement in a sentence while active_target_lemma elegante would be wrong.",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "elegancia",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:chic:elegante:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "chic",
+      "target_lemma": "elegancia",
+      "unable_to_find_distinct_competitor": true
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "ui_label",
+          "no_winner_reason": "The word chic is being used as a UI label, so it should not be replaced with a Spanish adjective in this context.",
+          "runtime_trigger_note": "chic appears as a standalone token after the menu label phrase.",
+          "sentence": "The menu label chic is visible in the app, but it refers to a style filter name rather than a translatable adjective."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:chic:elegante:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "chic",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows pair as two matching items.",
+          "sentence": "I bought a pair of socks for the trip."
+        },
+        {
+          "evidence_note": "Shows pair as a set of two things.",
+          "sentence": "She kept a pair of candles on the table."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "pair",
+      "target_lemma": "par",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses pair as a noun meaning two things together, not as a verb meaning to match or couple things.",
+      "competitor_sense_label": "noun: two matching or associated things",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "par is wrong here because the sentence refers to two gloves, not to the act of matching or coupling anything.",
+          "evidence_note": "pair means two matching items, so the noun sense is required.",
+          "sentence": "I bought a pair of gloves for the winter."
+        },
+        {
+          "active_mismatch_note": "par is wrong here because the sentence describes a set of two objects, not the process of joining or matching them.",
+          "evidence_note": "pair refers to two items considered together, not an action.",
+          "sentence": "She kept the pair on the top shelf as a set."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "emparejar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:pair:par:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:pair:par:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:pair:par:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "pair",
+      "target_lemma": "emparejar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "ui_label",
+          "no_winner_reason": "The visible menu label makes this a UI label context, so there is no Spanish target to replace it with.",
+          "runtime_trigger_note": "pair appears as a standalone label token between spaces and punctuation, so it is a runtime-like exact match.",
+          "sentence": "The menu label says pair, but it is only the English word shown in the app and not a translation request."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:pair:par:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:pair:par:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:pair:par:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "pair",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Clear sleeping-related breathing noise.",
+          "sentence": "He began to snore loudly as soon as he fell asleep on the couch."
+        },
+        {
+          "evidence_note": "Shows noisy breathing while sleeping.",
+          "sentence": "The baby would snore softly during her afternoon nap."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "snore",
+      "target_lemma": "roncar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active sense is the verb sense of snore meaning to breathe noisily while sleeping; the competitor sense is the noun sense meaning the sound itself.",
+      "competitor_sense_label": "noun: a loud breathing sound during sleep",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "roncar is wrong here because the sentence refers to the sound itself, not someone breathing noisily while sleeping.",
+          "evidence_note": "snore is a noun naming the sound, not the sleeping action.",
+          "sentence": "The snore from the next room kept me awake all night."
+        },
+        {
+          "active_mismatch_note": "roncar is wrong here because the sentence describes the noise as a thing, not the act of sleeping noisily.",
+          "evidence_note": "snore refers to the noise produced during sleep.",
+          "sentence": "Her snore was so loud that the baby stirred in the crib."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "ronquido",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:snore:roncar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:snore:roncar:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:snore:roncar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "snore",
+      "target_lemma": "ronquido",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "The visible anchor called and song marks snore as a title, so the sleeping-noise sense should not be translated into the active target lemma.",
+          "runtime_trigger_note": "snore appears as a standalone quoted title token, separated by spaces and punctuation.",
+          "sentence": "The song called \"snore\" is a playful title, but the lyrics never mean sleeping noise."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:snore:roncar:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:snore:roncar:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:snore:roncar:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "snore",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows physical proximity by sharing a boundary or being directly next to something.",
+          "sentence": "The café is in an adjoining building, just next to the library."
+        },
+        {
+          "evidence_note": "Indicates a neighboring space that touches or borders the main location.",
+          "sentence": "We parked in the adjoining lot beside the stadium entrance."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "adjoining",
+      "target_lemma": "contiguo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [],
+      "no_distinct_competitor_reason": "adjoining most commonly means next to or sharing a boundary, which matches the active target sense contiguo. I could not find a clearly different English sense that would make contiguo wrong while still using adjoining naturally in a standalone sentence.",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:contiguo:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:contiguo:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:contiguo:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "adjoining",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": true
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "ui_label",
+          "no_winner_reason": "The visible anchor is a menu label and the word is being discussed as text, so the spatial sense should not be replaced.",
+          "runtime_trigger_note": "adjoining appears as a standalone token after says and before the comma.",
+          "sentence": "The menu label says adjoining, but it is a quoted word in the help panel, not a place description."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "normalization_notes": [
+        "source_phrase_filled_from_request_trigger"
+      ],
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:contiguo:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:contiguo:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:contiguo:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "adjoining",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows physical adjacency between buildings.",
+          "sentence": "The bakery is in the adjoining building, so we can pick up bread without crossing the street."
+        },
+        {
+          "evidence_note": "Indicates a nearby, neighboring location.",
+          "sentence": "We parked in the adjoining lot because it was closer to the stadium entrance."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "adjoining",
+      "target_lemma": "vecino",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active sense is neighboring or adjacent, but here adjoining means physically attached rather than next to.",
+      "competitor_sense_label": "attached or connected",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "vecino is wrong here because the building is connected by a bridge, not simply neighboring.",
+          "evidence_note": "adjoining means attached or connected to the main building.",
+          "sentence": "The museum opened a new wing in an adjoining building connected by a glass bridge."
+        },
+        {
+          "active_mismatch_note": "vecino is wrong here because the room is directly connected, not just next door.",
+          "evidence_note": "adjoining refers to a room directly attached to or connected with another room.",
+          "sentence": "She stored the spare parts in an adjoining room that shared a doorway with the workshop."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "adjunto",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "adjoining",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "source_language_meta_use",
+          "no_winner_reason": "This is a meta discussion about the English word itself, so the Spanish target should not be inserted as a translation choice.",
+          "runtime_trigger_note": "adjoining appears as a standalone quoted token in the sentence.",
+          "sentence": "The word adjoining was quoted in the English glossary, but the note said it was not the translation to use for this entry."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "adjoining",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows the active sense of starting an event.",
+          "sentence": "We will begin the meeting at nine o'clock."
+        },
+        {
+          "evidence_note": "Shows the active sense of coming into being or starting.",
+          "sentence": "The flowers begin to bloom in early spring."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "begin",
+      "target_lemma": "comenzar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active sense is Spanish comenzar; the competitor sense is the ordinary English verb sense of begin used to mean start, which maps naturally to Spanish empezar.",
+      "competitor_sense_label": "to begin as a verb meaning to start an action or process",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "comenzar is wrong here because the sentence is about starting the meeting, and empezar is the more direct Spanish equivalent.",
+          "evidence_note": "begin means start here, so Spanish empezar is the natural translation.",
+          "sentence": "We will begin the meeting at nine o'clock."
+        },
+        {
+          "active_mismatch_note": "comenzar is wrong here because the instruction is to start reading, and empezar fits that sense better.",
+          "evidence_note": "begin introduces the action of starting from the first chapter, matching Spanish empezar.",
+          "sentence": "Please begin with the first chapter and read slowly."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "empezar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:begin:comenzar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "begin",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "The word is part of a quoted title, so it should be treated as a named title rather than translated as an action verb.",
+          "runtime_trigger_note": "begin appears as a standalone quoted token separated by spaces and punctuation.",
+          "sentence": "The book title is \"begin\", and the author said it was chosen for its simplicity."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:begin:comenzar:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "begin",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "bouillon means a seasoned broth used as a cooking liquid.",
+          "sentence": "The chef simmered the vegetables in bouillon before adding the noodles."
+        },
+        {
+          "evidence_note": "bouillon refers to a clear seasoned broth that adds savory taste.",
+          "sentence": "For a richer soup, she swapped water for bouillon and let the rice absorb the flavor."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "bouillon",
+      "target_lemma": "caldo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [],
+      "no_distinct_competitor_reason": "bouillon most commonly refers to a clear seasoned broth, which matches the active target sense caldo. I could not find a clearly different English sense that would make caldo wrong while still using bouillon naturally in a sentence.",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:bouillon:caldo:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "bouillon",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": true
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "ui_label",
+          "no_winner_reason": "The context is a UI label and glossary note, so the token should be treated as a mention of the English source word rather than a lexical item to translate into the active target sense.",
+          "runtime_trigger_note": "bouillon appears as a standalone token after the comma, with spaces and punctuation around it.",
+          "sentence": "The menu button opens a glossary entry for bouillon, and the note says it is a French term, not a translation target."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:bouillon:caldo:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "bouillon",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses december as the month at the end of the year.",
+          "sentence": "The holiday lights go up in december, the twelfth month of the year."
+        },
+        {
+          "evidence_note": "December is clearly the calendar month before January.",
+          "sentence": "We always review the annual budget in december before the new year begins."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "december",
+      "target_lemma": "diciembre",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [],
+      "no_distinct_competitor_reason": "The source_phrase 'december' does not have a clearly different English sense from the active target sense in ordinary usage; it primarily denotes the twelfth month of the year, so a bilingual dictionary would still choose 'diciembre' rather than a distinct competitor lemma.",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:december:diciembre:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "december",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": true
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "source_language_meta_use",
+          "no_winner_reason": "No replacement should happen because the sentence is discussing the English word itself in a translation note, not using it as a calendar-month reference in context.",
+          "runtime_trigger_note": "The token december appears as a standalone word in the quoted term phrase, so it is a direct runtime-like match.",
+          "sentence": "The translation note says the word december is a month name, but here it is only a quoted term in the glossary."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:december:diciembre:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "december",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "entirely means completely, with no light at all.",
+          "sentence": "The room was entirely dark after the power went out."
+        },
+        {
+          "evidence_note": "entirely means wholly or completely responsible.",
+          "sentence": "She was entirely responsible for the final decision."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "entirely",
+      "target_lemma": "enteramente",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active target sense is the Spanish adverb enteramente; the competitor sense is the English adverb entirely used as a synonym of completely or wholly.",
+      "competitor_sense_label": "degree adverb meaning completely/wholly",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "generator_id": "gpt-5.4-mini",
+      "items": [],
+      "no_distinct_competitor_reason": "No clearly distinct English sense is available for entirely here: the word overwhelmingly functions as a degree adverb meaning completely/wholly, so a bilingual dictionary would still choose enteramente or a very close equivalent rather than a different Spanish lemma.",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "entirely",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": true
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "The word entirely is part of a song title, so it should be treated as a named title rather than translated as ordinary prose.",
+          "runtime_trigger_note": "entirely appears as a standalone title token after called, separated by spaces.",
+          "sentence": "The song called entirely was played during the interview, but the title is just a quoted word and not a translation target."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "entirely",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to a hand-made craft object produced by skillful manual work.",
+          "sentence": "The carved wooden bowl was beautiful handiwork, showing the maker's skill and patience."
+        },
+        {
+          "evidence_note": "Describes a crafted item made by hand, matching the active sense of work or craft produced by hand.",
+          "sentence": "Her handiwork in the quilt won praise at the fair for its careful stitching and fine detail."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "handiwork",
+      "target_lemma": "artesanía",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses handiwork to mean ordinary work or a job done by hand, not craft or artistry.",
+      "competitor_sense_label": "manual labor / a task done by hand",
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "artesanía is wrong here because the sentence is about carpentry work, not a crafted art object or decorative craft.",
+          "evidence_note": "handiwork refers to manual work done by the carpenter.",
+          "sentence": "The carpenter's handiwork was finished before noon, and the crew admired the clean joints."
+        },
+        {
+          "active_mismatch_note": "artesanía is wrong here because the sentence describes yard labor, not handmade craft or artisanal production.",
+          "evidence_note": "handiwork refers to physical labor performed by hand.",
+          "sentence": "After hours of handiwork, she finally cleared the broken branches from the yard."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "trabajo",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:handiwork:artesan-a:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:handiwork:artesan-a:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:handiwork:artesan-a:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "handiwork",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "The word is part of a song title, so it should not be replaced as a translation of the craft sense.",
+          "runtime_trigger_note": "handiwork appears as a standalone token in the quoted title, separated by spaces and punctuation.",
+          "sentence": "The song called handiwork was added to the playlist, but the title is just a proper name and not a craft description."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "normalization_notes": [
+        "source_phrase_filled_from_request_trigger"
+      ],
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:handiwork:artesan-a:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:handiwork:artesan-a:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:handiwork:artesan-a:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "handiwork",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Physical location on top of something.",
+          "sentence": "The report was placed upon the desk for everyone to read."
+        },
+        {
+          "evidence_note": "Marks a surface where something is written.",
+          "sentence": "She wrote a note upon the whiteboard before the meeting started."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "upon",
+      "target_lemma": "sobre",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The active target sense is Spanish sobre meaning 'on/onto/regarding', but here upon is used as 'after' or 'when' in a temporal or conditional construction.",
+      "competitor_sense_label": "temporal or conditional preposition",
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "sobre is wrong here because the sentence is temporal, not about something being on top of or regarding something.",
+          "evidence_note": "upon introduces a time relation meaning 'when' or 'as soon as'.",
+          "sentence": "Upon arriving at the station, she called her brother immediately."
+        },
+        {
+          "active_mismatch_note": "sobre is wrong here because the phrase marks a condition in time, not a spatial or topical relation.",
+          "evidence_note": "upon means 'after' or 'when' in a formal conditional instruction.",
+          "sentence": "Upon receipt of the package, please sign the form and return it."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:upon:sobre:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:upon:sobre:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:upon:sobre:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "upon",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "proper_name_or_title",
+          "no_winner_reason": "The visible anchor is a title, so the token is being mentioned as a name rather than used with the spatial or temporal sense that would trigger replacement.",
+          "runtime_trigger_note": "upon appears as a standalone quoted title token separated by spaces and punctuation.",
+          "sentence": "The book titled \"Upon\" was discussed in the reading group, but the title is a proper name and not a translatable preposition."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json#semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:upon:sobre:no_winner_context_probe",
+      "request_id": "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:upon:sobre:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:upon:sobre:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "upon",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:billow:oleaje:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:billow:oleaje:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:current:contempor-neo:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:current:contempor-neo:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:parrot:loro:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:parrot:loro:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:stall:cuadra:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:stall:cuadra:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adder:v-bora:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adder:v-bora:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:pair:par:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:pair:par:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:snore:roncar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:snore:roncar:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:contiguo:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:contiguo:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:handiwork:artesan-a:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:handiwork:artesan-a:no_winner_context_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:upon:sobre:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_llm_allocation_pilot_en_es_v1:en-es:full-family-repaired-full:upon:sobre:no_winner_context_probe"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_requests_en_es_latest.json"
+}

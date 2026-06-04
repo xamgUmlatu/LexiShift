@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "artifact_id": "semantic_veto_full_family_agent_manual_review_en_es_v1",
+  "pair": "en-es",
+  "generated_at": "2026-05-06T21:42:02Z",
+  "status": "agent_review_complete_user_approval_required",
+  "review_authority": "codex_agent_recommendation_not_user_approval",
+  "inputs": {
+    "review_packet_json": "docs/test_outputs/semantic_veto_full_family_human_review_packet_en_es_latest.json",
+    "review_packet_markdown": "docs/test_outputs/semantic_veto_full_family_human_review_packet_en_es_latest.md",
+    "weakness_taxonomy": "docs/test_inputs/semantic_veto_test_weakness_taxonomy_en_es.json"
+  },
+  "summary": {
+    "families_reviewed": 10,
+    "cases_reviewed": 34,
+    "trusted_families_now": 0,
+    "trusted_cases_now": 0,
+    "family_recommendation_counts": {
+      "aligned_mapping_but_contexts_need_rewrite": 4,
+      "active_sense_mismatch_but_mapping_salvageable": 3,
+      "source_target_mapping_questionable_or_wrong": 3
+    },
+    "positive_active_case_recommendation_counts": {
+      "keep_only_after_independent_context_rewrite": 4,
+      "reject_or_relabel": 8
+    },
+    "shadow_negative_case_recommendation_counts": {
+      "blocked_by_placeholder_shadow_target": 12,
+      "likely_abstain_after_real_shadow_target": 10,
+      "ambiguous_or_possible_active": 2
+    },
+    "phrase_no_winner_case_recommendation_counts": {
+      "usable_after_review_or_minor_rewrite": 2,
+      "diagnostic_token_boundary_only": 3,
+      "questionable_or_relabel": 5
+    }
+  },
+  "review_principles": [
+    "This artifact does not mark any row approved_by_user.",
+    "A correct active source-target family is a prerequisite for trusting positive-active or shadow-negative labels.",
+    "Placeholder shadow targets keep shadow-negative rows blocked even when the English sentence looks like a reasonable abstain case.",
+    "Definition or template contexts can be useful diagnostics, but they need independent rewrites before product accuracy claims.",
+    "No-winner rows should test a real product no-replacement situation, not just arbitrary UI labels that would often be valid translations."
+  ],
+  "family_reviews": [
+    {
+      "family_id": "en-es:full-family-representative:break:quebrar",
+      "source": "break",
+      "target": "quebrar",
+      "active_sense_status_recommendation": "mismatched",
+      "family_disposition_recommendation": "salvage_with_corrected_active_sense",
+      "notes": "quebrar can match break in the fracture/shatter sense, but the packet active gloss is the interruption noun sense. The current positive rows are interruption examples and should not be trusted as positives for quebrar.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:break:quebrar:001",
+          "recommendation": "reject_or_relabel",
+          "recommended_gold_decision": "abstain_or_rewrite",
+          "notes": "The telephone sentence is interruption/annoyance sense, not quebrar."
+        },
+        {
+          "case_id": "en-es:full-family-representative:break:quebrar:002",
+          "recommendation": "reject_or_relabel",
+          "recommended_gold_decision": "abstain_or_rewrite",
+          "notes": "Break in the action is interruption sense, not fracture/shatter."
+        },
+        {
+          "case_id": "en-es:full-family-representative:break:quebrar:003",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "Break a lucky streak is end/interrupt a streak, not quebrar, but the shadow target is still a placeholder."
+        },
+        {
+          "case_id": "en-es:full-family-representative:break:quebrar:004",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "Big break means opportunity/good luck, not quebrar, but the shadow target is still a placeholder."
+        },
+        {
+          "case_id": "en-es:full-family-representative:break:quebrar:005",
+          "recommendation": "diagnostic_only_or_rewrite",
+          "recommended_gold_decision": "abstain_if_trigger_behavior_confirmed",
+          "notes": "Filename context is a useful no-replacement idea, but the trigger appears inside break_notes.txt and may not exercise normal word replacement."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:full-family-representative:bar:cercar",
+      "source": "bar",
+      "target": "cercar",
+      "active_sense_status_recommendation": "mismatched",
+      "family_disposition_recommendation": "source_target_mapping_questionable",
+      "notes": "cercar means surround, fence in, or besiege. The packet active sense is a drinking establishment. The source-target pair might be salvageable only if the intended English sense is bar as block/enclose/secure with bars, not the current active row.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:bar:cercar:001",
+          "recommendation": "reject_or_relabel",
+          "recommended_gold_decision": "abstain",
+          "notes": "A whiskey bar is not cercar."
+        },
+        {
+          "case_id": "en-es:full-family-representative:bar:cercar:002",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "Prevent from entering is closer to prohibit/exclude than cercar; the row is also synthetic and has a placeholder shadow target."
+        },
+        {
+          "case_id": "en-es:full-family-representative:bar:cercar:003",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "Food/drink counter is not cercar, but the shadow target is still a placeholder."
+        },
+        {
+          "case_id": "en-es:full-family-representative:bar:cercar:004",
+          "recommendation": "diagnostic_only_or_rewrite",
+          "recommended_gold_decision": "abstain_if_trigger_behavior_confirmed",
+          "notes": "Filename context is a plausible no-replacement control, but bar only appears inside bar_notes.txt."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:full-family-representative:offset:distancia",
+      "source": "offset",
+      "target": "distancia",
+      "active_sense_status_recommendation": "mismatched",
+      "family_disposition_recommendation": "source_target_mapping_questionable",
+      "notes": "distancia means distance. The packet active sense is outset/start time, and the positive rows are onset/outset examples. The intended mapping needs a dictionary-source audit before any row can be trusted.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:offset:distancia:001",
+          "recommendation": "reject_or_relabel",
+          "recommended_gold_decision": "abstain_or_rewrite",
+          "notes": "Early offset is an unnatural adaptation of early start, not distancia."
+        },
+        {
+          "case_id": "en-es:full-family-representative:offset:distancia:002",
+          "recommendation": "reject_or_relabel",
+          "recommended_gold_decision": "abstain_or_rewrite",
+          "notes": "From the offset means from the outset, not distance."
+        },
+        {
+          "case_id": "en-es:full-family-representative:offset:distancia:003",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "Offset deposits and withdrawals means compensate/counterbalance, not distancia, but the shadow target is still a placeholder."
+        },
+        {
+          "case_id": "en-es:full-family-representative:offset:distancia:004",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "A compensating equivalent is not distancia, but the row is synthetic and the shadow target is a placeholder."
+        },
+        {
+          "case_id": "en-es:full-family-representative:offset:distancia:005",
+          "recommendation": "usable_after_review_or_minor_rewrite",
+          "recommended_gold_decision": "abstain",
+          "notes": "Saved-search query context is a reasonable metalinguistic/no-winner row with standalone offset."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:full-family-representative:bridle:reprimir",
+      "source": "bridle",
+      "target": "reprimir",
+      "active_sense_status_recommendation": "mismatched",
+      "family_disposition_recommendation": "salvage_with_corrected_active_sense",
+      "notes": "reprimir maps to repress/restrain. The active packet sense is horse headgear, which is wrong. The family may be salvageable with a restraint/repress sense, but that would change which rows are positive versus shadow.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:bridle:reprimir:001",
+          "recommendation": "reject_or_relabel",
+          "recommended_gold_decision": "abstain_or_rewrite",
+          "notes": "Horse headgear is not reprimir; the row is also circular."
+        },
+        {
+          "case_id": "en-es:full-family-representative:bridle:reprimir:002",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "Bridled at a suggestion means took offense, not reprimir; row is synthetic and shadow target is placeholder."
+        },
+        {
+          "case_id": "en-es:full-family-representative:bridle:reprimir:003",
+          "recommendation": "ambiguous_or_possible_active",
+          "recommended_gold_decision": "review_required",
+          "notes": "A bridle to his temper is a restraint, which may be close to reprimir. This should not be a shadow-negative without bilingual review."
+        },
+        {
+          "case_id": "en-es:full-family-representative:bridle:reprimir:004",
+          "recommendation": "usable_after_review_or_minor_rewrite",
+          "recommended_gold_decision": "abstain",
+          "notes": "Saved-search query context is a reasonable metalinguistic/no-winner row with standalone bridle."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:full-family-representative:december:diciembre",
+      "source": "december",
+      "target": "diciembre",
+      "active_sense_status_recommendation": "aligned",
+      "family_disposition_recommendation": "aligned_but_contexts_need_rewrite",
+      "notes": "The source-target mapping is straightforward and low-polysemy. The current positive context is definition-circular and should be replaced with independent natural context before trusted scoring.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:december:diciembre:001",
+          "recommendation": "keep_only_after_independent_context_rewrite",
+          "recommended_gold_decision": "replace",
+          "notes": "Correct sense, but the sentence just restates the definition."
+        },
+        {
+          "case_id": "en-es:full-family-representative:december:diciembre:002",
+          "recommendation": "questionable_or_relabel",
+          "recommended_gold_decision": "review_required",
+          "notes": "A spreadsheet column titled December may still be a valid translation/replacement context. It is not automatically a no-winner row."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:full-family-representative:emotion:emocion",
+      "source": "emotion",
+      "target": "emoción",
+      "active_sense_status_recommendation": "aligned",
+      "family_disposition_recommendation": "aligned_but_contexts_need_rewrite",
+      "notes": "The source-target mapping is aligned. The positive row is definition-circular, and the no-winner row is questionable because a visible column label may reasonably be translated.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:emotion:emocion:001",
+          "recommendation": "keep_only_after_independent_context_rewrite",
+          "recommended_gold_decision": "replace",
+          "notes": "Correct sense, but the sentence just restates the definition."
+        },
+        {
+          "case_id": "en-es:full-family-representative:emotion:emocion:002",
+          "recommendation": "questionable_or_relabel",
+          "recommended_gold_decision": "review_required",
+          "notes": "A spreadsheet column titled emotion may be a valid translation/replacement context, not a clear no-winner."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:full-family-representative:dentist:dentista",
+      "source": "dentist",
+      "target": "dentista",
+      "active_sense_status_recommendation": "aligned",
+      "family_disposition_recommendation": "aligned_but_contexts_need_rewrite",
+      "notes": "The source-target mapping is aligned. The positive row is definition-circular; the navigation-tab no-winner row is questionable because dentist as a visible label may be a valid replacement.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:dentist:dentista:001",
+          "recommendation": "keep_only_after_independent_context_rewrite",
+          "recommended_gold_decision": "replace",
+          "notes": "Correct sense, but the sentence just restates the definition."
+        },
+        {
+          "case_id": "en-es:full-family-representative:dentist:dentista:002",
+          "recommendation": "questionable_or_relabel",
+          "recommended_gold_decision": "review_required",
+          "notes": "A navigation tab labeled dentist could reasonably become dentista. This is not a clear no-winner unless the product policy excludes UI labels."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:full-family-representative:bouillon:caldo",
+      "source": "bouillon",
+      "target": "caldo",
+      "active_sense_status_recommendation": "aligned",
+      "family_disposition_recommendation": "aligned_but_contexts_need_rewrite",
+      "notes": "The source-target mapping is aligned. The positive row is definition-circular; the filename no-winner row is diagnostic unless runtime token behavior is confirmed.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:bouillon:caldo:001",
+          "recommendation": "keep_only_after_independent_context_rewrite",
+          "recommended_gold_decision": "replace",
+          "notes": "Correct sense, but the sentence just restates the definition."
+        },
+        {
+          "case_id": "en-es:full-family-representative:bouillon:caldo:002",
+          "recommendation": "diagnostic_only_or_rewrite",
+          "recommended_gold_decision": "abstain_if_trigger_behavior_confirmed",
+          "notes": "Filename context is a plausible no-replacement control, but bouillon only appears inside bouillon_notes.txt."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:full-family-representative:control:gobernar",
+      "source": "control",
+      "target": "gobernar",
+      "active_sense_status_recommendation": "mismatched",
+      "family_disposition_recommendation": "salvage_with_corrected_active_sense",
+      "notes": "gobernar can map to govern/rule/control as a verb. The packet active sense is noun power/control, and the positive row under control is not a good positive. A corrected active sense should likely use the authoritative-control verb sense.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:control:gobernar:001",
+          "recommendation": "reject_or_relabel",
+          "recommended_gold_decision": "abstain_or_rewrite",
+          "notes": "Under control is not gobernar."
+        },
+        {
+          "case_id": "en-es:full-family-representative:control:gobernar:002",
+          "recommendation": "ambiguous_or_possible_active",
+          "recommended_gold_decision": "review_required",
+          "notes": "Control the budget is close to exercise authority/control. It may be active under a corrected gobernar/control sense, not a shadow-negative."
+        },
+        {
+          "case_id": "en-es:full-family-representative:control:gobernar:003",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "Control of disease is management/regulation, not gobernar, but the shadow target is still a placeholder."
+        },
+        {
+          "case_id": "en-es:full-family-representative:control:gobernar:004",
+          "recommendation": "questionable_or_relabel",
+          "recommended_gold_decision": "shadow_negative_or_no_winner_after_review",
+          "notes": "A spreadsheet column titled control could be a control-condition sense, which is a semantic shadow, not necessarily no-winner."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "source": "demand",
+      "target": "deducción",
+      "active_sense_status_recommendation": "mismatched",
+      "family_disposition_recommendation": "source_target_mapping_questionable",
+      "notes": "deducción means deduction. The packet active sense is demand/request. This looks like a wrong source-target family unless the rulegen source has evidence for an unusual mapping.",
+      "case_reviews": [
+        {
+          "case_id": "en-es:full-family-representative:demand:deduccion:001",
+          "recommendation": "reject_or_relabel",
+          "recommended_gold_decision": "abstain_or_remove_family",
+          "notes": "Urgent request is not deducción."
+        },
+        {
+          "case_id": "en-es:full-family-representative:demand:deduccion:002",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "Demand to move is request/insist, not deducción, but the whole family mapping is questionable and the shadow target is placeholder."
+        },
+        {
+          "case_id": "en-es:full-family-representative:demand:deduccion:003",
+          "recommendation": "blocked_but_likely_abstain",
+          "recommended_gold_decision": "abstain_after_real_shadow_target",
+          "notes": "Economic demand is not deducción, but the whole family mapping is questionable and the shadow target is placeholder."
+        },
+        {
+          "case_id": "en-es:full-family-representative:demand:deduccion:004",
+          "recommendation": "questionable_or_relabel",
+          "recommended_gold_decision": "shadow_negative_or_remove_family_after_review",
+          "notes": "A column titled demand likely points to the economic-demand sense. That is a semantic shadow if the family is kept, not a clean no-winner row."
+        }
+      ]
+    }
+  ],
+  "next_steps": [
+    "Do not use this packet for product accuracy or scorer promotion.",
+    "Create a trusted-eval candidate lane from the 4 aligned families first, rewriting positive contexts independently and replacing questionable no-winner rows.",
+    "For break, bridle, and control, correct the active sense before authoring any trusted rows.",
+    "For bar, offset, and demand, audit the original rulegen source-target mapping before spending review or LLM effort.",
+    "Replace placeholder shadow targets with real Spanish competitor targets before trusting shadow-negative rows."
+  ]
+}

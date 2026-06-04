@@ -1,0 +1,259 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-011-approved",
+  "execution_mode": "live",
+  "generated_at": "2026-05-13T20:41:07Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "en-es-active-only-full-v1-tranche-011",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:abate:decrecer:a89e2928",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "abate means to lessen or decrease in intensity.",
+          "sentence": "As the storm moved offshore, the winds began to abate by nightfall."
+        },
+        {
+          "evidence_note": "abate is used in the sense of declining or decreasing.",
+          "sentence": "After the medication took effect, her fever started to abate steadily."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "abate",
+      "target_lemma": "decrecer",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:aberration:yerro:4e3d998f",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "aberration refers to a specific error in a record, matching the narrow mistake sense of yerro.",
+          "sentence": "The clerk caught the aberration in the ledger before it became a costly mistake."
+        },
+        {
+          "evidence_note": "aberration is used for a single mistaken action, clearly aligning with yerro rather than a broad deviation sense.",
+          "sentence": "Her sudden aberration in the final answer was a simple slip, not a change in opinion."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "aberration",
+      "target_lemma": "yerro",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Visible urging to continue and give effort; fits an exhortation sense.",
+          "sentence": "The coach's admonition to keep pushing through the final mile lifted the whole team."
+        },
+        {
+          "evidence_note": "A clear call to action and moral urging, matching exhortación.",
+          "sentence": "Her admonition to speak up for the vulnerable was repeated throughout the meeting."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "admonition",
+      "target_lemma": "exhortación",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:confiscate:confiscar:6016e741",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Authority seizes prohibited goods.",
+          "sentence": "Customs officers can confiscate undeclared cigarettes at the border."
+        },
+        {
+          "evidence_note": "Official seizure by law enforcement.",
+          "sentence": "The police may confiscate the fake passports during the investigation."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "confiscate",
+      "target_lemma": "confiscar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Clear urging or call to action in a public address.",
+          "sentence": "The mayor's exhortation to save water was repeated at every town meeting."
+        },
+        {
+          "evidence_note": "Shows a forceful appeal meant to motivate action.",
+          "sentence": "Her exhortation to the team came just before they rushed onto the field."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "exhortation",
+      "target_lemma": "exhortación",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes something that falls behind the rest in progress and timing.",
+          "sentence": "The project was a laggard, finishing weeks after the others."
+        },
+        {
+          "evidence_note": "Shows a person who lags behind the others.",
+          "sentence": "In the race, she started fast, but one laggard runner trailed far behind the pack."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "laggard",
+      "target_lemma": "rezagado",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:straggler:rezagado:e9269d35",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "A person who fell behind and later rejoined the group.",
+          "sentence": "The straggler finally caught up with the rest of the hiking group at the trail marker."
+        },
+        {
+          "evidence_note": "Someone lagging behind the others in a race.",
+          "sentence": "After the sprint, one straggler was still coming down the track while the others had already finished."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "straggler",
+      "target_lemma": "rezagado",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:transitive:transitivo:08c49e29",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses transitive in the grammatical sense of a verb that takes a direct object.",
+          "sentence": "The verb take is transitive because it requires a direct object."
+        },
+        {
+          "evidence_note": "Contrasts transitive with intransitive to show the grammatical property clearly.",
+          "sentence": "In her notes, she marked run as intransitive and give as transitive."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "transitive",
+      "target_lemma": "transitivo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Active quarrel or argue sense, matching reñir.",
+          "sentence": "The siblings began to wrangle over who should clean the kitchen."
+        },
+        {
+          "evidence_note": "Visible argument between people, the intended active sense of reñir.",
+          "sentence": "Neighbors started to wrangle about the noise late into the night."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "wrangle",
+      "target_lemma": "reñir",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_011_pre_spend_en_es_latest.json"
+}

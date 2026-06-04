@@ -1,6 +1,17 @@
 # GUI Current Structure
 
+Status: review-required snapshot
+Role: Mixed
 Last updated: 2026-02-18
+Last verified: 2026-05-15 Lane 1 GUI authority-map spot-check of main/profile/ruleset/utility-dock seams; full structure not re-audited
+Purpose: preserve a GUI structure snapshot after the Utility Dock and profile/ruleset management work
+Source-of-truth: snapshot reference only; current GUI structure lives in `apps/gui/src/main.py`, `apps/gui/src/dialogs_profiles.py`, `apps/gui/src/dialogs_rulesets.py`, `apps/gui/src/utility_dock.py`, and focused GUI tests.
+
+Routing note:
+- use `docs/gui/README.md` before treating this snapshot as current structure
+  truth
+- verify against `apps/gui/src/` and `apps/gui/tests/` before updating current
+  GUI behavior claims
 
 ## Purpose
 

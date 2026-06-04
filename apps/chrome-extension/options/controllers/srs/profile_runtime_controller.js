@@ -1,10 +1,18 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "abstain_on_unavailable";
+  const createPlanningStateResolver = root.optionsSrsPlanningState
+    && typeof root.optionsSrsPlanningState.createResolver === "function"
+    ? root.optionsSrsPlanningState.createResolver
+    : null;
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
     const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object"
       ? opts.settingsManager
+      : null;
+    const helperManager = opts.helperManager && typeof opts.helperManager === "object"
+      ? opts.helperManager
       : null;
     const ui = opts.ui && typeof opts.ui === "object" ? opts.ui : null;
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
@@ -43,42 +51,88 @@
           DEFAULT: "#6c675f"
         };
     const elements = opts.elements && typeof opts.elements === "object" ? opts.elements : {};
-    const sourceLanguageInput = elements.sourceLanguageInput || null;
-    const targetLanguageInput = elements.targetLanguageInput || null;
     const srsEnabledInput = elements.srsEnabledInput || null;
     const srsMaxActiveInput = elements.srsMaxActiveInput || null;
     const srsBootstrapTopNInput = elements.srsBootstrapTopNInput || null;
     const srsInitialActiveCountInput = elements.srsInitialActiveCountInput || null;
+    const srsTopicInterestsInput = elements.srsTopicInterestsInput || null;
+    const srsProficiencyEstimateInput = elements.srsProficiencyEstimateInput || null;
+    const srsChallengeTargetInput = elements.srsChallengeTargetInput || null;
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
-    const srsFeedbackSrsInput = elements.srsFeedbackSrsInput || null;
-    const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
+    const srsSemanticAdmissionStatusOutput = elements.srsSemanticAdmissionStatusOutput || null;
+    const srsSemanticAdmissionStatusDetailOutput = elements.srsSemanticAdmissionStatusDetailOutput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
     const srsProfileIdInput = elements.srsProfileIdInput || null;
     const srsProfileRefreshButton = elements.srsProfileRefreshButton || null;
+    const semanticAdmissionStatusSupport = root.optionsSrsSemanticAdmissionStatus
+      && typeof root.optionsSrsSemanticAdmissionStatus.createSupport === "function"
+      ? root.optionsSrsSemanticAdmissionStatus.createSupport({
+          t: translate,
+          helperManager,
+          statusOutput: srsSemanticAdmissionStatusOutput,
+          detailOutput: srsSemanticAdmissionStatusDetailOutput
+        })
+      : null;
+    const autoRefreshSettingsSupport = root.optionsSrsAutoRefreshSettings
+      && typeof root.optionsSrsAutoRefreshSettings.createSupport === "function"
+      ? root.optionsSrsAutoRefreshSettings.createSupport({
+          settingsManager,
+          elements
+        })
+      : {
+          composeRuntimeProfileContext: (pairKey, _profile, _signals, profileId) => ({ pair: pairKey, profile_id: profileId || "default" }),
+          readSettings: () => ({}),
+          syncInputs: () => {}
+        };
+    const profileValuesSupport = root.optionsSrsProfileRuntimeValues.createSupport({
+      settingsManager,
+      elements
+    });
+    const {
+      currentSourceLanguage,
+      currentTargetLanguage,
+      formatOptionalPercentValue,
+      parseInterestList,
+      parseOptionalPercent
+    } = profileValuesSupport;
 
-    function currentSourceLanguage() {
-      return sourceLanguageInput
-        ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
-        : (settingsManager.defaults.sourceLanguage || "en");
+    const ensureDataset = (input) => { if (input && !input.dataset) input.dataset = {}; return input && input.dataset ? input.dataset : {}; };
+    const inputHasExplicitRangeValue = (input) => !(input && input.type === "range" && ensureDataset(input).srsHasValue === "false");
+    async function refreshSemanticAdmissionStatus(pairKey, profileId) {
+      if (!semanticAdmissionStatusSupport) {
+        return "unknown";
+      }
+      return semanticAdmissionStatusSupport.refresh(pairKey, profileId);
     }
 
-    function currentTargetLanguage() {
-      return targetLanguageInput
-        ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
-        : (settingsManager.defaults.targetLanguage || "en");
-    }
+    const resolveEffectiveSrsPlanningState = createPlanningStateResolver
+      ? createPlanningStateResolver({
+          settingsManager,
+          parseInterestList,
+          parseOptionalPercent,
+          srsMaxActiveInput,
+          srsBootstrapTopNInput,
+          srsInitialActiveCountInput,
+          srsTopicInterestsInput,
+          srsProficiencyEstimateInput,
+          srsChallengeTargetInput
+        })
+      : (() => null);
 
     async function loadSrsProfileForPair(items, pairKey, options) {
       const synced = await syncSelectedProfile(items, options);
       const profile = settingsManager.getSrsProfile(synced.items, pairKey, {
         profileId: synced.profileId
       });
+      const signals = settingsManager.getSrsProfileSignals(synced.items, pairKey, {
+        profileId: synced.profileId
+      });
       const uiPrefs = settingsManager.getProfileUiPrefs(synced.items, {
         profileId: synced.profileId
       });
-      ui.updateSrsInputs(profile);
+      ui.updateSrsInputs(profile, signals);
       ui.updateProfileBackgroundInputs(uiPrefs);
       await syncProfileBackgroundForPrefs(uiPrefs);
       if (srsEnabledInput) {
@@ -88,7 +142,13 @@
         sourceLanguage: currentSourceLanguage(),
         targetLanguage: currentTargetLanguage(),
         srsPairAuto: true,
-        srsSelectedProfileId: synced.profileId
+        srsSelectedProfileId: synced.profileId,
+        srsProfileContext: autoRefreshSettingsSupport.composeRuntimeProfileContext(
+          pairKey,
+          profile,
+          signals,
+          synced.profileId
+        )
       }, {
         profileId: synced.profileId
       });
@@ -102,104 +162,190 @@
         profileId: synced.profileId,
         helperProfilesPayload: synced.helperProfilesPayload
       });
+      await refreshSemanticAdmissionStatus(pairKey, synced.profileId);
       log("Loaded SRS profile settings.", {
         pair: pairKey,
         profileId: synced.profileId,
+        signals,
         profileUiPrefs: uiPrefs
       });
-      return { profile, uiPrefs, profileId: synced.profileId, items: synced.items };
+      return { profile, signals, uiPrefs, profileId: synced.profileId, items: synced.items };
     }
 
     async function saveSrsSettings() {
       if (!srsEnabledInput || !srsMaxActiveInput) {
         return;
       }
-      const srsEnabled = srsEnabledInput.checked;
-      const pairKey = resolvePair();
-      const items = await settingsManager.load();
-      const syncedProfileState = await syncSelectedProfile(items);
-      const selectedProfileId = syncedProfileState.profileId;
-      const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
-      const srsMaxActive = Number.isFinite(maxActiveRaw)
-        ? Math.max(1, maxActiveRaw)
-        : (settingsManager.defaults.srsMaxActive || 20);
-      const srsSoundEnabled = srsSoundInput ? srsSoundInput.checked : true;
-      const srsHighlightColor = srsHighlightInput
-        ? (srsHighlightInput.value || settingsManager.defaults.srsHighlightColor || "#2F74D0")
-        : (settingsManager.defaults.srsHighlightColor || "#2F74D0");
-      const srsFeedbackSrsEnabled = srsFeedbackSrsInput ? srsFeedbackSrsInput.checked : true;
-      const srsFeedbackRulesEnabled = srsFeedbackRulesInput ? srsFeedbackRulesInput.checked : false;
-      const srsExposureLoggingEnabled = srsExposureLoggingInput
-        ? srsExposureLoggingInput.checked
-        : true;
-      const sizing = settingsManager.resolveSrsSetSizing(
-        {
+      let partialSave = false;
+      let savePhase = "preflight";
+      try {
+        const srsEnabled = srsEnabledInput.checked;
+        const pairKey = resolvePair();
+        const items = await settingsManager.load();
+        const syncedProfileState = await syncSelectedProfile(items);
+        const selectedProfileId = syncedProfileState.profileId;
+        const existingSignals = settingsManager.getSrsProfileSignals(
+          syncedProfileState.items,
+          pairKey,
+          { profileId: selectedProfileId }
+        );
+        const maxActiveRaw = parseInt(srsMaxActiveInput.value, 10);
+        const srsMaxActive = Number.isFinite(maxActiveRaw)
+          ? Math.max(1, maxActiveRaw)
+          : (settingsManager.defaults.srsMaxActive || 20);
+        const srsSoundEnabled = srsSoundInput ? srsSoundInput.checked : true;
+        const srsHighlightColor = srsHighlightInput
+          ? (srsHighlightInput.value || settingsManager.defaults.srsHighlightColor || "#2F74D0")
+          : (settingsManager.defaults.srsHighlightColor || "#2F74D0");
+        const srsSemanticAdmissionEnabled = true;
+        const srsSemanticAdmissionFallbackPolicy = DEFAULT_SEMANTIC_FALLBACK_POLICY;
+        const srsFeedbackSrsEnabled = true;
+        const srsFeedbackRulesEnabled = false;
+        const srsExposureLoggingEnabled = srsExposureLoggingInput
+          ? srsExposureLoggingInput.checked
+          : true;
+        const autoRefreshSettings = autoRefreshSettingsSupport.readSettings();
+        const sizing = settingsManager.resolveSrsSetSizing(
+          {
+            srsMaxActive,
+            srsBootstrapTopN: srsBootstrapTopNInput ? srsBootstrapTopNInput.value : undefined,
+            srsInitialActiveCount: srsInitialActiveCountInput ? srsInitialActiveCountInput.value : undefined
+          },
+          settingsManager.defaults
+        );
+        const profile = {
+          srsEnabled,
           srsMaxActive,
-          srsBootstrapTopN: srsBootstrapTopNInput ? srsBootstrapTopNInput.value : undefined,
-          srsInitialActiveCount: srsInitialActiveCountInput ? srsInitialActiveCountInput.value : undefined
-        },
-        settingsManager.defaults
-      );
-      const profile = {
-        srsEnabled,
-        srsMaxActive,
-        srsBootstrapTopN: sizing.srsBootstrapTopN,
-        srsInitialActiveCount: sizing.srsInitialActiveCount,
-        srsSoundEnabled,
-        srsHighlightColor,
-        srsFeedbackSrsEnabled,
-        srsFeedbackRulesEnabled,
-        srsExposureLoggingEnabled
-      };
-      const sourceLanguage = currentSourceLanguage();
-      const targetLanguage = currentTargetLanguage();
-      srsMaxActiveInput.value = String(srsMaxActive);
-      if (srsBootstrapTopNInput) {
-        srsBootstrapTopNInput.value = String(sizing.srsBootstrapTopN);
-      }
-      if (srsInitialActiveCountInput) {
-        srsInitialActiveCountInput.value = String(sizing.srsInitialActiveCount);
-      }
-      if (srsHighlightInput) {
-        srsHighlightInput.value = srsHighlightColor;
-      }
-      if (srsHighlightTextInput) {
-        srsHighlightTextInput.value = srsHighlightColor;
-      }
+          srsBootstrapTopN: sizing.srsBootstrapTopN,
+          srsInitialActiveCount: sizing.srsInitialActiveCount,
+          srsSoundEnabled,
+          srsHighlightColor,
+          srsSemanticAdmissionEnabled,
+          srsSemanticAdmissionFallbackPolicy,
+          srsFeedbackSrsEnabled,
+          srsFeedbackRulesEnabled,
+          srsExposureLoggingEnabled,
+          ...autoRefreshSettings
+        };
+        const sourceLanguage = currentSourceLanguage();
+        const targetLanguage = currentTargetLanguage();
+        srsMaxActiveInput.value = String(srsMaxActive);
+        if (srsBootstrapTopNInput) srsBootstrapTopNInput.value = String(sizing.srsBootstrapTopN);
+        if (srsInitialActiveCountInput) srsInitialActiveCountInput.value = String(sizing.srsInitialActiveCount);
+        if (srsHighlightInput) srsHighlightInput.value = srsHighlightColor;
+        if (srsHighlightTextInput) srsHighlightTextInput.value = srsHighlightColor;
+        autoRefreshSettingsSupport.syncInputs(autoRefreshSettings);
+        const interests = parseInterestList(srsTopicInterestsInput ? srsTopicInterestsInput.value : "");
+        const proficiencyEstimate = inputHasExplicitRangeValue(srsProficiencyEstimateInput)
+          ? parseOptionalPercent(srsProficiencyEstimateInput ? srsProficiencyEstimateInput.value : "")
+          : null;
+        const challengeTarget = parseOptionalPercent(
+          srsChallengeTargetInput ? srsChallengeTargetInput.value : ""
+        );
+        if (srsTopicInterestsInput) {
+          srsTopicInterestsInput.value = interests.join(", ");
+        }
+        if (srsProficiencyEstimateInput) {
+          if (proficiencyEstimate !== null) {
+            srsProficiencyEstimateInput.value = formatOptionalPercentValue(proficiencyEstimate);
+          }
+          ensureDataset(srsProficiencyEstimateInput).srsHasValue = proficiencyEstimate === null ? "false" : "true";
+        }
+        if (srsChallengeTargetInput) {
+          srsChallengeTargetInput.value = formatOptionalPercentValue(challengeTarget);
+        }
+        savePhase = "profile";
+        const updateResult = await settingsManager.updateSrsProfile(pairKey, profile, {
+          sourceLanguage,
+          targetLanguage,
+          srsPairAuto: true,
+          srsSelectedProfileId: selectedProfileId
+        }, {
+          profileId: selectedProfileId
+        });
+        partialSave = true;
+        const nextProficiency = existingSignals.proficiency && typeof existingSignals.proficiency === "object"
+          ? { ...existingSignals.proficiency }
+          : {};
+        const nextDifficultyPreferences = (
+          existingSignals.difficultyPreferences && typeof existingSignals.difficultyPreferences === "object"
+        )
+          ? { ...existingSignals.difficultyPreferences }
+          : {};
+        if (proficiencyEstimate === null) {
+          delete nextProficiency.estimated_value;
+        } else {
+          nextProficiency.estimated_value = Number(proficiencyEstimate.toFixed(2));
+        }
+        if (challengeTarget === null) {
+          delete nextDifficultyPreferences.target_challenge_center;
+        } else {
+          nextDifficultyPreferences.target_challenge_center = Number(challengeTarget.toFixed(2));
+        }
+        const nextSignalsForContext = {
+          ...existingSignals,
+          interests,
+          proficiency: nextProficiency,
+          difficultyPreferences: nextDifficultyPreferences
+        };
+        savePhase = "runtime";
+        await settingsManager.publishSrsRuntimeProfile(pairKey, profile, {
+          sourceLanguage,
+          targetLanguage,
+          srsPairAuto: true,
+          srsSelectedProfileId: selectedProfileId,
+          srsProfileContext: autoRefreshSettingsSupport.composeRuntimeProfileContext(
+            pairKey,
+            profile,
+            nextSignalsForContext,
+            selectedProfileId
+          )
+        }, {
+          profileId: selectedProfileId
+        });
+        savePhase = "signals";
+        await settingsManager.updateSrsProfileSignals(pairKey, {
+          interests,
+          proficiency: nextProficiency,
+          difficultyPreferences: nextDifficultyPreferences
+        }, {
+          profileId: selectedProfileId
+        });
 
-      const updateResult = await settingsManager.updateSrsProfile(pairKey, profile, {
-        sourceLanguage,
-        targetLanguage,
-        srsPairAuto: true,
-        srsSelectedProfileId: selectedProfileId
-      }, {
-        profileId: selectedProfileId
-      });
-      await settingsManager.publishSrsRuntimeProfile(pairKey, profile, {
-        sourceLanguage,
-        targetLanguage,
-        srsPairAuto: true,
-        srsSelectedProfileId: selectedProfileId
-      }, {
-        profileId: selectedProfileId
-      });
-
-      setStatus(translate("status_srs_saved", null, "SRS settings saved."), colors.SUCCESS);
-      log("SRS settings saved.", {
-        pair: pairKey,
-        profileId: updateResult && updateResult.profileId ? updateResult.profileId : "default",
-        sourceLanguage,
-        targetLanguage,
-        srsEnabled,
-        srsMaxActive,
-        srsBootstrapTopN: sizing.srsBootstrapTopN,
-        srsInitialActiveCount: sizing.srsInitialActiveCount,
-        srsSoundEnabled,
-        srsHighlightColor,
-        srsFeedbackSrsEnabled,
-        srsFeedbackRulesEnabled,
-        srsExposureLoggingEnabled
-      });
+        setStatus(translate("status_srs_saved", null, "Practice settings saved."), colors.SUCCESS);
+        log("SRS settings saved.", {
+          pair: pairKey,
+          profileId: updateResult && updateResult.profileId ? updateResult.profileId : "default",
+          sourceLanguage,
+          targetLanguage,
+          srsEnabled,
+          srsMaxActive,
+          srsBootstrapTopN: sizing.srsBootstrapTopN,
+          srsInitialActiveCount: sizing.srsInitialActiveCount,
+          interests,
+          proficiencyEstimate,
+          challengeTarget,
+          srsSoundEnabled,
+          srsHighlightColor,
+          srsSemanticAdmissionEnabled,
+          srsSemanticAdmissionFallbackPolicy,
+          srsFeedbackSrsEnabled,
+          srsFeedbackRulesEnabled,
+          srsExposureLoggingEnabled,
+          ...autoRefreshSettings
+        });
+      } catch (err) {
+        const fallbackMessage = translate("status_srs_save_failed", null, "Failed to save practice settings.");
+        const baseMessage = err && err.message ? err.message : fallbackMessage;
+        const message = partialSave
+          ? `${translate("status_srs_save_partial", null, "Practice settings were partially saved. Reload the page and review the current values.")} ${baseMessage}`.trim()
+          : baseMessage;
+        const failure = new Error(message);
+        failure.cause = err;
+        failure.partialSave = partialSave;
+        failure.savePhase = savePhase;
+        throw failure;
+      }
     }
 
     async function saveLanguageSettings() {
@@ -283,10 +429,12 @@
 
     return {
       loadSrsProfileForPair,
+      refreshSemanticAdmissionStatus,
       saveSrsSettings,
       saveLanguageSettings,
       saveSrsProfileId,
-      refreshSrsProfiles
+      refreshSrsProfiles,
+      resolveEffectiveSrsPlanningState
     };
   }
 

@@ -1,0 +1,217 @@
+{
+  "decision": "manual_testing_ready",
+  "fixture": {
+    "fixture_data_root": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-helper-runtime-smoke-data-root",
+    "publication_manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-helper-runtime-smoke-data-root/srs/profiles/default/srs_publication_manifest_en-es.json",
+    "ruleset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-helper-runtime-smoke-data-root/srs/profiles/default/srs_ruleset_en-es.json",
+    "semantic_inventory_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-helper-runtime-smoke-data-root/srs/profiles/default/srs_semantic_inventory_en-es.json",
+    "snapshot_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-helper-runtime-smoke-data-root/srs/profiles/default/srs_rulegen_snapshot_en-es.json"
+  },
+  "generated_at": "2026-05-09T22:54:33Z",
+  "inputs": {
+    "candidate_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-inventory-replay-latest_semantic_inventory.json",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_full_v1.json"
+  },
+  "issues": [],
+  "manual_test_notes": [
+    "The fixture data root is isolated; point LEXISHIFT_DATA_DIR at it for manual helper/app tests.",
+    "With no explicit override, active-only fixture inventories auto-select en_es_sentence_veto_v2.",
+    "The production default en_es_sentence_veto_v3 still requires sentence_transformers/model availability.",
+    "Expected user-facing outcome remains binary: replace or abstain."
+  ],
+  "methodology": {
+    "data_root_isolation": "fixture root under docs/test_outputs; default user profile data is not mutated",
+    "decision_policy_id": "en_es_sentence_veto_v2",
+    "fallback_policy": "abstain_on_unavailable",
+    "publication_family": [
+      "ruleset",
+      "snapshot",
+      "semantic_inventory",
+      "publication_manifest"
+    ],
+    "runtime_policy_change": "active_only_competition_sets_can_score_without_shadows",
+    "scope": "isolated_helper_publication_and_semantic_admit_batch_smoke"
+  },
+  "pair": "en-es",
+  "profile_id": "default",
+  "sample_decisions": [
+    {
+      "active_score": 0.016047014095257096,
+      "case_id": "en-es:full-family-repaired-full:break:quebrar:001",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.016047014095257096,
+      "sentence": "The old plate began to break along the rim.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.12262254461460173,
+      "case_id": "en-es:full-family-repaired-full:break:quebrar:002",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.10988832294160406,
+      "sentence": "A dry branch can break under sudden pressure.",
+      "top_shadow_score": 0.012734221672997682
+    },
+    {
+      "active_score": 0.03252840745417434,
+      "case_id": "en-es:full-family-repaired-full:break:quebrar:003",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.02038767826958182,
+      "sentence": "A news alert can break the broadcast without warning.",
+      "top_shadow_score": 0.012140729184592516
+    },
+    {
+      "active_score": 0.00720390080475651,
+      "case_id": "en-es:full-family-repaired-full:break:quebrar:004",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": -0.061096656350810116,
+      "sentence": "Her internship became the break that launched her career.",
+      "top_shadow_score": 0.06830055715556663
+    },
+    {
+      "active_score": 0.007257672626299642,
+      "case_id": "en-es:full-family-repaired-full:break:quebrar:005",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": -0.021646678371776702,
+      "sentence": "The dashboard listed Break as an internal project code.",
+      "top_shadow_score": 0.028904350998076343
+    },
+    {
+      "active_score": 0.041367711553911474,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:001",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.041367711553911474,
+      "sentence": "Workers will bar the storage yard with temporary fencing.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.11763791672254552,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:002",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.11763791672254552,
+      "sentence": "The rancher used wire panels to bar the cattle inside the field.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.039890730273835065,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:003",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.039890730273835065,
+      "sentence": "They met at the bar after work.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.03779148887191146,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:004",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.03779148887191146,
+      "sentence": "The violin enters on the second bar of the song.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.012623998634100709,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:005",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": -0.02012967171373392,
+      "sentence": "The dashboard listed Bar as an internal project code.",
+      "top_shadow_score": 0.03275367034783463
+    },
+    {
+      "active_score": 0.07659824880569405,
+      "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.07659824880569405,
+      "sentence": "Set the image offset to twelve pixels from the left edge.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.08205766526241304,
+      "case_id": "en-es:full-family-repaired-full:offset:distancia:002",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.05875207395682391,
+      "sentence": "The sensor has a small offset from the center line.",
+      "top_shadow_score": 0.02330559130558913
+    },
+    {
+      "active_score": 0.03023631907689891,
+      "case_id": "en-es:full-family-repaired-full:offset:distancia:003",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.03023631907689891,
+      "sentence": "The rebate helped offset the higher shipping cost.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.03790518827965863,
+      "case_id": "en-es:full-family-repaired-full:offset:distancia:004",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.010057470102349017,
+      "sentence": "The invoice showed a small offset for the returned item.",
+      "top_shadow_score": 0.027847718177309612
+    },
+    {
+      "active_score": 0.026655143139493916,
+      "case_id": "en-es:full-family-repaired-full:offset:distancia:005",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.026655143139493916,
+      "sentence": "The dashboard listed Offset as an internal project code.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.14092336029715777,
+      "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.06227406015997171,
+      "sentence": "She tried to bridle her anger during the meeting.",
+      "top_shadow_score": 0.07864930013718606
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "active_only_competition_set_count": 26,
+    "case_count": 189,
+    "decision_accuracy": 0.7248677248677249,
+    "decision_count": 189,
+    "fallback_decision_count": 0,
+    "fallback_reason_counts": {},
+    "false_abstain_count": 50,
+    "family_count": 49,
+    "harmful_replace_count": 2,
+    "policy_decision_count": 189,
+    "predicted_replace_cases": 50,
+    "replace_recall": 0.4897959183673469,
+    "rule_count": 49,
+    "shadowed_competition_set_count": 23
+  }
+}

@@ -1,0 +1,778 @@
+{
+  "description": "Frozen repaired full-family case specs for the en-es semantic-veto repair-pool research packet.",
+  "repair_case_specs": [
+    {
+      "no_winner": "The dashboard listed Break as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "The old plate began to break along the rim.",
+        "A dry branch can break under sudden pressure."
+      ],
+      "shadows": [
+        [
+          "interrumpir",
+          "interrupt or cut into an ongoing event",
+          "A news alert can break the broadcast without warning."
+        ],
+        [
+          "oportunidad",
+          "a lucky chance or career opportunity",
+          "Her internship became the break that launched her career."
+        ]
+      ],
+      "source": "break",
+      "target": "quebrar"
+    },
+    {
+      "no_winner": "The dashboard listed Bar as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "Workers will bar the storage yard with temporary fencing.",
+        "The rancher used wire panels to bar the cattle inside the field."
+      ],
+      "shadows": [
+        [
+          "taberna",
+          "an establishment that serves drinks",
+          "They met at the bar after work."
+        ],
+        [
+          "compás",
+          "a measure in written music",
+          "The violin enters on the second bar of the song."
+        ]
+      ],
+      "source": "bar",
+      "target": "cercar"
+    },
+    {
+      "no_winner": "The dashboard listed Offset as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "Set the image offset to twelve pixels from the left edge.",
+        "The sensor has a small offset from the center line."
+      ],
+      "shadows": [
+        [
+          "compensar",
+          "counterbalance or compensate for something",
+          "The rebate helped offset the higher shipping cost."
+        ],
+        [
+          "reembolso",
+          "a refund or credit against a charge",
+          "The invoice showed a small offset for the returned item."
+        ]
+      ],
+      "source": "offset",
+      "target": "distancia"
+    },
+    {
+      "no_winner": "The dashboard listed Bridle as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "She tried to bridle her anger during the meeting.",
+        "The lawyer had to bridle his frustration after the ruling."
+      ],
+      "shadows": [
+        [
+          "brida",
+          "horse headgear with reins",
+          "The rider checked the bridle before the parade."
+        ],
+        [
+          "ofenderse",
+          "react with anger or offense",
+          "He began to bridle at the accusation."
+        ]
+      ],
+      "source": "bridle",
+      "target": "reprimir"
+    },
+    {
+      "no_winner": "The dashboard listed December as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The conference moved to December after the venue delay.",
+        "Their lease expires in December."
+      ],
+      "shadows": [],
+      "source": "december",
+      "target": "diciembre"
+    },
+    {
+      "no_winner": "The dashboard listed Emotion as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The speech stirred strong emotion in the crowd.",
+        "She hid every emotion during the interview."
+      ],
+      "shadows": [],
+      "source": "emotion",
+      "target": "emoción"
+    },
+    {
+      "no_winner": "The dashboard listed Dentist as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The dentist repaired the chipped tooth before lunch.",
+        "She booked an appointment with a dentist near the station."
+      ],
+      "shadows": [],
+      "source": "dentist",
+      "target": "dentista"
+    },
+    {
+      "no_winner": "The dashboard listed Bouillon as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "Add bouillon to the rice for a richer flavor.",
+        "The recipe starts with bouillon and fresh herbs."
+      ],
+      "shadows": [],
+      "source": "bouillon",
+      "target": "caldo"
+    },
+    {
+      "no_winner": "The dashboard listed Control as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "The coalition hoped to control parliament after the election.",
+        "A small council continued to control the territory after the coup."
+      ],
+      "shadows": [
+        [
+          "ajustar",
+          "operate or adjust a device setting",
+          "Use the slider to control the volume."
+        ],
+        [
+          "grupo de control",
+          "a comparison group in an experiment",
+          "The study included a control group and a treatment group."
+        ]
+      ],
+      "source": "control",
+      "target": "gobernar"
+    },
+    {
+      "no_winner": "The dashboard listed Stall as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The horse returned to its stall after training.",
+        "She cleaned each stall before feeding the animals."
+      ],
+      "shadows": [
+        [
+          "retrasar",
+          "delay or postpone action",
+          "The committee tried to stall the vote until Friday."
+        ],
+        [
+          "calarse",
+          "stop running, as an engine",
+          "The old truck may stall on the hill."
+        ]
+      ],
+      "source": "stall",
+      "target": "cuadra"
+    },
+    {
+      "no_winner": "The dashboard listed Rumanian as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "The museum displayed Rumanian folk costumes.",
+        "The form asked whether he held a Rumanian passport."
+      ],
+      "shadows": [],
+      "source": "rumanian",
+      "target": "rumano"
+    },
+    {
+      "no_winner": "The dashboard listed June as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The trial is scheduled for June.",
+        "The garden usually blooms in June."
+      ],
+      "shadows": [],
+      "source": "june",
+      "target": "junio"
+    },
+    {
+      "no_winner": "The dashboard listed Pub as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "They stopped at a pub near the station.",
+        "The old pub serves soup and local beer."
+      ],
+      "shadows": [],
+      "source": "pub",
+      "target": "taberna"
+    },
+    {
+      "no_winner": "The dashboard listed Salesman as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The salesman explained the warranty in detail.",
+        "A traveling salesman visited the shop every spring."
+      ],
+      "shadows": [],
+      "source": "salesman",
+      "target": "vendedor"
+    },
+    {
+      "no_winner": "The dashboard listed Handiwork as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The market stall displayed local handiwork.",
+        "Each carved bowl showed careful handiwork."
+      ],
+      "shadows": [],
+      "source": "handiwork",
+      "target": "artesanía"
+    },
+    {
+      "no_winner": "The dashboard listed Continue as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "The drought may continue for months.",
+        "The pain may continue all night after the fall."
+      ],
+      "shadows": [
+        [
+          "seguir",
+          "keep doing an activity",
+          "Please continue reading the next section."
+        ],
+        [
+          "reanudar",
+          "resume after a pause",
+          "The teams will continue play after the delay."
+        ]
+      ],
+      "source": "continue",
+      "target": "durar"
+    },
+    {
+      "no_winner": "The dashboard listed Begin as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "The lecture will begin at nine.",
+        "They begin work before sunrise."
+      ],
+      "shadows": [],
+      "source": "begin",
+      "target": "comenzar"
+    },
+    {
+      "no_winner": "The dashboard listed Chic as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "She chose a chic black coat for the dinner.",
+        "The hotel lobby has a chic modern style."
+      ],
+      "shadows": [
+        [
+          "elegancia",
+          "fashionable elegance as a noun",
+          "The advertisement promised effortless Parisian chic."
+        ]
+      ],
+      "source": "chic",
+      "target": "elegante"
+    },
+    {
+      "no_winner": "The dashboard listed Billow as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "A dark billow rolled across the harbor.",
+        "The surfer watched each billow before paddling out."
+      ],
+      "shadows": [
+        [
+          "elevarse",
+          "rise up in swelling waves",
+          "Smoke began to billow from the warehouse."
+        ],
+        [
+          "hincharse",
+          "swell outward like fabric",
+          "The curtain started to billow in the wind."
+        ]
+      ],
+      "source": "billow",
+      "target": "oleaje"
+    },
+    {
+      "no_winner": "The dashboard listed Among as an internal project code.",
+      "pos": "preposition",
+      "positive": [
+        "The letter was hidden among the old books.",
+        "She felt comfortable among the volunteers."
+      ],
+      "shadows": [],
+      "source": "among",
+      "target": "entre"
+    },
+    {
+      "no_winner": "The dashboard listed Recover as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "The patient will recover after several weeks of rest.",
+        "His ankle began to recover after therapy."
+      ],
+      "shadows": [
+        [
+          "recuperar",
+          "get back something lost",
+          "The technician helped recover the deleted file."
+        ],
+        [
+          "retapizar",
+          "cover furniture again",
+          "They hired a shop to recover the old chair."
+        ]
+      ],
+      "source": "recover",
+      "target": "sanar"
+    },
+    {
+      "no_winner": "The dashboard listed Adjoining as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "They booked two adjoining rooms for the family.",
+        "The adjoining walls share the same foundation."
+      ],
+      "shadows": [],
+      "source": "adjoining",
+      "target": "contiguo"
+    },
+    {
+      "no_winner": "The dashboard listed Argentinean as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "The gallery featured Argentinean textiles.",
+        "An Argentinean researcher presented the report."
+      ],
+      "shadows": [],
+      "source": "argentinean",
+      "target": "argentino"
+    },
+    {
+      "no_winner": "The dashboard listed Heart as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "Her heart was beating quickly after the race.",
+        "He spoke from the heart during the ceremony."
+      ],
+      "shadows": [],
+      "source": "heart",
+      "target": "corazón"
+    },
+    {
+      "no_winner": "The dashboard listed Cite as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "The report will cite several local witnesses.",
+        "Speakers often cite this example during training."
+      ],
+      "shadows": [
+        [
+          "multar",
+          "issue a legal citation or fine",
+          "The officer may cite the driver for speeding."
+        ],
+        [
+          "elogiar",
+          "commend someone officially",
+          "The department will cite her for bravery."
+        ]
+      ],
+      "source": "cite",
+      "target": "mencionar"
+    },
+    {
+      "no_winner": "The dashboard listed Snore as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "He started to snore as soon as the flight took off.",
+        "She could hear her roommate snore through the wall."
+      ],
+      "shadows": [
+        [
+          "ronquido",
+          "the noise made while snoring",
+          "A loud snore came from the next room."
+        ]
+      ],
+      "source": "snore",
+      "target": "roncar"
+    },
+    {
+      "no_winner": "The dashboard listed Upon as an internal project code.",
+      "pos": "preposition",
+      "positive": [
+        "The book rested upon the wooden table.",
+        "The rule depends upon several earlier decisions."
+      ],
+      "shadows": [],
+      "source": "upon",
+      "target": "sobre"
+    },
+    {
+      "no_winner": "The dashboard listed Adjoining as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "The adjoining farm belongs to a neighboring family.",
+        "An adjoining district shares the same bus route."
+      ],
+      "shadows": [],
+      "source": "adjoining",
+      "target": "vecino"
+    },
+    {
+      "no_winner": "The dashboard listed Current as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "The current design reflects contemporary tastes.",
+        "Current research focuses on smaller batteries."
+      ],
+      "shadows": [
+        [
+          "corriente eléctrica",
+          "flow of electricity",
+          "The current was measured in amperes."
+        ],
+        [
+          "corriente",
+          "flow of water or air",
+          "The raft moved with the river current."
+        ]
+      ],
+      "source": "current",
+      "target": "contemporáneo"
+    },
+    {
+      "no_winner": "The dashboard listed Parrot as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "A green parrot perched above the doorway.",
+        "The parrot repeated the visitor's greeting."
+      ],
+      "shadows": [
+        [
+          "repetir",
+          "repeat mindlessly",
+          "The students simply parrot the teacher's words."
+        ],
+        [
+          "imitador",
+          "a copycat person",
+          "The critic called him a parrot of older writers."
+        ]
+      ],
+      "source": "parrot",
+      "target": "loro"
+    },
+    {
+      "no_winner": "The dashboard listed American as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "The museum displayed American quilts.",
+        "The contract follows American legal practice."
+      ],
+      "shadows": [],
+      "source": "american",
+      "target": "americano"
+    },
+    {
+      "no_winner": "The dashboard listed German as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "The class studied German poetry.",
+        "A German engineer reviewed the bridge plans."
+      ],
+      "shadows": [],
+      "source": "german",
+      "target": "alemán"
+    },
+    {
+      "no_winner": "The dashboard listed Rebate as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The store offered a rebate on the new refrigerator.",
+        "Customers receive a rebate after mailing the form."
+      ],
+      "shadows": [
+        [
+          "ranura",
+          "a groove cut into wood or stone",
+          "The carpenter cut a rebate along the frame."
+        ],
+        [
+          "reembolsar",
+          "give money back as a refund",
+          "The vendor will rebate part of the fee."
+        ]
+      ],
+      "source": "rebate",
+      "target": "descuento"
+    },
+    {
+      "no_winner": "The dashboard listed Adder as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "An adder slid through the grass near the path.",
+        "The field guide warned hikers about the adder."
+      ],
+      "shadows": [
+        [
+          "sumador",
+          "a person or machine that adds numbers",
+          "The old adder produced totals on paper tape."
+        ]
+      ],
+      "source": "adder",
+      "target": "víbora"
+    },
+    {
+      "no_winner": "The dashboard listed Tomorrow as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The hearing is scheduled for tomorrow.",
+        "Tomorrow should bring clearer weather."
+      ],
+      "shadows": [],
+      "source": "tomorrow",
+      "target": "mañana"
+    },
+    {
+      "no_winner": "The dashboard listed Pair as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "She bought a pair of gloves at the market.",
+        "The report compared each pair of measurements."
+      ],
+      "shadows": [
+        [
+          "emparejar",
+          "match two things or people together",
+          "The app can pair the headphones with the phone."
+        ]
+      ],
+      "source": "pair",
+      "target": "par"
+    },
+    {
+      "no_winner": "The dashboard listed Endure as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "The stone bridge may endure for centuries.",
+        "The rumor may endure long after the trial ends."
+      ],
+      "shadows": [
+        [
+          "soportar",
+          "tolerate something unpleasant",
+          "She had to endure constant criticism at work."
+        ],
+        [
+          "aguantar",
+          "withstand hardship or pressure",
+          "The hikers had to endure the cold night outdoors."
+        ]
+      ],
+      "source": "endure",
+      "target": "durar"
+    },
+    {
+      "no_winner": "The dashboard listed Russian as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "The archive contains Russian newspapers.",
+        "A Russian translator joined the call."
+      ],
+      "shadows": [],
+      "source": "russian",
+      "target": "ruso"
+    },
+    {
+      "no_winner": "The dashboard listed Smile as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "She began to smile when the child waved.",
+        "He tried to smile for the camera."
+      ],
+      "shadows": [
+        [
+          "sonrisa",
+          "a facial expression as a noun",
+          "Her smile returned after the good news."
+        ],
+        [
+          "agradecer con una sonrisa",
+          "express something by smiling",
+          "She used a smile to thank the nurse."
+        ]
+      ],
+      "source": "smile",
+      "target": "sonreír"
+    },
+    {
+      "no_winner": "The dashboard listed Govern as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "The elected council will govern the province.",
+        "A coalition tried to govern after the election."
+      ],
+      "shadows": [
+        [
+          "regular",
+          "regulate rules or behavior",
+          "Strict rules govern access to the laboratory."
+        ],
+        [
+          "regir",
+          "take a grammatical object or case",
+          "This verb can govern the accusative case."
+        ]
+      ],
+      "source": "govern",
+      "target": "gobernar"
+    },
+    {
+      "no_winner": "The dashboard listed Brother as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "My brother still lives near our parents.",
+        "The monks called each brother to the chapel."
+      ],
+      "shadows": [],
+      "source": "brother",
+      "target": "hermano"
+    },
+    {
+      "no_winner": "The dashboard listed Acceptable as an internal project code.",
+      "pos": "adjective",
+      "positive": [
+        "The committee considered the compromise acceptable.",
+        "The offer seemed acceptable after the repairs."
+      ],
+      "shadows": [
+        [
+          "correcto",
+          "approved usage or correctness",
+          "The editor marked the phrase as acceptable English usage."
+        ],
+        [
+          "apto",
+          "meeting a technical requirement",
+          "The sample was acceptable for laboratory testing."
+        ]
+      ],
+      "source": "acceptable",
+      "target": "razonable"
+    },
+    {
+      "no_winner": "The dashboard listed Altitude as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The altitude gave her a headache during the climb.",
+        "Pilots checked the altitude before crossing the ridge."
+      ],
+      "shadows": [],
+      "source": "altitude",
+      "target": "elevación"
+    },
+    {
+      "no_winner": "The dashboard listed Health as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "Regular exercise improved his health.",
+        "The clinic tracks each patient's health over time."
+      ],
+      "shadows": [],
+      "source": "health",
+      "target": "salud"
+    },
+    {
+      "no_winner": "The dashboard listed Shortage as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The town faced a water shortage during summer.",
+        "A shortage of nurses delayed the clinic opening."
+      ],
+      "shadows": [],
+      "source": "shortage",
+      "target": "falta"
+    },
+    {
+      "no_winner": "The dashboard listed Except as an internal project code.",
+      "pos": "preposition",
+      "positive": [
+        "Everyone except Ana attended the meeting.",
+        "The office is open every day except Sunday."
+      ],
+      "shadows": [
+        [
+          "objetar",
+          "object to a proposal",
+          "He will except to the committee's recommendation."
+        ],
+        [
+          "excluir",
+          "leave something out of consideration",
+          "The report will except incomplete surveys from the total."
+        ]
+      ],
+      "source": "except",
+      "target": "excepto"
+    },
+    {
+      "no_winner": "The dashboard listed Entirely as an internal project code.",
+      "pos": "adverb",
+      "positive": [
+        "The decision was entirely voluntary.",
+        "She was entirely satisfied with the meal."
+      ],
+      "shadows": [],
+      "source": "entirely",
+      "target": "enteramente"
+    },
+    {
+      "no_winner": "The dashboard listed Region as an internal project code.",
+      "pos": "noun",
+      "positive": [
+        "The wine region is famous for small family farms.",
+        "Local officials met with leaders from the mountain region."
+      ],
+      "shadows": [
+        [
+          "zona",
+          "an area of the body or another broad area",
+          "The scan showed swelling in the abdominal region."
+        ],
+        [
+          "alrededor de",
+          "an approximate amount",
+          "The repairs will cost in the region of one hundred dollars."
+        ]
+      ],
+      "source": "region",
+      "target": "comarca"
+    },
+    {
+      "no_winner": "The dashboard listed Owe as an internal project code.",
+      "pos": "verb",
+      "positive": [
+        "They still owe me twenty dollars.",
+        "We owe our success to careful planning."
+      ],
+      "shadows": [],
+      "source": "owe",
+      "target": "deber"
+    }
+  ],
+  "schema_version": 1
+}

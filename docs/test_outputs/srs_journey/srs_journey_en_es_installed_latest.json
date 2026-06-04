@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at": "2026-03-21T05:21:30.372760+00:00",
+  "generated_at": "2026-05-27T03:43:05.065555+00:00",
   "plan_doc": "/Users/takeyayuki/Documents/projects/LexiShift/docs/srs/srs_journey_harness_workstream.md",
   "scenario": {
     "id": "en-es_installed_data_journey_v1",
@@ -14,6 +14,8 @@
       "max_active_items": 8,
       "max_new_items_per_day": 2
     },
+    "strategy": "frequency_bootstrap",
+    "profile_context": {},
     "bootstrap": {
       "set_top_n": 50,
       "bootstrap_top_n": 50,
@@ -5271,7 +5273,7 @@
     "replace_pair": true,
     "added_items": 3,
     "total_items_for_pair": 3,
-    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
     "stopwords_path": null,
     "bootstrap_diagnostics": {
       "selected_count": 200,
@@ -5328,14 +5330,28 @@
           "pos_weight": 1.0,
           "admission_weight": 0.651386
         }
-      ]
+      ],
+      "selection_strategy": "frequency_bootstrap",
+      "selection_policy": "top_n",
+      "selection_seed": null,
+      "selector_version": null
+    },
+    "inventory": {
+      "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+      "exists": true,
+      "active_items_for_pair": 3,
+      "source": "initialized",
+      "backfilled_from_store": false,
+      "updated_at": "2026-05-27T03:42:45.174518+00:00"
     },
     "rulegen": {
       "published": true,
       "targets": 3,
       "rules": 5,
-      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
-      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json"
+      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
+      "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_publication_manifest_en-es.json",
+      "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_semantic_inventory_en-es.json"
     },
     "applied": true,
     "plan": {
@@ -10616,7 +10632,7 @@
             "default_frequency_db": "freq-es-cde.sqlite",
             "requires_jmdict_for_seed": false,
             "requires_jmdict_for_rulegen": false,
-            "requires_freedict_de_en_for_rulegen": true
+            "requires_translation_dictionary_for_rulegen": true
           },
           "pair_policy": {
             "pair": "en-es",
@@ -10629,30 +10645,83 @@
           },
           "jmdict_path": null,
           "jmdict_exists": false,
-          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/language_packs/spa-eng.tei",
-          "freedict_de_en_exists": true,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/frequency_packs/freq-es-cde.sqlite",
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "freedict",
+          "translation_pack_id": "freedict_es_en",
+          "translation_pos_source_profile": "freedict",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 3,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-27T03:42:45.174518+00:00",
+          "inventory_last_refreshed_at": null,
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 5,
           "ruleset_rules_with_script_forms": 5,
           "ruleset_rules_with_word_package": 5,
+          "ruleset_rules_with_semantic_admission": 5,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 5,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "published_unready",
+          "semantic_runtime_reason_code": "no_ready_rules",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
+          "snapshot_generation_id": "en-es:default:bd16b6a28dd479f4",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": true,
+          "semantic_inventory_schema_version": 1,
+          "semantic_inventory_generation_id": "en-es:default:bd16b6a28dd479f4",
+          "semantic_inventory_pointer_modes": [
+            "sense_provenance",
+            "translation_gloss"
+          ],
+          "semantic_inventory_default_unavailable_reason_code": "missing_source_sense_locator",
+          "semantic_inventory_trigger_count": 5,
+          "semantic_inventory_sense_count": 5,
+          "semantic_inventory_competition_set_count": 5,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:bd16b6a28dd479f4",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -10663,14 +10732,43 @@
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "centennial",
+          "century",
+          "hour",
+          "million",
+          "time"
+        ],
         "ruleset_sources_preview": [
           "centennial",
           "century",
           "hour",
           "million",
           "time"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "centennial",
+            "target": "siglo"
+          },
+          {
+            "source": "century",
+            "target": "siglo"
+          },
+          {
+            "source": "hour",
+            "target": "hora"
+          },
+          {
+            "source": "million",
+            "target": "millón"
+          },
+          {
+            "source": "time",
+            "target": "hora"
+          }
         ],
         "snapshot_targets": [
           "hora",
@@ -10855,7 +10953,7 @@
             "default_frequency_db": "freq-es-cde.sqlite",
             "requires_jmdict_for_seed": false,
             "requires_jmdict_for_rulegen": false,
-            "requires_freedict_de_en_for_rulegen": true
+            "requires_translation_dictionary_for_rulegen": true
           },
           "pair_policy": {
             "pair": "en-es",
@@ -10868,30 +10966,83 @@
           },
           "jmdict_path": null,
           "jmdict_exists": false,
-          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/language_packs/spa-eng.tei",
-          "freedict_de_en_exists": true,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/frequency_packs/freq-es-cde.sqlite",
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "freedict",
+          "translation_pack_id": "freedict_es_en",
+          "translation_pos_source_profile": "freedict",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 3,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-27T03:42:45.174518+00:00",
+          "inventory_last_refreshed_at": null,
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 5,
           "ruleset_rules_with_script_forms": 5,
           "ruleset_rules_with_word_package": 5,
+          "ruleset_rules_with_semantic_admission": 5,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 5,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "published_unready",
+          "semantic_runtime_reason_code": "no_ready_rules",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
+          "snapshot_generation_id": "en-es:default:bd16b6a28dd479f4",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": true,
+          "semantic_inventory_schema_version": 1,
+          "semantic_inventory_generation_id": "en-es:default:bd16b6a28dd479f4",
+          "semantic_inventory_pointer_modes": [
+            "sense_provenance",
+            "translation_gloss"
+          ],
+          "semantic_inventory_default_unavailable_reason_code": "missing_source_sense_locator",
+          "semantic_inventory_trigger_count": 5,
+          "semantic_inventory_sense_count": 5,
+          "semantic_inventory_competition_set_count": 5,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:bd16b6a28dd479f4",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -10902,14 +11053,43 @@
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "centennial",
+          "century",
+          "hour",
+          "million",
+          "time"
+        ],
         "ruleset_sources_preview": [
           "centennial",
           "century",
           "hour",
           "million",
           "time"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "centennial",
+            "target": "siglo"
+          },
+          {
+            "source": "century",
+            "target": "siglo"
+          },
+          {
+            "source": "hour",
+            "target": "hora"
+          },
+          {
+            "source": "million",
+            "target": "millón"
+          },
+          {
+            "source": "time",
+            "target": "hora"
+          }
         ],
         "snapshot_targets": [
           "hora",
@@ -11134,6 +11314,8 @@
         "payload": {
           "pair": "en-es",
           "profile_id": "default",
+          "strategy_requested": "profile_growth",
+          "strategy_effective": "profile_growth",
           "set_top_n": 50,
           "feedback_window_size": 8,
           "allowed_pos": [],
@@ -11150,15 +11332,20 @@
           "max_new_items_per_day": 2,
           "added_items": 2,
           "total_items_for_pair": 5,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
           "admission_refresh": {
             "pair": "en-es",
             "max_active_items": 8,
             "max_new_items_per_day": 2,
+            "active_count": 3,
+            "active_zero_exposure_zero_feedback": 1,
+            "active_zero_exposure_zero_feedback_age_unknown": 0,
+            "active_stale_zero_exposure_zero_feedback": 0,
+            "stale_active_age_days": 7,
             "due_count": 1,
             "due_pressure": 0.125,
-            "capacity_budget": 7,
+            "capacity_budget": 5,
             "base_admission_budget": 2,
             "admission_budget": 2,
             "reason_code": "normal",
@@ -11183,6 +11370,8 @@
             ],
             "diagnostics": {
               "filtered_by_pos": 0,
+              "blocked_by_lifecycle": 0,
+              "blocked_lemmas": [],
               "admitted_by_pos_bucket": {
                 "noun": 2
               },
@@ -11191,17 +11380,681 @@
               "candidate_pool_effective": 50
             },
             "applied": true,
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth",
+            "selection_policy": "reserved_topic_lane",
+            "profile_growth": {
+              "selector_version": "profile_bootstrap_v5",
+              "selector_policy_version": "profile_bootstrap_policy_v4",
+              "selection_weights": {
+                "base_freq": 0.55,
+                "topic_bias": 0.15,
+                "scarcity_bonus": 0.05,
+                "user_pref": 0.1,
+                "confidence": 0.0,
+                "difficulty_target": 0.1
+              },
+              "selection_policy": "reserved_topic_lane",
+              "utility_weights": {
+                "coverage_gain": 0.55,
+                "topic_affinity": 0.15,
+                "scarcity_bonus": 0.05,
+                "proficiency_fit": 0.1,
+                "challenge_fit": 0.1,
+                "lexical_risk": 0.0,
+                "redundancy": 0.0,
+                "exploration_bonus": 0.0
+              },
+              "profile_context": {
+                "version": "admission_profile_features_v1",
+                "topic_normalization_version": "topic_family_v1",
+                "raw_profile_keys": [],
+                "interests": [],
+                "explicit_topic_weights": {},
+                "implicit_topic_weights": {},
+                "topic_weights": {},
+                "topic_weight_sources": {},
+                "proficiency_estimate": null,
+                "challenge_target": null,
+                "challenge_spread": null,
+                "goal_mode": null,
+                "active_signals": [],
+                "missing_signals": [
+                  "interests",
+                  "proficiency",
+                  "challenge_preference"
+                ],
+                "signal_sources": {}
+              }
+            },
             "weight_terms": {
               "admission_weight": "Entry/growth score for adding words into S.",
               "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
             }
           },
+          "inventory": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+            "exists": true,
+            "active_items_for_pair": 5,
+            "source": "refreshed",
+            "backfilled_from_store": false,
+            "updated_at": "2026-03-22T09:00:00+00:00"
+          },
+          "suppression": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_admission_suppression.json",
+            "exists": false,
+            "active_suppressed_lemmas": {},
+            "active_suppressed_count": 0
+          },
+          "browsing_admission_preview": {
+            "status": "ok",
+            "scope": "refresh_candidate_preview_only",
+            "applied_to_actual_admission": false,
+            "runtime_srs_mutation": false,
+            "admission_budget": 2,
+            "candidate_pool_effective": 47,
+            "aggregate_item_count": 0,
+            "matching_signal_count": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
+            "neutral_selected_lemmas": [
+              "música",
+              "principio"
+            ],
+            "simulations": {
+              "off": {
+                "strength": "off",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "música",
+                  "principio"
+                ],
+                "neutral_selected_lemmas": [
+                  "música",
+                  "principio"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "música",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.345476,
+                    "final_score": 0.345476,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055554,
+                    "approximate_selection_probability": 0.055554
+                  },
+                  {
+                    "lemma": "principio",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.343931,
+                    "final_score": 0.343931,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055312,
+                    "approximate_selection_probability": 0.055312
+                  },
+                  {
+                    "lemma": "movimiento",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.339065,
+                    "final_score": 0.339065,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054552,
+                    "approximate_selection_probability": 0.054552
+                  },
+                  {
+                    "lemma": "luz",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.33798,
+                    "final_score": 0.33798,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054382,
+                    "approximate_selection_probability": 0.054382
+                  },
+                  {
+                    "lemma": "mayoría",
+                    "neutral_rank": 5,
+                    "final_rank": 5,
+                    "neutral_score": 0.33666,
+                    "final_score": 0.33666,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054175,
+                    "approximate_selection_probability": 0.054175
+                  },
+                  {
+                    "lemma": "fondo",
+                    "neutral_rank": 6,
+                    "final_rank": 6,
+                    "neutral_score": 0.332046,
+                    "final_score": 0.332046,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.053453,
+                    "approximate_selection_probability": 0.053453
+                  },
+                  {
+                    "lemma": "hermano",
+                    "neutral_rank": 7,
+                    "final_rank": 7,
+                    "neutral_score": 0.330851,
+                    "final_score": 0.330851,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.053266,
+                    "approximate_selection_probability": 0.053266
+                  },
+                  {
+                    "lemma": "producción",
+                    "neutral_rank": 8,
+                    "final_rank": 8,
+                    "neutral_score": 0.328887,
+                    "final_score": 0.328887,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.052958,
+                    "approximate_selection_probability": 0.052958
+                  },
+                  {
+                    "lemma": "teatro",
+                    "neutral_rank": 9,
+                    "final_rank": 9,
+                    "neutral_score": 0.327332,
+                    "final_score": 0.327332,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.052715,
+                    "approximate_selection_probability": 0.052715
+                  },
+                  {
+                    "lemma": "área",
+                    "neutral_rank": 10,
+                    "final_rank": 10,
+                    "neutral_score": 0.324003,
+                    "final_score": 0.324003,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.052193,
+                    "approximate_selection_probability": 0.052193
+                  }
+                ],
+                "row_count": 47,
+                "row_preview_count": 10
+              },
+              "balanced": {
+                "strength": "balanced",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "música",
+                  "principio"
+                ],
+                "neutral_selected_lemmas": [
+                  "música",
+                  "principio"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "música",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.345476,
+                    "final_score": 0.345476,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055554,
+                    "approximate_selection_probability": 0.055554
+                  },
+                  {
+                    "lemma": "principio",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.343931,
+                    "final_score": 0.343931,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055312,
+                    "approximate_selection_probability": 0.055312
+                  },
+                  {
+                    "lemma": "movimiento",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.339065,
+                    "final_score": 0.339065,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054552,
+                    "approximate_selection_probability": 0.054552
+                  },
+                  {
+                    "lemma": "luz",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.33798,
+                    "final_score": 0.33798,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054382,
+                    "approximate_selection_probability": 0.054382
+                  },
+                  {
+                    "lemma": "mayoría",
+                    "neutral_rank": 5,
+                    "final_rank": 5,
+                    "neutral_score": 0.33666,
+                    "final_score": 0.33666,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054175,
+                    "approximate_selection_probability": 0.054175
+                  },
+                  {
+                    "lemma": "fondo",
+                    "neutral_rank": 6,
+                    "final_rank": 6,
+                    "neutral_score": 0.332046,
+                    "final_score": 0.332046,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.053453,
+                    "approximate_selection_probability": 0.053453
+                  },
+                  {
+                    "lemma": "hermano",
+                    "neutral_rank": 7,
+                    "final_rank": 7,
+                    "neutral_score": 0.330851,
+                    "final_score": 0.330851,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.053266,
+                    "approximate_selection_probability": 0.053266
+                  },
+                  {
+                    "lemma": "producción",
+                    "neutral_rank": 8,
+                    "final_rank": 8,
+                    "neutral_score": 0.328887,
+                    "final_score": 0.328887,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.052958,
+                    "approximate_selection_probability": 0.052958
+                  },
+                  {
+                    "lemma": "teatro",
+                    "neutral_rank": 9,
+                    "final_rank": 9,
+                    "neutral_score": 0.327332,
+                    "final_score": 0.327332,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.052715,
+                    "approximate_selection_probability": 0.052715
+                  },
+                  {
+                    "lemma": "área",
+                    "neutral_rank": 10,
+                    "final_rank": 10,
+                    "neutral_score": 0.324003,
+                    "final_score": 0.324003,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.052193,
+                    "approximate_selection_probability": 0.052193
+                  }
+                ],
+                "row_count": 47,
+                "row_preview_count": 10
+              },
+              "strong": {
+                "strength": "strong",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "música",
+                  "principio"
+                ],
+                "neutral_selected_lemmas": [
+                  "música",
+                  "principio"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "música",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.345476,
+                    "final_score": 0.345476,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055554,
+                    "approximate_selection_probability": 0.055554
+                  },
+                  {
+                    "lemma": "principio",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.343931,
+                    "final_score": 0.343931,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055312,
+                    "approximate_selection_probability": 0.055312
+                  },
+                  {
+                    "lemma": "movimiento",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.339065,
+                    "final_score": 0.339065,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054552,
+                    "approximate_selection_probability": 0.054552
+                  },
+                  {
+                    "lemma": "luz",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.33798,
+                    "final_score": 0.33798,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054382,
+                    "approximate_selection_probability": 0.054382
+                  },
+                  {
+                    "lemma": "mayoría",
+                    "neutral_rank": 5,
+                    "final_rank": 5,
+                    "neutral_score": 0.33666,
+                    "final_score": 0.33666,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054175,
+                    "approximate_selection_probability": 0.054175
+                  },
+                  {
+                    "lemma": "fondo",
+                    "neutral_rank": 6,
+                    "final_rank": 6,
+                    "neutral_score": 0.332046,
+                    "final_score": 0.332046,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.053453,
+                    "approximate_selection_probability": 0.053453
+                  },
+                  {
+                    "lemma": "hermano",
+                    "neutral_rank": 7,
+                    "final_rank": 7,
+                    "neutral_score": 0.330851,
+                    "final_score": 0.330851,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.053266,
+                    "approximate_selection_probability": 0.053266
+                  },
+                  {
+                    "lemma": "producción",
+                    "neutral_rank": 8,
+                    "final_rank": 8,
+                    "neutral_score": 0.328887,
+                    "final_score": 0.328887,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.052958,
+                    "approximate_selection_probability": 0.052958
+                  },
+                  {
+                    "lemma": "teatro",
+                    "neutral_rank": 9,
+                    "final_rank": 9,
+                    "neutral_score": 0.327332,
+                    "final_score": 0.327332,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.052715,
+                    "approximate_selection_probability": 0.052715
+                  },
+                  {
+                    "lemma": "área",
+                    "neutral_rank": 10,
+                    "final_rank": 10,
+                    "neutral_score": 0.324003,
+                    "final_score": 0.324003,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.052193,
+                    "approximate_selection_probability": 0.052193
+                  }
+                ],
+                "row_count": 47,
+                "row_preview_count": 10
+              }
+            },
+            "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_browsing_signals_en-es.json",
+            "store_exists": false,
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth"
+          },
           "rulegen": {
             "published": true,
             "targets": 5,
             "rules": 9,
-            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
-            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json"
+            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
+            "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_publication_manifest_en-es.json",
+            "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_semantic_inventory_en-es.json"
           },
           "applied": true,
           "persisted": true,
@@ -11374,6 +12227,7 @@
               "selector_components": {
                 "base_freq": 0.502511,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.125628,
                 "difficulty_target": 0.0
@@ -11414,6 +12268,7 @@
               "selector_components": {
                 "base_freq": 0.500263,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.125066,
                 "difficulty_target": 0.0
@@ -11454,6 +12309,7 @@
               "selector_components": {
                 "base_freq": 0.493185,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.123296,
                 "difficulty_target": 0.0
@@ -11494,6 +12350,7 @@
               "selector_components": {
                 "base_freq": 0.491607,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.122902,
                 "difficulty_target": 0.0
@@ -11534,6 +12391,7 @@
               "selector_components": {
                 "base_freq": 0.489687,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.122422,
                 "difficulty_target": 0.0
@@ -11574,6 +12432,7 @@
               "selector_components": {
                 "base_freq": 0.482976,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.120744,
                 "difficulty_target": 0.0
@@ -11614,6 +12473,7 @@
               "selector_components": {
                 "base_freq": 0.481238,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.12031,
                 "difficulty_target": 0.0
@@ -11654,6 +12514,7 @@
               "selector_components": {
                 "base_freq": 0.478381,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.119595,
                 "difficulty_target": 0.0
@@ -11694,6 +12555,7 @@
               "selector_components": {
                 "base_freq": 0.476119,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.11903,
                 "difficulty_target": 0.0
@@ -11734,6 +12596,7 @@
               "selector_components": {
                 "base_freq": 0.471277,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.117819,
                 "difficulty_target": 0.0
@@ -11774,6 +12637,7 @@
               "selector_components": {
                 "base_freq": 0.470342,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.117585,
                 "difficulty_target": 0.0
@@ -11814,6 +12678,7 @@
               "selector_components": {
                 "base_freq": 0.46871,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.117177,
                 "difficulty_target": 0.0
@@ -11854,6 +12719,7 @@
               "selector_components": {
                 "base_freq": 0.468279,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.11707,
                 "difficulty_target": 0.0
@@ -11894,6 +12760,7 @@
               "selector_components": {
                 "base_freq": 0.46739,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.116847,
                 "difficulty_target": 0.0
@@ -11934,6 +12801,7 @@
               "selector_components": {
                 "base_freq": 0.458038,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.114509,
                 "difficulty_target": 0.0
@@ -11974,6 +12842,7 @@
               "selector_components": {
                 "base_freq": 0.455083,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.113771,
                 "difficulty_target": 0.0
@@ -12014,6 +12883,7 @@
               "selector_components": {
                 "base_freq": 0.451165,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.112791,
                 "difficulty_target": 0.0
@@ -12054,6 +12924,7 @@
               "selector_components": {
                 "base_freq": 0.43777,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.109442,
                 "difficulty_target": 0.0
@@ -12094,6 +12965,7 @@
               "selector_components": {
                 "base_freq": 0.420957,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.105239,
                 "difficulty_target": 0.0
@@ -12134,6 +13006,7 @@
               "selector_components": {
                 "base_freq": 0.404007,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.101002,
                 "difficulty_target": 0.0
@@ -12174,6 +13047,7 @@
               "selector_components": {
                 "base_freq": 0.399763,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.099941,
                 "difficulty_target": 0.0
@@ -12214,6 +13088,7 @@
               "selector_components": {
                 "base_freq": 0.385705,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.096426,
                 "difficulty_target": 0.0
@@ -12254,6 +13129,7 @@
               "selector_components": {
                 "base_freq": 0.385681,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.09642,
                 "difficulty_target": 0.0
@@ -12294,6 +13170,7 @@
               "selector_components": {
                 "base_freq": 0.379354,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.094838,
                 "difficulty_target": 0.0
@@ -12334,6 +13211,7 @@
               "selector_components": {
                 "base_freq": 0.367894,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.091974,
                 "difficulty_target": 0.0
@@ -12374,6 +13252,7 @@
               "selector_components": {
                 "base_freq": 0.362059,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.090515,
                 "difficulty_target": 0.0
@@ -12414,6 +13293,7 @@
               "selector_components": {
                 "base_freq": 0.358094,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.089523,
                 "difficulty_target": 0.0
@@ -12454,6 +13334,7 @@
               "selector_components": {
                 "base_freq": 0.357456,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.089364,
                 "difficulty_target": 0.0
@@ -12494,6 +13375,7 @@
               "selector_components": {
                 "base_freq": 0.35585,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.088962,
                 "difficulty_target": 0.0
@@ -12534,6 +13416,7 @@
               "selector_components": {
                 "base_freq": 0.350966,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.087742,
                 "difficulty_target": 0.0
@@ -12574,6 +13457,7 @@
               "selector_components": {
                 "base_freq": 0.341149,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.085287,
                 "difficulty_target": 0.0
@@ -12614,6 +13498,7 @@
               "selector_components": {
                 "base_freq": 0.339966,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.084991,
                 "difficulty_target": 0.0
@@ -12654,6 +13539,7 @@
               "selector_components": {
                 "base_freq": 0.338891,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.084723,
                 "difficulty_target": 0.0
@@ -12694,6 +13580,7 @@
               "selector_components": {
                 "base_freq": 0.335971,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.083993,
                 "difficulty_target": 0.0
@@ -12734,6 +13621,7 @@
               "selector_components": {
                 "base_freq": 0.331471,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.082868,
                 "difficulty_target": 0.0
@@ -12774,6 +13662,7 @@
               "selector_components": {
                 "base_freq": 0.32,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.08,
                 "difficulty_target": 0.0
@@ -12814,6 +13703,7 @@
               "selector_components": {
                 "base_freq": 0.305125,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.076281,
                 "difficulty_target": 0.0
@@ -12854,6 +13744,7 @@
               "selector_components": {
                 "base_freq": 0.259898,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.064974,
                 "difficulty_target": 0.0
@@ -12894,6 +13785,7 @@
               "selector_components": {
                 "base_freq": 0.248509,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.062127,
                 "difficulty_target": 0.0
@@ -12934,6 +13826,7 @@
               "selector_components": {
                 "base_freq": 0.238378,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.059595,
                 "difficulty_target": 0.0
@@ -12974,6 +13867,7 @@
               "selector_components": {
                 "base_freq": 0.233056,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.058264,
                 "difficulty_target": 0.0
@@ -13014,6 +13908,7 @@
               "selector_components": {
                 "base_freq": 0.224668,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.056167,
                 "difficulty_target": 0.0
@@ -13054,6 +13949,7 @@
               "selector_components": {
                 "base_freq": 0.20524,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.05131,
                 "difficulty_target": 0.0
@@ -13094,6 +13990,7 @@
               "selector_components": {
                 "base_freq": 0.202029,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.050507,
                 "difficulty_target": 0.0
@@ -13134,6 +14031,7 @@
               "selector_components": {
                 "base_freq": 0.199081,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.04977,
                 "difficulty_target": 0.0
@@ -13174,6 +14072,7 @@
               "selector_components": {
                 "base_freq": 0.198694,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.049674,
                 "difficulty_target": 0.0
@@ -13214,6 +14113,7 @@
               "selector_components": {
                 "base_freq": 0.189691,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.047423,
                 "difficulty_target": 0.0
@@ -13241,7 +14141,7 @@
             "default_frequency_db": "freq-es-cde.sqlite",
             "requires_jmdict_for_seed": false,
             "requires_jmdict_for_rulegen": false,
-            "requires_freedict_de_en_for_rulegen": true
+            "requires_translation_dictionary_for_rulegen": true
           },
           "pair_policy": {
             "pair": "en-es",
@@ -13254,30 +14154,83 @@
           },
           "jmdict_path": null,
           "jmdict_exists": false,
-          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/language_packs/spa-eng.tei",
-          "freedict_de_en_exists": true,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/frequency_packs/freq-es-cde.sqlite",
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "freedict",
+          "translation_pack_id": "freedict_es_en",
+          "translation_pos_source_profile": "freedict",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 5,
           "store_items_for_pair": 5,
           "store_items_with_word_package_total": 5,
           "store_items_with_word_package_for_pair": 5,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 5,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-27T03:42:45.174518+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 9,
           "ruleset_rules_with_script_forms": 9,
           "ruleset_rules_with_word_package": 9,
+          "ruleset_rules_with_semantic_admission": 9,
+          "ruleset_rules_semantic_ready": 1,
+          "ruleset_rules_semantic_unavailable": 8,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "active",
+          "semantic_runtime_reason_code": "ready_rules_available",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 5,
+          "snapshot_generation_id": "en-es:default:4aae9c7c604ae11e",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": true,
+          "semantic_inventory_schema_version": 1,
+          "semantic_inventory_generation_id": "en-es:default:4aae9c7c604ae11e",
+          "semantic_inventory_pointer_modes": [
+            "sense_provenance",
+            "translation_gloss"
+          ],
+          "semantic_inventory_default_unavailable_reason_code": "missing_source_sense_locator",
+          "semantic_inventory_trigger_count": 9,
+          "semantic_inventory_sense_count": 11,
+          "semantic_inventory_competition_set_count": 9,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:4aae9c7c604ae11e",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -13288,14 +14241,63 @@
             "last_target_count": 5
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "beginning",
+          "centennial",
+          "century",
+          "commencement",
+          "hour",
+          "million",
+          "music",
+          "start",
+          "time"
+        ],
         "ruleset_sources_preview": [
           "beginning",
           "centennial",
           "century",
           "commencement",
           "hour"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "beginning",
+            "target": "principio"
+          },
+          {
+            "source": "centennial",
+            "target": "siglo"
+          },
+          {
+            "source": "century",
+            "target": "siglo"
+          },
+          {
+            "source": "commencement",
+            "target": "principio"
+          },
+          {
+            "source": "hour",
+            "target": "hora"
+          },
+          {
+            "source": "million",
+            "target": "millón"
+          },
+          {
+            "source": "music",
+            "target": "música"
+          },
+          {
+            "source": "start",
+            "target": "principio"
+          },
+          {
+            "source": "time",
+            "target": "hora"
+          }
         ],
         "snapshot_targets": [
           "hora",
@@ -13647,6 +14649,8 @@
         "payload": {
           "pair": "en-es",
           "profile_id": "default",
+          "strategy_requested": "profile_growth",
+          "strategy_effective": "profile_growth",
           "set_top_n": 50,
           "feedback_window_size": 8,
           "allowed_pos": [],
@@ -13663,15 +14667,20 @@
           "max_new_items_per_day": 2,
           "added_items": 0,
           "total_items_for_pair": 5,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
           "admission_refresh": {
             "pair": "en-es",
             "max_active_items": 8,
             "max_new_items_per_day": 2,
+            "active_count": 5,
+            "active_zero_exposure_zero_feedback": 2,
+            "active_zero_exposure_zero_feedback_age_unknown": 0,
+            "active_stale_zero_exposure_zero_feedback": 0,
+            "stale_active_age_days": 7,
             "due_count": 2,
             "due_pressure": 0.25,
-            "capacity_budget": 6,
+            "capacity_budget": 3,
             "base_admission_budget": 2,
             "admission_budget": 0,
             "reason_code": "retention_low",
@@ -13695,16 +14704,92 @@
             "selected_lemmas": [],
             "diagnostics": {
               "filtered_by_pos": 0,
+              "blocked_by_lifecycle": 0,
+              "blocked_lemmas": [],
               "admitted_by_pos_bucket": {},
               "unknown_pos_seen": 0,
               "allowed_pos": [],
               "candidate_pool_effective": 50
             },
             "applied": false,
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth",
+            "selection_policy": "reserved_topic_lane",
+            "profile_growth": {
+              "selector_version": "profile_bootstrap_v5",
+              "selector_policy_version": "profile_bootstrap_policy_v4",
+              "selection_weights": {
+                "base_freq": 0.55,
+                "topic_bias": 0.15,
+                "scarcity_bonus": 0.05,
+                "user_pref": 0.1,
+                "confidence": 0.0,
+                "difficulty_target": 0.1
+              },
+              "selection_policy": "reserved_topic_lane",
+              "utility_weights": {
+                "coverage_gain": 0.55,
+                "topic_affinity": 0.15,
+                "scarcity_bonus": 0.05,
+                "proficiency_fit": 0.1,
+                "challenge_fit": 0.1,
+                "lexical_risk": 0.0,
+                "redundancy": 0.0,
+                "exploration_bonus": 0.0
+              },
+              "profile_context": {
+                "version": "admission_profile_features_v1",
+                "topic_normalization_version": "topic_family_v1",
+                "raw_profile_keys": [],
+                "interests": [],
+                "explicit_topic_weights": {},
+                "implicit_topic_weights": {},
+                "topic_weights": {},
+                "topic_weight_sources": {},
+                "proficiency_estimate": null,
+                "challenge_target": null,
+                "challenge_spread": null,
+                "goal_mode": null,
+                "active_signals": [],
+                "missing_signals": [
+                  "interests",
+                  "proficiency",
+                  "challenge_preference"
+                ],
+                "signal_sources": {}
+              }
+            },
             "weight_terms": {
               "admission_weight": "Entry/growth score for adding words into S.",
               "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
             }
+          },
+          "inventory": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+            "exists": true,
+            "active_items_for_pair": 5,
+            "source": "inventory",
+            "backfilled_from_store": false,
+            "updated_at": null
+          },
+          "suppression": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_admission_suppression.json",
+            "exists": false,
+            "active_suppressed_lemmas": {},
+            "active_suppressed_count": 0
+          },
+          "browsing_admission_preview": {
+            "status": "skipped",
+            "reason": "retention_low",
+            "applied_to_actual_admission": false,
+            "runtime_srs_mutation": false,
+            "admission_budget": 0,
+            "aggregate_item_count": 0,
+            "simulations": {},
+            "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_browsing_signals_en-es.json",
+            "store_exists": false,
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth"
           },
           "rulegen": null,
           "applied": false,
@@ -13948,6 +15033,7 @@
               "selector_components": {
                 "base_freq": 0.493185,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.123296,
                 "difficulty_target": 0.0
@@ -13988,6 +15074,7 @@
               "selector_components": {
                 "base_freq": 0.491607,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.122902,
                 "difficulty_target": 0.0
@@ -14028,6 +15115,7 @@
               "selector_components": {
                 "base_freq": 0.489687,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.122422,
                 "difficulty_target": 0.0
@@ -14068,6 +15156,7 @@
               "selector_components": {
                 "base_freq": 0.482976,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.120744,
                 "difficulty_target": 0.0
@@ -14108,6 +15197,7 @@
               "selector_components": {
                 "base_freq": 0.481238,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.12031,
                 "difficulty_target": 0.0
@@ -14148,6 +15238,7 @@
               "selector_components": {
                 "base_freq": 0.478381,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.119595,
                 "difficulty_target": 0.0
@@ -14188,6 +15279,7 @@
               "selector_components": {
                 "base_freq": 0.476119,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.11903,
                 "difficulty_target": 0.0
@@ -14228,6 +15320,7 @@
               "selector_components": {
                 "base_freq": 0.471277,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.117819,
                 "difficulty_target": 0.0
@@ -14268,6 +15361,7 @@
               "selector_components": {
                 "base_freq": 0.470342,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.117585,
                 "difficulty_target": 0.0
@@ -14308,6 +15402,7 @@
               "selector_components": {
                 "base_freq": 0.46871,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.117177,
                 "difficulty_target": 0.0
@@ -14348,6 +15443,7 @@
               "selector_components": {
                 "base_freq": 0.468279,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.11707,
                 "difficulty_target": 0.0
@@ -14388,6 +15484,7 @@
               "selector_components": {
                 "base_freq": 0.46739,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.116847,
                 "difficulty_target": 0.0
@@ -14428,6 +15525,7 @@
               "selector_components": {
                 "base_freq": 0.458038,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.114509,
                 "difficulty_target": 0.0
@@ -14468,6 +15566,7 @@
               "selector_components": {
                 "base_freq": 0.455083,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.113771,
                 "difficulty_target": 0.0
@@ -14508,6 +15607,7 @@
               "selector_components": {
                 "base_freq": 0.451165,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.112791,
                 "difficulty_target": 0.0
@@ -14548,6 +15648,7 @@
               "selector_components": {
                 "base_freq": 0.43777,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.109442,
                 "difficulty_target": 0.0
@@ -14588,6 +15689,7 @@
               "selector_components": {
                 "base_freq": 0.420957,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.105239,
                 "difficulty_target": 0.0
@@ -14628,6 +15730,7 @@
               "selector_components": {
                 "base_freq": 0.404007,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.101002,
                 "difficulty_target": 0.0
@@ -14668,6 +15771,7 @@
               "selector_components": {
                 "base_freq": 0.399763,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.099941,
                 "difficulty_target": 0.0
@@ -14708,6 +15812,7 @@
               "selector_components": {
                 "base_freq": 0.385705,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.096426,
                 "difficulty_target": 0.0
@@ -14748,6 +15853,7 @@
               "selector_components": {
                 "base_freq": 0.385681,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.09642,
                 "difficulty_target": 0.0
@@ -14788,6 +15894,7 @@
               "selector_components": {
                 "base_freq": 0.379354,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.094838,
                 "difficulty_target": 0.0
@@ -14828,6 +15935,7 @@
               "selector_components": {
                 "base_freq": 0.367894,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.091974,
                 "difficulty_target": 0.0
@@ -14868,6 +15976,7 @@
               "selector_components": {
                 "base_freq": 0.362059,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.090515,
                 "difficulty_target": 0.0
@@ -14908,6 +16017,7 @@
               "selector_components": {
                 "base_freq": 0.358094,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.089523,
                 "difficulty_target": 0.0
@@ -14948,6 +16058,7 @@
               "selector_components": {
                 "base_freq": 0.357456,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.089364,
                 "difficulty_target": 0.0
@@ -14988,6 +16099,7 @@
               "selector_components": {
                 "base_freq": 0.35585,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.088962,
                 "difficulty_target": 0.0
@@ -15028,6 +16140,7 @@
               "selector_components": {
                 "base_freq": 0.350966,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.087742,
                 "difficulty_target": 0.0
@@ -15068,6 +16181,7 @@
               "selector_components": {
                 "base_freq": 0.341149,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.085287,
                 "difficulty_target": 0.0
@@ -15108,6 +16222,7 @@
               "selector_components": {
                 "base_freq": 0.339966,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.084991,
                 "difficulty_target": 0.0
@@ -15148,6 +16263,7 @@
               "selector_components": {
                 "base_freq": 0.338891,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.084723,
                 "difficulty_target": 0.0
@@ -15188,6 +16304,7 @@
               "selector_components": {
                 "base_freq": 0.335971,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.083993,
                 "difficulty_target": 0.0
@@ -15228,6 +16345,7 @@
               "selector_components": {
                 "base_freq": 0.331471,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.082868,
                 "difficulty_target": 0.0
@@ -15268,6 +16386,7 @@
               "selector_components": {
                 "base_freq": 0.32,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.08,
                 "difficulty_target": 0.0
@@ -15308,6 +16427,7 @@
               "selector_components": {
                 "base_freq": 0.305125,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.076281,
                 "difficulty_target": 0.0
@@ -15348,6 +16468,7 @@
               "selector_components": {
                 "base_freq": 0.259898,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.064974,
                 "difficulty_target": 0.0
@@ -15388,6 +16509,7 @@
               "selector_components": {
                 "base_freq": 0.248509,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.062127,
                 "difficulty_target": 0.0
@@ -15428,6 +16550,7 @@
               "selector_components": {
                 "base_freq": 0.238378,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.059595,
                 "difficulty_target": 0.0
@@ -15468,6 +16591,7 @@
               "selector_components": {
                 "base_freq": 0.233056,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.058264,
                 "difficulty_target": 0.0
@@ -15508,6 +16632,7 @@
               "selector_components": {
                 "base_freq": 0.224668,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.056167,
                 "difficulty_target": 0.0
@@ -15548,6 +16673,7 @@
               "selector_components": {
                 "base_freq": 0.20524,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.05131,
                 "difficulty_target": 0.0
@@ -15588,6 +16714,7 @@
               "selector_components": {
                 "base_freq": 0.202029,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.050507,
                 "difficulty_target": 0.0
@@ -15628,6 +16755,7 @@
               "selector_components": {
                 "base_freq": 0.199081,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.04977,
                 "difficulty_target": 0.0
@@ -15668,6 +16796,7 @@
               "selector_components": {
                 "base_freq": 0.198694,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.049674,
                 "difficulty_target": 0.0
@@ -15708,6 +16837,7 @@
               "selector_components": {
                 "base_freq": 0.189691,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.047423,
                 "difficulty_target": 0.0
@@ -15732,7 +16862,7 @@
             "default_frequency_db": "freq-es-cde.sqlite",
             "requires_jmdict_for_seed": false,
             "requires_jmdict_for_rulegen": false,
-            "requires_freedict_de_en_for_rulegen": true
+            "requires_translation_dictionary_for_rulegen": true
           },
           "pair_policy": {
             "pair": "en-es",
@@ -15745,30 +16875,83 @@
           },
           "jmdict_path": null,
           "jmdict_exists": false,
-          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/language_packs/spa-eng.tei",
-          "freedict_de_en_exists": true,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/frequency_packs/freq-es-cde.sqlite",
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "freedict",
+          "translation_pack_id": "freedict_es_en",
+          "translation_pos_source_profile": "freedict",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 5,
           "store_items_for_pair": 5,
           "store_items_with_word_package_total": 5,
           "store_items_with_word_package_for_pair": 5,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 5,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-27T03:42:45.174518+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 9,
           "ruleset_rules_with_script_forms": 9,
           "ruleset_rules_with_word_package": 9,
+          "ruleset_rules_with_semantic_admission": 9,
+          "ruleset_rules_semantic_ready": 1,
+          "ruleset_rules_semantic_unavailable": 8,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "active",
+          "semantic_runtime_reason_code": "ready_rules_available",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 5,
+          "snapshot_generation_id": "en-es:default:4aae9c7c604ae11e",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": true,
+          "semantic_inventory_schema_version": 1,
+          "semantic_inventory_generation_id": "en-es:default:4aae9c7c604ae11e",
+          "semantic_inventory_pointer_modes": [
+            "sense_provenance",
+            "translation_gloss"
+          ],
+          "semantic_inventory_default_unavailable_reason_code": "missing_source_sense_locator",
+          "semantic_inventory_trigger_count": 9,
+          "semantic_inventory_sense_count": 11,
+          "semantic_inventory_competition_set_count": 9,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:4aae9c7c604ae11e",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -15779,14 +16962,63 @@
             "last_target_count": 5
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "beginning",
+          "centennial",
+          "century",
+          "commencement",
+          "hour",
+          "million",
+          "music",
+          "start",
+          "time"
+        ],
         "ruleset_sources_preview": [
           "beginning",
           "centennial",
           "century",
           "commencement",
           "hour"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "beginning",
+            "target": "principio"
+          },
+          {
+            "source": "centennial",
+            "target": "siglo"
+          },
+          {
+            "source": "century",
+            "target": "siglo"
+          },
+          {
+            "source": "commencement",
+            "target": "principio"
+          },
+          {
+            "source": "hour",
+            "target": "hora"
+          },
+          {
+            "source": "million",
+            "target": "millón"
+          },
+          {
+            "source": "music",
+            "target": "música"
+          },
+          {
+            "source": "start",
+            "target": "principio"
+          },
+          {
+            "source": "time",
+            "target": "hora"
+          }
         ],
         "snapshot_targets": [
           "hora",
@@ -16145,6 +17377,8 @@
         "payload": {
           "pair": "en-es",
           "profile_id": "default",
+          "strategy_requested": "profile_growth",
+          "strategy_effective": "profile_growth",
           "set_top_n": 50,
           "feedback_window_size": 8,
           "allowed_pos": [],
@@ -16161,15 +17395,20 @@
           "max_new_items_per_day": 2,
           "added_items": 2,
           "total_items_for_pair": 7,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
           "admission_refresh": {
             "pair": "en-es",
             "max_active_items": 8,
             "max_new_items_per_day": 2,
+            "active_count": 5,
+            "active_zero_exposure_zero_feedback": 0,
+            "active_zero_exposure_zero_feedback_age_unknown": 0,
+            "active_stale_zero_exposure_zero_feedback": 0,
+            "stale_active_age_days": 7,
             "due_count": 1,
             "due_pressure": 0.125,
-            "capacity_budget": 7,
+            "capacity_budget": 3,
             "base_admission_budget": 2,
             "admission_budget": 2,
             "reason_code": "normal",
@@ -16194,6 +17433,8 @@
             ],
             "diagnostics": {
               "filtered_by_pos": 0,
+              "blocked_by_lifecycle": 0,
+              "blocked_lemmas": [],
               "admitted_by_pos_bucket": {
                 "noun": 2
               },
@@ -16202,17 +17443,681 @@
               "candidate_pool_effective": 50
             },
             "applied": true,
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth",
+            "selection_policy": "reserved_topic_lane",
+            "profile_growth": {
+              "selector_version": "profile_bootstrap_v5",
+              "selector_policy_version": "profile_bootstrap_policy_v4",
+              "selection_weights": {
+                "base_freq": 0.55,
+                "topic_bias": 0.15,
+                "scarcity_bonus": 0.05,
+                "user_pref": 0.1,
+                "confidence": 0.0,
+                "difficulty_target": 0.1
+              },
+              "selection_policy": "reserved_topic_lane",
+              "utility_weights": {
+                "coverage_gain": 0.55,
+                "topic_affinity": 0.15,
+                "scarcity_bonus": 0.05,
+                "proficiency_fit": 0.1,
+                "challenge_fit": 0.1,
+                "lexical_risk": 0.0,
+                "redundancy": 0.0,
+                "exploration_bonus": 0.0
+              },
+              "profile_context": {
+                "version": "admission_profile_features_v1",
+                "topic_normalization_version": "topic_family_v1",
+                "raw_profile_keys": [],
+                "interests": [],
+                "explicit_topic_weights": {},
+                "implicit_topic_weights": {},
+                "topic_weights": {},
+                "topic_weight_sources": {},
+                "proficiency_estimate": null,
+                "challenge_target": null,
+                "challenge_spread": null,
+                "goal_mode": null,
+                "active_signals": [],
+                "missing_signals": [
+                  "interests",
+                  "proficiency",
+                  "challenge_preference"
+                ],
+                "signal_sources": {}
+              }
+            },
             "weight_terms": {
               "admission_weight": "Entry/growth score for adding words into S.",
               "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
             }
           },
+          "inventory": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+            "exists": true,
+            "active_items_for_pair": 7,
+            "source": "refreshed",
+            "backfilled_from_store": false,
+            "updated_at": "2026-03-22T09:00:00+00:00"
+          },
+          "suppression": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_admission_suppression.json",
+            "exists": false,
+            "active_suppressed_lemmas": {},
+            "active_suppressed_count": 0
+          },
+          "browsing_admission_preview": {
+            "status": "ok",
+            "scope": "refresh_candidate_preview_only",
+            "applied_to_actual_admission": false,
+            "runtime_srs_mutation": false,
+            "admission_budget": 2,
+            "candidate_pool_effective": 45,
+            "aggregate_item_count": 0,
+            "matching_signal_count": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
+            "neutral_selected_lemmas": [
+              "movimiento",
+              "luz"
+            ],
+            "simulations": {
+              "off": {
+                "strength": "off",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "movimiento",
+                  "luz"
+                ],
+                "neutral_selected_lemmas": [
+                  "movimiento",
+                  "luz"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "movimiento",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.339065,
+                    "final_score": 0.339065,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.057754,
+                    "approximate_selection_probability": 0.057754
+                  },
+                  {
+                    "lemma": "luz",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.33798,
+                    "final_score": 0.33798,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.057574,
+                    "approximate_selection_probability": 0.057574
+                  },
+                  {
+                    "lemma": "mayoría",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.33666,
+                    "final_score": 0.33666,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.057356,
+                    "approximate_selection_probability": 0.057356
+                  },
+                  {
+                    "lemma": "fondo",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.332046,
+                    "final_score": 0.332046,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.056593,
+                    "approximate_selection_probability": 0.056593
+                  },
+                  {
+                    "lemma": "hermano",
+                    "neutral_rank": 5,
+                    "final_rank": 5,
+                    "neutral_score": 0.330851,
+                    "final_score": 0.330851,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.056395,
+                    "approximate_selection_probability": 0.056395
+                  },
+                  {
+                    "lemma": "producción",
+                    "neutral_rank": 6,
+                    "final_rank": 6,
+                    "neutral_score": 0.328887,
+                    "final_score": 0.328887,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.05607,
+                    "approximate_selection_probability": 0.05607
+                  },
+                  {
+                    "lemma": "teatro",
+                    "neutral_rank": 7,
+                    "final_rank": 7,
+                    "neutral_score": 0.327332,
+                    "final_score": 0.327332,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055812,
+                    "approximate_selection_probability": 0.055812
+                  },
+                  {
+                    "lemma": "área",
+                    "neutral_rank": 8,
+                    "final_rank": 8,
+                    "neutral_score": 0.324003,
+                    "final_score": 0.324003,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.05526,
+                    "approximate_selection_probability": 0.05526
+                  },
+                  {
+                    "lemma": "autor",
+                    "neutral_rank": 9,
+                    "final_rank": 9,
+                    "neutral_score": 0.32336,
+                    "final_score": 0.32336,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055154,
+                    "approximate_selection_probability": 0.055154
+                  },
+                  {
+                    "lemma": "capital",
+                    "neutral_rank": 10,
+                    "final_rank": 10,
+                    "neutral_score": 0.322238,
+                    "final_score": 0.322238,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054968,
+                    "approximate_selection_probability": 0.054968
+                  }
+                ],
+                "row_count": 45,
+                "row_preview_count": 10
+              },
+              "balanced": {
+                "strength": "balanced",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "movimiento",
+                  "luz"
+                ],
+                "neutral_selected_lemmas": [
+                  "movimiento",
+                  "luz"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "movimiento",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.339065,
+                    "final_score": 0.339065,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.057754,
+                    "approximate_selection_probability": 0.057754
+                  },
+                  {
+                    "lemma": "luz",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.33798,
+                    "final_score": 0.33798,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.057574,
+                    "approximate_selection_probability": 0.057574
+                  },
+                  {
+                    "lemma": "mayoría",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.33666,
+                    "final_score": 0.33666,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.057356,
+                    "approximate_selection_probability": 0.057356
+                  },
+                  {
+                    "lemma": "fondo",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.332046,
+                    "final_score": 0.332046,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.056593,
+                    "approximate_selection_probability": 0.056593
+                  },
+                  {
+                    "lemma": "hermano",
+                    "neutral_rank": 5,
+                    "final_rank": 5,
+                    "neutral_score": 0.330851,
+                    "final_score": 0.330851,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.056395,
+                    "approximate_selection_probability": 0.056395
+                  },
+                  {
+                    "lemma": "producción",
+                    "neutral_rank": 6,
+                    "final_rank": 6,
+                    "neutral_score": 0.328887,
+                    "final_score": 0.328887,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.05607,
+                    "approximate_selection_probability": 0.05607
+                  },
+                  {
+                    "lemma": "teatro",
+                    "neutral_rank": 7,
+                    "final_rank": 7,
+                    "neutral_score": 0.327332,
+                    "final_score": 0.327332,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055812,
+                    "approximate_selection_probability": 0.055812
+                  },
+                  {
+                    "lemma": "área",
+                    "neutral_rank": 8,
+                    "final_rank": 8,
+                    "neutral_score": 0.324003,
+                    "final_score": 0.324003,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.05526,
+                    "approximate_selection_probability": 0.05526
+                  },
+                  {
+                    "lemma": "autor",
+                    "neutral_rank": 9,
+                    "final_rank": 9,
+                    "neutral_score": 0.32336,
+                    "final_score": 0.32336,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055154,
+                    "approximate_selection_probability": 0.055154
+                  },
+                  {
+                    "lemma": "capital",
+                    "neutral_rank": 10,
+                    "final_rank": 10,
+                    "neutral_score": 0.322238,
+                    "final_score": 0.322238,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054968,
+                    "approximate_selection_probability": 0.054968
+                  }
+                ],
+                "row_count": 45,
+                "row_preview_count": 10
+              },
+              "strong": {
+                "strength": "strong",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "movimiento",
+                  "luz"
+                ],
+                "neutral_selected_lemmas": [
+                  "movimiento",
+                  "luz"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "movimiento",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.339065,
+                    "final_score": 0.339065,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.057754,
+                    "approximate_selection_probability": 0.057754
+                  },
+                  {
+                    "lemma": "luz",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.33798,
+                    "final_score": 0.33798,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.057574,
+                    "approximate_selection_probability": 0.057574
+                  },
+                  {
+                    "lemma": "mayoría",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.33666,
+                    "final_score": 0.33666,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.057356,
+                    "approximate_selection_probability": 0.057356
+                  },
+                  {
+                    "lemma": "fondo",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.332046,
+                    "final_score": 0.332046,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.056593,
+                    "approximate_selection_probability": 0.056593
+                  },
+                  {
+                    "lemma": "hermano",
+                    "neutral_rank": 5,
+                    "final_rank": 5,
+                    "neutral_score": 0.330851,
+                    "final_score": 0.330851,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.056395,
+                    "approximate_selection_probability": 0.056395
+                  },
+                  {
+                    "lemma": "producción",
+                    "neutral_rank": 6,
+                    "final_rank": 6,
+                    "neutral_score": 0.328887,
+                    "final_score": 0.328887,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.05607,
+                    "approximate_selection_probability": 0.05607
+                  },
+                  {
+                    "lemma": "teatro",
+                    "neutral_rank": 7,
+                    "final_rank": 7,
+                    "neutral_score": 0.327332,
+                    "final_score": 0.327332,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055812,
+                    "approximate_selection_probability": 0.055812
+                  },
+                  {
+                    "lemma": "área",
+                    "neutral_rank": 8,
+                    "final_rank": 8,
+                    "neutral_score": 0.324003,
+                    "final_score": 0.324003,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.05526,
+                    "approximate_selection_probability": 0.05526
+                  },
+                  {
+                    "lemma": "autor",
+                    "neutral_rank": 9,
+                    "final_rank": 9,
+                    "neutral_score": 0.32336,
+                    "final_score": 0.32336,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.055154,
+                    "approximate_selection_probability": 0.055154
+                  },
+                  {
+                    "lemma": "capital",
+                    "neutral_rank": 10,
+                    "final_rank": 10,
+                    "neutral_score": 0.322238,
+                    "final_score": 0.322238,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.054968,
+                    "approximate_selection_probability": 0.054968
+                  }
+                ],
+                "row_count": 45,
+                "row_preview_count": 10
+              }
+            },
+            "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_browsing_signals_en-es.json",
+            "store_exists": false,
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth"
+          },
           "rulegen": {
             "published": true,
             "targets": 7,
             "rules": 10,
-            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
-            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json"
+            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
+            "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_publication_manifest_en-es.json",
+            "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_semantic_inventory_en-es.json"
           },
           "applied": true,
           "persisted": true,
@@ -16455,6 +18360,7 @@
               "selector_components": {
                 "base_freq": 0.493185,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.123296,
                 "difficulty_target": 0.0
@@ -16495,6 +18401,7 @@
               "selector_components": {
                 "base_freq": 0.491607,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.122902,
                 "difficulty_target": 0.0
@@ -16535,6 +18442,7 @@
               "selector_components": {
                 "base_freq": 0.489687,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.122422,
                 "difficulty_target": 0.0
@@ -16575,6 +18483,7 @@
               "selector_components": {
                 "base_freq": 0.482976,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.120744,
                 "difficulty_target": 0.0
@@ -16615,6 +18524,7 @@
               "selector_components": {
                 "base_freq": 0.481238,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.12031,
                 "difficulty_target": 0.0
@@ -16655,6 +18565,7 @@
               "selector_components": {
                 "base_freq": 0.478381,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.119595,
                 "difficulty_target": 0.0
@@ -16695,6 +18606,7 @@
               "selector_components": {
                 "base_freq": 0.476119,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.11903,
                 "difficulty_target": 0.0
@@ -16735,6 +18647,7 @@
               "selector_components": {
                 "base_freq": 0.471277,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.117819,
                 "difficulty_target": 0.0
@@ -16775,6 +18688,7 @@
               "selector_components": {
                 "base_freq": 0.470342,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.117585,
                 "difficulty_target": 0.0
@@ -16815,6 +18729,7 @@
               "selector_components": {
                 "base_freq": 0.46871,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.117177,
                 "difficulty_target": 0.0
@@ -16855,6 +18770,7 @@
               "selector_components": {
                 "base_freq": 0.468279,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.11707,
                 "difficulty_target": 0.0
@@ -16895,6 +18811,7 @@
               "selector_components": {
                 "base_freq": 0.46739,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.116847,
                 "difficulty_target": 0.0
@@ -16935,6 +18852,7 @@
               "selector_components": {
                 "base_freq": 0.458038,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.114509,
                 "difficulty_target": 0.0
@@ -16975,6 +18893,7 @@
               "selector_components": {
                 "base_freq": 0.455083,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.113771,
                 "difficulty_target": 0.0
@@ -17015,6 +18934,7 @@
               "selector_components": {
                 "base_freq": 0.451165,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.112791,
                 "difficulty_target": 0.0
@@ -17055,6 +18975,7 @@
               "selector_components": {
                 "base_freq": 0.43777,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.109442,
                 "difficulty_target": 0.0
@@ -17095,6 +19016,7 @@
               "selector_components": {
                 "base_freq": 0.420957,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.105239,
                 "difficulty_target": 0.0
@@ -17135,6 +19057,7 @@
               "selector_components": {
                 "base_freq": 0.404007,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.101002,
                 "difficulty_target": 0.0
@@ -17175,6 +19098,7 @@
               "selector_components": {
                 "base_freq": 0.399763,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.099941,
                 "difficulty_target": 0.0
@@ -17215,6 +19139,7 @@
               "selector_components": {
                 "base_freq": 0.385705,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.096426,
                 "difficulty_target": 0.0
@@ -17255,6 +19180,7 @@
               "selector_components": {
                 "base_freq": 0.385681,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.09642,
                 "difficulty_target": 0.0
@@ -17295,6 +19221,7 @@
               "selector_components": {
                 "base_freq": 0.379354,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.094838,
                 "difficulty_target": 0.0
@@ -17335,6 +19262,7 @@
               "selector_components": {
                 "base_freq": 0.367894,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.091974,
                 "difficulty_target": 0.0
@@ -17375,6 +19303,7 @@
               "selector_components": {
                 "base_freq": 0.362059,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.090515,
                 "difficulty_target": 0.0
@@ -17415,6 +19344,7 @@
               "selector_components": {
                 "base_freq": 0.358094,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.089523,
                 "difficulty_target": 0.0
@@ -17455,6 +19385,7 @@
               "selector_components": {
                 "base_freq": 0.357456,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.089364,
                 "difficulty_target": 0.0
@@ -17495,6 +19426,7 @@
               "selector_components": {
                 "base_freq": 0.35585,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.088962,
                 "difficulty_target": 0.0
@@ -17535,6 +19467,7 @@
               "selector_components": {
                 "base_freq": 0.350966,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.087742,
                 "difficulty_target": 0.0
@@ -17575,6 +19508,7 @@
               "selector_components": {
                 "base_freq": 0.341149,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.085287,
                 "difficulty_target": 0.0
@@ -17615,6 +19549,7 @@
               "selector_components": {
                 "base_freq": 0.339966,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.084991,
                 "difficulty_target": 0.0
@@ -17655,6 +19590,7 @@
               "selector_components": {
                 "base_freq": 0.338891,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.084723,
                 "difficulty_target": 0.0
@@ -17695,6 +19631,7 @@
               "selector_components": {
                 "base_freq": 0.335971,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.083993,
                 "difficulty_target": 0.0
@@ -17735,6 +19672,7 @@
               "selector_components": {
                 "base_freq": 0.331471,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.082868,
                 "difficulty_target": 0.0
@@ -17775,6 +19713,7 @@
               "selector_components": {
                 "base_freq": 0.32,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.08,
                 "difficulty_target": 0.0
@@ -17815,6 +19754,7 @@
               "selector_components": {
                 "base_freq": 0.305125,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.076281,
                 "difficulty_target": 0.0
@@ -17855,6 +19795,7 @@
               "selector_components": {
                 "base_freq": 0.259898,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.064974,
                 "difficulty_target": 0.0
@@ -17895,6 +19836,7 @@
               "selector_components": {
                 "base_freq": 0.248509,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.062127,
                 "difficulty_target": 0.0
@@ -17935,6 +19877,7 @@
               "selector_components": {
                 "base_freq": 0.238378,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.059595,
                 "difficulty_target": 0.0
@@ -17975,6 +19918,7 @@
               "selector_components": {
                 "base_freq": 0.233056,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.058264,
                 "difficulty_target": 0.0
@@ -18015,6 +19959,7 @@
               "selector_components": {
                 "base_freq": 0.224668,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.056167,
                 "difficulty_target": 0.0
@@ -18055,6 +20000,7 @@
               "selector_components": {
                 "base_freq": 0.20524,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.05131,
                 "difficulty_target": 0.0
@@ -18095,6 +20041,7 @@
               "selector_components": {
                 "base_freq": 0.202029,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.050507,
                 "difficulty_target": 0.0
@@ -18135,6 +20082,7 @@
               "selector_components": {
                 "base_freq": 0.199081,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.04977,
                 "difficulty_target": 0.0
@@ -18175,6 +20123,7 @@
               "selector_components": {
                 "base_freq": 0.198694,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.049674,
                 "difficulty_target": 0.0
@@ -18215,6 +20164,7 @@
               "selector_components": {
                 "base_freq": 0.189691,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.047423,
                 "difficulty_target": 0.0
@@ -18242,7 +20192,7 @@
             "default_frequency_db": "freq-es-cde.sqlite",
             "requires_jmdict_for_seed": false,
             "requires_jmdict_for_rulegen": false,
-            "requires_freedict_de_en_for_rulegen": true
+            "requires_translation_dictionary_for_rulegen": true
           },
           "pair_policy": {
             "pair": "en-es",
@@ -18255,30 +20205,83 @@
           },
           "jmdict_path": null,
           "jmdict_exists": false,
-          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/language_packs/spa-eng.tei",
-          "freedict_de_en_exists": true,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/frequency_packs/freq-es-cde.sqlite",
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "freedict",
+          "translation_pack_id": "freedict_es_en",
+          "translation_pos_source_profile": "freedict",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 7,
           "store_items_for_pair": 7,
           "store_items_with_word_package_total": 7,
           "store_items_with_word_package_for_pair": 7,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 7,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-27T03:42:45.174518+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 10,
           "ruleset_rules_with_script_forms": 10,
           "ruleset_rules_with_word_package": 10,
+          "ruleset_rules_with_semantic_admission": 10,
+          "ruleset_rules_semantic_ready": 1,
+          "ruleset_rules_semantic_unavailable": 9,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "active",
+          "semantic_runtime_reason_code": "ready_rules_available",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 6,
+          "snapshot_generation_id": "en-es:default:4522409e546298f0",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": true,
+          "semantic_inventory_schema_version": 1,
+          "semantic_inventory_generation_id": "en-es:default:4522409e546298f0",
+          "semantic_inventory_pointer_modes": [
+            "sense_provenance",
+            "translation_gloss"
+          ],
+          "semantic_inventory_default_unavailable_reason_code": "missing_source_sense_locator",
+          "semantic_inventory_trigger_count": 10,
+          "semantic_inventory_sense_count": 12,
+          "semantic_inventory_competition_set_count": 10,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:4522409e546298f0",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -18289,14 +20292,68 @@
             "last_target_count": 7
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "beginning",
+          "centennial",
+          "century",
+          "commencement",
+          "hour",
+          "light",
+          "million",
+          "music",
+          "start",
+          "time"
+        ],
         "ruleset_sources_preview": [
           "beginning",
           "centennial",
           "century",
           "commencement",
           "hour"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "beginning",
+            "target": "principio"
+          },
+          {
+            "source": "centennial",
+            "target": "siglo"
+          },
+          {
+            "source": "century",
+            "target": "siglo"
+          },
+          {
+            "source": "commencement",
+            "target": "principio"
+          },
+          {
+            "source": "hour",
+            "target": "hora"
+          },
+          {
+            "source": "light",
+            "target": "luz"
+          },
+          {
+            "source": "million",
+            "target": "millón"
+          },
+          {
+            "source": "music",
+            "target": "música"
+          },
+          {
+            "source": "start",
+            "target": "principio"
+          },
+          {
+            "source": "time",
+            "target": "hora"
+          }
         ],
         "snapshot_targets": [
           "hora",
@@ -18719,7 +20776,7 @@
             "default_frequency_db": "freq-es-cde.sqlite",
             "requires_jmdict_for_seed": false,
             "requires_jmdict_for_rulegen": false,
-            "requires_freedict_de_en_for_rulegen": true
+            "requires_translation_dictionary_for_rulegen": true
           },
           "pair_policy": {
             "pair": "en-es",
@@ -18732,30 +20789,83 @@
           },
           "jmdict_path": null,
           "jmdict_exists": false,
-          "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/language_packs/spa-eng.tei",
-          "freedict_de_en_exists": true,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/frequency_packs/freq-es-cde.sqlite",
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/freedict-es-en/main.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "freedict",
+          "translation_pack_id": "freedict_es_en",
+          "translation_pos_source_profile": "freedict",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
           "stopwords_path": null,
           "stopwords_exists": false,
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 7,
           "store_items_for_pair": 7,
           "store_items_with_word_package_total": 7,
           "store_items_with_word_package_for_pair": 7,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 7,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-27T03:42:45.174518+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 10,
           "ruleset_rules_with_script_forms": 10,
           "ruleset_rules_with_word_package": 10,
+          "ruleset_rules_with_semantic_admission": 10,
+          "ruleset_rules_semantic_ready": 1,
+          "ruleset_rules_semantic_unavailable": 9,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "active",
+          "semantic_runtime_reason_code": "ready_rules_available",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
           "snapshot_exists": true,
           "snapshot_target_count": 6,
+          "snapshot_generation_id": "en-es:default:4522409e546298f0",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": true,
+          "semantic_inventory_schema_version": 1,
+          "semantic_inventory_generation_id": "en-es:default:4522409e546298f0",
+          "semantic_inventory_pointer_modes": [
+            "sense_provenance",
+            "translation_gloss"
+          ],
+          "semantic_inventory_default_unavailable_reason_code": "missing_source_sense_locator",
+          "semantic_inventory_trigger_count": 10,
+          "semantic_inventory_sense_count": 12,
+          "semantic_inventory_competition_set_count": 10,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:4522409e546298f0",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -18766,14 +20876,68 @@
             "last_target_count": 7
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_ruleset_en-es.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpt_1_ewgh/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpes6gggb8/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "beginning",
+          "centennial",
+          "century",
+          "commencement",
+          "hour",
+          "light",
+          "million",
+          "music",
+          "start",
+          "time"
+        ],
         "ruleset_sources_preview": [
           "beginning",
           "centennial",
           "century",
           "commencement",
           "hour"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "beginning",
+            "target": "principio"
+          },
+          {
+            "source": "centennial",
+            "target": "siglo"
+          },
+          {
+            "source": "century",
+            "target": "siglo"
+          },
+          {
+            "source": "commencement",
+            "target": "principio"
+          },
+          {
+            "source": "hour",
+            "target": "hora"
+          },
+          {
+            "source": "light",
+            "target": "luz"
+          },
+          {
+            "source": "million",
+            "target": "millón"
+          },
+          {
+            "source": "music",
+            "target": "música"
+          },
+          {
+            "source": "start",
+            "target": "principio"
+          },
+          {
+            "source": "time",
+            "target": "hora"
+          }
         ],
         "snapshot_targets": [
           "hora",

@@ -1,7 +1,10 @@
 # Phase 0 POS Baseline Findings
 
-Status: Baseline captured  
+Status: dated baseline evidence
+Role: Generated evidence
 Last updated: 2026-02-22
+Last verified: 2026-05-14 metadata-only Lane 1 rulegen authority note; baseline probe not rerun
+Source-of-truth: dated evidence summary only; current POS behavior truth lives in POS code, current POS references, and regenerated audit/probe artifacts.
 
 ## Scope
 

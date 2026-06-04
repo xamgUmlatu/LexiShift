@@ -95,6 +95,7 @@ class EnJaRulegenConfig:
     generic_gloss_demotions: Mapping[str, float] = field(
         default_factory=lambda: resolve_pair_generic_gloss_demotions("en-ja")
     )
+    enable_exact_gloss_demotions: bool = False
     frequency_config: Optional[FrequencySourceConfig] = None
     frequency_lexicon: Optional[FrequencyLexicon] = None
     frequency_provider: Optional[Callable[[RuleCandidate], float]] = None
@@ -126,7 +127,9 @@ def build_en_ja_pipeline(config: EnJaRulegenConfig) -> RuleGenerationPipeline:
         source_type="translation",
         script_forms_by_target=script_forms_by_target,
         word_packages_by_target=word_packages_by_target,
-        generic_gloss_demotions=config.generic_gloss_demotions,
+        generic_gloss_demotions=(
+            config.generic_gloss_demotions if config.enable_exact_gloss_demotions else {}
+        ),
     )
     normalizers: list[CandidateNormalizer] = [
         BasicStringNormalizer(),

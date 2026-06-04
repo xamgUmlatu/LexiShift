@@ -10,6 +10,8 @@ import shlex
 import subprocess
 import sys
 
+from ruff_support import resolve_ruff
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
@@ -57,6 +59,17 @@ def _parse_ruff_statistics(stdout: str) -> list[dict[str, object]]:
     return items
 
 
+def _write_json_report(path: Path | None, payload: dict[str, object]) -> None:
+    if not path:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    print(f"json_out: {path}")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -79,35 +92,59 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
-    lint_cmd = [sys.executable, "-m", "ruff", "check", ".", "--statistics"]
-    format_cmd = [sys.executable, "-m", "ruff", "format", ".", "--check"]
+    ruff = resolve_ruff()
+    payload = {
+        "version": 1,
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "strict": bool(args.strict),
+        "status": "unavailable",
+        "ruff_source": ruff.source,
+        "ruff_detail": ruff.detail,
+    }
+
+    if not ruff.available:
+        payload.update(
+            {
+                "lint_exit_code": 127,
+                "format_exit_code": 127,
+                "lint_statistics": [],
+                "lint_summary": "",
+                "format_summary": "",
+            }
+        )
+        _write_json_report(args.json_out, payload)
+        print("ruff_status: unavailable")
+        print(f"ruff_detail: {ruff.detail}")
+        print("style_status: unavailable")
+        if args.strict:
+            raise SystemExit(1)
+        return
+
+    lint_cmd = ruff.command("check", ".", "--statistics")
+    format_cmd = ruff.command("format", ".", "--check")
 
     lint_result = _run_capture(lint_cmd)
     format_result = _run_capture(format_cmd)
 
     lint_statistics = _parse_ruff_statistics(lint_result.stdout or "")
-    payload = {
-        "version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "lint_exit_code": int(lint_result.returncode),
-        "format_exit_code": int(format_result.returncode),
-        "lint_statistics": lint_statistics,
-        "lint_summary": (lint_result.stdout or "").strip(),
-        "format_summary": (format_result.stdout or "").strip(),
-        "strict": bool(args.strict),
-    }
-
-    if args.json_out:
-        args.json_out.parent.mkdir(parents=True, exist_ok=True)
-        args.json_out.write_text(
-            json.dumps(payload, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-        print(f"json_out: {args.json_out}")
+    payload.update(
+        {
+            "lint_exit_code": int(lint_result.returncode),
+            "format_exit_code": int(format_result.returncode),
+            "lint_statistics": lint_statistics,
+            "lint_summary": (lint_result.stdout or "").strip(),
+            "format_summary": (format_result.stdout or "").strip(),
+        }
+    )
 
     if lint_result.returncode == 0 and format_result.returncode == 0:
+        payload["status"] = "clean"
+        _write_json_report(args.json_out, payload)
         print("style_status: clean")
         return
+
+    payload["status"] = "advisory-fail"
+    _write_json_report(args.json_out, payload)
 
     top_items = lint_statistics[:5]
     if top_items:

@@ -1,0 +1,675 @@
+{
+  "code_budget_rows": [
+    {
+      "bounded": true,
+      "budget": "max_active_items",
+      "cap": 40,
+      "current": 40,
+      "notes": "Default active S capacity for a pair/profile.",
+      "owner": "helper",
+      "status": "bounded",
+      "surface": "helper_srs_settings"
+    },
+    {
+      "bounded": true,
+      "budget": "max_new_items_per_day",
+      "cap": 8,
+      "current": 8,
+      "notes": "Current code treats this as a per-refresh admission cap.",
+      "owner": "helper",
+      "status": "bounded",
+      "surface": "helper_srs_settings"
+    },
+    {
+      "bounded": true,
+      "budget": "max_items",
+      "cap": 8000,
+      "current": "source_constant",
+      "notes": "Extension-local projection store prune cap.",
+      "owner": "extension",
+      "status": "bounded",
+      "surface": "extension_srs_store"
+    },
+    {
+      "bounded": true,
+      "budget": "max_history_per_item",
+      "cap": 50,
+      "current": "source_constant",
+      "notes": "Extension-local history clamp per item.",
+      "owner": "extension",
+      "status": "bounded",
+      "surface": "extension_srs_store"
+    },
+    {
+      "bounded": true,
+      "budget": "max_entries",
+      "cap": 2000,
+      "current": "source_constant",
+      "notes": "Extension exposure telemetry ring buffer.",
+      "owner": "extension",
+      "status": "bounded",
+      "surface": "extension_exposure_log"
+    },
+    {
+      "bounded": true,
+      "budget": "max_pending_scopes",
+      "cap": 8,
+      "current": "source_constant",
+      "notes": "In-memory pending browsing-signal scopes before flush.",
+      "owner": "extension",
+      "status": "bounded",
+      "surface": "extension_browsing_admission_sender"
+    },
+    {
+      "bounded": true,
+      "budget": "max_signals_per_packet",
+      "cap": 50,
+      "current": "source_constant",
+      "notes": "Extension packet construction cap.",
+      "owner": "extension",
+      "status": "bounded",
+      "surface": "extension_browsing_admission_sender"
+    },
+    {
+      "bounded": true,
+      "budget": "max_count_per_signal",
+      "cap": 5,
+      "current": "source_constant",
+      "notes": "Extension-side per-packet signal count cap.",
+      "owner": "extension",
+      "status": "bounded",
+      "surface": "extension_browsing_admission_sender"
+    },
+    {
+      "bounded": true,
+      "budget": "max_signals_per_packet",
+      "cap": 200,
+      "current": 200,
+      "notes": "Helper ingest packet cap.",
+      "owner": "helper",
+      "status": "bounded",
+      "surface": "helper_browsing_signal_ingest"
+    },
+    {
+      "bounded": true,
+      "budget": "max_items_per_store",
+      "cap": 5000,
+      "current": 5000,
+      "notes": "Decayed browsing aggregate store cap per pair/profile.",
+      "owner": "helper",
+      "status": "bounded",
+      "surface": "helper_browsing_signal_ingest"
+    },
+    {
+      "bounded": true,
+      "budget": "max_events",
+      "cap": 5000,
+      "current": "source_default",
+      "notes": "Signal queue save/append event cap.",
+      "owner": "helper",
+      "status": "bounded",
+      "surface": "helper_signal_queue"
+    },
+    {
+      "bounded": true,
+      "budget": "max_replacements_per_page",
+      "cap": 20,
+      "current": "source_default",
+      "notes": "Standard replacement density cap.",
+      "owner": "extension",
+      "status": "bounded",
+      "surface": "runtime_page_budget"
+    },
+    {
+      "bounded": true,
+      "budget": "max_replacements_per_lemma_per_page",
+      "cap": 2,
+      "current": "source_default",
+      "notes": "Standard repeated-lemma density cap.",
+      "owner": "extension",
+      "status": "bounded",
+      "surface": "runtime_page_budget"
+    },
+    {
+      "bounded": false,
+      "budget": "helperRulesetCache",
+      "cap": "",
+      "current": "chrome.storage.local",
+      "notes": "Profile/pair helper cache exists but no explicit prune/TTL source constant was found.",
+      "owner": "extension",
+      "status": "needs_policy",
+      "surface": "extension_helper_cache"
+    },
+    {
+      "bounded": false,
+      "budget": "helperSnapshotCache",
+      "cap": "",
+      "current": "chrome.storage.local",
+      "notes": "Profile/pair helper cache exists but no explicit prune/TTL source constant was found.",
+      "owner": "extension",
+      "status": "needs_policy",
+      "surface": "extension_helper_cache"
+    },
+    {
+      "bounded": false,
+      "budget": "helperSemanticInventoryCache",
+      "cap": "",
+      "current": "chrome.storage.local",
+      "notes": "Profile/pair helper cache exists but no explicit prune/TTL source constant was found.",
+      "owner": "extension",
+      "status": "needs_policy",
+      "surface": "extension_helper_cache"
+    }
+  ],
+  "decision": "srs_resource_budget_needs_review",
+  "findings": [
+    {
+      "code": "cache_budget_policy_missing",
+      "level": "REVIEW",
+      "message": "One or more cache/storage surfaces do not expose an explicit source-level cap or TTL."
+    },
+    {
+      "code": "encounter_starvation_candidates",
+      "level": "REVIEW",
+      "message": "40 active item(s) have zero exposure and zero feedback in the audited store."
+    }
+  ],
+  "generated_at": "2026-05-26T19:08:23.295044+00:00",
+  "helper_artifacts": {
+    "active_item_count": 40,
+    "age_unknown_unseen_active_count": 40,
+    "artifacts": [
+      {
+        "bytes": 75340,
+        "counts": {
+          "active_inventory_items": 40,
+          "active_lifecycle_items": 40,
+          "cleared_items": 0,
+          "discarded_items": 0,
+          "pair_items": 40,
+          "zero_exposure_items": 40,
+          "zero_feedback_items": 40
+        },
+        "exists": true,
+        "id": "srs_store",
+        "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_store.json",
+        "review_threshold_bytes": 2000000,
+        "status": "ok"
+      },
+      {
+        "bytes": 0,
+        "counts": {
+          "inventory_file_active_item_ids": 0,
+          "resolved_active_item_ids": 40
+        },
+        "exists": false,
+        "id": "srs_inventory",
+        "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_inventory.json",
+        "review_threshold_bytes": 500000,
+        "status": "missing"
+      },
+      {
+        "bytes": 156802,
+        "counts": {
+          "enabled_rule_count": 224,
+          "lemmas_with_rules": 175,
+          "rule_count": 224
+        },
+        "exists": true,
+        "id": "srs_ruleset",
+        "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_ruleset_en-es.json",
+        "review_threshold_bytes": 5000000,
+        "status": "ok"
+      },
+      {
+        "bytes": 15720,
+        "counts": {
+          "stats_count": 3,
+          "targets_count": 175
+        },
+        "exists": true,
+        "id": "srs_rulegen_snapshot",
+        "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "review_threshold_bytes": 5000000,
+        "status": "ok"
+      },
+      {
+        "bytes": 434937,
+        "counts": {
+          "capability_count": 6,
+          "competition_sets_count": 224,
+          "phrase_sets_count": 0,
+          "senses_count": 266,
+          "triggers_count": 224
+        },
+        "exists": true,
+        "id": "srs_semantic_inventory",
+        "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_semantic_inventory_en-es.json",
+        "review_threshold_bytes": 10000000,
+        "status": "ok"
+      },
+      {
+        "bytes": 917,
+        "counts": {
+          "events": 4,
+          "exposure_events": 0,
+          "feedback_events": 0,
+          "pair_events": 0
+        },
+        "exists": true,
+        "id": "srs_signal_queue",
+        "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_signal_queue.json",
+        "review_threshold_bytes": 2000000,
+        "status": "ok"
+      },
+      {
+        "bytes": 0,
+        "counts": {},
+        "exists": false,
+        "id": "srs_browsing_signal_store",
+        "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_browsing_signals_en-es.json",
+        "review_threshold_bytes": 3000000,
+        "status": "missing"
+      },
+      {
+        "bytes": 0,
+        "counts": {},
+        "exists": false,
+        "id": "srs_admission_suppression",
+        "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default/srs_admission_suppression.json",
+        "review_threshold_bytes": 500000,
+        "status": "missing"
+      }
+    ],
+    "encounter_stale_age_days": 7,
+    "profile_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default",
+    "profile_dir_exists": true,
+    "stale_active_count": 40,
+    "stale_active_preview": [
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:crear",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "crear",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:el",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "el",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:ese",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "ese",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:hasta",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "hasta",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:junto",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "junto",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:mayor",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "mayor",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:movimiento",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "movimiento",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:no",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "no",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:ocurrir",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "ocurrir",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:presentar",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "presentar",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:pues",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "pues",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:sacar",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "sacar",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:según",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "según",
+        "review_count": 0,
+        "rule_count": 0,
+        "scheduler_state": "",
+        "source_phrase_count": 0,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:dentro",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "dentro",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:fondo",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "fondo",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:hermano",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "hermano",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:leer",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "leer",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:llamar",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "llamar",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:luz",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "luz",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:mayoría",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "mayoría",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:mil",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "mil",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:millón",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "millón",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:más",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "más",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:música",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "música",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      },
+      {
+        "admitted_age_days": null,
+        "admitted_at": "",
+        "exposures": 0,
+        "item_id": "en-es:nacional",
+        "last_review": "",
+        "last_seen": "",
+        "lemma": "nacional",
+        "review_count": 0,
+        "rule_count": 1,
+        "scheduler_state": "",
+        "source_phrase_count": 1,
+        "stale_unseen": false
+      }
+    ],
+    "stale_unseen_active_count": 0,
+    "zero_exposure_active_count": 40,
+    "zero_feedback_active_count": 40
+  },
+  "limitations": [
+    "The audit reads helper artifacts from disk but does not inspect live chrome.storage.local values.",
+    "Chrome storage usage is represented by source constants until a browser-profile export path is added.",
+    "File-size thresholds are advisory MVP review thresholds, not Chrome or OS hard limits.",
+    "Encounter-starvation diagnostics are based on stored exposure/review counters; they cannot prove future page encounter frequency."
+  ],
+  "schema_version": 1,
+  "scope": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "data_root_exists": true,
+    "pair": "en-es",
+    "profile_id": "default",
+    "read_only": true
+  },
+  "status": "review",
+  "summary": {
+    "active_item_count": 40,
+    "age_unknown_unseen_active_count": 40,
+    "bounded_code_row_count": 13,
+    "code_budget_row_count": 16,
+    "encounter_stale_age_days": 7,
+    "finding_codes": [
+      "cache_budget_policy_missing",
+      "encounter_starvation_candidates"
+    ],
+    "helper_artifact_row_count": 8,
+    "helper_artifact_total_bytes": 683716,
+    "stale_unseen_active_count": 0,
+    "zero_exposure_active_count": 40,
+    "zero_feedback_active_count": 40
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "generated_at": "2026-05-09T22:31:56Z",
+  "generation_id": "en-es:default:34281603b7efd681",
+  "pair": "en-es",
+  "stats": {
+    "rule_count": 18,
+    "source_count": 18,
+    "target_count": 17
+  },
+  "targets": [
+    {
+      "lemma": "alem\u00e1n",
+      "sources": [
+        "german"
+      ]
+    },
+    {
+      "lemma": "americano",
+      "sources": [
+        "american"
+      ]
+    },
+    {
+      "lemma": "argentino",
+      "sources": [
+        "argentinean"
+      ]
+    },
+    {
+      "lemma": "cercar",
+      "sources": [
+        "bar"
+      ]
+    },
+    {
+      "lemma": "comarca",
+      "sources": [
+        "region"
+      ]
+    },
+    {
+      "lemma": "deber",
+      "sources": [
+        "owe"
+      ]
+    },
+    {
+      "lemma": "dentista",
+      "sources": [
+        "dentist"
+      ]
+    },
+    {
+      "lemma": "durar",
+      "sources": [
+        "endure"
+      ]
+    },
+    {
+      "lemma": "excepto",
+      "sources": [
+        "except"
+      ]
+    },
+    {
+      "lemma": "falta",
+      "sources": [
+        "shortage"
+      ]
+    },
+    {
+      "lemma": "gobernar",
+      "sources": [
+        "control",
+        "govern"
+      ]
+    },
+    {
+      "lemma": "ma\u00f1ana",
+      "sources": [
+        "tomorrow"
+      ]
+    },
+    {
+      "lemma": "mencionar",
+      "sources": [
+        "cite"
+      ]
+    },
+    {
+      "lemma": "rumano",
+      "sources": [
+        "rumanian"
+      ]
+    },
+    {
+      "lemma": "ruso",
+      "sources": [
+        "russian"
+      ]
+    },
+    {
+      "lemma": "sonre\u00edr",
+      "sources": [
+        "smile"
+      ]
+    },
+    {
+      "lemma": "taberna",
+      "sources": [
+        "pub"
+      ]
+    }
+  ],
+  "version": 1
+}

@@ -5,9 +5,12 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 import sys
+from typing import Mapping, Optional
 
 from PySide6.QtCore import QStandardPaths, QThread, Signal
 from PySide6.QtWidgets import QPushButton, QTableWidgetItem
+
+from i18n import t
 
 
 @dataclass
@@ -33,6 +36,91 @@ class EmbeddingPackRow:
     download_button: QPushButton
     delete_button: QPushButton
     use_button: QPushButton
+
+
+LANGUAGE_RESOURCE_FAMILY_TRANSLATION = "translation"
+LANGUAGE_RESOURCE_FAMILY_SECONDARY = "secondary"
+LANGUAGE_RESOURCE_ORIGIN_MANAGED = "managed"
+LANGUAGE_RESOURCE_ORIGIN_MANUAL = "manual"
+
+
+@dataclass(frozen=True)
+class LanguageResourceBinding:
+    pack_id: str
+    family: str
+    origin: str
+    effective_path: Optional[str] = None
+
+
+def pack_source_override_value(
+    overrides: Mapping[str, object] | None,
+    pack_id: str,
+    field_name: str,
+) -> object | None:
+    override = dict(overrides or {}).get(pack_id)
+    if isinstance(override, Mapping):
+        return override.get(field_name)
+    if override is None:
+        return None
+    return getattr(override, field_name, None)
+
+
+def is_pack_download_disabled(
+    overrides: Mapping[str, object] | None,
+    pack_id: str,
+) -> bool:
+    raw = pack_source_override_value(overrides, pack_id, "disabled")
+    if isinstance(raw, bool):
+        return raw
+    if isinstance(raw, int):
+        return raw == 1
+    if isinstance(raw, str):
+        normalized = raw.strip().lower()
+        return normalized in {"1", "true", "yes", "on"}
+    return False
+
+
+def pack_download_disabled_reason(
+    overrides: Mapping[str, object] | None,
+    pack_id: str,
+) -> str | None:
+    if not is_pack_download_disabled(overrides, pack_id):
+        return None
+    raw = pack_source_override_value(overrides, pack_id, "disabled_reason")
+    if raw is None:
+        return None
+    text = str(raw).strip()
+    return text or None
+
+
+def pack_download_disabled_tooltip(
+    overrides: Mapping[str, object] | None,
+    pack,
+) -> str:
+    reason = pack_download_disabled_reason(overrides, pack.pack_id)
+    if reason:
+        return reason
+    return t("language_packs.download_failed_source_unavailable", name=pack.display_name())
+
+
+def split_language_resource_bindings(
+    bindings: Mapping[str, LanguageResourceBinding] | None,
+) -> tuple[tuple[str, ...], dict[str, str], Optional[str], Optional[str]]:
+    managed_pack_ids: list[str] = []
+    manual_paths: dict[str, str] = {}
+    for pack_id, binding in dict(bindings or {}).items():
+        pack_key = str(pack_id or "").strip()
+        if not pack_key:
+            continue
+        if binding.origin == LANGUAGE_RESOURCE_ORIGIN_MANAGED:
+            managed_pack_ids.append(pack_key)
+            continue
+        path_text = str(binding.effective_path or "").strip()
+        if path_text:
+            manual_paths[pack_key] = path_text
+    wordnet_dir = str(manual_paths.get("wordnet-en", "")).strip() or None
+    moby_path = str(manual_paths.get("moby-en", "")).strip() or None
+    return tuple(sorted(set(managed_pack_ids))), manual_paths, wordnet_dir, moby_path
 
 
 def is_sqlite_db_file(path: str | Path) -> bool:

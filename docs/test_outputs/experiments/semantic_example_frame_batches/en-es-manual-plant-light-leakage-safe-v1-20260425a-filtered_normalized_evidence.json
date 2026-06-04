@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "normalization_version": "semantic_evidence_v1",
+  "batch_id": "en-es:manual-example-frame-replacements:plant-light-leakage-safe-v1-20260425a:filtered",
+  "pair": "en-es",
+  "source_type": "internal",
+  "source_id": "manual_leakage_safe_example_frames",
+  "source_family": "internal_rulegen_artifact",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-25T00:11:11Z",
+  "ingested_at": "2026-04-25T00:11:11Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "manual-leakage-safe-v1",
+  "row_count": 1,
+  "rows": [
+    {
+      "evidence_id": "evidence:9f882150facb7731255c8835bbfe1ce4d225a12b",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:manual-example-frame-replacements:plant-light-leakage-safe-v1-20260425a",
+      "row_id": "en-es-sentence-veto-plant-planta:manual:active:leakage-safe-light:v1",
+      "pair": "en-es",
+      "source_type": "internal",
+      "source_id": "manual_leakage_safe_example_frames",
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "A potted plant thrives near a bright window.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "internal",
+        "source_id": "manual_leakage_safe_example_frames",
+        "source_family": "internal_rulegen_artifact",
+        "batch_id": "en-es:manual-example-frame-replacements:plant-light-leakage-safe-v1-20260425a",
+        "row_id": "en-es-sentence-veto-plant-planta:manual:active:leakage-safe-light:v1",
+        "model_id": "not_applicable",
+        "prompt_version": "manual-leakage-safe-v1",
+        "generated_at": "2026-04-25T00:11:11Z",
+        "ingested_at": "2026-04-25T00:11:11Z",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "leakage_safe_active_example",
+        "input_ref": "manual:leakage-safe:plant:active:light",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "manual_leakage_safe_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "manual_leakage_safe_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.98,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "generation_target": "active_example",
+        "source_gap": "residual_false_abstain_active_replacement",
+        "residual_case_id": "en-es:sentence-veto:plant:002"
+      }
+    }
+  ],
+  "provenance": {
+    "source_type": "internal",
+    "source_id": "manual_leakage_safe_example_frames",
+    "source_family": "internal_rulegen_artifact",
+    "batch_id": "en-es:manual-example-frame-replacements:plant-light-leakage-safe-v1-20260425a",
+    "model_id": "not_applicable",
+    "prompt_version": "manual-leakage-safe-v1",
+    "generated_at": "2026-04-25T00:11:11Z",
+    "ingested_at": "2026-04-25T00:11:11Z",
+    "normalization_version": "semantic_evidence_v1",
+    "upstream": {
+      "source_note": "Manual leakage-safe plant active residual replacement; analysis-only, not runtime-publishable."
+    },
+    "leakage_audit": {
+      "status": "ok",
+      "removed_row_count": 0,
+      "leakage_hit_count": 0,
+      "duplicate_hit_count": 0,
+      "jaccard_threshold": 0.75,
+      "duplicate_jaccard_threshold": 0.92,
+      "min_contained_tokens": 5,
+      "min_duplicate_tokens": 4
+    }
+  }
+}

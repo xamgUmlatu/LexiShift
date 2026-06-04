@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-24T02:44:39Z",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+  "prompt_version": "semantic_prompt_bakeoff_v3",
+  "stage": "proxy",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:proxy:prompt-proxy-v3-20260424a",
+  "source_id": "semantic_prompt_bakeoff_en_es_v10:proxy",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 12,
+    "accepted_item_count": 12,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "normalized_row_count": 12,
+    "input_tokens": 5370,
+    "output_tokens": 414,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "status": "accepted",
+      "response_id": "resp_063a791d562d502b0169ead918bf748195b64efffc62311d3f",
+      "evidence_text": "Rooted organism with leaves, stems, or flowers; grows in soil or water.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "usage": {
+        "input_tokens": 380,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 39,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 419
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:drink:beber",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "status": "accepted",
+      "response_id": "resp_04cad470d33328ac0169ead91a95c4819595f79598ef3fb1a9",
+      "evidence_text": "Noun for a served liquid, often cold or alcoholic, not the act of swallowing.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-contrastive-general-v1:drink:beber",
+      "usage": {
+        "input_tokens": 381,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 40,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 421
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-overlap-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_overlap_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "status": "accepted",
+      "response_id": "resp_061ac7a769ef31c60169ead91bc38481909362727d4d38161a",
+      "evidence_text": "soil, water, leaves, roots, sunlight",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-contrastive-overlap-v1:plant:fabrica",
+      "usage": {
+        "input_tokens": 442,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 474
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-overlap-v1:drink:beber",
+      "prompt_slot": "cue_contrastive_overlap_v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "status": "accepted",
+      "response_id": "resp_0df99a6667e8dbd20169ead91caa5c8196b9919e47988c835f",
+      "evidence_text": "cold beverage, soft drink, glass, bottle",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-contrastive-overlap-v1:drink:beber",
+      "usage": {
+        "input_tokens": 443,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 475
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "status": "accepted",
+      "response_id": "resp_007a01da70ce73070169ead91d72608195bae46d7905d89ae0",
+      "evidence_text": "article or amount before check, with bank payment context and no action verb",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+      "usage": {
+        "input_tokens": 454,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 491
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:order:ordenar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "status": "accepted",
+      "response_id": "resp_082ce488b044cff30169ead91eb37c8197b0a55b7f1ea24d32",
+      "evidence_text": "preceded by a determiner or possessive, often with of or for",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-cross-pos-frame-v1:order:ordenar",
+      "usage": {
+        "input_tokens": 445,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 483
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "status": "accepted",
+      "response_id": "resp_0db9980bc27d97cd0169ead91fb554819594b1eaf890250e9d",
+      "evidence_text": "Determiner or possessive before trip, often with adjectives like short or long.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar",
+      "usage": {
+        "input_tokens": 437,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 475
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:report:informar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "status": "accepted",
+      "response_id": "resp_0e341bab774993cf0169ead920be648195bdf7e04911846440",
+      "evidence_text": "preceded by a determiner and followed by findings, results, or document details",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-cross-pos-frame-v1:report:informar",
+      "usage": {
+        "input_tokens": 448,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 39,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 487
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "status": "accepted",
+      "response_id": "resp_01c93848002aa60f0169ead921b2a48195846c1b247beea747",
+      "evidence_text": "write a check for the rent payment",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-cross-pos-overlap-v1:check:revisar",
+      "usage": {
+        "input_tokens": 493,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 30,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 523
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:order:ordenar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "status": "accepted",
+      "response_id": "resp_0d8d615d3fefd65e0169ead9246d8c819391c672c0771d291e",
+      "evidence_text": "your online order for delivery",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-cross-pos-overlap-v1:order:ordenar",
+      "usage": {
+        "input_tokens": 484,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 28,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 512
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:trip:tropezar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "status": "accepted",
+      "response_id": "resp_0d4dc8384762d81d0169ead926225c81939174dfd46113b720",
+      "evidence_text": "a short trip to the city",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-cross-pos-overlap-v1:trip:tropezar",
+      "usage": {
+        "input_tokens": 476,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 29,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 505
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:report:informar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "status": "accepted",
+      "response_id": "resp_0f63d615345859dc0169ead927cb6481948c2fa24158068223",
+      "evidence_text": "annual report with findings, results, and recommendations",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json#en-es:proxy:cue-cross-pos-overlap-v1:report:informar",
+      "usage": {
+        "input_tokens": 487,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 519
+      }
+    }
+  ]
+}

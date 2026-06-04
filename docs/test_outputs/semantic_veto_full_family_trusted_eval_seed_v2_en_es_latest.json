@@ -1,0 +1,187 @@
+{
+  "decision": "full_family_trusted_eval_seed_v2_ready_for_scoring",
+  "e2e_checks": {
+    "all_rows_approved_by_user": true,
+    "all_rows_trusted": true,
+    "has_active_shadow_and_no_winner_cases": true,
+    "has_deferred_fix_approval_rows": true,
+    "has_original_repaired_seed_rows": true,
+    "has_repaired_deferred_families": true,
+    "has_trusted_families": true,
+    "no_pending_review_rows": true,
+    "rejected_demand_mapping_absent": true
+  },
+  "family_rows": [
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-repaired-pilot:break:quebrar",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "active_sense_corrected",
+      "seed_v2_status": "carried_forward_from_v1",
+      "shadow_negative_count": 2,
+      "source": "break",
+      "target": "quebrar"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-repaired-pilot:bridle:reprimir",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "active_sense_corrected",
+      "seed_v2_status": "carried_forward_from_v1",
+      "shadow_negative_count": 2,
+      "source": "bridle",
+      "target": "reprimir"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:december:diciembre",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "seed_v2_status": "carried_forward_from_v1",
+      "shadow_negative_count": 0,
+      "source": "december",
+      "target": "diciembre"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:emotion:emoci-n",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "seed_v2_status": "carried_forward_from_v1",
+      "shadow_negative_count": 0,
+      "source": "emotion",
+      "target": "emoción"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:dentist:dentista",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "seed_v2_status": "carried_forward_from_v1",
+      "shadow_negative_count": 0,
+      "source": "dentist",
+      "target": "dentista"
+    },
+    {
+      "case_count": 3,
+      "family_id": "en-es:full-family-repaired-pilot:bouillon:caldo",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "aligned_mapping_contexts_rewritten",
+      "seed_v2_status": "carried_forward_from_v1",
+      "shadow_negative_count": 0,
+      "source": "bouillon",
+      "target": "caldo"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-repaired-pilot:control:gobernar",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "active_sense_corrected",
+      "seed_v2_status": "carried_forward_from_v1",
+      "shadow_negative_count": 2,
+      "source": "control",
+      "target": "gobernar"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-deferred-review-fix:bar:cercar",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "deferred_mapping_fixed_corrected_active_sense",
+      "seed_v2_status": "newly_approved_deferred_fix",
+      "shadow_negative_count": 2,
+      "source": "bar",
+      "target": "cercar"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-deferred-review-fix:offset:distancia",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "deferred_mapping_fixed_corrected_active_sense",
+      "seed_v2_status": "newly_approved_deferred_fix",
+      "shadow_negative_count": 2,
+      "source": "offset",
+      "target": "distancia"
+    },
+    {
+      "case_count": 5,
+      "family_id": "en-es:full-family-deferred-review-fix:crack:grieta",
+      "phrase_no_winner_count": 1,
+      "positive_count": 2,
+      "repair_status": "representative_slot_replacement_for_rejected_mapping",
+      "seed_v2_status": "newly_approved_deferred_fix",
+      "shadow_negative_count": 2,
+      "source": "crack",
+      "target": "grieta"
+    }
+  ],
+  "generated_at": "2026-05-06T22:45:33Z",
+  "inputs": {
+    "deferred_fix_dataset_id": "en_es_full_family_deferred_mapping_review_fix_v1",
+    "deferred_fix_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_deferred_mapping_review_fix_v1.json",
+    "trusted_seed_dataset_id": "en_es_full_family_trusted_eval_seed_v1",
+    "trusted_seed_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_trusted_eval_seed_v1.json"
+  },
+  "methodology": {
+    "approval_boundary": "v2 records two explicit approval ids: the original repaired pilot approval and the deferred mapping review-fix approval. It does not make a runtime policy change.",
+    "locked_eval_boundary": "This is trusted data, not an untouched locked-eval split. It can be used for near-term diagnostics and data-quality scoring, but threshold promotion still needs a discovery/locked split.",
+    "runtime_policy_change": "none",
+    "score_promotion": "none"
+  },
+  "next_steps": [
+    "Score this v2 trusted seed with TF-IDF and sentence-transformer diagnostics.",
+    "Use the v2 seed as the near-term trusted data lane for scorer bakeoffs.",
+    "Create or refresh a discovery/locked split before any threshold promotion claim."
+  ],
+  "outputs": {
+    "dataset_id": "en_es_full_family_trusted_eval_seed_v2",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_trusted_eval_seed_v2.json"
+  },
+  "pair": "en-es",
+  "rejected_mappings": [
+    {
+      "audit_status": "reject_mapping_source_target_mismatch",
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "mapping_id": "demand->deducción",
+      "replacement_family_id": "en-es:full-family-deferred-review-fix:crack:grieta",
+      "replacement_mapping_id": "crack->grieta",
+      "source": "demand",
+      "target": "deducción"
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "approval_case_counts": {
+      "user_step7_repaired_pilot_approval_2026_05_07": 27,
+      "user_step8_deferred_mapping_review_fix_approval_2026_05_07": 15
+    },
+    "carried_forward_family_count": 7,
+    "case_type_counts": {
+      "phrase_no_winner": 10,
+      "positive_active": 20,
+      "shadow_negative": 12
+    },
+    "family_repair_status_counts": {
+      "active_sense_corrected": 3,
+      "aligned_mapping_contexts_rewritten": 4,
+      "deferred_mapping_fixed_corrected_active_sense": 2,
+      "representative_slot_replacement_for_rejected_mapping": 1
+    },
+    "manual_review_state": "approved_by_user",
+    "newly_approved_case_count": 15,
+    "newly_approved_family_count": 3,
+    "rejected_mapping_count": 1,
+    "row_quality_status": "trusted",
+    "trusted_case_count": 42,
+    "trusted_family_count": 10
+  }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="learning_dashboard_title">Vocabulary Library</title>
+    <link rel="stylesheet" href="options.css" />
+    <link rel="stylesheet" href="learning_dashboard.css" />
+  </head>
+  <body class="learning-dashboard-page">
+    <main class="learning-dashboard-shell">
+      <header class="learning-dashboard-header">
+        <a class="learning-dashboard-back" href="options.html" data-i18n="learning_dashboard_back">
+          Back to options
+        </a>
+        <div class="learning-dashboard-heading">
+          <div>
+            <h1 data-i18n="learning_dashboard_title">Vocabulary Library</h1>
+            <p data-i18n="learning_dashboard_subtitle">
+              Review your learning words, definitions, progress, and page-replacement sources.
+            </p>
+          </div>
+          <div id="learning-dashboard-scope" class="learning-dashboard-scope">Loading current practice...</div>
+        </div>
+      </header>
+
+      <section id="learning-dashboard-summary" class="learning-dashboard-summary" aria-live="polite"></section>
+
+      <section class="learning-dashboard-toolbar" aria-label="Vocabulary Library controls">
+        <button id="learning-dashboard-refresh" type="button" data-i18n="learning_dashboard_refresh">
+          Refresh
+        </button>
+        <label>
+          <span data-i18n="learning_dashboard_pair_select">Practice</span>
+          <select id="learning-dashboard-pair-select"></select>
+        </label>
+        <label>
+          <span data-i18n="learning_dashboard_search">Search</span>
+          <input id="learning-dashboard-search" type="search" autocomplete="off" />
+        </label>
+        <label>
+          <span data-i18n="learning_dashboard_status_filter">Progress</span>
+          <select id="learning-dashboard-status-filter">
+            <option value="all" data-i18n="option_srs_words_status_all">All</option>
+            <option value="active" data-i18n="option_srs_words_status_active">Active</option>
+            <option value="due" data-i18n="option_srs_words_status_due">Due</option>
+            <option value="queued" data-i18n="option_srs_words_status_queued">Upcoming</option>
+            <option value="removed" data-i18n="option_srs_words_status_removed">Removed</option>
+          </select>
+        </label>
+        <label>
+          <span data-i18n="learning_dashboard_sort">Sort</span>
+          <select id="learning-dashboard-sort">
+            <option value="source" data-i18n="option_srs_words_sort_source">Source order</option>
+            <option value="due" data-i18n="option_srs_words_sort_due">Due first</option>
+            <option value="word" data-i18n="option_srs_words_sort_word">Word A-Z</option>
+            <option value="reviews" data-i18n="option_srs_words_sort_reviews">Most reviews</option>
+            <option value="seen" data-i18n="option_srs_words_sort_seen">Most seen</option>
+          </select>
+        </label>
+        <label>
+          <span data-i18n="learning_dashboard_rows">Rows</span>
+          <select id="learning-dashboard-page-size">
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+        <label class="toggle srs-toggle-switch learning-dashboard-advanced-toggle">
+          <input id="learning-dashboard-advanced" type="checkbox" />
+          <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+          <span data-i18n="toggle_srs_words_advanced">Advanced details</span>
+        </label>
+        <button id="learning-dashboard-clear" type="button" data-i18n="button_srs_words_clear_filters">
+          Clear filters
+        </button>
+      </section>
+
+      <div class="learning-dashboard-status-row">
+        <span id="learning-dashboard-status" aria-live="polite">Loading...</span>
+        <span id="learning-dashboard-page-info">Showing 0 words</span>
+      </div>
+
+      <section class="learning-dashboard-content">
+        <div class="learning-dashboard-table-wrap">
+          <table class="learning-dashboard-table">
+            <thead>
+              <tr>
+                <th data-i18n="learning_dashboard_col_word">Word</th>
+                <th data-i18n="learning_dashboard_col_meaning">Meaning</th>
+                <th data-i18n="learning_dashboard_col_progress">Progress</th>
+                <th data-i18n="learning_dashboard_col_activity">Activity</th>
+                <th data-i18n="learning_dashboard_col_topic">Topic</th>
+                <th data-i18n="learning_dashboard_col_action">Action</th>
+              </tr>
+            </thead>
+            <tbody id="learning-dashboard-table-body"></tbody>
+          </table>
+          <div class="learning-dashboard-pagination" aria-label="Vocabulary Library pagination">
+            <button id="learning-dashboard-first" type="button" data-i18n="pagination_first">First</button>
+            <button id="learning-dashboard-prev" type="button" data-i18n="pagination_prev">Prev</button>
+            <button id="learning-dashboard-next" type="button" data-i18n="pagination_next">Next</button>
+            <button id="learning-dashboard-last" type="button" data-i18n="pagination_last">Last</button>
+          </div>
+        </div>
+
+        <aside id="learning-dashboard-detail" class="learning-dashboard-detail" aria-live="polite"></aside>
+      </section>
+    </main>
+
+    <script src="shared/helper/helper_error_copy.js"></script>
+    <script src="shared/helper/helper_transport_extension.js"></script>
+    <script src="shared/helper/helper_client.js"></script>
+    <script src="shared/helper/word_info_api.js"></script>
+    <script src="shared/profile/profile_media_store.js"></script>
+    <script src="shared/settings/profile_ui_theme_constants.js"></script>
+    <script src="shared/settings/profile_ui_theme_prefs.js"></script>
+    <script src="shared/settings/settings_defaults.js"></script>
+    <script src="options/core/settings/base_methods.js"></script>
+    <script src="options/core/settings/module_prefs_methods.js"></script>
+    <script src="options/core/settings/language_methods.js"></script>
+    <script src="options/core/settings/ui_prefs_methods.js"></script>
+    <script src="options/core/settings/signals_methods.js"></script>
+    <script src="options/core/settings/srs_profile_methods.js"></script>
+    <script src="options/core/settings_manager.js"></script>
+    <script src="options/core/localization_service.js"></script>
+    <script src="options/core/helper/base_methods.js"></script>
+    <script src="options/core/helper/diagnostics_methods.js"></script>
+    <script src="options/core/helper/srs_set_methods.js"></script>
+    <script src="options/core/helper_manager.js"></script>
+    <script src="options/controllers/profile/background/utils.js"></script>
+    <script src="options/controllers/profile/background/page_background_manager.js"></script>
+    <script src="options/controllers/profile/background/card_theme_manager.js"></script>
+    <script src="options/controllers/srs/actions/words_dashboard_model.js"></script>
+    <script src="options/controllers/srs/actions/words_dashboard_formatting.js"></script>
+    <script src="learning_dashboard_model.js"></script>
+    <script src="learning_dashboard_view.js"></script>
+    <script src="learning_dashboard_table.js"></script>
+    <script src="learning_dashboard_theme.js"></script>
+    <script src="learning_dashboard.js"></script>
+  </body>
+</html>

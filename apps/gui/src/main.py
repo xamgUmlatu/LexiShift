@@ -7,6 +7,14 @@ from dataclasses import replace
 from pathlib import Path
 from typing import Optional
 
+from startup_logging import (
+    EARLY_START_TIME,
+    STARTUP_LOG_PATH_ENV,
+    write_early_startup_checkpoint,
+)
+
+write_early_startup_checkpoint("process entry before Qt imports")
+
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, "..", "..", ".."))
 CORE_ROOT = os.path.join(REPO_ROOT, "core")
@@ -22,6 +30,7 @@ from PySide6.QtCore import (
     QSettings,
     QSortFilterProxyModel,
     Qt,
+    QTimer,
 )
 from PySide6.QtGui import QColor, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
@@ -52,9 +61,14 @@ from lexishift_core import (
     VocabRule,
 )
 
-from dialogs import RuleMetadataDialog, SettingsDialog
+from dialogs import (
+    RuleMetadataDialog,
+    SettingsDialog,
+    build_synonym_resource_settings_from_panel,
+)
 from helper_ui import auto_install_helper
 from i18n import set_locale, t
+from localized_message_box import localized_question
 from main_mixins import (
     MainWindowBulkRulesMixin,
     MainWindowImportExportMixin,
@@ -69,8 +83,11 @@ from main_runtime import (
     acquire_singleton_server,
     bind_activation_handler,
     handle_startup_cli_flags,
+    is_resource_settings_activation_message,
+    startup_activation_message,
     install_exception_hook,
     prime_theme_assets,
+    resource_pair_from_activation_message,
     run_helper_daemon_if_requested,
     singleton_socket_name,
 )
@@ -88,6 +105,7 @@ from main_ui_components import (
 )
 from rules_table_view import DeleteButtonDelegate, RulesTableView
 from state import AppState
+from theme_combo_popup import apply_combo_popup_theme
 from theme_manager import build_base_styles, resolve_current_theme
 
 
@@ -125,7 +143,11 @@ class MainWindow(
         self.profile_combo = QComboBox()
         self.profile_combo.currentIndexChanged.connect(self._on_profile_selected)
         # Style only the popup list (not the closed combo) for main workspace selectors.
-        self.profile_combo.view().setObjectName("profileRulesetPopup")
+        apply_combo_popup_theme(
+            self.profile_combo,
+            self._theme,
+            object_name="profileRulesetPopup",
+        )
         self.manage_profiles_button = QPushButton(t("buttons.manage_profiles"))
         self.manage_profiles_button.clicked.connect(self._manage_profiles)
         self.manage_rulesets_button = QPushButton(t("buttons.manage_rulesets"))
@@ -134,7 +156,11 @@ class MainWindow(
         self.ruleset_combo = QComboBox()
         self.ruleset_combo.currentIndexChanged.connect(self._on_ruleset_selected)
         # Reuse the same popup styling hook as profile selector for visual consistency.
-        self.ruleset_combo.view().setObjectName("profileRulesetPopup")
+        apply_combo_popup_theme(
+            self.ruleset_combo,
+            self._theme,
+            object_name="profileRulesetPopup",
+        )
         self.ruleset_combo.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ruleset_combo.customContextMenuRequested.connect(self._ruleset_context_menu)
         self.open_ruleset_button = QPushButton(t("buttons.select_ruleset"))
@@ -434,7 +460,7 @@ class MainWindow(
             subprocess.run(["open", "-R", target], check=False)
             return
         if sys.platform.startswith("win"):
-            subprocess.run(["explorer", "/select,", target], check=False)
+            subprocess.run(["explorer", f"/select,{target}"], check=False)
             return
         directory = target if os.path.isdir(target) else os.path.dirname(target)
         subprocess.run(["xdg-open", directory], check=False)
@@ -486,6 +512,16 @@ class MainWindow(
         self._theme = resolve_current_theme(screen_id="main_window")
         apply_theme_background(self._theme_container, self._theme)
         self.setStyleSheet(build_base_styles(self._theme))
+        apply_combo_popup_theme(
+            self.profile_combo,
+            self._theme,
+            object_name="profileRulesetPopup",
+        )
+        apply_combo_popup_theme(
+            self.ruleset_combo,
+            self._theme,
+            object_name="profileRulesetPopup",
+        )
         self._splitter.setStyleSheet("background: transparent;")
         self._right_splitter.setStyleSheet("background: transparent;")
         self._utility_dock.refresh_geometry_hint()
@@ -573,33 +609,26 @@ class MainWindow(
         panel = getattr(dialog, "language_pack_panel", None)
         if panel is None:
             return
-        language_pack_paths = dict(panel.paths() or {})
-        frequency_pack_paths = dict(panel.frequency_paths() or {})
-        embedding_pack_paths = dict(panel.embedding_paths() or {})
-        embedding_pair_paths = dict(panel.embedding_pair_paths() or {})
-        embedding_pair_enabled = dict(panel.embedding_pair_enabled() or {})
         current_settings = self.state.settings
         current_synonyms = current_settings.synonyms or SynonymSourceSettings()
-        wordnet_dir = str(language_pack_paths.get("wordnet-en", "")).strip() or None
-        moby_path = str(language_pack_paths.get("moby-en", "")).strip() or None
-        updated_synonyms = replace(
-            current_synonyms,
-            wordnet_dir=wordnet_dir,
-            moby_path=moby_path,
-            language_packs=language_pack_paths,
-            frequency_packs=frequency_pack_paths,
-            embedding_packs=embedding_pack_paths,
-            embedding_pair_paths=embedding_pair_paths,
-            embedding_pair_enabled=embedding_pair_enabled,
+        updated_synonyms = build_synonym_resource_settings_from_panel(
+            panel,
+            base_synonyms=current_synonyms,
         )
         if updated_synonyms == current_synonyms:
             return
         self.state.update_settings(replace(current_settings, synonyms=updated_synonyms))
 
-    def _open_settings(self) -> None:
+    def _open_settings(
+        self,
+        initial_tab: str | None = None,
+        initial_resource_pair: str | None = None,
+    ) -> None:
         dialog = SettingsDialog(
             app_settings=self.state.settings,
             dataset_settings=self.state.dataset.settings,
+            initial_tab=initial_tab,
+            initial_resource_pair=initial_resource_pair,
             parent=self,
         )
         if dialog.exec() != QDialog.DialogCode.Accepted:
@@ -614,6 +643,9 @@ class MainWindow(
         self._refresh_srs_growth()
         self._refresh_helper_menu_label()
         self._refresh_empty_locale_button_label()
+
+    def _open_settings_resources(self, pair: str | None = None) -> None:
+        self._open_settings(initial_tab="resources", initial_resource_pair=pair)
 
     def _add_rule(self) -> None:
         self.rules_model.add_rule(VocabRule(source_phrase="", replacement=""))
@@ -642,7 +674,7 @@ class MainWindow(
                 source=rule.source_phrase,
                 replacement=rule.replacement,
             )
-            reply = QMessageBox.question(
+            reply = localized_question(
                 self,
                 t("dialogs.delete_rule.title"),
                 message,
@@ -721,7 +753,10 @@ def main() -> None:
     QCoreApplication.setOrganizationName("LexiShift")
     QCoreApplication.setApplicationName("LexiShift")
     startup_logs = _startup_log_paths()
-    startup_logger = StartupLogger(startup_logs)
+    startup_log_override = str(os.environ.get(STARTUP_LOG_PATH_ENV, "") or "").strip()
+    if startup_log_override:
+        startup_logs.insert(0, Path(startup_log_override).expanduser())
+    startup_logger = StartupLogger(startup_logs, start_time=EARLY_START_TIME, argv=sys.argv)
 
     print("[LexiShift] STARTUP MARKER")
     startup_logger.log("main() begin")
@@ -737,7 +772,8 @@ def main() -> None:
     startup_logger.log("QApplication created")
 
     # Singleton check: ensure only one GUI window runs
-    server = acquire_singleton_server(singleton_socket_name())
+    activation_message = startup_activation_message(sys.argv)
+    server = acquire_singleton_server(singleton_socket_name(), activation_message)
     if server is None:
         sys.exit(0)
     startup_logger.log("single-instance server ready")
@@ -752,9 +788,12 @@ def main() -> None:
     window = MainWindow()
     startup_logger.log("MainWindow constructed")
 
-    bind_activation_handler(server, window)
+    bind_activation_handler(server, window, logger=startup_logger)
 
     window.show()
+    if is_resource_settings_activation_message(activation_message):
+        resource_pair = resource_pair_from_activation_message(activation_message)
+        QTimer.singleShot(0, lambda: window._open_settings_resources(pair=resource_pair))
     startup_logger.log("window shown")
     sys.exit(app.exec())
 

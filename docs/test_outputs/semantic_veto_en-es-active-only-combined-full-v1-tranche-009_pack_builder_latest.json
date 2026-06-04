@@ -1,0 +1,184 @@
+{
+  "artifacts": {
+    "combined_normalized_evidence": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-009-normalized_evidence.json",
+    "semantic_inventory": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-009_semantic_inventory.json"
+  },
+  "component_batches": [
+    {
+      "batch_id": "en-es:semantic-veto:en-es-active-only-combined-full-v1-tranche-008",
+      "family_count": 378,
+      "row_count": 768,
+      "source_family": "internal_rulegen_artifact",
+      "source_id": "en-es-active-only-combined-full-v1-tranche-008",
+      "source_type": "internal"
+    },
+    {
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-009",
+      "family_count": 38,
+      "row_count": 76,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-009",
+      "source_type": "llm"
+    }
+  ],
+  "decision": "active_only_full_pack_ready_for_named_install",
+  "duplicate_samples": [],
+  "existing_family_append_samples": [],
+  "generated_at": "2026-05-13T19:30:14Z",
+  "inputs": {
+    "add_normalized_evidence_paths": [
+      "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-009_normalized_evidence.json"
+    ],
+    "base_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-008_semantic_inventory.json",
+    "base_normalized_evidence_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-008-normalized_evidence.json"
+  },
+  "issues": [],
+  "methodology": {
+    "existing_family_policy": "append generated evidence to existing active sense by trigger-target key",
+    "merge_scope": "append active-only anchor cues, preserve existing shadows and phrase sets",
+    "new_family_policy": "create active-only competition set when trigger-target pair is absent",
+    "runtime_policy_change": "none",
+    "runtime_publishable_rows": "kept false in source evidence; semantic inventory is the runtime materialization layer"
+  },
+  "new_family_samples": [
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:abatement:descuento:8ec99746",
+      "target": "descuento",
+      "trigger": "abatement"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:acquaint:informar:48d3e377",
+      "target": "informar",
+      "trigger": "acquaint"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:barque:barco:5b3c803d",
+      "target": "barco",
+      "trigger": "barque"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:depository:deposito:0c2e4143",
+      "target": "depósito",
+      "trigger": "depository"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:glove:guante:898c0a5b",
+      "target": "guante",
+      "trigger": "glove"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:goose:ganso:6f61cd68",
+      "target": "ganso",
+      "trigger": "goose"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:idol:idolo:f73701e0",
+      "target": "ídolo",
+      "trigger": "idol"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:inflammation:inflamacion:642fc467",
+      "target": "inflamación",
+      "trigger": "inflammation"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:intoxicated:ebrio:9307c97f",
+      "target": "ebrio",
+      "trigger": "intoxicated"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:jest:bromear:55d79731",
+      "target": "bromear",
+      "trigger": "jest"
+    }
+  ],
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-009",
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "add_normalized_row_count": 76,
+    "base_normalized_row_count": 768,
+    "combined_normalized_row_count": 844,
+    "competition_set_count": 416,
+    "duplicate_row_count": 0,
+    "existing_family_append_count": 0,
+    "existing_family_append_samples": [],
+    "merged_evidence_row_count": 76,
+    "new_family_count": 38,
+    "new_family_samples": [
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:abatement:descuento:8ec99746",
+        "target": "descuento",
+        "trigger": "abatement"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:acquaint:informar:48d3e377",
+        "target": "informar",
+        "trigger": "acquaint"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:barque:barco:5b3c803d",
+        "target": "barco",
+        "trigger": "barque"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:depository:deposito:0c2e4143",
+        "target": "depósito",
+        "trigger": "depository"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:glove:guante:898c0a5b",
+        "target": "guante",
+        "trigger": "glove"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:goose:ganso:6f61cd68",
+        "target": "ganso",
+        "trigger": "goose"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:idol:idolo:f73701e0",
+        "target": "ídolo",
+        "trigger": "idol"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:inflammation:inflamacion:642fc467",
+        "target": "inflamación",
+        "trigger": "inflammation"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:intoxicated:ebrio:9307c97f",
+        "target": "ebrio",
+        "trigger": "intoxicated"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:jest:bromear:55d79731",
+        "target": "bromear",
+        "trigger": "jest"
+      }
+    ],
+    "sense_count": 458,
+    "trigger_count": 416
+  }
+}

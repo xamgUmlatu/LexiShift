@@ -1,0 +1,1220 @@
+{
+  "additional_heldouts": [
+    {
+      "case_count": 16,
+      "decision": "heldout_review",
+      "decision_accuracy": 0.625,
+      "delta_vs_empty_baseline": {
+        "decision_accuracy_delta": -0.375,
+        "false_abstain_delta": 0,
+        "harmful_replace_delta": 6,
+        "replace_recall_delta": 0.0
+      },
+      "false_abstain_case_ids": [],
+      "false_abstain_count": 0,
+      "family_count": 16,
+      "family_ids": [
+        "en-es:sentence-veto:cast:lanzamiento",
+        "en-es:sentence-veto:crash:choque",
+        "en-es:sentence-veto:even:tarde",
+        "en-es:sentence-veto:firm:firma",
+        "en-es:sentence-veto:fix:aprieto",
+        "en-es:sentence-veto:foul:falta",
+        "en-es:sentence-veto:full:lleno",
+        "en-es:sentence-veto:gross:repulsivo",
+        "en-es:sentence-veto:like:gustos",
+        "en-es:sentence-veto:meet:adecuado",
+        "en-es:sentence-veto:score:tantos",
+        "en-es:sentence-veto:squeeze:crisis",
+        "en-es:sentence-veto:stretch:estir-n",
+        "en-es:sentence-veto:trim:compensador",
+        "en-es:sentence-veto:waste:desperdicio",
+        "en-es:sentence-veto:wrong:incorrecto"
+      ],
+      "gold_abstain_cases": 16,
+      "gold_replace_cases": 0,
+      "harmful_replace_case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "harmful_replace_count": 6,
+      "heldout_case_scope": "non_v10_wave7_source_class_breadth_phrase_no_winner",
+      "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_phrase_cases",
+      "label": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest",
+      "replace_recall": 0.0,
+      "status": "review"
+    }
+  ],
+  "comparator_admissions": [
+    {
+      "decision": "analysis_only",
+      "families_total": 8,
+      "final_admitted_row_count": 14,
+      "heldout_validation": {
+        "blocks_offline_semantic_promotion": false,
+        "case_count": 0,
+        "decision": "not_provided",
+        "decision_accuracy": 0.0,
+        "false_abstain_count": 0,
+        "family_count": 0,
+        "harmful_replace_count": 0,
+        "passed": false,
+        "provided": false,
+        "replace_recall": 0.0,
+        "status": "not_provided"
+      },
+      "label": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "leakage_rejected_row_count": 0,
+      "phrase_contract_complete_family_count": 0,
+      "phrase_gap_family_keys": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:draft:borrador",
+        "en-es:sentence-veto:line:linea",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:ring:anillo",
+        "en-es:sentence-veto:rock:roca",
+        "en-es:sentence-veto:scale:escala"
+      ],
+      "role": "comparator",
+      "seed_decision_accuracy": 0.7083,
+      "seed_false_abstain_case_ids": [
+        "en-es:source-non-v10-probe:v1:rock:001",
+        "en-es:source-non-v10-probe:v1:rock:002",
+        "en-es:source-non-v10-probe:v1:case:001",
+        "en-es:source-non-v10-probe:v1:point:001",
+        "en-es:source-non-v10-probe:v1:point:002",
+        "en-es:source-non-v10-probe:v1:date:001",
+        "en-es:source-non-v10-probe:v1:date:002"
+      ],
+      "seed_false_abstain_count": 7,
+      "seed_harmful_replace_case_ids": [],
+      "seed_harmful_replace_count": 0,
+      "seed_replace_recall": 0.5333,
+      "semantic_contract_complete_family_count": 4,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:rock:roca"
+      ],
+      "sense_rejected_row_count": 4,
+      "sense_rejection_reason_counts": {
+        "competitor_sense_not_lower": 4
+      },
+      "status": "review"
+    }
+  ],
+  "decision": "fix_blocking_failure_classes",
+  "failure_classes": [
+    {
+      "artifact": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest",
+      "blocks_semantic_promotion": true,
+      "class_id": "heldout_harmful_replace",
+      "count": 1,
+      "family_tokens": [
+        "gross"
+      ],
+      "ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "label": "Held-out harmful replacement",
+      "tracked_residual": false
+    },
+    {
+      "artifact": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "heldout_false_abstain",
+      "count": 2,
+      "family_tokens": [
+        "fix",
+        "meet"
+      ],
+      "ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "label": "Held-out false abstain",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest",
+      "blocks_semantic_promotion": true,
+      "class_id": "additional_heldout_1_harmful_replace",
+      "count": 6,
+      "family_tokens": [
+        "cast",
+        "foul",
+        "score",
+        "squeeze",
+        "stretch",
+        "wrong"
+      ],
+      "ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "label": "Held-out harmful replacement",
+      "tracked_residual": false
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_sense_reject",
+      "count": 4,
+      "family_tokens": [
+        "competitor_sense_not_lower"
+      ],
+      "ids": [
+        "competitor_sense_not_lower:4"
+      ],
+      "label": "comparator sense rejected rows",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_semantic_contract_gap",
+      "count": 4,
+      "family_tokens": [
+        "case",
+        "date",
+        "point",
+        "rock"
+      ],
+      "ids": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:rock:roca"
+      ],
+      "label": "comparator semantic contract gap",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_seed_false_abstain",
+      "count": 7,
+      "family_tokens": [
+        "case",
+        "date",
+        "point",
+        "rock"
+      ],
+      "ids": [
+        "en-es:source-non-v10-probe:v1:rock:001",
+        "en-es:source-non-v10-probe:v1:rock:002",
+        "en-es:source-non-v10-probe:v1:case:001",
+        "en-es:source-non-v10-probe:v1:point:001",
+        "en-es:source-non-v10-probe:v1:point:002",
+        "en-es:source-non-v10-probe:v1:date:001",
+        "en-es:source-non-v10-probe:v1:date:002"
+      ],
+      "label": "comparator seed ablation false abstain",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+      "blocks_semantic_promotion": false,
+      "class_id": "comparator_phrase_contract_gap",
+      "count": 8,
+      "family_tokens": [
+        "case",
+        "date",
+        "draft",
+        "line",
+        "point",
+        "ring",
+        "rock",
+        "scale"
+      ],
+      "ids": [
+        "en-es:sentence-veto:case:caso",
+        "en-es:sentence-veto:date:fecha",
+        "en-es:sentence-veto:draft:borrador",
+        "en-es:sentence-veto:line:linea",
+        "en-es:sentence-veto:point:punto",
+        "en-es:sentence-veto:ring:anillo",
+        "en-es:sentence-veto:rock:roca",
+        "en-es:sentence-veto:scale:escala"
+      ],
+      "label": "comparator phrase contract gap",
+      "tracked_residual": true
+    },
+    {
+      "artifact": "semantic_source_margin_policy_sweep",
+      "blocks_semantic_promotion": false,
+      "class_id": "margin_policy_blockers",
+      "count": 218,
+      "family_tokens": [
+        "cast",
+        "crash",
+        "fix",
+        "foul",
+        "full",
+        "like",
+        "meet",
+        "score",
+        "squeeze",
+        "stretch",
+        "trim",
+        "waste",
+        "wrong"
+      ],
+      "ids": [
+        "m=0;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0;phrase=0.01:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0;phrase=0.01:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:crash:001",
+        "m=0;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0;phrase=0.02:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0;phrase=0.02:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:crash:001",
+        "m=0;phrase=0.05:active:harmful:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:002",
+        "m=0;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:like:001",
+        "m=0;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001",
+        "m=0;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:crash:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.005;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.005;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0.005;phrase=0.01:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0.005;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.005;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.005;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.005;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.005;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.005;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.005;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.005;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.005;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.005;phrase=0.02:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0.005;phrase=0.05:active:harmful:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:002",
+        "m=0.005;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.005;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.005;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.005;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.005;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.005;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.005;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.005;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:like:001",
+        "m=0.005;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001",
+        "m=0.005;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.01;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.01;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0.01;phrase=0.01:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0.01;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.01;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.01;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.01;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.01;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.01;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.01;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.01;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.01;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.01;phrase=0.02:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0.01;phrase=0.05:active:harmful:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:002",
+        "m=0.01;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.01;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.01;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.01;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.01;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.01;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.01;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.01;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001",
+        "m=0.01;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.02;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.02;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0.02;phrase=0.01:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.02;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.02;phrase=0.02:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0.02;phrase=0.05:active:harmful:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:002",
+        "m=0.02;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "m=0.02;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.02;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.02;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.02;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.02;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.02;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.02;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.02;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001",
+        "m=0.02;phrase=0.05:phrase:harmful:en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.05;phrase=0:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.05;phrase=0.01:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+        "m=0.05;phrase=0.02:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:001",
+        "m=0.05;phrase=0.05:active:false_abstain:en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+      ],
+      "label": "margin policy blocker",
+      "tracked_residual": true
+    }
+  ],
+  "generated_at": "2026-04-30T20:54:21Z",
+  "leverage": {
+    "best_comparator_false_abstain_delta": -7,
+    "best_comparator_label": "semantic_source_admission_cycle_wordnet_source_non_v10_probe_v1_latest",
+    "best_comparator_sense_reject_delta": -4,
+    "case_breadth_gap": 0,
+    "case_breadth_target": 48,
+    "family_breadth_gap": 0,
+    "family_breadth_target": 16,
+    "generalization_signals": [
+      "source_mode_reduced_seed_false_abstains",
+      "source_mode_reduced_sense_rejects"
+    ],
+    "heldout_case_count": 48,
+    "heldout_cases_per_admitted_row": 0.1472,
+    "heldout_cases_per_policy_delta": null,
+    "heldout_false_abstain_count": 2,
+    "heldout_family_count": 16,
+    "heldout_harmful_replace_count": 7,
+    "heldout_suite_count": 2,
+    "manual_overfit_reasons": [],
+    "manual_overfit_risk": "low",
+    "policy_delta_count": 0,
+    "primary_admitted_row_count": 326,
+    "source_family_count": 16,
+    "source_row_count": 90,
+    "source_rows_per_family": 5.625
+  },
+  "margin_sweep": {
+    "blockers_by_margin": {
+      "m=0.005;phrase=0": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 10,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        }
+      ],
+      "m=0.005;phrase=0.01": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 10,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0.005;phrase=0.02": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 9,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0.005;phrase=0.05": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 7,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:002"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+          ],
+          "harmful_replace_count": 3,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0.01;phrase=0": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 10,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        }
+      ],
+      "m=0.01;phrase=0.01": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 10,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0.01;phrase=0.02": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 9,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0.01;phrase=0.05": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 7,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:002"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+          ],
+          "harmful_replace_count": 2,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0.02;phrase=0": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 11,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        }
+      ],
+      "m=0.02;phrase=0.01": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 11,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0.02;phrase=0.02": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 10,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0.02;phrase=0.05": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 8,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:002"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001"
+          ],
+          "harmful_replace_count": 2,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0.05;phrase=0": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 13,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        }
+      ],
+      "m=0.05;phrase=0.01": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 13,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        }
+      ],
+      "m=0.05;phrase=0.02": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 12,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        }
+      ],
+      "m=0.05;phrase=0.05": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:stretch:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:crash:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 11,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        }
+      ],
+      "m=0;phrase=0": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 9,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        }
+      ],
+      "m=0;phrase=0.01": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:foul:001"
+          ],
+          "false_abstain_count": 9,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:crash:001"
+          ],
+          "harmful_replace_count": 2,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0;phrase=0.02": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:wrong:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:trim:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 8,
+          "harmful_replace_case_ids": [],
+          "harmful_replace_count": 0,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:crash:001"
+          ],
+          "harmful_replace_count": 2,
+          "suite_id": "phrase"
+        }
+      ],
+      "m=0;phrase=0.05": [
+        {
+          "false_abstain_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:cast:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:squeeze:001"
+          ],
+          "false_abstain_count": 6,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:waste:002"
+          ],
+          "harmful_replace_count": 1,
+          "suite_id": "active"
+        },
+        {
+          "false_abstain_case_ids": [],
+          "false_abstain_count": 0,
+          "harmful_replace_case_ids": [
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:like:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:full:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+            "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:crash:001"
+          ],
+          "harmful_replace_count": 4,
+          "suite_id": "phrase"
+        }
+      ]
+    },
+    "decision": "margin_review",
+    "passing_margins": [],
+    "recommended_min_margin": null,
+    "row_count": 40,
+    "status": "review",
+    "suite_count": 2
+  },
+  "next_steps": [
+    "resolve blocking semantic-risk classes before claiming source expansion",
+    "rerun admission, held-out validation, margin sweep, and this mining harness",
+    "only expand breadth after harmful replacements and semantic contract gaps are clean"
+  ],
+  "primary_admission": {
+    "decision": "analysis_only",
+    "families_total": 16,
+    "final_admitted_row_count": 326,
+    "heldout_validation": {
+      "blocks_offline_semantic_promotion": false,
+      "case_count": 0,
+      "decision": "not_provided",
+      "decision_accuracy": 0.0,
+      "false_abstain_count": 0,
+      "family_count": 0,
+      "harmful_replace_count": 0,
+      "passed": false,
+      "provided": false,
+      "replace_recall": 0.0,
+      "status": "not_provided"
+    },
+    "label": "semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest",
+    "leakage_rejected_row_count": 6,
+    "phrase_contract_complete_family_count": 16,
+    "phrase_gap_family_keys": [],
+    "role": "primary",
+    "seed_decision_accuracy": 0.0,
+    "seed_false_abstain_case_ids": [],
+    "seed_false_abstain_count": 0,
+    "seed_harmful_replace_case_ids": [],
+    "seed_harmful_replace_count": 0,
+    "seed_replace_recall": 0.0,
+    "semantic_contract_complete_family_count": 16,
+    "semantic_gap_family_keys": [],
+    "sense_rejected_row_count": 0,
+    "sense_rejection_reason_counts": {},
+    "status": "review"
+  },
+  "primary_heldout": {
+    "case_count": 32,
+    "decision": "heldout_review",
+    "decision_accuracy": 0.9062,
+    "delta_vs_empty_baseline": {
+      "decision_accuracy_delta": 0.4062,
+      "false_abstain_delta": -14,
+      "harmful_replace_delta": 1,
+      "replace_recall_delta": 0.875
+    },
+    "false_abstain_case_ids": [
+      "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+      "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+    ],
+    "false_abstain_count": 2,
+    "family_count": 16,
+    "family_ids": [
+      "en-es:sentence-veto:cast:lanzamiento",
+      "en-es:sentence-veto:crash:choque",
+      "en-es:sentence-veto:even:tarde",
+      "en-es:sentence-veto:firm:firma",
+      "en-es:sentence-veto:fix:aprieto",
+      "en-es:sentence-veto:foul:falta",
+      "en-es:sentence-veto:full:lleno",
+      "en-es:sentence-veto:gross:repulsivo",
+      "en-es:sentence-veto:like:gustos",
+      "en-es:sentence-veto:meet:adecuado",
+      "en-es:sentence-veto:score:tantos",
+      "en-es:sentence-veto:squeeze:crisis",
+      "en-es:sentence-veto:stretch:estir-n",
+      "en-es:sentence-veto:trim:compensador",
+      "en-es:sentence-veto:waste:desperdicio",
+      "en-es:sentence-veto:wrong:incorrecto"
+    ],
+    "gold_abstain_cases": 16,
+    "gold_replace_cases": 16,
+    "harmful_replace_case_ids": [
+      "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+    ],
+    "harmful_replace_count": 1,
+    "heldout_case_scope": "non_v10_wave7_source_class_breadth_active_shadow",
+    "heldout_dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_heldout_cases",
+    "label": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest",
+    "replace_recall": 0.875,
+    "status": "review"
+  },
+  "quality_gate": {
+    "blockers": [
+      "heldout_harmful_replace"
+    ],
+    "distance": "semantic_risk_blockers",
+    "heldout_clean": false,
+    "promotion_readiness": "blocked",
+    "tracked_residuals": [
+      "heldout_false_abstain"
+    ]
+  },
+  "schema_version": 1,
+  "source_reports": [
+    {
+      "evidence_mode": "wiktextract_support_complete",
+      "families_with_active_wordnet": 0,
+      "families_with_phrase_control_examples": 0,
+      "families_with_shadow_wordnet": 0,
+      "label": "semantic_wiktextract_translation_support_wave7_source_class_breadth_v1_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 0,
+      "source_family_count": 0,
+      "target_families_with_active_wordnet": 0,
+      "target_families_with_shadow_wordnet": 0,
+      "target_family_count": 0
+    },
+    {
+      "evidence_mode": "source_class_frame_rows_ready",
+      "families_with_active_wordnet": 0,
+      "families_with_phrase_control_examples": 0,
+      "families_with_shadow_wordnet": 0,
+      "label": "semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 90,
+      "source_family_count": 0,
+      "target_families_with_active_wordnet": 0,
+      "target_families_with_shadow_wordnet": 0,
+      "target_family_count": 14
+    },
+    {
+      "evidence_mode": "definition_and_example",
+      "families_with_active_wordnet": 16,
+      "families_with_phrase_control_examples": 0,
+      "families_with_shadow_wordnet": 16,
+      "label": "semantic_wordnet_def_ex_non_v10_wave7_source_class_breadth_v1_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 68,
+      "source_family_count": 16,
+      "target_families_with_active_wordnet": 16,
+      "target_families_with_shadow_wordnet": 16,
+      "target_family_count": 16
+    },
+    {
+      "evidence_mode": "candidate_batch_ready",
+      "families_with_active_wordnet": 0,
+      "families_with_phrase_control_examples": 0,
+      "families_with_shadow_wordnet": 0,
+      "label": "semantic_translation_sense_evidence_non_v10_wave7_source_class_breadth_v1_latest",
+      "missing_active_family_keys": [],
+      "missing_shadow_family_keys": [],
+      "row_count": 37,
+      "source_family_count": 16,
+      "target_families_with_active_wordnet": 0,
+      "target_families_with_shadow_wordnet": 0,
+      "target_family_count": 16
+    }
+  ],
+  "status": "review",
+  "summary": {
+    "blocking_failure_class_count": 2,
+    "failure_class_count": 8,
+    "heldout_suite_count": 2,
+    "manual_overfit_risk": "low",
+    "primary_admission_label": "semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest",
+    "primary_heldout_label": "semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest",
+    "promotion_readiness": "blocked",
+    "quality_gate_distance": "semantic_risk_blockers",
+    "tracked_residual_class_count": 6
+  }
+}

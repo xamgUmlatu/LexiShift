@@ -20,6 +20,7 @@ class QualityReport:
     policy_json: str
     baseline_json: str | None
     dataset_json: str | None
+    pair_scope: str | None
     pos_probe_json: str | None
     pos_inventory_json: str | None
     strict_saturation: bool
@@ -33,6 +34,7 @@ class QualityReport:
             "policy_json": self.policy_json,
             "baseline_json": self.baseline_json,
             "dataset_json": self.dataset_json,
+            "pair_scope": self.pair_scope,
             "pos_probe_json": self.pos_probe_json,
             "pos_inventory_json": self.pos_inventory_json,
             "strict_saturation": self.strict_saturation,
@@ -108,9 +110,30 @@ def dataset_from_payload(
     if not dataset_path:
         return None
     path = Path(dataset_path)
-    if not path.is_absolute():
-        path = (project_root / path).resolve()
-    return path
+    candidates: list[Path] = []
+    if path.is_absolute() or dataset_path.startswith(("/", "\\")):
+        candidates.append(path)
+        parts = list(path.parts)
+        if "docs" in parts:
+            docs_index = parts.index("docs")
+            candidates.append((project_root / Path(*parts[docs_index:])).resolve())
+        candidates.append((project_root / "docs" / "test_inputs" / path.name).resolve())
+        if path.suffix.lower() == ".json":
+            candidates.append((project_root / "docs" / "test_inputs" / path.stem).resolve())
+    else:
+        candidates.append((project_root / path).resolve())
+        if path.suffix.lower() == ".json":
+            candidates.append((project_root / path.stem).resolve())
+
+    seen: set[Path] = set()
+    for candidate in candidates:
+        resolved = candidate.resolve()
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        if resolved.exists():
+            return resolved
+    return candidates[0] if candidates else None
 
 
 def record(

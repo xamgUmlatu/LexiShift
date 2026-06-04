@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "operator_product_smoke_success",
+  "generated_at": "2026-05-12",
+  "pair": "en-es",
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-002",
+  "runtime_policy_id": "en_es_sentence_veto_v2",
+  "selection_mode": "active_only",
+  "product_thresholds": {
+    "min_active_score": 0.015,
+    "min_margin": 0.0
+  },
+  "install_surface": {
+    "surface": "chrome_extension_options_advanced_debug",
+    "default_helper_data_root": true,
+    "semantic_pack_data_root_override": ""
+  },
+  "page_tested": {
+    "label": "wikipedia_acceptable_sources",
+    "url": "https://en.wikipedia.org/wiki/Wikipedia:Acceptable_sources"
+  },
+  "operator_observation": {
+    "visible_focus_trigger": "acceptable",
+    "approx_visible_replacements": 2,
+    "approx_visible_abstains": 8,
+    "helper_errors_observed": 0,
+    "inventory_errors_observed": 0,
+    "summary_logs_observed": true
+  },
+  "interpretation": {
+    "product_smoke_result": "success",
+    "accepted_imperfection_policy": "soft_assist_poc",
+    "known_imperfections_accepted_for_now": [
+      "false_abstains_remain_visible",
+      "some harmful replacements are expected",
+      "narrow source-target mappings such as tax->imponer are not solved by this smoke"
+    ],
+    "operator_read": "The live extension behavior is useful enough to mark the current 135-rule active-only tranche-002 smoke as successful and move on without adding new rulegen/veto complexity now."
+  },
+  "scope_notes": [
+    "This is a product-feel smoke checkpoint, not a statistical accuracy estimate.",
+    "This does not claim that broad source-target suitability is solved.",
+    "This records that the current active-only pack and 0.015 product-soft policy are acceptable for the PoC direction."
+  ],
+  "source_artifacts": [
+    "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_002_pack_install_en_es_latest.json",
+    "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_002_live_page_scan_en_es_latest.json",
+    "apps/chrome-extension/options.html",
+    "core/lexishift_core/helper/use_cases/semantic_pack_install.py"
+  ]
+}

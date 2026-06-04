@@ -121,11 +121,11 @@ def _read_settings_frequency_map(settings_path: Path) -> tuple[dict[str, str], l
     synonyms = payload.get("synonyms") if isinstance(payload, dict) else None
     if not isinstance(synonyms, dict):
         return {}, issues
-    frequency_packs = synonyms.get("frequency_packs")
-    if not isinstance(frequency_packs, dict):
+    frequency_pack_paths = synonyms.get("frequency_pack_paths", synonyms.get("frequency_packs"))
+    if not isinstance(frequency_pack_paths, dict):
         return {}, issues
     result: dict[str, str] = {}
-    for key, value in frequency_packs.items():
+    for key, value in frequency_pack_paths.items():
         key_text = str(key or "").strip()
         value_text = str(value or "").strip()
         if key_text:
@@ -212,7 +212,7 @@ def _expected_lookup_keys(filename: str) -> tuple[str, ...]:
 def _build_pair_rows(
     *,
     frequency_dir: Path,
-    settings_frequency_packs: dict[str, str],
+    settings_frequency_pack_paths: dict[str, str],
 ) -> tuple[list[PairAuditRow], list[AuditIssue], dict[str, list[str]]]:
     pair_rows: list[PairAuditRow] = []
     issues: list[AuditIssue] = []
@@ -250,7 +250,7 @@ def _build_pair_rows(
         linked_key: str | None = None
         linked_path: str | None = None
         for key in lookup_keys:
-            raw_path = str(settings_frequency_packs.get(key, "")).strip()
+            raw_path = str(settings_frequency_pack_paths.get(key, "")).strip()
             if raw_path:
                 linked_key = key
                 linked_path = raw_path
@@ -373,14 +373,14 @@ def _build_pair_rows(
 
 def _build_settings_rows(
     *,
-    settings_frequency_packs: dict[str, str],
+    settings_frequency_pack_paths: dict[str, str],
     known_lookup_keys: set[str],
 ) -> tuple[list[SettingsEntryAuditRow], list[AuditIssue]]:
     rows: list[SettingsEntryAuditRow] = []
     issues: list[AuditIssue] = []
 
-    for key in sorted(settings_frequency_packs):
-        raw_path = str(settings_frequency_packs.get(key, "")).strip()
+    for key in sorted(settings_frequency_pack_paths):
+        raw_path = str(settings_frequency_pack_paths.get(key, "")).strip()
         candidate = _canonical_path(raw_path) if raw_path else Path("")
         probe = (
             _probe_sqlite(candidate)
@@ -402,7 +402,7 @@ def _build_settings_rows(
                 AuditIssue(
                     severity="ERROR",
                     code="SETTINGS_EMPTY_PATH",
-                    message=f"settings.synonyms.frequency_packs['{key}'] is empty.",
+                    message=f"settings.synonyms.frequency_pack_paths['{key}'] is empty.",
                 )
             )
         elif not probe.exists:
@@ -464,14 +464,14 @@ def _build_settings_rows(
 def _build_file_rows(
     *,
     frequency_dir: Path,
-    settings_frequency_packs: dict[str, str],
+    settings_frequency_pack_paths: dict[str, str],
     pairs_by_filename: dict[str, list[str]],
 ) -> tuple[list[FileAuditRow], list[AuditIssue]]:
     issues: list[AuditIssue] = []
     rows: list[FileAuditRow] = []
 
     linked_by_path: dict[str, list[str]] = {}
-    for key, raw_path in settings_frequency_packs.items():
+    for key, raw_path in settings_frequency_pack_paths.items():
         path_text = str(raw_path or "").strip()
         if not path_text:
             continue
@@ -545,22 +545,22 @@ def run_audit(
     settings_path: Path,
     frequency_dir: Path,
 ) -> AuditReport:
-    settings_frequency_packs, settings_issues = _read_settings_frequency_map(settings_path)
+    settings_frequency_pack_paths, settings_issues = _read_settings_frequency_map(settings_path)
     pair_rows, pair_issues, pairs_by_filename = _build_pair_rows(
         frequency_dir=frequency_dir,
-        settings_frequency_packs=settings_frequency_packs,
+        settings_frequency_pack_paths=settings_frequency_pack_paths,
     )
     known_lookup_keys: set[str] = set()
     for row in pair_rows:
         if row.expected_filename and row.expected_filename != "-":
             known_lookup_keys.update(_expected_lookup_keys(row.expected_filename))
     settings_rows, settings_entry_issues = _build_settings_rows(
-        settings_frequency_packs=settings_frequency_packs,
+        settings_frequency_pack_paths=settings_frequency_pack_paths,
         known_lookup_keys=known_lookup_keys,
     )
     file_rows, file_issues = _build_file_rows(
         frequency_dir=frequency_dir,
-        settings_frequency_packs=settings_frequency_packs,
+        settings_frequency_pack_paths=settings_frequency_pack_paths,
         pairs_by_filename=pairs_by_filename,
     )
     all_issues = [*settings_issues, *pair_issues, *settings_entry_issues, *file_issues]

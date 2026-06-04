@@ -17,8 +17,65 @@ from frozen_layout import (
     NATIVE_HOST_WINDOWS_EXE_NAME,
     resolve_windows_sibling_executable,
 )
+from helper_connection_models import (
+    BrowserConnectionConfig,
+    BrowserConnectionTarget,
+    ExtensionEnvironment,
+    HELPER_STATE_CONFIGURED,
+    HELPER_STATE_NEEDS_REPAIR,
+    HELPER_STATE_NOT_CONFIGURED,
+    HelperInstallStatus,
+    HOST_MODE_BUNDLED,
+    HOST_MODE_CUSTOM,
+    HOST_MODE_WORKSPACE,
+    TARGET_KIND_PROD,
+    TARGET_KIND_UNPACKED,
+)
+from helper_connection_inspection import (
+    bundled_freshness_issue as _bundled_freshness_issue,
+    inspect_helper_installation as _inspect_helper_installation,
+    workspace_wrapper_issue as _workspace_wrapper_issue,
+)
+from helper_extension_environments import (
+    get_environment,
+    load_extension_environments,
+    resolve_extension_id,
+)
+from helper_native_messaging_support import (
+    build_workspace_wrapper_script as _build_workspace_wrapper_script,
+    extension_id_from_origin as _extension_id_from_origin,
+    hash_directory as _hash_directory,
+    hash_file as _hash_file,
+    normalize_extension_ids as _normalize_extension_ids,
+    origin_for_extension_id as _origin_for_extension_id,
+    resolve_workspace_python as _resolve_workspace_python,
+    resolve_workspace_host_script,
+    resolve_host_path_for_mode as _resolve_host_path_for_mode,
+    stable_bundled_core_path as _stable_bundled_core_path,
+    stable_bundled_host_path as _stable_bundled_host_path,
+    workspace_host_wrapper_path as _workspace_host_wrapper_path,
+)
 from utils_paths import resource_path
 from helper_logger import log_helper
+
+__all__ = [
+    "BrowserConnectionConfig",
+    "BrowserConnectionTarget",
+    "ExtensionEnvironment",
+    "HelperInstallResult",
+    "HelperInstallStatus",
+    "get_environment",
+    "HOST_MODE_BUNDLED",
+    "HOST_MODE_CUSTOM",
+    "HOST_MODE_WORKSPACE",
+    "TARGET_KIND_PROD",
+    "TARGET_KIND_UNPACKED",
+    "HELPER_STATE_CONFIGURED",
+    "HELPER_STATE_NEEDS_REPAIR",
+    "HELPER_STATE_NOT_CONFIGURED",
+    "load_extension_environments",
+    "resolve_extension_id",
+]
 
 
 @dataclass(frozen=True)
@@ -28,16 +85,6 @@ class HelperInstallResult:
     manifest_path: Optional[Path] = None
 
 
-@dataclass(frozen=True)
-class ExtensionEnvironment:
-    key: str
-    label: str
-    browser: str
-    extension_id: str
-    fixed: bool
-
-
-_ID_PLACEHOLDERS = {"", "__FILL_ME__", "<FILL_ME>"}
 WINDOWS_RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
 WINDOWS_RUN_VALUE_NAME = "LexiShiftHelper"
 NATIVE_HOST_NAME = "com.lexishift.helper"
@@ -102,42 +149,17 @@ def _log_app_bundle_info() -> None:
         _log_helper_file(f"Failed to inspect app bundle icon: {exc}")
 
 
-def _default_environments() -> tuple[list[ExtensionEnvironment], str]:
-    envs = [
-        ExtensionEnvironment(
-            key="chrome_prod",
-            label="Chrome (Web Store)",
-            browser="chrome",
-            extension_id="",
-            fixed=True,
-        ),
-        ExtensionEnvironment(
-            key="chrome_dev",
-            label="Chrome (Unpacked Dev)",
-            browser="chrome",
-            extension_id="",
-            fixed=False,
-        ),
-        ExtensionEnvironment(
-            key="brave_prod",
-            label="Brave (Web Store)",
-            browser="brave",
-            extension_id="",
-            fixed=True,
-        ),
-        ExtensionEnvironment(
-            key="chromium_dev",
-            label="Chromium (Unpacked Dev)",
-            browser="chromium",
-            extension_id="",
-            fixed=False,
-        ),
-    ]
-    return envs, "chrome_prod"
-
-
 def _repo_root() -> Path:
     return Path(__file__).resolve().parents[3]
+
+
+def workspace_host_script() -> Optional[Path]:
+    path = resolve_workspace_host_script()
+    if path is None:
+        log_helper_install("[Helper] Unable to resolve runtime repo root for workspace host.")
+        return None
+    log_helper_install(f"[Helper] Resolved workspace host path: {path} exists={path.exists()}")
+    return path
 
 
 def default_host_script() -> Path:
@@ -178,6 +200,35 @@ def default_host_script() -> Path:
     return repo_path
 
 
+def stable_bundled_host_path() -> Path:
+    return _stable_bundled_host_path(
+        _helper_data_root(),
+        is_windows=sys.platform.startswith("win"),
+        windows_host_executable_name=f"{NATIVE_HOST_WINDOWS_EXE_NAME}.exe",
+    )
+
+
+def stable_bundled_core_path() -> Path:
+    return _stable_bundled_core_path(_helper_data_root())
+
+
+def workspace_host_wrapper_path() -> Path:
+    return _workspace_host_wrapper_path(_helper_data_root())
+
+
+def resolve_host_path_for_mode(
+    host_mode: str,
+    *,
+    host_override_path: Optional[str] = None,
+) -> Optional[Path]:
+    return _resolve_host_path_for_mode(
+        host_mode,
+        host_override_path=host_override_path,
+        default_host_resolver=default_host_script,
+        workspace_host_resolver=workspace_host_script,
+    )
+
+
 def _helper_data_root() -> Path:
     home = Path.home()
     if sys.platform == "darwin":
@@ -189,6 +240,35 @@ def _helper_data_root() -> Path:
         root = home / ".local" / "share" / "LexiShift" / "LexiShift"
     root.mkdir(parents=True, exist_ok=True)
     return root
+
+
+def _ensure_workspace_host_wrapper(host_script: Path) -> Optional[Path]:
+    if sys.platform.startswith("win"):
+        return None
+    python_path = _resolve_workspace_python(
+        host_script,
+        validate=True,
+        log=log_helper_install,
+    )
+    if python_path is None:
+        log_helper_install(
+            f"[Helper] Unable to resolve compatible workspace Python for host {host_script}"
+        )
+        return None
+    wrapper_path = workspace_host_wrapper_path()
+    wrapper_path.parent.mkdir(parents=True, exist_ok=True)
+    wrapper_path.write_text(
+        _build_workspace_wrapper_script(host_script, python_path),
+        encoding="utf-8",
+    )
+    try:
+        wrapper_path.chmod(wrapper_path.stat().st_mode | stat.S_IEXEC)
+    except OSError:
+        pass
+    log_helper_install(
+        f"[Helper] Prepared workspace host wrapper: {wrapper_path} python={python_path} host={host_script}"
+    )
+    return wrapper_path
 
 
 def _is_bundled_path(path: Path) -> bool:
@@ -468,63 +548,6 @@ def _read_windows_native_messaging_manifest(browser: str) -> Optional[Path]:
     return None
 
 
-def load_extension_environments() -> tuple[list[ExtensionEnvironment], str]:
-    path = resource_path("helper_extension_ids.json")
-    if not os.path.exists(path):
-        log_helper(f"[Helper] helper_extension_ids.json missing at {path}; using defaults.")
-        return _default_environments()
-    try:
-        data = json.loads(Path(path).read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        log_helper(f"[Helper] helper_extension_ids.json unreadable at {path}; using defaults.")
-        return _default_environments()
-    raw_envs = data.get("environments") if isinstance(data, dict) else None
-    if not isinstance(raw_envs, list):
-        return _default_environments()
-    envs: list[ExtensionEnvironment] = []
-    for item in raw_envs:
-        if not isinstance(item, dict):
-            continue
-        key = str(item.get("key", "")).strip()
-        label = str(item.get("label", "")).strip()
-        browser = str(item.get("browser", "chrome")).strip() or "chrome"
-        extension_id = str(item.get("extension_id", "")).strip()
-        fixed = bool(item.get("fixed", False))
-        if not key or not label:
-            continue
-        envs.append(
-            ExtensionEnvironment(
-                key=key,
-                label=label,
-                browser=browser,
-                extension_id=extension_id,
-                fixed=fixed,
-            )
-        )
-    default_key = str(data.get("default", "")).strip() if isinstance(data, dict) else ""
-    if not default_key:
-        default_key = envs[0].key if envs else "chrome_prod"
-    return envs, default_key
-
-
-def resolve_extension_id(env: ExtensionEnvironment, custom_id: Optional[str]) -> Optional[str]:
-    if env.fixed and env.extension_id and env.extension_id not in _ID_PLACEHOLDERS:
-        return env.extension_id
-    if custom_id:
-        custom_id = custom_id.strip()
-        return custom_id or None
-    return None
-
-
-def get_environment(
-    env_key: str, envs: list[ExtensionEnvironment]
-) -> Optional[ExtensionEnvironment]:
-    for env in envs:
-        if env.key == env_key:
-            return env
-    return envs[0] if envs else None
-
-
 def _chrome_host_dir(browser: str = "chrome") -> Optional[Path]:
     home = Path.home()
     if sys.platform == "darwin":
@@ -556,56 +579,141 @@ def manifest_path(browser: str = "chrome") -> Optional[Path]:
     return base / f"{NATIVE_HOST_NAME}.json"
 
 
-def build_manifest(*, host_path: Path, extension_id: str) -> dict:
+def _candidate_core_dirs(host_path: Path) -> tuple[Path, ...]:
+    return (
+        host_path.parent / "lexishift_core",
+        host_path.parent.parent / "lexishift_core",
+        host_path.parent.parent.parent / "lexishift_core",
+    )
+
+
+def _find_core_dir(host_path: Path) -> Optional[Path]:
+    return next(
+        (candidate for candidate in _candidate_core_dirs(host_path) if candidate.is_dir()), None
+    )
+
+
+def infer_host_mode(host_path: Optional[Path]) -> Optional[str]:
+    if host_path is None:
+        return None
+    try:
+        resolved = host_path.resolve()
+    except OSError:
+        resolved = host_path
+    workspace_wrapper = workspace_host_wrapper_path()
+    try:
+        if resolved == workspace_wrapper.resolve():
+            return HOST_MODE_WORKSPACE
+    except OSError:
+        if resolved == workspace_wrapper:
+            return HOST_MODE_WORKSPACE
+    workspace = workspace_host_script()
+    if workspace is not None:
+        try:
+            if resolved == workspace.resolve():
+                return HOST_MODE_WORKSPACE
+        except OSError:
+            if resolved == workspace:
+                return HOST_MODE_WORKSPACE
+    stable_path = stable_bundled_host_path()
+    try:
+        if resolved == stable_path.resolve():
+            return HOST_MODE_BUNDLED
+    except OSError:
+        if resolved == stable_path:
+            return HOST_MODE_BUNDLED
+    if _is_bundled_path(host_path):
+        return HOST_MODE_BUNDLED
+    return HOST_MODE_CUSTOM
+
+
+def _bundled_source_host() -> Optional[Path]:
+    source = default_host_script()
+    if not source.exists():
+        return None
+    if _is_bundled_path(source):
+        return source
+    if sys.platform.startswith("win") and getattr(sys, "frozen", False):
+        stable_path = stable_bundled_host_path()
+        try:
+            if source.resolve() != stable_path.resolve():
+                return source
+        except OSError:
+            if source != stable_path:
+                return source
+    return None
+
+
+def build_manifest(*, host_path: Path, extension_ids: Sequence[str]) -> dict:
+    allowed_origins = [
+        _origin_for_extension_id(extension_id)
+        for extension_id in _normalize_extension_ids(extension_ids)
+    ]
     return {
         "name": NATIVE_HOST_NAME,
         "description": "LexiShift local helper for rule generation and SRS syncing.",
         "path": str(host_path),
         "type": "stdio",
-        "allowed_origins": [f"chrome-extension://{extension_id}/"],
+        "allowed_origins": allowed_origins,
     }
 
 
+def inspect_helper_installation(
+    *,
+    browser: str = "chrome",
+    expected_extension_ids: Sequence[str] = (),
+) -> HelperInstallStatus:
+    return _inspect_helper_installation(
+        browser=browser,
+        expected_extension_ids=expected_extension_ids,
+        read_windows_manifest=_read_windows_native_messaging_manifest,
+        manifest_path=manifest_path,
+        normalize_extension_ids=_normalize_extension_ids,
+        extension_id_from_origin=_extension_id_from_origin,
+        infer_host_mode=infer_host_mode,
+        bundled_freshness_issue=lambda host_path: _bundled_freshness_issue(
+            host_path,
+            bundled_source_host=_bundled_source_host,
+            stable_bundled_host_path=stable_bundled_host_path,
+            hash_file=_hash_file,
+            stable_bundled_core_path=stable_bundled_core_path,
+            find_core_dir=_find_core_dir,
+            hash_directory=_hash_directory,
+            is_windows=sys.platform.startswith("win"),
+        ),
+        workspace_wrapper_issue=lambda host_path: _workspace_wrapper_issue(
+            host_path,
+            workspace_host_script=workspace_host_script,
+            workspace_host_wrapper_path=workspace_host_wrapper_path,
+            resolve_workspace_python=_resolve_workspace_python,
+            build_workspace_wrapper_script=_build_workspace_wrapper_script,
+        ),
+    )
+
+
 def is_helper_installed(extension_id: Optional[str] = None, *, browser: str = "chrome") -> bool:
-    manifest = (
-        _read_windows_native_messaging_manifest(browser)
-        if sys.platform.startswith("win")
-        else manifest_path(browser)
-    )
-    if not manifest or not manifest.exists():
-        log_helper_install(
-            f"[Helper] is_helper_installed: manifest missing for {browser} at {manifest}"
-        )
-        return False
-    if not extension_id:
-        log_helper_install(
-            "[Helper] is_helper_installed: extension_id not provided; manifest exists."
-        )
-        return True
-    try:
-        data = json.loads(manifest.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        log_helper_install("[Helper] is_helper_installed: failed to read manifest.")
-        return False
-    allowed = data.get("allowed_origins") or []
-    has_origin = f"chrome-extension://{extension_id}/" in allowed
-    host_path = Path(str(data.get("path", "")))
+    expected_ids = [extension_id] if extension_id else ()
+    status = inspect_helper_installation(browser=browser, expected_extension_ids=expected_ids)
     log_helper_install(
-        f"[Helper] is_helper_installed: origin={has_origin} host={host_path} "
-        f"exists={host_path.exists()} allowed={allowed}"
+        f"[Helper] is_helper_installed: browser={browser} state={status.state} "
+        f"host={status.host_path} message={status.message}"
     )
-    return has_origin
+    return status.state == HELPER_STATE_CONFIGURED
 
 
 def install_helper(
     *,
-    extension_id: str,
+    extension_id: Optional[str] = None,
+    extension_ids: Optional[Sequence[str]] = None,
     browser: str = "chrome",
     host_path: Optional[Path] = None,
 ) -> HelperInstallResult:
-    if not extension_id.strip():
+    normalized_ids = _normalize_extension_ids(
+        extension_ids or ([extension_id] if extension_id else ())
+    )
+    if not normalized_ids:
         log_helper_install("[Helper] install_helper failed: missing extension id.")
-        return HelperInstallResult(False, "Extension ID is required.")
+        return HelperInstallResult(False, "At least one extension ID is required.")
     manifest = manifest_path(browser)
     if manifest is None:
         log_helper_install("[Helper] install_helper failed: unsupported OS.")
@@ -615,8 +723,17 @@ def install_helper(
         f"[Helper] install_helper: host_path={host_path} exists={host_path.exists()}"
     )
 
-    # Force copy to stable location and use THAT path for the manifest
-    stable_path = _ensure_stable_helper(host_path)
+    resolved_mode = infer_host_mode(host_path)
+    if resolved_mode == HOST_MODE_WORKSPACE and not sys.platform.startswith("win"):
+        stable_path = _ensure_workspace_host_wrapper(host_path)
+        if stable_path is None:
+            return HelperInstallResult(
+                False,
+                "Workspace host wrapper could not be prepared. Ensure the repo .venv is available.",
+            )
+    else:
+        # Force copy to stable location and use THAT path for the manifest
+        stable_path = _ensure_stable_helper(host_path)
     log_helper_install(
         f"[Helper] install_helper: stable_path={stable_path} exists={stable_path.exists()}"
     )
@@ -640,7 +757,7 @@ def install_helper(
     except OSError:
         pass
     manifest.parent.mkdir(parents=True, exist_ok=True)
-    payload = build_manifest(host_path=stable_path, extension_id=extension_id.strip())
+    payload = build_manifest(host_path=stable_path, extension_ids=normalized_ids)
     manifest.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
     if sys.platform.startswith("win") and not _write_windows_native_messaging_registry(
         browser, manifest

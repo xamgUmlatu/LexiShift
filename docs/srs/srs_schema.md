@@ -1,5 +1,12 @@
 # SRS Schema (Current + Planned)
 
+Status: active mixed schema reference
+Role: Mixed
+Last updated: 2026-05-27
+Last verified: 2026-05-27 admitted-at persistence and SRS store roundtrip tests
+Purpose: separate implemented SRS settings/store/signal shapes from planned extension fields
+Source-of-truth: mixed schema reference; current persisted-shape truth lives in SRS store/settings code, helper use cases, and SRS tests.
+
 Related design:
 - `docs/srs/srs_hybrid_model_technical.md`
 
@@ -71,6 +78,7 @@ Key semantics:
       "scheduler_state": "review",
       "scheduler_step": null,
       "exposures": 3,
+      "admitted_at": "2026-02-03T10:00:00+00:00",
       "srs_history": [
         {"ts": "2026-02-04T10:00:00+00:00", "rating": "good"},
         {"ts": "2026-02-06T11:12:13+00:00", "rating": "hard"}
@@ -87,6 +95,10 @@ Notes:
 - New items may have `stability`, `difficulty`, and `last_review` unset until the first feedback review.
 - Current `difficulty` is the raw FSRS scheduler value, not a normalized `0..1` UI score.
 - `source_type: "initial_set"` identifies words admitted by bootstrap initialization.
+- `admitted_at` is written for newly admitted items and is used for
+  age-aware diagnostics such as "unseen for more than N days." Legacy store
+  rows may omit it and should be treated as age unknown rather than inferred
+  from filesystem timestamps.
 - Current store does not require a single explicit `probability` column; serving probability is derived from due/order policy at runtime.
 
 ---
@@ -202,7 +214,33 @@ Policy for this architecture:
 
 ---
 
-## 7) Export/import bundle
+## 7) Automatic Refresh State
+
+Helper-owned automatic refresh trigger state is scoped by profile:
+
+`srs/profiles/<profile_id>/srs_auto_refresh_state.json`
+
+```json
+{
+  "version": 1,
+  "pairs": {
+    "en-ja": {
+      "last_attempted_at": "2026-05-27T12:00:00Z",
+      "last_applied_at": "2026-05-27T12:00:00Z",
+      "last_result_reason": "normal",
+      "attempt_count": 1,
+      "applied_count": 1
+    }
+  }
+}
+```
+
+This state gates automatic refresh attempts only. It does not alter item review
+scheduling; feedback remains the authoritative scheduling input.
+
+---
+
+## 8) Export/import bundle
 
 ```json
 {

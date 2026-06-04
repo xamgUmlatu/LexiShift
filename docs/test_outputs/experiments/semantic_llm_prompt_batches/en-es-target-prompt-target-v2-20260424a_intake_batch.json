@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:target:prompt-target-v2-20260424a",
+  "pair": "en-es",
+  "source_type": "llm",
+  "source_id": "semantic_prompt_bakeoff_en_es_v10:target",
+  "source_family": "silver_llm_generation",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-24T01:38:58Z",
+  "ingested_at": "2026-04-24T01:38:58Z",
+  "review_state": "unreviewed",
+  "model_id": "gpt-5.4",
+  "prompt_version": "semantic_prompt_bakeoff_v2",
+  "temperature": 0.2,
+  "cost_metadata": {
+    "request_count": 6,
+    "requests_with_usage": 6,
+    "input_tokens": 2545,
+    "output_tokens": 231,
+    "reasoning_tokens": 0
+  },
+  "provenance": {
+    "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+    "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+    "stage": "target",
+    "execution_mode": "live",
+    "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json"
+  },
+  "items": [
+    {
+      "row_id": "en-es:target:cue-contrastive-general-v1:plant:fabrica:row",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "input_ref": "en-es:target:cue-contrastive-general-v1:plant:fabrica",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "stage": "target",
+        "family_archetype": "ordinary_weak_active_support"
+      },
+      "evidence_text": "Refers to something rooted that grows leaves, stems, or flowers.",
+      "confidence": 0.97,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-contrastive-general-v1:plant:fabrica",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es:target:cue-contrastive-general-v1:drink:beber:row",
+      "relation_type": "anchor_cue",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "candidate_pos": "verb",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "input_ref": "en-es:target:cue-contrastive-general-v1:drink:beber",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "candidate_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+        "stage": "target",
+        "family_archetype": "ordinary_weak_active_support"
+      },
+      "evidence_text": "Refers to the liquid itself, often countable or ordered, not the act.",
+      "confidence": 0.95,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:beber:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "verb"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-contrastive-general-v1:drink:beber",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es:target:cue-cross-pos-frame-v1:check:revisar:row",
+      "relation_type": "anchor_cue",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "candidate_pos": "verb",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "input_ref": "en-es:target:cue-cross-pos-frame-v1:check:revisar",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "stage": "target",
+        "family_archetype": "cross_pos_weak_active_support"
+      },
+      "evidence_text": "Preceded by a determiner or amount, often written, signed, deposited, or cashed.",
+      "confidence": 0.95,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:revisar:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "verb"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-cross-pos-frame-v1:check:revisar",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es:target:cue-cross-pos-frame-v1:order:ordenar:row",
+      "relation_type": "anchor_cue",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "candidate_pos": "verb",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "input_ref": "en-es:target:cue-cross-pos-frame-v1:order:ordenar",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "candidate_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "stage": "target",
+        "family_archetype": "cross_pos_weak_active_support"
+      },
+      "evidence_text": "Preceded by a determiner or quantity and followed by for goods or delivery.",
+      "confidence": 0.95,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:ordenar:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "verb"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-cross-pos-frame-v1:order:ordenar",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es:target:cue-cross-pos-frame-v1:trip:tropezar:row",
+      "relation_type": "anchor_cue",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "candidate_pos": "verb",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "input_ref": "en-es:target:cue-cross-pos-frame-v1:trip:tropezar",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "stage": "target",
+        "family_archetype": "cross_pos_weak_active_support"
+      },
+      "evidence_text": "A determiner or adjective before trip signals a planned journey noun.",
+      "confidence": 0.95,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "verb"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-cross-pos-frame-v1:trip:tropezar",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es:target:cue-cross-pos-frame-v1:report:informar:row",
+      "relation_type": "anchor_cue",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "candidate_pos": "verb",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "input_ref": "en-es:target:cue-cross-pos-frame-v1:report:informar",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "stage": "target",
+        "family_archetype": "cross_pos_weak_active_support"
+      },
+      "evidence_text": "Preceded by a determiner or adjective, especially followed by on/about findings.",
+      "confidence": 0.95,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informar:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "verb"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-v2-20260424a_raw_responses.json#en-es:target:cue-cross-pos-frame-v1:report:informar",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    }
+  ]
+}

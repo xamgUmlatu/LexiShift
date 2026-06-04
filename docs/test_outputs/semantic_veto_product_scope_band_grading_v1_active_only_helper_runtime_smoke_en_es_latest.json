@@ -1,0 +1,217 @@
+{
+  "decision": "manual_testing_ready",
+  "fixture": {
+    "fixture_data_root": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root",
+    "publication_manifest_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/srs/profiles/default/srs_publication_manifest_en-es.json",
+    "ruleset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/srs/profiles/default/srs_ruleset_en-es.json",
+    "semantic_inventory_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/srs/profiles/default/srs_semantic_inventory_en-es.json",
+    "snapshot_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-helper-runtime-smoke-data-root/srs/profiles/default/srs_rulegen_snapshot_en-es.json"
+  },
+  "generated_at": "2026-05-09T22:31:56Z",
+  "inputs": {
+    "candidate_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-product-scope-band-grading-v1-active-only-inventory-replay-latest_semantic_inventory.json",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_full_v1.json"
+  },
+  "issues": [],
+  "manual_test_notes": [
+    "The fixture data root is isolated; point LEXISHIFT_DATA_DIR at it for manual helper/app tests.",
+    "With no explicit override, active-only fixture inventories auto-select en_es_sentence_veto_v2.",
+    "The production default en_es_sentence_veto_v3 still requires sentence_transformers/model availability.",
+    "Expected user-facing outcome remains binary: replace or abstain."
+  ],
+  "methodology": {
+    "data_root_isolation": "fixture root under docs/test_outputs; default user profile data is not mutated",
+    "decision_policy_id": "en_es_sentence_veto_v2",
+    "fallback_policy": "abstain_on_unavailable",
+    "publication_family": [
+      "ruleset",
+      "snapshot",
+      "semantic_inventory",
+      "publication_manifest"
+    ],
+    "runtime_policy_change": "active_only_competition_sets_can_score_without_shadows",
+    "scope": "isolated_helper_publication_and_semantic_admit_batch_smoke"
+  },
+  "pair": "en-es",
+  "profile_id": "default",
+  "sample_decisions": [
+    {
+      "active_score": 0.02818422751536618,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:001",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.02818422751536618,
+      "sentence": "Workers will bar the storage yard with temporary fencing.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.08121817985613905,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:002",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.08121817985613905,
+      "sentence": "The rancher used wire panels to bar the cattle inside the field.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.06194217793818608,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:003",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.06194217793818608,
+      "sentence": "They met at the bar after work.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.03776197092914584,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:004",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.03776197092914584,
+      "sentence": "The violin enters on the second bar of the song.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.01298773169720272,
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:005",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": -0.02620428436300313,
+      "sentence": "The dashboard listed Bar as an internal project code.",
+      "top_shadow_score": 0.03919201606020585
+    },
+    {
+      "active_score": 0.01496025994596768,
+      "case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.01496025994596768,
+      "sentence": "The dentist repaired the chipped tooth before lunch.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.22186321811832072,
+      "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.22186321811832072,
+      "sentence": "She booked an appointment with a dentist near the station.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.023789933914801116,
+      "case_id": "en-es:full-family-repaired-full:dentist:dentista:003",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.023789933914801116,
+      "sentence": "The dashboard listed Dentist as an internal project code.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.1290103661160608,
+      "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.1290103661160608,
+      "sentence": "The coalition hoped to control parliament after the election.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.0883112034261297,
+      "case_id": "en-es:full-family-repaired-full:control:gobernar:002",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.07310766148485748,
+      "sentence": "A small council continued to control the territory after the coup.",
+      "top_shadow_score": 0.015203541941272226
+    },
+    {
+      "active_score": 0.05097268979904711,
+      "case_id": "en-es:full-family-repaired-full:control:gobernar:003",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.05097268979904711,
+      "sentence": "Use the slider to control the volume.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.10484003360795834,
+      "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": -0.01631340146598946,
+      "sentence": "The study included a control group and a treatment group.",
+      "top_shadow_score": 0.1211534350739478
+    },
+    {
+      "active_score": 0.012233245426145777,
+      "case_id": "en-es:full-family-repaired-full:control:gobernar:005",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": -0.020063237390387414,
+      "sentence": "The dashboard listed Control as an internal project code.",
+      "top_shadow_score": 0.03229648281653319
+    },
+    {
+      "active_score": 0.10644468501561136,
+      "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+      "decision": "replace",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.10644468501561136,
+      "sentence": "The museum displayed Rumanian folk costumes.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.02448251388355383,
+      "case_id": "en-es:full-family-repaired-full:rumanian:rumano:002",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "replace",
+      "score_margin": 0.02448251388355383,
+      "sentence": "The form asked whether he held a Rumanian passport.",
+      "top_shadow_score": 0.0
+    },
+    {
+      "active_score": 0.026989897912708283,
+      "case_id": "en-es:full-family-repaired-full:rumanian:rumano:003",
+      "decision": "abstain",
+      "decision_source": "policy",
+      "gold_decision": "abstain",
+      "score_margin": 0.026989897912708283,
+      "sentence": "The dashboard listed Rumanian as an internal project code.",
+      "top_shadow_score": 0.0
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "active_only_competition_set_count": 10,
+    "case_count": 70,
+    "decision_accuracy": 0.6714285714285714,
+    "decision_count": 70,
+    "fallback_decision_count": 0,
+    "fallback_reason_counts": {},
+    "false_abstain_count": 20,
+    "family_count": 18,
+    "harmful_replace_count": 3,
+    "policy_decision_count": 70,
+    "predicted_replace_cases": 19,
+    "replace_recall": 0.4444444444444444,
+    "rule_count": 18,
+    "shadowed_competition_set_count": 8
+  }
+}

@@ -34,13 +34,36 @@ class UIManager {
       "profile-card-theme-transparency", "profile-card-theme-transparency-value",
       "profile-card-theme-reset",
       "srs-bootstrap-top-n", "srs-initial-active-count",
+      "srs-topic-interests", "srs-proficiency-estimate", "srs-challenge-target",
+      "srs-proficiency-estimate-value", "srs-proficiency-estimate-saved", "srs-proficiency-estimate-restore",
+      "srs-save-preferences", "srs-preferences-save-status",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
-      "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
+      "srs-semantic-admission-status", "srs-semantic-admission-status-detail",
+      "srs-auto-refresh-min-feedback",
+      "srs-auto-refresh-min-good-easy", "srs-auto-refresh-repeat-min-good-easy",
+      "srs-auto-refresh-cooldown",
       "srs-exposure-logging-enabled",
-      "srs-initialize-set", "srs-refresh-set", "srs-runtime-diagnostics",
+      "srs-admission-preview", "srs-admission-preview-output",
+      "srs-initialize-set", "srs-rebalance-preview", "srs-rebalance-apply",
+      "srs-story-sampling-curtain",
+      "srs-refresh-set", "srs-runtime-diagnostics",
       "srs-rulegen-sampled-preview",
-      "srs-rulegen-output", "srs-reset", "helper-status",
+      "srs-story-current-card", "srs-story-current-pair",
+      "srs-rulegen-output", "srs-delete-story", "helper-status",
+      "srs-story-start", "srs-story-flow-backdrop", "srs-story-flow",
+      "srs-story-flow-close", "srs-story-flow-source-language",
+      "srs-story-flow-target-language", "srs-story-flow-profile-id",
+      "srs-story-flow-proficiency-estimate", "srs-story-flow-topic-interests",
+      "srs-story-flow-proficiency-estimate-value",
+      "srs-story-flow-max-active", "srs-story-flow-bootstrap-top-n",
+      "srs-story-flow-initial-active-count", "srs-story-flow-sample",
+      "srs-story-flow-initialize", "srs-story-flow-preview-output",
+      "srs-story-flow-busy-backdrop", "srs-story-flow-busy-message",
+      "srs-story-flow-resource-check", "srs-story-flow-resource-message", "srs-story-flow-resource-list", "srs-story-flow-open-resource-settings", "srs-story-flow-retry-resources",
       "helper-last-sync", "debug-helper-test",
+      "debug-semantic-pack-inventory-path", "debug-semantic-pack-id",
+      "debug-semantic-pack-default-data-root", "debug-semantic-pack-data-root",
+      "debug-semantic-pack-install", "debug-semantic-pack-install-output",
       "debug-helper-test-output", "debug-open-data-dir",
       "debug-open-data-dir-output", "ui-language", "rules", "save",
       "status", "rules-file", "import-file", "export-file", "file-status",
@@ -73,6 +96,105 @@ class UIManager {
     });
     this.dom.rulesSourceInputs = Array.from(document.querySelectorAll("input[name='rules-source']"));
     this.dom.shareCenterTargetInputs = Array.from(document.querySelectorAll("input[name='share-center-target']"));
+    this.dom.srsTopicInterestChipButtons = Array.from(
+      document.querySelectorAll("[data-srs-topic-interest]")
+    );
+    this.dom.srsStoryTopicInterestChipButtons = Array.from(
+      document.querySelectorAll("[data-srs-story-topic-interest]")
+    );
+    this.updateSrsStorySummary();
+  }
+
+  getSelectedOptionLabel(select, fallback) {
+    if (!select) return fallback;
+    const option = select.options && select.selectedIndex >= 0
+      ? select.options[select.selectedIndex]
+      : null;
+    const label = option ? String(option.textContent || option.label || option.value || "").trim() : "";
+    return label || String(select.value || fallback || "").trim();
+  }
+
+  updateSrsStorySummary() {
+    const pairOutput = this.dom.srsStoryCurrentPair;
+    if (!pairOutput) return;
+    const sourceLabel = this.getSelectedOptionLabel(this.dom.sourceLanguage, "Source");
+    const targetLabel = this.getSelectedOptionLabel(this.dom.targetLanguage, "Target");
+    pairOutput.textContent = `${sourceLabel} -> ${targetLabel}`;
+  }
+
+  updateSrsStoryVisibility(profile) {
+    const card = this.dom.srsStoryCurrentCard;
+    if (!card) return;
+    const isActive = Boolean(profile && profile.srsEnabled === true);
+    card.hidden = !isActive;
+    if (!isActive && "open" in card) card.open = false;
+  }
+
+  formatSrsProficiencyLabel(value, hasValue) {
+    if (!hasValue) return "Not set";
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) return "Not set";
+    return `${Math.round(Math.min(100, Math.max(0, numeric)))}%`;
+  }
+
+  updateSrsProficiencyDisplays(value, hasValue) {
+    const label = this.formatSrsProficiencyLabel(value, hasValue);
+    const savedValue = hasValue ? String(Math.round(Math.min(100, Math.max(0, Number(value))))) : "";
+    if (this.dom.srsProficiencyEstimateValue) {
+      this.dom.srsProficiencyEstimateValue.textContent = label;
+    }
+    if (this.dom.srsProficiencyEstimateSaved) {
+      this.dom.srsProficiencyEstimateSaved.textContent = label;
+      this.dom.srsProficiencyEstimateSaved.dataset.srsSavedHasValue = hasValue ? "true" : "false";
+      this.dom.srsProficiencyEstimateSaved.dataset.srsSavedValue = savedValue;
+    }
+    if (this.dom.srsProficiencyEstimateRestore) {
+      this.dom.srsProficiencyEstimateRestore.disabled = !hasValue;
+    }
+    if (this.dom.srsStoryFlowProficiencyEstimateValue) {
+      this.dom.srsStoryFlowProficiencyEstimateValue.textContent = label;
+    }
+  }
+
+  normalizeSrsTopicInterestList(value) {
+    const source = Array.isArray(value)
+      ? value
+      : String(value || "").split(",");
+    const seen = new Set();
+    return source
+      .map((entry) => String(entry || "").trim())
+      .filter((entry) => {
+        if (!entry || seen.has(entry)) {
+          return false;
+        }
+        seen.add(entry);
+        return true;
+      });
+  }
+
+  syncSrsTopicInterestChips(interestsArg) {
+    const buttons = Array.isArray(this.dom.srsTopicInterestChipButtons)
+      ? this.dom.srsTopicInterestChipButtons
+      : [];
+    if (!buttons.length) {
+      return;
+    }
+    const interests = this.normalizeSrsTopicInterestList(
+      interestsArg !== undefined
+        ? interestsArg
+        : (this.dom.srsTopicInterests ? this.dom.srsTopicInterests.value : "")
+    );
+    const selectedInterests = new Set(interests);
+    buttons.forEach((button) => {
+      const topic = String(button.getAttribute("data-srs-topic-interest") || "").trim();
+      const selected = Boolean(topic && selectedInterests.has(topic));
+      if (button.classList && typeof button.classList.toggle === "function") {
+        button.classList.toggle("is-selected", selected);
+      }
+      if (typeof button.setAttribute === "function") {
+        button.setAttribute("aria-pressed", selected ? "true" : "false");
+      }
+    });
   }
 
   setStatus(message, color) {
@@ -119,7 +241,21 @@ class UIManager {
     if (this.dom.helperLastSync) this.dom.helperLastSync.textContent = this.formatTimestamp(lastSync);
   }
 
-  updateSrsInputs(profile) {
+  updateSrsInputs(profile, signals) {
+    this.updateSrsStoryVisibility(profile);
+    if (this.srsStartCardPresenter) this.srsStartCardPresenter.update(profile);
+    const signalState = signals && typeof signals === "object" ? signals : {};
+    const interests = Array.isArray(signalState.interests) ? signalState.interests : [];
+    const hasProficiencyEstimate = Boolean(signalState.proficiency
+      && Number.isFinite(Number(signalState.proficiency.estimated_value))
+    );
+    const proficiencyEstimate = hasProficiencyEstimate
+      ? Math.round(Math.min(1, Math.max(0, Number(signalState.proficiency.estimated_value))) * 100)
+      : 50;
+    const challengeTarget = signalState.difficultyPreferences
+      && Number.isFinite(Number(signalState.difficultyPreferences.target_challenge_center))
+      ? Math.round(Math.min(1, Math.max(0, Number(signalState.difficultyPreferences.target_challenge_center))) * 100)
+      : "";
     if (this.dom.srsMaxActive) {
       this.dom.srsMaxActive.value = String(profile.srsMaxActive);
     }
@@ -128,6 +264,18 @@ class UIManager {
     }
     if (this.dom.srsInitialActiveCount) {
       this.dom.srsInitialActiveCount.value = String(profile.srsInitialActiveCount);
+    }
+    if (this.dom.srsTopicInterests) {
+      this.dom.srsTopicInterests.value = interests.join(", ");
+    }
+    this.syncSrsTopicInterestChips(interests);
+    if (this.dom.srsProficiencyEstimate) {
+      this.dom.srsProficiencyEstimate.value = String(proficiencyEstimate);
+      this.dom.srsProficiencyEstimate.dataset.srsHasValue = hasProficiencyEstimate ? "true" : "false";
+    }
+    this.updateSrsProficiencyDisplays(proficiencyEstimate, hasProficiencyEstimate);
+    if (this.dom.srsChallengeTarget) {
+      this.dom.srsChallengeTarget.value = challengeTarget === "" ? "" : String(challengeTarget);
     }
     if (this.dom.srsSoundEnabled) {
       this.dom.srsSoundEnabled.checked = profile.srsSoundEnabled;
@@ -141,12 +289,25 @@ class UIManager {
     if (this.dom.srsFeedbackSrsEnabled) {
       this.dom.srsFeedbackSrsEnabled.checked = profile.srsFeedbackSrsEnabled;
     }
-    if (this.dom.srsFeedbackRulesEnabled) {
-      this.dom.srsFeedbackRulesEnabled.checked = profile.srsFeedbackRulesEnabled;
-    }
     if (this.dom.srsExposureLoggingEnabled) {
       this.dom.srsExposureLoggingEnabled.checked = profile.srsExposureLoggingEnabled;
     }
+    if (this.dom.srsAutoRefreshEnabled) {
+      this.dom.srsAutoRefreshEnabled.checked = profile.srsAutoRefreshEnabled !== false;
+    }
+    if (this.dom.srsAutoRefreshMinFeedback) {
+      this.dom.srsAutoRefreshMinFeedback.value = String(profile.srsAutoRefreshMinFeedbackEvents);
+    }
+    if (this.dom.srsAutoRefreshMinGoodEasy) {
+      this.dom.srsAutoRefreshMinGoodEasy.value = String(profile.srsAutoRefreshMinGoodEasy);
+    }
+    if (this.dom.srsAutoRefreshRepeatMinGoodEasy) {
+      this.dom.srsAutoRefreshRepeatMinGoodEasy.value = String(profile.srsAutoRefreshRepeatMinGoodEasy);
+    }
+    if (this.dom.srsAutoRefreshCooldown) {
+      this.dom.srsAutoRefreshCooldown.value = String(profile.srsAutoRefreshCooldownMinutes);
+    }
+    this.updateSrsStorySummary();
   }
 
   updateProfileBackgroundInputs(prefs) {

@@ -1,0 +1,97 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5:replay",
+  "execution_mode": "replay",
+  "generated_at": "2026-05-08T03:10:20Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5-replay_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "The source phrase describes a neighboring room.",
+          "sentence": "The adjoining room shares a wall with the kitchen."
+        },
+        {
+          "evidence_note": "The source phrase describes an adjacent office.",
+          "sentence": "She rented the adjoining office for the design team."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5-replay_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "adjoining",
+      "target_lemma": "vecino",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The competitor sense describes direct contact along an edge, not a neighboring person or place relation.",
+      "competitor_sense_label": "touching at a border",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "active_mismatch_note": "vecino is too broad because the sentence requires physical boundary contact.",
+          "evidence_note": "A technical property-boundary contact relation.",
+          "sentence": "The legal notice used adjoining to classify parcels that touch at one border."
+        },
+        {
+          "active_mismatch_note": "vecino does not capture the exact shared-edge relation.",
+          "evidence_note": "A grid-contact relation along one edge.",
+          "sentence": "The diagram marked two adjoining cells along the same edge."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+      "proposed_competitor_target_lemma": "contiguo",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5-replay_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "adjoining",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "no_winner_context_class": "visible_heading",
+          "no_winner_reason": "The source phrase is a UI heading, not sentence text needing replacement.",
+          "runtime_trigger_note": "Adjoining appears as a standalone visible token separated by quotation punctuation.",
+          "sentence": "The template heading \"Adjoining\" appears before the room list."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-smoke-replay-repaired-contract-v5-replay_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "source_phrase": "adjoining",
+      "target_lemma": "",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_evidence_gap_generation_requests_en_es_latest.json"
+}

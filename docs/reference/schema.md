@@ -1,5 +1,12 @@
 # LexiShift JSON Schemas
 
+Status: active reference
+Role: Canonical current
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization; schema content not re-audited
+Purpose: describe JSON structures LexiShift reads and writes across rulesets, settings, resources, and semantic-routing seams
+Source-of-truth: schema reference; implementation truth still lives in source code, tests, and dedicated schema files where present.
+
 This document describes the JSON formats LexiShift reads/writes today. All fields are ASCII and lowercase in JSON.
 
 ## 1) Ruleset (VocabDataset)
@@ -60,6 +67,15 @@ Top-level fields
     - `source_profile` (string, optional; normalization profile id)
     - `matched_rule` (string, optional; debug/audit rule id)
 - `word_package` (object, optional; canonical target-word metadata, see `WordPackage`)
+- `semantic_admission` (object, optional; semantic-routing pointer contract)
+  - When present, follows the current schema reference in `docs/test_inputs/semantic_routing/semantic_admission.schema.json`
+  - Current default adapter/helper paths can populate this field
+  - All current rulegen LPs can emit `status=unavailable` plus stable ids such as `trigger_id`, `sense_id`, and `competition_set_id`
+  - `en-es` now has a narrow batch-local `status=ready` PoC when real sibling senses are present in the same emitted batch (`competition_mode=emitted_rule_siblings`); this is not broad shadow-mined runtime readiness
+  - No LP uses semantic-routing runtime admission by default yet
+
+Notes:
+- Semantic-routing sidecar publication is still a partial implementation seam rather than a default runtime feature. See `docs/rulegen/semantic_routing_publication_contract.md` and `docs/test_inputs/semantic_routing/`.
 
 ### WordPackage
 - `version` (int, required; current `1`)
@@ -219,10 +235,26 @@ Top-level fields
 - `use_embeddings` (bool, optional, default: false)
 - `embedding_threshold` (float, optional, default: 0.0)
 - `embedding_fallback` (bool, optional, default: true)
-- `language_packs` (object map, optional; pack_id -> local path)
-- `embedding_packs` (object map, optional; pack_id -> local path)
-- `embedding_pair_paths` (object map, optional; pair_key -> list of embedding paths)
+- `managed_language_pack_ids` (string array, optional; app-managed translation pack ids)
+- `language_pack_paths` (object map, optional; pack_id -> manual/external compatibility path)
+- `managed_frequency_pack_ids` (string array, optional; app-managed frequency pack ids)
+- `frequency_pack_paths` (object map, optional; pack_id -> manual/external compatibility path)
+- `last_selected_pack_ids` (string array, optional)
+- `embedding_pack_paths` (object map, optional; pack_id -> manual/external compatibility path)
+- `embedding_pair_pack_ids` (object map, optional; pair_key -> array of app-managed embedding pack ids)
+- `embedding_pair_paths` (object map, optional; pair_key -> list of manual/external compatibility embedding paths)
 - `embedding_pair_enabled` (object map, optional; pair_key -> bool)
+
+Notes:
+- App-managed packs should normally be selected by pack id, not by raw path.
+- `*_pack_paths` are transitional manual/external compatibility fields, not the preferred steady-state contract.
+- Manual/external paths are constrained license/import fallbacks, not arbitrary
+  file selectors. Frequency paths must point to SQLite databases with a
+  `frequency` table. Embedding paths must point to SQLite embedding databases
+  or `.vec` / `.txt` / `.bin` vector files. Translation/language paths remain
+  limited to SQLite, TEI/XML, pack-specific text resources, or directories for
+  pack-specific required-file workflows.
+- `wordnet_dir` and `moby_path` remain explicit compatibility aliases for the secondary lexical `wordnet-en` / `moby-en` entries; when both those aliases and `language_pack_paths` entries exist, the shared `language_pack_paths` values are the effective source of truth.
 
 Example (minimal)
 ```json

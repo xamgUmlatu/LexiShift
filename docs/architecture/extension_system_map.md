@@ -2,7 +2,7 @@
 
 Status: active architecture map
 Role: Canonical current
-Last updated: 2026-03-21
+Last updated: 2026-04-21
 Source-of-truth: as-is extension runtime/file map; verify implementation details in `apps/chrome-extension/manifest.json`, `apps/chrome-extension/options.html`, and the linked source modules.
 
 Purpose:
@@ -44,6 +44,7 @@ Core runtime modules:
 - `content/runtime/apply_settings_pipeline.js`
 - `content/runtime/rules/active_rules_runtime.js`
 - `content/runtime/dom_scan_runtime.js`
+- `content/runtime/dom_scan/scan_order.js`
 - `content/runtime/feedback/feedback_runtime_controller.js`
 - `content/runtime/settings_change_router.js`
 
@@ -123,6 +124,11 @@ If you are changing:
 - DOM scan/replacement scheduling:
   - `content/runtime/dom_scan_runtime.js`
   - `content/runtime/dom_scan/*`
+  - Full scans prioritize visible and near-viewport text nodes before far-offscreen nodes.
+  - When page-level replacement budgets are active, scan order is also deterministically distributed within viewport bands by page/profile so early DOM position does not always consume the entire budget.
+  - When replacement-load constraints are active, match selection prefers
+    active/younger SRS items over mature or future-due SRS items when helper
+    SRS metadata is present.
 - Popup UX/modules:
   - `content/ui/feedback_popup_controller.js`
   - `content/ui/popup_modules/*`
@@ -140,6 +146,7 @@ A word is not replaced:
 2. Check active rules resolution in content debug logs.
 3. Check node-filter skips in DOM scan runtime logs.
 4. Check page/lemma replacement budgets.
+5. Confirm the observed replacement order matches visible-first scan behavior; if budgets or other replacement-load constraints are active, also confirm deterministic within-band distribution and SRS metadata-aware priority rather than raw DOM order.
 
 Popup module not visible:
 1. Confirm replacement span has expected dataset payload (`data-script-forms`, `data-display-script`, `data-origin`).

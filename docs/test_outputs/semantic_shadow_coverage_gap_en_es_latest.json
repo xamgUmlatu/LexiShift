@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "generated_at": "2026-04-10T18:23:28Z",
+  "status": "ok",
+  "rows": [
+    {
+      "target": "trabajo",
+      "trigger": "job",
+      "shadow_target": "cargo",
+      "active_support": true,
+      "active_summary": "noun: work, job",
+      "shadow_rulegen_sources": [],
+      "shadow_reviewed_expected": [],
+      "classification": "semantic_bridge_needed"
+    }
+  ],
+  "summary": {
+    "remaining_gap_count": 1,
+    "semantic_bridge_needed_count": 1,
+    "rulegen_source_gap_count": 0,
+    "reviewed_trigger_only_count": 0
+  }
+}

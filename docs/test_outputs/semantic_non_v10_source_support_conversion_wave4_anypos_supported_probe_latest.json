@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "selected_wave_source_supported",
+  "generated_at": "2026-04-28T01:15:09Z",
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave4_anypos_supported_probe_min0p12",
+  "translation_support_mode": "",
+  "summary": {
+    "family_count": 16,
+    "fully_supported_family_count": 16,
+    "candidate_swap_review_family_count": 0,
+    "needs_reviewed_source_support_family_count": 0,
+    "selected_sense_count": 36,
+    "supported_sense_count": 36,
+    "unsupported_sense_count": 0,
+    "unsupported_active_count": 0,
+    "unsupported_shadow_count": 0,
+    "unsupported_rows_with_same_pos_supported_alternative": 0,
+    "family_state_counts": {
+      "already_supported": 16
+    },
+    "unsupported_row_state_counts": {}
+  },
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:change:cambio",
+      "trigger": "change",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "cambio",
+      "shadow_targets": [
+        "cambiar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "trigger": "look",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "aspecto",
+      "shadow_targets": [
+        "parecer"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:dry:seco",
+      "trigger": "dry",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "seco",
+      "shadow_targets": [
+        "secar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:use:uso",
+      "trigger": "use",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "uso",
+      "shadow_targets": [
+        "usar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:plain:llano",
+      "trigger": "plain",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "llano",
+      "shadow_targets": [
+        "llanura"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:fast:r-pido",
+      "trigger": "fast",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "rápido",
+      "shadow_targets": [
+        "ayunar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:train:tren",
+      "trigger": "train",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "tren",
+      "shadow_targets": [
+        "adiestrar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "trigger": "land",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "tierra",
+      "shadow_targets": [
+        "país",
+        "atracar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:mean:medio",
+      "trigger": "mean",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "medio",
+      "shadow_targets": [
+        "significar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:end:fin",
+      "trigger": "end",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "fin",
+      "shadow_targets": [
+        "acabar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "trigger": "offer",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "oferta",
+      "shadow_targets": [
+        "ofrecer"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:rest:reposo",
+      "trigger": "rest",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "reposo",
+      "shadow_targets": [
+        "descanso",
+        "descansar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:present:presente",
+      "trigger": "present",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "presente",
+      "shadow_targets": [
+        "actual"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:sign:se-al",
+      "trigger": "sign",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "señal",
+      "shadow_targets": [
+        "seña",
+        "firmar"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:answer:respuesta",
+      "trigger": "answer",
+      "support_state": "already_supported",
+      "selected_sense_count": 3,
+      "supported_sense_count": 3,
+      "unsupported_sense_count": 0,
+      "active_target": "respuesta",
+      "shadow_targets": [
+        "contestación",
+        "responder"
+      ],
+      "unsupported_senses": []
+    },
+    {
+      "family_id": "en-es:sentence-veto:quiet:silencio",
+      "trigger": "quiet",
+      "support_state": "already_supported",
+      "selected_sense_count": 2,
+      "supported_sense_count": 2,
+      "unsupported_sense_count": 0,
+      "active_target": "silencio",
+      "shadow_targets": [
+        "calmar"
+      ],
+      "unsupported_senses": []
+    }
+  ],
+  "limitations": [
+    "conversion_audit_does_not_change_selected_family_targets",
+    "same_pos_alternatives_require_review_and_re_admission_before_use",
+    "forward_only_rows_are_not_promotion_evidence_without_source_support",
+    "phrase_containment_coverage_is_out_of_scope_for_this_audit"
+  ],
+  "next_steps": [
+    "rerun the supported admission sweep and add independent held-out validation"
+  ],
+  "artifacts": {
+    "dataset_json": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave4_anypos_supported_probe_min0p12_dataset.json"
+  }
+}

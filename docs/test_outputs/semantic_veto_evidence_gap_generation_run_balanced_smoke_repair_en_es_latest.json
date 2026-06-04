@@ -1,0 +1,74 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 2,
+    "coverage_shortfall_count": 0,
+    "decision": "generated_items_admitted_for_pilot_rescoring",
+    "rejected_item_count": 0,
+    "status": "ok"
+  },
+  "artifacts": {
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-smile-shadow-repair-20260508-001_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-smile-shadow-repair-20260508-001_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-smile-shadow-repair-20260508-001_raw_responses.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-balanced-smoke-smile-shadow-repair-20260508-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-08T03:11:01Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v5",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "first_sentence": "Her smile was warm and reassuring during the interview.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-balanced-smoke-smile-shadow-repair-20260508-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_01fe220578f16db00169fd54464388819485150101ee0b2a44",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 734,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 337,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1071
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 2,
+    "accepted_items_by_slot_type": {
+      "shadow_or_competitor_evidence_probe": 2
+    },
+    "accepted_response_count": 1,
+    "accepted_responses_by_arm": {
+      "low_control": 1
+    },
+    "accepted_responses_by_slot_type": {
+      "shadow_or_competitor_evidence_probe": 1
+    },
+    "admission_status": "ok",
+    "admitted_item_count": 2,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 0,
+    "input_tokens": 734,
+    "invalid_output_count": 0,
+    "output_tokens": 337,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 0,
+    "selected_request_count": 1
+  }
+}

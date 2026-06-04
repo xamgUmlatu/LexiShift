@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "operator_product_checkpoint_success",
+  "generated_at": "2026-05-14",
+  "pair": "en-es",
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-005",
+  "runtime_policy_id": "en_es_sentence_veto_v2",
+  "selection_mode": "active_only",
+  "product_thresholds": {
+    "min_active_score": 0.015,
+    "min_margin": 0.0
+  },
+  "checkpoint_basis": {
+    "operator_statement": "Good enough, proceed",
+    "operator_statement_date": "2026-05-14",
+    "basis": "operator accepted the tranche-005 automated follow-through summary as sufficient to move forward",
+    "current_status": "historical_checkpoint_superseded_by_tranche_011",
+    "hands_on_browser_smoke_repeated_for_this_pack": false,
+    "latest_hands_on_browser_smoke_pack_id": "en-es-active-only-combined-full-v1-tranche-003"
+  },
+  "automated_followthrough": {
+    "pack_rule_count": 261,
+    "normalized_evidence_rows": 534,
+    "covered_source_target_families": 261,
+    "denominator_source_target_families": 570,
+    "live_page_scan_review_rows": 120,
+    "live_page_scan_replaces": 70,
+    "live_page_scan_abstains": 50,
+    "live_page_scan_fallback_decisions": 0,
+    "live_page_scan_page_fetch_errors": 0
+  },
+  "interpretation": {
+    "product_checkpoint_result": "success",
+    "accepted_imperfection_policy": "soft_assist_poc",
+    "known_imperfections_accepted_for_now": [
+      "false abstains remain acceptable",
+      "some harmful replacements are expected",
+      "this does not prove broad en-es language-wide accuracy",
+      "tranche-005 was accepted from automated follow-through evidence rather than a separate hands-on browser smoke"
+    ],
+    "operator_read": "The 261-rule tranche-005 active-only pack was accepted as good enough to proceed to the next reviewed data tranche. It is now historical checkpoint evidence superseded by tranche-011."
+  },
+  "scope_notes": [
+    "This is a product checkpoint, not a statistical accuracy estimate.",
+    "This does not claim a repeated hands-on browser-extension smoke for tranche-005.",
+    "Do not treat this as approval to spend on later tranches without source-target review and no-spend planning."
+  ],
+  "source_artifacts": [
+    "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_pack_install_en_es_latest.json",
+    "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_live_page_scan_en_es_latest.json",
+    "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_repaired_generation_admission_en_es_latest.json",
+    "docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-005_pack_builder_latest.json"
+  ],
+  "next_step": "Use the tranche-006 pre-spend packet for the next paid generation only after explicitly proceeding with spend."
+}

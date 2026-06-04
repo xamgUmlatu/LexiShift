@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from PySide6.QtCore import QPoint, Qt
-from PySide6.QtGui import QPainter, QPixmap
+from PySide6.QtGui import QColor, QLinearGradient, QPainter, QPainterPath, QPen, QPixmap
 from PySide6.QtWidgets import QWidget
 
 from theme_loader import THEME_ALL_COLOR_KEYS
@@ -15,6 +15,24 @@ class _ThemedTabContainer(QWidget):
         self._bg_position = "center"
         self._bg_size = "cover"
         self._bg_repeat = "no-repeat"
+        self._base_top = "#FFFFFF"
+        self._base_bottom = "#FFFFFF"
+        self._base_border = "#D8D0C0"
+        self._base_radius = 10
+
+    def set_base_style(
+        self,
+        *,
+        top: str,
+        bottom: str,
+        border: str,
+        radius: int = 10,
+    ) -> None:
+        self._base_top = str(top or "#FFFFFF")
+        self._base_bottom = str(bottom or self._base_top)
+        self._base_border = str(border or self._base_bottom)
+        self._base_radius = max(0, int(radius))
+        self.update()
 
     def set_background(
         self,
@@ -37,18 +55,32 @@ class _ThemedTabContainer(QWidget):
         self.update()
 
     def paintEvent(self, event) -> None:
-        super().paintEvent(event)
-        if not self._bg_pixmap:
-            return
         painter = QPainter(self)
-        painter.setOpacity(self._bg_opacity)
-        rect = self.rect()
-        if self._bg_repeat == "repeat":
-            painter.drawTiledPixmap(rect, self._bg_pixmap)
-            return
-        target = _scale_pixmap(self._bg_pixmap, rect.size(), self._bg_size)
-        pos = _position_pixmap(rect, target.size(), self._bg_position)
-        painter.drawPixmap(pos, target)
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        rect = self.rect().adjusted(0, 0, -1, -1)
+        radius = float(self._base_radius)
+        path = QPainterPath()
+        path.addRoundedRect(rect, radius, radius)
+
+        gradient = QLinearGradient(rect.topLeft(), rect.bottomLeft())
+        gradient.setColorAt(0.0, QColor(self._base_top))
+        gradient.setColorAt(1.0, QColor(self._base_bottom))
+        painter.fillPath(path, gradient)
+
+        if self._bg_pixmap:
+            painter.save()
+            painter.setClipPath(path)
+            painter.setOpacity(self._bg_opacity)
+            if self._bg_repeat == "repeat":
+                painter.drawTiledPixmap(rect, self._bg_pixmap)
+            else:
+                target = _scale_pixmap(self._bg_pixmap, rect.size(), self._bg_size)
+                pos = _position_pixmap(rect, target.size(), self._bg_position)
+                painter.drawPixmap(pos, target)
+            painter.restore()
+
+        painter.setPen(QPen(QColor(self._base_border), 1))
+        painter.drawPath(path)
 
 
 def _merge_theme(base: dict, override: dict) -> dict:
@@ -59,6 +91,7 @@ def _merge_theme(base: dict, override: dict) -> dict:
     for key in (
         "_background",
         "_background_path",
+        "_surface_opacities",
         "_name",
         "_source",
         "_base_dir",

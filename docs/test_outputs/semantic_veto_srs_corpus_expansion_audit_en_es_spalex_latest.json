@@ -1,0 +1,267 @@
+{
+  "audits": [
+    {
+      "available_columns": [
+        "id",
+        "pmw",
+        "freq",
+        "lemma",
+        "pos",
+        "source_family",
+        "source_rank",
+        "source_frequency",
+        "cde_rank",
+        "cde_freq",
+        "cde_pos",
+        "spalex_rank",
+        "spalex_freq",
+        "spalex_zipf",
+        "spalex_prevalence_total",
+        "spalex_percent_total",
+        "pos_source",
+        "pos_canonical",
+        "topics",
+        "topic_source"
+      ],
+      "column_coverage": {
+        "frequency_nonempty_rows": 45131,
+        "lemma_nonempty_rows": 45131,
+        "pos_nonempty_rows": 33968,
+        "pos_nonempty_share": 0.752653,
+        "rank_nonempty_rows": 45131,
+        "topic_row_share": 0.091157,
+        "topic_rows_with_any_topic": 4114
+      },
+      "duplicate_or_empty_lemma_rows": 0,
+      "exists": true,
+      "issues": [],
+      "label": "current_bridge_frequency_db",
+      "meta": {
+        "metadata": {
+          "column_names": [
+            "id",
+            "pmw",
+            "freq",
+            "lemma",
+            "pos",
+            "source_family",
+            "source_rank",
+            "source_frequency",
+            "topics"
+          ],
+          "frequency_column_semantics": {
+            "freq": "original_source_frequency",
+            "pmw": "rank_descending_commonness_score"
+          },
+          "generated_at_utc": "2026-05-16T18:40:29Z",
+          "pack_id": "freq-es-spalex-expanded-v1",
+          "pmw_column": "pmw",
+          "pos_policy": "freq_es_cde_compact_else_kaikki_compact_mapped",
+          "provider": "freq-es-spalex-expanded-v1",
+          "rank_column": "id",
+          "row_count": 45131,
+          "source_kind": "frequency",
+          "source_profile": "spalex_cde_union_v1",
+          "source_provider": "freq-es-spalex-expanded-v1",
+          "sources": {
+            "current_frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+            "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+            "spalex_csv": "/private/tmp/lexishift-spalex-audit/word_info.csv"
+          },
+          "topic_policy": "kaikki_sense_topics_csv"
+        }
+      },
+      "path": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
+      "resolved_columns": {
+        "frequency": "pmw",
+        "lemma": "lemma",
+        "pos": "pos",
+        "rank": "id",
+        "topics": [
+          "topics"
+        ]
+      },
+      "row_count": 45131,
+      "status": "ok",
+      "table_name": "frequency",
+      "table_names": [
+        "frequency",
+        "meta"
+      ],
+      "target_readiness": [
+        {
+          "available_share": 1.0,
+          "reaches_target": true,
+          "shortfall": 0,
+          "target_size": 2000
+        },
+        {
+          "available_share": 1.0,
+          "reaches_target": true,
+          "shortfall": 0,
+          "target_size": 5000
+        },
+        {
+          "available_share": 1.0,
+          "reaches_target": true,
+          "shortfall": 0,
+          "target_size": 10000
+        }
+      ],
+      "topic_coverage": {
+        "columns": {
+          "topics": {
+            "nonempty_rows_after_normalization": 4114,
+            "sample_topics": [
+              "sciences",
+              "natural_sciences",
+              "lifestyle",
+              "medicine",
+              "physical_sciences",
+              "hobbies",
+              "biology",
+              "sports"
+            ]
+          }
+        },
+        "rows_with_any_topic": 4114,
+        "top_topics": [
+          {
+            "count": 1357,
+            "topic": "sciences"
+          },
+          {
+            "count": 1098,
+            "topic": "natural_sciences"
+          },
+          {
+            "count": 1071,
+            "topic": "lifestyle"
+          },
+          {
+            "count": 754,
+            "topic": "medicine"
+          },
+          {
+            "count": 561,
+            "topic": "physical_sciences"
+          },
+          {
+            "count": 527,
+            "topic": "hobbies"
+          },
+          {
+            "count": 416,
+            "topic": "biology"
+          },
+          {
+            "count": 386,
+            "topic": "sports"
+          },
+          {
+            "count": 373,
+            "topic": "human_sciences"
+          },
+          {
+            "count": 365,
+            "topic": "entertainment"
+          },
+          {
+            "count": 325,
+            "topic": "anatomy"
+          },
+          {
+            "count": 312,
+            "topic": "government"
+          }
+        ],
+        "topic_columns": [
+          "topics"
+        ]
+      },
+      "unique_lemma_count": 45131
+    }
+  ],
+  "candidate_source_research_matrix": [
+    {
+      "could_improve": "Fastest path if it preserves the current pack's ordering semantics.",
+      "first_check": "Confirm provenance, row count, POS coverage, and pack schema.",
+      "main_risk": "May still lack topic/domain metadata and license/provenance clarity.",
+      "source_family": "Recovered or rebuilt Spanish 20k frequency list"
+    },
+    {
+      "could_improve": "Broad 5k-10k coverage for ordinary browsing and SRS.",
+      "first_check": "Measure lemma/POS quality and compare overlap with current 2k.",
+      "main_risk": "Frequency alone may overvalue function words or weak learner targets.",
+      "source_family": "General frequency corpus"
+    },
+    {
+      "could_improve": "Better alignment with staged learner progression.",
+      "first_check": "Check level coverage and mergeability with frequency ranks.",
+      "main_risk": "May be smaller, licensed restrictively, or missing frequency values.",
+      "source_family": "Learner-level or CEFR-style list"
+    },
+    {
+      "could_improve": "Large coverage without waiting for a frequency source.",
+      "first_check": "Require rank backfill, POS validation, and exclusion filters.",
+      "main_risk": "No natural ranking; may admit obscure or awkward lemmas.",
+      "source_family": "Dictionary-derived lemma expansion"
+    },
+    {
+      "could_improve": "Makes user preference SRS useful for medicine, law, travel, etc.",
+      "first_check": "Keep source/domain tags and blend as an overlay, not a replacement.",
+      "main_risk": "Domain value is high but general-frequency comparability is weak.",
+      "source_family": "Domain/topic overlays"
+    },
+    {
+      "could_improve": "Most product-aligned path: general coverage plus user-specific depth.",
+      "first_check": "Version the merged pack and audit per-source contribution.",
+      "main_risk": "Merge policy can hide provenance and duplicate lemmas if not audited.",
+      "source_family": "Hybrid base-frequency plus overlays"
+    }
+  ],
+  "decision": "srs_corpus_expansion_candidates_audited",
+  "generated_at": "2026-05-16T18:40:40.905394+00:00",
+  "inputs": {
+    "bridge_decision": "srs_zipf_bridge_established",
+    "bridge_json": "docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_latest.json",
+    "candidate_db_count": 1,
+    "target_sizes": [
+      2000,
+      5000,
+      10000
+    ]
+  },
+  "llm_generation": "none",
+  "methodology": {
+    "acceptance_for_first_expansion": "A candidate should have at least the chosen target-size of distinct non-empty lemmas, usable ordering through rank or frequency, POS coverage sufficient for admission weighting, and ideally topic/domain metadata for user-preference selection.",
+    "not_a_quality_claim": "This audit does not prove replacement accuracy. It only measures whether a source can feed the existing SRS/rulegen/veto pipeline without hidden ceilings.",
+    "purpose": "Compare possible Spanish learner-corpus/frequency-pack sources before expanding SRS admission, rulegen denominator, or semantic-veto generation."
+  },
+  "pair": "en-es",
+  "recommended_next_steps": [
+    "Keep the current 2k frequency pack frozen as the baseline denominator.",
+    "Recover or recreate the apparent Spanish 20k source before choosing a new corpus source.",
+    "Run this audit on every candidate SQLite pack and compare row count, unique lemmas, POS coverage, and topic/domain coverage.",
+    "After selecting a candidate source, rerun the SRS Zipf bridge with full rulegen and then refresh the semantic-veto denominator audit."
+  ],
+  "runtime_policy_change": "none",
+  "schema_version": 1,
+  "summary": {
+    "candidate_count": 1,
+    "candidate_reaching_10000": true,
+    "candidate_reaching_2000": true,
+    "candidate_reaching_5000": true,
+    "current_unique_lemma_count": 45131,
+    "error_candidate_count": 0,
+    "expansion_blockers": [],
+    "largest_unique_lemma_count": 45131,
+    "review_candidate_count": 0,
+    "status": "ok",
+    "target_sizes": [
+      2000,
+      5000,
+      10000
+    ]
+  }
+}

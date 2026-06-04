@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-30T20:46:54Z",
+  "status": "ok",
+  "batch_id": "en-es:wordnet-translation-sense-source-class:non-v10-wave7-source-class-breadth-v1:cycle",
+  "source_id": "wordnet_translation_sense_source_class_non_v10_wave7_source_class_breadth_v1",
+  "summary": {
+    "component_count": 2,
+    "row_count": 183,
+    "family_count": 16,
+    "relation_counts": {
+      "anchor_cue": 84,
+      "shadow_candidate": 99
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:example-frame-empty-base",
+      "source_id": "empty_source_admission_base",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 0,
+      "accepted_row_count": 0,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:wave7-source-class-breadth-v1:evidence-composite:filtered",
+      "source_id": "wordnet_translation_sense_source_class_non_v10_wave7_source_class_breadth_v1",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 183,
+      "accepted_row_count": 183,
+      "duplicate_row_count": 0
+    }
+  ]
+}

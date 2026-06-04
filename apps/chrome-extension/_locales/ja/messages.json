@@ -45,7 +45,7 @@
     "message": "まだファイルをインポートしていません。変更後に再インポートしてください。"
   },
   "section_display": {
-    "message": "表示"
+    "message": "ページ表示"
   },
   "toggle_highlight": {
     "message": "置換語をハイライト（クリックで元に切替）"
@@ -54,10 +54,10 @@
     "message": "ハイライト色"
   },
   "section_replacement_behavior": {
-    "message": "置換の挙動"
+    "message": "ページ内の置換密度"
   },
   "hint_replacement_behavior_scope": {
-    "message": "この設定はすべての置換（ルールセットとSRS）に適用されます。"
+    "message": "語彙練習と手動ルールを統合した後のページ表示に適用されます。"
   },
   "toggle_max_one": {
     "message": "テキストブロックごとに最大1語を置換"
@@ -75,22 +75,112 @@
     "message": "ページあたりの最大置換数"
   },
   "hint_max_replacements_page": {
-    "message": "0 は無制限です。現在のページで表示する総置換数を制限します。"
+    "message": "標準の既定値は 20 です。無制限にする場合のみ 0 を使用します。"
   },
   "label_max_replacements_lemma_page": {
     "message": "1語あたりの最大置換数（ページ）"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "0 は無制限です。1語だけがページ内で多発するのを防ぎます。"
+    "message": "標準の既定値は 2 です。1語だけがページ内で多発するのを防ぎます。"
   },
   "section_srs": {
-    "message": "SRS練習"
+    "message": "語彙練習"
   },
-  "toggle_srs_enabled": {
-    "message": "SRS練習モードを有効にする"
+  "badge_srs_active_story": {
+    "message": "アクティブ"
   },
-  "hint_srs_dataset": {
-    "message": "現時点では固定のテストデータセットを使用します（外部ダウンロードなし）。"
+  "summary_srs_story_sampling": {
+    "message": "次の単語をサンプル"
+  },
+  "hint_srs_story_sampling_curtain": {
+    "message": "現在の好みで次に出やすい単語をプレビューします。"
+  },
+  "action_srs_open_panel": {
+    "message": "開く"
+  },
+  "heading_srs_start_new_story": {
+    "message": "語彙練習を開始"
+  },
+  "hint_srs_start_new_story": {
+    "message": "言語ペアを選び、好みを調整してから練習を始めます。"
+  },
+  "button_srs_start_new_story": {
+    "message": "設定を開始"
+  },
+  "heading_srs_add_new_story": {
+    "message": "別の言語を追加"
+  },
+  "hint_srs_add_new_story": {
+    "message": "新しい言語ペア用に別の語彙練習を作成します。既存の練習はそのまま残ります。"
+  },
+  "button_srs_add_new_story": {
+    "message": "言語を追加"
+  },
+  "heading_srs_story_flow": {
+    "message": "語彙練習を設定"
+  },
+  "hint_srs_story_flow": {
+    "message": "開始前に言語、学習設定、開始ペースを選びます。"
+  },
+  "heading_srs_story_flow_pair": {
+    "message": "言語を選択"
+  },
+  "heading_srs_story_flow_preferences": {
+    "message": "学習設定"
+  },
+  "heading_srs_story_flow_size": {
+    "message": "開始ペースを選択"
+  },
+  "heading_srs_story_flow_review": {
+    "message": "サンプルして開始"
+  },
+  "hint_srs_story_flow_review": {
+    "message": "単語をサンプルして組み合わせを確認し、よければ練習を開始します。"
+  },
+  "label_srs_language_data": {
+    "message": "言語データ"
+  },
+  "button_srs_open_resource_settings": {
+    "message": "LexiShiftのリソース設定を開く"
+  },
+  "button_srs_retry_data_check": {
+    "message": "再チェック"
+  },
+  "status_srs_language_data_missing": {
+    "message": "$1 の言語データが必要です。インストール後に、単語をサンプルしたり練習を開始したりできます。"
+  },
+  "status_srs_language_data_check_required": {
+    "message": "必要な言語データをインストールしてから再試行してください。"
+  },
+  "status_srs_opening_resource_settings": {
+    "message": "LexiShiftのリソース設定を開いています…"
+  },
+  "hint_srs_retry_after_data_install": {
+    "message": "必要なパックをインストールしたら、ここに戻って再チェックしてください。"
+  },
+  "label_srs_frequency_data": {
+    "message": "頻度データ"
+  },
+  "label_srs_translation_dictionary": {
+    "message": "翻訳辞書"
+  },
+  "label_srs_jmdict_data": {
+    "message": "JMDictデータ"
+  },
+  "button_srs_story_flow_initialize": {
+    "message": "練習を開始"
+  },
+  "status_srs_story_flow_previewing": {
+    "message": "設定を保存して候補語をサンプルしています…"
+  },
+  "status_srs_story_flow_sampled": {
+    "message": "サンプルを更新しました。"
+  },
+  "status_srs_story_flow_initializing": {
+    "message": "設定を保存して語彙練習を開始しています…"
+  },
+  "status_srs_story_flow_initialized": {
+    "message": "語彙練習を開始しました。"
   },
   "label_srs_pair": {
     "message": "言語ペア"
@@ -102,28 +192,172 @@
     "message": "すべてのペア"
   },
   "label_srs_max_active": {
-    "message": "同時にアクティブな語数"
+    "message": "アクティブ練習中の単語"
+  },
+  "hint_srs_max_active": {
+    "message": "LexiShiftが同時に練習対象として保つ学習単語数です。"
   },
   "label_srs_bootstrap_top_n": {
-    "message": "Sブートストラップサイズ（上位N）"
+    "message": "語彙検索範囲"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "初期Sブートストラップで取り込む総語数です。"
+    "message": "サンプルや新規単語選択で使う頻度順の単語プールを広げます。サンプルが狭すぎると感じるまでは既定値のままにしてください。"
   },
   "label_srs_initial_active_count": {
-    "message": "初期アクティブ部分集合"
+    "message": "開始時の単語数"
   },
   "hint_srs_initial_active_count": {
-    "message": "ブートストラップ候補から最初に非ゼロ/アクティブ化する語数です。"
+    "message": "設定直後から表示されうる準備済み単語の数です。"
+  },
+  "summary_srs_starting_size_advanced": {
+    "message": "高度な開始サイズ"
+  },
+  "label_srs_topic_interest_presets": {
+    "message": "トピック優先度"
+  },
+  "badge_srs_topic_interest_pair_support": {
+    "message": "カバレッジはペアで変わります"
+  },
+  "topic_srs_medicine_health": {
+    "message": "医療・健康"
+  },
+  "topic_srs_finance_business": {
+    "message": "金融・ビジネス"
+  },
+  "topic_srs_sports_fitness": {
+    "message": "スポーツ・フィットネス"
+  },
+  "topic_srs_games": {
+    "message": "ゲーム"
+  },
+  "topic_srs_music_media_entertainment": {
+    "message": "音楽・メディア"
+  },
+  "topic_srs_law_politics_civics": {
+    "message": "法律・社会"
+  },
+  "topic_srs_science_technology": {
+    "message": "科学・技術"
+  },
+  "topic_srs_arts_literature_humanities": {
+    "message": "芸術・文学"
+  },
+  "topic_srs_animals": {
+    "message": "動物"
+  },
+  "topic_srs_food_cooking": {
+    "message": "食べ物・料理"
+  },
+  "topic_srs_plants_nature": {
+    "message": "植物・自然"
+  },
+  "summary_srs_advanced_topic_tags": {
+    "message": "高度なタグ"
+  },
+  "label_srs_topic_interests": {
+    "message": "興味トピック"
+  },
+  "hint_srs_topic_interests": {
+    "message": "実験用、または上にないトピック用に、カンマ区切りのタグを追加できます。"
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "習熟度の推定"
+  },
+  "label_srs_proficiency_previous": {
+    "message": "前回の設定:"
+  },
+  "button_srs_proficiency_restore": {
+    "message": "戻す"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "新しい練習単語に合わせたいレベルへスライダーを動かします。"
+  },
+  "summary_srs_challenge_tuning": {
+    "message": "高度な難度調整"
+  },
+  "label_srs_challenge_target": {
+    "message": "目標難度 (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 から 100。空欄のままだと難度設定は中立のままです。"
   },
   "label_srs_highlight_color": {
-    "message": "SRSハイライト色"
+    "message": "単語のハイライト色"
   },
-  "toggle_srs_feedback_srs": {
-    "message": "SRS単語へのフィードバックを有効化"
+  "label_srs_semantic_admission_status": {
+    "message": "文への適合チェック"
   },
-  "toggle_srs_feedback_rules": {
-    "message": "ルール単語へのフィードバックを有効化"
+  "status_srs_semantic_capability_checking": {
+    "message": "確認中…"
+  },
+  "hint_srs_semantic_capability_checking": {
+    "message": "文への適合チェックの状態を確認しています…"
+  },
+  "status_srs_semantic_capability_active": {
+    "message": "オン"
+  },
+  "hint_srs_semantic_capability_active": {
+    "message": "LexiShiftは、選ばれた練習用の置換が文に合うかを表示前に確認します。"
+  },
+  "status_srs_semantic_capability_published_unready": {
+    "message": "まだ利用不可"
+  },
+  "hint_srs_semantic_capability_published_unready": {
+    "message": "文への適合データは公開されていますが、このペア/プロファイルには ready カバレッジがまだありません。現在は通常の学習用置換を使います。"
+  },
+  "status_srs_semantic_capability_unavailable": {
+    "message": "利用不可"
+  },
+  "hint_srs_semantic_capability_unavailable": {
+    "message": "このペア/プロファイルでは、文への適合カバレッジがまだ公開されていません。現在は通常の学習用置換を使います。"
+  },
+  "status_srs_semantic_capability_error": {
+    "message": "要修復"
+  },
+  "hint_srs_semantic_capability_error": {
+    "message": "文への適合データはありますが、整合していないか読み取れません。修復されるまでは通常の学習用置換を使います。"
+  },
+  "status_srs_semantic_capability_unknown": {
+    "message": "状態を確認できません"
+  },
+  "hint_srs_semantic_capability_unknown": {
+    "message": "文への適合チェックの状態を今は確認できません。"
+  },
+  "toggle_srs_semantic_admission": {
+    "message": "文への適合チェックを有効化（実験的）"
+  },
+  "hint_srs_semantic_admission": {
+    "message": "対象になる練習用の置換を、ヘルパー側の文ベースチェックで絞り込みます。文への適合データやヘルパーが利用できない場合は、フォールバック方針で動作を決めます。"
+  },
+  "label_srs_semantic_fallback_policy": {
+    "message": "文適合のフォールバック方針"
+  },
+  "option_srs_semantic_fallback_legacy": {
+    "message": "従来どおり置換する"
+  },
+  "option_srs_semantic_fallback_abstain": {
+    "message": "見送る"
+  },
+  "option_srs_semantic_fallback_soft": {
+    "message": "ソフト表示（予約済み）"
+  },
+  "summary_srs_auto_refresh": {
+    "message": "新しい単語を追加するタイミング"
+  },
+  "label_srs_auto_refresh_min_feedback": {
+    "message": "最小フィードバック数"
+  },
+  "label_srs_auto_refresh_min_good_easy": {
+    "message": "必要なGood/Easy数"
+  },
+  "label_srs_auto_refresh_repeat_min_good_easy": {
+    "message": "同日2回目以降に必要なGood/Easy数"
+  },
+  "label_srs_auto_refresh_cooldown": {
+    "message": "クールダウン（分）"
+  },
+  "hint_srs_auto_refresh": {
+    "message": "十分なフィードバック後にのみヘルパーが新しい単語を確認します。追加するかどうかは、容量、期限圧、定着率が引き続き判断します。"
   },
   "toggle_srs_sound": {
     "message": "フィードバック音を再生"
@@ -155,6 +389,18 @@
   "status_helper_failed": {
     "message": "ヘルパーエラー。"
   },
+  "status_helper_native_messaging_failed": {
+    "message": "ヘルパーと通信できませんでした。"
+  },
+  "status_helper_native_messaging_forbidden": {
+    "message": "ブラウザがヘルパーへのアクセスをブロックしました。"
+  },
+  "status_helper_native_host_exited": {
+    "message": "ヘルパーが予期せず終了しました。"
+  },
+  "status_helper_timeout": {
+    "message": "ヘルパーが時間内に応答しませんでした。"
+  },
   "status_helper_missing": {
     "message": "ヘルパーが利用できません。"
   },
@@ -170,6 +416,12 @@
   "status_helper_open_failed": {
     "message": "開けませんでした: $1"
   },
+  "status_helper_open_resource_settings_opened": {
+    "message": "LexiShiftのリソース設定を開きました。"
+  },
+  "status_helper_open_resource_settings_failed": {
+    "message": "開けませんでした: $1"
+  },
   "toggle_exposure_logging": {
     "message": "置換の露出イベントを記録"
   },
@@ -179,11 +431,17 @@
   "button_srs_sample": {
     "message": "アクティブ語をサンプル…"
   },
-  "button_srs_initialize": {
-    "message": "このペアのSを初期化"
+  "button_srs_admission_preview": {
+    "message": "好みに合う10語をサンプル…"
   },
-  "button_srs_refresh_set": {
-    "message": "Sを更新してルールを反映"
+  "button_srs_initialize": {
+    "message": "練習を開始"
+  },
+  "button_srs_save_preferences": {
+    "message": "設定を保存"
+  },
+  "summary_srs_story_advanced": {
+    "message": "詳細"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS実行時診断"
@@ -194,14 +452,239 @@
   "button_srs_rulegen_sampled_preview": {
     "message": "サンプル5件でルール生成…"
   },
-  "button_srs_reset": {
-    "message": "SRSデータをリセット"
+  "button_srs_delete_story": {
+    "message": "語彙練習を削除"
+  },
+  "heading_srs_words_dashboard": {
+    "message": "学習中の語"
+  },
+  "hint_srs_words_dashboard": {
+    "message": "この練習に現在入っている語を確認します。"
+  },
+  "button_srs_words_refresh": {
+    "message": "語を更新"
+  },
+  "button_srs_words_open_library": {
+    "message": "語彙ライブラリを開く"
+  },
+  "heading_srs_vocabulary_library_entry": {
+    "message": "語彙ライブラリ"
+  },
+  "hint_srs_vocabulary_library_entry": {
+    "message": "学習中の語、定義、進捗、ページ置換元を確認します。"
+  },
+  "toggle_srs_words_advanced": {
+    "message": "詳細情報"
+  },
+  "label_srs_words_search": {
+    "message": "検索"
+  },
+  "label_srs_words_status_filter": {
+    "message": "状態"
+  },
+  "option_srs_words_status_all": {
+    "message": "すべて"
+  },
+  "option_srs_words_status_active": {
+    "message": "アクティブ"
+  },
+  "option_srs_words_status_due": {
+    "message": "期限あり"
+  },
+  "option_srs_words_status_queued": {
+    "message": "今後の単語"
+  },
+  "option_srs_words_status_removed": {
+    "message": "削除済み"
+  },
+  "label_srs_words_sort": {
+    "message": "並び順"
+  },
+  "option_srs_words_sort_source": {
+    "message": "ソース順"
+  },
+  "option_srs_words_sort_due": {
+    "message": "期限ありを先頭"
+  },
+  "option_srs_words_sort_word": {
+    "message": "語 A-Z"
+  },
+  "option_srs_words_sort_reviews": {
+    "message": "復習回数が多い順"
+  },
+  "option_srs_words_sort_seen": {
+    "message": "表示回数が多い順"
+  },
+  "label_srs_words_page_size": {
+    "message": "行数"
+  },
+  "button_srs_words_clear_filters": {
+    "message": "フィルターをクリア"
+  },
+  "learning_dashboard_title": {
+    "message": "語彙ライブラリ"
+  },
+  "learning_dashboard_subtitle": {
+    "message": "学習中の語、定義、進捗、ページ置換元を確認します。"
+  },
+  "learning_dashboard_back": {
+    "message": "オプションに戻る"
+  },
+  "learning_dashboard_refresh": {
+    "message": "更新"
+  },
+  "learning_dashboard_pair_select": {
+    "message": "練習"
+  },
+  "learning_dashboard_search": {
+    "message": "検索"
+  },
+  "learning_dashboard_status_filter": {
+    "message": "進捗"
+  },
+  "learning_dashboard_sort": {
+    "message": "並び順"
+  },
+  "learning_dashboard_rows": {
+    "message": "行数"
+  },
+  "learning_dashboard_col_word": {
+    "message": "語"
+  },
+  "learning_dashboard_col_meaning": {
+    "message": "意味"
+  },
+  "learning_dashboard_col_progress": {
+    "message": "進捗"
+  },
+  "learning_dashboard_col_activity": {
+    "message": "活動"
+  },
+  "learning_dashboard_col_topic": {
+    "message": "トピック"
+  },
+  "learning_dashboard_col_action": {
+    "message": "操作"
+  },
+  "learning_dashboard_summary_active": {
+    "message": "アクティブ"
+  },
+  "learning_dashboard_summary_due": {
+    "message": "期限あり"
+  },
+  "learning_dashboard_summary_can_appear": {
+    "message": "表示可能"
+  },
+  "learning_dashboard_summary_upcoming": {
+    "message": "今後"
+  },
+  "learning_dashboard_summary_removed": {
+    "message": "削除済み"
+  },
+  "learning_dashboard_summary_total": {
+    "message": "合計"
+  },
+  "learning_dashboard_status_loading": {
+    "message": "語彙ライブラリを読み込み中..."
+  },
+  "learning_dashboard_status_refreshing": {
+    "message": "学習語を読み込み中..."
+  },
+  "learning_dashboard_status_ready": {
+    "message": "$1語を読み込みました。"
+  },
+  "learning_dashboard_status_failed": {
+    "message": "学習語を読み込めませんでした。"
+  },
+  "learning_dashboard_no_practices": {
+    "message": "このプロフィールには単語練習がありません。"
+  },
+  "learning_dashboard_no_practices_short": {
+    "message": "有効な練習なし"
+  },
+  "learning_dashboard_empty_filtered": {
+    "message": "このフィルターに一致する学習語はありません。"
+  },
+  "learning_dashboard_empty_unloaded": {
+    "message": "学習語はまだ読み込まれていません。"
+  },
+  "learning_dashboard_page_info": {
+    "message": "$3語中 $1-$2 を表示"
+  },
+  "learning_dashboard_page_empty": {
+    "message": "0語を表示"
+  },
+  "learning_dashboard_detail_empty": {
+    "message": "語をダブルクリックすると定義と練習詳細を表示します。"
+  },
+  "learning_dashboard_definition": {
+    "message": "定義"
+  },
+  "learning_dashboard_definition_loading": {
+    "message": "定義を読み込み中..."
+  },
+  "learning_dashboard_definition_unavailable": {
+    "message": "定義を利用できません。"
+  },
+  "learning_dashboard_replacement_sources": {
+    "message": "ページ置換"
+  },
+  "learning_dashboard_no_replacement_sources": {
+    "message": "公開済みのページ置換元は見つかりませんでした。"
+  },
+  "learning_dashboard_dictionaries": {
+    "message": "辞書"
+  },
+  "learning_dashboard_advanced": {
+    "message": "詳細"
+  },
+  "learning_dashboard_advanced_rules": {
+    "message": "公開済みルール"
+  },
+  "learning_dashboard_page_replacement_label": {
+    "message": "ページ置換"
+  },
+  "learning_dashboard_practice_state_label": {
+    "message": "練習状態"
+  },
+  "learning_dashboard_scheduler_label": {
+    "message": "スケジューラー"
+  },
+  "learning_dashboard_step_label": {
+    "message": "ステップ"
+  },
+  "learning_dashboard_confidence_label": {
+    "message": "信頼度"
+  },
+  "learning_dashboard_stability_label": {
+    "message": "安定度"
+  },
+  "learning_dashboard_difficulty_label": {
+    "message": "難易度"
+  },
+  "learning_dashboard_no_published_rules": {
+    "message": "公開済みルールは見つかりませんでした。"
+  },
+  "learning_dashboard_discard": {
+    "message": "破棄"
+  },
+  "pagination_first": {
+    "message": "最初"
+  },
+  "pagination_prev": {
+    "message": "前"
+  },
+  "pagination_next": {
+    "message": "次"
+  },
+  "pagination_last": {
+    "message": "最後"
   },
   "confirm_srs_reset_1": {
-    "message": "この言語ペアのSRS進捗をすべてリセットしますか？この操作は元に戻せません。"
+    "message": "現在のプロフィールと言語ペアの語彙練習を削除しますか？この操作は元に戻せません。"
   },
   "confirm_srs_reset_2": {
-    "message": "このペアの学習履歴を本当に削除して最初からやり直しますか？"
+    "message": "この練習の学習語、復習履歴、破棄データを本当に削除しますか？"
   },
   "status_srs_sampling": {
     "message": "サンプリング中…"
@@ -219,19 +702,19 @@
     "message": "サンプルルール生成: 単語$1件, ターゲット$2件, ルール$3件（$4秒）"
   },
   "status_srs_set_init_running": {
-    "message": "Sを初期化中…"
+    "message": "練習を開始中…"
   },
   "status_srs_refresh_running": {
-    "message": "Sを更新してルールを反映中…"
+    "message": "学習語を更新中…"
   },
   "status_srs_refresh_success": {
-    "message": "$1 のSを更新しました: +$2件を追加。"
+    "message": "$1 の学習語を更新しました: 新しい単語 +$2件。"
   },
   "status_srs_refresh_noop": {
-    "message": "$1 のS更新: 新規追加はありません。"
+    "message": "$1 の学習語を更新しました: 新しい単語の追加はありません。"
   },
   "status_srs_refresh_failed": {
-    "message": "Sの更新に失敗しました。"
+    "message": "学習語の更新に失敗しました。"
   },
   "status_srs_diagnostics_running": {
     "message": "SRS実行時診断を収集中…"
@@ -246,19 +729,19 @@
     "message": "SRS診断の収集に失敗しました。"
   },
   "status_srs_set_init_result": {
-    "message": "$3 のSを初期化しました: +$1件（合計$2件）。"
+    "message": "$3 の練習を開始しました: 学習単語 +$1件（合計$2件）。"
   },
   "status_srs_set_plan_result": {
-    "message": "$1 のS計画を作成しました。"
+    "message": "$1 の練習設定を確認しました。"
   },
   "status_srs_set_init_success": {
-    "message": "$1 のSを初期化しました。"
+    "message": "$1 の練習を開始しました。"
   },
   "status_srs_set_plan_only": {
-    "message": "$1 のS計画を作成しました（変更は未適用）。"
+    "message": "$1 の練習設定を確認しました（変更は未適用）。"
   },
   "status_srs_set_init_failed": {
-    "message": "Sの初期化に失敗しました。"
+    "message": "練習設定に失敗しました。"
   },
   "status_srs_sample_empty": {
     "message": "候補がありません。"
@@ -267,7 +750,7 @@
     "message": "現在の単語に対応するルールがありません。"
   },
   "status_srs_sample_failed": {
-    "message": "SRSサンプルに失敗しました。"
+    "message": "単語サンプルに失敗しました。"
   },
   "status_srs_rulegen_failed": {
     "message": "ルールプレビューに失敗しました。"
@@ -300,16 +783,16 @@
     "message": "対処:"
   },
   "status_srs_resetting": {
-    "message": "SRSデータをリセット中…"
+    "message": "語彙練習を削除中…"
   },
   "status_srs_reset_success": {
-    "message": "SRSデータをリセットしました。"
+    "message": "語彙練習を削除しました。"
   },
   "status_srs_reset_failed": {
-    "message": "SRSリセットに失敗しました。"
+    "message": "語彙練習の削除に失敗しました。"
   },
   "status_srs_reset_outdated": {
-    "message": "ヘルパーが古いためコマンドが見つかりません。ヘルパーを再起動してください。"
+    "message": "削除に失敗しました: Helperコマンドが見つかりません。Helperを再起動しますか？"
   },
   "section_share_center": {
     "message": "共有センター"
@@ -339,13 +822,13 @@
     "message": "閉じる"
   },
   "hint_share_center_export_mode": {
-    "message": "エクスポートモードを選択してください。フルプロファイルはすべてを、カスタム選択は特定ノードのみを出力します。"
+    "message": "エクスポートモードを選択してください。フルプロファイルは既存のプロファイル共有形式を使用し、カスタム選択は特定ノードのみを選べます。"
   },
   "share_center_mode_full_title": {
     "message": "フルプロファイル"
   },
   "share_center_mode_full_hint": {
-    "message": "推奨。完全なプロファイルデータを一度にエクスポートします。"
+    "message": "推奨。完全なプロファイルデータを既存のプロファイル共有形式でエクスポートします。"
   },
   "share_center_mode_custom_title": {
     "message": "カスタム選択"
@@ -369,7 +852,10 @@
     "message": "プロファイル設定"
   },
   "share_center_target_profile_settings_hint": {
-    "message": "プロファイル設定とSRS設定。"
+    "message": "プロファイル設定とSRS設定を既存のSRS設定形式でエクスポートします。"
+  },
+  "share_center_compatibility_note": {
+    "message": "互換性メモ: 「フルプロファイル」は既存のプロファイル共有形式を使用し、「プロファイル設定」ターゲットは既存のSRS設定形式を使用します。"
   },
   "share_center_group_rulesets": {
     "message": "ルールセット"
@@ -480,7 +966,7 @@
     "message": "生成前に有効なSRSペア項目を選択してください。"
   },
   "share_center_hint_ready_full_export": {
-    "message": "フルプロファイルをJSONファイルとしてエクスポートできます。"
+    "message": "既存のプロファイル共有形式でフルプロファイルをJSONファイルとしてエクスポートする準備ができました。"
   },
   "share_center_hint_ready_selection_export": {
     "message": "選択内容をJSONファイルとしてエクスポートできます。"
@@ -641,6 +1127,18 @@
   "hint_share_code": {
     "message": "ルールを共有するための圧縮コードを生成します。"
   },
+  "label_share_scope": {
+    "message": "含める内容"
+  },
+  "option_share_scope_rules": {
+    "message": "手動ルール"
+  },
+  "option_share_scope_srs": {
+    "message": "SRS 状態"
+  },
+  "option_share_scope_profile": {
+    "message": "プロファイル全体のデータ"
+  },
   "toggle_share_code_cjk": {
     "message": "短いコード（CJK）"
   },
@@ -693,7 +1191,19 @@
     "message": "置換設定を保存しました。"
   },
   "status_srs_saved": {
-    "message": "SRS設定を保存しました。"
+    "message": "練習設定を保存しました。"
+  },
+  "status_srs_preferences_saved": {
+    "message": "設定を保存しました。"
+  },
+  "status_srs_preferences_unsaved": {
+    "message": "未保存の変更があります。"
+  },
+  "status_srs_save_failed": {
+    "message": "練習設定を保存できませんでした。"
+  },
+  "status_srs_save_partial": {
+    "message": "練習設定は部分的に保存されました。ページを再読み込みし、現在の値を確認してください。"
   },
   "status_switch_edit_json": {
     "message": "保存するには「JSONを編集」に切り替えてください。"
@@ -767,6 +1277,21 @@
   "button_modules": {
     "message": "モジュール"
   },
+  "button_word_popup_settings": {
+    "message": "単語ポップアップ設定"
+  },
+  "heading_word_popup_settings": {
+    "message": "単語ポップアップ設定"
+  },
+  "hint_word_popup_settings": {
+    "message": "現在の語彙練習のターゲット言語に適用されます。翻訳された単語を操作したときに表示する内容を選びます。"
+  },
+  "module_quick_definition": {
+    "message": "定義"
+  },
+  "module_quick_definition_desc": {
+    "message": "ポップアップに簡単な定義を表示します。"
+  },
   "module_ja_script_forms": {
     "message": "日本語スクリプト表示"
   },
@@ -796,6 +1321,18 @@
   },
   "label_module_drag_reorder": {
     "message": "ドラッグして並べ替え"
+  },
+  "popup_definition_loading": {
+    "message": "定義を読み込み中..."
+  },
+  "popup_definition_unavailable": {
+    "message": "利用できる定義はありません。"
+  },
+  "popup_definition_missing": {
+    "message": "この単語の定義データはインストールされていません。"
+  },
+  "popup_definition_error": {
+    "message": "定義を読み込めませんでした。"
   },
   "popup_feedback_history_loading": {
     "message": "フィードバック履歴（読み込み中...）"
@@ -871,6 +1408,18 @@
   },
   "section_profile": {
     "message": "プロファイル"
+  },
+  "section_your_setup": {
+    "message": "現在の設定"
+  },
+  "hint_your_setup": {
+    "message": "このオプション画面に適用される言語とプロファイルのコンテキストです。"
+  },
+  "section_manual_rules": {
+    "message": "手動ルール"
+  },
+  "hint_manual_rules": {
+    "message": "選択中のプロファイル用の手動ルールセットを編集またはインポートします。"
   },
   "label_profile_id": {
     "message": "プロファイル"
@@ -1006,5 +1555,56 @@
   },
   "button_get_plugin": {
     "message": "BetterDiscordプラグインを入手"
+  },
+  "label_semantic_pack_inventory_path": {
+    "message": "Semantic inventory path override"
+  },
+  "label_semantic_pack_id": {
+    "message": "Semantic pack id"
+  },
+  "toggle_semantic_pack_default_data_root": {
+    "message": "Install to default helper data folder"
+  },
+  "label_semantic_pack_data_root": {
+    "message": "Semantic pack data root"
+  },
+  "button_semantic_pack_install": {
+    "message": "Install semantic pack…"
+  },
+  "status_semantic_pack_inventory_path_required": {
+    "message": "Semantic inventory path is required."
+  },
+  "status_semantic_pack_data_root_required": {
+    "message": "Data root is required unless default data root is enabled."
+  },
+  "confirm_semantic_pack_install": {
+    "message": "Install semantic pack for $1 profile $2? This overwrites the profile-local semantic publication files."
+  },
+  "status_semantic_pack_install_running": {
+    "message": "Installing semantic pack…"
+  },
+  "status_semantic_pack_install_success": {
+    "message": "Installed $1 for $2: $3 rules, $4 competition sets."
+  },
+  "status_semantic_pack_install_ready": {
+    "message": "Semantic pack installed."
+  },
+  "status_semantic_pack_install_failed": {
+    "message": "Semantic pack install failed."
+  },
+  "status_srs_items_list_ready": {
+    "message": "学習語を $1 件読み込みました。"
+  },
+  "status_srs_items_list_failed": {
+    "message": "学習語を読み込めませんでした。"
+  },
+  "confirm_srs_discard_word": {
+    "message": "$1 を破棄しますか？語彙練習から削除され、練習データをリセットするまで今後の追加対象から外れます。"
+  },
+  "status_srs_discard_success": {
+    "message": "$1 を破棄しました。"
+  },
+  "status_srs_discard_failed": {
+    "message": "学習語を破棄できませんでした。"
   }
 }

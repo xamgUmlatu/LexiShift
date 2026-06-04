@@ -1,0 +1,1762 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-05-04T21:48:12Z",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:semantic-veto-llm-pilot:semantic-veto-pilot-full-20260505-001",
+  "pilot_id": "semantic_veto_llm_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_eval_sentence_pilot_v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 72,
+    "accepted_row_count": 72,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "accepted_rows_by_gold_type": {
+      "phrase_no_winner": 12,
+      "positive_active": 36,
+      "shadow_negative": 24
+    },
+    "input_tokens": 30311,
+    "output_tokens": 15409,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json",
+    "generated_rows_json": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:001",
+      "row_id": "pilotrow:pilot_bank_banco:positive_active:001",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_04bc43753d757df80169f912bef998819691ce770428ec5e06",
+      "sentence": "The bank approved the loan after reviewing the business plan.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:001",
+      "usage": {
+        "input_tokens": 405,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 216,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 621
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:002",
+      "row_id": "pilotrow:pilot_bank_banco:positive_active:002",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_058cb79e00d907030169f912c143f88190a74badca801fd194",
+      "sentence": "For the quarterly treasury review, the auditors confirmed that the bank held the reserve funds securely.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:002",
+      "usage": {
+        "input_tokens": 404,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 175,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 579
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:003",
+      "row_id": "pilotrow:pilot_bank_banco:positive_active:003",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0e35d7cb0f323d430169f912c3a69c81909630470972964adc",
+      "sentence": "The local bank approved the mortgage application this morning.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:003",
+      "usage": {
+        "input_tokens": 402,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 165,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 567
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:shadow_negative:001",
+      "row_id": "pilotrow:pilot_bank_banco:shadow_negative:001",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_07aa120d69a6b6090169f912c5e4348195b5671562a2c41af9",
+      "sentence": "River bank erosion closes the trail after heavy rain.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:shadow_negative:001",
+      "usage": {
+        "input_tokens": 421,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 220,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 641
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:shadow_negative:002",
+      "row_id": "pilotrow:pilot_bank_banco:shadow_negative:002",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0416055b4743a4910169f912c946e48193874d681d14354926",
+      "sentence": "The river bank eroded after the storm, and the hydrology report noted fresh sediment deposits.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:shadow_negative:002",
+      "usage": {
+        "input_tokens": 423,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 182,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 605
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0cfb37ee31d080c80169f912cb1bf081908d900c32e1c4d0fa",
+      "sentence": "She banked the plane to the left before landing on the runway.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 438,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 237,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 675
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:positive_active:001",
+      "row_id": "pilotrow:pilot_plant_planta:positive_active:001",
+      "family_id": "pilot:plant:planta",
+      "trigger": "plant",
+      "candidate_replacement": "planta",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0e7aa80ce8431ae20169f912cd24c081969b954cf61a721211",
+      "sentence": "In the greenhouse, the plant near the window is blooming.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:positive_active:001",
+      "usage": {
+        "input_tokens": 406,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 217,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 623
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:positive_active:002",
+      "row_id": "pilotrow:pilot_plant_planta:positive_active:002",
+      "family_id": "pilot:plant:planta",
+      "trigger": "plant",
+      "candidate_replacement": "planta",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_096ba97d906498d50169f912ceff288193a9d058b921af0fe5",
+      "sentence": "The greenhouse team monitored the rare plant species for signs of new growth.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:positive_active:002",
+      "usage": {
+        "input_tokens": 407,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 220,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 627
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:positive_active:003",
+      "row_id": "pilotrow:pilot_plant_planta:positive_active:003",
+      "family_id": "pilot:plant:planta",
+      "trigger": "plant",
+      "candidate_replacement": "planta",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0d162f4ecafb6f5d0169f912d30e6c8190a48fb6bc83011ce1",
+      "sentence": "The plant in the corner is growing new leaves.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:positive_active:003",
+      "usage": {
+        "input_tokens": 405,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 213,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 618
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:shadow_negative:001",
+      "row_id": "pilotrow:pilot_plant_planta:shadow_negative:001",
+      "family_id": "pilot:plant:planta",
+      "trigger": "plant",
+      "candidate_replacement": "planta",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_06310c18f52bdf510169f912d4b5908190b15b4a165f46a8b4",
+      "sentence": "After the outage, the plant was restarted, and the lights came back on.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:shadow_negative:001",
+      "usage": {
+        "input_tokens": 425,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 231,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 656
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:shadow_negative:002",
+      "row_id": "pilotrow:pilot_plant_planta:shadow_negative:002",
+      "family_id": "pilot:plant:planta",
+      "trigger": "plant",
+      "candidate_replacement": "planta",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_02c00d20fbd746030169f912d7c91481948bbaf3e0a101ead0",
+      "sentence": "The engineers inspected the cooling systems at the power plant after the alarm sounded.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:shadow_negative:002",
+      "usage": {
+        "input_tokens": 427,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 232,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 659
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_plant_planta:phrase_no_winner:001",
+      "family_id": "pilot:plant:planta",
+      "trigger": "plant",
+      "candidate_replacement": "planta",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0f04b40277350ec70169f912da188c81968a5b695e0c5af7a3",
+      "sentence": "In the end, the whole plan was a plant to get more clicks.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_plant_planta:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 439,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 268,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 707
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:positive_active:001",
+      "row_id": "pilotrow:pilot_board_tablero:positive_active:001",
+      "family_id": "pilot:board:tablero",
+      "trigger": "board",
+      "candidate_replacement": "tablero",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0b6dced9778403570169f912dc177c81978645d3fda3120d67",
+      "sentence": "New board game guide posted today.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:positive_active:001",
+      "usage": {
+        "input_tokens": 414,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 218,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 632
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:positive_active:002",
+      "row_id": "pilotrow:pilot_board_tablero:positive_active:002",
+      "family_id": "pilot:board:tablero",
+      "trigger": "board",
+      "candidate_replacement": "tablero",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0a008eab4041ff900169f912ddaa0c819593e42c503acae407",
+      "sentence": "The engineer calibrated the control board for the new display system.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:positive_active:002",
+      "usage": {
+        "input_tokens": 415,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 223,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 638
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:positive_active:003",
+      "row_id": "pilotrow:pilot_board_tablero:positive_active:003",
+      "family_id": "pilot:board:tablero",
+      "trigger": "board",
+      "candidate_replacement": "tablero",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_02df4e738b6f95430169f912dfaf3081979da604d86eaf0e03",
+      "sentence": "The board, mounted above the desk, shows today’s schedule clearly.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:positive_active:003",
+      "usage": {
+        "input_tokens": 414,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 175,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 589
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:shadow_negative:001",
+      "row_id": "pilotrow:pilot_board_tablero:shadow_negative:001",
+      "family_id": "pilot:board:tablero",
+      "trigger": "board",
+      "candidate_replacement": "tablero",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_07c44d03de24efd20169f9141d03c48194ab5be07692345b14",
+      "sentence": "The passengers board the train after the final announcement.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:shadow_negative:001",
+      "usage": {
+        "input_tokens": 434,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 178,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 612
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:shadow_negative:002",
+      "row_id": "pilotrow:pilot_board_tablero:shadow_negative:002",
+      "family_id": "pilot:board:tablero",
+      "trigger": "board",
+      "candidate_replacement": "tablero",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0508e94489c614dd0169f912e394d48190b02c9867c95817b4",
+      "sentence": "In the lab report, the board members approved the protocol update.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:shadow_negative:002",
+      "usage": {
+        "input_tokens": 433,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 231,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 664
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_board_tablero:phrase_no_winner:001",
+      "family_id": "pilot:board:tablero",
+      "trigger": "board",
+      "candidate_replacement": "tablero",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0b7bae0e5d41e0a10169f912e5582c8193a6a170a7424cfa3e",
+      "sentence": "The new app lets you board the train from your phone, and the schedule updates instantly.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_board_tablero:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 444,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 257,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 701
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:positive_active:001",
+      "row_id": "pilotrow:pilot_check_cheque:positive_active:001",
+      "family_id": "pilot:check:cheque",
+      "trigger": "check",
+      "candidate_replacement": "cheque",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0761c9a23e3468480169f912e763e48193b2fc2668b0c82957",
+      "sentence": "Deposit the check today at the bank.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:positive_active:001",
+      "usage": {
+        "input_tokens": 408,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 164,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 572
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:positive_active:002",
+      "row_id": "pilotrow:pilot_check_cheque:positive_active:002",
+      "family_id": "pilot:check:cheque",
+      "trigger": "check",
+      "candidate_replacement": "cheque",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0902ff84fc1c02bf0169f912ea0908819481486c3e37e2ff39",
+      "sentence": "After the audit software flagged the invoice batch, the finance team printed a check for the vendor.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:positive_active:002",
+      "usage": {
+        "input_tokens": 410,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 176,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 586
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:positive_active:003",
+      "row_id": "pilotrow:pilot_check_cheque:positive_active:003",
+      "family_id": "pilot:check:cheque",
+      "trigger": "check",
+      "candidate_replacement": "cheque",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_07741065ad8513dd0169f912eba3408194b085f1908cb71401",
+      "sentence": "She mailed the check to pay the rent.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:positive_active:003",
+      "usage": {
+        "input_tokens": 409,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 216,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 625
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:shadow_negative:001",
+      "row_id": "pilotrow:pilot_check_cheque:shadow_negative:001",
+      "family_id": "pilot:check:cheque",
+      "trigger": "check",
+      "candidate_replacement": "cheque",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_024118fe18dc62c40169f912ed6d148195a86f1351acfb7065",
+      "sentence": "At the gate, the final check clears the bag.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:shadow_negative:001",
+      "usage": {
+        "input_tokens": 426,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 223,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 649
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:shadow_negative:002",
+      "row_id": "pilotrow:pilot_check_cheque:shadow_negative:002",
+      "family_id": "pilot:check:cheque",
+      "trigger": "check",
+      "candidate_replacement": "cheque",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_01fcbb2e0563f7c80169f912efa3648197a1712416cab20244",
+      "sentence": "The server logs flagged a security check after the failed login attempts.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:shadow_negative:002",
+      "usage": {
+        "input_tokens": 427,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 179,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 606
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_check_cheque:phrase_no_winner:001",
+      "family_id": "pilot:check:cheque",
+      "trigger": "check",
+      "candidate_replacement": "cheque",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_02e90654f57254850169f912f14c908197b982f1034a62420f",
+      "sentence": "Check the box below to continue, then review the form before you submit it.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_check_cheque:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 440,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 260,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 700
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:positive_active:001",
+      "row_id": "pilotrow:pilot_branch_sucursal:positive_active:001",
+      "family_id": "pilot:branch:sucursal",
+      "trigger": "branch",
+      "candidate_replacement": "sucursal",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_09256648faabdf2e0169f912f3bdd88196abf26998cf4f74af",
+      "sentence": "The branch, just off Main Street, opens at nine.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:positive_active:001",
+      "usage": {
+        "input_tokens": 415,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 171,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 586
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:positive_active:002",
+      "row_id": "pilotrow:pilot_branch_sucursal:positive_active:002",
+      "family_id": "pilot:branch:sucursal",
+      "trigger": "branch",
+      "candidate_replacement": "sucursal",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_037bfa55e25aa5060169f912f5b7d48197b944ac9dba148e36",
+      "sentence": "The bank's downtown branch processes corporate deposits and loan applications.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:positive_active:002",
+      "usage": {
+        "input_tokens": 417,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 223,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 640
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:positive_active:003",
+      "row_id": "pilotrow:pilot_branch_sucursal:positive_active:003",
+      "family_id": "pilot:branch:sucursal",
+      "trigger": "branch",
+      "candidate_replacement": "sucursal",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_04136eb19e932a2f0169f912f76fd48196a693c23f3ba3fc6e",
+      "sentence": "At the downtown branch, customers can open new accounts and get help with transfers.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:positive_active:003",
+      "usage": {
+        "input_tokens": 413,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 173,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 586
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:shadow_negative:001",
+      "row_id": "pilotrow:pilot_branch_sucursal:shadow_negative:001",
+      "family_id": "pilot:branch:sucursal",
+      "trigger": "branch",
+      "candidate_replacement": "sucursal",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0010455d69b557120169f912f8ec64819784644f2f677dd286",
+      "sentence": "Storm damage closes the branch on the old oak, while crews clear the road below.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:shadow_negative:001",
+      "usage": {
+        "input_tokens": 432,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 238,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 670
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:shadow_negative:002",
+      "row_id": "pilotrow:pilot_branch_sucursal:shadow_negative:002",
+      "family_id": "pilot:branch:sucursal",
+      "trigger": "branch",
+      "candidate_replacement": "sucursal",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0722dcba2a4c208f0169f912fb60348196b84c8bb148fce37f",
+      "sentence": "The database query returned a branch of the decision tree after the latest update.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:shadow_negative:002",
+      "usage": {
+        "input_tokens": 433,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 253,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 686
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
+      "family_id": "pilot:branch:sucursal",
+      "trigger": "branch",
+      "candidate_replacement": "sucursal",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_08b1db1a105533800169f912fdafc881979d0b0370cd5bc9df",
+      "sentence": "Branching out into new hobbies, she later found that the long commute made the whole plan impractical.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 445,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 268,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 713
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:positive_active:001",
+      "row_id": "pilotrow:pilot_file_archivo:positive_active:001",
+      "family_id": "pilot:file:archivo",
+      "trigger": "file",
+      "candidate_replacement": "archivo",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_04843649b1f719cd0169f913001fd08194a1116b7875cc2fdf",
+      "sentence": "The clerk opened the file after lunch.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:positive_active:001",
+      "usage": {
+        "input_tokens": 408,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 215,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 623
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:positive_active:002",
+      "row_id": "pilotrow:pilot_file_archivo:positive_active:002",
+      "family_id": "pilot:file:archivo",
+      "trigger": "file",
+      "candidate_replacement": "archivo",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0c85da834e600fa90169f91302f28081969cf678cfc2310fe8",
+      "sentence": "For the audit review, the team uploaded the file to the secure server.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:positive_active:002",
+      "usage": {
+        "input_tokens": 407,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 219,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 626
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:positive_active:003",
+      "row_id": "pilotrow:pilot_file_archivo:positive_active:003",
+      "family_id": "pilot:file:archivo",
+      "trigger": "file",
+      "candidate_replacement": "archivo",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_07519f8d1365a7b00169f91304f5b4819787dcc59255832c29",
+      "sentence": "The shared file folder is updated daily.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:positive_active:003",
+      "usage": {
+        "input_tokens": 405,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 210,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 615
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:shadow_negative:001",
+      "row_id": "pilotrow:pilot_file_archivo:shadow_negative:001",
+      "family_id": "pilot:file:archivo",
+      "trigger": "file",
+      "candidate_replacement": "archivo",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0f033ba8a12dca530169f91306ce088195b3ddc6ec625d2dd3",
+      "sentence": "Breaking news: the file on the table was a sharp metal tool, not a document.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:shadow_negative:001",
+      "usage": {
+        "input_tokens": 424,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 234,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 658
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:shadow_negative:002",
+      "row_id": "pilotrow:pilot_file_archivo:shadow_negative:002",
+      "family_id": "pilot:file:archivo",
+      "trigger": "file",
+      "candidate_replacement": "archivo",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0497df5a2802cd450169f9130881408196a5d65ea08944fbf8",
+      "sentence": "The technician checked the server logs, and the file on the drill bit was worn smooth.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:shadow_negative:002",
+      "usage": {
+        "input_tokens": 426,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 237,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 663
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_file_archivo:phrase_no_winner:001",
+      "family_id": "pilot:file:archivo",
+      "trigger": "file",
+      "candidate_replacement": "archivo",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_056ac5879c6c18dc0169f9130a62808196b41d65332cb9b4ec",
+      "sentence": "The team kept the file open while they waited for the final report.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_file_archivo:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 439,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 256,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 695
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:positive_active:001",
+      "row_id": "pilotrow:pilot_play_obra:positive_active:001",
+      "family_id": "pilot:play:obra",
+      "trigger": "play",
+      "candidate_replacement": "obra",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_06d2d43bd0b1a7500169f9130c60f08193bc39e0f68dbff0d5",
+      "sentence": "On Broadway, the new play opens tonight.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:positive_active:001",
+      "usage": {
+        "input_tokens": 406,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 214,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 620
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:positive_active:002",
+      "row_id": "pilotrow:pilot_play_obra:positive_active:002",
+      "family_id": "pilot:play:obra",
+      "trigger": "play",
+      "candidate_replacement": "obra",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_03a3ab935f3430b10169f9130e107481938530526fc1b19a44",
+      "sentence": "In the theater archive, the annotated play was cataloged alongside the director's notes.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:positive_active:002",
+      "usage": {
+        "input_tokens": 407,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 222,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 629
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:positive_active:003",
+      "row_id": "pilotrow:pilot_play_obra:positive_active:003",
+      "family_id": "pilot:play:obra",
+      "trigger": "play",
+      "candidate_replacement": "obra",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_008dc8d46794de2d0169f9130fd3888194a7c3f428481edbc4",
+      "sentence": "The play adaptation opened to strong reviews on the streaming site.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:positive_active:003",
+      "usage": {
+        "input_tokens": 405,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 215,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 620
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:shadow_negative:001",
+      "row_id": "pilotrow:pilot_play_obra:shadow_negative:001",
+      "family_id": "pilot:play:obra",
+      "trigger": "play",
+      "candidate_replacement": "obra",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_01605545a7e84fcb0169f9131196188196add81f50c7cb343e",
+      "sentence": "After the rain, the kids play in the park while the benches dry in the sun.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:shadow_negative:001",
+      "usage": {
+        "input_tokens": 425,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 232,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 657
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:shadow_negative:002",
+      "row_id": "pilotrow:pilot_play_obra:shadow_negative:002",
+      "family_id": "pilot:play:obra",
+      "trigger": "play",
+      "candidate_replacement": "obra",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0a4c0ee538e98dba0169f91313857081958a8a7025b50176f7",
+      "sentence": "The server logs show a failed play in the deployment pipeline.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:shadow_negative:002",
+      "usage": {
+        "input_tokens": 427,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 607
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_play_obra:phrase_no_winner:001",
+      "family_id": "pilot:play:obra",
+      "trigger": "play",
+      "candidate_replacement": "obra",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0c0e329de1ec319b0169f9131578308196b6bdc28122210f3c",
+      "sentence": "At the end of the article, the play on words made the headline memorable.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_play_obra:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 437,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 266,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 703
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:positive_active:001",
+      "row_id": "pilotrow:pilot_seal_sello:positive_active:001",
+      "family_id": "pilot:seal:sello",
+      "trigger": "seal",
+      "candidate_replacement": "sello",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_03dcc4e11a5e26840169f9131793908195b0cf41c8484ef07f",
+      "sentence": "Official seal confirms the document's authenticity.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:positive_active:001",
+      "usage": {
+        "input_tokens": 410,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 165,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 575
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:positive_active:002",
+      "row_id": "pilotrow:pilot_seal_sello:positive_active:002",
+      "family_id": "pilot:seal:sello",
+      "trigger": "seal",
+      "candidate_replacement": "sello",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0de07324bef7979e0169f913190c8c8190ae603b75f3d2d7c2",
+      "sentence": "The compliance report requires a digital seal for each archived record.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:positive_active:002",
+      "usage": {
+        "input_tokens": 411,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 171,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 582
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:positive_active:003",
+      "row_id": "pilotrow:pilot_seal_sello:positive_active:003",
+      "family_id": "pilot:seal:sello",
+      "trigger": "seal",
+      "candidate_replacement": "sello",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_06cc8904101131270169f9131ab14c8196a2644bd9a3a284fe",
+      "sentence": "The seal on the certificate was checked by the clerk before the document was filed.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:positive_active:003",
+      "usage": {
+        "input_tokens": 410,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 225,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 635
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:shadow_negative:001",
+      "row_id": "pilotrow:pilot_seal_sello:shadow_negative:001",
+      "family_id": "pilot:seal:sello",
+      "trigger": "seal",
+      "candidate_replacement": "sello",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_09ddde171b310b2b0169f9131c9a3881968a422e77879a0082",
+      "sentence": "The harbor seal naps on the dock while tourists watch from the pier.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:shadow_negative:001",
+      "usage": {
+        "input_tokens": 430,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 185,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 615
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:shadow_negative:002",
+      "row_id": "pilotrow:pilot_seal_sello:shadow_negative:002",
+      "family_id": "pilot:seal:sello",
+      "trigger": "seal",
+      "candidate_replacement": "sello",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0d3ddb7811a74e470169f9131e2984819395026ff7aa4b8a8b",
+      "sentence": "In the marine biology report, the researchers tracked the seal near the ice floe.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:shadow_negative:002",
+      "usage": {
+        "input_tokens": 429,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 236,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 665
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_seal_sello:phrase_no_winner:001",
+      "family_id": "pilot:seal:sello",
+      "trigger": "seal",
+      "candidate_replacement": "sello",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0c2e8ca6643368780169f9132010988194b403cff0725d9ee7",
+      "sentence": "A quick seal of approval from the editor helped the article go live.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_seal_sello:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 441,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 247,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 688
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:positive_active:001",
+      "row_id": "pilotrow:pilot_report_informe:positive_active:001",
+      "family_id": "pilot:report:informe",
+      "trigger": "report",
+      "candidate_replacement": "informe",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0a43293b3a35adde0169f91322511c8194a80d7f17b0c94fb8",
+      "sentence": "The final report from the audit is now online.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:positive_active:001",
+      "usage": {
+        "input_tokens": 411,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 165,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 576
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:positive_active:002",
+      "row_id": "pilotrow:pilot_report_informe:positive_active:002",
+      "family_id": "pilot:report:informe",
+      "trigger": "report",
+      "candidate_replacement": "informe",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0d8979b49a5d82d90169f913244aac819795b58eb61e1cf101",
+      "sentence": "After the audit team finished its review, the final report was posted on the compliance portal.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:positive_active:002",
+      "usage": {
+        "input_tokens": 413,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 238,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 651
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:positive_active:003",
+      "row_id": "pilotrow:pilot_report_informe:positive_active:003",
+      "family_id": "pilot:report:informe",
+      "trigger": "report",
+      "candidate_replacement": "informe",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_05c3b02110fdb26f0169f913260bd88194b1643171018a33ff",
+      "sentence": "The report clearly summarizes the survey results.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:positive_active:003",
+      "usage": {
+        "input_tokens": 412,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 217,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 629
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:shadow_negative:001",
+      "row_id": "pilotrow:pilot_report_informe:shadow_negative:001",
+      "family_id": "pilot:report:informe",
+      "trigger": "report",
+      "candidate_replacement": "informe",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_036dfcf19221669b0169f91327ef8c8197aac910bf331e823c",
+      "sentence": "After the storm, the report from the engine room was a loud bang.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:shadow_negative:001",
+      "usage": {
+        "input_tokens": 429,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 231,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 660
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:shadow_negative:002",
+      "row_id": "pilotrow:pilot_report_informe:shadow_negative:002",
+      "family_id": "pilot:report:informe",
+      "trigger": "report",
+      "candidate_replacement": "informe",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_064a24e266a675a50169f91329ff648197ae72320006ef69d0",
+      "sentence": "The latest lab report showed elevated glucose levels.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:shadow_negative:002",
+      "usage": {
+        "input_tokens": 430,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 176,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 606
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_report_informe:phrase_no_winner:001",
+      "family_id": "pilot:report:informe",
+      "trigger": "report",
+      "candidate_replacement": "informe",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0f6fde8ad3580ac20169f9132e73708194a0fd97a6959043ff",
+      "sentence": "The report back from the field arrived late, but the team still finished the update.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_report_informe:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 442,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 260,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 702
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:positive_active:001",
+      "row_id": "pilotrow:pilot_order_pedido:positive_active:001",
+      "family_id": "pilot:order:pedido",
+      "trigger": "order",
+      "candidate_replacement": "pedido",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_06d358c3b4449f9b0169f913306be081949edafc15a559d4a3",
+      "sentence": "The order, placed online after the sale, ships tomorrow.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:positive_active:001",
+      "usage": {
+        "input_tokens": 409,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 168,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 577
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:positive_active:002",
+      "row_id": "pilotrow:pilot_order_pedido:positive_active:002",
+      "family_id": "pilot:order:pedido",
+      "trigger": "order",
+      "candidate_replacement": "pedido",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_00f4d12520f00f870169f91332002c819792808b4b0f48199d",
+      "sentence": "The procurement team reviewed the supplier catalog and placed a large order for replacement server parts.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:positive_active:002",
+      "usage": {
+        "input_tokens": 411,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 176,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 587
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:positive_active:003",
+      "row_id": "pilotrow:pilot_order_pedido:positive_active:003",
+      "family_id": "pilot:order:pedido",
+      "trigger": "order",
+      "candidate_replacement": "pedido",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0f6b593ed978bbc20169f91333da288194a8a8c8624e36e785",
+      "sentence": "For the new laptop, the order arrived two days after checkout.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:positive_active:003",
+      "usage": {
+        "input_tokens": 407,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 167,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 574
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:shadow_negative:001",
+      "row_id": "pilotrow:pilot_order_pedido:shadow_negative:001",
+      "family_id": "pilot:order:pedido",
+      "trigger": "order",
+      "candidate_replacement": "pedido",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_082979849026ecae0169f91335a2b08197acabdb95860e7d5b",
+      "sentence": "New order restored in the court after the hearing.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:shadow_negative:001",
+      "usage": {
+        "input_tokens": 426,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 223,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 649
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:shadow_negative:002",
+      "row_id": "pilotrow:pilot_order_pedido:shadow_negative:002",
+      "family_id": "pilot:order:pedido",
+      "trigger": "order",
+      "candidate_replacement": "pedido",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_034688f469502cd80169f9133789f88193afd1d5c52c585529",
+      "sentence": "The database query returned rows in alphabetical order.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:shadow_negative:002",
+      "usage": {
+        "input_tokens": 427,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 171,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 598
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_order_pedido:phrase_no_winner:001",
+      "family_id": "pilot:order:pedido",
+      "trigger": "order",
+      "candidate_replacement": "pedido",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0d621eb6112edda30169f91339e6688197800dcd50c190794f",
+      "sentence": "The app loaded in order, but the video still buffered for several minutes.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_order_pedido:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 440,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 265,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 705
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:positive_active:001",
+      "row_id": "pilotrow:pilot_match_partido:positive_active:001",
+      "family_id": "pilot:match:partido",
+      "trigger": "match",
+      "candidate_replacement": "partido",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0b68b404d8a3273f0169f9133cc39081909d5713d35397fe1d",
+      "sentence": "The match ends with a late goal.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:positive_active:001",
+      "usage": {
+        "input_tokens": 407,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 214,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 621
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:positive_active:002",
+      "row_id": "pilotrow:pilot_match_partido:positive_active:002",
+      "family_id": "pilot:match:partido",
+      "trigger": "match",
+      "candidate_replacement": "partido",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0c1acc7abd0346ed0169f9133eef48819587cb328d20c6cedd",
+      "sentence": "In the tournament report, the two teams' defensive records and late substitutions were analyzed before the final match.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:positive_active:002",
+      "usage": {
+        "input_tokens": 406,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 226,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 632
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:positive_active:003",
+      "row_id": "pilotrow:pilot_match_partido:positive_active:003",
+      "family_id": "pilot:match:partido",
+      "trigger": "match",
+      "candidate_replacement": "partido",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0c5ba7e243ba6f5c0169f913436e588190b3d9e67bf4ca58b9",
+      "sentence": "The final match ended in a thrilling 2-1 victory for the home team.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:positive_active:003",
+      "usage": {
+        "input_tokens": 404,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 220,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 624
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:shadow_negative:001",
+      "row_id": "pilotrow:pilot_match_partido:shadow_negative:001",
+      "family_id": "pilot:match:partido",
+      "trigger": "match",
+      "candidate_replacement": "partido",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0636eb6bd86d253c0169f913459b9081959ba594e121917f7e",
+      "sentence": "Headline: a perfect match for the frame, with the finish finally aligned.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:shadow_negative:001",
+      "usage": {
+        "input_tokens": 423,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 229,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 652
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:shadow_negative:002",
+      "row_id": "pilotrow:pilot_match_partido:shadow_negative:002",
+      "family_id": "pilot:match:partido",
+      "trigger": "match",
+      "candidate_replacement": "partido",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_07120fec44a175ab0169f913476b6081968f429ee58eb54ae3",
+      "sentence": "The technician checked whether the connector pins match the socket after the firmware update.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:shadow_negative:002",
+      "usage": {
+        "input_tokens": 425,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 239,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 664
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_match_partido:phrase_no_winner:001",
+      "family_id": "pilot:match:partido",
+      "trigger": "match",
+      "candidate_replacement": "partido",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_07905955f56e0d650169f9134985fc8193a2e2a260fd19750c",
+      "sentence": "The colors on the new sofa match the curtains, and the room feels brighter after the renovation.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_match_partido:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 440,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 242,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 682
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:positive_active:001",
+      "row_id": "pilotrow:pilot_watch_reloj:positive_active:001",
+      "family_id": "pilot:watch:reloj",
+      "trigger": "watch",
+      "candidate_replacement": "reloj",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_0fe45cc9704102f90169f9134b705081968519f8b3cae920da",
+      "sentence": "On the bedside table, the watch gleamed beside a ring.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:positive_active:001",
+      "usage": {
+        "input_tokens": 417,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 222,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 639
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:positive_active:002",
+      "row_id": "pilotrow:pilot_watch_reloj:positive_active:002",
+      "family_id": "pilot:watch:reloj",
+      "trigger": "watch",
+      "candidate_replacement": "reloj",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_05f756424292cacc0169f9134d70b88190a39bd3b5f6b396a7",
+      "sentence": "In the lab’s latest wearable diagnostics report, the stainless-steel watch on the technician’s wrist was calibrated for precise timekeeping.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:positive_active:002",
+      "usage": {
+        "input_tokens": 418,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 186,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 604
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:positive_active:003",
+      "row_id": "pilotrow:pilot_watch_reloj:positive_active:003",
+      "family_id": "pilot:watch:reloj",
+      "trigger": "watch",
+      "candidate_replacement": "reloj",
+      "gold_type": "positive_active",
+      "gold_decision": "allow",
+      "status": "accepted",
+      "response_id": "resp_00cc5acc22d7e0870169f9134f5c4c8190a8d018c135515b8c",
+      "sentence": "He checked his watch with the black leather strap before leaving the house.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:positive_active:003",
+      "usage": {
+        "input_tokens": 416,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 172,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 588
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:shadow_negative:001",
+      "row_id": "pilotrow:pilot_watch_reloj:shadow_negative:001",
+      "family_id": "pilot:watch:reloj",
+      "trigger": "watch",
+      "candidate_replacement": "reloj",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0c721355d0dff9a80169f91351560081949981bec2ffcbf778",
+      "sentence": "Police watch the crowd from the rooftop as the parade moves below.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:shadow_negative:001",
+      "usage": {
+        "input_tokens": 436,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 616
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:shadow_negative:002",
+      "row_id": "pilotrow:pilot_watch_reloj:shadow_negative:002",
+      "family_id": "pilot:watch:reloj",
+      "trigger": "watch",
+      "candidate_replacement": "reloj",
+      "gold_type": "shadow_negative",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_02f80fee1fea79230169f9135380948194826d9cae732d07af",
+      "sentence": "The security team will watch the server logs for suspicious activity.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:shadow_negative:002",
+      "usage": {
+        "input_tokens": 438,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 234,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 672
+      }
+    },
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_watch_reloj:phrase_no_winner:001",
+      "family_id": "pilot:watch:reloj",
+      "trigger": "watch",
+      "candidate_replacement": "reloj",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "status": "accepted",
+      "response_id": "resp_0c5cfbfb254c676e0169f91355eef08196893bb1269b4ae456",
+      "sentence": "Before the meeting starts, watch your step on the wet tiles.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_watch_reloj:phrase_no_winner:001",
+      "usage": {
+        "input_tokens": 446,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 257,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 703
+      }
+    }
+  ]
+}

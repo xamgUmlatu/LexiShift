@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "taxonomy_id": "semantic_veto_test_weakness_taxonomy_en_es_v1",
+  "pair": "en-es",
+  "purpose": "Named weakness classes that keep semantic-veto test rows from being treated as trusted evaluation data until reviewed or repaired.",
+  "weakness_types": [
+    {
+      "id": "active_target_sense_not_audited",
+      "scope": "family",
+      "severity": "review_required",
+      "detection": "automatic_default",
+      "meaning": "The English active sense has not been confirmed to match the Spanish target lemma.",
+      "avoid_by": "Require explicit user approval of active_sense_status before trusted scoring.",
+      "review_action": "Mark active_sense_status as aligned, uncertain, mismatched, or diagnostic_exception."
+    },
+    {
+      "id": "source_target_mapping_questionable",
+      "scope": "family",
+      "severity": "blocking",
+      "detection": "manual_or_llm_assisted",
+      "meaning": "The source-target pair appears semantically wrong or too loose for gold evaluation.",
+      "avoid_by": "Exclude from trusted evaluation or correct the active evidence/source-target family.",
+      "review_action": "Reject the family or mark it source_mapping_questionable with notes."
+    },
+    {
+      "id": "source_form_artifact_risk",
+      "scope": "family",
+      "severity": "review_required",
+      "detection": "automatic_heuristic",
+      "meaning": "The English source form is missing a normal frequency band or looks like an artifact token.",
+      "avoid_by": "Confirm that the source form is a real browser-facing trigger before using it as product evidence.",
+      "review_action": "Approve as real, rewrite the source form, or mark diagnostic_only."
+    },
+    {
+      "id": "active_context_template_circular",
+      "scope": "case",
+      "severity": "diagnostic_only",
+      "detection": "automatic_heuristic",
+      "meaning": "The positive context is a generated template that tells the scorer the intended sense.",
+      "avoid_by": "Use independent browser-like or corpus contexts that do not mention the target or definition directly.",
+      "review_action": "Rewrite before trusted scoring or keep as a template control."
+    },
+    {
+      "id": "evidence_context_overlap_risk",
+      "scope": "case",
+      "severity": "diagnostic_only",
+      "detection": "automatic_heuristic",
+      "meaning": "The context likely repeats words from the evidence source, inflating lexical overlap scorers.",
+      "avoid_by": "Keep evidence and evaluation contexts independent.",
+      "review_action": "Replace with independent context before using TF-IDF or lexical-score claims."
+    },
+    {
+      "id": "shadow_negative_synthetic_definition_context",
+      "scope": "case",
+      "severity": "diagnostic_only",
+      "detection": "automatic_heuristic",
+      "meaning": "The shadow-negative row is a generated definition sentence rather than a natural negative context.",
+      "avoid_by": "Use real alternate-sense examples or human-authored browser-like negatives.",
+      "review_action": "Rewrite before trusted scoring or keep as a diagnostic control."
+    },
+    {
+      "id": "shadow_competitor_target_not_reviewed",
+      "scope": "case",
+      "severity": "blocking",
+      "detection": "automatic_heuristic",
+      "meaning": "The shadow target is a placeholder such as '<source> alternate sense N' rather than a reviewed Spanish competitor replacement.",
+      "avoid_by": "Require a real alternate Spanish target and bilingual source-target review before trusted shadow-negative scoring.",
+      "review_action": "Provide a reviewed competitor target, reject the row, or mark it diagnostic_only."
+    },
+    {
+      "id": "shadow_negative_may_still_match_target",
+      "scope": "case",
+      "severity": "review_required",
+      "detection": "manual_or_llm_assisted",
+      "meaning": "The supposed shadow-negative context may still be a valid use of the Spanish target.",
+      "avoid_by": "Require bilingual semantic review of shadow rows.",
+      "review_action": "Approve as abstain, change gold_decision to replace, or reject the row."
+    },
+    {
+      "id": "duplicate_case_sentence",
+      "scope": "case",
+      "severity": "blocking",
+      "detection": "automatic_exact",
+      "meaning": "Two rows in the same family use the same sentence and should not count as independent tests.",
+      "avoid_by": "Deduplicate or author distinct contexts.",
+      "review_action": "Drop one row or rewrite it."
+    },
+    {
+      "id": "phrase_no_winner_template_control_only",
+      "scope": "case",
+      "severity": "diagnostic_only",
+      "detection": "automatic_heuristic",
+      "meaning": "The no-winner row is a repeated metalinguistic/listed-term template.",
+      "avoid_by": "Add realistic no-winner subtypes such as named entity, phrase collision, malformed fragment, or natural nonreplacement context.",
+      "review_action": "Keep as control only or replace with a realistic no-winner row."
+    },
+    {
+      "id": "no_winner_token_boundary_artifact",
+      "scope": "case",
+      "severity": "review_required",
+      "detection": "automatic_heuristic",
+      "meaning": "The no-winner row contains the source only inside a larger token, file name, identifier, or punctuation shape, so it may not exercise the runtime replacement trigger.",
+      "avoid_by": "Use a standalone visible source token or phrase in a browser-like no-winner context when testing trigger-level abstention.",
+      "review_action": "Rewrite with a standalone source phrase, confirm the runtime trigger behavior intentionally, or mark diagnostic_only."
+    },
+    {
+      "id": "review_markdown_missing_case_fields",
+      "scope": "packet",
+      "severity": "format_blocking",
+      "detection": "manual_or_snapshot",
+      "meaning": "The Markdown view does not expose per-case fields needed for efficient user review.",
+      "avoid_by": "Render per-case review fields or a structured table with explicit action columns.",
+      "review_action": "Fix packet rendering before large human review."
+    },
+    {
+      "id": "pilot_not_hard_case_representative",
+      "scope": "packet",
+      "severity": "review_required",
+      "detection": "automatic_summary",
+      "meaning": "The pilot packet does not include enough high-polysemy, cross-POS, phrase/no-winner, and shadow-negative cases to test the review workflow.",
+      "avoid_by": "Balance review packets across source band, polysemy, POS shape, and case type.",
+      "review_action": "Regenerate or supplement the pilot before drawing workflow conclusions."
+    }
+  ]
+}

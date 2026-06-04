@@ -1,0 +1,582 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:example-frame-missing-rows:example-frame-missing-rows-v1-20260425a",
+  "pair": "en-es",
+  "source_type": "llm",
+  "source_id": "llm_example_frame_missing_rows",
+  "source_family": "silver_llm_generation",
+  "roles": [
+    "discrimination",
+    "phrase_containment",
+    "cue_generation"
+  ],
+  "generated_at": "2026-04-24T21:32:32Z",
+  "ingested_at": "2026-04-24T21:32:32Z",
+  "review_state": "unreviewed",
+  "model_id": "gpt-5.4-mini",
+  "prompt_version": "example-frame-missing-rows-v1",
+  "temperature": 0.2,
+  "cost_metadata": {
+    "request_count": 11,
+    "requests_with_usage": 11,
+    "input_tokens": 3382,
+    "output_tokens": 358,
+    "reasoning_tokens": 0
+  },
+  "provenance": {
+    "generation_plan_batch_id": "en-es:reverse-aux-example-frames:reverse-aux-example-frames-v10-20260425a",
+    "required_family_source": "semantic_prompt_bakeoff_en_es_v10",
+    "execution_mode": "live",
+    "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json"
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:llm:shadow:en-es-sentence-veto-plant-fabrica-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example",
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ]
+      },
+      "evidence_text": "The new plant will assemble batteries around the clock.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-plant-planta:en-es-sentence-veto-plant-fabrica-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:llm:phrase-control:missing:v1",
+      "relation_type": "phrase_control_example",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "phrase_control",
+      "candidate_pos": "phrase_control",
+      "prompt_slot": "phrase_control_example",
+      "input_ref": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-plant-planta",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "",
+        "generation_target": "phrase_control_example",
+        "source_gap": "phrase_control_example",
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ],
+        "gold_decision": "abstain"
+      },
+      "evidence_text": "The plan will plant itself in their minds by morning.",
+      "confidence": 0.93,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "phrase_control"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-plant-planta",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:llm:phrase-control:missing:v1",
+      "relation_type": "phrase_control_example",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "phrase_control",
+      "candidate_pos": "phrase_control",
+      "prompt_slot": "phrase_control_example",
+      "input_ref": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-drink-bebida",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "candidate_sense_id": "",
+        "generation_target": "phrase_control_example",
+        "source_gap": "phrase_control_example",
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Drink:002 is still a hard-row abstain but already rescued by the accepted overlay."
+        ],
+        "gold_decision": "abstain"
+      },
+      "evidence_text": "The committee will drink in the details before voting.",
+      "confidence": 0.93,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "phrase_control"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-drink-bebida",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:llm:shadow:en-es-sentence-veto-check-revisar-shadow:missing:v1",
+      "relation_type": "shadow_candidate",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "candidate_pos": "verb",
+      "prompt_slot": "shadow_example",
+      "input_ref": "en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "candidate_sense_id": "en-es:sentence-veto:check:revisar:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "shadow_example",
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ]
+      },
+      "evidence_text": "Please check the wiring before we power up the machine.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:revisar:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "verb"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:shadow:en-es-sentence-veto-check-cheque:en-es-sentence-veto-check-revisar-shadow",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:llm:phrase-control:missing:v1",
+      "relation_type": "phrase_control_example",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "phrase_control",
+      "candidate_pos": "phrase_control",
+      "prompt_slot": "phrase_control_example",
+      "input_ref": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-check-cheque",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "candidate_sense_id": "",
+        "generation_target": "phrase_control_example",
+        "source_gap": "phrase_control_example",
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ],
+        "gold_decision": "abstain"
+      },
+      "evidence_text": "The rain check is still valid for next week.",
+      "confidence": 0.94,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "phrase_control"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-check-cheque",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:llm:phrase-control:missing:v1",
+      "relation_type": "phrase_control_example",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "phrase_control",
+      "candidate_pos": "phrase_control",
+      "prompt_slot": "phrase_control_example",
+      "input_ref": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-order-pedido",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "candidate_sense_id": "",
+        "generation_target": "phrase_control_example",
+        "source_gap": "phrase_control_example",
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ],
+        "gold_decision": "abstain"
+      },
+      "evidence_text": "in order to keep things simple, we left early",
+      "confidence": 0.94,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "phrase_control"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-order-pedido",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:llm:phrase-control:missing:v1",
+      "relation_type": "phrase_control_example",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "phrase_control",
+      "candidate_pos": "phrase_control",
+      "prompt_slot": "phrase_control_example",
+      "input_ref": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-trip-viaje",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "candidate_sense_id": "",
+        "generation_target": "phrase_control_example",
+        "source_gap": "phrase_control_example",
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ],
+        "gold_decision": "abstain"
+      },
+      "evidence_text": "The trip wire snapped before anyone reached the gate.",
+      "confidence": 0.96,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "phrase_control"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-trip-viaje",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:llm:phrase-control:missing:v1",
+      "relation_type": "phrase_control_example",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "phrase_control",
+      "candidate_pos": "phrase_control",
+      "prompt_slot": "phrase_control_example",
+      "input_ref": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-report-informe",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "",
+        "generation_target": "phrase_control_example",
+        "source_gap": "phrase_control_example",
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Harder held-out noun-active / verb-shadow family with two unresolved active rows."
+        ],
+        "gold_decision": "abstain"
+      },
+      "evidence_text": "The report card came home with a smiley sticker.",
+      "confidence": 0.94,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "phrase_control"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-report-informe",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:llm:active:missing:v1",
+      "relation_type": "anchor_cue",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "candidate_pos": "noun",
+      "prompt_slot": "active_example",
+      "input_ref": "en-es:example-frame-missing:active:en-es-sentence-veto-play-obra",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "candidate_sense_id": "en-es:sentence-veto:play:obra:active",
+        "generation_target": "active_example",
+        "source_gap": "active_example",
+        "queue_role": "negative_control",
+        "queue_archetype": "phrase_leak_control",
+        "queue_likely_bucket": "needs_phrase_parsing_fix",
+        "queue_priority_rank": 0,
+        "queue_notes": [
+          "Do not spend prompt budget here.",
+          "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+        ]
+      },
+      "evidence_text": "The school staged a play about climate change in the auditorium.",
+      "confidence": 0.98,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:active:en-es-sentence-veto-play-obra",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:llm:phrase-control:missing:v1",
+      "relation_type": "phrase_control_example",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "phrase_control",
+      "candidate_pos": "phrase_control",
+      "prompt_slot": "phrase_control_example",
+      "input_ref": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-play-obra",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "candidate_sense_id": "",
+        "generation_target": "phrase_control_example",
+        "source_gap": "phrase_control_example",
+        "queue_role": "negative_control",
+        "queue_archetype": "phrase_leak_control",
+        "queue_likely_bucket": "needs_phrase_parsing_fix",
+        "queue_priority_rank": 0,
+        "queue_notes": [
+          "Do not spend prompt budget here.",
+          "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+        ],
+        "gold_decision": "abstain"
+      },
+      "evidence_text": "play it by ear and see how things go",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "phrase_control"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-play-obra",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:llm:phrase-control:missing:v1",
+      "relation_type": "phrase_control_example",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "phrase_control",
+      "candidate_pos": "phrase_control",
+      "prompt_slot": "phrase_control_example",
+      "input_ref": "en-es:example-frame-missing:phrase-control:en-es-sentence-veto-watch-reloj",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "candidate_sense_id": "",
+        "generation_target": "phrase_control_example",
+        "source_gap": "phrase_control_example",
+        "queue_role": "negative_control",
+        "queue_archetype": "phrase_safe_cross_pos_control",
+        "queue_likely_bucket": "not_applicable",
+        "queue_priority_rank": 0,
+        "queue_notes": [
+          "Held-out phrase-risk family that currently stays clean.",
+          "Use as a secondary phrase-sensitive negative control."
+        ],
+        "gold_decision": "abstain"
+      },
+      "evidence_text": "Watch out for the slippery steps near the entrance.",
+      "confidence": 0.98,
+      "roles": [
+        "discrimination",
+        "phrase_containment"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "phrase_control"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-missing-rows-v1-20260425a_raw_responses.json#en-es:example-frame-missing:phrase-control:en-es-sentence-veto-watch-reloj",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    }
+  ]
+}

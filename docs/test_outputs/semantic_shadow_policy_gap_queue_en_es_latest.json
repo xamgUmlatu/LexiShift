@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "generated_at": "2026-04-10T01:58:16Z",
+  "status": "ok",
+  "inventory_status": "ok",
+  "row_count": 8,
+  "rows": [
+    {
+      "target": "acabar",
+      "trigger": "end",
+      "promoted_target": "parte",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "active_pos_values": [
+        "verb"
+      ],
+      "shadow_pos": "noun"
+    },
+    {
+      "target": "caso",
+      "trigger": "matter",
+      "promoted_target": "punto",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "drop_reason": "missing_active_pos",
+      "active_pos_values": [],
+      "shadow_pos": "noun"
+    },
+    {
+      "target": "coger",
+      "trigger": "catch",
+      "promoted_target": "vista",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "active_pos_values": [
+        "verb"
+      ],
+      "shadow_pos": "noun"
+    },
+    {
+      "target": "libro",
+      "trigger": "book",
+      "promoted_target": "sacar",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "active_pos_values": [
+        "noun"
+      ],
+      "shadow_pos": "verb"
+    },
+    {
+      "target": "plaza",
+      "trigger": "square",
+      "promoted_target": "cuadro",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "drop_reason": "missing_active_pos",
+      "active_pos_values": [],
+      "shadow_pos": "noun"
+    },
+    {
+      "target": "punto",
+      "trigger": "period",
+      "promoted_target": "hora",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "active_pos_values": [
+        "intj"
+      ],
+      "shadow_pos": "noun"
+    },
+    {
+      "target": "subir",
+      "trigger": "rise",
+      "promoted_target": "salir",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "drop_reason": "missing_active_pos",
+      "active_pos_values": [],
+      "shadow_pos": "verb"
+    },
+    {
+      "target": "tabla",
+      "trigger": "board",
+      "promoted_target": "subir",
+      "promotion_reasons": [
+        "benchmark_target_present"
+      ],
+      "drop_reason": "cross_pos_without_reviewed_trigger",
+      "active_pos_values": [
+        "noun"
+      ],
+      "shadow_pos": "verb"
+    }
+  ]
+}

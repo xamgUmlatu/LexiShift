@@ -1,0 +1,48 @@
+from __future__ import annotations
+
+"""
+Scaffolded rulegen pair module for `$pair`.
+
+This file is intentionally a starter scaffold.
+Before enabling `$pair`, fill in:
+- forward source lane: `$translation_family` / `$translation_pack_id`
+- reverse source lane: `$reverse_summary`
+- source loading and normalization
+- POS profile integration
+- ranking / filtering configuration
+- adapter wiring and benchmark preset registration
+
+Use the LP profile at:
+- `docs/test_inputs/rulegen_lp_profiles/$pair_underscore.json`
+"""
+
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterable
+
+from lexishift_core.rulegen.generation import RuleGenerationResult
+
+
+@dataclass(frozen=True)
+class ${pair_class_prefix}RulegenConfig:
+    translation_dict_path: Path
+    language_pair: str = "$pair"
+
+
+def generate_${pair_underscore}_results(
+    targets: Iterable[str],
+    *,
+    config: ${pair_class_prefix}RulegenConfig,
+) -> list[RuleGenerationResult]:
+    raise NotImplementedError(
+        "Scaffold only for `$pair`. "
+        "Implement the pair module and adapter wiring before enabling this LP."
+    )
+
+
+def generate_${pair_underscore}_rules(
+    targets: Iterable[str],
+    *,
+    config: ${pair_class_prefix}RulegenConfig,
+):
+    return [result.rule for result in generate_${pair_underscore}_results(targets, config=config)]

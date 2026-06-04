@@ -1,0 +1,5882 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_heuristic_group_pilot_v1",
+  "description": "Agent-authored first-pass sentence-veto cases for the frozen en-es frequency/polysemy heuristic groups. Research-only; not a runtime policy input.",
+  "families": [
+    {
+      "family_id": "en-es:heuristic-group:man:hombre",
+      "trigger": "man",
+      "active": {
+        "sense_id": "en-es:heuristic-group:man:hombre:active",
+        "target_lemma": "hombre",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "adult male person",
+          "gloss_text": "a male adult human being",
+          "sense_gloss_bundle": "adult male person | a male adult human being",
+          "all_evidence_text": "adult male person | a male adult human being | old man | young man | the man entered the room"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:man:hombre:dotar:staff:shadow",
+          "target_lemma": "dotar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "staff or operate a post",
+            "gloss_text": "to provide people to operate equipment, a booth, or a station",
+            "sense_gloss_bundle": "staff or operate a post | to provide people to operate equipment, a booth, or a station",
+            "all_evidence_text": "staff or operate a post | to provide people to operate equipment, a booth, or a station | volunteers man the booth | operators man the phones"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:man:hombre:ser_humano:humanity:shadow",
+          "target_lemma": "ser humano",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "human being in general",
+            "gloss_text": "generic human or mankind sense rather than specifically male adult",
+            "sense_gloss_bundle": "human being in general | generic human or mankind sense rather than specifically male adult",
+            "all_evidence_text": "human being in general | generic human or mankind sense rather than specifically male adult | every man for himself"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:man:hombre:001",
+          "sentence": "The old man waited by the bus stop.",
+          "source_phrase": "man",
+          "gold_winner": "en-es:heuristic-group:man:hombre:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "male adult person"
+        },
+        {
+          "case_id": "en-es:heuristic-group:man:hombre:002",
+          "sentence": "A tall man entered the quiet room.",
+          "source_phrase": "man",
+          "gold_winner": "en-es:heuristic-group:man:hombre:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "male adult person"
+        },
+        {
+          "case_id": "en-es:heuristic-group:man:hombre:003",
+          "sentence": "Volunteers man the phones during the pledge drive.",
+          "source_phrase": "man",
+          "gold_winner": "en-es:heuristic-group:man:hombre:dotar:staff:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb meaning staff or operate"
+        },
+        {
+          "case_id": "en-es:heuristic-group:man:hombre:004",
+          "sentence": "Two guards man the front gate after dark.",
+          "source_phrase": "man",
+          "gold_winner": "en-es:heuristic-group:man:hombre:dotar:staff:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb meaning staff a post"
+        },
+        {
+          "case_id": "en-es:heuristic-group:man:hombre:005",
+          "sentence": "Man, that was a close call at the end.",
+          "source_phrase": "man",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "interjection"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:work:trabajo",
+      "trigger": "work",
+      "active": {
+        "sense_id": "en-es:heuristic-group:work:trabajo:active",
+        "target_lemma": "trabajo",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "job or labor",
+          "gloss_text": "employment, labor, or effort performed by a person",
+          "sense_gloss_bundle": "job or labor | employment, labor, or effort performed by a person",
+          "all_evidence_text": "job or labor | employment, labor, or effort performed by a person | go to work | finish the work | paid work"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:work:trabajo:funcionar:function:shadow",
+          "target_lemma": "funcionar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "operate or function",
+            "gloss_text": "to operate correctly or have the intended effect",
+            "sense_gloss_bundle": "operate or function | to operate correctly or have the intended effect",
+            "all_evidence_text": "operate or function | to operate correctly or have the intended effect | the engine will not work"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:work:trabajo:obra:artwork:shadow",
+          "target_lemma": "obra",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "created work or artwork",
+            "gloss_text": "a product of artistic or intellectual effort",
+            "sense_gloss_bundle": "created work or artwork | a product of artistic or intellectual effort",
+            "all_evidence_text": "created work or artwork | a product of artistic or intellectual effort | a famous work of art"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:work:trabajo:001",
+          "sentence": "She left work early to catch the train.",
+          "source_phrase": "work",
+          "gold_winner": "en-es:heuristic-group:work:trabajo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "job or workplace"
+        },
+        {
+          "case_id": "en-es:heuristic-group:work:trabajo:002",
+          "sentence": "The repair work took all afternoon.",
+          "source_phrase": "work",
+          "gold_winner": "en-es:heuristic-group:work:trabajo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "labor or task"
+        },
+        {
+          "case_id": "en-es:heuristic-group:work:trabajo:003",
+          "sentence": "The old engine will not work in cold weather.",
+          "source_phrase": "work",
+          "gold_winner": "en-es:heuristic-group:work:trabajo:funcionar:function:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb meaning function"
+        },
+        {
+          "case_id": "en-es:heuristic-group:work:trabajo:004",
+          "sentence": "The museum displayed a late work by the painter.",
+          "source_phrase": "work",
+          "gold_winner": "en-es:heuristic-group:work:trabajo:obra:artwork:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "artistic creation"
+        },
+        {
+          "case_id": "en-es:heuristic-group:work:trabajo:005",
+          "sentence": "The plan will work out if everyone stays calm.",
+          "source_phrase": "work",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "phrasal verb"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:call:llamada",
+      "trigger": "call",
+      "active": {
+        "sense_id": "en-es:heuristic-group:call:llamada:active",
+        "target_lemma": "llamada",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "telephone call",
+          "gloss_text": "an act of contacting someone by telephone",
+          "sense_gloss_bundle": "telephone call | an act of contacting someone by telephone",
+          "all_evidence_text": "telephone call | an act of contacting someone by telephone | phone call | missed call | take a call"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:call:llamada:decision:judgment:shadow",
+          "target_lemma": "decisión",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "judgment or ruling",
+            "gloss_text": "a decision or judgment made by an official",
+            "sense_gloss_bundle": "judgment or ruling | a decision or judgment made by an official",
+            "all_evidence_text": "judgment or ruling | a decision or judgment made by an official | close call by the referee"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:call:llamada:llamar:name:shadow",
+          "target_lemma": "llamar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "name or address someone",
+            "gloss_text": "to give a name to someone or something",
+            "sense_gloss_bundle": "name or address someone | to give a name to someone or something",
+            "all_evidence_text": "name or address someone | to give a name to someone or something | call the dog Luna"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:call:llamada:001",
+          "sentence": "I missed your call during the meeting.",
+          "source_phrase": "call",
+          "gold_winner": "en-es:heuristic-group:call:llamada:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "phone contact"
+        },
+        {
+          "case_id": "en-es:heuristic-group:call:llamada:002",
+          "sentence": "The call lasted only five minutes.",
+          "source_phrase": "call",
+          "gold_winner": "en-es:heuristic-group:call:llamada:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "phone contact"
+        },
+        {
+          "case_id": "en-es:heuristic-group:call:llamada:003",
+          "sentence": "The referee made a close call near the goal.",
+          "source_phrase": "call",
+          "gold_winner": "en-es:heuristic-group:call:llamada:decision:judgment:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "official decision"
+        },
+        {
+          "case_id": "en-es:heuristic-group:call:llamada:004",
+          "sentence": "They call the dog Luna because of her white fur.",
+          "source_phrase": "call",
+          "gold_winner": "en-es:heuristic-group:call:llamada:llamar:name:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb meaning name"
+        },
+        {
+          "case_id": "en-es:heuristic-group:call:llamada:005",
+          "sentence": "They decided to call off the outdoor concert.",
+          "source_phrase": "call",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "phrasal verb"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:help:ayuda",
+      "trigger": "help",
+      "active": {
+        "sense_id": "en-es:heuristic-group:help:ayuda:active",
+        "target_lemma": "ayuda",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "assistance",
+          "gloss_text": "assistance or support given to someone",
+          "sense_gloss_bundle": "assistance | assistance or support given to someone",
+          "all_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:help:ayuda:servicio:staff:shadow",
+          "target_lemma": "servicio",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "hired help or servants",
+            "gloss_text": "people hired to do domestic or farm work",
+            "sense_gloss_bundle": "hired help or servants | people hired to do domestic or farm work",
+            "all_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:help:ayuda:001",
+          "sentence": "Thanks for your help with the boxes.",
+          "source_phrase": "help",
+          "gold_winner": "en-es:heuristic-group:help:ayuda:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:limited"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "assistance"
+        },
+        {
+          "case_id": "en-es:heuristic-group:help:ayuda:002",
+          "sentence": "The instructions offer help for new users.",
+          "source_phrase": "help",
+          "gold_winner": "en-es:heuristic-group:help:ayuda:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:limited"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "assistance"
+        },
+        {
+          "case_id": "en-es:heuristic-group:help:ayuda:003",
+          "sentence": "The farm hired help for the harvest season.",
+          "source_phrase": "help",
+          "gold_winner": "en-es:heuristic-group:help:ayuda:servicio:staff:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:limited"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "hired workers"
+        },
+        {
+          "case_id": "en-es:heuristic-group:help:ayuda:004",
+          "sentence": "The help cleaned the rooms before noon.",
+          "source_phrase": "help",
+          "gold_winner": "en-es:heuristic-group:help:ayuda:servicio:staff:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:limited"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "domestic staff"
+        },
+        {
+          "case_id": "en-es:heuristic-group:help:ayuda:005",
+          "sentence": "I cannot help laughing at that scene.",
+          "source_phrase": "help",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:limited"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "fixed expression meaning cannot avoid"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:yes:si",
+      "trigger": "yes",
+      "active": {
+        "sense_id": "en-es:heuristic-group:yes:si:active",
+        "target_lemma": "sí",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "affirmative answer",
+          "gloss_text": "an affirmative response or agreement",
+          "sense_gloss_bundle": "affirmative answer | an affirmative response or agreement",
+          "all_evidence_text": "affirmative answer | an affirmative response or agreement | say yes | answer yes | yes vote"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:yes:si:001",
+          "sentence": "She whispered yes before signing the form.",
+          "source_phrase": "yes",
+          "gold_winner": "en-es:heuristic-group:yes:si:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "affirmative response"
+        },
+        {
+          "case_id": "en-es:heuristic-group:yes:si:002",
+          "sentence": "The answer was yes on the final survey.",
+          "source_phrase": "yes",
+          "gold_winner": "en-es:heuristic-group:yes:si:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "affirmative response"
+        },
+        {
+          "case_id": "en-es:heuristic-group:yes:si:003",
+          "sentence": "The button label reads yes in lowercase letters.",
+          "source_phrase": "yes",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "word-as-label mention"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:money:dinero",
+      "trigger": "money",
+      "active": {
+        "sense_id": "en-es:heuristic-group:money:dinero:active",
+        "target_lemma": "dinero",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "money or funds",
+          "gloss_text": "coins, bills, or funds used for payment",
+          "sense_gloss_bundle": "money or funds | coins, bills, or funds used for payment",
+          "all_evidence_text": "money or funds | coins, bills, or funds used for payment | save money | raise money | spend money"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:money:dinero:001",
+          "sentence": "He saved money for the trip.",
+          "source_phrase": "money",
+          "gold_winner": "en-es:heuristic-group:money:dinero:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "funds"
+        },
+        {
+          "case_id": "en-es:heuristic-group:money:dinero:002",
+          "sentence": "They raised money for the clinic.",
+          "source_phrase": "money",
+          "gold_winner": "en-es:heuristic-group:money:dinero:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "funds"
+        },
+        {
+          "case_id": "en-es:heuristic-group:money:dinero:003",
+          "sentence": "Money talks in that old proverb.",
+          "source_phrase": "money",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "idiom/proverb"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:percent:por_ciento",
+      "trigger": "percent",
+      "active": {
+        "sense_id": "en-es:heuristic-group:percent:por_ciento:active",
+        "target_lemma": "por ciento",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "percentage unit",
+          "gloss_text": "one part in each hundred",
+          "sense_gloss_bundle": "percentage unit | one part in each hundred",
+          "all_evidence_text": "percentage unit | one part in each hundred | ten percent | three percent increase | percent value"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:percent:por_ciento:001",
+          "sentence": "Only ten percent of the class passed.",
+          "source_phrase": "percent",
+          "gold_winner": "en-es:heuristic-group:percent:por_ciento:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "percentage value"
+        },
+        {
+          "case_id": "en-es:heuristic-group:percent:por_ciento:002",
+          "sentence": "The rate rose by three percent last month.",
+          "source_phrase": "percent",
+          "gold_winner": "en-es:heuristic-group:percent:por_ciento:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "percentage value"
+        },
+        {
+          "case_id": "en-es:heuristic-group:percent:por_ciento:003",
+          "sentence": "The percent sign appeared in every spreadsheet cell.",
+          "source_phrase": "percent",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "symbol phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:often:a_menudo",
+      "trigger": "often",
+      "active": {
+        "sense_id": "en-es:heuristic-group:often:a_menudo:active",
+        "target_lemma": "a menudo",
+        "canonical_pos": "adverb",
+        "evidence_views": {
+          "sense_label": "frequently",
+          "gloss_text": "happening many times or frequently",
+          "sense_gloss_bundle": "frequently | happening many times or frequently",
+          "all_evidence_text": "frequently | happening many times or frequently | often visit | often happens | not often"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:often:a_menudo:001",
+          "sentence": "She often rides her bike to work.",
+          "source_phrase": "often",
+          "gold_winner": "en-es:heuristic-group:often:a_menudo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "frequently"
+        },
+        {
+          "case_id": "en-es:heuristic-group:often:a_menudo:002",
+          "sentence": "We often meet after class.",
+          "source_phrase": "often",
+          "gold_winner": "en-es:heuristic-group:often:a_menudo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "frequently"
+        },
+        {
+          "case_id": "en-es:heuristic-group:often:a_menudo:003",
+          "sentence": "Little and often is his training motto.",
+          "source_phrase": "often",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "core_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "core_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "fixed motto-like phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:green:verde",
+      "trigger": "green",
+      "active": {
+        "sense_id": "en-es:heuristic-group:green:verde:active",
+        "target_lemma": "verde",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "green color",
+          "gloss_text": "having the color of grass or leaves",
+          "sense_gloss_bundle": "green color | having the color of grass or leaves",
+          "all_evidence_text": "green color | having the color of grass or leaves | green shirt | green paint | green light color"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:green:verde:novato:inexperienced:shadow",
+          "target_lemma": "novato",
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "sense_label": "inexperienced",
+            "gloss_text": "new and lacking experience",
+            "sense_gloss_bundle": "inexperienced | new and lacking experience",
+            "all_evidence_text": "inexperienced | new and lacking experience | green employee"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:green:verde:ecologico:environmental:shadow",
+          "target_lemma": "ecológico",
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "sense_label": "environmentally friendly",
+            "gloss_text": "related to environmental politics or sustainability",
+            "sense_gloss_bundle": "environmentally friendly | related to environmental politics or sustainability",
+            "all_evidence_text": "environmentally friendly | related to environmental politics or sustainability | green policy"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:green:verde:green:golf:shadow",
+          "target_lemma": "green",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "golf putting green",
+            "gloss_text": "the closely cut area around a golf hole",
+            "sense_gloss_bundle": "golf putting green | the closely cut area around a golf hole",
+            "all_evidence_text": "golf putting green | the closely cut area around a golf hole | on the green"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:green:verde:001",
+          "sentence": "She wore a green jacket to school.",
+          "source_phrase": "green",
+          "gold_winner": "en-es:heuristic-group:green:verde:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "color"
+        },
+        {
+          "case_id": "en-es:heuristic-group:green:verde:002",
+          "sentence": "The green paint dried overnight.",
+          "source_phrase": "green",
+          "gold_winner": "en-es:heuristic-group:green:verde:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "color"
+        },
+        {
+          "case_id": "en-es:heuristic-group:green:verde:003",
+          "sentence": "The green intern needed extra training.",
+          "source_phrase": "green",
+          "gold_winner": "en-es:heuristic-group:green:verde:novato:inexperienced:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "inexperienced person"
+        },
+        {
+          "case_id": "en-es:heuristic-group:green:verde:004",
+          "sentence": "The mayor announced a green policy for buses.",
+          "source_phrase": "green",
+          "gold_winner": "en-es:heuristic-group:green:verde:ecologico:environmental:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "environmental politics"
+        },
+        {
+          "case_id": "en-es:heuristic-group:green:verde:005",
+          "sentence": "The driver waited for the green light.",
+          "source_phrase": "green",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "traffic-signal phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:trade:comercio",
+      "trigger": "trade",
+      "active": {
+        "sense_id": "en-es:heuristic-group:trade:comercio:active",
+        "target_lemma": "comercio",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "commerce",
+          "gloss_text": "buying and selling goods or services",
+          "sense_gloss_bundle": "commerce | buying and selling goods or services",
+          "all_evidence_text": "commerce | buying and selling goods or services | international trade | trade deal | trade policy"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:trade:comercio:intercambiar:swap:shadow",
+          "target_lemma": "intercambiar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "exchange or swap",
+            "gloss_text": "to give one thing and receive another",
+            "sense_gloss_bundle": "exchange or swap | to give one thing and receive another",
+            "all_evidence_text": "exchange or swap | to give one thing and receive another | trade cards"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:trade:comercio:oficio:profession:shadow",
+          "target_lemma": "oficio",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "skilled occupation",
+            "gloss_text": "a skilled job or occupation",
+            "sense_gloss_bundle": "skilled occupation | a skilled job or occupation",
+            "all_evidence_text": "skilled occupation | a skilled job or occupation | learn a trade"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:trade:comercio:001",
+          "sentence": "The trade between the countries doubled.",
+          "source_phrase": "trade",
+          "gold_winner": "en-es:heuristic-group:trade:comercio:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "commerce"
+        },
+        {
+          "case_id": "en-es:heuristic-group:trade:comercio:002",
+          "sentence": "Officials debated the new trade agreement.",
+          "source_phrase": "trade",
+          "gold_winner": "en-es:heuristic-group:trade:comercio:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "commerce"
+        },
+        {
+          "case_id": "en-es:heuristic-group:trade:comercio:003",
+          "sentence": "The children trade cards after school.",
+          "source_phrase": "trade",
+          "gold_winner": "en-es:heuristic-group:trade:comercio:intercambiar:swap:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "exchange action"
+        },
+        {
+          "case_id": "en-es:heuristic-group:trade:comercio:004",
+          "sentence": "He learned a trade from his uncle.",
+          "source_phrase": "trade",
+          "gold_winner": "en-es:heuristic-group:trade:comercio:oficio:profession:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "occupation"
+        },
+        {
+          "case_id": "en-es:heuristic-group:trade:comercio:005",
+          "sentence": "The trade-off was clear after the test.",
+          "source_phrase": "trade",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "compound expression"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:deep:profundo",
+      "trigger": "deep",
+      "active": {
+        "sense_id": "en-es:heuristic-group:deep:profundo:active",
+        "target_lemma": "profundo",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "physically deep",
+          "gloss_text": "extending far down, inward, or below the surface",
+          "sense_gloss_bundle": "physically deep | extending far down, inward, or below the surface",
+          "all_evidence_text": "physically deep | extending far down, inward, or below the surface | deep water | deep hole | deep valley"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:deep:profundo:grave:voice:shadow",
+          "target_lemma": "grave",
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "sense_label": "low-pitched voice or sound",
+            "gloss_text": "having a low pitch",
+            "sense_gloss_bundle": "low-pitched voice or sound | having a low pitch",
+            "all_evidence_text": "low-pitched voice or sound | having a low pitch | deep voice"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:deep:profundo:intenso:intense:shadow",
+          "target_lemma": "intenso",
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "sense_label": "intense or absorbed",
+            "gloss_text": "strong, serious, or emotionally intense",
+            "sense_gloss_bundle": "intense or absorbed | strong, serious, or emotionally intense",
+            "all_evidence_text": "intense or absorbed | strong, serious, or emotionally intense | deep concentration"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:deep:profundo:001",
+          "sentence": "The hikers crossed a deep valley.",
+          "source_phrase": "deep",
+          "gold_winner": "en-es:heuristic-group:deep:profundo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "physical depth"
+        },
+        {
+          "case_id": "en-es:heuristic-group:deep:profundo:002",
+          "sentence": "The deep water looked almost black.",
+          "source_phrase": "deep",
+          "gold_winner": "en-es:heuristic-group:deep:profundo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "physical depth"
+        },
+        {
+          "case_id": "en-es:heuristic-group:deep:profundo:003",
+          "sentence": "His deep voice filled the room.",
+          "source_phrase": "deep",
+          "gold_winner": "en-es:heuristic-group:deep:profundo:grave:voice:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "low-pitched sound"
+        },
+        {
+          "case_id": "en-es:heuristic-group:deep:profundo:004",
+          "sentence": "She fell into deep concentration.",
+          "source_phrase": "deep",
+          "gold_winner": "en-es:heuristic-group:deep:profundo:intenso:intense:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "intense mental state"
+        },
+        {
+          "case_id": "en-es:heuristic-group:deep:profundo:005",
+          "sentence": "Deep down, he knew the answer.",
+          "source_phrase": "deep",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "fixed adverbial phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:particular:especifico",
+      "trigger": "particular",
+      "active": {
+        "sense_id": "en-es:heuristic-group:particular:especifico:active",
+        "target_lemma": "específico",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "specific",
+          "gloss_text": "specific or distinct from others",
+          "sense_gloss_bundle": "specific | specific or distinct from others",
+          "all_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:particular:especifico:quisquilloso:fussy:shadow",
+          "target_lemma": "quisquilloso",
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "sense_label": "hard to please",
+            "gloss_text": "very exacting or fussy about details",
+            "sense_gloss_bundle": "hard to please | very exacting or fussy about details",
+            "all_evidence_text": "hard to please | very exacting or fussy about details | particular about grammar"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:particular:especifico:detalles:details:shadow",
+          "target_lemma": "detalles",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "details or particulars",
+            "gloss_text": "individual facts or details of a case",
+            "sense_gloss_bundle": "details or particulars | individual facts or details of a case",
+            "all_evidence_text": "details or particulars | individual facts or details of a case | particulars of the contract"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:particular:especifico:001",
+          "sentence": "We need a particular tool for this repair.",
+          "source_phrase": "particular",
+          "gold_winner": "en-es:heuristic-group:particular:especifico:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "specific item"
+        },
+        {
+          "case_id": "en-es:heuristic-group:particular:especifico:002",
+          "sentence": "She had no particular reason to leave.",
+          "source_phrase": "particular",
+          "gold_winner": "en-es:heuristic-group:particular:especifico:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "specific reason"
+        },
+        {
+          "case_id": "en-es:heuristic-group:particular:especifico:003",
+          "sentence": "He is particular about the spacing in reports.",
+          "source_phrase": "particular",
+          "gold_winner": "en-es:heuristic-group:particular:especifico:quisquilloso:fussy:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "fussy or exacting"
+        },
+        {
+          "case_id": "en-es:heuristic-group:particular:especifico:004",
+          "sentence": "The lawyer checked every particular of the claim.",
+          "source_phrase": "particular",
+          "gold_winner": "en-es:heuristic-group:particular:especifico:detalles:details:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "individual detail"
+        },
+        {
+          "case_id": "en-es:heuristic-group:particular:especifico:005",
+          "sentence": "That problem matters in particular today.",
+          "source_phrase": "particular",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "fixed phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:therefore:por_lo_tanto",
+      "trigger": "therefore",
+      "active": {
+        "sense_id": "en-es:heuristic-group:therefore:por_lo_tanto:active",
+        "target_lemma": "por lo tanto",
+        "canonical_pos": "adverb",
+        "evidence_views": {
+          "sense_label": "therefore",
+          "gloss_text": "for that reason or consequently",
+          "sense_gloss_bundle": "therefore | for that reason or consequently",
+          "all_evidence_text": "therefore | for that reason or consequently | therefore we left | therefore it failed | therefore true"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:therefore:por_lo_tanto:001",
+          "sentence": "The road was closed; therefore, we walked.",
+          "source_phrase": "therefore",
+          "gold_winner": "en-es:heuristic-group:therefore:por_lo_tanto:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "consequence connective"
+        },
+        {
+          "case_id": "en-es:heuristic-group:therefore:por_lo_tanto:002",
+          "sentence": "The sample was contaminated and therefore unusable.",
+          "source_phrase": "therefore",
+          "gold_winner": "en-es:heuristic-group:therefore:por_lo_tanto:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "consequence connective"
+        },
+        {
+          "case_id": "en-es:heuristic-group:therefore:por_lo_tanto:003",
+          "sentence": "The proof ended with the word therefore.",
+          "source_phrase": "therefore",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "word mention"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:senate:senado",
+      "trigger": "senate",
+      "active": {
+        "sense_id": "en-es:heuristic-group:senate:senado:active",
+        "target_lemma": "senado",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "legislative senate",
+          "gloss_text": "a legislative body or upper chamber",
+          "sense_gloss_bundle": "legislative senate | a legislative body or upper chamber",
+          "all_evidence_text": "legislative senate | a legislative body or upper chamber | state senate | senate committee | the senate voted"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:senate:senado:001",
+          "sentence": "The senate passed the budget bill.",
+          "source_phrase": "senate",
+          "gold_winner": "en-es:heuristic-group:senate:senado:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "legislative chamber"
+        },
+        {
+          "case_id": "en-es:heuristic-group:senate:senado:002",
+          "sentence": "He testified before the senate committee.",
+          "source_phrase": "senate",
+          "gold_winner": "en-es:heuristic-group:senate:senado:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "legislative chamber"
+        },
+        {
+          "case_id": "en-es:heuristic-group:senate:senado:003",
+          "sentence": "The URL senate.gov appeared in the notes.",
+          "source_phrase": "senate",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "proper URL mention"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:participant:participante",
+      "trigger": "participant",
+      "active": {
+        "sense_id": "en-es:heuristic-group:participant:participante:active",
+        "target_lemma": "participante",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "participant",
+          "gloss_text": "a person who takes part in an activity",
+          "sense_gloss_bundle": "participant | a person who takes part in an activity",
+          "all_evidence_text": "participant | a person who takes part in an activity | study participant | each participant | participant signed"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:participant:participante:001",
+          "sentence": "Each participant signed the consent form.",
+          "source_phrase": "participant",
+          "gold_winner": "en-es:heuristic-group:participant:participante:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "person taking part"
+        },
+        {
+          "case_id": "en-es:heuristic-group:participant:participante:002",
+          "sentence": "The participant asked a question after class.",
+          "source_phrase": "participant",
+          "gold_winner": "en-es:heuristic-group:participant:participante:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "person taking part"
+        },
+        {
+          "case_id": "en-es:heuristic-group:participant:participante:003",
+          "sentence": "The database field participant id was blank.",
+          "source_phrase": "participant",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "field-name mention"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:crisis:crisis",
+      "trigger": "crisis",
+      "active": {
+        "sense_id": "en-es:heuristic-group:crisis:crisis:active",
+        "target_lemma": "crisis",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "crisis",
+          "gloss_text": "a time of intense difficulty, danger, or instability",
+          "sense_gloss_bundle": "crisis | a time of intense difficulty, danger, or instability",
+          "all_evidence_text": "crisis | a time of intense difficulty, danger, or instability | financial crisis | during the crisis | crisis response"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:crisis:crisis:001",
+          "sentence": "The crisis forced the school to close.",
+          "source_phrase": "crisis",
+          "gold_winner": "en-es:heuristic-group:crisis:crisis:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "emergency"
+        },
+        {
+          "case_id": "en-es:heuristic-group:crisis:crisis:002",
+          "sentence": "During the crisis, volunteers delivered food.",
+          "source_phrase": "crisis",
+          "gold_winner": "en-es:heuristic-group:crisis:crisis:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "emergency"
+        },
+        {
+          "case_id": "en-es:heuristic-group:crisis:crisis:003",
+          "sentence": "Crisis Core was listed as the game title.",
+          "source_phrase": "crisis",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "mid_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "mid_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "proper title"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:upgrade:actualizacion",
+      "trigger": "upgrade",
+      "active": {
+        "sense_id": "en-es:heuristic-group:upgrade:actualizacion:active",
+        "target_lemma": "actualización",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "software or system update",
+          "gloss_text": "an update that improves software, hardware, or a system",
+          "sense_gloss_bundle": "software or system update | an update that improves software, hardware, or a system",
+          "all_evidence_text": "software or system update | an update that improves software, hardware, or a system | install the upgrade | phone upgrade | system upgrade"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:upgrade:actualizacion:mejora:service:shadow",
+          "target_lemma": "mejora",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "service or status improvement",
+            "gloss_text": "an improved class, room, seat, or level of service",
+            "sense_gloss_bundle": "service or status improvement | an improved class, room, seat, or level of service",
+            "all_evidence_text": "service or status improvement | an improved class, room, seat, or level of service | room upgrade"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:upgrade:actualizacion:mejorar:verb:shadow",
+          "target_lemma": "mejorar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "raise to a better level",
+            "gloss_text": "to improve something to a better grade or standard",
+            "sense_gloss_bundle": "raise to a better level | to improve something to a better grade or standard",
+            "all_evidence_text": "raise to a better level | to improve something to a better grade or standard | upgrade the road"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:upgrade:actualizacion:001",
+          "sentence": "Install the upgrade before restarting the laptop.",
+          "source_phrase": "upgrade",
+          "gold_winner": "en-es:heuristic-group:upgrade:actualizacion:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "software update"
+        },
+        {
+          "case_id": "en-es:heuristic-group:upgrade:actualizacion:002",
+          "sentence": "The phone upgrade fixed the battery issue.",
+          "source_phrase": "upgrade",
+          "gold_winner": "en-es:heuristic-group:upgrade:actualizacion:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "technical update"
+        },
+        {
+          "case_id": "en-es:heuristic-group:upgrade:actualizacion:003",
+          "sentence": "The airline offered a free seat upgrade.",
+          "source_phrase": "upgrade",
+          "gold_winner": "en-es:heuristic-group:upgrade:actualizacion:mejora:service:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "service status improvement"
+        },
+        {
+          "case_id": "en-es:heuristic-group:upgrade:actualizacion:004",
+          "sentence": "The city will upgrade the old bridge next year.",
+          "source_phrase": "upgrade",
+          "gold_winner": "en-es:heuristic-group:upgrade:actualizacion:mejorar:verb:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb meaning improve"
+        },
+        {
+          "case_id": "en-es:heuristic-group:upgrade:actualizacion:005",
+          "sentence": "The upgrade path changed after the merger.",
+          "source_phrase": "upgrade",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "technical compound phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:yield:rendimiento",
+      "trigger": "yield",
+      "active": {
+        "sense_id": "en-es:heuristic-group:yield:rendimiento:active",
+        "target_lemma": "rendimiento",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "yield or return",
+          "gloss_text": "the amount produced or the return on an investment",
+          "sense_gloss_bundle": "yield or return | the amount produced or the return on an investment",
+          "all_evidence_text": "yield or return | the amount produced or the return on an investment | crop yield | bond yield | high yield"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:yield:rendimiento:ceder:give_way:shadow",
+          "target_lemma": "ceder",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "give way or surrender",
+            "gloss_text": "to give way, surrender, or allow another to proceed",
+            "sense_gloss_bundle": "give way or surrender | to give way, surrender, or allow another to proceed",
+            "all_evidence_text": "give way or surrender | to give way, surrender, or allow another to proceed | drivers must yield"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:yield:rendimiento:producir:produce:shadow",
+          "target_lemma": "producir",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "produce a result",
+            "gloss_text": "to produce or generate a result",
+            "sense_gloss_bundle": "produce a result | to produce or generate a result",
+            "all_evidence_text": "produce a result | to produce or generate a result | yield evidence"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:yield:rendimiento:001",
+          "sentence": "The crop yield improved after the rain.",
+          "source_phrase": "yield",
+          "gold_winner": "en-es:heuristic-group:yield:rendimiento:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "amount produced"
+        },
+        {
+          "case_id": "en-es:heuristic-group:yield:rendimiento:002",
+          "sentence": "The bond yield fell again today.",
+          "source_phrase": "yield",
+          "gold_winner": "en-es:heuristic-group:yield:rendimiento:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "investment return"
+        },
+        {
+          "case_id": "en-es:heuristic-group:yield:rendimiento:003",
+          "sentence": "Drivers must yield to pedestrians here.",
+          "source_phrase": "yield",
+          "gold_winner": "en-es:heuristic-group:yield:rendimiento:ceder:give_way:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "give way in traffic"
+        },
+        {
+          "case_id": "en-es:heuristic-group:yield:rendimiento:004",
+          "sentence": "The experiment may yield useful evidence.",
+          "source_phrase": "yield",
+          "gold_winner": "en-es:heuristic-group:yield:rendimiento:producir:produce:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "produce a result"
+        },
+        {
+          "case_id": "en-es:heuristic-group:yield:rendimiento:005",
+          "sentence": "She refused to yield to temptation.",
+          "source_phrase": "yield",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "fixed phrase with yield to"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:hammer:martillo",
+      "trigger": "hammer",
+      "active": {
+        "sense_id": "en-es:heuristic-group:hammer:martillo:active",
+        "target_lemma": "martillo",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "tool hammer",
+          "gloss_text": "a hand tool with a heavy head used for hitting nails",
+          "sense_gloss_bundle": "tool hammer | a hand tool with a heavy head used for hitting nails",
+          "all_evidence_text": "tool hammer | a hand tool with a heavy head used for hitting nails | use a hammer | wooden hammer handle | the hammer hit the nail"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:hammer:martillo:martillar:verb:shadow",
+          "target_lemma": "martillar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "hit repeatedly",
+            "gloss_text": "to hit something repeatedly with force",
+            "sense_gloss_bundle": "hit repeatedly | to hit something repeatedly with force",
+            "all_evidence_text": "hit repeatedly | to hit something repeatedly with force | hammer the nail"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:hammer:martillo:mazo:auction:shadow",
+          "target_lemma": "mazo",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "auctioneer's hammer",
+            "gloss_text": "a gavel or mallet used to close an auction or meeting",
+            "sense_gloss_bundle": "auctioneer's hammer | a gavel or mallet used to close an auction or meeting",
+            "all_evidence_text": "auctioneer's hammer | a gavel or mallet used to close an auction or meeting | under the hammer"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:hammer:martillo:001",
+          "sentence": "He borrowed a hammer from the garage.",
+          "source_phrase": "hammer",
+          "gold_winner": "en-es:heuristic-group:hammer:martillo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "hand tool"
+        },
+        {
+          "case_id": "en-es:heuristic-group:hammer:martillo:002",
+          "sentence": "The hammer slipped off the nail.",
+          "source_phrase": "hammer",
+          "gold_winner": "en-es:heuristic-group:hammer:martillo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "hand tool"
+        },
+        {
+          "case_id": "en-es:heuristic-group:hammer:martillo:003",
+          "sentence": "Workers hammer the metal into shape.",
+          "source_phrase": "hammer",
+          "gold_winner": "en-es:heuristic-group:hammer:martillo:martillar:verb:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb action"
+        },
+        {
+          "case_id": "en-es:heuristic-group:hammer:martillo:004",
+          "sentence": "The painting went under the hammer at noon.",
+          "source_phrase": "hammer",
+          "gold_winner": "en-es:heuristic-group:hammer:martillo:mazo:auction:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "auction phrase"
+        },
+        {
+          "case_id": "en-es:heuristic-group:hammer:martillo:005",
+          "sentence": "She tried to hammer home the main point.",
+          "source_phrase": "hammer",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "idiom"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:low:bajo",
+      "trigger": "low",
+      "active": {
+        "sense_id": "en-es:heuristic-group:low:bajo:active",
+        "target_lemma": "bajo",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "low level or height",
+          "gloss_text": "not high in position, amount, level, or degree",
+          "sense_gloss_bundle": "low level or height | not high in position, amount, level, or degree",
+          "all_evidence_text": "low level or height | not high in position, amount, level, or degree | low shelf | low price | low score"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:low:bajo:minimo:minimum:shadow",
+          "target_lemma": "mínimo",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "lowest point",
+            "gloss_text": "the lowest point or level reached",
+            "sense_gloss_bundle": "lowest point | the lowest point or level reached",
+            "all_evidence_text": "lowest point | the lowest point or level reached | new low"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:low:bajo:mugir:sound:shadow",
+          "target_lemma": "mugir",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "make a cattle sound",
+            "gloss_text": "to make the deep sound of cattle",
+            "sense_gloss_bundle": "make a cattle sound | to make the deep sound of cattle",
+            "all_evidence_text": "make a cattle sound | to make the deep sound of cattle | cattle low"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:low:bajo:001",
+          "sentence": "The shelf is too low for the vase.",
+          "source_phrase": "low",
+          "gold_winner": "en-es:heuristic-group:low:bajo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "not high in position"
+        },
+        {
+          "case_id": "en-es:heuristic-group:low:bajo:002",
+          "sentence": "The store offered a low price.",
+          "source_phrase": "low",
+          "gold_winner": "en-es:heuristic-group:low:bajo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "small amount"
+        },
+        {
+          "case_id": "en-es:heuristic-group:low:bajo:003",
+          "sentence": "The stock hit a new low after the report.",
+          "source_phrase": "low",
+          "gold_winner": "en-es:heuristic-group:low:bajo:minimo:minimum:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "lowest point"
+        },
+        {
+          "case_id": "en-es:heuristic-group:low:bajo:004",
+          "sentence": "The cattle low softly near the barn.",
+          "source_phrase": "low",
+          "gold_winner": "en-es:heuristic-group:low:bajo:mugir:sound:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb for animal sound"
+        },
+        {
+          "case_id": "en-es:heuristic-group:low:bajo:005",
+          "sentence": "Low and behold was written as a joke.",
+          "source_phrase": "low",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_high_polysemy",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "malapropism/title-like phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:unnecessary:innecesario",
+      "trigger": "unnecessary",
+      "active": {
+        "sense_id": "en-es:heuristic-group:unnecessary:innecesario:active",
+        "target_lemma": "innecesario",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "unnecessary",
+          "gloss_text": "not needed or not required",
+          "sense_gloss_bundle": "unnecessary | not needed or not required",
+          "all_evidence_text": "unnecessary | not needed or not required | unnecessary step | unnecessary delay | unnecessary files"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:unnecessary:innecesario:001",
+          "sentence": "The extra step was unnecessary.",
+          "source_phrase": "unnecessary",
+          "gold_winner": "en-es:heuristic-group:unnecessary:innecesario:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "not needed"
+        },
+        {
+          "case_id": "en-es:heuristic-group:unnecessary:innecesario:002",
+          "sentence": "They removed unnecessary files from the folder.",
+          "source_phrase": "unnecessary",
+          "gold_winner": "en-es:heuristic-group:unnecessary:innecesario:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "not needed"
+        },
+        {
+          "case_id": "en-es:heuristic-group:unnecessary:innecesario:003",
+          "sentence": "The label read unnecessary in red ink.",
+          "source_phrase": "unnecessary",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "word-as-label mention"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:suitable:adecuado",
+      "trigger": "suitable",
+      "active": {
+        "sense_id": "en-es:heuristic-group:suitable:adecuado:active",
+        "target_lemma": "adecuado",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "suitable",
+          "gloss_text": "appropriate or fitting for a purpose",
+          "sense_gloss_bundle": "suitable | appropriate or fitting for a purpose",
+          "all_evidence_text": "suitable | appropriate or fitting for a purpose | suitable room | suitable password | suitable candidate"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:suitable:adecuado:001",
+          "sentence": "The room was suitable for a workshop.",
+          "source_phrase": "suitable",
+          "gold_winner": "en-es:heuristic-group:suitable:adecuado:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "appropriate"
+        },
+        {
+          "case_id": "en-es:heuristic-group:suitable:adecuado:002",
+          "sentence": "Choose a suitable password for the account.",
+          "source_phrase": "suitable",
+          "gold_winner": "en-es:heuristic-group:suitable:adecuado:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "appropriate"
+        },
+        {
+          "case_id": "en-es:heuristic-group:suitable:adecuado:003",
+          "sentence": "The file named suitable.txt was missing.",
+          "source_phrase": "suitable",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "file-name mention"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:purely:puramente",
+      "trigger": "purely",
+      "active": {
+        "sense_id": "en-es:heuristic-group:purely:puramente:active",
+        "target_lemma": "puramente",
+        "canonical_pos": "adverb",
+        "evidence_views": {
+          "sense_label": "purely",
+          "gloss_text": "only, solely, or completely",
+          "sense_gloss_bundle": "purely | only, solely, or completely",
+          "all_evidence_text": "purely | only, solely, or completely | purely practical | purely fictional | purely accidental"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:purely:puramente:001",
+          "sentence": "The choice was purely practical.",
+          "source_phrase": "purely",
+          "gold_winner": "en-es:heuristic-group:purely:puramente:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "solely"
+        },
+        {
+          "case_id": "en-es:heuristic-group:purely:puramente:002",
+          "sentence": "The story is purely fictional.",
+          "source_phrase": "purely",
+          "gold_winner": "en-es:heuristic-group:purely:puramente:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "completely"
+        },
+        {
+          "case_id": "en-es:heuristic-group:purely:puramente:003",
+          "sentence": "The term purely-functional appeared in the README.",
+          "source_phrase": "purely",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "hyphenated technical phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:prosecute:enjuiciar",
+      "trigger": "prosecute",
+      "active": {
+        "sense_id": "en-es:heuristic-group:prosecute:enjuiciar:active",
+        "target_lemma": "enjuiciar",
+        "canonical_pos": "verb",
+        "evidence_views": {
+          "sense_label": "prosecute legally",
+          "gloss_text": "to bring legal proceedings against someone",
+          "sense_gloss_bundle": "prosecute legally | to bring legal proceedings against someone",
+          "all_evidence_text": "prosecute legally | to bring legal proceedings against someone | prosecute the case | prosecute the suspect | prosecute fraud"
+        }
+      },
+      "shadows": [],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:prosecute:enjuiciar:001",
+          "sentence": "The state will prosecute the fraud case.",
+          "source_phrase": "prosecute",
+          "gold_winner": "en-es:heuristic-group:prosecute:enjuiciar:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "legal action"
+        },
+        {
+          "case_id": "en-es:heuristic-group:prosecute:enjuiciar:002",
+          "sentence": "They refused to prosecute without evidence.",
+          "source_phrase": "prosecute",
+          "gold_winner": "en-es:heuristic-group:prosecute:enjuiciar:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "positive_active",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "legal action"
+        },
+        {
+          "case_id": "en-es:heuristic-group:prosecute:enjuiciar:003",
+          "sentence": "Prosecute was printed on the folder tab.",
+          "source_phrase": "prosecute",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "tail_low_polysemy_control",
+            "pre_outcome",
+            "rank_bin:>5000",
+            "polysemy:low_1_to_3",
+            "phrase_no_winner",
+            "shadow_contract:not_applicable"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "tail_low_polysemy_control"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              ">5000"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "not_applicable"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "word-as-label mention"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:check:cheque",
+      "trigger": "check",
+      "active": {
+        "sense_id": "en-es:heuristic-group:check:cheque:active",
+        "target_lemma": "cheque",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "bank check",
+          "gloss_text": "a written order directing a bank to pay money",
+          "sense_gloss_bundle": "bank check | a written order directing a bank to pay money",
+          "all_evidence_text": "bank check | a written order directing a bank to pay money | write a check | cash the check | the check cleared"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:check:cheque:revisar:verify:shadow",
+          "target_lemma": "revisar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "verify or inspect",
+            "gloss_text": "to examine something for correctness or safety",
+            "sense_gloss_bundle": "verify or inspect | to examine something for correctness or safety",
+            "all_evidence_text": "verify or inspect | to examine something for correctness or safety | check the form"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:check:cheque:inspeccion:inspection:shadow",
+          "target_lemma": "inspección",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "inspection or control",
+            "gloss_text": "an examination or safety control",
+            "sense_gloss_bundle": "inspection or control | an examination or safety control",
+            "all_evidence_text": "inspection or control | an examination or safety control | security check"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:check:cheque:001",
+          "sentence": "He wrote a check for the deposit.",
+          "source_phrase": "check",
+          "gold_winner": "en-es:heuristic-group:check:cheque:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "bank payment instrument"
+        },
+        {
+          "case_id": "en-es:heuristic-group:check:cheque:002",
+          "sentence": "The check cleared before Friday.",
+          "source_phrase": "check",
+          "gold_winner": "en-es:heuristic-group:check:cheque:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "bank payment instrument"
+        },
+        {
+          "case_id": "en-es:heuristic-group:check:cheque:003",
+          "sentence": "Please check the form before sending it.",
+          "source_phrase": "check",
+          "gold_winner": "en-es:heuristic-group:check:cheque:revisar:verify:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb inspect"
+        },
+        {
+          "case_id": "en-es:heuristic-group:check:cheque:004",
+          "sentence": "The airport added a security check at the gate.",
+          "source_phrase": "check",
+          "gold_winner": "en-es:heuristic-group:check:cheque:inspeccion:inspection:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "inspection noun"
+        },
+        {
+          "case_id": "en-es:heuristic-group:check:cheque:005",
+          "sentence": "They need to check in before noon.",
+          "source_phrase": "check",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "phrasal verb"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:order:pedido",
+      "trigger": "order",
+      "active": {
+        "sense_id": "en-es:heuristic-group:order:pedido:active",
+        "target_lemma": "pedido",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "customer order",
+          "gloss_text": "a request to buy goods or food",
+          "sense_gloss_bundle": "customer order | a request to buy goods or food",
+          "all_evidence_text": "customer order | a request to buy goods or food | place an order | shipping order | restaurant order"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:order:pedido:orden:command:shadow",
+          "target_lemma": "orden",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "command or instruction",
+            "gloss_text": "an authoritative command or legal instruction",
+            "sense_gloss_bundle": "command or instruction | an authoritative command or legal instruction",
+            "all_evidence_text": "command or instruction | an authoritative command or legal instruction | court order"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:order:pedido:orden:sequence:shadow",
+          "target_lemma": "orden",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "sequence or arrangement",
+            "gloss_text": "the arrangement of things in a sequence",
+            "sense_gloss_bundle": "sequence or arrangement | the arrangement of things in a sequence",
+            "all_evidence_text": "sequence or arrangement | the arrangement of things in a sequence | alphabetical order"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:order:pedido:001",
+          "sentence": "Your order shipped this morning.",
+          "source_phrase": "order",
+          "gold_winner": "en-es:heuristic-group:order:pedido:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "customer purchase"
+        },
+        {
+          "case_id": "en-es:heuristic-group:order:pedido:002",
+          "sentence": "The waiter took our order quickly.",
+          "source_phrase": "order",
+          "gold_winner": "en-es:heuristic-group:order:pedido:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "restaurant request"
+        },
+        {
+          "case_id": "en-es:heuristic-group:order:pedido:003",
+          "sentence": "The judge issued a strict order.",
+          "source_phrase": "order",
+          "gold_winner": "en-es:heuristic-group:order:pedido:orden:command:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "legal command"
+        },
+        {
+          "case_id": "en-es:heuristic-group:order:pedido:004",
+          "sentence": "Sort the names in alphabetical order.",
+          "source_phrase": "order",
+          "gold_winner": "en-es:heuristic-group:order:pedido:orden:sequence:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "sequence arrangement"
+        },
+        {
+          "case_id": "en-es:heuristic-group:order:pedido:005",
+          "sentence": "She left early in order to catch the train.",
+          "source_phrase": "order",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "fixed phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:plant:plantar",
+      "trigger": "plant",
+      "active": {
+        "sense_id": "en-es:heuristic-group:plant:plantar:active",
+        "target_lemma": "plantar",
+        "canonical_pos": "verb",
+        "evidence_views": {
+          "sense_label": "plant seeds or plants",
+          "gloss_text": "to put seeds or plants in the ground so they grow",
+          "sense_gloss_bundle": "plant seeds or plants | to put seeds or plants in the ground so they grow",
+          "all_evidence_text": "plant seeds or plants | to put seeds or plants in the ground so they grow | plant trees | plant tomatoes | plant seeds"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:plant:plantar:planta:living_thing:shadow",
+          "target_lemma": "planta",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "living plant",
+            "gloss_text": "a living organism such as a flower, tree, or grass",
+            "sense_gloss_bundle": "living plant | a living organism such as a flower, tree, or grass",
+            "all_evidence_text": "living plant | a living organism such as a flower, tree, or grass | water the plant"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:plant:plantar:fabrica:factory:shadow",
+          "target_lemma": "fábrica",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "industrial plant",
+            "gloss_text": "a factory or industrial facility",
+            "sense_gloss_bundle": "industrial plant | a factory or industrial facility",
+            "all_evidence_text": "industrial plant | a factory or industrial facility | power plant"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:plant:plantar:001",
+          "sentence": "They plant tomatoes behind the house.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:heuristic-group:plant:plantar:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb put in soil"
+        },
+        {
+          "case_id": "en-es:heuristic-group:plant:plantar:002",
+          "sentence": "We plant trees along the road each spring.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:heuristic-group:plant:plantar:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb put in soil"
+        },
+        {
+          "case_id": "en-es:heuristic-group:plant:plantar:003",
+          "sentence": "The plant needs sunlight every morning.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:heuristic-group:plant:plantar:planta:living_thing:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "living organism noun"
+        },
+        {
+          "case_id": "en-es:heuristic-group:plant:plantar:004",
+          "sentence": "The power plant hired new engineers.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:heuristic-group:plant:plantar:fabrica:factory:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "industrial facility"
+        },
+        {
+          "case_id": "en-es:heuristic-group:plant:plantar:005",
+          "sentence": "The spy tried to plant evidence in the room.",
+          "source_phrase": "plant",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "idiom/verb with different target"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:play:jugar",
+      "trigger": "play",
+      "active": {
+        "sense_id": "en-es:heuristic-group:play:jugar:active",
+        "target_lemma": "jugar",
+        "canonical_pos": "verb",
+        "evidence_views": {
+          "sense_label": "play a game or sport",
+          "gloss_text": "to take part in a game, sport, or playful activity",
+          "sense_gloss_bundle": "play a game or sport | to take part in a game, sport, or playful activity",
+          "all_evidence_text": "play a game or sport | to take part in a game, sport, or playful activity | children play | play soccer | play the game"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:play:jugar:obra:theater:shadow",
+          "target_lemma": "obra",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "stage play",
+            "gloss_text": "a dramatic work performed in a theater",
+            "sense_gloss_bundle": "stage play | a dramatic work performed in a theater",
+            "all_evidence_text": "stage play | a dramatic work performed in a theater | the play opened"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:play:jugar:holgura:looseness:shadow",
+          "target_lemma": "holgura",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "free movement or looseness",
+            "gloss_text": "looseness or movement in a mechanism",
+            "sense_gloss_bundle": "free movement or looseness | looseness or movement in a mechanism",
+            "all_evidence_text": "free movement or looseness | looseness or movement in a mechanism | play in the steering wheel"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:play:jugar:001",
+          "sentence": "Children play soccer in the park.",
+          "source_phrase": "play",
+          "gold_winner": "en-es:heuristic-group:play:jugar:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "game activity"
+        },
+        {
+          "case_id": "en-es:heuristic-group:play:jugar:002",
+          "sentence": "The team will play on Saturday.",
+          "source_phrase": "play",
+          "gold_winner": "en-es:heuristic-group:play:jugar:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "sport activity"
+        },
+        {
+          "case_id": "en-es:heuristic-group:play:jugar:003",
+          "sentence": "The play opened at the small theater.",
+          "source_phrase": "play",
+          "gold_winner": "en-es:heuristic-group:play:jugar:obra:theater:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "dramatic work"
+        },
+        {
+          "case_id": "en-es:heuristic-group:play:jugar:004",
+          "sentence": "There is too much play in the steering wheel.",
+          "source_phrase": "play",
+          "gold_winner": "en-es:heuristic-group:play:jugar:holgura:looseness:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "mechanical looseness"
+        },
+        {
+          "case_id": "en-es:heuristic-group:play:jugar:005",
+          "sentence": "The headline used a play on words.",
+          "source_phrase": "play",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "fixed phrase"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:heuristic-group:report:informe",
+      "trigger": "report",
+      "active": {
+        "sense_id": "en-es:heuristic-group:report:informe:active",
+        "target_lemma": "informe",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "written report",
+          "gloss_text": "a written or spoken account that gives information",
+          "sense_gloss_bundle": "written report | a written or spoken account that gives information",
+          "all_evidence_text": "written report | a written or spoken account that gives information | final report | audit report | file a report"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:heuristic-group:report:informe:informar:inform:shadow",
+          "target_lemma": "informar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "report or inform",
+            "gloss_text": "to give information officially or formally",
+            "sense_gloss_bundle": "report or inform | to give information officially or formally",
+            "all_evidence_text": "report or inform | to give information officially or formally | report to the office"
+          }
+        },
+        {
+          "sense_id": "en-es:heuristic-group:report:informe:estallido:sound:shadow",
+          "target_lemma": "estallido",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "loud report or bang",
+            "gloss_text": "a loud explosive sound",
+            "sense_gloss_bundle": "loud report or bang | a loud explosive sound",
+            "all_evidence_text": "loud report or bang | a loud explosive sound | report of a gun"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:heuristic-group:report:informe:001",
+          "sentence": "The report summarized the audit findings.",
+          "source_phrase": "report",
+          "gold_winner": "en-es:heuristic-group:report:informe:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "written account"
+        },
+        {
+          "case_id": "en-es:heuristic-group:report:informe:002",
+          "sentence": "She filed a report after the accident.",
+          "source_phrase": "report",
+          "gold_winner": "en-es:heuristic-group:report:informe:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "official written account"
+        },
+        {
+          "case_id": "en-es:heuristic-group:report:informe:003",
+          "sentence": "New employees report to the office at nine.",
+          "source_phrase": "report",
+          "gold_winner": "en-es:heuristic-group:report:informe:informar:inform:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "verb report to"
+        },
+        {
+          "case_id": "en-es:heuristic-group:report:informe:004",
+          "sentence": "The report of the gun echoed through the valley.",
+          "source_phrase": "report",
+          "gold_winner": "en-es:heuristic-group:report:informe:estallido:sound:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "shadow_negative",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "loud sound"
+        },
+        {
+          "case_id": "en-es:heuristic-group:report:informe:005",
+          "sentence": "The team will report back after lunch.",
+          "source_phrase": "report",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "heuristic_group_pilot_v1",
+            "manual_draft_v1",
+            "measured_missing_rank_high_failure_sentinel",
+            "outcome_informed_sentinel",
+            "rank_bin:missing",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:full"
+          ],
+          "slice_dimensions": {
+            "heuristic_group": [
+              "measured_missing_rank_high_failure_sentinel"
+            ],
+            "selection_mode": [
+              "outcome_informed_sentinel"
+            ],
+            "source_rank_bin": [
+              "missing"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "phrasal verb"
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,15 @@ layout: default
 title: LexiShift Manual
 ---
 
+<!--
+Status: active Pages entrypoint
+Role: Canonical current
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; page links not fully re-audited
+Purpose: route GitHub Pages readers into the LexiShift manual, handbook, and repository documentation map
+Source-of-truth: Pages navigation entrypoint only; implementation truth remains in source code, canonical developer docs, architecture docs, and feature-state evidence.
+-->
+
 # LexiShift Manual
 
 This site is the user manual entrypoint for LexiShift.

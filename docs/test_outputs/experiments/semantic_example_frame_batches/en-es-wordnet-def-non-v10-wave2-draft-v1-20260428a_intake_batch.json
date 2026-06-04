@@ -1,0 +1,1411 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:wordnet-example-frames:wordnet-def-non-v10-wave2-draft-v1-20260428a",
+  "pair": "en-es",
+  "source_type": "external",
+  "source_id": "wordnet_example_frames",
+  "source_family": "external_sense_graph",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-27T22:24:51Z",
+  "ingested_at": "2026-04-27T22:24:51Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "wordnet-example-frames-v1",
+  "provenance": {
+    "dataset_id": "en_es_source_non_v10_wave2_draft_v1",
+    "source_scope": "all_dataset_families",
+    "source_note": "local English WordNet definitions/examples linked to dataset senses",
+    "min_link_score": 0.2,
+    "evidence_mode": "definition_preferred",
+    "max_rows_per_sense": 1,
+    "include_related_hyponyms": false,
+    "max_related_rows_per_sense": 0,
+    "related_hyponym_depth": 1,
+    "related_hyponym_roles": "all",
+    "family_rows": [
+      {
+        "family_id": "en-es:sentence-veto:look:aspecto",
+        "trigger": "look",
+        "active_target": "aspecto",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:look:aspecto:active",
+            "target_lemma": "aspecto",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "look%1:07:00::",
+            "best_wordnet_synset_id": "04682072-n",
+            "best_link_score": 0.4,
+            "best_overlap": [
+              "appearance",
+              "physical"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+            "target_lemma": "parecer",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "look%2:39:01::",
+            "best_wordnet_synset_id": "02137900-v",
+            "best_link_score": 0.4,
+            "best_overlap": [
+              "appear",
+              "seem"
+            ],
+            "candidate_count": 2
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:use:uso",
+        "trigger": "use",
+        "active_target": "uso",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:use:uso:active",
+            "target_lemma": "uso",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "use%1:04:00::",
+            "best_wordnet_synset_id": "00948944-n",
+            "best_link_score": 0.4,
+            "best_overlap": [
+              "act",
+              "using"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:use:uso:usar:shadow",
+            "target_lemma": "usar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "use%2:41:04::",
+            "best_wordnet_synset_id": "02567247-v",
+            "best_link_score": 0.4,
+            "best_overlap": [
+              "apply",
+              "sense"
+            ],
+            "candidate_count": 2
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:train:tren",
+        "trigger": "train",
+        "active_target": "tren",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:train:tren:active",
+            "target_lemma": "tren",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "train%1:06:00::",
+            "best_wordnet_synset_id": "04475240-n",
+            "best_link_score": 0.2857,
+            "best_overlap": [
+              "car",
+              "line"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+            "target_lemma": "adiestrar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "train%2:41:02::",
+            "best_wordnet_synset_id": "02559394-v",
+            "best_link_score": 0.2,
+            "best_overlap": [
+              "teach"
+            ],
+            "candidate_count": 4
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:land:tierra",
+        "trigger": "land",
+        "active_target": "tierra",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 3,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:land:tierra:active",
+            "target_lemma": "tierra",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "land%1:17:00::",
+            "best_wordnet_synset_id": "09357302-n",
+            "best_link_score": 0.2222,
+            "best_overlap": [
+              "earth",
+              "part"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:land:tierra:pa-s:shadow",
+            "target_lemma": "país",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "land%1:21:00::",
+            "best_wordnet_synset_id": "13267561-n",
+            "best_link_score": 0.25,
+            "best_overlap": [
+              "country"
+            ],
+            "candidate_count": 4
+          },
+          {
+            "sense_id": "en-es:sentence-veto:land:tierra:atracar:shadow",
+            "target_lemma": "atracar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "land%2:38:02::",
+            "best_wordnet_synset_id": "01985450-v",
+            "best_link_score": 0.2222,
+            "best_overlap": [
+              "arrive",
+              "shore"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:end:fin",
+        "trigger": "end",
+        "active_target": "fin",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:end:fin:active",
+            "target_lemma": "fin",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "end%1:11:00::",
+            "best_wordnet_synset_id": "07306517-n",
+            "best_link_score": 0.2,
+            "best_overlap": [
+              "part"
+            ],
+            "candidate_count": 3
+          },
+          {
+            "sense_id": "en-es:sentence-veto:end:fin:acabar:shadow",
+            "target_lemma": "acabar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "end%2:42:00::",
+            "best_wordnet_synset_id": "02615799-v",
+            "best_link_score": 0.3333,
+            "best_overlap": [
+              "finish",
+              "sense"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:offer:oferta",
+        "trigger": "offer",
+        "active_target": "oferta",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:offer:oferta:active",
+            "target_lemma": "oferta",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "offer%1:10:00::",
+            "best_wordnet_synset_id": "07179197-n",
+            "best_link_score": 0.25,
+            "best_overlap": [
+              "proposal"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+            "target_lemma": "ofrecer",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "offer%2:40:01::",
+            "best_wordnet_synset_id": "02303593-v",
+            "best_link_score": 0.25,
+            "best_overlap": [
+              "propose"
+            ],
+            "candidate_count": 2
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:sign:se-a",
+        "trigger": "sign",
+        "active_target": "seña",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:sign:se-a:active",
+            "target_lemma": "seña",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "sign%1:10:06::",
+            "best_wordnet_synset_id": "07290723-n",
+            "best_link_score": 0.4,
+            "best_overlap": [
+              "linguistic",
+              "unit"
+            ],
+            "candidate_count": 2
+          },
+          {
+            "sense_id": "en-es:sentence-veto:sign:se-a:firmar:shadow",
+            "target_lemma": "firmar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "sign%2:32:02::",
+            "best_wordnet_synset_id": "00998530-v",
+            "best_link_score": 0.2222,
+            "best_overlap": [
+              "one",
+              "signature"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      },
+      {
+        "family_id": "en-es:sentence-veto:quiet:silencio",
+        "trigger": "quiet",
+        "active_target": "silencio",
+        "role": "target",
+        "active_wordnet_count": 1,
+        "shadow_wordnet_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:quiet:silencio:active",
+            "target_lemma": "silencio",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "quiet%1:07:02::",
+            "best_wordnet_synset_id": "04989456-n",
+            "best_link_score": 0.4,
+            "best_overlap": [
+              "absence",
+              "sound"
+            ],
+            "candidate_count": 1
+          },
+          {
+            "sense_id": "en-es:sentence-veto:quiet:silencio:calmar:shadow",
+            "target_lemma": "calmar",
+            "canonical_pos": "verb",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "quiet%2:39:00::",
+            "best_wordnet_synset_id": "02194634-v",
+            "best_link_score": 0.2,
+            "best_overlap": [
+              "become"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-look-aspecto:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "look",
+      "active_target": "aspecto",
+      "candidate_target": "aspecto",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:look:aspecto:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:look:aspecto:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "look%1:07:00::",
+          "wordnet_synset_id": "04682072-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "appearance",
+            "physical"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "physical appearance",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:look:aspecto",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:look:aspecto:active",
+        "candidate_sense_id": "en-es:sentence-veto:look:aspecto:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "look%1:07:00::",
+        "wordnet_synset_id": "04682072-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "appearance",
+          "physical"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-look-aspecto:shadow-en-es-sentence-veto-look-aspecto-parecer-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "look",
+      "active_target": "aspecto",
+      "candidate_target": "parecer",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:look:aspecto:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "look%2:39:01::",
+          "wordnet_synset_id": "02137900-v",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "appear",
+            "seem"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "give a certain impression of being something or having a certain aspect",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:look:aspecto",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:look:aspecto:active",
+        "candidate_sense_id": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "look%2:39:01::",
+        "wordnet_synset_id": "02137900-v",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "appear",
+          "seem"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-use-uso:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "use",
+      "active_target": "uso",
+      "candidate_target": "uso",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:use:uso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:use:uso:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "use%1:04:00::",
+          "wordnet_synset_id": "00948944-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "act",
+            "using"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "the act of using",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:use:uso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:use:uso:active",
+        "candidate_sense_id": "en-es:sentence-veto:use:uso:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "use%1:04:00::",
+        "wordnet_synset_id": "00948944-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "act",
+          "using"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-use-uso:shadow-en-es-sentence-veto-use-uso-usar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "use",
+      "active_target": "uso",
+      "candidate_target": "usar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:use:uso:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:use:uso:usar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "use%2:41:04::",
+          "wordnet_synset_id": "02567247-v",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "apply",
+            "sense"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "avail oneself to",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:use:uso",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:use:uso:active",
+        "candidate_sense_id": "en-es:sentence-veto:use:uso:usar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "use%2:41:04::",
+        "wordnet_synset_id": "02567247-v",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "apply",
+          "sense"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-train-tren:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "train",
+      "active_target": "tren",
+      "candidate_target": "tren",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:train:tren:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:train:tren:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "train%1:06:00::",
+          "wordnet_synset_id": "04475240-n",
+          "wordnet_link_score": 0.2857,
+          "wordnet_link_overlap": [
+            "car",
+            "line"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "public transport provided by a line of railway cars coupled together and drawn by a locomotive",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:train:tren",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:train:tren:active",
+        "candidate_sense_id": "en-es:sentence-veto:train:tren:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "train%1:06:00::",
+        "wordnet_synset_id": "04475240-n",
+        "wordnet_link_score": 0.2857,
+        "wordnet_link_overlap": [
+          "car",
+          "line"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-train-tren:shadow-en-es-sentence-veto-train-tren-adiestrar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "train",
+      "active_target": "tren",
+      "candidate_target": "adiestrar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:train:tren:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "train%2:41:02::",
+          "wordnet_synset_id": "02559394-v",
+          "wordnet_link_score": 0.2,
+          "wordnet_link_overlap": [
+            "teach"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "develop (a child's or animal's) behavior by instruction and practice; especially to teach self-control",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:train:tren",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:train:tren:active",
+        "candidate_sense_id": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "train%2:41:02::",
+        "wordnet_synset_id": "02559394-v",
+        "wordnet_link_score": 0.2,
+        "wordnet_link_overlap": [
+          "teach"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-land-tierra:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "land",
+      "active_target": "tierra",
+      "candidate_target": "tierra",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:land:tierra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:land:tierra:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "land%1:17:00::",
+          "wordnet_synset_id": "09357302-n",
+          "wordnet_link_score": 0.2222,
+          "wordnet_link_overlap": [
+            "earth",
+            "part"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "the solid part of the earth's surface",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:land:tierra",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:land:tierra:active",
+        "candidate_sense_id": "en-es:sentence-veto:land:tierra:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "land%1:17:00::",
+        "wordnet_synset_id": "09357302-n",
+        "wordnet_link_score": 0.2222,
+        "wordnet_link_overlap": [
+          "earth",
+          "part"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-land-tierra:shadow-en-es-sentence-veto-land-tierra-pa-s-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "land",
+      "active_target": "tierra",
+      "candidate_target": "país",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:land:tierra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:land:tierra:pa-s:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "land%1:21:00::",
+          "wordnet_synset_id": "13267561-n",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "country"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "extensive landed property (especially in the country) retained by the owner for their own use",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:land:tierra",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:land:tierra:active",
+        "candidate_sense_id": "en-es:sentence-veto:land:tierra:pa-s:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "land%1:21:00::",
+        "wordnet_synset_id": "13267561-n",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "country"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-land-tierra:shadow-en-es-sentence-veto-land-tierra-atracar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "land",
+      "active_target": "tierra",
+      "candidate_target": "atracar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:land:tierra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:land:tierra:atracar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "land%2:38:02::",
+          "wordnet_synset_id": "01985450-v",
+          "wordnet_link_score": 0.2222,
+          "wordnet_link_overlap": [
+            "arrive",
+            "shore"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "arrive on shore",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:land:tierra",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:land:tierra:active",
+        "candidate_sense_id": "en-es:sentence-veto:land:tierra:atracar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "land%2:38:02::",
+        "wordnet_synset_id": "01985450-v",
+        "wordnet_link_score": 0.2222,
+        "wordnet_link_overlap": [
+          "arrive",
+          "shore"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-end-fin:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "end",
+      "active_target": "fin",
+      "candidate_target": "fin",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:end:fin:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:end:fin:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "end%1:11:00::",
+          "wordnet_synset_id": "07306517-n",
+          "wordnet_link_score": 0.2,
+          "wordnet_link_overlap": [
+            "part"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "the final stage or concluding parts of an event or occurrence",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:end:fin",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:end:fin:active",
+        "candidate_sense_id": "en-es:sentence-veto:end:fin:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "end%1:11:00::",
+        "wordnet_synset_id": "07306517-n",
+        "wordnet_link_score": 0.2,
+        "wordnet_link_overlap": [
+          "part"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-end-fin:shadow-en-es-sentence-veto-end-fin-acabar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "end",
+      "active_target": "fin",
+      "candidate_target": "acabar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:end:fin:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:end:fin:acabar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "end%2:42:00::",
+          "wordnet_synset_id": "02615799-v",
+          "wordnet_link_score": 0.3333,
+          "wordnet_link_overlap": [
+            "finish",
+            "sense"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "have an end, in a temporal, spatial, or quantitative sense; either spatial or metaphorical",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:end:fin",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:end:fin:active",
+        "candidate_sense_id": "en-es:sentence-veto:end:fin:acabar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "end%2:42:00::",
+        "wordnet_synset_id": "02615799-v",
+        "wordnet_link_score": 0.3333,
+        "wordnet_link_overlap": [
+          "finish",
+          "sense"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-offer-oferta:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "offer",
+      "active_target": "oferta",
+      "candidate_target": "oferta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:offer:oferta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:offer:oferta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "offer%1:10:00::",
+          "wordnet_synset_id": "07179197-n",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "proposal"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "something offered (as a proposal or bid)",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:offer:oferta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:offer:oferta:active",
+        "candidate_sense_id": "en-es:sentence-veto:offer:oferta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "offer%1:10:00::",
+        "wordnet_synset_id": "07179197-n",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "proposal"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-offer-oferta:shadow-en-es-sentence-veto-offer-oferta-ofrecer-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "offer",
+      "active_target": "oferta",
+      "candidate_target": "ofrecer",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:offer:oferta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "offer%2:40:01::",
+          "wordnet_synset_id": "02303593-v",
+          "wordnet_link_score": 0.25,
+          "wordnet_link_overlap": [
+            "propose"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "propose a payment",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:offer:oferta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:offer:oferta:active",
+        "candidate_sense_id": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "offer%2:40:01::",
+        "wordnet_synset_id": "02303593-v",
+        "wordnet_link_score": 0.25,
+        "wordnet_link_overlap": [
+          "propose"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-sign-se-a:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "sign",
+      "active_target": "seña",
+      "candidate_target": "seña",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:sign:se-a:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:sign:se-a:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "sign%1:10:06::",
+          "wordnet_synset_id": "07290723-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "linguistic",
+            "unit"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a fundamental linguistic unit linking a signifier to that which is signified",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:sign:se-a",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:sign:se-a:active",
+        "candidate_sense_id": "en-es:sentence-veto:sign:se-a:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "sign%1:10:06::",
+        "wordnet_synset_id": "07290723-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "linguistic",
+          "unit"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-sign-se-a:shadow-en-es-sentence-veto-sign-se-a-firmar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "sign",
+      "active_target": "seña",
+      "candidate_target": "firmar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:sign:se-a:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:sign:se-a:firmar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "sign%2:32:02::",
+          "wordnet_synset_id": "00998530-v",
+          "wordnet_link_score": 0.2222,
+          "wordnet_link_overlap": [
+            "one",
+            "signature"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "mark with one's signature; write one's name (on)",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:sign:se-a",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:sign:se-a:active",
+        "candidate_sense_id": "en-es:sentence-veto:sign:se-a:firmar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "sign%2:32:02::",
+        "wordnet_synset_id": "00998530-v",
+        "wordnet_link_score": 0.2222,
+        "wordnet_link_overlap": [
+          "one",
+          "signature"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-quiet-silencio:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "quiet",
+      "active_target": "silencio",
+      "candidate_target": "silencio",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:quiet:silencio:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:quiet:silencio:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "quiet%1:07:02::",
+          "wordnet_synset_id": "04989456-n",
+          "wordnet_link_score": 0.4,
+          "wordnet_link_overlap": [
+            "absence",
+            "sound"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "the absence of sound",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:quiet:silencio",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:quiet:silencio:active",
+        "candidate_sense_id": "en-es:sentence-veto:quiet:silencio:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "quiet%1:07:02::",
+        "wordnet_synset_id": "04989456-n",
+        "wordnet_link_score": 0.4,
+        "wordnet_link_overlap": [
+          "absence",
+          "sound"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-quiet-silencio:shadow-en-es-sentence-veto-quiet-silencio-calmar-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "quiet",
+      "active_target": "silencio",
+      "candidate_target": "calmar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:quiet:silencio:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:quiet:silencio:calmar:shadow",
+        "canonical_pos": "verb",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "quiet%2:39:00::",
+          "wordnet_synset_id": "02194634-v",
+          "wordnet_link_score": 0.2,
+          "wordnet_link_overlap": [
+            "become"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "become quiet or quieter",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:quiet:silencio",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:quiet:silencio:active",
+        "candidate_sense_id": "en-es:sentence-veto:quiet:silencio:calmar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "quiet%2:39:00::",
+        "wordnet_synset_id": "02194634-v",
+        "wordnet_link_score": 0.2,
+        "wordnet_link_overlap": [
+          "become"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    }
+  ]
+}

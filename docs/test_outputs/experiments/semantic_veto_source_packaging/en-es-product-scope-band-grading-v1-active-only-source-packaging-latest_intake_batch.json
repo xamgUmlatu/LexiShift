@@ -1,0 +1,1934 @@
+{
+  "batch_id": "en-es:semantic-veto:product-scope-band-grading-v1-active-only-source-packaging-latest",
+  "cost_metadata": {
+    "input_tokens": 36840,
+    "output_tokens": 11899,
+    "reasoning_tokens": 0
+  },
+  "generated_at": "2026-05-09T20:29:52Z",
+  "ingested_at": "2026-05-09T22:31:02Z",
+  "items": [
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "cite -> mencionar",
+        "target_key": "mencionar"
+      },
+      "active_target": "mencionar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "cite -> mencionar",
+        "target_key": "mencionar"
+      },
+      "candidate_target": "mencionar",
+      "evidence_text": "In the report, please cite the study that supports your conclusion.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 1,
+        "evidence_note": "Uses cite in the sense of mentioning or referring to a source.",
+        "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+        "global_need_rank": 13,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:001",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:cite:mencionar:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:001",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6731,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+        "source_sentence": "In the report, please cite the study that supports your conclusion."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-001-cite-mencionar",
+      "runtime_publishable": false,
+      "trigger": "cite"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "cite -> mencionar",
+        "target_key": "mencionar"
+      },
+      "active_target": "mencionar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "cite -> mencionar",
+        "target_key": "mencionar"
+      },
+      "candidate_target": "mencionar",
+      "evidence_text": "The speaker will cite several examples to explain the policy change.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 1,
+        "evidence_note": "Uses cite as an active reference to facts or examples.",
+        "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+        "global_need_rank": 13,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:002",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:cite:mencionar:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:002",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6731,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion",
+        "source_sentence": "The speaker will cite several examples to explain the policy change."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-002-cite-mencionar",
+      "runtime_publishable": false,
+      "trigger": "cite"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "smile -> sonreír",
+        "target_key": "sonreír"
+      },
+      "active_target": "sonreír",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "smile -> sonreír",
+        "target_key": "sonreír"
+      },
+      "candidate_target": "sonreír",
+      "evidence_text": "He gave a quick smile before answering the question.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 2,
+        "evidence_note": "Active verb sense showing a facial expression rather than a noun or idiom.",
+        "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+        "global_need_rank": 7,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:004",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:smile:sonre-r:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:004",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.7577,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+        "source_sentence": "He gave a quick smile before answering the question."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-003-smile-sonre-r",
+      "runtime_publishable": false,
+      "trigger": "smile"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "bar -> cercar",
+        "target_key": "cercar"
+      },
+      "active_target": "cercar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "bar -> cercar",
+        "target_key": "cercar"
+      },
+      "candidate_target": "cercar",
+      "evidence_text": "The police used a truck to bar the road after the landslide.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "bar means block passage with an obstacle.",
+        "family_id": "en-es:full-family-repaired-full:bar:cercar",
+        "global_need_rank": 2,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:005",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:bar:cercar:003",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:005",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.85,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+        "source_sentence": "The police used a truck to bar the road after the landslide."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-004-bar-cercar",
+      "runtime_publishable": false,
+      "trigger": "bar"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "bar -> cercar",
+        "target_key": "cercar"
+      },
+      "active_target": "cercar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "bar -> cercar",
+        "target_key": "cercar"
+      },
+      "candidate_target": "cercar",
+      "evidence_text": "Heavy gates bar access to the private courtyard at night.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "bar means prevent entry by closing off the way.",
+        "family_id": "en-es:full-family-repaired-full:bar:cercar",
+        "global_need_rank": 2,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:006",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:bar:cercar:003",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:006",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.85,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+        "source_sentence": "Heavy gates bar access to the private courtyard at night."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-005-bar-cercar",
+      "runtime_publishable": false,
+      "trigger": "bar"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "control -> gobernar",
+        "target_key": "gobernar"
+      },
+      "active_target": "gobernar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "control -> gobernar",
+        "target_key": "gobernar"
+      },
+      "candidate_target": "gobernar",
+      "evidence_text": "The mayor used his control to govern the city through a difficult winter.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "Shows authority over a city, matching the active sense of governing a place.",
+        "family_id": "en-es:full-family-repaired-full:control:gobernar",
+        "global_need_rank": 3,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:007",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:control:gobernar:003",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [],
+          "observed_source_syntax": "verb_before_infinitive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:007",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.8308,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+        "source_sentence": "The mayor used his control to govern the city through a difficult winter."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-006-control-gobernar",
+      "runtime_publishable": false,
+      "trigger": "control"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "control -> gobernar",
+        "target_key": "gobernar"
+      },
+      "active_target": "gobernar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "control -> gobernar",
+        "target_key": "gobernar"
+      },
+      "candidate_target": "gobernar",
+      "evidence_text": "After the election, she gained control and began to govern the ministry with a steady hand.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "Shows taking authority over an organization and governing it.",
+        "family_id": "en-es:full-family-repaired-full:control:gobernar",
+        "global_need_rank": 3,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:008",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:008",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.8308,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+        "source_sentence": "After the election, she gained control and began to govern the ministry with a steady hand."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-007-control-gobernar",
+      "runtime_publishable": false,
+      "trigger": "control"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "preposition",
+        "note": "active-only generated anchor cue",
+        "sense_label": "except -> excepto",
+        "target_key": "excepto"
+      },
+      "active_target": "excepto",
+      "candidate_pos": "preposition",
+      "candidate_sense_hint": {
+        "canonical_pos": "preposition",
+        "note": "active-only generated anchor cue",
+        "sense_label": "except -> excepto",
+        "target_key": "excepto"
+      },
+      "candidate_target": "excepto",
+      "evidence_text": "Everyone may join the hike except the injured runner.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "except marks exclusion from the group.",
+        "family_id": "en-es:full-family-repaired-full:except:excepto",
+        "global_need_rank": 10,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:009",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:except:excepto:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "preposition",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:009",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6885,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+        "source_sentence": "Everyone may join the hike except the injured runner."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-008-except-excepto",
+      "runtime_publishable": false,
+      "trigger": "except"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "preposition",
+        "note": "active-only generated anchor cue",
+        "sense_label": "except -> excepto",
+        "target_key": "excepto"
+      },
+      "active_target": "excepto",
+      "candidate_pos": "preposition",
+      "candidate_sense_hint": {
+        "canonical_pos": "preposition",
+        "note": "active-only generated anchor cue",
+        "sense_label": "except -> excepto",
+        "target_key": "excepto"
+      },
+      "candidate_target": "excepto",
+      "evidence_text": "The museum is open daily except on Mondays.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "except introduces the one excluded day.",
+        "family_id": "en-es:full-family-repaired-full:except:excepto",
+        "global_need_rank": 10,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:010",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:except:excepto:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "preposition",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:010",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6885,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:except:excepto:active_evidence_expansion",
+        "source_sentence": "The museum is open daily except on Mondays."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-009-except-excepto",
+      "runtime_publishable": false,
+      "trigger": "except"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "region -> comarca",
+        "target_key": "comarca"
+      },
+      "active_target": "comarca",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "region -> comarca",
+        "target_key": "comarca"
+      },
+      "candidate_target": "comarca",
+      "evidence_text": "The council mapped each region by its villages, roads, and shared local services.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Shows a local administrative district sense.",
+        "family_id": "en-es:full-family-repaired-full:region:comarca",
+        "global_need_rank": 6,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:011",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:region:comarca:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:011",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.7654,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+        "source_sentence": "The council mapped each region by its villages, roads, and shared local services."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-010-region-comarca",
+      "runtime_publishable": false,
+      "trigger": "region"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "region -> comarca",
+        "target_key": "comarca"
+      },
+      "active_target": "comarca",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "region -> comarca",
+        "target_key": "comarca"
+      },
+      "candidate_target": "comarca",
+      "evidence_text": "Farmers in the mountain region met to discuss irrigation, markets, and county-level planning.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Uses region as a territorial unit with local governance context.",
+        "family_id": "en-es:full-family-repaired-full:region:comarca",
+        "global_need_rank": 6,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:012",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:region:comarca:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "high_need",
+        "postprocess_audit_id": "generated_active_item:012",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.7654,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:region:comarca:active_evidence_expansion",
+        "source_sentence": "Farmers in the mountain region met to discuss irrigation, markets, and county-level planning."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-011-region-comarca",
+      "runtime_publishable": false,
+      "trigger": "region"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "govern -> gobernar",
+        "target_key": "gobernar"
+      },
+      "active_target": "gobernar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "govern -> gobernar",
+        "target_key": "gobernar"
+      },
+      "candidate_target": "gobernar",
+      "evidence_text": "The elected council will govern the city for the next four years.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 1,
+        "evidence_note": "Active sense: exercise governing authority over a city.",
+        "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+        "global_need_rank": 23,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:013",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:govern:gobernar:001",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "verb",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:013",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5923,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+        "source_sentence": "The elected council will govern the city for the next four years."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-012-govern-gobernar",
+      "runtime_publishable": false,
+      "trigger": "govern"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "govern -> gobernar",
+        "target_key": "gobernar"
+      },
+      "active_target": "gobernar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "govern -> gobernar",
+        "target_key": "gobernar"
+      },
+      "candidate_target": "gobernar",
+      "evidence_text": "A constitutional monarch may govern only within the limits set by law.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 1,
+        "evidence_note": "Active sense: exercise governing authority over a country.",
+        "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+        "global_need_rank": 23,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:014",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:govern:gobernar:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:014",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5923,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+        "source_sentence": "A constitutional monarch may govern only within the limits set by law."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-013-govern-gobernar",
+      "runtime_publishable": false,
+      "trigger": "govern"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "german -> alemán",
+        "target_key": "alemán"
+      },
+      "active_target": "alemán",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "german -> alemán",
+        "target_key": "alemán"
+      },
+      "candidate_target": "alemán",
+      "evidence_text": "She is learning german so she can speak with her relatives in Berlin.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 2,
+        "evidence_note": "Refers to the language.",
+        "family_id": "en-es:full-family-repaired-full:german:alem-n",
+        "global_need_rank": 27,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:015",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:german:alem-n:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:015",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5423,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+        "source_sentence": "She is learning german so she can speak with her relatives in Berlin."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-014-german-alem-n",
+      "runtime_publishable": false,
+      "trigger": "german"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "german -> alemán",
+        "target_key": "alemán"
+      },
+      "active_target": "alemán",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "german -> alemán",
+        "target_key": "alemán"
+      },
+      "candidate_target": "alemán",
+      "evidence_text": "The museum guide explained that the german flag changed several times over the centuries.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 2,
+        "evidence_note": "Refers to the country adjective.",
+        "family_id": "en-es:full-family-repaired-full:german:alem-n",
+        "global_need_rank": 27,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:016",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:german:alem-n:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:016",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5423,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+        "source_sentence": "The museum guide explained that the german flag changed several times over the centuries."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-015-german-alem-n",
+      "runtime_publishable": false,
+      "trigger": "german"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "american -> americano",
+        "target_key": "americano"
+      },
+      "active_target": "americano",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "american -> americano",
+        "target_key": "americano"
+      },
+      "candidate_target": "americano",
+      "evidence_text": "She became an american citizen after living in Chicago for ten years.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "Nationality sense: american refers to a person from the United States.",
+        "family_id": "en-es:full-family-repaired-full:american:americano",
+        "global_need_rank": 20,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:017",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:american:americano:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:017",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6308,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+        "source_sentence": "She became an american citizen after living in Chicago for ten years."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-016-american-americano",
+      "runtime_publishable": false,
+      "trigger": "american"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "american -> americano",
+        "target_key": "americano"
+      },
+      "active_target": "americano",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "american -> americano",
+        "target_key": "americano"
+      },
+      "candidate_target": "americano",
+      "evidence_text": "The museum featured american history exhibits from the colonial era to the present.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "Regional adjective sense: american modifies history connected to the United States.",
+        "family_id": "en-es:full-family-repaired-full:american:americano",
+        "global_need_rank": 20,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:018",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:american:americano:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:018",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6308,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+        "source_sentence": "The museum featured american history exhibits from the colonial era to the present."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:american:americano:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-017-american-americano",
+      "runtime_publishable": false,
+      "trigger": "american"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "endure -> durar",
+        "target_key": "durar"
+      },
+      "active_target": "durar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "endure -> durar",
+        "target_key": "durar"
+      },
+      "candidate_target": "durar",
+      "evidence_text": "The old bridge can endure for another fifty years with regular maintenance.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "Shows lasting over time, matching the active sense of continuing to exist.",
+        "family_id": "en-es:full-family-repaired-full:endure:durar",
+        "global_need_rank": 19,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:019",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:endure:durar:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:019",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6385,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+        "source_sentence": "The old bridge can endure for another fifty years with regular maintenance."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-018-endure-durar",
+      "runtime_publishable": false,
+      "trigger": "endure"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "endure -> durar",
+        "target_key": "durar"
+      },
+      "active_target": "durar",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "endure -> durar",
+        "target_key": "durar"
+      },
+      "candidate_target": "durar",
+      "evidence_text": "These batteries endure longer than the ones we used before.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "Indicates duration and persistence over time, not tolerating hardship.",
+        "family_id": "en-es:full-family-repaired-full:endure:durar",
+        "global_need_rank": 19,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:020",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:endure:durar:003",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:020",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6385,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:endure:durar:active_evidence_expansion",
+        "source_sentence": "These batteries endure longer than the ones we used before."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:endure:durar:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-019-endure-durar",
+      "runtime_publishable": false,
+      "trigger": "endure"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "tomorrow -> mañana",
+        "target_key": "mañana"
+      },
+      "active_target": "mañana",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "tomorrow -> mañana",
+        "target_key": "mañana"
+      },
+      "candidate_target": "mañana",
+      "evidence_text": "I have a dentist appointment tomorrow morning.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "Refers to the next day after today.",
+        "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+        "global_need_rank": 25,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:021",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:021",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5769,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+        "source_sentence": "I have a dentist appointment tomorrow morning."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-020-tomorrow-ma-ana",
+      "runtime_publishable": false,
+      "trigger": "tomorrow"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "tomorrow -> mañana",
+        "target_key": "mañana"
+      },
+      "active_target": "mañana",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "tomorrow -> mañana",
+        "target_key": "mañana"
+      },
+      "candidate_target": "mañana",
+      "evidence_text": "Please send the report tomorrow, not today.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "Uses tomorrow to mean the day after today.",
+        "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+        "global_need_rank": 25,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:022",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:022",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.5769,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+        "source_sentence": "Please send the report tomorrow, not today."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-021-tomorrow-ma-ana",
+      "runtime_publishable": false,
+      "trigger": "tomorrow"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "russian -> ruso",
+        "target_key": "ruso"
+      },
+      "active_target": "ruso",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "russian -> ruso",
+        "target_key": "ruso"
+      },
+      "candidate_target": "ruso",
+      "evidence_text": "She studied russian history and could read the old letters from Moscow.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Nationality/cultural adjective used for history and letters from Moscow.",
+        "family_id": "en-es:full-family-repaired-full:russian:ruso",
+        "global_need_rank": 21,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:023",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:russian:ruso:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:023",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+        "source_sentence": "She studied russian history and could read the old letters from Moscow."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-022-russian-ruso",
+      "runtime_publishable": false,
+      "trigger": "russian"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "russian -> ruso",
+        "target_key": "ruso"
+      },
+      "active_target": "ruso",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "russian -> ruso",
+        "target_key": "ruso"
+      },
+      "candidate_target": "ruso",
+      "evidence_text": "The museum added a russian language guide for visitors who wanted help with the exhibit.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Language sense clearly indicated by guide for visitors.",
+        "family_id": "en-es:full-family-repaired-full:russian:ruso",
+        "global_need_rank": 21,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:024",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:russian:ruso:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "middle_control",
+        "postprocess_audit_id": "generated_active_item:024",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.6,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion",
+        "source_sentence": "The museum added a russian language guide for visitors who wanted help with the exhibit."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:russian:ruso:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-023-russian-ruso",
+      "runtime_publishable": false,
+      "trigger": "russian"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "dentist -> dentista",
+        "target_key": "dentista"
+      },
+      "active_target": "dentista",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "dentist -> dentista",
+        "target_key": "dentista"
+      },
+      "candidate_target": "dentista",
+      "evidence_text": "The dentist checked my teeth and filled a small cavity.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 1,
+        "evidence_note": "Shows a dental professional treating teeth.",
+        "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+        "global_need_rank": 45,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:025",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:dentist:dentista:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:025",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3577,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+        "source_sentence": "The dentist checked my teeth and filled a small cavity."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-024-dentist-dentista",
+      "runtime_publishable": false,
+      "trigger": "dentist"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "dentist -> dentista",
+        "target_key": "dentista"
+      },
+      "active_target": "dentista",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "dentist -> dentista",
+        "target_key": "dentista"
+      },
+      "candidate_target": "dentista",
+      "evidence_text": "I booked an appointment with the dentist for a routine cleaning.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 1,
+        "evidence_note": "Refers to a person qualified to practice dentistry.",
+        "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+        "global_need_rank": 45,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:026",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "noun",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:026",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3577,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+        "source_sentence": "I booked an appointment with the dentist for a routine cleaning."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-025-dentist-dentista",
+      "runtime_publishable": false,
+      "trigger": "dentist"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "pub -> taberna",
+        "target_key": "taberna"
+      },
+      "active_target": "taberna",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "pub -> taberna",
+        "target_key": "taberna"
+      },
+      "candidate_target": "taberna",
+      "evidence_text": "We met at the pub for a quick drink and some chips after work.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 2,
+        "evidence_note": "Shows a public house serving drinks and food.",
+        "family_id": "en-es:full-family-repaired-full:pub:taberna",
+        "global_need_rank": 39,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:027",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:pub:taberna:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:027",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4269,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+        "source_sentence": "We met at the pub for a quick drink and some chips after work."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-026-pub-taberna",
+      "runtime_publishable": false,
+      "trigger": "pub"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "pub -> taberna",
+        "target_key": "taberna"
+      },
+      "active_target": "taberna",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "pub -> taberna",
+        "target_key": "taberna"
+      },
+      "candidate_target": "taberna",
+      "evidence_text": "The old pub on the corner was crowded with locals enjoying pints and conversation.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 2,
+        "evidence_note": "Clearly refers to a tavern or public house.",
+        "family_id": "en-es:full-family-repaired-full:pub:taberna",
+        "global_need_rank": 39,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:028",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:pub:taberna:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_context",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:028",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4269,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion",
+        "source_sentence": "The old pub on the corner was crowded with locals enjoying pints and conversation."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:pub:taberna:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-027-pub-taberna",
+      "runtime_publishable": false,
+      "trigger": "pub"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "shortage -> falta",
+        "target_key": "falta"
+      },
+      "active_target": "falta",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "shortage -> falta",
+        "target_key": "falta"
+      },
+      "candidate_target": "falta",
+      "evidence_text": "The clinic had to cancel appointments because of a shortage of nurses.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "Shows an insufficient amount of staff causing cancellations.",
+        "family_id": "en-es:full-family-repaired-full:shortage:falta",
+        "global_need_rank": 44,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:029",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:shortage:falta:002",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "noun",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:029",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3692,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+        "source_sentence": "The clinic had to cancel appointments because of a shortage of nurses."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-028-shortage-falta",
+      "runtime_publishable": false,
+      "trigger": "shortage"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "shortage -> falta",
+        "target_key": "falta"
+      },
+      "active_target": "falta",
+      "candidate_pos": "noun",
+      "candidate_sense_hint": {
+        "canonical_pos": "noun",
+        "note": "active-only generated anchor cue",
+        "sense_label": "shortage -> falta",
+        "target_key": "falta"
+      },
+      "candidate_target": "falta",
+      "evidence_text": "A shortage of clean water forced the village to ration every drop.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "Shows a deficit of a needed resource.",
+        "family_id": "en-es:full-family-repaired-full:shortage:falta",
+        "global_need_rank": 44,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:030",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:shortage:falta:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "noun",
+          "flags": [],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:030",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3692,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion",
+        "source_sentence": "A shortage of clean water forced the village to ration every drop."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:shortage:falta:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-029-shortage-falta",
+      "runtime_publishable": false,
+      "trigger": "shortage"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "rumanian -> rumano",
+        "target_key": "rumano"
+      },
+      "active_target": "rumano",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "rumanian -> rumano",
+        "target_key": "rumano"
+      },
+      "candidate_target": "rumano",
+      "evidence_text": "She studied rumanian history to better understand the country's traditions and identity.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "Uses rumanian as a nationality and country adjective.",
+        "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+        "global_need_rank": 37,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:031",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:031",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4615,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+        "source_sentence": "She studied rumanian history to better understand the country's traditions and identity."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-030-rumanian-rumano",
+      "runtime_publishable": false,
+      "trigger": "rumanian"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "rumanian -> rumano",
+        "target_key": "rumano"
+      },
+      "active_target": "rumano",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "rumanian -> rumano",
+        "target_key": "rumano"
+      },
+      "candidate_target": "rumano",
+      "evidence_text": "The museum featured a rumanian folk costume from the Carpathian region.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "Uses rumanian to describe something from Romania.",
+        "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+        "global_need_rank": 37,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:032",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+          "eval_overlap_risk": "medium",
+          "expected_pos": "adjective",
+          "flags": [
+            "medium_eval_overlap"
+          ],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 0.9,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:032",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4615,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+        "source_sentence": "The museum featured a rumanian folk costume from the Carpathian region."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-031-rumanian-rumano",
+      "runtime_publishable": false,
+      "trigger": "rumanian"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "argentinean -> argentino",
+        "target_key": "argentino"
+      },
+      "active_target": "argentino",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "argentinean -> argentino",
+        "target_key": "argentino"
+      },
+      "candidate_target": "argentino",
+      "evidence_text": "She proudly described herself as argentinean when talking about her family roots in Buenos Aires.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "Nationality context makes the country-adjective sense clear.",
+        "family_id": "en-es:full-family-repaired-full:argentinean:argentino",
+        "global_need_rank": 46,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:033",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:argentinean:argentino:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:033",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3462,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+        "source_sentence": "She proudly described herself as argentinean when talking about her family roots in Buenos Aires."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-032-argentinean-argentino",
+      "runtime_publishable": false,
+      "trigger": "argentinean"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "argentinean -> argentino",
+        "target_key": "argentino"
+      },
+      "active_target": "argentino",
+      "candidate_pos": "adjective",
+      "candidate_sense_hint": {
+        "canonical_pos": "adjective",
+        "note": "active-only generated anchor cue",
+        "sense_label": "argentinean -> argentino",
+        "target_key": "argentino"
+      },
+      "candidate_target": "argentino",
+      "evidence_text": "The museum exhibit highlighted argentinean culture, from tango to traditional food and regional history.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 5,
+        "evidence_note": "Refers to the country and its culture, supporting the active sense.",
+        "family_id": "en-es:full-family-repaired-full:argentinean:argentino",
+        "global_need_rank": 46,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:034",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:argentinean:argentino:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "adjective",
+          "flags": [],
+          "observed_source_syntax": "adjective_attributive",
+          "quality_score": 1.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:034",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.3462,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion",
+        "source_sentence": "The museum exhibit highlighted argentinean culture, from tango to traditional food and regional history."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:argentinean:argentino:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-033-argentinean-argentino",
+      "runtime_publishable": false,
+      "trigger": "argentinean"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "owe -> deber",
+        "target_key": "deber"
+      },
+      "active_target": "deber",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "owe -> deber",
+        "target_key": "deber"
+      },
+      "candidate_target": "deber",
+      "evidence_text": "I owe the bank three hundred dollars for the car repair.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Shows a debt that must be paid.",
+        "family_id": "en-es:full-family-repaired-full:owe:deber",
+        "global_need_rank": 36,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:035",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:owe:deber:001",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:035",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4615,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+        "source_sentence": "I owe the bank three hundred dollars for the car repair."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-034-owe-deber",
+      "runtime_publishable": false,
+      "trigger": "owe"
+    },
+    {
+      "active_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "owe -> deber",
+        "target_key": "deber"
+      },
+      "active_target": "deber",
+      "candidate_pos": "verb",
+      "candidate_sense_hint": {
+        "canonical_pos": "verb",
+        "note": "active-only generated anchor cue",
+        "sense_label": "owe -> deber",
+        "target_key": "deber"
+      },
+      "candidate_target": "deber",
+      "evidence_text": "We owe our landlord the rent by Friday.",
+      "input_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Shows an obligation to pay money.",
+        "family_id": "en-es:full-family-repaired-full:owe:deber",
+        "global_need_rank": 36,
+        "item_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:036",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "en-es:full-family-repaired-full:owe:deber:002",
+          "eval_overlap_risk": "low",
+          "expected_pos": "verb",
+          "flags": [
+            "pos_unknown",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "low_control",
+        "postprocess_audit_id": "generated_active_item:036",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4615,
+        "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+        "slot_id": "en-es:full-family-repaired-full:owe:deber:active_evidence_expansion",
+        "source_sentence": "We owe our landlord the rent by Friday."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:owe:deber:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "product-scope-band-grading-v1-active-only-source-packaging-latest-source-row-035-owe-deber",
+      "runtime_publishable": false,
+      "trigger": "owe"
+    }
+  ],
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "provenance": {
+    "admission_generated_at": "2026-05-09T20:30:23Z",
+    "admitted_input_item_count": 67,
+    "evidence_variant": "sentence_only",
+    "excluded_item_count": 1,
+    "postprocess_generated_at": "2026-05-09T22:30:43Z",
+    "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+    "raw_output_mutation": "none",
+    "selected_item_count": 35,
+    "source_packaging_run_id": "product-scope-band-grading-v1-active-only-source-packaging-latest"
+  },
+  "review_state": "unreviewed",
+  "roles": [
+    "cue_generation"
+  ],
+  "schema_version": 1,
+  "source_family": "silver_llm_generation",
+  "source_id": "product-scope-band-grading-v1-active-only-source-packaging-latest",
+  "source_type": "llm",
+  "temperature": 0.2
+}

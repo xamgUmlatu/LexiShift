@@ -1,0 +1,608 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-26T03:25:23Z",
+  "status": "ok",
+  "batch_id": "en-es:source-admission-cycle:wordnet-def-source-non-v10-probe-v1-20260426a",
+  "admitted_batch_id": "en-es:source-admission-cycle:wordnet-def-source-non-v10-probe-v1-20260426a:sense-admitted",
+  "summary": {
+    "input_row_count": 18,
+    "semantic_input_row_count": 18,
+    "semantic_admitted_row_count": 18,
+    "semantic_rejected_row_count": 0,
+    "non_semantic_passthrough_row_count": 0,
+    "admitted_row_count": 18,
+    "scorers": [
+      "sentence_transformer_cosine"
+    ],
+    "evidence_view": "all_evidence_text",
+    "min_intended_score": 0.5,
+    "min_margin": 0.0,
+    "rejection_reason_counts": {}
+  },
+  "row_results": [
+    {
+      "row_id": "en-es-sentence-veto-rock-roca:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a lump or mass of hard consolidated mineral matter",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:rock:roca:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:rock:sacudir:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:rock:roca:active",
+        "intended_score": 0.882131,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+        "strongest_competitor_score": 0.618028,
+        "margin": 0.264103
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:rock:roca:active",
+          "intended_score": 0.882131,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+          "strongest_competitor_score": 0.618028,
+          "margin": 0.264103
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-rock-roca:shadow-en-es-sentence-veto-rock-sacudir-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "cause to move back and forth",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:rock:roca:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+        "intended_score": 0.783514,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:rock:roca:active",
+        "strongest_competitor_score": 0.551962,
+        "margin": 0.231553
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+          "intended_score": 0.783514,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:rock:roca:active",
+          "strongest_competitor_score": 0.551962,
+          "margin": 0.231553
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-draft-borrador:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:draft:borrador",
+      "relation_type": "anchor_cue",
+      "evidence_text": "any of the various versions in the development of a written work",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:draft:borrador:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:draft:reclutar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:draft:borrador:active",
+        "intended_score": 0.871851,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+        "strongest_competitor_score": 0.54704,
+        "margin": 0.324811
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:draft:borrador:active",
+          "intended_score": 0.871851,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+          "strongest_competitor_score": 0.54704,
+          "margin": 0.324811
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-draft-borrador:shadow-en-es-sentence-veto-draft-reclutar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:draft:borrador",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "engage somebody to enter the army",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:draft:borrador:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+        "intended_score": 0.858748,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:draft:borrador:active",
+        "strongest_competitor_score": 0.55004,
+        "margin": 0.308708
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+          "intended_score": 0.858748,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:draft:borrador:active",
+          "strongest_competitor_score": 0.55004,
+          "margin": 0.308708
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-case-caso:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:case:caso",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a comprehensive term for any proceeding in a court of law whereby an individual seeks a legal remedy",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:case:caso:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:case:estuche:shadow",
+        "en-es:sentence-veto:case:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:case:caso:active",
+        "intended_score": 0.745153,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+        "strongest_competitor_score": 0.671923,
+        "margin": 0.073229
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:case:caso:active",
+          "intended_score": 0.745153,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+          "strongest_competitor_score": 0.671923,
+          "margin": 0.073229
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-case-caso:shadow-en-es-sentence-veto-case-estuche-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:case:caso",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "a portable container for carrying several objects",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:case:estuche:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:case:caso:active",
+        "en-es:sentence-veto:case:vigilar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:case:estuche:shadow",
+        "intended_score": 0.918983,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+        "strongest_competitor_score": 0.557158,
+        "margin": 0.361826
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:case:estuche:shadow",
+          "intended_score": 0.918983,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+          "strongest_competitor_score": 0.557158,
+          "margin": 0.361826
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-case-caso:shadow-en-es-sentence-veto-case-vigilar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:case:caso",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "look over, usually with the intention to rob",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:case:caso:active",
+        "en-es:sentence-veto:case:estuche:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+        "intended_score": 0.816176,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:case:caso:active",
+        "strongest_competitor_score": 0.587931,
+        "margin": 0.228244
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+          "intended_score": 0.816176,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:case:caso:active",
+          "strongest_competitor_score": 0.587931,
+          "margin": 0.228244
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-scale-escala:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:scale:escala",
+      "relation_type": "anchor_cue",
+      "evidence_text": "an ordered reference standard",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:scale:escala:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:scale:escalar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:scale:escala:active",
+        "intended_score": 0.827148,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+        "strongest_competitor_score": 0.506204,
+        "margin": 0.320944
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:scale:escala:active",
+          "intended_score": 0.827148,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+          "strongest_competitor_score": 0.506204,
+          "margin": 0.320944
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-scale-escala:shadow-en-es-sentence-veto-scale-escalar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:scale:escala",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "take by attacking with scaling ladders",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:scale:escala:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+        "intended_score": 0.760323,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:scale:escala:active",
+        "strongest_competitor_score": 0.546821,
+        "margin": 0.213503
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+          "intended_score": 0.760323,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:scale:escala:active",
+          "strongest_competitor_score": 0.546821,
+          "margin": 0.213503
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-line-linea:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:line:linea",
+      "relation_type": "anchor_cue",
+      "evidence_text": "text consisting of a row of words written across a page or computer screen",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:line:linea:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:line:forrar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:line:linea:active",
+        "intended_score": 0.803077,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+        "strongest_competitor_score": 0.66052,
+        "margin": 0.142558
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:line:linea:active",
+          "intended_score": 0.803077,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+          "strongest_competitor_score": 0.66052,
+          "margin": 0.142558
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-line-linea:shadow-en-es-sentence-veto-line-forrar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:line:linea",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "cover the interior of",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:line:linea:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+        "intended_score": 0.87823,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:line:linea:active",
+        "strongest_competitor_score": 0.631421,
+        "margin": 0.246808
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:line:forrar:shadow",
+          "intended_score": 0.87823,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:line:linea:active",
+          "strongest_competitor_score": 0.631421,
+          "margin": 0.246808
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-point-punto:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:point:punto",
+      "relation_type": "anchor_cue",
+      "evidence_text": "a brief version of the essential meaning of something",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:point:punto:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:point:senalar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:point:punto:active",
+        "intended_score": 0.786709,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+        "strongest_competitor_score": 0.606455,
+        "margin": 0.180254
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:point:punto:active",
+          "intended_score": 0.786709,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+          "strongest_competitor_score": 0.606455,
+          "margin": 0.180254
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-point-punto:shadow-en-es-sentence-veto-point-senalar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:point:punto",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "indicate a place, direction, person, or thing; either spatially or figuratively",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:point:punto:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+        "intended_score": 0.866083,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:point:punto:active",
+        "strongest_competitor_score": 0.780863,
+        "margin": 0.08522
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:point:senalar:shadow",
+          "intended_score": 0.866083,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:point:punto:active",
+          "strongest_competitor_score": 0.780863,
+          "margin": 0.08522
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ring-anillo:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:ring:anillo",
+      "relation_type": "anchor_cue",
+      "evidence_text": "jewelry consisting of a circlet of precious metal (often set with jewels) worn on the finger",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:ring:anillo:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ring:sonar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:ring:anillo:active",
+        "intended_score": 0.956108,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+        "strongest_competitor_score": 0.590075,
+        "margin": 0.366033
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:ring:anillo:active",
+          "intended_score": 0.956108,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+          "strongest_competitor_score": 0.590075,
+          "margin": 0.366033
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-ring-anillo:shadow-en-es-sentence-veto-ring-sonar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:ring:anillo",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "sound loudly and sonorously",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:ring:anillo:active"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+        "intended_score": 0.867952,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:ring:anillo:active",
+        "strongest_competitor_score": 0.523259,
+        "margin": 0.344694
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+          "intended_score": 0.867952,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:ring:anillo:active",
+          "strongest_competitor_score": 0.523259,
+          "margin": 0.344694
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-date-fecha:active-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "relation_type": "anchor_cue",
+      "evidence_text": "the particular day, month, or year (usually according to the Gregorian calendar) that an event occurred",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:date:fecha:active",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:date:datil:shadow",
+        "en-es:sentence-veto:date:fechar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:date:fecha:active",
+        "intended_score": 0.902058,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+        "strongest_competitor_score": 0.758089,
+        "margin": 0.143969
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:date:fecha:active",
+          "intended_score": 0.902058,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+          "strongest_competitor_score": 0.758089,
+          "margin": 0.143969
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-date-fecha:shadow-en-es-sentence-veto-date-datil-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "sweet edible fruit of the date palm with a single long woody seed",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:date:datil:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:date:fecha:active",
+        "en-es:sentence-veto:date:fechar:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:date:datil:shadow",
+        "intended_score": 0.878204,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+        "strongest_competitor_score": 0.535009,
+        "margin": 0.343195
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:date:datil:shadow",
+          "intended_score": 0.878204,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+          "strongest_competitor_score": 0.535009,
+          "margin": 0.343195
+        }
+      ]
+    },
+    {
+      "row_id": "en-es-sentence-veto-date-fecha:shadow-en-es-sentence-veto-date-fechar-shadow-wordnet-definition-1",
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "relation_type": "shadow_candidate",
+      "evidence_text": "assign a date to; determine the (probable) date of",
+      "admission_status": "admitted",
+      "reason_code": "sense_discrimination_passed",
+      "intended_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+      "competitor_sense_ids": [
+        "en-es:sentence-veto:date:fecha:active",
+        "en-es:sentence-veto:date:datil:shadow"
+      ],
+      "best_result": {
+        "scorer_id": "sentence_transformer_cosine",
+        "passes": true,
+        "intended_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+        "intended_score": 0.811087,
+        "strongest_competitor_sense_id": "en-es:sentence-veto:date:fecha:active",
+        "strongest_competitor_score": 0.798832,
+        "margin": 0.012255
+      },
+      "scorer_results": [
+        {
+          "scorer_id": "sentence_transformer_cosine",
+          "passes": true,
+          "intended_sense_id": "en-es:sentence-veto:date:fechar:shadow",
+          "intended_score": 0.811087,
+          "strongest_competitor_sense_id": "en-es:sentence-veto:date:fecha:active",
+          "strongest_competitor_score": 0.798832,
+          "margin": 0.012255
+        }
+      ]
+    }
+  ],
+  "rejected_rows": [],
+  "recommendation": "All active/shadow rows pass sense-discrimination admission; use the admitted batch for merge and downstream ablation."
+}

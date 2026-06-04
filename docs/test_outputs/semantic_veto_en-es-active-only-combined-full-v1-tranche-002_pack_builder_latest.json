@@ -1,0 +1,184 @@
+{
+  "artifacts": {
+    "combined_normalized_evidence": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-002-normalized_evidence.json",
+    "semantic_inventory": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-002_semantic_inventory.json"
+  },
+  "component_batches": [
+    {
+      "batch_id": "en-es:semantic-veto:en-es-active-only-combined-full-v1-tranche-001",
+      "family_count": 91,
+      "row_count": 194,
+      "source_family": "internal_rulegen_artifact",
+      "source_id": "en-es-active-only-combined-full-v1-tranche-001",
+      "source_type": "internal"
+    },
+    {
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-002",
+      "family_count": 44,
+      "row_count": 88,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-002",
+      "source_type": "llm"
+    }
+  ],
+  "decision": "active_only_full_pack_ready_for_named_install",
+  "duplicate_samples": [],
+  "existing_family_append_samples": [],
+  "generated_at": "2026-05-11T23:49:02Z",
+  "inputs": {
+    "add_normalized_evidence_paths": [
+      "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-002_normalized_evidence.json"
+    ],
+    "base_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-001_semantic_inventory.json",
+    "base_normalized_evidence_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-001-normalized_evidence.json"
+  },
+  "issues": [],
+  "methodology": {
+    "existing_family_policy": "append generated evidence to existing active sense by trigger-target key",
+    "merge_scope": "append active-only anchor cues, preserve existing shadows and phrase sets",
+    "new_family_policy": "create active-only competition set when trigger-target pair is absent",
+    "runtime_policy_change": "none",
+    "runtime_publishable_rows": "kept false in source evidence; semantic inventory is the runtime materialization layer"
+  },
+  "new_family_samples": [
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:absence:falta:19c6195c",
+      "target": "falta",
+      "trigger": "absence"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:academy:academia:717639a3",
+      "target": "academia",
+      "trigger": "academy"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:adjacent:vecino:f732391d",
+      "target": "vecino",
+      "trigger": "adjacent"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:afternoon:tarde:43049987",
+      "target": "tarde",
+      "trigger": "afternoon"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:arrange:arreglar:4513f094",
+      "target": "arreglar",
+      "trigger": "arrange"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:author:autor:d4af7245",
+      "target": "autor",
+      "trigger": "author"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:axis:eje:0048e9cf",
+      "target": "eje",
+      "trigger": "axis"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:background:fondo:486c1600",
+      "target": "fondo",
+      "trigger": "background"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:bare:desnudo:9adf3ea8",
+      "target": "desnudo",
+      "trigger": "bare"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:battle:batalla:4bc7c7b3",
+      "target": "batalla",
+      "trigger": "battle"
+    }
+  ],
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-002",
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "add_normalized_row_count": 88,
+    "base_normalized_row_count": 194,
+    "combined_normalized_row_count": 282,
+    "competition_set_count": 135,
+    "duplicate_row_count": 0,
+    "existing_family_append_count": 0,
+    "existing_family_append_samples": [],
+    "merged_evidence_row_count": 88,
+    "new_family_count": 44,
+    "new_family_samples": [
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:absence:falta:19c6195c",
+        "target": "falta",
+        "trigger": "absence"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:academy:academia:717639a3",
+        "target": "academia",
+        "trigger": "academy"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:adjacent:vecino:f732391d",
+        "target": "vecino",
+        "trigger": "adjacent"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:afternoon:tarde:43049987",
+        "target": "tarde",
+        "trigger": "afternoon"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:arrange:arreglar:4513f094",
+        "target": "arreglar",
+        "trigger": "arrange"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:author:autor:d4af7245",
+        "target": "autor",
+        "trigger": "author"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:axis:eje:0048e9cf",
+        "target": "eje",
+        "trigger": "axis"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:background:fondo:486c1600",
+        "target": "fondo",
+        "trigger": "background"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:bare:desnudo:9adf3ea8",
+        "target": "desnudo",
+        "trigger": "bare"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:battle:batalla:4bc7c7b3",
+        "target": "batalla",
+        "trigger": "battle"
+      }
+    ],
+    "sense_count": 177,
+    "trigger_count": 135
+  }
+}

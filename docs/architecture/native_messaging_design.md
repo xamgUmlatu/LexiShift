@@ -2,7 +2,7 @@
 
 Status: active mixed design
 Role: Mixed
-Last updated: 2026-03-21
+Last updated: 2026-04-22
 Purpose: native-helper and native-messaging architecture contract plus phased rollout plan
 Source-of-truth: mixed as-is + roadmap reference; verify live helper/native-host behavior in code and use `native_messaging_checklist.md` for execution status.
 
@@ -217,10 +217,15 @@ Schema note:
 
 ## Mixed Surface: GUI Install UX
 - **Automatic** install on first launch if a fixed extension ID is available and the bundled helper host exists.
-- App menu (LexiShift) → “Install/Reinstall LexiShift Helper…” as a repair tool.
-- Settings → SRS: “Helper status” + “Install/Reinstall Helper” as a repair tool.
+- App menu (LexiShift) and Settings → SRS now route through a **Browser Connections** manager instead of a single environment prompt.
+- Fixed-ID production browsers keep the simple path: one click per supported browser to connect or repair the native-messaging manifest.
+- Unpacked/dev extensions now keep the narrow path: add/edit dialogs capture only browser + unpacked extension ID, and the app uses the current workspace helper automatically for that browser.
+- Workspace-host installs now write a small native-host wrapper that pins the repo interpreter instead of relying on `/usr/bin/env python3`, so Chrome launches from Finder/GUI shells do not drift onto an incompatible system Python.
+- Same-browser prod and unpacked-dev entries still share one native-messaging host path; the GUI only surfaces that as a targeted warning when adding/editing an unpacked entry would switch an already-configured browser to the workspace host.
+- Manifest path, host path, and reveal actions remain available only behind an explicit technical-details toggle instead of being the default card surface.
+- Connection status is presented as `Configured`, `Needs repair`, or `Not configured` based on manifest/origin/host-path inspection rather than manifest existence alone.
 - Extension IDs are read from `apps/gui/resources/helper_extension_ids.json` (fixed IDs for prod, plus dev/unpacked entries).
-- If the helper host is missing (dev), the GUI prompts for the host path.
+- Native messaging is still one manifest per browser host name, so all allowed origins in the same browser share one host path.
 - On Windows, GUI install expects a native host executable (`lexishift_native_host.exe`) and writes the per-browser manifest registry key.
 
 ## Mixed Surface: Bundling The Helper Host
@@ -230,8 +235,13 @@ Schema note:
 - For onefile builds, the installer copies the helper into the LexiShift app data directory to keep the manifest path stable after the app exits.
 
 ## Live Current Status
-- Helper auto-install runs on launch when a fixed ID is available; manual install remains as repair (App menu + SRS settings).
-- Native messaging host exists; install writes the host manifest for the provided extension ID and now registers Windows per-browser native-messaging manifest keys for supported GUI environments.
+- Helper auto-install runs on launch when a fixed ID is available; manual browser connection management remains available from the App menu and SRS settings.
+- Native messaging host exists; install writes one manifest per browser with the allowed origins for every configured extension ID on that browser and registers Windows per-browser native-messaging manifest keys for supported GUI environments.
+- Workspace-host manifests now target the generated wrapper script rather than the raw repo host script, and legacy direct-script workspace manifests are treated as `Needs repair`.
+- Install inspection now treats stale bundled helper copies as `Needs repair` instead of silently accepting any manifest that still points at an older copied host.
+- Saved bundled/workspace browser connections now auto-repair a narrow set of deterministic stale states on startup and when the Browser Connections dialog opens: unreadable manifests, missing host paths, missing expected origins, stale bundled copies, and pre-wrapper/stale workspace-wrapper states. Custom host-path installs and manifests with unexpected extra origins remain manual.
+- Native-host startup/import failures now append a traceback to `logs/native_host.log` under the LexiShift data root, so browser-side `Native host has exited` failures have a deterministic local log.
+- Background/bridge transport layers now classify common browser transport failures (`native_unavailable`, `native_host_exited`, `native_forbidden`, `bridge_unavailable`, `timeout`) with stable codes and generic fallback messages instead of depending on raw browser wording alone; options-side helper status/test flows localize those cases.
 - Helper supports set planning (`srs_plan_set`) and explicit set initialization (`srs_initialize`).
 - Helper exposes profile snapshot command (`profiles_get`).
 - Feedback writes to `srs/profiles/<profile_id>/srs_signal_queue.json` for future adaptive set updates.

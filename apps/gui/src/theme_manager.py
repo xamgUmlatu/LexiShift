@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from PySide6.QtCore import QSettings
 
-from theme_loader import THEME_ALL_COLOR_KEYS, load_user_themes
+from theme_loader import THEME_ALL_COLOR_KEYS, THEME_SURFACE_OPACITY_KEYS, load_user_themes
 from theme_registry import BUILTIN_THEMES
 from theme_widgets import apply_theme_background
 
@@ -26,6 +26,8 @@ def resolve_theme(theme_id: str, *, screen_id: str | None = None) -> dict:
     themes = load_themes()
     theme = themes.get(theme_id) or themes.get("light_sand", {})
     resolved = {key: theme.get(key) for key in THEME_ALL_COLOR_KEYS}
+    surface_opacities = _surface_opacities(theme)
+    resolved["_surface_opacities"] = surface_opacities
     resolved["_background"] = theme.get("_background", {})
     resolved["_background_path"] = theme.get("_background_path")
     if screen_id:
@@ -42,6 +44,9 @@ def resolve_theme(theme_id: str, *, screen_id: str | None = None) -> dict:
                     resolved["_background"] = screen.get("_background", {})
                 if "_background_path" in screen:
                     resolved["_background_path"] = screen.get("_background_path")
+                screen_surface_opacities = _surface_opacities(screen)
+                if screen_surface_opacities:
+                    surface_opacities.update(screen_surface_opacities)
     return resolved
 
 
@@ -132,6 +137,110 @@ def _best_text_color(bg_hex: str, *, light: str = "#FFFFFF", dark: str = "#0E1B2
     return light if light_ratio >= dark_ratio else dark
 
 
+def readable_text_color(
+    preferred_hex: str,
+    bg_hex: str,
+    *,
+    minimum_ratio: float = 4.5,
+    light: str = "#FFFFFF",
+    dark: str = "#0E1B2C",
+) -> str:
+    if _contrast_ratio(preferred_hex, bg_hex) >= minimum_ratio:
+        return preferred_hex
+    return _best_text_color(bg_hex, light=light, dark=dark)
+
+
+def rgba_color(hex_color: str, alpha: float, *, fallback: str = "#FFFFFF") -> str:
+    rgb = _parse_hex_rgb(hex_color) or _parse_hex_rgb(fallback) or (255, 255, 255)
+    if alpha <= 1:
+        alpha_value = round(max(0.0, min(1.0, alpha)) * 255)
+    else:
+        alpha_value = round(max(0.0, min(255.0, alpha)))
+    return f"rgba({rgb[0]}, {rgb[1]}, {rgb[2]}, {alpha_value})"
+
+
+def theme_surface_opacity(theme: dict, surface: str, *, default: float) -> float:
+    value = _surface_opacities(theme).get(surface)
+    if value is not None:
+        return value
+    return max(0.0, min(1.0, float(default)))
+
+
+def _surface_opacities(theme: dict) -> dict[str, float]:
+    raw = theme.get("_surface_opacities") if isinstance(theme, dict) else None
+    if not isinstance(raw, dict):
+        return {}
+    parsed: dict[str, float] = {}
+    for key in THEME_SURFACE_OPACITY_KEYS:
+        if key not in raw:
+            continue
+        try:
+            parsed[key] = max(0.0, min(1.0, float(raw[key])))
+        except (TypeError, ValueError):
+            continue
+    return parsed
+
+
+def build_browser_connection_styles(theme: dict) -> str:
+    configured_bg = _blend_hex(
+        [theme["accent_soft"], theme["table_bg"]], fallback=theme["accent_soft"]
+    )
+    repair_bg = _blend_hex(
+        [theme["panel_bottom"], theme["accent_soft"]], fallback=theme["panel_bottom"]
+    )
+    missing_bg = _blend_hex(
+        [theme["panel_bottom"], theme["table_bg"]], fallback=theme["panel_bottom"]
+    )
+    return f"""
+QScrollArea[browserConnectionsScroll="true"] {{
+  background: transparent;
+  border: none;
+}}
+QWidget[browserConnectionsCanvas="true"] {{
+  background: transparent;
+}}
+QFrame[browserConnectionPanel="true"] {{
+  border: 2px solid {theme["panel_border"]};
+  border-radius: 12px;
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {theme["panel_top"]}, stop:1 {theme["panel_bottom"]});
+}}
+QFrame[browserConnectionCard="true"] {{
+  border: 1px solid {theme["panel_border"]};
+  border-radius: 10px;
+  background: {theme["table_bg"]};
+}}
+QLabel[browserConnectionSectionTitle="true"] {{
+  color: {theme["accent"]};
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 4px;
+}}
+QLabel[browserConnectionCardTitle="true"] {{
+  color: {theme["text"]};
+  font-weight: 700;
+}}
+QLabel[browserConnectionStatusBadge="true"] {{
+  color: {theme["text"]};
+  border: 1px solid {theme["panel_border"]};
+  border-radius: 10px;
+  padding: 3px 9px;
+  font-weight: 600;
+}}
+QLabel[browserConnectionStatusBadge="true"][statusState="configured"] {{
+  background: {configured_bg};
+  border-color: {theme["accent"]};
+}}
+QLabel[browserConnectionStatusBadge="true"][statusState="needs_repair"] {{
+  background: {repair_bg};
+  border-color: {theme["accent"]};
+}}
+QLabel[browserConnectionStatusBadge="true"][statusState="not_configured"] {{
+  background: {missing_bg};
+}}
+"""
+
+
 def build_base_styles(theme: dict) -> str:
     status_error = str(theme.get("status_error") or "#B42318")
     status_error_hover = "#8F1A14"
@@ -180,6 +289,26 @@ QLineEdit, QPlainTextEdit, QTextEdit, QComboBox {{
   border: 1px solid {theme["panel_border"]};
   border-radius: 10px;
   padding: 7px 9px;
+}}
+QComboBox QAbstractItemView {{
+  background: {theme["table_bg"]};
+  color: {theme["text"]};
+  border: 1px solid {theme["panel_border"]};
+  selection-background-color: {theme["table_sel_bg"]};
+  selection-color: {readable_text_color(theme["text"], theme["table_sel_bg"])};
+  outline: 0px;
+}}
+QComboBox QAbstractItemView::item {{
+  min-height: 24px;
+  padding: 6px 8px;
+}}
+QComboBox QAbstractItemView::item:hover {{
+  background: {theme["accent_soft"]};
+  color: {readable_text_color(theme["text"], theme["accent_soft"])};
+}}
+QComboBox QAbstractItemView::item:selected {{
+  background: {theme["table_sel_bg"]};
+  color: {readable_text_color(theme["text"], theme["table_sel_bg"])};
 }}
 /* Main window profile/ruleset selector popup only (objectName: profileRulesetPopup). */
 QAbstractItemView#profileRulesetPopup {{
@@ -403,6 +532,7 @@ QPushButton[variant="danger"]:hover {{
 QSplitter::handle {{
   background: {theme["panel_border"]};
 }}
+{build_browser_connection_styles(theme)}
 """
 
 
@@ -421,6 +551,7 @@ def _merge_theme(base: dict, override: dict) -> dict:
     for key in (
         "_background",
         "_background_path",
+        "_surface_opacities",
         "_name",
         "_source",
         "_base_dir",

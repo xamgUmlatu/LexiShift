@@ -1,0 +1,33 @@
+{
+  "artifacts": {
+    "ruleset": {
+      "bytes": 319612,
+      "exists": true,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/profiles/default/srs_ruleset_en-es.json",
+      "sha1": "5ab45d7de39fda14586d941bb6cf4103f00a6c82"
+    },
+    "semantic_inventory": {
+      "bytes": 835752,
+      "exists": true,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/profiles/default/srs_semantic_inventory_en-es.json",
+      "sha1": "765fa1c8a870ebd72d2fb099d75573b215af3661"
+    },
+    "snapshot": {
+      "bytes": 29385,
+      "exists": true,
+      "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+      "sha1": "a62804c1989e56608d9b652e16f2efeb74ec4004"
+    }
+  },
+  "generated_at": "2026-05-13T20:42:02Z",
+  "generation_id": "en-es:default:d1922495bd1afddd",
+  "pair": "en-es",
+  "profile_id": "default",
+  "published_at": "2026-05-13T20:42:02Z",
+  "schema_version": 1,
+  "validation": {
+    "errors": [],
+    "family_valid": true,
+    "semantic_inventory_included": true
+  }
+}

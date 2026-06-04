@@ -1,5 +1,13 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const admissionPreviewFormatter = root.optionsSrsAdmissionPreviewFormatter
+    && typeof root.optionsSrsAdmissionPreviewFormatter === "object"
+    ? root.optionsSrsAdmissionPreviewFormatter
+    : null;
+  const rebalanceFormatter = root.optionsSrsRebalanceFormatter
+    && typeof root.optionsSrsRebalanceFormatter.buildRebalanceResultOutput === "function"
+    ? root.optionsSrsRebalanceFormatter.buildRebalanceResultOutput
+    : null;
 
   function formatMissingResourceList(missingInputs) {
     const missing = Array.isArray(missingInputs) ? missingInputs : [];
@@ -17,7 +25,6 @@
       return `${resourceType}: ${resourcePath}`;
     }).join("; ");
   }
-
   function formatPairPolicySummary(pairPolicy) {
     if (!pairPolicy || typeof pairPolicy !== "object") {
       return "n/a";
@@ -29,7 +36,22 @@
       `initial_active_count_default=${pairPolicy.initial_active_count_default ?? "n/a"}`
     ].join(", ");
   }
-
+  function buildFrequencyResourceLines(resourceData) {
+    const data = resourceData && typeof resourceData === "object" ? resourceData : {};
+    const frequencyPackPath = data.frequency_pack_path || data.set_source_db || "n/a";
+    const setSourceDb = data.set_source_db || "n/a";
+    const frequencyPackExists = data.frequency_pack_exists === true || data.set_source_db_exists === true;
+    const setSourceDbSuffix = setSourceDb !== "n/a" && frequencyPackPath !== "n/a" && setSourceDb === frequencyPackPath
+      ? "; same as frequency_pack_path"
+      : "";
+    return [
+      `- frequency_pack_id: ${data.frequency_pack_id || "n/a"}`,
+      `- frequency_pack_provider: ${data.frequency_pack_provider || "n/a"}`,
+      `- frequency_pos_source_profile: ${data.frequency_pos_source_profile || "n/a"}`,
+      `- frequency_pack_path: ${frequencyPackPath} (exists=${frequencyPackExists === true})`,
+      `- set_source_db (execution field): ${setSourceDb} (exists=${data.set_source_db_exists === true}${setSourceDbSuffix})`
+    ];
+  }
   function buildPreflightBlockedLines(options) {
     const opts = options && typeof options === "object" ? options : {};
     const actionLabel = String(opts.actionLabel || "Action");
@@ -51,12 +73,13 @@
       `- supports_rulegen: ${requirements.supports_rulegen === true}`,
       `- requires_jmdict_for_seed: ${requirements.requires_jmdict_for_seed === true}`,
       `- requires_jmdict_for_rulegen: ${requirements.requires_jmdict_for_rulegen === true}`,
-      `- requires_freedict_path_for_rulegen: ${requirements.requires_freedict_de_en_for_rulegen === true}`,
+      `- requires_translation_dictionary_for_rulegen: ${requirements.requires_translation_dictionary_for_rulegen === true}`,
       "",
       "Resolved resources:",
-      `- set_source_db: ${helperData.set_source_db || "n/a"} (exists=${helperData.set_source_db_exists === true})`,
+      ...buildFrequencyResourceLines(helperData),
       `- jmdict_path: ${helperData.jmdict_path || "n/a"} (exists=${helperData.jmdict_exists === true})`,
-      `- freedict_path: ${helperData.freedict_de_en_path || "n/a"} (exists=${helperData.freedict_de_en_exists === true})`,
+      `- translation_dict_path: ${helperData.translation_dict_path || "n/a"} (exists=${helperData.translation_dict_exists === true})`,
+      `- translation_dict_provider: ${helperData.translation_dict_provider || "n/a"}`,
       `- stopwords_path: ${helperData.stopwords_path || "n/a"} (exists=${helperData.stopwords_exists === true})`,
       "",
       "Pair policy defaults:",
@@ -134,12 +157,12 @@
       ? translate(
           "status_srs_set_init_result",
           [added, total, srsPair],
-          `S initialized for ${srsPair}: +${added} items (total ${total}).`
+          `Practice started for ${srsPair}: +${added} learning words (total ${total}).`
         )
       : translate(
           "status_srs_set_plan_result",
           [srsPair],
-          `S planning completed for ${srsPair}.`
+          `Practice setup checked for ${srsPair}.`
         );
     return [
       header,
@@ -174,48 +197,6 @@
     ].filter(Boolean).join("\n");
   }
 
-  function buildRefreshResultOutput(options) {
-    const opts = options && typeof options === "object" ? options : {};
-    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
-    const applied = opts.applied === true;
-    const added = Number(opts.added || 0);
-    const srsPair = String(opts.srsPair || "en-en");
-    const result = opts.result && typeof opts.result === "object" ? opts.result : {};
-    const admission = opts.admission && typeof opts.admission === "object" ? opts.admission : {};
-    const feedbackWindow = admission.feedback_window && typeof admission.feedback_window === "object"
-      ? admission.feedback_window
-      : {};
-    const publishedRulegen = opts.publishedRulegen && typeof opts.publishedRulegen === "object"
-      ? opts.publishedRulegen
-      : null;
-    const header = applied
-      ? translate(
-          "status_srs_refresh_success",
-          [srsPair, added],
-          `S refreshed for ${srsPair}: +${added} admitted.`
-        )
-      : translate(
-          "status_srs_refresh_noop",
-          [srsPair],
-          `S refresh for ${srsPair}: no new admissions.`
-        );
-    return [
-      header,
-      `- applied: ${applied}`,
-      `- added_items: ${added}`,
-      `- total_items_for_pair: ${result.total_items_for_pair ?? "n/a"}`,
-      `- max_active_items: ${result.max_active_items ?? "n/a"}`,
-      `- max_new_items_per_day: ${result.max_new_items_per_day ?? "n/a"}`,
-      `- reason_code: ${admission.reason_code || "n/a"}`,
-      `- feedback_count: ${feedbackWindow.feedback_count ?? "n/a"}`,
-      `- retention_ratio: ${feedbackWindow.retention_ratio ?? "n/a"}`,
-      `- rulegen_published: ${publishedRulegen ? publishedRulegen.published !== false : false}`,
-      publishedRulegen ? `- rulegen_targets: ${publishedRulegen.targets ?? "n/a"}` : null,
-      publishedRulegen ? `- rulegen_rules: ${publishedRulegen.rules ?? "n/a"}` : null,
-      publishedRulegen ? `- ruleset_path: ${publishedRulegen.ruleset_path || "n/a"}` : null
-    ].filter(Boolean).join("\n");
-  }
-
   function buildRuntimeDiagnosticsOutput(options) {
     const opts = options && typeof options === "object" ? options : {};
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
@@ -234,6 +215,38 @@
     const cache = diagnostics.cache && typeof diagnostics.cache === "object"
       ? diagnostics.cache
       : {};
+    const runtimeStateLines = [
+      ["ts", runtimeState ? runtimeState.ts || "n/a" : "n/a"],
+      ["pair", runtimeState ? runtimeState.pair || "n/a" : "n/a"],
+      ["profile_id", runtimeState ? runtimeState.profile_id || "n/a" : "n/a"],
+      ["srs_enabled", runtimeState ? runtimeState.srs_enabled === true : "n/a"],
+      ["rules_source", runtimeState ? runtimeState.rules_source || "n/a" : "n/a"],
+      ["rules_local_enabled", runtimeState ? runtimeState.rules_local_enabled ?? "n/a" : "n/a"],
+      ["rules_srs_enabled", runtimeState ? runtimeState.rules_srs_enabled ?? "n/a" : "n/a"],
+      ["active_rules_total", runtimeState ? runtimeState.active_rules_total ?? "n/a" : "n/a"],
+      ["active_rules_srs", runtimeState ? runtimeState.active_rules_srs ?? "n/a" : "n/a"],
+      ["semantic_admission_enabled", runtimeState ? runtimeState.semantic_admission_enabled === true : "n/a"],
+      ["semantic_runtime_capability", runtimeState ? runtimeState.semantic_runtime_capability || "n/a" : "n/a"],
+      ["semantic_runtime_reason_code", runtimeState ? runtimeState.semantic_runtime_reason_code || "n/a" : "n/a"],
+      ["semantic_pointer_rule_count", runtimeState ? runtimeState.semantic_pointer_rule_count ?? "n/a" : "n/a"],
+      ["semantic_ready_rule_count", runtimeState ? runtimeState.semantic_ready_rule_count ?? "n/a" : "n/a"],
+      ["semantic_fallback_policy", runtimeState ? runtimeState.semantic_fallback_policy || "n/a" : "n/a"],
+      ["semantic_inventory_loaded", runtimeState ? runtimeState.semantic_inventory_loaded === true : "n/a"],
+      ["semantic_inventory_source", runtimeState ? runtimeState.semantic_inventory_source || "n/a" : "n/a"],
+      ["semantic_matches_eligible", runtimeState ? runtimeState.semantic_matches_eligible ?? "n/a" : "n/a"],
+      ["semantic_matches_ready", runtimeState ? runtimeState.semantic_matches_ready ?? "n/a" : "n/a"],
+      ["semantic_policy_replaces", runtimeState ? runtimeState.semantic_policy_replaces ?? "n/a" : "n/a"],
+      ["semantic_policy_abstains", runtimeState ? runtimeState.semantic_policy_abstains ?? "n/a" : "n/a"],
+      ["semantic_policy_soft_affordances", runtimeState ? runtimeState.semantic_policy_soft_affordances ?? "n/a" : "n/a"],
+      ["semantic_fallback_replaces", runtimeState ? runtimeState.semantic_fallback_replaces ?? "n/a" : "n/a"],
+      ["semantic_fallback_abstains", runtimeState ? runtimeState.semantic_fallback_abstains ?? "n/a" : "n/a"],
+      ["semantic_fallback_soft_affordances", runtimeState ? runtimeState.semantic_fallback_soft_affordances ?? "n/a" : "n/a"],
+      ["semantic_fallback_reason_counts", runtimeState ? JSON.stringify(runtimeState.semantic_fallback_reason_counts || {}) : "n/a"],
+      ["semantic_decision_policy_id", runtimeState ? runtimeState.semantic_decision_policy_id || "none" : "n/a"],
+      ["semantic_inventory_error", runtimeState ? runtimeState.semantic_inventory_error || "none" : "n/a"],
+      ["helper_rules_error", runtimeState ? runtimeState.helper_rules_error || "none" : "n/a"],
+      ["frame_type", runtimeState ? runtimeState.frame_type || "n/a" : "n/a"]
+    ].map(([key, value]) => `- ${key}: ${value}`);
     return [
       translate(
         "status_srs_diagnostics_header",
@@ -247,12 +260,18 @@
         ? `- store_items_for_pair: ${helperData.store_items_for_pair ?? "n/a"}`
         : `- unavailable: ${diagnostics.helper_error || "unknown"}`,
       helperData ? `- pair_policy: ${formatPairPolicySummary(pairPolicy)}` : null,
-      helperData ? `- set_source_db: ${helperData.set_source_db || "n/a"} (exists=${helperData.set_source_db_exists === true})` : null,
+      ...(helperData ? buildFrequencyResourceLines(helperData) : []),
       helperData ? `- jmdict_path: ${helperData.jmdict_path || "n/a"} (exists=${helperData.jmdict_exists === true})` : null,
-      helperData ? `- freedict_path: ${helperData.freedict_de_en_path || "n/a"} (exists=${helperData.freedict_de_en_exists === true})` : null,
+      helperData ? `- translation_dict_path: ${helperData.translation_dict_path || "n/a"} (exists=${helperData.translation_dict_exists === true})` : null,
+      helperData ? `- translation_dict_provider: ${helperData.translation_dict_provider || "n/a"}` : null,
       helperData ? `- stopwords_path: ${helperData.stopwords_path || "n/a"} (exists=${helperData.stopwords_exists === true})` : null,
       helperData ? `- missing_inputs: ${formatMissingResourceList(helperData.missing_inputs)}` : null,
       helperData ? `- ruleset_rules_count: ${helperData.ruleset_rules_count ?? "n/a"}` : null,
+      helperData ? `- semantic_runtime_capability: ${helperData.semantic_runtime_capability || "n/a"}` : null,
+      helperData ? `- semantic_runtime_reason_code: ${helperData.semantic_runtime_reason_code || "n/a"}` : null,
+      helperData ? `- ruleset_rules_with_semantic_admission: ${helperData.ruleset_rules_with_semantic_admission ?? "n/a"}` : null,
+      helperData ? `- ruleset_rules_semantic_ready: ${helperData.ruleset_rules_semantic_ready ?? "n/a"}` : null,
+      helperData ? `- ruleset_rules_semantic_unavailable: ${helperData.ruleset_rules_semantic_unavailable ?? "n/a"}` : null,
       helperData ? `- snapshot_target_count: ${helperData.snapshot_target_count ?? "n/a"}` : null,
       helperData ? `- store_path: ${helperData.store_path || "n/a"}` : null,
       helperData ? `- ruleset_path: ${helperData.ruleset_path || "n/a"}` : null,
@@ -260,20 +279,27 @@
       "Extension cache:",
       `- cached_ruleset_rules: ${cache.ruleset_rules_count ?? 0}`,
       `- cached_snapshot_targets: ${cache.snapshot_target_count ?? 0}`,
+      `- cached_snapshot_generation_id: ${cache.snapshot_generation_id || "n/a"}`,
+      `- cached_semantic_inventory_schema_version: ${cache.semantic_inventory_schema_version ?? "n/a"}`,
+      `- cached_semantic_inventory_generation_id: ${cache.semantic_inventory_generation_id || "n/a"}`,
+      `- cached_snapshot_semantic_generation_aligned: ${cache.snapshot_semantic_generation_aligned ?? "n/a"}`,
       "",
       "Current tab/runtime (last reported):",
-      runtimeState ? `- ts: ${runtimeState.ts || "n/a"}` : "- ts: n/a",
-      runtimeState ? `- pair: ${runtimeState.pair || "n/a"}` : "- pair: n/a",
-      runtimeState ? `- profile_id: ${runtimeState.profile_id || "n/a"}` : "- profile_id: n/a",
-      runtimeState ? `- srs_enabled: ${runtimeState.srs_enabled === true}` : "- srs_enabled: n/a",
-      runtimeState ? `- rules_source: ${runtimeState.rules_source || "n/a"}` : "- rules_source: n/a",
-      runtimeState ? `- rules_local_enabled: ${runtimeState.rules_local_enabled ?? "n/a"}` : "- rules_local_enabled: n/a",
-      runtimeState ? `- rules_srs_enabled: ${runtimeState.rules_srs_enabled ?? "n/a"}` : "- rules_srs_enabled: n/a",
-      runtimeState ? `- active_rules_total: ${runtimeState.active_rules_total ?? "n/a"}` : "- active_rules_total: n/a",
-      runtimeState ? `- active_rules_srs: ${runtimeState.active_rules_srs ?? "n/a"}` : "- active_rules_srs: n/a",
-      runtimeState ? `- helper_rules_error: ${runtimeState.helper_rules_error || "none"}` : "- helper_rules_error: n/a",
-      runtimeState ? `- frame_type: ${runtimeState.frame_type || "n/a"}` : "- frame_type: n/a"
+      ...runtimeStateLines
     ].filter(Boolean).join("\n");
+  }
+
+  function buildAdmissionPreviewOutput(options) {
+    if (admissionPreviewFormatter && typeof admissionPreviewFormatter.buildAdmissionPreviewView === "function") {
+      return admissionPreviewFormatter.buildAdmissionPreviewView(options);
+    }
+    return admissionPreviewFormatter && typeof admissionPreviewFormatter.buildAdmissionPreviewOutput === "function"
+      ? admissionPreviewFormatter.buildAdmissionPreviewOutput(options)
+      : "";
+  }
+
+  function buildRebalanceResultOutput(options) {
+    return rebalanceFormatter ? rebalanceFormatter(options) : "";
   }
 
   function buildSampledRulegenSamplingLines(options) {
@@ -317,8 +343,9 @@
       translate("diag_header", null, "Diagnostics:"),
       `- ${translate("label_pair", null, "pair")}: ${diag.pair || srsPair}`,
       `- jmdict: ${diag.jmdict_path || "n/a"} (exists=${diag.jmdict_exists})`,
-      `- freedict: ${diag.freedict_de_en_path || "n/a"} (exists=${diag.freedict_de_en_exists})`,
-      `- set_source_db: ${diag.set_source_db || "n/a"} (exists=${diag.set_source_db_exists})`,
+      `- translation_dict: ${diag.translation_dict_path || "n/a"} (exists=${diag.translation_dict_exists})`,
+      `- translation_dict_provider: ${diag.translation_dict_provider || "n/a"}`,
+      ...buildFrequencyResourceLines(diag),
       `- store_items: ${diag.store_items ?? "n/a"}`,
       `- store_items_for_pair: ${diag.store_items_for_pair ?? "n/a"}`,
       `- store_sample: ${(Array.isArray(diag.store_sample) ? diag.store_sample.join(", ") : "n/a")}`
@@ -366,13 +393,23 @@
     return [header, ...samplingLines, "", ...lines].join("\n");
   }
 
+  const refreshResultFormatter = root.optionsSrsRefreshResultFormatter
+    && typeof root.optionsSrsRefreshResultFormatter === "object"
+    ? root.optionsSrsRefreshResultFormatter
+    : {};
+
   root.optionsSrsActionFormatters = {
     formatMissingResourceList,
     formatPairPolicySummary,
+    buildFrequencyResourceLines,
     buildPreflightBlockedLines,
     buildInitializeResultOutput,
-    buildRefreshResultOutput,
+    buildRebalanceResultOutput,
+    buildRefreshResultOutput: typeof refreshResultFormatter.buildRefreshResultOutput === "function"
+      ? refreshResultFormatter.buildRefreshResultOutput
+      : (() => ""),
     buildRuntimeDiagnosticsOutput,
+    buildAdmissionPreviewOutput,
     buildSampledRulegenSamplingLines,
     buildSampledRulegenHeader,
     buildSampledRulegenEmptyOutput,

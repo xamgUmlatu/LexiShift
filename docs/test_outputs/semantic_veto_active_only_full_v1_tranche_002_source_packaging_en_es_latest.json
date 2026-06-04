@@ -1,0 +1,432 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-002",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:absence:falta:19c6195c",
+      "packaged_row_count": 2,
+      "targets": [
+        "falta"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:academy:academia:717639a3",
+      "packaged_row_count": 2,
+      "targets": [
+        "academia"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:adjacent:vecino:f732391d",
+      "packaged_row_count": 2,
+      "targets": [
+        "vecino"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:afternoon:tarde:43049987",
+      "packaged_row_count": 2,
+      "targets": [
+        "tarde"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:arrange:arreglar:4513f094",
+      "packaged_row_count": 2,
+      "targets": [
+        "arreglar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:author:autor:d4af7245",
+      "packaged_row_count": 2,
+      "targets": [
+        "autor"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:axis:eje:0048e9cf",
+      "packaged_row_count": 2,
+      "targets": [
+        "eje"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:background:fondo:486c1600",
+      "packaged_row_count": 2,
+      "targets": [
+        "fondo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:bare:desnudo:9adf3ea8",
+      "packaged_row_count": 2,
+      "targets": [
+        "desnudo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:battle:batalla:4bc7c7b3",
+      "packaged_row_count": 2,
+      "targets": [
+        "batalla"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:boss:jefe:7dce968c",
+      "packaged_row_count": 2,
+      "targets": [
+        "jefe"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:exclusively:solo:2db6ddde",
+      "packaged_row_count": 2,
+      "targets": [
+        "sólo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:favour:favor:18639b63",
+      "packaged_row_count": 2,
+      "targets": [
+        "favor"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:lack:falta:99e2f8f3",
+      "packaged_row_count": 2,
+      "targets": [
+        "falta"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:lay:poner:88e4d6a7",
+      "packaged_row_count": 2,
+      "targets": [
+        "poner"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:leader:jefe:40cbdd5f",
+      "packaged_row_count": 2,
+      "targets": [
+        "jefe"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:light:debil:2cf12e4e",
+      "packaged_row_count": 2,
+      "targets": [
+        "débil"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:majority:mayoria:f1c946e7",
+      "packaged_row_count": 2,
+      "targets": [
+        "mayoría"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:manager:director:f001fe23",
+      "packaged_row_count": 2,
+      "targets": [
+        "director"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:maybe:quizas:5c3f45a1",
+      "packaged_row_count": 2,
+      "targets": [
+        "quizás"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:million:millon:1eb67060",
+      "packaged_row_count": 2,
+      "targets": [
+        "millón"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:never:jamas:93b82cf1",
+      "packaged_row_count": 2,
+      "targets": [
+        "jamás"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:nice:rico:4430e567",
+      "packaged_row_count": 2,
+      "targets": [
+        "rico"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:officer:funcionario:dae225aa",
+      "packaged_row_count": 2,
+      "targets": [
+        "funcionario"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:official:funcionario:b160a162",
+      "packaged_row_count": 2,
+      "targets": [
+        "funcionario"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:old:anciano:2c3b44d9",
+      "packaged_row_count": 2,
+      "targets": [
+        "anciano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:politician:politico:affee2fd",
+      "packaged_row_count": 2,
+      "targets": [
+        "político"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:present:contemporaneo:6a5bc877",
+      "packaged_row_count": 2,
+      "targets": [
+        "contemporáneo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:race:correr:fcb7ba09",
+      "packaged_row_count": 2,
+      "targets": [
+        "correr"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:red:rojo:43f57e5e",
+      "packaged_row_count": 2,
+      "targets": [
+        "rojo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:report:informar:e73a0d90",
+      "packaged_row_count": 2,
+      "targets": [
+        "informar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:republic:republica:af4a945b",
+      "packaged_row_count": 2,
+      "targets": [
+        "república"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:rest:descansar:75cbcdb9",
+      "packaged_row_count": 2,
+      "targets": [
+        "descansar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:run:correr:1b592b59",
+      "packaged_row_count": 2,
+      "targets": [
+        "correr"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:show:mostrar:c078d25e",
+      "packaged_row_count": 2,
+      "targets": [
+        "mostrar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:start:comenzar:dc408000",
+      "packaged_row_count": 2,
+      "targets": [
+        "comenzar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:sun:sol:d3e33a85",
+      "packaged_row_count": 2,
+      "targets": [
+        "sol"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:tax:imponer:e1fe585a",
+      "packaged_row_count": 2,
+      "targets": [
+        "imponer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:thousand:mil:eb4dcfd8",
+      "packaged_row_count": 2,
+      "targets": [
+        "mil"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:visit:visita:73faef93",
+      "packaged_row_count": 2,
+      "targets": [
+        "visita"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:west:oeste:febbff35",
+      "packaged_row_count": 2,
+      "targets": [
+        "oeste"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:wife:esposa:84d8bd95",
+      "packaged_row_count": 2,
+      "targets": [
+        "esposa"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:writer:autor:ff4e19b6",
+      "packaged_row_count": 2,
+      "targets": [
+        "autor"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:yesterday:ayer:124f1659",
+      "packaged_row_count": 2,
+      "targets": [
+        "ayer"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-11T23:48:46Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_002_repaired_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_002_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_002_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 22066,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 2,
+    "operator_repairs": [
+      {
+        "family_id": "en-es:srs-source-target:maybe:quizas:5c3f45a1",
+        "invalid_output_family_id": "en-es:srs-source-target:maybe:quizas:5c3c45a1",
+        "invalid_output_request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:maybe:quizas:5c3c45a1:active_evidence_expansion",
+        "repair_reason": "generator repeatedly changed the family digest from 5c3f45a1 to 5c3c45a1; sentence content preserved and metadata restored to the reviewed request packet",
+        "repair_type": "metadata_id_restoration_after_repeated_invalid_output",
+        "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:maybe:quizas:5c3f45a1:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": false,
+        "slot_id": "en-es:srs-source-target:maybe:quizas:5c3f45a1:active_evidence_expansion",
+        "source_phrase": "maybe",
+        "target_lemma": "quizás"
+      },
+      {
+        "family_id": "en-es:srs-source-target:tax:imponer:e1fe585a",
+        "invalid_output_family_id": "en-es:srs-source-target:tax:imponer:e1fe585a",
+        "invalid_output_request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:tax:e1fe585a:active_evidence_expansion",
+        "repair_reason": "generator repeatedly omitted the target slug from request_id; sentence content preserved and metadata restored to the reviewed request packet",
+        "repair_type": "metadata_id_restoration_after_repeated_invalid_output",
+        "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:tax:imponer:e1fe585a:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": false,
+        "slot_id": "en-es:srs-source-target:tax:imponer:e1fe585a:active_evidence_expansion",
+        "source_phrase": "tax",
+        "target_lemma": "imponer"
+      }
+    ],
+    "output_tokens": 7941,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "operator_repaired_after_generation",
+    "temperature": null
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 88,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 44,
+    "packaged_row_count": 88,
+    "promotion_state_counts": {
+      "proposed": 88
+    },
+    "relation_type_counts": {
+      "anchor_cue": 88
+    },
+    "review_state_counts": {
+      "unreviewed": 88
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

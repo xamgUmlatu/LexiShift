@@ -1,0 +1,1340 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-05-15T22:50:03.574333+00:00",
+  "root": "/Users/takeyayuki/Documents/projects/LexiShift",
+  "experiment_root": "docs/test_outputs/experiments",
+  "posture_definitions": [
+    {
+      "posture": "routed",
+      "description": "Referenced by at least one non-generated doc, test, script, or source file."
+    },
+    {
+      "posture": "generated_linked",
+      "description": "Referenced only by generated-output files outside `docs/test_outputs/experiments`."
+    },
+    {
+      "posture": "experiment_linked",
+      "description": "Referenced only by another experiment payload family."
+    },
+    {
+      "posture": "self_linked_review",
+      "description": "Referenced only inside the same experiment payload family."
+    },
+    {
+      "posture": "unrouted_review",
+      "description": "No exact references found; requires human provenance review."
+    }
+  ],
+  "summary": {
+    "family_count": 13,
+    "file_count": 683,
+    "total_file_bytes": 122762384,
+    "routed_family_count": 13,
+    "generated_linked_family_count": 0,
+    "experiment_linked_family_count": 0,
+    "self_linked_review_family_count": 0,
+    "unrouted_review_family_count": 0,
+    "posture_counts": {
+      "routed": 13
+    },
+    "review_flag_counts": {
+      "batch_payload_family": 5,
+      "generated_rows_bundle": 1,
+      "install_or_runtime_fixture_root": 1,
+      "large_file_count": 2,
+      "raw_response_bundle": 4
+    }
+  },
+  "families": [
+    {
+      "family": "semantic_example_frame_batches",
+      "family_path": "docs/test_outputs/experiments/semantic_example_frame_batches",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 231,
+      "directory_count": 0,
+      "total_file_bytes": 41432528,
+      "extension_counts": {
+        ".json": 222,
+        ".jsonl": 9
+      },
+      "review_flags": [
+        "batch_payload_family",
+        "large_file_count",
+        "raw_response_bundle"
+      ],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-phrase-control-triage-latest_cycle_merged_normalized_evidence.json",
+          "bytes": 1120203
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wave7-source-class-breadth-v1-phrase-control-triage-latest_cycle_sense_admitted_normalized_evidence.json",
+          "bytes": 1120203
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest_cycle_merged_normalized_evidence.json",
+          "bytes": 983400
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest_cycle_sense_admitted_normalized_evidence.json",
+          "bytes": 983400
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave6-wiktextract-supported-v1-latest_cycle_merged_normalized_evidence.json",
+          "bytes": 966233
+        }
+      ],
+      "external_reference_count": 13,
+      "generated_output_reference_count": 103,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 50,
+      "external_reference_samples": [
+        "docs/rulegen/semantic_veto_artifact_authority_audit.md",
+        "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+        "docs/rulegen/semantic_veto_local_output_disposition.md",
+        "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+        "docs/test_inputs/semantic_cell_failure_trace_en_es.json",
+        "docs/test_inputs/semantic_cell_failure_trace_reference_en_es.json",
+        "docs/test_inputs/semantic_context_conditioned_evidence_bakeoff_en_es.json",
+        "docs/test_inputs/semantic_context_conditioned_evidence_llm_aligned_bakeoff_en_es.json"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_cell_failure_trace_en_es_latest.json",
+        "docs/test_outputs/semantic_cell_failure_trace_en_es_latest.md",
+        "docs/test_outputs/semantic_cell_failure_trace_reference_en_es_latest.json",
+        "docs/test_outputs/semantic_cell_failure_trace_reference_en_es_latest.md",
+        "docs/test_outputs/semantic_context_conditioned_evidence_bakeoff_en_es_latest.md",
+        "docs/test_outputs/semantic_context_conditioned_evidence_llm_aligned_bakeoff_en_es_latest.md",
+        "docs/test_outputs/semantic_context_conditioned_evidence_llm_aligned_v2_bakeoff_en_es_latest.md",
+        "docs/test_outputs/semantic_llm_example_frame_balanced_remediation_contract_latest.json"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-balanced-plus-source-coverage-filtered-safe-v1-20260425a_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-balanced-plus-source-coverage-filtered-safe-v2-20260425a_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-balanced-plus-source-coverage-filtered-safe-v2-20260425a_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-balanced-plus-source-coverage-filtered-safe-v2-20260425a_sense_admitted_sentence_transformer_margin0_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-balanced-plus-source-coverage-filtered-safe-v2-20260425a_sense_admitted_sentence_transformer_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-balanced-plus-source-coverage-filtered-v1-20260425a_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-balanced-plus-source-coverage-v1-20260425a_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v1-20260429a_candidate_admitted_normalized_evidence.json"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "docs/rulegen/semantic_veto_artifact_authority_audit.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_example_frame_batches",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave6-wiktextract-supported-v1-latest_cycle_sense_admitted_normalized_evidence.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave6-wiktextract-supported-v1-latest_admitted_delta_normalized_evidence.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave6-wiktextract-supported-v1-latest_cycle_filtered_normalized_evidence.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-alternate-sense-phrase-non-v10-wave6-wiktextract-supported-v1-latest_cycle_merged_normalized_evidence.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest_cycle_sense_admitted_normalized_evidence.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-translation-sense-non-v10-wave6-wiktextract-supported-v1-latest_cycle_sense_admitted_normalized_evidence.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-def-ex-non-v10-wave6-wiktextract-supported-v1-latest_cycle_sense_admitted_normalized_evidence.json",
+          "scope": "external"
+        }
+      ]
+    },
+    {
+      "family": "semantic_veto_source_packaging",
+      "family_path": "docs/test_outputs/experiments/semantic_veto_source_packaging",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 91,
+      "directory_count": 44,
+      "total_file_bytes": 40554815,
+      "extension_counts": {
+        ".json": 91
+      },
+      "review_flags": [
+        "install_or_runtime_fixture_root"
+      ],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-normalized_evidence.json",
+          "bytes": 3553422
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-normalized_evidence.json",
+          "bytes": 3483626
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-009-normalized_evidence.json",
+          "bytes": 3253264
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-008-normalized_evidence.json",
+          "bytes": 2963080
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-007-normalized_evidence.json",
+          "bytes": 2657219
+        }
+      ],
+      "external_reference_count": 8,
+      "generated_output_reference_count": 96,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 21,
+      "external_reference_samples": [
+        "core/lexishift_core/helper/use_cases/semantic_pack_install.py",
+        "core/tests/dev/test_generated_output_unnecessary_audit.py",
+        "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+        "docs/rulegen/semantic_routing_data_update_lifecycle.md",
+        "docs/rulegen/semantic_veto_active_only_tranche_runbook.md",
+        "docs/rulegen/semantic_veto_product_quality_goals.md",
+        "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+        "scripts/dev/generated_output_unnecessary_audit.py"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_001_live_page_scan_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_001_live_page_scan_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_001_pack_install_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_002_live_page_scan_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_002_live_page_scan_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_002_pack_install_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_live_page_scan_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_live_page_scan_en_es_latest.md"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-001-normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-002-normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-003-normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-004-normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-005-normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-006-normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-007-normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-008-normalized_evidence.json"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "core/lexishift_core/helper/use_cases/semantic_pack_install.py",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_source_packaging",
+          "scope": "external"
+        },
+        {
+          "reference_path": "core/tests/dev/test_generated_output_unnecessary_audit.py",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_source_packaging",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-normalized_evidence.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_source_packaging",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_routing_data_update_lifecycle.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_source_packaging",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_active_only_tranche_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_active_only_tranche_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-normalized_evidence.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_active_only_tranche_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-normalized_evidence.json",
+          "scope": "external"
+        }
+      ]
+    },
+    {
+      "family": "semantic_veto_evidence_gap_batches",
+      "family_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 150,
+      "directory_count": 0,
+      "total_file_bytes": 21257478,
+      "extension_counts": {
+        ".json": 89,
+        ".jsonl": 61
+      },
+      "review_flags": [
+        "batch_payload_family",
+        "large_file_count",
+        "raw_response_bundle"
+      ],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-002_journal.jsonl",
+          "bytes": 744248
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_journal.jsonl",
+          "bytes": 669665
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-001_journal.jsonl",
+          "bytes": 642227
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-20260510-001_journal.jsonl",
+          "bytes": 616438
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-allocation-20260509-003_raw_responses.json",
+          "bytes": 513715
+        }
+      ],
+      "external_reference_count": 3,
+      "generated_output_reference_count": 89,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 57,
+      "external_reference_samples": [
+        "docs/rulegen/semantic_llm_generation_budget_reference.md",
+        "docs/rulegen/semantic_veto_active_only_tranche_runbook.md",
+        "docs/test_inputs/semantic_veto_system_registry_en_es.json"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_002_generated_responses_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_002_generation_run_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_002_generation_run_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_002_repaired_generated_responses_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_003_generation_admission_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_003_generation_admission_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_003_generation_run_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_003_generation_run_en_es_latest.md"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-20260507t222952z-replay_generated_responses.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-20260507t222952z-replay_raw_responses.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-20260507t223123z-replay_generated_responses.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-20260507t223123z-replay_raw_responses.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-20260507t223922z-replay_generated_responses.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-20260507t223922z-replay_raw_responses.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-20260509t052339z-replay_generated_responses.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-20260509t052339z-replay_raw_responses.json"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "docs/rulegen/semantic_llm_generation_budget_reference.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-continue-repair-20260510-001_journal.jsonl",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_llm_generation_budget_reference.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_journal.jsonl",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_llm_generation_budget_reference.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_journal.jsonl",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_llm_generation_budget_reference.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_active_only_tranche_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_generated_responses.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_active_only_tranche_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-006-approved_generated_responses.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_generated_responses.json",
+          "scope": "external"
+        }
+      ]
+    },
+    {
+      "family": "rulegen_en_es_broad_sweep_20260328",
+      "family_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 97,
+      "directory_count": 0,
+      "total_file_bytes": 11872899,
+      "extension_counts": {
+        ".json": 71,
+        ".md": 26
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
+          "bytes": 4349201
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json",
+          "bytes": 1266615
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328.json",
+          "bytes": 661709
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328.json",
+          "bytes": 591517
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
+          "bytes": 587530
+        }
+      ],
+      "external_reference_count": 2,
+      "generated_output_reference_count": 0,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 2,
+      "external_reference_samples": [
+        "docs/developer/productization_closure_roadmap.md",
+        "docs/developer/rulegen_en_es_broad_sweep_runbook.md"
+      ],
+      "generated_output_reference_samples": [],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "docs/developer/productization_closure_roadmap.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/developer/rulegen_en_es_broad_sweep_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/developer/rulegen_en_es_broad_sweep_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/developer/rulegen_en_es_broad_sweep_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json",
+          "scope": "self_family"
+        }
+      ]
+    },
+    {
+      "family": "semantic_non_v10_wave_drafts",
+      "family_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 22,
+      "directory_count": 0,
+      "total_file_bytes": 2349627,
+      "extension_counts": {
+        ".json": 22
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json",
+          "bytes": 240039
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json",
+          "bytes": 239770
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected_dataset.json",
+          "bytes": 214820
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave5_anypos_ranked_slate_selected_v1_dataset.json",
+          "bytes": 210105
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave5_anypos_source_portfolio_materialized_v1_dataset.json",
+          "bytes": 210105
+        }
+      ],
+      "external_reference_count": 14,
+      "generated_output_reference_count": 24,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 0,
+      "external_reference_samples": [
+        "docs/rulegen/semantic_veto_artifact_authority_audit.md",
+        "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+        "docs/rulegen/semantic_veto_local_output_disposition.md",
+        "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+        "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave2_selected_heldout_cases_v1.json",
+        "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave2_selected_phrase_cases_v1.json",
+        "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave5_portfolio_heldout_cases_v1.json",
+        "docs/test_inputs/semantic_routing_cases/en_es_source_non_v10_wave5_portfolio_phrase_cases_v1.json"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_non_v10_inventory_candidates_wave6_available_latest.json",
+        "docs/test_outputs/semantic_non_v10_source_portfolio_wave5_anypos_latest.json",
+        "docs/test_outputs/semantic_non_v10_source_portfolio_wave5_anypos_latest.md",
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave3_anypos_latest.json",
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave4_anypos_supported_probe_latest.json",
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave6_anypos_latest.json",
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave6_wiktextract_supported_latest.json",
+        "docs/test_outputs/semantic_non_v10_source_support_conversion_wave7_source_class_breadth_v1_upper_bound_latest.json"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [],
+      "reference_samples": [
+        {
+          "reference_path": "docs/rulegen/semantic_veto_artifact_authority_audit.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave6_anypos_wiktextract_supported_v1_dataset.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_current_wave6_rerun_chain.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_local_output_disposition.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/semantic_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected_queue_en_es.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_wiktextract_supported_dataset.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected_dataset.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts",
+          "scope": "external"
+        }
+      ]
+    },
+    {
+      "family": "semantic_veto_evidence_gap_augmented_datasets",
+      "family_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 18,
+      "directory_count": 0,
+      "total_file_bytes": 1802537,
+      "extension_counts": {
+        ".json": 18
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_synthetic_shadows.json",
+          "bytes": 191612
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_existing_shadows.json",
+          "bytes": 189868
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_active_only.json",
+          "bytes": 186915
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_shadow_synthetic_only.json",
+          "bytes": 185635
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_shadow_existing_only.json",
+          "bytes": 183891
+        }
+      ],
+      "external_reference_count": 2,
+      "generated_output_reference_count": 7,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 0,
+      "external_reference_samples": [
+        "docs/developer/productization_closure_roadmap.md",
+        "scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_core.py"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_balanced_smoke_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_tfidf_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_mini_high_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_score_contribution_tfidf_en_es_latest.json"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [],
+      "reference_samples": [
+        {
+          "reference_path": "docs/developer/productization_closure_roadmap.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_shadow_synthetic_only.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_shadow_existing_only.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_synthetic_shadows.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_existing_shadows.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_active_only.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_base_selected.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets",
+          "scope": "generated_output"
+        }
+      ]
+    },
+    {
+      "family": "semantic_veto_llm_pilot_batches",
+      "family_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 15,
+      "directory_count": 0,
+      "total_file_bytes": 1352333,
+      "extension_counts": {
+        ".json": 10,
+        ".jsonl": 5
+      },
+      "review_flags": [
+        "batch_payload_family",
+        "generated_rows_bundle",
+        "raw_response_bundle"
+      ],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_journal.jsonl",
+          "bytes": 646652
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json",
+          "bytes": 504750
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json",
+          "bytes": 106483
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_journal.jsonl",
+          "bytes": 18844
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_raw_responses.json",
+          "bytes": 15267
+        }
+      ],
+      "external_reference_count": 2,
+      "generated_output_reference_count": 6,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 5,
+      "external_reference_samples": [
+        "docs/rulegen/semantic_veto_product_quality_goals.md",
+        "docs/test_inputs/semantic_veto_system_registry_en_es.json"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_system_registry_latest.json"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json",
+        "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json",
+        "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-002_generated_rows.json",
+        "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-003_generated_rows.json",
+        "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-smoke-20260505-001_generated_rows.json"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "docs/rulegen/semantic_veto_product_quality_goals.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_raw_responses.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_raw_responses.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-002_generated_rows.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-002_raw_responses.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-003_generated_rows.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-003_raw_responses.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-smoke-20260505-001_generated_rows.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-smoke-20260505-001_raw_responses.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json",
+          "scope": "generated_output"
+        }
+      ]
+    },
+    {
+      "family": "semantic_llm_prompt_batches",
+      "family_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 38,
+      "directory_count": 0,
+      "total_file_bytes": 896148,
+      "extension_counts": {
+        ".json": 30,
+        ".jsonl": 8
+      },
+      "review_flags": [
+        "batch_payload_family",
+        "raw_response_bundle"
+      ],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_journal.jsonl",
+          "bytes": 93264
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v3-20260424a_raw_responses.json",
+          "bytes": 72391
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-20260424a_journal.jsonl",
+          "bytes": 55441
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_journal.jsonl",
+          "bytes": 47268
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-v2-repeat-20260424a_journal.jsonl",
+          "bytes": 46156
+        }
+      ],
+      "external_reference_count": 3,
+      "generated_output_reference_count": 9,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 20,
+      "external_reference_samples": [
+        "core/tests/dev/test_semantic_llm_prompt_bakeoff_en_es.py",
+        "docs/developer/feature_state_matrix.md",
+        "docs/rulegen/semantic_llm_prompt_bakeoff_plan.md"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_llm_example_frame_contract_overlap_latest.json",
+        "docs/test_outputs/semantic_llm_prompt_bakeoff_latest.json",
+        "docs/test_outputs/semantic_llm_prompt_bakeoff_latest.md",
+        "docs/test_outputs/semantic_llm_prompt_confirmation_latest.json",
+        "docs/test_outputs/semantic_llm_prompt_confirmation_latest.md",
+        "docs/test_outputs/semantic_llm_prompt_preflight_latest.json",
+        "docs/test_outputs/semantic_llm_prompt_preflight_latest.md",
+        "docs/test_outputs/semantic_llm_prompt_replay_latest.json"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t225736z-replay_intake_batch.json",
+        "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t225736z-replay_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235122z-replay_intake_batch.json",
+        "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235122z-replay_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_intake_batch.json",
+        "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-20260424a_intake_batch.json",
+        "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-proxy-20260424a_normalized_evidence.json"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "core/tests/dev/test_semantic_llm_prompt_bakeoff_en_es.py",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/developer/feature_state_matrix.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_llm_prompt_bakeoff_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t225736z-replay_intake_batch.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t225736z-replay_raw_responses.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t225736z-replay_normalized_evidence.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t225736z-replay_raw_responses.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235122z-replay_intake_batch.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235122z-replay_raw_responses.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235122z-replay_normalized_evidence.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235122z-replay_raw_responses.json",
+          "scope": "self_family"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_intake_batch.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_raw_responses.json",
+          "scope": "self_family"
+        }
+      ]
+    },
+    {
+      "family": "semantic_llm_example_frame_batches",
+      "family_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 4,
+      "directory_count": 0,
+      "total_file_bytes": 526270,
+      "extension_counts": {
+        ".json": 4
+      },
+      "review_flags": [
+        "batch_payload_family"
+      ],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches/en-es-reviewed-example-frames-v10-full-20260425a_normalized_evidence.json",
+          "bytes": 246420
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches/en-es-reviewed-example-frames-v10-full-20260425a_intake_batch.json",
+          "bytes": 123442
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches/en-es-reviewed-example-frames-v10-20260425a_normalized_evidence.json",
+          "bytes": 104059
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches/en-es-reviewed-example-frames-v10-20260425a_intake_batch.json",
+          "bytes": 52349
+        }
+      ],
+      "external_reference_count": 1,
+      "generated_output_reference_count": 4,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 0,
+      "external_reference_samples": [
+        "docs/rulegen/semantic_routing_weakness_triage_plan.md"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_llm_example_frame_contract_expanded_latest.json",
+        "docs/test_outputs/semantic_llm_example_frame_contract_latest.json",
+        "docs/test_outputs/semantic_llm_example_frame_contract_required_latest.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [],
+      "reference_samples": [
+        {
+          "reference_path": "docs/rulegen/semantic_routing_weakness_triage_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_llm_example_frame_contract_expanded_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches/en-es-reviewed-example-frames-v10-full-20260425a_normalized_evidence.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_llm_example_frame_contract_expanded_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_llm_example_frame_contract_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches/en-es-reviewed-example-frames-v10-20260425a_normalized_evidence.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_llm_example_frame_contract_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_llm_example_frame_contract_required_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches/en-es-reviewed-example-frames-v10-20260425a_normalized_evidence.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_llm_example_frame_contract_required_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches/en-es-reviewed-example-frames-v10-full-20260425a_normalized_evidence.json",
+          "scope": "generated_output"
+        }
+      ]
+    },
+    {
+      "family": "rulegen_en_es_reverse_check_20260313",
+      "family_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 7,
+      "directory_count": 0,
+      "total_file_bytes": 231090,
+      "extension_counts": {
+        ".json": 5,
+        ".md": 2
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
+          "bytes": 78511
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
+          "bytes": 72140
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "bytes": 45960
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "bytes": 28899
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "bytes": 2976
+        }
+      ],
+      "external_reference_count": 6,
+      "generated_output_reference_count": 0,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 2,
+      "external_reference_samples": [
+        "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md",
+        "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+        "docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md",
+        "docs/developer/feature_state_matrix.md",
+        "docs/developer/productization_closure_roadmap.md",
+        "docs/rulegen/reverse_check_rollout_matrix.md"
+      ],
+      "generated_output_reference_samples": [],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+        "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md",
+          "scope": "external"
+        }
+      ]
+    },
+    {
+      "family": "rulegen_pair_stability_snapshot_20260321",
+      "family_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 6,
+      "directory_count": 0,
+      "total_file_bytes": 216995,
+      "extension_counts": {
+        ".json": 3,
+        ".md": 3
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json",
+          "bytes": 190979
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
+          "bytes": 14349
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.json",
+          "bytes": 6521
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md",
+          "bytes": 2226
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
+          "bytes": 1896
+        }
+      ],
+      "external_reference_count": 3,
+      "generated_output_reference_count": 0,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 4,
+      "external_reference_samples": [
+        "docs/developer/productization_closure_roadmap.md",
+        "docs/language_pairs/lp_state_and_onboarding_research_2026-05-06.md",
+        "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md"
+      ],
+      "generated_output_reference_samples": [],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
+        "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
+        "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.json",
+        "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "docs/developer/productization_closure_roadmap.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/language_pairs/lp_state_and_onboarding_research_2026-05-06.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/language_pairs/lp_state_and_onboarding_research_2026-05-06.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md",
+          "scope": "external"
+        }
+      ]
+    },
+    {
+      "family": "semantic_veto_representative_target_family",
+      "family_path": "docs/test_outputs/experiments/semantic_veto_representative_target_family",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 2,
+      "directory_count": 0,
+      "total_file_bytes": 216522,
+      "extension_counts": {
+        ".json": 2
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_representative_target_family/en_es_representative_target_family_v1_queue.json",
+          "bytes": 131886
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_representative_target_family/en_es_representative_target_family_v1_dataset.json",
+          "bytes": 84636
+        }
+      ],
+      "external_reference_count": 2,
+      "generated_output_reference_count": 2,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 0,
+      "external_reference_samples": [
+        "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+        "docs/test_inputs/semantic_veto_system_registry_en_es.json"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.json",
+        "docs/test_outputs/semantic_veto_system_registry_latest.md"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [],
+      "reference_samples": [
+        {
+          "reference_path": "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_representative_target_family/en_es_representative_target_family_v1_dataset.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_representative_target_family/en_es_representative_target_family_v1_queue.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_representative_target_family",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_representative_target_family/en_es_representative_target_family_v1_dataset.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_representative_target_family/en_es_representative_target_family_v1_queue.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_representative_target_family",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_system_registry_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_representative_target_family/en_es_representative_target_family_v1_dataset.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_system_registry_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_representative_target_family/en_es_representative_target_family_v1_queue.json",
+          "scope": "generated_output"
+        }
+      ]
+    },
+    {
+      "family": "semantic_veto_llm_data_priority",
+      "family_path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 2,
+      "directory_count": 0,
+      "total_file_bytes": 53142,
+      "extension_counts": {
+        ".json": 2
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority/en_es_target_family_construction_queue_v1_dataset.json",
+          "bytes": 37321
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority/en_es_target_family_construction_queue_v1.json",
+          "bytes": 15821
+        }
+      ],
+      "external_reference_count": 2,
+      "generated_output_reference_count": 2,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 0,
+      "external_reference_samples": [
+        "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+        "docs/test_inputs/semantic_veto_system_registry_en_es.json"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_veto_system_registry_latest.json",
+        "docs/test_outputs/semantic_veto_system_registry_latest.md"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [],
+      "reference_samples": [
+        {
+          "reference_path": "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority/en_es_target_family_construction_queue_v1_dataset.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority/en_es_target_family_construction_queue_v1.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/semantic_veto_difficulty_stratification_research_plan.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority/en_es_target_family_construction_queue_v1_dataset.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority/en_es_target_family_construction_queue_v1.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_system_registry_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority/en_es_target_family_construction_queue_v1_dataset.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_system_registry_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_data_priority/en_es_target_family_construction_queue_v1.json",
+          "scope": "generated_output"
+        }
+      ]
+    }
+  ]
+}

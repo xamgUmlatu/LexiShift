@@ -34,6 +34,7 @@ THEME_OPTIONAL_COLOR_KEYS = (
 )
 
 THEME_ALL_COLOR_KEYS = THEME_COLOR_KEYS + THEME_OPTIONAL_COLOR_KEYS
+THEME_SURFACE_OPACITY_KEYS = ("table",)
 
 
 def theme_dir() -> str:
@@ -67,6 +68,9 @@ def load_user_themes() -> dict[str, dict[str, Any]]:
         for key in THEME_OPTIONAL_COLOR_KEYS:
             if key in colors:
                 theme[key] = str(colors[key])
+        surface_opacities = _parse_surface_opacities(data.get("surface_opacities"))
+        if surface_opacities:
+            theme["_surface_opacities"] = surface_opacities
         theme["_name"] = theme_name
         theme["_source"] = path
         theme["_base_dir"] = os.path.dirname(path)
@@ -122,9 +126,33 @@ def _parse_screen_overrides(raw: dict[str, Any], base_dir: str) -> dict[str, dic
             image_path = _resolve_image_path(background.get("image_path"), base_dir)
             if image_path:
                 entry["_background_path"] = image_path
+        surface_opacities = _parse_surface_opacities(override.get("surface_opacities"))
+        if surface_opacities:
+            entry["_surface_opacities"] = surface_opacities
         if entry:
             overrides[str(screen_id)] = entry
     return overrides
+
+
+def _parse_surface_opacities(raw: Any) -> dict[str, float]:
+    if not isinstance(raw, dict):
+        return {}
+    parsed: dict[str, float] = {}
+    for key in THEME_SURFACE_OPACITY_KEYS:
+        if key not in raw:
+            continue
+        value = _coerce_opacity(raw.get(key))
+        if value is not None:
+            parsed[key] = value
+    return parsed
+
+
+def _coerce_opacity(value: Any) -> float | None:
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError):
+        return None
+    return max(0.0, min(1.0, parsed))
 
 
 def _iter_theme_paths(base_dir: str) -> list[str]:

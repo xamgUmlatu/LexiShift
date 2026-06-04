@@ -2,10 +2,10 @@
 
 Status: active workflow
 Role: Runbook / operational
-Last updated: 2026-03-21
-Last verified: 2026-03-21 AGENTS command review + package-script inventory check
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 4 validation-gate routing review against `AGENTS.md`, `scripts/package.json`, and quality-loop docs
 Purpose: current rulegen/POS and SRS quality-loop runbook for quality-affecting changes
-Source-of-truth: rulegen/SRS quality-loop policy; canonical commands remain the scripts listed here plus `AGENTS.md`.
+Source-of-truth: rulegen/SRS quality-loop policy; canonical commands remain the scripts listed here plus `AGENTS.md`; broader change-type validation routing lives in `productization_lane4_validation_gate_inventory.md`.
 
 Purpose:
 - Keep rulegen tuning fast without sacrificing stability.
@@ -13,6 +13,9 @@ Purpose:
 - Convert benchmark failures into durable labeled cases.
 
 This workflow is focused on rulegen/POS quality loops, not general coding.
+For non-rulegen/SRS change types, use
+`productization_lane4_validation_gate_inventory.md` to choose the validation
+bundle.
 
 ## Why this exists
 
@@ -26,7 +29,7 @@ The scripts and policy below enforce a tighter loop.
 
 ## Source files
 
-- Benchmark dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
+- Benchmark dataset source-of-truth: `docs/test_inputs/rulegen_benchmark_cases/`
 - Quality policy: `docs/test_inputs/rulegen_quality_policy.json`
 - Baseline metrics: `docs/test_outputs/baselines/rulegen_quality_baseline.json`
 - Benchmark runner: `scripts/testing/rulegen_benchmark.py`
@@ -41,6 +44,7 @@ The scripts and policy below enforce a tighter loop.
 - Change-aware audit wrapper: `scripts/testing/rulegen_auto_audit.py`
 - Feature state ledger: `docs/developer/feature_state_matrix.md`
 - GenAI workflow contract: `docs/developer/genai_workflow_architecture.md`
+- Validation gate inventory: `docs/developer/productization_lane4_validation_gate_inventory.md`
 
 ## Standard loop
 
@@ -75,10 +79,64 @@ python3 scripts/testing/rulegen_benchmark_triage.py \
 ```
 
 4. Promote triage items into benchmark labels.
-- Update `docs/test_inputs/rulegen_benchmark_cases.json`.
+- Update the LP-specific file under `docs/test_inputs/rulegen_benchmark_cases/` (for example `en_de.json`).
 - Add/adjust `expected_top1_any`, `forbidden_top1`, `forbidden_any`, and `tier`.
 
 5. Re-run steps 1-3 until gate passes and triage is empty (or clearly justified).
+
+## Benchmark slice metadata scaffolding
+
+The LP-local benchmark case files can now carry optional slice metadata without changing the core
+benchmark contract.
+
+Supported optional fields per case:
+
+- `slice_tags`: flat string tags for reusable families or hazards
+- `slice_dimensions`: flat object of dimension name -> string list
+
+Current semantic-shadow veto proxy tooling projects these case-level fields onto reviewed
+target/trigger rows, auto-adds `tier` as a slice dimension, and emits per-slice summaries in
+addition to the global report.
+
+Use this when expanding benchmark coverage so new cases can be grouped immediately by:
+
+- semantic family
+- ambiguity topology
+- POS
+- pipeline route
+- decision type
+- LP-local hazards
+
+Recommended shape:
+
+```json
+{
+  "case_id": "en-es:cargo",
+  "target": "cargo",
+  "tier": "hard",
+  "expected_any": ["post", "position", "job", "office"],
+  "expected_top1_any": ["position", "post", "job"],
+  "forbidden_top1": [],
+  "forbidden_any": [],
+  "slice_tags": [
+    "family:job_role",
+    "topology:shared_english_trigger"
+  ],
+  "slice_dimensions": {
+    "semantic_family": ["job_role"],
+    "ambiguity_topology": ["shared_english_trigger"],
+    "pos": ["noun"],
+    "decision": ["ambiguous"]
+  }
+}
+```
+
+Authoring rules:
+
+- Keep the fields optional so older cases remain valid.
+- Keep tags and dimension values stable and reusable; do not encode one-off prose there.
+- Prefer a small number of dimensions with many cases over many bespoke dimensions.
+- Treat `tier` as the default coarse slice; only add finer dimensions when they help benchmark review or research isolation.
 
 ## Preferred wrappers
 
@@ -88,6 +146,7 @@ The commands above remain canonical. Use these wrappers when they fit the change
 python3 scripts/testing/rulegen_pair_audit_cycle.py --pairs en-es
 python3 scripts/testing/rulegen_auto_audit.py --base-ref origin/main
 python3 scripts/testing/rulegen_auto_audit.py --pairs en-es --reverse-check-profile experiment --strict-gate
+npm --prefix scripts run quality:rulegen:en-de
 ```
 
 Wrapper responsibilities:
@@ -101,6 +160,21 @@ Wrapper responsibilities:
   - records a manifest for run provenance.
 
 Use direct commands instead of the wrappers when pair inference is ambiguous or artifact paths need manual control.
+
+For named advisory latest lanes that should stay separate from the strict `en-es` artifact gate, use pair-specific wrappers and summaries:
+
+```bash
+npm --prefix scripts run quality:rulegen:en-de
+npm --prefix scripts run quality:rulegen:en-de:summary
+```
+
+Those advisory lanes can now scope the quality gate to the selected pair so the actionable output stays focused on that pair's own floor, delta, and saturation story.
+The current `en-de` lane uses pair-scoped gate mode.
+Its remaining gate noise is only the expected:
+
+- `DELTA_SCOPE_BASELINE_MISSING`
+
+until an `en-de` baseline is accepted.
 
 ## Policy mechanics
 
@@ -171,7 +245,7 @@ npm --prefix scripts run quality:srs:summary
 Current intent:
 - keep bootstrap/publication/runtime diagnostics measurable for `en-ja` and `en-de`,
 - keep feedback-driven pause/resume behavior measurable for `en-ja`,
-- surface due-aware publication gaps as explicit warnings until end-to-end due-aware serving is implemented and verified.
+- verify due-aware runtime serving through helper SRS metadata plus extension gating while keeping the absence of a dedicated due-only publication artifact explicit.
 
 ## State tracking
 
@@ -183,12 +257,14 @@ Update `feature_state_matrix.md` when:
 
 Examples that should stay explicit:
 - reverse-check implemented but not default-on,
-- due-aware SRS serving documented but not end-to-end verified,
-- extension-side helper-rule confidence gating documented but not code-verified.
+- due-aware SRS serving implemented at runtime when helper due metadata is present, but no due-only publication artifact exists,
+- extension-side helper-rule confidence gating documented, but the live helper-rule runtime still has no post-emission confidence gate.
 
 ## Future extension path
 
 Current artifact gate is strict for `en-es` and advisory for `en-ja` / `en-de` / `es-en` until those pair artifacts are produced regularly.
+
+`en-de` now has a dedicated advisory latest lane with its own preset, wrapper commands, and `*_latest` artifacts, but it is still not part of `required_benchmark_pairs`.
 
 As pair coverage matures:
 1. Add those pairs to `required_benchmark_pairs`.

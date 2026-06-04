@@ -2,8 +2,8 @@
 
 Status: active meta workflow
 Role: Runbook / operational
-Last updated: 2026-03-21
-Last verified: 2026-03-21 workflow-doc review + package/CI inventory check
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 4 validation-gate command routing review against `scripts/package.json`, CI workflow, and build/release docs
 Purpose: meta workflow contract for how GenAI-driven implementation work should interact with repo safeties, harnesses, and verification evidence
 Source-of-truth: meta workflow contract; defer implementation truth to code, `AGENTS.md`, and `ai_workflow.md`.
 
@@ -223,8 +223,8 @@ Current intent:
 - `check:changed` is the preferred branch-scope workflow command before heavier quality work.
 - `check:docs` / `check:docs:report` are the dedicated canonical-doc integrity surfaces; `check:changed` reruns that audit when canonical docs or referenced source files change materially.
 - `build` is a local build smoke for maintained build surfaces.
-- `build:report` is the full build contract; hosted macOS CI should use it directly instead of a custom job-local command.
-- `build:ci` / `build:ci:report` are the explicit non-macOS hosted-runner build surfaces; they use the same script with explicit unsupported-surface skips instead of a separate CI-only build policy.
+- `build:report` is the full build contract; hosted macOS and Windows CI should use it directly instead of a custom job-local command.
+- `build:ci` / `build:ci:report` are the explicit unsupported-host build surfaces; they use the same script with explicit unsupported-surface skips instead of a separate CI-only build policy.
 - `check` now includes the strict Windows parity audit; `check:windows:parity` remains the dedicated inventory/report command, `check:changed` runs it automatically when parity-related files change, and Windows CI uses the strict variant to fail regressions.
 - `check` now enforces repo-wide Ruff style directly. `check:style`, `check:style:report`, and `check:style:summary` remain useful when you want a style-only loop or dedicated style artifacts.
 - `check:changed` now tracks both total changed files and substantive changed files; heavy follow-on loops should key off the substantive set so Python AST-equivalent churn, JSON pretty-print churn, and Markdown/text reflow do not force unnecessary audits.
@@ -268,8 +268,8 @@ Require explicit human review or sign-off for:
 These are active mismatches, not wording accidents:
 
 1. Reverse-check is implemented and tunable, but not yet default-on.
-2. SRS docs define due-aware serving, but current helper publication and runtime gating are not yet verified as due-aware end to end.
-3. Rulegen docs describe runtime confidence filtering, but extension-side helper-rule confidence gating is not yet verified in code.
+2. SRS serving is due-aware at the runtime gate when helper due metadata is present, but helper publication still uses the broader active/admitted inventory rather than a dedicated due-only artifact.
+3. Rulegen docs describe runtime confidence filtering, but the live helper-rule runtime still has no post-emission confidence gate.
 4. SRS planner docs describe multiple strategies, but executable behavior is still dominated by `frequency_bootstrap`.
 
 These items should remain visible in `feature_state_matrix.md` until code, docs, and artifacts converge.
@@ -277,6 +277,6 @@ These items should remain visible in `feature_state_matrix.md` until code, docs,
 ## Near-Term Meta Priorities
 
 1. Keep reverse-check experiments in the standard audit loop while the feature is being tuned.
-2. Keep the SRS synthetic quality harness in the loop for scheduler/admission/publication changes and expand it as due-aware serving becomes executable.
+2. Keep the SRS synthetic quality harness in the loop for scheduler/admission/publication/runtime-serving changes and expand its pair/user coverage beyond the current synthetic scenarios.
 3. Preserve a fresh-reviewer step for ranking, SRS scheduler, and harness changes.
 4. Keep feature-state dates exact so future agents can recover current behavior quickly.

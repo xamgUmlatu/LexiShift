@@ -11,12 +11,12 @@ Purpose:
 - separate "needs active tuning now" from "needs advisory monitoring only"
 
 Artifacts:
-- Benchmark summary: `docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md`
-- Quality gate summary: `docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.md`
-- Triage summary: `docs/test_outputs/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md`
-- Benchmark JSON: `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json`
-- Quality gate JSON: `docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.json`
-- Triage JSON: `docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json`
+- Benchmark summary: `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_summary_2026-03-21.md`
+- Quality gate summary: `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md`
+- Triage summary: `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md`
+- Benchmark JSON: `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json`
+- Quality gate JSON: `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.json`
+- Triage JSON: `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_2026-03-21.json`
 
 Policy note:
 - `en-es` remains the only required hard-gated rulegen tuning lane.

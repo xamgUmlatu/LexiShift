@@ -1,5 +1,16 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const semanticContextModule = root.contentDomScanSemanticContext || {};
+  const createSemanticContextResolver = typeof semanticContextModule.createResolver === "function"
+    ? semanticContextModule.createResolver
+    : (() => null);
+  const createSemanticContextCache = typeof semanticContextModule.createContextCache === "function"
+    ? semanticContextModule.createContextCache
+    : (() => null);
+  const semanticPerformanceModule = root.contentDomScanSemanticPerformanceMetrics || {};
+  const mergeSemanticSummary = typeof semanticPerformanceModule.mergeSummaryIntoCounter === "function"
+    ? semanticPerformanceModule.mergeSummaryIntoCounter
+    : ((_counter, _summary) => {});
 
   function createTextNodeProcessor(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -14,6 +25,9 @@
       : (() => new WeakMap());
     const buildReplacementFragment = typeof opts.buildReplacementFragment === "function"
       ? opts.buildReplacementFragment
+      : null;
+    const semanticGateRuntime = opts.semanticGateRuntime && typeof opts.semanticGateRuntime === "object"
+      ? opts.semanticGateRuntime
       : null;
     const getFocusInfo = typeof opts.getFocusInfo === "function"
       ? opts.getFocusInfo
@@ -33,6 +47,7 @@
     const srsMetrics = opts.srsMetrics && typeof opts.srsMetrics === "object"
       ? opts.srsMetrics
       : null;
+    const browsingAdmissionSignals = opts.browsingAdmissionSignals || null;
     const lemmatizer = opts.lemmatizer && typeof opts.lemmatizer === "object"
       ? opts.lemmatizer
       : null;
@@ -46,6 +61,13 @@
     const normalizeProfileId = typeof opts.normalizeProfileId === "function"
       ? opts.normalizeProfileId
       : (value) => String(value || "").trim() || "default";
+    const nowMs = typeof opts.nowMs === "function"
+      ? opts.nowMs
+      : (() => (
+          globalThis.performance && typeof globalThis.performance.now === "function"
+            ? globalThis.performance.now()
+            : Date.now()
+        ));
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const nodeFilters = opts.nodeFilters && typeof opts.nodeFilters === "object"
       ? opts.nodeFilters
@@ -65,6 +87,20 @@
     const updatePageBudgetUsage = typeof opts.updatePageBudgetUsage === "function"
       ? opts.updatePageBudgetUsage
       : ((_state, _replacements) => {});
+    const semanticContextCaches = new WeakMap();
+
+    function getSemanticContextCache(counter) {
+      if (!counter || typeof counter !== "object") return null;
+      let cache = semanticContextCaches.get(counter);
+      if (!cache) {
+        cache = createSemanticContextCache();
+        if (cache) semanticContextCaches.set(counter, cache);
+      }
+      if (cache && cache.stats && typeof cache.stats === "object") {
+        counter.semanticContextCacheStats = cache.stats;
+      }
+      return cache;
+    }
 
     function targetLanguageFromPair(pair) {
       const normalized = String(pair || "").trim().toLowerCase();
@@ -78,9 +114,36 @@
       return String(parts[1] || "").trim().toLowerCase();
     }
 
-    function processTextNode(node, counter) {
+    function isVisibleInViewport(element) {
+      if (!element || typeof element.getBoundingClientRect !== "function") {
+        return false;
+      }
+      let rect = null;
+      try {
+        rect = element.getBoundingClientRect();
+      } catch (_error) {
+        rect = null;
+      }
+      if (!rect) {
+        return false;
+      }
+      const viewportWidth = Number(globalThis.innerWidth || 0);
+      const viewportHeight = Number(globalThis.innerHeight || 0);
+      if (!Number.isFinite(viewportWidth) || !Number.isFinite(viewportHeight) || viewportWidth <= 0 || viewportHeight <= 0) {
+        return false;
+      }
+      return rect.bottom > 0
+        && rect.top < viewportHeight
+        && rect.right > 0
+        && rect.left < viewportWidth;
+    }
+
+    async function processTextNode(node, counter, processOptions) {
+      const runOptions = processOptions && typeof processOptions === "object" ? processOptions : {};
+      const trackCounters = Boolean(counter && runOptions.countCounters !== false);
+      const semanticDryRun = runOptions.semanticDryRun === true;
       if (!node || !node.nodeValue) {
-        if (counter) counter.emptyNodes += 1;
+        if (trackCounters) counter.emptyNodes += 1;
         return;
       }
       const currentSettings = getCurrentSettings();
@@ -89,29 +152,29 @@
       if (!currentTrie || !currentSettings.enabled || !processedNodes || !buildReplacementFragment) {
         return;
       }
-      if (counter) {
+      if (trackCounters) {
         counter.totalNodes += 1;
       }
       if (/^\s+$/.test(node.nodeValue)) {
-        if (counter) {
+        if (trackCounters) {
           counter.whitespaceNodes += 1;
         }
         processedNodes.set(node, node.nodeValue);
         return;
       }
-      const focusWord = counter ? counter.focusWord : "";
+      const focusWord = trackCounters ? counter.focusWord : "";
       const focusEnabled = Boolean(focusWord);
       const focusInfo = focusEnabled
         ? getFocusInfo(node.nodeValue, focusWord)
         : { substring: false, token: false, index: -1 };
-      if (counter && focusInfo.substring) {
+      if (trackCounters && focusInfo.substring) {
         counter.focusSubstringNodes += 1;
       }
-      if (counter && focusInfo.token) {
+      if (trackCounters && focusInfo.token) {
         counter.focusTokenNodes += 1;
       }
       if (isEditable(node)) {
-        if (counter) {
+        if (trackCounters) {
           counter.skippedEditable += 1;
           if (focusInfo.substring) {
             counter.focusSkippedEditable += 1;
@@ -120,7 +183,7 @@
         return;
       }
       if (isExcluded(node)) {
-        if (counter) {
+        if (trackCounters) {
           counter.skippedExcluded += 1;
           if (focusInfo.substring) {
             counter.focusSkippedExcluded += 1;
@@ -129,7 +192,7 @@
         return;
       }
       if (isLexiShiftNode(node)) {
-        if (counter) {
+        if (trackCounters) {
           counter.skippedLexi += 1;
           if (focusInfo.substring) {
             counter.focusSkippedLexi += 1;
@@ -139,7 +202,7 @@
       }
       const last = processedNodes.get(node);
       if (last === node.nodeValue) {
-        if (counter) {
+        if (trackCounters) {
           counter.skippedCached += 1;
           if (focusInfo.substring) {
             counter.focusSkippedCached += 1;
@@ -147,8 +210,8 @@
         }
         return;
       }
-      if (counter) counter.scanned += 1;
-      if (focusEnabled && focusInfo.substring && !focusInfo.token && counter) {
+      if (trackCounters) counter.scanned += 1;
+      if (focusEnabled && focusInfo.substring && !focusInfo.token && trackCounters) {
         counter.focusSubstringNoToken += 1;
         if (currentSettings.debugEnabled && counter.focusDetailLogs < counter.focusDetailLimit) {
           const parent = node.parentElement;
@@ -162,11 +225,32 @@
           counter.focusDetailTruncated = true;
         }
       }
-      const pageBudgetState = getPageBudgetState();
+      const pageBudgetState = semanticDryRun
+        ? (runOptions.semanticPreflightBudget || null)
+        : getPageBudgetState();
+      const scanStartedAtMs = counter && Number.isFinite(Number(counter.scanStartedAtMs))
+        ? Number(counter.scanStartedAtMs)
+        : nowMs();
+      if (counter && !Number.isFinite(Number(counter.scanStartedAtMs))) {
+        counter.scanStartedAtMs = scanStartedAtMs;
+      }
       const originResolver = (rule) => {
         return String(rule && rule.metadata ? rule.metadata.lexishift_origin : "");
       };
-      const result = buildReplacementFragment(
+      const semanticContextResolver = semanticGateRuntime
+        ? createSemanticContextResolver(node, {
+            nodeFilters,
+            cache: getSemanticContextCache(counter)
+          })
+        : null;
+      const replacementOptions = {};
+      if (semanticDryRun) {
+        replacementOptions.dryRun = true;
+      }
+      if (runOptions.semanticResultOverride) {
+        replacementOptions.semanticResultOverride = runOptions.semanticResultOverride;
+      }
+      const result = await buildReplacementFragment(
         node.nodeValue,
         currentTrie,
         currentSettings,
@@ -174,11 +258,38 @@
           processedNodes.set(textNode, textNode.nodeValue);
         },
         originResolver,
-        pageBudgetState
+        pageBudgetState,
+        semanticGateRuntime,
+        semanticContextResolver,
+        Object.keys(replacementOptions).length ? replacementOptions : null
       );
-      if (result) {
+      if (counter && result && result.semanticSummary) {
+        mergeSemanticSummary(counter, result.semanticSummary);
+      }
+      if (semanticDryRun) {
+        return result;
+      }
+      if (result && result.fragment) {
         const parent = node.parentNode;
         if (parent) {
+          if (trackCounters && !Number.isFinite(Number(counter.firstReplacementLatencyMs))) {
+            counter.firstReplacementLatencyMs = nowMs() - scanStartedAtMs;
+            if (currentSettings.debugEnabled) {
+              log(`First replacement applied after ${Number(counter.firstReplacementLatencyMs).toFixed(1)} ms.`);
+            }
+          }
+          if (
+            trackCounters
+            && !Number.isFinite(Number(counter.firstVisibleReplacementLatencyMs))
+            && isVisibleInViewport(parent)
+          ) {
+            counter.firstVisibleReplacementLatencyMs = nowMs() - scanStartedAtMs;
+            if (currentSettings.debugEnabled) {
+              log(
+                `First visible replacement applied after ${Number(counter.firstVisibleReplacementLatencyMs).toFixed(1)} ms.`
+              );
+            }
+          }
           parent.replaceChild(result.fragment, node);
           if (pageBudgetState) {
             updatePageBudgetUsage(pageBudgetState, Array.isArray(result.budgetKeys) ? result.budgetKeys : []);
@@ -196,10 +307,10 @@
                 lemmatizer ? lemmatizer.lemmatize : null
               )
             );
-            srsMetrics.recordExposureBatch(exposures).then((saved) => {
-              if (currentSettings.debugEnabled && saved && saved.length) {
-                log(`Recorded ${saved.length} exposure(s).`);
-              }
+            srsMetrics.recordExposureBatch(exposures, {
+              browsingAdmissionSignals, log, settings: currentSettings
+            }).then((saved) => {
+              if (currentSettings.debugEnabled && saved && saved.length) log(`Recorded ${saved.length} exposure(s).`);
             });
           }
           if (popupModuleHistoryStore
@@ -250,7 +361,7 @@
               });
             }
           }
-          if (counter) {
+          if (trackCounters) {
             counter.replacements += result.replacements;
             counter.nodes += 1;
             if (currentSettings.debugEnabled && result.details && result.details.length) {
@@ -287,15 +398,25 @@
           }
         }
       } else {
-        if (focusEnabled && focusInfo.token && counter) {
+        if (focusEnabled && focusInfo.token && trackCounters) {
           counter.focusUnmatched += 1;
+          const semanticFiltered = Boolean(
+            result
+            && result.semanticSummary
+            && Number(result.semanticSummary.eligible || 0) > 0
+          );
           if (currentSettings.debugEnabled && counter.focusDetailLogs < counter.focusDetailLimit) {
             const parent = node.parentElement;
             log(
-              `Focus word "${focusWord}" found but no matching rule in ${describeElement(parent)}: "${shorten(
-                node.nodeValue,
-                140
-              )}"`
+              semanticFiltered
+                ? `Focus word "${focusWord}" matched lexically but semantic admission kept original in ${describeElement(parent)}: "${shorten(
+                  node.nodeValue,
+                  140
+                )}"`
+                : `Focus word "${focusWord}" found but no matching rule in ${describeElement(parent)}: "${shorten(
+                  node.nodeValue,
+                  140
+                )}"`
             );
             counter.focusDetailLogs += 1;
           } else if (currentSettings.debugEnabled) {
@@ -306,8 +427,18 @@
       }
     }
 
+    const preflightSemanticTextNode = (node, counter, preflightOptions) => {
+      const options = preflightOptions && typeof preflightOptions === "object" ? preflightOptions : {};
+      return processTextNode(node, counter, {
+        semanticDryRun: true,
+        countCounters: false,
+        semanticPreflightBudget: options.semanticPreflightBudget || null
+      });
+    };
+
     return {
-      processTextNode
+      processTextNode,
+      preflightSemanticTextNode
     };
   }
 

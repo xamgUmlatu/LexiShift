@@ -1,14 +1,54 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import json
+import os
 from pathlib import Path
 import struct
+import subprocess
 import sys
+import time
+import traceback
 from typing import Any, Dict, Optional
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _platform_data_root() -> Path:
+    home = Path.home()
+    if sys.platform == "darwin":
+        return home / "Library" / "Application Support" / "LexiShift" / "LexiShift"
+    if sys.platform.startswith("win"):
+        base = os.environ.get("APPDATA") or str(home / "AppData" / "Roaming")
+        return Path(base) / "LexiShift" / "LexiShift"
+    return home / ".local" / "share" / "LexiShift" / "LexiShift"
+
+
+def _native_host_log_path() -> Optional[Path]:
+    override = str(os.environ.get("LEXISHIFT_DATA_DIR", "") or "").strip()
+    try:
+        data_root = Path(override).expanduser() if override else _platform_data_root()
+        log_dir = data_root / "logs"
+        log_dir.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        return None
+    return log_dir / "native_host.log"
+
+
+def _log_native_host_failure(stage: str, exc: BaseException) -> None:
+    log_path = _native_host_log_path()
+    if log_path is None:
+        return
+    try:
+        timestamp = datetime.now(timezone.utc).isoformat()
+        with log_path.open("a", encoding="utf-8") as handle:
+            handle.write(f"[{timestamp}] stage={stage}\n")
+            traceback.print_exception(type(exc), exc, exc.__traceback__, file=handle)
+            handle.write("\n")
+    except OSError:
+        return
 
 
 def _inject_core_path() -> None:
@@ -24,37 +64,182 @@ def _inject_core_path() -> None:
             return
 
 
-_inject_core_path()
+try:
+    _inject_core_path()
 
-from lexishift_core.helper.engine import (
-    get_srs_runtime_diagnostics,
-    RulegenJobConfig,
-    SrsRefreshJobConfig,
-    SetInitializationJobConfig,
-    SetPlanningJobConfig,
-    apply_exposure,
-    apply_feedback,
-    initialize_srs_set,
-    load_ruleset,
-    load_snapshot,
-    plan_srs_set,
-    refresh_srs_set,
-    reset_srs_data,
-    run_rulegen_job,
-)
-from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
-from lexishift_core.helper.os import open_path
-from lexishift_core.helper.paths import build_helper_paths
-from lexishift_core.helper.status import load_status
-from lexishift_core.helper.lp_capabilities import (
-    default_freedict_de_en_path,
-    default_frequency_db_path,
-    default_jmdict_path,
-)
+    from lexishift_core.helper.engine import (
+        SetAdmissionPreviewJobConfig,
+        get_srs_runtime_diagnostics,
+        RulegenJobConfig,
+        SrsAutoRefreshJobConfig,
+        SrsRebalanceJobConfig,
+        SrsRefreshJobConfig,
+        SetInitializationJobConfig,
+        SetPlanningJobConfig,
+        apply_srs_rebalance,
+        apply_exposure,
+        apply_feedback,
+        get_srs_item_rule_details,
+        ingest_browsing_admission_signals,
+        initialize_srs_set,
+        list_srs_items,
+        lookup_word_info,
+        load_semantic_inventory,
+        load_ruleset,
+        load_snapshot,
+        maybe_auto_refresh_srs_set,
+        plan_srs_rebalance,
+        plan_srs_set,
+        preview_srs_admission,
+        refresh_srs_set,
+        reset_srs_data,
+        run_rulegen_job,
+        semantic_admit_batch,
+        suppress_srs_admission,
+    )
+    from lexishift_core.helper.gui_activation import (
+        activate_resource_settings as activate_gui_resource_settings,
+    )
+    from lexishift_core.helper.gui_app_launch import (
+        resource_settings_launch_command as build_resource_settings_launch_command,
+    )
+    from lexishift_core.helper.gui_startup_telemetry import (
+        duration_ms,
+        new_startup_session_id,
+        resource_launch_command_class,
+        resource_settings_launch_env,
+        utc_timestamp,
+    )
+    from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
+    from lexishift_core.helper.os import open_path
+    from lexishift_core.helper.paths import build_helper_paths
+    from lexishift_core.helper.status import load_status
+    from lexishift_core.helper.use_cases.semantic_pack_install import (
+        DEFAULT_PACK_ID,
+        SemanticPackInstallConfig,
+        install_semantic_pack,
+    )
+    from lexishift_core.helper.lp_capabilities import (
+        default_frequency_db_path,
+        default_jmdict_path,
+        default_translation_dictionary_path,
+    )
+except Exception as exc:  # noqa: BLE001
+    _log_native_host_failure("startup_import", exc)
+    raise
 
 
 PROTOCOL_VERSION = 1
 HELPER_VERSION = "0.1.0"
+OPEN_RESOURCE_SETTINGS_FLAG = "--open-resource-settings"
+RESOURCE_PAIR_FLAG = "--resource-pair"
+
+
+def _native_host_log_line(message: str) -> None:
+    log_path = _native_host_log_path()
+    if log_path is None:
+        return
+    try:
+        timestamp = datetime.now(timezone.utc).isoformat()
+        with log_path.open("a", encoding="utf-8") as handle:
+            handle.write(f"[{timestamp}] {message}\n")
+    except OSError:
+        return
+
+
+def _payload_pair(payload: dict) -> str:
+    return str(payload.get("pair", "") or "").strip()
+
+
+def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list[str], str]:
+    return build_resource_settings_launch_command(
+        payload or {},
+        script_dir=SCRIPT_DIR,
+        project_root=PROJECT_ROOT,
+        executable=sys.executable,
+        environ=os.environ,
+        platform=sys.platform,
+        frozen=bool(getattr(sys, "frozen", False)),
+        open_resource_settings_flag=OPEN_RESOURCE_SETTINGS_FLAG,
+        resource_pair_flag=RESOURCE_PAIR_FLAG,
+    )
+
+
+def _open_resource_settings(payload: dict) -> dict:
+    request_started_at = utc_timestamp()
+    request_start = time.perf_counter()
+    session_id = str(payload.get("startup_session_id") or "").strip() or new_startup_session_id()
+    pair = _payload_pair(payload)
+    _native_host_log_line(
+        f"resource_settings_request_received session={session_id} pair={pair} source=native_host"
+    )
+
+    activation_start = time.perf_counter()
+    _native_host_log_line(f"resource_settings_activation_started session={session_id} pair={pair}")
+    try:
+        activated = activate_gui_resource_settings(
+            pair=pair,
+            session_id=session_id,
+            log=_native_host_log_line,
+        )
+    except Exception as exc:  # noqa: BLE001
+        activated = False
+        _native_host_log_line(
+            "resource_settings_activation_error "
+            f"session={session_id} pair={pair} error={type(exc).__name__}:{exc!s}"
+        )
+    activation_duration_ms = duration_ms(activation_start)
+    _native_host_log_line(
+        "resource_settings_activation_result "
+        f"session={session_id} pair={pair} activated={str(activated).lower()} "
+        f"duration_ms={activation_duration_ms}"
+    )
+
+    if activated:
+        _native_host_log_line(
+            "activated_resource_settings "
+            f"session={session_id} mode=existing_gui pair={pair} "
+            f"total_ms={duration_ms(request_start)}"
+        )
+        return {
+            "opened": True,
+            "target": "resource_settings",
+            "launch_mode": "existing_gui",
+            "startup_session_id": session_id,
+            "activation_duration_ms": activation_duration_ms,
+        }
+    command, launch_mode = _resource_settings_launch_command(payload)
+    command_class = resource_launch_command_class(command)
+    _native_host_log_line(
+        "resource_settings_launch_resolved "
+        f"session={session_id} mode={launch_mode} command_class={command_class} pair={pair}"
+    )
+    env = resource_settings_launch_env(
+        base_env=os.environ,
+        session_id=session_id,
+        requested_at=request_started_at,
+        launch_mode=launch_mode,
+        pair=pair,
+    )
+    popen_start = time.perf_counter()
+    process = subprocess.Popen(command, close_fds=True, env=env)
+    popen_duration_ms = duration_ms(popen_start)
+    pid_text = getattr(process, "pid", "")
+    _native_host_log_line(
+        "opened_resource_settings "
+        f"session={session_id} mode={launch_mode} command_class={command_class} "
+        f"pair={pair} pid={pid_text} popen_ms={popen_duration_ms} "
+        f"total_ms={duration_ms(request_start)}"
+    )
+    return {
+        "opened": True,
+        "target": "resource_settings",
+        "launch_mode": launch_mode,
+        "startup_session_id": session_id,
+        "activation_duration_ms": activation_duration_ms,
+        "launch_popen_duration_ms": popen_duration_ms,
+        "launch_command_class": command_class,
+    }
 
 
 def _read_message() -> Optional[dict]:
@@ -157,19 +342,52 @@ def _resolve_pair_resource_paths(
     jmdict_path = _optional_path(payload, "jmdict_path")
     if jmdict_path is None:
         jmdict_path = default_jmdict_path(pair, language_packs_dir=paths.language_packs_dir)
-    freedict_de_en_path = _optional_path(payload, "freedict_de_en_path")
-    if freedict_de_en_path is None:
-        freedict_de_en_path = default_freedict_de_en_path(
+    translation_dict_path = _optional_path(payload, "translation_dict_path")
+    if translation_dict_path is None:
+        translation_dict_path = default_translation_dictionary_path(
             pair,
             language_packs_dir=paths.language_packs_dir,
         )
-    set_source_db = _optional_path(payload, "set_source_db")
+    set_source_db = _optional_path(payload, "frequency_pack_path")
+    if set_source_db is None:
+        set_source_db = _optional_path(payload, "set_source_db")
     if set_source_db is None:
         set_source_db = default_frequency_db_path(
             pair,
             frequency_packs_dir=paths.frequency_packs_dir,
         )
-    return jmdict_path, freedict_de_en_path, set_source_db
+    return jmdict_path, translation_dict_path, set_source_db
+
+
+def _handle_install_semantic_pack(payload: Dict[str, Any]) -> dict[str, object]:
+    data_root = _optional_path(payload, "data_root")
+    allow_default_data_root = _optional_bool(payload, "allow_default_data_root") is True
+    if data_root is None and not allow_default_data_root:
+        raise ValueError(
+            "install_semantic_pack requires payload.data_root for now, or "
+            "payload.allow_default_data_root to target the platform default."
+        )
+    semantic_inventory_path = _optional_path(payload, "semantic_inventory_path")
+    copy_pack = _optional_bool(payload, "copy_pack")
+    if copy_pack is None:
+        copy_pack = _optional_bool(payload, "no_pack_copy") is not True
+    paths = build_helper_paths(data_root)
+    return install_semantic_pack(
+        paths,
+        config=SemanticPackInstallConfig(
+            pair=str(payload.get("pair", "en-es")).strip() or "en-es",
+            profile_id=_optional_profile_id(payload) or "default",
+            semantic_inventory_path=semantic_inventory_path,
+            pack_id=str(payload.get("pack_id", DEFAULT_PACK_ID)).strip() or DEFAULT_PACK_ID,
+            generated_at=str(payload.get("generated_at", "")).strip(),
+            copy_pack=copy_pack,
+            dry_run=_optional_bool(payload, "dry_run") is True,
+            rule_source=str(payload.get("rule_source", "semantic_pack_install")).strip()
+            or "semantic_pack_install",
+            rule_source_type=str(payload.get("rule_source_type", "semantic_veto_candidate")).strip()
+            or "semantic_veto_candidate",
+        ),
+    )
 
 
 def _validate_request(request: Dict[str, Any]) -> tuple[str, str, dict]:
@@ -189,6 +407,8 @@ def _validate_request(request: Dict[str, Any]) -> tuple[str, str, dict]:
 
 
 def _handle_request(msg_type: str, payload: dict) -> dict:
+    if msg_type == "install_semantic_pack":
+        return _handle_install_semantic_pack(payload)
     paths = build_helper_paths()
     profile_id = _optional_profile_id(payload)
     if msg_type == "hello":
@@ -205,9 +425,43 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
     if msg_type == "get_ruleset":
         pair = str(payload.get("pair", "en-ja"))
         return load_ruleset(paths, pair=pair, profile_id=profile_id or "default")
+    if msg_type == "get_semantic_inventory":
+        pair = str(payload.get("pair", "en-ja"))
+        return load_semantic_inventory(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "srs_diagnostics":
         pair = str(payload.get("pair", "en-ja"))
         return get_srs_runtime_diagnostics(paths, pair=pair, profile_id=profile_id or "default")
+    if msg_type == "srs_items_list":
+        pair = str(payload.get("pair", "en-ja"))
+        return list_srs_items(paths, pair=pair, profile_id=profile_id or "default")
+    if msg_type == "srs_item_rule_details":
+        pair = str(payload.get("pair", "en-ja"))
+        return get_srs_item_rule_details(
+            paths,
+            pair=pair,
+            profile_id=profile_id or "default",
+            lemma=str(payload.get("lemma", "")),
+            limit=_optional_int(payload, "limit"),
+        )
+    if msg_type == "word_info_lookup":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        word_package = payload.get("word_package")
+        if not isinstance(word_package, dict):
+            word_package = None
+        return lookup_word_info(
+            paths,
+            pair=pair,
+            profile_id=profile_id or "default",
+            lemma=str(payload.get("lemma", "")),
+            display=str(payload.get("display", "")),
+            origin=str(payload.get("origin", "")),
+            source_phrase=str(payload.get("source_phrase", "")),
+            word_package=word_package,
+            translation_dict_path=_optional_path(payload, "translation_dict_path"),
+            jmdict_path=_optional_path(payload, "jmdict_path"),
+        )
+    if msg_type == "semantic_admit_batch":
+        return semantic_admit_batch(paths, payload=payload)
     if msg_type == "record_feedback":
         apply_feedback(
             paths,
@@ -227,9 +481,33 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             profile_id=profile_id or "default",
         )
         return {"ok": True}
+    if msg_type == "srs_admission_suppress":
+        return suppress_srs_admission(
+            paths,
+            pair=str(payload.get("pair", "")),
+            lemma=str(payload.get("lemma", "")),
+            reason=str(payload.get("reason", "user_blocked")),
+            note=str(payload.get("note", "")).strip() or None,
+            profile_id=profile_id or "default",
+        )
+    if msg_type == "srs_browsing_signal_ingest":
+        signals = payload.get("signals")
+        if not isinstance(signals, list):
+            signals = []
+        opt_in = _optional_bool(payload, "opt_in") is True
+        if not opt_in:
+            opt_in = _optional_bool(payload, "browsing_admission_enabled") is True
+        return ingest_browsing_admission_signals(
+            paths,
+            pair=str(payload.get("pair", "")),
+            signals=signals,
+            profile_id=profile_id or "default",
+            captured_at=str(payload.get("captured_at", "")).strip() or None,
+            opt_in=opt_in,
+        )
     if msg_type == "trigger_rulegen":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
-        jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
             paths,
             pair=pair,
             payload=payload,
@@ -237,7 +515,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         config = RulegenJobConfig(
             pair=pair,
             jmdict_path=jmdict_path,
-            freedict_de_en_path=freedict_de_en_path,
+            translation_dict_path=translation_dict_path,
             profile_id=profile_id or "default",
             set_source_db=set_source_db,
             set_top_n=_optional_int(payload, "set_top_n"),
@@ -277,7 +555,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         return run_rulegen_job(paths, config=config)
     if msg_type == "srs_initialize":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
-        jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
             paths,
             pair=pair,
             payload=payload,
@@ -289,7 +567,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             config=SetInitializationJobConfig(
                 pair=pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=profile_id or "default",
                 set_top_n=set_top_n,
@@ -327,9 +605,40 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 trigger=str(payload.get("trigger", "manual")),
             ),
         )
+    if msg_type == "srs_preview_admission":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, _translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        set_top_n = _optional_int(payload, "set_top_n")
+        bootstrap_top_n = _optional_int(payload, "bootstrap_top_n")
+        return preview_srs_admission(
+            paths,
+            config=SetAdmissionPreviewJobConfig(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "frequency_bootstrap")),
+                objective=str(payload.get("objective", "bootstrap")),
+                set_top_n=set_top_n,
+                bootstrap_top_n=bootstrap_top_n,
+                initial_active_count=_optional_int(payload, "initial_active_count"),
+                max_active_items_hint=_optional_int(payload, "max_active_items_hint"),
+                preview_count=_optional_int(payload, "preview_count"),
+                preview_sampling_mode=str(payload.get("preview_sampling_mode", "")).strip() or None,
+                preview_seed=_optional_int(payload, "preview_seed"),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
     if msg_type == "srs_refresh":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
-        jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
             paths,
             pair=pair,
             payload=payload,
@@ -341,9 +650,10 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             config=SrsRefreshJobConfig(
                 pair=pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
                 set_top_n=set_top_n,
                 feedback_window_size=feedback_window_size,
                 max_active_items=_optional_int(payload, "max_active_items"),
@@ -356,12 +666,115 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 else None,
             ),
         )
+    if msg_type == "srs_auto_refresh":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        return maybe_auto_refresh_srs_set(
+            paths,
+            config=SrsAutoRefreshJobConfig(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                translation_dict_path=translation_dict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
+                set_top_n=_optional_int(payload, "set_top_n"),
+                feedback_window_size=_optional_int(payload, "feedback_window_size"),
+                max_active_items=_optional_int(payload, "max_active_items"),
+                max_new_items=_optional_int(payload, "max_new_items"),
+                allowed_pos=_optional_string_list(payload, "allowed_pos"),
+                persist_store=bool(payload.get("persist_store", True)),
+                trigger=str(payload.get("trigger", "auto_feedback_threshold")),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                auto_refresh_enabled=_optional_bool(payload, "auto_refresh_enabled") is not False,
+                auto_refresh_min_feedback_events=_optional_int(
+                    payload,
+                    "auto_refresh_min_feedback_events",
+                ),
+                auto_refresh_min_good_easy=_optional_int(payload, "auto_refresh_min_good_easy"),
+                auto_refresh_repeat_min_good_easy=_optional_int(
+                    payload,
+                    "auto_refresh_repeat_min_good_easy",
+                ),
+                auto_refresh_cooldown_minutes=_optional_int(
+                    payload,
+                    "auto_refresh_cooldown_minutes",
+                ),
+            ),
+        )
+    if msg_type == "srs_rebalance_plan":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        return plan_srs_rebalance(
+            paths,
+            config=SrsRebalanceJobConfig(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                translation_dict_path=translation_dict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
+                objective=str(payload.get("objective", "rebalance")),
+                set_top_n=_optional_int(payload, "set_top_n"),
+                max_active_items=_optional_int(payload, "max_active_items"),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
+    if msg_type == "srs_rebalance_apply":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        return apply_srs_rebalance(
+            paths,
+            config=SrsRebalanceJobConfig(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                translation_dict_path=translation_dict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
+                objective=str(payload.get("objective", "rebalance")),
+                set_top_n=_optional_int(payload, "set_top_n"),
+                max_active_items=_optional_int(payload, "max_active_items"),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                trigger=str(payload.get("trigger", "manual")),
+            ),
+        )
     if msg_type == "srs_reset":
         pair = str(payload.get("pair", "")).strip() or None
-        return reset_srs_data(paths, pair=pair, profile_id=profile_id or "default")
+        return reset_srs_data(
+            paths,
+            pair=pair,
+            profile_id=profile_id or "default",
+            preserve_lifecycle_metadata=_optional_bool(
+                payload,
+                "preserve_lifecycle_metadata",
+            )
+            is True,
+        )
     if msg_type == "open_data_dir":
         open_path(paths.data_root)
         return {"opened": str(paths.data_root)}
+    if msg_type == "open_resource_settings":
+        return _open_resource_settings(payload)
     if msg_type == "profiles_get":
         return get_profiles_snapshot(paths)
     if msg_type == "profile_rulesets_get":
@@ -385,4 +798,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except SystemExit:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        _log_native_host_failure("startup_runtime", exc)
+        raise

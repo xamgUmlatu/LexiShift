@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "normalization_version": "semantic_evidence_v1",
+  "batch_id": "en-es:proxy:prompt-smoke-20260424a",
+  "pair": "en-es",
+  "source_type": "llm",
+  "source_id": "semantic_prompt_bakeoff_en_es_v10:proxy",
+  "source_family": "silver_llm_generation",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-23T23:40:53Z",
+  "ingested_at": "2026-04-23T23:40:53Z",
+  "review_state": "unreviewed",
+  "model_id": "gpt-5.4-mini",
+  "prompt_version": "semantic_prompt_bakeoff_v1",
+  "row_count": 1,
+  "rows": [
+    {
+      "evidence_id": "evidence:51f5579d803e91a540a1775c3ac30aa9b39bdb18",
+      "dedupe_key": "dedupe:1845d898b4f9f8dd7ac479a0851dae976e520fc0",
+      "batch_id": "en-es:proxy:prompt-smoke-20260424a",
+      "row_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica:row",
+      "pair": "en-es",
+      "source_type": "llm",
+      "source_id": "semantic_prompt_bakeoff_en_es_v10:proxy",
+      "source_family": "silver_llm_generation",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "fábrica",
+      "normalized_candidate_target": "fábrica",
+      "is_multiword": false,
+      "evidence_text": "Needs sunlight, water, roots, leaves, and soil; grows naturally, not manufactured.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "llm",
+        "source_id": "semantic_prompt_bakeoff_en_es_v10:proxy",
+        "source_family": "silver_llm_generation",
+        "batch_id": "en-es:proxy:prompt-smoke-20260424a",
+        "row_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica:row",
+        "model_id": "gpt-5.4-mini",
+        "prompt_version": "semantic_prompt_bakeoff_v1",
+        "generated_at": "2026-04-23T23:40:53Z",
+        "ingested_at": "2026-04-23T23:40:53Z",
+        "normalization_version": "semantic_evidence_v1",
+        "temperature": 0.2,
+        "prompt_slot": "cue_contrastive_general_v1",
+        "input_ref": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+        "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-smoke-20260424a_raw_responses.json#en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.96,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "stage": "proxy",
+        "family_archetype": "ordinary_weak_active_support"
+      }
+    }
+  ],
+  "provenance": {
+    "source_type": "llm",
+    "source_id": "semantic_prompt_bakeoff_en_es_v10:proxy",
+    "source_family": "silver_llm_generation",
+    "batch_id": "en-es:proxy:prompt-smoke-20260424a",
+    "model_id": "gpt-5.4-mini",
+    "prompt_version": "semantic_prompt_bakeoff_v1",
+    "generated_at": "2026-04-23T23:40:53Z",
+    "ingested_at": "2026-04-23T23:40:53Z",
+    "normalization_version": "semantic_evidence_v1",
+    "temperature": 0.2,
+    "cost_metadata": {
+      "request_count": 1,
+      "requests_with_usage": 1,
+      "input_tokens": 521,
+      "output_tokens": 195,
+      "reasoning_tokens": 0
+    },
+    "upstream": {
+      "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+      "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+      "stage": "proxy",
+      "execution_mode": "live",
+      "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-prompt-smoke-20260424a_raw_responses.json"
+    }
+  },
+  "temperature": 0.2,
+  "cost_metadata": {
+    "request_count": 1,
+    "requests_with_usage": 1,
+    "input_tokens": 521,
+    "output_tokens": 195,
+    "reasoning_tokens": 0
+  }
+}

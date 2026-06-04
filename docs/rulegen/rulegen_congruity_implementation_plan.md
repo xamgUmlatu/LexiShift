@@ -1,6 +1,10 @@
 # Rulegen Congruity Hardening: Implementation Plan
 
 Status: Phase 0 complete; Phase 1 implemented (2026-02-19); Phase 2 groundwork implemented (2026-02-23); Phase 3 pair-level tuning resolution implemented (2026-02-23); Phase 4 benchmark harness implemented (2026-02-23); Phase 5 quality gate scaffolding implemented (2026-02-24); Phase 6 polysemy hardening options documented (2026-02-27)
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 rulegen authority note; congruity implementation claims not re-audited
+Source-of-truth: mixed implementation-history and planning reference; executable truth lives in rulegen code, benchmark/gate/triage artifacts, and `docs/developer/feature_state_matrix.md`.
 
 Purpose:
 - Record two immediate decisions for rule quality control.
@@ -25,9 +29,10 @@ Purpose:
 - Context-dependent morphology is explicitly deferred as a future/stretch goal.
 
 4) Generic gloss demotion decision (current)
-- Pair-specific generic/noisy glosses may be demoted via ranking metadata (for example `semantic_demotion`) before top-K definition selection.
-- Current rollout covers `en-ja`, `en-es`, `en-de`, and `es-en`, with pair defaults in `core/lexishift_core/rulegen/semantic_demotion.py`.
-- Sensitivity is controlled by `semantic_demotion_scale` (pair tuning + benchmark sweep knob).
+- Exact phrase-level generic/noisy gloss overrides may be demoted via ranking metadata (for example `semantic_demotion`) before top-K definition selection.
+- Current rollout covers `en-ja`, `en-es`, `en-de`, and `es-en`, with override maps in `core/lexishift_core/rulegen/semantic_demotion.py`.
+- These overrides are now default-off and intended for explicit opt-in use only, not canonical benchmark scoring.
+- Sensitivity is controlled by `semantic_demotion_scale` when the override layer is enabled.
 
 ## First Implementation Step: Architecture Investigation (Phase 0)
 
@@ -315,12 +320,12 @@ Delivered:
   - HTML dashboard now includes right-click per-source labeling (greenlist/blacklist), decisions export JSON, and LP-by-LP workflow controls (Done/Skip/Next/Prev) with resume state for faster multi-pair curation.
 - Label override merge utility:
   - `scripts/testing/apply_rulegen_label_overrides.py`
-  - Applies exported labeling decisions back into `docs/test_inputs/rulegen_benchmark_cases.json` (or another dataset copy).
+  - Applies exported labeling decisions back into `docs/test_inputs/rulegen_benchmark_cases/` (or another dataset file or directory copy).
 - Starter labeled benchmark dataset:
-  - `docs/test_inputs/rulegen_benchmark_cases.json`
-  - Includes initial `en-es`, `en-ja`, `en-de`, and `es-en` sanity/congruity cases.
+  - `docs/test_inputs/rulegen_benchmark_cases/`
+  - Includes LP-specific source files for `en-es`, `en-ja`, `en-de`, and `es-en` sanity/congruity cases.
 - Breadth expansion (v2):
-  - `docs/test_inputs/rulegen_benchmark_cases.json` expanded to 65 labeled cases.
+  - LP-specific files under `docs/test_inputs/rulegen_benchmark_cases/` expanded the labeled dataset to 65 total cases.
   - Coverage now includes broader core-lexicon checks plus hard cases (`hora`/`時`/`様` style instability guards).
 
 Next extension path:

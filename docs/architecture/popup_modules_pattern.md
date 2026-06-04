@@ -2,7 +2,7 @@
 
 Status: active mixed pattern
 Role: Mixed
-Last updated: 2026-03-21
+Last updated: 2026-06-02
 Source-of-truth: mixed as-is + target API reference; verify live popup behavior in `apps/chrome-extension/content/ui/feedback_popup_controller.js`, `apps/chrome-extension/content/ui/ui.js`, and linked runtime modules.
 
 This doc mixes current popup behavior with future module API direction.
@@ -151,18 +151,21 @@ Recommended context shape:
 ```js
 {
   target, // HTMLElement .lexishift-replacement
+  profileId, // active LexiShift profile id
   origin, // "srs" | "ruleset"
   languagePair, // e.g. "en-ja"
   sourceLanguage, // optional resolved form
   targetLanguage, // optional resolved form
   replacement, // canonical replacement
   displayReplacement, // rendered text on page
+  sourcePhrase, // matched source phrase when available
   displayScript, // "kanji" | "kana" | "romaji" | ""
   scriptForms, // normalized object or null
+  wordPackage, // normalized word package object or null
   settings: {
     targetDisplayScript,
     srsFeedbackSrsEnabled,
-    srsFeedbackRulesEnabled
+    srsFeedbackRulesEnabled // reserved/off in MVP
   }
 }
 ```
@@ -178,6 +181,54 @@ Span metadata conventions (current):
 - `dataset.languagePair`
 - `dataset.source`
 - `dataset.original`
+
+Target service context:
+
+Popup modules should receive a second API/service object from popup core rather
+than opening storage or native-helper routes themselves. The first shared global
+service that should be formalized is `LexiShift.wordInfoApi`, used by both the
+Vocabulary Library and the `quick-definition` popup module. Popup modules should
+receive that capability through the narrower module API field `api.wordInfo`.
+
+Current state:
+
+- `LexiShift.wordInfoApi` is implemented and loaded by both content scripts and
+  Options.
+- The content singleton is configured with the helper client.
+- `quick-definition` is implemented as a default-on internal popup module. It
+  receives the existing `LexiShift.wordInfoApi` service through the current
+  descriptor/context path, renders immediately, and updates asynchronously when
+  lookup data returns.
+- The normalized public popup context builder and stable `api.wordInfo` module
+  injection contract are still target architecture, not the public runtime
+  behavior exposed to third-party modules.
+
+```js
+{
+  t(key, substitutions, fallback) {},
+  log(...args) {},
+  wordInfo: {
+    lookup(request, options) {
+      return Promise.resolve({
+        status: "ok",
+        glosses: [],
+        source_phrases: [],
+        srs: { present: false },
+        external_links: []
+      });
+    }
+  }
+}
+```
+
+Implementation rule:
+
+- content modules call `api.wordInfo.lookup(...)`;
+- Options/Vocabulary Library controllers call the same logical service through
+  an Options adapter;
+- only the shared helper client/native-host adapter knows the
+  `word_info_lookup` message name;
+- pair-specific pack selection remains in helper/core code.
 
 ## 7) UX Contract For Popup Composition
 
@@ -226,6 +277,7 @@ Recommended minimal `api`:
 - `api.createModuleContainer(className?)`
 - `api.createRow(label, value)`
 - `api.t(key, substitutions, fallback)` for localization
+- `api.wordInfo.lookup(request, options)` for local helper-backed word info
 - `api.log(...)` (debug-gated)
 - `api.emit(eventName, payload)` (optional event bus)
 
@@ -281,6 +333,17 @@ The following are candidate popup modules for a clicked target learning word. Th
 
 1. `quick-definition`
 - Short gloss plus a plain explanation.
+- First-release candidate for a built-in/default-on module. It should use the
+  shared helper-backed word-info read model described in
+  `docs/srs/srs_vocabulary_library_and_word_info_plan.md`, not a separate
+  content-script dictionary lookup or runtime web scrape.
+- Pair-generic by design: the module passes `profileId`, `languagePair`,
+  `replacement`, `displayReplacement`, `origin`, `sourcePhrase`, and
+  `wordPackage` to the shared word-info service, then renders whatever glosses,
+  SRS state, and external links the helper returns.
+- It must not hard-code language-pack filenames or pair-specific dictionary
+  logic. `en-es` can be the first verified production pair, but the module code
+  should remain usable for any pair with helper provider support.
 
 2. `example-sentence`
 - One native example sentence with translation.
@@ -341,8 +404,11 @@ The following are candidate popup modules for a clicked target learning word. Th
 - Shows masculine/feminine (and additional grammatical gender forms where relevant).
 - Language-scoped (primarily useful for languages with productive gender systems).
 
-Suggested first optional rollout:
-- `quick-definition`
+Suggested first rollout:
+- `quick-definition` as a built-in module backed by the shared word-info
+  service.
+
+Suggested later optional rollout:
 - `example-sentence`
 - `srs-state`
 - `next-review`
@@ -406,9 +472,16 @@ Step 3:
 - Migrate script module + feedback module to registry entries.
 
 Step 4:
-- Add options UI for enabling/disabling modules by language.
+- Add shared service injection for modules, adapting implemented
+  `LexiShift.wordInfoApi` into `api.wordInfo`.
+- Add `quick-definition` as an internal module that uses the same API as the
+  Vocabulary Library. This is implemented for the internal descriptor runtime;
+  the future public module API still needs the stable `api.wordInfo` facade.
 
 Step 5:
+- Add options UI for enabling/disabling modules by language.
+
+Step 6:
 - Stabilize and version a public plugin API.
 
 ## 15) Non-Negotiable Invariants
@@ -417,6 +490,8 @@ Step 5:
 - Popup open/close lifecycle remains owned by core UI runtime.
 - Module failures are isolated and non-fatal.
 - Storage and network operations remain capability-gated.
+- Modules do not directly inspect local resource paths or open language-pack
+  files. They ask core services for structured data.
 
 ---
 

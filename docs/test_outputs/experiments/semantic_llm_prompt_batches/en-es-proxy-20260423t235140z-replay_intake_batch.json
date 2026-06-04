@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:proxy:20260423T235140Z:replay",
+  "pair": "en-es",
+  "source_type": "llm",
+  "source_id": "semantic_prompt_bakeoff_en_es_v10:proxy:replay",
+  "source_family": "silver_llm_generation",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-23T23:51:40Z",
+  "ingested_at": "2026-04-23T23:51:40Z",
+  "review_state": "unreviewed",
+  "model_id": "gpt-5.4-mini",
+  "prompt_version": "semantic_prompt_bakeoff_v2",
+  "temperature": 0.2,
+  "cost_metadata": {
+    "request_count": 3,
+    "requests_with_usage": 2,
+    "input_tokens": 244,
+    "output_tokens": 45,
+    "reasoning_tokens": 0
+  },
+  "provenance": {
+    "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+    "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+    "stage": "proxy",
+    "execution_mode": "replay",
+    "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_raw_responses.json",
+    "replay_source": "docs/test_inputs/semantic_routing/semantic_prompt_replay_fixture_en_es_v10.json"
+  },
+  "items": [
+    {
+      "row_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica:row",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "candidate_pos": "noun",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "input_ref": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "stage": "proxy",
+        "family_archetype": "ordinary_weak_active_support"
+      },
+      "evidence_text": "living organism with leaves or roots, not an industrial facility",
+      "confidence": 0.84,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "pair": "en-es",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "note": "fixed_shadow_candidate",
+        "canonical_pos": "noun"
+      },
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-proxy-20260423t235140z-replay_raw_responses.json#en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false
+    }
+  ]
+}

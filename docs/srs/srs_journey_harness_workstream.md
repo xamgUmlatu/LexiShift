@@ -2,7 +2,7 @@
 
 Status: Active implementation
 Role: Planning / WIP
-Last updated: 2026-03-21
+Last updated: 2026-05-27
 Purpose: define a reusable end-to-end SRS journey harness that proves bootstrap, feedback, scheduling, admission refresh, publication, and runtime-facing set changes with enough detail for retroactive analysis and pedagogical playback review.
 Source-of-truth: planning doc for harness scope and acceptance criteria; current implemented behavior remains defined by helper/SRS code and generated evidence.
 
@@ -172,7 +172,10 @@ Current implemented scenarios:
   - deterministic clock with installed local Spanish frequency + FreeDict resources staged into an isolated temp helper root
   - dynamic cohort assignment from actual admitted and newly selected lemmas
   - real helper/rulegen publication path
-- current `en-ja` and `en-es` artifacts keep due publication complete; the remaining warning is only the broader-than-due publication contract
+- current `en-ja` and `en-es` journey artifacts are not the Lane 5 due-aware
+  runtime-serving authority; use `scripts/testing/srs_quality_harness.py` and
+  `docs/test_outputs/srs_quality_latest.json` for the helper due metadata plus
+  extension-gate contract
 
 ### Lane D: edge-behavior lane
 
@@ -187,6 +190,30 @@ Current implemented edge scenarios:
 Later edge scenarios:
 - refresh under high due pressure
 - recovery after low retention
+
+### Lane E: profile-preference journey lane
+
+Purpose:
+- prove that requested profile preferences can alter initial admission while
+  preserving the same feedback-driven growth, pause, and resume mechanics
+
+Current implemented scenario:
+- `en-es_profile_preference_journey_v1`
+  - deterministic clock and synthetic `en-es` resources
+  - actual seed builder reads topic metadata from the synthetic frequency DB's
+    `profile_topics` column
+  - requested strategy is `profile_bootstrap`
+  - profile context is `{"topic_weights": {"family": 1.0}}`
+  - the reserved topic lane promotes `madre` into the initial active set ahead
+    of a more frequent neutral candidate
+  - later phases still prove high-retention growth, low-retention pause, and
+    recovery resume
+
+Current limitation:
+- this lane proves profile-aware bootstrap initialization and the existing
+  feedback refresh loop together; executable profile-aware refresh/growth is
+  still a future `profile_growth` policy and is now considered MVP-relevant
+  because specialized admission must continue after first-run bootstrap.
 
 ## Pair Rollout
 
@@ -415,6 +442,9 @@ Planned initial artifacts:
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.json`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.md`
 - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.html`
+- `docs/test_outputs/srs_journey/srs_journey_en_es_profile_latest.json`
+- `docs/test_outputs/srs_journey/srs_journey_en_es_profile_latest.md`
+- `docs/test_outputs/srs_journey/srs_journey_en_es_profile_latest.html`
 
 Generated evidence remains evidence, not architecture authority.
 
@@ -707,7 +737,7 @@ Deliverables:
 
 Current state:
 - `en-ja_real_publication_v1` implemented
-- `en-es_core_journey_v1`, `en-es_edge_behaviors_v1`, and `en-es_real_publication_v1` implemented
+- `en-es_core_journey_v1`, `en-es_edge_behaviors_v1`, `en-es_real_publication_v1`, and `en-es_profile_preference_journey_v1` implemented
 - current `en-ja` and `en-es` artifacts show complete word-package coverage and complete due publication
 - later expansion still needed for `en-de` and less synthetic resources
 
@@ -722,14 +752,15 @@ Deliverables:
 
 ## Open Questions
 
-1. When should due-aware publication mismatch move from `WARN` to `FAIL`?
+1. Should the journey harness adopt the Lane 5 runtime due-metadata check, or stay focused on item-level journey flow?
 2. How much explicit time injection is worth plumbing versus scoped patching?
 3. Do we want the real full-E2E lane to be mandatory in routine workflow, or advisory until it stabilizes?
 
 ## Immediate Next Step
 
-The next planning deliverable should be a concrete schema and lane spec for Phase 1:
-- exact JSON structure
-- exact phase names
-- exact event model
-- exact scenario cohorts for `en-ja`
+Next useful harness work:
+- add the same kind of profile-preference lane for another LP only after the
+  needed topic metadata exists
+- keep the current publication broader-than-due warning visible until product
+  direction chooses dedicated due-only publication or runtime due-gating as the
+  final contract

@@ -1,0 +1,1499 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+  "cost_metadata": {
+    "input_tokens": 5121,
+    "output_tokens": 1795,
+    "reasoning_tokens": 0
+  },
+  "generated_at": "2026-05-13T20:41:07Z",
+  "ingested_at": "2026-05-13T20:41:45Z",
+  "model_id": "gpt-5.4-mini",
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "provenance": {
+    "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+    "cost_metadata": {
+      "input_tokens": 5121,
+      "output_tokens": 1795,
+      "reasoning_tokens": 0
+    },
+    "generated_at": "2026-05-13T20:41:07Z",
+    "ingested_at": "2026-05-13T20:41:45Z",
+    "model_id": "gpt-5.4-mini",
+    "normalization_version": "semantic_evidence_v1",
+    "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "source_family": "silver_llm_generation",
+    "source_id": "active-only-full-v1-tranche-011",
+    "source_type": "llm",
+    "upstream": {
+      "admission_generated_at": "2026-05-13T20:41:32Z",
+      "admitted_input_item_count": 18,
+      "evidence_variant": "sentence_only",
+      "excluded_item_count": 0,
+      "operator_repair_count": 0,
+      "operator_repairs": [],
+      "postprocess_generated_at": "2026-05-13T20:41:38Z",
+      "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+      "raw_output_mutation": "none",
+      "selected_item_count": 18,
+      "source_packaging_run_id": "active-only-full-v1-tranche-011"
+    }
+  },
+  "review_state": "unreviewed",
+  "roles": [
+    "cue_generation"
+  ],
+  "row_count": 18,
+  "rows": [
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abate -> decrecer",
+        "target_key": "decrecer"
+      },
+      "active_target": "decrecer",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abate -> decrecer",
+        "target_key": "decrecer"
+      },
+      "candidate_target": "decrecer",
+      "dedupe_key": "dedupe:af588b5eded2f8ec0b665a062c9000198a79215f",
+      "evidence_id": "evidence:9893f8a903b3abf9a6b9253b1cdd79d06557a3a9",
+      "evidence_text": "As the storm moved offshore, the winds began to abate by nightfall.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 27,
+        "evidence_note": "abate means to lessen or decrease in intensity.",
+        "family_id": "en-es:srs-source-target:abate:decrecer:a89e2928",
+        "global_need_rank": 110,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:001",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:001",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+        "source_sentence": "As the storm moved offshore, the winds began to abate by nightfall."
+      },
+      "normalized_active_target": "decrecer",
+      "normalized_candidate_target": "decrecer",
+      "normalized_trigger": "abate",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion:item:001",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-001-abate-decrecer",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-001-abate-decrecer",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "abate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abate -> decrecer",
+        "target_key": "decrecer"
+      },
+      "active_target": "decrecer",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abate -> decrecer",
+        "target_key": "decrecer"
+      },
+      "candidate_target": "decrecer",
+      "dedupe_key": "dedupe:af588b5eded2f8ec0b665a062c9000198a79215f",
+      "evidence_id": "evidence:dc5c07c6870de6f33f729f21aad3d9acf2f17cee",
+      "evidence_text": "After the medication took effect, her fever started to abate steadily.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 27,
+        "evidence_note": "abate is used in the sense of declining or decreasing.",
+        "family_id": "en-es:srs-source-target:abate:decrecer:a89e2928",
+        "global_need_rank": 110,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:002",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:002",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+        "source_sentence": "After the medication took effect, her fever started to abate steadily."
+      },
+      "normalized_active_target": "decrecer",
+      "normalized_candidate_target": "decrecer",
+      "normalized_trigger": "abate",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion:item:002",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-002-abate-decrecer",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-002-abate-decrecer",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "abate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "aberration -> yerro",
+        "target_key": "yerro"
+      },
+      "active_target": "yerro",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "aberration -> yerro",
+        "target_key": "yerro"
+      },
+      "candidate_target": "yerro",
+      "dedupe_key": "dedupe:784c68f6cded835faacfb30c5a992fe344a37219",
+      "evidence_id": "evidence:469eb8a5b4c4faff274656267ba0de65bf58f6b3",
+      "evidence_text": "The clerk caught the aberration in the ledger before it became a costly mistake.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 28,
+        "evidence_note": "aberration refers to a specific error in a record, matching the narrow mistake sense of yerro.",
+        "family_id": "en-es:srs-source-target:aberration:yerro:4e3d998f",
+        "global_need_rank": 111,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:003",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:003",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+        "source_sentence": "The clerk caught the aberration in the ledger before it became a costly mistake."
+      },
+      "normalized_active_target": "yerro",
+      "normalized_candidate_target": "yerro",
+      "normalized_trigger": "aberration",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion:item:001",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-003-aberration-yerro",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-003-aberration-yerro",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "aberration"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "aberration -> yerro",
+        "target_key": "yerro"
+      },
+      "active_target": "yerro",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "aberration -> yerro",
+        "target_key": "yerro"
+      },
+      "candidate_target": "yerro",
+      "dedupe_key": "dedupe:784c68f6cded835faacfb30c5a992fe344a37219",
+      "evidence_id": "evidence:d4d3f39dfbdccc9fc9a385b5237e659281df26b5",
+      "evidence_text": "Her sudden aberration in the final answer was a simple slip, not a change in opinion.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 28,
+        "evidence_note": "aberration is used for a single mistaken action, clearly aligning with yerro rather than a broad deviation sense.",
+        "family_id": "en-es:srs-source-target:aberration:yerro:4e3d998f",
+        "global_need_rank": 111,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:004",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:004",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+        "source_sentence": "Her sudden aberration in the final answer was a simple slip, not a change in opinion."
+      },
+      "normalized_active_target": "yerro",
+      "normalized_candidate_target": "yerro",
+      "normalized_trigger": "aberration",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion:item:002",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-004-aberration-yerro",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-004-aberration-yerro",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "aberration"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "admonition -> exhortación",
+        "target_key": "exhortación"
+      },
+      "active_target": "exhortación",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "admonition -> exhortación",
+        "target_key": "exhortación"
+      },
+      "candidate_target": "exhortación",
+      "dedupe_key": "dedupe:9f5cf8fd5b88e693ce28016b360de9b8a0661d14",
+      "evidence_id": "evidence:54224e88e6a524eeb8a87a76cabe257ca2f59019",
+      "evidence_text": "The coach's admonition to keep pushing through the final mile lifted the whole team.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 29,
+        "evidence_note": "Visible urging to continue and give effort; fits an exhortation sense.",
+        "family_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe",
+        "global_need_rank": 112,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:005",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:005",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+        "source_sentence": "The coach's admonition to keep pushing through the final mile lifted the whole team."
+      },
+      "normalized_active_target": "exhortación",
+      "normalized_candidate_target": "exhortación",
+      "normalized_trigger": "admonition",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion:item:001",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-005-admonition-exhortaci-n",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-005-admonition-exhortaci-n",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "admonition"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "admonition -> exhortación",
+        "target_key": "exhortación"
+      },
+      "active_target": "exhortación",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "admonition -> exhortación",
+        "target_key": "exhortación"
+      },
+      "candidate_target": "exhortación",
+      "dedupe_key": "dedupe:9f5cf8fd5b88e693ce28016b360de9b8a0661d14",
+      "evidence_id": "evidence:253241dfbb04a183e00ab22c00cbad833e30ac9b",
+      "evidence_text": "Her admonition to speak up for the vulnerable was repeated throughout the meeting.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 29,
+        "evidence_note": "A clear call to action and moral urging, matching exhortación.",
+        "family_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe",
+        "global_need_rank": 112,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:006",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:006",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+        "source_sentence": "Her admonition to speak up for the vulnerable was repeated throughout the meeting."
+      },
+      "normalized_active_target": "exhortación",
+      "normalized_candidate_target": "exhortación",
+      "normalized_trigger": "admonition",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion:item:002",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-006-admonition-exhortaci-n",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-006-admonition-exhortaci-n",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "admonition"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "confiscate -> confiscar",
+        "target_key": "confiscar"
+      },
+      "active_target": "confiscar",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "confiscate -> confiscar",
+        "target_key": "confiscar"
+      },
+      "candidate_target": "confiscar",
+      "dedupe_key": "dedupe:8fbbdddf2108f0ea80b1ce3a3eb0ef8e9e7bb49b",
+      "evidence_id": "evidence:a59868031d316eb31c814cefdb9bd9525849cd7f",
+      "evidence_text": "Customs officers can confiscate undeclared cigarettes at the border.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 33,
+        "evidence_note": "Authority seizes prohibited goods.",
+        "family_id": "en-es:srs-source-target:confiscate:confiscar:6016e741",
+        "global_need_rank": 116,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:007",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:007",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+        "source_sentence": "Customs officers can confiscate undeclared cigarettes at the border."
+      },
+      "normalized_active_target": "confiscar",
+      "normalized_candidate_target": "confiscar",
+      "normalized_trigger": "confiscate",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion:item:001",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-007-confiscate-confiscar",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-007-confiscate-confiscar",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "confiscate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "confiscate -> confiscar",
+        "target_key": "confiscar"
+      },
+      "active_target": "confiscar",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "confiscate -> confiscar",
+        "target_key": "confiscar"
+      },
+      "candidate_target": "confiscar",
+      "dedupe_key": "dedupe:8fbbdddf2108f0ea80b1ce3a3eb0ef8e9e7bb49b",
+      "evidence_id": "evidence:110babfa325d7f8d8dd4ae4f9a0ebd3d1e110f8a",
+      "evidence_text": "The police may confiscate the fake passports during the investigation.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 33,
+        "evidence_note": "Official seizure by law enforcement.",
+        "family_id": "en-es:srs-source-target:confiscate:confiscar:6016e741",
+        "global_need_rank": 116,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:008",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:008",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+        "source_sentence": "The police may confiscate the fake passports during the investigation."
+      },
+      "normalized_active_target": "confiscar",
+      "normalized_candidate_target": "confiscar",
+      "normalized_trigger": "confiscate",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion:item:002",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-008-confiscate-confiscar",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-008-confiscate-confiscar",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "confiscate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "exhortation -> exhortación",
+        "target_key": "exhortación"
+      },
+      "active_target": "exhortación",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "exhortation -> exhortación",
+        "target_key": "exhortación"
+      },
+      "candidate_target": "exhortación",
+      "dedupe_key": "dedupe:6b5a6f9552d1871e964c8f5f1761bd11985ae107",
+      "evidence_id": "evidence:48f877f1bd2127065be8c376e83596ee92420223",
+      "evidence_text": "The mayor's exhortation to save water was repeated at every town meeting.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 34,
+        "evidence_note": "Clear urging or call to action in a public address.",
+        "family_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592",
+        "global_need_rank": 117,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:009",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:009",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+        "source_sentence": "The mayor's exhortation to save water was repeated at every town meeting."
+      },
+      "normalized_active_target": "exhortación",
+      "normalized_candidate_target": "exhortación",
+      "normalized_trigger": "exhortation",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion:item:001",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-009-exhortation-exhortaci-n",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-009-exhortation-exhortaci-n",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "exhortation"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "exhortation -> exhortación",
+        "target_key": "exhortación"
+      },
+      "active_target": "exhortación",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "exhortation -> exhortación",
+        "target_key": "exhortación"
+      },
+      "candidate_target": "exhortación",
+      "dedupe_key": "dedupe:6b5a6f9552d1871e964c8f5f1761bd11985ae107",
+      "evidence_id": "evidence:f47728053bb98628db5fec9f33ea5f0830c1a353",
+      "evidence_text": "Her exhortation to the team came just before they rushed onto the field.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 34,
+        "evidence_note": "Shows a forceful appeal meant to motivate action.",
+        "family_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592",
+        "global_need_rank": 117,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:010",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:010",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+        "source_sentence": "Her exhortation to the team came just before they rushed onto the field."
+      },
+      "normalized_active_target": "exhortación",
+      "normalized_candidate_target": "exhortación",
+      "normalized_trigger": "exhortation",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion:item:002",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-010-exhortation-exhortaci-n",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-010-exhortation-exhortaci-n",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "exhortation"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "laggard -> rezagado",
+        "target_key": "rezagado"
+      },
+      "active_target": "rezagado",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "laggard -> rezagado",
+        "target_key": "rezagado"
+      },
+      "candidate_target": "rezagado",
+      "dedupe_key": "dedupe:efa01f21f579966521a741036c6159fa5176dffe",
+      "evidence_id": "evidence:ff8736ea92c4b1b16e5d8e61bf7b97995720f907",
+      "evidence_text": "The project was a laggard, finishing weeks after the others.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 37,
+        "evidence_note": "Describes something that falls behind the rest in progress and timing.",
+        "family_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32",
+        "global_need_rank": 120,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:011",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:011",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+        "source_sentence": "The project was a laggard, finishing weeks after the others."
+      },
+      "normalized_active_target": "rezagado",
+      "normalized_candidate_target": "rezagado",
+      "normalized_trigger": "laggard",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion:item:001",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-011-laggard-rezagado",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-011-laggard-rezagado",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "laggard"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "laggard -> rezagado",
+        "target_key": "rezagado"
+      },
+      "active_target": "rezagado",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "laggard -> rezagado",
+        "target_key": "rezagado"
+      },
+      "candidate_target": "rezagado",
+      "dedupe_key": "dedupe:efa01f21f579966521a741036c6159fa5176dffe",
+      "evidence_id": "evidence:fc1f414183d8adb0a61d587d3d4593cf765483c8",
+      "evidence_text": "In the race, she started fast, but one laggard runner trailed far behind the pack.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 37,
+        "evidence_note": "Shows a person who lags behind the others.",
+        "family_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32",
+        "global_need_rank": 120,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:012",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:012",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+        "source_sentence": "In the race, she started fast, but one laggard runner trailed far behind the pack."
+      },
+      "normalized_active_target": "rezagado",
+      "normalized_candidate_target": "rezagado",
+      "normalized_trigger": "laggard",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion:item:002",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-012-laggard-rezagado",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-012-laggard-rezagado",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "laggard"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "straggler -> rezagado",
+        "target_key": "rezagado"
+      },
+      "active_target": "rezagado",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "straggler -> rezagado",
+        "target_key": "rezagado"
+      },
+      "candidate_target": "rezagado",
+      "dedupe_key": "dedupe:c7b46b0e37befeef28dcedbc3a6c95be97efbea2",
+      "evidence_id": "evidence:11ab0a07af86a12a360c10c4d01e383d778a72e7",
+      "evidence_text": "The straggler finally caught up with the rest of the hiking group at the trail marker.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 38,
+        "evidence_note": "A person who fell behind and later rejoined the group.",
+        "family_id": "en-es:srs-source-target:straggler:rezagado:e9269d35",
+        "global_need_rank": 121,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:013",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:013",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+        "source_sentence": "The straggler finally caught up with the rest of the hiking group at the trail marker."
+      },
+      "normalized_active_target": "rezagado",
+      "normalized_candidate_target": "rezagado",
+      "normalized_trigger": "straggler",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion:item:001",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-013-straggler-rezagado",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-013-straggler-rezagado",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "straggler"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "straggler -> rezagado",
+        "target_key": "rezagado"
+      },
+      "active_target": "rezagado",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "straggler -> rezagado",
+        "target_key": "rezagado"
+      },
+      "candidate_target": "rezagado",
+      "dedupe_key": "dedupe:c7b46b0e37befeef28dcedbc3a6c95be97efbea2",
+      "evidence_id": "evidence:2c06344ee8e104c756ea59de3db441ccc9bfa756",
+      "evidence_text": "After the sprint, one straggler was still coming down the track while the others had already finished.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 38,
+        "evidence_note": "Someone lagging behind the others in a race.",
+        "family_id": "en-es:srs-source-target:straggler:rezagado:e9269d35",
+        "global_need_rank": 121,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:014",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:014",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+        "source_sentence": "After the sprint, one straggler was still coming down the track while the others had already finished."
+      },
+      "normalized_active_target": "rezagado",
+      "normalized_candidate_target": "rezagado",
+      "normalized_trigger": "straggler",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion:item:002",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-014-straggler-rezagado",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-014-straggler-rezagado",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "straggler"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "transitive -> transitivo",
+        "target_key": "transitivo"
+      },
+      "active_target": "transitivo",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "transitive -> transitivo",
+        "target_key": "transitivo"
+      },
+      "candidate_target": "transitivo",
+      "dedupe_key": "dedupe:c8b5700d9688f4814eca5b11e5db9cdb80595ef2",
+      "evidence_id": "evidence:79ab96b7dccf60e094ad5a7678997f36dacad030",
+      "evidence_text": "The verb take is transitive because it requires a direct object.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 39,
+        "evidence_note": "Uses transitive in the grammatical sense of a verb that takes a direct object.",
+        "family_id": "en-es:srs-source-target:transitive:transitivo:08c49e29",
+        "global_need_rank": 122,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:015",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "predicative",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:015",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+        "source_sentence": "The verb take is transitive because it requires a direct object."
+      },
+      "normalized_active_target": "transitivo",
+      "normalized_candidate_target": "transitivo",
+      "normalized_trigger": "transitive",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion:item:001",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-015-transitive-transitivo",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-015-transitive-transitivo",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "transitive"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "transitive -> transitivo",
+        "target_key": "transitivo"
+      },
+      "active_target": "transitivo",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "transitive -> transitivo",
+        "target_key": "transitivo"
+      },
+      "candidate_target": "transitivo",
+      "dedupe_key": "dedupe:c8b5700d9688f4814eca5b11e5db9cdb80595ef2",
+      "evidence_id": "evidence:6ade076903ffd4e2625b8553ab674b4176962c52",
+      "evidence_text": "In her notes, she marked run as intransitive and give as transitive.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 39,
+        "evidence_note": "Contrasts transitive with intransitive to show the grammatical property clearly.",
+        "family_id": "en-es:srs-source-target:transitive:transitivo:08c49e29",
+        "global_need_rank": 122,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:016",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:016",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+        "source_sentence": "In her notes, she marked run as intransitive and give as transitive."
+      },
+      "normalized_active_target": "transitivo",
+      "normalized_candidate_target": "transitivo",
+      "normalized_trigger": "transitive",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion:item:002",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-016-transitive-transitivo",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-016-transitive-transitivo",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "transitive"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "wrangle -> reñir",
+        "target_key": "reñir"
+      },
+      "active_target": "reñir",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "wrangle -> reñir",
+        "target_key": "reñir"
+      },
+      "candidate_target": "reñir",
+      "dedupe_key": "dedupe:006de84c45afd480a79e2f8028033452f0bced0e",
+      "evidence_id": "evidence:779f3027dcf08c1ab5981f980ced1ae0d2ec88d5",
+      "evidence_text": "The siblings began to wrangle over who should clean the kitchen.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 40,
+        "evidence_note": "Active quarrel or argue sense, matching reñir.",
+        "family_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0",
+        "global_need_rank": 123,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:017",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:017",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+        "source_sentence": "The siblings began to wrangle over who should clean the kitchen."
+      },
+      "normalized_active_target": "reñir",
+      "normalized_candidate_target": "reñir",
+      "normalized_trigger": "wrangle",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion:item:001",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-017-wrangle-re-ir",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-017-wrangle-re-ir",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "wrangle"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "wrangle -> reñir",
+        "target_key": "reñir"
+      },
+      "active_target": "reñir",
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "wrangle -> reñir",
+        "target_key": "reñir"
+      },
+      "candidate_target": "reñir",
+      "dedupe_key": "dedupe:006de84c45afd480a79e2f8028033452f0bced0e",
+      "evidence_id": "evidence:43668a0fc2eacbe25082ed73c020bc2950cbf2c7",
+      "evidence_text": "Neighbors started to wrangle about the noise late into the night.",
+      "is_multiword": false,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "arm_rank": 40,
+        "evidence_note": "Visible argument between people, the intended active sense of reñir.",
+        "family_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0",
+        "global_need_rank": 123,
+        "item_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:018",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:018",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.322,
+        "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+        "source_sentence": "Neighbors started to wrangle about the noise late into the night."
+      },
+      "normalized_active_target": "reñir",
+      "normalized_candidate_target": "reñir",
+      "normalized_trigger": "wrangle",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+        "generated_at": "2026-05-13T20:41:07Z",
+        "ingested_at": "2026-05-13T20:41:45Z",
+        "input_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+        "model_id": "gpt-5.4-mini",
+        "normalization_version": "semantic_evidence_v1",
+        "prompt_slot": "active_evidence_expansion",
+        "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+        "raw_response_ref": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion:item:002",
+        "requested_runtime_publishable": false,
+        "row_id": "active-only-full-v1-tranche-011-source-row-018-wrangle-re-ir",
+        "source_family": "silver_llm_generation",
+        "source_id": "active-only-full-v1-tranche-011",
+        "source_type": "llm"
+      },
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "roles": [
+        "cue_generation"
+      ],
+      "row_id": "active-only-full-v1-tranche-011-source-row-018-wrangle-re-ir",
+      "runtime_publishable": false,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm",
+      "trigger": "wrangle"
+    }
+  ],
+  "schema_version": 1,
+  "source_family": "silver_llm_generation",
+  "source_id": "active-only-full-v1-tranche-011",
+  "source_type": "llm"
+}

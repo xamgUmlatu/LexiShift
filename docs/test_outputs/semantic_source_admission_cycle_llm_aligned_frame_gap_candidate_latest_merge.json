@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-28T21:02:34Z",
+  "status": "ok",
+  "batch_id": "en-es:example-frame-composite:llm-aligned-source-frame-gap-v1-20260429a",
+  "source_id": "llm_aligned_sentence_frame_rows_candidate_only",
+  "summary": {
+    "component_count": 2,
+    "row_count": 37,
+    "family_count": 14,
+    "relation_counts": {
+      "shadow_candidate": 22,
+      "anchor_cue": 15
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:example-frame-empty-base",
+      "source_id": "empty_source_admission_base",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 0,
+      "accepted_row_count": 0,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:example-frame-missing-rows:source-frame-gap-v1-20260429a:filtered",
+      "source_id": "llm_aligned_sentence_frame_rows",
+      "source_type": "llm",
+      "source_family": "silver_llm_generation",
+      "input_row_count": 37,
+      "accepted_row_count": 37,
+      "duplicate_row_count": 0
+    }
+  ]
+}

@@ -6,6 +6,13 @@ from typing import Optional
 block_cipher = None
 
 
+def _env_flag(name: str, default: bool) -> bool:
+    raw = os.environ.get(name)
+    if raw is None:
+        return default
+    return str(raw).strip().lower() not in {"0", "false", "no", "off"}
+
+
 def _find_repo_root(start_dir: str) -> str:
     current = os.path.abspath(start_dir)
     while True:
@@ -30,7 +37,9 @@ env_repo_root = os.environ.get("LEXISHIFT_REPO_ROOT")
 env_spec_path = os.environ.get("LEXISHIFT_SPEC_PATH")
 argv_spec_path = _spec_path_from_argv()
 spec_hint = env_spec_path or argv_spec_path
-repo_root = env_repo_root or _find_repo_root(os.path.dirname(spec_hint) if spec_hint else os.getcwd())
+repo_root = env_repo_root or _find_repo_root(
+    os.path.dirname(spec_hint) if spec_hint else os.getcwd()
+)
 spec_dir = os.path.join(repo_root, "apps", "gui", "packaging")
 
 APP_NAME = "LexiShift"
@@ -52,6 +61,7 @@ HELPER_BUNDLE_ID = "com.lexishift.helper.agent"
 HELPER_CATEGORY = "public.app-category.utilities"
 NATIVE_HOST_WINDOWS_DIR_NAME = "LexiShiftNativeHost"
 NATIVE_HOST_WINDOWS_EXE_NAME = "lexishift_native_host"
+PYINSTALLER_UPX_ENABLED = _env_flag("LEXISHIFT_PYINSTALLER_UPX", True)
 
 # Paths to branding assets in the new structure
 icon_icns = os.path.join(repo_root, "apps", "gui", "resources", "ttbn.icns")
@@ -184,15 +194,13 @@ main_pyz = PYZ(main_a.pure, main_a.zipped_data, cipher=block_cipher)
 main_exe = EXE(
     main_pyz,
     main_a.scripts,
-    main_a.binaries,
-    main_a.zipfiles,
-    main_a.datas,
     [],
+    exclude_binaries=True,
     name=EXE_NAME,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,
+    upx=PYINSTALLER_UPX_ENABLED,
     upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
@@ -227,15 +235,13 @@ helper_pyz = PYZ(helper_a.pure, helper_a.zipped_data, cipher=block_cipher)
 helper_exe = EXE(
     helper_pyz,
     helper_a.scripts,
-    helper_a.binaries,
-    helper_a.zipfiles,
-    helper_a.datas,
     [],
+    exclude_binaries=True,
     name=HELPER_APP_NAME,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,
+    upx=PYINSTALLER_UPX_ENABLED,
     upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
@@ -267,15 +273,13 @@ if sys.platform == "win32":
     host_exe = EXE(
         host_pyz,
         host_a.scripts,
-        host_a.binaries,
-        host_a.zipfiles,
-        host_a.datas,
         [],
+        exclude_binaries=True,
         name=NATIVE_HOST_WINDOWS_EXE_NAME,
         debug=False,
         bootloader_ignore_signals=False,
         strip=False,
-        upx=True,
+        upx=PYINSTALLER_UPX_ENABLED,
         upx_exclude=[],
         runtime_tmpdir=None,
         console=True,
@@ -298,7 +302,7 @@ if sys.platform == "darwin":
         main_a.zipfiles,
         main_a.datas,
         strip=False,
-        upx=True,
+        upx=PYINSTALLER_UPX_ENABLED,
         name=COLLECT_NAME,
     )
     app = BUNDLE(
@@ -315,7 +319,7 @@ if sys.platform == "darwin":
         helper_a.zipfiles,
         helper_a.datas,
         strip=False,
-        upx=True,
+        upx=PYINSTALLER_UPX_ENABLED,
         name=f"{HELPER_APP_NAME}_dir",
     )
 
@@ -333,7 +337,7 @@ elif sys.platform == "win32":
         main_a.zipfiles,
         main_a.datas,
         strip=False,
-        upx=True,
+        upx=PYINSTALLER_UPX_ENABLED,
         name=COLLECT_NAME,
     )
     helper_coll = COLLECT(
@@ -342,7 +346,7 @@ elif sys.platform == "win32":
         helper_a.zipfiles,
         helper_a.datas,
         strip=False,
-        upx=True,
+        upx=PYINSTALLER_UPX_ENABLED,
         name=HELPER_APP_NAME,
     )
     host_coll = COLLECT(
@@ -351,7 +355,7 @@ elif sys.platform == "win32":
         host_a.zipfiles,
         host_a.datas,
         strip=False,
-        upx=True,
+        upx=PYINSTALLER_UPX_ENABLED,
         name=NATIVE_HOST_WINDOWS_DIR_NAME,
     )
 else:
@@ -361,7 +365,7 @@ else:
         main_a.zipfiles,
         main_a.datas,
         strip=False,
-        upx=True,
+        upx=PYINSTALLER_UPX_ENABLED,
         name=COLLECT_NAME,
     )
     helper_coll = COLLECT(
@@ -370,6 +374,6 @@ else:
         helper_a.zipfiles,
         helper_a.datas,
         strip=False,
-        upx=True,
+        upx=PYINSTALLER_UPX_ENABLED,
         name=HELPER_APP_NAME,
     )

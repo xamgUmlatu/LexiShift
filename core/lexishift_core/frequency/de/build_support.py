@@ -4,9 +4,13 @@ import argparse
 from collections import Counter
 from pathlib import Path
 import re
+import sqlite3
 from typing import Any, Callable, Optional
 import unicodedata
 from xml.etree import ElementTree
+
+from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
+from lexishift_core.resources.dict_loaders import load_translation_headwords
 
 _normalize_pos: Optional[Callable[..., Any]]
 try:
@@ -94,7 +98,7 @@ def parse_args() -> argparse.Namespace:
         "--freedict-de-en-path",
         type=Path,
         default=None,
-        help="Path to deu-eng.tei (overrides auto-discovery)",
+        help="Path to FreeDict DE->EN artifact (main.sqlite / deu-eng.tei)",
     )
     parser.add_argument(
         "--odenet-path",
@@ -279,16 +283,11 @@ def load_freedict_headwords(path: Path) -> set[str]:
     if not path.exists():
         return lemmas
     try:
-        for _event, elem in ElementTree.iterparse(path, events=("end",)):
-            if elem.tag != f"{{{TEI_NS['tei']}}}entry":
-                continue
-            for orth in elem.findall("tei:form/tei:orth", TEI_NS):
-                text = (orth.text or "").strip()
-                lemma = normalize_token(text)
-                if lemma:
-                    lemmas.add(lemma)
-            elem.clear()
-    except (ElementTree.ParseError, OSError):
+        for raw_headword in load_translation_headwords(path):
+            lemma = normalize_token(raw_headword)
+            if lemma:
+                lemmas.add(lemma)
+    except (ElementTree.ParseError, OSError, sqlite3.Error, ValueError):
         return set()
     return lemmas
 
@@ -343,8 +342,17 @@ def discover_dictionary_paths(
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
     resolved_freedict = Path(freedict_de_en_path) if freedict_de_en_path else None
     if resolved_freedict is None:
+        manifest_artifact = resolve_installed_pack_artifact(language_packs_dir, "freedict-de-en")
+        if manifest_artifact is not None:
+            resolved_freedict = manifest_artifact
+    if resolved_freedict is None:
         candidates = [
+            language_packs_dir / "freedict-de-en" / "main.sqlite",
+            language_packs_dir / "freedict-de-en.sqlite",
+            language_packs_dir / "deu-eng.sqlite",
             language_packs_dir / "deu-eng.tei",
+            language_packs_dir / "freedict-de-en" / "freedict-de-en.sqlite",
+            language_packs_dir / "freedict-de-en" / "deu-eng.sqlite",
             language_packs_dir / "freedict-de-en" / "deu-eng.tei",
         ]
         for candidate in candidates:

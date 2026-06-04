@@ -1,0 +1,80 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 1,
+    "coverage_shortfall_count": 1,
+    "coverage_waived_item_count": 0,
+    "decision": "generated_items_need_repair",
+    "rejected_item_count": 1,
+    "status": "review"
+  },
+  "artifacts": {
+    "failures_jsonl": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-work-token-repair/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-work-token-repair_failures.jsonl",
+    "generated_responses_json": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-work-token-repair/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-work-token-repair_generated_responses.json",
+    "journal_jsonl": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-work-token-repair/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-work-token-repair_journal.jsonl",
+    "raw_response_bundle_json": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-work-token-repair/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-work-token-repair_raw_responses.json",
+    "raw_responses_jsonl": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-work-token-repair/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-work-token-repair_raw_responses.jsonl",
+    "request_queue_jsonl": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-work-token-repair/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-work-token-repair_request_queue.jsonl",
+    "run_manifest_json": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-work-token-repair/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-work-token-repair_run_manifest.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-001-work-token-repair",
+  "execution_mode": "live",
+  "generated_at": "2026-05-11T22:37:08Z",
+  "pair": "en-es",
+  "pilot_id": "",
+  "prompt_id": "",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:srs-source-target:work:trabajar:41fc059d",
+      "first_sentence": "I have to work late tonight to finish the report.",
+      "item_count": 2,
+      "pilot_arm": "P0_exposure_first",
+      "raw_response_ref": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/en-es/semantic_generation_runs/en-es-active-only-full-v1-tranche-001-work-token-repair/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-001-work-token-repair_raw_responses.json#semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_full_en_es_v1:en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0f32c0a6eed9fefc016a025a14e7cc81978724152727e968ea",
+      "slot_id": "en-es:srs-source-target:work:trabajar:41fc059d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 498,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 172,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 670
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 2,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 2
+    },
+    "accepted_response_count": 1,
+    "accepted_responses_by_arm": {
+      "P0_exposure_first": 1
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 1
+    },
+    "admission_status": "review",
+    "admitted_item_count": 1,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 1,
+    "coverage_waived_item_count": 0,
+    "input_tokens": 498,
+    "invalid_output_count": 0,
+    "output_tokens": 172,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 1,
+    "selected_request_count": 1
+  }
+}

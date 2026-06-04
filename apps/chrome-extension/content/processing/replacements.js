@@ -3,6 +3,18 @@
   const { tokenize, computeGapOk } = root.tokenizer || {};
   const { findLongestMatch, applyCase } = root.matcher || {};
   const replacementSelection = root.replacementSelection || {};
+  const semanticDebug = root.replacementSemanticDebug || {
+    applyToSpan: () => {},
+    buildMetadata: () => null,
+    copyDecision: () => null
+  };
+  const semanticOverride = root.replacementSemanticOverride || {
+    buildDecisionBySignature: () => new Map(),
+    buildResultOverride: () => ({ allowedMatchSignatures: new Set(), decisionBySignature: new Map() }),
+    getAdmission: () => null,
+    getMatchSignature: () => "",
+    normalizeResultOverride: () => null
+  };
   const RULE_ORIGIN_SRS = "srs";
   const MAX_CONTEXT_WORDS = 15;
   const createSelectionSeed = typeof replacementSelection.createSelectionSeed === "function"
@@ -152,7 +164,7 @@
     };
   }
 
-  function createReplacementSpan(originalText, displayPayload, rule, highlightEnabled, origin) {
+  function createReplacementSpan(originalText, displayPayload, rule, highlightEnabled, origin, debugMetadata) {
     const payload = displayPayload && typeof displayPayload === "object"
       ? displayPayload
       : {
@@ -197,6 +209,10 @@
       if (rule.metadata && rule.metadata.language_pair) {
         span.dataset.languagePair = String(rule.metadata.language_pair);
       }
+    }
+    const metadata = debugMetadata && typeof debugMetadata === "object" ? debugMetadata : null;
+    if (metadata) {
+      semanticDebug.applyToSpan(span, metadata);
     }
 
     let tooltip = "Click to toggle original";
@@ -250,7 +266,18 @@
     return `... ${excerptWords.join(" ")} ...`;
   }
 
-  function buildReplacementFragment(text, trie, settings, onTextNode, originResolver, budget) {
+  async function buildReplacementFragment(
+    text,
+    trie,
+    settings,
+    onTextNode,
+    originResolver,
+    budget,
+    semanticGateRuntime, semanticContextResolver, options
+  ) {
+    const buildOptions = options && typeof options === "object" ? options : {};
+    const dryRun = buildOptions.dryRun === true;
+    const semanticResultOverride = semanticOverride.normalizeResultOverride(buildOptions.semanticResultOverride);
     const trackDetails = settings.debugEnabled === true;
     const details = trackDetails ? [] : null;
     const budgetKeys = budget ? [] : null;
@@ -280,9 +307,60 @@
     }
 
     const selectionSeed = createSelectionSeed(text, settings);
-    const finalMatches = filterMatchesByPolicy(matches, settings, gapOk, budget, selectionSeed);
+    let finalMatches = filterMatchesByPolicy(matches, settings, gapOk, budget, selectionSeed);
+    let semanticDecisionMap = null;
+    let semanticDecisionBySignature = semanticResultOverride
+      ? semanticResultOverride.decisionBySignature
+      : null;
+    let semanticSummary = null;
+    if (semanticResultOverride) {
+      finalMatches = finalMatches.filter((match) =>
+        semanticResultOverride.allowedMatchSignatures.has(semanticOverride.getMatchSignature(match))
+      );
+    } else if (
+      semanticGateRuntime
+      && typeof semanticGateRuntime.admitMatches === "function"
+      && finalMatches.length
+    ) {
+      const semanticResult = await semanticGateRuntime.admitMatches({
+        text,
+        tokens,
+        wordPositions,
+        matches: finalMatches,
+        settings, semanticContextResolver
+      });
+      if (semanticResult && Array.isArray(semanticResult.matches)) {
+        finalMatches = semanticResult.matches;
+        semanticDecisionMap = semanticResult.decisionMap instanceof Map
+          ? semanticResult.decisionMap
+          : null;
+        semanticDecisionBySignature = semanticOverride.buildDecisionBySignature(semanticDecisionMap);
+        semanticSummary = semanticResult.summary && typeof semanticResult.summary === "object"
+          ? semanticResult.summary
+          : null;
+      }
+    }
+    if (dryRun) {
+      return {
+        fragment: null,
+        replacements: finalMatches.length,
+        details,
+        budgetKeys,
+        semanticSummary,
+        semanticResultOverride: semanticOverride.buildResultOverride(finalMatches, semanticDecisionMap)
+      };
+    }
     if (!finalMatches.length) {
-      return null;
+      if (!semanticSummary) {
+        return null;
+      }
+      return {
+        fragment: null,
+        replacements: 0,
+        details,
+        budgetKeys,
+        semanticSummary
+      };
     }
 
     const fragment = document.createDocumentFragment();
@@ -304,12 +382,26 @@
       const origin = originResolver
         ? originResolver(match.rule, displayPayload.displayReplacement)
         : null;
+      const semanticDecision = semanticDecisionMap
+        ? semanticDecisionMap.get(match)
+        : (semanticDecisionBySignature
+          ? semanticDecisionBySignature.get(semanticOverride.getMatchSignature(match))
+          : null);
+      const semanticAdmission = semanticOverride.getAdmission(match.rule);
+      const semanticDebugMetadata = settings.debugEnabled === true
+        ? semanticDebug.buildMetadata(semanticAdmission, semanticDecision)
+        : null;
       if (budgetKeys) {
         budgetKeys.push(displayPayload.canonicalReplacement);
       }
-      fragment.appendChild(
-        createReplacementSpan(originalText, displayPayload, match.rule, settings.highlightEnabled, origin)
-      );
+      fragment.appendChild(createReplacementSpan(
+        originalText,
+        displayPayload,
+        match.rule,
+        settings.highlightEnabled,
+        origin,
+        semanticDebugMetadata
+      ));
       if (details) {
         details.push({
           original: originalText,
@@ -325,7 +417,8 @@
           language_tag: displayPayload.wordPackage
             ? String(displayPayload.wordPackage.language_tag || "")
             : "",
-          word_package: displayPayload.wordPackage || null
+          word_package: displayPayload.wordPackage || null,
+          semantic_decision: semanticDebug.copyDecision(semanticDecision)
         });
       }
       tokenCursor = endTokenIdx + 1;
@@ -338,7 +431,13 @@
         if (onTextNode) onTextNode(textNode);
       }
     }
-    return { fragment, replacements: finalMatches.length, details, budgetKeys };
+    return {
+      fragment,
+      replacements: finalMatches.length,
+      details,
+      budgetKeys,
+      semanticSummary
+    };
   }
 
   root.replacements = { buildReplacementFragment, createReplacementSpan };

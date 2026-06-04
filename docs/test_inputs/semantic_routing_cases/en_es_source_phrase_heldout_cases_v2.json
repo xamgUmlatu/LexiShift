@@ -1,0 +1,409 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_phrase_heldout_cases_v2",
+  "base_dataset": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "description": "Broader non-benchmark phrase-sensitive abstain validation cases for the en-es semantic source lane. This suite keeps phrase/no-winner cases separate from active/shadow semantic promotion and adds a second phrase shape per v10 family.",
+  "case_scope": "phrase_no_winner_only",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:ball:001",
+          "sentence": "Her quick email got the ball rolling before noon.",
+          "source_phrase": "ball",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "idiom"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:ball:002",
+          "sentence": "The committee dropped the ball on the deadline.",
+          "source_phrase": "ball",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:bank:001",
+          "sentence": "The coach will bank on reserves during the final quarter.",
+          "source_phrase": "bank",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:bank:002",
+          "sentence": "Do not bank on the shipment arriving early.",
+          "source_phrase": "bank",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:plant:001",
+          "sentence": "The editor refused to plant rumors in the article.",
+          "source_phrase": "plant",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:plant:002",
+          "sentence": "Investigators said someone might plant clues near the gate.",
+          "source_phrase": "plant",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:cell:001",
+          "sentence": "Her phone had no cell reception near the canyon.",
+          "source_phrase": "cell",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "compound"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:cell:002",
+          "sentence": "The hiking group lost cell signal after sunset.",
+          "source_phrase": "cell",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "compound"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:spring:001",
+          "sentence": "The locked drawer can spring open without warning.",
+          "source_phrase": "spring",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:spring:002",
+          "sentence": "A surprise fee may spring up during checkout.",
+          "source_phrase": "spring",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:seal:001",
+          "sentence": "Please seal the jars before the sauce cools.",
+          "source_phrase": "seal",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:seal:002",
+          "sentence": "The crew will seal off the corridor tonight.",
+          "source_phrase": "seal",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:file:001",
+          "sentence": "The lawyer will file an appeal next week.",
+          "source_phrase": "file",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:file:002",
+          "sentence": "The clerk had to file away the signed forms.",
+          "source_phrase": "file",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:match:partido",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:match:001",
+          "sentence": "Those numbers match the totals on the receipt.",
+          "source_phrase": "match",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:match:002",
+          "sentence": "The curtains match perfectly with the sofa.",
+          "source_phrase": "match",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:board:001",
+          "sentence": "Passengers will board the ferry at sunset.",
+          "source_phrase": "board",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:board:002",
+          "sentence": "The new designer came on board last month.",
+          "source_phrase": "board",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:table:001",
+          "sentence": "The council may table the motion until June.",
+          "source_phrase": "table",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:table:002",
+          "sentence": "The chair decided to table further debate.",
+          "source_phrase": "table",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:branch:001",
+          "sentence": "The studio plans to branch into animation.",
+          "source_phrase": "branch",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:branch:002",
+          "sentence": "The project could branch off into training tools.",
+          "source_phrase": "branch",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:park:parque",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:park:001",
+          "sentence": "The manager chose to park the proposal for now.",
+          "source_phrase": "park",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:park:002",
+          "sentence": "They will park near the entrance before lunch.",
+          "source_phrase": "park",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:drink:001",
+          "sentence": "Visitors stopped to drink in the mountain view.",
+          "source_phrase": "drink",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "idiom"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:drink:002",
+          "sentence": "The audience seemed to drink up every word.",
+          "source_phrase": "drink",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:play:001",
+          "sentence": "The negotiations will play out over several days.",
+          "source_phrase": "play",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:play:002",
+          "sentence": "The speaker tried to play down the delay.",
+          "source_phrase": "play",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:watch:001",
+          "sentence": "Watch out for loose gravel on the trail.",
+          "source_phrase": "watch",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:watch:002",
+          "sentence": "The investors will watch over the rollout closely.",
+          "source_phrase": "watch",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:check:001",
+          "sentence": "The tourists should check out by eleven.",
+          "source_phrase": "check",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:check:002",
+          "sentence": "Please check in at the front desk.",
+          "source_phrase": "check",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:order:001",
+          "sentence": "The family decided to order in after the storm.",
+          "source_phrase": "order",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:order:002",
+          "sentence": "The judge told the room to order pizza later.",
+          "source_phrase": "order",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:trip:001",
+          "sentence": "Dense paperwork can trip up first-time applicants.",
+          "source_phrase": "trip",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:trip:002",
+          "sentence": "Do not trip over the loose cable.",
+          "source_phrase": "trip",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "cases": [
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:report:001",
+          "sentence": "Report back when the repair crew arrives.",
+          "source_phrase": "report",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "phrasal_verb"]
+        },
+        {
+          "case_id": "en-es:source-phrase-heldout:v2:report:002",
+          "sentence": "The reporter may report on the vote tonight.",
+          "source_phrase": "report",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["source_phrase_heldout_v2", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    }
+  ]
+}

@@ -19,6 +19,8 @@ from lexishift_core.helper.engine import (
     apply_exposure,
     apply_feedback,
     initialize_srs_set,
+    list_srs_items,
+    load_semantic_inventory,
     load_snapshot,
     plan_srs_set,
     refresh_srs_set,
@@ -29,9 +31,25 @@ from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_pr
 from lexishift_core.helper.paths import build_helper_paths
 from lexishift_core.helper.status import load_status
 from lexishift_core.helper.lp_capabilities import (
-    default_freedict_de_en_path,
     default_frequency_db_path,
     default_jmdict_path,
+    default_translation_dictionary_path,
+)
+from lexishift_helper_semantic_pack import register_install_semantic_pack_command
+from srs_browsing_admission_cli_support import register_browsing_admission_ingest_command
+from srs_admission_cli_support import register_srs_preview_and_rebalance_commands
+
+
+_TRANSLATION_DICT_OVERRIDE_HELP = (
+    "Optional manual translation dictionary override. "
+    "Installed language packs are used by default. "
+    "SQLite is preferred; TEI remains available for manual compatibility."
+)
+
+_FREQUENCY_PACK_OVERRIDE_HELP = (
+    "Optional manual frequency SQLite override. "
+    "Installed frequency packs are used by default. "
+    "Legacy alias: --set-source-db."
 )
 
 
@@ -56,7 +74,7 @@ def _resolve_pair_resource_paths(
     *,
     pair: str,
     jmdict_arg: Optional[str],
-    freedict_de_en_arg: Optional[str],
+    translation_dict_arg: Optional[str],
     set_source_db_arg: Optional[str],
 ) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
     jmdict_path = (
@@ -67,10 +85,10 @@ def _resolve_pair_resource_paths(
             language_packs_dir=paths.language_packs_dir,
         )
     )
-    freedict_de_en_path = (
-        Path(freedict_de_en_arg)
-        if freedict_de_en_arg
-        else default_freedict_de_en_path(
+    translation_dict_path = (
+        Path(translation_dict_arg)
+        if translation_dict_arg
+        else default_translation_dictionary_path(
             pair,
             language_packs_dir=paths.language_packs_dir,
         )
@@ -83,7 +101,7 @@ def _resolve_pair_resource_paths(
             frequency_packs_dir=paths.frequency_packs_dir,
         )
     )
-    return jmdict_path, freedict_de_en_path, set_source_db
+    return jmdict_path, translation_dict_path, set_source_db
 
 
 def cmd_status(args: argparse.Namespace) -> int:
@@ -114,6 +132,28 @@ def cmd_get_snapshot(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_get_semantic_inventory(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    try:
+        payload = load_semantic_inventory(
+            paths, pair=args.pair, profile_id=args.profile_id or "default"
+        )
+    except FileNotFoundError:
+        _print_json(
+            {
+                "error": "semantic_inventory_not_found",
+                "path": str(
+                    paths.semantic_inventory_path(
+                        args.pair, profile_id=args.profile_id or "default"
+                    )
+                ),
+            }
+        )
+        return 1
+    _print_json(payload)
+    return 0
+
+
 def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
     payload = get_srs_runtime_diagnostics(
@@ -123,13 +163,20 @@ def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_srs_items_list(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    payload = list_srs_items(paths, pair=args.pair, profile_id=args.profile_id or "default")
+    _print_json(payload)
+    return 0
+
+
 def cmd_run_rulegen(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+    jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
         paths,
         pair=args.pair,
         jmdict_arg=args.jmdict,
-        freedict_de_en_arg=args.freedict_de_en,
+        translation_dict_arg=args.translation_dict,
         set_source_db_arg=args.set_source_db,
     )
     if args.enable_pos_scoring:
@@ -163,7 +210,7 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
             config=RulegenJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 profile_id=args.profile_id or "default",
                 set_source_db=set_source_db,
                 set_top_n=args.set_top_n,
@@ -208,11 +255,11 @@ def cmd_run_rulegen(args: argparse.Namespace) -> int:
 
 def cmd_init_srs_set(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+    jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
         paths,
         pair=args.pair,
         jmdict_arg=args.jmdict,
-        freedict_de_en_arg=args.freedict_de_en,
+        translation_dict_arg=args.translation_dict,
         set_source_db_arg=args.set_source_db,
     )
 
@@ -223,7 +270,7 @@ def cmd_init_srs_set(args: argparse.Namespace) -> int:
             config=SetInitializationJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
                 set_top_n=args.set_top_n,
@@ -273,22 +320,24 @@ def cmd_plan_srs_set(args: argparse.Namespace) -> int:
 
 def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    jmdict_path, freedict_de_en_path, set_source_db = _resolve_pair_resource_paths(
+    jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
         paths,
         pair=args.pair,
         jmdict_arg=args.jmdict,
-        freedict_de_en_arg=args.freedict_de_en,
+        translation_dict_arg=args.translation_dict,
         set_source_db_arg=args.set_source_db,
     )
     try:
+        profile_context = _load_optional_json(args.profile_context_json)
         payload = refresh_srs_set(
             paths,
             config=SrsRefreshJobConfig(
                 pair=args.pair,
                 jmdict_path=jmdict_path,
-                freedict_de_en_path=freedict_de_en_path,
+                translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
+                strategy=args.strategy,
                 set_top_n=args.set_top_n,
                 feedback_window_size=args.feedback_window_size,
                 max_active_items=args.max_active_items,
@@ -296,6 +345,7 @@ def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
                 allowed_pos=args.allowed_pos,
                 persist_store=not args.no_persist_store,
                 trigger=args.trigger,
+                profile_context=profile_context,
             ),
         )
         _print_json(payload)
@@ -334,7 +384,12 @@ def cmd_record_exposure(args: argparse.Namespace) -> int:
 
 def cmd_reset_srs(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    payload = reset_srs_data(paths, pair=args.pair, profile_id=args.profile_id or "default")
+    payload = reset_srs_data(
+        paths,
+        pair=args.pair,
+        profile_id=args.profile_id or "default",
+        preserve_lifecycle_metadata=bool(args.preserve_lifecycle_metadata),
+    )
     _print_json(payload)
     return 0
 
@@ -366,17 +421,41 @@ def build_parser() -> argparse.ArgumentParser:
     snapshot.add_argument("--profile-id", help="Profile id (default: default)")
     snapshot.set_defaults(func=cmd_get_snapshot)
 
+    semantic_inventory = sub.add_parser(
+        "get_semantic_inventory",
+        help="Print semantic inventory for a pair",
+    )
+    semantic_inventory.add_argument("--pair", default="en-ja")
+    semantic_inventory.add_argument("--profile-id", help="Profile id (default: default)")
+    semantic_inventory.set_defaults(func=cmd_get_semantic_inventory)
+
     diagnostics = sub.add_parser("srs_diagnostics", help="Show helper-side SRS runtime diagnostics")
     diagnostics.add_argument("--pair", default="en-ja")
     diagnostics.add_argument("--profile-id", help="Profile id (default: default)")
     diagnostics.set_defaults(func=cmd_srs_diagnostics)
 
+    srs_items_list = sub.add_parser(
+        "srs_items_list",
+        help="List SRS words for the selected pair/profile.",
+    )
+    srs_items_list.add_argument("--pair", default="en-ja")
+    srs_items_list.add_argument("--profile-id", help="Profile id (default: default)")
+    srs_items_list.set_defaults(func=cmd_srs_items_list)
+
     run = sub.add_parser("run_rulegen", help="Run rulegen for a language pair")
     run.add_argument("--pair", default="en-ja")
     run.add_argument("--profile-id", help="Profile id (default: default)")
     run.add_argument("--jmdict", help="Path to JMdict_e folder")
-    run.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
-    run.add_argument("--set-source-db", help="Path to frequency SQLite for initializing S")
+    run.add_argument(
+        "--translation-dict",
+        help=_TRANSLATION_DICT_OVERRIDE_HELP,
+    )
+    run.add_argument(
+        "--frequency-pack-path",
+        "--set-source-db",
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
+    )
     run.add_argument(
         "--set-top-n", type=int, help="Top-N seed cap (defaults from pair policy when omitted)."
     )
@@ -551,8 +630,16 @@ def build_parser() -> argparse.ArgumentParser:
     init_s.add_argument("--pair", default="en-ja")
     init_s.add_argument("--profile-id", help="Profile id (default: default)")
     init_s.add_argument("--jmdict", help="Path to JMdict_e folder")
-    init_s.add_argument("--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)")
-    init_s.add_argument("--set-source-db", help="Path to frequency SQLite used to initialize S")
+    init_s.add_argument(
+        "--translation-dict",
+        help=_TRANSLATION_DICT_OVERRIDE_HELP,
+    )
+    init_s.add_argument(
+        "--frequency-pack-path",
+        "--set-source-db",
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
+    )
     init_s.add_argument(
         "--set-top-n",
         type=int,
@@ -613,10 +700,14 @@ def build_parser() -> argparse.ArgumentParser:
     refresh_s.add_argument("--profile-id", help="Profile id (default: default)")
     refresh_s.add_argument("--jmdict", help="Path to JMdict_e folder")
     refresh_s.add_argument(
-        "--freedict-de-en", help="Path to FreeDict DE->EN TEI file (deu-eng.tei)"
+        "--translation-dict",
+        help=_TRANSLATION_DICT_OVERRIDE_HELP,
     )
     refresh_s.add_argument(
-        "--set-source-db", help="Path to frequency SQLite used for candidate pool"
+        "--frequency-pack-path",
+        "--set-source-db",
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
     )
     refresh_s.add_argument(
         "--set-top-n",
@@ -639,11 +730,22 @@ def build_parser() -> argparse.ArgumentParser:
         nargs="+",
         help="Optional POS bucket allow-list for admission (e.g. noun adjective verb).",
     )
+    refresh_s.add_argument("--strategy", default="profile_growth")
+    refresh_s.add_argument(
+        "--profile-context-json",
+        help="JSON object with profile context signals used by profile_growth.",
+    )
     refresh_s.add_argument(
         "--no-persist-store", action="store_true", help="Do not write changes to srs_store.json"
     )
     refresh_s.add_argument("--trigger", default="cli")
     refresh_s.set_defaults(func=cmd_refresh_srs_set)
+    register_srs_preview_and_rebalance_commands(
+        sub,
+        print_json_fn=_print_json,
+        load_optional_json_fn=_load_optional_json,
+        resolve_pair_resource_paths_fn=_resolve_pair_resource_paths,
+    )
 
     feedback = sub.add_parser("record_feedback", help="Record SRS feedback")
     feedback.add_argument("--pair", required=True)
@@ -660,9 +762,16 @@ def build_parser() -> argparse.ArgumentParser:
     exposure.add_argument("--source-type", default="extension")
     exposure.set_defaults(func=cmd_record_exposure)
 
+    register_browsing_admission_ingest_command(sub, print_json_fn=_print_json)
+
     reset = sub.add_parser("reset_srs", help="Reset SRS progress")
     reset.add_argument("--pair", help="Language pair to reset (omit to reset all).")
     reset.add_argument("--profile-id", help="Profile id (default: default)")
+    reset.add_argument(
+        "--preserve-lifecycle-metadata",
+        action="store_true",
+        help="Keep durable discard/block suppression metadata during reset.",
+    )
     reset.set_defaults(func=cmd_reset_srs)
 
     profiles_get = sub.add_parser(
@@ -678,6 +787,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--profile-id", help="Profile id (default: resolved active profile)"
     )
     profile_rulesets_get.set_defaults(func=cmd_profile_rulesets_get)
+
+    register_install_semantic_pack_command(sub)
 
     return parser
 

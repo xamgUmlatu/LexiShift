@@ -4512,10 +4512,10 @@
       "file": "core/lexishift_core/rulegen/pairs/en_es.py",
       "language": "python",
       "metrics": {
-        "lines": 356,
+        "lines": 4156,
         "imports": 16,
         "domainBreadth": 1,
-        "functions": 17
+        "functions": 101
       },
       "limits": {
         "maxLines": 900,
@@ -4524,12 +4524,15 @@
         "maxFunctions": 50
       },
       "overages": {
-        "lines": 0,
+        "lines": 3256,
         "imports": 0,
         "domainBreadth": 0,
-        "functions": 0
+        "functions": 51
       },
-      "violation_metrics": [],
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
       "warning_metrics": []
     },
     "core/lexishift_core/rulegen/pairs/es_en.py": {
@@ -5212,10 +5215,10 @@
       "file": "core/lexishift_core/helper/rulegen.py",
       "language": "python",
       "metrics": {
-        "lines": 374,
-        "imports": 21,
+        "lines": 841,
+        "imports": 22,
         "domainBreadth": 1,
-        "functions": 12
+        "functions": 29
       },
       "limits": {
         "maxLines": 900,
@@ -5231,6 +5234,7 @@
       },
       "violation_metrics": [],
       "warning_metrics": [
+        "lines",
         "imports"
       ]
     },
@@ -6155,6 +6159,58 @@
       },
       "violation_metrics": [],
       "warning_metrics": []
+    },
+    "core/lexishift_core/rulegen/semantic_routing_runtime_policy.py": {
+      "file": "core/lexishift_core/rulegen/semantic_routing_runtime_policy.py",
+      "language": "python",
+      "metrics": {
+        "lines": 834,
+        "imports": 4,
+        "domainBreadth": 1,
+        "functions": 13
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    "scripts/testing/semantic_veto_srs_source_stack_audit_en_es.py": {
+      "file": "scripts/testing/semantic_veto_srs_source_stack_audit_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 822,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 26
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
     }
   }
 }

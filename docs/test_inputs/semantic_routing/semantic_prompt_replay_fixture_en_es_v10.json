@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "replay_id": "semantic_prompt_replay_en_es_v10",
+  "notes": [
+    "No-spend plumbing rehearsal for the semantic prompt bakeoff runner.",
+    "Includes one accepted row, one malformed output row, and one replayed API error."
+  ],
+  "requests": [
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "response_id": "replay_resp_plant_ok",
+      "usage": {
+        "input_tokens": 118,
+        "output_tokens": 24,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"living organism with leaves or roots, not an industrial facility\",\"confidence\":0.84}]}"
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+      "response_id": "replay_resp_check_bad",
+      "usage": {
+        "input_tokens": 126,
+        "output_tokens": 21,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"paper payment instrument rather than the action of examining\",\"extra_key\":\"unexpected\"}]}"
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:drink:beber",
+      "error_type": "RuntimeError",
+      "error_message": "Replay plumbing rehearsal forced API failure"
+    }
+  ]
+}

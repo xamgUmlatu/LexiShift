@@ -1,0 +1,569 @@
+{
+  "checks": [
+    {
+      "check_id": "candidate_detail_available",
+      "passed": true,
+      "rationale": "Candidate row has top-band detail rows with per-target normalized metrics."
+    },
+    {
+      "check_id": "normalization_targets_all_positive",
+      "passed": true,
+      "rationale": "High-need failure is higher than low-need failure under every normalization target."
+    },
+    {
+      "check_id": "normalization_order_all_monotonic",
+      "passed": true,
+      "rationale": "High, middle, and low bands are monotonic under every normalization target."
+    },
+    {
+      "check_id": "sentence_transformer_configs_positive",
+      "passed": true,
+      "rationale": "The candidate formula remains positive across sentence-transformer candidate configs."
+    },
+    {
+      "check_id": "near_neighbor_family_available",
+      "passed": true,
+      "rationale": "At least five near-neighbor formulas are within the configured grade threshold."
+    },
+    {
+      "check_id": "candidate_beats_fixed_controls",
+      "passed": true,
+      "rationale": "The candidate beats the best fixed single/hand-authored control on the same scorer config."
+    }
+  ],
+  "control_summary": {
+    "best_fixed_control": {
+      "band_family_counts": {
+        "high_need": 20,
+        "low_need": 14,
+        "middle_need": 15
+      },
+      "formula_family": "fixed_single_signal",
+      "formula_id": "pos_shape_only",
+      "primary_grade_score": 0.1766,
+      "primary_normalized_high_low_failure_delta": 0.1988,
+      "primary_normalized_order_score": 1.0,
+      "raw_high_low_failure_delta": 0.1309,
+      "weights": {
+        "pos_shape_risk": 1.0
+      }
+    },
+    "candidate_beats_best_fixed_control": true,
+    "candidate_grade_score": 0.2202,
+    "control_rows": [
+      {
+        "band_family_counts": {
+          "high_need": 20,
+          "low_need": 14,
+          "middle_need": 15
+        },
+        "formula_family": "fixed_single_signal",
+        "formula_id": "pos_shape_only",
+        "primary_grade_score": 0.1766,
+        "primary_normalized_high_low_failure_delta": 0.1988,
+        "primary_normalized_order_score": 1.0,
+        "raw_high_low_failure_delta": 0.1309,
+        "weights": {
+          "pos_shape_risk": 1.0
+        }
+      },
+      {
+        "band_family_counts": {
+          "high_need": 18,
+          "low_need": 16,
+          "middle_need": 15
+        },
+        "formula_family": "fixed_linear",
+        "formula_id": "linear_equal",
+        "primary_grade_score": 0.143,
+        "primary_normalized_high_low_failure_delta": 0.161,
+        "primary_normalized_order_score": 1.0,
+        "raw_high_low_failure_delta": 0.0843,
+        "weights": {
+          "polysemy_risk": 0.2,
+          "pos_shape_risk": 0.2,
+          "shadow_coverage_risk": 0.2,
+          "source_zipf_risk": 0.2,
+          "target_zipf_risk": 0.2
+        }
+      },
+      {
+        "band_family_counts": {
+          "high_need": 17,
+          "low_need": 15,
+          "middle_need": 17
+        },
+        "formula_family": "fixed_linear",
+        "formula_id": "linear_polysemy_shadow",
+        "primary_grade_score": 0.1174,
+        "primary_normalized_high_low_failure_delta": 0.1591,
+        "primary_normalized_order_score": 1.0,
+        "raw_high_low_failure_delta": 0.092,
+        "weights": {
+          "polysemy_risk": 0.35,
+          "pos_shape_risk": 0.2,
+          "shadow_coverage_risk": 0.3,
+          "source_zipf_risk": 0.1,
+          "target_zipf_risk": 0.05
+        }
+      },
+      {
+        "band_family_counts": {
+          "high_need": 19,
+          "low_need": 26,
+          "middle_need": 4
+        },
+        "formula_family": "fixed_single_signal",
+        "formula_id": "shadow_coverage_only",
+        "primary_grade_score": 0.1016,
+        "primary_normalized_high_low_failure_delta": 0.2065,
+        "primary_normalized_order_score": 0.6667,
+        "raw_high_low_failure_delta": 0.1194,
+        "weights": {
+          "shadow_coverage_risk": 1.0
+        }
+      },
+      {
+        "band_family_counts": {
+          "high_need": 20,
+          "low_need": 23,
+          "middle_need": 6
+        },
+        "formula_family": "fixed_single_signal",
+        "formula_id": "polysemy_only",
+        "primary_grade_score": 0.039,
+        "primary_normalized_high_low_failure_delta": 0.0659,
+        "primary_normalized_order_score": 0.6667,
+        "raw_high_low_failure_delta": 0.0135,
+        "weights": {
+          "polysemy_risk": 1.0
+        }
+      },
+      {
+        "band_family_counts": {
+          "high_need": 20,
+          "low_need": 18,
+          "middle_need": 11
+        },
+        "formula_family": "fixed_max",
+        "formula_id": "max_signal",
+        "primary_grade_score": 0.023,
+        "primary_normalized_high_low_failure_delta": 0.0389,
+        "primary_normalized_order_score": 0.6667,
+        "raw_high_low_failure_delta": 0.0195,
+        "weights": {
+          "polysemy_risk": 1.0,
+          "pos_shape_risk": 1.0,
+          "shadow_coverage_risk": 1.0,
+          "source_zipf_risk": 1.0,
+          "target_zipf_risk": 1.0
+        }
+      },
+      {
+        "band_family_counts": {
+          "high_need": 21,
+          "low_need": 10,
+          "middle_need": 18
+        },
+        "formula_family": "fixed_single_signal",
+        "formula_id": "target_zipf_only",
+        "primary_grade_score": 0.0211,
+        "primary_normalized_high_low_failure_delta": 0.0356,
+        "primary_normalized_order_score": 0.6667,
+        "raw_high_low_failure_delta": -0.0043,
+        "weights": {
+          "target_zipf_risk": 1.0
+        }
+      },
+      {
+        "band_family_counts": {
+          "high_need": 17,
+          "low_need": 15,
+          "middle_need": 17
+        },
+        "formula_family": "fixed_interaction",
+        "formula_id": "source_polysemy_interaction",
+        "primary_grade_score": 0.0134,
+        "primary_normalized_high_low_failure_delta": 0.0227,
+        "primary_normalized_order_score": 0.6667,
+        "raw_high_low_failure_delta": 0.0,
+        "weights": {
+          "polysemy_risk": 0.25,
+          "pos_shape_risk": 0.1,
+          "shadow_coverage_risk": 0.1,
+          "source_polysemy_product": 0.2,
+          "source_zipf_risk": 0.25,
+          "target_zipf_risk": 0.1
+        }
+      },
+      {
+        "band_family_counts": {
+          "high_need": 17,
+          "low_need": 16,
+          "middle_need": 16
+        },
+        "formula_family": "fixed_linear",
+        "formula_id": "linear_source_polysemy",
+        "primary_grade_score": 0.0016,
+        "primary_normalized_high_low_failure_delta": 0.0027,
+        "primary_normalized_order_score": 0.6667,
+        "raw_high_low_failure_delta": -0.0138,
+        "weights": {
+          "polysemy_risk": 0.35,
+          "pos_shape_risk": 0.15,
+          "shadow_coverage_risk": 0.05,
+          "source_zipf_risk": 0.4,
+          "target_zipf_risk": 0.05
+        }
+      },
+      {
+        "band_family_counts": {
+          "high_need": 16,
+          "low_need": 22,
+          "middle_need": 11
+        },
+        "formula_family": "fixed_single_signal",
+        "formula_id": "source_zipf_only",
+        "primary_grade_score": 0.0,
+        "primary_normalized_high_low_failure_delta": -0.0401,
+        "primary_normalized_order_score": 0.3333,
+        "raw_high_low_failure_delta": -0.0249,
+        "weights": {
+          "source_zipf_risk": 1.0
+        }
+      }
+    ],
+    "scorer_id": "safest_80pct_positive_sentence_transformer_a0000_m0015"
+  },
+  "decision": "accept_band_grading_v1_for_next_research_stage",
+  "generated_at": "2026-05-09T19:59:14Z",
+  "inputs": {
+    "band_grading_decision": "product_scope_band_grading_established",
+    "band_grading_path": "docs/test_outputs/semantic_veto_product_scope_band_grading_en_es_latest.json",
+    "near_neighbor_fraction": 0.9
+  },
+  "limitations": [
+    "acceptance_is_for_next_research_stage_not_runtime_policy",
+    "tfidf_backend_does_not_consistently_support_the_same_candidate_formula",
+    "phrase_no_winner_mass_remains_visible_but_unmeasured_in_the_product_scope_surface",
+    "the_49_family_denominator_is_still_small"
+  ],
+  "methodology": {
+    "acceptance_boundary": "Acceptance means carry-forward for the next research stage, not proof of final product accuracy and not backend-agnostic promotion.",
+    "candidate_selection": "Default candidate is the first best_by_primary_band_grade row from the band-grading report unless overridden by CLI flags.",
+    "purpose": "Falsify obvious weaknesses before freezing the current best band-creation heuristic as the v1 LLM-allocation candidate.",
+    "runtime_policy_change": "none"
+  },
+  "near_neighbor_summary": {
+    "candidate_grade_score": 0.2202,
+    "feature_weight_stats": [
+      {
+        "feature_id": "polysemy_risk",
+        "max_weight": 0.2222,
+        "mean_weight": 0.1,
+        "min_weight": 0.0,
+        "nonzero_share": 0.6471
+      },
+      {
+        "feature_id": "pos_shape_risk",
+        "max_weight": 0.5,
+        "mean_weight": 0.2464,
+        "min_weight": 0.0,
+        "nonzero_share": 0.7647
+      },
+      {
+        "feature_id": "shadow_coverage_risk",
+        "max_weight": 0.375,
+        "mean_weight": 0.2977,
+        "min_weight": 0.2222,
+        "nonzero_share": 1.0
+      },
+      {
+        "feature_id": "source_zipf_risk",
+        "max_weight": 0.3333,
+        "mean_weight": 0.2277,
+        "min_weight": 0.1111,
+        "nonzero_share": 1.0
+      },
+      {
+        "feature_id": "target_zipf_risk",
+        "max_weight": 0.3333,
+        "mean_weight": 0.1281,
+        "min_weight": 0.0,
+        "nonzero_share": 0.7059
+      }
+    ],
+    "formula_family_counts": {
+      "sweep_linear": 17
+    },
+    "near_neighbor_count": 17,
+    "near_neighbor_fraction": 0.9,
+    "near_neighbor_threshold": 0.1982,
+    "scorer_id": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+    "top_neighbor_rows": [
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_2169",
+        "primary_grade_score": 0.2202,
+        "primary_normalized_high_low_failure_delta": 0.2479,
+        "weights": {
+          "polysemy_risk": 0.07692307692307693,
+          "pos_shape_risk": 0.23076923076923078,
+          "shadow_coverage_risk": 0.3076923076923077,
+          "source_zipf_risk": 0.23076923076923078,
+          "target_zipf_risk": 0.15384615384615385
+        }
+      },
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_1268",
+        "primary_grade_score": 0.2187,
+        "primary_normalized_high_low_failure_delta": 0.2462,
+        "weights": {
+          "polysemy_risk": 0.0,
+          "pos_shape_risk": 0.375,
+          "shadow_coverage_risk": 0.375,
+          "source_zipf_risk": 0.25,
+          "target_zipf_risk": 0.0
+        }
+      },
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_1293",
+        "primary_grade_score": 0.2187,
+        "primary_normalized_high_low_failure_delta": 0.2462,
+        "weights": {
+          "polysemy_risk": 0.1111111111111111,
+          "pos_shape_risk": 0.3333333333333333,
+          "shadow_coverage_risk": 0.3333333333333333,
+          "source_zipf_risk": 0.2222222222222222,
+          "target_zipf_risk": 0.0
+        }
+      },
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_2074",
+        "primary_grade_score": 0.2125,
+        "primary_normalized_high_low_failure_delta": 0.2392,
+        "weights": {
+          "polysemy_risk": 0.14285714285714285,
+          "pos_shape_risk": 0.2857142857142857,
+          "shadow_coverage_risk": 0.2857142857142857,
+          "source_zipf_risk": 0.21428571428571427,
+          "target_zipf_risk": 0.07142857142857142
+        }
+      },
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_0751",
+        "primary_grade_score": 0.2041,
+        "primary_normalized_high_low_failure_delta": 0.2297,
+        "weights": {
+          "polysemy_risk": 0.0,
+          "pos_shape_risk": 0.0,
+          "shadow_coverage_risk": 0.3333333333333333,
+          "source_zipf_risk": 0.3333333333333333,
+          "target_zipf_risk": 0.3333333333333333
+        }
+      },
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_1502",
+        "primary_grade_score": 0.2041,
+        "primary_normalized_high_low_failure_delta": 0.2297,
+        "weights": {
+          "polysemy_risk": 0.0,
+          "pos_shape_risk": 0.0,
+          "shadow_coverage_risk": 0.3333333333333333,
+          "source_zipf_risk": 0.3333333333333333,
+          "target_zipf_risk": 0.3333333333333333
+        }
+      },
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_2253",
+        "primary_grade_score": 0.2041,
+        "primary_normalized_high_low_failure_delta": 0.2297,
+        "weights": {
+          "polysemy_risk": 0.0,
+          "pos_shape_risk": 0.0,
+          "shadow_coverage_risk": 0.3333333333333333,
+          "source_zipf_risk": 0.3333333333333333,
+          "target_zipf_risk": 0.3333333333333333
+        }
+      },
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_3004",
+        "primary_grade_score": 0.2041,
+        "primary_normalized_high_low_failure_delta": 0.2297,
+        "weights": {
+          "polysemy_risk": 0.0,
+          "pos_shape_risk": 0.0,
+          "shadow_coverage_risk": 0.3333333333333333,
+          "source_zipf_risk": 0.3333333333333333,
+          "target_zipf_risk": 0.3333333333333333
+        }
+      },
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_0772",
+        "primary_grade_score": 0.2032,
+        "primary_normalized_high_low_failure_delta": 0.2753,
+        "weights": {
+          "polysemy_risk": 0.0,
+          "pos_shape_risk": 0.5,
+          "shadow_coverage_risk": 0.25,
+          "source_zipf_risk": 0.125,
+          "target_zipf_risk": 0.125
+        }
+      },
+      {
+        "formula_family": "sweep_linear",
+        "formula_id": "sweep_linear_0667",
+        "primary_grade_score": 0.1989,
+        "primary_normalized_high_low_failure_delta": 0.2239,
+        "weights": {
+          "polysemy_risk": 0.14285714285714285,
+          "pos_shape_risk": 0.42857142857142855,
+          "shadow_coverage_risk": 0.2857142857142857,
+          "source_zipf_risk": 0.14285714285714285,
+          "target_zipf_risk": 0.0
+        }
+      }
+    ]
+  },
+  "next_steps": [
+    "Freeze this as product_scope_band_grading_v1 for the next LLM follow-through batch.",
+    "Select high/middle/low batches from the v1 heuristic and include low-band controls.",
+    "After generation and admission, rerun band grading and this acceptance audit to falsify the heuristic."
+  ],
+  "normalization_sensitivity_rows": [
+    {
+      "high_failure_rate": 0.1764,
+      "high_low_failure_delta": 0.1608,
+      "low_failure_rate": 0.0156,
+      "max_unmeasured_target_weight": 0.0,
+      "middle_failure_rate": 0.0625,
+      "min_measured_target_weight": 1.0,
+      "order_score": 1.0,
+      "target_id": "balanced_measured_case_mix"
+    },
+    {
+      "high_failure_rate": 0.2738,
+      "high_low_failure_delta": 0.2479,
+      "low_failure_rate": 0.0259,
+      "max_unmeasured_target_weight": 0.1116,
+      "middle_failure_rate": 0.1039,
+      "min_measured_target_weight": 0.8884,
+      "order_score": 1.0,
+      "target_id": "base_product_prior"
+    },
+    {
+      "high_failure_rate": 0.2353,
+      "high_low_failure_delta": 0.2135,
+      "low_failure_rate": 0.0218,
+      "max_unmeasured_target_weight": 0.0,
+      "middle_failure_rate": 0.0875,
+      "min_measured_target_weight": 1.0,
+      "order_score": 1.0,
+      "target_id": "global_test_case_mix"
+    },
+    {
+      "high_failure_rate": 0.2681,
+      "high_low_failure_delta": 0.2428,
+      "low_failure_rate": 0.0253,
+      "max_unmeasured_target_weight": 0.2028,
+      "middle_failure_rate": 0.1015,
+      "min_measured_target_weight": 0.7972,
+      "order_score": 1.0,
+      "target_id": "high_no_winner_product_prior"
+    },
+    {
+      "high_failure_rate": 0.2934,
+      "high_low_failure_delta": 0.2654,
+      "low_failure_rate": 0.028,
+      "max_unmeasured_target_weight": 0.0529,
+      "middle_failure_rate": 0.1122,
+      "min_measured_target_weight": 0.9471,
+      "order_score": 1.0,
+      "target_id": "low_no_winner_product_prior"
+    }
+  ],
+  "pair": "en-es",
+  "schema_version": 1,
+  "scorer_sensitivity_rows": [
+    {
+      "backend_family": "sentence_transformer",
+      "primary_grade_score": 0.0815,
+      "primary_normalized_high_low_failure_delta": 0.0917,
+      "primary_normalized_order_score": 1.0,
+      "raw_high_low_failure_delta": 0.0873,
+      "scorer_id": "best_product_rank_sentence_transformer_a0000_mneg0025"
+    },
+    {
+      "backend_family": "sentence_transformer",
+      "primary_grade_score": 0.1857,
+      "primary_normalized_high_low_failure_delta": 0.209,
+      "primary_normalized_order_score": 1.0,
+      "raw_high_low_failure_delta": 0.1462,
+      "scorer_id": "current_v3_like_sentence_transformer_a0000_m0000"
+    },
+    {
+      "backend_family": "sentence_transformer",
+      "primary_grade_score": 0.2202,
+      "primary_normalized_high_low_failure_delta": 0.2479,
+      "primary_normalized_order_score": 1.0,
+      "raw_high_low_failure_delta": 0.1462,
+      "scorer_id": "safest_80pct_positive_sentence_transformer_a0000_m0015"
+    },
+    {
+      "backend_family": "tfidf",
+      "primary_grade_score": 0.0057,
+      "primary_normalized_high_low_failure_delta": 0.0096,
+      "primary_normalized_order_score": 0.6667,
+      "raw_high_low_failure_delta": 0.4403,
+      "scorer_id": "high_recall_soft_assist_tfidf_a0000_mneg0050"
+    },
+    {
+      "backend_family": "tfidf",
+      "primary_grade_score": 0.0,
+      "primary_normalized_high_low_failure_delta": -0.0616,
+      "primary_normalized_order_score": 0.3333,
+      "raw_high_low_failure_delta": 0.2188,
+      "scorer_id": "tfidf_best_by_scorer_tfidf_a0000_mneg0005"
+    }
+  ],
+  "status": "ok",
+  "summary": {
+    "backend_agnostic": false,
+    "best_fixed_control_formula": "pos_shape_only",
+    "best_fixed_control_grade": 0.1766,
+    "candidate": {
+      "band_family_counts": {
+        "high_need": 17,
+        "low_need": 16,
+        "middle_need": 16
+      },
+      "formula_family": "sweep_linear",
+      "formula_id": "sweep_linear_2169",
+      "primary_grade_score": 0.2202,
+      "primary_normalized_high_low_failure_delta": 0.2479,
+      "primary_normalized_order_score": 1.0,
+      "raw_high_low_failure_delta": 0.1462,
+      "scorer_id": "safest_80pct_positive_sentence_transformer_a0000_m0015",
+      "weights": {
+        "polysemy_risk": 0.07692307692307693,
+        "pos_shape_risk": 0.23076923076923078,
+        "shadow_coverage_risk": 0.3076923076923077,
+        "source_zipf_risk": 0.23076923076923078,
+        "target_zipf_risk": 0.15384615384615385
+      }
+    },
+    "candidate_beats_best_fixed_control": true,
+    "issues": [],
+    "near_neighbor_count": 17,
+    "normalization_all_positive": true,
+    "sentence_transformer_all_positive": true
+  }
+}

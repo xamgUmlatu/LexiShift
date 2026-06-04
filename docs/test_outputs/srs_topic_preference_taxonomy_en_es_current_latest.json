@@ -1,0 +1,1562 @@
+{
+  "coverage": {
+    "families": [
+      {
+        "family": "science_technology",
+        "row_count": 120,
+        "row_share": 0.060484,
+        "sample_rows": [
+          {
+            "lemma": "más",
+            "score": 0.595,
+            "source_labels": [
+              "mathematics",
+              "sciences"
+            ]
+          },
+          {
+            "lemma": "poner",
+            "score": 0.6375,
+            "source_labels": [
+              "engineering",
+              "natural_sciences",
+              "physical_sciences",
+              "physics"
+            ]
+          },
+          {
+            "lemma": "luz",
+            "score": 0.6375,
+            "source_labels": [
+              "engineering",
+              "natural_sciences",
+              "physical_sciences",
+              "physics",
+              "sciences"
+            ]
+          },
+          {
+            "lemma": "área",
+            "score": 0.595,
+            "source_labels": [
+              "mathematics",
+              "sciences"
+            ]
+          },
+          {
+            "lemma": "estilo",
+            "score": 0.595,
+            "source_labels": [
+              "biology",
+              "natural_sciences"
+            ]
+          },
+          {
+            "lemma": "resto",
+            "score": 0.595,
+            "source_labels": [
+              "mathematics",
+              "sciences"
+            ]
+          },
+          {
+            "lemma": "sol",
+            "score": 0.6375,
+            "source_labels": [
+              "chemistry",
+              "natural_sciences",
+              "physical_sciences"
+            ]
+          },
+          {
+            "lemma": "falta",
+            "score": 0.2625,
+            "source_labels": [
+              "sciences"
+            ]
+          },
+          {
+            "lemma": "corazón",
+            "score": 0.2625,
+            "source_labels": [
+              "sciences"
+            ]
+          },
+          {
+            "lemma": "rostro",
+            "score": 0.2625,
+            "source_labels": [
+              "sciences"
+            ]
+          },
+          {
+            "lemma": "entrada",
+            "score": 0.765,
+            "source_labels": [
+              "computing",
+              "engineering",
+              "mathematics",
+              "natural_sciences",
+              "physical_sciences",
+              "sciences"
+            ]
+          },
+          {
+            "lemma": "etapa",
+            "score": 0.2625,
+            "source_labels": [
+              "natural_sciences"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 78,
+            "label": "sciences"
+          },
+          {
+            "count": 59,
+            "label": "natural_sciences"
+          },
+          {
+            "count": 34,
+            "label": "physical_sciences"
+          },
+          {
+            "count": 21,
+            "label": "engineering"
+          },
+          {
+            "count": 20,
+            "label": "mathematics"
+          },
+          {
+            "count": 13,
+            "label": "biology"
+          },
+          {
+            "count": 10,
+            "label": "physics"
+          },
+          {
+            "count": 10,
+            "label": "chemistry"
+          },
+          {
+            "count": 8,
+            "label": "computing"
+          }
+        ]
+      },
+      {
+        "family": "medicine_health",
+        "row_count": 43,
+        "row_share": 0.021673,
+        "sample_rows": [
+          {
+            "lemma": "luz",
+            "score": 0.81,
+            "source_labels": [
+              "anatomy",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "corazón",
+            "score": 0.81,
+            "source_labels": [
+              "anatomy",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "rostro",
+            "score": 0.81,
+            "source_labels": [
+              "anatomy",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "órgano",
+            "score": 0.81,
+            "source_labels": [
+              "anatomy",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "estadio",
+            "score": 0.81,
+            "source_labels": [
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "oreja",
+            "score": 0.81,
+            "source_labels": [
+              "anatomy",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "placa",
+            "score": 0.81,
+            "source_labels": [
+              "dentistry",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "garganta",
+            "score": 0.81,
+            "source_labels": [
+              "anatomy",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "ciego",
+            "score": 0.81,
+            "source_labels": [
+              "anatomy",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "cadera",
+            "score": 0.81,
+            "source_labels": [
+              "anatomy",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "sacro",
+            "score": 0.81,
+            "source_labels": [
+              "anatomy",
+              "medicine"
+            ]
+          },
+          {
+            "lemma": "fluido",
+            "score": 0.81,
+            "source_labels": [
+              "medicine"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 42,
+            "label": "medicine"
+          },
+          {
+            "count": 20,
+            "label": "anatomy"
+          },
+          {
+            "count": 7,
+            "label": "pathology"
+          },
+          {
+            "count": 2,
+            "label": "dentistry"
+          },
+          {
+            "count": 1,
+            "label": "oncology"
+          },
+          {
+            "count": 1,
+            "label": "healthcare"
+          },
+          {
+            "count": 1,
+            "label": "physiology"
+          },
+          {
+            "count": 1,
+            "label": "pharmacology"
+          }
+        ]
+      },
+      {
+        "family": "law_politics_civics",
+        "row_count": 38,
+        "row_share": 0.019153,
+        "sample_rows": [
+          {
+            "lemma": "mayor",
+            "score": 0.81,
+            "source_labels": [
+              "government",
+              "politics"
+            ]
+          },
+          {
+            "lemma": "presentar",
+            "score": 0.81,
+            "source_labels": [
+              "government",
+              "law"
+            ]
+          },
+          {
+            "lemma": "jefe",
+            "score": 0.81,
+            "source_labels": [
+              "government",
+              "politics"
+            ]
+          },
+          {
+            "lemma": "demanda",
+            "score": 0.81,
+            "source_labels": [
+              "law"
+            ]
+          },
+          {
+            "lemma": "tropa",
+            "score": 0.81,
+            "source_labels": [
+              "government",
+              "politics"
+            ]
+          },
+          {
+            "lemma": "órgano",
+            "score": 0.81,
+            "source_labels": [
+              "law"
+            ]
+          },
+          {
+            "lemma": "competencia",
+            "score": 0.81,
+            "source_labels": [
+              "law"
+            ]
+          },
+          {
+            "lemma": "auto",
+            "score": 0.81,
+            "source_labels": [
+              "law"
+            ]
+          },
+          {
+            "lemma": "creciente",
+            "score": 0.81,
+            "source_labels": [
+              "government",
+              "politics"
+            ]
+          },
+          {
+            "lemma": "liberal",
+            "score": 0.81,
+            "source_labels": [
+              "government",
+              "politics"
+            ]
+          },
+          {
+            "lemma": "protesta",
+            "score": 0.81,
+            "source_labels": [
+              "law"
+            ]
+          },
+          {
+            "lemma": "recurrir",
+            "score": 0.81,
+            "source_labels": [
+              "law"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 24,
+            "label": "government"
+          },
+          {
+            "count": 22,
+            "label": "politics"
+          },
+          {
+            "count": 15,
+            "label": "law"
+          }
+        ]
+      },
+      {
+        "family": "sports_fitness",
+        "row_count": 33,
+        "row_share": 0.016633,
+        "sample_rows": [
+          {
+            "lemma": "sacar",
+            "score": 0.81,
+            "source_labels": [
+              "ball_games",
+              "soccer",
+              "sports"
+            ]
+          },
+          {
+            "lemma": "reunión",
+            "score": 0.81,
+            "source_labels": [
+              "sports"
+            ]
+          },
+          {
+            "lemma": "entrada",
+            "score": 0.81,
+            "source_labels": [
+              "ball_games",
+              "soccer",
+              "sports"
+            ]
+          },
+          {
+            "lemma": "marcar",
+            "score": 0.81,
+            "source_labels": [
+              "sports"
+            ]
+          },
+          {
+            "lemma": "luchar",
+            "score": 0.81,
+            "source_labels": [
+              "sports"
+            ]
+          },
+          {
+            "lemma": "cargar",
+            "score": 0.81,
+            "source_labels": [
+              "ball_games",
+              "sports"
+            ]
+          },
+          {
+            "lemma": "pista",
+            "score": 0.81,
+            "source_labels": [
+              "sports"
+            ]
+          },
+          {
+            "lemma": "palo",
+            "score": 0.81,
+            "source_labels": [
+              "sports"
+            ]
+          },
+          {
+            "lemma": "titular",
+            "score": 0.81,
+            "source_labels": [
+              "sports"
+            ]
+          },
+          {
+            "lemma": "calentar",
+            "score": 0.81,
+            "source_labels": [
+              "exercise",
+              "sports"
+            ]
+          },
+          {
+            "lemma": "barrera",
+            "score": 0.81,
+            "source_labels": [
+              "ball_games",
+              "soccer",
+              "sports"
+            ]
+          },
+          {
+            "lemma": "narrador",
+            "score": 0.81,
+            "source_labels": [
+              "sports"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 33,
+            "label": "sports"
+          },
+          {
+            "count": 15,
+            "label": "ball_games"
+          },
+          {
+            "count": 8,
+            "label": "soccer"
+          },
+          {
+            "count": 3,
+            "label": "baseball"
+          },
+          {
+            "count": 3,
+            "label": "basketball"
+          },
+          {
+            "count": 2,
+            "label": "exercise"
+          },
+          {
+            "count": 2,
+            "label": "martial_arts"
+          },
+          {
+            "count": 1,
+            "label": "swimming"
+          },
+          {
+            "count": 1,
+            "label": "boxing"
+          }
+        ]
+      },
+      {
+        "family": "music_media_entertainment",
+        "row_count": 28,
+        "row_share": 0.014113,
+        "sample_rows": [
+          {
+            "lemma": "mayor",
+            "score": 0.81,
+            "source_labels": [
+              "entertainment",
+              "music"
+            ]
+          },
+          {
+            "lemma": "movimiento",
+            "score": 0.81,
+            "source_labels": [
+              "entertainment",
+              "music"
+            ]
+          },
+          {
+            "lemma": "espacio",
+            "score": 0.6,
+            "source_labels": [
+              "media",
+              "publishing"
+            ]
+          },
+          {
+            "lemma": "orquesta",
+            "score": 0.81,
+            "source_labels": [
+              "entertainment",
+              "music"
+            ]
+          },
+          {
+            "lemma": "órgano",
+            "score": 0.81,
+            "source_labels": [
+              "entertainment",
+              "music"
+            ]
+          },
+          {
+            "lemma": "doble",
+            "score": 0.6,
+            "source_labels": [
+              "media",
+              "publishing"
+            ]
+          },
+          {
+            "lemma": "auto",
+            "score": 0.6,
+            "source_labels": [
+              "media",
+              "publishing"
+            ]
+          },
+          {
+            "lemma": "continuo",
+            "score": 0.81,
+            "source_labels": [
+              "entertainment",
+              "music"
+            ]
+          },
+          {
+            "lemma": "transportar",
+            "score": 0.81,
+            "source_labels": [
+              "entertainment",
+              "music"
+            ]
+          },
+          {
+            "lemma": "pista",
+            "score": 0.81,
+            "source_labels": [
+              "entertainment",
+              "music"
+            ]
+          },
+          {
+            "lemma": "palo",
+            "score": 0.81,
+            "source_labels": [
+              "entertainment",
+              "music"
+            ]
+          },
+          {
+            "lemma": "alternativa",
+            "score": 0.45,
+            "source_labels": [
+              "entertainment"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 20,
+            "label": "entertainment"
+          },
+          {
+            "count": 15,
+            "label": "music"
+          },
+          {
+            "count": 9,
+            "label": "media"
+          },
+          {
+            "count": 5,
+            "label": "publishing"
+          },
+          {
+            "count": 3,
+            "label": "broadcasting"
+          },
+          {
+            "count": 2,
+            "label": "theater"
+          },
+          {
+            "count": 2,
+            "label": "television"
+          },
+          {
+            "count": 1,
+            "label": "film"
+          },
+          {
+            "count": 1,
+            "label": "radio"
+          }
+        ]
+      },
+      {
+        "family": "travel_places_transport",
+        "row_count": 27,
+        "row_share": 0.013609,
+        "sample_rows": [
+          {
+            "lemma": "mayor",
+            "score": 0.68,
+            "source_labels": [
+              "nautical",
+              "transport"
+            ]
+          },
+          {
+            "lemma": "etapa",
+            "score": 0.525,
+            "source_labels": [
+              "geography"
+            ]
+          },
+          {
+            "lemma": "tren",
+            "score": 0.68,
+            "source_labels": [
+              "transport"
+            ]
+          },
+          {
+            "lemma": "derrota",
+            "score": 0.68,
+            "source_labels": [
+              "nautical",
+              "transport"
+            ]
+          },
+          {
+            "lemma": "pista",
+            "score": 0.52,
+            "source_labels": [
+              "aeronautics",
+              "aerospace",
+              "aviation"
+            ]
+          },
+          {
+            "lemma": "llanura",
+            "score": 0.525,
+            "source_labels": [
+              "geography"
+            ]
+          },
+          {
+            "lemma": "palo",
+            "score": 0.68,
+            "source_labels": [
+              "nautical",
+              "transport"
+            ]
+          },
+          {
+            "lemma": "placa",
+            "score": 0.525,
+            "source_labels": [
+              "geography"
+            ]
+          },
+          {
+            "lemma": "yacimiento",
+            "score": 0.525,
+            "source_labels": [
+              "geography"
+            ]
+          },
+          {
+            "lemma": "garganta",
+            "score": 0.525,
+            "source_labels": [
+              "geography"
+            ]
+          },
+          {
+            "lemma": "naval",
+            "score": 0.68,
+            "source_labels": [
+              "nautical",
+              "transport"
+            ]
+          },
+          {
+            "lemma": "golfo",
+            "score": 0.525,
+            "source_labels": [
+              "geography"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 14,
+            "label": "geography"
+          },
+          {
+            "count": 11,
+            "label": "transport"
+          },
+          {
+            "count": 9,
+            "label": "nautical"
+          },
+          {
+            "count": 3,
+            "label": "aerospace"
+          },
+          {
+            "count": 2,
+            "label": "aeronautics"
+          },
+          {
+            "count": 2,
+            "label": "aviation"
+          },
+          {
+            "count": 1,
+            "label": "automotive"
+          },
+          {
+            "count": 1,
+            "label": "vehicles"
+          }
+        ]
+      },
+      {
+        "family": "finance_business",
+        "row_count": 25,
+        "row_share": 0.012601,
+        "sample_rows": [
+          {
+            "lemma": "poner",
+            "score": 0.765,
+            "source_labels": [
+              "business"
+            ]
+          },
+          {
+            "lemma": "movimiento",
+            "score": 0.81,
+            "source_labels": [
+              "banking",
+              "business"
+            ]
+          },
+          {
+            "lemma": "luz",
+            "score": 0.765,
+            "source_labels": [
+              "business"
+            ]
+          },
+          {
+            "lemma": "capital",
+            "score": 0.81,
+            "source_labels": [
+              "business",
+              "finance"
+            ]
+          },
+          {
+            "lemma": "par",
+            "score": 0.81,
+            "source_labels": [
+              "business",
+              "finance"
+            ]
+          },
+          {
+            "lemma": "conectar",
+            "score": 0.765,
+            "source_labels": [
+              "business"
+            ]
+          },
+          {
+            "lemma": "pista",
+            "score": 0.765,
+            "source_labels": [
+              "business"
+            ]
+          },
+          {
+            "lemma": "placa",
+            "score": 0.765,
+            "source_labels": [
+              "business"
+            ]
+          },
+          {
+            "lemma": "fusión",
+            "score": 0.56,
+            "source_labels": [
+              "economics"
+            ]
+          },
+          {
+            "lemma": "ecológico",
+            "score": 0.765,
+            "source_labels": [
+              "business"
+            ]
+          },
+          {
+            "lemma": "silicio",
+            "score": 0.765,
+            "source_labels": [
+              "business"
+            ]
+          },
+          {
+            "lemma": "boom",
+            "score": 0.765,
+            "source_labels": [
+              "business",
+              "economics"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 23,
+            "label": "business"
+          },
+          {
+            "count": 5,
+            "label": "finance"
+          },
+          {
+            "count": 2,
+            "label": "economics"
+          },
+          {
+            "count": 1,
+            "label": "banking"
+          },
+          {
+            "count": 1,
+            "label": "accounting"
+          },
+          {
+            "count": 1,
+            "label": "management"
+          }
+        ]
+      },
+      {
+        "family": "arts_literature_humanities",
+        "row_count": 23,
+        "row_share": 0.011593,
+        "sample_rows": [
+          {
+            "lemma": "luz",
+            "score": 0.4875,
+            "source_labels": [
+              "architecture"
+            ]
+          },
+          {
+            "lemma": "falta",
+            "score": 0.385,
+            "source_labels": [
+              "linguistics"
+            ]
+          },
+          {
+            "lemma": "sombra",
+            "score": 0.68,
+            "source_labels": [
+              "art",
+              "arts"
+            ]
+          },
+          {
+            "lemma": "doble",
+            "score": 0.765,
+            "source_labels": [
+              "arts",
+              "history",
+              "literature"
+            ]
+          },
+          {
+            "lemma": "auto",
+            "score": 0.765,
+            "source_labels": [
+              "literature"
+            ]
+          },
+          {
+            "lemma": "realización",
+            "score": 0.385,
+            "source_labels": [
+              "linguistics"
+            ]
+          },
+          {
+            "lemma": "mosaico",
+            "score": 0.68,
+            "source_labels": [
+              "art",
+              "arts"
+            ]
+          },
+          {
+            "lemma": "determinante",
+            "score": 0.385,
+            "source_labels": [
+              "linguistics"
+            ]
+          },
+          {
+            "lemma": "aurora",
+            "score": 0.6375,
+            "source_labels": [
+              "philosophy"
+            ]
+          },
+          {
+            "lemma": "entonación",
+            "score": 0.385,
+            "source_labels": [
+              "linguistics"
+            ]
+          },
+          {
+            "lemma": "infinitivo",
+            "score": 0.385,
+            "source_labels": [
+              "linguistics"
+            ]
+          },
+          {
+            "lemma": "naturalismo",
+            "score": 0.68,
+            "source_labels": [
+              "art",
+              "arts",
+              "philosophy"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 7,
+            "label": "linguistics"
+          },
+          {
+            "count": 7,
+            "label": "philosophy"
+          },
+          {
+            "count": 5,
+            "label": "arts"
+          },
+          {
+            "count": 4,
+            "label": "architecture"
+          },
+          {
+            "count": 3,
+            "label": "art"
+          },
+          {
+            "count": 3,
+            "label": "history"
+          },
+          {
+            "count": 3,
+            "label": "literature"
+          }
+        ]
+      },
+      {
+        "family": "games",
+        "row_count": 23,
+        "row_share": 0.011593,
+        "sample_rows": [
+          {
+            "lemma": "sacar",
+            "score": 0.81,
+            "source_labels": [
+              "games"
+            ]
+          },
+          {
+            "lemma": "jefe",
+            "score": 0.81,
+            "source_labels": [
+              "video_games"
+            ]
+          },
+          {
+            "lemma": "corazón",
+            "score": 0.81,
+            "source_labels": [
+              "card_games",
+              "games"
+            ]
+          },
+          {
+            "lemma": "entrada",
+            "score": 0.81,
+            "source_labels": [
+              "games"
+            ]
+          },
+          {
+            "lemma": "cargar",
+            "score": 0.81,
+            "source_labels": [
+              "games"
+            ]
+          },
+          {
+            "lemma": "palo",
+            "score": 0.81,
+            "source_labels": [
+              "card_games",
+              "games"
+            ]
+          },
+          {
+            "lemma": "descartar",
+            "score": 0.81,
+            "source_labels": [
+              "card_games",
+              "games"
+            ]
+          },
+          {
+            "lemma": "barrera",
+            "score": 0.81,
+            "source_labels": [
+              "games"
+            ]
+          },
+          {
+            "lemma": "rematar",
+            "score": 0.81,
+            "source_labels": [
+              "games"
+            ]
+          },
+          {
+            "lemma": "cazar",
+            "score": 0.81,
+            "source_labels": [
+              "games"
+            ]
+          },
+          {
+            "lemma": "agravar",
+            "score": 0.81,
+            "source_labels": [
+              "games",
+              "gaming"
+            ]
+          },
+          {
+            "lemma": "penal",
+            "score": 0.81,
+            "source_labels": [
+              "games"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 21,
+            "label": "games"
+          },
+          {
+            "count": 5,
+            "label": "card_games"
+          },
+          {
+            "count": 2,
+            "label": "video_games"
+          },
+          {
+            "count": 1,
+            "label": "gaming"
+          }
+        ]
+      },
+      {
+        "family": "plants_nature",
+        "row_count": 5,
+        "row_share": 0.00252,
+        "sample_rows": [
+          {
+            "lemma": "estilo",
+            "score": 0.81,
+            "source_labels": [
+              "botany"
+            ]
+          },
+          {
+            "lemma": "coral",
+            "score": 0.81,
+            "source_labels": [
+              "botany"
+            ]
+          },
+          {
+            "lemma": "vaina",
+            "score": 0.81,
+            "source_labels": [
+              "botany"
+            ]
+          },
+          {
+            "lemma": "viudo",
+            "score": 0.81,
+            "source_labels": [
+              "botany"
+            ]
+          },
+          {
+            "lemma": "cogollo",
+            "score": 0.81,
+            "source_labels": [
+              "botany"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 5,
+            "label": "botany"
+          }
+        ]
+      },
+      {
+        "family": "food_cooking",
+        "row_count": 2,
+        "row_share": 0.001008,
+        "sample_rows": [
+          {
+            "lemma": "careta",
+            "score": 0.81,
+            "source_labels": [
+              "cooking",
+              "food"
+            ]
+          },
+          {
+            "lemma": "batido",
+            "score": 0.81,
+            "source_labels": [
+              "cooking",
+              "food"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 2,
+            "label": "cooking"
+          },
+          {
+            "count": 2,
+            "label": "food"
+          }
+        ]
+      },
+      {
+        "family": "animals",
+        "row_count": 1,
+        "row_share": 0.000504,
+        "sample_rows": [
+          {
+            "lemma": "coral",
+            "score": 0.7225,
+            "source_labels": [
+              "zoology"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 1,
+            "label": "zoology"
+          }
+        ]
+      },
+      {
+        "family": "anime_manga_pop_culture",
+        "row_count": 0,
+        "row_share": 0.0,
+        "sample_rows": [],
+        "top_source_labels": []
+      },
+      {
+        "family": "casual_slang_register",
+        "row_count": 0,
+        "row_share": 0.0,
+        "sample_rows": [],
+        "top_source_labels": []
+      },
+      {
+        "family": "formal_professional_register",
+        "row_count": 0,
+        "row_share": 0.0,
+        "sample_rows": [],
+        "top_source_labels": []
+      },
+      {
+        "family": "hobbies_crafts",
+        "row_count": 0,
+        "row_share": 0.0,
+        "sample_rows": [],
+        "top_source_labels": []
+      },
+      {
+        "family": "sat_toefl_exam_prep",
+        "row_count": 0,
+        "row_share": 0.0,
+        "sample_rows": [],
+        "top_source_labels": []
+      }
+    ],
+    "frequency_db_exists": true,
+    "kaikki_forward_db_exists": true,
+    "row_count": 1984,
+    "source_channels_used": [
+      "sense_topics"
+    ],
+    "unique_lemma_count": 1984
+  },
+  "decision": "srs_topic_preference_taxonomy_validated",
+  "findings": [
+    {
+      "code": "schema_version_present",
+      "level": "PASS",
+      "message": "Taxonomy schema is present."
+    },
+    {
+      "code": "family_ids_unique",
+      "level": "PASS",
+      "message": "Product topic family ids are unique."
+    },
+    {
+      "code": "preference_ids_append_only",
+      "level": "PASS",
+      "message": "Preference ids are explicitly append-only after release."
+    },
+    {
+      "code": "family_axis_metadata_valid",
+      "level": "PASS",
+      "message": "Every family declares an internal axis, UX group, and pair scope."
+    },
+    {
+      "code": "family_mvp_picker_visibility_valid",
+      "level": "PASS",
+      "message": "Every family declares explicit strict-MVP picker visibility."
+    },
+    {
+      "code": "source_label_mappings_valid",
+      "level": "PASS",
+      "message": "Source-label mappings reference known families and valid weights."
+    },
+    {
+      "code": "excluded_labels_not_mapped_positive",
+      "level": "PASS",
+      "message": "Excluded broad labels are not positively mapped."
+    },
+    {
+      "code": "animals_seed_labels_present",
+      "level": "PASS",
+      "message": "Animals includes the current trusted CDE seed labels."
+    },
+    {
+      "code": "plants_nature_seed_labels_present",
+      "level": "PASS",
+      "message": "Plants/nature includes the current trusted CDE seed labels."
+    },
+    {
+      "code": "exam_prep_legal_gated",
+      "level": "PASS",
+      "message": "SAT/TOEFL remains legal/source gated."
+    },
+    {
+      "code": "exam_prep_target_english_scoped",
+      "level": "PASS",
+      "message": "SAT/TOEFL is scoped to English-target pairs."
+    },
+    {
+      "code": "animals_current_signal_available",
+      "level": "PASS",
+      "message": "Current installed sources provide some animal seed coverage."
+    },
+    {
+      "code": "plants_nature_current_signal_available",
+      "level": "PASS",
+      "message": "Current installed sources provide some plants/nature seed coverage."
+    }
+  ],
+  "generated_at": "2026-05-27T02:51:40+00:00",
+  "inputs": {
+    "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "taxonomy_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/srs_topic_preference_taxonomy_en_es.json",
+    "top_n": 10000
+  },
+  "limitations": [
+    "This report validates taxonomy shape and measures current source coverage only.",
+    "It does not mutate frequency packs or write profile_topics overlays.",
+    "Current coverage comes from installed Kaikki/Wiktionary sense_topics only.",
+    "Curated overlays and embedding inference still need separate source/provenance decisions."
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "finding_counts": {
+      "PASS": 13
+    },
+    "issues": [],
+    "warnings": []
+  },
+  "taxonomy": {
+    "families": [
+      {
+        "axis": "topic",
+        "id": "medicine_health",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "finance_business",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "sports_fitness",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "games",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "music_media_entertainment",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "law_politics_civics",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "science_technology",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "travel_places_transport",
+        "mvp_picker_visibility": "future_beta_hidden",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "partial",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "arts_literature_humanities",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "partial",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "animals",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "plants_nature",
+        "mvp_picker_visibility": "future_beta_hidden",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "food_cooking",
+        "mvp_picker_visibility": "strict_mvp_visible",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "anime_manga_pop_culture",
+        "mvp_picker_visibility": "hidden_source_required",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "hobbies_crafts",
+        "mvp_picker_visibility": "hidden_source_required",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "register",
+        "id": "casual_slang_register",
+        "mvp_picker_visibility": "future_register_hidden",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "review_only",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "register",
+        "id": "formal_professional_register",
+        "mvp_picker_visibility": "future_register_hidden",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "review_only",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "sat_toefl_exam_prep",
+        "mvp_picker_visibility": "legal_source_gated_hidden",
+        "pair_scope": "target_language:en",
+        "product_priority": "p0",
+        "readiness_state": "legal_source_gated",
+        "ux_group": "interests_style"
+      }
+    ],
+    "family_count": 17,
+    "language_pair": "en-es",
+    "mapping_count": 76,
+    "taxonomy_id": "srs_topic_preference_taxonomy_en_es_v1"
+  }
+}

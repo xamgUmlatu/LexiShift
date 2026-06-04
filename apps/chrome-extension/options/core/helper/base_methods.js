@@ -1,5 +1,14 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const helperErrorCopy = root.helperErrorCopy;
+
+  if (
+    !helperErrorCopy
+    || typeof helperErrorCopy.normalizeHelperErrorMessage !== "function"
+    || typeof helperErrorCopy.normalizeHelperThrownErrorMessage !== "function"
+  ) {
+    throw new Error("[LexiShift][Options] Missing shared helper error copy.");
+  }
 
   function installHelperBaseMethods(proto) {
     if (!proto || typeof proto !== "object") {
@@ -46,7 +55,35 @@
       return new Client(transport);
     };
 
-    proto.getStatus = async function getStatus() {
+    proto.normalizeHelperErrorMessage = function normalizeHelperErrorMessage(
+      error,
+      fallbackKey = "status_helper_failed",
+      fallbackText = "Helper error."
+    ) {
+      return helperErrorCopy.normalizeHelperErrorMessage(error, {
+        translate: this.i18n && typeof this.i18n.t === "function"
+          ? this.i18n.t.bind(this.i18n)
+          : null,
+        fallbackKey,
+        fallbackText
+      });
+    };
+
+    proto.normalizeHelperThrownErrorMessage = function normalizeHelperThrownErrorMessage(
+      error,
+      fallbackKey = "status_helper_failed",
+      fallbackText = "Helper error."
+    ) {
+      return helperErrorCopy.normalizeHelperThrownErrorMessage(error, {
+        translate: this.i18n && typeof this.i18n.t === "function"
+          ? this.i18n.t.bind(this.i18n)
+          : null,
+        fallbackKey,
+        fallbackText
+      });
+    };
+
+    proto.getStatus = async function getStatus(profileId) {
       const client = this.getClient();
       if (!client) {
         return {
@@ -56,11 +93,13 @@
         };
       }
       try {
-        const response = await client.getStatus();
+        const response = await client.getStatus(this.normalizeProfileId(profileId));
         if (!response || response.ok === false) {
-          const msg = response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_helper_failed", null, "Helper error.");
+          const msg = this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_helper_failed",
+            "Helper error."
+          );
           return { ok: false, message: msg, lastRun: "" };
         }
         const data = response.data || {};
@@ -82,7 +121,11 @@
         this.logger("Helper status failed.", err);
         return {
           ok: false,
-          message: this.i18n.t("status_helper_failed", null, "Helper error."),
+          message: this.normalizeHelperThrownErrorMessage(
+            err,
+            "status_helper_failed",
+            "Helper error."
+          ),
           lastRun: ""
         };
       }
@@ -108,8 +151,11 @@
             data: null,
             error: {
               code: (response && response.error && response.error.code) || "helper_error",
-              message: (response && response.error && response.error.message)
-                || this.i18n.t("status_helper_failed", null, "Helper error.")
+              message: this.normalizeHelperErrorMessage(
+                response && response.error,
+                "status_helper_failed",
+                "Helper error."
+              )
             }
           };
         }
@@ -119,10 +165,12 @@
           ok: false,
           data: null,
           error: {
-            code: "helper_error",
-            message: err && err.message
-              ? err.message
-              : this.i18n.t("status_helper_failed", null, "Helper error.")
+            code: (err && err.code) || "helper_error",
+            message: this.normalizeHelperThrownErrorMessage(
+              err,
+              "status_helper_failed",
+              "Helper error."
+            )
           }
         };
       }
@@ -148,8 +196,11 @@
             data: null,
             error: {
               code: (response && response.error && response.error.code) || "helper_error",
-              message: (response && response.error && response.error.message)
-                || this.i18n.t("status_helper_failed", null, "Helper error.")
+              message: this.normalizeHelperErrorMessage(
+                response && response.error,
+                "status_helper_failed",
+                "Helper error."
+              )
             }
           };
         }
@@ -159,10 +210,12 @@
           ok: false,
           data: null,
           error: {
-            code: "helper_error",
-            message: err && err.message
-              ? err.message
-              : this.i18n.t("status_helper_failed", null, "Helper error.")
+            code: (err && err.code) || "helper_error",
+            message: this.normalizeHelperThrownErrorMessage(
+              err,
+              "status_helper_failed",
+              "Helper error."
+            )
           }
         };
       }
@@ -174,16 +227,22 @@
       try {
         const response = await client.hello();
         if (!response || response.ok === false) {
-          const msg = response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_helper_failed", null, "Helper error.");
+          const msg = this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_helper_failed",
+            "Helper error."
+          );
           return this.i18n.t("status_helper_test_failed", msg, `Connection failed: ${msg}`);
         }
         const version = (response.data && response.data.helper_version) || "";
         return this.i18n.t("status_helper_test_ok", version, version ? `Helper connected (v${version}).` : "Helper connected.");
       } catch (err) {
         this.logger("Helper test failed.", err);
-        const msg = err && err.message ? err.message : this.i18n.t("status_helper_failed", null, "Helper error.");
+        const msg = this.normalizeHelperThrownErrorMessage(
+          err,
+          "status_helper_failed",
+          "Helper error."
+        );
         return this.i18n.t("status_helper_test_failed", msg, `Connection failed: ${msg}`);
       }
     };
@@ -194,17 +253,69 @@
       try {
         const response = await client.openDataDir();
         if (!response || response.ok === false) {
-          const msg = response && response.error && response.error.message
-            ? response.error.message
-            : this.i18n.t("status_helper_open_failed", null, "Failed to open folder.");
+          const msg = this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_helper_open_failed",
+            "Failed to open folder."
+          );
           return this.i18n.t("status_helper_open_failed", msg, `Open failed: ${msg}`);
         }
         const opened = response.data && response.data.opened ? response.data.opened : "";
         return this.i18n.t("status_helper_opened", opened, opened ? `Opened: ${opened}` : "Opened.");
       } catch (err) {
         this.logger("Open helper data dir failed.", err);
-        const msg = err && err.message ? err.message : this.i18n.t("status_helper_open_failed", null, "Failed to open folder.");
+        const msg = this.normalizeHelperThrownErrorMessage(
+          err,
+          "status_helper_open_failed",
+          "Failed to open folder."
+        );
         return this.i18n.t("status_helper_open_failed", msg, `Open failed: ${msg}`);
+      }
+    };
+
+    proto.openResourceSettings = async function openResourceSettings(pair, options) {
+      const client = this.getClient();
+      if (!client || typeof client.openResourceSettings !== "function") {
+        return this.i18n.t("status_helper_missing", null, "Helper unavailable.");
+      }
+      const opts = options && typeof options === "object" ? options : {};
+      const payload = {
+        pair: String(pair || "").trim(),
+        profile_id: this.normalizeProfileId(opts.profileId),
+        resource_context: String(opts.resourceContext || "").trim() || "srs_story_setup",
+        missing_inputs: Array.isArray(opts.missingInputs) ? opts.missingInputs : []
+      };
+      try {
+        const response = await client.openResourceSettings(payload);
+        if (!response || response.ok === false) {
+          const msg = this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_helper_open_resource_settings_failed",
+            "Failed to open LexiShift resource settings."
+          );
+          return this.i18n.t(
+            "status_helper_open_resource_settings_failed",
+            msg,
+            `Open failed: ${msg}`
+          );
+        }
+        return this.i18n.t(
+          "status_helper_open_resource_settings_opened",
+          null,
+          "Opened LexiShift resource settings."
+        );
+      } catch (err) {
+        this.logger("Open LexiShift resource settings failed.", err);
+        const msg = this.normalizeHelperThrownErrorMessage(
+          err,
+          "status_helper_open_resource_settings_failed",
+          "Failed to open LexiShift resource settings."
+        );
+        return this.i18n.t(
+          "status_helper_open_resource_settings_failed",
+          msg,
+          `Open failed: ${msg}`
+        );
       }
     };
   }

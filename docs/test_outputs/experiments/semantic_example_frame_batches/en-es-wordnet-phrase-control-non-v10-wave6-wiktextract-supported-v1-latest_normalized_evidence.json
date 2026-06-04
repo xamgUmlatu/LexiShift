@@ -1,0 +1,91 @@
+{
+  "batch_id": "en-es:wordnet-phrase-control:non-v10-wave6-wiktextract-supported:v1",
+  "generated_at": "2026-04-29T01:45:12Z",
+  "ingested_at": "2026-04-29T01:45:12Z",
+  "model_id": "none",
+  "normalization_version": "semantic_evidence_manual_v1",
+  "pair": "en-es",
+  "prompt_version": "wordnet-phrase-control-miner-v1",
+  "provenance": {
+    "failure_driven": true,
+    "method": "wordnet_example_phrase_containment_probe"
+  },
+  "review_state": "source_mined_phrase_probe",
+  "roles": [
+    "phrase_containment"
+  ],
+  "row_count": 1,
+  "rows": [
+    {
+      "active_sense_hint": {
+        "canonical_pos": "noun",
+        "locator_kind": "sense_id",
+        "note": "phrase_control_anchor",
+        "provider": "sentence_veto_dataset",
+        "target_key": "en-es:sentence-veto:advance:avance:active"
+      },
+      "active_target": "avance",
+      "batch_id": "en-es:wordnet-phrase-control:non-v10-wave6-wiktextract-supported:v1",
+      "candidate_sense_hint": {
+        "canonical_pos": "s",
+        "locator_kind": "synset_id",
+        "note": "wordnet_phrase_control_example",
+        "provider": "wordnet_en_json",
+        "target_key": "01995647-s"
+      },
+      "candidate_target": "phrase_control",
+      "dedupe_key": "dedupe:3219d6f88203d7c40b40c3d98747fa0880244bc2",
+      "evidence_id": "semantic-evidence:a8f8e10ee1ace206224a72b142729f9beb241520",
+      "evidence_text": "all seats bookable in advance",
+      "is_multiword": true,
+      "linkage_status": "partially_linked",
+      "metadata": {
+        "active_sense_id": "en-es:sentence-veto:advance:avance:active",
+        "candidate_sense_id": "phrase_control",
+        "case_id": "en-es:source-non-v10-wave6-wiktextract-supported-phrase:v1:advance:001",
+        "example_bucket": "phrase_control",
+        "family_id": "en-es:sentence-veto:advance:avance",
+        "phrase_containment_pattern": "in advance",
+        "phrase_containment_reason_code": "example_phrase_left_containment",
+        "source_view": "wordnet_synset_example",
+        "wordnet_members": [
+          "bookable"
+        ],
+        "wordnet_source_file_count": 72,
+        "wordnet_synset_id": "01995647-s"
+      },
+      "normalized_active_target": "avance",
+      "normalized_candidate_target": "phrase_control",
+      "normalized_trigger": "advance",
+      "pair": "en-es",
+      "promotion_state": "proposed",
+      "provenance": {
+        "batch_id": "en-es:wordnet-phrase-control:non-v10-wave6-wiktextract-supported:v1",
+        "generated_at": "2026-04-29T01:45:12Z",
+        "ingested_at": "2026-04-29T01:45:12Z",
+        "model_id": "none",
+        "normalization_version": "semantic_evidence_manual_v1",
+        "prompt_version": "wordnet-phrase-control-miner-v1",
+        "row_id": "en-es-sentence-veto-advance-avance:phrase-control-wordnet-in-advance",
+        "source_family": "external_sense_graph",
+        "source_id": "wordnet_phrase_control_non_v10_wave6_wiktextract_supported_v1",
+        "source_type": "external"
+      },
+      "relation_type": "phrase_control_example",
+      "review_state": "source_mined_phrase_probe",
+      "roles": [
+        "phrase_containment"
+      ],
+      "row_id": "en-es-sentence-veto-advance-avance:phrase-control-wordnet-in-advance",
+      "runtime_publishable": false,
+      "source_family": "external_sense_graph",
+      "source_id": "wordnet_phrase_control_non_v10_wave6_wiktextract_supported_v1",
+      "source_type": "external",
+      "trigger": "advance"
+    }
+  ],
+  "schema_version": 1,
+  "source_family": "external_sense_graph",
+  "source_id": "wordnet_phrase_control_non_v10_wave6_wiktextract_supported_v1",
+  "source_type": "external"
+}

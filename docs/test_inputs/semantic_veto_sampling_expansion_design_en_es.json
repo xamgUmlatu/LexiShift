@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "manifest_id": "semantic_veto_sampling_expansion_design_en_es_v1",
+  "description": "Scientific sampling design for strengthening en-es semantic-veto curve and product-quality evidence without biasing the expanded suite toward current known failures.",
+  "inputs": {
+    "curve_guided_expansion_json": "docs/test_outputs/semantic_veto_curve_guided_expansion_plan_en_es_latest.json",
+    "product_quality_policy_json": "docs/test_inputs/semantic_veto_product_quality_policy_en_es.json"
+  },
+  "random_seed": "semantic_veto_sampling_expansion_en_es_v1_2026_05_05",
+  "global_rules": [
+    "Pre-register sampling lanes, quotas, split policy, and promotion claims before authoring or generating rows.",
+    "Keep representative, stratified, targeted, control, discovery, and locked-eval rows separate in every output.",
+    "Do not tune thresholds, formula weights, source evidence, or prompt templates on locked-eval rows.",
+    "Do not ask LLMs to create rows that fool or repair the current scorer; prompts may name only the linguistic case contract.",
+    "Treat missing metadata and underfilled strata as findings, not as permission to substitute known failure rows.",
+    "Use stable random seeds and deterministic row IDs so later agents can reproduce the sample plan."
+  ],
+  "split_policy": {
+    "method": "stable_hash_row_id",
+    "discovery_fraction_default": 0.7,
+    "locked_eval_fraction_default": 0.3,
+    "representative_random_policy": "locked_eval_only_for_product_estimation",
+    "interpretation": "Discovery rows can choose hypotheses. Locked-eval rows only check hypotheses after selection."
+  },
+  "lanes": [
+    {
+      "lane_id": "representative_random_product_lane",
+      "lane_type": "representative_random",
+      "purpose": "Estimate product-facing allow/abstain rates under ordinary browser-like exposure.",
+      "claim_supported": "product_quality_estimate",
+      "sampling_frame": "Normal app candidate replacements from observed browser or corpus-like contexts, sampled by expected exposure/admission probability.",
+      "selection_method": "Probability-proportional-to-exposure random sample, deduped by source trigger, target lemma, and normalized context.",
+      "context_policy": "Prefer observed or corpus-sampled sentences. If LLM-generated proxy contexts are used, mark them as proxy and do not call the lane representative browsing.",
+      "manual_discovery_rows": 0,
+      "llm_discovery_rows": 0,
+      "locked_eval_rows": 120,
+      "bias_controls": [
+        "do_not_condition_on_current_failure_status",
+        "source_trigger_and_context_sampled_before_scoring",
+        "all_rows_locked_for_promotion_estimation",
+        "report_sampling_weights_and_missing_context_source"
+      ]
+    },
+    {
+      "lane_id": "stratified_difficulty_surface_lane",
+      "lane_type": "stratified_balanced",
+      "purpose": "Measure difficulty curves across case type, frequency/rank, and polysemy cells without letting common easy cases dominate.",
+      "claim_supported": "curve_shape_estimation",
+      "sampling_frame": "Eligible source triggers and candidate replacements grouped by pre-outcome metadata.",
+      "selection_method": "Balanced random sample within each predefined stratum; underfilled cells remain underfilled and are reported.",
+      "case_types": [
+        "positive_active",
+        "shadow_negative",
+        "phrase_no_winner"
+      ],
+      "source_rank_bins": [
+        "1-500",
+        "501-1000",
+        "1001-5000",
+        "missing_or_tail"
+      ],
+      "polysemy_bands": [
+        "low_1_to_3",
+        "high_4_plus"
+      ],
+      "rows_per_cell": {
+        "manual_discovery_rows": 2,
+        "llm_discovery_rows": 2,
+        "locked_eval_rows": 2
+      },
+      "bias_controls": [
+        "balanced_quota_not_failure_weighted",
+        "case_contract_blinded_to_current_scorer",
+        "report_empty_and_underfilled_cells",
+        "stratified_results_not_representative_without_reweighting"
+      ]
+    },
+    {
+      "lane_id": "targeted_curve_mechanism_lane",
+      "lane_type": "targeted_curve_expansion",
+      "purpose": "Test the current strongest curve mechanisms while labeling the rows as discovery or locked checks, not representative product data.",
+      "claim_supported": "mechanism_validation",
+      "sampling_frame": "P0 cells from the curve-guided expansion report, currently phrase/no-winner underfilled/rank cells, positive-active low-score cells, and shadow near-tie cells.",
+      "selection_method": "Use the curve-guided queue priority, but consume only P0 first; P1/P2 remain staged until P0 rows rerun.",
+      "priority_scope": [
+        "P0"
+      ],
+      "bias_controls": [
+        "targeted_rows_cannot_estimate_real_world_frequency",
+        "manual_rows_confirm_cell_contract_before_llm_rows",
+        "locked_eval_rows_reserved_before_discovery_results",
+        "rerun_curve_surface_before_expanding_P1"
+      ]
+    },
+    {
+      "lane_id": "negative_and_leakage_control_lane",
+      "lane_type": "negative_control",
+      "purpose": "Detect lexical leakage, scorer-shaped prompts, and label leakage before expansion results are trusted.",
+      "claim_supported": "sanity_check",
+      "sampling_frame": "Control rows spanning target-lemma-only traps, shuffled active/shadow labels, low-polysemy no-shadow controls, and no-winner mention-only contexts.",
+      "selection_method": "Fixed quota plus seeded random trigger selection inside each control family.",
+      "manual_discovery_rows": 12,
+      "llm_discovery_rows": 12,
+      "locked_eval_rows": 12,
+      "bias_controls": [
+        "controls_expected_to_fail_or_degrade_when_the_pipeline_leaks_labels",
+        "control_failures_block_promotion_claims",
+        "report_controls_separately_from_product_accuracy"
+      ]
+    }
+  ],
+  "stage_plan": [
+    {
+      "stage_id": "stage_0_design_freeze",
+      "entry_condition": "Current curve-guided report and product-quality policy are present.",
+      "exit_condition": "Sampling design report is generated, reviewed, and committed; no rows authored yet."
+    },
+    {
+      "stage_id": "stage_1_p0_manual_and_frame_sample",
+      "entry_condition": "Design freeze passed.",
+      "exit_condition": "P0 manual rows and representative sampling-frame candidate list are materialized; no threshold or scorer changes."
+    },
+    {
+      "stage_id": "stage_2_llm_discovery_generation",
+      "entry_condition": "Manual rows confirm each P0 cell contract and prompts pass leakage review.",
+      "exit_condition": "LLM discovery rows are admitted and scored separately from manual rows."
+    },
+    {
+      "stage_id": "stage_3_locked_eval_and_curve_rerun",
+      "entry_condition": "Discovery candidate choices are frozen.",
+      "exit_condition": "Locked-eval rows are scored once, and curve reports are rerun without changing the locked lane."
+    }
+  ]
+}

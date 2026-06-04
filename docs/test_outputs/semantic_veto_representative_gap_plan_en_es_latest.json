@@ -1,0 +1,254 @@
+{
+  "collection_slots": [],
+  "decision": "representative_gap_closed",
+  "generated_at": "2026-05-05T18:21:51Z",
+  "inputs": {
+    "llm_scoring_path": "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json",
+    "manifest_path": "docs/test_inputs/semantic_veto_representative_gap_source_manifest_en_es.json",
+    "product_quality_path": "docs/test_outputs/semantic_veto_product_quality_en_es_latest.json",
+    "representative_frame_id": "semantic_veto_sampling_stage1_representative_frame_en_es_v1",
+    "representative_frame_path": "docs/test_outputs/semantic_veto_sampling_stage1_representative_frame_en_es_latest.json",
+    "stage1_decision": "sampling_stage1_materialized",
+    "stage1_report_path": "docs/test_outputs/semantic_veto_sampling_stage1_materialization_en_es_latest.json"
+  },
+  "methodology": {
+    "global_rules": [
+      "Do not fill representative product rows with targeted P0, stress, or known-failure rows.",
+      "Sample source trigger, candidate replacement, and context before scoring.",
+      "Label rows only after sampling, and keep product-like sampling separate from discovery hypotheses.",
+      "Generated rows may be used as temporary backstop diagnostics, but they do not count toward primary representative product estimates.",
+      "Corpus-like app-candidate proxy rows may fill the current primary-proxy target only when their sampling frame is independent of scorer outcomes and targeted failure cells.",
+      "Keep the current closure caveat visible until the 25 corpus-like rows are human-reviewed or replaced by observed runtime/browser contexts."
+    ],
+    "primary_rule": "Only rows sampled from normal observed or corpus-like app candidate contexts before scoring can fill the primary representative shortfall.",
+    "proxy_rule": "Generated or targeted rows may be used as temporary proxy/backstop diagnostics, but they do not count toward the primary representative product-quality target.",
+    "random_seed": "semantic_veto_representative_gap_en_es_v1_2026_05_06",
+    "runtime_policy_change": "none",
+    "source_evidence_promotion": "none",
+    "threshold_or_scorer_change": "none"
+  },
+  "next_steps": [
+    "Human-review the 25 corpus-like representative gap rows before using them for promotion claims.",
+    "Keep the filled 120-row representative scoring and product-quality reports current after any row review or source refresh.",
+    "Prefer observed semantic-admit contexts for the next representative refresh when browser/helper logs are available.",
+    "Keep LLM pilot locked rows as proxy diagnostics only; do not count them as observed representative browsing rows."
+  ],
+  "pair": "en-es",
+  "proxy_backstop_rows": [
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_bank_banco:positive_active:001",
+      "sentence": "The bank approved the loan after reviewing the business plan.",
+      "trigger": "bank"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_bank_banco:positive_active:002",
+      "sentence": "For the quarterly treasury review, the auditors confirmed that the bank held the reserve funds securely.",
+      "trigger": "bank"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_board_tablero:positive_active:003",
+      "sentence": "The board, mounted above the desk, shows today\u2019s schedule clearly.",
+      "trigger": "board"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_branch_sucursal:positive_active:001",
+      "sentence": "The branch, just off Main Street, opens at nine.",
+      "trigger": "branch"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_check_cheque:positive_active:001",
+      "sentence": "Deposit the check today at the bank.",
+      "trigger": "check"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "abstain",
+      "gold_type": "shadow_negative",
+      "row_id": "pilotrow:pilot_file_archivo:shadow_negative:001",
+      "sentence": "Breaking news: the file on the table was a sharp metal tool, not a document.",
+      "trigger": "file"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "abstain",
+      "gold_type": "shadow_negative",
+      "row_id": "pilotrow:pilot_file_archivo:shadow_negative:002",
+      "sentence": "The technician checked the server logs, and the file on the drill bit was worn smooth.",
+      "trigger": "file"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "abstain",
+      "gold_type": "phrase_no_winner",
+      "row_id": "pilotrow:pilot_match_partido:phrase_no_winner:001",
+      "sentence": "The colors on the new sofa match the curtains, and the room feels brighter after the renovation.",
+      "trigger": "match"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "abstain",
+      "gold_type": "shadow_negative",
+      "row_id": "pilotrow:pilot_match_partido:shadow_negative:002",
+      "sentence": "The technician checked whether the connector pins match the socket after the firmware update.",
+      "trigger": "match"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_order_pedido:positive_active:001",
+      "sentence": "The order, placed online after the sale, ships tomorrow.",
+      "trigger": "order"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_play_obra:positive_active:003",
+      "sentence": "The play adaptation opened to strong reviews on the streaming site.",
+      "trigger": "play"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "abstain",
+      "gold_type": "shadow_negative",
+      "row_id": "pilotrow:pilot_play_obra:shadow_negative:002",
+      "sentence": "The server logs show a failed play in the deployment pipeline.",
+      "trigger": "play"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "abstain",
+      "gold_type": "shadow_negative",
+      "row_id": "pilotrow:pilot_report_informe:shadow_negative:001",
+      "sentence": "After the storm, the report from the engine room was a loud bang.",
+      "trigger": "report"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_seal_sello:positive_active:002",
+      "sentence": "The compliance report requires a digital seal for each archived record.",
+      "trigger": "seal"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_watch_reloj:positive_active:001",
+      "sentence": "On the bedside table, the watch gleamed beside a ring.",
+      "trigger": "watch"
+    },
+    {
+      "context_source": "llm_pilot_locked_eval_proxy",
+      "counts_toward_primary_representative_target": false,
+      "gold_decision": "replace",
+      "gold_type": "positive_active",
+      "row_id": "pilotrow:pilot_watch_reloj:positive_active:003",
+      "sentence": "He checked his watch with the black leather strap before leaving the house.",
+      "trigger": "watch"
+    }
+  ],
+  "schema_version": 1,
+  "source_lane_audit": [
+    {
+      "available_rows": 120,
+      "primary_gap_eligible": false,
+      "reason": "Representative target is currently filled in Stage 1.",
+      "source_class": "current_primary_proxy_frame",
+      "source_id": "current_stage1_representative_frame"
+    },
+    {
+      "available_rows": 48,
+      "primary_gap_eligible": false,
+      "reason": "Stress rows are known hard cases and would bias representative estimates.",
+      "source_class": "stress",
+      "source_id": "existing_product_quality_stress_rows"
+    },
+    {
+      "available_rows": 16,
+      "primary_gap_eligible": false,
+      "reason": "Generated pilot rows can be proxy diagnostics, not primary browsing evidence.",
+      "source_class": "generated_proxy",
+      "source_id": "existing_llm_pilot_locked_eval_rows"
+    },
+    {
+      "available_rows": 56,
+      "primary_gap_eligible": false,
+      "reason": "Discovery rows are not locked representative rows.",
+      "source_class": "generated_discovery",
+      "source_id": "existing_llm_pilot_discovery_rows"
+    },
+    {
+      "eligibility": "primary_representative_if_sampled_before_scoring",
+      "planned_slot_quota": 0,
+      "primary_gap_eligible": true,
+      "reason": "Deferred preferred source. Export normal helper/browser semantic-admit candidate contexts with trigger, candidate replacement, page sentence, profile/pair metadata, and no score/outcome filtering when observed logs are available.",
+      "source_class": "primary_observed",
+      "source_id": "runtime_observed_semantic_admit_contexts"
+    },
+    {
+      "eligibility": "primary_proxy_if_candidates_are_sampled_by_expected_app_exposure_before_scoring",
+      "planned_slot_quota": 25,
+      "primary_gap_eligible": true,
+      "reason": "Sample corpus-like English sentences for normal admitted source-trigger and target-candidate pairs by frequency or expected exposure, then label after sampling.",
+      "source_class": "primary_corpus_proxy",
+      "source_id": "corpus_sampled_app_candidate_contexts"
+    },
+    {
+      "eligibility": "proxy_only_not_primary_representative",
+      "planned_slot_quota": 0,
+      "primary_gap_eligible": false,
+      "reason": "Existing locked LLM pilot rows may exercise scoring and reporting if primary rows lag, but must not be counted as representative browsing rows.",
+      "source_class": "generated_proxy_backstop",
+      "source_id": "llm_pilot_locked_eval_proxy_backstop"
+    }
+  ],
+  "status": "ok",
+  "summary": {
+    "available_representative_rows": 120,
+    "issues": [],
+    "llm_discovery_rows_seen": 56,
+    "llm_locked_proxy_rows_available": 16,
+    "open_primary_collection_slots": 0,
+    "primary_slot_source_counts": {},
+    "product_quality_lane_type_counts": {
+      "representative": 120,
+      "stress": 48
+    },
+    "remaining_representative_rows_needed": 0,
+    "selected_locked_eval_rows": 120,
+    "target_locked_eval_rows": 120
+  }
+}

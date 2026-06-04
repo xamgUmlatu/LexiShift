@@ -1,5 +1,11 @@
 # Synonym Generation Technical Notes
 
+Status: active mixed technical notes
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 rulegen authority note; synonym-generation behavior claims not re-audited
+Source-of-truth: mixed technical notes; current implementation truth lives in GUI pack routing, rulegen/resource code, tests, and generated benchmark/resource artifacts.
+
 See also: `docs/rulegen/rule_generation_technical.md` (precomputed rules + confidence scoring).
 
 ## Scope

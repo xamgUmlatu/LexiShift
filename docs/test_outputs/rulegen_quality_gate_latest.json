@@ -3,13 +3,14 @@
   "policy_json": "docs/test_inputs/rulegen_quality_policy.json",
   "baseline_json": "docs/test_outputs/baselines/rulegen_quality_baseline.json",
   "dataset_json": null,
+  "pair_scope": "none",
   "pos_probe_json": "docs/test_outputs/phase6_pos_inventory/phase6_pos_probe_2026-02-23_final.json",
   "pos_inventory_json": "docs/test_outputs/phase6_pos_inventory/phase6_pos_inventory_2026-02-23_final.json",
   "strict_saturation": false,
   "fail_on_warn": false,
   "summary": {
-    "pass_count": 13,
-    "warn_count": 6,
+    "pass_count": 14,
+    "warn_count": 4,
     "fail_count": 2,
     "status": "FAIL",
     "should_fail": true
@@ -31,7 +32,7 @@
       "level": "FAIL",
       "code": "QUALITY_FLOOR_BREACH",
       "message": "Quality floor failed for pair 'en-es'.",
-      "details": "top1_accuracy=0.7895 below min_top1_accuracy=0.9500\ntop3_recall=0.9474 below min_top3_recall=0.9500\nforbidden_top1_rate=0.2105 above max_forbidden_top1_rate=0.0500\nforbidden_any_rate=0.2105 above max_forbidden_any_rate=0.1000"
+      "details": "top1_accuracy=0.8493 below min_top1_accuracy=0.9500\ntop3_recall=0.9315 below min_top3_recall=0.9500"
     },
     {
       "level": "WARN",
@@ -55,19 +56,13 @@
       "level": "FAIL",
       "code": "DELTA_BUDGET_BREACH",
       "message": "Delta budgets failed for pair 'en-es'.",
-      "details": "top1_accuracy drop=0.2105 exceeds budget=0.0000\ntop3_recall drop=0.0526 exceeds budget=0.0000\nforbidden_top1_rate increase=0.2105 exceeds budget=0.0000\nforbidden_any_rate increase=0.2105 exceeds budget=0.0000\navg_rules_per_target increase=1.1053 exceeds budget=0.5000"
+      "details": "top1_accuracy drop=0.1507 exceeds budget=0.0000\ntop3_recall drop=0.0685 exceeds budget=0.0000\nforbidden_top1_rate increase=0.0137 exceeds budget=0.0000\nforbidden_any_rate increase=0.0274 exceeds budget=0.0000\navg_rules_per_target increase=1.9589 exceeds budget=0.5000"
     },
     {
-      "level": "WARN",
-      "code": "SATURATION_TOP_VECTOR_WARN",
-      "message": "Pair 'en-es' top metric vector share=0.500 indicates low sensitivity (warn threshold>=0.500).",
-      "details": "run_count=4 unique_vectors=2 top_count=2"
-    },
-    {
-      "level": "WARN",
-      "code": "SATURATION_UNIQUE_VECTOR_WARN",
-      "message": "Pair 'en-es' unique metric vectors=2 below expected minimum=5.",
-      "details": null
+      "level": "PASS",
+      "code": "SATURATION_TOP_VECTOR_OK",
+      "message": "Pair 'en-es' top metric vector share=0.250 is below warning threshold.",
+      "details": "run_count=144 unique_vectors=10 top_count=36"
     },
     {
       "level": "PASS",

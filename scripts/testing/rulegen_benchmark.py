@@ -1,982 +1,212 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
-from dataclasses import dataclass
 from datetime import datetime, timezone
-import hashlib
-import itertools
-import json
 from pathlib import Path
 import sys
-from typing import Mapping, Optional, Sequence
+from time import perf_counter
+from typing import Optional, Sequence
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "core"))
 
-from lexishift_core.helper.lp_capabilities import (  # noqa: E402
-    default_freedict_reverse_path,
-    resolve_pair_capability,
-)
-from lexishift_core.helper.pair_resources import resolve_pair_resources  # noqa: E402
+from lexishift_core.helper.lp_capabilities import resolve_pair_capability  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
-from lexishift_core.lexicon.word_package import (  # noqa: E402
-    build_word_package,
-    normalize_word_package,
+from lexishift_core.rulegen.benchmarking import (  # noqa: E402
+    RulegenBenchmarkObjectiveWeights,
 )
-from lexishift_core.replacement.core import VocabRule  # noqa: E402
-from lexishift_core.rulegen.adapters import (  # noqa: E402
-    RulegenAdapterRequest,
+
+from rulegen_benchmark_compiled import (  # noqa: E402
+    _build_compiled_case_refs,
+    _build_compiled_case_result_table,
+    _build_compiled_case_table,
+    _build_compiled_rule_table,
+    _build_compiled_rule_table_from_en_es_selected_rows,
+    _build_compiled_rule_table_from_rules,
+    _evaluate_benchmark_case_compiled,
+    _evaluate_case_payloads_with_table,
+    _evaluate_case_results,
+    _evaluate_case_results_with_table,
+    _summarize_compiled_case_results,
+)
+from rulegen_benchmark_models import (  # noqa: E402
+    BenchmarkTimingCollector,
+    CompiledBenchmarkCaseRef,
+    CompiledBenchmarkCaseResultTable,
+    CompiledBenchmarkCaseTable,
+    PairBenchmarkContext,
+    SweepConfig,
+    SweepRun,
+    SweepRunEvaluation,
+    _format_exact_hit_ambiguity_label,
+    _format_exact_hit_specificity_label,
+    _format_kaikki_policy_family_label,
+    _format_kaikki_provenance_label,
+)
+from rulegen_benchmark_reporting import (  # noqa: E402
+    DEFAULT_PRESET_PATH,
+    _build_pair_report_payload,
+    _build_parser,
+    _config_from_payload,
+    _load_html_report_renderer,
+    _load_json_object,
+    _load_pair_runs_from_report_payload,
+    _load_render_inputs_from_report_payload,
+    _render_markdown_report,
+    _render_report_artifacts,
+    _resolve_cli_with_preset,
+    _resolve_path_from_report_payload,
+    _run_from_payload,
+    _summary_from_payload,
+    _write_benchmark_outputs,
+)
+from rulegen_benchmark_resources import (  # noqa: E402
+    _build_en_es_reverse_headword_norm_index,
+    _build_pair_benchmark_context,
+    _build_pair_compiled_rulegen_context,
+    _build_pair_resources_payload,
+    _build_reverse_preload_headwords,
+    _build_word_package_snapshot,
+    _compute_file_sha256,
+    _compute_file_sha256_uncached,
+    _expand_reverse_preload_headwords,
+    _load_dataset_cases,
+    _load_frozen_word_package_snapshots,
+    _preload_pair_gloss_records,
+    _resolve_pair_resources_for_benchmark,
+    _load_store,
+)
+from rulegen_benchmark_sweep import (  # noqa: E402
+    ProcessPoolExecutor,
+    _build_sweep_configs,
+    _evaluate_sweep_run,
+    _evaluate_sweep_run_from_worker_state,
+    _parse_family_set_specs,
+    _run_pair_sweep,
+    as_completed,
     run_rules_with_adapter,
 )
-from lexishift_core.rulegen.benchmarking import (  # noqa: E402
-    RulegenBenchmarkCase,
-    RulegenBenchmarkObjectiveWeights,
-    RulegenBenchmarkSummary,
-    evaluate_benchmark_case,
-    summarize_benchmark_results,
-)
-from lexishift_core.rulegen.generation import (  # noqa: E402
-    PosMatchScoringConfig,
-    RuleScoreWeights,
-    RuleScoringConfig,
-)
-from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig  # noqa: E402
-from lexishift_core.srs import SrsStore, load_srs_store  # noqa: E402
 
-from rulegen_benchmark_presets import (  # noqa: E402
-    BenchmarkPreset,
-    format_benchmark_presets_listing,
-    load_benchmark_presets,
-)
-
-
-DEFAULT_PRESET_PATH = PROJECT_ROOT / "docs" / "test_inputs" / "rulegen_benchmark_presets.json"
-
-
-@dataclass(frozen=True)
-class SweepConfig:
-    max_definitions_per_target: Optional[int]
-    max_rules_per_target: Optional[int]
-    confidence_threshold: float
-    semantic_demotion_scale: float
-    include_variants: bool
-    pos_scoring_enabled: bool
-    pos_exact_match_bonus: float
-    pos_compatible_match_bonus: float
-    score_weight_dict_priority: float
-    score_weight_frequency_weight: float
-    score_weight_pos_match: float
-    score_weight_variant_penalty: float
-    score_weight_phrase_penalty: float
-    score_weight_embedding: float
-    reverse_check_enabled: bool
-    reverse_check_match_bonus: float
-    reverse_check_near_bonus: float
-    reverse_check_near_rank_max: int
-    reverse_check_far_hit_penalty: float
-    reverse_check_miss_penalty: float
-    reverse_check_exact_hit_ambiguity_threshold: int
-    reverse_check_exact_hit_ambiguity_penalty: float
-    kaikki_policy_live_demotion: bool
-    kaikki_policy_risk_families: tuple[str, ...]
-    reverse_check_exact_hit_specificity_bonus: float = 0.0
-    kaikki_policy_late_sense_penalty: float = 0.0
-
-    def to_dict(self) -> dict[str, object]:
-        return {
-            "max_definitions_per_target": self.max_definitions_per_target,
-            "max_rules_per_target": self.max_rules_per_target,
-            "confidence_threshold": self.confidence_threshold,
-            "semantic_demotion_scale": self.semantic_demotion_scale,
-            "include_variants": self.include_variants,
-            "pos_scoring_enabled": self.pos_scoring_enabled,
-            "pos_exact_match_bonus": self.pos_exact_match_bonus,
-            "pos_compatible_match_bonus": self.pos_compatible_match_bonus,
-            "score_weight_dict_priority": self.score_weight_dict_priority,
-            "score_weight_frequency_weight": self.score_weight_frequency_weight,
-            "score_weight_pos_match": self.score_weight_pos_match,
-            "score_weight_variant_penalty": self.score_weight_variant_penalty,
-            "score_weight_phrase_penalty": self.score_weight_phrase_penalty,
-            "score_weight_embedding": self.score_weight_embedding,
-            "reverse_check_enabled": self.reverse_check_enabled,
-            "reverse_check_match_bonus": self.reverse_check_match_bonus,
-            "reverse_check_near_bonus": self.reverse_check_near_bonus,
-            "reverse_check_near_rank_max": self.reverse_check_near_rank_max,
-            "reverse_check_far_hit_penalty": self.reverse_check_far_hit_penalty,
-            "reverse_check_miss_penalty": self.reverse_check_miss_penalty,
-            "reverse_check_exact_hit_ambiguity_threshold": (
-                self.reverse_check_exact_hit_ambiguity_threshold
-            ),
-            "reverse_check_exact_hit_ambiguity_penalty": (
-                self.reverse_check_exact_hit_ambiguity_penalty
-            ),
-            "kaikki_policy_live_demotion": self.kaikki_policy_live_demotion,
-            "kaikki_policy_risk_families": list(self.kaikki_policy_risk_families),
-            "reverse_check_exact_hit_specificity_bonus": (
-                self.reverse_check_exact_hit_specificity_bonus
-            ),
-            "kaikki_policy_late_sense_penalty": self.kaikki_policy_late_sense_penalty,
-        }
-
-    def label(self) -> str:
-        def _cap_text(value: Optional[int]) -> str:
-            return "none" if value is None else str(value)
-
-        return (
-            f"md={_cap_text(self.max_definitions_per_target)} "
-            f"mr={_cap_text(self.max_rules_per_target)} "
-            f"thr={self.confidence_threshold:.3f} "
-            f"sd={self.semantic_demotion_scale:.2f} "
-            f"var={'on' if self.include_variants else 'off'} "
-            f"pos={'on' if self.pos_scoring_enabled else 'off'} "
-            f"rev={'on' if self.reverse_check_enabled else 'off'} "
-            f"xamb={_format_exact_hit_ambiguity_label(self)} "
-            f"xspec={_format_exact_hit_specificity_label(self)} "
-            f"w_pos={self.score_weight_pos_match:.3f} "
-            f"kdem={'on' if self.kaikki_policy_live_demotion else 'off'} "
-            f"kfam={_format_kaikki_policy_family_label(self.kaikki_policy_risk_families)} "
-            f"kprov={_format_kaikki_provenance_label(self)}"
-        )
-
-    def scoring(self) -> RuleScoringConfig:
-        return RuleScoringConfig(
-            weights=RuleScoreWeights(
-                dict_priority=self.score_weight_dict_priority,
-                frequency_weight=self.score_weight_frequency_weight,
-                pos_match=self.score_weight_pos_match,
-                variant_penalty=self.score_weight_variant_penalty,
-                phrase_penalty=self.score_weight_phrase_penalty,
-                embedding_weight=self.score_weight_embedding,
-            ),
-            pos_match=PosMatchScoringConfig(
-                enabled=self.pos_scoring_enabled,
-                exact_match_bonus=self.pos_exact_match_bonus,
-                compatible_match_bonus=self.pos_compatible_match_bonus,
-            ),
-        )
-
-    def reverse_check(self) -> ReverseCheckScoringConfig:
-        return ReverseCheckScoringConfig(
-            enabled=bool(self.reverse_check_enabled),
-            match_bonus=float(self.reverse_check_match_bonus),
-            near_bonus=float(self.reverse_check_near_bonus),
-            near_rank_max=max(0, int(self.reverse_check_near_rank_max)),
-            far_hit_penalty=float(self.reverse_check_far_hit_penalty),
-            miss_penalty=float(self.reverse_check_miss_penalty),
-            exact_hit_ambiguity_threshold=max(
-                0,
-                int(self.reverse_check_exact_hit_ambiguity_threshold),
-            ),
-            exact_hit_ambiguity_penalty=float(self.reverse_check_exact_hit_ambiguity_penalty),
-            exact_hit_specificity_bonus=float(self.reverse_check_exact_hit_specificity_bonus),
-        )
-
-
-@dataclass(frozen=True)
-class SweepRun:
-    pair: str
-    run_index: int
-    config: SweepConfig
-    summary: RulegenBenchmarkSummary
-    case_results: Sequence[dict[str, object]]
-
-    def to_dict(self, *, include_case_results: bool) -> dict[str, object]:
-        payload = {
-            "pair": self.pair,
-            "run_index": self.run_index,
-            "config": self.config.to_dict(),
-            "config_label": self.config.label(),
-            "summary": self.summary.to_dict(),
-        }
-        if include_case_results:
-            payload["case_results"] = list(self.case_results)
-        return payload
-
-
-def _build_pair_report_payload(
-    *,
-    case_count: int,
-    runs: Sequence[SweepRun],
-    resources: Mapping[str, object],
-    word_package_snapshot: Mapping[str, object],
-    include_case_results: bool,
-) -> dict[str, object]:
-    return {
-        "case_count": int(case_count),
-        "run_count": len(runs),
-        "resources": dict(resources),
-        "word_package_snapshot": dict(word_package_snapshot),
-        "best_run": runs[0].to_dict(include_case_results=True) if runs else None,
-        "runs": [run.to_dict(include_case_results=include_case_results) for run in runs],
-    }
-
-
-def _load_html_report_renderer():
-    module_name = "rulegen_benchmark_html"
-    if __package__:
-        module_name = f"{__package__}.rulegen_benchmark_html"
-    module = __import__(module_name, fromlist=["render_html_report"])
-    return module.render_html_report
-
-
-def _parse_csv_strings(text: str) -> list[str]:
-    return [item.strip() for item in str(text or "").split(",") if item.strip()]
-
-
-def _parse_csv_floats(text: str, *, name: str) -> list[float]:
-    values = _parse_csv_strings(text)
-    if not values:
-        raise ValueError(f"{name}: expected at least one value.")
-    parsed: list[float] = []
-    for item in values:
-        parsed.append(float(item))
-    return parsed
-
-
-def _parse_csv_ints(text: str, *, name: str, min_value: Optional[int] = None) -> list[int]:
-    values = _parse_csv_strings(text)
-    if not values:
-        raise ValueError(f"{name}: expected at least one value.")
-    parsed: list[int] = []
-    for item in values:
-        value = int(item)
-        if min_value is not None:
-            value = max(int(min_value), value)
-        parsed.append(value)
-    return parsed
-
-
-def _parse_csv_optional_ints(
-    text: str,
-    *,
-    name: str,
-    zero_as_none: bool,
-) -> list[Optional[int]]:
-    values = _parse_csv_strings(text)
-    if not values:
-        raise ValueError(f"{name}: expected at least one value.")
-    parsed: list[Optional[int]] = []
-    for item in values:
-        normalized = item.lower()
-        if normalized in {"none", "null", "off"}:
-            parsed.append(None)
-            continue
-        value = int(item)
-        if zero_as_none and value <= 0:
-            parsed.append(None)
-        else:
-            parsed.append(max(1, value))
-    return parsed
-
-
-def _parse_csv_bools(text: str, *, name: str) -> list[bool]:
-    values = _parse_csv_strings(text)
-    if not values:
-        raise ValueError(f"{name}: expected at least one value.")
-    parsed: list[bool] = []
-    for item in values:
-        normalized = item.lower()
-        if normalized in {"1", "true", "on", "yes"}:
-            parsed.append(True)
-            continue
-        if normalized in {"0", "false", "off", "no"}:
-            parsed.append(False)
-            continue
-        raise ValueError(f"{name}: unsupported boolean token '{item}'.")
-    return parsed
-
-
-def _parse_family_set_specs(text: str, *, name: str) -> list[tuple[str, ...]]:
-    raw_specs = [item.strip() for item in str(text or "").split(";") if item.strip()]
-    if not raw_specs:
-        raise ValueError(f"{name}: expected at least one family set.")
-    parsed: list[tuple[str, ...]] = []
-    for spec in raw_specs:
-        lowered = spec.lower()
-        if lowered in {"none", "off", "null"}:
-            parsed.append(())
-            continue
-        families = [item.strip() for item in spec.replace(",", "+").split("+") if item.strip()]
-        if not families:
-            raise ValueError(f"{name}: invalid family set '{spec}'.")
-        parsed.append(tuple(dict.fromkeys(families)))
-    return parsed
-
-
-def _format_kaikki_policy_family_label(families: Sequence[str]) -> str:
-    if not families:
-        return "none"
-    abbreviations = {
-        "math_geometry": "mg",
-        "government_law": "gl",
-        "hunting_fishing_tools": "hft",
-        "register_region": "rr",
-        "abbreviation_ellipsis_formof": "aef",
-    }
-    tokens = [
-        abbreviations.get(str(family).strip(), str(family).strip())
-        for family in families
-        if str(family).strip()
-    ]
-    return "+".join(tokens) if tokens else "none"
-
-
-def _format_exact_hit_ambiguity_label(config: SweepConfig) -> str:
-    threshold = max(0, int(config.reverse_check_exact_hit_ambiguity_threshold))
-    penalty = max(0.0, float(config.reverse_check_exact_hit_ambiguity_penalty))
-    if threshold <= 0 or penalty <= 0.0:
-        return "off"
-    return f"{threshold}:{penalty:.2f}"
-
-
-def _format_exact_hit_specificity_label(config: SweepConfig) -> str:
-    bonus = max(0.0, float(config.reverse_check_exact_hit_specificity_bonus))
-    if bonus <= 0.0:
-        return "off"
-    return f"{bonus:.2f}"
-
-
-def _format_kaikki_provenance_label(config: SweepConfig) -> str:
-    penalty = max(0.0, float(config.kaikki_policy_late_sense_penalty))
-    if penalty <= 0.0:
-        return "off"
-    return f"{penalty:.2f}"
-
-
-def _load_dataset_cases(
-    path: Path,
-    *,
-    pair_filter: Optional[set[str]],
-) -> tuple[dict[str, object], dict[str, list[RulegenBenchmarkCase]]]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(payload, Mapping):
-        raise ValueError(f"Dataset payload must be an object: {path}")
-    raw_cases = payload.get("cases")
-    if not isinstance(raw_cases, Sequence):
-        raise ValueError(f"Dataset is missing `cases` list: {path}")
-
-    by_pair: dict[str, list[RulegenBenchmarkCase]] = {}
-    for index, raw_case in enumerate(raw_cases):
-        if not isinstance(raw_case, Mapping):
-            continue
-        case = RulegenBenchmarkCase.from_mapping(raw_case, index=index)
-        if not case.pair or not case.target:
-            continue
-        if pair_filter and case.pair not in pair_filter:
-            continue
-        by_pair.setdefault(case.pair, []).append(case)
-    return dict(payload), by_pair
-
-
-def _load_store(paths, *, profile_id: str) -> SrsStore:
-    store_path = paths.srs_store_path_for(profile_id)
-    if not store_path.exists():
-        return SrsStore()
-    return load_srs_store(store_path)
-
-
-def _build_store_word_packages(
-    *,
-    store: SrsStore,
-    pair: str,
-    targets: set[str],
-) -> dict[str, Mapping[str, object]]:
-    package_map: dict[str, Mapping[str, object]] = {}
-    for item in store.items:
-        if item.language_pair != pair:
-            continue
-        lemma = str(item.lemma or "").strip()
-        if lemma not in targets:
-            continue
-        if not isinstance(item.word_package, Mapping):
-            continue
-        package_map[lemma] = item.word_package
-    return package_map
-
-
-def _build_word_package_snapshot(
-    *,
-    targets: Sequence[str],
-    word_packages_by_target: Mapping[str, Mapping[str, object]],
-) -> dict[str, object]:
-    snapshot: dict[str, object] = {}
-    normalized_targets = sorted(
-        {str(target or "").strip() for target in targets if str(target or "").strip()}
-    )
-    for target in normalized_targets:
-        normalized_package = normalize_word_package(word_packages_by_target.get(target))
-        snapshot[target] = dict(normalized_package) if normalized_package is not None else None
-    return snapshot
-
-
-def _load_frozen_word_package_snapshots(path: Path) -> dict[str, dict[str, object]]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    raw_pairs = payload
-    if isinstance(payload, Mapping) and isinstance(payload.get("pairs"), Mapping):
-        raw_pairs = payload.get("pairs")
-        if isinstance(raw_pairs, Mapping):
-            sample_value = next(iter(raw_pairs.values()), None)
-            if isinstance(sample_value, Mapping) and "word_package_snapshot" in sample_value:
-                raw_pairs = {
-                    pair: value.get("word_package_snapshot")
-                    for pair, value in raw_pairs.items()
-                    if isinstance(value, Mapping)
-                }
-    if not isinstance(raw_pairs, Mapping):
-        raise ValueError(f"Frozen word-package snapshot payload must be an object: {path}")
-    frozen: dict[str, dict[str, object]] = {}
-    for raw_pair, raw_snapshot in raw_pairs.items():
-        pair = str(raw_pair or "").strip()
-        if not pair:
-            continue
-        if not isinstance(raw_snapshot, Mapping):
-            continue
-        pair_snapshot: dict[str, object] = {}
-        for raw_target, raw_package in raw_snapshot.items():
-            target = str(raw_target or "").strip()
-            if not target:
-                continue
-            if raw_package is None:
-                pair_snapshot[target] = None
-                continue
-            if not isinstance(raw_package, Mapping):
-                raise ValueError(
-                    f"Frozen word-package snapshot for pair `{pair}` target `{target}` "
-                    f"must be an object or null: {path}"
-                )
-            normalized_package = normalize_word_package(raw_package)
-            pair_snapshot[target] = (
-                dict(normalized_package) if normalized_package is not None else None
-            )
-        frozen[pair] = pair_snapshot
-    return frozen
-
-
-def _apply_case_word_package_overrides(
-    *,
-    package_map: dict[str, Mapping[str, object]],
-    pair: str,
-    cases: Sequence[RulegenBenchmarkCase],
-) -> None:
-    for case in cases:
-        if case.target in package_map:
-            continue
-        if not case.target_reading:
-            continue
-        package = build_word_package(
-            language_pair=pair,
-            surface=case.target,
-            reading=case.target_reading,
-            source_provider="rulegen_benchmark",
-        )
-        if package is None:
-            continue
-        package_map[case.target] = package
-
-
-def _resolve_pair_resources_for_benchmark(
-    *,
-    paths,
-    pair: str,
-    jmdict_override: Optional[Path],
-    freedict_override: Optional[Path],
-    freedict_reverse_override: Optional[Path],
-) -> tuple[Optional[Path], Optional[Path], Optional[Path]]:
-    jmdict_path, freedict_path, _ = resolve_pair_resources(
-        paths,
-        pair=pair,
-        jmdict_path=jmdict_override,
-        freedict_de_en_path=freedict_override,
-        set_source_db=None,
-    )
-    reverse_freedict_path = freedict_reverse_override
-    if reverse_freedict_path is None:
-        reverse_freedict_path = default_freedict_reverse_path(
-            pair,
-            language_packs_dir=paths.language_packs_dir,
-        )
-    capability = resolve_pair_capability(pair)
-    if capability.requires_jmdict_for_rulegen:
-        if jmdict_path is None or not jmdict_path.exists():
-            raise FileNotFoundError(f"JMDict path not found for pair {pair}: {jmdict_path}")
-    if capability.requires_freedict_de_en_for_rulegen:
-        if freedict_path is None or not freedict_path.exists():
-            raise FileNotFoundError(
-                f"Translation dictionary path not found for pair {pair}: {freedict_path}"
-            )
-    if pair in {"en-es", "es-en"} and reverse_freedict_path is not None:
-        if not reverse_freedict_path.exists():
-            raise FileNotFoundError(
-                f"Reverse translation dictionary path not found for pair {pair}: "
-                f"{reverse_freedict_path}"
-            )
-    return jmdict_path, freedict_path, reverse_freedict_path
-
-
-def _compute_file_sha256(path: Optional[Path]) -> Optional[str]:
-    if path is None or not path.exists() or not path.is_file():
-        return None
-    hasher = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            if not chunk:
-                break
-            hasher.update(chunk)
-    return f"sha256:{hasher.hexdigest()}"
-
-
-def _build_pair_resources_payload(
-    *,
-    jmdict_path: Optional[Path],
-    translation_dict_path: Optional[Path],
-    reverse_translation_dict_path: Optional[Path],
-) -> dict[str, object]:
-    jmdict_path_text = str(jmdict_path) if jmdict_path else None
-    translation_dict_path_text = str(translation_dict_path) if translation_dict_path else None
-    reverse_translation_dict_path_text = (
-        str(reverse_translation_dict_path) if reverse_translation_dict_path else None
-    )
-    checksums = {
-        "jmdict_sha256": _compute_file_sha256(jmdict_path),
-        "translation_dict_sha256": _compute_file_sha256(translation_dict_path),
-        "reverse_translation_dict_sha256": _compute_file_sha256(reverse_translation_dict_path),
-    }
-    return {
-        "jmdict_path": jmdict_path_text,
-        "translation_dict_path": translation_dict_path_text,
-        "reverse_translation_dict_path": reverse_translation_dict_path_text,
-        "freedict_path": translation_dict_path_text,
-        "freedict_reverse_path": reverse_translation_dict_path_text,
-        "checksums": checksums,
-    }
-
-
-def _group_rules_by_target(rules: Sequence[VocabRule]) -> dict[str, list[VocabRule]]:
-    by_target: dict[str, list[VocabRule]] = {}
-    for rule in rules:
-        target = str(rule.replacement or "").strip()
-        if not target:
-            continue
-        by_target.setdefault(target, []).append(rule)
-    return by_target
-
-
-def _build_sweep_configs(args: argparse.Namespace) -> list[SweepConfig]:
-    max_definitions_values = _parse_csv_optional_ints(
-        args.max_definitions_values,
-        name="max-definitions-values",
-        zero_as_none=True,
-    )
-    max_rules_values = _parse_csv_optional_ints(
-        args.max_rules_values,
-        name="max-rules-values",
-        zero_as_none=True,
-    )
-    confidence_values = _parse_csv_floats(
-        args.confidence_threshold_values,
-        name="confidence-threshold-values",
-    )
-    semantic_demotion_scale_values = _parse_csv_floats(
-        args.semantic_demotion_scale_values,
-        name="semantic-demotion-scale-values",
-    )
-    include_variants_values = _parse_csv_bools(
-        args.include_variants_values,
-        name="include-variants-values",
-    )
-    pos_scoring_values = _parse_csv_bools(
-        args.pos_scoring_values,
-        name="pos-scoring-values",
-    )
-    pos_exact_values = _parse_csv_floats(args.pos_exact_values, name="pos-exact-values")
-    pos_compatible_values = _parse_csv_floats(
-        args.pos_compatible_values,
-        name="pos-compatible-values",
-    )
-    score_weight_dict_values = _parse_csv_floats(
-        args.score_weight_dict_values,
-        name="score-weight-dict-values",
-    )
-    score_weight_frequency_values = _parse_csv_floats(
-        args.score_weight_frequency_values,
-        name="score-weight-frequency-values",
-    )
-    score_weight_pos_values = _parse_csv_floats(
-        args.score_weight_pos_values,
-        name="score-weight-pos-values",
-    )
-    score_weight_variant_values = _parse_csv_floats(
-        args.score_weight_variant_values,
-        name="score-weight-variant-values",
-    )
-    score_weight_phrase_values = _parse_csv_floats(
-        args.score_weight_phrase_values,
-        name="score-weight-phrase-values",
-    )
-    score_weight_embedding_values = _parse_csv_floats(
-        args.score_weight_embedding_values,
-        name="score-weight-embedding-values",
-    )
-    reverse_check_enabled_values = _parse_csv_bools(
-        args.reverse_check_enabled_values,
-        name="reverse-check-enabled-values",
-    )
-    reverse_check_match_bonus_values = _parse_csv_floats(
-        args.reverse_check_match_bonus_values,
-        name="reverse-check-match-bonus-values",
-    )
-    reverse_check_near_bonus_values = _parse_csv_floats(
-        args.reverse_check_near_bonus_values,
-        name="reverse-check-near-bonus-values",
-    )
-    reverse_check_near_rank_max_values = _parse_csv_ints(
-        args.reverse_check_near_rank_max_values,
-        name="reverse-check-near-rank-max-values",
-        min_value=0,
-    )
-    reverse_check_far_hit_penalty_values = _parse_csv_floats(
-        args.reverse_check_far_hit_penalty_values,
-        name="reverse-check-far-hit-penalty-values",
-    )
-    reverse_check_miss_penalty_values = _parse_csv_floats(
-        args.reverse_check_miss_penalty_values,
-        name="reverse-check-miss-penalty-values",
-    )
-    reverse_check_exact_hit_ambiguity_threshold_values = _parse_csv_ints(
-        args.reverse_check_exact_hit_ambiguity_threshold_values,
-        name="reverse-check-exact-hit-ambiguity-threshold-values",
-        min_value=0,
-    )
-    reverse_check_exact_hit_ambiguity_penalty_values = _parse_csv_floats(
-        args.reverse_check_exact_hit_ambiguity_penalty_values,
-        name="reverse-check-exact-hit-ambiguity-penalty-values",
-    )
-    reverse_check_exact_hit_specificity_bonus_values = _parse_csv_floats(
-        args.reverse_check_exact_hit_specificity_bonus_values,
-        name="reverse-check-exact-hit-specificity-bonus-values",
-    )
-    kaikki_policy_live_demotion_values = _parse_csv_bools(
-        args.kaikki_policy_live_demotion_values,
-        name="kaikki-policy-live-demotion-values",
-    )
-    kaikki_policy_risk_family_sets = _parse_family_set_specs(
-        args.kaikki_policy_risk_family_sets,
-        name="kaikki-policy-risk-family-sets",
-    )
-    kaikki_policy_late_sense_penalty_values = _parse_csv_floats(
-        args.kaikki_policy_late_sense_penalty_values,
-        name="kaikki-policy-late-sense-penalty-values",
-    )
-
-    configs: list[SweepConfig] = []
-    for combo in itertools.product(
-        max_definitions_values,
-        max_rules_values,
-        confidence_values,
-        semantic_demotion_scale_values,
-        include_variants_values,
-        pos_scoring_values,
-        pos_exact_values,
-        pos_compatible_values,
-        score_weight_dict_values,
-        score_weight_frequency_values,
-        score_weight_pos_values,
-        score_weight_variant_values,
-        score_weight_phrase_values,
-        score_weight_embedding_values,
-        reverse_check_enabled_values,
-        reverse_check_match_bonus_values,
-        reverse_check_near_bonus_values,
-        reverse_check_near_rank_max_values,
-        reverse_check_far_hit_penalty_values,
-        reverse_check_miss_penalty_values,
-        reverse_check_exact_hit_ambiguity_threshold_values,
-        reverse_check_exact_hit_ambiguity_penalty_values,
-        kaikki_policy_live_demotion_values,
-        kaikki_policy_risk_family_sets,
-        reverse_check_exact_hit_specificity_bonus_values,
-        kaikki_policy_late_sense_penalty_values,
-    ):
-        configs.append(
-            SweepConfig(
-                max_definitions_per_target=combo[0],
-                max_rules_per_target=combo[1],
-                confidence_threshold=float(combo[2]),
-                semantic_demotion_scale=float(combo[3]),
-                include_variants=bool(combo[4]),
-                pos_scoring_enabled=bool(combo[5]),
-                pos_exact_match_bonus=float(combo[6]),
-                pos_compatible_match_bonus=float(combo[7]),
-                score_weight_dict_priority=float(combo[8]),
-                score_weight_frequency_weight=float(combo[9]),
-                score_weight_pos_match=float(combo[10]),
-                score_weight_variant_penalty=float(combo[11]),
-                score_weight_phrase_penalty=float(combo[12]),
-                score_weight_embedding=float(combo[13]),
-                reverse_check_enabled=bool(combo[14]),
-                reverse_check_match_bonus=float(combo[15]),
-                reverse_check_near_bonus=float(combo[16]),
-                reverse_check_near_rank_max=max(0, int(combo[17])),
-                reverse_check_far_hit_penalty=float(combo[18]),
-                reverse_check_miss_penalty=float(combo[19]),
-                reverse_check_exact_hit_ambiguity_threshold=max(0, int(combo[20])),
-                reverse_check_exact_hit_ambiguity_penalty=float(combo[21]),
-                kaikki_policy_live_demotion=bool(combo[22]),
-                kaikki_policy_risk_families=tuple(combo[23]),
-                reverse_check_exact_hit_specificity_bonus=float(combo[24]),
-                kaikki_policy_late_sense_penalty=float(combo[25]),
-            )
-        )
-    return configs
-
-
-def _run_sort_key(run: SweepRun) -> tuple[float, float, float, float, float, float]:
-    summary = run.summary
-    return (
-        -float(summary.objective_score),
-        -float(summary.top1_accuracy),
-        -float(summary.top3_recall),
-        float(summary.forbidden_top1_rate),
-        float(summary.forbidden_any_rate),
-        float(summary.avg_rules_per_target),
-    )
-
-
-def _render_markdown_report(
-    *,
-    pair_runs: Mapping[str, Sequence[SweepRun]],
-    top_n: int,
-) -> str:
-    lines: list[str] = [
-        "# Rulegen Benchmark Sweep",
-        "",
-        f"Generated: {datetime.now(timezone.utc).isoformat()}",
-        "",
-    ]
-    for pair, runs in sorted(pair_runs.items()):
-        lines.append(f"## {pair}")
-        lines.append("")
-        if not runs:
-            lines.append("No runs.")
-            lines.append("")
-            continue
-        lines.append(
-            "| Rank | Objective | Top1 | Top3 | ForbidTop1 | ForbidAny | AvgRules | Config |"
-        )
-        lines.append("|---:|---:|---:|---:|---:|---:|---:|---|")
-        for rank, run in enumerate(runs[:top_n], start=1):
-            summary = run.summary
-            lines.append(
-                "| "
-                f"{rank} | "
-                f"{summary.objective_score:.3f} | "
-                f"{summary.top1_accuracy:.2%} | "
-                f"{summary.top3_recall:.2%} | "
-                f"{summary.forbidden_top1_rate:.2%} | "
-                f"{summary.forbidden_any_rate:.2%} | "
-                f"{summary.avg_rules_per_target:.2f} | "
-                f"`{run.config.label()}` |"
-            )
-        lines.append("")
-    return "\n".join(lines)
-
-
-def _build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        description=(
-            "Sweep rulegen parameters over labeled benchmark cases and rank settings by objective score."
-        )
-    )
-    parser.add_argument(
-        "--preset-file",
-        type=Path,
-        default=DEFAULT_PRESET_PATH,
-        help="Path to benchmark preset registry JSON.",
-    )
-    parser.add_argument(
-        "--preset",
-        help="Optional named benchmark preset from the preset registry.",
-    )
-    parser.add_argument(
-        "--list-presets",
-        action="store_true",
-        help="List available benchmark presets and exit.",
-    )
-    parser.add_argument(
-        "--dataset",
-        type=Path,
-        default=PROJECT_ROOT / "docs" / "test_inputs" / "rulegen_benchmark_cases.json",
-        help="Path to benchmark dataset JSON.",
-    )
-    parser.add_argument(
-        "--pairs",
-        help="Optional comma-separated pair filter (default: all pairs present in dataset).",
-    )
-    parser.add_argument(
-        "--profile-id", default="default", help="SRS profile id for word_package hints."
-    )
-    parser.add_argument(
-        "--data-root",
-        type=Path,
-        help="Override LexiShift data root (default: platform data dir or LEXISHIFT_DATA_DIR).",
-    )
-    parser.add_argument(
-        "--word-package-snapshot-json",
-        type=Path,
-        help=(
-            "Optional frozen per-pair word_package snapshot JSON. When provided for a pair, "
-            "the benchmark uses it instead of the live SRS store for that pair."
-        ),
-    )
-    parser.add_argument("--jmdict", type=Path, help="Optional JMdict override path.")
-    parser.add_argument(
-        "--translation-dict-en-de",
-        "--freedict-en-de",
-        dest="translation_dict_en_de",
-        type=Path,
-        help="Optional translation-dictionary override for en-de pair (deu-eng.tei / sqlite).",
-    )
-    parser.add_argument(
-        "--translation-dict-en-es",
-        "--freedict-en-es",
-        dest="translation_dict_en_es",
-        type=Path,
-        help=(
-            "Optional translation-dictionary override for en-es pair "
-            "(wiktionary-es-en.sqlite / spa-eng.tei / sqlite)."
-        ),
-    )
-    parser.add_argument(
-        "--translation-dict-es-en",
-        "--freedict-es-en",
-        dest="translation_dict_es_en",
-        type=Path,
-        help="Optional translation-dictionary override for es-en pair (eng-spa.tei / sqlite).",
-    )
-    parser.add_argument("--max-definitions-values", default="3")
-    parser.add_argument("--max-rules-values", default="none")
-    parser.add_argument("--confidence-threshold-values", default="0.0")
-    parser.add_argument("--semantic-demotion-scale-values", default="1.0")
-    parser.add_argument("--include-variants-values", default="true,false")
-    parser.add_argument("--pos-scoring-values", default="true,false")
-    parser.add_argument("--pos-exact-values", default="1.0")
-    parser.add_argument("--pos-compatible-values", default="0.5")
-    parser.add_argument("--score-weight-dict-values", default="0.6")
-    parser.add_argument("--score-weight-frequency-values", default="0.2")
-    parser.add_argument("--score-weight-pos-values", default="0.1")
-    parser.add_argument("--score-weight-variant-values", default="0.1")
-    parser.add_argument("--score-weight-phrase-values", default="0.1")
-    parser.add_argument("--score-weight-embedding-values", default="0.2")
-    parser.add_argument("--reverse-check-enabled-values", default="false,true")
-    parser.add_argument("--reverse-check-match-bonus-values", default="0.2")
-    parser.add_argument("--reverse-check-near-bonus-values", default="0.1")
-    parser.add_argument("--reverse-check-near-rank-max-values", default="2")
-    parser.add_argument("--reverse-check-far-hit-penalty-values", default="0.0")
-    parser.add_argument("--reverse-check-miss-penalty-values", default="0.2")
-    parser.add_argument("--reverse-check-exact-hit-ambiguity-threshold-values", default="0")
-    parser.add_argument("--reverse-check-exact-hit-ambiguity-penalty-values", default="0.0")
-    parser.add_argument(
-        "--reverse-check-exact-hit-specificity-bonus-values",
-        default="0.0,0.1,0.2",
-    )
-    parser.add_argument("--kaikki-policy-live-demotion-values", default="false,true")
-    parser.add_argument(
-        "--kaikki-policy-risk-family-sets",
-        default=(
-            "math_geometry+government_law+hunting_fishing_tools+"
-            "register_region+abbreviation_ellipsis_formof"
-        ),
-    )
-    parser.add_argument(
-        "--kaikki-policy-late-sense-penalty-values",
-        default="0.0,0.1,0.2",
-    )
-    parser.add_argument("--objective-top1-weight", type=float, default=100.0)
-    parser.add_argument("--objective-top3-weight", type=float, default=60.0)
-    parser.add_argument("--objective-forbidden-top1-weight", type=float, default=120.0)
-    parser.add_argument("--objective-forbidden-any-weight", type=float, default=80.0)
-    parser.add_argument("--objective-avg-rules-weight", type=float, default=6.0)
-    parser.add_argument("--objective-variant-top1-weight", type=float, default=10.0)
-    parser.add_argument(
-        "--max-configurations",
-        type=int,
-        default=500,
-        help="Safety cap for number of sweep combinations per pair.",
-    )
-    parser.add_argument("--top-runs", type=int, default=10, help="Top-N runs per pair in markdown.")
-    parser.add_argument(
-        "--include-case-results",
-        action="store_true",
-        help="Include per-case rule outputs for every run in JSON output.",
-    )
-    parser.add_argument(
-        "--json-output",
-        type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_benchmark_latest.json",
-        help="Path to write JSON report.",
-    )
-    parser.add_argument(
-        "--markdown-output",
-        type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_benchmark_latest.md",
-        help="Path to write markdown leaderboard.",
-    )
-    parser.add_argument(
-        "--html-output",
-        type=Path,
-        default=PROJECT_ROOT / "docs" / "test_outputs" / "rulegen_benchmark_latest.html",
-        help="Path to write styled HTML dashboard.",
-    )
-    return parser
-
-
-def _resolve_cli_with_preset(
-    *,
-    argv: Sequence[str],
-) -> tuple[argparse.Namespace, Optional[BenchmarkPreset]]:
-    parser = _build_parser()
-    pre_parser = argparse.ArgumentParser(add_help=False)
-    pre_parser.add_argument("--preset-file", type=Path, default=DEFAULT_PRESET_PATH)
-    pre_parser.add_argument("--preset")
-    pre_parser.add_argument("--list-presets", action="store_true")
-    pre_args, remaining_argv = pre_parser.parse_known_args(list(argv))
-    preset_file = Path(pre_args.preset_file)
-    presets = load_benchmark_presets(preset_file)
-    if pre_args.list_presets:
-        print(format_benchmark_presets_listing(presets))
-        raise SystemExit(0)
-    selected_preset: Optional[BenchmarkPreset] = None
-    effective_argv = list(remaining_argv)
-    preset_name = str(pre_args.preset or "").strip()
-    if preset_name:
-        selected_preset = presets.get(preset_name)
-        if selected_preset is None:
-            available = ", ".join(sorted(presets))
-            raise ValueError(
-                f"Unknown preset `{preset_name}` in {preset_file}. Available: {available}"
-            )
-        effective_argv = list(selected_preset.args) + effective_argv
-    args = parser.parse_args(effective_argv)
-    args.preset_file = preset_file
-    args.preset = selected_preset.name if selected_preset is not None else None
-    args.list_presets = False
-    return args, selected_preset
+__all__ = [
+    "BenchmarkTimingCollector",
+    "CompiledBenchmarkCaseRef",
+    "CompiledBenchmarkCaseResultTable",
+    "CompiledBenchmarkCaseTable",
+    "DEFAULT_PRESET_PATH",
+    "PairBenchmarkContext",
+    "ProcessPoolExecutor",
+    "SweepConfig",
+    "SweepRun",
+    "SweepRunEvaluation",
+    "_build_compiled_case_refs",
+    "_build_compiled_case_result_table",
+    "_build_compiled_case_table",
+    "_build_compiled_rule_table",
+    "_build_compiled_rule_table_from_en_es_selected_rows",
+    "_build_compiled_rule_table_from_rules",
+    "_build_en_es_reverse_headword_norm_index",
+    "_build_pair_benchmark_context",
+    "_build_pair_compiled_rulegen_context",
+    "_build_pair_report_payload",
+    "_build_pair_resources_payload",
+    "_build_parser",
+    "_build_reverse_preload_headwords",
+    "_build_sweep_configs",
+    "_build_word_package_snapshot",
+    "_compute_file_sha256",
+    "_compute_file_sha256_uncached",
+    "_config_from_payload",
+    "_evaluate_benchmark_case_compiled",
+    "_evaluate_case_payloads_with_table",
+    "_evaluate_case_results",
+    "_evaluate_case_results_with_table",
+    "_evaluate_sweep_run",
+    "_evaluate_sweep_run_from_worker_state",
+    "_expand_reverse_preload_headwords",
+    "_format_exact_hit_ambiguity_label",
+    "_format_exact_hit_specificity_label",
+    "_format_kaikki_policy_family_label",
+    "_format_kaikki_provenance_label",
+    "_load_dataset_cases",
+    "_load_frozen_word_package_snapshots",
+    "_load_html_report_renderer",
+    "_load_json_object",
+    "_load_pair_runs_from_report_payload",
+    "_load_render_inputs_from_report_payload",
+    "_load_store",
+    "_parse_family_set_specs",
+    "_preload_pair_gloss_records",
+    "_render_markdown_report",
+    "_render_report_artifacts",
+    "_resolve_cli_with_preset",
+    "_resolve_pair_resources_for_benchmark",
+    "_resolve_path_from_report_payload",
+    "_run_from_payload",
+    "_run_pair_sweep",
+    "_summarize_compiled_case_results",
+    "_summary_from_payload",
+    "_write_benchmark_outputs",
+    "as_completed",
+    "main",
+    "run_rules_with_adapter",
+]
 
 
 def main(argv: Optional[Sequence[str]] = None) -> None:
+    wall_clock_started = perf_counter()
+    timing = BenchmarkTimingCollector()
     args, selected_preset = _resolve_cli_with_preset(
         argv=tuple(argv) if argv is not None else tuple(sys.argv[1:])
     )
+    if args.compute_only and args.render_from_json is not None:
+        raise ValueError("--compute-only and --render-from-json cannot be combined.")
+
+    if args.render_from_json is not None:
+        started = perf_counter()
+        report_payload = _load_json_object(args.render_from_json)
+        timing.add("load_report_json", perf_counter() - started)
+        started = perf_counter()
+        pair_runs, cases_by_pair = _load_render_inputs_from_report_payload(report_payload)
+        timing.add("load_render_inputs", perf_counter() - started)
+        markdown_report, html_report, timing_payload = _render_report_artifacts(
+            report_payload=report_payload,
+            pair_runs=pair_runs,
+            cases_by_pair=cases_by_pair,
+            top_n=max(1, int(args.top_runs)),
+            timing=timing,
+            wall_clock_started=wall_clock_started,
+        )
+        _write_benchmark_outputs(
+            report_payload=report_payload,
+            markdown_report=markdown_report,
+            html_report=html_report,
+            json_output=None,
+            markdown_output=args.markdown_output,
+            html_output=args.html_output,
+            timing_payload=timing_payload,
+            timing_json_output=args.timing_json_output,
+        )
+        print(f"source_json: {args.render_from_json}")
+        print(f"markdown_output: {args.markdown_output}")
+        print(f"html_output: {args.html_output}")
+        if args.timing_json_output is not None:
+            print(f"timing_json_output: {args.timing_json_output}")
+        return
 
     pair_filter = (
-        {item.strip().lower() for item in _parse_csv_strings(args.pairs)} if args.pairs else None
+        {item.strip().lower() for item in args.pairs.split(",") if item.strip()}
+        if args.pairs
+        else None
     )
+    started = perf_counter()
     dataset_payload, cases_by_pair = _load_dataset_cases(args.dataset, pair_filter=pair_filter)
+    timing.add("load_dataset", perf_counter() - started)
     if not cases_by_pair:
         raise ValueError("No benchmark cases found after applying filters.")
 
+    started = perf_counter()
     sweep_configs = _build_sweep_configs(args)
+    timing.add("build_sweep_configs", perf_counter() - started)
     if len(sweep_configs) > max(1, int(args.max_configurations)):
         raise ValueError(
             f"Sweep combinations={len(sweep_configs)} exceed --max-configurations={args.max_configurations}."
@@ -991,8 +221,10 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         variant_top1_rate=float(args.objective_variant_top1_weight),
     )
 
+    started = perf_counter()
     paths = build_helper_paths(args.data_root)
     store = _load_store(paths, profile_id=args.profile_id)
+    timing.add("load_store", perf_counter() - started)
     frozen_word_package_snapshots = (
         _load_frozen_word_package_snapshots(args.word_package_snapshot_json)
         if args.word_package_snapshot_json is not None
@@ -1003,6 +235,9 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         "en-de": args.translation_dict_en_de,
         "en-es": args.translation_dict_en_es,
         "es-en": args.translation_dict_es_en,
+    }
+    source_frequency_db_overrides: dict[str, Optional[Path]] = {
+        "en-de": args.source_frequency_db_en_de,
     }
     reverse_translation_dict_overrides: dict[str, Optional[Path]] = {
         "en-es": args.translation_dict_es_en,
@@ -1016,83 +251,32 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         capability = resolve_pair_capability(pair)
         if capability.rulegen_mode is None:
             continue
-        jmdict_path, freedict_path, reverse_freedict_path = _resolve_pair_resources_for_benchmark(
+        context = _build_pair_benchmark_context(
             paths=paths,
+            store=store,
             pair=pair,
+            cases=cases,
             jmdict_override=args.jmdict,
-            freedict_override=translation_dict_overrides.get(pair),
-            freedict_reverse_override=reverse_translation_dict_overrides.get(pair),
+            translation_dict_override=translation_dict_overrides.get(pair),
+            reverse_translation_dict_override=reverse_translation_dict_overrides.get(pair),
+            source_frequency_db_override=source_frequency_db_overrides.get(pair),
+            frozen_word_package_snapshots=frozen_word_package_snapshots,
+            timing=timing,
         )
-        pair_resources[pair] = _build_pair_resources_payload(
-            jmdict_path=jmdict_path,
-            translation_dict_path=freedict_path,
-            reverse_translation_dict_path=reverse_freedict_path,
+        pair_resources[pair] = dict(context.resources)
+        pair_word_package_snapshots[pair] = dict(context.word_package_snapshot)
+
+        pair_run_list = _run_pair_sweep(
+            context=context,
+            sweep_configs=sweep_configs,
+            objective_weights=objective_weights,
+            jobs=args.jobs,
+            timing=timing,
+            materialize_case_results=args.include_case_results,
         )
-
-        target_set = {case.target for case in cases}
-        targets = sorted(target_set)
-        frozen_snapshot = frozen_word_package_snapshots.get(pair)
-        if isinstance(frozen_snapshot, Mapping):
-            word_package_snapshot = {target: frozen_snapshot.get(target) for target in targets}
-            word_packages = {
-                target: package
-                for target, package in word_package_snapshot.items()
-                if isinstance(package, Mapping)
-            }
-        else:
-            word_packages = _build_store_word_packages(store=store, pair=pair, targets=target_set)
-            _apply_case_word_package_overrides(package_map=word_packages, pair=pair, cases=cases)
-            word_package_snapshot = _build_word_package_snapshot(
-                targets=targets,
-                word_packages_by_target=word_packages,
-            )
-        pair_word_package_snapshots[pair] = word_package_snapshot
-
-        pair_run_list: list[SweepRun] = []
-        for index, config in enumerate(sweep_configs, start=1):
-            rules = run_rules_with_adapter(
-                RulegenAdapterRequest(
-                    pair=pair,
-                    targets=tuple(targets),
-                    language_pair=pair,
-                    confidence_threshold=config.confidence_threshold,
-                    max_definitions_per_target=config.max_definitions_per_target,
-                    max_rules_per_target=config.max_rules_per_target,
-                    semantic_demotion_scale=config.semantic_demotion_scale,
-                    include_variants=config.include_variants,
-                    scoring=config.scoring(),
-                    reverse_check=config.reverse_check(),
-                    jmdict_path=jmdict_path,
-                    freedict_de_en_path=freedict_path,
-                    freedict_reverse_path=reverse_freedict_path,
-                    word_packages_by_target=word_packages,
-                    kaikki_policy_live_demotion=config.kaikki_policy_live_demotion,
-                    kaikki_policy_risk_families=config.kaikki_policy_risk_families,
-                    kaikki_policy_late_sense_penalty=config.kaikki_policy_late_sense_penalty,
-                )
-            )
-            rules_by_target = _group_rules_by_target(rules)
-            case_results = [
-                evaluate_benchmark_case(case, tuple(rules_by_target.get(case.target, ())))
-                for case in cases
-            ]
-            summary = summarize_benchmark_results(
-                pair=pair,
-                case_results=case_results,
-                objective_weights=objective_weights,
-            )
-            pair_run_list.append(
-                SweepRun(
-                    pair=pair,
-                    run_index=index,
-                    config=config,
-                    summary=summary,
-                    case_results=tuple(result.to_dict() for result in case_results),
-                )
-            )
-        pair_run_list.sort(key=_run_sort_key)
         pair_runs[pair] = pair_run_list
 
+    timing_payload = timing.to_dict(wall_clock_seconds=perf_counter() - wall_clock_started)
     report_payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "dataset_path": str(args.dataset),
@@ -1104,6 +288,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         "sweep": {
             "pair_filter": sorted(pair_filter) if pair_filter else None,
             "configuration_count": len(sweep_configs),
+            "jobs": max(1, int(args.jobs)),
             "word_package_snapshot_json": (
                 str(args.word_package_snapshot_json)
                 if args.word_package_snapshot_json is not None
@@ -1129,6 +314,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             },
         },
         "resources": pair_resources,
+        "timing": timing_payload,
         "pairs": {},
     }
 
@@ -1141,30 +327,40 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             include_case_results=args.include_case_results,
         )
 
-    top_runs = max(1, int(args.top_runs))
-    markdown_report = _render_markdown_report(pair_runs=pair_runs, top_n=top_runs)
-    html_report = _load_html_report_renderer()(
+    timing_payload = timing.to_dict(wall_clock_seconds=perf_counter() - wall_clock_started)
+    report_payload["timing"] = timing_payload
+    markdown_report: Optional[str] = None
+    html_report: Optional[str] = None
+    if not args.compute_only:
+        markdown_report, html_report, timing_payload = _render_report_artifacts(
+            report_payload=report_payload,
+            pair_runs=pair_runs,
+            cases_by_pair=cases_by_pair,
+            top_n=max(1, int(args.top_runs)),
+            timing=timing,
+            wall_clock_started=wall_clock_started,
+        )
+    _write_benchmark_outputs(
         report_payload=report_payload,
-        pair_runs=pair_runs,
-        cases_by_pair=cases_by_pair,
-        top_n=top_runs,
+        markdown_report=markdown_report,
+        html_report=html_report,
+        json_output=args.json_output,
+        markdown_output=(None if args.compute_only else args.markdown_output),
+        html_output=(None if args.compute_only else args.html_output),
+        timing_payload=timing_payload,
+        timing_json_output=args.timing_json_output,
     )
-
-    args.json_output.parent.mkdir(parents=True, exist_ok=True)
-    args.json_output.write_text(
-        json.dumps(report_payload, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    args.markdown_output.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown_output.write_text(markdown_report, encoding="utf-8")
-    args.html_output.parent.mkdir(parents=True, exist_ok=True)
-    args.html_output.write_text(html_report, encoding="utf-8")
 
     print(f"pairs: {len(pair_runs)}")
     print(f"configs_per_pair: {len(sweep_configs)}")
     print(f"json_output: {args.json_output}")
-    print(f"markdown_output: {args.markdown_output}")
-    print(f"html_output: {args.html_output}")
+    if args.compute_only:
+        print("materialization: skipped (--compute-only)")
+    else:
+        print(f"markdown_output: {args.markdown_output}")
+        print(f"html_output: {args.html_output}")
+    if args.timing_json_output is not None:
+        print(f"timing_json_output: {args.timing_json_output}")
     for pair, runs in sorted(pair_runs.items()):
         if not runs:
             continue

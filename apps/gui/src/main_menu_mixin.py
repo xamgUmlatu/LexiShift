@@ -5,8 +5,7 @@ import sys
 from PySide6.QtGui import QAction, QActionGroup
 from PySide6.QtWidgets import QMessageBox, QStyle
 
-from helper_installer import install_helper, is_helper_installed
-from helper_ui import ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
+from helper_ui import manage_browser_connections
 from i18n import t
 from main_help import open_setup_guide
 from main_paths import _app_data_dir, _startup_log_paths
@@ -49,10 +48,10 @@ class MainWindowMenuMixin:
         self._edit_metadata_action = QAction(t("menu.edit_metadata"), self)
         self._edit_metadata_action.triggered.connect(self._edit_rule_metadata)
 
-        self._install_helper_action = QAction(t("menu.install_helper"), self)
+        self._install_helper_action = QAction(t("menu.browser_connections"), self)
         self._install_helper_action.setMenuRole(QAction.ApplicationSpecificRole)
         self._install_helper_action.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
-        self._install_helper_action.triggered.connect(self._install_helper)
+        self._install_helper_action.triggered.connect(self._manage_browser_connections)
 
         self._startup_diagnostics_action = QAction(t("menu.startup_diagnostics"), self)
         self._startup_diagnostics_action.triggered.connect(self._show_startup_diagnostics)
@@ -152,42 +151,10 @@ class MainWindowMenuMixin:
         help_menu.addAction(self._open_setup_guide_action)
 
     def _refresh_helper_menu_label(self) -> None:
-        env, extension_id = get_helper_environment(self._ui_settings)
-        if env and extension_id and is_helper_installed(str(extension_id), browser=env.browser):
-            self._install_helper_action.setText(t("menu.reinstall_helper"))
-        else:
-            self._install_helper_action.setText(t("menu.install_helper"))
+        self._install_helper_action.setText(t("menu.browser_connections"))
 
-    def _install_helper(self) -> None:
-        choice = prompt_for_helper_environment(self, self._ui_settings)
-        if not choice:
-            return
-        env, extension_id, host_path = choice
-        result = install_helper(
-            extension_id=str(extension_id).strip(),
-            browser=env.browser,
-            host_path=host_path,
-        )
-        if result.installed:
-            try:
-                ensure_helper_autostart()
-                QMessageBox.information(
-                    self,
-                    t("dialogs.helper_install.title"),
-                    t("dialogs.helper_install.success", path=str(result.manifest_path or "")),
-                )
-            except Exception as exc:  # noqa: BLE001
-                QMessageBox.warning(
-                    self,
-                    t("dialogs.helper_install.title"),
-                    t("dialogs.helper_install.failed", message=str(exc)),
-                )
-        else:
-            QMessageBox.warning(
-                self,
-                t("dialogs.helper_install.title"),
-                t("dialogs.helper_install.failed", message=str(result.message)),
-            )
+    def _manage_browser_connections(self) -> None:
+        manage_browser_connections(self, self._ui_settings)
         self._refresh_helper_menu_label()
 
     def _open_log_directory(self) -> None:

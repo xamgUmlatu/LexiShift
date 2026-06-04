@@ -1,0 +1,685 @@
+{
+  "capability": {
+    "competition_mode": "offline_inventory_replay",
+    "phrase_mode": "not_published"
+  },
+  "competition_sets": {
+    "en-es:full-family-repaired-full:american:americano:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:american:americano:active",
+      "competition_set_id": "en-es:full-family-repaired-full:american:americano:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:american:americano:trigger"
+    },
+    "en-es:full-family-repaired-full:argentinean:argentino:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:argentinean:argentino:active",
+      "competition_set_id": "en-es:full-family-repaired-full:argentinean:argentino:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:argentinean:argentino:trigger"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:bar:cercar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:bar:cercar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:bar:cercar:shadow:1:taberna",
+        "en-es:full-family-repaired-full:bar:cercar:shadow:2:comp-s"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:bar:cercar:trigger"
+    },
+    "en-es:full-family-repaired-full:cite:mencionar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:cite:mencionar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:cite:mencionar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:cite:mencionar:shadow:1:multar",
+        "en-es:full-family-repaired-full:cite:mencionar:shadow:2:elogiar"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:cite:mencionar:trigger"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:control:gobernar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:control:gobernar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:control:gobernar:shadow:1:ajustar",
+        "en-es:full-family-repaired-full:control:gobernar:shadow:2:grupo-de-control"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:control:gobernar:trigger"
+    },
+    "en-es:full-family-repaired-full:dentist:dentista:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:dentist:dentista:active",
+      "competition_set_id": "en-es:full-family-repaired-full:dentist:dentista:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:dentist:dentista:trigger"
+    },
+    "en-es:full-family-repaired-full:endure:durar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:endure:durar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:endure:durar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:endure:durar:shadow:1:soportar",
+        "en-es:full-family-repaired-full:endure:durar:shadow:2:aguantar"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:endure:durar:trigger"
+    },
+    "en-es:full-family-repaired-full:except:excepto:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:except:excepto:active",
+      "competition_set_id": "en-es:full-family-repaired-full:except:excepto:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:except:excepto:shadow:1:objetar",
+        "en-es:full-family-repaired-full:except:excepto:shadow:2:excluir"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:except:excepto:trigger"
+    },
+    "en-es:full-family-repaired-full:german:alem-n:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:german:alem-n:active",
+      "competition_set_id": "en-es:full-family-repaired-full:german:alem-n:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:german:alem-n:trigger"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:govern:gobernar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:govern:gobernar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:govern:gobernar:shadow:1:regular",
+        "en-es:full-family-repaired-full:govern:gobernar:shadow:2:regir"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:govern:gobernar:trigger"
+    },
+    "en-es:full-family-repaired-full:owe:deber:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:owe:deber:active",
+      "competition_set_id": "en-es:full-family-repaired-full:owe:deber:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:owe:deber:trigger"
+    },
+    "en-es:full-family-repaired-full:pub:taberna:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:pub:taberna:active",
+      "competition_set_id": "en-es:full-family-repaired-full:pub:taberna:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:pub:taberna:trigger"
+    },
+    "en-es:full-family-repaired-full:region:comarca:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:region:comarca:active",
+      "competition_set_id": "en-es:full-family-repaired-full:region:comarca:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:region:comarca:shadow:1:zona",
+        "en-es:full-family-repaired-full:region:comarca:shadow:2:alrededor-de"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:region:comarca:trigger"
+    },
+    "en-es:full-family-repaired-full:rumanian:rumano:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:rumanian:rumano:active",
+      "competition_set_id": "en-es:full-family-repaired-full:rumanian:rumano:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:rumanian:rumano:trigger"
+    },
+    "en-es:full-family-repaired-full:russian:ruso:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:russian:ruso:active",
+      "competition_set_id": "en-es:full-family-repaired-full:russian:ruso:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:russian:ruso:trigger"
+    },
+    "en-es:full-family-repaired-full:shortage:falta:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:shortage:falta:active",
+      "competition_set_id": "en-es:full-family-repaired-full:shortage:falta:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:shortage:falta:trigger"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:smile:sonre-r:active",
+      "competition_set_id": "en-es:full-family-repaired-full:smile:sonre-r:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa",
+        "en-es:full-family-repaired-full:smile:sonre-r:shadow:2:agradecer-con-una-sonrisa"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:smile:sonre-r:trigger"
+    },
+    "en-es:full-family-repaired-full:tomorrow:ma-ana:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active",
+      "competition_set_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:trigger"
+    }
+  },
+  "generated_at": "2026-05-09T22:31:22Z",
+  "pair": "en-es",
+  "phrase_sets": {},
+  "profile_id": "inventory_replay",
+  "schema_version": 1,
+  "senses": {
+    "en-es:full-family-repaired-full:american:americano:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "american -> americano | American as a nationality or regional adjective | generated evidence: She became an american citizen after living in Chicago for ten years. | generated evidence: The museum featured american history exhibits from the colonial era to the present.",
+        "gloss_text": "American as a nationality or regional adjective",
+        "sense_gloss_bundle": "american -> americano | American as a nationality or regional adjective",
+        "sense_label": "american -> americano"
+      },
+      "sense_id": "en-es:full-family-repaired-full:american:americano:active",
+      "target_lemma": "americano"
+    },
+    "en-es:full-family-repaired-full:argentinean:argentino:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "argentinean -> argentino | Argentine as a nationality or country adjective | generated evidence: She proudly described herself as argentinean when talking about her family roots in Buenos Aires. | generated evidence: The museum exhibit highlighted argentinean culture, from tango to traditional food and regional history.",
+        "gloss_text": "Argentine as a nationality or country adjective",
+        "sense_gloss_bundle": "argentinean -> argentino | Argentine as a nationality or country adjective",
+        "sense_label": "argentinean -> argentino"
+      },
+      "sense_id": "en-es:full-family-repaired-full:argentinean:argentino:active",
+      "target_lemma": "argentino"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "bar -> cercar | block, bar, fence in, or prevent passage with a barrier | generated evidence: The police used a truck to bar the road after the landslide. | generated evidence: Heavy gates bar access to the private courtyard at night.",
+        "gloss_text": "block, bar, fence in, or prevent passage with a barrier",
+        "sense_gloss_bundle": "bar -> cercar | block, bar, fence in, or prevent passage with a barrier",
+        "sense_label": "bar -> cercar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bar:cercar:active",
+      "target_lemma": "cercar"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:shadow:1:taberna": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "bar -> taberna | an establishment that serves drinks",
+        "gloss_text": "an establishment that serves drinks",
+        "sense_gloss_bundle": "bar -> taberna | an establishment that serves drinks",
+        "sense_label": "bar -> taberna"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bar:cercar:shadow:1:taberna",
+      "target_lemma": "taberna"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:shadow:2:comp-s": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "bar -> compás | a measure in written music",
+        "gloss_text": "a measure in written music",
+        "sense_gloss_bundle": "bar -> compás | a measure in written music",
+        "sense_label": "bar -> compás"
+      },
+      "sense_id": "en-es:full-family-repaired-full:bar:cercar:shadow:2:comp-s",
+      "target_lemma": "compás"
+    },
+    "en-es:full-family-repaired-full:cite:mencionar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "cite -> mencionar | mention or refer to a source, person, or fact | generated evidence: In the report, please cite the study that supports your conclusion. | generated evidence: The speaker will cite several examples to explain the policy change.",
+        "gloss_text": "mention or refer to a source, person, or fact",
+        "sense_gloss_bundle": "cite -> mencionar | mention or refer to a source, person, or fact",
+        "sense_label": "cite -> mencionar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:cite:mencionar:active",
+      "target_lemma": "mencionar"
+    },
+    "en-es:full-family-repaired-full:cite:mencionar:shadow:1:multar": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "cite -> multar | issue a legal citation or fine",
+        "gloss_text": "issue a legal citation or fine",
+        "sense_gloss_bundle": "cite -> multar | issue a legal citation or fine",
+        "sense_label": "cite -> multar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:cite:mencionar:shadow:1:multar",
+      "target_lemma": "multar"
+    },
+    "en-es:full-family-repaired-full:cite:mencionar:shadow:2:elogiar": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "cite -> elogiar | commend someone officially",
+        "gloss_text": "commend someone officially",
+        "sense_gloss_bundle": "cite -> elogiar | commend someone officially",
+        "sense_label": "cite -> elogiar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:cite:mencionar:shadow:2:elogiar",
+      "target_lemma": "elogiar"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "control -> gobernar | exercise authority over a place, organization, or group | generated evidence: The mayor used his control to govern the city through a difficult winter. | generated evidence: After the election, she gained control and began to govern the ministry with a steady hand.",
+        "gloss_text": "exercise authority over a place, organization, or group",
+        "sense_gloss_bundle": "control -> gobernar | exercise authority over a place, organization, or group",
+        "sense_label": "control -> gobernar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:control:gobernar:active",
+      "target_lemma": "gobernar"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:shadow:1:ajustar": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "control -> ajustar | operate or adjust a device setting",
+        "gloss_text": "operate or adjust a device setting",
+        "sense_gloss_bundle": "control -> ajustar | operate or adjust a device setting",
+        "sense_label": "control -> ajustar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:control:gobernar:shadow:1:ajustar",
+      "target_lemma": "ajustar"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:shadow:2:grupo-de-control": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "control -> grupo de control | a comparison group in an experiment",
+        "gloss_text": "a comparison group in an experiment",
+        "sense_gloss_bundle": "control -> grupo de control | a comparison group in an experiment",
+        "sense_label": "control -> grupo de control"
+      },
+      "sense_id": "en-es:full-family-repaired-full:control:gobernar:shadow:2:grupo-de-control",
+      "target_lemma": "grupo de control"
+    },
+    "en-es:full-family-repaired-full:dentist:dentista:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "dentist -> dentista | a person qualified to practice dentistry | generated evidence: The dentist checked my teeth and filled a small cavity. | generated evidence: I booked an appointment with the dentist for a routine cleaning.",
+        "gloss_text": "a person qualified to practice dentistry",
+        "sense_gloss_bundle": "dentist -> dentista | a person qualified to practice dentistry",
+        "sense_label": "dentist -> dentista"
+      },
+      "sense_id": "en-es:full-family-repaired-full:dentist:dentista:active",
+      "target_lemma": "dentista"
+    },
+    "en-es:full-family-repaired-full:endure:durar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "endure -> durar | continue to exist or last over time | generated evidence: The old bridge can endure for another fifty years with regular maintenance. | generated evidence: These batteries endure longer than the ones we used before.",
+        "gloss_text": "continue to exist or last over time",
+        "sense_gloss_bundle": "endure -> durar | continue to exist or last over time",
+        "sense_label": "endure -> durar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:endure:durar:active",
+      "target_lemma": "durar"
+    },
+    "en-es:full-family-repaired-full:endure:durar:shadow:1:soportar": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "endure -> soportar | tolerate something unpleasant",
+        "gloss_text": "tolerate something unpleasant",
+        "sense_gloss_bundle": "endure -> soportar | tolerate something unpleasant",
+        "sense_label": "endure -> soportar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:endure:durar:shadow:1:soportar",
+      "target_lemma": "soportar"
+    },
+    "en-es:full-family-repaired-full:endure:durar:shadow:2:aguantar": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "endure -> aguantar | withstand hardship or pressure",
+        "gloss_text": "withstand hardship or pressure",
+        "sense_gloss_bundle": "endure -> aguantar | withstand hardship or pressure",
+        "sense_label": "endure -> aguantar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:endure:durar:shadow:2:aguantar",
+      "target_lemma": "aguantar"
+    },
+    "en-es:full-family-repaired-full:except:excepto:active": {
+      "canonical_pos": "preposition",
+      "evidence_views": {
+        "all_evidence_text": "except -> excepto | except/excluding as a preposition or conjunction | generated evidence: Everyone may join the hike except the injured runner. | generated evidence: The museum is open daily except on Mondays.",
+        "gloss_text": "except/excluding as a preposition or conjunction",
+        "sense_gloss_bundle": "except -> excepto | except/excluding as a preposition or conjunction",
+        "sense_label": "except -> excepto"
+      },
+      "sense_id": "en-es:full-family-repaired-full:except:excepto:active",
+      "target_lemma": "excepto"
+    },
+    "en-es:full-family-repaired-full:except:excepto:shadow:1:objetar": {
+      "canonical_pos": "preposition",
+      "evidence_views": {
+        "all_evidence_text": "except -> objetar | object to a proposal",
+        "gloss_text": "object to a proposal",
+        "sense_gloss_bundle": "except -> objetar | object to a proposal",
+        "sense_label": "except -> objetar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:except:excepto:shadow:1:objetar",
+      "target_lemma": "objetar"
+    },
+    "en-es:full-family-repaired-full:except:excepto:shadow:2:excluir": {
+      "canonical_pos": "preposition",
+      "evidence_views": {
+        "all_evidence_text": "except -> excluir | leave something out of consideration",
+        "gloss_text": "leave something out of consideration",
+        "sense_gloss_bundle": "except -> excluir | leave something out of consideration",
+        "sense_label": "except -> excluir"
+      },
+      "sense_id": "en-es:full-family-repaired-full:except:excepto:shadow:2:excluir",
+      "target_lemma": "excluir"
+    },
+    "en-es:full-family-repaired-full:german:alem-n:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "german -> alemán | German as nationality, language, or country adjective | generated evidence: She is learning german so she can speak with her relatives in Berlin. | generated evidence: The museum guide explained that the german flag changed several times over the centuries.",
+        "gloss_text": "German as nationality, language, or country adjective",
+        "sense_gloss_bundle": "german -> alemán | German as nationality, language, or country adjective",
+        "sense_label": "german -> alemán"
+      },
+      "sense_id": "en-es:full-family-repaired-full:german:alem-n:active",
+      "target_lemma": "alemán"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "govern -> gobernar | exercise governing authority over a country, place, or organization | generated evidence: The elected council will govern the city for the next four years. | generated evidence: A constitutional monarch may govern only within the limits set by law.",
+        "gloss_text": "exercise governing authority over a country, place, or organization",
+        "sense_gloss_bundle": "govern -> gobernar | exercise governing authority over a country, place, or organization",
+        "sense_label": "govern -> gobernar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:govern:gobernar:active",
+      "target_lemma": "gobernar"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:shadow:1:regular": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "govern -> regular | regulate rules or behavior",
+        "gloss_text": "regulate rules or behavior",
+        "sense_gloss_bundle": "govern -> regular | regulate rules or behavior",
+        "sense_label": "govern -> regular"
+      },
+      "sense_id": "en-es:full-family-repaired-full:govern:gobernar:shadow:1:regular",
+      "target_lemma": "regular"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:shadow:2:regir": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "govern -> regir | take a grammatical object or case",
+        "gloss_text": "take a grammatical object or case",
+        "sense_gloss_bundle": "govern -> regir | take a grammatical object or case",
+        "sense_label": "govern -> regir"
+      },
+      "sense_id": "en-es:full-family-repaired-full:govern:gobernar:shadow:2:regir",
+      "target_lemma": "regir"
+    },
+    "en-es:full-family-repaired-full:owe:deber:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "owe -> deber | owe, be obliged to pay, or be indebted | generated evidence: I owe the bank three hundred dollars for the car repair. | generated evidence: We owe our landlord the rent by Friday.",
+        "gloss_text": "owe, be obliged to pay, or be indebted",
+        "sense_gloss_bundle": "owe -> deber | owe, be obliged to pay, or be indebted",
+        "sense_label": "owe -> deber"
+      },
+      "sense_id": "en-es:full-family-repaired-full:owe:deber:active",
+      "target_lemma": "deber"
+    },
+    "en-es:full-family-repaired-full:pub:taberna:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "pub -> taberna | a tavern or public house serving drinks and often light meals | generated evidence: We met at the pub for a quick drink and some chips after work. | generated evidence: The old pub on the corner was crowded with locals enjoying pints and conversation.",
+        "gloss_text": "a tavern or public house serving drinks and often light meals",
+        "sense_gloss_bundle": "pub -> taberna | a tavern or public house serving drinks and often light meals",
+        "sense_label": "pub -> taberna"
+      },
+      "sense_id": "en-es:full-family-repaired-full:pub:taberna:active",
+      "target_lemma": "taberna"
+    },
+    "en-es:full-family-repaired-full:region:comarca:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "region -> comarca | a local district, territory, or comarca-like region | generated evidence: The council mapped each region by its villages, roads, and shared local services. | generated evidence: Farmers in the mountain region met to discuss irrigation, markets, and county-level planning.",
+        "gloss_text": "a local district, territory, or comarca-like region",
+        "sense_gloss_bundle": "region -> comarca | a local district, territory, or comarca-like region",
+        "sense_label": "region -> comarca"
+      },
+      "sense_id": "en-es:full-family-repaired-full:region:comarca:active",
+      "target_lemma": "comarca"
+    },
+    "en-es:full-family-repaired-full:region:comarca:shadow:1:zona": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "region -> zona | an area of the body or another broad area",
+        "gloss_text": "an area of the body or another broad area",
+        "sense_gloss_bundle": "region -> zona | an area of the body or another broad area",
+        "sense_label": "region -> zona"
+      },
+      "sense_id": "en-es:full-family-repaired-full:region:comarca:shadow:1:zona",
+      "target_lemma": "zona"
+    },
+    "en-es:full-family-repaired-full:region:comarca:shadow:2:alrededor-de": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "region -> alrededor de | an approximate amount",
+        "gloss_text": "an approximate amount",
+        "sense_gloss_bundle": "region -> alrededor de | an approximate amount",
+        "sense_label": "region -> alrededor de"
+      },
+      "sense_id": "en-es:full-family-repaired-full:region:comarca:shadow:2:alrededor-de",
+      "target_lemma": "alrededor de"
+    },
+    "en-es:full-family-repaired-full:rumanian:rumano:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "rumanian -> rumano | Romanian as a nationality, language, or country adjective | generated evidence: She studied rumanian history to better understand the country's traditions and identity. | generated evidence: The museum featured a rumanian folk costume from the Carpathian region.",
+        "gloss_text": "Romanian as a nationality, language, or country adjective",
+        "sense_gloss_bundle": "rumanian -> rumano | Romanian as a nationality, language, or country adjective",
+        "sense_label": "rumanian -> rumano"
+      },
+      "sense_id": "en-es:full-family-repaired-full:rumanian:rumano:active",
+      "target_lemma": "rumano"
+    },
+    "en-es:full-family-repaired-full:russian:ruso:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "russian -> ruso | Russian as nationality, language, or country adjective | generated evidence: She studied russian history and could read the old letters from Moscow. | generated evidence: The museum added a russian language guide for visitors who wanted help with the exhibit.",
+        "gloss_text": "Russian as nationality, language, or country adjective",
+        "sense_gloss_bundle": "russian -> ruso | Russian as nationality, language, or country adjective",
+        "sense_label": "russian -> ruso"
+      },
+      "sense_id": "en-es:full-family-repaired-full:russian:ruso:active",
+      "target_lemma": "ruso"
+    },
+    "en-es:full-family-repaired-full:shortage:falta:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "shortage -> falta | a lack, deficit, or insufficient amount | generated evidence: The clinic had to cancel appointments because of a shortage of nurses. | generated evidence: A shortage of clean water forced the village to ration every drop.",
+        "gloss_text": "a lack, deficit, or insufficient amount",
+        "sense_gloss_bundle": "shortage -> falta | a lack, deficit, or insufficient amount",
+        "sense_label": "shortage -> falta"
+      },
+      "sense_id": "en-es:full-family-repaired-full:shortage:falta:active",
+      "target_lemma": "falta"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "smile -> sonreír | smile as a verb, changing one's facial expression | generated evidence: He gave a quick smile before answering the question.",
+        "gloss_text": "smile as a verb, changing one's facial expression",
+        "sense_gloss_bundle": "smile -> sonreír | smile as a verb, changing one's facial expression",
+        "sense_label": "smile -> sonreír"
+      },
+      "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:active",
+      "target_lemma": "sonreír"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "smile -> sonrisa | a facial expression as a noun",
+        "gloss_text": "a facial expression as a noun",
+        "sense_gloss_bundle": "smile -> sonrisa | a facial expression as a noun",
+        "sense_label": "smile -> sonrisa"
+      },
+      "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa",
+      "target_lemma": "sonrisa"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:shadow:2:agradecer-con-una-sonrisa": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "smile -> agradecer con una sonrisa | express something by smiling",
+        "gloss_text": "express something by smiling",
+        "sense_gloss_bundle": "smile -> agradecer con una sonrisa | express something by smiling",
+        "sense_label": "smile -> agradecer con una sonrisa"
+      },
+      "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:2:agradecer-con-una-sonrisa",
+      "target_lemma": "agradecer con una sonrisa"
+    },
+    "en-es:full-family-repaired-full:tomorrow:ma-ana:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "tomorrow -> mañana | the day after today, the next day, or the near future | generated evidence: I have a dentist appointment tomorrow morning. | generated evidence: Please send the report tomorrow, not today.",
+        "gloss_text": "the day after today, the next day, or the near future",
+        "sense_gloss_bundle": "tomorrow -> mañana | the day after today, the next day, or the near future",
+        "sense_label": "tomorrow -> mañana"
+      },
+      "sense_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active",
+      "target_lemma": "mañana"
+    }
+  },
+  "triggers": {
+    "en-es:full-family-repaired-full:american:americano:trigger": {
+      "normalized_source_phrase": "american",
+      "source_phrase": "american",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:american:americano:trigger"
+    },
+    "en-es:full-family-repaired-full:argentinean:argentino:trigger": {
+      "normalized_source_phrase": "argentinean",
+      "source_phrase": "argentinean",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:argentinean:argentino:trigger"
+    },
+    "en-es:full-family-repaired-full:bar:cercar:trigger": {
+      "normalized_source_phrase": "bar",
+      "source_phrase": "bar",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:bar:cercar:trigger"
+    },
+    "en-es:full-family-repaired-full:cite:mencionar:trigger": {
+      "normalized_source_phrase": "cite",
+      "source_phrase": "cite",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:cite:mencionar:trigger"
+    },
+    "en-es:full-family-repaired-full:control:gobernar:trigger": {
+      "normalized_source_phrase": "control",
+      "source_phrase": "control",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:control:gobernar:trigger"
+    },
+    "en-es:full-family-repaired-full:dentist:dentista:trigger": {
+      "normalized_source_phrase": "dentist",
+      "source_phrase": "dentist",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:dentist:dentista:trigger"
+    },
+    "en-es:full-family-repaired-full:endure:durar:trigger": {
+      "normalized_source_phrase": "endure",
+      "source_phrase": "endure",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:endure:durar:trigger"
+    },
+    "en-es:full-family-repaired-full:except:excepto:trigger": {
+      "normalized_source_phrase": "except",
+      "source_phrase": "except",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:except:excepto:trigger"
+    },
+    "en-es:full-family-repaired-full:german:alem-n:trigger": {
+      "normalized_source_phrase": "german",
+      "source_phrase": "german",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:german:alem-n:trigger"
+    },
+    "en-es:full-family-repaired-full:govern:gobernar:trigger": {
+      "normalized_source_phrase": "govern",
+      "source_phrase": "govern",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:govern:gobernar:trigger"
+    },
+    "en-es:full-family-repaired-full:owe:deber:trigger": {
+      "normalized_source_phrase": "owe",
+      "source_phrase": "owe",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:owe:deber:trigger"
+    },
+    "en-es:full-family-repaired-full:pub:taberna:trigger": {
+      "normalized_source_phrase": "pub",
+      "source_phrase": "pub",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:pub:taberna:trigger"
+    },
+    "en-es:full-family-repaired-full:region:comarca:trigger": {
+      "normalized_source_phrase": "region",
+      "source_phrase": "region",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:region:comarca:trigger"
+    },
+    "en-es:full-family-repaired-full:rumanian:rumano:trigger": {
+      "normalized_source_phrase": "rumanian",
+      "source_phrase": "rumanian",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:rumanian:rumano:trigger"
+    },
+    "en-es:full-family-repaired-full:russian:ruso:trigger": {
+      "normalized_source_phrase": "russian",
+      "source_phrase": "russian",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:russian:ruso:trigger"
+    },
+    "en-es:full-family-repaired-full:shortage:falta:trigger": {
+      "normalized_source_phrase": "shortage",
+      "source_phrase": "shortage",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:shortage:falta:trigger"
+    },
+    "en-es:full-family-repaired-full:smile:sonre-r:trigger": {
+      "normalized_source_phrase": "smile",
+      "source_phrase": "smile",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:smile:sonre-r:trigger"
+    },
+    "en-es:full-family-repaired-full:tomorrow:ma-ana:trigger": {
+      "normalized_source_phrase": "tomorrow",
+      "source_phrase": "tomorrow",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:trigger"
+    }
+  }
+}

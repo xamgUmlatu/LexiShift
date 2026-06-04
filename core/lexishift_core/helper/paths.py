@@ -110,6 +110,23 @@ class HelperPaths:
     def srs_signal_queue_path_for(self, profile_id: str | None = None) -> Path:
         return self.profile_srs_dir(profile_id) / "srs_signal_queue.json"
 
+    def srs_inventory_path_for(self, profile_id: str | None = None) -> Path:
+        return self.profile_srs_dir(profile_id) / "srs_inventory.json"
+
+    def srs_browsing_signal_store_path_for(
+        self,
+        profile_id: str | None = None,
+        pair: str | None = None,
+    ) -> Path:
+        safe_pair = str(pair or "unknown").replace("/", "-").replace(":", "-")
+        return self.profile_srs_dir(profile_id) / f"srs_browsing_signals_{safe_pair}.json"
+
+    def srs_auto_refresh_state_path_for(self, profile_id: str | None = None) -> Path:
+        return self.profile_srs_dir(profile_id) / "srs_auto_refresh_state.json"
+
+    def srs_admission_suppression_store_path_for(self, profile_id: str | None = None) -> Path:
+        return self.profile_srs_dir(profile_id) / "srs_admission_suppression.json"
+
     def snapshot_path(self, pair: str, profile_id: str | None = None) -> Path:
         safe_pair = pair.replace("/", "-").replace(":", "-")
         return self.profile_srs_dir(profile_id) / f"srs_rulegen_snapshot_{safe_pair}.json"
@@ -117,6 +134,14 @@ class HelperPaths:
     def ruleset_path(self, pair: str, profile_id: str | None = None) -> Path:
         safe_pair = pair.replace("/", "-").replace(":", "-")
         return self.profile_srs_dir(profile_id) / f"srs_ruleset_{safe_pair}.json"
+
+    def semantic_inventory_path(self, pair: str, profile_id: str | None = None) -> Path:
+        safe_pair = pair.replace("/", "-").replace(":", "-")
+        return self.profile_srs_dir(profile_id) / f"srs_semantic_inventory_{safe_pair}.json"
+
+    def publication_manifest_path(self, pair: str, profile_id: str | None = None) -> Path:
+        safe_pair = pair.replace("/", "-").replace(":", "-")
+        return self.profile_srs_dir(profile_id) / f"srs_publication_manifest_{safe_pair}.json"
 
 
 def build_helper_paths(root: Path | None = None) -> HelperPaths:

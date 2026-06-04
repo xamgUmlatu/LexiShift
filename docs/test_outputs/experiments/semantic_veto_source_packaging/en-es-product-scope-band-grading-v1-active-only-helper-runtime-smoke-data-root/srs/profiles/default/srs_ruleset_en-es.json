@@ -1,0 +1,367 @@
+{
+  "meaning_rules": [],
+  "rules": [
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:american:americano:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:american:americano:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:american:americano:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "americano",
+      "source_phrase": "american",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:argentinean:argentino:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:argentinean:argentino:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:argentinean:argentino:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "argentino",
+      "source_phrase": "argentinean",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:bar:cercar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:bar:cercar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:bar:cercar:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "cercar",
+      "source_phrase": "bar",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:cite:mencionar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:cite:mencionar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:cite:mencionar:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "mencionar",
+      "source_phrase": "cite",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:control:gobernar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:control:gobernar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:control:gobernar:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "gobernar",
+      "source_phrase": "control",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:dentist:dentista:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:dentist:dentista:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:dentist:dentista:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "dentista",
+      "source_phrase": "dentist",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:endure:durar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:endure:durar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:endure:durar:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "durar",
+      "source_phrase": "endure",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:except:excepto:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:except:excepto:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:except:excepto:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "excepto",
+      "source_phrase": "except",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:german:alem-n:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:german:alem-n:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:german:alem-n:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "alem\u00e1n",
+      "source_phrase": "german",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:govern:gobernar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:govern:gobernar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:govern:gobernar:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "gobernar",
+      "source_phrase": "govern",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:owe:deber:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:owe:deber:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:owe:deber:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "deber",
+      "source_phrase": "owe",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:pub:taberna:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:pub:taberna:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:pub:taberna:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "taberna",
+      "source_phrase": "pub",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:region:comarca:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:region:comarca:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:region:comarca:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "comarca",
+      "source_phrase": "region",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:rumanian:rumano:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:rumanian:rumano:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:rumanian:rumano:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "rumano",
+      "source_phrase": "rumanian",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:russian:ruso:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:russian:ruso:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:russian:ruso:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "ruso",
+      "source_phrase": "russian",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:shortage:falta:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:shortage:falta:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:shortage:falta:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "falta",
+      "source_phrase": "shortage",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:smile:sonre-r:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:smile:sonre-r:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "sonre\u00edr",
+      "source_phrase": "smile",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:trigger"
+        },
+        "source": "semantic_veto_active_only_helper_runtime_smoke",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "ma\u00f1ana",
+      "source_phrase": "tomorrow",
+      "tags": []
+    }
+  ],
+  "synonyms": {},
+  "version": 1
+}

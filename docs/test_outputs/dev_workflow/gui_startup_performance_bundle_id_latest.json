@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-06-01T02:35:16.312898+00:00",
+  "app": "/Applications/LexiShift.app",
+  "pair": "en-es",
+  "launch_mode": "bundle-id",
+  "repetitions": 1,
+  "summary": {
+    "ok_count": 1,
+    "timeout_count": 0,
+    "min_ms": 1050.9,
+    "median_ms": 1050.9,
+    "max_ms": 1050.9,
+    "pre_entry": {
+      "count": 1,
+      "min_ms": 594.8,
+      "median_ms": 594.8,
+      "max_ms": 594.8
+    },
+    "process_entry_to_window": {
+      "count": 1,
+      "min_ms": 456.1,
+      "median_ms": 456.1,
+      "max_ms": 456.1
+    }
+  },
+  "runs": [
+    {
+      "index": 1,
+      "status": "ok",
+      "session_id": "799c9018e7d346beba15078820abfaa5",
+      "requested_at": "2026-06-01T02:35:15.160871+00:00",
+      "launch_mode": "bundle-id",
+      "pair": "en-es",
+      "command": [
+        "open",
+        "-b",
+        "com.lexishift.app",
+        "--args",
+        "--open-resource-settings",
+        "--resource-pair",
+        "en-es"
+      ],
+      "process_pid": 682,
+      "activated": null,
+      "observed_elapsed_ms": 1151.6,
+      "startup_total_ms": 456.1,
+      "since_request_ms": 1050.9,
+      "pre_entry_ms": 594.8,
+      "matched_line": "[startup] window shown (+21.0 ms, total 456.1 ms) session=799c9018e7d346beba15078820abfaa5 pid=774 ppid=1 argv_mode=resource_settings source=startup_measure_bundle-id ts=2026-06-01T02:35:16.211773+00:00 launch_mode=bundle-id resource_pair=en-es since_request_ms=1050.9"
+    }
+  ]
+}

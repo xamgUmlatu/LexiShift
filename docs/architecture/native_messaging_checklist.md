@@ -42,6 +42,8 @@ Status key:
 - `[x]` Wire host to helper commands including set planning/init.
 - `[x]` Add handshake (`hello`) and version checks.
 - `[x]` Add `srs_refresh` helper command route for feedback-driven admissions.
+- `[x]` Add `srs_auto_refresh` helper command route for threshold-gated
+  automatic `profile_growth` refresh after synced feedback.
 - `[x]` Add `profiles_get` native-host route.
 - `[x]` Add `profile_id` routing for all SRS/runtime commands (ruleset/snapshot/diagnostics/feedback/refresh/reset).
 
@@ -61,13 +63,19 @@ Status key:
 - `[x]` Content script: fetch helper ruleset when SRS enabled.
 - `[x]` Fallback to cached ruleset if helper offline.
 - `[x]` Persistent feedback sync queue with retry/backoff for `record_feedback`.
+- `[x]` Feedback sync queue now runs a best-effort `srs_auto_refresh` check
+  after one or more feedback items successfully sync to the helper; retry-only
+  flushes do not trigger the refresh check.
 - `[x]` Scope helper cache + feedback payloads by `profile_id` to avoid cross-profile leakage.
 - `[x]` Support Windows native-messaging manifest + registry installation from the GUI helper flow.
 
 ## Phase 4 — Background Scheduling
 - `[x]` Start helper tray at login on macOS and Windows (LaunchAgent / Run key).
 - `[x]` Schedule periodic rulegen (daemon loop).
-- `[ ]` Trigger planner-driven refresh on signal thresholds.
+- `[x]` Trigger refresh on explicit feedback thresholds for current
+  `profile_growth` admission.
+- `[ ]` Trigger broader planner/adaptive refresh on non-feedback signal
+  thresholds.
 - `[ ]` Add policy to decide bootstrap vs growth vs adaptive refresh.
 - `[x]` Publish runtime rules at initialization and after refresh admissions.
 - `[x]` Move helper SRS runtime files to `srs/profiles/<profile_id>/...`.
@@ -87,8 +95,16 @@ Status key:
 - `[ ]` Validate retry/backoff + idempotency semantics under helper restarts.
 - `[x]` Add helper-side integration test coverage for feedback-driven admission refresh decisions.
   - `core/tests/srs/test_srs_feedback_simulation.py` now simulates multi-phase feedback and asserts S growth + ruleset publication behavior.
-- `[ ]` Add planner-trigger test for threshold-based automatic refresh from aggregated feedback.
-- `[ ]` Add explicit service-worker bridge roundtrip tests (options + content runtime request paths).
+- `[x]` Add helper policy/state tests for threshold-based automatic refresh from aggregated feedback.
+- `[x]` Add extension feedback-sync contract tests for successful-sync auto-refresh triggering and failed-send retry suppression.
+- `[x]` Add content-runtime/background bridge contract coverage for feedback
+  sync -> `record_feedback` -> `srs_auto_refresh`.
+- `[ ]` Add browser/native E2E test for feedback sync -> automatic refresh ->
+  ruleset update.
+- `[x]` Add explicit service-worker bridge roundtrip tests (options + content
+  runtime request paths).
+  - Content feedback sync -> native auto-refresh bridge path is covered.
+  - Options SRS initialize, plan, preview, and refresh request paths are covered.
 
 ## Open Questions
 - `[x]` Choose SRS store format for current helper implementation (JSON in `srs/`).

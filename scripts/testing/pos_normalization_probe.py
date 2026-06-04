@@ -17,14 +17,18 @@ if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
 from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig, SqliteFrequencyStore  # noqa: E402
+from lexishift_core.helper.frequency_packs import resolve_configured_frequency_pack  # noqa: E402
 from lexishift_core.helper.lp_capabilities import (  # noqa: E402
-    default_frequency_db_path,
     default_jmdict_path,
     resolve_pair_capability,
 )
 from lexishift_core.helper.pair_resources import resolve_stopwords_path  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths, resolve_data_root  # noqa: E402
 from lexishift_core.pos.normalization import normalize_pos  # noqa: E402
+from lexishift_core.persistence.settings import (  # noqa: E402
+    SynonymSourceSettings,
+    load_app_settings,
+)
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
 
 
@@ -240,69 +244,43 @@ def _counter_to_rows(counter: Counter[str], *, limit: int | None = None) -> list
     return rows
 
 
-def _load_settings_maps(settings_path: Path) -> tuple[dict[str, str], dict[str, str]]:
+def _load_synonym_settings(settings_path: Path) -> SynonymSourceSettings | None:
     if not settings_path.exists():
-        return {}, {}
+        return None
     try:
-        payload = json.loads(settings_path.read_text(encoding="utf-8"))
+        return load_app_settings(settings_path).synonyms
     except Exception:  # noqa: BLE001
-        return {}, {}
-    synonyms = payload.get("synonyms")
-    if not isinstance(synonyms, dict):
-        return {}, {}
-    language_packs = synonyms.get("language_packs")
-    frequency_packs = synonyms.get("frequency_packs")
-    return (
-        dict(language_packs) if isinstance(language_packs, dict) else {},
-        dict(frequency_packs) if isinstance(frequency_packs, dict) else {},
-    )
+        return None
 
 
 def _resolve_frequency_db_for_pair(
     pair: str,
     *,
     frequency_packs_dir: Path,
-    settings_frequency_packs: dict[str, str],
+    settings_frequency_pack_paths: dict[str, str],
+    managed_frequency_pack_ids: tuple[str, ...] = (),
 ) -> tuple[Path | None, str]:
-    default_db_path = default_frequency_db_path(pair, frequency_packs_dir=frequency_packs_dir)
-    if default_db_path is None:
-        return None, "no_default_declared"
-    default_name = default_db_path.name
-    lookup_keys: list[str] = []
-    if default_name.endswith(".sqlite"):
-        lookup_keys.append(default_name[: -len(".sqlite")])
-    lookup_keys.append(default_name)
-
-    for key in lookup_keys:
-        raw_path = str(settings_frequency_packs.get(key, "")).strip()
-        if not raw_path:
-            continue
-        candidate = Path(raw_path).expanduser().resolve(strict=False)
-        if candidate.is_file():
-            return candidate, f"linked:{key}"
-        if candidate.is_dir():
-            nested = candidate / default_name
-            if nested.is_file():
-                return nested, f"linked_dir:{key}"
-
-    fallback = default_db_path.expanduser().resolve(strict=False)
-    if fallback.is_file():
-        return fallback, "fallback_default"
-    return None, "missing"
+    resolved_pack, resolution = resolve_configured_frequency_pack(
+        pair,
+        frequency_packs_dir=frequency_packs_dir,
+        settings_frequency_pack_paths=settings_frequency_pack_paths,
+        managed_frequency_pack_ids=managed_frequency_pack_ids,
+    )
+    return (resolved_pack.path if resolved_pack is not None else None), resolution
 
 
 def _resolve_jmdict_for_pair(
     pair: str,
     *,
     language_packs_dir: Path,
-    settings_language_packs: dict[str, str],
+    settings_language_pack_paths: dict[str, str],
 ) -> Path | None:
     default_jmdict = default_jmdict_path(pair, language_packs_dir=language_packs_dir)
     if default_jmdict is None:
         return None
     lookup_keys = ("jmdict-ja-en", default_jmdict.name)
     for key in lookup_keys:
-        raw_path = str(settings_language_packs.get(key, "")).strip()
+        raw_path = str(settings_language_pack_paths.get(key, "")).strip()
         if not raw_path:
             continue
         candidate = Path(raw_path).expanduser().resolve(strict=False)
@@ -383,14 +361,16 @@ def _build_pair_probe(
     top_n: int,
     sample_limit: int,
     paths: Any,
-    settings_language_packs: dict[str, str],
-    settings_frequency_packs: dict[str, str],
+    settings_language_pack_paths: dict[str, str],
+    settings_frequency_pack_paths: dict[str, str],
+    managed_frequency_pack_ids: tuple[str, ...] = (),
 ) -> dict[str, Any]:
     capability = resolve_pair_capability(pair)
     frequency_path, frequency_resolution = _resolve_frequency_db_for_pair(
         pair,
         frequency_packs_dir=paths.frequency_packs_dir,
-        settings_frequency_packs=settings_frequency_packs,
+        settings_frequency_pack_paths=settings_frequency_pack_paths,
+        managed_frequency_pack_ids=managed_frequency_pack_ids,
     )
     stopwords_path = resolve_stopwords_path(paths, pair=pair)
     require_jmdict = bool(capability.requires_jmdict_for_seed)
@@ -399,7 +379,7 @@ def _build_pair_probe(
         jmdict_path = _resolve_jmdict_for_pair(
             pair,
             language_packs_dir=paths.language_packs_dir,
-            settings_language_packs=settings_language_packs,
+            settings_language_pack_paths=settings_language_pack_paths,
         )
 
     pair_payload: dict[str, Any] = {
@@ -575,7 +555,14 @@ def _build_report(
     data_root: Path,
 ) -> dict[str, Any]:
     paths = build_helper_paths(root=data_root)
-    settings_language_packs, settings_frequency_packs = _load_settings_maps(paths.app_settings_path)
+    synonym_settings = _load_synonym_settings(paths.app_settings_path)
+    settings_language_pack_paths = dict(getattr(synonym_settings, "language_pack_paths", {}) or {})
+    settings_frequency_pack_paths = dict(
+        getattr(synonym_settings, "frequency_pack_paths", {}) or {}
+    )
+    managed_frequency_pack_ids = tuple(
+        getattr(synonym_settings, "managed_frequency_pack_ids", ()) or ()
+    )
     pair_reports: dict[str, dict[str, Any]] = {}
     source_pack_reports: dict[str, dict[str, Any]] = {}
     used_frequency_paths: set[Path] = set()
@@ -586,8 +573,9 @@ def _build_report(
             top_n=top_n,
             sample_limit=sample_limit,
             paths=paths,
-            settings_language_packs=settings_language_packs,
-            settings_frequency_packs=settings_frequency_packs,
+            settings_language_pack_paths=settings_language_pack_paths,
+            settings_frequency_pack_paths=settings_frequency_pack_paths,
+            managed_frequency_pack_ids=managed_frequency_pack_ids,
         )
         pair_reports[pair] = payload
         frequency_path = payload.get("frequency_db_path")

@@ -3,6 +3,15 @@ layout: default
 title: Architecture Diagrams
 ---
 
+<!--
+Status: active Pages diagram index
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; diagrams were not re-rendered
+Purpose: publish rendered architecture diagrams and route readers back to source Mermaid files and diagram status trackers
+Source-of-truth: rendered diagram index only; source authority lives in `docs/architecture/diagrams/`, `docs/architecture/diagrams/README.md`, and architecture routing docs.
+-->
+
 # Architecture Diagrams
 
 These are rendered from the Mermaid sources under `docs/architecture/diagrams/`.

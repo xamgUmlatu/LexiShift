@@ -1,0 +1,627 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "status": "ok",
+  "decision": "sampling_methodology_comparison_established",
+  "generated_at": "2026-05-05T21:16:20+00:00",
+  "inputs": {
+    "pilot_json": "docs/test_outputs/semantic_veto_heuristic_group_pilot_en_es_latest.json",
+    "representative_sample_json": "docs/test_outputs/semantic_veto_representative_heuristic_band_sampler_en_es_latest.json",
+    "representative_construction_json": "docs/test_outputs/semantic_veto_representative_target_family_construction_en_es_latest.json",
+    "source_frequency_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
+    "wordnet_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json"
+  },
+  "methodology": {
+    "old_pilot_selection": "six coarse rank/polysemy groups, group_size=4, sorted by source rank then descending WordNet sense/POS counts; useful as hard-case stress contrast but biased for band means",
+    "representative_sampler_selection": "fine source-rank x WordNet-polysemy x POS-shape cells, deterministic seeded hash order inside each cell, with sampling weights",
+    "stability_scope": "source-trigger sampling only. Downstream scoring sweeps cannot be rerun on the representative lane until target/shadow families and fixed scored contexts exist."
+  },
+  "comparison": {
+    "old_heuristic_group_pilot": {
+      "candidate_pool_count": 4112,
+      "primary_selected_trigger_count": 24,
+      "sentinel_trigger_count": 5,
+      "primary_group_count": 6,
+      "primary_new_cell_coverage_count": 10,
+      "primary_new_cell_coverage_rate": 0.2564,
+      "primary_selected_polysemy_counts": {
+        "high_10_plus": 11,
+        "low_1_to_3": 12,
+        "medium_4_to_9": 1
+      },
+      "primary_selected_pos_shape_counts": {
+        "cross_pos_polysemy": 12,
+        "same_pos_polysemy": 7,
+        "single_sense": 5
+      },
+      "primary_group_bias": [
+        {
+          "group_id": "core_high_polysemy",
+          "eligible_count": 30,
+          "selected_count": 4,
+          "selected_share": 0.1333,
+          "selected_rank_min": 95.0,
+          "selected_rank_max": 155.0,
+          "selected_rank_mean": 122.5,
+          "eligible_rank_min": 95.0,
+          "eligible_rank_max": 935.0,
+          "eligible_rank_mean": 495.6667
+        },
+        {
+          "group_id": "core_low_polysemy_control",
+          "eligible_count": 12,
+          "selected_count": 4,
+          "selected_share": 0.3333,
+          "selected_rank_min": 175.0,
+          "selected_rank_max": 335.0,
+          "selected_rank_mean": 247.5,
+          "eligible_rank_min": 175.0,
+          "eligible_rank_max": 975.0,
+          "eligible_rank_mean": 574.1667
+        },
+        {
+          "group_id": "mid_high_polysemy",
+          "eligible_count": 82,
+          "selected_count": 4,
+          "selected_share": 0.0488,
+          "selected_rank_min": 1005.0,
+          "selected_rank_max": 1045.0,
+          "selected_rank_mean": 1027.5,
+          "eligible_rank_min": 1005.0,
+          "eligible_rank_max": 4955.0,
+          "eligible_rank_mean": 2531.2195
+        },
+        {
+          "group_id": "mid_low_polysemy_control",
+          "eligible_count": 138,
+          "selected_count": 4,
+          "selected_share": 0.029,
+          "selected_rank_min": 1085.0,
+          "selected_rank_max": 1295.0,
+          "selected_rank_mean": 1180.0,
+          "eligible_rank_min": 1085.0,
+          "eligible_rank_max": 4995.0,
+          "eligible_rank_mean": 3369.9275
+        },
+        {
+          "group_id": "tail_high_polysemy",
+          "eligible_count": 120,
+          "selected_count": 4,
+          "selected_share": 0.0333,
+          "selected_rank_min": 5005.0,
+          "selected_rank_max": 5135.0,
+          "selected_rank_mean": 5052.5,
+          "eligible_rank_min": 5005.0,
+          "eligible_rank_max": 44385.0,
+          "eligible_rank_mean": 14544.3333
+        },
+        {
+          "group_id": "tail_low_polysemy_control",
+          "eligible_count": 2759,
+          "selected_count": 4,
+          "selected_share": 0.0014,
+          "selected_rank_min": 5075.0,
+          "selected_rank_max": 5125.0,
+          "selected_rank_mean": 5097.5,
+          "eligible_rank_min": 5075.0,
+          "eligible_rank_max": 60965.0,
+          "eligible_rank_mean": 30300.357
+        }
+      ],
+      "selection_rule": "source_rank_ascending_then_wordnet_sense_count_desc_then_pos_count_desc"
+    },
+    "representative_sampler": {
+      "candidate_universe_count": 4112,
+      "sampled_trigger_count": 255,
+      "cell_count": 54,
+      "nonempty_cell_count": 39,
+      "sampled_nonempty_cell_count": 39,
+      "sampled_nonempty_cell_coverage_rate": 1.0,
+      "sample_per_cell": 8,
+      "weighted_estimation_available": true,
+      "construction_attempt_count": 255,
+      "source_ready_family_count": 7,
+      "weak_diagnostic_family_count": 87,
+      "blocked_count": 161,
+      "source_ready_rate": 0.0275,
+      "construction_reason_counts": {
+        "constructed_family": 94,
+        "missing_noun_or_verb_translation": 161
+      }
+    },
+    "delta": {
+      "sampled_trigger_multiplier_vs_old_primary": 10.625,
+      "fine_cell_coverage_gain": 0.7436,
+      "representative_sample_removes_old_rank_sort_bias": true,
+      "remaining_gap": "representative target-family/source-ready and scored-case sweeps still need rerun"
+    }
+  },
+  "sampling_stability": {
+    "nonempty_cell_count": 39,
+    "seed_count": 5,
+    "sample_sizes": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "by_sample_size": [
+      {
+        "sample_per_cell": 4,
+        "run_count": 5,
+        "sampled_trigger_count_min": 140.0,
+        "sampled_trigger_count_max": 140.0,
+        "nonempty_cell_coverage_rate_min": 1.0,
+        "nonempty_cell_coverage_rate_max": 1.0,
+        "mean_pairwise_jaccard": 0.1837,
+        "weighted_rank_tvd_max": 0.0,
+        "weighted_polysemy_tvd_max": 0.0,
+        "weighted_pos_shape_tvd_max": 0.0
+      },
+      {
+        "sample_per_cell": 8,
+        "run_count": 5,
+        "sampled_trigger_count_min": 255.0,
+        "sampled_trigger_count_max": 255.0,
+        "nonempty_cell_coverage_rate_min": 1.0,
+        "nonempty_cell_coverage_rate_max": 1.0,
+        "mean_pairwise_jaccard": 0.2514,
+        "weighted_rank_tvd_max": 0.0,
+        "weighted_polysemy_tvd_max": 0.0,
+        "weighted_pos_shape_tvd_max": 0.0
+      },
+      {
+        "sample_per_cell": 16,
+        "run_count": 5,
+        "sampled_trigger_count_min": 444.0,
+        "sampled_trigger_count_max": 444.0,
+        "nonempty_cell_coverage_rate_min": 1.0,
+        "nonempty_cell_coverage_rate_max": 1.0,
+        "mean_pairwise_jaccard": 0.3393,
+        "weighted_rank_tvd_max": 0.0,
+        "weighted_polysemy_tvd_max": 0.0,
+        "weighted_pos_shape_tvd_max": 0.0
+      },
+      {
+        "sample_per_cell": 32,
+        "run_count": 5,
+        "sampled_trigger_count_min": 732.0,
+        "sampled_trigger_count_max": 732.0,
+        "nonempty_cell_coverage_rate_min": 1.0,
+        "nonempty_cell_coverage_rate_max": 1.0,
+        "mean_pairwise_jaccard": 0.4345,
+        "weighted_rank_tvd_max": 0.0,
+        "weighted_polysemy_tvd_max": 0.0,
+        "weighted_pos_shape_tvd_max": 0.0
+      }
+    ],
+    "runs": [
+      {
+        "sample_per_cell": 4,
+        "seed": "methodology_seed_a",
+        "sampled_trigger_count": 140,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 4,
+        "seed": "methodology_seed_b",
+        "sampled_trigger_count": 140,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 4,
+        "seed": "methodology_seed_c",
+        "sampled_trigger_count": 140,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 4,
+        "seed": "methodology_seed_d",
+        "sampled_trigger_count": 140,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 4,
+        "seed": "methodology_seed_e",
+        "sampled_trigger_count": 140,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 8,
+        "seed": "methodology_seed_a",
+        "sampled_trigger_count": 255,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 8,
+        "seed": "methodology_seed_b",
+        "sampled_trigger_count": 255,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 8,
+        "seed": "methodology_seed_c",
+        "sampled_trigger_count": 255,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 8,
+        "seed": "methodology_seed_d",
+        "sampled_trigger_count": 255,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 8,
+        "seed": "methodology_seed_e",
+        "sampled_trigger_count": 255,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 16,
+        "seed": "methodology_seed_a",
+        "sampled_trigger_count": 444,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 16,
+        "seed": "methodology_seed_b",
+        "sampled_trigger_count": 444,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 16,
+        "seed": "methodology_seed_c",
+        "sampled_trigger_count": 444,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 16,
+        "seed": "methodology_seed_d",
+        "sampled_trigger_count": 444,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 16,
+        "seed": "methodology_seed_e",
+        "sampled_trigger_count": 444,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 32,
+        "seed": "methodology_seed_a",
+        "sampled_trigger_count": 732,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 32,
+        "seed": "methodology_seed_b",
+        "sampled_trigger_count": 732,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 32,
+        "seed": "methodology_seed_c",
+        "sampled_trigger_count": 732,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 32,
+        "seed": "methodology_seed_d",
+        "sampled_trigger_count": 732,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      },
+      {
+        "sample_per_cell": 32,
+        "seed": "methodology_seed_e",
+        "sampled_trigger_count": 732,
+        "sampled_nonempty_cell_count": 39,
+        "nonempty_cell_coverage_rate": 1.0,
+        "weighted_rank_tvd": 0.0,
+        "weighted_polysemy_tvd": 0.0,
+        "weighted_pos_shape_tvd": 0.0
+      }
+    ]
+  },
+  "construction_stability": {
+    "status": "ok",
+    "sample_sizes": [
+      4,
+      8,
+      16
+    ],
+    "seed_count": 3,
+    "by_sample_size": [
+      {
+        "sample_per_cell": 4,
+        "run_count": 3,
+        "attempted_sample_count_min": 140.0,
+        "attempted_sample_count_max": 140.0,
+        "source_ready_family_count_min": 5.0,
+        "source_ready_family_count_max": 7.0,
+        "source_ready_rate_min": 0.0357,
+        "source_ready_rate_max": 0.05,
+        "source_ready_rate_mean": 0.0405,
+        "weak_diagnostic_family_count_min": 37.0,
+        "weak_diagnostic_family_count_max": 43.0,
+        "blocked_count_min": 92.0,
+        "blocked_count_max": 96.0
+      },
+      {
+        "sample_per_cell": 8,
+        "run_count": 3,
+        "attempted_sample_count_min": 255.0,
+        "attempted_sample_count_max": 255.0,
+        "source_ready_family_count_min": 8.0,
+        "source_ready_family_count_max": 12.0,
+        "source_ready_rate_min": 0.0314,
+        "source_ready_rate_max": 0.0471,
+        "source_ready_rate_mean": 0.0405,
+        "weak_diagnostic_family_count_min": 71.0,
+        "weak_diagnostic_family_count_max": 82.0,
+        "blocked_count_min": 164.0,
+        "blocked_count_max": 172.0
+      },
+      {
+        "sample_per_cell": 16,
+        "run_count": 3,
+        "attempted_sample_count_min": 444.0,
+        "attempted_sample_count_max": 444.0,
+        "source_ready_family_count_min": 13.0,
+        "source_ready_family_count_max": 19.0,
+        "source_ready_rate_min": 0.0293,
+        "source_ready_rate_max": 0.0428,
+        "source_ready_rate_mean": 0.0345,
+        "weak_diagnostic_family_count_min": 135.0,
+        "weak_diagnostic_family_count_max": 137.0,
+        "blocked_count_min": 288.0,
+        "blocked_count_max": 296.0
+      }
+    ],
+    "runs": [
+      {
+        "sample_per_cell": 4,
+        "seed": "methodology_seed_a",
+        "attempted_sample_count": 140,
+        "source_ready_family_count": 5,
+        "weak_diagnostic_family_count": 43,
+        "blocked_count": 92,
+        "source_ready_rate": 0.0357,
+        "reason_counts": {
+          "constructed_family": 48,
+          "missing_noun_or_verb_translation": 92
+        }
+      },
+      {
+        "sample_per_cell": 4,
+        "seed": "methodology_seed_b",
+        "attempted_sample_count": 140,
+        "source_ready_family_count": 5,
+        "weak_diagnostic_family_count": 42,
+        "blocked_count": 93,
+        "source_ready_rate": 0.0357,
+        "reason_counts": {
+          "candidate_too_polysemous_for_first_wave": 1,
+          "constructed_family": 47,
+          "missing_noun_or_verb_translation": 92
+        }
+      },
+      {
+        "sample_per_cell": 4,
+        "seed": "methodology_seed_c",
+        "attempted_sample_count": 140,
+        "source_ready_family_count": 7,
+        "weak_diagnostic_family_count": 37,
+        "blocked_count": 96,
+        "source_ready_rate": 0.05,
+        "reason_counts": {
+          "candidate_too_polysemous_for_first_wave": 1,
+          "constructed_family": 44,
+          "missing_noun_or_verb_translation": 95
+        }
+      },
+      {
+        "sample_per_cell": 8,
+        "seed": "methodology_seed_a",
+        "attempted_sample_count": 255,
+        "source_ready_family_count": 11,
+        "weak_diagnostic_family_count": 80,
+        "blocked_count": 164,
+        "source_ready_rate": 0.0431,
+        "reason_counts": {
+          "candidate_too_polysemous_for_first_wave": 3,
+          "constructed_family": 91,
+          "missing_noun_or_verb_translation": 161
+        }
+      },
+      {
+        "sample_per_cell": 8,
+        "seed": "methodology_seed_b",
+        "attempted_sample_count": 255,
+        "source_ready_family_count": 8,
+        "weak_diagnostic_family_count": 82,
+        "blocked_count": 165,
+        "source_ready_rate": 0.0314,
+        "reason_counts": {
+          "candidate_too_polysemous_for_first_wave": 3,
+          "constructed_family": 90,
+          "missing_noun_or_verb_translation": 162
+        }
+      },
+      {
+        "sample_per_cell": 8,
+        "seed": "methodology_seed_c",
+        "attempted_sample_count": 255,
+        "source_ready_family_count": 12,
+        "weak_diagnostic_family_count": 71,
+        "blocked_count": 172,
+        "source_ready_rate": 0.0471,
+        "reason_counts": {
+          "candidate_too_polysemous_for_first_wave": 1,
+          "constructed_family": 83,
+          "missing_noun_or_verb_translation": 171
+        }
+      },
+      {
+        "sample_per_cell": 16,
+        "seed": "methodology_seed_a",
+        "attempted_sample_count": 444,
+        "source_ready_family_count": 19,
+        "weak_diagnostic_family_count": 137,
+        "blocked_count": 288,
+        "source_ready_rate": 0.0428,
+        "reason_counts": {
+          "candidate_too_polysemous_for_first_wave": 3,
+          "constructed_family": 156,
+          "missing_noun_or_verb_translation": 285
+        }
+      },
+      {
+        "sample_per_cell": 16,
+        "seed": "methodology_seed_b",
+        "attempted_sample_count": 444,
+        "source_ready_family_count": 14,
+        "weak_diagnostic_family_count": 135,
+        "blocked_count": 295,
+        "source_ready_rate": 0.0315,
+        "reason_counts": {
+          "candidate_too_polysemous_for_first_wave": 3,
+          "constructed_family": 149,
+          "missing_noun_or_verb_translation": 292
+        }
+      },
+      {
+        "sample_per_cell": 16,
+        "seed": "methodology_seed_c",
+        "attempted_sample_count": 444,
+        "source_ready_family_count": 13,
+        "weak_diagnostic_family_count": 135,
+        "blocked_count": 296,
+        "source_ready_rate": 0.0293,
+        "reason_counts": {
+          "candidate_too_polysemous_for_first_wave": 5,
+          "constructed_family": 148,
+          "missing_noun_or_verb_translation": 291
+        }
+      }
+    ]
+  },
+  "sweep_rerun_status": [
+    {
+      "sweep": "heuristic_difficulty_surface",
+      "status": "blocked_until_representative_case_traces_exist",
+      "reason": "The prior sweep consumes authored/scored case traces, while the representative lane currently has source-trigger and target-family coverage only."
+    },
+    {
+      "sweep": "formula_shape_bakeoff",
+      "status": "blocked_until_representative_case_traces_exist",
+      "reason": "Formula cells require observed positive/shadow/phrase outcomes; no representative scored contexts exist yet."
+    },
+    {
+      "sweep": "formula_weight_surface",
+      "status": "blocked_until_representative_case_traces_exist",
+      "reason": "Continuous weight surfaces need observed failure rates by cell, not just sampled source triggers."
+    },
+    {
+      "sweep": "curve_guided_expansion_plan",
+      "status": "rerun_after_representative_surface_exists",
+      "reason": "The current curve-guided queue came from the old authored stress lane; rerun it after representative cases are scored."
+    },
+    {
+      "sweep": "source_sampling_seed_scale_stability",
+      "status": "rerun_now",
+      "reason": "This report reruns the source sampling side for multiple sample sizes and seeds."
+    }
+  ],
+  "e2e_checks": {
+    "old_pilot_primary_rows_detected": true,
+    "representative_sample_rows_detected": true,
+    "representative_cells_cover_all_nonempty_cells": true,
+    "stability_runs_cover_all_nonempty_cells": true
+  },
+  "limitations": [
+    "new_sampler_improves_source_band_representation_not_final_accuracy_by_itself",
+    "target_family_construction_stability_is_coverage_not_final_scoring_accuracy",
+    "old_formula_and_weight_sweeps_need_representative_case_traces_before_true_rerun",
+    "equal_cell_sampling_requires_weights_for_candidate_universe_mean_estimates"
+  ],
+  "next_steps": [
+    "Broaden or diagnose the missing_noun_or_verb_translation blocker before spending on LLM rows.",
+    "After representative target/shadow families and fixed contexts exist, rerun heuristic difficulty surface, formula-shape bakeoff, formula-weight surface, and curve-guided expansion against the representative lane."
+  ]
+}

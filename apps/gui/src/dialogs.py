@@ -10,14 +10,11 @@ from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
     QFormLayout,
-    QFrame,
     QHBoxLayout,
     QLabel,
     QLineEdit,
-    QMessageBox,
     QPushButton,
     QPlainTextEdit,
-    QScrollArea,
     QSlider,
     QStyle,
     QTabWidget,
@@ -38,15 +35,12 @@ from lexishift_core import (
     VocabSettings,
 )
 from lexishift_core.helper.lp_capabilities import selectable_srs_pairs
-from i18n import available_locales, t
+from dialogs_settings_appearance_mixin import SettingsDialogAppearanceMixin
+from i18n import t
 from settings_language_packs import LanguagePackPanel
-from helper_installer import install_helper, is_helper_installed
-from helper_ui import ensure_helper_autostart, get_helper_environment, prompt_for_helper_environment
-from dialogs_theme_utils import _ThemedTabContainer, _coerce_float, _merge_theme, _parse_int
-from theme_loader import load_user_themes, theme_dir
-from theme_manager import resolve_theme
-from theme_registry import BUILTIN_THEMES
-from utils_paths import reveal_path
+from settings_language_packs_support import split_language_resource_bindings
+from helper_ui import helper_connection_summary_text, manage_browser_connections
+from dialogs_theme_utils import _parse_int
 from integrations import open_integration_link
 
 
@@ -72,6 +66,45 @@ def _format_pair_label(pair: str) -> str:
 
 def _srs_pair_options() -> list[tuple[str, str]]:
     return [(pair, _format_pair_label(pair)) for pair in selectable_srs_pairs()]
+
+
+def build_synonym_resource_settings_from_panel(
+    panel: object,
+    *,
+    base_synonyms: Optional[SynonymSourceSettings] = None,
+) -> SynonymSourceSettings:
+    bindings_fn = getattr(panel, "language_resource_bindings", None)
+    if callable(bindings_fn):
+        (
+            managed_language_pack_ids,
+            language_pack_paths,
+            wordnet_dir,
+            moby_path,
+        ) = split_language_resource_bindings(bindings_fn())
+    else:
+        managed_language_pack_ids = tuple(panel.managed_language_pack_ids() or ())
+        language_pack_paths = dict(panel.paths() or {})
+        wordnet_dir = str(language_pack_paths.get("wordnet-en", "")).strip() or None
+        moby_path = str(language_pack_paths.get("moby-en", "")).strip() or None
+    managed_frequency_pack_ids = tuple(panel.managed_frequency_pack_ids() or ())
+    frequency_pack_paths = dict(panel.frequency_paths() or {})
+    embedding_pack_paths = dict(panel.embedding_paths() or {})
+    embedding_pair_pack_ids = dict(panel.embedding_pair_pack_ids() or {})
+    embedding_pair_paths = dict(panel.embedding_pair_paths() or {})
+    embedding_pair_enabled = dict(panel.embedding_pair_enabled() or {})
+    return replace(
+        base_synonyms or SynonymSourceSettings(),
+        wordnet_dir=wordnet_dir,
+        moby_path=moby_path,
+        managed_language_pack_ids=managed_language_pack_ids,
+        language_pack_paths=language_pack_paths,
+        managed_frequency_pack_ids=managed_frequency_pack_ids,
+        frequency_pack_paths=frequency_pack_paths,
+        embedding_pack_paths=embedding_pack_paths,
+        embedding_pair_pack_ids=embedding_pair_pack_ids,
+        embedding_pair_paths=embedding_pair_paths,
+        embedding_pair_enabled=embedding_pair_enabled,
+    )
 
 
 class RuleMetadataDialog(QDialog):
@@ -136,11 +169,13 @@ class RuleMetadataDialog(QDialog):
         self._language_pair = metadata.language_pair
 
 
-class SettingsDialog(QDialog):
+class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
     def __init__(
         self,
         app_settings: AppSettings,
         dataset_settings: Optional[VocabSettings],
+        initial_tab: str | None = None,
+        initial_resource_pair: str | None = None,
         parent=None,
     ) -> None:
         super().__init__(parent)
@@ -165,14 +200,24 @@ class SettingsDialog(QDialog):
         self._theme = self._themes[self._theme_id]
         locale_pref = self._ui_settings.value("appearance/locale", "system")
         self._locale_pref = str(locale_pref) if locale_pref is not None else "system"
-        self.language_pack_panel = LanguagePackPanel(parent=self)
+        self.language_pack_panel = LanguagePackPanel(
+            parent=self,
+            focused_pair=initial_resource_pair,
+        )
         tabs = QTabWidget()
         self._tabs = tabs
-        tabs.addTab(self._wrap_tab(self._build_app_tab()), t("tabs.app"))
-        tabs.addTab(self._wrap_tab(self._build_resources_tab()), t("language_packs.title"))
-        tabs.addTab(self._wrap_tab(self._build_appearance_tab()), t("tabs.appearance"))
-        tabs.addTab(self._wrap_tab(self._build_dataset_tab()), t("tabs.dataset"))
-        tabs.addTab(self._wrap_tab(self._build_integrations_tab()), t("tabs.integrations"))
+        app_tab = self._wrap_tab(self._build_app_tab())
+        resources_tab = self._wrap_tab(self._build_resources_tab())
+        appearance_tab = self._wrap_tab(self._build_appearance_tab())
+        dataset_tab = self._wrap_tab(self._build_dataset_tab())
+        integrations_tab = self._wrap_tab(self._build_integrations_tab())
+        tabs.addTab(app_tab, t("tabs.app"))
+        tabs.addTab(resources_tab, t("language_packs.title"))
+        tabs.addTab(appearance_tab, t("tabs.appearance"))
+        tabs.addTab(dataset_tab, t("tabs.dataset"))
+        tabs.addTab(integrations_tab, t("tabs.integrations"))
+        if initial_tab == "resources":
+            tabs.setCurrentWidget(resources_tab)
 
         self._apply_import_export(self._import_settings)
         self._apply_inflections(inflections)
@@ -200,16 +245,11 @@ class SettingsDialog(QDialog):
         )
         max_synonyms = _parse_int(self.max_synonyms_edit.text(), default=30)
         embedding_threshold = self.embedding_threshold_slider.value() / 100.0
-        language_pack_paths = self.language_pack_panel.paths()
-        frequency_pack_paths = self.language_pack_panel.frequency_paths()
-        embedding_pack_paths = self.language_pack_panel.embedding_paths()
-        embedding_pair_paths = self.language_pack_panel.embedding_pair_paths()
-        embedding_pair_enabled = self.language_pack_panel.embedding_pair_enabled()
-        wordnet_dir = language_pack_paths.get("wordnet-en")
-        moby_path = language_pack_paths.get("moby-en")
-        synonyms = SynonymSourceSettings(
-            moby_path=moby_path.strip() if moby_path else None,
-            wordnet_dir=wordnet_dir.strip() if wordnet_dir else None,
+        synonyms = replace(
+            build_synonym_resource_settings_from_panel(
+                self.language_pack_panel,
+                base_synonyms=self._app_settings.synonyms,
+            ),
             max_synonyms=max_synonyms,
             include_phrases=self.include_phrases_check.isChecked(),
             lower_case=self.lower_case_check.isChecked(),
@@ -217,11 +257,6 @@ class SettingsDialog(QDialog):
             use_embeddings=self.use_embeddings_check.isChecked(),
             embedding_threshold=embedding_threshold,
             embedding_fallback=self.embedding_fallback_check.isChecked(),
-            language_packs=language_pack_paths,
-            frequency_packs=frequency_pack_paths,
-            embedding_packs=embedding_pack_paths,
-            embedding_pair_paths=embedding_pair_paths,
-            embedding_pair_enabled=embedding_pair_enabled,
         )
         srs_settings = self._collect_srs_settings()
         return replace(
@@ -265,40 +300,6 @@ class SettingsDialog(QDialog):
     def closeEvent(self, event) -> None:
         self.language_pack_panel.cancel_downloads()
         super().closeEvent(event)
-
-    def _build_appearance_tab(self) -> QWidget:
-        self.theme_combo = QComboBox()
-        for theme_id, label in self._theme_labels.items():
-            self.theme_combo.addItem(label, theme_id)
-        self._set_theme_combo(self._theme_id)
-        self.theme_combo.currentIndexChanged.connect(self._on_theme_changed)
-
-        self.open_themes_button = QPushButton(t("buttons.open_themes_folder"))
-        self.open_themes_button.clicked.connect(self._open_themes_folder)
-
-        self.language_combo = QComboBox()
-        self.language_combo.addItem(t("appearance.language.system_default"), "system")
-        for locale, label in sorted(available_locales().items(), key=lambda item: item[1].lower()):
-            self.language_combo.addItem(label, locale)
-        self._set_language_combo(self._locale_pref)
-        self.language_combo.currentIndexChanged.connect(self._on_language_changed)
-
-        form = QFormLayout()
-        form.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
-        form.setContentsMargins(12, 8, 12, 16)
-        form.setHorizontalSpacing(12)
-        form.setVerticalSpacing(8)
-        form.addRow(t("appearance.theme.label"), self.theme_combo)
-        form.addRow(t("appearance.themes_folder.label"), self.open_themes_button)
-        form.addRow(t("appearance.language.label"), self.language_combo)
-        form.addRow(QLabel(t("appearance.hint")))
-
-        panel = QWidget()
-        panel.setLayout(form)
-        return panel
-
-    def _open_themes_folder(self) -> None:
-        reveal_path(theme_dir())
 
     def _build_app_tab(self) -> QWidget:
         self.allow_code_export_check = QCheckBox(t("settings.allow_code_export"))
@@ -353,6 +354,7 @@ class SettingsDialog(QDialog):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(8)
         description = QLabel(t("language_packs.resources_description"))
+        description.setObjectName("settingsIntroLabel")
         description.setWordWrap(True)
         layout.addWidget(description)
         layout.addWidget(self.language_pack_panel)
@@ -459,9 +461,9 @@ class SettingsDialog(QDialog):
         self.srs_max_active_edit = QLineEdit()
         self.srs_max_new_edit = QLineEdit()
         self.helper_status_label = QLabel("—")
-        self.install_helper_button = QPushButton(t("settings.helper_install"))
+        self.install_helper_button = QPushButton(t("menu.browser_connections"))
         self.install_helper_button.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
-        self.install_helper_button.clicked.connect(self._install_helper)
+        self.install_helper_button.clicked.connect(self._manage_browser_connections)
 
         srs_pairs = _srs_pair_options()
         self._srs_pair_checks = {}
@@ -492,7 +494,7 @@ class SettingsDialog(QDialog):
         srs_form.addRow(t("settings.srs_max_new"), self.srs_max_new_edit)
         srs_form.addRow(t("settings.srs_pairs"), srs_pair_panel)
         srs_form.addRow(t("settings.helper_status"), self.helper_status_label)
-        srs_form.addRow(t("settings.helper_install"), self.install_helper_button)
+        srs_form.addRow(t("settings.helper_connections"), self.install_helper_button)
 
         srs_panel = QWidget()
         srs_panel.setLayout(srs_form)
@@ -516,107 +518,6 @@ class SettingsDialog(QDialog):
         panel = QWidget()
         panel.setLayout(layout)
         return panel
-
-    def _wrap_tab(self, panel: QWidget) -> QWidget:
-        scroll = QScrollArea()
-        scroll.setWidgetResizable(True)
-        scroll.setFrameShape(QFrame.NoFrame)
-        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
-        container = _ThemedTabContainer()
-        container.setObjectName("settingsTabContainer")
-        panel.setStyleSheet("background: transparent;")
-        layout = QVBoxLayout(container)
-        layout.setContentsMargins(16, 16, 16, 20)
-        layout.addWidget(panel)
-        scroll.setWidget(container)
-        if not hasattr(self, "_tab_containers"):
-            self._tab_containers = []
-        self._tab_containers.append(container)
-        return scroll
-
-    def _apply_theme(self) -> None:
-        theme = resolve_theme(self._theme_id, screen_id="settings_dialog")
-        self.language_pack_panel.set_theme(theme)
-        background = theme.get("_background", {})
-        background_path = theme.get("_background_path")
-        if hasattr(self, "_tab_containers"):
-            for container in self._tab_containers:
-                container.set_background(
-                    image_path=background_path,
-                    opacity=_coerce_float(background.get("opacity"), default=1.0),
-                    position=str(background.get("position") or "center"),
-                    size=str(background.get("size") or "cover"),
-                    repeat=str(background.get("repeat") or "no-repeat"),
-                )
-        self.setStyleSheet(
-            "QDialog {"
-            f"background: {theme['bg']};"
-            f"color: {theme['text']};"
-            "}"
-            "QLabel {"
-            f"color: {theme['text']};"
-            "}"
-            "QWidget#settingsTabContainer {"
-            "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
-            f"stop:0 {theme['panel_top']}, stop:1 {theme['panel_bottom']});"
-            f"border: 1px solid {theme['panel_border']};"
-            "border-radius: 10px;"
-            "}"
-            "QLabel#sectionLabel {"
-            f"color: {theme['accent']};"
-            "font-weight: 600;"
-            "font-size: 13px;"
-            "margin-top: 8px;"
-            "}"
-            "QTabWidget::pane {"
-            f"border: 1px solid {theme['panel_border']};"
-            "border-radius: 8px;"
-            "}"
-            "QTabBar::tab {"
-            f"background: {theme['panel_bottom']};"
-            f"color: {theme['muted']};"
-            "padding: 6px 12px;"
-            "margin-right: 4px;"
-            "border-top-left-radius: 6px;"
-            "border-top-right-radius: 6px;"
-            "}"
-            "QTabBar::tab:selected {"
-            f"background: {theme['panel_top']};"
-            f"color: {theme['text']};"
-            "}"
-            "QComboBox, QLineEdit, QPlainTextEdit {"
-            f"background: {theme['table_bg']};"
-            f"color: {theme['text']};"
-            f"border: 1px solid {theme['panel_border']};"
-            "border-radius: 6px;"
-            "padding: 4px 6px;"
-            "}"
-            "QHeaderView::section {"
-            f"background: {theme['accent_soft']};"
-            f"color: {theme['text']};"
-            "padding: 6px;"
-            "border: none;"
-            "}"
-            "QTableWidget {"
-            f"background: {theme['table_bg']};"
-            f"gridline-color: {theme['panel_border']};"
-            "}"
-            "QTableWidget::item:selected {"
-            f"background: {theme['table_sel_bg']};"
-            f"color: {theme['text']};"
-            "}"
-            "QPushButton#settingsPrimaryButton {"
-            f"background: {theme['primary']};"
-            "color: #FFFFFF;"
-            "padding: 6px 14px;"
-            "border-radius: 6px;"
-            "}"
-            "QPushButton#settingsPrimaryButton:hover {"
-            f"background: {theme['primary_hover']};"
-            "}"
-        )
 
     def _apply_import_export(self, settings: ImportExportSettings) -> None:
         self.allow_code_export_check.setChecked(settings.allow_code_export)
@@ -682,48 +583,11 @@ class SettingsDialog(QDialog):
             checkbox.setChecked(rule.enabled if rule is not None else False)
 
     def _refresh_helper_status(self) -> None:
-        env, extension_id = get_helper_environment(self._ui_settings)
-        if not env or not extension_id:
-            self.helper_status_label.setText(t("settings.helper_status_unknown"))
-            self.install_helper_button.setText(t("settings.helper_install"))
-            return
-        if is_helper_installed(str(extension_id), browser=env.browser):
-            self.helper_status_label.setText(t("settings.helper_status_installed"))
-            self.install_helper_button.setText(t("settings.helper_reinstall"))
-        else:
-            self.helper_status_label.setText(t("settings.helper_status_missing"))
-            self.install_helper_button.setText(t("settings.helper_install"))
+        self.helper_status_label.setText(helper_connection_summary_text(self._ui_settings))
+        self.install_helper_button.setText(t("menu.browser_connections"))
 
-    def _install_helper(self) -> None:
-        choice = prompt_for_helper_environment(self, self._ui_settings)
-        if not choice:
-            return
-        env, extension_id, host_path = choice
-        result = install_helper(
-            extension_id=str(extension_id).strip(),
-            browser=env.browser,
-            host_path=host_path,
-        )
-        if result.installed:
-            try:
-                ensure_helper_autostart()
-                QMessageBox.information(
-                    self,
-                    t("dialogs.helper_install.title"),
-                    t("dialogs.helper_install.success", path=str(result.manifest_path or "")),
-                )
-            except Exception as exc:  # noqa: BLE001
-                QMessageBox.warning(
-                    self,
-                    t("dialogs.helper_install.title"),
-                    t("dialogs.helper_install.failed", message=str(exc)),
-                )
-        else:
-            QMessageBox.warning(
-                self,
-                t("dialogs.helper_install.title"),
-                t("dialogs.helper_install.failed", message=str(result.message)),
-            )
+    def _manage_browser_connections(self) -> None:
+        manage_browser_connections(self, self._ui_settings)
         self._refresh_helper_status()
 
     def _collect_srs_settings(self) -> SrsSettings:
@@ -744,47 +608,3 @@ class SettingsDialog(QDialog):
             max_new_items_per_day=max_new,
             pair_rules=pair_rules,
         )
-
-    def _on_theme_changed(self) -> None:
-        theme_id = self.theme_combo.currentData()
-        if not theme_id or theme_id not in self._themes:
-            return
-        self._theme_id = theme_id
-        self._theme = self._themes[theme_id]
-        self._ui_settings.setValue("appearance/theme", theme_id)
-        self._apply_theme()
-
-    def _on_language_changed(self) -> None:
-        locale = self.language_combo.currentData()
-        if not locale:
-            return
-        self._ui_settings.setValue("appearance/locale", str(locale))
-
-    def _set_theme_combo(self, theme_id: str) -> None:
-        for idx in range(self.theme_combo.count()):
-            if self.theme_combo.itemData(idx) == theme_id:
-                self.theme_combo.setCurrentIndex(idx)
-                return
-
-    def _set_language_combo(self, locale: str) -> None:
-        self._set_combo_value(self.language_combo, locale or "system")
-
-    def _set_combo_value(self, combo: QComboBox, value: str) -> None:
-        for idx in range(combo.count()):
-            if combo.itemData(idx) == value or combo.itemText(idx) == value:
-                combo.setCurrentIndex(idx)
-                return
-
-    def _load_themes(self) -> tuple[dict[str, dict], dict[str, str]]:
-        themes = dict(BUILTIN_THEMES)
-        labels = {
-            "light_sand": t("appearance.theme.light_sand"),
-            "chalk": t("appearance.theme.chalk"),
-            "dusk": t("appearance.theme.dusk"),
-            "night_slate": t("appearance.theme.night_slate"),
-        }
-        for theme_id, theme in load_user_themes().items():
-            theme_label = str(theme.get("_name") or theme_id)
-            themes[theme_id] = _merge_theme(themes.get("light_sand", {}), theme)
-            labels[theme_id] = theme_label
-        return themes, labels

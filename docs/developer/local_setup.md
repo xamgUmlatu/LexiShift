@@ -2,13 +2,15 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-03-17
-Last verified: 2026-03-17 package-script inventory review + local repo-safety runs
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 4 validation-gate routing review against `scripts/package.json`, workflow docs, and staged-scope safety
 Purpose: current setup, validation, and day-to-day development entrypoints for contributors
-Source-of-truth: workflow runbook; operational behavior is defined by `scripts/package.json`, `AGENTS.md`, and the scripts under `scripts/dev/` and `scripts/testing/`.
+Source-of-truth: workflow runbook; operational behavior is defined by `scripts/package.json`, `AGENTS.md`, `productization_lane4_validation_gate_inventory.md`, and the scripts under `scripts/dev/` and `scripts/testing/`.
 
 Use this page for current local setup and day-to-day validation loops.
 For cross-cutting workflow status or known contradictions, defer to `feature_state_matrix.md`.
+For change-type-specific validation bundles, use
+`productization_lane4_validation_gate_inventory.md`.
 
 ## Prerequisites
 
@@ -114,6 +116,8 @@ Strict variant for cleanup branches:
 npm --prefix scripts run check:style:strict
 ```
 
+The Ruff workflow scripts try the selected Python's `-m ruff` entrypoint first and then fall back to a standalone `ruff` executable on `PATH`. If neither exists, advisory style commands report `unavailable`, while strict variants still fail so the environment issue does not get mistaken for product debt.
+
 Changed-scope branch command:
 
 ```bash
@@ -163,7 +167,8 @@ npm --prefix scripts run build:report
 
 Failed build commands now keep stdout/stderr tail lines and missing-artifact details in the JSON report for the same reason.
 
-This is the full build contract. Hosted macOS CI uses the same entrypoint.
+This is the full build contract. Hosted macOS and Windows CI use the same
+entrypoint.
 
 CI-safe build report:
 
@@ -171,7 +176,8 @@ CI-safe build report:
 npm --prefix scripts run build:ci:report
 ```
 
-This is the explicit non-macOS partial lane. It keeps the same report format while recording skipped GUI validation on unsupported hosts.
+This is the explicit unsupported-host partial lane. It keeps the same report
+format while recording skipped GUI validation on unsupported hosts.
 
 Synthetic SRS quality harness:
 
@@ -198,6 +204,9 @@ npm --prefix scripts run quality:srs:journey:installed:html
 npm --prefix scripts run quality:srs:journey:en-es
 npm --prefix scripts run quality:srs:journey:en-es:summary
 npm --prefix scripts run quality:srs:journey:en-es:html
+npm --prefix scripts run quality:srs:journey:en-es:profile
+npm --prefix scripts run quality:srs:journey:en-es:profile:summary
+npm --prefix scripts run quality:srs:journey:en-es:profile:html
 npm --prefix scripts run quality:srs:journey:en-es:edge
 npm --prefix scripts run quality:srs:journey:en-es:edge:summary
 npm --prefix scripts run quality:srs:journey:en-es:edge:html

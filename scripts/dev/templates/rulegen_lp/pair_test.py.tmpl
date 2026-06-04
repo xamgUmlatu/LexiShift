@@ -1,0 +1,53 @@
+from __future__ import annotations
+
+import os
+from pathlib import Path
+import sys
+import unittest
+from unittest.mock import patch
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+from lexishift_core.replacement.core import VocabRule  # noqa: E402
+from lexishift_core.rulegen.adapters import RulegenAdapterRequest, run_rules_with_adapter  # noqa: E402
+from lexishift_core.rulegen.pairs.$pair_underscore import ${pair_class_prefix}RulegenConfig  # noqa: E402
+
+
+@unittest.skip(
+    "Scaffold only: replace with pair-specific adapter/generation tests after adapter registration exists for `$pair`."
+)
+class Test${pair_class_prefix}RulegenScaffold(unittest.TestCase):
+    def test_scaffold_config_uses_pair_identity(self) -> None:
+        config = ${pair_class_prefix}RulegenConfig(translation_dict_path=Path("/tmp/TODO"))
+        self.assertEqual(config.language_pair, "$pair")
+
+    def test_${pair_underscore}_requires_translation_dictionary_path(self) -> None:
+        with self.assertRaises(ValueError):
+            run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="$pair",
+                    targets=("TODO",),
+                    language_pair="$pair",
+                    translation_dict_path=None,
+                )
+            )
+
+    def test_${pair_underscore}_dispatches_to_pair_generator(self) -> None:
+        with patch(
+            "lexishift_core.rulegen.adapters.generate_${pair_underscore}_results",
+            return_value=[type("R", (), {"rule": VocabRule(source_phrase="todo", replacement="TODO")})()],
+        ) as generate:
+            rules = run_rules_with_adapter(
+                RulegenAdapterRequest(
+                    pair="$pair",
+                    targets=("TODO",),
+                    language_pair="$pair",
+                    translation_dict_path=Path("/tmp/TODO"),
+                )
+            )
+        self.assertEqual(len(rules), 1)
+        self.assertEqual(rules[0].source_phrase, "todo")
+        self.assertEqual(rules[0].replacement, "TODO")
+        generate.assert_called_once()

@@ -1,0 +1,3285 @@
+{
+  "version": "srs_admission_preference_sanity_v2",
+  "generated_at": "2026-05-26T04:19:53.524362+00:00",
+  "pair": "en-en",
+  "seed_pool": {
+    "size": 8,
+    "neutral_order": [
+      "money",
+      "home",
+      "case",
+      "funny",
+      "livestream",
+      "dog",
+      "elephant",
+      "fur"
+    ]
+  },
+  "scenarios": [
+    {
+      "name": "neutral",
+      "description": "No profile signals. Ranking should stay near neutral frequency order.",
+      "profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [],
+        "interests": [],
+        "explicit_topic_weights": {},
+        "implicit_topic_weights": {},
+        "topic_weights": {},
+        "topic_weight_sources": {},
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [],
+        "missing_signals": [
+          "interests",
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {}
+      },
+      "selection_weights": {
+        "base_freq": 0.55,
+        "topic_bias": 0.15,
+        "scarcity_bonus": 0.05,
+        "user_pref": 0.1,
+        "confidence": 0.0,
+        "difficulty_target": 0.1
+      },
+      "policy": {
+        "version": "profile_bootstrap_policy_v3",
+        "difficulty_proxy": "1_minus_admission_weight",
+        "topic_metadata_keys": [
+          "sense_topics",
+          "topics",
+          "topic",
+          "profile_topics"
+        ],
+        "topic_exact_match_multiplier": 1.0,
+        "proficiency_taper_width": 0.75,
+        "challenge_default_spread": 0.18,
+        "challenge_min_spread": 0.1,
+        "readiness_base_lower_margin": 0.15,
+        "readiness_base_upper_margin": 0.18,
+        "readiness_topic_extra_lower_margin": 0.12,
+        "readiness_topic_extra_upper_margin": 0.08,
+        "readiness_too_easy_penalty": 60.0,
+        "readiness_too_hard_penalty": 35.0,
+        "explanation_component_floor": 0.025,
+        "topic_specificity_floor": 0.45,
+        "scarcity_support_min_count": 3,
+        "scarcity_support_min_mass": 1.0,
+        "scarcity_support_mass_proxy": "sum(lexical_commonness * topic_specificity)",
+        "scarcity_bonus_enabled": true,
+        "scarcity_bonus_target_mass": 6.0,
+        "scarcity_bonus_mass_smoothing": 0.5,
+        "scarcity_bonus_mass_exponent": 0.5,
+        "scarcity_bonus_max_extra": 0.45,
+        "utility_shape": {
+          "positive_terms": [
+            "proficiency_fit",
+            "challenge_fit",
+            "topic_affinity",
+            "scarcity_bonus",
+            "coverage_gain"
+          ],
+          "negative_terms": [
+            "lexical_risk",
+            "redundancy"
+          ],
+          "exploration_terms": [
+            "exploration_bonus"
+          ],
+          "multipliers": [
+            "readiness_multiplier"
+          ]
+        }
+      },
+      "focus_lemmas": [],
+      "top_lemmas": [
+        "money",
+        "home",
+        "case",
+        "funny",
+        "livestream"
+      ],
+      "average_focus_rank": null,
+      "ranking_preview": [
+        {
+          "lemma": "money",
+          "base_rank": 1,
+          "reranked_rank": 1,
+          "rank_delta": 0,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.8,
+          "profile_score": 0.44,
+          "penalties": [],
+          "selection_mass": 0.566,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "money",
+            "lexical_commonness": 0.8,
+            "base_freq": 0.8,
+            "difficulty_estimate": 0.2,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "money"
+            ],
+            "raw_topic_hints": [
+              "finance"
+            ],
+            "topic_hints": [
+              "finance"
+            ],
+            "topic_hint_origins": {
+              "finance": [
+                "finance"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "money",
+            "lexical_commonness": 0.8,
+            "base_freq": 0.8,
+            "difficulty_estimate": 0.2,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "money"
+            ],
+            "raw_topic_hints": [
+              "finance"
+            ],
+            "topic_hints": [
+              "finance"
+            ],
+            "topic_hint_origins": {
+              "finance": [
+                "finance"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.8,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.2,
+            "base_freq": 0.8,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.8,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.2,
+            "base_freq": 0.8,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.44,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.44,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "home",
+          "base_rank": 2,
+          "reranked_rank": 2,
+          "rank_delta": 0,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.76,
+          "profile_score": 0.418,
+          "penalties": [],
+          "selection_mass": 0.5377,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "home",
+            "lexical_commonness": 0.76,
+            "base_freq": 0.76,
+            "difficulty_estimate": 0.24,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "home"
+            ],
+            "raw_topic_hints": [
+              "daily_life"
+            ],
+            "topic_hints": [
+              "daily_life"
+            ],
+            "topic_hint_origins": {
+              "daily_life": [
+                "daily_life"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "home",
+            "lexical_commonness": 0.76,
+            "base_freq": 0.76,
+            "difficulty_estimate": 0.24,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "home"
+            ],
+            "raw_topic_hints": [
+              "daily_life"
+            ],
+            "topic_hints": [
+              "daily_life"
+            ],
+            "topic_hint_origins": {
+              "daily_life": [
+                "daily_life"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.76,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.24,
+            "base_freq": 0.76,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.76,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.24,
+            "base_freq": 0.76,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.418,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.418,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "case",
+          "base_rank": 3,
+          "reranked_rank": 3,
+          "rank_delta": 0,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.72,
+          "profile_score": 0.396,
+          "penalties": [],
+          "selection_mass": 0.5094,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "case",
+            "lexical_commonness": 0.72,
+            "base_freq": 0.72,
+            "difficulty_estimate": 0.28,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "case"
+            ],
+            "raw_topic_hints": [
+              "general"
+            ],
+            "topic_hints": [
+              "general"
+            ],
+            "topic_hint_origins": {
+              "general": [
+                "general"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "case",
+            "lexical_commonness": 0.72,
+            "base_freq": 0.72,
+            "difficulty_estimate": 0.28,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "case"
+            ],
+            "raw_topic_hints": [
+              "general"
+            ],
+            "topic_hints": [
+              "general"
+            ],
+            "topic_hint_origins": {
+              "general": [
+                "general"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.72,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.28,
+            "base_freq": 0.72,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.72,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.28,
+            "base_freq": 0.72,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.396,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.396,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "funny",
+          "base_rank": 4,
+          "reranked_rank": 4,
+          "rank_delta": 0,
+          "pos_bucket": "adjective",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.66,
+          "profile_score": 0.363,
+          "penalties": [],
+          "selection_mass": 0.46695,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "funny",
+            "lexical_commonness": 0.66,
+            "base_freq": 0.66,
+            "difficulty_estimate": 0.34,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "funny"
+            ],
+            "raw_topic_hints": [
+              "comedy"
+            ],
+            "topic_hints": [
+              "comedy"
+            ],
+            "topic_hint_origins": {
+              "comedy": [
+                "comedy"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "funny",
+            "lexical_commonness": 0.66,
+            "base_freq": 0.66,
+            "difficulty_estimate": 0.34,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "funny"
+            ],
+            "raw_topic_hints": [
+              "comedy"
+            ],
+            "topic_hints": [
+              "comedy"
+            ],
+            "topic_hint_origins": {
+              "comedy": [
+                "comedy"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.66,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.34,
+            "base_freq": 0.66,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.66,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.34,
+            "base_freq": 0.66,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.363,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.363,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "livestream",
+          "base_rank": 5,
+          "reranked_rank": 5,
+          "rank_delta": 0,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.63,
+          "profile_score": 0.3465,
+          "penalties": [],
+          "selection_mass": 0.445725,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "livestream",
+            "lexical_commonness": 0.63,
+            "base_freq": 0.63,
+            "difficulty_estimate": 0.37,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "livestream"
+            ],
+            "raw_topic_hints": [
+              "media",
+              "streaming"
+            ],
+            "topic_hints": [
+              "livestream",
+              "media",
+              "streaming"
+            ],
+            "topic_hint_origins": {
+              "livestream": [
+                "streaming"
+              ],
+              "media": [
+                "media"
+              ],
+              "streaming": [
+                "streaming"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "livestream",
+            "lexical_commonness": 0.63,
+            "base_freq": 0.63,
+            "difficulty_estimate": 0.37,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "livestream"
+            ],
+            "raw_topic_hints": [
+              "media",
+              "streaming"
+            ],
+            "topic_hints": [
+              "livestream",
+              "media",
+              "streaming"
+            ],
+            "topic_hint_origins": {
+              "livestream": [
+                "streaming"
+              ],
+              "media": [
+                "media"
+              ],
+              "streaming": [
+                "streaming"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.63,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.37,
+            "base_freq": 0.63,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.63,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.37,
+            "base_freq": 0.63,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.3465,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.3465,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        }
+      ]
+    },
+    {
+      "name": "explicit_animals",
+      "description": "Explicit `animals` interest should promote animal-related vocabulary.",
+      "profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [
+          "interests"
+        ],
+        "interests": [
+          "animals"
+        ],
+        "explicit_topic_weights": {
+          "animals": 1.0
+        },
+        "implicit_topic_weights": {},
+        "topic_weights": {
+          "animals": 1.0
+        },
+        "topic_weight_sources": {
+          "animals": "interests"
+        },
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [
+          "interests"
+        ],
+        "missing_signals": [
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {
+          "interests": "interests"
+        }
+      },
+      "selection_weights": {
+        "base_freq": 0.55,
+        "topic_bias": 0.15,
+        "scarcity_bonus": 0.05,
+        "user_pref": 0.1,
+        "confidence": 0.0,
+        "difficulty_target": 0.1
+      },
+      "policy": {
+        "version": "profile_bootstrap_policy_v3",
+        "difficulty_proxy": "1_minus_admission_weight",
+        "topic_metadata_keys": [
+          "sense_topics",
+          "topics",
+          "topic",
+          "profile_topics"
+        ],
+        "topic_exact_match_multiplier": 1.0,
+        "proficiency_taper_width": 0.75,
+        "challenge_default_spread": 0.18,
+        "challenge_min_spread": 0.1,
+        "readiness_base_lower_margin": 0.15,
+        "readiness_base_upper_margin": 0.18,
+        "readiness_topic_extra_lower_margin": 0.12,
+        "readiness_topic_extra_upper_margin": 0.08,
+        "readiness_too_easy_penalty": 60.0,
+        "readiness_too_hard_penalty": 35.0,
+        "explanation_component_floor": 0.025,
+        "topic_specificity_floor": 0.45,
+        "scarcity_support_min_count": 3,
+        "scarcity_support_min_mass": 1.0,
+        "scarcity_support_mass_proxy": "sum(lexical_commonness * topic_specificity)",
+        "scarcity_bonus_enabled": true,
+        "scarcity_bonus_target_mass": 6.0,
+        "scarcity_bonus_mass_smoothing": 0.5,
+        "scarcity_bonus_mass_exponent": 0.5,
+        "scarcity_bonus_max_extra": 0.45,
+        "utility_shape": {
+          "positive_terms": [
+            "proficiency_fit",
+            "challenge_fit",
+            "topic_affinity",
+            "scarcity_bonus",
+            "coverage_gain"
+          ],
+          "negative_terms": [
+            "lexical_risk",
+            "redundancy"
+          ],
+          "exploration_terms": [
+            "exploration_bonus"
+          ],
+          "multipliers": [
+            "readiness_multiplier"
+          ]
+        }
+      },
+      "focus_lemmas": [
+        "dog",
+        "elephant",
+        "fur"
+      ],
+      "top_lemmas": [
+        "dog",
+        "elephant",
+        "money",
+        "home",
+        "fur"
+      ],
+      "average_focus_rank": 2.666667,
+      "ranking_preview": [
+        {
+          "lemma": "dog",
+          "base_rank": 6,
+          "reranked_rank": 1,
+          "rank_delta": 5,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.6,
+          "profile_score": 0.5025,
+          "penalties": [],
+          "selection_mass": 0.536625,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "dog",
+            "lexical_commonness": 0.6,
+            "base_freq": 0.6,
+            "difficulty_estimate": 0.4,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "dog"
+            ],
+            "raw_topic_hints": [
+              "animals",
+              "pets"
+            ],
+            "topic_hints": [
+              "animals",
+              "pets"
+            ],
+            "topic_hint_origins": {
+              "animals": [
+                "animals",
+                "pets"
+              ],
+              "pets": [
+                "pets"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "dog",
+            "lexical_commonness": 0.6,
+            "base_freq": 0.6,
+            "difficulty_estimate": 0.4,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "dog"
+            ],
+            "raw_topic_hints": [
+              "animals",
+              "pets"
+            ],
+            "topic_hints": [
+              "animals",
+              "pets"
+            ],
+            "topic_hint_origins": {
+              "animals": [
+                "animals",
+                "pets"
+              ],
+              "pets": [
+                "pets"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.6,
+            "preference_affinity": 1.0,
+            "preference_affinity_source": "topic_hint:animals",
+            "scarcity_bonus": 0.45,
+            "scarcity_bonus_source": "topic:animals",
+            "topic_specificity": 1.0,
+            "topic_support_count": 2,
+            "topic_hint_count": 2,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.4,
+            "base_freq": 0.6,
+            "topic_affinity": 1.0,
+            "topic_affinity_source": "topic_hint:animals"
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.6,
+            "preference_affinity": 1.0,
+            "preference_affinity_source": "topic_hint:animals",
+            "scarcity_bonus": 0.45,
+            "scarcity_bonus_source": "topic:animals",
+            "topic_specificity": 1.0,
+            "topic_support_count": 2,
+            "topic_hint_count": 2,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.4,
+            "base_freq": 0.6,
+            "topic_affinity": 1.0,
+            "topic_affinity_source": "topic_hint:animals"
+          },
+          "weighted_components": {
+            "base_freq": 0.33,
+            "topic_bias": 0.15,
+            "scarcity_bonus": 0.0225,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [
+            "topic_affinity"
+          ],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.33,
+            "topic_affinity": 0.15,
+            "scarcity_bonus": 0.0225,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "elephant",
+          "base_rank": 7,
+          "reranked_rank": 2,
+          "rank_delta": 5,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.56,
+          "profile_score": 0.4805,
+          "penalties": [],
+          "selection_mass": 0.508325,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "elephant",
+            "lexical_commonness": 0.56,
+            "base_freq": 0.56,
+            "difficulty_estimate": 0.44,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "elephant"
+            ],
+            "raw_topic_hints": [
+              "animals"
+            ],
+            "topic_hints": [
+              "animals"
+            ],
+            "topic_hint_origins": {
+              "animals": [
+                "animals"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "elephant",
+            "lexical_commonness": 0.56,
+            "base_freq": 0.56,
+            "difficulty_estimate": 0.44,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "elephant"
+            ],
+            "raw_topic_hints": [
+              "animals"
+            ],
+            "topic_hints": [
+              "animals"
+            ],
+            "topic_hint_origins": {
+              "animals": [
+                "animals"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.56,
+            "preference_affinity": 1.0,
+            "preference_affinity_source": "topic_hint:animals",
+            "scarcity_bonus": 0.45,
+            "scarcity_bonus_source": "topic:animals",
+            "topic_specificity": 1.0,
+            "topic_support_count": 1,
+            "topic_hint_count": 1,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.44,
+            "base_freq": 0.56,
+            "topic_affinity": 1.0,
+            "topic_affinity_source": "topic_hint:animals"
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.56,
+            "preference_affinity": 1.0,
+            "preference_affinity_source": "topic_hint:animals",
+            "scarcity_bonus": 0.45,
+            "scarcity_bonus_source": "topic:animals",
+            "topic_specificity": 1.0,
+            "topic_support_count": 1,
+            "topic_hint_count": 1,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.44,
+            "base_freq": 0.56,
+            "topic_affinity": 1.0,
+            "topic_affinity_source": "topic_hint:animals"
+          },
+          "weighted_components": {
+            "base_freq": 0.308,
+            "topic_bias": 0.15,
+            "scarcity_bonus": 0.0225,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [
+            "topic_affinity"
+          ],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.308,
+            "topic_affinity": 0.15,
+            "scarcity_bonus": 0.0225,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "money",
+          "base_rank": 1,
+          "reranked_rank": 3,
+          "rank_delta": -2,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.8,
+          "profile_score": 0.44,
+          "penalties": [],
+          "selection_mass": 0.566,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "money",
+            "lexical_commonness": 0.8,
+            "base_freq": 0.8,
+            "difficulty_estimate": 0.2,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "money"
+            ],
+            "raw_topic_hints": [
+              "finance"
+            ],
+            "topic_hints": [
+              "finance"
+            ],
+            "topic_hint_origins": {
+              "finance": [
+                "finance"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "money",
+            "lexical_commonness": 0.8,
+            "base_freq": 0.8,
+            "difficulty_estimate": 0.2,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "money"
+            ],
+            "raw_topic_hints": [
+              "finance"
+            ],
+            "topic_hints": [
+              "finance"
+            ],
+            "topic_hint_origins": {
+              "finance": [
+                "finance"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.8,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.2,
+            "base_freq": 0.8,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.8,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.2,
+            "base_freq": 0.8,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.44,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.44,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "home",
+          "base_rank": 2,
+          "reranked_rank": 4,
+          "rank_delta": -2,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.76,
+          "profile_score": 0.418,
+          "penalties": [],
+          "selection_mass": 0.5377,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "home",
+            "lexical_commonness": 0.76,
+            "base_freq": 0.76,
+            "difficulty_estimate": 0.24,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "home"
+            ],
+            "raw_topic_hints": [
+              "daily_life"
+            ],
+            "topic_hints": [
+              "daily_life"
+            ],
+            "topic_hint_origins": {
+              "daily_life": [
+                "daily_life"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "home",
+            "lexical_commonness": 0.76,
+            "base_freq": 0.76,
+            "difficulty_estimate": 0.24,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "home"
+            ],
+            "raw_topic_hints": [
+              "daily_life"
+            ],
+            "topic_hints": [
+              "daily_life"
+            ],
+            "topic_hint_origins": {
+              "daily_life": [
+                "daily_life"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.76,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.24,
+            "base_freq": 0.76,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.76,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.24,
+            "base_freq": 0.76,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.418,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.418,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "fur",
+          "base_rank": 8,
+          "reranked_rank": 5,
+          "rank_delta": 3,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.53,
+          "profile_score": 0.413476,
+          "penalties": [],
+          "selection_mass": 0.454259,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "fur",
+            "lexical_commonness": 0.53,
+            "base_freq": 0.53,
+            "difficulty_estimate": 0.47,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "fur"
+            ],
+            "raw_topic_hints": [
+              "animals",
+              "body"
+            ],
+            "topic_hints": [
+              "animals",
+              "body"
+            ],
+            "topic_hint_origins": {
+              "animals": [
+                "animals"
+              ],
+              "body": [
+                "body"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "fur",
+            "lexical_commonness": 0.53,
+            "base_freq": 0.53,
+            "difficulty_estimate": 0.47,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "fur"
+            ],
+            "raw_topic_hints": [
+              "animals",
+              "body"
+            ],
+            "topic_hints": [
+              "animals",
+              "body"
+            ],
+            "topic_hint_origins": {
+              "animals": [
+                "animals"
+              ],
+              "body": [
+                "body"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.53,
+            "preference_affinity": 0.707107,
+            "preference_affinity_source": "topic_hint:animals",
+            "scarcity_bonus": 0.318198,
+            "scarcity_bonus_source": "topic:animals",
+            "topic_specificity": 0.707107,
+            "topic_support_count": 1,
+            "topic_hint_count": 2,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.47,
+            "base_freq": 0.53,
+            "topic_affinity": 0.707107,
+            "topic_affinity_source": "topic_hint:animals"
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.53,
+            "preference_affinity": 0.707107,
+            "preference_affinity_source": "topic_hint:animals",
+            "scarcity_bonus": 0.318198,
+            "scarcity_bonus_source": "topic:animals",
+            "topic_specificity": 0.707107,
+            "topic_support_count": 1,
+            "topic_hint_count": 2,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.47,
+            "base_freq": 0.53,
+            "topic_affinity": 0.707107,
+            "topic_affinity_source": "topic_hint:animals"
+          },
+          "weighted_components": {
+            "base_freq": 0.2915,
+            "topic_bias": 0.106066,
+            "scarcity_bonus": 0.01591,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [
+            "topic_affinity"
+          ],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.2915,
+            "topic_affinity": 0.106066,
+            "scarcity_bonus": 0.01591,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        }
+      ]
+    },
+    {
+      "name": "implicit_streaming_comedy",
+      "description": "Derived implicit topic weights should promote media-related vocabulary without introducing a new planner contract.",
+      "profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [
+          "empirical_trends"
+        ],
+        "interests": [],
+        "explicit_topic_weights": {},
+        "implicit_topic_weights": {
+          "streaming": 0.8,
+          "comedy": 0.65
+        },
+        "topic_weights": {
+          "streaming": 0.8,
+          "livestream": 0.8,
+          "comedy": 0.65
+        },
+        "topic_weight_sources": {
+          "streaming": "empirical_trends.topic_bias",
+          "livestream": "empirical_trends.topic_bias",
+          "comedy": "empirical_trends.topic_bias"
+        },
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [
+          "interests"
+        ],
+        "missing_signals": [
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {
+          "interests": "empirical_trends.topic_bias"
+        }
+      },
+      "selection_weights": {
+        "base_freq": 0.55,
+        "topic_bias": 0.15,
+        "scarcity_bonus": 0.05,
+        "user_pref": 0.1,
+        "confidence": 0.0,
+        "difficulty_target": 0.1
+      },
+      "policy": {
+        "version": "profile_bootstrap_policy_v3",
+        "difficulty_proxy": "1_minus_admission_weight",
+        "topic_metadata_keys": [
+          "sense_topics",
+          "topics",
+          "topic",
+          "profile_topics"
+        ],
+        "topic_exact_match_multiplier": 1.0,
+        "proficiency_taper_width": 0.75,
+        "challenge_default_spread": 0.18,
+        "challenge_min_spread": 0.1,
+        "readiness_base_lower_margin": 0.15,
+        "readiness_base_upper_margin": 0.18,
+        "readiness_topic_extra_lower_margin": 0.12,
+        "readiness_topic_extra_upper_margin": 0.08,
+        "readiness_too_easy_penalty": 60.0,
+        "readiness_too_hard_penalty": 35.0,
+        "explanation_component_floor": 0.025,
+        "topic_specificity_floor": 0.45,
+        "scarcity_support_min_count": 3,
+        "scarcity_support_min_mass": 1.0,
+        "scarcity_support_mass_proxy": "sum(lexical_commonness * topic_specificity)",
+        "scarcity_bonus_enabled": true,
+        "scarcity_bonus_target_mass": 6.0,
+        "scarcity_bonus_mass_smoothing": 0.5,
+        "scarcity_bonus_mass_exponent": 0.5,
+        "scarcity_bonus_max_extra": 0.45,
+        "utility_shape": {
+          "positive_terms": [
+            "proficiency_fit",
+            "challenge_fit",
+            "topic_affinity",
+            "scarcity_bonus",
+            "coverage_gain"
+          ],
+          "negative_terms": [
+            "lexical_risk",
+            "redundancy"
+          ],
+          "exploration_terms": [
+            "exploration_bonus"
+          ],
+          "multipliers": [
+            "readiness_multiplier"
+          ]
+        }
+      },
+      "focus_lemmas": [
+        "livestream",
+        "funny"
+      ],
+      "top_lemmas": [
+        "funny",
+        "money",
+        "livestream",
+        "home",
+        "case"
+      ],
+      "average_focus_rank": 2.0,
+      "ranking_preview": [
+        {
+          "lemma": "funny",
+          "base_rank": 4,
+          "reranked_rank": 1,
+          "rank_delta": 3,
+          "pos_bucket": "adjective",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.66,
+          "profile_score": 0.4605,
+          "penalties": [],
+          "selection_mass": 0.530325,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "funny",
+            "lexical_commonness": 0.66,
+            "base_freq": 0.66,
+            "difficulty_estimate": 0.34,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "funny"
+            ],
+            "raw_topic_hints": [
+              "comedy"
+            ],
+            "topic_hints": [
+              "comedy"
+            ],
+            "topic_hint_origins": {
+              "comedy": [
+                "comedy"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "funny",
+            "lexical_commonness": 0.66,
+            "base_freq": 0.66,
+            "difficulty_estimate": 0.34,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "funny"
+            ],
+            "raw_topic_hints": [
+              "comedy"
+            ],
+            "topic_hints": [
+              "comedy"
+            ],
+            "topic_hint_origins": {
+              "comedy": [
+                "comedy"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.66,
+            "preference_affinity": 0.65,
+            "preference_affinity_source": "topic_hint:comedy",
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 1.0,
+            "topic_support_count": 1,
+            "topic_hint_count": 1,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.34,
+            "base_freq": 0.66,
+            "topic_affinity": 0.65,
+            "topic_affinity_source": "topic_hint:comedy"
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.66,
+            "preference_affinity": 0.65,
+            "preference_affinity_source": "topic_hint:comedy",
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 1.0,
+            "topic_support_count": 1,
+            "topic_hint_count": 1,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.34,
+            "base_freq": 0.66,
+            "topic_affinity": 0.65,
+            "topic_affinity_source": "topic_hint:comedy"
+          },
+          "weighted_components": {
+            "base_freq": 0.363,
+            "topic_bias": 0.0975,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [
+            "topic_affinity"
+          ],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.363,
+            "topic_affinity": 0.0975,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "money",
+          "base_rank": 1,
+          "reranked_rank": 2,
+          "rank_delta": -1,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.8,
+          "profile_score": 0.44,
+          "penalties": [],
+          "selection_mass": 0.566,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "money",
+            "lexical_commonness": 0.8,
+            "base_freq": 0.8,
+            "difficulty_estimate": 0.2,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "money"
+            ],
+            "raw_topic_hints": [
+              "finance"
+            ],
+            "topic_hints": [
+              "finance"
+            ],
+            "topic_hint_origins": {
+              "finance": [
+                "finance"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "money",
+            "lexical_commonness": 0.8,
+            "base_freq": 0.8,
+            "difficulty_estimate": 0.2,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "money"
+            ],
+            "raw_topic_hints": [
+              "finance"
+            ],
+            "topic_hints": [
+              "finance"
+            ],
+            "topic_hint_origins": {
+              "finance": [
+                "finance"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.8,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.2,
+            "base_freq": 0.8,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.8,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.2,
+            "base_freq": 0.8,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.44,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.44,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "livestream",
+          "base_rank": 5,
+          "reranked_rank": 3,
+          "rank_delta": 2,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.63,
+          "profile_score": 0.431353,
+          "penalties": [],
+          "selection_mass": 0.500879,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "livestream",
+            "lexical_commonness": 0.63,
+            "base_freq": 0.63,
+            "difficulty_estimate": 0.37,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "livestream"
+            ],
+            "raw_topic_hints": [
+              "media",
+              "streaming"
+            ],
+            "topic_hints": [
+              "livestream",
+              "media",
+              "streaming"
+            ],
+            "topic_hint_origins": {
+              "livestream": [
+                "streaming"
+              ],
+              "media": [
+                "media"
+              ],
+              "streaming": [
+                "streaming"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "livestream",
+            "lexical_commonness": 0.63,
+            "base_freq": 0.63,
+            "difficulty_estimate": 0.37,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "livestream"
+            ],
+            "raw_topic_hints": [
+              "media",
+              "streaming"
+            ],
+            "topic_hints": [
+              "livestream",
+              "media",
+              "streaming"
+            ],
+            "topic_hint_origins": {
+              "livestream": [
+                "streaming"
+              ],
+              "media": [
+                "media"
+              ],
+              "streaming": [
+                "streaming"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.63,
+            "preference_affinity": 0.565685,
+            "preference_affinity_source": "topic_hint:streaming->livestream",
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.707107,
+            "topic_support_count": 1,
+            "topic_hint_count": 2,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.37,
+            "base_freq": 0.63,
+            "topic_affinity": 0.565685,
+            "topic_affinity_source": "topic_hint:streaming->livestream"
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.63,
+            "preference_affinity": 0.565685,
+            "preference_affinity_source": "topic_hint:streaming->livestream",
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.707107,
+            "topic_support_count": 1,
+            "topic_hint_count": 2,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.37,
+            "base_freq": 0.63,
+            "topic_affinity": 0.565685,
+            "topic_affinity_source": "topic_hint:streaming->livestream"
+          },
+          "weighted_components": {
+            "base_freq": 0.3465,
+            "topic_bias": 0.084853,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [
+            "topic_affinity"
+          ],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.3465,
+            "topic_affinity": 0.084853,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "home",
+          "base_rank": 2,
+          "reranked_rank": 4,
+          "rank_delta": -2,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.76,
+          "profile_score": 0.418,
+          "penalties": [],
+          "selection_mass": 0.5377,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "home",
+            "lexical_commonness": 0.76,
+            "base_freq": 0.76,
+            "difficulty_estimate": 0.24,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "home"
+            ],
+            "raw_topic_hints": [
+              "daily_life"
+            ],
+            "topic_hints": [
+              "daily_life"
+            ],
+            "topic_hint_origins": {
+              "daily_life": [
+                "daily_life"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "home",
+            "lexical_commonness": 0.76,
+            "base_freq": 0.76,
+            "difficulty_estimate": 0.24,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "home"
+            ],
+            "raw_topic_hints": [
+              "daily_life"
+            ],
+            "topic_hints": [
+              "daily_life"
+            ],
+            "topic_hint_origins": {
+              "daily_life": [
+                "daily_life"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.76,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.24,
+            "base_freq": 0.76,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.76,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.24,
+            "base_freq": 0.76,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.418,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.418,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "case",
+          "base_rank": 3,
+          "reranked_rank": 5,
+          "rank_delta": -2,
+          "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
+          "base_weight": null,
+          "admission_weight": 0.72,
+          "profile_score": 0.396,
+          "penalties": [],
+          "selection_mass": 0.5094,
+          "candidate_traits": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "case",
+            "lexical_commonness": 0.72,
+            "base_freq": 0.72,
+            "difficulty_estimate": 0.28,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "case"
+            ],
+            "raw_topic_hints": [
+              "general"
+            ],
+            "topic_hints": [
+              "general"
+            ],
+            "topic_hint_origins": {
+              "general": [
+                "general"
+              ]
+            }
+          },
+          "admission_candidate_features": {
+            "version": "admission_candidate_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "lemma": "case",
+            "lexical_commonness": 0.72,
+            "base_freq": 0.72,
+            "difficulty_estimate": 0.28,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "lexical_forms": [
+              "case"
+            ],
+            "raw_topic_hints": [
+              "general"
+            ],
+            "topic_hints": [
+              "general"
+            ],
+            "topic_hint_origins": {
+              "general": [
+                "general"
+              ]
+            }
+          },
+          "signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.72,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.28,
+            "base_freq": 0.72,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "utility_signals": {
+            "version": "admission_utility_signals_v1",
+            "coverage_gain": 0.72,
+            "preference_affinity": 0.0,
+            "preference_affinity_source": null,
+            "scarcity_bonus": 0.0,
+            "scarcity_bonus_source": null,
+            "topic_specificity": 0.0,
+            "topic_support_count": 0,
+            "topic_hint_count": 0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0,
+            "difficulty_estimate": 0.28,
+            "base_freq": 0.72,
+            "topic_affinity": 0.0,
+            "topic_affinity_source": null
+          },
+          "weighted_components": {
+            "base_freq": 0.396,
+            "topic_bias": 0.0,
+            "scarcity_bonus": 0.0,
+            "user_pref": 0.0,
+            "confidence": 0.0,
+            "difficulty_target": 0.0
+          },
+          "active_profile_drivers": [],
+          "has_coverage_support": true,
+          "utility_weighted_components": {
+            "coverage_gain": 0.396,
+            "topic_affinity": 0.0,
+            "scarcity_bonus": 0.0,
+            "proficiency_fit": 0.0,
+            "challenge_fit": 0.0,
+            "lexical_risk": 0.0,
+            "redundancy": 0.0,
+            "exploration_bonus": 0.0
+          },
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        }
+      ]
+    }
+  ],
+  "preference_matrix": {
+    "top_n": 5,
+    "focus_lemmas": [
+      "dog",
+      "elephant",
+      "falcon",
+      "reptile"
+    ],
+    "seed_pool": {
+      "size": 12,
+      "neutral_order": [
+        "money",
+        "home",
+        "food",
+        "travel",
+        "music",
+        "dog",
+        "elephant",
+        "falcon",
+        "reptile",
+        "thesis",
+        "hypothesis",
+        "algorithm"
+      ]
+    },
+    "rows": [
+      {
+        "name": "neutral",
+        "description": "No profile signals.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [],
+          "interests": [],
+          "explicit_topic_weights": {},
+          "implicit_topic_weights": {},
+          "topic_weights": {},
+          "topic_weight_sources": {},
+          "proficiency_estimate": null,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [],
+          "missing_signals": [
+            "interests",
+            "proficiency",
+            "challenge_preference"
+          ],
+          "signal_sources": {}
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "money",
+          "home",
+          "food",
+          "travel",
+          "music"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 0,
+        "focus_average_rank": 7.75,
+        "focus_first_draw_probability": 0.282282,
+        "average_top_difficulty": 0.24,
+        "top_preview": [
+          {
+            "lemma": "money",
+            "profile_score": 0.495,
+            "selection_mass": 0.63675,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "home",
+            "profile_score": 0.462,
+            "selection_mass": 0.5943,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "food",
+            "profile_score": 0.429,
+            "selection_mass": 0.55185,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.363,
+            "selection_mass": 0.46695,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.341,
+            "selection_mass": 0.43865,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "animals_light",
+        "description": "Light animals preference at mid proficiency.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency",
+            "topic_weights"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {
+            "animals": 0.25
+          },
+          "implicit_topic_weights": {},
+          "topic_weights": {
+            "animals": 0.25
+          },
+          "topic_weight_sources": {
+            "animals": "topic_weights"
+          },
+          "proficiency_estimate": 0.45,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "interests",
+            "proficiency"
+          ],
+          "missing_signals": [
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "interests": "topic_weights",
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "dog",
+          "travel",
+          "music",
+          "elephant",
+          "food"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 2,
+        "focus_average_rank": 4.5,
+        "focus_first_draw_probability": 0.403289,
+        "average_top_difficulty": 0.364,
+        "top_preview": [
+          {
+            "lemma": "dog",
+            "profile_score": 0.473125,
+            "selection_mass": 0.517531,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.25
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.463,
+            "selection_mass": 0.53195,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.441,
+            "selection_mass": 0.50365,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "elephant",
+            "profile_score": 0.425125,
+            "selection_mass": 0.458331,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.25
+          },
+          {
+            "lemma": "food",
+            "profile_score": 0.360319,
+            "selection_mass": 0.420156,
+            "readiness_multiplier": 0.681131,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "animals_medium",
+        "description": "Medium animals preference at mid proficiency.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency",
+            "topic_weights"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {
+            "animals": 0.5
+          },
+          "implicit_topic_weights": {},
+          "topic_weights": {
+            "animals": 0.5
+          },
+          "topic_weight_sources": {
+            "animals": "topic_weights"
+          },
+          "proficiency_estimate": 0.45,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "interests",
+            "proficiency"
+          ],
+          "missing_signals": [
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "interests": "topic_weights",
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "dog",
+          "elephant",
+          "travel",
+          "music",
+          "falcon"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 3,
+        "focus_average_rank": 3.75,
+        "focus_first_draw_probability": 0.419019,
+        "average_top_difficulty": 0.44,
+        "top_preview": [
+          {
+            "lemma": "dog",
+            "profile_score": 0.51625,
+            "selection_mass": 0.545562,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.5
+          },
+          {
+            "lemma": "elephant",
+            "profile_score": 0.46825,
+            "selection_mass": 0.486363,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.5
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.463,
+            "selection_mass": 0.53195,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.441,
+            "selection_mass": 0.50365,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "falcon",
+            "profile_score": 0.38625,
+            "selection_mass": 0.391062,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.5
+          }
+        ]
+      },
+      {
+        "name": "animals_strong",
+        "description": "Strong animals preference at mid proficiency.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency",
+            "topic_weights"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {
+            "animals": 1.0
+          },
+          "implicit_topic_weights": {},
+          "topic_weights": {
+            "animals": 1.0
+          },
+          "topic_weight_sources": {
+            "animals": "topic_weights"
+          },
+          "proficiency_estimate": 0.45,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "interests",
+            "proficiency"
+          ],
+          "missing_signals": [
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "interests": "topic_weights",
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "travel",
+          "reptile"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 4,
+        "focus_average_rank": 2.75,
+        "focus_first_draw_probability": 0.448115,
+        "average_top_difficulty": 0.492,
+        "top_preview": [
+          {
+            "lemma": "dog",
+            "profile_score": 0.6025,
+            "selection_mass": 0.601625,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "elephant",
+            "profile_score": 0.5545,
+            "selection_mass": 0.542425,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "falcon",
+            "profile_score": 0.4725,
+            "selection_mass": 0.447125,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.463,
+            "selection_mass": 0.53195,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "reptile",
+            "profile_score": 0.445167,
+            "selection_mass": 0.415358,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          }
+        ]
+      },
+      {
+        "name": "proficiency_low",
+        "description": "Low proficiency without topic preference.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {},
+          "implicit_topic_weights": {},
+          "topic_weights": {},
+          "topic_weight_sources": {},
+          "proficiency_estimate": 0.2,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "proficiency"
+          ],
+          "missing_signals": [
+            "interests",
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "money",
+          "home",
+          "food",
+          "travel",
+          "music"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 0,
+        "focus_average_rank": 7.75,
+        "focus_first_draw_probability": 0.216106,
+        "average_top_difficulty": 0.24,
+        "top_preview": [
+          {
+            "lemma": "money",
+            "profile_score": 0.595,
+            "selection_mass": 0.70175,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "home",
+            "profile_score": 0.562,
+            "selection_mass": 0.6593,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "food",
+            "profile_score": 0.526333,
+            "selection_mass": 0.615117,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.444333,
+            "selection_mass": 0.519817,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.417,
+            "selection_mass": 0.48805,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "proficiency_mid",
+        "description": "Mid proficiency without topic preference.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {},
+          "implicit_topic_weights": {},
+          "topic_weights": {},
+          "topic_weight_sources": {},
+          "proficiency_estimate": 0.45,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "proficiency"
+          ],
+          "missing_signals": [
+            "interests",
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "travel",
+          "music",
+          "dog",
+          "elephant",
+          "food"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 2,
+        "focus_average_rank": 5.25,
+        "focus_first_draw_probability": 0.386522,
+        "average_top_difficulty": 0.364,
+        "top_preview": [
+          {
+            "lemma": "travel",
+            "profile_score": 0.463,
+            "selection_mass": 0.53195,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.441,
+            "selection_mass": 0.50365,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "dog",
+            "profile_score": 0.43,
+            "selection_mass": 0.4895,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "elephant",
+            "profile_score": 0.382,
+            "selection_mass": 0.4303,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "food",
+            "profile_score": 0.360319,
+            "selection_mass": 0.420156,
+            "readiness_multiplier": 0.681131,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "proficiency_high",
+        "description": "High proficiency without topic preference.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {},
+          "implicit_topic_weights": {},
+          "topic_weights": {},
+          "topic_weight_sources": {},
+          "proficiency_estimate": 0.75,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "proficiency"
+          ],
+          "missing_signals": [
+            "interests",
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "falcon",
+          "thesis",
+          "reptile",
+          "hypothesis",
+          "algorithm"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 2,
+        "focus_average_rank": 4.25,
+        "focus_first_draw_probability": 0.491561,
+        "average_top_difficulty": 0.652,
+        "top_preview": [
+          {
+            "lemma": "falcon",
+            "profile_score": 0.32,
+            "selection_mass": 0.348,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "thesis",
+            "profile_score": 0.309,
+            "selection_mass": 0.33385,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "reptile",
+            "profile_score": 0.298,
+            "selection_mass": 0.3197,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "hypothesis",
+            "profile_score": 0.276,
+            "selection_mass": 0.2914,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "algorithm",
+            "profile_score": 0.254,
+            "selection_mass": 0.2631,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "animals_high_proficiency",
+        "description": "Strong animals preference at high proficiency.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency",
+            "topic_weights"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {
+            "animals": 1.0
+          },
+          "implicit_topic_weights": {},
+          "topic_weights": {
+            "animals": 1.0
+          },
+          "topic_weight_sources": {
+            "animals": "topic_weights"
+          },
+          "proficiency_estimate": 0.75,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "interests",
+            "proficiency"
+          ],
+          "missing_signals": [
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "interests": "topic_weights",
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "elephant",
+          "falcon",
+          "reptile",
+          "dog",
+          "thesis"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 4,
+        "focus_average_rank": 2.5,
+        "focus_first_draw_probability": 0.666211,
+        "average_top_difficulty": 0.548,
+        "top_preview": [
+          {
+            "lemma": "elephant",
+            "profile_score": 0.5585,
+            "selection_mass": 0.545025,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "falcon",
+            "profile_score": 0.4925,
+            "selection_mass": 0.460125,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "reptile",
+            "profile_score": 0.4705,
+            "selection_mass": 0.431825,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "dog",
+            "profile_score": 0.410382,
+            "selection_mass": 0.409786,
+            "readiness_multiplier": 0.681131,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "thesis",
+            "profile_score": 0.309,
+            "selection_mass": 0.33385,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          }
+        ]
+      }
+    ],
+    "comparisons": {
+      "topic_strength_top_n_counts": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "topic_strength_first_draw_probabilities": [
+        0.282282,
+        0.403289,
+        0.419019,
+        0.448115
+      ],
+      "topic_strength_top_n_monotonic": true,
+      "topic_strength_probability_monotonic": true,
+      "proficiency_average_top_difficulty_delta": 0.412,
+      "high_proficiency_topic_top_n_delta": 2
+    }
+  },
+  "comparisons": {
+    "explicit_animals_vs_neutral": {
+      "focus_lemmas": [
+        "dog",
+        "elephant",
+        "fur"
+      ],
+      "baseline_average_rank": 7.0,
+      "scenario_average_rank": 2.666667,
+      "average_rank_gain": 4.333333
+    },
+    "implicit_streaming_comedy_vs_neutral": {
+      "focus_lemmas": [
+        "livestream",
+        "funny"
+      ],
+      "baseline_average_rank": 4.5,
+      "scenario_average_rank": 2.0,
+      "average_rank_gain": 2.5
+    }
+  },
+  "findings": [
+    {
+      "level": "PASS",
+      "code": "NEUTRAL_ORDER_STABLE",
+      "message": "Neutral profile preserved the neutral seed order.",
+      "details": "money, home, case, funny, livestream"
+    },
+    {
+      "level": "PASS",
+      "code": "EXPLICIT_INTEREST_LIFTS_TOPIC_MATCHES",
+      "message": "Explicit `animals` interest promoted animal-related candidates.",
+      "details": "gain=4.333333"
+    },
+    {
+      "level": "PASS",
+      "code": "EXPLICIT_PREVIEW_EXPLAINS_TOPIC_BIAS",
+      "message": "Preview explanation surfaced topic-affinity-driven reranking.",
+      "details": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+    },
+    {
+      "level": "PASS",
+      "code": "IMPLICIT_TOPIC_BIAS_LIFTS_MATCHES",
+      "message": "Derived implicit topic weights promoted media-related candidates.",
+      "details": "gain=2.5"
+    },
+    {
+      "level": "PASS",
+      "code": "IMPLICIT_SIGNAL_SOURCE_IS_DERIVED",
+      "message": "Implicit scenario routed through derived topic-bias normalization.",
+      "details": "empirical_trends.topic_bias"
+    },
+    {
+      "level": "PASS",
+      "code": "LIVE_METADATA_COVERAGE_AUDIT_AVAILABLE",
+      "message": "Synthetic sanity passes the scoring seam, and live frequency-source topic coverage is now tracked by the dedicated frontier audit.",
+      "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "PREFERENCE_STRENGTH_TOP_N_MONOTONIC",
+      "message": "Increasing topic strength did not reduce the number of focus-topic candidates in the top-N preview.",
+      "details": "[0, 2, 3, 4]"
+    },
+    {
+      "level": "PASS",
+      "code": "PREFERENCE_STRENGTH_MASS_MONOTONIC",
+      "message": "Increasing topic strength did not reduce focus-topic first-draw selection mass.",
+      "details": "[0.282282, 0.403289, 0.419019, 0.448115]"
+    },
+    {
+      "level": "PASS",
+      "code": "PROFICIENCY_SHIFTS_TOP_N_DIFFICULTY",
+      "message": "Higher proficiency shifted the top-N preview toward harder words.",
+      "details": "0.412"
+    },
+    {
+      "level": "PASS",
+      "code": "HIGH_PROFICIENCY_TOPIC_PRESSURE_VISIBLE",
+      "message": "A strong topic preference still increased focus-topic presence for high-proficiency users.",
+      "details": "2"
+    }
+  ],
+  "summary": {
+    "status": "PASS",
+    "pass_count": 10,
+    "warn_count": 0,
+    "fail_count": 0
+  }
+}

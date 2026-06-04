@@ -18,6 +18,7 @@ class RulegenPairTuning:
     max_definitions_per_target: int = 3
     max_rules_per_target: Optional[int] = None
     semantic_demotion_scale: float = 1.0
+    enable_exact_gloss_demotions: bool = False
     include_variants: bool = True
     allow_multiword_glosses: bool = False
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
@@ -31,6 +32,7 @@ class RulegenTuningOverrides:
     max_definitions_per_target: Optional[int] = None
     max_rules_per_target: Optional[int] = None
     semantic_demotion_scale: Optional[float] = None
+    enable_exact_gloss_demotions: Optional[bool] = None
     include_variants: Optional[bool] = None
     allow_multiword_glosses: Optional[bool] = None
     pos_scoring_enabled: Optional[bool] = None
@@ -60,6 +62,7 @@ class ResolvedRulegenTuning:
     max_definitions_per_target: Optional[int]
     max_rules_per_target: Optional[int]
     semantic_demotion_scale: float
+    enable_exact_gloss_demotions: bool
     include_variants: bool
     allow_multiword_glosses: bool
     scoring: RuleScoringConfig
@@ -133,6 +136,11 @@ def resolve_rulegen_tuning(
         if applied_overrides.include_variants is not None
         else bool(resolved_pair.include_variants)
     )
+    enable_exact_gloss_demotions = (
+        bool(applied_overrides.enable_exact_gloss_demotions)
+        if applied_overrides.enable_exact_gloss_demotions is not None
+        else bool(resolved_pair.enable_exact_gloss_demotions)
+    )
     allow_multiword_glosses = (
         bool(applied_overrides.allow_multiword_glosses)
         if applied_overrides.allow_multiword_glosses is not None
@@ -158,6 +166,7 @@ def resolve_rulegen_tuning(
         max_definitions_per_target=max_definitions_per_target,
         max_rules_per_target=max_rules_per_target,
         semantic_demotion_scale=semantic_demotion_scale,
+        enable_exact_gloss_demotions=enable_exact_gloss_demotions,
         include_variants=include_variants,
         allow_multiword_glosses=allow_multiword_glosses,
         scoring=RuleScoringConfig(weights=weights, pos_match=pos_match),
@@ -174,6 +183,7 @@ def rulegen_pair_tuning_to_dict(policy: RulegenPairTuning) -> dict[str, object]:
             int(policy.max_rules_per_target) if policy.max_rules_per_target is not None else None
         ),
         "semantic_demotion_scale": float(policy.semantic_demotion_scale),
+        "enable_exact_gloss_demotions": bool(policy.enable_exact_gloss_demotions),
         "include_variants": bool(policy.include_variants),
         "allow_multiword_glosses": bool(policy.allow_multiword_glosses),
         "scoring": _scoring_to_dict(policy.scoring),
@@ -195,6 +205,7 @@ def resolved_rulegen_tuning_to_dict(tuning: ResolvedRulegenTuning) -> dict[str, 
             int(tuning.max_rules_per_target) if tuning.max_rules_per_target is not None else None
         ),
         "semantic_demotion_scale": float(tuning.semantic_demotion_scale),
+        "enable_exact_gloss_demotions": bool(tuning.enable_exact_gloss_demotions),
         "include_variants": bool(tuning.include_variants),
         "allow_multiword_glosses": bool(tuning.allow_multiword_glosses),
         "scoring": _scoring_to_dict(tuning.scoring),
@@ -212,6 +223,7 @@ def rulegen_tuning_overrides_to_dict(
         "max_definitions_per_target": overrides.max_definitions_per_target,
         "max_rules_per_target": overrides.max_rules_per_target,
         "semantic_demotion_scale": overrides.semantic_demotion_scale,
+        "enable_exact_gloss_demotions": overrides.enable_exact_gloss_demotions,
         "include_variants": overrides.include_variants,
         "allow_multiword_glosses": overrides.allow_multiword_glosses,
         "pos_scoring_enabled": overrides.pos_scoring_enabled,

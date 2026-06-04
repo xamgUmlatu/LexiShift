@@ -262,10 +262,14 @@ def main() -> None:
             benchmark_json=PROJECT_ROOT
             / "docs"
             / "test_outputs"
+            / "experiments"
+            / "rulegen_en_es_reverse_check_20260313"
             / "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
             triage_json=PROJECT_ROOT
             / "docs"
             / "test_outputs"
+            / "experiments"
+            / "rulegen_en_es_reverse_check_20260313"
             / "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
             selector="best",
         ),

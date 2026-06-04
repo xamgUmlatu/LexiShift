@@ -1,0 +1,438 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 31,
+    "coverage_shortfall_count": 1,
+    "coverage_waived_item_count": 0,
+    "decision": "generated_items_need_repair",
+    "rejected_item_count": 1,
+    "status": "review"
+  },
+  "artifacts": {
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:active-only-scale-tranche-v1-20260510-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T22:50:44Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_active_only_scale_tranche_v1_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "first_sentence": "The museum opened a current exhibition of contemporary sculpture.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_03ecd7499626f7ea0169ffba0f4054819496837c6e4873e735",
+      "slot_id": "en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 483,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 174,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 657
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:continue:durar",
+      "first_sentence": "The meeting will continue for another two hours.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_01f7950a584bfec00169ffba1103b48194855ab199a67af14d",
+      "slot_id": "en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 463,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 158,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 621
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "first_sentence": "The parrot perched on the branch and cracked a sunflower seed with its beak.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_09bf98a68f363d8a0169ffba13bb648194a2caac0365233954",
+      "slot_id": "en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 467,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 184,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 651
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "first_sentence": "The cut began to recover after she cleaned it and kept it covered.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0736be69b921e4580169ffba15ae38819593f4d84a4bc83d54",
+      "slot_id": "en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 465,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 163,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 628
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "first_sentence": "A billow rolled toward the shore and broke into white foam.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0b4a987325c0c9980169ffba171d2c81909ef2e3a249aa1cb1",
+      "slot_id": "en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 480,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 184,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 664
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "first_sentence": "The horse was led back to its stall after the ride.",
+      "item_count": 2,
+      "pilot_arm": "high_need",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_07c58134eab91ef10169ffba19e5988194b60c2b913342c687",
+      "slot_id": "en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 474,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 172,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 646
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "first_sentence": "The report was written upon the latest survey results.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_03af3660ae3ca8000169ffba457d9c819783a42257cea3f66a",
+      "slot_id": "en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 459,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 154,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 613
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "first_sentence": "She bought a pair of socks for the trip.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0a644896815b21e40169ffba1d79248190b5e8018160cfdef9",
+      "slot_id": "en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 459,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 151,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 610
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:health:salud",
+      "first_sentence": "Regular exercise can improve your health and lower the risk of disease.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_079870c8fedc92130169ffba1ee78c81938cc38bae74d94074",
+      "slot_id": "en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 464,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 162,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 626
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "first_sentence": "After the long hike, he fell asleep and began to snore softly in the tent.",
+      "item_count": 2,
+      "pilot_arm": "middle_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_09b5f4de48e31aaa0169ffba21245481979f72365605e4c769",
+      "slot_id": "en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 476,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 182,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 658
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "first_sentence": "The carved chair was clearly the handiwork of a skilled woodworker.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_000b457b396e49920169ffba22cc548194abf227a5b25d7ac6",
+      "slot_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 488,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 179,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 667
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "first_sentence": "The garden has an adjoining lot that shares a fence with the house.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_012b988d550165c60169ffba2490f8819786ff266a53ca9109",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 484,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 186,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 670
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "first_sentence": "The hiker froze when an adder slid across the path near his boot.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_018e787551babc7d0169ffba265eec8190a973a1f3734d14ba",
+      "slot_id": "en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 472,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 171,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 643
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+      "first_sentence": "The hikers adjusted their pace as the altitude increased above the valley floor.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0915f9383ad4632c0169ffba28278481979b5d03e4b64b8123",
+      "slot_id": "en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 480,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 179,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 659
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:june:junio",
+      "first_sentence": "We plan to travel in june after the school year ends.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0a0f1ca8ac7d18130169ffba29f3d08193b0d49f6476ff56b3",
+      "slot_id": "en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 464,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 172,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 636
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+      "first_sentence": "Her voice shook with emotion when she heard the good news.",
+      "item_count": 2,
+      "pilot_arm": "low_control",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_08764f073ac6f2a80169ffba2bb6bc8196b552d2f89dd0a771",
+      "slot_id": "en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 469,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 171,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 640
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 32,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 32
+    },
+    "accepted_response_count": 16,
+    "accepted_responses_by_arm": {
+      "high_need": 6,
+      "low_control": 6,
+      "middle_control": 4
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 16
+    },
+    "admission_status": "review",
+    "admitted_item_count": 31,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 1,
+    "coverage_waived_item_count": 0,
+    "input_tokens": 7547,
+    "invalid_output_count": 0,
+    "output_tokens": 2742,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 1,
+    "selected_request_count": 16
+  }
+}

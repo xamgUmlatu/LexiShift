@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-24T22:35:35Z",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:example-frame-missing-rows:example-frame-remediation-v1-20260425a",
+  "source_id": "llm_example_frame_residual_remediation",
+  "prompt_version": "example-frame-residual-remediation-v1",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 8,
+    "accepted_item_count": 8,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "normalized_row_count": 8,
+    "input_tokens": 2904,
+    "output_tokens": 269,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-check-cheque",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "cheque",
+      "status": "accepted",
+      "response_id": "resp_04c49655a1dbff1e0169ebf038c35c8197a4bf7e4864f2fdc1",
+      "evidence_text": "She mailed the rent check with the signed lease renewal.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-check-cheque",
+      "usage": {
+        "input_tokens": 368,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 401
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-order-pedido",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "pedido",
+      "status": "accepted",
+      "response_id": "resp_038d27a01eb613f30169ebf03a12dc8193bda64816f411ceed",
+      "evidence_text": "I placed an order for two laptops and a printer online.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-order-pedido",
+      "usage": {
+        "input_tokens": 364,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 34,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 398
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "status": "accepted",
+      "response_id": "resp_0f1254c6dbdeee470169ebf03bf1608194b3bde5ca9f3d8c07",
+      "evidence_text": "She watered the plant on the windowsill every morning.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+      "usage": {
+        "input_tokens": 363,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 396
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-play-obra",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "obra",
+      "status": "accepted",
+      "response_id": "resp_04e45eda11aef3270169ebf03efcb8819791de53c570df71c6",
+      "evidence_text": "The school’s winter play opens Friday with a full cast and orchestra.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-play-obra",
+      "usage": {
+        "input_tokens": 358,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 36,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 394
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-report-informe",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "status": "accepted",
+      "response_id": "resp_0bf8dff2a53d095d0169ebf0414e6081979670873035519e69",
+      "evidence_text": "The quarterly report summarized sales trends, expenses, and next quarter's projections.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-report-informe",
+      "usage": {
+        "input_tokens": 357,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 394
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-trip-viaje",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "viaje",
+      "status": "accepted",
+      "response_id": "resp_0e4079a60b8dbbb20169ebf0428b0c8197bffc188a43deac31",
+      "evidence_text": "We planned a quick trip to the coast for lunch.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-trip-viaje",
+      "usage": {
+        "input_tokens": 354,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 387
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:active:en-es-sentence-veto-watch-reloj",
+      "prompt_slot": "remediation_active_example",
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "reloj",
+      "status": "accepted",
+      "response_id": "resp_007e7cadf629567e0169ebf044b31c8194af40e054baffa84d",
+      "evidence_text": "She checked her watch before boarding the train.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-watch-reloj",
+      "usage": {
+        "input_tokens": 357,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 31,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 388
+      }
+    },
+    {
+      "request_id": "en-es:example-frame-remediation:shadow:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow",
+      "prompt_slot": "remediation_shadow_example",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "status": "accepted",
+      "response_id": "resp_063dc848551748f00169ebf046147c81959e2989400e1043e4",
+      "evidence_text": "Please report the delay to the manager before noon.",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-remediation-v1-20260425a_raw_responses.json#en-es:example-frame-remediation:shadow:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow",
+      "usage": {
+        "input_tokens": 383,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 415
+      }
+    }
+  ]
+}

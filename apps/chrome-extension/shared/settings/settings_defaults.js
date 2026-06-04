@@ -12,7 +12,17 @@
         transparencyPercent: 100
       });
   const cardThemeDefaults = resolveCardThemeDefaults();
+  const replacementDensityDefaults = Object.freeze({
+    standard: Object.freeze({
+      maxOnePerTextBlock: false,
+      allowAdjacentReplacements: false,
+      maxReplacementsPerPage: 20,
+      maxReplacementsPerLemmaPerPage: 2
+    })
+  });
+  const standardReplacementDensity = replacementDensityDefaults.standard;
 
+  root.replacementDensityDefaults = replacementDensityDefaults;
   root.defaults = {
     enabled: true,
     rules: [],
@@ -22,12 +32,15 @@
     manualRulesetCacheByPath: {},
     highlightEnabled: true,
     highlightColor: "#9AA0A6",
-    maxOnePerTextBlock: false,
-    allowAdjacentReplacements: true,
-    maxReplacementsPerPage: 0,
-    maxReplacementsPerLemmaPerPage: 0,
+    maxOnePerTextBlock: standardReplacementDensity.maxOnePerTextBlock,
+    allowAdjacentReplacements: standardReplacementDensity.allowAdjacentReplacements,
+    maxReplacementsPerPage: standardReplacementDensity.maxReplacementsPerPage,
+    maxReplacementsPerLemmaPerPage: standardReplacementDensity.maxReplacementsPerLemmaPerPage,
     debugEnabled: false,
     debugFocusWord: "",
+    debugSemanticDecisionOverride: "",
+    debugSemanticScanNodeBatchSize: 96,
+    debugSemanticHelperBatchFlushMs: 0,
     uiLanguage: "system",
     rulesSource: "editor",
     rulesFileName: "",
@@ -54,6 +67,14 @@
     srsFeedbackSrsEnabled: true,
     srsFeedbackRulesEnabled: false,
     srsExposureLoggingEnabled: true,
+    srsAutoRefreshEnabled: true,
+    srsAutoRefreshMinFeedbackEvents: 8,
+    srsAutoRefreshMinGoodEasy: 6,
+    srsAutoRefreshRepeatMinGoodEasy: 12,
+    srsAutoRefreshCooldownMinutes: 90,
+    srsBrowsingAdmissionSignalsEnabled: false,
+    srsSemanticAdmissionEnabled: true,
+    srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
     profileBackgroundEnabled: false,
     profileBackgroundAssetId: "",
     profileBackgroundOpacity: 0.18,

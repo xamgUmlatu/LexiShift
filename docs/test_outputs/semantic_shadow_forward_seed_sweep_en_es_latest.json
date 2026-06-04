@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "generated_at": "2026-04-10T04:40:58Z",
+  "status": "ok",
+  "benchmark_dataset": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
+  "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_es_latest.json",
+  "forward_seed_max_words_values": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "rows": [
+    {
+      "forward_seed_max_words": 1,
+      "mode_id": "rulegen_top3_plus_forward_gloss",
+      "seed_trigger_count": 362,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.32,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.09420289855072464
+    },
+    {
+      "forward_seed_max_words": 1,
+      "mode_id": "rulegen_all_plus_forward_gloss",
+      "seed_trigger_count": 364,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.32,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.09420289855072464
+    },
+    {
+      "forward_seed_max_words": 2,
+      "mode_id": "rulegen_top3_plus_forward_gloss",
+      "seed_trigger_count": 440,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    },
+    {
+      "forward_seed_max_words": 2,
+      "mode_id": "rulegen_all_plus_forward_gloss",
+      "seed_trigger_count": 442,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    },
+    {
+      "forward_seed_max_words": 3,
+      "mode_id": "rulegen_top3_plus_forward_gloss",
+      "seed_trigger_count": 463,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    },
+    {
+      "forward_seed_max_words": 3,
+      "mode_id": "rulegen_all_plus_forward_gloss",
+      "seed_trigger_count": 464,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    },
+    {
+      "forward_seed_max_words": 4,
+      "mode_id": "rulegen_top3_plus_forward_gloss",
+      "seed_trigger_count": 471,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    },
+    {
+      "forward_seed_max_words": 4,
+      "mode_id": "rulegen_all_plus_forward_gloss",
+      "seed_trigger_count": 472,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    },
+    {
+      "forward_seed_max_words": 5,
+      "mode_id": "rulegen_top3_plus_forward_gloss",
+      "seed_trigger_count": 473,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    },
+    {
+      "forward_seed_max_words": 5,
+      "mode_id": "rulegen_all_plus_forward_gloss",
+      "seed_trigger_count": 474,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    }
+  ],
+  "best_current_rows": [
+    {
+      "forward_seed_max_words": 1,
+      "mode_id": "rulegen_top3_plus_forward_gloss",
+      "seed_trigger_count": 362,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.32,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.09420289855072464
+    },
+    {
+      "forward_seed_max_words": 1,
+      "mode_id": "rulegen_all_plus_forward_gloss",
+      "seed_trigger_count": 364,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.32,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.09420289855072464
+    },
+    {
+      "forward_seed_max_words": 2,
+      "mode_id": "rulegen_top3_plus_forward_gloss",
+      "seed_trigger_count": 440,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    },
+    {
+      "forward_seed_max_words": 2,
+      "mode_id": "rulegen_all_plus_forward_gloss",
+      "seed_trigger_count": 442,
+      "gold_trigger_inventory_coverage_rate": 0.9,
+      "candidate_pool_trigger_recall": 0.8,
+      "candidate_precision": 0.2962962962962963,
+      "candidate_recall": 0.8,
+      "gold_trigger_hit_rate": 0.8,
+      "overblocking_rate": 0.10869565217391304
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:semantic-veto-llm-pilot:semantic-veto-pilot-repair-20260505-002",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_llm_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_eval_sentence_pilot_v1",
+  "execution_mode": "live",
+  "replay_source": "",
+  "generated_at": "2026-05-04T21:49:33Z",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.0,
+  "request_count": 1,
+  "requests": [
+    {
+      "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "gold_type": "phrase_no_winner",
+      "gold_decision": "abstain",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.0,
+      "prompt_text": "Create one natural English browser sentence for LexiShift semantic-veto evaluation.\n\nReturn exactly one JSON object and no prose outside JSON.\n\nFamily:\n- family_id: pilot:bank:banco\n- trigger: bank\n- candidate_replacement: banco\n- active_sense: financial institution\n- pos: noun\n- gold_type: phrase_no_winner\n- gold_decision: abstain\n\nSentence requirements:\n- The sentence must contain the English trigger word or phrase: bank\n- The sentence must not contain the Spanish candidate replacement: banco\n- The sentence must not contain the labels allow, abstain, gold decision, or candidate replacement.\n- The sentence must be ordinary English that could appear in a browser page.\n- The sentence must end with punctuation.\n- Use this target stratum: word_order=canonical_subject_verb_object, trigger_position=early, context_distance=far_disambiguator, morphology=compound_or_phrase, register=ordinary_web, difficulty=moderate\n\nSemantic target:\nUse the trigger inside an idiom, lexicalized phrase, or phrase-like expression where the candidate replacement should be hidden because neither the active sense nor one ordinary alternate noun sense is the right explanation. Fill no_winner_reason.\n\nJSON schema:\n{\n  \"row_id\": \"pilotrow:pilot_bank_banco:phrase_no_winner:001\",\n  \"family_id\": \"pilot:bank:banco\",\n  \"trigger\": \"bank\",\n  \"candidate_replacement\": \"banco\",\n  \"sentence\": \"...\",\n  \"gold_decision\": \"abstain\",\n  \"gold_type\": \"phrase_no_winner\",\n  \"active_sense\": \"financial institution\",\n  \"negative_sense\": \"... only for shadow_negative, else empty string\",\n  \"no_winner_reason\": \"... only for phrase_no_winner, else empty string\",\n  \"gold_reason\": \"one short reason based only on the sentence meaning\",\n  \"pos\": \"noun\",\n  \"generator_id\": \"operator-filled-model-id\",\n  \"prompt_id\": \"semantic_veto_eval_sentence_pilot_v1\",\n  \"difficulty_tags\": [\"...\"]\n}",
+      "status": "completed",
+      "response_id": "resp_068481082a5fb98b0169f9146ebabc8190b6f2153e5c391b93",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 438,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 257,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 695
+      },
+      "output_text": "{\n  \"row_id\": \"pilotrow:pilot_bank_banco:phrase_no_winner:001\",\n  \"family_id\": \"pilot:bank:banco\",\n  \"trigger\": \"bank\",\n  \"candidate_replacement\": \"banco\",\n  \"sentence\": \"She banked on the new update arriving before the deadline.\",\n  \"gold_decision\": \"abstain\",\n  \"gold_type\": \"phrase_no_winner\",\n  \"active_sense\": \"financial institution\",\n  \"negative_sense\": \"\",\n  \"no_winner_reason\": \"The word appears in the phrasal verb \\\"banked on,\\\" which means relied on, so neither the financial institution sense nor a simple noun replacement fits.\",\n  \"gold_reason\": \"The phrase means relied on, not a financial institution.\",\n  \"pos\": \"noun\",\n  \"generator_id\": \"operator-filled-model-id\",\n  \"prompt_id\": \"semantic_veto_eval_sentence_pilot_v1\",\n  \"difficulty_tags\": [\"word_order=canonical_subject_verb_object\", \"trigger_position=early\", \"context_distance=far_disambiguator\", \"morphology=compound_or_phrase\", \"register=ordinary_web\", \"difficulty=moderate\"]\n}",
+      "response_json": {
+        "id": "resp_068481082a5fb98b0169f9146ebabc8190b6f2153e5c391b93",
+        "created_at": 1777931374.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": null,
+        "metadata": {
+          "request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:phrase_no_winner:001",
+          "expected_row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
+          "family_id": "pilot:bank:banco",
+          "prompt_id": "semantic_veto_eval_sentence_pilot_v1"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_068481082a5fb98b0169f9146ef824819099ecf44f268a260e",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\n  \"row_id\": \"pilotrow:pilot_bank_banco:phrase_no_winner:001\",\n  \"family_id\": \"pilot:bank:banco\",\n  \"trigger\": \"bank\",\n  \"candidate_replacement\": \"banco\",\n  \"sentence\": \"She banked on the new update arriving before the deadline.\",\n  \"gold_decision\": \"abstain\",\n  \"gold_type\": \"phrase_no_winner\",\n  \"active_sense\": \"financial institution\",\n  \"negative_sense\": \"\",\n  \"no_winner_reason\": \"The word appears in the phrasal verb \\\"banked on,\\\" which means relied on, so neither the financial institution sense nor a simple noun replacement fits.\",\n  \"gold_reason\": \"The phrase means relied on, not a financial institution.\",\n  \"pos\": \"noun\",\n  \"generator_id\": \"operator-filled-model-id\",\n  \"prompt_id\": \"semantic_veto_eval_sentence_pilot_v1\",\n  \"difficulty_tags\": [\"word_order=canonical_subject_verb_object\", \"trigger_position=early\", \"context_distance=far_disambiguator\", \"morphology=compound_or_phrase\", \"register=ordinary_web\", \"difficulty=moderate\"]\n}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.0,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1777931376.0,
+        "conversation": null,
+        "max_output_tokens": 500,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 438,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 257,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 695
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    }
+  ]
+}

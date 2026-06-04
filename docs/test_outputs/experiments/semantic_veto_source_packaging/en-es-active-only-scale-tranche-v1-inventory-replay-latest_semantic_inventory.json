@@ -1,0 +1,622 @@
+{
+  "capability": {
+    "competition_mode": "offline_inventory_replay",
+    "phrase_mode": "not_published"
+  },
+  "competition_sets": {
+    "en-es:full-family-repaired-full:adder:v-bora:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:adder:v-bora:active",
+      "competition_set_id": "en-es:full-family-repaired-full:adder:v-bora:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:adder:v-bora:shadow:1:sumador"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:adder:v-bora:trigger"
+    },
+    "en-es:full-family-repaired-full:adjoining:contiguo:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:adjoining:contiguo:active",
+      "competition_set_id": "en-es:full-family-repaired-full:adjoining:contiguo:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:adjoining:contiguo:trigger"
+    },
+    "en-es:full-family-repaired-full:altitude:elevaci-n:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:altitude:elevaci-n:active",
+      "competition_set_id": "en-es:full-family-repaired-full:altitude:elevaci-n:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:altitude:elevaci-n:trigger"
+    },
+    "en-es:full-family-repaired-full:billow:oleaje:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:billow:oleaje:active",
+      "competition_set_id": "en-es:full-family-repaired-full:billow:oleaje:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:billow:oleaje:shadow:1:elevarse",
+        "en-es:full-family-repaired-full:billow:oleaje:shadow:2:hincharse"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:billow:oleaje:trigger"
+    },
+    "en-es:full-family-repaired-full:continue:durar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:continue:durar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:continue:durar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:continue:durar:shadow:1:seguir",
+        "en-es:full-family-repaired-full:continue:durar:shadow:2:reanudar"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:continue:durar:trigger"
+    },
+    "en-es:full-family-repaired-full:current:contempor-neo:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:current:contempor-neo:active",
+      "competition_set_id": "en-es:full-family-repaired-full:current:contempor-neo:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:current:contempor-neo:shadow:1:corriente-el-ctrica",
+        "en-es:full-family-repaired-full:current:contempor-neo:shadow:2:corriente"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:current:contempor-neo:trigger"
+    },
+    "en-es:full-family-repaired-full:emotion:emoci-n:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:emotion:emoci-n:active",
+      "competition_set_id": "en-es:full-family-repaired-full:emotion:emoci-n:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:emotion:emoci-n:trigger"
+    },
+    "en-es:full-family-repaired-full:handiwork:artesan-a:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active",
+      "competition_set_id": "en-es:full-family-repaired-full:handiwork:artesan-a:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:handiwork:artesan-a:trigger"
+    },
+    "en-es:full-family-repaired-full:health:salud:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:health:salud:active",
+      "competition_set_id": "en-es:full-family-repaired-full:health:salud:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:health:salud:trigger"
+    },
+    "en-es:full-family-repaired-full:june:junio:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:june:junio:active",
+      "competition_set_id": "en-es:full-family-repaired-full:june:junio:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:june:junio:trigger"
+    },
+    "en-es:full-family-repaired-full:pair:par:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:pair:par:active",
+      "competition_set_id": "en-es:full-family-repaired-full:pair:par:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:pair:par:shadow:1:emparejar"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:pair:par:trigger"
+    },
+    "en-es:full-family-repaired-full:parrot:loro:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:parrot:loro:active",
+      "competition_set_id": "en-es:full-family-repaired-full:parrot:loro:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:parrot:loro:shadow:1:repetir",
+        "en-es:full-family-repaired-full:parrot:loro:shadow:2:imitador"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:parrot:loro:trigger"
+    },
+    "en-es:full-family-repaired-full:recover:sanar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:recover:sanar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:recover:sanar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:recover:sanar:shadow:1:recuperar",
+        "en-es:full-family-repaired-full:recover:sanar:shadow:2:retapizar"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:recover:sanar:trigger"
+    },
+    "en-es:full-family-repaired-full:snore:roncar:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:snore:roncar:active",
+      "competition_set_id": "en-es:full-family-repaired-full:snore:roncar:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:snore:roncar:shadow:1:ronquido"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:snore:roncar:trigger"
+    },
+    "en-es:full-family-repaired-full:stall:cuadra:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:stall:cuadra:active",
+      "competition_set_id": "en-es:full-family-repaired-full:stall:cuadra:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [
+        "en-es:full-family-repaired-full:stall:cuadra:shadow:1:retrasar",
+        "en-es:full-family-repaired-full:stall:cuadra:shadow:2:calarse"
+      ],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:stall:cuadra:trigger"
+    },
+    "en-es:full-family-repaired-full:upon:sobre:competition:active-only-replay": {
+      "active_sense_id": "en-es:full-family-repaired-full:upon:sobre:active",
+      "competition_set_id": "en-es:full-family-repaired-full:upon:sobre:competition:active-only-replay",
+      "selection_mode": "offline_inventory_replay",
+      "selection_policy_version": "active_only_inventory_replay_v1",
+      "shadow_sense_ids": [],
+      "status": "ready",
+      "trigger_id": "en-es:full-family-repaired-full:upon:sobre:trigger"
+    }
+  },
+  "generated_at": "2026-05-09T22:53:21Z",
+  "pair": "en-es",
+  "phrase_sets": {},
+  "profile_id": "inventory_replay",
+  "schema_version": 1,
+  "senses": {
+    "en-es:full-family-repaired-full:adder:v-bora:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "adder -> víbora | a small viper snake | generated evidence: The hiker froze when an adder slid across the path near his boot. | generated evidence: A bright warning sign told campers to watch for an adder in the grass.",
+        "gloss_text": "a small viper snake",
+        "sense_gloss_bundle": "adder -> víbora | a small viper snake",
+        "sense_label": "adder -> víbora"
+      },
+      "sense_id": "en-es:full-family-repaired-full:adder:v-bora:active",
+      "target_lemma": "víbora"
+    },
+    "en-es:full-family-repaired-full:adder:v-bora:shadow:1:sumador": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "adder -> sumador | a person or machine that adds numbers",
+        "gloss_text": "a person or machine that adds numbers",
+        "sense_gloss_bundle": "adder -> sumador | a person or machine that adds numbers",
+        "sense_label": "adder -> sumador"
+      },
+      "sense_id": "en-es:full-family-repaired-full:adder:v-bora:shadow:1:sumador",
+      "target_lemma": "sumador"
+    },
+    "en-es:full-family-repaired-full:adjoining:contiguo:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "adjoining -> contiguo | next to or sharing a boundary with something | generated evidence: The garden has an adjoining lot that shares a fence with the house. | generated evidence: We rented an adjoining room because it was directly next to ours.",
+        "gloss_text": "next to or sharing a boundary with something",
+        "sense_gloss_bundle": "adjoining -> contiguo | next to or sharing a boundary with something",
+        "sense_label": "adjoining -> contiguo"
+      },
+      "sense_id": "en-es:full-family-repaired-full:adjoining:contiguo:active",
+      "target_lemma": "contiguo"
+    },
+    "en-es:full-family-repaired-full:altitude:elevaci-n:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "altitude -> elevación | height or elevation above a reference level | generated evidence: The hikers adjusted their pace as the altitude increased above the valley floor. | generated evidence: At this altitude, the air is thinner and the temperature drops quickly.",
+        "gloss_text": "height or elevation above a reference level",
+        "sense_gloss_bundle": "altitude -> elevación | height or elevation above a reference level",
+        "sense_label": "altitude -> elevación"
+      },
+      "sense_id": "en-es:full-family-repaired-full:altitude:elevaci-n:active",
+      "target_lemma": "elevación"
+    },
+    "en-es:full-family-repaired-full:billow:oleaje:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "billow -> oleaje | a large sea wave or swell | generated evidence: A billow rolled toward the shore and broke into white foam. | generated evidence: From the deck, we watched a billow rise and fall across the dark water.",
+        "gloss_text": "a large sea wave or swell",
+        "sense_gloss_bundle": "billow -> oleaje | a large sea wave or swell",
+        "sense_label": "billow -> oleaje"
+      },
+      "sense_id": "en-es:full-family-repaired-full:billow:oleaje:active",
+      "target_lemma": "oleaje"
+    },
+    "en-es:full-family-repaired-full:billow:oleaje:shadow:1:elevarse": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "billow -> elevarse | rise up in swelling waves",
+        "gloss_text": "rise up in swelling waves",
+        "sense_gloss_bundle": "billow -> elevarse | rise up in swelling waves",
+        "sense_label": "billow -> elevarse"
+      },
+      "sense_id": "en-es:full-family-repaired-full:billow:oleaje:shadow:1:elevarse",
+      "target_lemma": "elevarse"
+    },
+    "en-es:full-family-repaired-full:billow:oleaje:shadow:2:hincharse": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "billow -> hincharse | swell outward like fabric",
+        "gloss_text": "swell outward like fabric",
+        "sense_gloss_bundle": "billow -> hincharse | swell outward like fabric",
+        "sense_label": "billow -> hincharse"
+      },
+      "sense_id": "en-es:full-family-repaired-full:billow:oleaje:shadow:2:hincharse",
+      "target_lemma": "hincharse"
+    },
+    "en-es:full-family-repaired-full:continue:durar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "continue -> durar | last or continue for a period of time | generated evidence: The meeting will continue for another two hours. | generated evidence: The storm is expected to continue through the night.",
+        "gloss_text": "last or continue for a period of time",
+        "sense_gloss_bundle": "continue -> durar | last or continue for a period of time",
+        "sense_label": "continue -> durar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:continue:durar:active",
+      "target_lemma": "durar"
+    },
+    "en-es:full-family-repaired-full:continue:durar:shadow:1:seguir": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "continue -> seguir | keep doing an activity",
+        "gloss_text": "keep doing an activity",
+        "sense_gloss_bundle": "continue -> seguir | keep doing an activity",
+        "sense_label": "continue -> seguir"
+      },
+      "sense_id": "en-es:full-family-repaired-full:continue:durar:shadow:1:seguir",
+      "target_lemma": "seguir"
+    },
+    "en-es:full-family-repaired-full:continue:durar:shadow:2:reanudar": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "continue -> reanudar | resume after a pause",
+        "gloss_text": "resume after a pause",
+        "sense_gloss_bundle": "continue -> reanudar | resume after a pause",
+        "sense_label": "continue -> reanudar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:continue:durar:shadow:2:reanudar",
+      "target_lemma": "reanudar"
+    },
+    "en-es:full-family-repaired-full:current:contempor-neo:active": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "current -> contemporáneo | belonging to the present time; contemporary | generated evidence: The museum opened a current exhibition of contemporary sculpture. | generated evidence: Her current research focuses on current trends in urban design.",
+        "gloss_text": "belonging to the present time; contemporary",
+        "sense_gloss_bundle": "current -> contemporáneo | belonging to the present time; contemporary",
+        "sense_label": "current -> contemporáneo"
+      },
+      "sense_id": "en-es:full-family-repaired-full:current:contempor-neo:active",
+      "target_lemma": "contemporáneo"
+    },
+    "en-es:full-family-repaired-full:current:contempor-neo:shadow:1:corriente-el-ctrica": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "current -> corriente eléctrica | flow of electricity",
+        "gloss_text": "flow of electricity",
+        "sense_gloss_bundle": "current -> corriente eléctrica | flow of electricity",
+        "sense_label": "current -> corriente eléctrica"
+      },
+      "sense_id": "en-es:full-family-repaired-full:current:contempor-neo:shadow:1:corriente-el-ctrica",
+      "target_lemma": "corriente eléctrica"
+    },
+    "en-es:full-family-repaired-full:current:contempor-neo:shadow:2:corriente": {
+      "canonical_pos": "adjective",
+      "evidence_views": {
+        "all_evidence_text": "current -> corriente | flow of water or air",
+        "gloss_text": "flow of water or air",
+        "sense_gloss_bundle": "current -> corriente | flow of water or air",
+        "sense_label": "current -> corriente"
+      },
+      "sense_id": "en-es:full-family-repaired-full:current:contempor-neo:shadow:2:corriente",
+      "target_lemma": "corriente"
+    },
+    "en-es:full-family-repaired-full:emotion:emoci-n:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "emotion -> emoción | a strong feeling or affective state | generated evidence: Her voice shook with emotion when she heard the good news. | generated evidence: He could not hide his emotion during the farewell speech.",
+        "gloss_text": "a strong feeling or affective state",
+        "sense_gloss_bundle": "emotion -> emoción | a strong feeling or affective state",
+        "sense_label": "emotion -> emoción"
+      },
+      "sense_id": "en-es:full-family-repaired-full:emotion:emoci-n:active",
+      "target_lemma": "emoción"
+    },
+    "en-es:full-family-repaired-full:handiwork:artesan-a:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "handiwork -> artesanía | work or craft produced by hand | generated evidence: The carved chair was clearly the handiwork of a skilled woodworker. | generated evidence: Her handiwork showed careful stitching and fine detail in every seam.",
+        "gloss_text": "work or craft produced by hand",
+        "sense_gloss_bundle": "handiwork -> artesanía | work or craft produced by hand",
+        "sense_label": "handiwork -> artesanía"
+      },
+      "sense_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active",
+      "target_lemma": "artesanía"
+    },
+    "en-es:full-family-repaired-full:health:salud:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "health -> salud | health as wellbeing or bodily/mental condition | generated evidence: Regular exercise can improve your health and lower the risk of disease. | generated evidence: The doctor said her health was stable after the surgery.",
+        "gloss_text": "health as wellbeing or bodily/mental condition",
+        "sense_gloss_bundle": "health -> salud | health as wellbeing or bodily/mental condition",
+        "sense_label": "health -> salud"
+      },
+      "sense_id": "en-es:full-family-repaired-full:health:salud:active",
+      "target_lemma": "salud"
+    },
+    "en-es:full-family-repaired-full:june:junio:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "june -> junio | the month following May and preceding July | generated evidence: We plan to travel in june after the school year ends. | generated evidence: The report is due in june, so we need to finish it soon.",
+        "gloss_text": "the month following May and preceding July",
+        "sense_gloss_bundle": "june -> junio | the month following May and preceding July",
+        "sense_label": "june -> junio"
+      },
+      "sense_id": "en-es:full-family-repaired-full:june:junio:active",
+      "target_lemma": "junio"
+    },
+    "en-es:full-family-repaired-full:pair:par:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "pair -> par | a pair or set of two things | generated evidence: She bought a pair of socks for the trip. | generated evidence: The recipe calls for a pair of eggs in the batter.",
+        "gloss_text": "a pair or set of two things",
+        "sense_gloss_bundle": "pair -> par | a pair or set of two things",
+        "sense_label": "pair -> par"
+      },
+      "sense_id": "en-es:full-family-repaired-full:pair:par:active",
+      "target_lemma": "par"
+    },
+    "en-es:full-family-repaired-full:pair:par:shadow:1:emparejar": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "pair -> emparejar | match two things or people together",
+        "gloss_text": "match two things or people together",
+        "sense_gloss_bundle": "pair -> emparejar | match two things or people together",
+        "sense_label": "pair -> emparejar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:pair:par:shadow:1:emparejar",
+      "target_lemma": "emparejar"
+    },
+    "en-es:full-family-repaired-full:parrot:loro:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "parrot -> loro | a parrot bird | generated evidence: The parrot perched on the branch and cracked a sunflower seed with its beak. | generated evidence: At the zoo, a bright green parrot squawked loudly when visitors walked past.",
+        "gloss_text": "a parrot bird",
+        "sense_gloss_bundle": "parrot -> loro | a parrot bird",
+        "sense_label": "parrot -> loro"
+      },
+      "sense_id": "en-es:full-family-repaired-full:parrot:loro:active",
+      "target_lemma": "loro"
+    },
+    "en-es:full-family-repaired-full:parrot:loro:shadow:1:repetir": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "parrot -> repetir | repeat mindlessly",
+        "gloss_text": "repeat mindlessly",
+        "sense_gloss_bundle": "parrot -> repetir | repeat mindlessly",
+        "sense_label": "parrot -> repetir"
+      },
+      "sense_id": "en-es:full-family-repaired-full:parrot:loro:shadow:1:repetir",
+      "target_lemma": "repetir"
+    },
+    "en-es:full-family-repaired-full:parrot:loro:shadow:2:imitador": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "parrot -> imitador | a copycat person",
+        "gloss_text": "a copycat person",
+        "sense_gloss_bundle": "parrot -> imitador | a copycat person",
+        "sense_label": "parrot -> imitador"
+      },
+      "sense_id": "en-es:full-family-repaired-full:parrot:loro:shadow:2:imitador",
+      "target_lemma": "imitador"
+    },
+    "en-es:full-family-repaired-full:recover:sanar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "recover -> sanar | recover from illness, injury, or shock; heal | generated evidence: The cut began to recover after she cleaned it and kept it covered. | generated evidence: With rest and proper care, the burn should recover in a few weeks.",
+        "gloss_text": "recover from illness, injury, or shock; heal",
+        "sense_gloss_bundle": "recover -> sanar | recover from illness, injury, or shock; heal",
+        "sense_label": "recover -> sanar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:recover:sanar:active",
+      "target_lemma": "sanar"
+    },
+    "en-es:full-family-repaired-full:recover:sanar:shadow:1:recuperar": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "recover -> recuperar | get back something lost",
+        "gloss_text": "get back something lost",
+        "sense_gloss_bundle": "recover -> recuperar | get back something lost",
+        "sense_label": "recover -> recuperar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:recover:sanar:shadow:1:recuperar",
+      "target_lemma": "recuperar"
+    },
+    "en-es:full-family-repaired-full:recover:sanar:shadow:2:retapizar": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "recover -> retapizar | cover furniture again",
+        "gloss_text": "cover furniture again",
+        "sense_gloss_bundle": "recover -> retapizar | cover furniture again",
+        "sense_label": "recover -> retapizar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:recover:sanar:shadow:2:retapizar",
+      "target_lemma": "retapizar"
+    },
+    "en-es:full-family-repaired-full:snore:roncar:active": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "snore -> roncar | breathe noisily while sleeping | generated evidence: After the long hike, he fell asleep and began to snore softly in the tent. | generated evidence: She could hear her grandfather snore from the next room all night.",
+        "gloss_text": "breathe noisily while sleeping",
+        "sense_gloss_bundle": "snore -> roncar | breathe noisily while sleeping",
+        "sense_label": "snore -> roncar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:snore:roncar:active",
+      "target_lemma": "roncar"
+    },
+    "en-es:full-family-repaired-full:snore:roncar:shadow:1:ronquido": {
+      "canonical_pos": "verb",
+      "evidence_views": {
+        "all_evidence_text": "snore -> ronquido | the noise made while snoring",
+        "gloss_text": "the noise made while snoring",
+        "sense_gloss_bundle": "snore -> ronquido | the noise made while snoring",
+        "sense_label": "snore -> ronquido"
+      },
+      "sense_id": "en-es:full-family-repaired-full:snore:roncar:shadow:1:ronquido",
+      "target_lemma": "ronquido"
+    },
+    "en-es:full-family-repaired-full:stall:cuadra:active": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "stall -> cuadra | a compartment in a stable where an animal is kept | generated evidence: The horse was led back to its stall after the ride. | generated evidence: Each stall in the barn had fresh hay and a water bucket.",
+        "gloss_text": "a compartment in a stable where an animal is kept",
+        "sense_gloss_bundle": "stall -> cuadra | a compartment in a stable where an animal is kept",
+        "sense_label": "stall -> cuadra"
+      },
+      "sense_id": "en-es:full-family-repaired-full:stall:cuadra:active",
+      "target_lemma": "cuadra"
+    },
+    "en-es:full-family-repaired-full:stall:cuadra:shadow:1:retrasar": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "stall -> retrasar | delay or postpone action",
+        "gloss_text": "delay or postpone action",
+        "sense_gloss_bundle": "stall -> retrasar | delay or postpone action",
+        "sense_label": "stall -> retrasar"
+      },
+      "sense_id": "en-es:full-family-repaired-full:stall:cuadra:shadow:1:retrasar",
+      "target_lemma": "retrasar"
+    },
+    "en-es:full-family-repaired-full:stall:cuadra:shadow:2:calarse": {
+      "canonical_pos": "noun",
+      "evidence_views": {
+        "all_evidence_text": "stall -> calarse | stop running, as an engine",
+        "gloss_text": "stop running, as an engine",
+        "sense_gloss_bundle": "stall -> calarse | stop running, as an engine",
+        "sense_label": "stall -> calarse"
+      },
+      "sense_id": "en-es:full-family-repaired-full:stall:cuadra:shadow:2:calarse",
+      "target_lemma": "calarse"
+    },
+    "en-es:full-family-repaired-full:upon:sobre:active": {
+      "canonical_pos": "preposition",
+      "evidence_views": {
+        "all_evidence_text": "upon -> sobre | on, onto, or regarding, depending on context | generated evidence: The report was written upon the latest survey results. | generated evidence: She commented upon the proposal during the meeting.",
+        "gloss_text": "on, onto, or regarding, depending on context",
+        "sense_gloss_bundle": "upon -> sobre | on, onto, or regarding, depending on context",
+        "sense_label": "upon -> sobre"
+      },
+      "sense_id": "en-es:full-family-repaired-full:upon:sobre:active",
+      "target_lemma": "sobre"
+    }
+  },
+  "triggers": {
+    "en-es:full-family-repaired-full:adder:v-bora:trigger": {
+      "normalized_source_phrase": "adder",
+      "source_phrase": "adder",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:adder:v-bora:trigger"
+    },
+    "en-es:full-family-repaired-full:adjoining:contiguo:trigger": {
+      "normalized_source_phrase": "adjoining",
+      "source_phrase": "adjoining",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:adjoining:contiguo:trigger"
+    },
+    "en-es:full-family-repaired-full:altitude:elevaci-n:trigger": {
+      "normalized_source_phrase": "altitude",
+      "source_phrase": "altitude",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:altitude:elevaci-n:trigger"
+    },
+    "en-es:full-family-repaired-full:billow:oleaje:trigger": {
+      "normalized_source_phrase": "billow",
+      "source_phrase": "billow",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:billow:oleaje:trigger"
+    },
+    "en-es:full-family-repaired-full:continue:durar:trigger": {
+      "normalized_source_phrase": "continue",
+      "source_phrase": "continue",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:continue:durar:trigger"
+    },
+    "en-es:full-family-repaired-full:current:contempor-neo:trigger": {
+      "normalized_source_phrase": "current",
+      "source_phrase": "current",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:current:contempor-neo:trigger"
+    },
+    "en-es:full-family-repaired-full:emotion:emoci-n:trigger": {
+      "normalized_source_phrase": "emotion",
+      "source_phrase": "emotion",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:emotion:emoci-n:trigger"
+    },
+    "en-es:full-family-repaired-full:handiwork:artesan-a:trigger": {
+      "normalized_source_phrase": "handiwork",
+      "source_phrase": "handiwork",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:handiwork:artesan-a:trigger"
+    },
+    "en-es:full-family-repaired-full:health:salud:trigger": {
+      "normalized_source_phrase": "health",
+      "source_phrase": "health",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:health:salud:trigger"
+    },
+    "en-es:full-family-repaired-full:june:junio:trigger": {
+      "normalized_source_phrase": "june",
+      "source_phrase": "june",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:june:junio:trigger"
+    },
+    "en-es:full-family-repaired-full:pair:par:trigger": {
+      "normalized_source_phrase": "pair",
+      "source_phrase": "pair",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:pair:par:trigger"
+    },
+    "en-es:full-family-repaired-full:parrot:loro:trigger": {
+      "normalized_source_phrase": "parrot",
+      "source_phrase": "parrot",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:parrot:loro:trigger"
+    },
+    "en-es:full-family-repaired-full:recover:sanar:trigger": {
+      "normalized_source_phrase": "recover",
+      "source_phrase": "recover",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:recover:sanar:trigger"
+    },
+    "en-es:full-family-repaired-full:snore:roncar:trigger": {
+      "normalized_source_phrase": "snore",
+      "source_phrase": "snore",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:snore:roncar:trigger"
+    },
+    "en-es:full-family-repaired-full:stall:cuadra:trigger": {
+      "normalized_source_phrase": "stall",
+      "source_phrase": "stall",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:stall:cuadra:trigger"
+    },
+    "en-es:full-family-repaired-full:upon:sobre:trigger": {
+      "normalized_source_phrase": "upon",
+      "source_phrase": "upon",
+      "token_count": 1,
+      "trigger_id": "en-es:full-family-repaired-full:upon:sobre:trigger"
+    }
+  }
+}

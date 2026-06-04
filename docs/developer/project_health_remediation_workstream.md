@@ -3,8 +3,8 @@
 Status: active
 Role: Planning / WIP
 Owner: engineering
-Last updated: 2026-03-21
-Last verified: 2026-03-21 `npm --prefix scripts run health:project:report`
+Last updated: 2026-05-15
+Last verified: 2026-05-15 `npm --prefix scripts run health:project:report`
 Purpose: maintain the live project-health state while preserving the completed zero-warning milestone history
 Source-of-truth: remediation workstream + watchlist; current health evidence lives in `../test_outputs/project_health/project_health_latest.json`.
 
@@ -16,7 +16,7 @@ Treat project-health remediation as a first-class architecture project:
 2. Prevent new debt from entering while cleanup is in progress.
 3. Move from advisory checks to strict CI enforcement without freezing delivery.
 
-## Live Snapshot (2026-03-21)
+## Live Snapshot (2026-05-15)
 
 Source command:
 
@@ -28,33 +28,90 @@ Verification artifact: `../test_outputs/project_health/project_health_latest.jso
 
 Live violation profile:
 
-1. Total violations: `0` files (out of `325` scanned)
+1. Total violations: `0` files (out of `693` scanned)
 2. By area:
+   - `scripts/testing`: `0`
+   - `apps/chrome-extension`: `0`
    - `apps/gui/src`: `0`
    - `core/lexishift_core`: `0`
-   - `scripts/*`: `0`
 3. By metric:
    - `lines`: `0`
    - `functions`: `0`
    - `imports`: `0`
    - `domainBreadth`: `0`
+4. Active violation files: none.
 
 Near-limit watchlist (non-blocking):
 
-1. none (`0` warning files)
+1. Total warnings: `0`
+2. By area:
+   - `scripts/testing`: `0`
+   - `apps/chrome-extension`: `0`
+   - `apps/gui/src`: `0`
+   - `core/lexishift_core`: `0`
+3. Highest-priority watchlist: none.
 
 Operational note:
 
-1. project health is currently clean on both hard violations and near-limit warnings
-2. treat the zero-warning result as the live baseline; new warnings should be handled as preventive refactor work, not allowed to accumulate into a watchlist
-3. the older zero-warning milestone remains useful history, not the current operating evidence set
+1. the live operating baseline is back to zero advisory violations and zero
+   near-limit warnings
+2. the 2026-05-15 cleanup cleared the semantic testing/support script pressure
+   and the extension semantic-context runtime warning without weakening
+   thresholds or baselines
+3. future warning debt should be treated as a changed-file regression and routed
+   through the same ownership/test-surface review
+4. use `productization_lane2_code_disposition_inventory.md` for the cleanup
+   history and follow-up disposition queue
 
-## Live Operating Queue (2026-03-21)
+## Live Operating Queue (2026-05-15)
 
 1. Keep `npm --prefix scripts run health:project:changed` in the PR loop.
 2. Treat new/regressed warning debt the same way as new/regressed violation debt for changed files.
-3. When touching a large or fast-growing file, prefer reducing pressure before it becomes near-limit debt.
-4. Re-run `npm --prefix scripts run health:project:report` before release cuts, threshold changes, or large refactors.
+3. Keep the zero-current-violation and zero-warning state clean; treat new
+   changed-file warnings as Lane 2 structural cleanup work, not as acceptable
+   background noise.
+4. Start with a semantic testing script registry before deleting or moving
+   research/probe scripts.
+5. For code splits, prioritize near-limit files only after their ownership,
+   validation path, and runtime/safety surface are explicit.
+6. Re-run `npm --prefix scripts run health:project:report` before release cuts,
+   threshold changes, or large refactors.
+
+Recent reduction checkpoint:
+
+1. 2026-05-15: split
+   `scripts/testing/semantic_routing_sentence_veto_support.py` into a small
+   compatibility facade plus common, sweep, ladder, and overlay support modules.
+   Focused sentence-veto tests passed and the project-health advisory violation
+   count dropped from `3` to `2`.
+1. 2026-05-15: moved fixed-shadow and metric-direction constants from
+   `scripts/testing/semantic_routing_generalization_bound_en_es.py` to
+   `scripts/testing/semantic_routing_generalization_bound_configs.py`. The
+   generalization-bound focused test passed and the project-health advisory
+   violation count dropped from `2` to `1`.
+1. 2026-05-15: extracted common defaults/helpers, live-journal handling, and
+   no-spend safety/replay helpers from
+   `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py` into focused modules.
+   Focused prompt-runner and downstream replay tests passed and the
+   project-health advisory violation count dropped from `1` to `0`.
+1. 2026-05-15: extracted model-output intake validation from
+   `scripts/testing/semantic_llm_prompt_bakeoff_en_es.py` into
+   `scripts/testing/semantic_llm_prompt_bakeoff_intake.py`. The prompt runner
+   dropped from near-limit warning pressure to `789 / 900` lines.
+1. 2026-05-15: cleared the remaining changed-file warning debt by splitting
+   support helpers from the margin-policy sweep, non-v10 wave builder,
+   prototype admission probe, failure-class mining harness, generalization-bound
+   confidence corridor, sentence-veto reporting tables, WordNet example-frame
+   batch support, and extension semantic-context clipping helpers. The
+   project-health report now has zero warnings.
+1. 2026-04-19: extracted `en_es` gloss fragment expansion and reverse-lookup helpers into
+   `core/lexishift_core/rulegen/pairs/en_es_gloss_processing.py`, reducing
+   `core/lexishift_core/rulegen/pairs/en_es_support.py` enough to clear its live near-limit warning
+   while preserving the old `en_es_support` import surface as a facade.
+2. 2026-04-19: extracted compiled definition-group limiting / reverse-hygiene helpers into
+   `core/lexishift_core/rulegen/pairs/en_es_compiled_result_limiting.py`, reducing
+   `core/lexishift_core/rulegen/pairs/en_es_compiled_selection.py` from the live watchlist
+   while preserving the old `en_es_compiled_selection` helper import surface.
 
 ## Historical Milestone Snapshot (2026-02-28)
 

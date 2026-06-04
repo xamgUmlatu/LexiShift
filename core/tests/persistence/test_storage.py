@@ -53,6 +53,13 @@ class StorageTests(unittest.TestCase):
                             "mapped": True,
                         },
                     },
+                    semantic_admission={
+                        "schema_version": 1,
+                        "status": "ready",
+                        "trigger_id": "en-en:trigger:twilight",
+                        "sense_id": "en-en:sense:gloaming:0",
+                        "competition_set_id": "en-en:twilight:gloaming:v1",
+                    },
                     word_package={
                         "version": 1,
                         "language_tag": "ja",
@@ -94,6 +101,10 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(loaded.rules[0].metadata.morphology["target_surface"], "horas")
         self.assertEqual(loaded.rules[0].metadata.pos["source"]["canonical"], "noun")
         self.assertEqual(loaded.rules[0].metadata.pos["target"]["raw"], "SUB")
+        self.assertEqual(
+            loaded.rules[0].metadata.semantic_admission["competition_set_id"],
+            "en-en:twilight:gloaming:v1",
+        )
         self.assertEqual(loaded.rules[0].metadata.word_package["reading"], "ねこ")
         self.assertEqual(loaded.meaning_rules[0].source_phrases[0], "stunned into silence")
         self.assertEqual(loaded.synonyms["dawn"], "twilight")

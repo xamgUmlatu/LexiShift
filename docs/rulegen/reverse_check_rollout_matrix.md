@@ -1,7 +1,10 @@
 # Reverse-Check Rollout Matrix
 
 Status: active rollout matrix
+Role: Mixed
 Last updated: 2026-03-13
+Last verified: 2026-05-14 Lane 1 reverse-check archive prep against feature-state evidence, LP support guide, en-de roadmap, and exact references; benchmark artifacts were not rerun
+Source-of-truth: mixed rollout matrix; current reverse-check implementation and maturity truth lives in pair modules, helper/resource code, benchmark artifacts, and feature-state evidence.
 
 Purpose:
 - Make reverse-check pair coverage explicit without reconstructing it from pair modules, helper plumbing, and benchmark artifacts.
@@ -18,13 +21,13 @@ Purpose:
 
 | Pair | Rulegen | Reverse Resources | Metadata Emitted | Ranking Hooked | Benchmarked | Default-On | Current State | Primary Evidence | Main Blocker |
 |---|---|---|---|---|---|---|---|---|---|
-| `en-es` | yes | yes | yes | yes | yes | no | `wired`, `benchmarked` | `core/lexishift_core/rulegen/pairs/en_es.py`; `docs/rulegen/reverse_check_en_es_case_review_2026-03-13.md`; `docs/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md`; `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.md`; `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_latest.md`; `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json` | Rank-aware far-hit scoring plus top-3 hygiene now reduces the reverse-lane triage to one item (`cuadro`), but default rollout is still off and the remaining non-reverse failure class needs a different signal. |
+| `en-es` | yes | yes | yes | yes | yes | no | `wired`, `benchmarked` | `core/lexishift_core/rulegen/pairs/en_es.py`; `docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md`; `docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md`; `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.md`; `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_latest.md`; `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json` | Rank-aware far-hit scoring plus top-3 hygiene now reduces the reverse-lane triage to one item (`cuadro`), but default rollout is still off and the remaining non-reverse failure class needs a different signal. |
 | `es-en` | yes | yes | yes | yes | no committed pair artifact | no | `wired` | `core/lexishift_core/rulegen/pairs/es_en.py`; `core/tests/rulegen/test_rulegen_reverse_check_metadata.py` | No committed benchmark/gate/triage artifact showing pair-level win or safe default rollout. |
-| `en-de` | yes | no | no | no | no | no | `unsupported` | `core/lexishift_core/rulegen/pairs/en_de.py` | Pair module has no reverse-path config or reverse metadata emission. |
+| `en-de` | yes | yes | yes | yes | no committed pair artifact | no | `wired` | `core/lexishift_core/rulegen/pairs/en_de.py`; `core/lexishift_core/rulegen/adapters.py`; `scripts/testing/rulegen_probe_words.py`; `core/tests/rulegen/test_rulegen_adapters.py` | First local Kaikki reverse experiment is now possible, but the tested `rev=on` setting did not beat `rev=off`, and no committed pair artifact establishes rollout maturity yet. |
 | `en-ja` | yes (via `en_ja` mode) | no | no | no | no | no | `unsupported` | `core/lexishift_core/rulegen/pairs/en_ja.py`; `core/lexishift_core/helper/lp_capabilities.py` | Current JMdict-backed path has no reverse-check phase-1 design or plumbing. |
 | `ja-ja` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
 | `en-en` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
-| `de-en` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
+| `de-en` | yes | no | no | no | no | no | `unsupported` | `core/lexishift_core/rulegen/pairs/de_en.py`; `core/lexishift_core/helper/lp_capabilities.py` | Baseline rulegen mode exists now, but the pair has no reverse-path config or reverse metadata emission yet. |
 | `es-es` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
 | `de-de` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
 | `en-zh` | no | n/a | n/a | n/a | no | no | `unsupported` | `core/lexishift_core/helper/lp_capabilities.py` | No rulegen mode. |
@@ -46,7 +49,7 @@ For a new pair, reverse-check rollout is complete only when all of these are tru
 ## Still Unimplemented
 
 1. No first-class capability field such as `supports_reverse_check`; support is inferred indirectly from pair modules and helper resource resolution.
-2. `core/lexishift_core/helper/lp_capabilities.py` still uses the misleading field name `requires_freedict_de_en_for_rulegen` for non-DE FreeDict-backed pairs.
+2. Reverse-check support is still inferred indirectly from pair modules and resource resolution; there is no first-class capability field such as `supports_reverse_check`.
 3. No committed `es-en` benchmark/gate/triage artifacts establish rollout maturity.
 4. No pair defaults currently enable reverse-check in `core/lexishift_core/rulegen/tuning.py`.
 5. Phase 1 remains scoring-only:
@@ -66,3 +69,10 @@ For a new pair, reverse-check rollout is complete only when all of these are tru
    - code is wired, but artifact evidence is thin
 3. `en-de` / `en-ja`
    - only worth touching after `en-es` proves the scoring model is actually strong enough to justify further pair rollout
+
+## Archive Notes
+
+The dated `en-es` case-review, aggressive-expansion, and failure-trait docs are
+historical evidence snapshots under `docs/archive/rulegen/`. They preserve the
+review trail behind the current `en-es` reverse lane, but current rollout
+status belongs in this matrix and `docs/developer/feature_state_matrix.md`.

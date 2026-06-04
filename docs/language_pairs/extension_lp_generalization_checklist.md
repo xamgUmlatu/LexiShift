@@ -1,5 +1,11 @@
 # Extension LP Generalization Checklist
 
+Status: active mixed rollout checklist
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; checklist claims not re-audited
+Source-of-truth: mixed rollout checklist; current implementation truth lives in `docs/architecture/srs_lp_architecture.md`, helper/SRS/rulegen code, tests, and `docs/developer/feature_state_matrix.md`.
+
 Purpose:
 - Generalize SRS behavior for the Chrome extension so it works with the selected LP (Language Pair), not just `en-ja`.
 - Keep scope limited to extension + helper + core SRS/rulegen paths.
@@ -28,7 +34,7 @@ Use this matrix to determine what must exist before a pair can be marked impleme
 | LP | Rule source(s) | Bootstrap/growth frequency source | Stopwords file | Current status |
 | --- | --- | --- | --- | --- |
 | `en-ja` | JMDict | BCCWJ (`freq-ja-bccwj`) | `stopwords-ja.json` (optional fallback search path) | Partial/implemented |
-| `de-en` | FreeDict (`freedict-en-de`) | English frequency (`freq-en-coca`) | `stopwords-en.json` (optional) | Data mostly available, adapter still missing |
+| `de-en` | FreeDict (`freedict-en-de`) | English frequency (`freq-en-coca`) | `stopwords-en.json` for target-side seed filtering (optional) | Baseline adapter implemented; benchmark/tuning still pending |
 | `en-de` | FreeDict (`freedict-de-en`) | German frequency (`freq-de-default`) | `stopwords-de.json` (optional fallback exists) | Implemented (quality tuning pending) |
 | `en-es` | FreeDict (`freedict-es-en`) | Spanish frequency (`freq-es-cde`) | `stopwords-es.json` (missing) | Implemented (paired plural morphology enabled) |
 | `es-en` | FreeDict (`freedict-en-es`) | English frequency (`freq-en-coca`) | `stopwords-en.json` (optional) | Implemented baseline |
@@ -105,6 +111,6 @@ Checklist for each LP row:
 
 - [ ] Introduce pair capability/source registry used by helper commands.
 - [ ] Remove unconditional JMDict requirement from non-`en-ja` paths.
-- [ ] Implement `de-en` first (it can reuse existing EN frequency pack).
+- [x] Implement `de-en` first baseline adapter path (it can reuse existing EN frequency pack).
 - [ ] Add extension-side LP readiness messaging using helper diagnostics.
 - [ ] Add German frequency pack to unlock `en-de` and `de-de`.

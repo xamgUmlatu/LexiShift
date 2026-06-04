@@ -86,3 +86,6 @@ Notes:
   branch-directory selection.
 - Repository Pages is now configured to use `GitHub Actions` as the active
   deployment source.
+- Before publishing `docs/pack_source_manifest.json` changes, run
+  `npm --prefix scripts run quality:pack-sources:audit` so the staged manifest
+  and effective pack URLs are validated before deploy.

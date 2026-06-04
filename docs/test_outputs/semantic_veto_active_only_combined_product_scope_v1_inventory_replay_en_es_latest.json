@@ -1,0 +1,1194 @@
+{
+  "application_rows": [
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:e20541038bfb35fdd2605929822b4f1bb09ea316",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "target": "vecino",
+      "trigger": "adjoining"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:33d42e89497c00e805ad6944ba946b8c36666ea7",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "target": "vecino",
+      "trigger": "adjoining"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:7c9e74616272e61066a5e7fbefd10613affa58d1",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "target": "enteramente",
+      "trigger": "entirely"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:9a5ebfc5760d26d4ef7d4f2269e01461c5d8b5be",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "target": "enteramente",
+      "trigger": "entirely"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:9e74d250fe34d59d51c7ff2abb1a849fb4da3bd3",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "target": "caldo",
+      "trigger": "bouillon"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:068971e7db8d0c3e268bffcc16e4b03ebed075ea",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "target": "caldo",
+      "trigger": "bouillon"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:8369b663f5d408788810822fcaafb30718b799f2",
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "target": "diciembre",
+      "trigger": "december"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:88482c4908150a2fc8ddcf962682b3dc9e8bda4d",
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "target": "diciembre",
+      "trigger": "december"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:fc3ade9aa9b5d5ae45ef9d638d5f1d045d06442a",
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "target": "americano",
+      "trigger": "american"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:ee11250556cfde1db8abbb5a5d966abce74ee4df",
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "target": "americano",
+      "trigger": "american"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:d44c7b606e4d738667d684893d8653732865ff01",
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "target": "entre",
+      "trigger": "among"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:3103dcd22144b6985be628467c3bc42f0f93795c",
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "target": "entre",
+      "trigger": "among"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:9b914275472e2db0f6bf7d959e5279364efbceb1",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "target": "comenzar",
+      "trigger": "begin"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:c67817de96ce4d35bfe9df626c34426b92429e9b",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "target": "comenzar",
+      "trigger": "begin"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:10cdecf73580a511dc43c3fbf381cb14d60bedee",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "target": "dentista",
+      "trigger": "dentist"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:391e658313a8583b03254f81466b9d31447779c2",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "target": "dentista",
+      "trigger": "dentist"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:0012bebb209f8c309f5cff61a37f6cbfd0ec09d9",
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "target": "hermano",
+      "trigger": "brother"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:bfae2e4e397f1d70c96d629e9ab495f3cc1645be",
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "target": "hermano",
+      "trigger": "brother"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:5b44b9b88851b88427a1faefaf4f1c34206123f0",
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "target": "alemán",
+      "trigger": "german"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:5061209bc40a6c226c0e31584e4ceeee515fabfa",
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "target": "alemán",
+      "trigger": "german"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:41a174cafeff7e53fc05498a8250fc665f1c90f1",
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "target": "corazón",
+      "trigger": "heart"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:6a56789048625a4e5f618772be7b63ce6a09bef3",
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "target": "corazón",
+      "trigger": "heart"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:8f4a072dc553546c97bdfa56e1ea5f025d6cf237",
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "target": "rumano",
+      "trigger": "rumanian"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:6fdcb318e75ec7423aa39f795db096b2dfb947f5",
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "target": "rumano",
+      "trigger": "rumanian"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:f2ca94a1aeff2a80e01c86d400c89e7b03daa357",
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "target": "vendedor",
+      "trigger": "salesman"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:a509ece3517c8214e885431153bf5f3e870a9404",
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "target": "vendedor",
+      "trigger": "salesman"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:1d102259a89d8a9d8dcc6b07d46d0c244039cb14",
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "target": "mañana",
+      "trigger": "tomorrow"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:91c2a1fbb73b61f99b8a6906da09d4d3eb8e3aaf",
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "target": "mañana",
+      "trigger": "tomorrow"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:74e1b665294c90fdd3a1c616695d06ff0942ac20",
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "target": "razonable",
+      "trigger": "acceptable"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:e02f1ba034ce894c1027217d5fc251c1ca1e3b96",
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "target": "razonable",
+      "trigger": "acceptable"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:fc4f779fb8bd5daa2b8d70b4211f8e808800603c",
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "target": "elegante",
+      "trigger": "chic"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:74fbaf59bae9a3fa08418551e73f7734d8411fef",
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "target": "elegante",
+      "trigger": "chic"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:8f054dbace06434b505d4be422bf1218c243bc04",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "target": "sonreír",
+      "trigger": "smile"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:3fb747becd7ea085d0391e024b71939b73bde206",
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "target": "quebrar",
+      "trigger": "break"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:19e8150efa1eea543f6422cb8c4fc05d62667a04",
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "target": "quebrar",
+      "trigger": "break"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:a883676eb121deb535faebe5f11cc35374e42e63",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "target": "descuento",
+      "trigger": "rebate"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:dde23d5a075fe554a569d3b5d087a98da9a7cac0",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "target": "descuento",
+      "trigger": "rebate"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:8e0538c6f9d470852aba17dd0a9a632c5632695d",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "target": "gobernar",
+      "trigger": "govern"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:4f334e39533b2d255b7e036ec8e80e62d0883117",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "target": "distancia",
+      "trigger": "offset"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:c4a0bb5d651e4c67756f3fc5b0c614e3d69fd720",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "target": "distancia",
+      "trigger": "offset"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:397f92e409f5fbfa07f5cf96f700f557eddfb027",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "target": "gobernar",
+      "trigger": "control"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:d4e15c3efbf23e9adec36007d21f549edb4a47b9",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "target": "gobernar",
+      "trigger": "control"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:e7027a98d049b34b141d66285f51c9801846bf25",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "target": "reprimir",
+      "trigger": "bridle"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:d7a05c8d71b701a1cf747d8ed0a990f27df2d17d",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "target": "cercar",
+      "trigger": "bar"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:1c60e1f2c13e0159d429f51d9eaff1d4ada8b47b",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "target": "cercar",
+      "trigger": "bar"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:d6978eab352a856769d6b64c82d7303cfd2c0c56",
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "target": "mencionar",
+      "trigger": "cite"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:317a0b57123836c9098c9309ca3b1db84d9051a5",
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "target": "mencionar",
+      "trigger": "cite"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:70dc8b7fe589d82717fc618a34efb7df94c71e95",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "target": "sonreír",
+      "trigger": "smile"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:125c96448be3dcdcb0ae02d00503fdb44652e251",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "target": "cercar",
+      "trigger": "bar"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:8c4ad61540dc2b4b60388ca330a949ba95b84b87",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "target": "cercar",
+      "trigger": "bar"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:3c060e2dbe9f8077088d3d469b9382dae28d5467",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "target": "gobernar",
+      "trigger": "control"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:522524ec82b5a735577dd0f6a972d728ba5f1aea",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "target": "gobernar",
+      "trigger": "control"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:a5c0969c6ad24db2408e44a91215b4150b60a4ed",
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "target": "excepto",
+      "trigger": "except"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:a7813f4ca915870545a846cb45cacc0dfb2960ef",
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "target": "excepto",
+      "trigger": "except"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:2f80711b003472ec870b1e0e1f1eb33cbdd1e693",
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "target": "comarca",
+      "trigger": "region"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:455010711e7618a8cc3f0313ac68f6f71ecdeb5c",
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "target": "comarca",
+      "trigger": "region"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:161695702f172e61600406ef12be9633c4297b30",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "target": "gobernar",
+      "trigger": "govern"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:2178427c4f79ff269d2b143b8923d6f4771afcb7",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "target": "gobernar",
+      "trigger": "govern"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:f52ecab4b23ee688b18f3e70331b8886a129eecc",
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "target": "alemán",
+      "trigger": "german"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:e46a2993547a15d8e340340fe6d1c49863b6bd59",
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "target": "alemán",
+      "trigger": "german"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:a18e926c9d38a94746a8c18163ed344415f8da6d",
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "target": "americano",
+      "trigger": "american"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:10e394e0cbd695d1fee43a57ce2488b283b6ea76",
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "target": "americano",
+      "trigger": "american"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:624de589c98971efda21f7650141e087f0d28deb",
+      "family_id": "en-es:full-family-repaired-full:endure:durar",
+      "target": "durar",
+      "trigger": "endure"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:4c6d90296e3a08ca88cb0326be8070902e53cb36",
+      "family_id": "en-es:full-family-repaired-full:endure:durar",
+      "target": "durar",
+      "trigger": "endure"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:ab76a1520ab011fe96f0d60c85e4b37195128c76",
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "target": "mañana",
+      "trigger": "tomorrow"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:161c8efe4ed57394daad08df2f733c3ad3b8abf8",
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "target": "mañana",
+      "trigger": "tomorrow"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:87e57146d960095617cf2036dc21ed909306bfee",
+      "family_id": "en-es:full-family-repaired-full:russian:ruso",
+      "target": "ruso",
+      "trigger": "russian"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:f8ac60cb16590cbae4eb64c4c9ccc9fdf34b4496",
+      "family_id": "en-es:full-family-repaired-full:russian:ruso",
+      "target": "ruso",
+      "trigger": "russian"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:cbe0d3d179a8c4e1669b72b5e79681e5a79172e7",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "target": "dentista",
+      "trigger": "dentist"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:49fbdde718c4b1d20c46344e0a54b3f27cd549c4",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "target": "dentista",
+      "trigger": "dentist"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:df867ae94e6df40be8855c374b8d24be54f588e4",
+      "family_id": "en-es:full-family-repaired-full:pub:taberna",
+      "target": "taberna",
+      "trigger": "pub"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:e7c68962f87423ed95cc121745e903886b09a7de",
+      "family_id": "en-es:full-family-repaired-full:pub:taberna",
+      "target": "taberna",
+      "trigger": "pub"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:e0b705fae3fbb12c0fd3dcbf4208add1fd3596a9",
+      "family_id": "en-es:full-family-repaired-full:shortage:falta",
+      "target": "falta",
+      "trigger": "shortage"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:b0c4736008096635deac4dddeb7bc7fbc0026a48",
+      "family_id": "en-es:full-family-repaired-full:shortage:falta",
+      "target": "falta",
+      "trigger": "shortage"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:4676b2a93ac877b7a0795b15ebeb7d5f3b55da40",
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "target": "rumano",
+      "trigger": "rumanian"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:9edcfefb5bebd7c3d5db8979d5db4b572fb8f749",
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "target": "rumano",
+      "trigger": "rumanian"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:0013b7331dfa61a1c360442f674d71d8c9c3cf84",
+      "family_id": "en-es:full-family-repaired-full:argentinean:argentino",
+      "target": "argentino",
+      "trigger": "argentinean"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:5d8e94f142d06027de477a1722e1887291d9e46f",
+      "family_id": "en-es:full-family-repaired-full:argentinean:argentino",
+      "target": "argentino",
+      "trigger": "argentinean"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:ca16e04297f8eb32c723bafd8f577621b7afbf4f",
+      "family_id": "en-es:full-family-repaired-full:owe:deber",
+      "target": "deber",
+      "trigger": "owe"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:0acd269fa66488ef4dad32cb2c6bd7c7dad4bd5e",
+      "family_id": "en-es:full-family-repaired-full:owe:deber",
+      "target": "deber",
+      "trigger": "owe"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:eefd81967bb02866eb73239b1a222166705328ca",
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "target": "contemporáneo",
+      "trigger": "current"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:d182aa6cb1fff198954772748598d40cfd959291",
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "target": "contemporáneo",
+      "trigger": "current"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:afce1d2d226278eaa82ac2db6be025d13e388b23",
+      "family_id": "en-es:full-family-repaired-full:continue:durar",
+      "target": "durar",
+      "trigger": "continue"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:c0b80e70a5640267bd8d23c663d1f7bcb9ff2515",
+      "family_id": "en-es:full-family-repaired-full:continue:durar",
+      "target": "durar",
+      "trigger": "continue"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:5710c18c2f839791160a9e39124724bc469a8af3",
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "target": "loro",
+      "trigger": "parrot"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:da7c70c5c91232e584e7e9ee7f9801a58ca33345",
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "target": "loro",
+      "trigger": "parrot"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:54fcd83ec7230e2e24fd66d33631a26359dc0c2f",
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "target": "sanar",
+      "trigger": "recover"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:06703486bb67025d9addcd51d7ba69c8a7047876",
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "target": "sanar",
+      "trigger": "recover"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:f78dae83f69327ceba44d3339660a1da657b6f76",
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "target": "oleaje",
+      "trigger": "billow"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:544b89fabb03c1da1d5e88cd174feb56ad771777",
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "target": "oleaje",
+      "trigger": "billow"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:14244d066a6f28eabb8f8b17e9aef3bd6a73237e",
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "target": "cuadra",
+      "trigger": "stall"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:8669b30757405abd82060f1eb4ed5da7bfea2f70",
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "target": "cuadra",
+      "trigger": "stall"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:f782b3d683d5e5635c9e53d1e15130fcd1375c98",
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "target": "sobre",
+      "trigger": "upon"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:ca1b14daaabe2e7d7e5b09ad7101fa0c83047107",
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "target": "sobre",
+      "trigger": "upon"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:680183d36ba55b384e50c81e196aa21aeb1486bb",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "target": "par",
+      "trigger": "pair"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:2fd74afeb226921a868391c2d1b890759023bbee",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "target": "par",
+      "trigger": "pair"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:2697d20afcf6862b9d20798dfe0e697fd7f7f4e8",
+      "family_id": "en-es:full-family-repaired-full:health:salud",
+      "target": "salud",
+      "trigger": "health"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:025a71d63288527095907683ec03ee041ed63564",
+      "family_id": "en-es:full-family-repaired-full:health:salud",
+      "target": "salud",
+      "trigger": "health"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:cff0490f6202eb088444808df48c16c4d07bb853",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "target": "roncar",
+      "trigger": "snore"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:62f4a3b22908a3d0360337aa62d66178150ce628",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "target": "roncar",
+      "trigger": "snore"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:78287eabb8e2a9cfcb5d480d67db25b2539fe8ac",
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "target": "artesanía",
+      "trigger": "handiwork"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:bb9f022773895127dafb99d405f4b974ddc74ac7",
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "target": "artesanía",
+      "trigger": "handiwork"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:6a62ab063fca73cc2633f933447a5e879fcb58bc",
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "target": "contiguo",
+      "trigger": "adjoining"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:ce1889db6793dd361cae7627bda2e42d2d399bda",
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "target": "contiguo",
+      "trigger": "adjoining"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:68a47c849bad06ce7f8e31c14354fdc7658284f6",
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "target": "víbora",
+      "trigger": "adder"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:ffce05f66a89970e097f6da05b5cc16e2b816d1c",
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "target": "víbora",
+      "trigger": "adder"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:e540a1ba87af8410f29649953b0bab15ef420215",
+      "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+      "target": "elevación",
+      "trigger": "altitude"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:479e9eb577da779a1762d56c40a08f048de209da",
+      "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+      "target": "elevación",
+      "trigger": "altitude"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:08de9f0e4587b37048b6c91f9536d6b0116f43c4",
+      "family_id": "en-es:full-family-repaired-full:june:junio",
+      "target": "junio",
+      "trigger": "june"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:7c452e6f61381565157988934a4057833e41551e",
+      "family_id": "en-es:full-family-repaired-full:june:junio",
+      "target": "junio",
+      "trigger": "june"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:4cc656a81908d218153b050be59e6e2f231279f0",
+      "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+      "target": "emoción",
+      "trigger": "emotion"
+    },
+    {
+      "action": "active_evidence_appended",
+      "evidence_id": "evidence:1e8f304baebcabf4bacc33c9b0067c9c3b6386d9",
+      "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+      "target": "emoción",
+      "trigger": "emotion"
+    }
+  ],
+  "changed_cases": [
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:bar:cercar:002",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "gold_decision": "replace",
+      "sentence": "The rancher used wire panels to bar the cattle inside the field."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:offset:distancia:001",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "gold_decision": "replace",
+      "sentence": "Set the image offset to twelve pixels from the left edge."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:bridle:reprimir:001",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "gold_decision": "replace",
+      "sentence": "She tried to bridle her anger during the meeting."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:bridle:reprimir:002",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "gold_decision": "replace",
+      "sentence": "The lawyer had to bridle his frustration after the ruling."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+      "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+      "gold_decision": "replace",
+      "sentence": "She hid every emotion during the interview."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:dentist:dentista:002",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "gold_decision": "replace",
+      "sentence": "She booked an appointment with a dentist near the station."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:bouillon:caldo:001",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "gold_decision": "replace",
+      "sentence": "Add bouillon to the rice for a richer flavor."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:bouillon:caldo:002",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "gold_decision": "replace",
+      "sentence": "The recipe starts with bouillon and fresh herbs."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:control:gobernar:001",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "gold_decision": "replace",
+      "sentence": "The coalition hoped to control parliament after the election."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:control:gobernar:002",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "gold_decision": "replace",
+      "sentence": "A small council continued to control the territory after the coup."
+    },
+    {
+      "base_decision": "replace",
+      "candidate_decision": "abstain",
+      "case_id": "en-es:full-family-repaired-full:control:gobernar:004",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "gold_decision": "abstain",
+      "sentence": "The study included a control group and a treatment group."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "gold_decision": "replace",
+      "sentence": "The horse returned to its stall after training."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:rumanian:rumano:001",
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "gold_decision": "replace",
+      "sentence": "The museum displayed Rumanian folk costumes."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:pub:taberna:002",
+      "family_id": "en-es:full-family-repaired-full:pub:taberna",
+      "gold_decision": "replace",
+      "sentence": "The old pub serves soup and local beer."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:salesman:vendedor:001",
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "gold_decision": "replace",
+      "sentence": "The salesman explained the warranty in detail."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "gold_decision": "replace",
+      "sentence": "Each carved bowl showed careful handiwork."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:begin:comenzar:001",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "gold_decision": "replace",
+      "sentence": "The lecture will begin at nine."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "gold_decision": "replace",
+      "sentence": "A dark billow rolled across the harbor."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:among:entre:001",
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "gold_decision": "replace",
+      "sentence": "The letter was hidden among the old books."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "gold_decision": "replace",
+      "sentence": "The patient will recover after several weeks of rest."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "gold_decision": "replace",
+      "sentence": "His ankle began to recover after therapy."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:heart:coraz-n:001",
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "gold_decision": "replace",
+      "sentence": "Her heart was beating quickly after the race."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:cite:mencionar:001",
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "gold_decision": "replace",
+      "sentence": "The report will cite several local witnesses."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "gold_decision": "replace",
+      "sentence": "She could hear her roommate snore through the wall."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "gold_decision": "abstain",
+      "sentence": "A loud snore came from the next room."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "gold_decision": "replace",
+      "sentence": "Current research focuses on smaller batteries."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "gold_decision": "replace",
+      "sentence": "A green parrot perched above the doorway."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:american:americano:001",
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "gold_decision": "replace",
+      "sentence": "The museum displayed American quilts."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:rebate:descuento:001",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "gold_decision": "replace",
+      "sentence": "The store offered a rebate on the new refrigerator."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:rebate:descuento:002",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "gold_decision": "replace",
+      "sentence": "Customers receive a rebate after mailing the form."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "gold_decision": "replace",
+      "sentence": "An adder slid through the grass near the path."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:pair:par:001",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "gold_decision": "replace",
+      "sentence": "She bought a pair of gloves at the market."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:pair:par:002",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "gold_decision": "replace",
+      "sentence": "The report compared each pair of measurements."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:endure:durar:001",
+      "family_id": "en-es:full-family-repaired-full:endure:durar",
+      "gold_decision": "replace",
+      "sentence": "The stone bridge may endure for centuries."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:govern:gobernar:001",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "gold_decision": "replace",
+      "sentence": "The elected council will govern the province."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:brother:hermano:001",
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "gold_decision": "replace",
+      "sentence": "My brother still lives near our parents."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:health:salud:001",
+      "family_id": "en-es:full-family-repaired-full:health:salud",
+      "gold_decision": "replace",
+      "sentence": "Regular exercise improved his health."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:shortage:falta:002",
+      "family_id": "en-es:full-family-repaired-full:shortage:falta",
+      "gold_decision": "replace",
+      "sentence": "A shortage of nurses delayed the clinic opening."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:except:excepto:001",
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "gold_decision": "replace",
+      "sentence": "Everyone except Ana attended the meeting."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:except:excepto:002",
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "gold_decision": "replace",
+      "sentence": "The office is open every day except Sunday."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:entirely:enteramente:002",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "gold_decision": "replace",
+      "sentence": "She was entirely satisfied with the meal."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:region:comarca:002",
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "gold_decision": "replace",
+      "sentence": "Local officials met with leaders from the mountain region."
+    },
+    {
+      "base_decision": "abstain",
+      "candidate_decision": "replace",
+      "case_id": "en-es:full-family-repaired-full:owe:deber:002",
+      "family_id": "en-es:full-family-repaired-full:owe:deber",
+      "gold_decision": "replace",
+      "sentence": "We owe our success to careful planning."
+    }
+  ],
+  "decision": "inventory_shaped_replay_ready_for_runtime_smoke",
+  "generated_at": "2026-05-09T22:54:14Z",
+  "inputs": {
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_full_v1.json",
+    "normalized_evidence_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-product-scope-v1-normalized_evidence.json"
+  },
+  "issues": [],
+  "methodology": {
+    "active_rescue_mode": "off",
+    "context_view": "masked_sentence",
+    "evidence_view": "all_evidence_text",
+    "helper_publication_change": "none",
+    "min_active_score": 0.05,
+    "min_margin": 0.0,
+    "phrase_control_mode": "off",
+    "policy_id": "active_only_inventory_replay_tfidf_v1",
+    "runtime_policy_change": "none",
+    "scorer_id": "tfidf_cosine"
+  },
+  "pair": "en-es",
+  "runtime_boundary": [
+    "candidate inventory is an experiment artifact, not a helper-published sidecar",
+    "replay uses the no-spend TF-IDF policy that produced the active-only score-contribution result",
+    "production helper smoke still needs the actual publication family and configured runtime policy"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "applied_row_count": 112,
+    "base": {
+      "cases_total": 189,
+      "decision_accuracy": 0.5026455026455027,
+      "false_abstain_count": 93,
+      "harmful_replace_count": 1,
+      "predicted_replace_cases": 6,
+      "replace_recall": 0.05102040816326531,
+      "winner_accuracy": 0.5132275132275133
+    },
+    "candidate": {
+      "cases_total": 189,
+      "decision_accuracy": 0.7195767195767195,
+      "false_abstain_count": 52,
+      "harmful_replace_count": 1,
+      "predicted_replace_cases": 47,
+      "replace_recall": 0.46938775510204084,
+      "winner_accuracy": 0.5555555555555556
+    },
+    "case_count": 189,
+    "comparison": {
+      "decision_accuracy_delta": 0.216931,
+      "false_abstain_delta": -41,
+      "harmful_replace_delta": 0,
+      "predicted_replace_delta": 41,
+      "replace_recall_delta": 0.418367,
+      "winner_accuracy_delta": 0.042328
+    },
+    "family_count": 49,
+    "packaged_row_count": 112,
+    "unapplied_row_count": 0
+  }
+}

@@ -1,6 +1,6 @@
 # Windows GUI Parity Audit
 
-Generated: 2026-03-12T01:29:02.115360+00:00
+Generated: 2026-06-01T02:39:56.101246+00:00
 
 - Status: PASS
 - Counts: PASS=9 WARN=0 FAIL=0

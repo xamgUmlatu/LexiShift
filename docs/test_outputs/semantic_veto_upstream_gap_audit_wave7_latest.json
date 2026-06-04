@@ -1,0 +1,608 @@
+{
+  "case_audits": [
+    {
+      "active_evidence_text": "gross adjective sense: causing disgust",
+      "active_score": 0.6767,
+      "bottleneck": "shadow_signal_visible_but_guard_threshold_insufficient",
+      "bottleneck_reason": "Quantity shadow evidence is visible, but a no-regression guard does not safely catch it.",
+      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002",
+      "decision_error_type": "harmful_replace",
+      "failure_class": "shadow_quantity_evidence_underweighted",
+      "fixed_by_best_no_regression_guard": false,
+      "fixed_by_zero_harm_guard": true,
+      "gold_decision": "abstain",
+      "llm_evidence_opportunity": "generation_may_help_but_policy_guard_is_primary",
+      "phrase_control_evidence_text": "lacking fine distinctions or detail example: the gross details of the structure appear reasonable",
+      "phrase_control_score": 0.6307,
+      "predicted_decision": "replace",
+      "recommended_next_action": "Strengthen quantity/commercial source evidence or test a non-trigger-specific quantity-frame feature.",
+      "representation_status": "score_visible_but_policy_failed",
+      "required_evidence_lane": "shadow",
+      "score_visible_for_gold": true,
+      "sentence": "The shop ordered a gross of pencils.",
+      "source_summary": {
+        "phrase_source_active_like_skip_count": 1,
+        "phrase_source_candidate_sense_count": 10,
+        "phrase_source_family_present": true,
+        "phrase_source_row_count": 9,
+        "source_class_active_row_count": 3,
+        "source_class_family_present": true,
+        "source_class_matching_sense_count": 2,
+        "source_class_relation_types": [
+          "anchor_cue",
+          "shadow_candidate"
+        ],
+        "source_class_row_count": 7,
+        "source_class_shadow_row_count": 4,
+        "source_class_support_sources": [
+          "wiktextract_en_es_translation_table",
+          "wiktionary_en_es"
+        ]
+      },
+      "strongest_shadow_evidence_text": "a gross is a count for ordered goods",
+      "strongest_shadow_score": 0.7145,
+      "suite_id": "active_shadow",
+      "trigger": "gross"
+    },
+    {
+      "active_evidence_text": "fix noun sense: a difficult situation or dilemma",
+      "active_score": 0.626,
+      "bottleneck": "evidence_representation_or_scorer_gap",
+      "bottleneck_reason": "The gold lane has admitted text, but the current score trace does not make it win.",
+      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+      "decision_error_type": "false_abstain",
+      "failure_class": "shadow_overlap_overblocks_active",
+      "fixed_by_best_no_regression_guard": false,
+      "fixed_by_zero_harm_guard": false,
+      "gold_decision": "replace",
+      "llm_evidence_opportunity": "generate_stronger_contrastive_active_shadow_evidence",
+      "phrase_control_evidence_text": "a determination of the place where something is example: he got a good fix on the target",
+      "phrase_control_score": 0.7136,
+      "predicted_decision": "abstain",
+      "recommended_next_action": "Audit raw source wording and try stronger contrastive evidence or scorer aggregation before policy tuning.",
+      "representation_status": "evidence_present_but_not_score_visible",
+      "required_evidence_lane": "active",
+      "score_visible_for_gold": false,
+      "sentence": "Losing the only key left us in a real fix.",
+      "source_summary": {
+        "phrase_source_active_like_skip_count": 1,
+        "phrase_source_candidate_sense_count": 18,
+        "phrase_source_family_present": true,
+        "phrase_source_row_count": 12,
+        "source_class_active_row_count": 4,
+        "source_class_family_present": true,
+        "source_class_matching_sense_count": 3,
+        "source_class_relation_types": [
+          "anchor_cue",
+          "shadow_candidate"
+        ],
+        "source_class_row_count": 10,
+        "source_class_shadow_row_count": 6,
+        "source_class_support_sources": [
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table",
+          "wiktionary_en_es"
+        ]
+      },
+      "strongest_shadow_evidence_text": "restore something broken",
+      "strongest_shadow_score": 0.7449,
+      "suite_id": "active_shadow",
+      "trigger": "fix"
+    },
+    {
+      "active_evidence_text": "suitable and proper",
+      "active_score": 0.5444,
+      "bottleneck": "evidence_representation_or_scorer_gap",
+      "bottleneck_reason": "The gold lane has admitted text, but the current score trace does not make it win.",
+      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001",
+      "decision_error_type": "false_abstain",
+      "failure_class": "phrase_control_overlap_overblocks_active",
+      "fixed_by_best_no_regression_guard": false,
+      "fixed_by_zero_harm_guard": false,
+      "gold_decision": "replace",
+      "llm_evidence_opportunity": "generate_stronger_contrastive_active_shadow_evidence",
+      "phrase_control_evidence_text": "come together example: I'll probably see you at the meeting",
+      "phrase_control_score": 0.7272,
+      "predicted_decision": "abstain",
+      "recommended_next_action": "Audit raw source wording and try stronger contrastive evidence or scorer aggregation before policy tuning.",
+      "representation_status": "evidence_present_but_not_score_visible",
+      "required_evidence_lane": "active",
+      "score_visible_for_gold": false,
+      "sentence": "It is meet to thank the volunteers before dinner.",
+      "source_summary": {
+        "phrase_source_active_like_skip_count": 1,
+        "phrase_source_candidate_sense_count": 13,
+        "phrase_source_family_present": true,
+        "phrase_source_row_count": 12,
+        "source_class_active_row_count": 3,
+        "source_class_family_present": true,
+        "source_class_matching_sense_count": 2,
+        "source_class_relation_types": [
+          "anchor_cue",
+          "shadow_candidate"
+        ],
+        "source_class_row_count": 6,
+        "source_class_shadow_row_count": 3,
+        "source_class_support_sources": [
+          "freedict_es_en",
+          "wiktextract_en_es_translation_table",
+          "wiktionary_en_es"
+        ]
+      },
+      "strongest_shadow_evidence_text": "I'll probably see you at the meeting",
+      "strongest_shadow_score": 0.6926,
+      "suite_id": "active_shadow",
+      "trigger": "meet"
+    },
+    {
+      "active_evidence_text": "cast noun sense: act of throwing",
+      "active_score": 0.5626,
+      "bottleneck": "general_guard_headroom_confirmed",
+      "bottleneck_reason": "The best no-regression guard fixes this residual using current scores.",
+      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+      "decision_error_type": "harmful_replace",
+      "failure_class": "surface_rescue_overrode_dominant_phrase_control",
+      "fixed_by_best_no_regression_guard": true,
+      "fixed_by_zero_harm_guard": true,
+      "gold_decision": "abstain",
+      "llm_evidence_opportunity": "generate_exact_no_winner_phrase_evidence_and_guard_examples",
+      "phrase_control_evidence_text": "assign the roles of (a movie or a play) to actors example: Who cast this beautiful movie?",
+      "phrase_control_score": 0.7274,
+      "predicted_decision": "replace",
+      "recommended_next_action": "Keep as diagnostic headroom and confirm on a broader locked suite before policy promotion.",
+      "representation_status": "phrase_signal_present_but_guard_failed",
+      "required_evidence_lane": "phrase_control",
+      "score_visible_for_gold": true,
+      "sentence": "The director praised the cast after rehearsal.",
+      "source_summary": {
+        "phrase_source_active_like_skip_count": 7,
+        "phrase_source_candidate_sense_count": 20,
+        "phrase_source_family_present": true,
+        "phrase_source_row_count": 12,
+        "source_class_active_row_count": 3,
+        "source_class_family_present": true,
+        "source_class_matching_sense_count": 2,
+        "source_class_relation_types": [
+          "anchor_cue",
+          "shadow_candidate"
+        ],
+        "source_class_row_count": 6,
+        "source_class_shadow_row_count": 3,
+        "source_class_support_sources": [
+          "wiktextract_en_es_translation_table",
+          "wiktionary_en_es"
+        ]
+      },
+      "strongest_shadow_evidence_text": "cast verb sense: to perform, bring forth a magical spell or enchantment",
+      "strongest_shadow_score": 0.6113,
+      "suite_id": "phrase_no_winner",
+      "trigger": "cast"
+    },
+    {
+      "active_evidence_text": "incorrect or improper",
+      "active_score": 0.679,
+      "bottleneck": "guard_signal_collides_with_valid_active_replace",
+      "bottleneck_reason": "Abstain guards can fix this phrase/no-winner residual, but the zero-harm policy regresses active replace cases.",
+      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+      "decision_error_type": "harmful_replace",
+      "failure_class": "surface_rescue_overrode_dominant_phrase_control",
+      "fixed_by_best_no_regression_guard": false,
+      "fixed_by_zero_harm_guard": true,
+      "gold_decision": "abstain",
+      "llm_evidence_opportunity": "generate_exact_no_winner_phrase_evidence_and_guard_examples",
+      "phrase_control_evidence_text": "that which is contrary to the principles of justice or law example: he feels that you are in the wrong",
+      "phrase_control_score": 0.7113,
+      "predicted_decision": "replace",
+      "recommended_next_action": "Improve phrase/no-winner evidence specificity or add a separately validated no-winner guard signal.",
+      "representation_status": "phrase_signal_present_but_guard_failed",
+      "required_evidence_lane": "phrase_control",
+      "score_visible_for_gold": true,
+      "sentence": "He rubbed the organizer the wrong way.",
+      "source_summary": {
+        "phrase_source_active_like_skip_count": 5,
+        "phrase_source_candidate_sense_count": 13,
+        "phrase_source_family_present": true,
+        "phrase_source_row_count": 8,
+        "source_class_active_row_count": 3,
+        "source_class_family_present": true,
+        "source_class_matching_sense_count": 1,
+        "source_class_relation_types": [
+          "anchor_cue",
+          "shadow_candidate"
+        ],
+        "source_class_row_count": 3,
+        "source_class_shadow_row_count": 0,
+        "source_class_support_sources": [
+          "wiktextract_en_es_translation_table",
+          "wiktionary_en_es"
+        ]
+      },
+      "strongest_shadow_evidence_text": "treat unjustly; do wrong to",
+      "strongest_shadow_score": 0.6892,
+      "suite_id": "phrase_no_winner",
+      "trigger": "wrong"
+    },
+    {
+      "active_evidence_text": "stretch noun sense: act of stretching",
+      "active_score": 0.7496,
+      "bottleneck": "general_guard_headroom_confirmed",
+      "bottleneck_reason": "The best no-regression guard fixes this residual using current scores.",
+      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+      "decision_error_type": "harmful_replace",
+      "failure_class": "surface_rescue_overrode_dominant_phrase_control",
+      "fixed_by_best_no_regression_guard": true,
+      "fixed_by_zero_harm_guard": true,
+      "gold_decision": "abstain",
+      "llm_evidence_opportunity": "generate_exact_no_winner_phrase_evidence_and_guard_examples",
+      "phrase_control_evidence_text": "the capacity for being stretched",
+      "phrase_control_score": 0.8221,
+      "predicted_decision": "replace",
+      "recommended_next_action": "Keep as diagnostic headroom and confirm on a broader locked suite before policy promotion.",
+      "representation_status": "phrase_signal_present_but_guard_failed",
+      "required_evidence_lane": "phrase_control",
+      "score_visible_for_gold": true,
+      "sentence": "That estimate is a stretch.",
+      "source_summary": {
+        "phrase_source_active_like_skip_count": 1,
+        "phrase_source_candidate_sense_count": 20,
+        "phrase_source_family_present": true,
+        "phrase_source_row_count": 12,
+        "source_class_active_row_count": 3,
+        "source_class_family_present": true,
+        "source_class_matching_sense_count": 2,
+        "source_class_relation_types": [
+          "anchor_cue",
+          "shadow_candidate"
+        ],
+        "source_class_row_count": 6,
+        "source_class_shadow_row_count": 3,
+        "source_class_support_sources": [
+          "wiktextract_en_es_translation_table",
+          "wiktionary_en_es",
+          "wiktionary_es_en"
+        ]
+      },
+      "strongest_shadow_evidence_text": "become longer by being stretched and pulled",
+      "strongest_shadow_score": 0.7342,
+      "suite_id": "phrase_no_winner",
+      "trigger": "stretch"
+    },
+    {
+      "active_evidence_text": "score noun sense: number of points earned",
+      "active_score": 0.7298,
+      "bottleneck": "guard_signal_collides_with_valid_active_replace",
+      "bottleneck_reason": "Abstain guards can fix this phrase/no-winner residual, but the zero-harm policy regresses active replace cases.",
+      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+      "decision_error_type": "harmful_replace",
+      "failure_class": "surface_rescue_leaks_when_phrase_control_close",
+      "fixed_by_best_no_regression_guard": false,
+      "fixed_by_zero_harm_guard": true,
+      "gold_decision": "abstain",
+      "llm_evidence_opportunity": "generate_exact_no_winner_phrase_evidence_and_guard_examples",
+      "phrase_control_evidence_text": "a written form of a musical composition; parts for different instruments appear on separate staves on large pages example: he studied the score of the sonata",
+      "phrase_control_score": 0.7387,
+      "predicted_decision": "replace",
+      "recommended_next_action": "Improve phrase/no-winner evidence specificity or add a separately validated no-winner guard signal.",
+      "representation_status": "phrase_signal_present_but_guard_failed",
+      "required_evidence_lane": "phrase_control",
+      "score_visible_for_gold": true,
+      "sentence": "The composer wrote the score for the film.",
+      "source_summary": {
+        "phrase_source_active_like_skip_count": 3,
+        "phrase_source_candidate_sense_count": 18,
+        "phrase_source_family_present": true,
+        "phrase_source_row_count": 12,
+        "source_class_active_row_count": 3,
+        "source_class_family_present": true,
+        "source_class_matching_sense_count": 3,
+        "source_class_relation_types": [
+          "anchor_cue",
+          "shadow_candidate"
+        ],
+        "source_class_row_count": 9,
+        "source_class_shadow_row_count": 6,
+        "source_class_support_sources": [
+          "wiktextract_en_es_translation_table",
+          "wiktionary_en_es",
+          "wiktionary_es_en"
+        ]
+      },
+      "strongest_shadow_evidence_text": "score noun sense: number of points accrued",
+      "strongest_shadow_score": 0.7096,
+      "suite_id": "phrase_no_winner",
+      "trigger": "score"
+    },
+    {
+      "active_evidence_text": "squeeze noun sense: difficult position",
+      "active_score": 0.683,
+      "bottleneck": "general_guard_headroom_confirmed",
+      "bottleneck_reason": "The best no-regression guard fixes this residual using current scores.",
+      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001",
+      "decision_error_type": "harmful_replace",
+      "failure_class": "surface_rescue_leaks_when_phrase_control_close",
+      "fixed_by_best_no_regression_guard": true,
+      "fixed_by_zero_harm_guard": true,
+      "gold_decision": "abstain",
+      "llm_evidence_opportunity": "generate_exact_no_winner_phrase_evidence_and_guard_examples",
+      "phrase_control_evidence_text": "a twisting squeeze example: gave the wet cloth a wring",
+      "phrase_control_score": 0.7523,
+      "predicted_decision": "replace",
+      "recommended_next_action": "Keep as diagnostic headroom and confirm on a broader locked suite before policy promotion.",
+      "representation_status": "phrase_signal_present_but_guard_failed",
+      "required_evidence_lane": "phrase_control",
+      "score_visible_for_gold": true,
+      "sentence": "The squeeze play surprised the defense.",
+      "source_summary": {
+        "phrase_source_active_like_skip_count": 1,
+        "phrase_source_candidate_sense_count": 17,
+        "phrase_source_family_present": true,
+        "phrase_source_row_count": 12,
+        "source_class_active_row_count": 4,
+        "source_class_family_present": true,
+        "source_class_matching_sense_count": 2,
+        "source_class_relation_types": [
+          "anchor_cue",
+          "shadow_candidate"
+        ],
+        "source_class_row_count": 7,
+        "source_class_shadow_row_count": 3,
+        "source_class_support_sources": [
+          "wiktextract_en_es_translation_table",
+          "wiktionary_en_es"
+        ]
+      },
+      "strongest_shadow_evidence_text": "squeeze like a wedge into a tight space",
+      "strongest_shadow_score": 0.734,
+      "suite_id": "phrase_no_winner",
+      "trigger": "squeeze"
+    },
+    {
+      "active_evidence_text": "foul noun sense: offence in sports",
+      "active_score": 0.5938,
+      "bottleneck": "guard_signal_collides_with_valid_active_replace",
+      "bottleneck_reason": "Abstain guards can fix this phrase/no-winner residual, but the zero-harm policy regresses active replace cases.",
+      "case_id": "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001",
+      "decision_error_type": "harmful_replace",
+      "failure_class": "surface_rescue_leaks_when_phrase_control_close",
+      "fixed_by_best_no_regression_guard": false,
+      "fixed_by_zero_harm_guard": true,
+      "gold_decision": "abstain",
+      "llm_evidence_opportunity": "generate_exact_no_winner_phrase_evidence_and_guard_examples",
+      "phrase_control_evidence_text": "spot, stain, or pollute example: The townspeople defiled the river by emptying raw sewage into it",
+      "phrase_control_score": 0.6349,
+      "predicted_decision": "replace",
+      "recommended_next_action": "Improve phrase/no-winner evidence specificity or add a separately validated no-winner guard signal.",
+      "representation_status": "phrase_signal_present_but_guard_failed",
+      "required_evidence_lane": "phrase_control",
+      "score_visible_for_gold": true,
+      "sentence": "The foul weather delayed the ferry.",
+      "source_summary": {
+        "phrase_source_active_like_skip_count": 2,
+        "phrase_source_candidate_sense_count": 16,
+        "phrase_source_family_present": true,
+        "phrase_source_row_count": 12,
+        "source_class_active_row_count": 3,
+        "source_class_family_present": true,
+        "source_class_matching_sense_count": 2,
+        "source_class_relation_types": [
+          "anchor_cue",
+          "shadow_candidate"
+        ],
+        "source_class_row_count": 6,
+        "source_class_shadow_row_count": 3,
+        "source_class_support_sources": [
+          "wiktextract_en_es_translation_table",
+          "wiktionary_en_es"
+        ]
+      },
+      "strongest_shadow_evidence_text": "The industrial wastes polluted the lake",
+      "strongest_shadow_score": 0.6342,
+      "suite_id": "phrase_no_winner",
+      "trigger": "foul"
+    }
+  ],
+  "class_summaries": [
+    {
+      "bottleneck": "evidence_representation_or_scorer_gap",
+      "case_count": 2,
+      "case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:fix:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:meet:001"
+      ],
+      "failure_classes": [
+        "phrase_control_overlap_overblocks_active",
+        "shadow_overlap_overblocks_active"
+      ],
+      "recommended_next_actions": [
+        "Audit raw source wording and try stronger contrastive evidence or scorer aggregation before policy tuning."
+      ],
+      "triggers": [
+        "fix",
+        "meet"
+      ]
+    },
+    {
+      "bottleneck": "general_guard_headroom_confirmed",
+      "case_count": 3,
+      "case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:cast:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:stretch:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:squeeze:001"
+      ],
+      "failure_classes": [
+        "surface_rescue_leaks_when_phrase_control_close",
+        "surface_rescue_overrode_dominant_phrase_control"
+      ],
+      "recommended_next_actions": [
+        "Keep as diagnostic headroom and confirm on a broader locked suite before policy promotion."
+      ],
+      "triggers": [
+        "cast",
+        "squeeze",
+        "stretch"
+      ]
+    },
+    {
+      "bottleneck": "guard_signal_collides_with_valid_active_replace",
+      "case_count": 3,
+      "case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:wrong:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:score:001",
+        "en-es:source-non-v10-wave7-source-class-breadth-phrase:v1:foul:001"
+      ],
+      "failure_classes": [
+        "surface_rescue_leaks_when_phrase_control_close",
+        "surface_rescue_overrode_dominant_phrase_control"
+      ],
+      "recommended_next_actions": [
+        "Improve phrase/no-winner evidence specificity or add a separately validated no-winner guard signal."
+      ],
+      "triggers": [
+        "foul",
+        "score",
+        "wrong"
+      ]
+    },
+    {
+      "bottleneck": "shadow_signal_visible_but_guard_threshold_insufficient",
+      "case_count": 1,
+      "case_ids": [
+        "en-es:source-non-v10-wave7-source-class-breadth-heldout:v1:gross:002"
+      ],
+      "failure_classes": [
+        "shadow_quantity_evidence_underweighted"
+      ],
+      "recommended_next_actions": [
+        "Strengthen quantity/commercial source evidence or test a non-trigger-specific quantity-frame feature."
+      ],
+      "triggers": [
+        "gross"
+      ]
+    }
+  ],
+  "decision": "upstream_work_required_before_acceptance_target",
+  "generated_at": "2026-04-30T23:26:08Z",
+  "limitations": [
+    "research_only_not_promotion_evidence",
+    "raw_source_availability_is_inferred_from_existing_source_reports",
+    "does_not_run_new_scorers_or_generate_new_llm_rows",
+    "case_classification_is_for_work_routing_not_runtime_policy"
+  ],
+  "next_steps": [
+    "Use this audit to choose upstream work, not to promote a runtime policy.",
+    "First inspect the evidence/scorer gap cases where gold evidence is admitted but not score-visible.",
+    "Then design a phrase/no-winner representation or guard signal that avoids regressing active replace rows.",
+    "Only after those two lanes should an LLM-pipeline bound be run against locked residual cases."
+  ],
+  "research_only": true,
+  "schema_version": 1,
+  "source_reports": {
+    "admission_report": {
+      "decision": "analysis_only",
+      "path": "docs/test_outputs/semantic_source_admission_cycle_wave7_source_class_breadth_v1_phrase_control_triage_latest.json",
+      "status": "review",
+      "summary": {
+        "families_total": 16,
+        "final_admitted_row_count": 326,
+        "leakage_rejected_row_count": 6,
+        "phrase_contract_complete_family_count": 16,
+        "pre_sense_merged_row_count": 326,
+        "semantic_contract_complete_family_count": 16,
+        "sense_rejected_row_count": 0
+      }
+    },
+    "bound_ladder": {
+      "decision": "bounds_reference_only_llm_lane_unmeasured",
+      "path": "docs/test_outputs/semantic_veto_bound_ladder_wave7_residuals_latest.json",
+      "status": "review",
+      "summary": {
+        "admitted_gold_evidence_present_count": 9,
+        "current_correct_case_count": 39,
+        "current_false_abstain_count": 2,
+        "current_harmful_replace_count": 7,
+        "locked_case_count": 48,
+        "not_score_visible_residual_count": 2,
+        "oracle_likely_fixable_residual_count": 9,
+        "residual_case_count": 9,
+        "runtime_policy_family_passing_count": 0,
+        "score_visible_residual_count": 7
+      }
+    },
+    "current_evidence_ceiling": {
+      "decision": "current_evidence_ceiling_partially_supported",
+      "path": "docs/test_outputs/semantic_veto_current_evidence_ceiling_wave7_latest.json",
+      "status": "review",
+      "summary": {
+        "candidate_policy_count": 445,
+        "case_count": 48
+      }
+    },
+    "frame_evidence": {
+      "decision": "source_class_frame_rows_ready",
+      "path": "docs/test_outputs/semantic_source_class_frame_evidence_wave7_source_class_breadth_v1_latest.json",
+      "status": "ok",
+      "summary": {
+        "active_row_count": 44,
+        "family_count": 16,
+        "matching_class_count": 23,
+        "matching_sense_count": 29,
+        "row_count": 90,
+        "selected_sense_count": 37,
+        "shadow_row_count": 46,
+        "target_family_count": 14
+      }
+    },
+    "phrase_evidence": {
+      "decision": "candidate_batch_ready",
+      "path": "docs/test_outputs/semantic_wordnet_alternate_sense_phrase_wave7_source_class_breadth_v1_triage_latest.json",
+      "status": "ok",
+      "summary": {
+        "active_like_skip_count": 34,
+        "candidate_sense_count": 248,
+        "family_count": 16,
+        "row_count": 179,
+        "source_family_count": 16,
+        "target_family_count": 16
+      }
+    },
+    "residual_probe": {
+      "decision": "targeted_remediation_required",
+      "path": "docs/test_outputs/semantic_wave7_residual_blocker_probe_wave7_source_class_breadth_v1_phrase_control_triage_latest.json",
+      "status": "review",
+      "summary": {
+        "active_shadow_failure_count": 3,
+        "combined_passing_policy_count": 0,
+        "failure_class_count": 5,
+        "false_abstain_count": 2,
+        "harmful_replace_count": 7,
+        "phrase_no_winner_failure_count": 6,
+        "residual_case_count": 9
+      }
+    }
+  },
+  "status": "review",
+  "summary": {
+    "bottleneck_counts": {
+      "evidence_representation_or_scorer_gap": 2,
+      "general_guard_headroom_confirmed": 3,
+      "guard_signal_collides_with_valid_active_replace": 3,
+      "shadow_signal_visible_but_guard_threshold_insufficient": 1
+    },
+    "current_evidence_best_no_regression_correct": 42,
+    "current_evidence_ceiling_status": "partial_headroom_but_optimistic_ceiling_collapsed",
+    "current_evidence_optimistic_correct": 46,
+    "decision": "upstream_work_required_before_acceptance_target",
+    "final_admitted_row_count": 326,
+    "fixed_by_best_no_regression_count": 3,
+    "fixed_by_zero_harm_count": 7,
+    "interpretation": [
+      "The current-evidence guard sweep found real but limited headroom: 3 residuals are fixed by the best no-regression guard, leaving 6 residuals for upstream work.",
+      "The remaining cases are not simply missing admitted evidence: the audit sees source rows and phrase rows, but the score/guard representation is not sufficiently separable.",
+      "The next useful target is not another scalar sweep. It is evidence wording, raw-source/representation review, scorer aggregation, or an explicitly measured LLM-pipeline bound."
+    ],
+    "phrase_control_source_row_count": 179,
+    "residual_case_count": 9,
+    "source_class_frame_row_count": 90,
+    "still_failing_after_best_no_regression_count": 6
+  }
+}

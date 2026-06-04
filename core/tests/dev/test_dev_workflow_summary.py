@@ -104,6 +104,33 @@ class TestDevWorkflowSummary(unittest.TestCase):
             markdown,
         )
 
+    def test_render_summary_reports_changed_scope_style_unavailable(self) -> None:
+        markdown = render_summary(
+            changed_payload={
+                "scope": "local",
+                "base_ref": "",
+                "changed_files_count": 3,
+                "substantive_changed_files_count": 3,
+                "project_health": {"exit_code": 0},
+                "changed_python_files": ["scripts/dev/dev_workflow_changed_check.py"],
+                "style": {
+                    "status": "unavailable",
+                    "lint_exit_code": 127,
+                    "format_exit_code": 127,
+                    "ruff_detail": "Tried /tmp/venv/bin/python -m ruff and ruff on PATH",
+                },
+                "betterdiscord_freshness": {"required": False},
+                "feature_state": {"required": False},
+                "windows_parity": {"required": False},
+                "rulegen_quality": {"required": False},
+            }
+        )
+        self.assertIn("- Status: PASS (style check unavailable)", markdown)
+        self.assertIn(
+            "- Style: `unavailable` (Tried /tmp/venv/bin/python -m ruff and ruff on PATH)",
+            markdown,
+        )
+
     def test_render_summary_reports_ci_safe_build_skips(self) -> None:
         markdown = render_summary(
             build_payload={

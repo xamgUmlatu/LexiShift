@@ -1,0 +1,808 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T00:13:47Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:prompt_variant:v6_pos_diversity",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a home setting and a simple attributive noun phrase.",
+          "evidence_note": "adjoining describes a neighboring apartment, matching the active sense of adjacent or next door.",
+          "sentence": "The adjoining apartment was quiet all night.",
+          "source_pos_frame": "adjective_attributive",
+          "topic_frame": "housing and apartments"
+        },
+        {
+          "diversity_note": "Uses an event-related parking context rather than a residence.",
+          "evidence_note": "adjoining modifies lot to show a nearby, adjacent parking area.",
+          "sentence": "We parked in the adjoining lot after the concert.",
+          "source_pos_frame": "adjective_attributive",
+          "topic_frame": "parking and events"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "adjoining",
+      "target_lemma": "vecino",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a document-review context and an adjective target, unlike the other item's action-based setting.",
+          "evidence_note": "entirely modifies the adjective accurate, showing a complete degree of accuracy.",
+          "sentence": "The report was entirely accurate after the final review.",
+          "source_pos_frame": "adverb_modifier",
+          "topic_frame": "work report review"
+        },
+        {
+          "diversity_note": "Uses a weather-driven personal-plans context and a verb target, different from the report-review example.",
+          "evidence_note": "entirely modifies the verb changed, showing a complete change in plans.",
+          "sentence": "She entirely changed her weekend plans when the storm arrived.",
+          "source_pos_frame": "verb_modifier",
+          "topic_frame": "weather and personal plans"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "entirely",
+      "target_lemma": "enteramente",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bouillon:caldo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a kitchen-prep frame with vegetables and simmering.",
+          "evidence_note": "The context shows bouillon as a seasoned broth used for cooking.",
+          "sentence": "She simmered a bouillon with carrots, celery, and herbs for the soup.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "home cooking"
+        },
+        {
+          "diversity_note": "Uses a dining-out frame with a served bowl and no cooking action.",
+          "evidence_note": "The context presents bouillon as a savory broth served as food.",
+          "sentence": "At the café, I ordered a bowl of bouillon before the main course.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "restaurant meal"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "bouillon",
+      "target_lemma": "caldo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:december:diciembre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a vacation-planning context and a booking frame.",
+          "evidence_note": "The noun phrase december is used as a time reference for a trip in the twelfth month.",
+          "sentence": "We booked the cabin for december and planned a long weekend by the lake.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "travel planning"
+        },
+        {
+          "diversity_note": "Uses a billing and review context rather than travel, with a different sentence frame.",
+          "evidence_note": "The noun december marks the month when a financial statement arrived.",
+          "sentence": "Her credit card statement arrived in december, and she checked every charge carefully.",
+          "source_pos_frame": "preposition_phrase",
+          "topic_frame": "personal finance"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "december",
+      "target_lemma": "diciembre",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:american:americano",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Focuses on food service and a menu item.",
+          "evidence_note": "american clearly modifies breakfast as a nationality or regional adjective.",
+          "sentence": "She ordered an american breakfast with eggs, toast, and coffee.",
+          "source_pos_frame": "adjective_attributive",
+          "topic_frame": "restaurant meal"
+        },
+        {
+          "diversity_note": "Uses an art-and-museum context instead of dining.",
+          "evidence_note": "american describes the painting as coming from the United States.",
+          "sentence": "The museum added an american painting to its modern art gallery.",
+          "source_pos_frame": "adjective_attributive",
+          "topic_frame": "museum art collection"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "american",
+      "target_lemma": "americano",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:among:entre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a workplace and healthcare setting with a people group.",
+          "evidence_note": "among introduces a group of people, showing the sense of being included within a larger set.",
+          "sentence": "The new policy was popular among nurses at the hospital.",
+          "source_pos_frame": "preposition_phrase",
+          "topic_frame": "hospital staff"
+        },
+        {
+          "diversity_note": "Uses a home setting and physical objects rather than a people group.",
+          "evidence_note": "among marks something located within a surrounding group of objects, matching the active sense.",
+          "sentence": "She found her keys among the papers on the kitchen table.",
+          "source_pos_frame": "preposition_phrase",
+          "topic_frame": "home organization"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "among",
+      "target_lemma": "entre",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:begin:comenzar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a workplace meeting and a future modal frame.",
+          "evidence_note": "begin is used as an active verb for starting an event.",
+          "sentence": "We will begin the meeting after the manager arrives.",
+          "source_pos_frame": "verb_after_modal",
+          "topic_frame": "work meeting"
+        },
+        {
+          "diversity_note": "Uses an outdoor activity and a simple present frame instead of a scheduled event.",
+          "evidence_note": "begin is used as an active verb for starting an action.",
+          "sentence": "The hikers begin the climb at sunrise.",
+          "source_pos_frame": "verb_simple_present",
+          "topic_frame": "outdoor hiking"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "begin",
+      "target_lemma": "comenzar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:dentist:dentista",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a clinic visit and treatment follow-up frame.",
+          "evidence_note": "dentist is a noun for a person who practices dentistry, shown by the dental exam and filling context.",
+          "sentence": "The dentist checked my filling and scheduled a quick follow-up.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "dental care"
+        },
+        {
+          "diversity_note": "Uses a family planning and braces advice frame rather than a treatment visit.",
+          "evidence_note": "dentist clearly names a dental professional giving advice about braces.",
+          "sentence": "She asked the dentist for advice about her son's braces before school started.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "orthodontic care"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "dentist",
+      "target_lemma": "dentista",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a home-and-morning routine frame with a repair action.",
+          "evidence_note": "brother is a male sibling in a family context.",
+          "sentence": "My brother fixed the bike before school.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "family and school prep"
+        },
+        {
+          "diversity_note": "Uses a social address frame in a travel setting rather than a family setting.",
+          "evidence_note": "brother is used as a fraternal address for a fellow member.",
+          "sentence": "The coach called him brother after the long road trip.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "team travel and camaraderie"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "brother",
+      "target_lemma": "hermano",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:german:alem-n",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a consumer-product context and a purchase decision frame.",
+          "evidence_note": "german is used attributively before a noun, clearly describing nationality-style origin as an adjective.",
+          "sentence": "She bought a german car because she wanted something reliable for long trips.",
+          "source_pos_frame": "adjective_attributive",
+          "topic_frame": "car shopping"
+        },
+        {
+          "diversity_note": "Uses an art-and-museum context rather than transportation or shopping.",
+          "evidence_note": "german modifies a noun in an ordinary descriptive way, showing the adjective sense tied to origin or style.",
+          "sentence": "The museum added a german painting to the new gallery wall.",
+          "source_pos_frame": "adjective_attributive",
+          "topic_frame": "museum art display"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "german",
+      "target_lemma": "alemán",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:heart:coraz-n",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a clinic setting and a body-related context.",
+          "evidence_note": "heart is the physical organ being examined by a doctor.",
+          "sentence": "The doctor listened to my heart and said the rhythm sounded steady.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "medical checkup"
+        },
+        {
+          "diversity_note": "Uses an emotional idiom in a home or office setting rather than a medical one.",
+          "evidence_note": "heart is used as the emotional center of feelings and attachment.",
+          "sentence": "She kept the photo on her desk because it was close to her heart.",
+          "source_pos_frame": "preposition_phrase",
+          "topic_frame": "personal keepsake"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "heart",
+      "target_lemma": "corazón",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:rumanian:rumano",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a cultural exhibit context and an attributive noun phrase.",
+          "evidence_note": "rumanian directly modifies a noun, showing the nationality/cultural adjective sense.",
+          "sentence": "The museum added a rumanian folk costume to the new display.",
+          "source_pos_frame": "adjective_attributive",
+          "topic_frame": "museum exhibit"
+        },
+        {
+          "diversity_note": "Uses a person-description frame in a social setting rather than an object-modifying frame.",
+          "evidence_note": "rumanian appears after a linking verb to describe a person’s nationality, matching the active adjective sense.",
+          "sentence": "Her neighbor is rumanian, and he brought homemade pastries to the block party.",
+          "source_pos_frame": "adjective_predicative",
+          "topic_frame": "neighborhood gathering"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "rumanian",
+      "target_lemma": "rumano",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:salesman:vendedor",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Focuses on retail technology sales and a product comparison scene.",
+          "evidence_note": "salesman is a person selling goods in a store setting.",
+          "sentence": "The salesman showed us three laptop models and explained the warranty.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "electronics store"
+        },
+        {
+          "diversity_note": "Uses an event-based service pitch instead of a store purchase scene.",
+          "evidence_note": "salesman is used for a person whose job is selling services at an event.",
+          "sentence": "At the trade fair, a salesman handed out brochures and answered questions about the service plan.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "trade fair services"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "salesman",
+      "target_lemma": "vendedor",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:tomorrow:ma-ana",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a business logistics setting and a determined noun phrase.",
+          "evidence_note": "tomorrow is used as a noun for the next day, with a concrete event context that points to the active sense.",
+          "sentence": "The tomorrow of the launch felt uncertain after the storm delayed the shipment.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "project launch and shipping"
+        },
+        {
+          "diversity_note": "Uses a personal finance frame rather than an event-delay frame.",
+          "evidence_note": "tomorrow is a noun referring to the future, supported by the savings and planning context.",
+          "sentence": "She kept a tomorrow in mind when she saved part of each paycheck for emergencies.",
+          "source_pos_frame": "noun_indefinite",
+          "topic_frame": "personal finance and planning"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "tomorrow",
+      "target_lemma": "mañana",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:acceptable:razonable",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses lodging quality and a short-stay context.",
+          "evidence_note": "acceptable describes a satisfactory but not impressive level of quality, matching the active sense.",
+          "sentence": "The hotel room was acceptable for one night, with a clean bed and a quiet hallway.",
+          "source_pos_frame": "adjective_predicative",
+          "topic_frame": "hotel stay"
+        },
+        {
+          "diversity_note": "Uses a negotiation frame and a different kind of judgment about terms.",
+          "evidence_note": "acceptable marks a deal that is good enough to agree to, which fits the active sense of reasonable quality or degree.",
+          "sentence": "Her offer was acceptable after a small change in the delivery date.",
+          "source_pos_frame": "adjective_predicative",
+          "topic_frame": "business negotiation"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "acceptable",
+      "target_lemma": "razonable",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:chic:elegante",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Focuses on clothing at an evening event.",
+          "evidence_note": "chic describes a stylish, elegant outfit in a social setting.",
+          "sentence": "Her chic black dress looked perfect for the gallery opening.",
+          "source_pos_frame": "adjective_attributive",
+          "topic_frame": "fashion and events"
+        },
+        {
+          "diversity_note": "Uses a different topic and a different noun, shifting from clothing to decor.",
+          "evidence_note": "chic describes a refined, stylish design for a place.",
+          "sentence": "The cafe has a chic interior with clean lines and soft lighting.",
+          "source_pos_frame": "adjective_attributive",
+          "topic_frame": "interior design and dining"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "chic",
+      "target_lemma": "elegante",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a camera setting and a modal verb, unlike the other item.",
+          "evidence_note": "The verb use shows a person performing the action with a facial expression.",
+          "sentence": "She can smile at the camera even when she is nervous.",
+          "source_pos_frame": "verb_after_modal",
+          "topic_frame": "photo session"
+        },
+        {
+          "diversity_note": "Uses a reaction to news and a past-tense narrative frame, different from the camera context.",
+          "evidence_note": "The verb use clearly describes an active facial expression in response to news.",
+          "sentence": "After the good news, he smiled at everyone in the room.",
+          "source_pos_frame": "verb_past_tense",
+          "topic_frame": "family news"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "smile",
+      "target_lemma": "sonreír",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:break:quebrar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a classroom object and a simple conditional frame.",
+          "evidence_note": "The sentence shows break as a verb for something becoming separated into pieces under force.",
+          "sentence": "If you bend the plastic ruler too far, it will break.",
+          "source_pos_frame": "verb_after_modal",
+          "topic_frame": "school supplies"
+        },
+        {
+          "diversity_note": "Uses a natural outdoor setting and a different modal frame with a different object.",
+          "evidence_note": "The sentence uses break as a verb for cracking or splitting under force from weather.",
+          "sentence": "The old branch can break during a strong wind.",
+          "source_pos_frame": "verb_after_modal",
+          "topic_frame": "weather and trees"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "break",
+      "target_lemma": "quebrar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:rebate:descuento",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a monthly bill and a store promotion, unlike the other item's tax context.",
+          "evidence_note": "rebate is used as a noun for a price reduction on a bill, matching the active sense.",
+          "sentence": "The store applied a rebate to my phone bill after the promotion ended.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "retail billing"
+        },
+        {
+          "diversity_note": "Uses tax paperwork and a refund outcome, unlike the retail billing example.",
+          "evidence_note": "rebate is a noun for a refund or reduction in the amount paid, shown through the tax return context.",
+          "sentence": "I claimed the rebate on my tax return and got a smaller payment due.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "tax filing"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "rebate",
+      "target_lemma": "descuento",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:govern:gobernar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a municipal politics setting and a future-tense modal frame.",
+          "evidence_note": "The sentence shows govern as an active verb for exercising authority over a city.",
+          "sentence": "The new mayor will govern the city with a small team of advisers.",
+          "source_pos_frame": "verb_after_modal",
+          "topic_frame": "city government"
+        },
+        {
+          "diversity_note": "Uses a business setting and an infinitive complement rather than a modal frame.",
+          "evidence_note": "The sentence shows govern as an active verb for directing an organization.",
+          "sentence": "After the merger, the board asked her to govern the company through the transition.",
+          "source_pos_frame": "verb_infinitive",
+          "topic_frame": "corporate leadership"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "govern",
+      "target_lemma": "gobernar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:offset:distancia",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses an outdoor navigation context with a measured route reference.",
+          "evidence_note": "offset is used as a noun for a measured displacement from a reference point, matching the active sense.",
+          "sentence": "The survey marked an offset from the trailhead, and the hiker measured the distance to the ridge.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "hiking map"
+        },
+        {
+          "diversity_note": "Uses an indoor technical layout context rather than a trail or travel setting.",
+          "evidence_note": "offset is a noun naming a physical displacement that creates distance between two points.",
+          "sentence": "On the blueprint, the pipe had an offset that left a clear distance between the wall and the valve.",
+          "source_pos_frame": "noun_determined",
+          "topic_frame": "construction blueprint"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "offset",
+      "target_lemma": "distancia",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a municipal government setting and a modal-verb frame.",
+          "evidence_note": "The subject uses control as an active verb over a governing body, matching the sense of exercising authority over a group.",
+          "sentence": "The mayor can control the city council if she keeps enough votes.",
+          "source_pos_frame": "verb_after_modal",
+          "topic_frame": "city politics"
+        },
+        {
+          "diversity_note": "Uses a business setting and a future-tense frame rather than local politics.",
+          "evidence_note": "The board is shown actively controlling an organization, which fits the authority-over-an-institution sense.",
+          "sentence": "After the merger, the board will control the company and set its direction.",
+          "source_pos_frame": "verb_after_modal",
+          "topic_frame": "corporate governance"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "control",
+      "target_lemma": "gobernar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bridle:reprimir",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Focuses on emotional restraint in a professional setting.",
+          "evidence_note": "bridle is used as a verb meaning to restrain a strong reaction.",
+          "sentence": "She had to bridle her anger during the tense meeting and answer calmly.",
+          "source_pos_frame": "verb_infinitive",
+          "topic_frame": "workplace meeting"
+        },
+        {
+          "diversity_note": "Uses a sports context and a different restrained reaction, with a direct instruction frame.",
+          "evidence_note": "bridle shows active self-control over an impulse, matching the target sense.",
+          "sentence": "The coach told him to bridle his impulse to shout after the bad call.",
+          "source_pos_frame": "verb_infinitive",
+          "topic_frame": "sports sideline"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "bridle",
+      "target_lemma": "reprimir",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "diversity_note": "Uses a property-security setting and a future modal frame.",
+          "evidence_note": "bar is used as a verb meaning to block or prevent passage with a barrier.",
+          "sentence": "The new gate will bar trespassers from the garden after dark.",
+          "source_pos_frame": "verb_after_modal",
+          "topic_frame": "home security"
+        },
+        {
+          "diversity_note": "Uses a weather-related travel obstacle rather than a physical gate or fence.",
+          "evidence_note": "bar is used as a verb meaning to prevent access or passage.",
+          "sentence": "Heavy snow can bar hikers from reaching the trailhead.",
+          "source_pos_frame": "verb_after_modal",
+          "topic_frame": "weather and travel"
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v6_pos_diversity",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-semantic-veto-evidence-gap-prompt-bakeoff-v6-pos-diversity-20260509-001_raw_responses.json#semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "bar",
+      "target_lemma": "cercar",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:entirely:enteramente:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bouillon:caldo:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:december:diciembre:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:american:americano:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:among:entre:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:begin:comenzar:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:dentist:dentista:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:brother:hermano:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:german:alem-n:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:heart:coraz-n:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rumanian:rumano:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:salesman:vendedor:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:tomorrow:ma-ana:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:acceptable:razonable:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:chic:elegante:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:smile:sonre-r:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:break:quebrar:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:rebate:descuento:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:govern:gobernar:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:offset:distancia:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:control:gobernar:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bridle:reprimir:active_evidence_expansion",
+    "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:bar:cercar:active_evidence_expansion"
+  ],
+  "source_request_packet": "docs/test_inputs/semantic_veto_evidence_gap_prompt_variant_requests_en_es/v6_pos_diversity.json"
+}

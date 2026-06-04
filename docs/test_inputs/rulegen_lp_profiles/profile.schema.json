@@ -1,0 +1,248 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LexiShift Rulegen LP Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "pair",
+    "languages",
+    "translation_lanes",
+    "reverse_lanes",
+    "pos_profile",
+    "normalization_profile",
+    "metadata_family_profile",
+    "morphology_profile",
+    "mechanism_support",
+    "benchmark_profile"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "pair": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+    },
+    "languages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "target"],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      }
+    },
+    "translation_lanes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/lane"
+      }
+    },
+    "reverse_lanes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/lane"
+      }
+    },
+    "pos_profile": {
+      "$ref": "#/definitions/posProfile"
+    },
+    "normalization_profile": {
+      "$ref": "#/definitions/ruleProfile"
+    },
+    "metadata_family_profile": {
+      "$ref": "#/definitions/familyProfile"
+    },
+    "morphology_profile": {
+      "$ref": "#/definitions/morphologyProfile"
+    },
+    "mechanism_support": {
+      "$ref": "#/definitions/mechanismSupport"
+    },
+    "benchmark_profile": {
+      "$ref": "#/definitions/benchmarkProfile"
+    }
+  },
+  "definitions": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "lane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lane_id",
+        "family",
+        "pack_id",
+        "record_shape",
+        "default_for_pair",
+        "metadata_capabilities"
+      ],
+      "properties": {
+        "lane_id": {
+          "type": "string"
+        },
+        "family": {
+          "type": "string"
+        },
+        "pack_id": {
+          "type": "string"
+        },
+        "record_shape": {
+          "type": "string"
+        },
+        "default_for_pair": {
+          "type": "boolean"
+        },
+        "metadata_capabilities": {
+          "$ref": "#/definitions/stringArray"
+        }
+      }
+    },
+    "posProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "dictionary_profile_id",
+        "compatibility_profile_id"
+      ],
+      "properties": {
+        "profile_id": {
+          "type": "string"
+        },
+        "dictionary_profile_id": {
+          "type": "string"
+        },
+        "compatibility_profile_id": {
+          "type": "string"
+        }
+      }
+    },
+    "ruleProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "rule_ids"],
+      "properties": {
+        "profile_id": {
+          "type": "string"
+        },
+        "rule_ids": {
+          "$ref": "#/definitions/stringArray"
+        }
+      }
+    },
+    "familyProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "family_ids"],
+      "properties": {
+        "profile_id": {
+          "type": "string"
+        },
+        "family_ids": {
+          "$ref": "#/definitions/stringArray"
+        }
+      }
+    },
+    "morphologyProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "variant_policy"],
+      "properties": {
+        "profile_id": {
+          "type": "string"
+        },
+        "variant_policy": {
+          "type": "string"
+        }
+      }
+    },
+    "mechanismSupport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pos_scoring",
+        "variants",
+        "source_frequency_prior",
+        "reverse_check",
+        "kaikki_live_demotion",
+        "kaikki_risk_family_controls",
+        "same_sense_representative_selection",
+        "sense_defaultness_competition",
+        "provenance_competition",
+        "compiled_resources",
+        "prepared_sweep_tables"
+      ],
+      "properties": {
+        "pos_scoring": {
+          "type": "boolean"
+        },
+        "variants": {
+          "type": "boolean"
+        },
+        "source_frequency_prior": {
+          "type": "boolean"
+        },
+        "reverse_check": {
+          "type": "boolean"
+        },
+        "kaikki_live_demotion": {
+          "type": "boolean"
+        },
+        "kaikki_risk_family_controls": {
+          "type": "boolean"
+        },
+        "same_sense_representative_selection": {
+          "type": "boolean"
+        },
+        "sense_defaultness_competition": {
+          "type": "boolean"
+        },
+        "provenance_competition": {
+          "type": "boolean"
+        },
+        "compiled_resources": {
+          "type": "boolean"
+        },
+        "prepared_sweep_tables": {
+          "type": "boolean"
+        }
+      }
+    },
+    "benchmarkProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_file",
+        "preset_name",
+        "wrapper_command",
+        "latest_benchmark_json"
+      ],
+      "properties": {
+        "case_file": {
+          "type": "string"
+        },
+        "preset_name": {
+          "type": "string"
+        },
+        "wrapper_command": {
+          "type": "string"
+        },
+        "latest_benchmark_json": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

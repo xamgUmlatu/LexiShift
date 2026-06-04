@@ -56,6 +56,7 @@ class TestDevWorkflowCheck(unittest.TestCase):
         self.assertIn("scripts/testing/srs_journey_runtime_support.py", compile_command)
         self.assertIn("scripts/testing/srs_journey_summary.py", compile_command)
         self.assertIn("scripts/testing/srs_journey_html.py", compile_command)
+        self.assertIn("scripts/dev/ruff_support.py", compile_command)
 
     def test_build_commands_include_doc_reference_audit(self) -> None:
         commands = build_commands()

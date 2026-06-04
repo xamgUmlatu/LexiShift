@@ -86,6 +86,9 @@
       this._sendFeedback = typeof sendFeedback === "function"
         ? sendFeedback
         : (() => Promise.resolve(buildDefaultTransportError("Helper client unavailable.")));
+      this._maybeAutoRefresh = typeof options.maybeAutoRefresh === "function"
+        ? options.maybeAutoRefresh
+        : null;
       this._log = typeof options.log === "function" ? options.log : null;
       this._flushIntervalMs = Math.max(5000, Number(options.flushIntervalMs || DEFAULT_FLUSH_INTERVAL_MS));
       this._batchSize = Math.max(1, Math.min(50, Number(options.batchSize || DEFAULT_BATCH_SIZE)));
@@ -95,6 +98,7 @@
       this._flushInFlight = false;
       this._started = false;
       this._onStorageChanged = null;
+      this._autoRefreshInFlight = false;
     }
 
     _debug(message, payload) {
@@ -278,6 +282,37 @@
       }
     }
 
+    async _runAutoRefresh(reason, handled, synced) {
+      if (
+        !this._maybeAutoRefresh
+        || this._autoRefreshInFlight
+        || handled <= 0
+        || synced <= 0
+      ) {
+        return;
+      }
+      this._autoRefreshInFlight = true;
+      try {
+        const result = await Promise.resolve(this._maybeAutoRefresh({
+          reason,
+          handled,
+          synced
+        }));
+        if (result && typeof result === "object") {
+          const payload = result.data && typeof result.data === "object" ? result.data : result;
+          if (payload.attempted || payload.applied || payload.auto_refresh) {
+            this._debug("Auto-refresh check completed.", payload);
+          }
+        }
+      } catch (error) {
+        this._debug("Auto-refresh check failed.", {
+          message: error && error.message ? error.message : String(error || "")
+        });
+      } finally {
+        this._autoRefreshInFlight = false;
+      }
+    }
+
     async flushNow(reason = "manual") {
       if (!this._isFlushWorker) {
         return false;
@@ -286,6 +321,8 @@
         return false;
       }
       this._flushInFlight = true;
+      let handledCount = 0;
+      let syncedCount = 0;
       try {
         const locked = await this._acquireLock();
         if (!locked) {
@@ -309,11 +346,13 @@
         const updates = new Map();
         const removeIds = new Set();
         let handled = 0;
+        let synced = 0;
         for (const item of due) {
           const response = await this._send(item.payload);
           if (response && response.ok === true) {
             removeIds.add(item.id);
             handled += 1;
+            synced += 1;
             await this._renewLock();
             continue;
           }
@@ -362,12 +401,19 @@
         }
 
         if (handled > 0) {
-          this._debug(`Flushed feedback queue (${handled} item(s), reason=${reason}).`);
+          this._debug(
+            `Flushed feedback queue (${handled} item(s), ${synced} synced, reason=${reason}).`
+          );
         }
+        handledCount = handled;
+        syncedCount = synced;
         return handled > 0;
       } finally {
         await this._releaseLock();
         this._flushInFlight = false;
+        if (handledCount > 0) {
+          await this._runAutoRefresh(reason, handledCount, syncedCount);
+        }
       }
     }
   }

@@ -1,0 +1,373 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-008",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:abolish:abolir:d755cc57",
+      "packaged_row_count": 2,
+      "targets": [
+        "abolir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:accompaniment:acompanamiento:f2f574e0",
+      "packaged_row_count": 2,
+      "targets": [
+        "acompañamiento"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:accuse:acusar:cc4136e2",
+      "packaged_row_count": 2,
+      "targets": [
+        "acusar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:adjective:adjetivo:6cf7d8bd",
+      "packaged_row_count": 2,
+      "targets": [
+        "adjetivo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:adjoining:adyacente:5a9d600d",
+      "packaged_row_count": 2,
+      "targets": [
+        "adyacente"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:ankle:tobillo:61afc3b3",
+      "packaged_row_count": 2,
+      "targets": [
+        "tobillo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:appease:calmar:b6360fd5",
+      "packaged_row_count": 2,
+      "targets": [
+        "calmar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:asphalt:asfalto:83e8497c",
+      "packaged_row_count": 2,
+      "targets": [
+        "asfalto"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:ballet:ballet:1d74d0bf",
+      "packaged_row_count": 2,
+      "targets": [
+        "ballet"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:barbarian:barbaro:6b190974",
+      "packaged_row_count": 2,
+      "targets": [
+        "bárbaro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:beggar:mendigo:2f86d288",
+      "packaged_row_count": 2,
+      "targets": [
+        "mendigo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:bore:aburrir:60624c8a",
+      "packaged_row_count": 2,
+      "targets": [
+        "aburrir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:bracelet:pulsera:0ebb98ac",
+      "packaged_row_count": 2,
+      "targets": [
+        "pulsera"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:butterfly:mariposa:aeaab721",
+      "packaged_row_count": 2,
+      "targets": [
+        "mariposa"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:calculate:calcular:4d2896e9",
+      "packaged_row_count": 2,
+      "targets": [
+        "calcular"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:capsule:capsula:981a3d71",
+      "packaged_row_count": 2,
+      "targets": [
+        "cápsula"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:chemist:farmaceutico:3366dd37",
+      "packaged_row_count": 2,
+      "targets": [
+        "farmacéutico"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:citadel:ciudadela:7356a6b3",
+      "packaged_row_count": 2,
+      "targets": [
+        "ciudadela"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:claw:garra:2ee752ed",
+      "packaged_row_count": 2,
+      "targets": [
+        "garra"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cockroach:cucaracha:ce172ab7",
+      "packaged_row_count": 2,
+      "targets": [
+        "cucaracha"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cocoa:cacao:c0463e7c",
+      "packaged_row_count": 2,
+      "targets": [
+        "cacao"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:condemn:condenar:bb4dea72",
+      "packaged_row_count": 2,
+      "targets": [
+        "condenar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cylinder:cilindro:3b96b6d2",
+      "packaged_row_count": 2,
+      "targets": [
+        "cilindro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:delegate:delegar:a3ca9172",
+      "packaged_row_count": 2,
+      "targets": [
+        "delegar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:denounce:acusar:724ffca3",
+      "packaged_row_count": 2,
+      "targets": [
+        "acusar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:detain:retener:ff75c7b6",
+      "packaged_row_count": 2,
+      "targets": [
+        "retener"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:distract:distraer:5fc36fad",
+      "packaged_row_count": 2,
+      "targets": [
+        "distraer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:divert:distraer:a1455a00",
+      "packaged_row_count": 2,
+      "targets": [
+        "distraer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:entertain:distraer:70c5dd1d",
+      "packaged_row_count": 2,
+      "targets": [
+        "distraer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:error:yerro:7c08ace0",
+      "packaged_row_count": 2,
+      "targets": [
+        "yerro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:exaggerate:exagerar:c2748496",
+      "packaged_row_count": 2,
+      "targets": [
+        "exagerar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:feather:pluma:c5f49966",
+      "packaged_row_count": 2,
+      "targets": [
+        "pluma"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:fog:niebla:478a217c",
+      "packaged_row_count": 2,
+      "targets": [
+        "niebla"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:lighter:mechero:a40daff1",
+      "packaged_row_count": 2,
+      "targets": [
+        "mechero"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:mistake:yerro:9c7cb23b",
+      "packaged_row_count": 2,
+      "targets": [
+        "yerro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:regret:deplorar:53ad27b8",
+      "packaged_row_count": 2,
+      "targets": [
+        "deplorar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:scale:incrustacion:671ce924",
+      "packaged_row_count": 2,
+      "targets": [
+        "incrustación"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:separate:segregar:fa6519f6",
+      "packaged_row_count": 2,
+      "targets": [
+        "segregar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:severe:inclemente:09d05188",
+      "packaged_row_count": 2,
+      "targets": [
+        "inclemente"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:sweat:transpirar:b7fb23bc",
+      "packaged_row_count": 2,
+      "targets": [
+        "transpirar"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-13T18:47:55Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_008_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_008_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_008_generation_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 21293,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 0,
+    "operator_repairs": [],
+    "output_tokens": 7613,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "none",
+    "temperature": null
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 80,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 40,
+    "packaged_row_count": 80,
+    "promotion_state_counts": {
+      "proposed": 80
+    },
+    "relation_type_counts": {
+      "anchor_cue": 80
+    },
+    "review_state_counts": {
+      "unreviewed": 80
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

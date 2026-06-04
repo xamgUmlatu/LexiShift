@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave5_portfolio_heldout_cases_v1",
+  "base_dataset": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave5_anypos_source_portfolio_materialized_v1_dataset.json",
+  "description": "Independent active/shadow held-out validation cases for the materialized non-v10 wave5 source portfolio.",
+  "case_scope": "non_v10_wave5_source_portfolio_active_shadow",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:dry:seco",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:dry:001",
+          "sentence": "The dry towel hung beside the sink.",
+          "source_phrase": "dry",
+          "gold_winner": "en-es:sentence-veto:dry:seco:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:dry:002",
+          "sentence": "Fans will dry the paint overnight.",
+          "source_phrase": "dry",
+          "gold_winner": "en-es:sentence-veto:dry:seco:secar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:use:uso",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:use:001",
+          "sentence": "The use of helmets reduced injuries.",
+          "source_phrase": "use",
+          "gold_winner": "en-es:sentence-veto:use:uso:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:use:002",
+          "sentence": "They use the spare room for storage.",
+          "source_phrase": "use",
+          "gold_winner": "en-es:sentence-veto:use:uso:usar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:plain:llano",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:plain:001",
+          "sentence": "The plain shirt had no pattern.",
+          "source_phrase": "plain",
+          "gold_winner": "en-es:sentence-veto:plain:llano:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:plain:002",
+          "sentence": "The plain stretched for miles beyond the town.",
+          "source_phrase": "plain",
+          "gold_winner": "en-es:sentence-veto:plain:llano:llanura:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fast:r-pido",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:fast:001",
+          "sentence": "A fast runner led the final lap.",
+          "source_phrase": "fast",
+          "gold_winner": "en-es:sentence-veto:fast:r-pido:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:fast:002",
+          "sentence": "Many patients fast before morning surgery.",
+          "source_phrase": "fast",
+          "gold_winner": "en-es:sentence-veto:fast:r-pido:ayunar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:train:tren",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:train:001",
+          "sentence": "The morning train left before sunrise.",
+          "source_phrase": "train",
+          "gold_winner": "en-es:sentence-veto:train:tren:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:train:002",
+          "sentence": "Coaches train new runners every spring.",
+          "source_phrase": "train",
+          "gold_winner": "en-es:sentence-veto:train:tren:adiestrar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:land:001",
+          "sentence": "The land beyond the river looked fertile.",
+          "source_phrase": "land",
+          "gold_winner": "en-es:sentence-veto:land:tierra:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:land:002",
+          "sentence": "The ferry will land at the harbor before noon.",
+          "source_phrase": "land",
+          "gold_winner": "en-es:sentence-veto:land:tierra:atracar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:mean:medio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:mean:001",
+          "sentence": "The mean score rose after the retest.",
+          "source_phrase": "mean",
+          "gold_winner": "en-es:sentence-veto:mean:medio:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:mean:002",
+          "sentence": "These symbols mean danger near the trail.",
+          "source_phrase": "mean",
+          "gold_winner": "en-es:sentence-veto:mean:medio:significar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:offer:001",
+          "sentence": "The offer expires at midnight.",
+          "source_phrase": "offer",
+          "gold_winner": "en-es:sentence-veto:offer:oferta:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:offer:002",
+          "sentence": "Local schools offer evening classes for adults.",
+          "source_phrase": "offer",
+          "gold_winner": "en-es:sentence-veto:offer:oferta:ofrecer:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:present:presente",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:001",
+          "sentence": "The present policy ends in June.",
+          "source_phrase": "present",
+          "gold_winner": "en-es:sentence-veto:present:presente:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:present:002",
+          "sentence": "The present is all we can control.",
+          "source_phrase": "present",
+          "gold_winner": "en-es:sentence-veto:present:presente:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active", "same_visible_target_alias"],
+          "notes": "Source portfolio translation candidates include a noun current-time row for the same visible replacement `presente`; under the UX contract this is a replace case, not a harmful shadow case."
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:sign:se-al",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:sign:001",
+          "sentence": "The exit sign glowed red.",
+          "source_phrase": "sign",
+          "gold_winner": "en-es:sentence-veto:sign:se-al:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:sign:002",
+          "sentence": "Please sign the receipt before you leave.",
+          "source_phrase": "sign",
+          "gold_winner": "en-es:sentence-veto:sign:se-al:firmar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:quiet:silencio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:quiet:001",
+          "sentence": "A sudden quiet filled the room.",
+          "source_phrase": "quiet",
+          "gold_winner": "en-es:sentence-veto:quiet:silencio:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:quiet:002",
+          "sentence": "Soft music can quiet anxious dogs.",
+          "source_phrase": "quiet",
+          "gold_winner": "en-es:sentence-veto:quiet:silencio:calmar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:change:cambio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:change:001",
+          "sentence": "The policy change surprised the staff.",
+          "source_phrase": "change",
+          "gold_winner": "en-es:sentence-veto:change:cambio:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:change:002",
+          "sentence": "The weather may change overnight.",
+          "source_phrase": "change",
+          "gold_winner": "en-es:sentence-veto:change:cambio:cambiar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:look:001",
+          "sentence": "The look of the jacket was modern.",
+          "source_phrase": "look",
+          "gold_winner": "en-es:sentence-veto:look:aspecto:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:look:002",
+          "sentence": "The coffee looks cold from here.",
+          "source_phrase": "look",
+          "gold_winner": "en-es:sentence-veto:look:aspecto:parecer:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rest:reposo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:001",
+          "sentence": "Eight hours of rest helped her recover.",
+          "source_phrase": "rest",
+          "gold_winner": "en-es:sentence-veto:rest:reposo:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:rest:002",
+          "sentence": "Workers rest after lunch in the shade.",
+          "source_phrase": "rest",
+          "gold_winner": "en-es:sentence-veto:rest:reposo:descansar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:answer:respuesta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:answer:001",
+          "sentence": "Her answer was clear and direct.",
+          "source_phrase": "answer",
+          "gold_winner": "en-es:sentence-veto:answer:respuesta:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:answer:002",
+          "sentence": "Please answer the question before noon.",
+          "source_phrase": "answer",
+          "gold_winner": "en-es:sentence-veto:answer:respuesta:responder:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:end:fin",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:end:001",
+          "sentence": "The north end of the hall was blocked.",
+          "source_phrase": "end",
+          "gold_winner": "en-es:sentence-veto:end:fin:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-heldout:v1:end:002",
+          "sentence": "The meeting will end before noon.",
+          "source_phrase": "end",
+          "gold_winner": "en-es:sentence-veto:end:fin:acabar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_heldout", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    }
+  ]
+}

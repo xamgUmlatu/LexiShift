@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T00:06:53Z",
+  "status": "ok",
+  "batch_id": "en-es:example-frame-composite:balanced-plus-source-coverage-filtered-v1-20260425a",
+  "source_id": "reverse_aux_llm_balanced_plus_source_coverage_filtered",
+  "summary": {
+    "component_count": 2,
+    "row_count": 55,
+    "family_count": 19,
+    "relation_counts": {
+      "anchor_cue": 28,
+      "shadow_candidate": 19,
+      "phrase_control_example": 8
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:example-frame-composite:reverse-aux-plus-llm-missing-rows-plus-balanced-remediation-latest",
+      "source_id": "reverse_aux_plus_llm_example_frame_missing_rows_plus_balanced_remediation",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 36,
+      "accepted_row_count": 36,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:example-frame-missing-rows:source-coverage-v1-20260425a:filtered",
+      "source_id": "llm_example_frame_missing_rows",
+      "source_type": "llm",
+      "source_family": "silver_llm_generation",
+      "input_row_count": 19,
+      "accepted_row_count": 19,
+      "duplicate_row_count": 0
+    }
+  ]
+}

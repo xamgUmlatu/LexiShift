@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "queue_id": "semantic_source_non_v10_wave2_draft_v1_queue_en_es",
+  "pair": "en-es",
+  "generated_at": "2026-04-27T22:23:06Z",
+  "source_inventory_id": "semantic_non_v10_inventory_candidates_en_es",
+  "dataset_id": "en_es_source_non_v10_wave2_draft_v1",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "trigger": "look",
+      "role": "target",
+      "archetype": "automatic_non_v10_translation_family_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1,
+      "review_state": "draft_needs_target_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:use:uso",
+      "trigger": "use",
+      "role": "target",
+      "archetype": "automatic_non_v10_translation_family_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 2,
+      "review_state": "draft_needs_target_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:train:tren",
+      "trigger": "train",
+      "role": "target",
+      "archetype": "automatic_non_v10_translation_family_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 3,
+      "review_state": "draft_needs_target_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "trigger": "land",
+      "role": "target",
+      "archetype": "automatic_non_v10_translation_family_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 4,
+      "review_state": "draft_needs_target_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:end:fin",
+      "trigger": "end",
+      "role": "target",
+      "archetype": "automatic_non_v10_translation_family_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 5,
+      "review_state": "draft_needs_target_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "trigger": "offer",
+      "role": "target",
+      "archetype": "automatic_non_v10_translation_family_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 6,
+      "review_state": "draft_needs_target_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:sign:se-a",
+      "trigger": "sign",
+      "role": "target",
+      "archetype": "automatic_non_v10_translation_family_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 7,
+      "review_state": "draft_needs_target_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:quiet:silencio",
+      "trigger": "quiet",
+      "role": "target",
+      "archetype": "automatic_non_v10_translation_family_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 8,
+      "review_state": "draft_needs_target_review"
+    }
+  ]
+}

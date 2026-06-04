@@ -1,0 +1,147 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:20260507T223123Z:replay",
+  "execution_mode": "replay",
+  "generated_at": "2026-05-07T22:31:23Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v1",
+  "replay_source": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/evidence_gap_smoke_replay_fixture.json",
+  "request_count": 3,
+  "requests": [
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:vecino\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"vecino\", \"items\": [{\"sentence\": \"The adjoining room shares a wall with the kitchen.\", \"evidence_note\": \"The source phrase describes a neighboring room.\"}, {\"sentence\": \"She rented the adjoining office for the design team.\", \"evidence_note\": \"The source phrase describes an adjacent office.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\nfamily_id: en-es:full-family-repaired-full:adjoining:vecino\nslot_id: en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: adjoining\ntarget_lemma: vecino\nactive_target_lemma: vecino\nactive_evidence_text: adjoining -> vecino | neighboring or adjacent\nknown_shadow_targets: -\nrequested_items: 2\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "replay_1",
+      "response_json": {
+        "id": "replay_1",
+        "output": [
+          {
+            "content": [
+              {
+                "text": "{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:vecino\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"vecino\", \"items\": [{\"sentence\": \"The adjoining room shares a wall with the kitchen.\", \"evidence_note\": \"The source phrase describes a neighboring room.\"}, {\"sentence\": \"She rented the adjoining office for the design team.\", \"evidence_note\": \"The source phrase describes an adjacent office.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "type": "message"
+          }
+        ],
+        "status": "completed",
+        "usage": {
+          "input_tokens": 100,
+          "output_tokens": 80,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:vecino\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"\", \"proposed_competitor_target_lemma\": \"contiguo\", \"items\": [{\"sentence\": \"The legal notice used adjoining to classify parcels that touch at one border.\", \"evidence_note\": \"A technical property relation rather than a person-neighbor sense.\"}, {\"sentence\": \"The diagram marked two adjoining cells along the same edge.\", \"evidence_note\": \"A grid-contact relation rather than a person-neighbor sense.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:adjoining:vecino\nslot_id: en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: adjoining\ntarget_lemma: \nactive_target_lemma: vecino\nactive_evidence_text: adjoining -> vecino | neighboring or adjacent\nknown_shadow_targets: -\nrequested_items: 2\n\nTask: generate competitor-sense evidence. If slot target_lemma is provided, use that competitor sense. If blank, propose one plausible Spanish competitor target and generate examples for that competitor sense. Each English sentence must contain source_phrase and must not fit the active target sense.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "replay_2",
+      "response_json": {
+        "id": "replay_2",
+        "output": [
+          {
+            "content": [
+              {
+                "text": "{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:vecino\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"\", \"proposed_competitor_target_lemma\": \"contiguo\", \"items\": [{\"sentence\": \"The legal notice used adjoining to classify parcels that touch at one border.\", \"evidence_note\": \"A technical property relation rather than a person-neighbor sense.\"}, {\"sentence\": \"The diagram marked two adjoining cells along the same edge.\", \"evidence_note\": \"A grid-contact relation rather than a person-neighbor sense.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "type": "message"
+          }
+        ],
+        "status": "completed",
+        "usage": {
+          "input_tokens": 100,
+          "output_tokens": 80,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:adjoining:vecino",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:vecino\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\", \"slot_type\": \"no_winner_context_probe\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"\", \"items\": [{\"sentence\": \"The template heading \\\"Adjoining\\\" appears before the room list.\", \"no_winner_reason\": \"The source phrase is a UI heading, not sentence text needing replacement.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences.\n\nrequest_id: semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\nfamily_id: en-es:full-family-repaired-full:adjoining:vecino\nslot_id: en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\nslot_type: no_winner_context_probe\nsource_phrase: adjoining\ntarget_lemma: \nactive_target_lemma: vecino\nactive_evidence_text: adjoining -> vecino | neighboring or adjacent\nknown_shadow_targets: -\nrequested_items: 1\n\nTask: generate browser-like English contexts where source_phrase appears but neither the active Spanish target nor any known competitor target should be inserted. Good contexts include names, titles, file paths, UI labels, quoted fragments, or non-lexical uses when natural.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma:\"\", items:[{sentence, no_winner_reason}]}",
+      "request_id": "semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "requested_items": 1,
+      "response_id": "replay_3",
+      "response_json": {
+        "id": "replay_3",
+        "output": [
+          {
+            "content": [
+              {
+                "text": "{\"request_id\": \"semantic_veto_evidence_gap_control_pilot_en_es_v1:en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\", \"family_id\": \"en-es:full-family-repaired-full:adjoining:vecino\", \"slot_id\": \"en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe\", \"slot_type\": \"no_winner_context_probe\", \"source_phrase\": \"adjoining\", \"target_lemma\": \"\", \"items\": [{\"sentence\": \"The template heading \\\"Adjoining\\\" appears before the room list.\", \"no_winner_reason\": \"The source phrase is a UI heading, not sentence text needing replacement.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "type": "message"
+          }
+        ],
+        "status": "completed",
+        "usage": {
+          "input_tokens": 100,
+          "output_tokens": 80,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:vecino:no_winner_context_probe",
+      "slot_type": "no_winner_context_probe",
+      "status": "completed",
+      "temperature": 0.2,
+      "usage": {
+        "input_tokens": 100,
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2
+}

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from collections import OrderedDict
 from dataclasses import dataclass, field
 from typing import Callable, Iterable, Mapping, Optional, Protocol, Sequence
 
@@ -13,12 +12,15 @@ from lexishift_core.pos.normalization import (
     CANONICAL_POS_TAGS,
 )
 from lexishift_core.replacement.core import RuleMetadata, VocabRule
+from lexishift_core.rulegen.generation_selection import (
+    _limit_results_per_target_with_ranking,
+    _limit_rule_count_per_target_with_ranking,
+    limit_rule_generation_results as _limit_rule_generation_results,
+    resolve_reverse_hygiene_anchor_allowed_from_values as _resolve_reverse_hygiene_anchor_allowed_from_values,
+)
 from lexishift_core.rulegen.ranking import (
-    CandidateRankingContext,
     CandidateRankingMechanism,
     DictionaryEntryOrderRankingMechanism,
-    build_ranking_sort_key,
-    resolve_reverse_check_strength,
 )
 
 
@@ -71,17 +73,25 @@ class RuleScorer:
         self._weights = weights or RuleScoreWeights()
 
     def score(self, signals: RuleConfidenceSignals) -> float:
-        weights = self._weights
-        score = (
-            (signals.dict_priority * weights.dict_priority)
-            + (signals.frequency_weight * weights.frequency_weight)
-            + (signals.pos_match * weights.pos_match)
-            - (signals.variant_penalty * weights.variant_penalty)
-            - (signals.phrase_penalty * weights.phrase_penalty)
-        )
-        if signals.embedding_score is not None:
-            score += (signals.embedding_score - 0.5) * weights.embedding_weight
-        return _clamp(score)
+        return score_rule_confidence_signals(signals, weights=self._weights)
+
+
+def score_rule_confidence_signals(
+    signals: RuleConfidenceSignals,
+    *,
+    weights: Optional[RuleScoreWeights] = None,
+) -> float:
+    resolved_weights = weights or RuleScoreWeights()
+    score = (
+        (signals.dict_priority * resolved_weights.dict_priority)
+        + (signals.frequency_weight * resolved_weights.frequency_weight)
+        + (signals.pos_match * resolved_weights.pos_match)
+        - (signals.variant_penalty * resolved_weights.variant_penalty)
+        - (signals.phrase_penalty * resolved_weights.phrase_penalty)
+    )
+    if signals.embedding_score is not None:
+        score += (signals.embedding_score - 0.5) * resolved_weights.embedding_weight
+    return _clamp(score)
 
 
 class CandidateSource(Protocol):
@@ -144,11 +154,6 @@ DEFAULT_POS_COMPATIBILITY_CLASSES: Mapping[str, str] = {
     "punctuation": "punctuation",
 }
 
-REVERSE_HYGIENE_MIN_GROUP_COUNT = 3
-REVERSE_HYGIENE_STRONG_TOP_STRENGTH = 0.75
-REVERSE_HYGIENE_WEAK_GROUP_STRENGTH = 0.20
-REVERSE_HYGIENE_EXACT_HIT_MAX_TOTAL = 12
-
 
 class RuleGenerationPipeline:
     def __init__(
@@ -208,8 +213,9 @@ class RuleGenerationPipeline:
         if max_definitions is not None:
             max_definitions = int(max_definitions)
             if max_definitions > 0:
-                limited_results = self._limit_results_per_target(
+                limited_results = _limit_results_per_target_with_ranking(
                     limited_results,
+                    ranking_mechanism=self._ranking_mechanism,
                     max_definitions_per_target=max_definitions,
                     interleave_definition_groups=bool(config.interleave_definition_groups),
                     semantic_demotion_scale=semantic_demotion_scale,
@@ -218,8 +224,9 @@ class RuleGenerationPipeline:
         if max_rules is not None:
             max_rules = int(max_rules)
             if max_rules > 0:
-                limited_results = self._limit_rule_count_per_target(
+                limited_results = _limit_rule_count_per_target_with_ranking(
                     limited_results,
+                    ranking_mechanism=self._ranking_mechanism,
                     max_rules_per_target=max_rules,
                     semantic_demotion_scale=semantic_demotion_scale,
                 )
@@ -263,265 +270,97 @@ class RuleGenerationPipeline:
     def _to_rule(
         self, candidate: RuleCandidate, confidence: float, config: RuleGenerationConfig
     ) -> VocabRule:
-        word_package = normalize_word_package(
-            candidate.metadata.get("word_package"),
-            fallback_surface=candidate.replacement,
-            fallback_language_tag=resolve_language_tag_from_pair(candidate.language_pair),
-            fallback_provider=candidate.source_dict or "rulegen",
-        )
-        script_forms = _normalize_script_forms(candidate.metadata.get("script_forms"))
-        morphology = _normalize_morphology(candidate.metadata.get("morphology"))
-        pos = _normalize_pos_metadata(candidate.metadata.get("pos"))
-        if pos is None:
-            pos = _build_pos_metadata_from_flat(candidate.metadata)
-        if script_forms is None and word_package is not None:
-            script_forms = _normalize_script_forms(word_package.get("script_forms"))
-        metadata = RuleMetadata(
-            source=candidate.source_dict,
-            source_type=candidate.source_type,
-            language_pair=candidate.language_pair,
-            confidence=confidence,
-            script_forms=script_forms,
-            word_package=word_package,
-            morphology=morphology,
-            pos=pos,
-        )
-        tags = list(config.tags)
-        if candidate.source_type and candidate.source_type not in tags:
-            tags.append(candidate.source_type)
-        return VocabRule(
-            source_phrase=candidate.source_phrase,
-            replacement=candidate.replacement,
-            priority=config.base_priority,
-            case_policy=config.case_policy,
-            enabled=True,
-            tags=tuple(tags),
-            metadata=metadata,
-        )
+        return materialize_vocab_rule(candidate, confidence=confidence, config=config)
 
-    def _limit_results_per_target(
-        self,
-        results: Sequence[RuleGenerationResult],
-        *,
-        max_definitions_per_target: int,
-        interleave_definition_groups: bool,
-        semantic_demotion_scale: float,
-    ) -> list[RuleGenerationResult]:
-        grouped: OrderedDict[str, OrderedDict[str, list[RuleGenerationResult]]] = OrderedDict()
-        for result in results:
-            target_key = str(result.candidate.replacement or "").strip().lower()
-            context = self._to_ranking_context(
-                result,
-                semantic_demotion_scale=semantic_demotion_scale,
-            )
-            definition_key = self._ranking_mechanism.bucket_key(context)
-            target_groups = grouped.setdefault(target_key, OrderedDict())
-            target_groups.setdefault(definition_key, []).append(result)
 
-        limited: list[RuleGenerationResult] = []
-        for definition_groups in grouped.values():
-            ranked_definitions: Sequence[Sequence[RuleGenerationResult]] = sorted(
-                definition_groups.values(),
-                key=lambda group: self._definition_group_sort_key(
-                    group,
-                    semantic_demotion_scale=semantic_demotion_scale,
-                ),
-            )
-            ranked_definitions = self._apply_reverse_definition_hygiene(
-                ranked_definitions,
-                semantic_demotion_scale=semantic_demotion_scale,
-            )
-            selected_groups = [
-                sorted(
-                    definition_group,
-                    key=lambda result: self._ranking_sort_key(
-                        result,
-                        semantic_demotion_scale=semantic_demotion_scale,
-                    ),
-                )
-                for definition_group in ranked_definitions[:max_definitions_per_target]
-            ]
-            limited.extend(
-                self._flatten_definition_groups(
-                    selected_groups,
-                    interleave_groups=interleave_definition_groups,
-                )
-            )
-        return limited
+def materialize_vocab_rule(
+    candidate: RuleCandidate,
+    *,
+    confidence: float,
+    config: RuleGenerationConfig,
+) -> VocabRule:
+    word_package = normalize_word_package(
+        candidate.metadata.get("word_package"),
+        fallback_surface=candidate.replacement,
+        fallback_language_tag=resolve_language_tag_from_pair(candidate.language_pair),
+        fallback_provider=candidate.source_dict or "rulegen",
+    )
+    script_forms = _normalize_script_forms(candidate.metadata.get("script_forms"))
+    morphology = _normalize_morphology(candidate.metadata.get("morphology"))
+    pos = _normalize_pos_metadata(candidate.metadata.get("pos"))
+    if pos is None:
+        pos = _build_pos_metadata_from_flat(candidate.metadata)
+    if script_forms is None and word_package is not None:
+        script_forms = _normalize_script_forms(word_package.get("script_forms"))
+    rulegen = _normalize_rulegen_metadata(candidate.metadata)
+    metadata = RuleMetadata(
+        source=candidate.source_dict,
+        source_type=candidate.source_type,
+        language_pair=candidate.language_pair,
+        confidence=confidence,
+        script_forms=script_forms,
+        word_package=word_package,
+        morphology=morphology,
+        pos=pos,
+        rulegen=rulegen,
+    )
+    tags = list(config.tags)
+    if candidate.source_type and candidate.source_type not in tags:
+        tags.append(candidate.source_type)
+    return VocabRule(
+        source_phrase=candidate.source_phrase,
+        replacement=candidate.replacement,
+        priority=config.base_priority,
+        case_policy=config.case_policy,
+        enabled=True,
+        tags=tuple(tags),
+        metadata=metadata,
+    )
 
-    def _flatten_definition_groups(
-        self,
-        definition_groups: Sequence[Sequence[RuleGenerationResult]],
-        *,
-        interleave_groups: bool,
-    ) -> list[RuleGenerationResult]:
-        if not interleave_groups:
-            ordered_results: list[RuleGenerationResult] = []
-            for group in definition_groups:
-                ordered_results.extend(group)
-            return ordered_results
-        if not definition_groups:
-            return []
-        max_group_size = max(len(group) for group in definition_groups)
-        interleaved_results: list[RuleGenerationResult] = []
-        for item_index in range(max_group_size):
-            for group in definition_groups:
-                if item_index >= len(group):
-                    continue
-                interleaved_results.append(group[item_index])
-        return interleaved_results
 
-    def _apply_reverse_definition_hygiene(
-        self,
-        ranked_groups: Sequence[Sequence[RuleGenerationResult]],
-        *,
-        semantic_demotion_scale: float,
-    ) -> list[Sequence[RuleGenerationResult]]:
-        if len(ranked_groups) < REVERSE_HYGIENE_MIN_GROUP_COUNT:
-            return list(ranked_groups)
-        reverse_config = self._resolve_reverse_check_config()
-        if reverse_config is None or not bool(reverse_config.enabled):
-            return list(ranked_groups)
-        top_strength = self._definition_group_reverse_strength(
-            ranked_groups[0],
-            semantic_demotion_scale=semantic_demotion_scale,
-        )
-        if top_strength is None or top_strength < REVERSE_HYGIENE_STRONG_TOP_STRENGTH:
-            return list(ranked_groups)
-        if not self._definition_group_allows_reverse_hygiene_anchor(ranked_groups[0]):
-            return list(ranked_groups)
-        filtered: list[Sequence[RuleGenerationResult]] = [ranked_groups[0]]
-        for group in ranked_groups[1:]:
-            strength = self._definition_group_reverse_strength(
-                group,
-                semantic_demotion_scale=semantic_demotion_scale,
-            )
-            if strength is None:
-                filtered.append(group)
-                continue
-            if strength <= REVERSE_HYGIENE_WEAK_GROUP_STRENGTH:
-                continue
-            filtered.append(group)
-        return filtered
+def materialize_rule_generation_result(
+    candidate: RuleCandidate,
+    *,
+    confidence: float,
+    config: RuleGenerationConfig,
+) -> RuleGenerationResult:
+    return RuleGenerationResult(
+        candidate=candidate,
+        confidence=confidence,
+        rule=materialize_vocab_rule(candidate, confidence=confidence, config=config),
+    )
 
-    def _definition_group_sort_key(
-        self,
-        results: Sequence[RuleGenerationResult],
-        *,
-        semantic_demotion_scale: float,
-    ) -> tuple[float, float, str]:
-        best = min(
-            results,
-            key=lambda result: self._ranking_sort_key(
-                result,
-                semantic_demotion_scale=semantic_demotion_scale,
-            ),
-        )
-        return self._ranking_sort_key(
-            best,
-            semantic_demotion_scale=semantic_demotion_scale,
-        )
 
-    def _definition_group_reverse_strength(
-        self,
-        results: Sequence[RuleGenerationResult],
-        *,
-        semantic_demotion_scale: float,
-    ) -> Optional[float]:
-        reverse_config = self._resolve_reverse_check_config()
-        if reverse_config is None:
-            return None
-        best = min(
-            results,
-            key=lambda result: self._ranking_sort_key(
-                result,
-                semantic_demotion_scale=semantic_demotion_scale,
-            ),
-        )
-        context = self._to_ranking_context(
-            best,
-            semantic_demotion_scale=semantic_demotion_scale,
-        )
-        return resolve_reverse_check_strength(
-            context.metadata,
-            config=reverse_config,
-        )
+def limit_rule_generation_results(
+    results: Sequence[RuleGenerationResult],
+    *,
+    ranking_mechanism: CandidateRankingMechanism,
+    max_definitions_per_target: Optional[int] = None,
+    interleave_definition_groups: bool = False,
+    max_rules_per_target: Optional[int] = None,
+    semantic_demotion_scale: float = 1.0,
+) -> list[RuleGenerationResult]:
+    return _limit_rule_generation_results(
+        results,
+        ranking_mechanism=ranking_mechanism,
+        max_definitions_per_target=max_definitions_per_target,
+        interleave_definition_groups=interleave_definition_groups,
+        max_rules_per_target=max_rules_per_target,
+        semantic_demotion_scale=semantic_demotion_scale,
+    )
 
-    def _definition_group_allows_reverse_hygiene_anchor(
-        self,
-        results: Sequence[RuleGenerationResult],
-    ) -> bool:
-        if not results:
-            return False
-        metadata = results[0].candidate.metadata
-        if not isinstance(metadata, Mapping):
-            return True
-        if metadata.get("reverse_check_hit") is not True:
-            return True
-        rank = _extract_optional_non_negative_int(metadata.get("reverse_check_rank"))
-        if rank != 0:
-            return True
-        total = _extract_optional_non_negative_int(metadata.get("reverse_check_total"))
-        if total is None:
-            return True
-        return total <= REVERSE_HYGIENE_EXACT_HIT_MAX_TOTAL
 
-    def _ranking_sort_key(
-        self,
-        result: RuleGenerationResult,
-        *,
-        semantic_demotion_scale: float,
-    ) -> tuple[float, float, str]:
-        context = self._to_ranking_context(
-            result,
-            semantic_demotion_scale=semantic_demotion_scale,
-        )
-        score = self._ranking_mechanism.score(context)
-        return build_ranking_sort_key(context, score=score)
-
-    def _to_ranking_context(
-        self,
-        result: RuleGenerationResult,
-        *,
-        semantic_demotion_scale: float,
-    ) -> CandidateRankingContext:
-        return CandidateRankingContext(
-            source_phrase=result.candidate.source_phrase,
-            replacement=result.candidate.replacement,
-            metadata=result.candidate.metadata,
-            confidence=result.confidence,
-            semantic_demotion_scale=semantic_demotion_scale,
-        )
-
-    def _resolve_reverse_check_config(self):
-        mechanism = self._ranking_mechanism
-        if isinstance(mechanism, DictionaryEntryOrderRankingMechanism):
-            return mechanism.reverse_check
-        return None
-
-    def _limit_rule_count_per_target(
-        self,
-        results: Sequence[RuleGenerationResult],
-        *,
-        max_rules_per_target: int,
-        semantic_demotion_scale: float,
-    ) -> list[RuleGenerationResult]:
-        grouped: OrderedDict[str, list[RuleGenerationResult]] = OrderedDict()
-        for result in results:
-            target_key = str(result.candidate.replacement or "").strip().lower()
-            grouped.setdefault(target_key, []).append(result)
-
-        limited: list[RuleGenerationResult] = []
-        for group in grouped.values():
-            ranked = sorted(
-                group,
-                key=lambda result: self._ranking_sort_key(
-                    result,
-                    semantic_demotion_scale=semantic_demotion_scale,
-                ),
-            )
-            limited.extend(ranked[:max_rules_per_target])
-        return limited
+def resolve_reverse_hygiene_anchor_allowed_from_values(
+    *,
+    hit: object,
+    rank: Optional[int],
+    total: Optional[int],
+) -> bool:
+    return _resolve_reverse_hygiene_anchor_allowed_from_values(
+        hit=hit,
+        rank=rank,
+        total=total,
+    )
 
 
 @dataclass(frozen=True)
@@ -589,37 +428,37 @@ def score_candidate_pos_match(
     compatibility_classes: Optional[Mapping[str, str]] = None,
 ) -> float:
     metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
-    source = _extract_candidate_pos_canonical(
+    source = extract_candidate_pos_canonical(
         metadata,
         nested_key="source",
         flat_key="source_pos_canonical",
     )
-    target = _extract_candidate_pos_canonical(
+    target = extract_candidate_pos_canonical(
         metadata,
         nested_key="target",
         flat_key="target_pos_canonical",
     )
     if source and target:
-        return _score_canonical_pos_pair(
+        return score_canonical_pos_pair(
             source,
             target,
             exact_match_bonus=exact_match_bonus,
             compatible_match_bonus=compatible_match_bonus,
             compatibility_classes=compatibility_classes,
         )
-    dictionary = _extract_candidate_pos_canonical(
+    dictionary = extract_candidate_pos_canonical(
         metadata,
         nested_key="dictionary",
         flat_key="dictionary_pos_canonical",
     )
     if not dictionary:
-        dictionary = _extract_candidate_pos_canonical(
+        dictionary = extract_candidate_pos_canonical(
             metadata,
             nested_key="dictionary",
             flat_key="dict_entry_pos_canonical",
         )
     if dictionary and target:
-        return _score_canonical_pos_pair(
+        return score_canonical_pos_pair(
             dictionary,
             target,
             exact_match_bonus=exact_match_bonus,
@@ -627,6 +466,23 @@ def score_candidate_pos_match(
             compatibility_classes=compatibility_classes,
         )
     return 0.0
+
+
+def score_canonical_pos_pair(
+    left: str,
+    right: str,
+    *,
+    exact_match_bonus: float = DEFAULT_POS_EXACT_MATCH_BONUS,
+    compatible_match_bonus: float = DEFAULT_POS_COMPATIBLE_MATCH_BONUS,
+    compatibility_classes: Optional[Mapping[str, str]] = None,
+) -> float:
+    return _score_canonical_pos_pair(
+        left,
+        right,
+        exact_match_bonus=exact_match_bonus,
+        compatible_match_bonus=compatible_match_bonus,
+        compatibility_classes=compatibility_classes,
+    )
 
 
 @dataclass(frozen=True)
@@ -680,6 +536,55 @@ def _normalize_pos_metadata(value: object) -> Optional[dict[str, object]]:
         component = _normalize_pos_component(value.get(key))
         if component:
             normalized[key] = component
+    return normalized or None
+
+
+def _normalize_rulegen_metadata(value: object) -> Optional[dict[str, object]]:
+    if not isinstance(value, Mapping):
+        return None
+    normalized: dict[str, object] = {}
+    for key in (
+        "compiled_target_id",
+        "compiled_candidate_id",
+        "compiled_definition_bucket_id",
+        "compiled_source_dict_id",
+        "compiled_source_type_id",
+    ):
+        raw = value.get(key)
+        if isinstance(raw, bool):
+            continue
+        if isinstance(raw, int):
+            normalized[key] = int(raw)
+            continue
+        if isinstance(raw, str):
+            text = raw.strip()
+            if not text:
+                continue
+            try:
+                normalized[key] = int(text)
+            except ValueError:
+                continue
+    raw_family_marker_ids = value.get("compiled_family_marker_ids")
+    if isinstance(raw_family_marker_ids, Sequence) and not isinstance(
+        raw_family_marker_ids, (str, bytes)
+    ):
+        family_marker_ids: list[int] = []
+        for item in raw_family_marker_ids:
+            if isinstance(item, bool):
+                continue
+            if isinstance(item, int):
+                family_marker_ids.append(int(item))
+                continue
+            if isinstance(item, str):
+                text = item.strip()
+                if not text:
+                    continue
+                try:
+                    family_marker_ids.append(int(text))
+                except ValueError:
+                    continue
+        if family_marker_ids:
+            normalized["compiled_family_marker_ids"] = tuple(family_marker_ids)
     return normalized or None
 
 
@@ -744,7 +649,7 @@ def _build_flat_pos_component(
     return component or None
 
 
-def _extract_candidate_pos_canonical(
+def extract_candidate_pos_canonical(
     metadata: Mapping[str, object],
     *,
     nested_key: str,
@@ -758,6 +663,19 @@ def _extract_candidate_pos_canonical(
             if canonical:
                 return canonical
     return _normalize_canonical_pos(metadata.get(flat_key))
+
+
+def _extract_candidate_pos_canonical(
+    metadata: Mapping[str, object],
+    *,
+    nested_key: str,
+    flat_key: str,
+) -> str:
+    return extract_candidate_pos_canonical(
+        metadata,
+        nested_key=nested_key,
+        flat_key=flat_key,
+    )
 
 
 def _score_canonical_pos_pair(
@@ -799,23 +717,6 @@ def _normalize_semantic_demotion_scale(value: object) -> float:
         except ValueError:
             return 1.0
     return 1.0
-
-
-def _extract_optional_non_negative_int(value: object) -> Optional[int]:
-    if isinstance(value, bool):
-        return None
-    if isinstance(value, int):
-        return value if value >= 0 else None
-    if isinstance(value, str):
-        text = value.strip()
-        if not text:
-            return None
-        try:
-            parsed = int(text)
-        except ValueError:
-            return None
-        return parsed if parsed >= 0 else None
-    return None
 
 
 def _clamp(value: float, *, min_value: float = 0.0, max_value: float = 1.0) -> float:

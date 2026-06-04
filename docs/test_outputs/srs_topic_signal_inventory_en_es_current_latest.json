@@ -1,0 +1,2224 @@
+{
+  "audits": [
+    {
+      "channel_coverage": {
+        "entry_categories": {
+          "distinct_canonical_topic_count": 1678,
+          "profile_policy": "review_only_inventory_signal",
+          "row_count": 1110,
+          "row_share": 0.559476,
+          "sample_rows": [
+            {
+              "canonical": [
+                "cy:units_of_measure",
+                "pages_with_61_entries",
+                "pages_with_entries",
+                "rhymes:spanish_el",
+                "rhymes:spanish_el_1_syllable",
+                "spanish_1_syllable_words",
+                "spanish_2_letter_words",
+                "spanish_articles",
+                "spanish_contranyms",
+                "spanish_determiners",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas"
+              ],
+              "lemma": "el",
+              "raw": [
+                "cy:units_of_measure",
+                "pages_with_61_entries",
+                "pages_with_entries",
+                "rhymes:spanish_el",
+                "rhymes:spanish_el_1_syllable",
+                "spanish_1_syllable_words",
+                "spanish_2_letter_words",
+                "spanish_articles",
+                "spanish_contranyms",
+                "spanish_determiners",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas"
+              ]
+            },
+            {
+              "canonical": [
+                "pages_with_85_entries",
+                "pages_with_entries",
+                "rhymes:spanish_o",
+                "rhymes:spanish_o_1_syllable",
+                "rhymes:spanish_umeɾo",
+                "rhymes:spanish_umeɾo_3_syllables",
+                "spanish_1_syllable_words",
+                "spanish_3_syllable_words",
+                "spanish_adverbs",
+                "spanish_countable_nouns",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_interjections"
+              ],
+              "lemma": "no",
+              "raw": [
+                "pages_with_85_entries",
+                "pages_with_entries",
+                "rhymes:spanish_o",
+                "rhymes:spanish_o_1_syllable",
+                "rhymes:spanish_umeɾo",
+                "rhymes:spanish_umeɾo_3_syllables",
+                "spanish_1_syllable_words",
+                "spanish_3_syllable_words",
+                "spanish_adverbs",
+                "spanish_countable_nouns",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_interjections"
+              ]
+            },
+            {
+              "canonical": [
+                "es:arithmetic",
+                "pages_with_9_entries",
+                "pages_with_entries",
+                "rhymes:spanish_as",
+                "rhymes:spanish_as_1_syllable",
+                "spanish_1_syllable_words",
+                "spanish_adverbs",
+                "spanish_conjunctions",
+                "spanish_determiners",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_terms_derived_from_latin"
+              ],
+              "lemma": "más",
+              "raw": [
+                "es:arithmetic",
+                "pages_with_9_entries",
+                "pages_with_entries",
+                "rhymes:spanish_as",
+                "rhymes:spanish_as_1_syllable",
+                "spanish_1_syllable_words",
+                "spanish_adverbs",
+                "spanish_conjunctions",
+                "spanish_determiners",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_terms_derived_from_latin"
+              ]
+            },
+            {
+              "canonical": [
+                "pages_linking_to_anchors_not_found_in_appendix:glossary",
+                "pages_with_18_entries",
+                "pages_with_entries",
+                "requests_for_translations_of_yoruba_usage_examples",
+                "rhymes:spanish_ese",
+                "rhymes:spanish_ese_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_countable_nouns",
+                "spanish_determiners",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_feminine_nouns",
+                "spanish_interjections"
+              ],
+              "lemma": "ese",
+              "raw": [
+                "pages_linking_to_anchors_not_found_in_appendix:glossary",
+                "pages_with_18_entries",
+                "pages_with_entries",
+                "requests_for_translations_of_yoruba_usage_examples",
+                "rhymes:spanish_ese",
+                "rhymes:spanish_ese_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_countable_nouns",
+                "spanish_determiners",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_feminine_nouns",
+                "spanish_interjections"
+              ]
+            },
+            {
+              "canonical": [
+                "pages_with_21_entries",
+                "pages_with_entries",
+                "rhymes:spanish_entɾe",
+                "rhymes:spanish_entɾe_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_non_lemma_forms",
+                "spanish_prepositions",
+                "spanish_terms_derived_from_latin",
+                "spanish_terms_derived_from_proto_indo_european",
+                "spanish_terms_inherited_from_latin"
+              ],
+              "lemma": "entre",
+              "raw": [
+                "pages_with_21_entries",
+                "pages_with_entries",
+                "rhymes:spanish_entɾe",
+                "rhymes:spanish_entɾe_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_non_lemma_forms",
+                "spanish_prepositions",
+                "spanish_terms_derived_from_latin",
+                "spanish_terms_derived_from_proto_indo_european",
+                "spanish_terms_inherited_from_latin"
+              ]
+            },
+            {
+              "canonical": [
+                "pages_with_19_entries",
+                "pages_with_entries",
+                "rhymes:spanish_asta",
+                "rhymes:spanish_asta_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_adverbs",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_prepositions",
+                "spanish_terms_derived_from_arabic",
+                "spanish_terms_derived_from_latin",
+                "spanish_terms_derived_from_old_spanish"
+              ],
+              "lemma": "hasta",
+              "raw": [
+                "pages_with_19_entries",
+                "pages_with_entries",
+                "rhymes:spanish_asta",
+                "rhymes:spanish_asta_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_adverbs",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_prepositions",
+                "spanish_terms_derived_from_arabic",
+                "spanish_terms_derived_from_latin",
+                "spanish_terms_derived_from_old_spanish"
+              ]
+            },
+            {
+              "canonical": [
+                "pages_with_6_entries",
+                "pages_with_entries",
+                "rhymes:spanish_eɾ",
+                "rhymes:spanish_eɾ_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_countable_nouns",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_masculine_nouns",
+                "spanish_modal_verbs",
+                "spanish_nouns",
+                "spanish_reflexive_verbs"
+              ],
+              "lemma": "deber",
+              "raw": [
+                "pages_with_6_entries",
+                "pages_with_entries",
+                "rhymes:spanish_eɾ",
+                "rhymes:spanish_eɾ_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_countable_nouns",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_masculine_nouns",
+                "spanish_modal_verbs",
+                "spanish_nouns",
+                "spanish_reflexive_verbs"
+              ]
+            },
+            {
+              "canonical": [
+                "pages_with_4_entries",
+                "pages_with_entries",
+                "rhymes:spanish_es",
+                "rhymes:spanish_es_1_syllable",
+                "spanish_1_syllable_words",
+                "spanish_conjunctions",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_terms_derived_from_latin",
+                "spanish_terms_derived_from_vulgar_latin",
+                "spanish_terms_inherited_from_latin",
+                "spanish_terms_inherited_from_vulgar_latin"
+              ],
+              "lemma": "pues",
+              "raw": [
+                "pages_with_4_entries",
+                "pages_with_entries",
+                "rhymes:spanish_es",
+                "rhymes:spanish_es_1_syllable",
+                "spanish_1_syllable_words",
+                "spanish_conjunctions",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_terms_derived_from_latin",
+                "spanish_terms_derived_from_vulgar_latin",
+                "spanish_terms_inherited_from_latin",
+                "spanish_terms_inherited_from_vulgar_latin"
+              ]
+            },
+            {
+              "canonical": [
+                "pages_with_3_entries",
+                "pages_with_entries",
+                "rhymes:spanish_eɾ",
+                "rhymes:spanish_eɾ_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_irregular_verbs",
+                "spanish_lemmas",
+                "spanish_reflexive_verbs",
+                "spanish_terms_derived_from_latin",
+                "spanish_terms_derived_from_proto_italic",
+                "spanish_terms_inherited_from_latin"
+              ],
+              "lemma": "poner",
+              "raw": [
+                "pages_with_3_entries",
+                "pages_with_entries",
+                "rhymes:spanish_eɾ",
+                "rhymes:spanish_eɾ_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_irregular_verbs",
+                "spanish_lemmas",
+                "spanish_reflexive_verbs",
+                "spanish_terms_derived_from_latin",
+                "spanish_terms_derived_from_proto_italic",
+                "spanish_terms_inherited_from_latin"
+              ]
+            },
+            {
+              "canonical": [
+                "es:time",
+                "pages_with_7_entries",
+                "pages_with_entries",
+                "rhymes:spanish_iɡlo",
+                "rhymes:spanish_iɡlo_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_countable_nouns",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_masculine_nouns",
+                "spanish_nouns",
+                "spanish_terms_derived_from_latin"
+              ],
+              "lemma": "siglo",
+              "raw": [
+                "es:time",
+                "pages_with_7_entries",
+                "pages_with_entries",
+                "rhymes:spanish_iɡlo",
+                "rhymes:spanish_iɡlo_2_syllables",
+                "spanish_2_syllable_words",
+                "spanish_countable_nouns",
+                "spanish_entries_with_incorrect_language_header",
+                "spanish_lemmas",
+                "spanish_masculine_nouns",
+                "spanish_nouns",
+                "spanish_terms_derived_from_latin"
+              ]
+            }
+          ],
+          "top_canonical_topics": [
+            {
+              "count": 1110,
+              "topic": "pages_with_entries"
+            },
+            {
+              "count": 1095,
+              "topic": "spanish_entries_with_incorrect_language_header"
+            },
+            {
+              "count": 1095,
+              "topic": "spanish_lemmas"
+            },
+            {
+              "count": 1072,
+              "topic": "spanish_terms_with_ipa_pronunciation"
+            },
+            {
+              "count": 765,
+              "topic": "spanish_nouns"
+            },
+            {
+              "count": 757,
+              "topic": "spanish_countable_nouns"
+            },
+            {
+              "count": 556,
+              "topic": "spanish_masculine_nouns"
+            },
+            {
+              "count": 491,
+              "topic": "spanish_terms_derived_from_latin"
+            },
+            {
+              "count": 474,
+              "topic": "spanish_3_syllable_words"
+            },
+            {
+              "count": 383,
+              "topic": "spanish_adjectives"
+            },
+            {
+              "count": 311,
+              "topic": "spanish_terms_with_audio_pronunciation"
+            },
+            {
+              "count": 291,
+              "topic": "spanish_feminine_nouns"
+            },
+            {
+              "count": 280,
+              "topic": "pages_with_1_entry"
+            },
+            {
+              "count": 254,
+              "topic": "spanish_2_syllable_words"
+            },
+            {
+              "count": 247,
+              "topic": "spanish_non_lemma_forms"
+            },
+            {
+              "count": 240,
+              "topic": "spanish_4_syllable_words"
+            },
+            {
+              "count": 228,
+              "topic": "pages_with_2_entries"
+            },
+            {
+              "count": 185,
+              "topic": "spanish_verbs"
+            },
+            {
+              "count": 183,
+              "topic": "pages_with_3_entries"
+            },
+            {
+              "count": 157,
+              "topic": "spanish_terms_inherited_from_latin"
+            }
+          ]
+        },
+        "entry_tags": {
+          "distinct_canonical_topic_count": 0,
+          "profile_policy": "review_only_inventory_signal",
+          "row_count": 0,
+          "row_share": 0.0,
+          "sample_rows": [],
+          "top_canonical_topics": []
+        },
+        "sense_categories": {
+          "distinct_canonical_topic_count": 1326,
+          "profile_policy": "review_only_inventory_signal",
+          "row_count": 1395,
+          "row_share": 0.703125,
+          "sample_rows": [
+            {
+              "canonical": [
+                "requests_for_translations_of_spanish_quotations",
+                "spanish_terms_with_quotations",
+                "spanish_terms_with_usage_examples"
+              ],
+              "lemma": "el",
+              "raw": [
+                "requests_for_translations_of_spanish_quotations",
+                "spanish_terms_with_quotations",
+                "spanish_terms_with_usage_examples"
+              ]
+            },
+            {
+              "canonical": [
+                "es:mathematics",
+                "requests_for_translations_of_spanish_quotations",
+                "spanish_terms_with_collocations",
+                "spanish_terms_with_quotations",
+                "spanish_terms_with_usage_examples"
+              ],
+              "lemma": "más",
+              "raw": [
+                "es:mathematics",
+                "requests_for_translations_of_spanish_quotations",
+                "spanish_terms_with_collocations",
+                "spanish_terms_with_quotations",
+                "spanish_terms_with_usage_examples"
+              ]
+            },
+            {
+              "canonical": [
+                "es:latin_letter_names",
+                "mexican_spanish",
+                "spanish_informal_terms"
+              ],
+              "lemma": "ese",
+              "raw": [
+                "es:latin_letter_names",
+                "mexican_spanish",
+                "spanish_informal_terms"
+              ]
+            },
+            {
+              "canonical": [
+                "spanish_terms_with_uncommon_senses",
+                "spanish_terms_with_usage_examples"
+              ],
+              "lemma": "entre",
+              "raw": [
+                "spanish_terms_with_uncommon_senses",
+                "spanish_terms_with_usage_examples"
+              ]
+            },
+            {
+              "canonical": [
+                "requests_for_translations_of_spanish_quotations",
+                "spanish_terms_with_quotations",
+                "spanish_terms_with_usage_examples"
+              ],
+              "lemma": "hasta",
+              "raw": [
+                "requests_for_translations_of_spanish_quotations",
+                "spanish_terms_with_quotations",
+                "spanish_terms_with_usage_examples"
+              ]
+            },
+            {
+              "canonical": [
+                "spanish_auxiliary_verbs",
+                "spanish_reflexive_verbs",
+                "spanish_terms_with_usage_examples",
+                "spanish_transitive_verbs"
+              ],
+              "lemma": "deber",
+              "raw": [
+                "spanish_auxiliary_verbs",
+                "spanish_reflexive_verbs",
+                "spanish_terms_with_usage_examples",
+                "spanish_transitive_verbs"
+              ]
+            },
+            {
+              "canonical": [
+                "requests_for_translations_of_spanish_quotations",
+                "spanish_terms_with_quotations",
+                "spanish_terms_with_usage_examples"
+              ],
+              "lemma": "pues",
+              "raw": [
+                "requests_for_translations_of_spanish_quotations",
+                "spanish_terms_with_quotations",
+                "spanish_terms_with_usage_examples"
+              ]
+            },
+            {
+              "canonical": [
+                "es:electronics",
+                "peninsular_spanish",
+                "spanish_colloquialisms",
+                "spanish_reflexive_verbs",
+                "spanish_slang",
+                "spanish_terms_with_usage_examples",
+                "spanish_transitive_verbs"
+              ],
+              "lemma": "poner",
+              "raw": [
+                "es:electronics",
+                "peninsular_spanish",
+                "spanish_colloquialisms",
+                "spanish_reflexive_verbs",
+                "spanish_slang",
+                "spanish_terms_with_usage_examples",
+                "spanish_transitive_verbs"
+              ]
+            },
+            {
+              "canonical": [
+                "spanish_poetic_terms",
+                "spanish_terms_with_collocations"
+              ],
+              "lemma": "siglo",
+              "raw": [
+                "spanish_poetic_terms",
+                "spanish_terms_with_collocations"
+              ]
+            },
+            {
+              "canonical": [
+                "spanish_terms_with_collocations",
+                "spanish_terms_with_usage_examples"
+              ],
+              "lemma": "llamar",
+              "raw": [
+                "spanish_terms_with_collocations",
+                "spanish_terms_with_usage_examples"
+              ]
+            }
+          ],
+          "top_canonical_topics": [
+            {
+              "count": 833,
+              "topic": "pages_with_entries"
+            },
+            {
+              "count": 833,
+              "topic": "spanish_entries_with_incorrect_language_header"
+            },
+            {
+              "count": 832,
+              "topic": "spanish_lemmas"
+            },
+            {
+              "count": 764,
+              "topic": "spanish_terms_with_ipa_pronunciation"
+            },
+            {
+              "count": 407,
+              "topic": "spanish_nouns"
+            },
+            {
+              "count": 388,
+              "topic": "spanish_countable_nouns"
+            },
+            {
+              "count": 314,
+              "topic": "pages_with_1_entry"
+            },
+            {
+              "count": 289,
+              "topic": "spanish_terms_derived_from_latin"
+            },
+            {
+              "count": 267,
+              "topic": "spanish_terms_with_quotations"
+            },
+            {
+              "count": 253,
+              "topic": "spanish_4_syllable_words"
+            },
+            {
+              "count": 249,
+              "topic": "spanish_feminine_nouns"
+            },
+            {
+              "count": 240,
+              "topic": "spanish_3_syllable_words"
+            },
+            {
+              "count": 239,
+              "topic": "spanish_masculine_nouns"
+            },
+            {
+              "count": 196,
+              "topic": "requests_for_translations_of_spanish_quotations"
+            },
+            {
+              "count": 190,
+              "topic": "spanish_adjectives"
+            },
+            {
+              "count": 188,
+              "topic": "pages_with_2_entries"
+            },
+            {
+              "count": 151,
+              "topic": "spanish_terms_with_usage_examples"
+            },
+            {
+              "count": 148,
+              "topic": "spanish_transitive_verbs"
+            },
+            {
+              "count": 145,
+              "topic": "spanish_terms_with_audio_pronunciation"
+            },
+            {
+              "count": 126,
+              "topic": "spanish_verbs"
+            }
+          ]
+        },
+        "sense_tags": {
+          "distinct_canonical_topic_count": 113,
+          "profile_policy": "review_only_inventory_signal",
+          "row_count": 1526,
+          "row_share": 0.769153,
+          "sample_rows": [
+            {
+              "canonical": [
+                "masculine"
+              ],
+              "lemma": "no",
+              "raw": [
+                "masculine"
+              ]
+            },
+            {
+              "canonical": [
+                "with_definite_article"
+              ],
+              "lemma": "más",
+              "raw": [
+                "with_definite_article"
+              ]
+            },
+            {
+              "canonical": [
+                "demonstrative",
+                "feminine",
+                "informal",
+                "masculine",
+                "mexico",
+                "singular"
+              ],
+              "lemma": "ese",
+              "raw": [
+                "demonstrative",
+                "feminine",
+                "informal",
+                "masculine",
+                "mexico",
+                "singular"
+              ]
+            },
+            {
+              "canonical": [
+                "uncommon"
+              ],
+              "lemma": "entre",
+              "raw": [
+                "uncommon"
+              ]
+            },
+            {
+              "canonical": [
+                "auxiliary",
+                "emphatic",
+                "masculine",
+                "plural_normally",
+                "reflexive",
+                "transitive"
+              ],
+              "lemma": "deber",
+              "raw": [
+                "auxiliary",
+                "emphatic",
+                "masculine",
+                "plural_normally",
+                "reflexive",
+                "transitive"
+              ]
+            },
+            {
+              "canonical": [
+                "colloquial",
+                "reflexive",
+                "slang",
+                "spain",
+                "transitive"
+              ],
+              "lemma": "poner",
+              "raw": [
+                "colloquial",
+                "reflexive",
+                "slang",
+                "spain",
+                "transitive"
+              ]
+            },
+            {
+              "canonical": [
+                "masculine",
+                "poetic"
+              ],
+              "lemma": "siglo",
+              "raw": [
+                "masculine",
+                "poetic"
+              ]
+            },
+            {
+              "canonical": [
+                "pronominal"
+              ],
+              "lemma": "llamar",
+              "raw": [
+                "pronominal"
+              ]
+            },
+            {
+              "canonical": [
+                "feminine",
+                "in_plural",
+                "literary",
+                "masculine"
+              ],
+              "lemma": "mayor",
+              "raw": [
+                "feminine",
+                "in_plural",
+                "literary",
+                "masculine"
+              ]
+            },
+            {
+              "canonical": [
+                "feminine",
+                "masculine"
+              ],
+              "lemma": "nacional",
+              "raw": [
+                "feminine",
+                "masculine"
+              ]
+            }
+          ],
+          "top_canonical_topics": [
+            {
+              "count": 887,
+              "topic": "masculine"
+            },
+            {
+              "count": 667,
+              "topic": "feminine"
+            },
+            {
+              "count": 149,
+              "topic": "transitive"
+            },
+            {
+              "count": 95,
+              "topic": "by_personal_gender"
+            },
+            {
+              "count": 64,
+              "topic": "colloquial"
+            },
+            {
+              "count": 55,
+              "topic": "reflexive"
+            },
+            {
+              "count": 51,
+              "topic": "intransitive"
+            },
+            {
+              "count": 46,
+              "topic": "uncountable"
+            },
+            {
+              "count": 37,
+              "topic": "spain"
+            },
+            {
+              "count": 32,
+              "topic": "figuratively"
+            },
+            {
+              "count": 26,
+              "topic": "mexico"
+            },
+            {
+              "count": 23,
+              "topic": "latin_america"
+            },
+            {
+              "count": 21,
+              "topic": "in_plural"
+            },
+            {
+              "count": 20,
+              "topic": "slang"
+            },
+            {
+              "count": 17,
+              "topic": "historical"
+            },
+            {
+              "count": 16,
+              "topic": "el_salvador"
+            },
+            {
+              "count": 16,
+              "topic": "rioplatense"
+            },
+            {
+              "count": 15,
+              "topic": "peru"
+            },
+            {
+              "count": 15,
+              "topic": "chile"
+            },
+            {
+              "count": 14,
+              "topic": "pronominal"
+            }
+          ]
+        },
+        "sense_topics": {
+          "distinct_canonical_topic_count": 137,
+          "profile_policy": "trusted_profile_signal",
+          "row_count": 234,
+          "row_share": 0.117944,
+          "sample_rows": [
+            {
+              "canonical": [
+                "mathematics",
+                "sciences"
+              ],
+              "lemma": "más",
+              "raw": [
+                "mathematics",
+                "sciences"
+              ]
+            },
+            {
+              "canonical": [
+                "business",
+                "finance",
+                "electrical_engineering",
+                "electricity",
+                "electromagnetism",
+                "electronics",
+                "energy",
+                "engineering",
+                "natural_sciences",
+                "physical_sciences",
+                "physics"
+              ],
+              "lemma": "poner",
+              "raw": [
+                "business",
+                "electrical_engineering",
+                "electricity",
+                "electromagnetism",
+                "electronics",
+                "energy",
+                "engineering",
+                "finance",
+                "natural_sciences",
+                "physical_sciences",
+                "physics"
+              ]
+            },
+            {
+              "canonical": [
+                "entertainment",
+                "government",
+                "lifestyle",
+                "military",
+                "music",
+                "nautical",
+                "politics",
+                "transport",
+                "war"
+              ],
+              "lemma": "mayor",
+              "raw": [
+                "entertainment",
+                "government",
+                "lifestyle",
+                "military",
+                "music",
+                "nautical",
+                "politics",
+                "transport",
+                "war"
+              ]
+            },
+            {
+              "canonical": [
+                "education"
+              ],
+              "lemma": "hora",
+              "raw": [
+                "education"
+              ]
+            },
+            {
+              "canonical": [
+                "government",
+                "law"
+              ],
+              "lemma": "presentar",
+              "raw": [
+                "government",
+                "law"
+              ]
+            },
+            {
+              "canonical": [
+                "banking",
+                "finance",
+                "business",
+                "entertainment",
+                "lifestyle",
+                "music"
+              ],
+              "lemma": "movimiento",
+              "raw": [
+                "banking",
+                "business",
+                "entertainment",
+                "finance",
+                "lifestyle",
+                "music"
+              ]
+            },
+            {
+              "canonical": [
+                "anatomy",
+                "architecture",
+                "business",
+                "finance",
+                "electrical_engineering",
+                "electricity",
+                "electromagnetism",
+                "energy",
+                "engineering",
+                "medicine",
+                "natural_sciences",
+                "physical_sciences"
+              ],
+              "lemma": "luz",
+              "raw": [
+                "anatomy",
+                "architecture",
+                "business",
+                "electrical_engineering",
+                "electricity",
+                "electromagnetism",
+                "energy",
+                "engineering",
+                "finance",
+                "medicine",
+                "natural_sciences",
+                "physical_sciences"
+              ]
+            },
+            {
+              "canonical": [
+                "ball_games",
+                "games",
+                "sports",
+                "hobbies",
+                "lifestyle",
+                "soccer"
+              ],
+              "lemma": "sacar",
+              "raw": [
+                "ball_games",
+                "games",
+                "hobbies",
+                "lifestyle",
+                "soccer",
+                "sports"
+              ]
+            },
+            {
+              "canonical": [
+                "mathematics",
+                "sciences"
+              ],
+              "lemma": "área",
+              "raw": [
+                "mathematics",
+                "sciences"
+              ]
+            },
+            {
+              "canonical": [
+                "business",
+                "finance"
+              ],
+              "lemma": "capital",
+              "raw": [
+                "business",
+                "finance"
+              ]
+            }
+          ],
+          "top_canonical_topics": [
+            {
+              "count": 78,
+              "topic": "sciences"
+            },
+            {
+              "count": 69,
+              "topic": "lifestyle"
+            },
+            {
+              "count": 59,
+              "topic": "natural_sciences"
+            },
+            {
+              "count": 42,
+              "topic": "medicine"
+            },
+            {
+              "count": 41,
+              "topic": "hobbies"
+            },
+            {
+              "count": 34,
+              "topic": "physical_sciences"
+            },
+            {
+              "count": 33,
+              "topic": "sports"
+            },
+            {
+              "count": 24,
+              "topic": "finance"
+            },
+            {
+              "count": 24,
+              "topic": "government"
+            },
+            {
+              "count": 24,
+              "topic": "games"
+            },
+            {
+              "count": 23,
+              "topic": "business"
+            },
+            {
+              "count": 22,
+              "topic": "politics"
+            },
+            {
+              "count": 21,
+              "topic": "engineering"
+            },
+            {
+              "count": 20,
+              "topic": "mathematics"
+            },
+            {
+              "count": 20,
+              "topic": "entertainment"
+            },
+            {
+              "count": 20,
+              "topic": "anatomy"
+            },
+            {
+              "count": 17,
+              "topic": "human_sciences"
+            },
+            {
+              "count": 15,
+              "topic": "music"
+            },
+            {
+              "count": 15,
+              "topic": "law"
+            },
+            {
+              "count": 15,
+              "topic": "ball_games"
+            }
+          ]
+        }
+      },
+      "combined_coverage": {
+        "any_available_signal_row_count": 1890,
+        "any_available_signal_row_share": 0.952621,
+        "review_only_signal_row_count": 1890,
+        "review_only_signal_row_share": 0.952621,
+        "trusted_profile_row_count": 234,
+        "trusted_profile_row_share": 0.117944
+      },
+      "exists": true,
+      "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+      "label": "current_cde",
+      "product_topic_examples": [
+        {
+          "review_only_count": 0,
+          "topic": "medicine",
+          "trusted_count": 42
+        },
+        {
+          "review_only_count": 0,
+          "topic": "finance",
+          "trusted_count": 24
+        },
+        {
+          "review_only_count": 0,
+          "topic": "business",
+          "trusted_count": 23
+        },
+        {
+          "review_only_count": 0,
+          "topic": "sports",
+          "trusted_count": 33
+        },
+        {
+          "review_only_count": 0,
+          "topic": "games",
+          "trusted_count": 24
+        },
+        {
+          "review_only_count": 0,
+          "topic": "music",
+          "trusted_count": 15
+        },
+        {
+          "review_only_count": 0,
+          "topic": "literature",
+          "trusted_count": 3
+        },
+        {
+          "review_only_count": 0,
+          "topic": "psychology",
+          "trusted_count": 1
+        },
+        {
+          "review_only_count": 0,
+          "topic": "education",
+          "trusted_count": 2
+        },
+        {
+          "review_only_count": 0,
+          "topic": "law",
+          "trusted_count": 15
+        },
+        {
+          "review_only_count": 0,
+          "topic": "politics",
+          "trusted_count": 22
+        },
+        {
+          "review_only_count": 0,
+          "topic": "technology",
+          "trusted_count": 1
+        },
+        {
+          "review_only_count": 0,
+          "topic": "computing",
+          "trusted_count": 8
+        },
+        {
+          "review_only_count": 0,
+          "topic": "food",
+          "trusted_count": 2
+        }
+      ],
+      "row_count": 2000,
+      "top_available_review_topics": [
+        {
+          "count": 1943,
+          "topic": "pages_with_entries"
+        },
+        {
+          "count": 1928,
+          "topic": "spanish_entries_with_incorrect_language_header"
+        },
+        {
+          "count": 1927,
+          "topic": "spanish_lemmas"
+        },
+        {
+          "count": 1836,
+          "topic": "spanish_terms_with_ipa_pronunciation"
+        },
+        {
+          "count": 1172,
+          "topic": "spanish_nouns"
+        },
+        {
+          "count": 1145,
+          "topic": "spanish_countable_nouns"
+        },
+        {
+          "count": 887,
+          "topic": "masculine"
+        },
+        {
+          "count": 795,
+          "topic": "spanish_masculine_nouns"
+        },
+        {
+          "count": 780,
+          "topic": "spanish_terms_derived_from_latin"
+        },
+        {
+          "count": 714,
+          "topic": "spanish_3_syllable_words"
+        },
+        {
+          "count": 667,
+          "topic": "feminine"
+        },
+        {
+          "count": 594,
+          "topic": "pages_with_1_entry"
+        },
+        {
+          "count": 573,
+          "topic": "spanish_adjectives"
+        },
+        {
+          "count": 540,
+          "topic": "spanish_feminine_nouns"
+        },
+        {
+          "count": 493,
+          "topic": "spanish_4_syllable_words"
+        },
+        {
+          "count": 456,
+          "topic": "spanish_terms_with_audio_pronunciation"
+        },
+        {
+          "count": 416,
+          "topic": "pages_with_2_entries"
+        },
+        {
+          "count": 353,
+          "topic": "spanish_2_syllable_words"
+        },
+        {
+          "count": 311,
+          "topic": "spanish_verbs"
+        },
+        {
+          "count": 308,
+          "topic": "pages_with_3_entries"
+        },
+        {
+          "count": 273,
+          "topic": "spanish_terms_borrowed_from_latin"
+        },
+        {
+          "count": 267,
+          "topic": "spanish_terms_with_quotations"
+        },
+        {
+          "count": 248,
+          "topic": "spanish_non_lemma_forms"
+        },
+        {
+          "count": 247,
+          "topic": "rhymes:spanish_aɾ"
+        },
+        {
+          "count": 236,
+          "topic": "spanish_verbs_ending_in_ar"
+        },
+        {
+          "count": 208,
+          "topic": "spanish_5_syllable_words"
+        },
+        {
+          "count": 204,
+          "topic": "spanish_terms_inherited_from_latin"
+        },
+        {
+          "count": 197,
+          "topic": "pages_with_4_entries"
+        },
+        {
+          "count": 196,
+          "topic": "requests_for_translations_of_spanish_quotations"
+        },
+        {
+          "count": 193,
+          "topic": "spanish_epicene_adjectives"
+        }
+      ],
+      "top_trusted_topics": [
+        {
+          "count": 78,
+          "topic": "sciences"
+        },
+        {
+          "count": 69,
+          "topic": "lifestyle"
+        },
+        {
+          "count": 59,
+          "topic": "natural_sciences"
+        },
+        {
+          "count": 42,
+          "topic": "medicine"
+        },
+        {
+          "count": 41,
+          "topic": "hobbies"
+        },
+        {
+          "count": 34,
+          "topic": "physical_sciences"
+        },
+        {
+          "count": 33,
+          "topic": "sports"
+        },
+        {
+          "count": 24,
+          "topic": "finance"
+        },
+        {
+          "count": 24,
+          "topic": "government"
+        },
+        {
+          "count": 24,
+          "topic": "games"
+        },
+        {
+          "count": 23,
+          "topic": "business"
+        },
+        {
+          "count": 22,
+          "topic": "politics"
+        },
+        {
+          "count": 21,
+          "topic": "engineering"
+        },
+        {
+          "count": 20,
+          "topic": "mathematics"
+        },
+        {
+          "count": 20,
+          "topic": "entertainment"
+        },
+        {
+          "count": 20,
+          "topic": "anatomy"
+        },
+        {
+          "count": 17,
+          "topic": "human_sciences"
+        },
+        {
+          "count": 15,
+          "topic": "music"
+        },
+        {
+          "count": 15,
+          "topic": "law"
+        },
+        {
+          "count": 15,
+          "topic": "ball_games"
+        },
+        {
+          "count": 14,
+          "topic": "geography"
+        },
+        {
+          "count": 13,
+          "topic": "biology"
+        },
+        {
+          "count": 11,
+          "topic": "transport"
+        },
+        {
+          "count": 10,
+          "topic": "physics"
+        },
+        {
+          "count": 10,
+          "topic": "chemistry"
+        },
+        {
+          "count": 9,
+          "topic": "military"
+        },
+        {
+          "count": 9,
+          "topic": "nautical"
+        },
+        {
+          "count": 9,
+          "topic": "war"
+        },
+        {
+          "count": 9,
+          "topic": "media"
+        },
+        {
+          "count": 8,
+          "topic": "soccer"
+        }
+      ],
+      "unique_lemma_count": 1984
+    }
+  ],
+  "decision": "srs_topic_signal_inventory_completed",
+  "findings": [
+    {
+      "code": "kaikki_signal_source_available",
+      "level": "PASS",
+      "message": "Kaikki/Wiktionary signal DB exists."
+    },
+    {
+      "code": "trusted_topics_available:current_cde",
+      "level": "PASS",
+      "message": "Explicit sense-topic rows can enrich this candidate pack."
+    },
+    {
+      "code": "review_only_signals_expand_surface:current_cde",
+      "level": "PASS",
+      "message": "Tags/categories expose more candidate rows, but require mapping before use."
+    }
+  ],
+  "generated_at": "2026-05-16T19:37:11+00:00",
+  "inputs": {
+    "frequency_dbs": [
+      {
+        "label": "current_cde",
+        "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite"
+      }
+    ],
+    "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "top_n": 10000
+  },
+  "limitations": [
+    "This audit inventories available signals only; it does not create a normalized topic overlay.",
+    "Kaikki categories are broad and noisy, so they should not be promoted into profile topics without allowlist mapping and sample review.",
+    "SAT and TOEFL preferences need legally allowed exam-prep source data or an internally defined skill taxonomy before product use.",
+    "Counts depend on the installed local Kaikki/Wiktionary pack and should be refreshed when that resource changes."
+  ],
+  "methodology": {
+    "channel_policy": "sense_topics are treated as the first trusted profile-lift signal. tags and categories are inventoried because they are available, but remain review-only due to grammar, maintenance, region, register, and Wiktionary housekeeping noise.",
+    "helper_state_mutation": "none",
+    "overlay_write": "none",
+    "review_only_channels": [
+      "sense_tags",
+      "sense_categories",
+      "entry_tags",
+      "entry_categories"
+    ],
+    "runtime_policy_change": "none",
+    "trusted_profile_channels": [
+      "sense_topics"
+    ]
+  },
+  "planned_preferences": {
+    "exam_preference_policy": "SAT and TOEFL should be preference families only after a legal source decision identifies allowed vocabulary/skill data. They are not inferred from current Wiktionary topic labels.",
+    "exam_preferences_requiring_source_review": [
+      "sat",
+      "toefl"
+    ],
+    "product_topic_examples": [
+      "medicine",
+      "health",
+      "finance",
+      "business",
+      "sports",
+      "games",
+      "music",
+      "literature",
+      "psychology",
+      "education",
+      "law",
+      "politics",
+      "technology",
+      "computing",
+      "science",
+      "travel",
+      "food",
+      "emotions"
+    ]
+  },
+  "schema_version": 1,
+  "signal_index": {
+    "channel_lemma_counts": {
+      "entry_categories": 27754,
+      "entry_tags": 0,
+      "sense_categories": 91552,
+      "sense_tags": 84070,
+      "sense_topics": 10756
+    },
+    "channel_row_counts": {
+      "entry_categories": 365566,
+      "entry_tags": 0,
+      "sense_categories": 868568,
+      "sense_tags": 131680,
+      "sense_topics": 41241
+    },
+    "channel_top_canonical": {
+      "entry_categories": [
+        {
+          "count": 27754,
+          "topic": "pages_with_entries"
+        },
+        {
+          "count": 27263,
+          "topic": "spanish_entries_with_incorrect_language_header"
+        },
+        {
+          "count": 26962,
+          "topic": "spanish_lemmas"
+        },
+        {
+          "count": 22863,
+          "topic": "spanish_terms_with_ipa_pronunciation"
+        },
+        {
+          "count": 19125,
+          "topic": "spanish_nouns"
+        },
+        {
+          "count": 18580,
+          "topic": "spanish_countable_nouns"
+        },
+        {
+          "count": 14324,
+          "topic": "spanish_masculine_nouns"
+        },
+        {
+          "count": 13437,
+          "topic": "pages_with_1_entry"
+        },
+        {
+          "count": 10371,
+          "topic": "spanish_adjectives"
+        },
+        {
+          "count": 8470,
+          "topic": "spanish_3_syllable_words"
+        },
+        {
+          "count": 8446,
+          "topic": "spanish_feminine_nouns"
+        },
+        {
+          "count": 6312,
+          "topic": "spanish_4_syllable_words"
+        },
+        {
+          "count": 6132,
+          "topic": "spanish_non_lemma_forms"
+        },
+        {
+          "count": 6013,
+          "topic": "spanish_terms_derived_from_latin"
+        },
+        {
+          "count": 5216,
+          "topic": "pages_with_2_entries"
+        },
+        {
+          "count": 4524,
+          "topic": "spanish_2_syllable_words"
+        },
+        {
+          "count": 3348,
+          "topic": "spanish_terms_with_audio_pronunciation"
+        },
+        {
+          "count": 3329,
+          "topic": "spanish_verb_forms"
+        },
+        {
+          "count": 3254,
+          "topic": "spanish_verbs"
+        },
+        {
+          "count": 3196,
+          "topic": "spanish_epicene_adjectives"
+        }
+      ],
+      "entry_tags": [],
+      "sense_categories": [
+        {
+          "count": 76777,
+          "topic": "pages_with_entries"
+        },
+        {
+          "count": 76777,
+          "topic": "spanish_entries_with_incorrect_language_header"
+        },
+        {
+          "count": 75617,
+          "topic": "spanish_lemmas"
+        },
+        {
+          "count": 53007,
+          "topic": "pages_with_1_entry"
+        },
+        {
+          "count": 46176,
+          "topic": "spanish_terms_with_ipa_pronunciation"
+        },
+        {
+          "count": 43665,
+          "topic": "spanish_nouns"
+        },
+        {
+          "count": 39732,
+          "topic": "spanish_countable_nouns"
+        },
+        {
+          "count": 28928,
+          "topic": "spanish_masculine_nouns"
+        },
+        {
+          "count": 23085,
+          "topic": "spanish_feminine_nouns"
+        },
+        {
+          "count": 14468,
+          "topic": "spanish_multiword_terms"
+        },
+        {
+          "count": 13190,
+          "topic": "spanish_adjectives"
+        },
+        {
+          "count": 12602,
+          "topic": "pages_with_2_entries"
+        },
+        {
+          "count": 12275,
+          "topic": "spanish_4_syllable_words"
+        },
+        {
+          "count": 11336,
+          "topic": "spanish_3_syllable_words"
+        },
+        {
+          "count": 11192,
+          "topic": "spanish_terms_with_quotations"
+        },
+        {
+          "count": 9139,
+          "topic": "requests_for_translations_of_spanish_quotations"
+        },
+        {
+          "count": 8811,
+          "topic": "spanish_nouns_with_red_links_in_their_headword_lines"
+        },
+        {
+          "count": 6739,
+          "topic": "spanish_5_syllable_words"
+        },
+        {
+          "count": 6716,
+          "topic": "spanish_verbs"
+        },
+        {
+          "count": 6394,
+          "topic": "spanish_proper_nouns"
+        }
+      ],
+      "sense_tags": [
+        {
+          "count": 48105,
+          "topic": "masculine"
+        },
+        {
+          "count": 36775,
+          "topic": "feminine"
+        },
+        {
+          "count": 5780,
+          "topic": "by_personal_gender"
+        },
+        {
+          "count": 4389,
+          "topic": "uncountable"
+        },
+        {
+          "count": 3206,
+          "topic": "idiomatic"
+        },
+        {
+          "count": 3191,
+          "topic": "transitive"
+        },
+        {
+          "count": 2731,
+          "topic": "colloquial"
+        },
+        {
+          "count": 1505,
+          "topic": "mexico"
+        },
+        {
+          "count": 1231,
+          "topic": "relational"
+        },
+        {
+          "count": 1093,
+          "topic": "reflexive"
+        },
+        {
+          "count": 1015,
+          "topic": "spain"
+        },
+        {
+          "count": 960,
+          "topic": "el_salvador"
+        },
+        {
+          "count": 948,
+          "topic": "intransitive"
+        },
+        {
+          "count": 892,
+          "topic": "invariable"
+        },
+        {
+          "count": 846,
+          "topic": "latin_america"
+        },
+        {
+          "count": 741,
+          "topic": "chile"
+        },
+        {
+          "count": 720,
+          "topic": "slang"
+        },
+        {
+          "count": 713,
+          "topic": "historical"
+        },
+        {
+          "count": 673,
+          "topic": "obsolete"
+        },
+        {
+          "count": 663,
+          "topic": "plural"
+        }
+      ],
+      "sense_topics": [
+        {
+          "count": 3796,
+          "topic": "sciences"
+        },
+        {
+          "count": 3749,
+          "topic": "natural_sciences"
+        },
+        {
+          "count": 2417,
+          "topic": "physical_sciences"
+        },
+        {
+          "count": 2200,
+          "topic": "medicine"
+        },
+        {
+          "count": 2189,
+          "topic": "lifestyle"
+        },
+        {
+          "count": 1711,
+          "topic": "chemistry"
+        },
+        {
+          "count": 1436,
+          "topic": "biology"
+        },
+        {
+          "count": 1140,
+          "topic": "hobbies"
+        },
+        {
+          "count": 939,
+          "topic": "human_sciences"
+        },
+        {
+          "count": 921,
+          "topic": "sports"
+        },
+        {
+          "count": 732,
+          "topic": "anatomy"
+        },
+        {
+          "count": 692,
+          "topic": "mathematics"
+        },
+        {
+          "count": 669,
+          "topic": "organic_chemistry"
+        },
+        {
+          "count": 638,
+          "topic": "government"
+        },
+        {
+          "count": 621,
+          "topic": "politics"
+        },
+        {
+          "count": 612,
+          "topic": "entertainment"
+        },
+        {
+          "count": 549,
+          "topic": "games"
+        },
+        {
+          "count": 524,
+          "topic": "microbiology"
+        },
+        {
+          "count": 517,
+          "topic": "engineering"
+        },
+        {
+          "count": 493,
+          "topic": "biochemistry"
+        }
+      ]
+    },
+    "channel_top_raw": {
+      "entry_categories": [
+        {
+          "count": 27754,
+          "topic": "pages_with_entries"
+        },
+        {
+          "count": 27263,
+          "topic": "spanish_entries_with_incorrect_language_header"
+        },
+        {
+          "count": 26962,
+          "topic": "spanish_lemmas"
+        },
+        {
+          "count": 22863,
+          "topic": "spanish_terms_with_ipa_pronunciation"
+        },
+        {
+          "count": 19125,
+          "topic": "spanish_nouns"
+        },
+        {
+          "count": 18580,
+          "topic": "spanish_countable_nouns"
+        },
+        {
+          "count": 14324,
+          "topic": "spanish_masculine_nouns"
+        },
+        {
+          "count": 13437,
+          "topic": "pages_with_1_entry"
+        },
+        {
+          "count": 10371,
+          "topic": "spanish_adjectives"
+        },
+        {
+          "count": 8470,
+          "topic": "spanish_3_syllable_words"
+        },
+        {
+          "count": 8446,
+          "topic": "spanish_feminine_nouns"
+        },
+        {
+          "count": 6312,
+          "topic": "spanish_4_syllable_words"
+        },
+        {
+          "count": 6132,
+          "topic": "spanish_non_lemma_forms"
+        },
+        {
+          "count": 6013,
+          "topic": "spanish_terms_derived_from_latin"
+        },
+        {
+          "count": 5216,
+          "topic": "pages_with_2_entries"
+        },
+        {
+          "count": 4524,
+          "topic": "spanish_2_syllable_words"
+        },
+        {
+          "count": 3348,
+          "topic": "spanish_terms_with_audio_pronunciation"
+        },
+        {
+          "count": 3329,
+          "topic": "spanish_verb_forms"
+        },
+        {
+          "count": 3254,
+          "topic": "spanish_verbs"
+        },
+        {
+          "count": 3196,
+          "topic": "spanish_epicene_adjectives"
+        }
+      ],
+      "entry_tags": [],
+      "sense_categories": [
+        {
+          "count": 76777,
+          "topic": "pages_with_entries"
+        },
+        {
+          "count": 76777,
+          "topic": "spanish_entries_with_incorrect_language_header"
+        },
+        {
+          "count": 75617,
+          "topic": "spanish_lemmas"
+        },
+        {
+          "count": 53007,
+          "topic": "pages_with_1_entry"
+        },
+        {
+          "count": 46176,
+          "topic": "spanish_terms_with_ipa_pronunciation"
+        },
+        {
+          "count": 43665,
+          "topic": "spanish_nouns"
+        },
+        {
+          "count": 39732,
+          "topic": "spanish_countable_nouns"
+        },
+        {
+          "count": 28928,
+          "topic": "spanish_masculine_nouns"
+        },
+        {
+          "count": 23085,
+          "topic": "spanish_feminine_nouns"
+        },
+        {
+          "count": 14468,
+          "topic": "spanish_multiword_terms"
+        },
+        {
+          "count": 13190,
+          "topic": "spanish_adjectives"
+        },
+        {
+          "count": 12602,
+          "topic": "pages_with_2_entries"
+        },
+        {
+          "count": 12275,
+          "topic": "spanish_4_syllable_words"
+        },
+        {
+          "count": 11336,
+          "topic": "spanish_3_syllable_words"
+        },
+        {
+          "count": 11192,
+          "topic": "spanish_terms_with_quotations"
+        },
+        {
+          "count": 9139,
+          "topic": "requests_for_translations_of_spanish_quotations"
+        },
+        {
+          "count": 8811,
+          "topic": "spanish_nouns_with_red_links_in_their_headword_lines"
+        },
+        {
+          "count": 6739,
+          "topic": "spanish_5_syllable_words"
+        },
+        {
+          "count": 6716,
+          "topic": "spanish_verbs"
+        },
+        {
+          "count": 6394,
+          "topic": "spanish_proper_nouns"
+        }
+      ],
+      "sense_tags": [
+        {
+          "count": 48105,
+          "topic": "masculine"
+        },
+        {
+          "count": 36775,
+          "topic": "feminine"
+        },
+        {
+          "count": 5780,
+          "topic": "by_personal_gender"
+        },
+        {
+          "count": 4389,
+          "topic": "uncountable"
+        },
+        {
+          "count": 3206,
+          "topic": "idiomatic"
+        },
+        {
+          "count": 3191,
+          "topic": "transitive"
+        },
+        {
+          "count": 2731,
+          "topic": "colloquial"
+        },
+        {
+          "count": 1505,
+          "topic": "mexico"
+        },
+        {
+          "count": 1231,
+          "topic": "relational"
+        },
+        {
+          "count": 1093,
+          "topic": "reflexive"
+        },
+        {
+          "count": 1015,
+          "topic": "spain"
+        },
+        {
+          "count": 960,
+          "topic": "el_salvador"
+        },
+        {
+          "count": 948,
+          "topic": "intransitive"
+        },
+        {
+          "count": 892,
+          "topic": "invariable"
+        },
+        {
+          "count": 846,
+          "topic": "latin_america"
+        },
+        {
+          "count": 741,
+          "topic": "chile"
+        },
+        {
+          "count": 720,
+          "topic": "slang"
+        },
+        {
+          "count": 713,
+          "topic": "historical"
+        },
+        {
+          "count": 673,
+          "topic": "obsolete"
+        },
+        {
+          "count": 663,
+          "topic": "plural"
+        }
+      ],
+      "sense_topics": [
+        {
+          "count": 3796,
+          "topic": "sciences"
+        },
+        {
+          "count": 3749,
+          "topic": "natural_sciences"
+        },
+        {
+          "count": 2417,
+          "topic": "physical_sciences"
+        },
+        {
+          "count": 2200,
+          "topic": "medicine"
+        },
+        {
+          "count": 2189,
+          "topic": "lifestyle"
+        },
+        {
+          "count": 1711,
+          "topic": "chemistry"
+        },
+        {
+          "count": 1436,
+          "topic": "biology"
+        },
+        {
+          "count": 1140,
+          "topic": "hobbies"
+        },
+        {
+          "count": 939,
+          "topic": "human_sciences"
+        },
+        {
+          "count": 921,
+          "topic": "sports"
+        },
+        {
+          "count": 732,
+          "topic": "anatomy"
+        },
+        {
+          "count": 692,
+          "topic": "mathematics"
+        },
+        {
+          "count": 669,
+          "topic": "organic_chemistry"
+        },
+        {
+          "count": 638,
+          "topic": "government"
+        },
+        {
+          "count": 621,
+          "topic": "politics"
+        },
+        {
+          "count": 612,
+          "topic": "entertainment"
+        },
+        {
+          "count": 549,
+          "topic": "games"
+        },
+        {
+          "count": 524,
+          "topic": "microbiology"
+        },
+        {
+          "count": 517,
+          "topic": "engineering"
+        },
+        {
+          "count": 493,
+          "topic": "biochemistry"
+        }
+      ]
+    },
+    "exists": true,
+    "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite"
+  },
+  "status": "ok",
+  "summary": {
+    "candidate_pack_count": 1,
+    "finding_counts": {
+      "PASS": 3
+    },
+    "issues": [],
+    "warnings": []
+  }
+}

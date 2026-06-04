@@ -44,6 +44,9 @@
     const targetLanguageGearButton = elements.targetLanguageGearButton || null;
     const targetLanguagePrefsModalBackdrop = elements.targetLanguagePrefsModalBackdrop || null;
     const targetLanguagePrefsModalOkButton = elements.targetLanguagePrefsModalOkButton || null;
+    const updateSrsStorySummary = typeof ui.updateSrsStorySummary === "function"
+      ? () => ui.updateSrsStorySummary()
+      : (() => {});
 
     if (languageSelect) {
       languageSelect.addEventListener("change", () => {
@@ -60,9 +63,11 @@
     }
 
     applyTargetLanguagePrefsLocalization();
+    updateSrsStorySummary();
 
     if (sourceLanguageInput) {
       sourceLanguageInput.addEventListener("change", () => {
+        updateSrsStorySummary();
         Promise.resolve(saveLanguageSettings()).then(() => {
           if (targetLanguageModalController && typeof targetLanguageModalController.refreshModulePrefs === "function") {
             targetLanguageModalController.refreshModulePrefs();
@@ -79,6 +84,7 @@
           setTargetLanguagePrefsModalOpen(false);
         }
         updateTargetLanguagePrefsModalVisibility(nextTargetLanguage);
+        updateSrsStorySummary();
         Promise.resolve(saveLanguageSettings()).then(() => {
           if (targetLanguageModalController && typeof targetLanguageModalController.refreshModulePrefs === "function") {
             targetLanguageModalController.refreshModulePrefs();

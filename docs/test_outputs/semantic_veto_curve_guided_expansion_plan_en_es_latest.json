@@ -1,0 +1,2375 @@
+{
+  "authoring_guidance": {
+    "phrase_no_winner": "Write sentences where the source surface form appears, but the target replacement should not appear; include word-order, punctuation, short utterance, and idiom-like variants.",
+    "positive_active": "Write natural contexts where the replacement is correct, especially cases where current active evidence is weak, short, or near the threshold.",
+    "shadow_negative": "Write real alternate-sense contexts with a clearly better shadow meaning; avoid fake shadows that merely contain contrastive keywords."
+  },
+  "case_type_summary": [
+    {
+      "llm_discovery_rows": 134,
+      "locked_eval_rows": 67,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 37,
+      "mean_expansion_score": 0.681,
+      "p0_cells": 4,
+      "queued_cells": 11
+    },
+    {
+      "llm_discovery_rows": 72,
+      "locked_eval_rows": 36,
+      "manual_case_type": "positive_active",
+      "manual_discovery_rows": 21,
+      "mean_expansion_score": 0.6044,
+      "p0_cells": 1,
+      "queued_cells": 7
+    },
+    {
+      "llm_discovery_rows": 52,
+      "locked_eval_rows": 26,
+      "manual_case_type": "shadow_negative",
+      "manual_discovery_rows": 16,
+      "mean_expansion_score": 0.5823,
+      "p0_cells": 0,
+      "queued_cells": 6
+    }
+  ],
+  "curve_signal_summary": [
+    {
+      "best_discovery_spearman": 0.4524,
+      "best_locked_spearman": 0.6646,
+      "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+      "curve_shape": "broad_plateau",
+      "feature_ids": [
+        "rank_missing_rate",
+        "underfilled_rate"
+      ],
+      "gate_id": "phrase_no_winner",
+      "interpretation": "expand phrase/no-winner cells before reading the weight curve as stable",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+      "signal_strength": 0.4524,
+      "signal_type": "pairwise_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.4497,
+      "best_locked_spearman": 0.5583,
+      "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+      "curve_shape": "broad_plateau",
+      "feature_ids": [
+        "rank_risk",
+        "underfilled_rate"
+      ],
+      "gate_id": "phrase_no_winner",
+      "interpretation": "expand phrase/no-winner cells before reading the weight curve as stable",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+      "signal_strength": 0.4497,
+      "signal_type": "pairwise_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.4263,
+      "best_locked_spearman": 0.2638,
+      "curve_id": "shadow_negative.underfilled_rate_vs_near_tie_rate",
+      "curve_shape": "broad_plateau",
+      "feature_ids": [
+        "underfilled_rate",
+        "near_tie_rate"
+      ],
+      "gate_id": "shadow_negative",
+      "interpretation": "expand phrase/no-winner cells before reading the weight curve as stable",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.underfilled_rate_vs_near_tie_rate",
+      "signal_strength": 0.4263,
+      "signal_type": "pairwise_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.4246,
+      "best_locked_spearman": 0.6646,
+      "curve_id": "phrase_no_winner.underfilled_rate",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "underfilled_rate"
+      ],
+      "gate_id": "phrase_no_winner",
+      "interpretation": "expand phrase/no-winner cells before reading the weight curve as stable",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+      "signal_strength": 0.4246,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.4161,
+      "best_locked_spearman": 0.3754,
+      "curve_id": "phrase_no_winner.rank_risk_vs_rank_missing_rate",
+      "curve_shape": "broad_plateau",
+      "feature_ids": [
+        "rank_risk",
+        "rank_missing_rate"
+      ],
+      "gate_id": "phrase_no_winner",
+      "interpretation": "expand phrase/no-winner cells before reading the weight curve as stable",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_rank_missing_rate",
+      "signal_strength": 0.4161,
+      "signal_type": "pairwise_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.4145,
+      "best_locked_spearman": 0.2638,
+      "curve_id": "shadow_negative.near_tie_rate",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "near_tie_rate"
+      ],
+      "gate_id": "shadow_negative",
+      "interpretation": "add shadow-negative near-tie rows to measure alternate-sense competition",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate",
+      "signal_strength": 0.4145,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.4145,
+      "best_locked_spearman": 0.2638,
+      "curve_id": "shadow_negative.near_tie_rate_vs_active_low_rate",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "near_tie_rate",
+        "active_low_rate"
+      ],
+      "gate_id": "shadow_negative",
+      "interpretation": "add shadow-negative near-tie rows to measure alternate-sense competition",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate_vs_active_low_rate",
+      "signal_strength": 0.4145,
+      "signal_type": "pairwise_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.4097,
+      "best_locked_spearman": 0.5108,
+      "curve_id": "phrase_no_winner.rank_risk",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "rank_risk"
+      ],
+      "gate_id": "phrase_no_winner",
+      "interpretation": "expand phrase/no-winner cells before reading the weight curve as stable",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk",
+      "signal_strength": 0.4097,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.3952,
+      "best_locked_spearman": 0.3333,
+      "curve_id": "positive_active.active_low_rate_vs_rank_risk",
+      "curve_shape": "broad_plateau",
+      "feature_ids": [
+        "active_low_rate",
+        "rank_risk"
+      ],
+      "gate_id": "positive_active",
+      "interpretation": "add positive-active rows where active evidence is weak or near threshold",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_risk",
+      "signal_strength": 0.3952,
+      "signal_type": "pairwise_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.388,
+      "best_locked_spearman": 0.5461,
+      "curve_id": "positive_active.active_low_rate",
+      "curve_shape": "interior_peak",
+      "feature_ids": [
+        "active_low_rate"
+      ],
+      "gate_id": "positive_active",
+      "interpretation": "add positive-active rows where active evidence is weak or near threshold",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate",
+      "signal_strength": 0.388,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.3825,
+      "best_locked_spearman": 0.4811,
+      "curve_id": "positive_active.active_low_rate_vs_rank_missing_rate",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "active_low_rate",
+        "rank_missing_rate"
+      ],
+      "gate_id": "positive_active",
+      "interpretation": "separate missing-rank cells from ranked-frequency controls",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_missing_rate",
+      "signal_strength": 0.3825,
+      "signal_type": "pairwise_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.381,
+      "best_locked_spearman": 0.4356,
+      "curve_id": "phrase_no_winner.active_low_rate",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "active_low_rate"
+      ],
+      "gate_id": "phrase_no_winner",
+      "interpretation": "expand phrase/no-winner cells before reading the weight curve as stable",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.active_low_rate",
+      "signal_strength": 0.381,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.372,
+      "best_locked_spearman": 0.0798,
+      "curve_id": "positive_active.rank_missing_rate",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "rank_missing_rate"
+      ],
+      "gate_id": "positive_active",
+      "interpretation": "separate missing-rank cells from ranked-frequency controls",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.rank_missing_rate",
+      "signal_strength": 0.372,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.3174,
+      "best_locked_spearman": -0.2147,
+      "curve_id": "positive_active.rank_risk",
+      "curve_shape": "broad_plateau",
+      "feature_ids": [
+        "rank_risk"
+      ],
+      "gate_id": "positive_active",
+      "interpretation": "use as a cell-selection signal, not as a runtime coefficient",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.rank_risk",
+      "signal_strength": 0.3174,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.3169,
+      "best_locked_spearman": 0.4111,
+      "curve_id": "phrase_no_winner.rank_missing_rate",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "rank_missing_rate"
+      ],
+      "gate_id": "phrase_no_winner",
+      "interpretation": "expand phrase/no-winner cells before reading the weight curve as stable",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate",
+      "signal_strength": 0.3169,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.3081,
+      "best_locked_spearman": 0.2516,
+      "curve_id": "shadow_negative.sense_risk",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "sense_risk"
+      ],
+      "gate_id": "shadow_negative",
+      "interpretation": "use as a cell-selection signal, not as a runtime coefficient",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.sense_risk",
+      "signal_strength": 0.3081,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.3066,
+      "best_locked_spearman": 0.227,
+      "curve_id": "shadow_negative.active_low_rate",
+      "curve_shape": "edge_maximum",
+      "feature_ids": [
+        "active_low_rate"
+      ],
+      "gate_id": "shadow_negative",
+      "interpretation": "add positive-active rows where active evidence is weak or near threshold",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.active_low_rate",
+      "signal_strength": 0.3066,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    },
+    {
+      "best_discovery_spearman": 0.3005,
+      "best_locked_spearman": 0.2638,
+      "curve_id": "positive_active.near_tie_rate",
+      "curve_shape": "broad_plateau",
+      "feature_ids": [
+        "near_tie_rate"
+      ],
+      "gate_id": "positive_active",
+      "interpretation": "add shadow-negative near-tie rows to measure alternate-sense competition",
+      "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.near_tie_rate",
+      "signal_strength": 0.3005,
+      "signal_type": "feature_curve",
+      "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+    }
+  ],
+  "decision": "curve_guided_expansion_plan_established",
+  "expansion_queue": [
+    {
+      "case_rows": 1,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.9087,
+      "failure_count": 0,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.25,
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "limited",
+      "shape_data_help_priority": 1.0,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "help"
+      ],
+      "uncertainty_width": 0.7935
+    },
+    {
+      "case_rows": 2,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 0.8736,
+      "expansion_score": 0.7916,
+      "failure_count": 1,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "positive_active",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.5,
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "positive_active_low_score",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_valid_replacement_positive_context_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "limited",
+      "shape_data_help_priority": 0.7776,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.3952,
+          "best_locked_spearman": 0.3333,
+          "curve_id": "positive_active.active_low_rate_vs_rank_risk",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_risk"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_risk",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.388,
+          "best_locked_spearman": 0.5461,
+          "curve_id": "positive_active.active_low_rate",
+          "curve_shape": "interior_peak",
+          "feature_ids": [
+            "active_low_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.3825,
+          "best_locked_spearman": 0.4811,
+          "curve_id": "positive_active.active_low_rate_vs_rank_missing_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_missing_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_missing_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "help"
+      ],
+      "uncertainty_width": 0.8109
+    },
+    {
+      "case_rows": 1,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9",
+      "cell_split": "discovery",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.7687,
+      "failure_count": 0,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "medium_4_to_9",
+      "posterior_failure_rate": 0.25,
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.65,
+      "source_rank_bin": "1001-2000",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "particular"
+      ],
+      "uncertainty_width": 0.7935
+    },
+    {
+      "case_rows": 1,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "internal_locked_eval",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.7599,
+      "failure_count": 0,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.25,
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "limited",
+      "shape_data_help_priority": 0.6279,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "help"
+      ],
+      "uncertainty_width": 0.7935
+    },
+    {
+      "case_rows": 1,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9",
+      "cell_split": "discovery",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.7521,
+      "failure_count": 1,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 16,
+      "locked_eval_rows": 8,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 4,
+      "polysemy_band": "medium_4_to_9",
+      "posterior_failure_rate": 0.75,
+      "priority": "P0",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.5461,
+      "source_rank_bin": "1001-2000",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "particular"
+      ],
+      "uncertainty_width": 0.7935
+    },
+    {
+      "case_rows": 2,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=shadow_negative::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 0.9423,
+      "expansion_score": 0.7353,
+      "failure_count": 0,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "shadow_negative",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.1667,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "near_tie_shadow",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_real_alternate_sense_shadow_negative_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "limited",
+      "shape_data_help_priority": 0.7122,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4263,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "underfilled_rate",
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate_vs_active_low_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate",
+            "active_low_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate_vs_active_low_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "help"
+      ],
+      "uncertainty_width": 0.6576
+    },
+    {
+      "case_rows": 3,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.7111,
+      "failure_count": 1,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.375,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.5841,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "call",
+        "man",
+        "work"
+      ],
+      "uncertainty_width": 0.7309
+    },
+    {
+      "case_rows": 2,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "internal_locked_eval",
+      "curve_signal_strength": 0.8736,
+      "expansion_score": 0.6599,
+      "failure_count": 0,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "positive_active",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.1667,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_valid_replacement_positive_context_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "limited",
+      "shape_data_help_priority": 0.5666,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.3952,
+          "best_locked_spearman": 0.3333,
+          "curve_id": "positive_active.active_low_rate_vs_rank_risk",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_risk"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_risk",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.388,
+          "best_locked_spearman": 0.5461,
+          "curve_id": "positive_active.active_low_rate",
+          "curve_shape": "interior_peak",
+          "feature_ids": [
+            "active_low_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.3825,
+          "best_locked_spearman": 0.4811,
+          "curve_id": "positive_active.active_low_rate_vs_rank_missing_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_missing_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_missing_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "help"
+      ],
+      "uncertainty_width": 0.6576
+    },
+    {
+      "case_rows": 3,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.6547,
+      "failure_count": 0,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.125,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.5591,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "call",
+        "man",
+        "work"
+      ],
+      "uncertainty_width": 0.5615
+    },
+    {
+      "case_rows": 3,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.6466,
+      "failure_count": 2,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.625,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.3917,
+      "source_rank_bin": "1001-2000",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "deep",
+        "green",
+        "trade"
+      ],
+      "uncertainty_width": 0.7309
+    },
+    {
+      "case_rows": 2,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=shadow_negative::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "internal_locked_eval",
+      "curve_signal_strength": 0.9423,
+      "expansion_score": 0.6412,
+      "failure_count": 0,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "shadow_negative",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.1667,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_real_alternate_sense_shadow_negative_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "limited",
+      "shape_data_help_priority": 0.477,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4263,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "underfilled_rate",
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate_vs_active_low_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate",
+            "active_low_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate_vs_active_low_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "help"
+      ],
+      "uncertainty_width": 0.6576
+    },
+    {
+      "case_rows": 2,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=positive_active::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9",
+      "cell_split": "discovery",
+      "curve_signal_strength": 0.8736,
+      "expansion_score": 0.6143,
+      "failure_count": 2,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "positive_active",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "medium_4_to_9",
+      "posterior_failure_rate": 0.8333,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "positive_active_low_score",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_valid_replacement_positive_context_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.3692,
+      "source_rank_bin": "1001-2000",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.3952,
+          "best_locked_spearman": 0.3333,
+          "curve_id": "positive_active.active_low_rate_vs_rank_risk",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_risk"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_risk",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.388,
+          "best_locked_spearman": 0.5461,
+          "curve_id": "positive_active.active_low_rate",
+          "curve_shape": "interior_peak",
+          "feature_ids": [
+            "active_low_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.3825,
+          "best_locked_spearman": 0.4811,
+          "curve_id": "positive_active.active_low_rate_vs_rank_missing_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_missing_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_missing_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "particular"
+      ],
+      "uncertainty_width": 0.6576
+    },
+    {
+      "case_rows": 4,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_low_polysemy_control::manual_case_type=phrase_no_winner::shadow_contract=not_applicable::source_rank_bin=1-500::polysemy_band=low_1_to_3",
+      "cell_split": "internal_locked_eval",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.6111,
+      "failure_count": 0,
+      "heuristic_group": "core_low_polysemy_control",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "low_1_to_3",
+      "posterior_failure_rate": 0.1,
+      "priority": "P1",
+      "reasons": [
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "not_applicable",
+      "shape_data_help_priority": 0.5204,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "money",
+        "often",
+        "percent",
+        "yes"
+      ],
+      "uncertainty_width": 0.4899
+    },
+    {
+      "case_rows": 2,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=shadow_negative::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9",
+      "cell_split": "discovery",
+      "curve_signal_strength": 0.9423,
+      "expansion_score": 0.5983,
+      "failure_count": 0,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "shadow_negative",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "medium_4_to_9",
+      "posterior_failure_rate": 0.1667,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_real_alternate_sense_shadow_negative_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.3697,
+      "source_rank_bin": "1001-2000",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4263,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "underfilled_rate",
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate_vs_active_low_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate",
+            "active_low_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate_vs_active_low_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "particular"
+      ],
+      "uncertainty_width": 0.6576
+    },
+    {
+      "case_rows": 3,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.5916,
+      "failure_count": 3,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.875,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.3077,
+      "source_rank_bin": "1001-2000",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "deep",
+        "green",
+        "trade"
+      ],
+      "uncertainty_width": 0.5615
+    },
+    {
+      "case_rows": 2,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=positive_active::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9",
+      "cell_split": "internal_locked_eval",
+      "curve_signal_strength": 0.8736,
+      "expansion_score": 0.5726,
+      "failure_count": 0,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "positive_active",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "medium_4_to_9",
+      "posterior_failure_rate": 0.1667,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_valid_replacement_positive_context_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.3485,
+      "source_rank_bin": "1001-2000",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.3952,
+          "best_locked_spearman": 0.3333,
+          "curve_id": "positive_active.active_low_rate_vs_rank_risk",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_risk"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_risk",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.388,
+          "best_locked_spearman": 0.5461,
+          "curve_id": "positive_active.active_low_rate",
+          "curve_shape": "interior_peak",
+          "feature_ids": [
+            "active_low_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.3825,
+          "best_locked_spearman": 0.4811,
+          "curve_id": "positive_active.active_low_rate_vs_rank_missing_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_missing_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_missing_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "particular"
+      ],
+      "uncertainty_width": 0.6576
+    },
+    {
+      "case_rows": 2,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=shadow_negative::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9",
+      "cell_split": "discovery",
+      "curve_signal_strength": 0.9423,
+      "expansion_score": 0.567,
+      "failure_count": 0,
+      "heuristic_group": "mid_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "shadow_negative",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "medium_4_to_9",
+      "posterior_failure_rate": 0.1667,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_real_alternate_sense_shadow_negative_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.2915,
+      "source_rank_bin": "1001-2000",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4263,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "underfilled_rate",
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate_vs_active_low_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate",
+            "active_low_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate_vs_active_low_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "particular"
+      ],
+      "uncertainty_width": 0.6576
+    },
+    {
+      "case_rows": 4,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_low_polysemy_control::manual_case_type=phrase_no_winner::shadow_contract=not_applicable::source_rank_bin=1-500::polysemy_band=low_1_to_3",
+      "cell_split": "discovery",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.566,
+      "failure_count": 4,
+      "heuristic_group": "core_low_polysemy_control",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "low_1_to_3",
+      "posterior_failure_rate": 0.9,
+      "priority": "P1",
+      "reasons": [
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "not_applicable",
+      "shape_data_help_priority": 0.3075,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "money",
+        "often",
+        "percent",
+        "yes"
+      ],
+      "uncertainty_width": 0.4899
+    },
+    {
+      "case_rows": 6,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=full::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "internal_locked_eval",
+      "curve_signal_strength": 0.8736,
+      "expansion_score": 0.5589,
+      "failure_count": 5,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "positive_active",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.7857,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "positive_active_low_score",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell"
+      ],
+      "recommended_action": "add_valid_replacement_positive_context_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.4239,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.3952,
+          "best_locked_spearman": 0.3333,
+          "curve_id": "positive_active.active_low_rate_vs_rank_risk",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_risk"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_risk",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.388,
+          "best_locked_spearman": 0.5461,
+          "curve_id": "positive_active.active_low_rate",
+          "curve_shape": "interior_peak",
+          "feature_ids": [
+            "active_low_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.3825,
+          "best_locked_spearman": 0.4811,
+          "curve_id": "positive_active.active_low_rate_vs_rank_missing_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_missing_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_missing_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "call",
+        "man",
+        "work"
+      ],
+      "uncertainty_width": 0.5335
+    },
+    {
+      "case_rows": 6,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=full::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 0.8736,
+      "expansion_score": 0.5399,
+      "failure_count": 2,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "positive_active",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.3571,
+      "priority": "P1",
+      "reasons": [
+        "high_uncertainty",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell"
+      ],
+      "recommended_action": "add_valid_replacement_positive_context_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.395,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.3952,
+          "best_locked_spearman": 0.3333,
+          "curve_id": "positive_active.active_low_rate_vs_rank_risk",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_risk"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_risk",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.388,
+          "best_locked_spearman": 0.5461,
+          "curve_id": "positive_active.active_low_rate",
+          "curve_shape": "interior_peak",
+          "feature_ids": [
+            "active_low_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.3825,
+          "best_locked_spearman": 0.4811,
+          "curve_id": "positive_active.active_low_rate_vs_rank_missing_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_missing_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_missing_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "call",
+        "man",
+        "work"
+      ],
+      "uncertainty_width": 0.6032
+    },
+    {
+      "case_rows": 4,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_low_polysemy_control::manual_case_type=phrase_no_winner::shadow_contract=not_applicable::source_rank_bin=1001-2000::polysemy_band=low_1_to_3",
+      "cell_split": "discovery",
+      "curve_signal_strength": 1.0,
+      "expansion_score": 0.5205,
+      "failure_count": 0,
+      "heuristic_group": "mid_low_polysemy_control",
+      "llm_discovery_rows": 10,
+      "locked_eval_rows": 5,
+      "manual_case_type": "phrase_no_winner",
+      "manual_discovery_rows": 3,
+      "polysemy_band": "low_1_to_3",
+      "posterior_failure_rate": 0.1,
+      "priority": "P1",
+      "reasons": [
+        "phrase_no_winner_priority",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell",
+        "underfilled_cell"
+      ],
+      "recommended_action": "add_order_sensitive_phrase_no_winner_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "not_applicable",
+      "shape_data_help_priority": 0.2937,
+      "source_rank_bin": "1001-2000",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4524,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_missing_rate",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4497,
+          "best_locked_spearman": 0.5583,
+          "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "rank_risk",
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4246,
+          "best_locked_spearman": 0.6646,
+          "curve_id": "phrase_no_winner.underfilled_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "underfilled_rate"
+          ],
+          "gate_id": "phrase_no_winner",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "crisis",
+        "participant",
+        "senate",
+        "therefore"
+      ],
+      "uncertainty_width": 0.4899
+    },
+    {
+      "case_rows": 8,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_low_polysemy_control::manual_case_type=positive_active::shadow_contract=not_applicable::source_rank_bin=1-500::polysemy_band=low_1_to_3",
+      "cell_split": "discovery",
+      "curve_signal_strength": 0.8736,
+      "expansion_score": 0.4933,
+      "failure_count": 6,
+      "heuristic_group": "core_low_polysemy_control",
+      "llm_discovery_rows": 6,
+      "locked_eval_rows": 3,
+      "manual_case_type": "positive_active",
+      "manual_discovery_rows": 2,
+      "polysemy_band": "low_1_to_3",
+      "posterior_failure_rate": 0.7222,
+      "priority": "P2",
+      "reasons": [
+        "high_uncertainty",
+        "positive_active_low_score",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell"
+      ],
+      "recommended_action": "add_valid_replacement_positive_context_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "not_applicable",
+      "shape_data_help_priority": 0.3374,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.3952,
+          "best_locked_spearman": 0.3333,
+          "curve_id": "positive_active.active_low_rate_vs_rank_risk",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_risk"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_risk",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.388,
+          "best_locked_spearman": 0.5461,
+          "curve_id": "positive_active.active_low_rate",
+          "curve_shape": "interior_peak",
+          "feature_ids": [
+            "active_low_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.3825,
+          "best_locked_spearman": 0.4811,
+          "curve_id": "positive_active.active_low_rate_vs_rank_missing_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "active_low_rate",
+            "rank_missing_rate"
+          ],
+          "gate_id": "positive_active",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_missing_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "money",
+        "often",
+        "percent",
+        "yes"
+      ],
+      "uncertainty_width": 0.5193
+    },
+    {
+      "case_rows": 6,
+      "cell_id": "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=shadow_negative::shadow_contract=full::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 0.9423,
+      "expansion_score": 0.4926,
+      "failure_count": 1,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 6,
+      "locked_eval_rows": 3,
+      "manual_case_type": "shadow_negative",
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.2143,
+      "priority": "P2",
+      "reasons": [
+        "high_uncertainty",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell"
+      ],
+      "recommended_action": "add_real_alternate_sense_shadow_negative_rows",
+      "scorer_id": "sentence_transformer_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.2865,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4263,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "underfilled_rate",
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate_vs_active_low_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate",
+            "active_low_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate_vs_active_low_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "call",
+        "man",
+        "work"
+      ],
+      "uncertainty_width": 0.5335
+    },
+    {
+      "case_rows": 6,
+      "cell_id": "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=shadow_negative::shadow_contract=full::source_rank_bin=1-500::polysemy_band=high_10_plus",
+      "cell_split": "discovery",
+      "curve_signal_strength": 0.9423,
+      "expansion_score": 0.4594,
+      "failure_count": 0,
+      "heuristic_group": "core_high_polysemy",
+      "llm_discovery_rows": 6,
+      "locked_eval_rows": 3,
+      "manual_case_type": "shadow_negative",
+      "manual_discovery_rows": 2,
+      "polysemy_band": "high_10_plus",
+      "posterior_failure_rate": 0.0714,
+      "priority": "P2",
+      "reasons": [
+        "near_tie_shadow",
+        "strong_surface_curve_signal",
+        "top_shape_data_help_cell"
+      ],
+      "recommended_action": "add_real_alternate_sense_shadow_negative_rows",
+      "scorer_id": "tfidf_cosine",
+      "shadow_contract": "full",
+      "shape_data_help_priority": 0.2931,
+      "source_rank_bin": "1-500",
+      "surface_signals": [
+        {
+          "best_discovery_spearman": 0.4263,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "curve_shape": "broad_plateau",
+          "feature_ids": [
+            "underfilled_rate",
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.underfilled_rate_vs_near_tie_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate",
+          "signal_type": "feature_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        },
+        {
+          "best_discovery_spearman": 0.4145,
+          "best_locked_spearman": 0.2638,
+          "curve_id": "shadow_negative.near_tie_rate_vs_active_low_rate",
+          "curve_shape": "edge_maximum",
+          "feature_ids": [
+            "near_tie_rate",
+            "active_low_rate"
+          ],
+          "gate_id": "shadow_negative",
+          "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate_vs_active_low_rate",
+          "signal_type": "pairwise_curve",
+          "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+        }
+      ],
+      "triggers": [
+        "call",
+        "man",
+        "work"
+      ],
+      "uncertainty_width": 0.3903
+    }
+  ],
+  "generated_at": "2026-05-05T05:28:39Z",
+  "inputs": {
+    "shape_report_decision": "formula_shape_bakeoff_established",
+    "shape_report_path": "docs/test_outputs/semantic_veto_formula_shape_bakeoff_en_es_latest.json",
+    "surface_report_decision": "formula_weight_surface_established",
+    "surface_report_path": "docs/test_outputs/semantic_veto_formula_weight_surface_en_es_latest.json"
+  },
+  "limitations": [
+    "queue_is_based_on_current_draft_cells_not_representative_browsing",
+    "curve_signals_describe_where_scores_move_not_which_runtime_policy_to_promote",
+    "internal_locked_eval_split_is_advisory_until_more_cells_exist",
+    "recommended_llm_rows_still_need_contract_validation_before_locked_eval",
+    "sentinel_cells_are_not_used_for_primary_queue_selection"
+  ],
+  "methodology": {
+    "curve_signal_normalization": "divide by strongest positive surface signal in report",
+    "expansion_score_formula": "0.40*shape_data_help_priority + 0.25*curve_signal_strength + 0.20*uncertainty_width + 0.10*underfilled_rate + 0.05*posterior_failure_rate",
+    "objective": "Use observed formula-shape data-help priority plus weight-surface curve signals to choose cells that will reveal the shape of veto difficulty with the fewest manual and LLM rows.",
+    "priority_policy": "P0 >= 0.75, P1 >= 0.50, otherwise P2",
+    "runtime_policy_change": "none",
+    "selection_scope": "primary pre_outcome cells only",
+    "sentinel_policy": "excluded_from_queue_but_counted_in_summary",
+    "source_evidence_promotion": "none"
+  },
+  "next_steps": [
+    "Author P0 manual discovery rows first, then rerun difficulty surface and curve reports.",
+    "Generate P0 LLM rows only after manual rows confirm the cell contract is real.",
+    "Keep locked-eval rows separate from discovery rows before making any promotion claim.",
+    "Use the updated curve shape to decide whether the next expansion should target phrase, shadow, or positive-active cells."
+  ],
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "cell_count": 48,
+    "curve_signal_count": 37,
+    "issues": [],
+    "primary_cell_count": 42,
+    "priority_counts": {
+      "P0": 5,
+      "P1": 16,
+      "P2": 3
+    },
+    "queued_cell_count": 24,
+    "row_budget_totals": {
+      "llm_discovery_rows": 258,
+      "locked_eval_rows": 129,
+      "manual_discovery_rows": 74
+    },
+    "sentinel_cell_count": 6,
+    "strongest_curve_signals": [
+      {
+        "best_discovery_spearman": 0.4524,
+        "best_left_alpha": 0.2,
+        "best_locked_spearman": 0.6646,
+        "curve_id": "phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+        "curve_shape": "broad_plateau",
+        "feature_ids": [
+          "rank_missing_rate",
+          "underfilled_rate"
+        ],
+        "gate_id": "phrase_no_winner",
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_missing_rate_vs_underfilled_rate",
+        "signal_strength": 0.4524,
+        "signal_type": "pairwise_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_discovery_spearman": 0.4497,
+        "best_left_alpha": 0.3,
+        "best_locked_spearman": 0.5583,
+        "curve_id": "phrase_no_winner.rank_risk_vs_underfilled_rate",
+        "curve_shape": "broad_plateau",
+        "feature_ids": [
+          "rank_risk",
+          "underfilled_rate"
+        ],
+        "gate_id": "phrase_no_winner",
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_underfilled_rate",
+        "signal_strength": 0.4497,
+        "signal_type": "pairwise_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_discovery_spearman": 0.4263,
+        "best_left_alpha": 0.1,
+        "best_locked_spearman": 0.2638,
+        "curve_id": "shadow_negative.underfilled_rate_vs_near_tie_rate",
+        "curve_shape": "broad_plateau",
+        "feature_ids": [
+          "underfilled_rate",
+          "near_tie_rate"
+        ],
+        "gate_id": "shadow_negative",
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.underfilled_rate_vs_near_tie_rate",
+        "signal_strength": 0.4263,
+        "signal_type": "pairwise_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_alpha": 1.0,
+        "best_discovery_spearman": 0.4246,
+        "best_locked_spearman": 0.6646,
+        "curve_id": "phrase_no_winner.underfilled_rate",
+        "curve_shape": "edge_maximum",
+        "feature_ids": [
+          "underfilled_rate"
+        ],
+        "gate_id": "phrase_no_winner",
+        "selected_alpha": 0.1906,
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.underfilled_rate",
+        "signal_strength": 0.4246,
+        "signal_type": "feature_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_discovery_spearman": 0.4161,
+        "best_left_alpha": 0.9,
+        "best_locked_spearman": 0.3754,
+        "curve_id": "phrase_no_winner.rank_risk_vs_rank_missing_rate",
+        "curve_shape": "broad_plateau",
+        "feature_ids": [
+          "rank_risk",
+          "rank_missing_rate"
+        ],
+        "gate_id": "phrase_no_winner",
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk_vs_rank_missing_rate",
+        "signal_strength": 0.4161,
+        "signal_type": "pairwise_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_alpha": 1.0,
+        "best_discovery_spearman": 0.4145,
+        "best_locked_spearman": 0.2638,
+        "curve_id": "shadow_negative.near_tie_rate",
+        "curve_shape": "edge_maximum",
+        "feature_ids": [
+          "near_tie_rate"
+        ],
+        "gate_id": "shadow_negative",
+        "selected_alpha": 0.2764,
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate",
+        "signal_strength": 0.4145,
+        "signal_type": "feature_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_discovery_spearman": 0.4145,
+        "best_left_alpha": 1.0,
+        "best_locked_spearman": 0.2638,
+        "curve_id": "shadow_negative.near_tie_rate_vs_active_low_rate",
+        "curve_shape": "edge_maximum",
+        "feature_ids": [
+          "near_tie_rate",
+          "active_low_rate"
+        ],
+        "gate_id": "shadow_negative",
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::shadow_negative.near_tie_rate_vs_active_low_rate",
+        "signal_strength": 0.4145,
+        "signal_type": "pairwise_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_alpha": 1.0,
+        "best_discovery_spearman": 0.4097,
+        "best_locked_spearman": 0.5108,
+        "curve_id": "phrase_no_winner.rank_risk",
+        "curve_shape": "edge_maximum",
+        "feature_ids": [
+          "rank_risk"
+        ],
+        "gate_id": "phrase_no_winner",
+        "selected_alpha": 0.3046,
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.rank_risk",
+        "signal_strength": 0.4097,
+        "signal_type": "feature_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_discovery_spearman": 0.3952,
+        "best_left_alpha": 0.8,
+        "best_locked_spearman": 0.3333,
+        "curve_id": "positive_active.active_low_rate_vs_rank_risk",
+        "curve_shape": "broad_plateau",
+        "feature_ids": [
+          "active_low_rate",
+          "rank_risk"
+        ],
+        "gate_id": "positive_active",
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_risk",
+        "signal_strength": 0.3952,
+        "signal_type": "pairwise_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_alpha": 0.9,
+        "best_discovery_spearman": 0.388,
+        "best_locked_spearman": 0.5461,
+        "curve_id": "positive_active.active_low_rate",
+        "curve_shape": "interior_peak",
+        "feature_ids": [
+          "active_low_rate"
+        ],
+        "gate_id": "positive_active",
+        "selected_alpha": 0.3692,
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate",
+        "signal_strength": 0.388,
+        "signal_type": "feature_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_discovery_spearman": 0.3825,
+        "best_left_alpha": 1.0,
+        "best_locked_spearman": 0.4811,
+        "curve_id": "positive_active.active_low_rate_vs_rank_missing_rate",
+        "curve_shape": "edge_maximum",
+        "feature_ids": [
+          "active_low_rate",
+          "rank_missing_rate"
+        ],
+        "gate_id": "positive_active",
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::positive_active.active_low_rate_vs_rank_missing_rate",
+        "signal_strength": 0.3825,
+        "signal_type": "pairwise_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      },
+      {
+        "best_alpha": 0.0,
+        "best_discovery_spearman": 0.381,
+        "best_locked_spearman": 0.4356,
+        "curve_id": "phrase_no_winner.active_low_rate",
+        "curve_shape": "edge_maximum",
+        "feature_ids": [
+          "active_low_rate"
+        ],
+        "gate_id": "phrase_no_winner",
+        "selected_alpha": 0.1344,
+        "signal_id": "gated_phrase_shadow_positive_weight_sweep::phrase_no_winner.active_low_rate",
+        "signal_strength": 0.381,
+        "signal_type": "feature_curve",
+        "sweep_id": "gated_phrase_shadow_positive_weight_sweep"
+      }
+    ]
+  }
+}

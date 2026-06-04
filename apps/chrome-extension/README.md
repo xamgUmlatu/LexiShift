@@ -43,10 +43,10 @@ Purpose:
   - Longest-match phrase replacement with highlight and click-to-toggle behavior.
   - Supports morphology-aware display surfaces via rule metadata (`metadata.morphology.target_surface`) while keeping canonical replacement lemma identity for SRS keys.
   - Runtime replacement controls:
-    - `maxOnePerTextBlock`
-    - `allowAdjacentReplacements`
-    - `maxReplacementsPerPage`
-    - `maxReplacementsPerLemmaPerPage`
+    - `maxOnePerTextBlock` (standard default: `false`)
+    - `allowAdjacentReplacements` (standard default: `false`)
+    - `maxReplacementsPerPage` (standard default: `20`; `0` = unlimited)
+    - `maxReplacementsPerLemmaPerPage` (standard default: `2`; `0` = unlimited)
   - Works on all matching frames/pages and skips editable inputs/contenteditable areas.
 
 - Rule source model
@@ -70,7 +70,9 @@ Purpose:
   - During rollout, the legacy Share Code card remains visible and unchanged as fallback.
   - Compatibility targets map to existing scopes:
     - `Profile settings` -> `srs`
+      - export modal copy now calls this out as the existing SRS settings format
     - `Full profile` -> `profile`
+      - export modal copy now calls this out as the existing profile share format
   - New share envelope v2 currently adds one payload:
     - `scope: "ruleset"` for individual manual ruleset export/import.
   - Potential future enhancement:

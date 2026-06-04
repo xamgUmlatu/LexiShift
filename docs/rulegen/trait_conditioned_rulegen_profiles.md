@@ -3,8 +3,8 @@
 Status: active proposal
 Role: Planning / WIP
 Purpose: Define a data-driven path for choosing rulegen scoring/filtering profiles from runtime-computable word traits instead of relying on one global parameter setting or human-tagged case labels.
-Last updated: 2026-03-26
-Last verified: 2026-03-26
+Last updated: 2026-04-11
+Last verified: 2026-04-11 planning review against current semantic-shadow and benchmark metadata surfaces
 Source-of-truth: planning doc only; current executable truth still lives in code, benchmark artifacts, and the feature-state ledger.
 
 ## Motivation
@@ -205,6 +205,128 @@ The first use of this system should be:
 
 - offline analysis and experiment design,
 - not immediate runtime routing.
+
+## Automatic Feature Checklist
+
+Rule:
+
+- any feature we eventually use for runtime routing or profile selection must be derivable automatically for arbitrary targets
+- precomputation is allowed
+- benchmark-only human labels may still exist for diagnosis, but they must not become routing inputs
+
+### A. Analysis-only labels
+
+These are useful for slicing benchmark results and understanding failures.
+They are not valid future routing inputs unless we later discover an automatic derivation path.
+
+- [x] benchmark `tier`
+- [x] benchmark expectation labels such as `expected_top1_any` vs `expected_any`
+- [x] semantic-shadow slice labels already used in reports:
+  - `semantic_family`
+  - `trigger_shape`
+  - `overlap_topology`
+  - `reviewed_expectation`
+- [ ] broader human labels such as:
+  - `ambiguity_kind`
+  - `domain`
+  - `english_trigger_profile`
+  - `shadow_requirement`
+
+Implementation status:
+
+- current benchmark files can carry manual `slice_tags` and `slice_dimensions`
+- current semantic-shadow reports already aggregate several benchmark-only slice dimensions
+- no benchmark-only human label is allowed to become a future runtime routing dependency by default
+
+### B. Production-eligible automatic features already implemented somewhere
+
+These are automatic or precomputable today, but they do not yet live in one shared canonical feature-vector surface.
+
+- [x] active-side support
+- [x] active-profile fallback support
+- [x] same-POS support and cross-POS mismatch penalty
+- [x] source convergence via `multi_source_candidate_support`
+- [x] semantic-bridge support and bridge score
+- [x] forward-neighborhood overlap score
+- [x] target-frequency metadata as an optional research signal
+- [x] target-vs-active frequency-similarity score as an optional research signal
+- [x] failure-stage classification in semantic-shadow evaluation:
+  - `seed_missing`
+  - `candidate_missing`
+  - `promotion_miss`
+
+Current limitation:
+
+- these features exist as scoring fields, diagnostics fields, or optional experiment knobs
+- they are not yet emitted as one shared per-case `feature_vector`
+- runtime and benchmark still do not consume them through one common extractor
+
+### C. Production-eligible automatic features not yet implemented
+
+These are the next feature families worth adding because they are both useful and operationally honest.
+
+#### Target lexical structure
+
+- [ ] target POS inventory size
+- [ ] target sense count
+- [ ] target gloss count
+- [ ] target qualifier density
+- [ ] target domain-tag density
+- [ ] target multiword / orthography profile
+
+#### Trigger-family structure
+
+- [ ] mined trigger-family size
+- [ ] mined trigger-family alias entropy
+- [ ] shared-trigger degree across targets
+- [ ] borrowed-seed ratio
+- [ ] seed-source mix
+
+#### Candidate-pool structure
+
+- [x] active candidate count as a first-class emitted feature
+- [x] candidate-pool size
+- [x] promoted-candidate count
+- [x] candidate source-family histogram
+- [x] candidate POS distribution
+- [ ] support-score variance
+- [ ] top1-vs-top2 support margin
+
+#### Stronger discriminative signals
+
+- [ ] non-current-trigger alias hit count
+- [ ] trigger-family reentry score
+- [ ] family-diversity support score
+
+### D. Infrastructure still missing
+
+These are the pieces required before any serious trait-conditioned learning or profile routing can be trusted.
+
+- [x] shared feature extractor module used by semantic-shadow benchmark analysis and future production paths
+- [x] canonical per-case `feature_vector` schema
+- [x] semantic-shadow experiment outputs that emit the feature vector per case
+- [x] matrix and compare reports that aggregate by automatic feature buckets
+- [ ] profile bank built on top of automatic features rather than benchmark-only labels
+- [ ] simple interpretable selector over named profiles
+
+Current implementation note:
+
+- the canonical semantic-shadow feature surface now lives in `core/lexishift_core/rulegen/semantic_shadow_feature_vector.py`
+- veto row results emit both raw `feature_vector` and bucketed `feature_dimensions`
+- automatic feature buckets now flow into the existing veto `slice_summaries`, so compare and matrix artifacts can aggregate them without a second reporting stack
+
+### E. Current recommendation
+
+Do not expand benchmark JSON with many new manual tags first.
+
+Prefer this order:
+
+1. keep a small amount of human slice metadata for diagnosis
+2. implement a shared automatic feature extractor
+3. emit a canonical `feature_vector` artifact in semantic-shadow experiments
+4. use those automatic features for sweeps, aggregation, and future routing
+
+That keeps the benchmark useful without teaching the production system to depend on non-runtime information.
 
 ## Router Design
 

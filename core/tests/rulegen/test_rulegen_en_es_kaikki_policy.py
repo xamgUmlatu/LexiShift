@@ -30,7 +30,7 @@ class TestRulegenEnEsKaikkiPolicy(unittest.TestCase):
         return generate_en_es_results(
             [target],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={target: records},
                 reverse_gloss_records_by_source=reverse_records,
                 source_dict_id="wiktionary_es_en",

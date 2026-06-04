@@ -1,0 +1,3109 @@
+{
+  "schema_version": 1,
+  "status": "review",
+  "decision": "semantic_gaps_remain",
+  "generated_at": "2026-04-29T00:19:52Z",
+  "pair": "en-es",
+  "summary": {
+    "variant_count": 12,
+    "requested_pool_size": 64,
+    "selection_size": 16,
+    "best_variant_id": "min0p12-definition_and_example-rows2",
+    "best_semantic_contract_complete_family_count": 6,
+    "best_final_admitted_row_count": 19,
+    "best_phrase_contract_complete_family_count": 0,
+    "best_admission_selected_family_count": 6,
+    "admission_selected_family_count": 6,
+    "selection_strategy": "single_variant",
+    "portfolio_semantic_complete_family_count": 6,
+    "portfolio_admission_selected_family_count": 6,
+    "family_pos_strategy": "any_cross_pos",
+    "translation_support_mode": "reverse_or_freedict_required"
+  },
+  "best_variant": {
+    "variant_id": "min0p12-definition_and_example-rows2",
+    "min_link_score": 0.12,
+    "extraction_min_link_score": 0.12,
+    "evidence_mode": "definition_and_example",
+    "max_rows_per_sense": 2,
+    "selected_family_count": 7,
+    "selected_triggers": [
+      "burn",
+      "force",
+      "help",
+      "hand",
+      "separate",
+      "split",
+      "trouble"
+    ],
+    "selected_family_keys": [
+      "en-es:sentence-veto:burn:quemadura",
+      "en-es:sentence-veto:force:fuerza",
+      "en-es:sentence-veto:help:ayuda",
+      "en-es:sentence-veto:hand:mano",
+      "en-es:sentence-veto:separate:separado",
+      "en-es:sentence-veto:split:partido",
+      "en-es:sentence-veto:trouble:molestia"
+    ],
+    "wordnet_row_count": 27,
+    "target_families_with_active_wordnet": 7,
+    "target_families_with_shadow_wordnet": 7,
+    "status": "review",
+    "decision": "analysis_only",
+    "leakage_rejected_row_count": 0,
+    "sense_rejected_row_count": 8,
+    "final_admitted_row_count": 19,
+    "semantic_contract_complete_family_count": 6,
+    "phrase_contract_complete_family_count": 0,
+    "semantic_gap_family_keys": [
+      "en-es:sentence-veto:split:partido"
+    ],
+    "semantic_complete_family_keys": [
+      "en-es:sentence-veto:burn:quemadura",
+      "en-es:sentence-veto:force:fuerza",
+      "en-es:sentence-veto:help:ayuda",
+      "en-es:sentence-veto:hand:mano",
+      "en-es:sentence-veto:separate:separado",
+      "en-es:sentence-veto:trouble:molestia"
+    ],
+    "semantic_complete_triggers": [
+      "burn",
+      "force",
+      "help",
+      "hand",
+      "separate",
+      "trouble"
+    ],
+    "phrase_containment_gap_family_keys": [
+      "en-es:sentence-veto:burn:quemadura",
+      "en-es:sentence-veto:force:fuerza",
+      "en-es:sentence-veto:hand:mano",
+      "en-es:sentence-veto:help:ayuda",
+      "en-es:sentence-veto:separate:separado",
+      "en-es:sentence-veto:split:partido",
+      "en-es:sentence-veto:trouble:molestia"
+    ],
+    "admission_selected_family_keys": [
+      "en-es:sentence-veto:burn:quemadura",
+      "en-es:sentence-veto:force:fuerza",
+      "en-es:sentence-veto:help:ayuda",
+      "en-es:sentence-veto:hand:mano",
+      "en-es:sentence-veto:separate:separado",
+      "en-es:sentence-veto:trouble:molestia"
+    ],
+    "admission_selected_triggers": [
+      "burn",
+      "force",
+      "help",
+      "hand",
+      "separate",
+      "trouble"
+    ],
+    "translation_support_mode": "reverse_or_freedict_required"
+  },
+  "semantic_portfolio": {
+    "semantic_complete_family_count": 6,
+    "semantic_complete_family_keys": [
+      "en-es:sentence-veto:burn:quemadura",
+      "en-es:sentence-veto:force:fuerza",
+      "en-es:sentence-veto:help:ayuda",
+      "en-es:sentence-veto:hand:mano",
+      "en-es:sentence-veto:separate:separado",
+      "en-es:sentence-veto:trouble:molestia"
+    ],
+    "semantic_complete_triggers": [
+      "burn",
+      "force",
+      "help",
+      "hand",
+      "separate",
+      "trouble"
+    ],
+    "supporting_variant_ids_by_family_key": {
+      "en-es:sentence-veto:burn:quemadura": [
+        "min0p12-definition_preferred-rows1",
+        "min0p12-definition_and_example-rows2",
+        "min0p12-extract0-definition_and_example-rows2",
+        "min0p16-definition_preferred-rows1",
+        "min0p16-definition_and_example-rows2",
+        "min0p16-extract0-definition_and_example-rows2",
+        "min0p2-definition_preferred-rows1",
+        "min0p2-definition_and_example-rows2",
+        "min0p2-extract0-definition_and_example-rows2"
+      ],
+      "en-es:sentence-veto:force:fuerza": [
+        "min0p12-definition_preferred-rows1",
+        "min0p12-definition_and_example-rows2",
+        "min0p12-extract0-definition_and_example-rows2",
+        "min0p16-definition_preferred-rows1",
+        "min0p16-definition_and_example-rows2",
+        "min0p16-extract0-definition_and_example-rows2"
+      ],
+      "en-es:sentence-veto:help:ayuda": [
+        "min0p12-definition_preferred-rows1",
+        "min0p12-definition_and_example-rows2",
+        "min0p12-extract0-definition_and_example-rows2"
+      ],
+      "en-es:sentence-veto:hand:mano": [
+        "min0p12-definition_preferred-rows1",
+        "min0p12-definition_and_example-rows2",
+        "min0p12-extract0-definition_and_example-rows2",
+        "min0p16-definition_preferred-rows1",
+        "min0p16-definition_and_example-rows2",
+        "min0p16-extract0-definition_and_example-rows2"
+      ],
+      "en-es:sentence-veto:separate:separado": [
+        "min0p12-definition_preferred-rows1",
+        "min0p12-definition_and_example-rows2",
+        "min0p12-extract0-definition_and_example-rows2",
+        "min0p12-example_preferred-rows1",
+        "min0p16-definition_preferred-rows1",
+        "min0p16-definition_and_example-rows2",
+        "min0p16-extract0-definition_and_example-rows2",
+        "min0p16-example_preferred-rows1",
+        "min0p2-definition_preferred-rows1",
+        "min0p2-definition_and_example-rows2",
+        "min0p2-extract0-definition_and_example-rows2",
+        "min0p2-example_preferred-rows1"
+      ],
+      "en-es:sentence-veto:trouble:molestia": [
+        "min0p12-definition_preferred-rows1",
+        "min0p12-definition_and_example-rows2",
+        "min0p12-extract0-definition_and_example-rows2",
+        "min0p16-definition_preferred-rows1",
+        "min0p16-definition_and_example-rows2",
+        "min0p16-extract0-definition_and_example-rows2",
+        "min0p2-definition_preferred-rows1",
+        "min0p2-definition_and_example-rows2",
+        "min0p2-extract0-definition_and_example-rows2"
+      ]
+    },
+    "admission_selected_family_keys": [
+      "en-es:sentence-veto:burn:quemadura",
+      "en-es:sentence-veto:force:fuerza",
+      "en-es:sentence-veto:help:ayuda",
+      "en-es:sentence-veto:hand:mano",
+      "en-es:sentence-veto:separate:separado",
+      "en-es:sentence-veto:trouble:molestia"
+    ],
+    "admission_selected_triggers": [
+      "burn",
+      "force",
+      "help",
+      "hand",
+      "separate",
+      "trouble"
+    ]
+  },
+  "variant_rows": [
+    {
+      "variant_id": "min0p12-definition_preferred-rows1",
+      "min_link_score": 0.12,
+      "extraction_min_link_score": 0.12,
+      "evidence_mode": "definition_preferred",
+      "max_rows_per_sense": 1,
+      "selected_family_count": 7,
+      "selected_triggers": [
+        "burn",
+        "force",
+        "help",
+        "hand",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 14,
+      "target_families_with_active_wordnet": 7,
+      "target_families_with_shadow_wordnet": 7,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 2,
+      "final_admitted_row_count": 12,
+      "semantic_contract_complete_family_count": 6,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "semantic_complete_triggers": [
+        "burn",
+        "force",
+        "help",
+        "hand",
+        "separate",
+        "trouble"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p12-definition_and_example-rows2",
+      "min_link_score": 0.12,
+      "extraction_min_link_score": 0.12,
+      "evidence_mode": "definition_and_example",
+      "max_rows_per_sense": 2,
+      "selected_family_count": 7,
+      "selected_triggers": [
+        "burn",
+        "force",
+        "help",
+        "hand",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 27,
+      "target_families_with_active_wordnet": 7,
+      "target_families_with_shadow_wordnet": 7,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 8,
+      "final_admitted_row_count": 19,
+      "semantic_contract_complete_family_count": 6,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "semantic_complete_triggers": [
+        "burn",
+        "force",
+        "help",
+        "hand",
+        "separate",
+        "trouble"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": true
+    },
+    {
+      "variant_id": "min0p12-extract0-definition_and_example-rows2",
+      "min_link_score": 0.12,
+      "extraction_min_link_score": 0.0,
+      "evidence_mode": "definition_and_example",
+      "max_rows_per_sense": 2,
+      "selected_family_count": 7,
+      "selected_triggers": [
+        "burn",
+        "force",
+        "help",
+        "hand",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 28,
+      "target_families_with_active_wordnet": 7,
+      "target_families_with_shadow_wordnet": 7,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 11,
+      "final_admitted_row_count": 17,
+      "semantic_contract_complete_family_count": 6,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "semantic_complete_triggers": [
+        "burn",
+        "force",
+        "help",
+        "hand",
+        "separate",
+        "trouble"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p12-example_preferred-rows1",
+      "min_link_score": 0.12,
+      "extraction_min_link_score": 0.12,
+      "evidence_mode": "example_preferred",
+      "max_rows_per_sense": 1,
+      "selected_family_count": 7,
+      "selected_triggers": [
+        "burn",
+        "force",
+        "help",
+        "hand",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 14,
+      "target_families_with_active_wordnet": 7,
+      "target_families_with_shadow_wordnet": 7,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 6,
+      "final_admitted_row_count": 8,
+      "semantic_contract_complete_family_count": 1,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia",
+        "en-es:sentence-veto:burn:quemadura"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:separate:separado"
+      ],
+      "semantic_complete_triggers": [
+        "separate"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:help:ayuda",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p16-definition_preferred-rows1",
+      "min_link_score": 0.16,
+      "extraction_min_link_score": 0.16,
+      "evidence_mode": "definition_preferred",
+      "max_rows_per_sense": 1,
+      "selected_family_count": 6,
+      "selected_triggers": [
+        "burn",
+        "force",
+        "hand",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 12,
+      "target_families_with_active_wordnet": 6,
+      "target_families_with_shadow_wordnet": 6,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 2,
+      "final_admitted_row_count": 10,
+      "semantic_contract_complete_family_count": 5,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "semantic_complete_triggers": [
+        "burn",
+        "force",
+        "hand",
+        "separate",
+        "trouble"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p16-definition_and_example-rows2",
+      "min_link_score": 0.16,
+      "extraction_min_link_score": 0.16,
+      "evidence_mode": "definition_and_example",
+      "max_rows_per_sense": 2,
+      "selected_family_count": 6,
+      "selected_triggers": [
+        "burn",
+        "force",
+        "hand",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 23,
+      "target_families_with_active_wordnet": 6,
+      "target_families_with_shadow_wordnet": 6,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 7,
+      "final_admitted_row_count": 16,
+      "semantic_contract_complete_family_count": 5,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "semantic_complete_triggers": [
+        "burn",
+        "force",
+        "hand",
+        "separate",
+        "trouble"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p16-extract0-definition_and_example-rows2",
+      "min_link_score": 0.16,
+      "extraction_min_link_score": 0.0,
+      "evidence_mode": "definition_and_example",
+      "max_rows_per_sense": 2,
+      "selected_family_count": 6,
+      "selected_triggers": [
+        "burn",
+        "force",
+        "hand",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 24,
+      "target_families_with_active_wordnet": 6,
+      "target_families_with_shadow_wordnet": 6,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 10,
+      "final_admitted_row_count": 14,
+      "semantic_contract_complete_family_count": 5,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "semantic_complete_triggers": [
+        "burn",
+        "force",
+        "hand",
+        "separate",
+        "trouble"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p16-example_preferred-rows1",
+      "min_link_score": 0.16,
+      "extraction_min_link_score": 0.16,
+      "evidence_mode": "example_preferred",
+      "max_rows_per_sense": 1,
+      "selected_family_count": 6,
+      "selected_triggers": [
+        "burn",
+        "force",
+        "hand",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 12,
+      "target_families_with_active_wordnet": 6,
+      "target_families_with_shadow_wordnet": 6,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 5,
+      "final_admitted_row_count": 7,
+      "semantic_contract_complete_family_count": 1,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia",
+        "en-es:sentence-veto:burn:quemadura"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:separate:separado"
+      ],
+      "semantic_complete_triggers": [
+        "separate"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:force:fuerza",
+        "en-es:sentence-veto:hand:mano",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p2-definition_preferred-rows1",
+      "min_link_score": 0.2,
+      "extraction_min_link_score": 0.2,
+      "evidence_mode": "definition_preferred",
+      "max_rows_per_sense": 1,
+      "selected_family_count": 4,
+      "selected_triggers": [
+        "burn",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 8,
+      "target_families_with_active_wordnet": 4,
+      "target_families_with_shadow_wordnet": 4,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 2,
+      "final_admitted_row_count": 6,
+      "semantic_contract_complete_family_count": 3,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "semantic_complete_triggers": [
+        "burn",
+        "separate",
+        "trouble"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p2-definition_and_example-rows2",
+      "min_link_score": 0.2,
+      "extraction_min_link_score": 0.2,
+      "evidence_mode": "definition_and_example",
+      "max_rows_per_sense": 2,
+      "selected_family_count": 4,
+      "selected_triggers": [
+        "burn",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 15,
+      "target_families_with_active_wordnet": 4,
+      "target_families_with_shadow_wordnet": 4,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 5,
+      "final_admitted_row_count": 10,
+      "semantic_contract_complete_family_count": 3,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "semantic_complete_triggers": [
+        "burn",
+        "separate",
+        "trouble"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p2-extract0-definition_and_example-rows2",
+      "min_link_score": 0.2,
+      "extraction_min_link_score": 0.0,
+      "evidence_mode": "definition_and_example",
+      "max_rows_per_sense": 2,
+      "selected_family_count": 4,
+      "selected_triggers": [
+        "burn",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 16,
+      "target_families_with_active_wordnet": 4,
+      "target_families_with_shadow_wordnet": 4,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 8,
+      "final_admitted_row_count": 8,
+      "semantic_contract_complete_family_count": 3,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "semantic_complete_triggers": [
+        "burn",
+        "separate",
+        "trouble"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    },
+    {
+      "variant_id": "min0p2-example_preferred-rows1",
+      "min_link_score": 0.2,
+      "extraction_min_link_score": 0.2,
+      "evidence_mode": "example_preferred",
+      "max_rows_per_sense": 1,
+      "selected_family_count": 4,
+      "selected_triggers": [
+        "burn",
+        "separate",
+        "split",
+        "trouble"
+      ],
+      "selected_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "wordnet_row_count": 8,
+      "target_families_with_active_wordnet": 4,
+      "target_families_with_shadow_wordnet": 4,
+      "status": "review",
+      "decision": "analysis_only",
+      "leakage_rejected_row_count": 0,
+      "sense_rejected_row_count": 3,
+      "final_admitted_row_count": 5,
+      "semantic_contract_complete_family_count": 1,
+      "phrase_contract_complete_family_count": 0,
+      "semantic_gap_family_keys": [
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia",
+        "en-es:sentence-veto:burn:quemadura"
+      ],
+      "semantic_complete_family_keys": [
+        "en-es:sentence-veto:separate:separado"
+      ],
+      "semantic_complete_triggers": [
+        "separate"
+      ],
+      "phrase_containment_gap_family_keys": [
+        "en-es:sentence-veto:burn:quemadura",
+        "en-es:sentence-veto:separate:separado",
+        "en-es:sentence-veto:split:partido",
+        "en-es:sentence-veto:trouble:molestia"
+      ],
+      "is_best": false
+    }
+  ],
+  "admission_selected_dataset": {
+    "schema_version": 1,
+    "pair": "en-es",
+    "dataset_id": "en_es_source_non_v10_wave6_anypos_supported_selected_v1",
+    "generated_at": "2026-04-29T00:19:52Z",
+    "description": "Admission-selected draft non-v10 source wave selected from the automatic pool sweep. Families still require independent active/shadow and phrase held-out cases before quality claims.",
+    "review_state": "draft_admission_selected_needs_case_review",
+    "source_sweep_variant_id": "min0p12-definition_and_example-rows2",
+    "source_sweep_selection_strategy": "single_variant",
+    "selection_size": 16,
+    "semantic_complete_family_count": 6,
+    "translation_support_mode": "reverse_or_freedict_required",
+    "families": [
+      {
+        "family_id": "en-es:sentence-veto:burn:quemadura",
+        "trigger": "burn",
+        "active": {
+          "sense_id": "en-es:sentence-veto:burn:quemadura:active",
+          "target_lemma": "quemadura",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "burn noun sense: physical injury",
+            "gloss_text": "physical injury",
+            "sense_gloss_bundle": "burn noun sense: physical injury | physical injury",
+            "all_evidence_text": "quemadura | burn noun sense: physical injury | physical injury | physical injury"
+          },
+          "metadata": {
+            "sense_role": "active",
+            "translation_rank": 1,
+            "translation_pos": "noun",
+            "translation_sense_text": "physical injury",
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en"
+            ],
+            "reverse_support": true,
+            "freedict_support": false,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "injury"
+            ]
+          }
+        },
+        "shadows": [
+          {
+            "sense_id": "en-es:sentence-veto:burn:quemadura:arder:shadow",
+            "target_lemma": "arder",
+            "canonical_pos": "verb",
+            "evidence_views": {
+              "sense_label": "burn verb sense: to be consumed by fire",
+              "gloss_text": "to be consumed by fire",
+              "sense_gloss_bundle": "burn verb sense: to be consumed by fire | to be consumed by fire",
+              "all_evidence_text": "arder | burn verb sense: to be consumed by fire | to be consumed by fire | to be consumed by fire"
+            },
+            "metadata": {
+              "sense_role": "shadow",
+              "translation_rank": 8,
+              "translation_pos": "verb",
+              "translation_sense_text": "to be consumed by fire",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "fire"
+              ]
+            }
+          }
+        ],
+        "cases": [
+          {
+            "case_id": "en-es:sentence-veto:burn:quemadura:draft-loader:001",
+            "sentence": "The word burn is being checked for physical injury.",
+            "source_phrase": "burn",
+            "gold_winner": "en-es:sentence-veto:burn:quemadura:active",
+            "gold_decision": "replace",
+            "slice_tags": [
+              "non_v10_wave_draft",
+              "loader_only",
+              "not_quality_evaluation"
+            ]
+          }
+        ],
+        "metadata": {
+          "wave_id": "source_non_v10_sweep_min0p2",
+          "construction_method": "wiktionary_forward_translation_with_reverse_support:any_cross_pos",
+          "source_candidate": {
+            "archetype": "wordnet_noun_verb_cross_pos",
+            "candidate_id": "en-es:wordnet-non-v10-candidate:burn",
+            "complexity_band": "broad",
+            "cross_pos": true,
+            "noun_verb": true,
+            "pos_counts": {
+              "noun": 4,
+              "verb": 15
+            },
+            "recommended_next_action": "construct_translation_family",
+            "recommended_wave_role": "candidate_source_probe",
+            "same_pos_polysemy": true,
+            "sample_synsets": [
+              {
+                "definition": "pain that feels hot as if it were on fire",
+                "example": "",
+                "members": [
+                  "burn",
+                  "burning"
+                ],
+                "pos": "noun",
+                "synset_id": "14348846-n"
+              },
+              {
+                "definition": "an injury caused by exposure to heat or chemicals or radiation",
+                "example": "",
+                "members": [
+                  "burn"
+                ],
+                "pos": "noun",
+                "synset_id": "14313092-n"
+              },
+              {
+                "definition": "a place or area that has been burned (especially on a person's body)",
+                "example": "",
+                "members": [
+                  "burn",
+                  "burn mark"
+                ],
+                "pos": "noun",
+                "synset_id": "04701438-n"
+              },
+              {
+                "definition": "damage inflicted by fire",
+                "example": "",
+                "members": [
+                  "burn"
+                ],
+                "pos": "noun",
+                "synset_id": "00404732-n"
+              }
+            ],
+            "score": 16.1,
+            "sense_count": 19,
+            "source_definition_count": 19,
+            "source_example_count": 25,
+            "source_member_count": 35,
+            "trigger": "burn"
+          },
+          "translation_candidates": [
+            {
+              "headword": "burn",
+              "translation": "quemadura",
+              "translation_lc": "quemadura",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 1,
+              "sense_text": "physical injury",
+              "raw_glosses": [
+                "physical injury"
+              ],
+              "reverse_support": true,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "injury"
+              ],
+              "best_wordnet_synset_id": "14313092-n"
+            },
+            {
+              "headword": "burn",
+              "translation": "arder",
+              "translation_lc": "arder",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 8,
+              "sense_text": "to be consumed by fire",
+              "raw_glosses": [
+                "to be consumed by fire"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "fire"
+              ],
+              "best_wordnet_synset_id": "00379335-v"
+            },
+            {
+              "headword": "burn",
+              "translation": "quemarse",
+              "translation_lc": "quemarse",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 9,
+              "sense_text": "to be consumed by fire",
+              "raw_glosses": [
+                "to be consumed by fire"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "fire"
+              ],
+              "best_wordnet_synset_id": "00379335-v"
+            },
+            {
+              "headword": "burn",
+              "translation": "quemar",
+              "translation_lc": "quemar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 3,
+              "sense_text": "to cause to be consumed by fire",
+              "raw_glosses": [
+                "to cause to be consumed by fire"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            },
+            {
+              "headword": "burn",
+              "translation": "quemar",
+              "translation_lc": "quemar",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 3,
+              "sense_text": "act of burning something",
+              "raw_glosses": [
+                "act of burning something"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            },
+            {
+              "headword": "burn",
+              "translation": "quema",
+              "translation_lc": "quema",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 2,
+              "sense_text": "act of burning something",
+              "raw_glosses": [
+                "act of burning something"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            },
+            {
+              "headword": "burn",
+              "translation": "quemazón",
+              "translation_lc": "quemazón",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 4,
+              "sense_text": "physical sensation in the muscles",
+              "raw_glosses": [
+                "physical sensation in the muscles"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            },
+            {
+              "headword": "burn",
+              "translation": "fogarear",
+              "translation_lc": "fogarear",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 5,
+              "sense_text": "to cause to be consumed by fire",
+              "raw_glosses": [
+                "to cause to be consumed by fire"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            },
+            {
+              "headword": "burn",
+              "translation": "foguerear",
+              "translation_lc": "foguerear",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 6,
+              "sense_text": "to cause to be consumed by fire",
+              "raw_glosses": [
+                "to cause to be consumed by fire"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            },
+            {
+              "headword": "burn",
+              "translation": "combustionar",
+              "translation_lc": "combustionar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 7,
+              "sense_text": "to cause to be consumed by fire",
+              "raw_glosses": [
+                "to cause to be consumed by fire"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            }
+          ],
+          "requires_independent_cases": true,
+          "requires_wordnet_link": true
+        }
+      },
+      {
+        "family_id": "en-es:sentence-veto:force:fuerza",
+        "trigger": "force",
+        "active": {
+          "sense_id": "en-es:sentence-veto:force:fuerza:active",
+          "target_lemma": "fuerza",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "force noun sense: strength or energy of body or mind",
+            "gloss_text": "strength or energy of body or mind",
+            "sense_gloss_bundle": "force noun sense: strength or energy of body or mind | strength or energy of body or mind",
+            "all_evidence_text": "fuerza | force noun sense: strength or energy of body or mind | strength or energy of body or mind | strength or energy of body or mind"
+          },
+          "metadata": {
+            "sense_role": "active",
+            "translation_rank": 1,
+            "translation_pos": "noun",
+            "translation_sense_text": "strength or energy of body or mind",
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en",
+              "freedict_es_en"
+            ],
+            "reverse_support": true,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2857,
+            "best_wordnet_overlap": [
+              "energy",
+              "strength"
+            ]
+          }
+        },
+        "shadows": [
+          {
+            "sense_id": "en-es:sentence-veto:force:fuerza:forzar:shadow",
+            "target_lemma": "forzar",
+            "canonical_pos": "verb",
+            "evidence_views": {
+              "sense_label": "force verb sense: to cause to occur, produce through force",
+              "gloss_text": "to cause to occur, produce through force",
+              "sense_gloss_bundle": "force verb sense: to cause to occur, produce through force | to cause to occur, produce through force",
+              "all_evidence_text": "forzar | force verb sense: to cause to occur, produce through force | to cause to occur, produce through force | to cause to occur, produce through force"
+            },
+            "metadata": {
+              "sense_role": "shadow",
+              "translation_rank": 4,
+              "translation_pos": "verb",
+              "translation_sense_text": "to cause to occur, produce through force",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "cause"
+              ]
+            }
+          }
+        ],
+        "cases": [
+          {
+            "case_id": "en-es:sentence-veto:force:fuerza:draft-loader:001",
+            "sentence": "The word force is being checked for strength or energy of body or mind.",
+            "source_phrase": "force",
+            "gold_winner": "en-es:sentence-veto:force:fuerza:active",
+            "gold_decision": "replace",
+            "slice_tags": [
+              "non_v10_wave_draft",
+              "loader_only",
+              "not_quality_evaluation"
+            ]
+          }
+        ],
+        "metadata": {
+          "wave_id": "source_non_v10_sweep_min0p16",
+          "construction_method": "wiktionary_forward_translation_with_reverse_support:any_cross_pos",
+          "source_candidate": {
+            "archetype": "wordnet_noun_verb_cross_pos",
+            "candidate_id": "en-es:wordnet-non-v10-candidate:force",
+            "complexity_band": "broad",
+            "cross_pos": true,
+            "noun_verb": true,
+            "pos_counts": {
+              "noun": 10,
+              "verb": 8
+            },
+            "recommended_next_action": "construct_translation_family",
+            "recommended_wave_role": "candidate_source_probe",
+            "same_pos_polysemy": true,
+            "sample_synsets": [
+              {
+                "definition": "a powerful effect or influence",
+                "example": "the force of his eloquence easily persuaded them",
+                "members": [
+                  "force"
+                ],
+                "pos": "noun",
+                "synset_id": "05201846-n"
+              },
+              {
+                "definition": "(physics) the influence that produces a change in a physical quantity",
+                "example": "force equals mass times acceleration",
+                "members": [
+                  "force"
+                ],
+                "pos": "noun",
+                "synset_id": "11479041-n"
+              },
+              {
+                "definition": "physical energy or intensity",
+                "example": "he hit with all the force he could muster",
+                "members": [
+                  "force",
+                  "forcefulness",
+                  "strength"
+                ],
+                "pos": "noun",
+                "synset_id": "05042508-n"
+              },
+              {
+                "definition": "group of people willing to obey orders",
+                "example": "a public force is necessary to give security to the rights of citizens",
+                "members": [
+                  "force",
+                  "personnel"
+                ],
+                "pos": "noun",
+                "synset_id": "08224937-n"
+              }
+            ],
+            "score": 16.1,
+            "sense_count": 18,
+            "source_definition_count": 18,
+            "source_example_count": 25,
+            "source_member_count": 42,
+            "trigger": "force"
+          },
+          "translation_candidates": [
+            {
+              "headword": "force",
+              "translation": "fuerza",
+              "translation_lc": "fuerza",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 1,
+              "sense_text": "strength or energy of body or mind",
+              "raw_glosses": [
+                "strength or energy of body or mind"
+              ],
+              "reverse_support": true,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2857,
+              "best_wordnet_overlap": [
+                "energy",
+                "strength"
+              ],
+              "best_wordnet_synset_id": "05042508-n"
+            },
+            {
+              "headword": "force",
+              "translation": "forzar",
+              "translation_lc": "forzar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 4,
+              "sense_text": "to cause to occur, produce through force",
+              "raw_glosses": [
+                "to cause to occur, produce through force"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "cause"
+              ],
+              "best_wordnet_synset_id": "02510211-v"
+            },
+            {
+              "headword": "force",
+              "translation": "ñeque",
+              "translation_lc": "ñeque",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 2,
+              "sense_text": "strength or energy of body or mind",
+              "raw_glosses": [
+                "strength or energy of body or mind"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2857,
+              "best_wordnet_overlap": [
+                "energy",
+                "strength"
+              ],
+              "best_wordnet_synset_id": "05042508-n"
+            },
+            {
+              "headword": "force",
+              "translation": "violentar",
+              "translation_lc": "violentar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 5,
+              "sense_text": "to cause to occur, produce through force",
+              "raw_glosses": [
+                "to cause to occur, produce through force"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "cause"
+              ],
+              "best_wordnet_synset_id": "02510211-v"
+            },
+            {
+              "headword": "force",
+              "translation": "forcejar",
+              "translation_lc": "forcejar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 6,
+              "sense_text": "to cause to occur, produce through force",
+              "raw_glosses": [
+                "to cause to occur, produce through force"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "cause"
+              ],
+              "best_wordnet_synset_id": "02510211-v"
+            },
+            {
+              "headword": "force",
+              "translation": "descerrajar",
+              "translation_lc": "descerrajar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 7,
+              "sense_text": "to forcibly open",
+              "raw_glosses": [
+                "to forcibly open"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "forcibly"
+              ],
+              "best_wordnet_synset_id": "01353131-v"
+            },
+            {
+              "headword": "force",
+              "translation": "polenta",
+              "translation_lc": "polenta",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 3,
+              "sense_text": "anything that has the power to produce an effect upon something else",
+              "raw_glosses": [
+                "anything that has the power to produce an effect upon something else"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            }
+          ],
+          "requires_independent_cases": true,
+          "requires_wordnet_link": true
+        }
+      },
+      {
+        "family_id": "en-es:sentence-veto:help:ayuda",
+        "trigger": "help",
+        "active": {
+          "sense_id": "en-es:sentence-veto:help:ayuda:active",
+          "target_lemma": "ayuda",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "help noun sense: action given to provide assistance",
+            "gloss_text": "action given to provide assistance",
+            "sense_gloss_bundle": "help noun sense: action given to provide assistance | action given to provide assistance",
+            "all_evidence_text": "ayuda | help noun sense: action given to provide assistance | action given to provide assistance | action given to provide assistance"
+          },
+          "metadata": {
+            "sense_role": "active",
+            "translation_rank": 1,
+            "translation_pos": "noun",
+            "translation_sense_text": "action given to provide assistance",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.1429,
+            "best_wordnet_overlap": [
+              "assistance"
+            ]
+          }
+        },
+        "shadows": [
+          {
+            "sense_id": "en-es:sentence-veto:help:ayuda:ayudar:shadow",
+            "target_lemma": "ayudar",
+            "canonical_pos": "verb",
+            "evidence_views": {
+              "sense_label": "help verb sense: transitive: provide assistance to (someone or something)",
+              "gloss_text": "transitive: provide assistance to (someone or something)",
+              "sense_gloss_bundle": "help verb sense: transitive: provide assistance to (someone or something) | transitive: provide assistance to (someone or something)",
+              "all_evidence_text": "ayudar | help verb sense: transitive: provide assistance to (someone or something) | transitive: provide assistance to (someone or something) | transitive: provide assistance to (someone or something)"
+            },
+            "metadata": {
+              "sense_role": "shadow",
+              "translation_rank": 6,
+              "translation_pos": "verb",
+              "translation_sense_text": "transitive: provide assistance to (someone or something)",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "assistance"
+              ]
+            }
+          }
+        ],
+        "cases": [
+          {
+            "case_id": "en-es:sentence-veto:help:ayuda:draft-loader:001",
+            "sentence": "The word help is being checked for action given to provide assistance.",
+            "source_phrase": "help",
+            "gold_winner": "en-es:sentence-veto:help:ayuda:active",
+            "gold_decision": "replace",
+            "slice_tags": [
+              "non_v10_wave_draft",
+              "loader_only",
+              "not_quality_evaluation"
+            ]
+          }
+        ],
+        "metadata": {
+          "wave_id": "source_non_v10_sweep_min0p12",
+          "construction_method": "wiktionary_forward_translation_with_reverse_support:any_cross_pos",
+          "source_candidate": {
+            "archetype": "wordnet_noun_verb_cross_pos",
+            "candidate_id": "en-es:wordnet-non-v10-candidate:help",
+            "complexity_band": "broad",
+            "cross_pos": true,
+            "noun_verb": true,
+            "pos_counts": {
+              "noun": 4,
+              "verb": 8
+            },
+            "recommended_next_action": "construct_translation_family",
+            "recommended_wave_role": "candidate_source_probe",
+            "same_pos_polysemy": true,
+            "sample_synsets": [
+              {
+                "definition": "the activity of contributing to the fulfillment of a need or furtherance of an effort or purpose",
+                "example": "he gave me an assist with the housework",
+                "members": [
+                  "aid",
+                  "assist",
+                  "assistance",
+                  "help"
+                ],
+                "pos": "noun",
+                "synset_id": "01210099-n"
+              },
+              {
+                "definition": "a person who contributes to the fulfillment of a need or furtherance of an effort or purpose",
+                "example": "my invaluable assistant",
+                "members": [
+                  "assistant",
+                  "helper",
+                  "help",
+                  "supporter"
+                ],
+                "pos": "noun",
+                "synset_id": "09835195-n"
+              },
+              {
+                "definition": "a person or thing that is a resource that helps make something easier or possible to do",
+                "example": "visual aids in teaching",
+                "members": [
+                  "aid",
+                  "assistance",
+                  "help"
+                ],
+                "pos": "noun",
+                "synset_id": "05162155-n"
+              },
+              {
+                "definition": "a means of serving",
+                "example": "of no avail",
+                "members": [
+                  "avail",
+                  "help",
+                  "service"
+                ],
+                "pos": "noun",
+                "synset_id": "05157079-n"
+              }
+            ],
+            "score": 16.1,
+            "sense_count": 12,
+            "source_definition_count": 12,
+            "source_example_count": 25,
+            "source_member_count": 29,
+            "trigger": "help"
+          },
+          "translation_candidates": [
+            {
+              "headword": "help",
+              "translation": "ayuda",
+              "translation_lc": "ayuda",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 1,
+              "sense_text": "action given to provide assistance",
+              "raw_glosses": [
+                "action given to provide assistance"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1429,
+              "best_wordnet_overlap": [
+                "assistance"
+              ],
+              "best_wordnet_synset_id": "01210099-n"
+            },
+            {
+              "headword": "help",
+              "translation": "ayudar",
+              "translation_lc": "ayudar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 6,
+              "sense_text": "transitive: provide assistance to (someone or something)",
+              "raw_glosses": [
+                "transitive: provide assistance to (someone or something)"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "assistance"
+              ],
+              "best_wordnet_synset_id": "02553283-v"
+            },
+            {
+              "headword": "help",
+              "translation": "socorro",
+              "translation_lc": "socorro",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 2,
+              "sense_text": "action given to provide assistance",
+              "raw_glosses": [
+                "action given to provide assistance"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1429,
+              "best_wordnet_overlap": [
+                "assistance"
+              ],
+              "best_wordnet_synset_id": "01210099-n"
+            },
+            {
+              "headword": "help",
+              "translation": "auxilio",
+              "translation_lc": "auxilio",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 3,
+              "sense_text": "action given to provide assistance",
+              "raw_glosses": [
+                "action given to provide assistance"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1429,
+              "best_wordnet_overlap": [
+                "assistance"
+              ],
+              "best_wordnet_synset_id": "01210099-n"
+            },
+            {
+              "headword": "help",
+              "translation": "mucamo",
+              "translation_lc": "mucamo",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 4,
+              "sense_text": "person or persons who provides assistance with some task",
+              "raw_glosses": [
+                "person or persons who provides assistance with some task"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2857,
+              "best_wordnet_overlap": [
+                "assistance",
+                "person"
+              ],
+              "best_wordnet_synset_id": "05162155-n"
+            },
+            {
+              "headword": "help",
+              "translation": "fámulo",
+              "translation_lc": "fámulo",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 5,
+              "sense_text": "person or persons who provides assistance with some task",
+              "raw_glosses": [
+                "person or persons who provides assistance with some task"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2857,
+              "best_wordnet_overlap": [
+                "assistance",
+                "person"
+              ],
+              "best_wordnet_synset_id": "05162155-n"
+            }
+          ],
+          "requires_independent_cases": true,
+          "requires_wordnet_link": true
+        }
+      },
+      {
+        "family_id": "en-es:sentence-veto:hand:mano",
+        "trigger": "hand",
+        "active": {
+          "sense_id": "en-es:sentence-veto:hand:mano:active",
+          "target_lemma": "mano",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "hand noun sense: part of the fore limb",
+            "gloss_text": "part of the fore limb",
+            "sense_gloss_bundle": "hand noun sense: part of the fore limb | part of the fore limb",
+            "all_evidence_text": "mano | hand noun sense: part of the fore limb | part of the fore limb | part of the fore limb"
+          },
+          "metadata": {
+            "sense_role": "active",
+            "translation_rank": 1,
+            "translation_pos": "noun",
+            "translation_sense_text": "part of the fore limb",
+            "support_sources": [
+              "wiktionary_en_es",
+              "wiktionary_es_en",
+              "freedict_es_en"
+            ],
+            "reverse_support": true,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.1667,
+            "best_wordnet_overlap": [
+              "limb"
+            ]
+          }
+        },
+        "shadows": [
+          {
+            "sense_id": "en-es:sentence-veto:hand:mano:entregar:shadow",
+            "target_lemma": "entregar",
+            "canonical_pos": "verb",
+            "evidence_views": {
+              "sense_label": "hand verb sense: to give, pass or transmit with the hand",
+              "gloss_text": "to give, pass or transmit with the hand",
+              "sense_gloss_bundle": "hand verb sense: to give, pass or transmit with the hand | to give, pass or transmit with the hand",
+              "all_evidence_text": "entregar | hand verb sense: to give, pass or transmit with the hand | to give, pass or transmit with the hand | to give, pass or transmit with the hand"
+            },
+            "metadata": {
+              "sense_role": "shadow",
+              "translation_rank": 20,
+              "translation_pos": "verb",
+              "translation_sense_text": "to give, pass or transmit with the hand",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.3333,
+              "best_wordnet_overlap": [
+                "give",
+                "pas"
+              ]
+            }
+          }
+        ],
+        "cases": [
+          {
+            "case_id": "en-es:sentence-veto:hand:mano:draft-loader:001",
+            "sentence": "The word hand is being checked for part of the fore limb.",
+            "source_phrase": "hand",
+            "gold_winner": "en-es:sentence-veto:hand:mano:active",
+            "gold_decision": "replace",
+            "slice_tags": [
+              "non_v10_wave_draft",
+              "loader_only",
+              "not_quality_evaluation"
+            ]
+          }
+        ],
+        "metadata": {
+          "wave_id": "source_non_v10_sweep_min0p16",
+          "construction_method": "wiktionary_forward_translation_with_reverse_support:any_cross_pos",
+          "source_candidate": {
+            "archetype": "wordnet_noun_verb_cross_pos",
+            "candidate_id": "en-es:wordnet-non-v10-candidate:hand",
+            "complexity_band": "broad",
+            "cross_pos": true,
+            "noun_verb": true,
+            "pos_counts": {
+              "noun": 14,
+              "verb": 2
+            },
+            "recommended_next_action": "construct_translation_family",
+            "recommended_wave_role": "candidate_source_probe",
+            "same_pos_polysemy": true,
+            "sample_synsets": [
+              {
+                "definition": "the (prehensile) extremity of the superior limb",
+                "example": "he had the hands of a surgeon",
+                "members": [
+                  "hand",
+                  "manus",
+                  "mitt",
+                  "paw"
+                ],
+                "pos": "noun",
+                "synset_id": "05572223-n"
+              },
+              {
+                "definition": "a hired laborer on a farm or ranch",
+                "example": "the hired hand fixed the railing",
+                "members": [
+                  "hired hand",
+                  "hand"
+                ],
+                "pos": "noun",
+                "synset_id": "10196310-n"
+              },
+              {
+                "definition": "something written by hand",
+                "example": "she recognized his handwriting",
+                "members": [
+                  "handwriting",
+                  "hand",
+                  "script"
+                ],
+                "pos": "noun",
+                "synset_id": "06415036-n"
+              },
+              {
+                "definition": "ability",
+                "example": "he wanted to try his hand at singing",
+                "members": [
+                  "hand"
+                ],
+                "pos": "noun",
+                "synset_id": "05645810-n"
+              }
+            ],
+            "score": 16.1,
+            "sense_count": 16,
+            "source_definition_count": 16,
+            "source_example_count": 24,
+            "source_member_count": 30,
+            "trigger": "hand"
+          },
+          "translation_candidates": [
+            {
+              "headword": "hand",
+              "translation": "mano",
+              "translation_lc": "mano",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 1,
+              "sense_text": "part of the fore limb",
+              "raw_glosses": [
+                "part of the fore limb"
+              ],
+              "reverse_support": true,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "wiktionary_es_en",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "limb"
+              ],
+              "best_wordnet_synset_id": "05572223-n"
+            },
+            {
+              "headword": "hand",
+              "translation": "entregar",
+              "translation_lc": "entregar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 20,
+              "sense_text": "to give, pass or transmit with the hand",
+              "raw_glosses": [
+                "to give, pass or transmit with the hand"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.3333,
+              "best_wordnet_overlap": [
+                "give",
+                "pas"
+              ],
+              "best_wordnet_synset_id": "02235554-v"
+            },
+            {
+              "headword": "hand",
+              "translation": "alargar",
+              "translation_lc": "alargar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 23,
+              "sense_text": "to give, pass or transmit with the hand",
+              "raw_glosses": [
+                "to give, pass or transmit with the hand"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.3333,
+              "best_wordnet_overlap": [
+                "give",
+                "pas"
+              ],
+              "best_wordnet_synset_id": "02235554-v"
+            },
+            {
+              "headword": "hand",
+              "translation": "pata",
+              "translation_lc": "pata",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 2,
+              "sense_text": "limb of certain animals",
+              "raw_glosses": [
+                "limb of certain animals"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "limb"
+              ],
+              "best_wordnet_synset_id": "05572223-n"
+            },
+            {
+              "headword": "hand",
+              "translation": "patas",
+              "translation_lc": "patas",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 3,
+              "sense_text": "limb of certain animals",
+              "raw_glosses": [
+                "limb of certain animals"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "limb"
+              ],
+              "best_wordnet_synset_id": "05572223-n"
+            },
+            {
+              "headword": "hand",
+              "translation": "letra",
+              "translation_lc": "letra",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 14,
+              "sense_text": "handwriting; style of penmanship",
+              "raw_glosses": [
+                "handwriting; style of penmanship"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.1667,
+              "best_wordnet_overlap": [
+                "handwrit"
+              ],
+              "best_wordnet_synset_id": "06415036-n"
+            },
+            {
+              "headword": "hand",
+              "translation": "manotada",
+              "translation_lc": "manotada",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 15,
+              "sense_text": "that which is, or may be, held in a hand at once",
+              "raw_glosses": [
+                "that which is, or may be, held in a hand at once"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "held"
+              ],
+              "best_wordnet_synset_id": "07973501-n"
+            },
+            {
+              "headword": "hand",
+              "translation": "puñado",
+              "translation_lc": "puñado",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 16,
+              "sense_text": "that which is, or may be, held in a hand at once",
+              "raw_glosses": [
+                "that which is, or may be, held in a hand at once"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "held"
+              ],
+              "best_wordnet_synset_id": "07973501-n"
+            },
+            {
+              "headword": "hand",
+              "translation": "dar",
+              "translation_lc": "dar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 18,
+              "sense_text": "to give, pass or transmit with the hand",
+              "raw_glosses": [
+                "to give, pass or transmit with the hand"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.3333,
+              "best_wordnet_overlap": [
+                "give",
+                "pas"
+              ],
+              "best_wordnet_synset_id": "02235554-v"
+            },
+            {
+              "headword": "hand",
+              "translation": "pasar",
+              "translation_lc": "pasar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 19,
+              "sense_text": "to give, pass or transmit with the hand",
+              "raw_glosses": [
+                "to give, pass or transmit with the hand"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.3333,
+              "best_wordnet_overlap": [
+                "give",
+                "pas"
+              ],
+              "best_wordnet_synset_id": "02235554-v"
+            },
+            {
+              "headword": "hand",
+              "translation": "diñar",
+              "translation_lc": "diñar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 21,
+              "sense_text": "to give, pass or transmit with the hand",
+              "raw_glosses": [
+                "to give, pass or transmit with the hand"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.4,
+              "best_wordnet_overlap": [
+                "give",
+                "pas"
+              ],
+              "best_wordnet_synset_id": "02235554-v"
+            },
+            {
+              "headword": "hand",
+              "translation": "alcanzar",
+              "translation_lc": "alcanzar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 22,
+              "sense_text": "to give, pass or transmit with the hand",
+              "raw_glosses": [
+                "to give, pass or transmit with the hand"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.3333,
+              "best_wordnet_overlap": [
+                "give",
+                "pas"
+              ],
+              "best_wordnet_synset_id": "02235554-v"
+            }
+          ],
+          "requires_independent_cases": true,
+          "requires_wordnet_link": true
+        }
+      },
+      {
+        "family_id": "en-es:sentence-veto:separate:separado",
+        "trigger": "separate",
+        "active": {
+          "sense_id": "en-es:sentence-veto:separate:separado:active",
+          "target_lemma": "separado",
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "sense_label": "separate adjective sense: apart from; not connected to",
+            "gloss_text": "apart from; not connected to",
+            "sense_gloss_bundle": "separate adjective sense: apart from; not connected to | apart from; not connected to",
+            "all_evidence_text": "separado | separate adjective sense: apart from; not connected to | apart from; not connected to | apart from; not connected to"
+          },
+          "metadata": {
+            "sense_role": "active",
+            "translation_rank": 7,
+            "translation_pos": "adj",
+            "translation_sense_text": "apart from; not connected to",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.2,
+            "best_wordnet_overlap": [
+              "apart"
+            ]
+          }
+        },
+        "shadows": [
+          {
+            "sense_id": "en-es:sentence-veto:separate:separado:separar:shadow",
+            "target_lemma": "separar",
+            "canonical_pos": "verb",
+            "evidence_views": {
+              "sense_label": "separate verb sense: to divide into separate parts",
+              "gloss_text": "to divide into separate parts",
+              "sense_gloss_bundle": "separate verb sense: to divide into separate parts | to divide into separate parts",
+              "all_evidence_text": "separar | separate verb sense: to divide into separate parts | to divide into separate parts | to divide into separate parts"
+            },
+            "metadata": {
+              "sense_role": "shadow",
+              "translation_rank": 1,
+              "translation_pos": "verb",
+              "translation_sense_text": "to divide into separate parts",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.4,
+              "best_wordnet_overlap": [
+                "divide",
+                "part"
+              ]
+            }
+          }
+        ],
+        "cases": [
+          {
+            "case_id": "en-es:sentence-veto:separate:separado:draft-loader:001",
+            "sentence": "The word separate is being checked for apart from.",
+            "source_phrase": "separate",
+            "gold_winner": "en-es:sentence-veto:separate:separado:active",
+            "gold_decision": "replace",
+            "slice_tags": [
+              "non_v10_wave_draft",
+              "loader_only",
+              "not_quality_evaluation"
+            ]
+          }
+        ],
+        "metadata": {
+          "wave_id": "source_non_v10_sweep_min0p2",
+          "construction_method": "wiktionary_forward_translation_with_reverse_support:any_cross_pos",
+          "source_candidate": {
+            "archetype": "wordnet_noun_verb_cross_pos",
+            "candidate_id": "en-es:wordnet-non-v10-candidate:separate",
+            "complexity_band": "broad",
+            "cross_pos": true,
+            "noun_verb": true,
+            "pos_counts": {
+              "adjective": 4,
+              "noun": 2,
+              "verb": 13
+            },
+            "recommended_next_action": "construct_translation_family",
+            "recommended_wave_role": "candidate_source_probe",
+            "same_pos_polysemy": true,
+            "sample_synsets": [
+              {
+                "definition": "independent; not united or joint",
+                "example": "a problem consisting of two separate issues",
+                "members": [
+                  "separate"
+                ],
+                "pos": "adjective",
+                "synset_id": "02116958-a"
+              },
+              {
+                "definition": "standing apart; not attached to or supported by anything",
+                "example": "a freestanding bell tower",
+                "members": [
+                  "freestanding",
+                  "separate"
+                ],
+                "pos": "adjective",
+                "synset_id": "00162033-s"
+              },
+              {
+                "definition": "separated according to race, sex, class, or religion",
+                "example": "separate but equal",
+                "members": [
+                  "separate"
+                ],
+                "pos": "adjective",
+                "synset_id": "01330323-s"
+              },
+              {
+                "definition": "have the connection undone; having become separate",
+                "example": "",
+                "members": [
+                  "disjoined",
+                  "separate"
+                ],
+                "pos": "adjective",
+                "synset_id": "00570805-s"
+              }
+            ],
+            "score": 16.1,
+            "sense_count": 19,
+            "source_definition_count": 19,
+            "source_example_count": 23,
+            "source_member_count": 65,
+            "trigger": "separate"
+          },
+          "translation_candidates": [
+            {
+              "headword": "separate",
+              "translation": "separar",
+              "translation_lc": "separar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 1,
+              "sense_text": "to divide into separate parts",
+              "raw_glosses": [
+                "to divide into separate parts"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.4,
+              "best_wordnet_overlap": [
+                "divide",
+                "part"
+              ],
+              "best_wordnet_synset_id": "01559703-v"
+            },
+            {
+              "headword": "separate",
+              "translation": "separado",
+              "translation_lc": "separado",
+              "pos": "adj",
+              "canonical_pos": "adjective",
+              "rank": 7,
+              "sense_text": "apart from; not connected to",
+              "raw_glosses": [
+                "apart from; not connected to"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "apart"
+              ],
+              "best_wordnet_synset_id": "00162033-s"
+            },
+            {
+              "headword": "separate",
+              "translation": "cisionar",
+              "translation_lc": "cisionar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 2,
+              "sense_text": "to divide into separate parts",
+              "raw_glosses": [
+                "to divide into separate parts"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.4,
+              "best_wordnet_overlap": [
+                "divide",
+                "part"
+              ],
+              "best_wordnet_synset_id": "01559703-v"
+            },
+            {
+              "headword": "separate",
+              "translation": "separarse",
+              "translation_lc": "separarse",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 6,
+              "sense_text": "to divide itself",
+              "raw_glosses": [
+                "to divide itself"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.25,
+              "best_wordnet_overlap": [
+                "divide"
+              ],
+              "best_wordnet_synset_id": "02627934-v"
+            },
+            {
+              "headword": "separate",
+              "translation": "apartar",
+              "translation_lc": "apartar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 5,
+              "sense_text": "to cause to be separate",
+              "raw_glosses": [
+                "to cause to be separate"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            },
+            {
+              "headword": "separate",
+              "translation": "disgregar",
+              "translation_lc": "disgregar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 3,
+              "sense_text": "to cause to be separate",
+              "raw_glosses": [
+                "to cause to be separate"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            },
+            {
+              "headword": "separate",
+              "translation": "disatraer",
+              "translation_lc": "disatraer",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 4,
+              "sense_text": "to cause to be separate",
+              "raw_glosses": [
+                "to cause to be separate"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            }
+          ],
+          "requires_independent_cases": true,
+          "requires_wordnet_link": true
+        }
+      },
+      {
+        "family_id": "en-es:sentence-veto:trouble:molestia",
+        "trigger": "trouble",
+        "active": {
+          "sense_id": "en-es:sentence-veto:trouble:molestia:active",
+          "target_lemma": "molestia",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "trouble noun sense: effort",
+            "gloss_text": "effort",
+            "sense_gloss_bundle": "trouble noun sense: effort | effort",
+            "all_evidence_text": "molestia | trouble noun sense: effort | effort | effort"
+          },
+          "metadata": {
+            "sense_role": "active",
+            "translation_rank": 9,
+            "translation_pos": "noun",
+            "translation_sense_text": "effort",
+            "support_sources": [
+              "wiktionary_en_es",
+              "freedict_es_en"
+            ],
+            "reverse_support": false,
+            "freedict_support": true,
+            "wordnet_linked": true,
+            "best_wordnet_link_score": 0.25,
+            "best_wordnet_overlap": [
+              "effort"
+            ]
+          }
+        },
+        "shadows": [
+          {
+            "sense_id": "en-es:sentence-veto:trouble:molestia:molestar:shadow",
+            "target_lemma": "molestar",
+            "canonical_pos": "verb",
+            "evidence_views": {
+              "sense_label": "trouble verb sense: to bother; to annoy",
+              "gloss_text": "to bother; to annoy",
+              "sense_gloss_bundle": "trouble verb sense: to bother; to annoy | to bother; to annoy",
+              "all_evidence_text": "molestar | trouble verb sense: to bother; to annoy | to bother; to annoy | to bother; to annoy"
+            },
+            "metadata": {
+              "sense_role": "shadow",
+              "translation_rank": 15,
+              "translation_pos": "verb",
+              "translation_sense_text": "to bother; to annoy",
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "bother"
+              ]
+            }
+          }
+        ],
+        "cases": [
+          {
+            "case_id": "en-es:sentence-veto:trouble:molestia:draft-loader:001",
+            "sentence": "The word trouble is being checked for effort.",
+            "source_phrase": "trouble",
+            "gold_winner": "en-es:sentence-veto:trouble:molestia:active",
+            "gold_decision": "replace",
+            "slice_tags": [
+              "non_v10_wave_draft",
+              "loader_only",
+              "not_quality_evaluation"
+            ]
+          }
+        ],
+        "metadata": {
+          "wave_id": "source_non_v10_sweep_min0p2",
+          "construction_method": "wiktionary_forward_translation_with_reverse_support:any_cross_pos",
+          "source_candidate": {
+            "archetype": "wordnet_noun_verb_cross_pos",
+            "candidate_id": "en-es:wordnet-non-v10-candidate:trouble",
+            "complexity_band": "broad",
+            "cross_pos": true,
+            "noun_verb": true,
+            "pos_counts": {
+              "noun": 6,
+              "verb": 5
+            },
+            "recommended_next_action": "construct_translation_family",
+            "recommended_wave_role": "candidate_source_probe",
+            "same_pos_polysemy": true,
+            "sample_synsets": [
+              {
+                "definition": "a source of difficulty",
+                "example": "one trouble after another delayed the job",
+                "members": [
+                  "trouble",
+                  "problem"
+                ],
+                "pos": "noun",
+                "synset_id": "05695143-n"
+              },
+              {
+                "definition": "an angry disturbance",
+                "example": "he didn't want to make a fuss",
+                "members": [
+                  "fuss",
+                  "trouble",
+                  "bother",
+                  "hassle"
+                ],
+                "pos": "noun",
+                "synset_id": "07387165-n"
+              },
+              {
+                "definition": "an event causing distress or pain",
+                "example": "what is the trouble?",
+                "members": [
+                  "trouble"
+                ],
+                "pos": "noun",
+                "synset_id": "07303737-n"
+              },
+              {
+                "definition": "an effort that is inconvenient",
+                "example": "I went to a lot of trouble",
+                "members": [
+                  "trouble",
+                  "difficulty"
+                ],
+                "pos": "noun",
+                "synset_id": "00625102-n"
+              }
+            ],
+            "score": 16.1,
+            "sense_count": 11,
+            "source_definition_count": 11,
+            "source_example_count": 23,
+            "source_member_count": 36,
+            "trigger": "trouble"
+          },
+          "translation_candidates": [
+            {
+              "headword": "trouble",
+              "translation": "molestia",
+              "translation_lc": "molestia",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 9,
+              "sense_text": "effort",
+              "raw_glosses": [
+                "effort"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.25,
+              "best_wordnet_overlap": [
+                "effort"
+              ],
+              "best_wordnet_synset_id": "00625102-n"
+            },
+            {
+              "headword": "trouble",
+              "translation": "inconveniente",
+              "translation_lc": "inconveniente",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 11,
+              "sense_text": "effort",
+              "raw_glosses": [
+                "effort"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.25,
+              "best_wordnet_overlap": [
+                "effort"
+              ],
+              "best_wordnet_synset_id": "00625102-n"
+            },
+            {
+              "headword": "trouble",
+              "translation": "molestar",
+              "translation_lc": "molestar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 15,
+              "sense_text": "to bother; to annoy",
+              "raw_glosses": [
+                "to bother; to annoy"
+              ],
+              "reverse_support": false,
+              "freedict_support": true,
+              "support_sources": [
+                "wiktionary_en_es",
+                "freedict_es_en"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "bother"
+              ],
+              "best_wordnet_synset_id": "02513385-v"
+            },
+            {
+              "headword": "trouble",
+              "translation": "dificultad",
+              "translation_lc": "dificultad",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 5,
+              "sense_text": "difficulty",
+              "raw_glosses": [
+                "difficulty"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.25,
+              "best_wordnet_overlap": [
+                "difficulty"
+              ],
+              "best_wordnet_synset_id": "05695143-n"
+            },
+            {
+              "headword": "trouble",
+              "translation": "dificultades",
+              "translation_lc": "dificultades",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 6,
+              "sense_text": "difficulty",
+              "raw_glosses": [
+                "difficulty"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.25,
+              "best_wordnet_overlap": [
+                "difficulty"
+              ],
+              "best_wordnet_synset_id": "05695143-n"
+            },
+            {
+              "headword": "trouble",
+              "translation": "problemas",
+              "translation_lc": "problemas",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 7,
+              "sense_text": "difficulty",
+              "raw_glosses": [
+                "difficulty"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.25,
+              "best_wordnet_overlap": [
+                "difficulty"
+              ],
+              "best_wordnet_synset_id": "05695143-n"
+            },
+            {
+              "headword": "trouble",
+              "translation": "cuita",
+              "translation_lc": "cuita",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 8,
+              "sense_text": "difficulty",
+              "raw_glosses": [
+                "difficulty"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.25,
+              "best_wordnet_overlap": [
+                "difficulty"
+              ],
+              "best_wordnet_synset_id": "05695143-n"
+            },
+            {
+              "headword": "trouble",
+              "translation": "costo",
+              "translation_lc": "costo",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 10,
+              "sense_text": "effort",
+              "raw_glosses": [
+                "effort"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.25,
+              "best_wordnet_overlap": [
+                "effort"
+              ],
+              "best_wordnet_synset_id": "00625102-n"
+            },
+            {
+              "headword": "trouble",
+              "translation": "fastidiar",
+              "translation_lc": "fastidiar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 16,
+              "sense_text": "to bother; to annoy",
+              "raw_glosses": [
+                "to bother; to annoy"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "bother"
+              ],
+              "best_wordnet_synset_id": "02513385-v"
+            },
+            {
+              "headword": "trouble",
+              "translation": "agobiar",
+              "translation_lc": "agobiar",
+              "pos": "verb",
+              "canonical_pos": "verb",
+              "rank": 17,
+              "sense_text": "to bother; to annoy",
+              "raw_glosses": [
+                "to bother; to annoy"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": true,
+              "best_wordnet_link_score": 0.2,
+              "best_wordnet_overlap": [
+                "bother"
+              ],
+              "best_wordnet_synset_id": "02513385-v"
+            },
+            {
+              "headword": "trouble",
+              "translation": "problema",
+              "translation_lc": "problema",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 1,
+              "sense_text": "distressful or dangerous situation",
+              "raw_glosses": [
+                "distressful or dangerous situation"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            },
+            {
+              "headword": "trouble",
+              "translation": "lío",
+              "translation_lc": "lío",
+              "pos": "noun",
+              "canonical_pos": "noun",
+              "rank": 2,
+              "sense_text": "distressful or dangerous situation",
+              "raw_glosses": [
+                "distressful or dangerous situation"
+              ],
+              "reverse_support": false,
+              "freedict_support": false,
+              "support_sources": [
+                "wiktionary_en_es"
+              ],
+              "wordnet_linked": false,
+              "best_wordnet_link_score": 0.0,
+              "best_wordnet_overlap": []
+            }
+          ],
+          "requires_independent_cases": true,
+          "requires_wordnet_link": true
+        }
+      }
+    ]
+  },
+  "admission_selected_queue": {
+    "schema_version": 1,
+    "queue_id": "semantic_source_non_v10_wave6_anypos_supported_selected_queue_en_es_v1",
+    "pair": "en-es",
+    "generated_at": "2026-04-29T00:19:52Z",
+    "source_sweep_variant_id": "min0p12-definition_and_example-rows2",
+    "source_sweep_selection_strategy": "single_variant",
+    "dataset_id": "en_es_source_non_v10_wave6_anypos_supported_selected_v1",
+    "translation_support_mode": "reverse_or_freedict_required",
+    "families": [
+      {
+        "family_id": "en-es:sentence-veto:burn:quemadura",
+        "trigger": "burn",
+        "role": "target",
+        "archetype": "automatic_non_v10_admission_selected_draft",
+        "likely_bucket": "source_coverage_probe",
+        "priority_rank": 1,
+        "review_state": "draft_admission_selected_needs_case_review"
+      },
+      {
+        "family_id": "en-es:sentence-veto:force:fuerza",
+        "trigger": "force",
+        "role": "target",
+        "archetype": "automatic_non_v10_admission_selected_draft",
+        "likely_bucket": "source_coverage_probe",
+        "priority_rank": 2,
+        "review_state": "draft_admission_selected_needs_case_review"
+      },
+      {
+        "family_id": "en-es:sentence-veto:help:ayuda",
+        "trigger": "help",
+        "role": "target",
+        "archetype": "automatic_non_v10_admission_selected_draft",
+        "likely_bucket": "source_coverage_probe",
+        "priority_rank": 3,
+        "review_state": "draft_admission_selected_needs_case_review"
+      },
+      {
+        "family_id": "en-es:sentence-veto:hand:mano",
+        "trigger": "hand",
+        "role": "target",
+        "archetype": "automatic_non_v10_admission_selected_draft",
+        "likely_bucket": "source_coverage_probe",
+        "priority_rank": 4,
+        "review_state": "draft_admission_selected_needs_case_review"
+      },
+      {
+        "family_id": "en-es:sentence-veto:separate:separado",
+        "trigger": "separate",
+        "role": "target",
+        "archetype": "automatic_non_v10_admission_selected_draft",
+        "likely_bucket": "source_coverage_probe",
+        "priority_rank": 5,
+        "review_state": "draft_admission_selected_needs_case_review"
+      },
+      {
+        "family_id": "en-es:sentence-veto:trouble:molestia",
+        "trigger": "trouble",
+        "role": "target",
+        "archetype": "automatic_non_v10_admission_selected_draft",
+        "likely_bucket": "source_coverage_probe",
+        "priority_rank": 6,
+        "review_state": "draft_admission_selected_needs_case_review"
+      }
+    ]
+  },
+  "limitations": [
+    "draft_waves_are_unreviewed_and_not_promotion_candidates",
+    "phrase_control_rows_are_not_generated_by_the_wordnet_adapter",
+    "heldout_validation_is_not_included_in_this_screening_sweep",
+    "admission_selected_wave_is_a_control_selection_not_a_reviewed_dataset"
+  ],
+  "next_steps": [
+    "use the best semantic variant as the source-coverage control",
+    "materialize the admission-selected wave as a draft dataset",
+    "build phrase-containment rows through a separate containment-only lane",
+    "add independent held-out cases before any promotion claim"
+  ],
+  "artifacts": {
+    "candidate_json": "docs/test_outputs/semantic_non_v10_inventory_candidates_wave6_available_latest.json",
+    "wiktionary_en_es_sqlite": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+    "wiktionary_es_en_sqlite": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "freedict_es_en_sqlite": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-es-en/main.sqlite",
+    "wordnet_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "artifacts": {
+    "combined_normalized_evidence": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-003-normalized_evidence.json",
+    "semantic_inventory": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-003_semantic_inventory.json"
+  },
+  "component_batches": [
+    {
+      "batch_id": "en-es:semantic-veto:en-es-active-only-combined-full-v1-tranche-002",
+      "family_count": 135,
+      "row_count": 282,
+      "source_family": "internal_rulegen_artifact",
+      "source_id": "en-es-active-only-combined-full-v1-tranche-002",
+      "source_type": "internal"
+    },
+    {
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-003",
+      "family_count": 43,
+      "row_count": 86,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-003",
+      "source_type": "llm"
+    }
+  ],
+  "decision": "active_only_full_pack_ready_for_named_install",
+  "duplicate_samples": [],
+  "existing_family_append_samples": [],
+  "generated_at": "2026-05-12T02:40:27Z",
+  "inputs": {
+    "add_normalized_evidence_paths": [
+      "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-003_normalized_evidence.json"
+    ],
+    "base_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-002_semantic_inventory.json",
+    "base_normalized_evidence_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-002-normalized_evidence.json"
+  },
+  "issues": [],
+  "methodology": {
+    "existing_family_policy": "append generated evidence to existing active sense by trigger-target key",
+    "merge_scope": "append active-only anchor cues, preserve existing shadows and phrase sets",
+    "new_family_policy": "create active-only competition set when trigger-target pair is absent",
+    "runtime_policy_change": "none",
+    "runtime_publishable_rows": "kept false in source evidence; semantic inventory is the runtime materialization layer"
+  },
+  "new_family_samples": [
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:bird:ave:7d7a82c6",
+      "target": "ave",
+      "trigger": "bird"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:blind:ciego:b0c47758",
+      "target": "ciego",
+      "trigger": "blind"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:boat:barco:27bbf09b",
+      "target": "barco",
+      "trigger": "boat"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:boss:amo:31737fee",
+      "target": "amo",
+      "trigger": "boss"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:brazilian:brasileno:d170f7a3",
+      "target": "brasileño",
+      "trigger": "brazilian"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:burden:cargar:03d5c181",
+      "target": "cargar",
+      "trigger": "burden"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:burn:quemar:f2a206dd",
+      "target": "quemar",
+      "trigger": "burn"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:castle:castillo:86f51d0e",
+      "target": "castillo",
+      "trigger": "castle"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:cat:gato:97d69670",
+      "target": "gato",
+      "trigger": "cat"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:chair:silla:f3abdb4f",
+      "target": "silla",
+      "trigger": "chair"
+    }
+  ],
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-003",
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "add_normalized_row_count": 86,
+    "base_normalized_row_count": 282,
+    "combined_normalized_row_count": 368,
+    "competition_set_count": 178,
+    "duplicate_row_count": 0,
+    "existing_family_append_count": 0,
+    "existing_family_append_samples": [],
+    "merged_evidence_row_count": 86,
+    "new_family_count": 43,
+    "new_family_samples": [
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:bird:ave:7d7a82c6",
+        "target": "ave",
+        "trigger": "bird"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:blind:ciego:b0c47758",
+        "target": "ciego",
+        "trigger": "blind"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:boat:barco:27bbf09b",
+        "target": "barco",
+        "trigger": "boat"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:boss:amo:31737fee",
+        "target": "amo",
+        "trigger": "boss"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:brazilian:brasileno:d170f7a3",
+        "target": "brasileño",
+        "trigger": "brazilian"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:burden:cargar:03d5c181",
+        "target": "cargar",
+        "trigger": "burden"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:burn:quemar:f2a206dd",
+        "target": "quemar",
+        "trigger": "burn"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:castle:castillo:86f51d0e",
+        "target": "castillo",
+        "trigger": "castle"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:cat:gato:97d69670",
+        "target": "gato",
+        "trigger": "cat"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:chair:silla:f3abdb4f",
+        "target": "silla",
+        "trigger": "chair"
+      }
+    ],
+    "sense_count": 220,
+    "trigger_count": 178
+  }
+}

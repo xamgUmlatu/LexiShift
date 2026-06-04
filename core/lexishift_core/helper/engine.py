@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 import json
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
@@ -19,8 +20,9 @@ from lexishift_core.helper.status import HelperStatus, load_status, save_status
 from lexishift_core.helper.use_cases.initialize_set import (
     initialize_srs_set as _initialize_srs_set_use_case,
 )
-from lexishift_core.helper.use_cases.refresh_set import (
-    refresh_srs_set as _refresh_srs_set_use_case,
+from lexishift_core.helper.use_cases.rebalance_set import (
+    apply_srs_rebalance as _apply_srs_rebalance_use_case,
+    plan_srs_rebalance as _plan_srs_rebalance_use_case,
 )
 from lexishift_core.helper.use_cases.set_planning import (
     build_set_plan_payload as _build_set_plan_payload,
@@ -31,6 +33,15 @@ from lexishift_core.helper.use_cases.signals import (
     apply_exposure as _apply_exposure_use_case,
     apply_feedback as _apply_feedback_use_case,
 )
+from lexishift_core.helper.use_cases.admission_suppression import (
+    suppress_srs_admission as _suppress_srs_admission_use_case,
+)
+from lexishift_core.helper.use_cases.auto_refresh_set import (
+    maybe_auto_refresh_srs_set as _maybe_auto_refresh_srs_set_use_case,
+)
+from lexishift_core.helper.use_cases.browsing_admission import (
+    ingest_browsing_admission_signals as _ingest_browsing_admission_signals_use_case,
+)
 from lexishift_core.srs import (
     SrsSettings,
     SrsStore,
@@ -39,10 +50,13 @@ from lexishift_core.srs import (
     save_srs_settings,
     save_srs_store,
 )
+from lexishift_core.srs.browsing_admission import BrowsingSignalIngestPolicy
 from lexishift_core.srs.pair_policy import resolve_srs_pair_policy
 from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
+    OBJECTIVE_REBALANCE,
     STRATEGY_FREQUENCY_BOOTSTRAP,
+    STRATEGY_PROFILE_GROWTH,
 )
 from lexishift_core.srs.source import SOURCE_EXTENSION
 from lexishift_core.srs.time import now_utc
@@ -72,6 +86,30 @@ def _run_rulegen_job_use_case(*args, **kwargs):
     return rulegen_job_module.run_rulegen_job(*args, **kwargs)
 
 
+def _preview_srs_admission_use_case(*args, **kwargs):
+    preview_module = __import__(
+        "lexishift_core.helper.use_cases.admission_preview",
+        fromlist=["preview_srs_admission"],
+    )
+    return preview_module.preview_srs_admission(*args, **kwargs)
+
+
+def _refresh_srs_set_use_case(*args, **kwargs):
+    refresh_module = __import__(
+        "lexishift_core.helper.use_cases.refresh_set",
+        fromlist=["refresh_srs_set"],
+    )
+    return refresh_module.refresh_srs_set(*args, **kwargs)
+
+
+def _semantic_admit_batch_use_case(*args, **kwargs):
+    semantic_admission_module = __import__(
+        "lexishift_core.helper.use_cases.semantic_admission",
+        fromlist=["semantic_admit_batch"],
+    )
+    return semantic_admission_module.semantic_admit_batch(*args, **kwargs)
+
+
 def _reset_srs_data_use_case(*args, **kwargs):
     reset_module = __import__(
         "lexishift_core.helper.use_cases.reset",
@@ -80,11 +118,35 @@ def _reset_srs_data_use_case(*args, **kwargs):
     return reset_module.reset_srs_data(*args, **kwargs)
 
 
+def _list_srs_items_use_case(*args, **kwargs):
+    srs_items_module = __import__(
+        "lexishift_core.helper.use_cases.srs_items",
+        fromlist=["list_srs_items"],
+    )
+    return srs_items_module.list_srs_items(*args, **kwargs)
+
+
+def _get_srs_item_rule_details_use_case(*args, **kwargs):
+    srs_items_module = __import__(
+        "lexishift_core.helper.use_cases.srs_items",
+        fromlist=["get_srs_item_rule_details"],
+    )
+    return srs_items_module.get_srs_item_rule_details(*args, **kwargs)
+
+
+def _lookup_word_info_use_case(*args, **kwargs):
+    word_info_module = __import__(
+        "lexishift_core.helper.use_cases.word_info",
+        fromlist=["lookup_word_info"],
+    )
+    return word_info_module.lookup_word_info(*args, **kwargs)
+
+
 @dataclass(frozen=True)
 class RulegenJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
-    freedict_de_en_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     profile_id: str = "default"
     set_source_db: Optional[Path] = None
     set_top_n: Optional[int] = None
@@ -92,6 +154,7 @@ class RulegenJobConfig:
     max_definitions_per_target: Optional[int] = None
     max_rules_per_target: Optional[int] = None
     semantic_demotion_scale: Optional[float] = None
+    enable_exact_gloss_demotions: Optional[bool] = None
     include_variants: Optional[bool] = None
     allow_multiword_glosses: Optional[bool] = None
     pos_scoring_enabled: Optional[bool] = None
@@ -129,7 +192,7 @@ class RulegenJobConfig:
 class SetInitializationJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
-    freedict_de_en_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
     set_top_n: Optional[int] = None
@@ -159,12 +222,32 @@ class SetPlanningJobConfig:
 
 
 @dataclass(frozen=True)
+class SetAdmissionPreviewJobConfig:
+    pair: str
+    jmdict_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
+    profile_id: str = "default"
+    strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
+    objective: str = OBJECTIVE_BOOTSTRAP
+    set_top_n: Optional[int] = None
+    bootstrap_top_n: Optional[int] = None
+    initial_active_count: Optional[int] = None
+    max_active_items_hint: Optional[int] = None
+    preview_count: Optional[int] = None
+    preview_sampling_mode: Optional[str] = None
+    preview_seed: Optional[int] = None
+    profile_context: Optional[Mapping[str, object]] = None
+    trigger: str = "manual"
+
+
+@dataclass(frozen=True)
 class SrsRefreshJobConfig:
     pair: str
     jmdict_path: Optional[Path] = None
-    freedict_de_en_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
+    strategy: str = STRATEGY_PROFILE_GROWTH
     set_top_n: Optional[int] = None
     feedback_window_size: Optional[int] = None
     max_active_items: Optional[int] = None
@@ -173,6 +256,44 @@ class SrsRefreshJobConfig:
     persist_store: bool = True
     trigger: str = "manual"
     profile_context: Optional[Mapping[str, object]] = None
+
+
+@dataclass(frozen=True)
+class SrsAutoRefreshJobConfig:
+    pair: str
+    jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
+    profile_id: str = "default"
+    strategy: str = STRATEGY_PROFILE_GROWTH
+    set_top_n: Optional[int] = None
+    feedback_window_size: Optional[int] = None
+    max_active_items: Optional[int] = None
+    max_new_items: Optional[int] = None
+    allowed_pos: Optional[Sequence[str]] = None
+    persist_store: bool = True
+    trigger: str = "auto_feedback_threshold"
+    profile_context: Optional[Mapping[str, object]] = None
+    auto_refresh_enabled: bool = True
+    auto_refresh_min_feedback_events: Optional[int] = None
+    auto_refresh_min_good_easy: Optional[int] = None
+    auto_refresh_repeat_min_good_easy: Optional[int] = None
+    auto_refresh_cooldown_minutes: Optional[int] = None
+
+
+@dataclass(frozen=True)
+class SrsRebalanceJobConfig:
+    pair: str
+    jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
+    profile_id: str = "default"
+    strategy: str = STRATEGY_PROFILE_GROWTH
+    objective: str = OBJECTIVE_REBALANCE
+    set_top_n: Optional[int] = None
+    max_active_items: Optional[int] = None
+    profile_context: Optional[Mapping[str, object]] = None
+    trigger: str = "manual"
 
 
 def _ensure_settings(paths: HelperPaths, *, persist_missing: bool = True) -> SrsSettings:
@@ -249,6 +370,13 @@ def load_ruleset(paths: HelperPaths, *, pair: str, profile_id: str = "default") 
     return json.loads(ruleset_path.read_text(encoding="utf-8"))
 
 
+def load_semantic_inventory(paths: HelperPaths, *, pair: str, profile_id: str = "default") -> dict:
+    inventory_path = paths.semantic_inventory_path(pair, profile_id=profile_id)
+    if not inventory_path.exists():
+        raise FileNotFoundError(inventory_path)
+    return json.loads(inventory_path.read_text(encoding="utf-8"))
+
+
 def get_srs_runtime_diagnostics(
     paths: HelperPaths,
     *,
@@ -260,6 +388,76 @@ def get_srs_runtime_diagnostics(
         pair=pair,
         profile_id=profile_id,
     )
+
+
+def list_srs_items(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    profile_id: str = "default",
+    now: datetime | None = None,
+) -> dict:
+    return _list_srs_items_use_case(
+        paths,
+        pair=pair,
+        profile_id=profile_id,
+        now=now,
+        resolve_profile_id_fn=_resolve_profile_id,
+    )
+
+
+def get_srs_item_rule_details(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lemma: str,
+    profile_id: str = "default",
+    limit: int | None = None,
+) -> dict:
+    return _get_srs_item_rule_details_use_case(
+        paths,
+        pair=pair,
+        lemma=lemma,
+        profile_id=profile_id,
+        limit=limit,
+        resolve_profile_id_fn=_resolve_profile_id,
+    )
+
+
+def lookup_word_info(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lemma: str,
+    profile_id: str = "default",
+    display: str = "",
+    origin: str = "",
+    source_phrase: str = "",
+    word_package: Mapping[str, object] | None = None,
+    translation_dict_path: Path | None = None,
+    jmdict_path: Path | None = None,
+) -> dict:
+    return _lookup_word_info_use_case(
+        paths,
+        pair=pair,
+        lemma=lemma,
+        profile_id=profile_id,
+        display=display,
+        origin=origin,
+        source_phrase=source_phrase,
+        word_package=word_package,
+        translation_dict_path=translation_dict_path,
+        jmdict_path=jmdict_path,
+        resolve_profile_id_fn=_resolve_profile_id,
+    )
+
+
+def semantic_admit_batch(
+    paths: HelperPaths,
+    *,
+    payload: Mapping[str, object],
+) -> dict:
+    return _semantic_admit_batch_use_case(paths, payload=payload)
 
 
 def _resolve_pair_set_top_n(*, pair: str, requested_top_n: Optional[int], purpose: str) -> int:
@@ -289,7 +487,7 @@ def _ensure_pair_requirements(
     *,
     pair: str,
     jmdict_path: Optional[Path],
-    freedict_de_en_path: Optional[Path],
+    translation_dict_path: Optional[Path],
     require_frequency_db: bool,
     set_source_db: Optional[Path],
     check_seed_resources: bool = False,
@@ -308,14 +506,14 @@ def _ensure_pair_requirements(
             raise ValueError(f"Missing JMDict path for pair '{pair}'.")
         if not jmdict_path.exists():
             raise FileNotFoundError(jmdict_path)
-    requires_freedict_de_en = (
-        check_rulegen_resources and capability.requires_freedict_de_en_for_rulegen
+    requires_translation_dictionary = (
+        check_rulegen_resources and capability.requires_translation_dictionary_for_rulegen
     )
-    if requires_freedict_de_en:
-        if freedict_de_en_path is None:
-            raise ValueError(f"Missing FreeDict DE->EN path for pair '{pair}'.")
-        if not freedict_de_en_path.exists():
-            raise FileNotFoundError(freedict_de_en_path)
+    if requires_translation_dictionary:
+        if translation_dict_path is None:
+            raise ValueError(f"Missing translation dictionary path for pair '{pair}'.")
+        if not translation_dict_path.exists():
+            raise FileNotFoundError(translation_dict_path)
     if require_frequency_db:
         if set_source_db is None:
             raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
@@ -371,6 +569,27 @@ def plan_srs_set(
     )
 
 
+def preview_srs_admission(
+    paths: HelperPaths,
+    *,
+    config: SetAdmissionPreviewJobConfig,
+) -> dict:
+    return _preview_srs_admission_use_case(
+        paths,
+        config=config,
+        resolve_profile_id_fn=_resolve_profile_id,
+        ensure_store_fn=_ensure_store,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_initial_active_count_fn=_resolve_pair_initial_active_count,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        count_items_for_pair_fn=_count_items_for_pair,
+        build_set_plan_payload_fn=_build_set_plan_payload,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        initialize_store_from_frequency_list_with_report_fn=initialize_store_from_frequency_list_with_report,
+    )
+
+
 def initialize_srs_set(
     paths: HelperPaths,
     *,
@@ -396,6 +615,27 @@ def initialize_srs_set(
     )
 
 
+def plan_srs_rebalance(
+    paths: HelperPaths,
+    *,
+    config: SrsRebalanceJobConfig,
+) -> dict:
+    return _plan_srs_rebalance_use_case(
+        paths,
+        config=config,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        resolve_profile_id_fn=_resolve_profile_id,
+        ensure_settings_fn=_ensure_settings,
+        ensure_store_fn=_ensure_store,
+        count_items_for_pair_fn=_count_items_for_pair,
+        build_set_plan_payload_fn=_build_set_plan_payload,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        build_seed_candidates_fn=build_seed_candidates,
+    )
+
+
 def refresh_srs_set(
     paths: HelperPaths,
     *,
@@ -412,6 +652,62 @@ def refresh_srs_set(
         ensure_settings_fn=_ensure_settings,
         ensure_store_fn=_ensure_store,
         count_items_for_pair_fn=_count_items_for_pair,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        build_seed_candidates_fn=build_seed_candidates,
+        run_rulegen_for_pair_fn=run_rulegen_for_pair,
+        write_rulegen_outputs_fn=write_rulegen_outputs,
+        update_status_fn=_update_status,
+    )
+
+
+def maybe_auto_refresh_srs_set(
+    paths: HelperPaths,
+    *,
+    config: SrsAutoRefreshJobConfig,
+) -> dict:
+    def build_refresh_config(source_config, *, pair: str, profile_id: str, trigger: str):
+        return SrsRefreshJobConfig(
+            pair=pair,
+            jmdict_path=source_config.jmdict_path,
+            translation_dict_path=source_config.translation_dict_path,
+            set_source_db=source_config.set_source_db,
+            profile_id=profile_id,
+            strategy=source_config.strategy,
+            set_top_n=source_config.set_top_n,
+            feedback_window_size=source_config.feedback_window_size,
+            max_active_items=source_config.max_active_items,
+            max_new_items=source_config.max_new_items,
+            allowed_pos=source_config.allowed_pos,
+            persist_store=source_config.persist_store,
+            trigger=trigger,
+            profile_context=source_config.profile_context,
+        )
+
+    return _maybe_auto_refresh_srs_set_use_case(
+        paths,
+        config=config,
+        resolve_profile_id_fn=_resolve_profile_id,
+        build_refresh_config_fn=build_refresh_config,
+        refresh_srs_set_fn=refresh_srs_set,
+    )
+
+
+def apply_srs_rebalance(
+    paths: HelperPaths,
+    *,
+    config: SrsRebalanceJobConfig,
+) -> dict:
+    return _apply_srs_rebalance_use_case(
+        paths,
+        config=config,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        resolve_profile_id_fn=_resolve_profile_id,
+        ensure_settings_fn=_ensure_settings,
+        ensure_store_fn=_ensure_store,
+        count_items_for_pair_fn=_count_items_for_pair,
+        build_set_plan_payload_fn=_build_set_plan_payload,
         resolve_stopwords_path_fn=_resolve_stopwords_path,
         build_seed_candidates_fn=build_seed_candidates,
         run_rulegen_for_pair_fn=run_rulegen_for_pair,
@@ -461,15 +757,63 @@ def apply_exposure(
     )
 
 
+def suppress_srs_admission(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lemma: str,
+    reason: str = "user_blocked",
+    profile_id: str = "default",
+    note: str | None = None,
+    now: datetime | None = None,
+) -> dict:
+    return _suppress_srs_admission_use_case(
+        paths,
+        pair=pair,
+        lemma=lemma,
+        reason=reason,
+        profile_id=profile_id,
+        note=note,
+        now=now,
+        resolve_profile_id_fn=_resolve_profile_id,
+    )
+
+
+def ingest_browsing_admission_signals(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    signals: Sequence[Mapping[str, object] | object],
+    profile_id: str = "default",
+    captured_at: str | None = None,
+    opt_in: bool = False,
+    policy: BrowsingSignalIngestPolicy | None = None,
+    now: datetime | None = None,
+) -> dict:
+    return _ingest_browsing_admission_signals_use_case(
+        paths,
+        pair=pair,
+        signals=signals,
+        profile_id=profile_id,
+        captured_at=captured_at,
+        opt_in=opt_in,
+        policy=policy,
+        now=now,
+        resolve_profile_id_fn=_resolve_profile_id,
+    )
+
+
 def reset_srs_data(
     paths: HelperPaths,
     *,
     pair: Optional[str] = None,
     profile_id: str = "default",
+    preserve_lifecycle_metadata: bool = False,
 ) -> dict:
     return _reset_srs_data_use_case(
         paths,
         pair=pair,
         profile_id=profile_id,
+        preserve_lifecycle_metadata=preserve_lifecycle_metadata,
         resolve_profile_id_fn=_resolve_profile_id,
     )

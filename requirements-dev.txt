@@ -1,4 +1,7 @@
 fsrs>=6.3.1
 mypy>=1.8
+numpy>=2.2,<2.3; python_version < "3.11"
+numpy>=2.4; python_version >= "3.11"
 pre-commit>=3.6
+pytest>=9.0
 ruff>=0.6

@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T01:25:05Z",
+  "status": "ok",
+  "pair": "en-es",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "dataset_id": "en_es_sentence_veto_v10",
+  "run_id": "reverse-aux-example-frames-v10-20260425a",
+  "source_scope": "prompt_queue",
+  "batch_id": "en-es:reverse-aux-example-frames:reverse-aux-example-frames-v10-20260425a",
+  "source_type": "external",
+  "source_id": "reverse_aux_example_frames",
+  "source_family": "installed_translation_pack",
+  "resource_status": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "reverse_pack": {
+      "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+      "exists": true,
+      "provider": "wiktionary",
+      "pack_id": "wiktionary_en_es",
+      "direction": "reverse"
+    },
+    "missing_resources": []
+  },
+  "summary": {
+    "queue_family_count": 8,
+    "source_family_count": 8,
+    "target_family_count": 6,
+    "row_count": 13,
+    "families_with_active_aux": 7,
+    "families_with_shadow_aux": 6,
+    "target_families_with_active_aux": 6,
+    "target_families_with_shadow_aux": 4,
+    "families_with_phrase_control_examples": 0
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "role": "target",
+      "active_aux_count": 1,
+      "shadow_aux_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "role": "target",
+      "active_aux_count": 1,
+      "shadow_aux_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "trigger": "play",
+      "active_target": "obra",
+      "role": "negative_control",
+      "active_aux_count": 0,
+      "shadow_aux_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "role": "negative_control",
+      "active_aux_count": 1,
+      "shadow_aux_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "role": "target",
+      "active_aux_count": 1,
+      "shadow_aux_count": 0,
+      "phrase_control_example_count": 0,
+      "row_count": 1
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "role": "target",
+      "active_aux_count": 1,
+      "shadow_aux_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "role": "target",
+      "active_aux_count": 1,
+      "shadow_aux_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "role": "target",
+      "active_aux_count": 1,
+      "shadow_aux_count": 1,
+      "phrase_control_example_count": 0,
+      "row_count": 2
+    }
+  ],
+  "recommendation": "This is a real non-LLM source batch, but it is not contract-complete: reverse aux covers active text for `6` target families and shadow text for `4`, with no phrase-control examples. Use the required-family contract gate to route the remaining rows to source ingestion or a narrow LLM example-frame generator."
+}

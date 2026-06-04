@@ -2,10 +2,10 @@
 
 Status: active script map
 Role: Runbook / operational
-Last updated: 2026-03-21
-Last verified: 2026-03-21 script-map routing review + package inventory check
+Last updated: 2026-05-16
+Last verified: 2026-05-16 profile backup script generalization, unreferenced-script routing, project-structure odd-artifact cleanup, and generated-output unnecessary audit routing
 Purpose: route contributors to the current workflow entrypoints first, then to specialty build/data/testing tools
-Source-of-truth: script routing guide; operational behavior is defined by the scripts themselves and `package.json`.
+Source-of-truth: script routing guide; operational behavior is defined by the scripts themselves and `package.json`; by-change-type validation routing lives in `../docs/developer/productization_lane4_validation_gate_inventory.md`.
 
 Scripts are grouped by workflow type so build/release and data tooling stay separated.
 
@@ -25,6 +25,9 @@ Use the package-script workflow surfaces first when they exist:
 - Branch-scope safety: `npm --prefix scripts run check:changed`
 - Canonical doc integrity: `npm --prefix scripts run check:docs`
 - Feature-state audit: `npm --prefix scripts run check:state`
+- Project structure inventory: `npm --prefix scripts run inventory:structure`
+- Generated-output unnecessary audit: `npm --prefix scripts run inventory:unnecessary`
+- SRS admission lab: `npm --prefix scripts run dev:srs-admission-lab`
 - Build safety: `npm --prefix scripts run build`
 - Project health: `npm --prefix scripts run health:project`
 - SRS quality harness: `npm --prefix scripts run quality:srs:harness`
@@ -32,8 +35,11 @@ Use the package-script workflow surfaces first when they exist:
 - SRS journey edge lane: `npm --prefix scripts run quality:srs:journey:edge`
 - SRS journey real-publication lane: `npm --prefix scripts run quality:srs:journey:real`
 - SRS journey installed-resource lane: `npm --prefix scripts run quality:srs:journey:installed`
+- SRS `en-es` profile-preference lane: `npm --prefix scripts run quality:srs:journey:en-es:profile`
 
 Use the raw script paths below when there is no package-script surface or when you need direct CLI control.
+Use `../docs/developer/productization_lane4_validation_gate_inventory.md` when
+you need to choose the smallest honest bundle for a specific change type.
 
 ## Workflow Entry Points
 
@@ -51,6 +57,25 @@ Use the raw script paths below when there is no package-script surface or when y
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:docs:report`
   - Verifies the canonical routing/policy docs carry top metadata (`Status`, `Role`, `Last updated`) and point at real files so documentation authority stays operable
   - Complements `feature_state_audit.py`, which remains the dedicated structural audit for `docs/developer/feature_state_matrix.md`
+- Project structure inventory:
+  `dev/project_structure_inventory.py`
+  - Exposed via `npm --prefix scripts run inventory:structure`
+  - Emits JSON and Markdown under `docs/test_outputs/dev_workflow/`
+  - Enumerates repo paths while ignoring local caches/build outputs and reports redundancy/staleness candidates without approving deletion
+- Generated-output unnecessary audit:
+  `dev/generated_output_unnecessary_audit.py`
+  - Exposed via `npm --prefix scripts run inventory:unnecessary`
+  - Emits JSON and Markdown under `docs/test_outputs/dev_workflow/`
+  - Separates mechanically safe `definite_prune` groups from `review_only` and
+    `retain` groups using exact non-output references, retained generated-output
+    provenance references, and narrow generated-output rules
+- Local SRS admission lab:
+  `dev/srs_admission_lab_server.py`
+  - Exposed via `npm --prefix scripts run dev:srs-admission-lab`
+  - Serves a read-only localhost UI for comparing neutral and preference-shaped
+    admission previews without mutating SRS store state
+  - Uses the same helper admission preview path as the extension and testing
+    harnesses, with per-request temporary helper data roots
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`
@@ -100,7 +125,7 @@ Use the raw script paths below when there is no package-script surface or when y
 - Probe rulegen ranking on fixed words (`hora`, `trabajo`, `様`, `時`) with tunable scoring/caps:
   `testing/rulegen_probe_words.py` (for example `--max-definitions`, `--max-rules-per-target`, `--disable-pos-scoring`, `--reverse-check-enabled`, `--reverse-check-far-hit-penalty`, `--translation-dict-es-en-reverse`; prints reverse-check hit/miss metadata in uncapped/capped views and can probe `en-es` without requiring JMDict when `--japanese-targets ''`)
 - Benchmark rulegen parameter sweeps against labeled cases and produce ranked JSON/Markdown reports:
-  `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases.json`, accepts pair-specific translation dictionary overrides such as `--translation-dict-en-es`, emits styled HTML with right-click source labeling, LP-by-LP workflow controls, and skip/done navigation; omit `--pairs` to process all LPs in one run)
+  `testing/rulegen_benchmark.py` (dataset default: `docs/test_inputs/rulegen_benchmark_cases/`, accepts pair-specific translation dictionary overrides such as `--translation-dict-en-es`, emits styled HTML with right-click source labeling, LP-by-LP workflow controls, and skip/done navigation; omit `--pairs` to process all LPs in one run)
 - Render Markdown summaries from benchmark JSON artifacts:
   `testing/rulegen_benchmark_summary.py` (also exposed via `npm --prefix scripts run quality:rulegen:benchmark:summary`)
 - Focused audit cycle for selected pairs (benchmark -> quality gate -> triage) with sensible defaults for `en-es,en-ja`:
@@ -137,6 +162,8 @@ Use the raw script paths below when there is no package-script surface or when y
   `testing/srs_journey_harness.py --scenario en-es_core_journey_v1`, `--scenario en-es_edge_behaviors_v1`, and `--scenario en-es_real_publication_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:en-es`, `quality:srs:journey:en-es:edge`, and `quality:srs:journey:en-es:real`)
 - `en-es` installed-resource journey lane mirrors the same real-data review flow with local Spanish packs:
   `testing/srs_journey_harness.py --scenario en-es_installed_data_journey_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:en-es:installed`)
+- `en-es` profile-preference journey lane proves profile-aware bootstrap plus feedback-loop continuity:
+  `testing/srs_journey_harness.py --scenario en-es_profile_preference_journey_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:en-es:profile`)
 - Render Markdown summaries from SRS journey JSON artifacts:
   `testing/srs_journey_summary.py` (also exposed via `npm --prefix scripts run quality:srs:journey:summary`)
 - Render interactive HTML pedagogical review surfaces from SRS journey JSON artifacts:
@@ -144,6 +171,17 @@ Use the raw script paths below when there is no package-script surface or when y
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Project health gate (architecture maintainability metrics): `dev/check_project_health.js`
   - Supports advisory/global, changed-only scope, baseline delta gating, JSON report output, and baseline snapshot output.
+- SRS selector demo against the fixed technical dataset:
+  `dev/srs_selector_demo.py`
+- Manual embedding similarity probe for operator-provided vector or SQLite files:
+  `dev/test_embeddings.py --embeddings /path/to/embeddings.sqlite`
+- Semantic-shadow review queue and packet generators for the research-only
+  `en-es` shadow-mining lane:
+  `testing/semantic_shadow_review_queue_en_es.py` and
+  `testing/semantic_shadow_review_packet_en_es.py`
+- Manual profile backup/restore helpers:
+  `backup_profiles.sh PROFILE_ID [PROFILE_ID ...]` and
+  `restore_profiles_backup.sh /full/path/to/profiles_backup_<profile_ids>_<timestamp>`
 
 ## Specialty Tools
 

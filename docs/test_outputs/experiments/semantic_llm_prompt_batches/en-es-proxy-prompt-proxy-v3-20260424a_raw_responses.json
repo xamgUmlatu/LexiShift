@@ -1,0 +1,1325 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:proxy:prompt-proxy-v3-20260424a",
+  "pair": "en-es",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+  "prompt_version": "semantic_prompt_bakeoff_v3",
+  "stage": "proxy",
+  "execution_mode": "live",
+  "replay_source": "",
+  "generated_at": "2026-04-24T02:44:39Z",
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": 0.2,
+  "request_count": 12,
+  "requests": [
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `plant`\n- active target: `planta`\n- sense label: `living plant`\n- gloss: `living organism that grows in soil or water`\n\nCompeting candidate:\n- candidate target: `fábrica`\n- candidate POS: `noun`\n- sense label: `industrial plant`\n- gloss: `factory where goods are manufactured`\n\nFamily notes:\n- `Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it. | The hard runtime row still misses plant:002.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- make it contrastive and specific\n- do not merely restate the active label\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- keep the cue useful for ordinary single-word sense discrimination\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_063a791d562d502b0169ead918bf748195b64efffc62311d3f",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 380,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 39,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 419
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"Rooted organism with leaves, stems, or flowers; grows in soil or water.\",\"confidence\":0.98}]}",
+      "response_json": {
+        "id": "resp_063a791d562d502b0169ead918bf748195b64efffc62311d3f",
+        "created_at": 1776998680.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-contrastive-general-v1:plant:fabrica",
+          "prompt_slot": "cue_contrastive_general_v1",
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_063a791d562d502b0169ead91937988195932f7d52ff265700",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"Rooted organism with leaves, stems, or flowers; grows in soil or water.\",\"confidence\":0.98}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998681.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 380,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 39,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 419
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-general-v1:drink:beber",
+      "prompt_slot": "cue_contrastive_general_v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `drink`\n- active target: `bebida`\n- sense label: `drink as a beverage`\n- gloss: `liquid intended for drinking`\n\nCompeting candidate:\n- candidate target: `beber`\n- candidate POS: `verb`\n- sense label: `drink liquid`\n- gloss: `consume a beverage or other liquid`\n\nFamily notes:\n- `Useful same-POS cue calibration family. | Drink:002 is still a hard-row abstain but already rescued by the accepted overlay. | The hard runtime row still under-replaces drink:002.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- make it contrastive and specific\n- do not merely restate the active label\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- keep the cue useful for ordinary single-word sense discrimination\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_04cad470d33328ac0169ead91a95c4819595f79598ef3fb1a9",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 381,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 40,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 421
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"Noun for a served liquid, often cold or alcoholic, not the act of swallowing.\",\"confidence\":0.96}]}",
+      "response_json": {
+        "id": "resp_04cad470d33328ac0169ead91a95c4819595f79598ef3fb1a9",
+        "created_at": 1776998682.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write short discriminative evidence text in English. Prefer concrete semantic or lexical discriminators over dictionary paraphrase. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-contrastive-general-v1:drink:beber",
+          "prompt_slot": "cue_contrastive_general_v1",
+          "family_id": "en-es:sentence-veto:drink:bebida",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_04cad470d33328ac0169ead91b1dd08195b375080b2d56b92e",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"Noun for a served liquid, often cold or alcoholic, not the act of swallowing.\",\"confidence\":0.96}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998683.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 381,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 40,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 421
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-overlap-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_overlap_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short overlap-bearing cue fragment in English. Prefer concrete collocates, nearby object words, modifiers, or anchor nouns likely to appear literally in real context. Avoid polished sentence summaries, dictionary phrasing, examples, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `plant`\n- active target: `planta`\n- sense label: `living plant`\n- gloss: `living organism that grows in soil or water`\n\nCompeting candidate:\n- candidate target: `fábrica`\n- candidate POS: `noun`\n- sense label: `industrial plant`\n- gloss: `factory where goods are manufactured`\n\nFamily notes:\n- `Useful same-POS cue calibration family. | Current hard row still misses plant:002, but the accepted overlay already rescues it. | The hard runtime row still misses plant:002.`\n\nTask:\nWrite `evidence_text` in English, between 4 and 12 words, as one compact cue fragment for the active sense only.\n\nRules:\n- prefer 1 to 3 strong anchor words or one short collocate phrase\n- favor words likely to appear near the trigger in real sentences\n- fragments are better than explanatory sentences\n- avoid generic wrappers like `refers to`, `used for`, `something that`, or `kind of`\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- prefer concrete noun, modifier, or object overlap over abstract category prose\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_061ac7a769ef31c60169ead91bc38481909362727d4d38161a",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 442,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 474
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"soil, water, leaves, roots, sunlight\",\"confidence\":0.98}]}",
+      "response_json": {
+        "id": "resp_061ac7a769ef31c60169ead91bc38481909362727d4d38161a",
+        "created_at": 1776998683.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short overlap-bearing cue fragment in English. Prefer concrete collocates, nearby object words, modifiers, or anchor nouns likely to appear literally in real context. Avoid polished sentence summaries, dictionary phrasing, examples, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-contrastive-overlap-v1:plant:fabrica",
+          "prompt_slot": "cue_contrastive_overlap_v1",
+          "family_id": "en-es:sentence-veto:plant:planta",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_061ac7a769ef31c60169ead91c19c48190ba10c262c1c8cd59",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"soil, water, leaves, roots, sunlight\",\"confidence\":0.98}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998684.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 442,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 32,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 474
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-contrastive-overlap-v1:drink:beber",
+      "prompt_slot": "cue_contrastive_overlap_v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short overlap-bearing cue fragment in English. Prefer concrete collocates, nearby object words, modifiers, or anchor nouns likely to appear literally in real context. Avoid polished sentence summaries, dictionary phrasing, examples, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `drink`\n- active target: `bebida`\n- sense label: `drink as a beverage`\n- gloss: `liquid intended for drinking`\n\nCompeting candidate:\n- candidate target: `beber`\n- candidate POS: `verb`\n- sense label: `drink liquid`\n- gloss: `consume a beverage or other liquid`\n\nFamily notes:\n- `Useful same-POS cue calibration family. | Drink:002 is still a hard-row abstain but already rescued by the accepted overlay. | The hard runtime row still under-replaces drink:002.`\n\nTask:\nWrite `evidence_text` in English, between 4 and 12 words, as one compact cue fragment for the active sense only.\n\nRules:\n- prefer 1 to 3 strong anchor words or one short collocate phrase\n- favor words likely to appear near the trigger in real sentences\n- fragments are better than explanatory sentences\n- avoid generic wrappers like `refers to`, `used for`, `something that`, or `kind of`\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- prefer concrete noun, modifier, or object overlap over abstract category prose\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_0df99a6667e8dbd20169ead91caa5c8196b9919e47988c835f",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 443,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 475
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"cold beverage, soft drink, glass, bottle\",\"confidence\":0.93}]}",
+      "response_json": {
+        "id": "resp_0df99a6667e8dbd20169ead91caa5c8196b9919e47988c835f",
+        "created_at": 1776998684.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short overlap-bearing cue fragment in English. Prefer concrete collocates, nearby object words, modifiers, or anchor nouns likely to appear literally in real context. Avoid polished sentence summaries, dictionary phrasing, examples, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-contrastive-overlap-v1:drink:beber",
+          "prompt_slot": "cue_contrastive_overlap_v1",
+          "family_id": "en-es:sentence-veto:drink:bebida",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_0df99a6667e8dbd20169ead91ce5748196a2099db4c48278be",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"cold beverage, soft drink, glass, bottle\",\"confidence\":0.93}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998685.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 443,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 32,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 475
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `check`\n- active target: `cheque`\n- canonical POS: `noun`\n- sense label: `check as a bank payment slip`\n- gloss: `written order directing a bank to pay money`\n\nCompeting candidate:\n- candidate target: `revisar`\n- candidate POS: `verb`\n- sense label: `check or inspect carefully`\n- gloss: `examine, verify, or inspect something carefully`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | The fixed-shadow competition set is already plausible, but check:002 still abstains on the strong row and on the accepted overlay. | The phrase probe keeps check:005 safely abstained, so the remaining gap is not a new phrase leak.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_007a01da70ce73070169ead91d72608195bae46d7905d89ae0",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 454,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 37,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 491
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"article or amount before check, with bank payment context and no action verb\",\"confidence\":0.93}]}",
+      "response_json": {
+        "id": "resp_007a01da70ce73070169ead91d72608195bae46d7905d89ae0",
+        "created_at": 1776998685.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-cross-pos-frame-v1:check:revisar",
+          "prompt_slot": "cue_cross_pos_frame_v1",
+          "family_id": "en-es:sentence-veto:check:cheque",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_007a01da70ce73070169ead91df7108195bba1099d3cd830f8",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"article or amount before check, with bank payment context and no action verb\",\"confidence\":0.93}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998686.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 454,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 37,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 491
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:order:ordenar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `order`\n- active target: `pedido`\n- canonical POS: `noun`\n- sense label: `order as a purchase request`\n- gloss: `request to buy or deliver goods`\n\nCompeting candidate:\n- candidate target: `ordenar`\n- candidate POS: `verb`\n- sense label: `order or command something`\n- gloss: `command or request that something be done`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | Order:002 still abstains on the strong row and on the accepted overlay even though the fixed-shadow competitor is already present. | Order:005 stays safely abstained under the phrase probe, so this is not a reopened phrase leak.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_082ce488b044cff30169ead91eb37c8197b0a55b7f1ea24d32",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 445,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 483
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"preceded by a determiner or possessive, often with of or for\",\"confidence\":0.93}]}",
+      "response_json": {
+        "id": "resp_082ce488b044cff30169ead91eb37c8197b0a55b7f1ea24d32",
+        "created_at": 1776998686.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-cross-pos-frame-v1:order:ordenar",
+          "prompt_slot": "cue_cross_pos_frame_v1",
+          "family_id": "en-es:sentence-veto:order:pedido",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_082ce488b044cff30169ead91f2760819781d7ed40b771952b",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"preceded by a determiner or possessive, often with of or for\",\"confidence\":0.93}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998687.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 445,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 38,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 483
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `trip`\n- active target: `viaje`\n- canonical POS: `noun`\n- sense label: `trip or short journey`\n- gloss: `brief journey or outing`\n\nCompeting candidate:\n- candidate target: `tropezar`\n- candidate POS: `verb`\n- sense label: `to trip or stumble`\n- gloss: `catch a foot and stumble`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | Trip:002 still abstains on the strong row and on the accepted overlay. | Trip:005 stays safely abstained under the phrase probe, so the family does not reopen the current phrase-leak seam.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_0db9980bc27d97cd0169ead91fb554819594b1eaf890250e9d",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 437,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 38,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 475
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"Determiner or possessive before trip, often with adjectives like short or long.\",\"confidence\":0.94}]}",
+      "response_json": {
+        "id": "resp_0db9980bc27d97cd0169ead91fb554819594b1eaf890250e9d",
+        "created_at": 1776998687.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-cross-pos-frame-v1:trip:tropezar",
+          "prompt_slot": "cue_cross_pos_frame_v1",
+          "family_id": "en-es:sentence-veto:trip:viaje",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_0db9980bc27d97cd0169ead920199c8195a233a25e257cea9e",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"Determiner or possessive before trip, often with adjectives like short or long.\",\"confidence\":0.94}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998688.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 437,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 38,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 475
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-frame-v1:report:informar",
+      "prompt_slot": "cue_cross_pos_frame_v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `report`\n- active target: `informe`\n- canonical POS: `noun`\n- sense label: `written report or formal account`\n- gloss: `written document describing facts, results, or findings`\n\nCompeting candidate:\n- candidate target: `informar`\n- candidate POS: `verb`\n- sense label: `report or state information`\n- gloss: `tell, announce, or state information`\n\nFamily notes:\n- `Harder held-out noun-active / verb-shadow family with two unresolved active rows. | Report:001 and report:002 both remain abstained on the strong row and on the accepted overlay. | Report:005 stays safely abstained, so the new held-out family widened weak-active residue without reopening phrase leakage.`\n\nTask:\nWrite `evidence_text` in English, between 6 and 18 words, as one compact cue for the active sense only.\n\nRules:\n- prefer syntactic-frame or collocate signals that favor the active POS\n- make the cue specific enough to separate noun-active from verb-shadow competition\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n- avoid generic dictionary prose that ignores POS framing\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_0e341bab774993cf0169ead920be648195bdf7e04911846440",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 448,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 39,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 487
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"preceded by a determiner and followed by findings, results, or document details\",\"confidence\":0.93}]}",
+      "response_json": {
+        "id": "resp_0e341bab774993cf0169ead920be648195bdf7e04911846440",
+        "created_at": 1776998688.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue for cross-POS ambiguity. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Favor short frame-sensitive evidence in English: noun-vs-verb usage, nearby function words, determiner patterns, object or modifier cues, or document-like vs action-like framing. Do not generate phrase or idiom guidance, examples, explanations, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-cross-pos-frame-v1:report:informar",
+          "prompt_slot": "cue_cross_pos_frame_v1",
+          "family_id": "en-es:sentence-veto:report:informe",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_0e341bab774993cf0169ead92113548195a29d652bcb1464af",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"preceded by a determiner and followed by findings, results, or document details\",\"confidence\":0.93}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998689.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 448,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 39,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 487
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity, optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short frame-like cue fragment in English. Prefer determiners, prepositions, nearby verbs or adjectives, object words, or document and action collocates that could literally appear near the trigger. Avoid grammar metalanguage, polished summaries, examples, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `check`\n- active target: `cheque`\n- canonical POS: `noun`\n- sense label: `check as a bank payment slip`\n- gloss: `written order directing a bank to pay money`\n\nCompeting candidate:\n- candidate target: `revisar`\n- candidate POS: `verb`\n- sense label: `check or inspect carefully`\n- gloss: `examine, verify, or inspect something carefully`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | The fixed-shadow competition set is already plausible, but check:002 still abstains on the strong row and on the accepted overlay. | The phrase probe keeps check:005 safely abstained, so the remaining gap is not a new phrase leak.`\n\nTask:\nWrite `evidence_text` in English, between 4 and 12 words, as one compact frame fragment for the active sense only.\n\nRules:\n- prefer literal frame snippets over explanations about grammar\n- use overlap-bearing collocates such as nouns, adjectives, verbs, or prepositions that could appear in context\n- short fragments beat full sentences\n- avoid metalanguage like `preceded by a determiner`, `used as a noun`, or `signals a`\n- avoid generic dictionary prose\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_01c93848002aa60f0169ead921b2a48195846c1b247beea747",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 493,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 30,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 523
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"write a check for the rent payment\",\"confidence\":0.96}]}",
+      "response_json": {
+        "id": "resp_01c93848002aa60f0169ead921b2a48195846c1b247beea747",
+        "created_at": 1776998689.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue for cross-POS ambiguity, optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short frame-like cue fragment in English. Prefer determiners, prepositions, nearby verbs or adjectives, object words, or document and action collocates that could literally appear near the trigger. Avoid grammar metalanguage, polished summaries, examples, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:check:revisar",
+          "prompt_slot": "cue_cross_pos_overlap_v1",
+          "family_id": "en-es:sentence-veto:check:cheque",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_01c93848002aa60f0169ead922382c81958a4ae52abce4632d",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"write a check for the rent payment\",\"confidence\":0.96}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998692.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 493,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 30,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 523
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:order:ordenar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity, optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short frame-like cue fragment in English. Prefer determiners, prepositions, nearby verbs or adjectives, object words, or document and action collocates that could literally appear near the trigger. Avoid grammar metalanguage, polished summaries, examples, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `order`\n- active target: `pedido`\n- canonical POS: `noun`\n- sense label: `order as a purchase request`\n- gloss: `request to buy or deliver goods`\n\nCompeting candidate:\n- candidate target: `ordenar`\n- candidate POS: `verb`\n- sense label: `order or command something`\n- gloss: `command or request that something be done`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | Order:002 still abstains on the strong row and on the accepted overlay even though the fixed-shadow competitor is already present. | Order:005 stays safely abstained under the phrase probe, so this is not a reopened phrase leak.`\n\nTask:\nWrite `evidence_text` in English, between 4 and 12 words, as one compact frame fragment for the active sense only.\n\nRules:\n- prefer literal frame snippets over explanations about grammar\n- use overlap-bearing collocates such as nouns, adjectives, verbs, or prepositions that could appear in context\n- short fragments beat full sentences\n- avoid metalanguage like `preceded by a determiner`, `used as a noun`, or `signals a`\n- avoid generic dictionary prose\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_0d8d615d3fefd65e0169ead9246d8c819391c672c0771d291e",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 484,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 28,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 512
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"your online order for delivery\",\"confidence\":0.97}]}",
+      "response_json": {
+        "id": "resp_0d8d615d3fefd65e0169ead9246d8c819391c672c0771d291e",
+        "created_at": 1776998692.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue for cross-POS ambiguity, optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short frame-like cue fragment in English. Prefer determiners, prepositions, nearby verbs or adjectives, object words, or document and action collocates that could literally appear near the trigger. Avoid grammar metalanguage, polished summaries, examples, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:order:ordenar",
+          "prompt_slot": "cue_cross_pos_overlap_v1",
+          "family_id": "en-es:sentence-veto:order:pedido",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_0d8d615d3fefd65e0169ead9257f9c81938097f89542e7dcf9",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"your online order for delivery\",\"confidence\":0.97}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998693.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 484,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 28,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 512
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:trip:tropezar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity, optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short frame-like cue fragment in English. Prefer determiners, prepositions, nearby verbs or adjectives, object words, or document and action collocates that could literally appear near the trigger. Avoid grammar metalanguage, polished summaries, examples, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `trip`\n- active target: `viaje`\n- canonical POS: `noun`\n- sense label: `trip or short journey`\n- gloss: `brief journey or outing`\n\nCompeting candidate:\n- candidate target: `tropezar`\n- candidate POS: `verb`\n- sense label: `to trip or stumble`\n- gloss: `catch a foot and stumble`\n\nFamily notes:\n- `Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay. | Trip:002 still abstains on the strong row and on the accepted overlay. | Trip:005 stays safely abstained under the phrase probe, so the family does not reopen the current phrase-leak seam.`\n\nTask:\nWrite `evidence_text` in English, between 4 and 12 words, as one compact frame fragment for the active sense only.\n\nRules:\n- prefer literal frame snippets over explanations about grammar\n- use overlap-bearing collocates such as nouns, adjectives, verbs, or prepositions that could appear in context\n- short fragments beat full sentences\n- avoid metalanguage like `preceded by a determiner`, `used as a noun`, or `signals a`\n- avoid generic dictionary prose\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_0d4dc8384762d81d0169ead926225c81939174dfd46113b720",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 476,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 29,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 505
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"a short trip to the city\",\"confidence\":0.97}]}",
+      "response_json": {
+        "id": "resp_0d4dc8384762d81d0169ead926225c81939174dfd46113b720",
+        "created_at": 1776998694.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue for cross-POS ambiguity, optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short frame-like cue fragment in English. Prefer determiners, prepositions, nearby verbs or adjectives, object words, or document and action collocates that could literally appear near the trigger. Avoid grammar metalanguage, polished summaries, examples, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:trip:tropezar",
+          "prompt_slot": "cue_cross_pos_overlap_v1",
+          "family_id": "en-es:sentence-veto:trip:viaje",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_0d4dc8384762d81d0169ead92743408193bba13e9921ba71b9",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"a short trip to the city\",\"confidence\":0.97}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998695.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 476,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 29,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 505
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    },
+    {
+      "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:report:informar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "model_id": "gpt-5.4-mini",
+      "temperature": 0.2,
+      "system_prompt": "You generate one LexiShift semantic cue for cross-POS ambiguity, optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short frame-like cue fragment in English. Prefer determiners, prepositions, nearby verbs or adjectives, object words, or document and action collocates that could literally appear near the trigger. Avoid grammar metalanguage, polished summaries, examples, markdown, or extra keys.",
+      "user_prompt": "Return a JSON object with exactly one key `items`. `items` must be an array with exactly one object.\n\nThat object may contain only:\n- required `evidence_text`\n- optional `confidence`\n\nDo not repeat ids, targets, trigger text, or metadata; those are already fixed outside the model output.\n\nActive sense:\n- trigger: `report`\n- active target: `informe`\n- canonical POS: `noun`\n- sense label: `written report or formal account`\n- gloss: `written document describing facts, results, or findings`\n\nCompeting candidate:\n- candidate target: `informar`\n- candidate POS: `verb`\n- sense label: `report or state information`\n- gloss: `tell, announce, or state information`\n\nFamily notes:\n- `Harder held-out noun-active / verb-shadow family with two unresolved active rows. | Report:001 and report:002 both remain abstained on the strong row and on the accepted overlay. | Report:005 stays safely abstained, so the new held-out family widened weak-active residue without reopening phrase leakage.`\n\nTask:\nWrite `evidence_text` in English, between 4 and 12 words, as one compact frame fragment for the active sense only.\n\nRules:\n- prefer literal frame snippets over explanations about grammar\n- use overlap-bearing collocates such as nouns, adjectives, verbs, or prepositions that could appear in context\n- short fragments beat full sentences\n- avoid metalanguage like `preceded by a determiner`, `used as a noun`, or `signals a`\n- avoid generic dictionary prose\n- do not mention the candidate target by name\n- do not write multiple cues or bullets\n- do not mention phrases, idioms, or lexicalized expressions\n\nOptional:\n- include `confidence` as a number from 0 to 1\n\nReturn JSON only.",
+      "status": "completed",
+      "response_id": "resp_0f63d615345859dc0169ead927cb6481948c2fa24158068223",
+      "response_status": "completed",
+      "usage": {
+        "input_tokens": 487,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 32,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 519
+      },
+      "output_text": "{\"items\":[{\"evidence_text\":\"annual report with findings, results, and recommendations\",\"confidence\":0.96}]}",
+      "response_json": {
+        "id": "resp_0f63d615345859dc0169ead927cb6481948c2fa24158068223",
+        "created_at": 1776998695.0,
+        "error": null,
+        "incomplete_details": null,
+        "instructions": "You generate one LexiShift semantic cue for cross-POS ambiguity, optimized for downstream lexical overlap. Return compact JSON only. The cue must help choose the active Spanish target over one named competitor for one English trigger. Write a short frame-like cue fragment in English. Prefer determiners, prepositions, nearby verbs or adjectives, object words, or document and action collocates that could literally appear near the trigger. Avoid grammar metalanguage, polished summaries, examples, markdown, or extra keys.",
+        "metadata": {
+          "request_id": "en-es:proxy:cue-cross-pos-overlap-v1:report:informar",
+          "prompt_slot": "cue_cross_pos_overlap_v1",
+          "family_id": "en-es:sentence-veto:report:informe",
+          "stage": "proxy",
+          "prompt_version": "semantic_prompt_bakeoff_v3"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "object": "response",
+        "output": [
+          {
+            "id": "msg_0f63d615345859dc0169ead92840a08194a56528e5d1fb2854",
+            "content": [
+              {
+                "annotations": [],
+                "text": "{\"items\":[{\"evidence_text\":\"annual report with findings, results, and recommendations\",\"confidence\":0.96}]}",
+                "type": "output_text",
+                "logprobs": []
+              }
+            ],
+            "role": "assistant",
+            "status": "completed",
+            "type": "message",
+            "phase": "final_answer"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "temperature": 0.2,
+        "tool_choice": "auto",
+        "tools": [],
+        "top_p": 0.98,
+        "background": false,
+        "completed_at": 1776998696.0,
+        "conversation": null,
+        "max_output_tokens": 300,
+        "max_tool_calls": null,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "top_logprobs": 0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 487,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 32,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 519
+        },
+        "user": null,
+        "billing": {
+          "payer": "developer"
+        },
+        "frequency_penalty": 0.0,
+        "moderation": null,
+        "presence_penalty": 0.0,
+        "store": false
+      }
+    }
+  ]
+}

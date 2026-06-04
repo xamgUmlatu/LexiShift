@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "queue_id": "semantic_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected_queue_en_es",
+  "pair": "en-es",
+  "generated_at": "2026-04-30T17:56:26Z",
+  "source_sweep_variant_id": "min0p12-definition_and_example-rows2",
+  "source_sweep_selection_strategy": "single_variant",
+  "dataset_id": "en_es_source_non_v10_wave7_source_class_breadth_v1_unsupported_selected",
+  "translation_support_mode": "forward_only_upper_bound",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:like:gustos",
+      "trigger": "like",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:gross:repulsivo",
+      "trigger": "gross",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 2,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:cast:lanzamiento",
+      "trigger": "cast",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 3,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:fix:aprieto",
+      "trigger": "fix",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 4,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:full:lleno",
+      "trigger": "full",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 5,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:waste:desperdicio",
+      "trigger": "waste",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 6,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:firm:firma",
+      "trigger": "firm",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 7,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:even:tarde",
+      "trigger": "even",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 8,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:wrong:incorrecto",
+      "trigger": "wrong",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 9,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:meet:adecuado",
+      "trigger": "meet",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 10,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:stretch:estir-n",
+      "trigger": "stretch",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 11,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:score:tantos",
+      "trigger": "score",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 12,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:crash:choque",
+      "trigger": "crash",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 13,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:trim:compensador",
+      "trigger": "trim",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 14,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:squeeze:crisis",
+      "trigger": "squeeze",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 15,
+      "review_state": "draft_admission_selected_needs_case_review"
+    },
+    {
+      "family_id": "en-es:sentence-veto:foul:falta",
+      "trigger": "foul",
+      "role": "target",
+      "archetype": "automatic_non_v10_admission_selected_draft",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 16,
+      "review_state": "draft_admission_selected_needs_case_review"
+    }
+  ]
+}

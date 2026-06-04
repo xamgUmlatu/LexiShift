@@ -1,0 +1,125 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:abate:decrecer:a89e2928",
+      "packaged_row_count": 2,
+      "targets": [
+        "decrecer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:aberration:yerro:4e3d998f",
+      "packaged_row_count": 2,
+      "targets": [
+        "yerro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe",
+      "packaged_row_count": 2,
+      "targets": [
+        "exhortación"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:confiscate:confiscar:6016e741",
+      "packaged_row_count": 2,
+      "targets": [
+        "confiscar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592",
+      "packaged_row_count": 2,
+      "targets": [
+        "exhortación"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32",
+      "packaged_row_count": 2,
+      "targets": [
+        "rezagado"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:straggler:rezagado:e9269d35",
+      "packaged_row_count": 2,
+      "targets": [
+        "rezagado"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:transitive:transitivo:08c49e29",
+      "packaged_row_count": 2,
+      "targets": [
+        "transitivo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0",
+      "packaged_row_count": 2,
+      "targets": [
+        "reñir"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-13T20:41:45Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_011_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_011_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_011_generation_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 5121,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 0,
+    "operator_repairs": [],
+    "output_tokens": 1795,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "none",
+    "temperature": null
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 18,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 9,
+    "packaged_row_count": 18,
+    "promotion_state_counts": {
+      "proposed": 18
+    },
+    "relation_type_counts": {
+      "anchor_cue": 18
+    },
+    "review_state_counts": {
+      "unreviewed": 18
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

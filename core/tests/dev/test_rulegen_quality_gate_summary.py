@@ -18,6 +18,7 @@ class TestRulegenQualityGateSummary(unittest.TestCase):
             {
                 "benchmark_json": "bench.json",
                 "policy_json": "policy.json",
+                "pair_scope": "en-de",
                 "fail_on_warn": False,
                 "strict_saturation": False,
                 "summary": {
@@ -46,6 +47,7 @@ class TestRulegenQualityGateSummary(unittest.TestCase):
         self.assertIn("# Rulegen Quality Gate", markdown)
         self.assertIn("- Status: WARN", markdown)
         self.assertIn("- Findings: pass=3 warn=2 fail=0", markdown)
+        self.assertIn("- Pair scope: `en-de`", markdown)
         self.assertIn(
             "1. [WARN] `SATURATION_TOP_VECTOR_WARN`: Top vector share is too high.", markdown
         )

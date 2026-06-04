@@ -72,13 +72,34 @@ class TestKaikkiRecordViews(unittest.TestCase):
         self.assertNotIn("math_geometry", views.get("combined_families", ()))
         self.assertIn("communication_network", views.get("combined_families", ()))
 
+    def test_build_kaikki_record_views_detects_german_register_and_region_markers(self) -> None:
+        views = build_kaikki_record_views(
+            {
+                "entry_categories": ["Austrian German"],
+                "sense_tags": ["Southern-Germany", "informal"],
+                "sense_categories": ["German colloquialisms", "Regional German"],
+            }
+        )
+
+        self.assertIn("register_region", views.get("combined_families", ()))
+        self.assertEqual(
+            views["family_fields"]["register_region"],
+            (
+                "sense_tag:southern-germany",
+                "sense_tag:informal",
+                "entry_category:austrian german",
+                "sense_category:german colloquialisms",
+                "sense_category:regional german",
+            ),
+        )
+
 
 class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
     def test_generated_candidates_include_raw_and_normalized_kaikki_views(self) -> None:
         results = generate_en_es_results(
             ["presentar"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "presentar": [
                         FreedictGlossRecord(
@@ -184,7 +205,7 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         results = generate_en_es_results(
             ["cuenta"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "cuenta": [
                         FreedictGlossRecord(
@@ -241,7 +262,7 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         results = generate_en_es_results(
             ["cuenta"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "cuenta": [
                         FreedictGlossRecord(
@@ -298,7 +319,7 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         results = generate_en_es_results(
             ["cuenta"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "cuenta": [
                         FreedictGlossRecord(
@@ -348,7 +369,7 @@ class TestRulegenEnEsKaikkiProvenance(unittest.TestCase):
         results = generate_en_es_results(
             ["presentar"],
             config=EnEsRulegenConfig(
-                freedict_es_en_path=Path("/tmp/unused"),
+                translation_dict_path=Path("/tmp/unused"),
                 gloss_records_by_target={
                     "presentar": [
                         FreedictGlossRecord(

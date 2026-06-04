@@ -1,5 +1,11 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "abstain_on_unavailable";
+  const SEMANTIC_FALLBACK_POLICIES = new Set([
+    "legacy_on_unavailable",
+    "abstain_on_unavailable",
+    "soft_affordance_on_unavailable"
+  ]);
 
   function installSrsProfileMethods(SettingsManager) {
     if (!SettingsManager || !SettingsManager.prototype) {
@@ -31,6 +37,15 @@
       };
     };
 
+    SettingsManager.prototype._normalizeSrsSemanticFallbackPolicy = function _normalizeSrsSemanticFallbackPolicy(rawPolicy) {
+      const normalized = String(rawPolicy || DEFAULT_SEMANTIC_FALLBACK_POLICY).trim()
+        || DEFAULT_SEMANTIC_FALLBACK_POLICY;
+      if (SEMANTIC_FALLBACK_POLICIES.has(normalized)) {
+        return normalized;
+      }
+      return DEFAULT_SEMANTIC_FALLBACK_POLICY;
+    };
+
     SettingsManager.prototype.getSrsProfile = function getSrsProfile(items, pairKey, options) {
       const opts = options && typeof options === "object" ? options : {};
       const resolvedPair = this._normalizePairKey(pairKey);
@@ -41,6 +56,7 @@
       const rawProfile = this._isObject(profileEntry.srsByPair[resolvedPair])
         ? profileEntry.srsByPair[resolvedPair]
         : {};
+      const srsPairCount = Object.keys(profileEntry.srsByPair).length;
 
       const srsMaxActive = this._normalizeInt(
         rawProfile.srsMaxActive,
@@ -54,9 +70,23 @@
         },
         this.defaults
       );
+      const autoRefreshMinGoodEasy = this._normalizeInt(
+        rawProfile.srsAutoRefreshMinGoodEasy,
+        this.defaults.srsAutoRefreshMinGoodEasy,
+        1
+      );
+      const autoRefreshRepeatMinGoodEasy = Math.max(
+        autoRefreshMinGoodEasy,
+        this._normalizeInt(
+          rawProfile.srsAutoRefreshRepeatMinGoodEasy,
+          this.defaults.srsAutoRefreshRepeatMinGoodEasy,
+          1
+        )
+      );
 
       return {
         profileId,
+        srsPairCount,
         srsEnabled: rawProfile.srsEnabled === true,
         srsMaxActive,
         srsBootstrapTopN: sizing.srsBootstrapTopN,
@@ -65,13 +95,26 @@
           ? rawProfile.srsSoundEnabled === true
           : (this.defaults.srsSoundEnabled !== false),
         srsHighlightColor: rawProfile.srsHighlightColor || this.defaults.srsHighlightColor,
-        srsFeedbackSrsEnabled: rawProfile.srsFeedbackSrsEnabled !== undefined
-          ? rawProfile.srsFeedbackSrsEnabled === true
-          : (this.defaults.srsFeedbackSrsEnabled !== false),
-        srsFeedbackRulesEnabled: rawProfile.srsFeedbackRulesEnabled === true,
+        srsSemanticAdmissionEnabled: true,
+        srsSemanticAdmissionFallbackPolicy: DEFAULT_SEMANTIC_FALLBACK_POLICY,
+        srsFeedbackSrsEnabled: true,
+        srsFeedbackRulesEnabled: false,
         srsExposureLoggingEnabled: rawProfile.srsExposureLoggingEnabled !== undefined
           ? rawProfile.srsExposureLoggingEnabled === true
-          : (this.defaults.srsExposureLoggingEnabled !== false)
+          : (this.defaults.srsExposureLoggingEnabled !== false),
+        srsAutoRefreshEnabled: true,
+        srsAutoRefreshMinFeedbackEvents: this._normalizeInt(
+          rawProfile.srsAutoRefreshMinFeedbackEvents,
+          this.defaults.srsAutoRefreshMinFeedbackEvents,
+          1
+        ),
+        srsAutoRefreshMinGoodEasy: autoRefreshMinGoodEasy,
+        srsAutoRefreshRepeatMinGoodEasy: autoRefreshRepeatMinGoodEasy,
+        srsAutoRefreshCooldownMinutes: this._normalizeInt(
+          rawProfile.srsAutoRefreshCooldownMinutes,
+          this.defaults.srsAutoRefreshCooldownMinutes,
+          0
+        )
       };
     };
 
@@ -117,6 +160,37 @@
       return { pairKey: resolvedPair, profileId };
     };
 
+    SettingsManager.prototype.deleteSrsProfilePair = async function deleteSrsProfilePair(pairKey, options) {
+      const items = await this.load();
+      const opts = options && typeof options === "object" ? options : {};
+      const resolvedPair = this._normalizePairKey(pairKey);
+      const profileId = this.normalizeSrsProfileId(
+        opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+      );
+      const profilesRoot = this._getProfilesRoot(items);
+      const profileEntry = this._getProfileEntry(items, profileId);
+      const nextSrsByPair = { ...profileEntry.srsByPair };
+      const nextSignalsByPair = { ...profileEntry.srsSignalsByPair };
+      delete nextSrsByPair[resolvedPair];
+      delete nextSignalsByPair[resolvedPair];
+      const nextProfileEntry = {
+        ...profileEntry,
+        srsByPair: nextSrsByPair,
+        srsSignalsByPair: nextSignalsByPair
+      };
+      await this.save({
+        srsProfiles: {
+          ...profilesRoot,
+          [profileId]: nextProfileEntry
+        },
+        srsSelectedProfileId: profileId,
+        srsProfileId: profileId,
+        srsPair: resolvedPair,
+        srsEnabled: false
+      });
+      return { pairKey: resolvedPair, profileId };
+    };
+
     SettingsManager.prototype.publishSrsRuntimeProfile = async function publishSrsRuntimeProfile(pairKey, profile, extraUpdates, options) {
       const opts = options && typeof options === "object" ? options : {};
       const runtimeProfile = this._isObject(profile) ? profile : {};
@@ -133,13 +207,51 @@
         srsInitialActiveCount: runtimeProfile.srsInitialActiveCount || this.defaults.srsInitialActiveCount,
         srsSoundEnabled: runtimeProfile.srsSoundEnabled !== false,
         srsHighlightColor: runtimeProfile.srsHighlightColor || this.defaults.srsHighlightColor,
-        srsFeedbackSrsEnabled: runtimeProfile.srsFeedbackSrsEnabled !== false,
-        srsFeedbackRulesEnabled: runtimeProfile.srsFeedbackRulesEnabled === true,
+        srsSemanticAdmissionEnabled: true,
+        srsSemanticAdmissionFallbackPolicy: DEFAULT_SEMANTIC_FALLBACK_POLICY,
+        srsFeedbackSrsEnabled: true,
+        srsFeedbackRulesEnabled: false,
         srsExposureLoggingEnabled: runtimeProfile.srsExposureLoggingEnabled !== false,
+        srsAutoRefreshEnabled: true,
+        srsAutoRefreshMinFeedbackEvents: runtimeProfile.srsAutoRefreshMinFeedbackEvents
+          || this.defaults.srsAutoRefreshMinFeedbackEvents,
+        srsAutoRefreshMinGoodEasy: runtimeProfile.srsAutoRefreshMinGoodEasy
+          || this.defaults.srsAutoRefreshMinGoodEasy,
+        srsAutoRefreshRepeatMinGoodEasy: runtimeProfile.srsAutoRefreshRepeatMinGoodEasy
+          || this.defaults.srsAutoRefreshRepeatMinGoodEasy,
+        srsAutoRefreshCooldownMinutes: runtimeProfile.srsAutoRefreshCooldownMinutes
+          ?? this.defaults.srsAutoRefreshCooldownMinutes,
         ...(this._isObject(extraUpdates) ? extraUpdates : {})
       };
       await this.save(updates);
       return updates;
+    };
+
+    SettingsManager.prototype.composeSrsPlanContext = function composeSrsPlanContext(pairKey, profile, signals, options) {
+      const opts = options && typeof options === "object" ? options : {};
+      const runtimeProfile = this._isObject(profile) ? profile : {};
+      const normalizedSignals = this._normalizeSignals(signals);
+      const resolvedPair = this._normalizePairKey(pairKey);
+      const profileId = this.normalizeSrsProfileId(
+        opts.profileId !== undefined ? opts.profileId : runtimeProfile.profileId
+      );
+      return {
+        pair: resolvedPair,
+        profile_id: profileId || this.DEFAULT_PROFILE_ID,
+        interests: normalizedSignals.interests,
+        objectives: normalizedSignals.objectives,
+        proficiency: normalizedSignals.proficiency,
+        difficulty_preferences: normalizedSignals.difficultyPreferences,
+        empirical_trends: normalizedSignals.empiricalTrends,
+        source_preferences: normalizedSignals.sourcePreferences,
+        constraints: {
+          max_active_items: runtimeProfile.srsMaxActive
+        },
+        sizing: {
+          bootstrap_top_n: runtimeProfile.srsBootstrapTopN,
+          initial_active_count: runtimeProfile.srsInitialActiveCount
+        }
+      };
     };
 
     SettingsManager.prototype.buildSrsPlanContext = function buildSrsPlanContext(items, pairKey, options) {
@@ -150,22 +262,9 @@
       const signals = this.getSrsProfileSignals(items, pairKey, {
         profileId: profile.profileId
       });
-      return {
-        pair: this._normalizePairKey(pairKey),
-        profile_id: profile.profileId || this.DEFAULT_PROFILE_ID,
-        interests: signals.interests,
-        objectives: signals.objectives,
-        proficiency: signals.proficiency,
-        empirical_trends: signals.empiricalTrends,
-        source_preferences: signals.sourcePreferences,
-        constraints: {
-          max_active_items: profile.srsMaxActive
-        },
-        sizing: {
-          bootstrap_top_n: profile.srsBootstrapTopN,
-          initial_active_count: profile.srsInitialActiveCount
-        }
-      };
+      return this.composeSrsPlanContext(pairKey, profile, signals, {
+        profileId: profile.profileId
+      });
     };
   }
 

@@ -98,6 +98,7 @@ def convert_kaikki_glosses_to_sqlite(
                     if not usable_glosses:
                         continue
                     raw_glosses_json = _json_or_none(raw_glosses)
+                    examples_json = _json_or_none(_normalize_sense_examples(sense.get("examples")))
                     tags_json = _json_or_none(_normalize_string_list(sense.get("tags")))
                     topics_json = _json_or_none(_normalize_string_list(sense.get("topics")))
                     categories_json = _json_or_none(_normalize_string_list(sense.get("categories")))
@@ -120,6 +121,7 @@ def convert_kaikki_glosses_to_sqlite(
                                 gloss_text.lower(),
                                 pos,
                                 raw_glosses_json,
+                                examples_json,
                                 tags_json,
                                 topics_json,
                                 categories_json,
@@ -297,6 +299,7 @@ def convert_kaikki_translations_to_sqlite(
                             translation_text.lower(),
                             pos,
                             raw_glosses_json,
+                            None,
                             tags_json,
                             None,
                             None,
@@ -436,6 +439,7 @@ def _init_db(output_path: Path, *, overwrite: bool) -> sqlite3.Connection:
         "translation_lc TEXT NOT NULL, "
         "pos TEXT, "
         "raw_glosses_json TEXT, "
+        "examples_json TEXT, "
         "tags_json TEXT, "
         "topics_json TEXT, "
         "categories_json TEXT, "
@@ -488,9 +492,9 @@ def _flush_batches(
         conn.executemany(
             "INSERT INTO sense_glosses ("
             "entry_ord, sense_ord, gloss_ord, headword, headword_lc, translation, "
-            "translation_lc, pos, raw_glosses_json, tags_json, topics_json, "
+            "translation_lc, pos, raw_glosses_json, examples_json, tags_json, topics_json, "
             "categories_json, form_of_json, alt_of_json"
-            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             sense_gloss_batch,
         )
         sense_gloss_batch.clear()
@@ -639,6 +643,22 @@ def _normalize_string_list(value: object) -> list[str]:
 
 
 def _normalize_json_array(value: object) -> list[dict[str, object] | str]:
+    if not isinstance(value, list):
+        return []
+    normalized: list[dict[str, object] | str] = []
+    for item in value:
+        if isinstance(item, dict):
+            cleaned = _normalize_json_object(item)
+            if cleaned:
+                normalized.append(cleaned)
+            continue
+        text = _normalize_text(item)
+        if text:
+            normalized.append(text)
+    return normalized
+
+
+def _normalize_sense_examples(value: object) -> list[dict[str, object] | str]:
     if not isinstance(value, list):
         return []
     normalized: list[dict[str, object] | str] = []

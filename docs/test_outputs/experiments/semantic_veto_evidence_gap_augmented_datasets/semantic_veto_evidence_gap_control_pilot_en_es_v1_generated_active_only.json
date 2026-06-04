@@ -1,0 +1,958 @@
+{
+  "dataset_id": "en_es_full_family_repaired_full_v1:selected",
+  "description": "Full repaired candidate from the 58-family representative sample agent review. Rows were semantically repaired by the agent and approved by the user for the next exploratory sweeps.",
+  "excluded_families": [
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:demand:deduccion",
+      "reason": "Demand/request/economic demand does not match deducción.",
+      "source": "demand",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target": "deducción"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:grow:acontecer",
+      "reason": "Grow does not naturally map to acontecer, which means happen/occur.",
+      "source": "grow",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target": "acontecer"
+    },
+    {
+      "active_sense_status": "source_form_artifact_rejected",
+      "family_disposition": "source_form_artifact_rejected",
+      "family_id": "en-es:full-family-representative:turnon:poner",
+      "reason": "Unspaced trigger turnon is not a normal browser-facing source token for this target.",
+      "source": "turnon",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target": "poner"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:shed:puesto",
+      "reason": "Draft caducous, outbuilding, and remove senses do not justify puesto as a trusted target.",
+      "source": "shed",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target": "puesto"
+    },
+    {
+      "active_sense_status": "questionable_mapping_rejected",
+      "family_disposition": "questionable_mapping_rejected",
+      "family_id": "en-es:full-family-representative:aberration:equivocacion",
+      "reason": "Aberration as deviation/disorder/optical flaw is not reliably equivocación.",
+      "source": "aberration",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target": "equivocación"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:sale:deduccion",
+      "reason": "Sale/selling/discount event does not reliably map to deducción.",
+      "source": "sale",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target": "deducción"
+    },
+    {
+      "active_sense_status": "source_target_mapping_rejected",
+      "family_disposition": "source_target_mapping_rejected",
+      "family_id": "en-es:full-family-representative:conversance:notoriedad",
+      "reason": "Conversance means familiarity/knowledge, not notoriety/fame.",
+      "source": "conversance",
+      "source_zipf_band_en": "missing",
+      "target": "notoriedad"
+    },
+    {
+      "active_sense_status": "source_form_artifact_rejected",
+      "family_disposition": "source_form_artifact_rejected",
+      "family_id": "en-es:full-family-representative:femalejournalist:periodista",
+      "reason": "Unspaced source form is an artifact; use journalist/female journalist only in a separate source-form lane.",
+      "source": "femalejournalist",
+      "source_zipf_band_en": "missing",
+      "target": "periodista"
+    },
+    {
+      "active_sense_status": "source_form_artifact_rejected",
+      "family_disposition": "source_form_artifact_rejected",
+      "family_id": "en-es:full-family-representative:mosaicwork:mosaico",
+      "reason": "Unspaced source form is an artifact, even though mosaic work can map to mosaico.",
+      "source": "mosaicwork",
+      "source_zipf_band_en": "missing",
+      "target": "mosaico"
+    }
+  ],
+  "families": [
+    {
+      "active": {
+        "canonical_pos": "verb",
+        "evidence_views": {
+          "all_evidence_text": "smile -> sonreír | smile as a verb, changing one's facial expression | generated evidence: She tried to smile after hearing the good news. ; The verb smile shows a facial expression, matching the active sense of sonreír. | generated evidence: He could not help but smile when he saw the puppy. ; The context clearly uses smile as an action of changing facial expression.",
+          "gloss_text": "smile as a verb, changing one's facial expression",
+          "sense_gloss_bundle": "smile -> sonreír | smile as a verb, changing one's facial expression",
+          "sense_label": "smile -> sonreír"
+        },
+        "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:active",
+        "target_lemma": "sonreír"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:smile:sonre-r:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "She began to smile when the child waved.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "smile"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:smile:sonre-r:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "He tried to smile for the camera.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "smile"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:003",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "Her smile returned after the good news.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "smile"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:004",
+          "gold_decision": "abstain",
+          "gold_winner": "en-es:full-family-repaired-full:smile:sonre-r:shadow:2:agradecer-con-una-sonrisa",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair shadow context with real Spanish competitor target",
+          "row_quality_status": "trusted",
+          "sentence": "She used a smile to thank the nurse.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "shadow_negative"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "shadow_negative",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "smile"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:smile:sonre-r:005",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair realistic no-winner title/code context",
+          "row_quality_status": "trusted",
+          "sentence": "The dashboard listed Smile as an internal project code.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "corrected_active_sense_required"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "salvage_with_corrected_active_sense"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "named_entity_or_title"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "cross_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:salvage_with_corrected_active_sense",
+            "active_sense_status:corrected_active_sense_required",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:cross_pos_polysemy",
+            "phrase_no_winner",
+            "no_winner_subtype:named_entity_or_title"
+          ],
+          "source_phrase": "smile"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "repair_metadata": {
+        "active_sense_status": "corrected_active_sense_required",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "salvage_with_corrected_active_sense",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "smile -> sonrisa | a facial expression as a noun",
+            "gloss_text": "a facial expression as a noun",
+            "sense_gloss_bundle": "smile -> sonrisa | a facial expression as a noun",
+            "sense_label": "smile -> sonrisa"
+          },
+          "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:1:sonrisa",
+          "target_lemma": "sonrisa"
+        },
+        {
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "all_evidence_text": "smile -> agradecer con una sonrisa | express something by smiling",
+            "gloss_text": "express something by smiling",
+            "sense_gloss_bundle": "smile -> agradecer con una sonrisa | express something by smiling",
+            "sense_label": "smile -> agradecer con una sonrisa"
+          },
+          "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow:2:agradecer-con-una-sonrisa",
+          "target_lemma": "agradecer con una sonrisa"
+        }
+      ],
+      "trigger": "smile"
+    },
+    {
+      "active": {
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "all_evidence_text": "brother -> hermano | a male sibling, fellow member, or fraternal address | generated evidence: My brother helped me move into my new apartment. ; male sibling context | generated evidence: She called her brother to ask about their parents' health. ; family relationship context",
+          "gloss_text": "a male sibling, fellow member, or fraternal address",
+          "sense_gloss_bundle": "brother -> hermano | a male sibling, fellow member, or fraternal address",
+          "sense_label": "brother -> hermano"
+        },
+        "sense_id": "en-es:full-family-repaired-full:brother:hermano:active",
+        "target_lemma": "hermano"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:brother:hermano:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:brother:hermano:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "My brother still lives near our parents.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "brother"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:brother:hermano:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:brother:hermano:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The monks called each brother to the chapel.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "brother"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:brother:hermano:003",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair realistic no-winner title/code context",
+          "row_quality_status": "trusted",
+          "sentence": "The dashboard listed Brother as an internal project code.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "named_entity_or_title"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_5_plus_very_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_5_plus_very_common"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_5_plus_very_common",
+            "target_zipf:zipf_5_plus_very_common",
+            "polysemy:medium_4_to_9",
+            "pos_shape:same_pos_polysemy",
+            "phrase_no_winner",
+            "no_winner_subtype:named_entity_or_title"
+          ],
+          "source_phrase": "brother"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:brother:hermano",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "brother"
+    },
+    {
+      "active": {
+        "canonical_pos": "adverb",
+        "evidence_views": {
+          "all_evidence_text": "entirely -> enteramente | completely, wholly, or entirely | generated evidence: The room was entirely dark after the power went out. ; entirely means completely, with no light at all. | generated evidence: She was entirely sure the train had already left. ; entirely means completely or fully certain.",
+          "gloss_text": "completely, wholly, or entirely",
+          "sense_gloss_bundle": "entirely -> enteramente | completely, wholly, or entirely",
+          "sense_label": "entirely -> enteramente"
+        },
+        "sense_id": "en-es:full-family-repaired-full:entirely:enteramente:active",
+        "target_lemma": "enteramente"
+      },
+      "cases": [
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:entirely:enteramente:001",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:entirely:enteramente:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "The decision was entirely voluntary.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "entirely"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:entirely:enteramente:002",
+          "gold_decision": "replace",
+          "gold_winner": "en-es:full-family-repaired-full:entirely:enteramente:active",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair independent positive context",
+          "row_quality_status": "trusted",
+          "sentence": "She was entirely satisfied with the meal.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "not_applicable"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:same_pos_polysemy",
+            "positive_active",
+            "no_winner_subtype:not_applicable"
+          ],
+          "source_phrase": "entirely"
+        },
+        {
+          "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+          "case_id": "en-es:full-family-repaired-full:entirely:enteramente:003",
+          "gold_decision": "abstain",
+          "gold_winner": "none",
+          "human_review_status": "approved_by_user",
+          "notes": "full-repair realistic no-winner title/code context",
+          "row_quality_status": "trusted",
+          "sentence": "The dashboard listed Entirely as an internal project code.",
+          "slice_dimensions": {
+            "active_sense_status": [
+              "aligned"
+            ],
+            "approval_id": [
+              "user_approved_full_repaired_dataset_2026_05_08"
+            ],
+            "context_source": [
+              "agent_curated_full_repair_context"
+            ],
+            "dataset_lane": [
+              "en_es_full_family_repaired_full_v1"
+            ],
+            "family_disposition": [
+              "aligned_mapping_shadow_rows_not_competitors"
+            ],
+            "human_review_status": [
+              "approved_by_user"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "manual_review_state": [
+              "approved_by_user"
+            ],
+            "no_winner_subtype": [
+              "named_entity_or_title"
+            ],
+            "polysemy_band": [
+              "low_1_to_3"
+            ],
+            "pos_shape": [
+              "same_pos_polysemy"
+            ],
+            "row_quality_status": [
+              "trusted"
+            ],
+            "source_zipf_band_en": [
+              "zipf_4_to_5_common"
+            ],
+            "target_zipf_band_es": [
+              "zipf_3_to_4_mid"
+            ]
+          },
+          "slice_tags": [
+            "en_es_full_family_repaired_full_v1",
+            "approved_by_user",
+            "trusted",
+            "approval_id:user_approved_full_repaired_dataset_2026_05_08",
+            "family_disposition:aligned_mapping_shadow_rows_not_competitors",
+            "active_sense_status:aligned",
+            "source_zipf:zipf_4_to_5_common",
+            "target_zipf:zipf_3_to_4_mid",
+            "polysemy:low_1_to_3",
+            "pos_shape:same_pos_polysemy",
+            "phrase_no_winner",
+            "no_winner_subtype:named_entity_or_title"
+          ],
+          "source_phrase": "entirely"
+        }
+      ],
+      "family_id": "en-es:full-family-repaired-full:entirely:enteramente",
+      "repair_metadata": {
+        "active_sense_status": "aligned",
+        "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+        "family_disposition": "aligned_mapping_shadow_rows_not_competitors",
+        "manual_review_state": "approved_by_user",
+        "source_of_repair": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+        "trusted_now": true
+      },
+      "shadows": [],
+      "trigger": "entirely"
+    }
+  ],
+  "manual_review_state": "approved_by_user",
+  "pair": "en-es",
+  "provenance": {
+    "approval_id": "user_approved_full_repaired_dataset_2026_05_08",
+    "source_agent_review_artifact": "docs/test_outputs/semantic_veto_full_family_agent_review_en_es_latest.json",
+    "source_agent_review_authority": "codex_agent_review_user_approval_required",
+    "trusted_now": true
+  },
+  "schema_version": 1
+}

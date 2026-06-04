@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-30T03:42:18Z",
+  "status": "ok",
+  "batch_id": "en-es:wordnet-translation-alt-phrase-plus-auth-frame:non-v10-wave6-wiktextract-supported-v1:cycle:sense-admitted",
+  "source_id": "wordnet_translation_alt_phrase_auth_frame_non_v10_wave6_wiktextract_supported_v1",
+  "summary": {
+    "component_count": 2,
+    "row_count": 284,
+    "family_count": 16,
+    "relation_counts": {
+      "anchor_cue": 47,
+      "shadow_candidate": 57,
+      "phrase_control_example": 180
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:wordnet-translation-plus-alt-phrase:non-v10-wave6-wiktextract-supported-v1:cycle:sense-admitted",
+      "source_id": "wordnet_translation_alt_phrase_non_v10_wave6_wiktextract_supported_v1",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 279,
+      "accepted_row_count": 279,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest:filtered",
+      "source_id": "authorization_frame_evidence",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 5,
+      "accepted_row_count": 5,
+      "duplicate_row_count": 0
+    }
+  ]
+}

@@ -103,6 +103,9 @@
       setProfileStatusLocalized: (key, substitutions, fallback) => {
         profileStatusController.setLocalized(key, substitutions, fallback);
       },
+      setProfileStatusMessage: (message) => {
+        profileStatusController.setMessage(message);
+      },
       onProfileLanguagePrefsSync: async ({ items, profileId }) => {
         const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
         languagePrefsAdapter.applyLanguagePrefsToInputs(languagePrefs);
@@ -131,19 +134,6 @@
         return shareCenterController.syncForProfile(event);
       },
       elements: graphElements.profileRulesets
-    });
-
-    const srsActionsController = requireControllerFactory("optionsSrsActions")({
-      settingsManager,
-      helperManager,
-      t,
-      setStatus: uiBridge.setStatus,
-      resolvePair: languagePrefsAdapter.resolvePairFromInputs,
-      syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
-      log: logOptions,
-      confirm: (message) => globalThis.confirm(message),
-      colors: ui.COLORS,
-      elements: graphElements.srsActions
     });
 
     const rulesShareController = requireControllerFactory("optionsRulesShare")({
@@ -177,6 +167,7 @@
 
     const srsProfileRuntimeController = requireControllerFactory("optionsSrsProfileRuntime")({
       settingsManager,
+      helperManager,
       ui,
       t,
       setStatus: uiBridge.setStatus,
@@ -200,6 +191,28 @@
       elements: graphElements.srsProfileRuntime
     });
 
+    const srsActionsController = requireControllerFactory("optionsSrsActions")({
+      settingsManager,
+      helperManager,
+      t,
+      setStatus: uiBridge.setStatus,
+      resolvePair: languagePrefsAdapter.resolvePairFromInputs,
+      syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
+      resolveEffectiveSrsPlanningState: (items, pairKey, options) => (
+        srsProfileRuntimeController.resolveEffectiveSrsPlanningState(items, pairKey, options)
+      ),
+      loadSrsProfileForPair: (items, pairKey, options) => (
+        srsProfileRuntimeController.loadSrsProfileForPair(items, pairKey, options)
+      ),
+      refreshSemanticAdmissionStatus: (pairKey, profileId) => (
+        srsProfileRuntimeController.refreshSemanticAdmissionStatus(pairKey, profileId)
+      ),
+      log: logOptions,
+      confirm: (message) => globalThis.confirm(message),
+      colors: ui.COLORS,
+      elements: graphElements.srsActions
+    });
+
     const displayReplacementController = requireControllerFactory("optionsDisplayReplacement")({
       settingsManager,
       t,
@@ -219,6 +232,19 @@
       srsProfileRuntimeController
     });
 
+    const srsStoryFlowController = requireControllerFactory("optionsSrsStoryFlow")({
+      t,
+      setStatus: uiBridge.setStatus,
+      saveLanguageSettings: controllerAdapters.saveLanguageSettings,
+      saveSrsSettings: controllerAdapters.saveSrsSettings,
+      saveSrsProfileId: controllerAdapters.saveSrsProfileId,
+      helperManager,
+      srsActionsController,
+      log: logOptions,
+      colors: ui.COLORS,
+      elements: graphElements.srsStoryFlow
+    });
+
     const pageInitController = requireControllerFactory("optionsPageInit")({
       settingsManager,
       i18n,
@@ -227,6 +253,7 @@
       helperActionsController,
       applyLanguagePrefsToInputs: languagePrefsAdapter.applyLanguagePrefsToInputs,
       loadSrsProfileForPair: controllerAdapters.loadSrsProfileForPair,
+      applyProfileBackgroundFromPrefs: controllerAdapters.applyProfileBackgroundFromPrefs,
       updateRulesSourceUI: uiBridge.updateRulesSourceUI,
       updateRulesMeta: uiBridge.updateRulesMeta,
       applyTargetLanguagePrefsLocalization: controllerAdapters.applyTargetLanguagePrefsLocalization,
@@ -245,6 +272,7 @@
       rulesShareController,
       profileBackgroundController,
       srsActionsController,
+      srsStoryFlowController,
       helperActionsController,
       targetLanguageModalController,
       updateRulesSourceUI: uiBridge.updateRulesSourceUI,

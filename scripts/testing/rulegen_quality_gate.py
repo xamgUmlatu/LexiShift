@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Mapping
 
 try:
+    from .rulegen_benchmark_dataset import load_benchmark_dataset_payload
     from .rulegen_quality_gate_support import (
         QualityFinding,
         QualityReport,
@@ -23,6 +24,7 @@ try:
         validate_saturation,
     )
 except Exception:  # noqa: BLE001
+    from rulegen_benchmark_dataset import load_benchmark_dataset_payload  # type: ignore[no-redef]
     from rulegen_quality_gate_support import (  # type: ignore[no-redef]
         QualityFinding,
         QualityReport,
@@ -75,7 +77,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--dataset-json",
         type=Path,
-        help="Optional benchmark dataset JSON override (defaults to benchmark dataset_path).",
+        help=(
+            "Optional benchmark dataset file or directory override "
+            "(defaults to benchmark dataset_path)."
+        ),
+    )
+    parser.add_argument(
+        "--pair-scope",
+        help=(
+            "Optional pair key to scope pair-level checks to a single benchmark lane. "
+            "Useful for advisory per-pair latest artifacts such as en-de."
+        ),
     )
     parser.add_argument(
         "--pos-probe-json",
@@ -117,6 +129,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    pair_scope = str(args.pair_scope or "").strip().lower() or None
     findings: list[QualityFinding] = []
 
     benchmark_payload: Mapping[str, object] | None = None
@@ -220,7 +233,7 @@ def main() -> None:
             )
         elif dataset_path.exists():
             try:
-                dataset_payload = read_json(dataset_path)
+                dataset_payload = load_benchmark_dataset_payload(dataset_path)
             except Exception as exc:  # noqa: BLE001
                 record(
                     findings,
@@ -242,17 +255,20 @@ def main() -> None:
             benchmark_payload=benchmark_payload,
             policy_payload=policy_payload,
             findings=findings,
+            pair_scope=pair_scope,
         )
         validate_quality_floors(
             benchmark_payload=benchmark_payload,
             policy_payload=policy_payload,
             findings=findings,
+            pair_scope=pair_scope,
         )
         validate_delta_budgets(
             benchmark_payload=benchmark_payload,
             baseline_payload=baseline_payload,
             policy_payload=policy_payload,
             findings=findings,
+            pair_scope=pair_scope,
         )
         validate_saturation(
             benchmark_payload=benchmark_payload,
@@ -266,6 +282,7 @@ def main() -> None:
             dataset_payload=dataset_payload,
             policy_payload=policy_payload,
             findings=findings,
+            pair_scope=pair_scope,
         )
 
     if policy_payload is not None:
@@ -290,6 +307,7 @@ def main() -> None:
         policy_json=str(args.policy_json),
         baseline_json=str(args.baseline_json) if args.baseline_json else None,
         dataset_json=str(args.dataset_json) if args.dataset_json else None,
+        pair_scope=str(args.pair_scope).strip().lower() or None,
         pos_probe_json=str(args.pos_probe_json) if args.pos_probe_json else None,
         pos_inventory_json=str(args.pos_inventory_json) if args.pos_inventory_json else None,
         strict_saturation=bool(args.strict_saturation),

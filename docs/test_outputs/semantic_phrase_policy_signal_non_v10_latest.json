@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "phrase_signal_pass",
+  "generated_at": "2026-04-26T02:37:35Z",
+  "pair": "en-es",
+  "dataset_id": "en_es_phrase_policy_signal_non_v10_v1",
+  "case_scope": "phrase_policy_signal_only",
+  "summary": {
+    "case_count": 16,
+    "passed_case_count": 16,
+    "failed_case_count": 0,
+    "false_positive_count": 0,
+    "false_negative_count": 0,
+    "failed_case_ids": [],
+    "false_positive_case_ids": [],
+    "false_negative_case_ids": [],
+    "reason_code_counts": {
+      "modal_trigger_frame": 1,
+      "trigger_particle_frame": 7
+    },
+    "signal_code_counts": {
+      "modal_trigger_frame": 8,
+      "subject_trigger_object_frame": 1,
+      "subject_trigger_particle_frame": 6,
+      "trigger_particle_frame": 7
+    }
+  },
+  "rows": [
+    {
+      "family_id": "en-es:phrase-signal:rock:roca",
+      "case_id": "en-es:phrase-signal:non-v10:v1:rock:001",
+      "sentence": "The policy could rock the market before Monday.",
+      "source_phrase": "rock",
+      "expected_phrase_preemption": true,
+      "required_signal_codes": [
+        "modal_trigger_frame"
+      ],
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "could rock",
+      "phrase_reason_code": "modal_trigger_frame",
+      "signal_codes": [
+        "modal_trigger_frame",
+        "subject_trigger_object_frame"
+      ],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:rock:roca",
+      "case_id": "en-es:phrase-signal:non-v10:v1:rock:002",
+      "sentence": "The rock beside the gate cracked overnight.",
+      "source_phrase": "rock",
+      "expected_phrase_preemption": false,
+      "required_signal_codes": [],
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "signal_codes": [],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:draft:borrador",
+      "case_id": "en-es:phrase-signal:non-v10:v1:draft:001",
+      "sentence": "Agencies may draft in volunteers before storms.",
+      "source_phrase": "draft",
+      "expected_phrase_preemption": true,
+      "required_signal_codes": [
+        "modal_trigger_frame"
+      ],
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "draft in",
+      "phrase_reason_code": "trigger_particle_frame",
+      "signal_codes": [
+        "trigger_particle_frame",
+        "modal_trigger_frame"
+      ],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:draft:borrador",
+      "case_id": "en-es:phrase-signal:non-v10:v1:draft:002",
+      "sentence": "The draft of the letter was brief.",
+      "source_phrase": "draft",
+      "expected_phrase_preemption": false,
+      "required_signal_codes": [],
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "signal_codes": [],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:case:caso",
+      "case_id": "en-es:phrase-signal:non-v10:v1:case:001",
+      "sentence": "Detectives can case out the warehouse quietly.",
+      "source_phrase": "case",
+      "expected_phrase_preemption": true,
+      "required_signal_codes": [
+        "modal_trigger_frame"
+      ],
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "case out",
+      "phrase_reason_code": "trigger_particle_frame",
+      "signal_codes": [
+        "trigger_particle_frame",
+        "modal_trigger_frame",
+        "subject_trigger_particle_frame"
+      ],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:case:caso",
+      "case_id": "en-es:phrase-signal:non-v10:v1:case:002",
+      "sentence": "The case on the shelf was empty.",
+      "source_phrase": "case",
+      "expected_phrase_preemption": false,
+      "required_signal_codes": [],
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "signal_codes": [],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:scale:escala",
+      "case_id": "en-es:phrase-signal:non-v10:v1:scale:001",
+      "sentence": "Executives should scale back the rollout.",
+      "source_phrase": "scale",
+      "expected_phrase_preemption": true,
+      "required_signal_codes": [
+        "modal_trigger_frame"
+      ],
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "scale back",
+      "phrase_reason_code": "trigger_particle_frame",
+      "signal_codes": [
+        "trigger_particle_frame",
+        "modal_trigger_frame",
+        "subject_trigger_particle_frame"
+      ],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:scale:escala",
+      "case_id": "en-es:phrase-signal:non-v10:v1:scale:002",
+      "sentence": "The scale near the sink was broken.",
+      "source_phrase": "scale",
+      "expected_phrase_preemption": false,
+      "required_signal_codes": [],
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "signal_codes": [],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:line:linea",
+      "case_id": "en-es:phrase-signal:non-v10:v1:line:001",
+      "sentence": "Organizers will line up speakers tomorrow.",
+      "source_phrase": "line",
+      "expected_phrase_preemption": true,
+      "required_signal_codes": [
+        "modal_trigger_frame"
+      ],
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "line up",
+      "phrase_reason_code": "trigger_particle_frame",
+      "signal_codes": [
+        "trigger_particle_frame",
+        "modal_trigger_frame",
+        "subject_trigger_particle_frame"
+      ],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:line:linea",
+      "case_id": "en-es:phrase-signal:non-v10:v1:line:002",
+      "sentence": "The line near the door moved slowly.",
+      "source_phrase": "line",
+      "expected_phrase_preemption": false,
+      "required_signal_codes": [],
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "signal_codes": [],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:point:punto",
+      "case_id": "en-es:phrase-signal:non-v10:v1:point:001",
+      "sentence": "Editors may point out errors before print.",
+      "source_phrase": "point",
+      "expected_phrase_preemption": true,
+      "required_signal_codes": [
+        "modal_trigger_frame"
+      ],
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "point out",
+      "phrase_reason_code": "trigger_particle_frame",
+      "signal_codes": [
+        "trigger_particle_frame",
+        "modal_trigger_frame",
+        "subject_trigger_particle_frame"
+      ],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:point:punto",
+      "case_id": "en-es:phrase-signal:non-v10:v1:point:002",
+      "sentence": "Each point in the plan mattered.",
+      "source_phrase": "point",
+      "expected_phrase_preemption": false,
+      "required_signal_codes": [],
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "signal_codes": [],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:ring:anillo",
+      "case_id": "en-es:phrase-signal:non-v10:v1:ring:001",
+      "sentence": "Cashiers can ring up purchases quickly.",
+      "source_phrase": "ring",
+      "expected_phrase_preemption": true,
+      "required_signal_codes": [
+        "modal_trigger_frame"
+      ],
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "ring up",
+      "phrase_reason_code": "trigger_particle_frame",
+      "signal_codes": [
+        "trigger_particle_frame",
+        "modal_trigger_frame",
+        "subject_trigger_particle_frame"
+      ],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:ring:anillo",
+      "case_id": "en-es:phrase-signal:non-v10:v1:ring:002",
+      "sentence": "The ring in the box was silver.",
+      "source_phrase": "ring",
+      "expected_phrase_preemption": false,
+      "required_signal_codes": [],
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "signal_codes": [],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:date:fecha",
+      "case_id": "en-es:phrase-signal:non-v10:v1:date:001",
+      "sentence": "The ruins may date back to the tenth century.",
+      "source_phrase": "date",
+      "expected_phrase_preemption": true,
+      "required_signal_codes": [
+        "modal_trigger_frame"
+      ],
+      "phrase_preemption_hit": true,
+      "matched_phrase_pattern": "date back",
+      "phrase_reason_code": "trigger_particle_frame",
+      "signal_codes": [
+        "trigger_particle_frame",
+        "modal_trigger_frame",
+        "subject_trigger_particle_frame"
+      ],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    },
+    {
+      "family_id": "en-es:phrase-signal:date:fecha",
+      "case_id": "en-es:phrase-signal:non-v10:v1:date:002",
+      "sentence": "The date on the notice changed.",
+      "source_phrase": "date",
+      "expected_phrase_preemption": false,
+      "required_signal_codes": [],
+      "phrase_preemption_hit": false,
+      "matched_phrase_pattern": "",
+      "phrase_reason_code": "",
+      "signal_codes": [],
+      "family_pos_tags": [
+        "noun",
+        "noun"
+      ],
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "signal_only_not_end_to_end_scoring",
+    "non_v10_family_senses_are_minimal",
+    "does_not_validate_translation_target_quality"
+  ],
+  "next_steps": [
+    "promote useful non-v10 signal rows into end-to-end held-out suites once source evidence exists",
+    "add active literal counterexamples before broadening any phrase pattern",
+    "rerun the margin sweep when signal rows become end-to-end source cases"
+  ]
+}

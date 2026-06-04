@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import unittest
 from pathlib import Path
 
@@ -40,6 +41,8 @@ class TestExtensionStructure(unittest.TestCase):
 
     def test_options_helper_domains_exist(self) -> None:
         required = [
+            EXT_ROOT / "shared" / "helper" / "helper_error_copy.js",
+            EXT_ROOT / "shared" / "helper" / "word_info_api.js",
             EXT_ROOT / "options" / "core" / "helper" / "base_methods.js",
             EXT_ROOT / "options" / "core" / "helper" / "diagnostics_methods.js",
             EXT_ROOT / "options" / "core" / "helper" / "srs_set_methods.js",
@@ -52,6 +55,9 @@ class TestExtensionStructure(unittest.TestCase):
         html_path = EXT_ROOT / "options.html"
         html = html_path.read_text(encoding="utf-8")
         ordered_markers = [
+            'src="shared/helper/helper_error_copy.js"',
+            'src="shared/helper/helper_client.js"',
+            'src="shared/helper/word_info_api.js"',
             'src="options/core/helper/base_methods.js"',
             'src="options/core/helper/diagnostics_methods.js"',
             'src="options/core/helper/srs_set_methods.js"',
@@ -69,6 +75,7 @@ class TestExtensionStructure(unittest.TestCase):
             EXT_ROOT / "options" / "core" / "bootstrap" / "translate_resolver.js",
             EXT_ROOT / "options" / "core" / "bootstrap" / "dom_aliases.js",
             EXT_ROOT / "options" / "core" / "bootstrap" / "controller_adapters.js",
+            EXT_ROOT / "options" / "core" / "bootstrap" / "controller_graph_elements.js",
             EXT_ROOT / "options" / "core" / "bootstrap" / "controller_graph.js",
         ]
         missing = [str(path.relative_to(PROJECT_ROOT)) for path in required if not path.exists()]
@@ -84,6 +91,7 @@ class TestExtensionStructure(unittest.TestCase):
             'src="options/core/bootstrap/translate_resolver.js"',
             'src="options/core/bootstrap/dom_aliases.js"',
             'src="options/core/bootstrap/controller_adapters.js"',
+            'src="options/core/bootstrap/controller_graph_elements.js"',
             'src="options/core/bootstrap/controller_graph.js"',
             'src="options.js"',
         ]
@@ -91,12 +99,25 @@ class TestExtensionStructure(unittest.TestCase):
         self.assertTrue(all(position >= 0 for position in positions))
         self.assertEqual(positions, sorted(positions))
 
-    def test_options_html_loads_srs_action_scripts_before_controller(self) -> None:
+    def test_options_html_loads_full_srs_action_stack_before_controller(self) -> None:
         html_path = EXT_ROOT / "options.html"
         html = html_path.read_text(encoding="utf-8")
         ordered_markers = [
+            'src="options/controllers/srs/planning_state.js"',
+            'src="options/controllers/srs/actions/planning_state_resolver.js"',
+            'src="options/controllers/srs/actions/admission_preview_formatter.js"',
+            'src="options/controllers/srs/actions/admission_preview_workflow.js"',
+            'src="options/controllers/srs/actions/rebalance_formatter.js"',
+            'src="options/controllers/srs/actions/rebalance_workflow.js"',
             'src="options/controllers/srs/actions/formatters.js"',
             'src="options/controllers/srs/actions/shared.js"',
+            'src="options/controllers/srs/actions/semantic_pack_install_workflow.js"',
+            'src="options/controllers/srs/actions/words_dashboard_model.js"',
+            'src="options/controllers/srs/actions/words_dashboard_formatting.js"',
+            'src="options/controllers/srs/actions/words_dashboard_renderer.js"',
+            'src="options/controllers/srs/actions/words_dashboard_rule_details.js"',
+            'src="options/controllers/srs/actions/words_dashboard_workflow.js"',
+            'src="options/controllers/srs/actions/maintenance_workflow.js"',
             'src="options/controllers/srs/actions/workflows.js"',
             'src="options/controllers/srs/actions_controller.js"',
         ]
@@ -104,24 +125,101 @@ class TestExtensionStructure(unittest.TestCase):
         self.assertTrue(all(position >= 0 for position in positions))
         self.assertEqual(positions, sorted(positions))
 
-    def test_content_ui_popup_modules_are_registered_in_manifest_order(self) -> None:
+    def test_options_html_i18n_keys_exist_in_all_locale_catalogs(self) -> None:
+        html_path = EXT_ROOT / "options.html"
+        html = html_path.read_text(encoding="utf-8")
+        keys = sorted(set(re.findall(r'data-i18n(?:-placeholder)?="([^"]+)"', html)))
+
+        missing_by_locale: dict[str, list[str]] = {}
+        for locale_path in sorted((EXT_ROOT / "_locales").glob("*/messages.json")):
+            locale = locale_path.parent.name
+            messages = json.loads(locale_path.read_text(encoding="utf-8"))
+            missing = [key for key in keys if key not in messages]
+            if missing:
+                missing_by_locale[locale] = missing
+
+        self.assertEqual(missing_by_locale, {})
+
+    def test_learning_dashboard_page_loads_dependencies_in_order(self) -> None:
+        html_path = EXT_ROOT / "learning_dashboard.html"
+        html = html_path.read_text(encoding="utf-8")
+        ordered_markers = [
+            'src="shared/helper/helper_error_copy.js"',
+            'src="shared/helper/helper_transport_extension.js"',
+            'src="shared/helper/helper_client.js"',
+            'src="shared/helper/word_info_api.js"',
+            'src="shared/profile/profile_media_store.js"',
+            'src="shared/settings/settings_defaults.js"',
+            'src="options/core/settings/base_methods.js"',
+            'src="options/core/settings/srs_profile_methods.js"',
+            'src="options/core/settings_manager.js"',
+            'src="options/core/helper/srs_set_methods.js"',
+            'src="options/core/helper_manager.js"',
+            'src="options/controllers/profile/background/utils.js"',
+            'src="options/controllers/profile/background/page_background_manager.js"',
+            'src="options/controllers/profile/background/card_theme_manager.js"',
+            'src="options/controllers/srs/actions/words_dashboard_model.js"',
+            'src="options/controllers/srs/actions/words_dashboard_formatting.js"',
+            'src="learning_dashboard_model.js"',
+            'src="learning_dashboard_view.js"',
+            'src="learning_dashboard_table.js"',
+            'src="learning_dashboard_theme.js"',
+            'src="learning_dashboard.js"',
+        ]
+        positions = [html.find(marker) for marker in ordered_markers]
+        self.assertTrue(all(position >= 0 for position in positions))
+        self.assertEqual(positions, sorted(positions))
+
+    def test_learning_dashboard_i18n_keys_exist_in_all_locale_catalogs(self) -> None:
+        html_path = EXT_ROOT / "learning_dashboard.html"
+        html = html_path.read_text(encoding="utf-8")
+        keys = sorted(set(re.findall(r'data-i18n(?:-placeholder)?="([^"]+)"', html)))
+
+        missing_by_locale: dict[str, list[str]] = {}
+        for locale_path in sorted((EXT_ROOT / "_locales").glob("*/messages.json")):
+            locale = locale_path.parent.name
+            messages = json.loads(locale_path.read_text(encoding="utf-8"))
+            missing = [key for key in keys if key not in messages]
+            if missing:
+                missing_by_locale[locale] = missing
+
+        self.assertEqual(missing_by_locale, {})
+
+    def test_content_runtime_and_ui_modules_are_registered_in_manifest_order(self) -> None:
         manifest_path = EXT_ROOT / "manifest.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         scripts = manifest["content_scripts"][0]["js"]
         required_order = [
+            "shared/helper/helper_error_copy.js",
+            "shared/helper/helper_transport_extension.js",
+            "shared/helper/helper_client.js",
+            "shared/helper/word_info_api.js",
+            "content/processing/replacement_semantic_debug.js",
+            "content/processing/replacement_semantic_override.js",
+            "content/processing/replacements.js",
             "content/runtime/dom_scan/node_filters.js",
             "content/runtime/dom_scan/page_budget_tracker.js",
+            "content/runtime/dom_scan/scan_order.js",
+            "content/runtime/dom_scan/semantic_performance_metrics.js",
+            "content/runtime/dom_scan/semantic_node_scheduler.js",
             "content/runtime/dom_scan/scan_counters.js",
+            "content/runtime/dom_scan/semantic_context_support.js",
+            "content/runtime/dom_scan/semantic_context.js",
             "content/runtime/dom_scan/text_node_processor.js",
             "content/runtime/dom_scan_runtime.js",
             "content/runtime/rules/helper_rules_runtime.js",
             "content/runtime/rules/active_rules_runtime.js",
+            "content/runtime/semantic/semantic_gate_summary.js",
+            "content/runtime/semantic/semantic_request_context.js",
+            "content/runtime/semantic/semantic_gate_batch.js",
+            "content/runtime/semantic/semantic_gate_runtime.js",
             "content/runtime/diagnostics/apply_diagnostics_reporter.js",
             "content/runtime/apply_runtime_actions.js",
             "content/runtime/apply_settings_pipeline.js",
             "content/runtime/feedback/feedback_runtime_controller.js",
             "content/runtime/settings_change_router.js",
             "content/ui/popup_modules/module_registry.js",
+            "content/ui/popup_modules/quick_definition_module.js",
             "content/ui/popup_modules/japanese_script_module.js",
             "content/ui/feedback_popup_controller.js",
             "content/ui/ui.js",

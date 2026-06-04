@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T02:09:18Z",
+  "status": "ok",
+  "batch_id": "en-es:example-frame-composite:reverse-aux-wordnet-wiktextract-plant-v10-source-admission-latest",
+  "source_id": "reverse_aux_wordnet_wiktextract_plant_source_admission",
+  "summary": {
+    "component_count": 2,
+    "row_count": 67,
+    "family_count": 19,
+    "relation_counts": {
+      "anchor_cue": 34,
+      "shadow_candidate": 33
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:example-frame-composite:reverse-aux-wordnet-all-v10-source-admission-latest:sense-admitted",
+      "source_id": "reverse_aux_wordnet_all_v10_source_admission",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 64,
+      "accepted_row_count": 64,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:wiktextract-example-frames:wiktextract-plant-example-frames-v10-20260425a:filtered",
+      "source_id": "wiktextract_example_frames",
+      "source_type": "external",
+      "source_family": "external_example_corpus",
+      "input_row_count": 3,
+      "accepted_row_count": 3,
+      "duplicate_row_count": 0
+    }
+  ]
+}

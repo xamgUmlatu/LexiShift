@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Mapping, Optional, Iterable, Sequence
+from datetime import datetime
+from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.lexicon.word_package import (
     normalize_word_package,
     resolve_language_tag_from_pair,
 )
-from lexishift_core.srs import SrsItem, SrsSettings, SrsStore
+from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, srs_item_is_active
 from lexishift_core.srs.source import SOURCE_FREQUENCY_LIST, normalize_source_type
 from lexishift_core.srs.selector import (
     ScoredCandidate,
@@ -15,8 +16,10 @@ from lexishift_core.srs.selector import (
     SelectorConfig,
     filter_candidates,
     rank_candidates,
+    select_scored_candidates,
 )
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
+from lexishift_core.srs.time import format_ts, now_utc
 
 
 @dataclass(frozen=True)
@@ -84,8 +87,16 @@ def plan_srs_growth(
     pool_size = len(pool)
 
     existing = {
-        item.lemma for item in store.items if not pair_set or item.language_pair in pair_set
+        item.lemma
+        for item in store.items
+        if (not pair_set or item.language_pair in pair_set) and srs_item_is_active(item)
     }
+    inactive_lifecycle = {
+        item.lemma
+        for item in store.items
+        if (not pair_set or item.language_pair in pair_set) and not srs_item_is_active(item)
+    }
+    blocked = set(blocked_lemmas or set()) | inactive_lifecycle
 
     coverage_scalar = (
         config.coverage_scalar if config.coverage_scalar is not None else settings.coverage_scalar
@@ -96,7 +107,7 @@ def plan_srs_growth(
 
     filtered = filter_candidates(
         pool,
-        blocked_lemmas=blocked_lemmas,
+        blocked_lemmas=blocked,
         in_s=existing,
         allowed_pairs=pairs if pairs else None,
         allowed_pos=effective_allowed_pos,
@@ -111,7 +122,13 @@ def plan_srs_growth(
         add_count = min(add_count, max(0, int(max_new)))
     add_count = min(add_count, len(scored))
 
-    selected = [entry.candidate for entry in scored[:add_count]]
+    selected_scored = select_scored_candidates(
+        scored,
+        config=config.selector_config,
+        selection_count=add_count,
+        seed=None,
+    )
+    selected = [entry.candidate for entry in selected_scored]
     return SrsGrowthPlan(
         allowed_pairs=pairs,
         coverage_ratio=coverage_ratio,
@@ -130,8 +147,10 @@ def apply_growth_plan(
     plan: SrsGrowthPlan,
     *,
     config: Optional[SrsGrowthConfig] = None,
+    now: Optional[datetime] = None,
 ) -> SrsStore:
     config = config or SrsGrowthConfig()
+    admitted_at = format_ts(now or now_utc())
     updated = store
     for candidate in plan.selected:
         confidence = _resolve_confidence(candidate, min_value=config.confidence_min)
@@ -145,6 +164,7 @@ def apply_growth_plan(
             confidence=confidence,
             scheduler_state="learning",
             scheduler_step=0,
+            admitted_at=admitted_at,
             word_package=word_package,
         )
         updated = upsert_item(updated, item)
@@ -160,6 +180,7 @@ def grow_srs_store(
     allowed_pairs: Optional[Sequence[str]] = None,
     allowed_pos: Optional[set[str]] = None,
     blocked_lemmas: Optional[set[str]] = None,
+    now: Optional[datetime] = None,
 ) -> tuple[SrsStore, SrsGrowthPlan]:
     config = config or SrsGrowthConfig()
     plan = plan_srs_growth(
@@ -171,7 +192,7 @@ def grow_srs_store(
         allowed_pos=allowed_pos,
         blocked_lemmas=blocked_lemmas,
     )
-    updated = apply_growth_plan(store, plan, config=config)
+    updated = apply_growth_plan(store, plan, config=config, now=now)
     return updated, plan
 
 

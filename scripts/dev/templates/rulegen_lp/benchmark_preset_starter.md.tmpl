@@ -1,0 +1,72 @@
+# `$pair` Benchmark Preset Starter
+
+Status: generated scaffold handoff
+Role: planning / WIP
+Purpose: provide a copy-ready starter snippet for the first named benchmark preset for `$pair`.
+Last updated: $today
+Source-of-truth: generated starter only; the canonical preset file remains `docs/test_inputs/rulegen_benchmark_presets.json`
+
+This is a starter, not an approved methodology.
+Before adding it to the canonical preset file, confirm:
+
+- the pair module is executable
+- the benchmark case file is non-empty
+- the pair has at least one obvious quality loop command
+- the initial knob surface is real for this LP
+
+Suggested preset name:
+- `$preset_name`
+
+Suggested first wrapper command:
+- `$wrapper_command`
+
+Suggested starter snippet for `docs/test_inputs/rulegen_benchmark_presets.json`:
+
+```json
+"$preset_name": {
+  "description": "Starter benchmark matrix for $pair. Replace this description once the pair has a real advisory or canonical quality lane.",
+  "args": [
+    "--pairs",
+    "$pair",
+    "--max-definitions-values",
+    "3",
+    "--max-rules-values",
+    "none",
+    "--confidence-threshold-values",
+    "0.0",
+    "--semantic-demotion-scale-values",
+    "1.0",
+    "--include-variants-values",
+    "false,true",
+    "--pos-scoring-values",
+    "true,false",
+    "--pos-exact-values",
+    "1.0",
+    "--pos-compatible-values",
+    "0.5",
+    "--score-weight-dict-values",
+    "0.6",
+    "--score-weight-frequency-values",
+    "0.2",
+    "--score-weight-pos-values",
+    "0.1",
+    "--score-weight-variant-values",
+    "0.1",
+    "--score-weight-phrase-values",
+    "0.1",
+    "--score-weight-embedding-values",
+    "0.2",
+    "--reverse-check-enabled-values",
+    "$reverse_enabled_values",
+    "--max-configurations",
+    "100"
+  ]
+}
+```
+
+Pair-specific TODOs before promoting this preset:
+
+- remove inert knobs
+- add pair-real mechanisms only
+- adjust caps for the actual source family
+- document whether the lane is advisory or canonical

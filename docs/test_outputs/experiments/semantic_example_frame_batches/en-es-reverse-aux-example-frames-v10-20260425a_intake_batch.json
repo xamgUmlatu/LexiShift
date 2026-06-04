@@ -1,0 +1,607 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:reverse-aux-example-frames:reverse-aux-example-frames-v10-20260425a",
+  "pair": "en-es",
+  "source_type": "external",
+  "source_id": "reverse_aux_example_frames",
+  "source_family": "installed_translation_pack",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-25T01:25:05Z",
+  "ingested_at": "2026-04-25T01:25:05Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "reverse-aux-example-frames-v1",
+  "provenance": {
+    "dataset_id": "en_es_sentence_veto_v10",
+    "source_scope": "prompt_queue",
+    "source_note": "installed reverse-pack auxiliary sense text, no LLM or reviewed examples",
+    "family_rows": [
+      {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "trigger": "plant",
+        "active_target": "planta",
+        "role": "target",
+        "active_aux_count": 1,
+        "shadow_aux_count": 0,
+        "phrase_control_example_count": 0,
+        "row_count": 1
+      },
+      {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "trigger": "drink",
+        "active_target": "bebida",
+        "role": "target",
+        "active_aux_count": 1,
+        "shadow_aux_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2
+      },
+      {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "trigger": "play",
+        "active_target": "obra",
+        "role": "negative_control",
+        "active_aux_count": 0,
+        "shadow_aux_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 1
+      },
+      {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "trigger": "watch",
+        "active_target": "reloj",
+        "role": "negative_control",
+        "active_aux_count": 1,
+        "shadow_aux_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2
+      },
+      {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "trigger": "check",
+        "active_target": "cheque",
+        "role": "target",
+        "active_aux_count": 1,
+        "shadow_aux_count": 0,
+        "phrase_control_example_count": 0,
+        "row_count": 1
+      },
+      {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "trigger": "order",
+        "active_target": "pedido",
+        "role": "target",
+        "active_aux_count": 1,
+        "shadow_aux_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2
+      },
+      {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "trigger": "trip",
+        "active_target": "viaje",
+        "role": "target",
+        "active_aux_count": 1,
+        "shadow_aux_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2
+      },
+      {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "trigger": "report",
+        "active_target": "informe",
+        "role": "target",
+        "active_aux_count": 1,
+        "shadow_aux_count": 1,
+        "phrase_control_example_count": 0,
+        "row_count": 2
+      }
+    ]
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-reverse-aux",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "organism capable of photosynthesis",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:active-reverse-aux",
+      "relation_type": "anchor_cue",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "bebida",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "served beverage",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "candidate_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "example_bucket": "active",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-drink-bebida:shadow-en-es-sentence-veto-drink-beber-shadow-reverse-aux",
+      "relation_type": "shadow_candidate",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:bebida:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:drink:beber:shadow",
+        "canonical_pos": "verb",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "consume liquid through the mouth",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:drink:bebida",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:drink:bebida:active",
+        "candidate_sense_id": "en-es:sentence-veto:drink:beber:shadow",
+        "example_bucket": "shadow",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-play-obra:shadow-en-es-sentence-veto-play-jugar-shadow-reverse-aux",
+      "relation_type": "shadow_candidate",
+      "trigger": "play",
+      "active_target": "obra",
+      "candidate_target": "jugar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:jugar:shadow",
+        "canonical_pos": "verb",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "act in a manner such that one has fun",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "queue_role": "negative_control",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "candidate_sense_id": "en-es:sentence-veto:play:jugar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:active-reverse-aux",
+      "relation_type": "anchor_cue",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "reloj",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "portable or wearable timepiece",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "queue_role": "negative_control",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "candidate_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "example_bucket": "active",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-watch-reloj:shadow-en-es-sentence-veto-watch-vigilar-shadow-reverse-aux",
+      "relation_type": "shadow_candidate",
+      "trigger": "watch",
+      "active_target": "reloj",
+      "candidate_target": "vigilar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:reloj:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:watch:vigilar:shadow",
+        "canonical_pos": "verb",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "to attend or guard",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:watch:reloj",
+        "queue_role": "negative_control",
+        "active_sense_id": "en-es:sentence-veto:watch:reloj:active",
+        "candidate_sense_id": "en-es:sentence-veto:watch:vigilar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-check-cheque:active-reverse-aux",
+      "relation_type": "anchor_cue",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "cheque",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "mark used as an indicator",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "candidate_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "example_bucket": "active",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:active-reverse-aux",
+      "relation_type": "anchor_cue",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "pedido",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "request for some product or service",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "candidate_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "example_bucket": "active",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-order-pedido:shadow-en-es-sentence-veto-order-ordenar-shadow-reverse-aux",
+      "relation_type": "shadow_candidate",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:ordenar:shadow",
+        "canonical_pos": "verb",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "to set in (any) order",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "candidate_sense_id": "en-es:sentence-veto:order:ordenar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:active-reverse-aux",
+      "relation_type": "anchor_cue",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "viaje",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "journey",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "example_bucket": "active",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-trip-viaje:shadow-en-es-sentence-veto-trip-viaje-shadow-reverse-aux",
+      "relation_type": "shadow_candidate",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:trip:viaje:shadow",
+        "canonical_pos": "verb",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "stumble or misstep",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:trip:viaje",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:trip:viaje:active",
+        "candidate_sense_id": "en-es:sentence-veto:trip:viaje:shadow",
+        "example_bucket": "shadow",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:active-reverse-aux",
+      "relation_type": "anchor_cue",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informe",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "information describing events",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informe:active",
+        "example_bucket": "active",
+        "source_view": "reverse_aux_text"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-report-informe:shadow-en-es-sentence-veto-report-informar-shadow-reverse-aux",
+      "relation_type": "shadow_candidate",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informar:shadow",
+        "canonical_pos": "verb",
+        "note": "reverse_aux_candidate"
+      },
+      "candidate_pos": "verb",
+      "evidence_text": "to relate details of",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "example_bucket": "shadow",
+        "source_view": "reverse_aux_text"
+      }
+    }
+  ]
+}

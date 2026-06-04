@@ -11,6 +11,8 @@ import subprocess
 import sys
 from typing import Mapping, Optional, Sequence
 
+from rulegen_benchmark_dataset import materialize_benchmark_dataset
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 BENCHMARK_SCRIPT = PROJECT_ROOT / "scripts" / "testing" / "rulegen_benchmark.py"
 BUNDLE_VERSION = 1
@@ -283,11 +285,12 @@ def export_bundle(
     dataset_path = Path(str(report_payload.get("dataset_path") or "").strip())
     if not dataset_path.exists():
         raise FileNotFoundError(f"Benchmark dataset not found: {dataset_path}")
-    dataset_rel = Path("inputs") / dataset_path.name
-    dataset_bundle_path = _copy_file_into_bundle(
-        source=dataset_path,
-        bundle_dir=output_dir,
-        relative_path=dataset_rel,
+    dataset_rel = Path("inputs") / "rulegen_benchmark_cases.json"
+    dataset_bundle_path = str(dataset_rel.as_posix())
+    materialize_benchmark_dataset(
+        source_path=dataset_path,
+        output_path=output_dir / dataset_rel,
+        pair_filter=set(pair_names),
     )
 
     source_report_rel = Path("source") / benchmark_json.name

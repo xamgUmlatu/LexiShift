@@ -1,0 +1,452 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:active-only-scale-tranche-v1-20260510-001",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T22:50:44Z",
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_active_only_scale_tranche_v1_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json",
+  "repair_notes": [
+    {
+      "raw_output_mutation": "request_id_metadata_corrected_to_expected_value; generated sentences unchanged",
+      "reason": "Initial admitted response had one item with inflected token \"continues\"; one-request repair output had a correctable request_id typo but both generated sentences used exact runtime token \"continue\".",
+      "repair_generation_run": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_continue_repair_generation_run_en_es_latest.json",
+      "repair_id": "continue_exact_token_regeneration_20260510_001",
+      "replaced_request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion"
+    }
+  ],
+  "responses": [
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "current means happening now, matching the present-time sense.",
+          "sentence": "The museum opened a current exhibition of contemporary sculpture."
+        },
+        {
+          "evidence_note": "current refers to the present period, supporting the contemporary sense.",
+          "sentence": "Her current research focuses on current trends in urban design."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "current",
+      "target_lemma": "contemporáneo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:continue:durar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows duration of an ongoing event.",
+          "sentence": "The meeting will continue for another two hours."
+        },
+        {
+          "evidence_note": "Indicates that a state lasts over a period of time.",
+          "sentence": "The storm is expected to continue through the night."
+        }
+      ],
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-continue-repair-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "continue",
+      "target_lemma": "durar"
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Bird sense: a living parrot in a cage or tree setting.",
+          "sentence": "The parrot perched on the branch and cracked a sunflower seed with its beak."
+        },
+        {
+          "evidence_note": "Bird sense: an actual parrot making bird sounds.",
+          "sentence": "At the zoo, a bright green parrot squawked loudly when visitors walked past."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "parrot",
+      "target_lemma": "loro",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Active healing of a wound or injury.",
+          "sentence": "The cut began to recover after she cleaned it and kept it covered."
+        },
+        {
+          "evidence_note": "Active healing from an injury.",
+          "sentence": "With rest and proper care, the burn should recover in a few weeks."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "recover",
+      "target_lemma": "sanar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes a large sea wave or swell moving on the ocean.",
+          "sentence": "A billow rolled toward the shore and broke into white foam."
+        },
+        {
+          "evidence_note": "Uses billow in the sense of a sea swell on the water.",
+          "sentence": "From the deck, we watched a billow rise and fall across the dark water."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "billow",
+      "target_lemma": "oleaje",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "A stall is a compartment in a stable where an animal is kept.",
+          "sentence": "The horse was led back to its stall after the ride."
+        },
+        {
+          "evidence_note": "The context shows a stable compartment for an animal.",
+          "sentence": "Each stall in the barn had fresh hay and a water bucket."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "stall",
+      "target_lemma": "cuadra",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "upon means regarding or based on the survey results.",
+          "sentence": "The report was written upon the latest survey results."
+        },
+        {
+          "evidence_note": "upon means regarding the proposal.",
+          "sentence": "She commented upon the proposal during the meeting."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "upon",
+      "target_lemma": "sobre",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "pair means two matching items",
+          "sentence": "She bought a pair of socks for the trip."
+        },
+        {
+          "evidence_note": "pair means two things together",
+          "sentence": "The recipe calls for a pair of eggs in the batter."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "pair",
+      "target_lemma": "par",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:health:salud",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "health means bodily wellbeing and condition.",
+          "sentence": "Regular exercise can improve your health and lower the risk of disease."
+        },
+        {
+          "evidence_note": "health refers to the person's physical condition.",
+          "sentence": "The doctor said her health was stable after the surgery."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "health",
+      "target_lemma": "salud",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Sleeping person breathing noisily, which matches the active sense.",
+          "sentence": "After the long hike, he fell asleep and began to snore softly in the tent."
+        },
+        {
+          "evidence_note": "The context shows a sleeping person making loud breathing sounds.",
+          "sentence": "She could hear her grandfather snore from the next room all night."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "snore",
+      "target_lemma": "roncar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to a hand-made crafted object.",
+          "sentence": "The carved chair was clearly the handiwork of a skilled woodworker."
+        },
+        {
+          "evidence_note": "Refers to work produced by hand.",
+          "sentence": "Her handiwork showed careful stitching and fine detail in every seam."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "handiwork",
+      "target_lemma": "artesanía",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows the lot is next to and sharing a boundary with the house.",
+          "sentence": "The garden has an adjoining lot that shares a fence with the house."
+        },
+        {
+          "evidence_note": "Makes the sense clear by stating the room is directly beside another room.",
+          "sentence": "We rented an adjoining room because it was directly next to ours."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "adjoining",
+      "target_lemma": "contiguo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to a venomous snake.",
+          "sentence": "The hiker froze when an adder slid across the path near his boot."
+        },
+        {
+          "evidence_note": "Snake context makes the meaning clear.",
+          "sentence": "A bright warning sign told campers to watch for an adder in the grass."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "adder",
+      "target_lemma": "víbora",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows altitude as height above a reference level.",
+          "sentence": "The hikers adjusted their pace as the altitude increased above the valley floor."
+        },
+        {
+          "evidence_note": "Uses altitude in the sense of elevation above sea level.",
+          "sentence": "At this altitude, the air is thinner and the temperature drops quickly."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "altitude",
+      "target_lemma": "elevación",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:june:junio",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to the month between May and July.",
+          "sentence": "We plan to travel in june after the school year ends."
+        },
+        {
+          "evidence_note": "Uses june as a calendar month in a date context.",
+          "sentence": "The report is due in june, so we need to finish it soon."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "june",
+      "target_lemma": "junio",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Shows a strong feeling in response to an event.",
+          "sentence": "Her voice shook with emotion when she heard the good news."
+        },
+        {
+          "evidence_note": "Refers to an intense affective state visible in behavior.",
+          "sentence": "He could not hide his emotion during the farewell speech."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-active-only-scale-tranche-v1-20260510-001_raw_responses.json#semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "request_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "slot_id": "en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "emotion",
+      "target_lemma": "emoción",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion",
+    "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_requests_en_es_latest.json"
+}

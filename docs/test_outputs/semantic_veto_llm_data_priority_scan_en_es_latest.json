@@ -1,0 +1,4233 @@
+{
+  "decision": "llm_data_priority_scan_established",
+  "e2e_checks": {
+    "all_programmatic_features_declared": true,
+    "forbidden_fields_absent_from_programmatic_features": true,
+    "rows_sorted_by_scored_context_need": true,
+    "validation_shadow_kept_separate": true
+  },
+  "generated_at": "2026-05-05T19:07:42+00:00",
+  "inputs": {
+    "difficulty_case_count": 240,
+    "difficulty_decision": "difficulty_stratification_baseline_established",
+    "difficulty_json": "docs/test_outputs/semantic_veto_difficulty_stratification_en_es_latest.json"
+  },
+  "limitations": [
+    "current_scan_reads_measured_scored_contexts_not_full_database_inventory",
+    "english_source_rank_and_spanish_target_rank_coverage_are_incomplete",
+    "wordnet_and_translation_metadata_are_not_available_for_every_candidate",
+    "score_surface_features_require_observed_or_generated_contexts",
+    "ranking_is_for_data_spend_allocation_not_runtime_policy_promotion"
+  ],
+  "methodology": {
+    "forbidden_ranking_fields": [
+      "manual_case_type",
+      "gold_decision",
+      "gold_winner_type",
+      "predicted_decision",
+      "predicted_winner_type",
+      "product_outcome",
+      "error_type",
+      "veto_reason"
+    ],
+    "label_policy": "Gold labels, product outcomes, and manual case-type labels may be used only in validation_shadow fields; they are not ranking inputs.",
+    "programmatic_feature_fields": [
+      "source_rank_risk",
+      "source_rank_missing",
+      "target_rank_value",
+      "wordnet_sense_risk",
+      "wordnet_pos_risk",
+      "translation_fanout_risk",
+      "shadow_presence_risk",
+      "ambiguity_risk",
+      "active_evidence_gap",
+      "shadow_evidence_gap",
+      "phrase_evidence_gap",
+      "metadata_gap_rate",
+      "coverage_gap",
+      "active_low_rate",
+      "near_tie_rate",
+      "phrase_near_best_rate",
+      "phrase_surface_pattern_rate",
+      "decision_uncertainty",
+      "expected_fixability"
+    ],
+    "purpose": "Allocate LLM generation budget to trigger/target pairs where more active, shadow, or phrase/no-winner evidence is most likely to improve semantic-veto quality.",
+    "ranking_scope": "Programmatic-feature scan over currently measured/scored candidate rows. It can rank a wider inventory once the same metadata fields are available for that inventory.",
+    "score_formula": {
+      "scored_context_llm_data_need": "static_llm_data_need * (0.65 + 0.35 * decision_uncertainty) * (0.70 + 0.30 * expected_fixability)",
+      "static_llm_data_need": "exposure_value * (0.25 + 0.75 * ambiguity_risk) * (0.25 + 0.75 * coverage_gap)"
+    }
+  },
+  "next_steps": [
+    "Run this scanner after every difficulty-stratification refresh.",
+    "Use top rows to request LLM active/shadow/phrase evidence packets.",
+    "Add a wider inventory input once rulegen can emit the same programmatic metadata for all candidate rules.",
+    "Evaluate rank quality with labels only after the priority list is frozen."
+  ],
+  "pair": "en-es",
+  "priority_rows": [
+    {
+      "candidate_key": "wrong::incorrecto",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:wrong:incorrecto"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P2",
+      "priority_rank": 1,
+      "priority_reasons": [
+        "high_source_exposure",
+        "high_programmatic_ambiguity",
+        "score_surface_uncertainty",
+        "generate_shadow_rows",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.8107,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.4117,
+        "expected_fixability": 0.4412,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.3333,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 1.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 1.0,
+        "wordnet_sense_risk": 0.7107
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 4,
+        "phrase_rows": 12,
+        "score_components": {
+          "active_need": 0.0667,
+          "phrase_need": 0.75,
+          "shadow_need": 0.3837
+        },
+        "shadow_rows": 4
+      },
+      "scored_context_llm_data_need": 0.2694,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.4076,
+      "target_lemma": "incorrecto",
+      "trigger": "wrong",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "watch::reloj",
+      "case_count": 12,
+      "family_ids": [
+        "en-es:sentence-veto:watch:reloj"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 6
+      },
+      "priority_band": "P3",
+      "priority_rank": 2,
+      "priority_reasons": [
+        "high_source_exposure",
+        "score_surface_uncertainty",
+        "generate_active_rows",
+        "generate_shadow_rows",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4167,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3375,
+        "decision_uncertainty": 0.5506,
+        "expected_fixability": 0.3946,
+        "metadata_gap_rate": 0.75,
+        "near_tie_rate": 0.4167,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 1.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 4,
+        "locked_eval_rows": 4,
+        "phrase_rows": 8,
+        "score_components": {
+          "active_need": 0.2292,
+          "phrase_need": 0.6375,
+          "shadow_need": 0.2125
+        },
+        "shadow_rows": 4
+      },
+      "scored_context_llm_data_need": 0.1518,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.2201,
+      "target_lemma": "reloj",
+      "trigger": "watch",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 12,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.25,
+        "outcome_counts": {
+          "negative_abstain": 5,
+          "negative_allow": 1,
+          "positive_abstain": 2,
+          "positive_allow": 4
+        }
+      }
+    },
+    {
+      "candidate_key": "score::tantos",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:score:tantos"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 3,
+      "priority_reasons": [
+        "high_programmatic_ambiguity",
+        "generate_shadow_rows",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7195,
+        "coverage_gap": 0.25,
+        "decision_uncertainty": 0.3208,
+        "expected_fixability": 0.3687,
+        "metadata_gap_rate": 0.0,
+        "near_tie_rate": 0.3333,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.65,
+        "target_rank_value": 1.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.7929
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 2,
+        "phrase_rows": 8,
+        "score_components": {
+          "active_need": 0.0433,
+          "phrase_need": 0.4767,
+          "shadow_need": 0.2287
+        },
+        "shadow_rows": 4
+      },
+      "scored_context_llm_data_need": 0.1388,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.2245,
+      "target_lemma": "tantos",
+      "trigger": "score",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "bank::banco",
+      "case_count": 12,
+      "family_ids": [
+        "en-es:sentence-veto:bank:banco"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 6
+      },
+      "priority_band": "P3",
+      "priority_rank": 4,
+      "priority_reasons": [
+        "high_source_exposure",
+        "score_surface_uncertainty",
+        "generate_active_rows",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.5,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3375,
+        "decision_uncertainty": 0.5715,
+        "expected_fixability": 0.4019,
+        "metadata_gap_rate": 0.75,
+        "near_tie_rate": 0.4167,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0833,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.85,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 4,
+        "locked_eval_rows": 2,
+        "phrase_rows": 8,
+        "score_components": {
+          "active_need": 0.2196,
+          "phrase_need": 0.5596,
+          "shadow_need": 0.1806
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.1305,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.1871,
+      "target_lemma": "banco",
+      "trigger": "bank",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 12,
+        "observed_failure_count": 4,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 5,
+          "negative_allow": 1,
+          "positive_abstain": 3,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "stretch::estir\u00f3n",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:stretch:estir-n"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 5,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7559,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.5692,
+        "expected_fixability": 0.5079,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 1.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.45,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.8198
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.07,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.1976
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.1061,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1465,
+      "target_lemma": "estir\u00f3n",
+      "trigger": "stretch",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "like::gustos",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:like:gustos"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 6,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7362,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.5617,
+        "expected_fixability": 0.4788,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 1.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.65,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.6691
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.07,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.1952
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0952,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1334,
+      "target_lemma": "gustos",
+      "trigger": "like",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "cast::lanzamiento",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:cast:lanzamiento"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 7,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7289,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.4192,
+        "expected_fixability": 0.45,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.3333,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.8198
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0233,
+          "phrase_need": 0.2625,
+          "shadow_need": 0.1243
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0951,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1429,
+      "target_lemma": "lanzamiento",
+      "trigger": "cast",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "crash::choque",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:crash:choque"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 8,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7195,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.3358,
+        "expected_fixability": 0.4189,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.3333,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.7929
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0233,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.1231
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0898,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1416,
+      "target_lemma": "choque",
+      "trigger": "crash",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "firm::firma",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:firm:firma"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 9,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7842,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.2192,
+        "expected_fixability": 0.3911,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.45,
+        "wordnet_pos_risk": 1.0,
+        "wordnet_sense_risk": 0.7292
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.0961
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0893,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1503,
+      "target_lemma": "firma",
+      "trigger": "firm",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "waste::desperdicio",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:waste:desperdicio"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 10,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.769,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.2192,
+        "expected_fixability": 0.388,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.7629
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.0942
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.088,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1483,
+      "target_lemma": "desperdicio",
+      "trigger": "waste",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "full::lleno",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:full:lleno"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 11,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7887,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.1358,
+        "expected_fixability": 0.3628,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.3333,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.5,
+        "wordnet_pos_risk": 1.0,
+        "wordnet_sense_risk": 0.7107
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.1925,
+          "shadow_need": 0.0966
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0852,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1509,
+      "target_lemma": "lleno",
+      "trigger": "full",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "foul::falta",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:foul:falta"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 12,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.769,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.295,
+        "expected_fixability": 0.3921,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.85,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.7629
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2917,
+          "shadow_need": 0.0942
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0847,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1374,
+      "target_lemma": "falta",
+      "trigger": "foul",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "fix::aprieto",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:fix:aprieto"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 13,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7195,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.1358,
+        "expected_fixability": 0.3489,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.3333,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.7929
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2217,
+          "shadow_need": 0.0881
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0795,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1416,
+      "target_lemma": "aprieto",
+      "trigger": "fix",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_abstain": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "squeeze::crisis",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:squeeze:crisis"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 14,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.6924,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.295,
+        "expected_fixability": 0.3767,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.85,
+        "translation_fanout_risk": 0.5,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.7783
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2917,
+          "shadow_need": 0.0848
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0783,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1279,
+      "target_lemma": "crisis",
+      "trigger": "squeeze",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "match::partido",
+      "case_count": 13,
+      "family_ids": [
+        "en-es:sentence-veto:match:partido"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 15,
+      "priority_reasons": [
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4615,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3375,
+        "decision_uncertainty": 0.5775,
+        "expected_fixability": 0.404,
+        "metadata_gap_rate": 0.75,
+        "near_tie_rate": 0.4615,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.2308,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.45,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.1142,
+          "phrase_need": 0.3128,
+          "shadow_need": 0.1017
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0693,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0991,
+      "target_lemma": "partido",
+      "trigger": "match",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 13,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.2308,
+        "outcome_counts": {
+          "negative_abstain": 6,
+          "negative_allow": 1,
+          "positive_abstain": 2,
+          "positive_allow": 4
+        }
+      }
+    },
+    {
+      "candidate_key": "seal::sello",
+      "case_count": 13,
+      "family_ids": [
+        "en-es:sentence-veto:seal:sello"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 16,
+      "priority_reasons": [
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.3846,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3375,
+        "decision_uncertainty": 0.5045,
+        "expected_fixability": 0.3784,
+        "metadata_gap_rate": 0.75,
+        "near_tie_rate": 0.3077,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0769,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.45,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0883,
+          "phrase_need": 0.2955,
+          "shadow_need": 0.0809
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0666,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0991,
+      "target_lemma": "sello",
+      "trigger": "seal",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 13,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.0769,
+        "outcome_counts": {
+          "negative_abstain": 7,
+          "positive_abstain": 1,
+          "positive_allow": 5
+        }
+      }
+    },
+    {
+      "candidate_key": "plant::planta",
+      "case_count": 13,
+      "family_ids": [
+        "en-es:sentence-veto:plant:planta"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 17,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.5385,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.712,
+        "expected_fixability": 0.4736,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.7692,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0769,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.1198,
+          "phrase_need": 0.2299,
+          "shadow_need": 0.1114
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0627,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "planta",
+      "trigger": "plant",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 13,
+        "observed_failure_count": 6,
+        "observed_failure_rate": 0.4615,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "negative_allow": 3,
+          "positive_abstain": 3,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "report::informe",
+      "case_count": 11,
+      "family_ids": [
+        "en-es:sentence-veto:report:informe"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 5
+      },
+      "priority_band": "P3",
+      "priority_rank": 18,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4545,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.6763,
+        "expected_fixability": 0.4611,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.7273,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.1066,
+          "phrase_need": 0.2231,
+          "shadow_need": 0.107
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0615,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "informe",
+      "trigger": "report",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 11,
+        "observed_failure_count": 6,
+        "observed_failure_rate": 0.5455,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "negative_allow": 2,
+          "positive_abstain": 4,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "drink::bebida",
+      "case_count": 6,
+      "family_ids": [
+        "en-es:sentence-veto:drink:bebida"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "representative": 6
+      },
+      "priority_band": "P3",
+      "priority_rank": 19,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 1.0,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.6581,
+        "expected_fixability": 0.4547,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 1.0,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.1925,
+          "phrase_need": 0.1181,
+          "shadow_need": 0.1356
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.061,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "bebida",
+      "trigger": "drink",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 6,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.5,
+        "outcome_counts": {
+          "negative_abstain": 3,
+          "positive_abstain": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "trip::viaje",
+      "case_count": 5,
+      "family_ids": [
+        "en-es:sentence-veto:trip:viaje"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "representative": 5
+      },
+      "priority_band": "P3",
+      "priority_rank": 20,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 1.0,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.6581,
+        "expected_fixability": 0.4547,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 1.0,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.1925,
+          "phrase_need": 0.1181,
+          "shadow_need": 0.1356
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.061,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "viaje",
+      "trigger": "trip",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 5,
+        "observed_failure_count": 2,
+        "observed_failure_rate": 0.4,
+        "outcome_counts": {
+          "negative_abstain": 3,
+          "positive_abstain": 2
+        }
+      }
+    },
+    {
+      "candidate_key": "trim::compensador",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:trim:compensador"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 21,
+      "priority_reasons": [
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7524,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.295,
+        "expected_fixability": 0.3887,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.25,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.5,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.7783
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2083,
+          "shadow_need": 0.0658
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0595,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.0967,
+      "target_lemma": "compensador",
+      "trigger": "trim",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "branch::sucursal",
+      "case_count": 13,
+      "family_ids": [
+        "en-es:sentence-veto:branch:sucursal"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 22,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4615,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.612,
+        "expected_fixability": 0.4386,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.5385,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.3077,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0942,
+          "phrase_need": 0.25,
+          "shadow_need": 0.0872
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0595,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "sucursal",
+      "trigger": "branch",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 13,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.2308,
+        "outcome_counts": {
+          "negative_abstain": 6,
+          "negative_allow": 1,
+          "positive_abstain": 2,
+          "positive_allow": 4
+        }
+      }
+    },
+    {
+      "candidate_key": "play::obra",
+      "case_count": 12,
+      "family_ids": [
+        "en-es:sentence-veto:play:obra"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 6
+      },
+      "priority_band": "P3",
+      "priority_rank": 23,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.5,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.6081,
+        "expected_fixability": 0.4372,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.5,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0963,
+          "phrase_need": 0.2231,
+          "shadow_need": 0.0831
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0594,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "obra",
+      "trigger": "play",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 12,
+        "observed_failure_count": 5,
+        "observed_failure_rate": 0.4167,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "negative_allow": 2,
+          "positive_abstain": 3,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "check::cheque",
+      "case_count": 11,
+      "family_ids": [
+        "en-es:sentence-veto:check:cheque"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 5
+      },
+      "priority_band": "P3",
+      "priority_rank": 24,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4545,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.571,
+        "expected_fixability": 0.4242,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.5455,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.8333,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0939,
+          "phrase_need": 0.2056,
+          "shadow_need": 0.0879
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0582,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "cheque",
+      "trigger": "check",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 11,
+        "observed_failure_count": 5,
+        "observed_failure_rate": 0.4545,
+        "outcome_counts": {
+          "negative_abstain": 3,
+          "negative_allow": 3,
+          "positive_abstain": 2,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "spring::primavera",
+      "case_count": 7,
+      "family_ids": [
+        "en-es:sentence-veto:spring:primavera"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 25,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.8571,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.5724,
+        "expected_fixability": 0.4247,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.8571,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.1429,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.165,
+          "phrase_need": 0.1306,
+          "shadow_need": 0.1206
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0582,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "primavera",
+      "trigger": "spring",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 7,
+        "observed_failure_count": 2,
+        "observed_failure_rate": 0.2857,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "positive_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "meet::adecuado",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:meet:adecuado"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 26,
+      "priority_reasons": [
+        "high_programmatic_ambiguity"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7287,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.295,
+        "expected_fixability": 0.384,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.25,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.5,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.7107
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.1875,
+          "shadow_need": 0.0638
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0581,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.0946,
+      "target_lemma": "adecuado",
+      "trigger": "meet",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_abstain": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "ball::pelota",
+      "case_count": 7,
+      "family_ids": [
+        "en-es:sentence-veto:ball:pelota"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 27,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 1.0,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.5581,
+        "expected_fixability": 0.4197,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.7143,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.1725,
+          "phrase_need": 0.1181,
+          "shadow_need": 0.1056
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0578,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "pelota",
+      "trigger": "ball",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 7,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.4286,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "positive_abstain": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "order::pedido",
+      "case_count": 11,
+      "family_ids": [
+        "en-es:sentence-veto:order:pedido"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 5
+      },
+      "priority_band": "P3",
+      "priority_rank": 28,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4545,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.5392,
+        "expected_fixability": 0.4131,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.4545,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.8333,
+        "phrase_surface_pattern_rate": 0.1818,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0875,
+          "phrase_need": 0.2215,
+          "shadow_need": 0.0783
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0572,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "pedido",
+      "trigger": "order",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 11,
+        "observed_failure_count": 5,
+        "observed_failure_rate": 0.4545,
+        "outcome_counts": {
+          "negative_abstain": 3,
+          "negative_allow": 3,
+          "positive_abstain": 2,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "table::mesa",
+      "case_count": 7,
+      "family_ids": [
+        "en-es:sentence-veto:table:mesa"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 29,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.8571,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.5224,
+        "expected_fixability": 0.4072,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.7143,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.1429,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.155,
+          "phrase_need": 0.1306,
+          "shadow_need": 0.1056
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0567,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "mesa",
+      "trigger": "table",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 7,
+        "observed_failure_count": 2,
+        "observed_failure_rate": 0.2857,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "positive_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "park::parque",
+      "case_count": 7,
+      "family_ids": [
+        "en-es:sentence-veto:park:parque"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 30,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 1.0,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.5081,
+        "expected_fixability": 0.4022,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.5714,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.1625,
+          "phrase_need": 0.1181,
+          "shadow_need": 0.0906
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0562,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "parque",
+      "trigger": "park",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 7,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.4286,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "positive_abstain": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "even::tarde",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:even:tarde"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 31,
+      "priority_reasons": [
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.8172,
+        "coverage_gap": 0.25,
+        "decision_uncertainty": 0.2042,
+        "expected_fixability": 0.3474,
+        "metadata_gap_rate": 0.0,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.6667,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.25,
+        "target_rank_value": 1.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 1.0,
+        "wordnet_sense_risk": 0.7292
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2042,
+          "shadow_need": 0.0715
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0548,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.0944,
+      "target_lemma": "tarde",
+      "trigger": "even",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "file::archivo",
+      "case_count": 12,
+      "family_ids": [
+        "en-es:sentence-veto:file:archivo"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 6
+      },
+      "priority_band": "P3",
+      "priority_rank": 32,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.3333,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.4498,
+        "expected_fixability": 0.3818,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.1667,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0833,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0525,
+          "phrase_need": 0.2304,
+          "shadow_need": 0.0481
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0544,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "archivo",
+      "trigger": "file",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 12,
+        "observed_failure_count": 2,
+        "observed_failure_rate": 0.1667,
+        "outcome_counts": {
+          "negative_abstain": 6,
+          "positive_abstain": 2,
+          "positive_allow": 4
+        }
+      }
+    },
+    {
+      "candidate_key": "gross::repulsivo",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:gross:repulsivo"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 33,
+      "priority_reasons": [
+        "high_programmatic_ambiguity"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.662,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.1283,
+        "expected_fixability": 0.3123,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.3333,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.25,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.3,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.6457
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.1375,
+          "shadow_need": 0.0579
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0489,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.0886,
+      "target_lemma": "repulsivo",
+      "trigger": "gross",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "cell::c\u00e9lula",
+      "case_count": 7,
+      "family_ids": [
+        "en-es:sentence-veto:cell:celula"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 34,
+      "priority_reasons": [
+        "missing_source_rank"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.5714,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.201,
+        "expected_fixability": 0.2947,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.07,
+          "phrase_need": 0.1181,
+          "shadow_need": 0.0306
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.047,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "c\u00e9lula",
+      "trigger": "cell",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 7,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "board::tablero",
+      "case_count": 13,
+      "family_ids": [
+        "en-es:sentence-veto:board:tablero"
+      ],
+      "in_top_n": false,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 35,
+      "priority_reasons": [
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.5385,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3375,
+        "decision_uncertainty": 0.5968,
+        "expected_fixability": 0.4107,
+        "metadata_gap_rate": 0.75,
+        "near_tie_rate": 0.4615,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.2308,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.25,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.0702,
+          "phrase_need": 0.1738,
+          "shadow_need": 0.0565
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0389,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.055,
+      "target_lemma": "tablero",
+      "trigger": "board",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 13,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.2308,
+        "outcome_counts": {
+          "negative_abstain": 7,
+          "positive_abstain": 3,
+          "positive_allow": 3
+        }
+      }
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "candidate_pair_count": 35,
+    "forbidden_feature_field_count": 8,
+    "issues": [],
+    "priority_band_counts": {
+      "P2": 1,
+      "P3": 34
+    },
+    "programmatic_feature_field_count": 19,
+    "recommended_llm_rows_top_n": {
+      "active_rows": 8,
+      "locked_eval_rows": 12,
+      "phrase_rows": 104,
+      "shadow_rows": 12
+    },
+    "source_rank_known_rate": 0.3143,
+    "target_rank_known_rate": 0.1429,
+    "top_n": 25,
+    "top_scored_context_llm_data_need": 0.2694,
+    "top_static_llm_data_need": 0.4076,
+    "translation_count_known_rate": 0.4571,
+    "wordnet_sense_known_rate": 0.4571
+  },
+  "top_priority_rows": [
+    {
+      "candidate_key": "wrong::incorrecto",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:wrong:incorrecto"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P2",
+      "priority_rank": 1,
+      "priority_reasons": [
+        "high_source_exposure",
+        "high_programmatic_ambiguity",
+        "score_surface_uncertainty",
+        "generate_shadow_rows",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.8107,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.4117,
+        "expected_fixability": 0.4412,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.3333,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 1.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 1.0,
+        "wordnet_sense_risk": 0.7107
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 4,
+        "phrase_rows": 12,
+        "score_components": {
+          "active_need": 0.0667,
+          "phrase_need": 0.75,
+          "shadow_need": 0.3837
+        },
+        "shadow_rows": 4
+      },
+      "scored_context_llm_data_need": 0.2694,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.4076,
+      "target_lemma": "incorrecto",
+      "trigger": "wrong",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "watch::reloj",
+      "case_count": 12,
+      "family_ids": [
+        "en-es:sentence-veto:watch:reloj"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 6
+      },
+      "priority_band": "P3",
+      "priority_rank": 2,
+      "priority_reasons": [
+        "high_source_exposure",
+        "score_surface_uncertainty",
+        "generate_active_rows",
+        "generate_shadow_rows",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4167,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3375,
+        "decision_uncertainty": 0.5506,
+        "expected_fixability": 0.3946,
+        "metadata_gap_rate": 0.75,
+        "near_tie_rate": 0.4167,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 1.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 4,
+        "locked_eval_rows": 4,
+        "phrase_rows": 8,
+        "score_components": {
+          "active_need": 0.2292,
+          "phrase_need": 0.6375,
+          "shadow_need": 0.2125
+        },
+        "shadow_rows": 4
+      },
+      "scored_context_llm_data_need": 0.1518,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.2201,
+      "target_lemma": "reloj",
+      "trigger": "watch",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 12,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.25,
+        "outcome_counts": {
+          "negative_abstain": 5,
+          "negative_allow": 1,
+          "positive_abstain": 2,
+          "positive_allow": 4
+        }
+      }
+    },
+    {
+      "candidate_key": "score::tantos",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:score:tantos"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 3,
+      "priority_reasons": [
+        "high_programmatic_ambiguity",
+        "generate_shadow_rows",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7195,
+        "coverage_gap": 0.25,
+        "decision_uncertainty": 0.3208,
+        "expected_fixability": 0.3687,
+        "metadata_gap_rate": 0.0,
+        "near_tie_rate": 0.3333,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.65,
+        "target_rank_value": 1.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.7929
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 2,
+        "phrase_rows": 8,
+        "score_components": {
+          "active_need": 0.0433,
+          "phrase_need": 0.4767,
+          "shadow_need": 0.2287
+        },
+        "shadow_rows": 4
+      },
+      "scored_context_llm_data_need": 0.1388,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.2245,
+      "target_lemma": "tantos",
+      "trigger": "score",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "bank::banco",
+      "case_count": 12,
+      "family_ids": [
+        "en-es:sentence-veto:bank:banco"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 6
+      },
+      "priority_band": "P3",
+      "priority_rank": 4,
+      "priority_reasons": [
+        "high_source_exposure",
+        "score_surface_uncertainty",
+        "generate_active_rows",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.5,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3375,
+        "decision_uncertainty": 0.5715,
+        "expected_fixability": 0.4019,
+        "metadata_gap_rate": 0.75,
+        "near_tie_rate": 0.4167,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0833,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.85,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 4,
+        "locked_eval_rows": 2,
+        "phrase_rows": 8,
+        "score_components": {
+          "active_need": 0.2196,
+          "phrase_need": 0.5596,
+          "shadow_need": 0.1806
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.1305,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.1871,
+      "target_lemma": "banco",
+      "trigger": "bank",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 12,
+        "observed_failure_count": 4,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 5,
+          "negative_allow": 1,
+          "positive_abstain": 3,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "stretch::estir\u00f3n",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:stretch:estir-n"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 5,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7559,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.5692,
+        "expected_fixability": 0.5079,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 1.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.45,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.8198
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.07,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.1976
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.1061,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1465,
+      "target_lemma": "estir\u00f3n",
+      "trigger": "stretch",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "like::gustos",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:like:gustos"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 6,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7362,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.5617,
+        "expected_fixability": 0.4788,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 1.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.65,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.6691
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.07,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.1952
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0952,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1334,
+      "target_lemma": "gustos",
+      "trigger": "like",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "cast::lanzamiento",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:cast:lanzamiento"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 7,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7289,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.4192,
+        "expected_fixability": 0.45,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.3333,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.8198
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0233,
+          "phrase_need": 0.2625,
+          "shadow_need": 0.1243
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0951,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1429,
+      "target_lemma": "lanzamiento",
+      "trigger": "cast",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "crash::choque",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:crash:choque"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 8,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7195,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.3358,
+        "expected_fixability": 0.4189,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.3333,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.7929
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0233,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.1231
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0898,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1416,
+      "target_lemma": "choque",
+      "trigger": "crash",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "firm::firma",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:firm:firma"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 9,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7842,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.2192,
+        "expected_fixability": 0.3911,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.45,
+        "wordnet_pos_risk": 1.0,
+        "wordnet_sense_risk": 0.7292
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.0961
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0893,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1503,
+      "target_lemma": "firma",
+      "trigger": "firm",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "waste::desperdicio",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:waste:desperdicio"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 10,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.769,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.2192,
+        "expected_fixability": 0.388,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.6667,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.7629
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2567,
+          "shadow_need": 0.0942
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.088,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1483,
+      "target_lemma": "desperdicio",
+      "trigger": "waste",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "full::lleno",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:full:lleno"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 11,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7887,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.1358,
+        "expected_fixability": 0.3628,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.3333,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.5,
+        "wordnet_pos_risk": 1.0,
+        "wordnet_sense_risk": 0.7107
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.1925,
+          "shadow_need": 0.0966
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0852,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1509,
+      "target_lemma": "lleno",
+      "trigger": "full",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "foul::falta",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:foul:falta"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 12,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.769,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.295,
+        "expected_fixability": 0.3921,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.85,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.7629
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2917,
+          "shadow_need": 0.0942
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0847,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1374,
+      "target_lemma": "falta",
+      "trigger": "foul",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "fix::aprieto",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:fix:aprieto"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 13,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7195,
+        "coverage_gap": 0.35,
+        "decision_uncertainty": 0.1358,
+        "expected_fixability": 0.3489,
+        "metadata_gap_rate": 0.5,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 0.3333,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.6,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.7929
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2217,
+          "shadow_need": 0.0881
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0795,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1416,
+      "target_lemma": "aprieto",
+      "trigger": "fix",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_abstain": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "squeeze::crisis",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:squeeze:crisis"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 14,
+      "priority_reasons": [
+        "missing_source_rank",
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.6924,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.295,
+        "expected_fixability": 0.3767,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.85,
+        "translation_fanout_risk": 0.5,
+        "wordnet_pos_risk": 0.3333,
+        "wordnet_sense_risk": 0.7783
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2917,
+          "shadow_need": 0.0848
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0783,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.1279,
+      "target_lemma": "crisis",
+      "trigger": "squeeze",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.3333,
+        "outcome_counts": {
+          "negative_abstain": 1,
+          "negative_allow": 1,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "match::partido",
+      "case_count": 13,
+      "family_ids": [
+        "en-es:sentence-veto:match:partido"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 15,
+      "priority_reasons": [
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4615,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3375,
+        "decision_uncertainty": 0.5775,
+        "expected_fixability": 0.404,
+        "metadata_gap_rate": 0.75,
+        "near_tie_rate": 0.4615,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.2308,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.45,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.1142,
+          "phrase_need": 0.3128,
+          "shadow_need": 0.1017
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0693,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0991,
+      "target_lemma": "partido",
+      "trigger": "match",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 13,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.2308,
+        "outcome_counts": {
+          "negative_abstain": 6,
+          "negative_allow": 1,
+          "positive_abstain": 2,
+          "positive_allow": 4
+        }
+      }
+    },
+    {
+      "candidate_key": "seal::sello",
+      "case_count": 13,
+      "family_ids": [
+        "en-es:sentence-veto:seal:sello"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 16,
+      "priority_reasons": [
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.3846,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3375,
+        "decision_uncertainty": 0.5045,
+        "expected_fixability": 0.3784,
+        "metadata_gap_rate": 0.75,
+        "near_tie_rate": 0.3077,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0769,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.45,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0883,
+          "phrase_need": 0.2955,
+          "shadow_need": 0.0809
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0666,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0991,
+      "target_lemma": "sello",
+      "trigger": "seal",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 13,
+        "observed_failure_count": 1,
+        "observed_failure_rate": 0.0769,
+        "outcome_counts": {
+          "negative_abstain": 7,
+          "positive_abstain": 1,
+          "positive_allow": 5
+        }
+      }
+    },
+    {
+      "candidate_key": "plant::planta",
+      "case_count": 13,
+      "family_ids": [
+        "en-es:sentence-veto:plant:planta"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 17,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.5385,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.712,
+        "expected_fixability": 0.4736,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.7692,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0769,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.1198,
+          "phrase_need": 0.2299,
+          "shadow_need": 0.1114
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0627,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "planta",
+      "trigger": "plant",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 13,
+        "observed_failure_count": 6,
+        "observed_failure_rate": 0.4615,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "negative_allow": 3,
+          "positive_abstain": 3,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "report::informe",
+      "case_count": 11,
+      "family_ids": [
+        "en-es:sentence-veto:report:informe"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 5
+      },
+      "priority_band": "P3",
+      "priority_rank": 18,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4545,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.6763,
+        "expected_fixability": 0.4611,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.7273,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.1066,
+          "phrase_need": 0.2231,
+          "shadow_need": 0.107
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0615,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "informe",
+      "trigger": "report",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 11,
+        "observed_failure_count": 6,
+        "observed_failure_rate": 0.5455,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "negative_allow": 2,
+          "positive_abstain": 4,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "drink::bebida",
+      "case_count": 6,
+      "family_ids": [
+        "en-es:sentence-veto:drink:bebida"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "representative": 6
+      },
+      "priority_band": "P3",
+      "priority_rank": 19,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 1.0,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.6581,
+        "expected_fixability": 0.4547,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 1.0,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.1925,
+          "phrase_need": 0.1181,
+          "shadow_need": 0.1356
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.061,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "bebida",
+      "trigger": "drink",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 6,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.5,
+        "outcome_counts": {
+          "negative_abstain": 3,
+          "positive_abstain": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "trip::viaje",
+      "case_count": 5,
+      "family_ids": [
+        "en-es:sentence-veto:trip:viaje"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "representative": 5
+      },
+      "priority_band": "P3",
+      "priority_rank": 20,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 1.0,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.6581,
+        "expected_fixability": 0.4547,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 1.0,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.1925,
+          "phrase_need": 0.1181,
+          "shadow_need": 0.1356
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.061,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "viaje",
+      "trigger": "trip",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 5,
+        "observed_failure_count": 2,
+        "observed_failure_rate": 0.4,
+        "outcome_counts": {
+          "negative_abstain": 3,
+          "positive_abstain": 2
+        }
+      }
+    },
+    {
+      "candidate_key": "trim::compensador",
+      "case_count": 3,
+      "family_ids": [
+        "en-es:sentence-veto:trim:compensador"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "stress": 3
+      },
+      "priority_band": "P3",
+      "priority_rank": 21,
+      "priority_reasons": [
+        "high_programmatic_ambiguity",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.0,
+        "ambiguity_risk": 0.7524,
+        "coverage_gap": 0.3,
+        "decision_uncertainty": 0.295,
+        "expected_fixability": 0.3887,
+        "metadata_gap_rate": 0.25,
+        "near_tie_rate": 0.0,
+        "phrase_evidence_gap": 1.0,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.3333,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 0.0,
+        "source_rank_risk": 0.25,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.5,
+        "wordnet_pos_risk": 0.6667,
+        "wordnet_sense_risk": 0.7783
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0,
+          "phrase_need": 0.2083,
+          "shadow_need": 0.0658
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0595,
+      "source_ids": [
+        "wave7_active_shadow",
+        "wave7_phrase_no_winner"
+      ],
+      "static_llm_data_need": 0.0967,
+      "target_lemma": "compensador",
+      "trigger": "trim",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 3,
+        "observed_failure_count": 0,
+        "observed_failure_rate": 0.0,
+        "outcome_counts": {
+          "negative_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    },
+    {
+      "candidate_key": "branch::sucursal",
+      "case_count": 13,
+      "family_ids": [
+        "en-es:sentence-veto:branch:sucursal"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 22,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4615,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.612,
+        "expected_fixability": 0.4386,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.5385,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.3077,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0942,
+          "phrase_need": 0.25,
+          "shadow_need": 0.0872
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0595,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "sucursal",
+      "trigger": "branch",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 13,
+        "observed_failure_count": 3,
+        "observed_failure_rate": 0.2308,
+        "outcome_counts": {
+          "negative_abstain": 6,
+          "negative_allow": 1,
+          "positive_abstain": 2,
+          "positive_allow": 4
+        }
+      }
+    },
+    {
+      "candidate_key": "play::obra",
+      "case_count": 12,
+      "family_ids": [
+        "en-es:sentence-veto:play:obra"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 6
+      },
+      "priority_band": "P3",
+      "priority_rank": 23,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.5,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.6081,
+        "expected_fixability": 0.4372,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.5,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 1.0,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0963,
+          "phrase_need": 0.2231,
+          "shadow_need": 0.0831
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0594,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "obra",
+      "trigger": "play",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 12,
+        "observed_failure_count": 5,
+        "observed_failure_rate": 0.4167,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "negative_allow": 2,
+          "positive_abstain": 3,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "check::cheque",
+      "case_count": 11,
+      "family_ids": [
+        "en-es:sentence-veto:check:cheque"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "llm_pilot": 6,
+        "representative": 5
+      },
+      "priority_band": "P3",
+      "priority_rank": 24,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty",
+        "generate_phrase_rows"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.4545,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.571,
+        "expected_fixability": 0.4242,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.5455,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.8333,
+        "phrase_surface_pattern_rate": 0.0,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 4,
+        "score_components": {
+          "active_need": 0.0939,
+          "phrase_need": 0.2056,
+          "shadow_need": 0.0879
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0582,
+      "source_ids": [
+        "llm_pilot_scoring",
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "cheque",
+      "trigger": "check",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 11,
+        "observed_failure_count": 5,
+        "observed_failure_rate": 0.4545,
+        "outcome_counts": {
+          "negative_abstain": 3,
+          "negative_allow": 3,
+          "positive_abstain": 2,
+          "positive_allow": 3
+        }
+      }
+    },
+    {
+      "candidate_key": "spring::primavera",
+      "case_count": 7,
+      "family_ids": [
+        "en-es:sentence-veto:spring:primavera"
+      ],
+      "in_top_n": true,
+      "lane_types": {
+        "representative": 7
+      },
+      "priority_band": "P3",
+      "priority_rank": 25,
+      "priority_reasons": [
+        "missing_source_rank",
+        "score_surface_uncertainty"
+      ],
+      "programmatic_features": {
+        "active_evidence_gap": 0.0,
+        "active_low_rate": 0.8571,
+        "ambiguity_risk": 0.25,
+        "coverage_gap": 0.3875,
+        "decision_uncertainty": 0.5724,
+        "expected_fixability": 0.4247,
+        "metadata_gap_rate": 1.0,
+        "near_tie_rate": 0.8571,
+        "phrase_evidence_gap": 0.75,
+        "phrase_near_best_rate": 0.0,
+        "phrase_surface_pattern_rate": 0.1429,
+        "shadow_evidence_gap": 0.0,
+        "shadow_presence_risk": 1.0,
+        "source_rank_missing": 1.0,
+        "source_rank_risk": 0.0,
+        "target_rank_value": 0.0,
+        "translation_fanout_risk": 0.0,
+        "wordnet_pos_risk": 0.0,
+        "wordnet_sense_risk": 0.0
+      },
+      "recommended_llm_packet": {
+        "active_rows": 0,
+        "locked_eval_rows": 0,
+        "phrase_rows": 0,
+        "score_components": {
+          "active_need": 0.165,
+          "phrase_need": 0.1306,
+          "shadow_need": 0.1206
+        },
+        "shadow_rows": 0
+      },
+      "scored_context_llm_data_need": 0.0582,
+      "source_ids": [
+        "sampling_stage1_representative_current_policy"
+      ],
+      "static_llm_data_need": 0.0828,
+      "target_lemma": "primavera",
+      "trigger": "spring",
+      "validation_shadow": {
+        "note": "Evaluation labels are not ranking inputs.",
+        "observed_case_count": 7,
+        "observed_failure_count": 2,
+        "observed_failure_rate": 0.2857,
+        "outcome_counts": {
+          "negative_abstain": 4,
+          "positive_abstain": 2,
+          "positive_allow": 1
+        }
+      }
+    }
+  ]
+}

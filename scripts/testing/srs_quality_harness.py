@@ -33,11 +33,20 @@ from lexishift_core.srs import (  # noqa: E402
 )
 from lexishift_core.srs.scheduler import select_active_items  # noqa: E402
 from srs_quality_harness_support import (  # noqa: E402
+    browsing_preview_findings as _browsing_preview_findings,
     build_pair_resources as _build_pair_resources,
     build_seed_candidates as _build_seed_candidates,
     create_frequency_db as _create_frequency_db,
+    prepare_report_for_publication,
+    ruleset_due_active_target_count as _ruleset_due_active_target_count,
+    ruleset_srs_due_metadata_count as _ruleset_srs_due_metadata_count,
     ruleset_unique_target_count as _ruleset_unique_target_count,
+    run_encounter_watch_scenario as _run_encounter_watch_scenario,
+    seed_browsing_preview_store as _seed_browsing_preview_store,
+    snapshot_delta as _snapshot_delta,
     snapshot_target_count as _snapshot_target_count,
+    store_snapshot as _store_snapshot,
+    summarize_findings,
     stub_run_rulegen_for_pair as _stub_run_rulegen_for_pair,
 )
 
@@ -48,33 +57,6 @@ DEFAULT_PAIRS = ("en-ja", "en-de")
 def _count_items_for_pair(paths: HelperPaths, *, pair: str, profile_id: str) -> int:
     store = load_srs_store(paths.srs_store_path_for(profile_id))
     return len([item for item in store.items if item.language_pair == pair])
-
-
-def summarize_findings(
-    findings: Sequence[Mapping[str, Any]],
-    *,
-    fail_on_warn: bool = False,
-) -> dict[str, Any]:
-    pass_count = 0
-    warn_count = 0
-    fail_count = 0
-    for item in findings:
-        level = str(item.get("level") or "").upper()
-        if level == "PASS":
-            pass_count += 1
-        elif level == "WARN":
-            warn_count += 1
-        elif level == "FAIL":
-            fail_count += 1
-    status = "FAIL" if fail_count else "WARN" if warn_count else "PASS"
-    should_fail = fail_count > 0 or (fail_on_warn and warn_count > 0)
-    return {
-        "status": status,
-        "pass_count": pass_count,
-        "warn_count": warn_count,
-        "fail_count": fail_count,
-        "should_fail": should_fail,
-    }
 
 
 def _finding(
@@ -118,6 +100,7 @@ def _run_pair_bootstrap_scenario(pair: str) -> dict[str, Any]:
                 replace_pair=True,
             ),
         )
+        _seed_browsing_preview_store(paths, pair=pair, profile_id=profile_id)
         refresh_payload = refresh_srs_set(
             paths,
             config=SrsRefreshJobConfig(
@@ -138,6 +121,12 @@ def _run_pair_bootstrap_scenario(pair: str) -> dict[str, Any]:
         snapshot_path = Path(str(diagnostics.get("snapshot_path") or ""))
         ruleset_unique_targets = (
             _ruleset_unique_target_count(ruleset_path) if ruleset_path.exists() else 0
+        )
+        srs_due_metadata_count = (
+            _ruleset_srs_due_metadata_count(ruleset_path) if ruleset_path.exists() else 0
+        )
+        runtime_due_active_count = (
+            _ruleset_due_active_target_count(ruleset_path) if ruleset_path.exists() else 0
         )
         snapshot_target_count = (
             _snapshot_target_count(snapshot_path) if snapshot_path.exists() else 0
@@ -185,6 +174,8 @@ def _run_pair_bootstrap_scenario(pair: str) -> dict[str, Any]:
                     details=json.dumps(refresh_payload, ensure_ascii=False),
                 )
             )
+
+        findings.extend(_browsing_preview_findings(refresh_payload, pair=pair))
 
         artifacts_ok = (
             bool(diagnostics.get("store_exists"))
@@ -298,6 +289,8 @@ def _run_pair_bootstrap_scenario(pair: str) -> dict[str, Any]:
             "store_items_for_pair": store_items_for_pair,
             "due_count": len(due_items),
             "ruleset_unique_targets": ruleset_unique_targets,
+            "srs_due_metadata_count": srs_due_metadata_count,
+            "runtime_due_active_count": runtime_due_active_count,
             "snapshot_target_count": snapshot_target_count,
             "findings": findings,
         }
@@ -330,8 +323,22 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
         )
 
         phases: list[dict[str, Any]] = []
+        previous_snapshot = _store_snapshot(
+            paths,
+            pair=pair,
+            profile_id=profile_id,
+            max_active=8,
+        )
+        initial_snapshot = previous_snapshot
 
         def run_refresh(label: str) -> dict[str, Any]:
+            nonlocal previous_snapshot
+            before_refresh = _store_snapshot(
+                paths,
+                pair=pair,
+                profile_id=profile_id,
+                max_active=8,
+            )
             result = refresh_srs_set(
                 paths,
                 config=SrsRefreshJobConfig(
@@ -343,6 +350,12 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
                     feedback_window_size=8,
                     persist_store=True,
                 ),
+            )
+            after_refresh = _store_snapshot(
+                paths,
+                pair=pair,
+                profile_id=profile_id,
+                max_active=8,
             )
             total_for_pair = _count_items_for_pair(paths, pair=pair, profile_id=profile_id)
             rulegen_payload = result.get("rulegen") or {}
@@ -360,6 +373,9 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
                 "label": label,
                 "applied": bool(result.get("applied")),
                 "added_items": int(result.get("added_items") or 0),
+                "selected_lemmas": list(
+                    result.get("admission_refresh", {}).get("selected_lemmas", []) or []
+                ),
                 "total_items_for_pair": total_for_pair,
                 "reason_code": str(result.get("admission_refresh", {}).get("reason_code", "")),
                 "feedback_count": int(
@@ -373,18 +389,23 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
                 "ruleset_count": _ruleset_unique_target_count(ruleset_path)
                 if ruleset_path.exists()
                 else 0,
+                "srs_due_metadata_count": _ruleset_srs_due_metadata_count(ruleset_path)
+                if ruleset_path.exists()
+                else 0,
+                "runtime_due_active_count": _ruleset_due_active_target_count(ruleset_path)
+                if ruleset_path.exists()
+                else 0,
                 "snapshot_target_count": _snapshot_target_count(snapshot_path)
                 if snapshot_path.exists()
                 else 0,
+                "before_refresh": before_refresh,
+                "after_refresh": after_refresh,
+                "feedback_delta": _snapshot_delta(previous_snapshot, before_refresh),
+                "refresh_delta": _snapshot_delta(before_refresh, after_refresh),
             }
-            store = load_srs_store(paths.srs_store_path_for(profile_id))
-            due_items = select_active_items(
-                store.items,
-                max_active=8,
-                allowed_pairs=[pair],
-            )
-            phase["due_count"] = len(due_items)
+            phase["due_count"] = int(after_refresh.get("due_count") or 0)
             phases.append(phase)
+            previous_snapshot = after_refresh
             return phase
 
         with (
@@ -485,6 +506,51 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
                 )
             )
 
+        snapshot_contract_ok = (
+            all(
+                isinstance(phase.get("before_refresh"), Mapping)
+                and isinstance(phase.get("after_refresh"), Mapping)
+                and isinstance(phase.get("feedback_delta"), Mapping)
+                and isinstance(phase.get("refresh_delta"), Mapping)
+                for phase in phases
+            )
+            and phase_1["feedback_delta"].get("reviewed_lemmas") == ["alpha"]
+            and "alpha" in phase_1["feedback_delta"].get("scheduler_changed_lemmas", [])
+            and sorted(phase_1.get("selected_lemmas", []))
+            == sorted(phase_1["refresh_delta"].get("added_lemmas", []))
+            and phase_2.get("selected_lemmas") == []
+            and int(phase_2["refresh_delta"].get("total_items_delta") or 0) == 0
+            and sorted(phase_3.get("selected_lemmas", []))
+            == sorted(phase_3["refresh_delta"].get("added_lemmas", []))
+        )
+        if snapshot_contract_ok:
+            findings.append(
+                _finding(
+                    level="PASS",
+                    code="SRS_FEEDBACK_SNAPSHOTS_CAPTURED",
+                    pair=pair,
+                    message=(
+                        "Feedback-cycle phases include before/after store snapshots and "
+                        "separate feedback vs refresh deltas."
+                    ),
+                    details=(
+                        f"phase1_reviewed={','.join(phase_1['feedback_delta']['reviewed_lemmas'])} "
+                        f"phase1_added={','.join(phase_1['refresh_delta']['added_lemmas'])} "
+                        f"phase3_added={','.join(phase_3['refresh_delta']['added_lemmas'])}"
+                    ),
+                )
+            )
+        else:
+            findings.append(
+                _finding(
+                    level="FAIL",
+                    code="SRS_FEEDBACK_SNAPSHOTS_INCOMPLETE",
+                    pair=pair,
+                    message="Feedback-cycle before/after snapshots are missing or inconsistent.",
+                    details=json.dumps(phases, ensure_ascii=False),
+                )
+            )
+
         due_scope_broader_than_due = next(
             (
                 phase
@@ -494,7 +560,36 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
             ),
             None,
         )
-        if due_scope_broader_than_due is not None:
+        due_runtime_verified = (
+            due_scope_broader_than_due is not None
+            and int(due_scope_broader_than_due["srs_due_metadata_count"])
+            >= int(due_scope_broader_than_due["ruleset_count"])
+            and int(due_scope_broader_than_due["runtime_due_active_count"])
+            <= int(due_scope_broader_than_due["due_count"])
+        )
+        if due_runtime_verified:
+            findings.append(
+                _finding(
+                    level="PASS",
+                    code="SRS_DUE_AWARE_RUNTIME_GATE_VERIFIED",
+                    pair=pair,
+                    message=(
+                        "Helper ruleset may remain broader than due, but due metadata supports "
+                        "runtime due-aware serving."
+                    ),
+                    details=(
+                        f"phase={due_scope_broader_than_due['label']} "
+                        f"total_items={int(due_scope_broader_than_due['total_items_for_pair'])} "
+                        f"due_count={int(due_scope_broader_than_due['due_count'])} "
+                        f"ruleset_count={int(due_scope_broader_than_due['ruleset_count'])} "
+                        "srs_due_metadata_count="
+                        f"{int(due_scope_broader_than_due['srs_due_metadata_count'])} "
+                        "runtime_due_active_count="
+                        f"{int(due_scope_broader_than_due['runtime_due_active_count'])}"
+                    ),
+                )
+            )
+        elif due_scope_broader_than_due is not None:
             findings.append(
                 _finding(
                     level="WARN",
@@ -521,6 +616,7 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
 
         return {
             "pair": pair,
+            "initial_snapshot": initial_snapshot,
             "phases": phases,
             "findings": findings,
         }
@@ -558,6 +654,10 @@ def build_report(
         feedback_report = _run_feedback_cycle_scenario()
         findings.extend(feedback_report["findings"])
 
+    with _temp_paths() as paths:
+        encounter_watch_report = _run_encounter_watch_scenario(paths)
+    findings.extend(encounter_watch_report["findings"])
+
     summary = summarize_findings(findings, fail_on_warn=fail_on_warn)
     return {
         "version": 1,
@@ -568,6 +668,7 @@ def build_report(
         "summary": summary,
         "pair_bootstrap_scenarios": pair_reports,
         "feedback_cycle_scenario": feedback_report,
+        "encounter_watch_scenario": encounter_watch_report,
         "findings": findings,
     }
 
@@ -611,10 +712,14 @@ def main() -> None:
         include_feedback=not bool(args.no_feedback_scenario),
         fail_on_warn=bool(args.fail_on_warn),
     )
+    published_report = prepare_report_for_publication(report)
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
-    args.json_out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    args.json_out.write_text(
+        json.dumps(published_report, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
     print(f"json_out: {args.json_out}")
-    summary = report.get("summary") or {}
+    summary = published_report.get("summary") or {}
     print(
         "summary: "
         f"pass={int(summary.get('pass_count') or 0)} "

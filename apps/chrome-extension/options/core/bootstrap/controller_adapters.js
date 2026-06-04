@@ -51,6 +51,16 @@
       profileBackgroundController.renderProfileBgStatus();
     }
 
+    async function applyProfileBackgroundFromPrefs(uiPrefs, options) {
+      if (
+        !profileBackgroundController
+        || typeof profileBackgroundController.applyOptionsPageBackgroundFromPrefs !== "function"
+      ) {
+        return null;
+      }
+      return profileBackgroundController.applyOptionsPageBackgroundFromPrefs(uiPrefs, options);
+    }
+
     function applyTargetLanguagePrefsLocalization() {
       if (!targetLanguageModalController || typeof targetLanguageModalController.applyLocalization !== "function") {
         return;
@@ -121,9 +131,20 @@
       return srsProfileRuntimeController.refreshSrsProfiles();
     }
 
+    function resolveEffectiveSrsPlanningState(items, pairKey, options) {
+      if (
+        !srsProfileRuntimeController
+        || typeof srsProfileRuntimeController.resolveEffectiveSrsPlanningState !== "function"
+      ) {
+        return null;
+      }
+      return srsProfileRuntimeController.resolveEffectiveSrsPlanningState(items, pairKey, options);
+    }
+
     return {
       renderSrsProfileStatus,
       renderProfileBackgroundStatus,
+      applyProfileBackgroundFromPrefs,
       setSrsProfileStatusLocalized,
       setSrsProfileStatusMessage,
       applyTargetLanguagePrefsLocalization,
@@ -135,7 +156,8 @@
       saveSrsSettings,
       saveLanguageSettings,
       saveSrsProfileId,
-      refreshSrsProfiles
+      refreshSrsProfiles,
+      resolveEffectiveSrsPlanningState
     };
   }
 

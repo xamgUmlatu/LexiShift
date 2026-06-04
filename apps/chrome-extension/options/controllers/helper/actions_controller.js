@@ -16,12 +16,12 @@
     const debugOpenDataDirButton = elements.debugOpenDataDirButton || null;
     const debugOpenDataDirOutput = elements.debugOpenDataDirOutput || null;
 
-    async function refreshStatus() {
+    async function refreshStatus(profileId) {
       if (!helperManager || typeof helperManager.getStatus !== "function") {
         return;
       }
       setHelperStatus(translate("status_helper_connecting", null, "Connecting…"), "");
-      const result = await helperManager.getStatus();
+      const result = await helperManager.getStatus(profileId);
       setHelperStatus(result.message, result.lastRun);
     }
 

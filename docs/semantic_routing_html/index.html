@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Semantic Routing HTML</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <article class="hero-card">
+          <div class="eyebrow">Semantic Routing</div>
+          <h1>Local HTML surfaces for the veto algorithm</h1>
+          <p class="lede">
+            This is a lightweight localhost entrypoint for dense semantic-routing
+            documentation. It starts with one detailed Mermaid view of the end-to-end
+            veto pipeline: offline shadow generation, publication, runtime scoring,
+            and the feedback loop back into research.
+          </p>
+        </article>
+        <aside class="panel">
+          <h2>Open Locally</h2>
+          <ul class="meta-list">
+            <li>Serve the <code>docs/</code> directory over localhost.</li>
+            <li>Open <code>/semantic_routing_html/</code>.</li>
+            <li>The diagram page fetches the Mermaid source from <code>docs/rulegen/</code>.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="nav-grid">
+        <a class="card" href="./veto_e2e.html">
+          <div class="card-label">Diagram</div>
+          <h2>Veto Algorithm E2E</h2>
+          <p>
+            Detailed Mermaid flow of trigger seeding, shadow mining, publication,
+            runtime active-vs-shadow scoring, and output decisions.
+          </p>
+        </a>
+        <a class="card" href="../rulegen/semantic_routing_runtime_readiness.md">
+          <div class="card-label">Planning Doc</div>
+          <h2>Runtime Readiness</h2>
+          <p>
+            Main planning document for the admission layer, including the lexical and
+            mathematical formulation behind the current research stack.
+          </p>
+        </a>
+        <a class="card" href="../rulegen/semantic_routing_data_contract.md">
+          <div class="card-label">Contract</div>
+          <h2>Data Flow Contract</h2>
+          <p>
+            Publication and payload design for semantic admission pointers,
+            competition sets, and the inventory sidecar.
+          </p>
+        </a>
+      </section>
+    </main>
+  </body>
+</html>

@@ -43,6 +43,20 @@
       runtimeOnly: true
     },
     {
+      id: "quick-definition",
+      control: "toggle",
+      defaultEnabled: true,
+      themeEnabled: true,
+      targetLanguages: null,
+      labelKey: "module_quick_definition",
+      labelFallback: "Definition",
+      descriptionKey: "module_quick_definition_desc",
+      descriptionFallback: "Show a quick definition in the popup.",
+      defaultConfig: {
+        theme: MODULE_THEME_DEFAULTS
+      }
+    },
+    {
       id: "ja-script-forms",
       control: "toggle",
       defaultEnabled: true,

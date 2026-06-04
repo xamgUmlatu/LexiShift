@@ -8,6 +8,9 @@ from PySide6.QtWidgets import QDialog, QMessageBox
 
 from dialogs_code import BulkRulesDialog
 from i18n import t
+from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
+from lexishift_core.helper.translation_packs import resolve_configured_language_pack_paths
+from lexishift_core.persistence.settings import resolve_secondary_language_pack_paths
 from lexishift_core import (
     RuleMetadata,
     SynonymGenerator,
@@ -16,6 +19,28 @@ from lexishift_core import (
     SynonymSources,
     VocabRule,
 )
+from main_paths import _app_data_dir
+
+
+def _resolve_translation_pack_path(
+    raw_path: str | None,
+    *,
+    sqlite_artifact_names: tuple[str, ...],
+) -> str | None:
+    path_text = str(raw_path or "").strip()
+    if not path_text:
+        return None
+    path = Path(path_text)
+    if not path.is_dir():
+        return path_text
+    resolved_artifact = resolve_installed_pack_artifact(path.parent, path.name)
+    if resolved_artifact is not None:
+        return str(resolved_artifact)
+    for artifact_name in sqlite_artifact_names:
+        candidate = path / artifact_name
+        if candidate.exists() and candidate.is_file():
+            return str(candidate)
+    return None
 
 
 class MainWindowBulkRulesMixin:
@@ -52,23 +77,28 @@ class MainWindowBulkRulesMixin:
         pack_ids: set[str] = set()
         if not settings:
             return pack_ids
-        if settings.wordnet_dir:
+        secondary_pack_paths = resolve_secondary_language_pack_paths(settings)
+        if secondary_pack_paths.get("wordnet-en"):
             pack_ids.add("wordnet-en")
-        if settings.moby_path:
+        if secondary_pack_paths.get("moby-en"):
             pack_ids.add("moby-en")
         if settings.last_selected_pack_ids:
             return set(settings.last_selected_pack_ids)
-        language_packs = settings.language_packs or {}
-        if language_packs.get("odenet-de"):
+        language_pack_paths = resolve_configured_language_pack_paths(
+            language_packs_dir=_app_data_dir() / "language_packs",
+            settings_language_pack_paths=settings.language_pack_paths,
+            managed_language_pack_ids=settings.managed_language_pack_ids,
+        )
+        if language_pack_paths.get("odenet-de"):
             pack_ids.add("odenet-de")
-        elif language_packs.get("openthesaurus-de"):
+        elif language_pack_paths.get("openthesaurus-de"):
             pack_ids.add("openthesaurus-de")
-        if language_packs.get("jp-wordnet-sqlite"):
+        if language_pack_paths.get("jp-wordnet-sqlite"):
             pack_ids.add("jp-wordnet-sqlite")
-        elif language_packs.get("jp-wordnet"):
+        elif language_pack_paths.get("jp-wordnet"):
             pack_ids.add("jp-wordnet")
         for pack_id in ("jmdict-ja-en", "freedict-de-en", "freedict-en-de", "cc-cedict-zh-en"):
-            if language_packs.get(pack_id):
+            if language_pack_paths.get(pack_id):
                 pack_ids.add(pack_id)
         return pack_ids
 
@@ -85,7 +115,6 @@ class MainWindowBulkRulesMixin:
     ) -> list[VocabRule]:
         settings = self.state.settings.synonyms
         selected_pack_ids = set(selected_pack_ids or [])
-        language_packs = settings.language_packs if settings else {}
         if not settings:
             QMessageBox.warning(
                 self,
@@ -93,29 +122,47 @@ class MainWindowBulkRulesMixin:
                 t("dialogs.synonym_expansion.configure_sources"),
             )
             return []
+        secondary_pack_paths = resolve_secondary_language_pack_paths(settings)
+        wordnet_path = secondary_pack_paths.get("wordnet-en")
+        moby_path = secondary_pack_paths.get("moby-en")
+        language_pack_paths = resolve_configured_language_pack_paths(
+            language_packs_dir=_app_data_dir() / "language_packs",
+            settings_language_pack_paths=settings.language_pack_paths,
+            managed_language_pack_ids=settings.managed_language_pack_ids,
+        )
         packs_by_pair: dict[str, set[str]] = {}
         for pack_id in selected_pack_ids:
             pair_key = self._pair_for_pack(pack_id)
             if not pair_key:
                 continue
             packs_by_pair.setdefault(pair_key, set()).add(pack_id)
-        openthesaurus_path = language_packs.get("openthesaurus-de") if language_packs else None
-        odenet_path = language_packs.get("odenet-de") if language_packs else None
-        jp_wordnet_path = language_packs.get("jp-wordnet") if language_packs else None
-        jp_wordnet_sqlite_path = language_packs.get("jp-wordnet-sqlite") if language_packs else None
-        jmdict_path = language_packs.get("jmdict-ja-en") if language_packs else None
-        freedict_de_en_path = language_packs.get("freedict-de-en") if language_packs else None
-        freedict_en_de_path = language_packs.get("freedict-en-de") if language_packs else None
-        cc_cedict_path = language_packs.get("cc-cedict-zh-en") if language_packs else None
+        openthesaurus_path = (
+            language_pack_paths.get("openthesaurus-de") if language_pack_paths else None
+        )
+        odenet_path = language_pack_paths.get("odenet-de") if language_pack_paths else None
+        jp_wordnet_path = language_pack_paths.get("jp-wordnet") if language_pack_paths else None
+        jp_wordnet_sqlite_path = (
+            language_pack_paths.get("jp-wordnet-sqlite") if language_pack_paths else None
+        )
+        jmdict_path = language_pack_paths.get("jmdict-ja-en") if language_pack_paths else None
+        translation_de_en_path = _resolve_translation_pack_path(
+            language_pack_paths.get("freedict-de-en") if language_pack_paths else None,
+            sqlite_artifact_names=(
+                "freedict-de-en.sqlite",
+                "deu-eng.sqlite",
+            ),
+        )
+        translation_en_de_path = _resolve_translation_pack_path(
+            language_pack_paths.get("freedict-en-de") if language_pack_paths else None,
+            sqlite_artifact_names=(
+                "freedict-en-de.sqlite",
+                "eng-deu.sqlite",
+            ),
+        )
+        cc_cedict_path = language_pack_paths.get("cc-cedict-zh-en") if language_pack_paths else None
         if cc_cedict_path and Path(cc_cedict_path).is_dir():
             candidate = Path(cc_cedict_path) / "cedict_ts.u8"
             cc_cedict_path = str(candidate) if candidate.exists() else cc_cedict_path
-        if freedict_de_en_path and Path(freedict_de_en_path).is_dir():
-            candidate = Path(freedict_de_en_path) / "deu-eng.tei"
-            freedict_de_en_path = str(candidate) if candidate.exists() else freedict_de_en_path
-        if freedict_en_de_path and Path(freedict_en_de_path).is_dir():
-            candidate = Path(freedict_en_de_path) / "eng-deu.tei"
-            freedict_en_de_path = str(candidate) if candidate.exists() else freedict_en_de_path
         rules: list[VocabRule] = []
         seen_sources: set[str] = set()
         duplicate_count = 0
@@ -133,24 +180,24 @@ class MainWindowBulkRulesMixin:
 
             if not any(
                 [
-                    use_wordnet and settings.wordnet_dir,
-                    use_moby and settings.moby_path,
+                    use_wordnet and wordnet_path,
+                    use_moby and moby_path,
                     use_openthesaurus and openthesaurus_path,
                     use_odenet and odenet_path,
                     use_jp_wordnet and jp_wordnet_path,
                     use_jp_wordnet_sqlite and jp_wordnet_sqlite_path,
                     use_jmdict and jmdict_path,
-                    use_freedict_de_en and freedict_de_en_path,
-                    use_freedict_en_de and freedict_en_de_path,
+                    use_freedict_de_en and translation_de_en_path,
+                    use_freedict_en_de and translation_en_de_path,
                     use_cc_cedict and cc_cedict_path,
                 ]
             ):
                 continue
 
             missing_sources = []
-            if use_wordnet and settings.wordnet_dir and not Path(settings.wordnet_dir).exists():
+            if use_wordnet and wordnet_path and not Path(wordnet_path).exists():
                 missing_sources.append(t("sources.wordnet_dir"))
-            if use_moby and settings.moby_path and not Path(settings.moby_path).exists():
+            if use_moby and moby_path and not Path(moby_path).exists():
                 missing_sources.append(t("sources.moby_file"))
             if use_openthesaurus and openthesaurus_path and not Path(openthesaurus_path).exists():
                 missing_sources.append(t("sources.openthesaurus_file"))
@@ -166,16 +213,12 @@ class MainWindowBulkRulesMixin:
                 missing_sources.append(t("sources.jp_wordnet_sqlite_file"))
             if use_jmdict and jmdict_path and not Path(jmdict_path).exists():
                 missing_sources.append(t("sources.jmdict_file"))
-            if (
-                use_freedict_de_en
-                and freedict_de_en_path
-                and not Path(freedict_de_en_path).exists()
+            if use_freedict_de_en and (
+                not translation_de_en_path or not Path(translation_de_en_path).exists()
             ):
                 missing_sources.append(t("sources.freedict_de_en_file"))
-            if (
-                use_freedict_en_de
-                and freedict_en_de_path
-                and not Path(freedict_en_de_path).exists()
+            if use_freedict_en_de and (
+                not translation_en_de_path or not Path(translation_en_de_path).exists()
             ):
                 missing_sources.append(t("sources.freedict_en_de_file"))
             if use_cc_cedict and cc_cedict_path and Path(cc_cedict_path).is_dir():
@@ -219,10 +262,8 @@ class MainWindowBulkRulesMixin:
                 else None
             )
             sources = SynonymSources(
-                wordnet_dir=Path(settings.wordnet_dir)
-                if use_wordnet and settings.wordnet_dir
-                else None,
-                moby_path=Path(settings.moby_path) if use_moby and settings.moby_path else None,
+                wordnet_dir=Path(wordnet_path) if use_wordnet and wordnet_path else None,
+                moby_path=Path(moby_path) if use_moby and moby_path else None,
                 openthesaurus_path=Path(openthesaurus_path)
                 if use_openthesaurus and openthesaurus_path
                 else None,
@@ -236,14 +277,14 @@ class MainWindowBulkRulesMixin:
                     else None
                 ),
                 jmdict_path=Path(jmdict_path) if use_jmdict and jmdict_path else None,
-                freedict_de_en_path=(
-                    Path(freedict_de_en_path)
-                    if use_freedict_de_en and freedict_de_en_path
+                translation_de_en_path=(
+                    Path(translation_de_en_path)
+                    if use_freedict_de_en and translation_de_en_path
                     else None
                 ),
-                freedict_en_de_path=(
-                    Path(freedict_en_de_path)
-                    if use_freedict_en_de and freedict_en_de_path
+                translation_en_de_path=(
+                    Path(translation_en_de_path)
+                    if use_freedict_en_de and translation_en_de_path
                     else None
                 ),
                 cc_cedict_path=cc_cedict_file,
@@ -276,8 +317,8 @@ class MainWindowBulkRulesMixin:
                         jp_wordnet=stats.get("jp_wordnet", 0),
                         jmdict=stats.get("jmdict", 0),
                         cc_cedict=stats.get("cc_cedict", 0),
-                        freedict_de_en=stats.get("freedict_de_en", 0),
-                        freedict_en_de=stats.get("freedict_en_de", 0),
+                        freedict_de_en=stats.get("translation_de_en", 0),
+                        freedict_en_de=stats.get("translation_en_de", 0),
                     ),
                 )
                 continue
@@ -347,7 +388,12 @@ class MainWindowBulkRulesMixin:
         if not selected_pack_ids:
             return
         settings = self.state.settings.synonyms or SynonymSourceSettings()
-        language_packs = settings.language_packs or {}
+        secondary_pack_paths = resolve_secondary_language_pack_paths(settings)
+        language_pack_paths = resolve_configured_language_pack_paths(
+            language_packs_dir=_app_data_dir() / "language_packs",
+            settings_language_pack_paths=settings.language_pack_paths,
+            managed_language_pack_ids=settings.managed_language_pack_ids,
+        )
         pack_to_stat = {
             "wordnet-en": "wordnet",
             "moby-en": "moby",
@@ -357,20 +403,32 @@ class MainWindowBulkRulesMixin:
             "jp-wordnet-sqlite": "jp_wordnet",
             "jmdict-ja-en": "jmdict",
             "cc-cedict-zh-en": "cc_cedict",
-            "freedict-de-en": "freedict_de_en",
-            "freedict-en-de": "freedict_en_de",
+            "freedict-de-en": "translation_de_en",
+            "freedict-en-de": "translation_en_de",
         }
         pack_to_path = {
-            "wordnet-en": settings.wordnet_dir,
-            "moby-en": settings.moby_path,
-            "openthesaurus-de": language_packs.get("openthesaurus-de"),
-            "odenet-de": language_packs.get("odenet-de"),
-            "jp-wordnet": language_packs.get("jp-wordnet"),
-            "jp-wordnet-sqlite": language_packs.get("jp-wordnet-sqlite"),
-            "jmdict-ja-en": language_packs.get("jmdict-ja-en"),
-            "cc-cedict-zh-en": language_packs.get("cc-cedict-zh-en"),
-            "freedict-de-en": language_packs.get("freedict-de-en"),
-            "freedict-en-de": language_packs.get("freedict-en-de"),
+            "wordnet-en": secondary_pack_paths.get("wordnet-en"),
+            "moby-en": secondary_pack_paths.get("moby-en"),
+            "openthesaurus-de": language_pack_paths.get("openthesaurus-de"),
+            "odenet-de": language_pack_paths.get("odenet-de"),
+            "jp-wordnet": language_pack_paths.get("jp-wordnet"),
+            "jp-wordnet-sqlite": language_pack_paths.get("jp-wordnet-sqlite"),
+            "jmdict-ja-en": language_pack_paths.get("jmdict-ja-en"),
+            "cc-cedict-zh-en": language_pack_paths.get("cc-cedict-zh-en"),
+            "freedict-de-en": _resolve_translation_pack_path(
+                language_pack_paths.get("freedict-de-en"),
+                sqlite_artifact_names=(
+                    "freedict-de-en.sqlite",
+                    "deu-eng.sqlite",
+                ),
+            ),
+            "freedict-en-de": _resolve_translation_pack_path(
+                language_pack_paths.get("freedict-en-de"),
+                sqlite_artifact_names=(
+                    "freedict-en-de.sqlite",
+                    "eng-deu.sqlite",
+                ),
+            ),
         }
         label_map = {
             "wordnet-en": t("packs.wordnet"),

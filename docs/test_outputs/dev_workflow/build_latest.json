@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-03-12T03:52:17.484749+00:00",
+  "generated_at_utc": "2026-06-04T03:53:09.378772+00:00",
   "overall_exit_code": 0,
   "skip_bd": false,
   "skip_gui": false,
   "ci_safe": false,
   "platform": "Darwin",
-  "platform_release": "25.3.0",
-  "python_executable": "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
+  "platform_release": "25.6.0",
+  "python_executable": "/Users/takeyayuki/Documents/projects/LexiShift/.venv/bin/python",
   "host_supports_gui_build_validate": true,
   "skipped_commands": [],
   "commands": [
@@ -15,16 +15,16 @@
       "label": "betterdiscord_build",
       "command": [
         "node",
-        "/Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/build_plugin.js"
+        "/private/tmp/lexishift-beta-app-rc/apps/betterdiscord-plugin/build_plugin.js"
       ],
       "exit_code": 0,
       "stdout_tail": [
-        "Built /Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js"
+        "Built /private/tmp/lexishift-beta-app-rc/apps/betterdiscord-plugin/LexiShift.plugin.js"
       ],
       "artifacts": [
         {
           "label": "betterdiscord_bundle",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js",
+          "path": "/private/tmp/lexishift-beta-app-rc/apps/betterdiscord-plugin/LexiShift.plugin.js",
           "kind": "file",
           "exists": true,
           "size_bytes": 58377
@@ -34,72 +34,73 @@
     {
       "label": "gui_build_validate",
       "command": [
-        "/Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
-        "/Users/takeyayuki/Documents/projects/LexiShift/scripts/build/gui_app.py",
-        "--validate",
-        "--no-clean"
+        "/Users/takeyayuki/Documents/projects/LexiShift/.venv/bin/python",
+        "/private/tmp/lexishift-beta-app-rc/scripts/build/gui_app.py",
+        "--no-clean",
+        "--validate"
       ],
       "exit_code": 0,
       "stdout_tail": [
-        "[validate] OK: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app",
-        "[validate] OK: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app",
-        "[validate] OK: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist",
-        "Platform: Darwin 25.3.0",
-        "Python: /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3",
-        "Spec: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/packaging/pyinstaller.spec",
-        "Dist: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist",
-        "Work: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/build",
+        "[validate] OK: /private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift.app",
+        "[validate] OK: /private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift Helper.app",
+        "[validate] OK: /private/tmp/lexishift-beta-app-rc/apps/gui/dist",
+        "Platform: Darwin 25.6.0",
+        "Python: /Users/takeyayuki/Documents/projects/LexiShift/.venv/bin/python",
+        "Spec: /private/tmp/lexishift-beta-app-rc/apps/gui/packaging/pyinstaller.spec",
+        "Dist: /private/tmp/lexishift-beta-app-rc/apps/gui/dist",
+        "Work: /private/tmp/lexishift-beta-app-rc/apps/gui/build",
         "Build Mode: ONEDIR",
+        "UPX: enabled if available",
         "Cleaning dist/work directories...",
-        "Running: /Users/takeyayuki/.pyenv/versions/3.10.16/bin/python3 -m PyInstaller --noconfirm --distpath /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist --workpath /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/build /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/packaging/pyinstaller.spec"
+        "Running: /Users/takeyayuki/Documents/projects/LexiShift/.venv/bin/python -m PyInstaller --noconfirm --distpath /private/tmp/lexishift-beta-app-rc/apps/gui/dist --workpath /private/tmp/lexishift-beta-app-rc/apps/gui/build /private/tmp/lexishift-beta-app-rc/apps/gui/packaging/pyinstaller.spec"
       ],
       "stderr_tail": [
-        "25438 INFO: Building EXE from EXE-01.toc completed successfully.",
-        "25445 INFO: checking COLLECT",
-        "25445 INFO: Building COLLECT because COLLECT-00.toc is non existent",
-        "25445 INFO: Building COLLECT COLLECT-00.toc",
-        "26613 INFO: Building COLLECT COLLECT-00.toc completed successfully.",
-        "26624 INFO: checking BUNDLE",
-        "26624 INFO: Building BUNDLE because BUNDLE-00.toc is non existent",
-        "26624 INFO: Building BUNDLE BUNDLE-00.toc",
-        "27719 INFO: Signing the BUNDLE...",
-        "27972 INFO: Building BUNDLE BUNDLE-00.toc completed successfully.",
-        "27982 INFO: checking COLLECT",
-        "27982 INFO: Building COLLECT because COLLECT-01.toc is non existent",
-        "27982 INFO: Building COLLECT COLLECT-01.toc",
-        "29014 INFO: Building COLLECT COLLECT-01.toc completed successfully.",
-        "29020 INFO: checking BUNDLE",
-        "29020 INFO: Building BUNDLE because BUNDLE-01.toc is non existent",
-        "29020 INFO: Building BUNDLE BUNDLE-01.toc",
-        "30092 INFO: Signing the BUNDLE...",
-        "30216 INFO: Building BUNDLE BUNDLE-01.toc completed successfully.",
-        "30220 INFO: Build complete! The results are available in: /Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist"
+        "27901 INFO: Building EXE from EXE-01.toc completed successfully.",
+        "27905 INFO: checking COLLECT",
+        "27905 INFO: Building COLLECT because COLLECT-00.toc is non existent",
+        "27905 INFO: Building COLLECT COLLECT-00.toc",
+        "29548 INFO: Building COLLECT COLLECT-00.toc completed successfully.",
+        "29558 INFO: checking BUNDLE",
+        "29558 INFO: Building BUNDLE because BUNDLE-00.toc is non existent",
+        "29558 INFO: Building BUNDLE BUNDLE-00.toc",
+        "31104 INFO: Signing the BUNDLE...",
+        "31328 INFO: Building BUNDLE BUNDLE-00.toc completed successfully.",
+        "31337 INFO: checking COLLECT",
+        "31337 INFO: Building COLLECT because COLLECT-01.toc is non existent",
+        "31337 INFO: Building COLLECT COLLECT-01.toc",
+        "32758 INFO: Building COLLECT COLLECT-01.toc completed successfully.",
+        "32763 INFO: checking BUNDLE",
+        "32763 INFO: Building BUNDLE because BUNDLE-01.toc is non existent",
+        "32763 INFO: Building BUNDLE BUNDLE-01.toc",
+        "34220 INFO: Signing the BUNDLE...",
+        "34398 INFO: Building BUNDLE BUNDLE-01.toc completed successfully.",
+        "34402 INFO: Build complete! The results are available in: /private/tmp/lexishift-beta-app-rc/apps/gui/dist"
       ],
       "artifacts": [
         {
           "label": "gui_main_app_bundle",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app",
+          "path": "/private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift.app",
           "kind": "directory",
           "exists": true,
           "entry_count": 1
         },
         {
           "label": "gui_helper_app_bundle",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app",
+          "path": "/private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift Helper.app",
           "kind": "directory",
           "exists": true,
           "entry_count": 1
         },
         {
           "label": "gui_main_info_plist",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app/Contents/Info.plist",
+          "path": "/private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift.app/Contents/Info.plist",
           "kind": "file",
           "exists": true,
           "size_bytes": 1032
         },
         {
           "label": "gui_helper_info_plist",
-          "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app/Contents/Info.plist",
+          "path": "/private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift Helper.app/Contents/Info.plist",
           "kind": "file",
           "exists": true,
           "size_bytes": 1090
@@ -110,35 +111,35 @@
   "artifacts": [
     {
       "label": "betterdiscord_bundle",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/betterdiscord-plugin/LexiShift.plugin.js",
+      "path": "/private/tmp/lexishift-beta-app-rc/apps/betterdiscord-plugin/LexiShift.plugin.js",
       "kind": "file",
       "exists": true,
       "size_bytes": 58377
     },
     {
       "label": "gui_main_app_bundle",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app",
+      "path": "/private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift.app",
       "kind": "directory",
       "exists": true,
       "entry_count": 1
     },
     {
       "label": "gui_helper_app_bundle",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app",
+      "path": "/private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift Helper.app",
       "kind": "directory",
       "exists": true,
       "entry_count": 1
     },
     {
       "label": "gui_main_info_plist",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift.app/Contents/Info.plist",
+      "path": "/private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift.app/Contents/Info.plist",
       "kind": "file",
       "exists": true,
       "size_bytes": 1032
     },
     {
       "label": "gui_helper_info_plist",
-      "path": "/Users/takeyayuki/Documents/projects/LexiShift/apps/gui/dist/LexiShift Helper.app/Contents/Info.plist",
+      "path": "/private/tmp/lexishift-beta-app-rc/apps/gui/dist/LexiShift Helper.app/Contents/Info.plist",
       "kind": "file",
       "exists": true,
       "size_bytes": 1090

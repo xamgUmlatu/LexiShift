@@ -1,0 +1,1281 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_sampling_stage1_p0_manual_v1",
+  "description": "Stage 1 P0 manual discovery rows for the scientific sampling expansion plan. Agent draft; human review required before LLM generation or locked-eval claims.",
+  "sampling_lane": "targeted_curve_mechanism_lane",
+  "manual_review_state": "agent_draft_human_review_pending",
+  "families": [
+    {
+      "family_id": "en-es:sampling-stage1-p0:help:ayuda",
+      "trigger": "help",
+      "active": {
+        "sense_id": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+        "target_lemma": "ayuda",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "assistance",
+          "gloss_text": "assistance or support given to someone",
+          "sense_gloss_bundle": "assistance | assistance or support given to someone",
+          "all_evidence_text": "assistance | assistance or support given to someone | ask for help | offer help | need help"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sampling-stage1-p0:help:ayuda:servicio:shadow",
+          "target_lemma": "servicio",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "hired help or servants",
+            "gloss_text": "people hired to do domestic or farm work",
+            "sense_gloss_bundle": "hired help or servants | people hired to do domestic or farm work",
+            "all_evidence_text": "hired help or servants | people hired to do domestic or farm work | the hired help arrived | farm help | domestic help"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:01:001",
+          "sentence": "I cannot help noticing how quiet the room became.",
+          "source_phrase": "help",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:limited",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "cannot help plus gerund idiom"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:01:002",
+          "sentence": "She could not help but smile at the news.",
+          "source_phrase": "help",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:limited",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "cannot help but idiom"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:01:003",
+          "sentence": "Help, the elevator is stuck between floors!",
+          "source_phrase": "help",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:limited",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "emergency interjection rather than assistance noun"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:01:004",
+          "sentence": "So help me, I will finish this tonight.",
+          "source_phrase": "help",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:limited",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "oath-like fixed expression"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:02:001",
+          "sentence": "Her help made the move much easier.",
+          "source_phrase": "help",
+          "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:limited",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "assistance noun"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:02:002",
+          "sentence": "The guide offers help with password resets.",
+          "source_phrase": "help",
+          "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:limited",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "assistance offered by instructions"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:02:003",
+          "sentence": "We need help carrying these boxes upstairs.",
+          "source_phrase": "help",
+          "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:limited",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "request for assistance"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:02:004",
+          "sentence": "Thank you for the help you gave my sister.",
+          "source_phrase": "help",
+          "gold_winner": "en-es:sampling-stage1-p0:help:ayuda:ayuda:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "positive_active",
+            "shadow_contract:limited",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=positive_active::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "positive_active"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "received assistance"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:04:001",
+          "sentence": "No one can help being nervous before the final.",
+          "source_phrase": "help",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:limited",
+            "scorer:sentence_transformer_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "sentence_transformer_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "cannot help being idiom"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:04:002",
+          "sentence": "The child shouted help from the locked bathroom.",
+          "source_phrase": "help",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:limited",
+            "scorer:sentence_transformer_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "sentence_transformer_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "cry for rescue, not the assistance noun target"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:04:003",
+          "sentence": "I can't help thinking we missed a step.",
+          "source_phrase": "help",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:limited",
+            "scorer:sentence_transformer_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "sentence_transformer_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "can't help thinking idiom"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:help:04:004",
+          "sentence": "Help yourself to some coffee before the meeting.",
+          "source_phrase": "help",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "core_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1-500",
+            "polysemy:high_10_plus",
+            "phrase_no_winner",
+            "shadow_contract:limited",
+            "scorer:sentence_transformer_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=core_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=limited::source_rank_bin=1-500::polysemy_band=high_10_plus"
+            ],
+            "scorer_id": [
+              "sentence_transformer_cosine"
+            ],
+            "heuristic_group": [
+              "core_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1-500"
+            ],
+            "polysemy_band": [
+              "high_10_plus"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "limited"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "help yourself idiom"
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sampling-stage1-p0:particular:específico",
+      "trigger": "particular",
+      "active": {
+        "sense_id": "en-es:sampling-stage1-p0:particular:específico:especifico:active",
+        "target_lemma": "específico",
+        "canonical_pos": "adjective",
+        "evidence_views": {
+          "sense_label": "specific",
+          "gloss_text": "specific or distinct from others",
+          "sense_gloss_bundle": "specific | specific or distinct from others",
+          "all_evidence_text": "specific | specific or distinct from others | particular reason | particular case | particular tool"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sampling-stage1-p0:particular:específico:quisquilloso:shadow",
+          "target_lemma": "quisquilloso",
+          "canonical_pos": "adjective",
+          "evidence_views": {
+            "sense_label": "hard to please",
+            "gloss_text": "very exacting or fussy about details",
+            "sense_gloss_bundle": "hard to please | very exacting or fussy about details",
+            "all_evidence_text": "hard to please | very exacting or fussy about details | particular about grammar | particular about details"
+          }
+        },
+        {
+          "sense_id": "en-es:sampling-stage1-p0:particular:específico:detalles:shadow",
+          "target_lemma": "detalles",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "details or particulars",
+            "gloss_text": "individual facts or details of a case",
+            "sense_gloss_bundle": "details or particulars | individual facts or details of a case",
+            "all_evidence_text": "details or particulars | individual facts or details of a case | particulars of the contract | all the particulars"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:sampling-stage1-p0:particular:03:001",
+          "sentence": "In particular, the last paragraph needs work.",
+          "source_phrase": "particular",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "phrase_no_winner",
+            "shadow_contract:full",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "in particular discourse phrase"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:particular:03:002",
+          "sentence": "Nothing in particular caught my eye.",
+          "source_phrase": "particular",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "phrase_no_winner",
+            "shadow_contract:full",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "nothing in particular idiom"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:particular:03:003",
+          "sentence": "He was not angry with anyone in particular.",
+          "source_phrase": "particular",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "phrase_no_winner",
+            "shadow_contract:full",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "anyone in particular idiom"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:particular:03:004",
+          "sentence": "One example in particular changed my mind.",
+          "source_phrase": "particular",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "phrase_no_winner",
+            "shadow_contract:full",
+            "scorer:tfidf_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=tfidf_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+            ],
+            "scorer_id": [
+              "tfidf_cosine"
+            ],
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "postposed in particular phrase"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:particular:05:001",
+          "sentence": "She likes tea in particular after dinner.",
+          "source_phrase": "particular",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "phrase_no_winner",
+            "shadow_contract:full",
+            "scorer:sentence_transformer_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+            ],
+            "scorer_id": [
+              "sentence_transformer_cosine"
+            ],
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "in particular preference phrase"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:particular:05:002",
+          "sentence": "No rule in particular explains that result.",
+          "source_phrase": "particular",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "phrase_no_winner",
+            "shadow_contract:full",
+            "scorer:sentence_transformer_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+            ],
+            "scorer_id": [
+              "sentence_transformer_cosine"
+            ],
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "no X in particular phrase"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:particular:05:003",
+          "sentence": "This season in particular has been unpredictable.",
+          "source_phrase": "particular",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "phrase_no_winner",
+            "shadow_contract:full",
+            "scorer:sentence_transformer_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+            ],
+            "scorer_id": [
+              "sentence_transformer_cosine"
+            ],
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "in particular focus phrase"
+        },
+        {
+          "case_id": "en-es:sampling-stage1-p0:particular:05:004",
+          "sentence": "I remember that hallway in particular.",
+          "source_phrase": "particular",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "en_es_sampling_stage1_p0_manual_v1",
+            "manual_draft_v1",
+            "targeted_curve_mechanism_lane",
+            "discovery",
+            "curve_priority:P0",
+            "mid_high_polysemy",
+            "pre_outcome",
+            "rank_bin:1001-2000",
+            "polysemy:medium_4_to_9",
+            "phrase_no_winner",
+            "shadow_contract:full",
+            "scorer:sentence_transformer_cosine"
+          ],
+          "slice_dimensions": {
+            "sampling_lane": [
+              "targeted_curve_mechanism_lane"
+            ],
+            "split": [
+              "discovery"
+            ],
+            "curve_priority": [
+              "P0"
+            ],
+            "curve_cell_id": [
+              "scorer_id=sentence_transformer_cosine::selection_mode=pre_outcome::heuristic_group=mid_high_polysemy::manual_case_type=phrase_no_winner::shadow_contract=full::source_rank_bin=1001-2000::polysemy_band=medium_4_to_9"
+            ],
+            "scorer_id": [
+              "sentence_transformer_cosine"
+            ],
+            "heuristic_group": [
+              "mid_high_polysemy"
+            ],
+            "selection_mode": [
+              "pre_outcome"
+            ],
+            "source_rank_bin": [
+              "1001-2000"
+            ],
+            "polysemy_band": [
+              "medium_4_to_9"
+            ],
+            "manual_case_type": [
+              "phrase_no_winner"
+            ],
+            "shadow_contract": [
+              "full"
+            ],
+            "manual_review_state": [
+              "agent_draft_human_review_pending"
+            ]
+          },
+          "notes": "object plus in particular phrase"
+        }
+      ]
+    }
+  ]
+}

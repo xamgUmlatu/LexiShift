@@ -1,0 +1,2548 @@
+{
+  "decision": "generated_evidence_postprocess_ready_for_interpretation",
+  "generated_at": "2026-05-09T22:52:38Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_admission_en_es_latest.json",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_full_v1.json"
+  },
+  "item_audits": [
+    {
+      "audit_id": "generated_active_item:001",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:current:contempor-neo:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2222,
+        "risk": "low",
+        "sentence": "The current design reflects contemporary tastes."
+      },
+      "evidence_note": "current means happening now, matching the present-time sense.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "The museum opened a current exhibition of contemporary sculpture.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:current:contempor-neo:shadow:2:corriente"
+      },
+      "source_phrase": "current",
+      "target_lemma": "contemporáneo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:002",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.375,
+        "risk": "medium",
+        "sentence": "Current research focuses on smaller batteries."
+      },
+      "evidence_note": "current refers to the present period, supporting the contemporary sense.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:current:contempor-neo:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 0.9,
+      "sentence": "Her current research focuses on current trends in urban design.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:current:contempor-neo:shadow:2:corriente"
+      },
+      "source_phrase": "current",
+      "target_lemma": "contemporáneo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:003",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:continue:durar:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.125,
+        "risk": "low",
+        "sentence": "The drought may continue for months."
+      },
+      "evidence_note": "Shows duration of an ongoing event.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:continue:durar",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.1111,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The meeting will continue for another two hours.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:continue:durar:shadow:1:seguir"
+      },
+      "source_phrase": "continue",
+      "target_lemma": "durar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:004",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:continue:durar:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2,
+        "risk": "low",
+        "sentence": "The pain may continue all night after the fall."
+      },
+      "evidence_note": "Indicates that a state lasts over a period of time.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:continue:durar",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:continue:durar:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.1111,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The storm is expected to continue through the night.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:continue:durar:shadow:1:seguir"
+      },
+      "source_phrase": "continue",
+      "target_lemma": "durar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:005",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2,
+        "risk": "low",
+        "sentence": "A green parrot perched above the doorway."
+      },
+      "evidence_note": "Bird sense: a living parrot in a cage or tree setting.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The parrot perched on the branch and cracked a sunflower seed with its beak.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:parrot:loro:shadow:1:repetir"
+      },
+      "source_phrase": "parrot",
+      "target_lemma": "loro",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:006",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1538,
+        "risk": "low",
+        "sentence": "A green parrot perched above the doorway."
+      },
+      "evidence_note": "Bird sense: an actual parrot making bird sounds.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:parrot:loro:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_subject",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "At the zoo, a bright green parrot squawked loudly when visitors walked past.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0769,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:parrot:loro:shadow:1:repetir"
+      },
+      "source_phrase": "parrot",
+      "target_lemma": "loro",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:007",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.3333,
+        "risk": "medium",
+        "sentence": "His ankle began to recover after therapy."
+      },
+      "evidence_note": "Active healing of a wound or injury.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "The cut began to recover after she cleaned it and kept it covered.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:recover:sanar:shadow:2:retapizar"
+      },
+      "source_phrase": "recover",
+      "target_lemma": "sanar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:008",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2727,
+        "risk": "low",
+        "sentence": "The patient will recover after several weeks of rest."
+      },
+      "evidence_note": "Active healing from an injury.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:recover:sanar:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "With rest and proper care, the burn should recover in a few weeks.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:recover:sanar:shadow:2:retapizar"
+      },
+      "source_phrase": "recover",
+      "target_lemma": "sanar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:009",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2,
+        "risk": "low",
+        "sentence": "A dark billow rolled across the harbor."
+      },
+      "evidence_note": "Describes a large sea wave or swell moving on the ocean.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "A billow rolled toward the shore and broke into white foam.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:billow:oleaje:shadow:1:elevarse"
+      },
+      "source_phrase": "billow",
+      "target_lemma": "oleaje",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:010",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.3,
+        "risk": "medium",
+        "sentence": "A dark billow rolled across the harbor."
+      },
+      "evidence_note": "Uses billow in the sense of a sea swell on the water.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "flags": [
+        "medium_eval_overlap",
+        "medium_shadow_confusability"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:billow:oleaje:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.8,
+      "sentence": "From the deck, we watched a billow rise and fall across the dark water.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1667,
+        "risk": "medium",
+        "shadow_id": "en-es:full-family-repaired-full:billow:oleaje:shadow:1:elevarse"
+      },
+      "source_phrase": "billow",
+      "target_lemma": "oleaje",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:011",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.375,
+        "risk": "medium",
+        "sentence": "The horse returned to its stall after training."
+      },
+      "evidence_note": "A stall is a compartment in a stable where an animal is kept.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "The horse was led back to its stall after the ride.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:stall:cuadra:shadow:1:retrasar"
+      },
+      "source_phrase": "stall",
+      "target_lemma": "cuadra",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:012",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:stall:cuadra:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2,
+        "risk": "low",
+        "sentence": "She cleaned each stall before feeding the animals."
+      },
+      "evidence_note": "The context shows a stable compartment for an animal.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:stall:cuadra:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "Each stall in the barn had fresh hay and a water bucket.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:stall:cuadra:shadow:1:retrasar"
+      },
+      "source_phrase": "stall",
+      "target_lemma": "cuadra",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:013",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:upon:sobre:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "sentence": "The book rested upon the wooden table."
+      },
+      "evidence_note": "upon means regarding or based on the survey results.",
+      "expected_pos": "preposition",
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "flags": [
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.35,
+      "quality_score": 0.8,
+      "sentence": "The report was written upon the latest survey results.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "upon",
+      "target_lemma": "sobre",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:014",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:upon:sobre:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "The book rested upon the wooden table."
+      },
+      "evidence_note": "upon means regarding the proposal.",
+      "expected_pos": "preposition",
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "flags": [
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:upon:sobre:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.35,
+      "quality_score": 0.8,
+      "sentence": "She commented upon the proposal during the meeting.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "upon",
+      "target_lemma": "sobre",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:015",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:pair:par:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.3333,
+        "risk": "medium",
+        "sentence": "She bought a pair of gloves at the market."
+      },
+      "evidence_note": "pair means two matching items",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "She bought a pair of socks for the trip.",
+      "shadow_confusability": {
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:pair:par:shadow:1:emparejar"
+      },
+      "source_phrase": "pair",
+      "target_lemma": "par",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:016",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:pair:par:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.125,
+        "risk": "low",
+        "sentence": "She bought a pair of gloves at the market."
+      },
+      "evidence_note": "pair means two things together",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:pair:par:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The recipe calls for a pair of eggs in the batter.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:pair:par:shadow:1:emparejar"
+      },
+      "source_phrase": "pair",
+      "target_lemma": "par",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:017",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:health:salud:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.375,
+        "risk": "medium",
+        "sentence": "Regular exercise improved his health."
+      },
+      "evidence_note": "health means bodily wellbeing and condition.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:health:salud",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "Regular exercise can improve your health and lower the risk of disease.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "health",
+      "target_lemma": "salud",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:018",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:health:salud:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "Regular exercise improved his health."
+      },
+      "evidence_note": "health refers to the person's physical condition.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:health:salud",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:health:salud:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The doctor said her health was stable after the surgery.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "health",
+      "target_lemma": "salud",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:019",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.0769,
+        "risk": "low",
+        "sentence": "She could hear her roommate snore through the wall."
+      },
+      "evidence_note": "Sleeping person breathing noisily, which matches the active sense.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0667,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "After the long hike, he fell asleep and began to snore softly in the tent.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0714,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:snore:roncar:shadow:1:ronquido"
+      },
+      "source_phrase": "snore",
+      "target_lemma": "roncar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:020",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+        "gold_decision": "abstain",
+        "max_jaccard": 0.3333,
+        "risk": "medium",
+        "sentence": "A loud snore came from the next room."
+      },
+      "evidence_note": "The context shows a sleeping person making loud breathing sounds.",
+      "expected_pos": "verb",
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "flags": [
+        "medium_eval_overlap",
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:snore:roncar:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0667,
+      "pos_anchor_strength": 0.25,
+      "quality_score": 0.7,
+      "sentence": "She could hear her grandfather snore from the next room all night.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:snore:roncar:shadow:1:ronquido"
+      },
+      "source_phrase": "snore",
+      "target_lemma": "roncar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:021",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2,
+        "risk": "low",
+        "sentence": "Each carved bowl showed careful handiwork."
+      },
+      "evidence_note": "Refers to a hand-made crafted object.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The carved chair was clearly the handiwork of a skilled woodworker.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "handiwork",
+      "target_lemma": "artesanía",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:022",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2727,
+        "risk": "low",
+        "sentence": "Each carved bowl showed careful handiwork."
+      },
+      "evidence_note": "Refers to work produced by hand.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:handiwork:artesan-a:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "Her handiwork showed careful stitching and fine detail in every seam.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "handiwork",
+      "target_lemma": "artesanía",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:023",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:adjoining:contiguo:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "sentence": "They booked two adjoining rooms for the family."
+      },
+      "evidence_note": "Shows the lot is next to and sharing a boundary with the house.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "The garden has an adjoining lot that shares a fence with the house.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "adjoining",
+      "target_lemma": "contiguo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:024",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:adjoining:contiguo:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "sentence": "They booked two adjoining rooms for the family."
+      },
+      "evidence_note": "Makes the sense clear by stating the room is directly beside another room.",
+      "expected_pos": "adjective",
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adjoining:contiguo:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adjective_attributive",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.9,
+      "quality_score": 1.0,
+      "sentence": "We rented an adjoining room because it was directly next to ours.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "adjoining",
+      "target_lemma": "contiguo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:025",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.3636,
+        "risk": "medium",
+        "sentence": "An adder slid through the grass near the path."
+      },
+      "evidence_note": "Refers to a venomous snake.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "flags": [
+        "medium_eval_overlap"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 0.9,
+      "sentence": "The hiker froze when an adder slid across the path near his boot.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0714,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:adder:v-bora:shadow:1:sumador"
+      },
+      "source_phrase": "adder",
+      "target_lemma": "víbora",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:026",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1667,
+        "risk": "low",
+        "sentence": "An adder slid through the grass near the path."
+      },
+      "evidence_note": "Snake context makes the meaning clear.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:adder:v-bora:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "A bright warning sign told campers to watch for an adder in the grass.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0769,
+        "risk": "low",
+        "shadow_id": "en-es:full-family-repaired-full:adder:v-bora:shadow:1:sumador"
+      },
+      "source_phrase": "adder",
+      "target_lemma": "víbora",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:027",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:altitude:elevaci-n:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.0833,
+        "risk": "low",
+        "sentence": "The altitude gave her a headache during the climb."
+      },
+      "evidence_note": "Shows altitude as height above a reference level.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The hikers adjusted their pace as the altitude increased above the valley floor.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "altitude",
+      "target_lemma": "elevación",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:028",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:altitude:elevaci-n:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1,
+        "risk": "low",
+        "sentence": "The altitude gave her a headache during the climb."
+      },
+      "evidence_note": "Uses altitude in the sense of elevation above sea level.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:altitude:elevaci-n:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "At this altitude, the air is thinner and the temperature drops quickly.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "altitude",
+      "target_lemma": "elevación",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:029",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:june:junio:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "The trial is scheduled for June."
+      },
+      "evidence_note": "Refers to the month between May and July.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:june:junio",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "month_name",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "We plan to travel in june after the school year ends.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "june",
+      "target_lemma": "junio",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:030",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:june:junio:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.1111,
+        "risk": "low",
+        "sentence": "The trial is scheduled for June."
+      },
+      "evidence_note": "Uses june as a calendar month in a date context.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:june:junio",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:june:junio:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "month_name",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "The report is due in june, so we need to finish it soon.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "june",
+      "target_lemma": "junio",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:031",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.0909,
+        "risk": "low",
+        "sentence": "The speech stirred strong emotion in the crowd."
+      },
+      "evidence_note": "Shows a strong feeling in response to an event.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+      "flags": [
+        "pos_unknown",
+        "pos_weak"
+      ],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.55,
+      "quality_score": 0.8,
+      "sentence": "Her voice shook with emotion when she heard the good news.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "emotion",
+      "target_lemma": "emoción",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:032",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:001",
+        "gold_decision": "replace",
+        "max_jaccard": 0.2222,
+        "risk": "low",
+        "sentence": "The speech stirred strong emotion in the crowd."
+      },
+      "evidence_note": "Refers to an intense affective state visible in behavior.",
+      "expected_pos": "noun",
+      "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+      "flags": [],
+      "item_id": "semantic_veto_active_only_scale_tranche_v1_en_es:en-es:full-family-repaired-full:emotion:emoci-n:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.95,
+      "quality_score": 1.0,
+      "sentence": "He could not hide his emotion during the farewell speech.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "emotion",
+      "target_lemma": "emoción",
+      "target_lemma_in_evidence_note": false
+    }
+  ],
+  "limitations": [
+    "offline no-spend postprocess over already generated active-only rows",
+    "heuristic POS and overlap labels are diagnostic, not gold labels",
+    "note-only views are diagnostics and should not be promoted as runtime evidence",
+    "same selected-family denominator is held across views for comparability",
+    "this does not validate shadow or no-winner generation at scale"
+  ],
+  "methodology": {
+    "context_view": "masked_sentence",
+    "current_control_view": "all_sentence_plus_note",
+    "evidence_view": "all_evidence_text",
+    "llm_call": "none",
+    "postprocess_role": "audit_raw_generated_items_then_score_derived_views",
+    "raw_llm_output_mutation": "none",
+    "runtime_policy_change": "none",
+    "scorer_id": "tfidf_cosine"
+  },
+  "pair": "en-es",
+  "recommendations": [
+    "Treat evidence_note text as an active experimental variable; note-only evidence moved decisions, so sentence-only should be the safer promotion candidate.",
+    "Prefer sentence-only evidence for the next generated batch because it preserves or improves the control without explanatory-note leakage.",
+    "Use the conservative sentence-only view as the safety check before any paid scale-up; it removes high-overlap and weak-POS rows while keeping the denominator fixed."
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "active_item_count": 32,
+    "definition_like_count": 0,
+    "family_count": 16,
+    "high_eval_overlap_count": 0,
+    "high_shadow_confusable_count": 0,
+    "issues": [],
+    "medium_eval_overlap_count": 8,
+    "model_source_pos_frame_count": 0,
+    "model_topic_frame_count": 0,
+    "pos_weak_count": 4,
+    "target_lemma_in_note_count": 0,
+    "view_count": 11
+  },
+  "view_scores": [
+    {
+      "case_change_counts": {
+        "fixed": 11,
+        "regressed": 3,
+        "still_correct": 32,
+        "still_wrong": 17
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.126984,
+        "false_abstain_delta": -10,
+        "harmful_replace_delta": 2,
+        "predicted_replace_delta": 12,
+        "replace_recall_delta": 0.3125,
+        "winner_accuracy_delta": 0.021277
+      },
+      "description": "control: current scoring appends generated sentence plus evidence_note",
+      "evidence_variant": "sentence_plus_note",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.061347,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.102596,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "gold_decision": "replace",
+          "sentence": "The horse returned to its stall after training."
+        },
+        {
+          "active_score_delta": 0.118033,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "gold_decision": "replace",
+          "sentence": "Each carved bowl showed careful handiwork."
+        },
+        {
+          "active_score_delta": 0.110971,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.070105,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.064035,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "His ankle began to recover after therapy."
+        },
+        {
+          "active_score_delta": 0.150542,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "replace",
+          "sentence": "She could hear her roommate snore through the wall."
+        },
+        {
+          "active_score_delta": 0.12216,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "gold_decision": "replace",
+          "sentence": "Current research focuses on smaller batteries."
+        },
+        {
+          "active_score_delta": 0.05927,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.195647,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.6825396825396826,
+        "false_abstain_count": 18,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 16,
+        "replace_recall": 0.4375,
+        "winner_accuracy": 0.6808510638297872
+      },
+      "item_count": 32,
+      "regressions": [
+        {
+          "active_score_delta": -0.011841,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:continue:durar:001",
+          "family_id": "en-es:full-family-repaired-full:continue:durar",
+          "gold_decision": "replace",
+          "sentence": "The drought may continue for months."
+        },
+        {
+          "active_score_delta": 0.050029,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "Smoke began to billow from the warehouse."
+        },
+        {
+          "active_score_delta": 0.174641,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "abstain",
+          "sentence": "A loud snore came from the next room."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "all_sentence_plus_note"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 11,
+        "regressed": 3,
+        "still_correct": 32,
+        "still_wrong": 17
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.126984,
+        "false_abstain_delta": -10,
+        "harmful_replace_delta": 2,
+        "predicted_replace_delta": 12,
+        "replace_recall_delta": 0.3125,
+        "winner_accuracy_delta": 0.021277
+      },
+      "description": "mechanically remove target lemmas and meta labels from evidence_note",
+      "evidence_variant": "sentence_plus_scrubbed_note",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.06171,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.102989,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "gold_decision": "replace",
+          "sentence": "The horse returned to its stall after training."
+        },
+        {
+          "active_score_delta": 0.118033,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "gold_decision": "replace",
+          "sentence": "Each carved bowl showed careful handiwork."
+        },
+        {
+          "active_score_delta": 0.11178,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.06989,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.063839,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "His ankle began to recover after therapy."
+        },
+        {
+          "active_score_delta": 0.153707,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "replace",
+          "sentence": "She could hear her roommate snore through the wall."
+        },
+        {
+          "active_score_delta": 0.122881,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "gold_decision": "replace",
+          "sentence": "Current research focuses on smaller batteries."
+        },
+        {
+          "active_score_delta": 0.059204,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.195647,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.6825396825396826,
+        "false_abstain_count": 18,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 16,
+        "replace_recall": 0.4375,
+        "winner_accuracy": 0.6808510638297872
+      },
+      "item_count": 32,
+      "regressions": [
+        {
+          "active_score_delta": -0.011482,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:continue:durar:001",
+          "family_id": "en-es:full-family-repaired-full:continue:durar",
+          "gold_decision": "replace",
+          "sentence": "The drought may continue for months."
+        },
+        {
+          "active_score_delta": 0.050331,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "Smoke began to billow from the warehouse."
+        },
+        {
+          "active_score_delta": 0.178312,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "abstain",
+          "sentence": "A loud snore came from the next room."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "sentence_plus_scrubbed_note"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 12,
+        "regressed": 2,
+        "still_correct": 33,
+        "still_wrong": 16
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.15873,
+        "false_abstain_delta": -12,
+        "harmful_replace_delta": 2,
+        "predicted_replace_delta": 14,
+        "replace_recall_delta": 0.375,
+        "winner_accuracy_delta": 0.021277
+      },
+      "description": "use generated browser sentences only, dropping explanatory notes",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.081217,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.160521,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "gold_decision": "replace",
+          "sentence": "The horse returned to its stall after training."
+        },
+        {
+          "active_score_delta": 0.150481,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "gold_decision": "replace",
+          "sentence": "Each carved bowl showed careful handiwork."
+        },
+        {
+          "active_score_delta": 0.14383,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.073495,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.078649,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "His ankle began to recover after therapy."
+        },
+        {
+          "active_score_delta": 0.192728,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "replace",
+          "sentence": "She could hear her roommate snore through the wall."
+        },
+        {
+          "active_score_delta": 0.178601,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "gold_decision": "replace",
+          "sentence": "Current research focuses on smaller batteries."
+        },
+        {
+          "active_score_delta": 0.077352,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.232512,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.7142857142857143,
+        "false_abstain_count": 16,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 18,
+        "replace_recall": 0.5,
+        "winner_accuracy": 0.6808510638297872
+      },
+      "item_count": 32,
+      "regressions": [
+        {
+          "active_score_delta": 0.062084,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "Smoke began to billow from the warehouse."
+        },
+        {
+          "active_score_delta": 0.178909,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "abstain",
+          "sentence": "A loud snore came from the next room."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "sentence_only_all"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 3,
+        "still_correct": 32,
+        "still_wrong": 28
+      },
+      "comparison": {
+        "decision_accuracy_delta": -0.047619,
+        "false_abstain_delta": 2,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": -1,
+        "replace_recall_delta": -0.0625,
+        "winner_accuracy_delta": -0.021277
+      },
+      "description": "diagnostic: evidence_note only, to see whether notes are driving lift",
+      "evidence_variant": "note_only",
+      "fixed_cases_sample": [],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.5079365079365079,
+        "false_abstain_count": 30,
+        "harmful_replace_count": 1,
+        "predicted_replace_cases": 3,
+        "replace_recall": 0.0625,
+        "winner_accuracy": 0.6382978723404256
+      },
+      "item_count": 32,
+      "regressions": [
+        {
+          "active_score_delta": -0.02961,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:continue:durar:001",
+          "family_id": "en-es:full-family-repaired-full:continue:durar",
+          "gold_decision": "replace",
+          "sentence": "The drought may continue for months."
+        },
+        {
+          "active_score_delta": 0.054513,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:004",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "The curtain started to billow in the wind."
+        },
+        {
+          "active_score_delta": -0.030207,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:pair:par:001",
+          "family_id": "en-es:full-family-repaired-full:pair:par",
+          "gold_decision": "replace",
+          "sentence": "She bought a pair of gloves at the market."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "note_only_diagnostic"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 11,
+        "regressed": 3,
+        "still_correct": 32,
+        "still_wrong": 17
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.126984,
+        "false_abstain_delta": -10,
+        "harmful_replace_delta": 2,
+        "predicted_replace_delta": 12,
+        "replace_recall_delta": 0.3125,
+        "winner_accuracy_delta": 0.021277
+      },
+      "description": "drop generated rows with high lexical overlap against frozen eval cases",
+      "evidence_variant": "sentence_plus_note",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.061347,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.102596,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "gold_decision": "replace",
+          "sentence": "The horse returned to its stall after training."
+        },
+        {
+          "active_score_delta": 0.118033,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "gold_decision": "replace",
+          "sentence": "Each carved bowl showed careful handiwork."
+        },
+        {
+          "active_score_delta": 0.110971,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.070105,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.064035,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "His ankle began to recover after therapy."
+        },
+        {
+          "active_score_delta": 0.150542,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "replace",
+          "sentence": "She could hear her roommate snore through the wall."
+        },
+        {
+          "active_score_delta": 0.12216,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "gold_decision": "replace",
+          "sentence": "Current research focuses on smaller batteries."
+        },
+        {
+          "active_score_delta": 0.05927,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.195647,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.6825396825396826,
+        "false_abstain_count": 18,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 16,
+        "replace_recall": 0.4375,
+        "winner_accuracy": 0.6808510638297872
+      },
+      "item_count": 32,
+      "regressions": [
+        {
+          "active_score_delta": -0.011841,
+          "base_predicted_decision": "replace",
+          "candidate_predicted_decision": "abstain",
+          "case_id": "en-es:full-family-repaired-full:continue:durar:001",
+          "family_id": "en-es:full-family-repaired-full:continue:durar",
+          "gold_decision": "replace",
+          "sentence": "The drought may continue for months."
+        },
+        {
+          "active_score_delta": 0.050029,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "Smoke began to billow from the warehouse."
+        },
+        {
+          "active_score_delta": 0.174641,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "abstain",
+          "sentence": "A loud snore came from the next room."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "no_high_eval_overlap_sentence_plus_note"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 12,
+        "regressed": 2,
+        "still_correct": 33,
+        "still_wrong": 16
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.15873,
+        "false_abstain_delta": -12,
+        "harmful_replace_delta": 2,
+        "predicted_replace_delta": 14,
+        "replace_recall_delta": 0.375,
+        "winner_accuracy_delta": 0.021277
+      },
+      "description": "drop high eval-overlap rows and use sentence-only evidence",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.081217,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.160521,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "gold_decision": "replace",
+          "sentence": "The horse returned to its stall after training."
+        },
+        {
+          "active_score_delta": 0.150481,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "gold_decision": "replace",
+          "sentence": "Each carved bowl showed careful handiwork."
+        },
+        {
+          "active_score_delta": 0.14383,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.073495,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.078649,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "His ankle began to recover after therapy."
+        },
+        {
+          "active_score_delta": 0.192728,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "replace",
+          "sentence": "She could hear her roommate snore through the wall."
+        },
+        {
+          "active_score_delta": 0.178601,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "gold_decision": "replace",
+          "sentence": "Current research focuses on smaller batteries."
+        },
+        {
+          "active_score_delta": 0.077352,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.232512,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.7142857142857143,
+        "false_abstain_count": 16,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 18,
+        "replace_recall": 0.5,
+        "winner_accuracy": 0.6808510638297872
+      },
+      "item_count": 32,
+      "regressions": [
+        {
+          "active_score_delta": 0.062084,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "Smoke began to billow from the warehouse."
+        },
+        {
+          "active_score_delta": 0.178909,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "abstain",
+          "sentence": "A loud snore came from the next room."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "no_high_eval_overlap_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 11,
+        "regressed": 1,
+        "still_correct": 34,
+        "still_wrong": 17
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.15873,
+        "false_abstain_delta": -11,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": 12,
+        "replace_recall_delta": 0.34375,
+        "winner_accuracy_delta": 0.021277
+      },
+      "description": "keep rows whose generated source usage mechanically matches expected POS",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.086608,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.160415,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "gold_decision": "replace",
+          "sentence": "The horse returned to its stall after training."
+        },
+        {
+          "active_score_delta": 0.149949,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "gold_decision": "replace",
+          "sentence": "Each carved bowl showed careful handiwork."
+        },
+        {
+          "active_score_delta": 0.143647,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.07341,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.07843,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "His ankle began to recover after therapy."
+        },
+        {
+          "active_score_delta": 0.178013,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "gold_decision": "replace",
+          "sentence": "Current research focuses on smaller batteries."
+        },
+        {
+          "active_score_delta": 0.077292,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.232303,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        },
+        {
+          "active_score_delta": 0.015934,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:pair:par:002",
+          "family_id": "en-es:full-family-repaired-full:pair:par",
+          "gold_decision": "replace",
+          "sentence": "The report compared each pair of measurements."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.7142857142857143,
+        "false_abstain_count": 17,
+        "harmful_replace_count": 1,
+        "predicted_replace_cases": 16,
+        "replace_recall": 0.46875,
+        "winner_accuracy": 0.6808510638297872
+      },
+      "item_count": 28,
+      "regressions": [
+        {
+          "active_score_delta": 0.067556,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "Smoke began to billow from the warehouse."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "pos_anchored_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 12,
+        "regressed": 2,
+        "still_correct": 33,
+        "still_wrong": 16
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.15873,
+        "false_abstain_delta": -12,
+        "harmful_replace_delta": 2,
+        "predicted_replace_delta": 14,
+        "replace_recall_delta": 0.375,
+        "winner_accuracy_delta": 0.021277
+      },
+      "description": "drop definition-like generated browser sentences and use sentence-only evidence",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.081217,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.160521,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "gold_decision": "replace",
+          "sentence": "The horse returned to its stall after training."
+        },
+        {
+          "active_score_delta": 0.150481,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "gold_decision": "replace",
+          "sentence": "Each carved bowl showed careful handiwork."
+        },
+        {
+          "active_score_delta": 0.14383,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.073495,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.078649,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "His ankle began to recover after therapy."
+        },
+        {
+          "active_score_delta": 0.192728,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "replace",
+          "sentence": "She could hear her roommate snore through the wall."
+        },
+        {
+          "active_score_delta": 0.178601,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "gold_decision": "replace",
+          "sentence": "Current research focuses on smaller batteries."
+        },
+        {
+          "active_score_delta": 0.077352,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.232512,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.7142857142857143,
+        "false_abstain_count": 16,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 18,
+        "replace_recall": 0.5,
+        "winner_accuracy": 0.6808510638297872
+      },
+      "item_count": 32,
+      "regressions": [
+        {
+          "active_score_delta": 0.062084,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "Smoke began to billow from the warehouse."
+        },
+        {
+          "active_score_delta": 0.178909,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "abstain",
+          "sentence": "A loud snore came from the next room."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "no_definition_like_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 11,
+        "regressed": 1,
+        "still_correct": 34,
+        "still_wrong": 17
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.15873,
+        "false_abstain_delta": -11,
+        "harmful_replace_delta": 1,
+        "predicted_replace_delta": 12,
+        "replace_recall_delta": 0.34375,
+        "winner_accuracy_delta": 0.021277
+      },
+      "description": "sentence-only rows with no high eval overlap, POS anchor, no definition-like sentence, and no high shadow confusability",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.086608,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.160415,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "gold_decision": "replace",
+          "sentence": "The horse returned to its stall after training."
+        },
+        {
+          "active_score_delta": 0.149949,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "gold_decision": "replace",
+          "sentence": "Each carved bowl showed careful handiwork."
+        },
+        {
+          "active_score_delta": 0.143647,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.07341,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.07843,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "His ankle began to recover after therapy."
+        },
+        {
+          "active_score_delta": 0.178013,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "gold_decision": "replace",
+          "sentence": "Current research focuses on smaller batteries."
+        },
+        {
+          "active_score_delta": 0.077292,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.232303,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        },
+        {
+          "active_score_delta": 0.015934,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:pair:par:002",
+          "family_id": "en-es:full-family-repaired-full:pair:par",
+          "gold_decision": "replace",
+          "sentence": "The report compared each pair of measurements."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.7142857142857143,
+        "false_abstain_count": 17,
+        "harmful_replace_count": 1,
+        "predicted_replace_cases": 16,
+        "replace_recall": 0.46875,
+        "winner_accuracy": 0.6808510638297872
+      },
+      "item_count": 28,
+      "regressions": [
+        {
+          "active_score_delta": 0.067556,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "Smoke began to billow from the warehouse."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "conservative_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 6,
+        "regressed": 0,
+        "still_correct": 35,
+        "still_wrong": 22
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.095238,
+        "false_abstain_delta": -6,
+        "harmful_replace_delta": 0,
+        "predicted_replace_delta": 6,
+        "replace_recall_delta": 0.1875,
+        "winner_accuracy_delta": 0.0
+      },
+      "description": "keep one highest-quality sentence-only row per family",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.085159,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.051783,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.075508,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.051107,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.10896,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        },
+        {
+          "active_score_delta": 0.012392,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:pair:par:002",
+          "family_id": "en-es:full-family-repaired-full:pair:par",
+          "gold_decision": "replace",
+          "sentence": "The report compared each pair of measurements."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.6507936507936508,
+        "false_abstain_count": 22,
+        "harmful_replace_count": 0,
+        "predicted_replace_cases": 10,
+        "replace_recall": 0.3125,
+        "winner_accuracy": 0.6595744680851063
+      },
+      "item_count": 16,
+      "regressions": [],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "quality_top1_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 12,
+        "regressed": 2,
+        "still_correct": 33,
+        "still_wrong": 16
+      },
+      "comparison": {
+        "decision_accuracy_delta": 0.15873,
+        "false_abstain_delta": -12,
+        "harmful_replace_delta": 2,
+        "predicted_replace_delta": 14,
+        "replace_recall_delta": 0.375,
+        "winner_accuracy_delta": 0.021277
+      },
+      "description": "keep up to two highest-quality sentence-only rows per family after audit scoring",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [
+        {
+          "active_score_delta": 0.081217,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:emotion:emoci-n:002",
+          "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+          "gold_decision": "replace",
+          "sentence": "She hid every emotion during the interview."
+        },
+        {
+          "active_score_delta": 0.160521,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:stall:cuadra:001",
+          "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+          "gold_decision": "replace",
+          "sentence": "The horse returned to its stall after training."
+        },
+        {
+          "active_score_delta": 0.150481,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:handiwork:artesan-a:002",
+          "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+          "gold_decision": "replace",
+          "sentence": "Each carved bowl showed careful handiwork."
+        },
+        {
+          "active_score_delta": 0.14383,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:001",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "replace",
+          "sentence": "A dark billow rolled across the harbor."
+        },
+        {
+          "active_score_delta": 0.073495,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:001",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "The patient will recover after several weeks of rest."
+        },
+        {
+          "active_score_delta": 0.078649,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:recover:sanar:002",
+          "family_id": "en-es:full-family-repaired-full:recover:sanar",
+          "gold_decision": "replace",
+          "sentence": "His ankle began to recover after therapy."
+        },
+        {
+          "active_score_delta": 0.192728,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:002",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "replace",
+          "sentence": "She could hear her roommate snore through the wall."
+        },
+        {
+          "active_score_delta": 0.178601,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:current:contempor-neo:002",
+          "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+          "gold_decision": "replace",
+          "sentence": "Current research focuses on smaller batteries."
+        },
+        {
+          "active_score_delta": 0.077352,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:parrot:loro:001",
+          "family_id": "en-es:full-family-repaired-full:parrot:loro",
+          "gold_decision": "replace",
+          "sentence": "A green parrot perched above the doorway."
+        },
+        {
+          "active_score_delta": 0.232512,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:adder:v-bora:001",
+          "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+          "gold_decision": "replace",
+          "sentence": "An adder slid through the grass near the path."
+        }
+      ],
+      "generated_active_only": {
+        "cases_total": 63,
+        "decision_accuracy": 0.7142857142857143,
+        "false_abstain_count": 16,
+        "harmful_replace_count": 2,
+        "predicted_replace_cases": 18,
+        "replace_recall": 0.5,
+        "winner_accuracy": 0.6808510638297872
+      },
+      "item_count": 32,
+      "regressions": [
+        {
+          "active_score_delta": 0.062084,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:billow:oleaje:003",
+          "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+          "gold_decision": "abstain",
+          "sentence": "Smoke began to billow from the warehouse."
+        },
+        {
+          "active_score_delta": 0.178909,
+          "base_predicted_decision": "abstain",
+          "candidate_predicted_decision": "replace",
+          "case_id": "en-es:full-family-repaired-full:snore:roncar:003",
+          "family_id": "en-es:full-family-repaired-full:snore:roncar",
+          "gold_decision": "abstain",
+          "sentence": "A loud snore came from the next room."
+        }
+      ],
+      "score_issues": [],
+      "score_status": "ok",
+      "view_id": "quality_top2_sentence_only"
+    }
+  ]
+}

@@ -7,11 +7,18 @@ import platform
 import subprocess
 import sys
 import shutil
+import json
 from pathlib import Path
 from typing import Sequence, Tuple
 
 MAIN_APP_BUNDLE = "LexiShift.app"
 HELPER_APP_BUNDLE = "LexiShift Helper.app"
+WINDOWS_COLLECT_LAYOUT = (
+    ("LexiShift.exe", "LexiShift"),
+    ("LexiShiftHelper.exe", "LexiShiftHelper"),
+    ("lexishift_native_host.exe", "LexiShiftNativeHost"),
+)
+WINDOWS_PROCESS_NAMES = ("LexiShift", "LexiShiftHelper", "lexishift_native_host")
 
 
 def _resolve_repo_root() -> str:
@@ -99,6 +106,81 @@ def _run_validation(repo_root: str, dist_path: str) -> None:
         raise SystemExit(result.returncode)
 
 
+def _list_windows_lexishift_processes() -> list[tuple[int, str]]:
+    shell = shutil.which("powershell") or shutil.which("pwsh")
+    if not shell:
+        return []
+    process_names = ",".join(f'"{name}"' for name in WINDOWS_PROCESS_NAMES)
+    command = [
+        shell,
+        "-NoProfile",
+        "-Command",
+        (
+            "$procs = Get-Process -Name "
+            f"{process_names} "
+            "-ErrorAction SilentlyContinue | "
+            "Where-Object { $_.Path } | "
+            "Select-Object Id, Path; "
+            "if ($procs) { $procs | ConvertTo-Json -Compress }"
+        ),
+    ]
+    result = subprocess.run(command, check=False, capture_output=True, text=True)
+    if result.returncode != 0 or not result.stdout.strip():
+        return []
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return []
+    records = payload if isinstance(payload, list) else [payload]
+    rows: list[tuple[int, str]] = []
+    for record in records:
+        if not isinstance(record, dict):
+            continue
+        pid = record.get("Id")
+        path = record.get("Path")
+        if isinstance(pid, int) and isinstance(path, str) and path.strip():
+            rows.append((pid, path))
+    return rows
+
+
+def _terminate_windows_process_tree(pid: int) -> None:
+    subprocess.run(
+        ["taskkill", "/PID", str(pid), "/F", "/T"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+
+def _terminate_windows_dist_processes(dist_path: str) -> None:
+    if platform.system() != "Windows":
+        return
+    dist_dir = Path(dist_path).resolve()
+    for pid, process_path in _list_windows_lexishift_processes():
+        try:
+            resolved_path = Path(process_path).resolve()
+        except OSError:
+            continue
+        if not resolved_path.is_relative_to(dist_dir):
+            continue
+        _terminate_windows_process_tree(pid)
+        print(f"Stopped dist-owned process {pid}: {resolved_path}")
+
+
+def _cleanup_windows_collect_duplicates(dist_path: str) -> None:
+    dist_dir = Path(dist_path)
+    for exe_name, dir_name in WINDOWS_COLLECT_LAYOUT:
+        root_exe = dist_dir / exe_name
+        collected_exe = dist_dir / dir_name / exe_name
+        if not root_exe.exists() or not collected_exe.exists():
+            continue
+        try:
+            root_exe.unlink()
+            print(f"Removed duplicate root exe: {root_exe}")
+        except OSError:
+            continue
+
+
 def main() -> int:
     repo_root = _resolve_repo_root()
     default_spec, default_dist, default_build = _default_paths(repo_root)
@@ -156,6 +238,19 @@ def main() -> int:
         help="Keep existing dist/work directories.",
     )
     parser.add_argument(
+        "--upx",
+        dest="upx",
+        action="store_true",
+        default=True,
+        help="Allow UPX compression if UPX is installed (default).",
+    )
+    parser.add_argument(
+        "--no-upx",
+        dest="upx",
+        action="store_false",
+        help="Disable UPX compression for this build.",
+    )
+    parser.add_argument(
         "pyinstaller_args",
         nargs=argparse.REMAINDER,
         help="Additional arguments passed through to PyInstaller.",
@@ -194,9 +289,13 @@ def main() -> int:
 
     mode = _detect_build_mode(spec_path)
     print(f"Build Mode: {mode.upper()}")
+    print(f"UPX: {'enabled if available' if args.upx else 'disabled'}")
     if mode == "onefile":
         print("  -> Warning: One-file builds have slower startup times.")
         print("  -> To fix: Edit the .spec file to use COLLECT() for a one-dir build.")
+
+    if platform.system() == "Windows":
+        _terminate_windows_dist_processes(dist_path)
 
     if args.clean_output:
         print("Cleaning dist/work directories...")
@@ -216,10 +315,14 @@ def main() -> int:
     env["PYTHONUNBUFFERED"] = "1"
     env.setdefault("LEXISHIFT_REPO_ROOT", repo_root)
     env.setdefault("LEXISHIFT_SPEC_PATH", spec_path)
+    env["LEXISHIFT_PYINSTALLER_UPX"] = "1" if args.upx else "0"
 
     result = subprocess.run(cmd, env=env, check=False, cwd=repo_root)
     if result.returncode != 0:
         return int(result.returncode)
+
+    if platform.system() == "Windows":
+        _cleanup_windows_collect_duplicates(dist_path)
 
     app_paths: list[Path] = []
     if platform.system() == "Darwin":

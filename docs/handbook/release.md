@@ -3,6 +3,15 @@ layout: default
 title: Release Guide
 ---
 
+<!--
+Status: active Pages release guide
+Role: Runbook / operational
+Last updated: 2026-06-03
+Last verified: 2026-06-03 hosting/distribution roadmap routing review and doc-reference check; release commands not rerun
+Purpose: provide a concise Pages guide for packaging, installer validation, and Chrome Web Store readiness checks
+Source-of-truth: user-facing release guide only; current build/release truth lives in build scripts, CWS runbooks, preflight outputs, and feature-state evidence.
+-->
+
 # Release Guide
 
 This page is the concise release flow for packaging and Chrome Web Store readiness.
@@ -31,6 +40,8 @@ npm --prefix scripts run preflight:cws
 ```
 
 References:
+- Hosting/distribution roadmap: [../developer/hosting_distribution_roadmap.md](../developer/hosting_distribution_roadmap.md)
+- Cloudflare distribution setup: [../runbooks/cloudflare_distribution_setup.md](../runbooks/cloudflare_distribution_setup.md)
 - Upload gate runbook: [../runbooks/cws_upload_gate.md](../runbooks/cws_upload_gate.md)
 - Preflight reports folder: [../runbooks/cws_preflight_reports/README.md](../runbooks/cws_preflight_reports/README.md)
 

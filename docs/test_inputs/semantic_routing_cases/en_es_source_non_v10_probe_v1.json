@@ -1,0 +1,462 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_probe_v1",
+  "description": "Small non-v10 en-es source-backed probe for ambiguous noun replacements with verb or alternate-noun abstain controls. This is a source-admission probe, not a broad quality gate.",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:rock:roca",
+      "trigger": "rock",
+      "active": {
+        "sense_id": "en-es:sentence-veto:rock:roca:active",
+        "target_lemma": "roca",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "stone rock",
+          "gloss_text": "hard mineral lump or stone",
+          "sense_gloss_bundle": "stone rock | hard mineral lump",
+          "all_evidence_text": "stone rock | hard mineral lump or stone | mineral matter"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:rock:sacudir:shadow",
+          "target_lemma": "sacudir",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "rock or shake",
+            "gloss_text": "move or cause to move back and forth",
+            "sense_gloss_bundle": "rock or shake | sway movement",
+            "all_evidence_text": "rock or shake | move or cause to move back and forth | sway"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:rock:001",
+          "sentence": "The rock beside the trail cracked after the frost.",
+          "source_phrase": "rock",
+          "gold_winner": "en-es:sentence-veto:rock:roca:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:rock:002",
+          "sentence": "Workers cleared a heavy rock from the road.",
+          "source_phrase": "rock",
+          "gold_winner": "en-es:sentence-veto:rock:roca:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:rock:003",
+          "sentence": "The policy could rock the market before Monday.",
+          "source_phrase": "rock",
+          "gold_winner": "en-es:sentence-veto:rock:sacudir:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_probe", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:draft:borrador",
+      "trigger": "draft",
+      "active": {
+        "sense_id": "en-es:sentence-veto:draft:borrador:active",
+        "target_lemma": "borrador",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "preliminary draft",
+          "gloss_text": "early version of a written work",
+          "sense_gloss_bundle": "preliminary draft | written version",
+          "all_evidence_text": "preliminary draft | early version of a written work | document copy"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:draft:reclutar:shadow",
+          "target_lemma": "reclutar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "draft or enlist",
+            "gloss_text": "recruit somebody to enter service",
+            "sense_gloss_bundle": "draft or enlist | recruit people",
+            "all_evidence_text": "draft or enlist | recruit somebody to enter service | muster in"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:draft:001",
+          "sentence": "The draft of the letter was brief.",
+          "source_phrase": "draft",
+          "gold_winner": "en-es:sentence-veto:draft:borrador:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:draft:002",
+          "sentence": "Editors reviewed the second draft before publication.",
+          "source_phrase": "draft",
+          "gold_winner": "en-es:sentence-veto:draft:borrador:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:draft:003",
+          "sentence": "Agencies may draft in volunteers before storms.",
+          "source_phrase": "draft",
+          "gold_winner": "en-es:sentence-veto:draft:reclutar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_probe", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:case:caso",
+      "trigger": "case",
+      "active": {
+        "sense_id": "en-es:sentence-veto:case:caso:active",
+        "target_lemma": "caso",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "legal case",
+          "gloss_text": "court proceeding or matter requiring investigation",
+          "sense_gloss_bundle": "legal case | court proceeding",
+          "all_evidence_text": "legal case | court proceeding or matter requiring investigation | lawsuit problem"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:case:estuche:shadow",
+          "target_lemma": "estuche",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "container case",
+            "gloss_text": "portable container for carrying objects",
+            "sense_gloss_bundle": "container case | portable container",
+            "all_evidence_text": "container case | portable container for carrying objects | instrument case"
+          }
+        },
+        {
+          "sense_id": "en-es:sentence-veto:case:vigilar:shadow",
+          "target_lemma": "vigilar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "case or scout",
+            "gloss_text": "look over a place with intent to rob",
+            "sense_gloss_bundle": "case or scout | inspect a place",
+            "all_evidence_text": "case or scout | look over a place with intent to rob | inspect house"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:case:001",
+          "sentence": "The court case resumed after lunch.",
+          "source_phrase": "case",
+          "gold_winner": "en-es:sentence-veto:case:caso:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:case:002",
+          "sentence": "The case on the shelf was empty.",
+          "source_phrase": "case",
+          "gold_winner": "en-es:sentence-veto:case:estuche:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_probe", "semantic_shadow", "alternate_noun"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:case:003",
+          "sentence": "Detectives can case out the warehouse quietly.",
+          "source_phrase": "case",
+          "gold_winner": "en-es:sentence-veto:case:vigilar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_probe", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:scale:escala",
+      "trigger": "scale",
+      "active": {
+        "sense_id": "en-es:sentence-veto:scale:escala:active",
+        "target_lemma": "escala",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "measurement scale",
+          "gloss_text": "ordered reference standard or graduated series",
+          "sense_gloss_bundle": "measurement scale | ordered standard",
+          "all_evidence_text": "measurement scale | ordered reference standard or graduated series | ratio"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:scale:escalar:shadow",
+          "target_lemma": "escalar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "scale or climb",
+            "gloss_text": "climb up or reach the top of something",
+            "sense_gloss_bundle": "scale or climb | climb up",
+            "all_evidence_text": "scale or climb | climb up or reach the top of something | wall"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:scale:001",
+          "sentence": "The survey used a scale from one to ten.",
+          "source_phrase": "scale",
+          "gold_winner": "en-es:sentence-veto:scale:escala:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:scale:002",
+          "sentence": "The map scale was printed below the legend.",
+          "source_phrase": "scale",
+          "gold_winner": "en-es:sentence-veto:scale:escala:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:scale:003",
+          "sentence": "Climbers can scale the wall before sunset.",
+          "source_phrase": "scale",
+          "gold_winner": "en-es:sentence-veto:scale:escalar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_probe", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:line:linea",
+      "trigger": "line",
+      "active": {
+        "sense_id": "en-es:sentence-veto:line:linea:active",
+        "target_lemma": "linea",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "written or drawn line",
+          "gloss_text": "long mark or row of words on a page",
+          "sense_gloss_bundle": "written or drawn line | long mark",
+          "all_evidence_text": "written or drawn line | long mark or row of words on a page | text"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:line:forrar:shadow",
+          "target_lemma": "forrar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "line or cover inside",
+            "gloss_text": "cover the interior of something with material",
+            "sense_gloss_bundle": "line or cover inside | interior covering",
+            "all_evidence_text": "line or cover inside | cover the interior of something with material | fabric"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:line:001",
+          "sentence": "He drew a line across the page.",
+          "source_phrase": "line",
+          "gold_winner": "en-es:sentence-veto:line:linea:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:line:002",
+          "sentence": "The first line of the poem was short.",
+          "source_phrase": "line",
+          "gold_winner": "en-es:sentence-veto:line:linea:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:line:003",
+          "sentence": "Tailors may line the coat with silk.",
+          "source_phrase": "line",
+          "gold_winner": "en-es:sentence-veto:line:forrar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_probe", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:point:punto",
+      "trigger": "point",
+      "active": {
+        "sense_id": "en-es:sentence-veto:point:punto:active",
+        "target_lemma": "punto",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "main point",
+          "gloss_text": "specific item, location, or essential meaning",
+          "sense_gloss_bundle": "main point | essential meaning",
+          "all_evidence_text": "main point | specific item, location, or essential meaning | detail"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:point:senalar:shadow",
+          "target_lemma": "senalar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "point or indicate",
+            "gloss_text": "indicate a place or direction",
+            "sense_gloss_bundle": "point or indicate | show direction",
+            "all_evidence_text": "point or indicate | indicate a place or direction | show"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:point:001",
+          "sentence": "The main point of the speech was clear.",
+          "source_phrase": "point",
+          "gold_winner": "en-es:sentence-veto:point:punto:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:point:002",
+          "sentence": "Mark the point where the trail turns.",
+          "source_phrase": "point",
+          "gold_winner": "en-es:sentence-veto:point:punto:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:point:003",
+          "sentence": "The arrows can point out exits during drills.",
+          "source_phrase": "point",
+          "gold_winner": "en-es:sentence-veto:point:senalar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_probe", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:ring:anillo",
+      "trigger": "ring",
+      "active": {
+        "sense_id": "en-es:sentence-veto:ring:anillo:active",
+        "target_lemma": "anillo",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "jewelry ring",
+          "gloss_text": "circular band worn on a finger",
+          "sense_gloss_bundle": "jewelry ring | circular band",
+          "all_evidence_text": "jewelry ring | circular band worn on a finger | precious metal"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:ring:sonar:shadow",
+          "target_lemma": "sonar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "ring or sound",
+            "gloss_text": "sound loudly like a bell",
+            "sense_gloss_bundle": "ring or sound | bell sound",
+            "all_evidence_text": "ring or sound | sound loudly like a bell | peal"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:ring:001",
+          "sentence": "She polished the silver ring before dinner.",
+          "source_phrase": "ring",
+          "gold_winner": "en-es:sentence-veto:ring:anillo:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:ring:002",
+          "sentence": "The wedding ring fit perfectly.",
+          "source_phrase": "ring",
+          "gold_winner": "en-es:sentence-veto:ring:anillo:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:ring:003",
+          "sentence": "The bells may ring out across the valley.",
+          "source_phrase": "ring",
+          "gold_winner": "en-es:sentence-veto:ring:sonar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_probe", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:date:fecha",
+      "trigger": "date",
+      "active": {
+        "sense_id": "en-es:sentence-veto:date:fecha:active",
+        "target_lemma": "fecha",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "calendar date",
+          "gloss_text": "specified day, month, or year",
+          "sense_gloss_bundle": "calendar date | specified day",
+          "all_evidence_text": "calendar date | specified day, month, or year | event time"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-es:sentence-veto:date:datil:shadow",
+          "target_lemma": "datil",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "date fruit",
+            "gloss_text": "sweet edible fruit of the date palm",
+            "sense_gloss_bundle": "date fruit | edible fruit",
+            "all_evidence_text": "date fruit | sweet edible fruit of the date palm | seed"
+          }
+        },
+        {
+          "sense_id": "en-es:sentence-veto:date:fechar:shadow",
+          "target_lemma": "fechar",
+          "canonical_pos": "verb",
+          "evidence_views": {
+            "sense_label": "date or assign time",
+            "gloss_text": "assign or determine the probable date of something",
+            "sense_gloss_bundle": "date or assign time | determine age",
+            "all_evidence_text": "date or assign time | assign or determine the probable date of something | archaeological findings"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:date:001",
+          "sentence": "The due date was printed on the notice.",
+          "source_phrase": "date",
+          "gold_winner": "en-es:sentence-veto:date:fecha:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:date:002",
+          "sentence": "Please write the date at the top.",
+          "source_phrase": "date",
+          "gold_winner": "en-es:sentence-veto:date:fecha:active",
+          "gold_decision": "replace",
+          "slice_tags": ["non_v10_probe", "semantic_active"]
+        },
+        {
+          "case_id": "en-es:source-non-v10-probe:v1:date:003",
+          "sentence": "The artifacts may date back several centuries.",
+          "source_phrase": "date",
+          "gold_winner": "en-es:sentence-veto:date:fechar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_probe", "semantic_shadow", "verb_frame"]
+        }
+      ]
+    }
+  ]
+}

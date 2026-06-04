@@ -1,0 +1,1196 @@
+{
+  "schema_version": 1,
+  "review_id": "srs_animals_plants_signal_review_labels_en_es_spalex_10k_v1",
+  "source_review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json",
+  "reviewer": "codex_agent",
+  "reviewed_at": "2026-05-19",
+  "state": "agent_labeled_pending_user_approval",
+  "label_policy": {
+    "promotion_boundary": "These labels are review evidence only; they do not promote overlay rows or product-ready topic truth.",
+    "allowed_decisions": [
+      "accept_strong_topic",
+      "accept_light_topic",
+      "reject_wrong_topic",
+      "reject_secondary_or_obscure_sense",
+      "uncertain_needs_source_check"
+    ]
+  },
+  "labels": [
+    {
+      "review_id": "srs-anpl-001",
+      "family": "animals",
+      "lemma": "vicuña",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: vicuna mammal."
+    },
+    {
+      "review_id": "srs-anpl-002",
+      "family": "plants_nature",
+      "lemma": "vegetal",
+      "decision": "accept_light_topic",
+      "notes": "Plant or vegetable meaning is real, but broad and adjective-heavy."
+    },
+    {
+      "review_id": "srs-anpl-003",
+      "family": "animals",
+      "lemma": "nasa",
+      "decision": "accept_light_topic",
+      "notes": "Fish-trap sense is animal-adjacent, not an animal noun."
+    },
+    {
+      "review_id": "srs-anpl-004",
+      "family": "plants_nature",
+      "lemma": "lima",
+      "decision": "accept_light_topic",
+      "notes": "Lime fruit sense is useful but overlaps food and place-name senses."
+    },
+    {
+      "review_id": "srs-anpl-005",
+      "family": "animals",
+      "lemma": "sapo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: toad."
+    },
+    {
+      "review_id": "srs-anpl-006",
+      "family": "plants_nature",
+      "lemma": "tipo",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Herb sense is too secondary against dominant type/person senses."
+    },
+    {
+      "review_id": "srs-anpl-007",
+      "family": "animals",
+      "lemma": "ortega",
+      "decision": "accept_light_topic",
+      "notes": "Bird sense appears real, but name/place ambiguity keeps it light."
+    },
+    {
+      "review_id": "srs-anpl-008",
+      "family": "plants_nature",
+      "lemma": "verónica",
+      "decision": "accept_light_topic",
+      "notes": "Speedwell plant sense is real, but proper-name senses compete."
+    },
+    {
+      "review_id": "srs-anpl-009",
+      "family": "animals",
+      "lemma": "buey",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: ox/cattle."
+    },
+    {
+      "review_id": "srs-anpl-010",
+      "family": "plants_nature",
+      "lemma": "chile",
+      "decision": "accept_light_topic",
+      "notes": "Chili pepper sense is real, but country and food senses compete."
+    },
+    {
+      "review_id": "srs-anpl-011",
+      "family": "animals",
+      "lemma": "labrador",
+      "decision": "accept_light_topic",
+      "notes": "Dog breed sense is real, but place/person ambiguity keeps it light."
+    },
+    {
+      "review_id": "srs-anpl-012",
+      "family": "plants_nature",
+      "lemma": "castaño",
+      "decision": "accept_light_topic",
+      "notes": "Chestnut tree sense is real, but color/adjective senses compete."
+    },
+    {
+      "review_id": "srs-anpl-013",
+      "family": "animals",
+      "lemma": "cabra",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: goat."
+    },
+    {
+      "review_id": "srs-anpl-014",
+      "family": "plants_nature",
+      "lemma": "cultivar",
+      "decision": "accept_light_topic",
+      "notes": "Botany term is useful, but it is not a plant organism noun."
+    },
+    {
+      "review_id": "srs-anpl-015",
+      "family": "animals",
+      "lemma": "cerdo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: pig."
+    },
+    {
+      "review_id": "srs-anpl-016",
+      "family": "plants_nature",
+      "lemma": "suspiro",
+      "decision": "accept_light_topic",
+      "notes": "Flower sense appears real, but the common non-plant sense dominates."
+    },
+    {
+      "review_id": "srs-anpl-017",
+      "family": "animals",
+      "lemma": "mono",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: monkey/ape."
+    },
+    {
+      "review_id": "srs-anpl-018",
+      "family": "plants_nature",
+      "lemma": "loco",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Plant sense is too secondary against common adjective/person senses."
+    },
+    {
+      "review_id": "srs-anpl-019",
+      "family": "animals",
+      "lemma": "víbora",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: viper/snake."
+    },
+    {
+      "review_id": "srs-anpl-020",
+      "family": "plants_nature",
+      "lemma": "coral",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Coral vine sense is secondary; animal/color senses dominate."
+    },
+    {
+      "review_id": "srs-anpl-021",
+      "family": "animals",
+      "lemma": "pájaro",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: bird."
+    },
+    {
+      "review_id": "srs-anpl-022",
+      "family": "plants_nature",
+      "lemma": "nazareno",
+      "decision": "accept_light_topic",
+      "notes": "Grape hyacinth sense is real, but religious/person senses compete."
+    },
+    {
+      "review_id": "srs-anpl-023",
+      "family": "animals",
+      "lemma": "gato",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: cat."
+    },
+    {
+      "review_id": "srs-anpl-024",
+      "family": "plants_nature",
+      "lemma": "nodo",
+      "decision": "accept_light_topic",
+      "notes": "Plant anatomy term is relevant, but not a plant organism noun."
+    },
+    {
+      "review_id": "srs-anpl-025",
+      "family": "animals",
+      "lemma": "perro",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: dog."
+    },
+    {
+      "review_id": "srs-anpl-026",
+      "family": "plants_nature",
+      "lemma": "mulato",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Plant senses are too secondary against common person/color senses."
+    },
+    {
+      "review_id": "srs-anpl-027",
+      "family": "animals",
+      "lemma": "chivo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: goat."
+    },
+    {
+      "review_id": "srs-anpl-028",
+      "family": "plants_nature",
+      "lemma": "jacinto",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: hyacinth flower."
+    },
+    {
+      "review_id": "srs-anpl-029",
+      "family": "animals",
+      "lemma": "caballo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: horse."
+    },
+    {
+      "review_id": "srs-anpl-030",
+      "family": "plants_nature",
+      "lemma": "manzana",
+      "decision": "accept_light_topic",
+      "notes": "Apple fruit sense is useful, but food/category overlap keeps it light."
+    },
+    {
+      "review_id": "srs-anpl-031",
+      "family": "animals",
+      "lemma": "conejo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: rabbit."
+    },
+    {
+      "review_id": "srs-anpl-032",
+      "family": "plants_nature",
+      "lemma": "centeno",
+      "decision": "accept_light_topic",
+      "notes": "Rye crop/grain sense is useful, with food/crop overlap."
+    },
+    {
+      "review_id": "srs-anpl-033",
+      "family": "animals",
+      "lemma": "rata",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: rat."
+    },
+    {
+      "review_id": "srs-anpl-034",
+      "family": "plants_nature",
+      "lemma": "viña",
+      "decision": "accept_light_topic",
+      "notes": "Vineyard/grapevine context is useful but not simply an organism noun."
+    },
+    {
+      "review_id": "srs-anpl-035",
+      "family": "animals",
+      "lemma": "gallo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: rooster."
+    },
+    {
+      "review_id": "srs-anpl-036",
+      "family": "plants_nature",
+      "lemma": "ajo",
+      "decision": "accept_light_topic",
+      "notes": "Garlic plant/herb sense is useful, with food overlap."
+    },
+    {
+      "review_id": "srs-anpl-037",
+      "family": "animals",
+      "lemma": "serpiente",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: snake."
+    },
+    {
+      "review_id": "srs-anpl-038",
+      "family": "plants_nature",
+      "lemma": "encina",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: holm oak."
+    },
+    {
+      "review_id": "srs-anpl-039",
+      "family": "animals",
+      "lemma": "tigre",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: tiger."
+    },
+    {
+      "review_id": "srs-anpl-040",
+      "family": "plants_nature",
+      "lemma": "palma",
+      "decision": "accept_light_topic",
+      "notes": "Palm tree sense is real, but hand/palm senses compete."
+    },
+    {
+      "review_id": "srs-anpl-041",
+      "family": "animals",
+      "lemma": "acompañante",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Zoology companion/context sense is too indirect for animal topic admission."
+    },
+    {
+      "review_id": "srs-anpl-042",
+      "family": "plants_nature",
+      "lemma": "cáliz",
+      "decision": "accept_light_topic",
+      "notes": "Plant anatomy calyx is real, but chalice sense competes."
+    },
+    {
+      "review_id": "srs-anpl-043",
+      "family": "animals",
+      "lemma": "chola",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Regional fish sense is too secondary against common person senses."
+    },
+    {
+      "review_id": "srs-anpl-044",
+      "family": "plants_nature",
+      "lemma": "trueno",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Privet plant sense is too secondary against thunder primary sense."
+    },
+    {
+      "review_id": "srs-anpl-045",
+      "family": "animals",
+      "lemma": "traidor",
+      "decision": "reject_wrong_topic",
+      "notes": "Animal evidence is figurative snake translation, not an animal topic row."
+    },
+    {
+      "review_id": "srs-anpl-046",
+      "family": "plants_nature",
+      "lemma": "manzano",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: apple tree."
+    },
+    {
+      "review_id": "srs-anpl-047",
+      "family": "animals",
+      "lemma": "león",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: lion, despite proper-name ambiguity."
+    },
+    {
+      "review_id": "srs-anpl-048",
+      "family": "plants_nature",
+      "lemma": "serrano",
+      "decision": "accept_light_topic",
+      "notes": "Serrano chile evidence is useful, but adjective/place senses compete."
+    },
+    {
+      "review_id": "srs-anpl-049",
+      "family": "animals",
+      "lemma": "pico",
+      "decision": "reject_wrong_topic",
+      "notes": "Beak/crest evidence is animal anatomy, not an animal topic row."
+    },
+    {
+      "review_id": "srs-anpl-050",
+      "family": "plants_nature",
+      "lemma": "granado",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: pomegranate tree."
+    },
+    {
+      "review_id": "srs-anpl-051",
+      "family": "animals",
+      "lemma": "desmán",
+      "decision": "accept_light_topic",
+      "notes": "Desman animal sense is real, but abuse/excess sense is common."
+    },
+    {
+      "review_id": "srs-anpl-052",
+      "family": "plants_nature",
+      "lemma": "cardo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: thistle/cardoon."
+    },
+    {
+      "review_id": "srs-anpl-053",
+      "family": "animals",
+      "lemma": "cachorro",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: young dog or baby animal."
+    },
+    {
+      "review_id": "srs-anpl-054",
+      "family": "plants_nature",
+      "lemma": "cebada",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant/crop sense: barley."
+    },
+    {
+      "review_id": "srs-anpl-055",
+      "family": "animals",
+      "lemma": "avión",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Bird sense is too secondary against airplane primary sense."
+    },
+    {
+      "review_id": "srs-anpl-056",
+      "family": "plants_nature",
+      "lemma": "maíz",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant/crop sense: corn/maize."
+    },
+    {
+      "review_id": "srs-anpl-057",
+      "family": "animals",
+      "lemma": "milano",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: kite bird."
+    },
+    {
+      "review_id": "srs-anpl-058",
+      "family": "plants_nature",
+      "lemma": "flor",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: flower."
+    },
+    {
+      "review_id": "srs-anpl-059",
+      "family": "animals",
+      "lemma": "vacuno",
+      "decision": "accept_light_topic",
+      "notes": "Bovine sense is useful, but adjective/meat context keeps it light."
+    },
+    {
+      "review_id": "srs-anpl-060",
+      "family": "plants_nature",
+      "lemma": "parra",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: grapevine."
+    },
+    {
+      "review_id": "srs-anpl-061",
+      "family": "animals",
+      "lemma": "coyote",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: coyote."
+    },
+    {
+      "review_id": "srs-anpl-062",
+      "family": "plants_nature",
+      "lemma": "hierba",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: grass/herb."
+    },
+    {
+      "review_id": "srs-anpl-063",
+      "family": "animals",
+      "lemma": "corral",
+      "decision": "accept_light_topic",
+      "notes": "Animal enclosure context is relevant, but not an animal noun."
+    },
+    {
+      "review_id": "srs-anpl-064",
+      "family": "plants_nature",
+      "lemma": "roble",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: oak."
+    },
+    {
+      "review_id": "srs-anpl-065",
+      "family": "animals",
+      "lemma": "reno",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: reindeer."
+    },
+    {
+      "review_id": "srs-anpl-066",
+      "family": "plants_nature",
+      "lemma": "pino",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: pine."
+    },
+    {
+      "review_id": "srs-anpl-067",
+      "family": "animals",
+      "lemma": "chihuahua",
+      "decision": "accept_strong_topic",
+      "notes": "Dog breed sense is strong despite place-name ambiguity."
+    },
+    {
+      "review_id": "srs-anpl-068",
+      "family": "plants_nature",
+      "lemma": "rosa",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: rose."
+    },
+    {
+      "review_id": "srs-anpl-069",
+      "family": "animals",
+      "lemma": "raya",
+      "decision": "accept_light_topic",
+      "notes": "Ray fish sense is real, but line/stripe senses compete."
+    },
+    {
+      "review_id": "srs-anpl-070",
+      "family": "plants_nature",
+      "lemma": "mata",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: shrub/bush."
+    },
+    {
+      "review_id": "srs-anpl-071",
+      "family": "animals",
+      "lemma": "cabrón",
+      "decision": "accept_light_topic",
+      "notes": "Billy goat sense is real, but vulgar/person senses are strong."
+    },
+    {
+      "review_id": "srs-anpl-072",
+      "family": "plants_nature",
+      "lemma": "árbol",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: tree."
+    },
+    {
+      "review_id": "srs-anpl-073",
+      "family": "animals",
+      "lemma": "jaca",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: small horse/mare."
+    },
+    {
+      "review_id": "srs-anpl-074",
+      "family": "plants_nature",
+      "lemma": "vid",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: vine/grapevine."
+    },
+    {
+      "review_id": "srs-anpl-075",
+      "family": "animals",
+      "lemma": "efímera",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: mayfly."
+    },
+    {
+      "review_id": "srs-anpl-076",
+      "family": "plants_nature",
+      "lemma": "trigo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant/crop sense: wheat."
+    },
+    {
+      "review_id": "srs-anpl-077",
+      "family": "animals",
+      "lemma": "lagartija",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: lizard."
+    },
+    {
+      "review_id": "srs-anpl-078",
+      "family": "plants_nature",
+      "lemma": "sauce",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: willow."
+    },
+    {
+      "review_id": "srs-anpl-079",
+      "family": "animals",
+      "lemma": "jabalí",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: wild boar."
+    },
+    {
+      "review_id": "srs-anpl-080",
+      "family": "plants_nature",
+      "lemma": "planta",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: plant."
+    },
+    {
+      "review_id": "srs-anpl-081",
+      "family": "animals",
+      "lemma": "comadreja",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: weasel."
+    },
+    {
+      "review_id": "srs-anpl-082",
+      "family": "animals",
+      "lemma": "coto",
+      "decision": "accept_light_topic",
+      "notes": "Wildlife preserve context is useful, but not an animal noun."
+    },
+    {
+      "review_id": "srs-anpl-083",
+      "family": "animals",
+      "lemma": "lucio",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: pike fish."
+    },
+    {
+      "review_id": "srs-anpl-084",
+      "family": "animals",
+      "lemma": "faisán",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: pheasant."
+    },
+    {
+      "review_id": "srs-anpl-085",
+      "family": "animals",
+      "lemma": "mona",
+      "decision": "accept_light_topic",
+      "notes": "Female monkey sense is real, but common non-animal senses compete."
+    },
+    {
+      "review_id": "srs-anpl-086",
+      "family": "animals",
+      "lemma": "reptil",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal class sense: reptile."
+    },
+    {
+      "review_id": "srs-anpl-087",
+      "family": "animals",
+      "lemma": "bruja",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Owl/shark senses are too secondary against witch primary sense."
+    },
+    {
+      "review_id": "srs-anpl-088",
+      "family": "animals",
+      "lemma": "cordero",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: lamb."
+    },
+    {
+      "review_id": "srs-anpl-089",
+      "family": "animals",
+      "lemma": "cobra",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: cobra."
+    },
+    {
+      "review_id": "srs-anpl-090",
+      "family": "animals",
+      "lemma": "tablero",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Petrel sense is too secondary against board/table meanings."
+    },
+    {
+      "review_id": "srs-anpl-091",
+      "family": "animals",
+      "lemma": "oso",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: bear."
+    },
+    {
+      "review_id": "srs-anpl-092",
+      "family": "animals",
+      "lemma": "bestia",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal/beast sense."
+    },
+    {
+      "review_id": "srs-anpl-093",
+      "family": "animals",
+      "lemma": "escarabajo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: beetle."
+    },
+    {
+      "review_id": "srs-anpl-094",
+      "family": "animals",
+      "lemma": "ave",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal class sense: bird."
+    },
+    {
+      "review_id": "srs-anpl-095",
+      "family": "animals",
+      "lemma": "pollo",
+      "decision": "accept_light_topic",
+      "notes": "Chicken animal sense is real, but meat/food use is strong."
+    },
+    {
+      "review_id": "srs-anpl-096",
+      "family": "animals",
+      "lemma": "cóndor",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: condor."
+    },
+    {
+      "review_id": "srs-anpl-097",
+      "family": "animals",
+      "lemma": "vaca",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: cow."
+    },
+    {
+      "review_id": "srs-anpl-098",
+      "family": "animals",
+      "lemma": "cuervo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: crow."
+    },
+    {
+      "review_id": "srs-anpl-099",
+      "family": "animals",
+      "lemma": "ciervo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: deer or stag."
+    },
+    {
+      "review_id": "srs-anpl-100",
+      "family": "animals",
+      "lemma": "can",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: dog or hound."
+    },
+    {
+      "review_id": "srs-anpl-101",
+      "family": "animals",
+      "lemma": "burro",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: donkey."
+    },
+    {
+      "review_id": "srs-anpl-102",
+      "family": "animals",
+      "lemma": "pato",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: duck."
+    },
+    {
+      "review_id": "srs-anpl-103",
+      "family": "animals",
+      "lemma": "águila",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: eagle."
+    },
+    {
+      "review_id": "srs-anpl-104",
+      "family": "animals",
+      "lemma": "halcón",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: falcon."
+    },
+    {
+      "review_id": "srs-anpl-105",
+      "family": "animals",
+      "lemma": "pez",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: fish."
+    },
+    {
+      "review_id": "srs-anpl-106",
+      "family": "animals",
+      "lemma": "zorro",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: fox."
+    },
+    {
+      "review_id": "srs-anpl-107",
+      "family": "animals",
+      "lemma": "rana",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: frog."
+    },
+    {
+      "review_id": "srs-anpl-108",
+      "family": "animals",
+      "lemma": "oca",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: goose."
+    },
+    {
+      "review_id": "srs-anpl-109",
+      "family": "animals",
+      "lemma": "gallina",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: hen."
+    },
+    {
+      "review_id": "srs-anpl-110",
+      "family": "animals",
+      "lemma": "insecto",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal class sense: insect."
+    },
+    {
+      "review_id": "srs-anpl-111",
+      "family": "animals",
+      "lemma": "lagarto",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: lizard."
+    },
+    {
+      "review_id": "srs-anpl-112",
+      "family": "animals",
+      "lemma": "yegua",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: mare."
+    },
+    {
+      "review_id": "srs-anpl-113",
+      "family": "animals",
+      "lemma": "mosquito",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: mosquito."
+    },
+    {
+      "review_id": "srs-anpl-114",
+      "family": "animals",
+      "lemma": "ratón",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: mouse."
+    },
+    {
+      "review_id": "srs-anpl-115",
+      "family": "animals",
+      "lemma": "lechuza",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: owl."
+    },
+    {
+      "review_id": "srs-anpl-116",
+      "family": "animals",
+      "lemma": "loro",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: parrot."
+    },
+    {
+      "review_id": "srs-anpl-117",
+      "family": "animals",
+      "lemma": "chancho",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: pig."
+    },
+    {
+      "review_id": "srs-anpl-118",
+      "family": "animals",
+      "lemma": "tiburón",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: shark."
+    },
+    {
+      "review_id": "srs-anpl-119",
+      "family": "animals",
+      "lemma": "oveja",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: sheep."
+    },
+    {
+      "review_id": "srs-anpl-120",
+      "family": "animals",
+      "lemma": "culebra",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: snake."
+    },
+    {
+      "review_id": "srs-anpl-121",
+      "family": "animals",
+      "lemma": "araña",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: spider."
+    },
+    {
+      "review_id": "srs-anpl-122",
+      "family": "animals",
+      "lemma": "tortuga",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: turtle."
+    },
+    {
+      "review_id": "srs-anpl-123",
+      "family": "animals",
+      "lemma": "ballena",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: whale."
+    },
+    {
+      "review_id": "srs-anpl-124",
+      "family": "animals",
+      "lemma": "lobo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: wolf."
+    },
+    {
+      "review_id": "srs-anpl-125",
+      "family": "animals",
+      "lemma": "manada",
+      "decision": "accept_light_topic",
+      "notes": "Animal-group sense is real, but this is a collective/group word rather than an animal noun."
+    },
+    {
+      "review_id": "srs-anpl-126",
+      "family": "animals",
+      "lemma": "manco",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Animal-related horse evidence is too secondary against the dominant injured/one-handed sense."
+    },
+    {
+      "review_id": "srs-anpl-127",
+      "family": "plants_nature",
+      "lemma": "carolina",
+      "decision": "accept_light_topic",
+      "notes": "Tree-species sense is real, but proper-name ambiguity keeps this light."
+    },
+    {
+      "review_id": "srs-anpl-128",
+      "family": "animals",
+      "lemma": "solitario",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Bird sense is too secondary against solitary/person/game senses."
+    },
+    {
+      "review_id": "srs-anpl-129",
+      "family": "plants_nature",
+      "lemma": "claudia",
+      "decision": "accept_light_topic",
+      "notes": "Fruit/cultivar sense is real, but proper-name ambiguity keeps this light."
+    },
+    {
+      "review_id": "srs-anpl-130",
+      "family": "animals",
+      "lemma": "cubrir",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Zoology mating sense is too secondary for a topic-admission label."
+    },
+    {
+      "review_id": "srs-anpl-131",
+      "family": "plants_nature",
+      "lemma": "angélica",
+      "decision": "accept_light_topic",
+      "notes": "Herb/plant sense is real, but proper-name ambiguity keeps this light."
+    },
+    {
+      "review_id": "srs-anpl-132",
+      "family": "animals",
+      "lemma": "marta",
+      "decision": "accept_light_topic",
+      "notes": "Marten sense is real, but proper-name ambiguity keeps this light."
+    },
+    {
+      "review_id": "srs-anpl-133",
+      "family": "plants_nature",
+      "lemma": "cola",
+      "decision": "accept_light_topic",
+      "notes": "Tree sense is real, but queue/tail/drink senses keep this light."
+    },
+    {
+      "review_id": "srs-anpl-134",
+      "family": "animals",
+      "lemma": "animal",
+      "decision": "accept_strong_topic",
+      "notes": "Direct animal topic word."
+    },
+    {
+      "review_id": "srs-anpl-135",
+      "family": "plants_nature",
+      "lemma": "pulpa",
+      "decision": "accept_light_topic",
+      "notes": "Botany/fruit pulp sense is plant-relevant but broad."
+    },
+    {
+      "review_id": "srs-anpl-136",
+      "family": "animals",
+      "lemma": "hornero",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: bird species."
+    },
+    {
+      "review_id": "srs-anpl-137",
+      "family": "plants_nature",
+      "lemma": "raíz",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant-anatomy sense: root."
+    },
+    {
+      "review_id": "srs-anpl-138",
+      "family": "animals",
+      "lemma": "bovino",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal/cattle sense."
+    },
+    {
+      "review_id": "srs-anpl-139",
+      "family": "plants_nature",
+      "lemma": "aro",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Flower sense is too secondary against ring/hoop senses."
+    },
+    {
+      "review_id": "srs-anpl-140",
+      "family": "animals",
+      "lemma": "chacal",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: jackal."
+    },
+    {
+      "review_id": "srs-anpl-141",
+      "family": "plants_nature",
+      "lemma": "naranja",
+      "decision": "accept_light_topic",
+      "notes": "Fruit/tree sense is real, but food/color/political senses keep this light."
+    },
+    {
+      "review_id": "srs-anpl-142",
+      "family": "animals",
+      "lemma": "rebaño",
+      "decision": "accept_light_topic",
+      "notes": "Animal-herd sense is real, but this is a group word rather than an animal noun."
+    },
+    {
+      "review_id": "srs-anpl-143",
+      "family": "plants_nature",
+      "lemma": "mote",
+      "decision": "accept_light_topic",
+      "notes": "Grain/plant-derived sense is real, but food and nickname senses keep this light."
+    },
+    {
+      "review_id": "srs-anpl-144",
+      "family": "animals",
+      "lemma": "galgo",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: dog breed."
+    },
+    {
+      "review_id": "srs-anpl-145",
+      "family": "plants_nature",
+      "lemma": "uva",
+      "decision": "accept_light_topic",
+      "notes": "Fruit/grapevine sense is plant-relevant but overlaps food."
+    },
+    {
+      "review_id": "srs-anpl-146",
+      "family": "animals",
+      "lemma": "rubio",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Fish sense is too secondary against color/person senses."
+    },
+    {
+      "review_id": "srs-anpl-147",
+      "family": "plants_nature",
+      "lemma": "ruda",
+      "decision": "accept_strong_topic",
+      "notes": "Clear herb/plant sense: rue."
+    },
+    {
+      "review_id": "srs-anpl-148",
+      "family": "animals",
+      "lemma": "jinete",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Horse-rider association is animal-adjacent, not an animal topic label."
+    },
+    {
+      "review_id": "srs-anpl-149",
+      "family": "plants_nature",
+      "lemma": "palmera",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: palm tree."
+    },
+    {
+      "review_id": "srs-anpl-150",
+      "family": "animals",
+      "lemma": "gusano",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: worm."
+    },
+    {
+      "review_id": "srs-anpl-151",
+      "family": "plants_nature",
+      "lemma": "cono",
+      "decision": "accept_light_topic",
+      "notes": "Plant-cone sense is real, but geometry/object senses keep this light."
+    },
+    {
+      "review_id": "srs-anpl-152",
+      "family": "animals",
+      "lemma": "anta",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: tapir."
+    },
+    {
+      "review_id": "srs-anpl-153",
+      "family": "plants_nature",
+      "lemma": "arbusto",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant sense: shrub."
+    },
+    {
+      "review_id": "srs-anpl-154",
+      "family": "animals",
+      "lemma": "paloma",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: dove."
+    },
+    {
+      "review_id": "srs-anpl-155",
+      "family": "plants_nature",
+      "lemma": "pera",
+      "decision": "accept_light_topic",
+      "notes": "Fruit/tree sense is plant-relevant but overlaps food."
+    },
+    {
+      "review_id": "srs-anpl-156",
+      "family": "animals",
+      "lemma": "mico",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: monkey."
+    },
+    {
+      "review_id": "srs-anpl-157",
+      "family": "plants_nature",
+      "lemma": "clavo",
+      "decision": "accept_light_topic",
+      "notes": "Spice/herb sense is plant-relevant but competes with nail/object senses."
+    },
+    {
+      "review_id": "srs-anpl-158",
+      "family": "animals",
+      "lemma": "venado",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: deer."
+    },
+    {
+      "review_id": "srs-anpl-159",
+      "family": "plants_nature",
+      "lemma": "incienso",
+      "decision": "accept_light_topic",
+      "notes": "Tree/resin sense is plant-relevant but broad and product-like."
+    },
+    {
+      "review_id": "srs-anpl-160",
+      "family": "animals",
+      "lemma": "asno",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: donkey."
+    },
+    {
+      "review_id": "srs-anpl-161",
+      "family": "plants_nature",
+      "lemma": "papa",
+      "decision": "accept_light_topic",
+      "notes": "Vegetable/plant sense is real, but food and title senses keep this light."
+    },
+    {
+      "review_id": "srs-anpl-162",
+      "family": "animals",
+      "lemma": "puerco",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: pig."
+    },
+    {
+      "review_id": "srs-anpl-163",
+      "family": "plants_nature",
+      "lemma": "brote",
+      "decision": "accept_strong_topic",
+      "notes": "Clear plant-growth sense: sprout."
+    },
+    {
+      "review_id": "srs-anpl-164",
+      "family": "animals",
+      "lemma": "carnero",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: ram."
+    },
+    {
+      "review_id": "srs-anpl-165",
+      "family": "animals",
+      "lemma": "dinosaurio",
+      "decision": "accept_strong_topic",
+      "notes": "Clear animal sense: dinosaur."
+    },
+    {
+      "review_id": "srs-anpl-166",
+      "family": "animals",
+      "lemma": "aviar",
+      "decision": "accept_light_topic",
+      "notes": "Bird-related adjective is animal-topic relevant, but it is not an animal noun."
+    },
+    {
+      "review_id": "srs-anpl-167",
+      "family": "plants_nature",
+      "lemma": "rambla",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Tree-lined avenue sense is too secondary for a plants/nature label."
+    },
+    {
+      "review_id": "srs-anpl-168",
+      "family": "animals",
+      "lemma": "martín",
+      "decision": "accept_light_topic",
+      "notes": "Bird sense is real, but proper-name ambiguity keeps this light."
+    }
+  ]
+}

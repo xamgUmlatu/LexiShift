@@ -11,6 +11,8 @@ import shlex
 import subprocess
 import sys
 
+from ruff_support import resolve_ruff
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROJECT_HEALTH_BASELINE = (
@@ -454,34 +456,46 @@ def main() -> None:
     payload["changed_python_files"] = changed_python_files
     if changed_python_files:
         print(f"changed_python_files: {len(changed_python_files)}")
-        lint_command = [
-            sys.executable,
-            "-m",
-            "ruff",
-            "check",
-            "--statistics",
-            *changed_python_files,
-        ]
-        format_command = [sys.executable, "-m", "ruff", "format", "--check", *changed_python_files]
-        lint_result = _run_capture(lint_command)
-        format_result = _run_capture(format_command)
-        style_clean = lint_result.returncode == 0 and format_result.returncode == 0
-        payload["style"] = {
-            "lint_command": lint_command,
-            "lint_exit_code": int(lint_result.returncode),
-            "lint_summary": (lint_result.stdout or "").strip(),
-            "format_command": format_command,
-            "format_exit_code": int(format_result.returncode),
-            "format_summary": (format_result.stdout or "").strip(),
-            "status": "clean" if style_clean else "advisory-fail",
-        }
-        if args.strict_style and (lint_result.returncode != 0 or format_result.returncode != 0):
-            _write_json_report(args.json_out, payload)
-            raise SystemExit(1)
-        if not style_clean:
-            print("changed_style_status: advisory-fail")
+        ruff = resolve_ruff()
+        if not ruff.available:
+            payload["style"] = {
+                "lint_exit_code": 127,
+                "lint_summary": "",
+                "format_exit_code": 127,
+                "format_summary": "",
+                "status": "unavailable",
+                "ruff_source": ruff.source,
+                "ruff_detail": ruff.detail,
+            }
+            print("changed_style_status: unavailable")
+            print(f"changed_style_detail: {ruff.detail}")
+            if args.strict_style:
+                _write_json_report(args.json_out, payload)
+                raise SystemExit(1)
         else:
-            print("changed_style_status: clean")
+            lint_command = ruff.command("check", "--statistics", *changed_python_files)
+            format_command = ruff.command("format", "--check", *changed_python_files)
+            lint_result = _run_capture(lint_command)
+            format_result = _run_capture(format_command)
+            style_clean = lint_result.returncode == 0 and format_result.returncode == 0
+            payload["style"] = {
+                "lint_command": lint_command,
+                "lint_exit_code": int(lint_result.returncode),
+                "lint_summary": (lint_result.stdout or "").strip(),
+                "format_command": format_command,
+                "format_exit_code": int(format_result.returncode),
+                "format_summary": (format_result.stdout or "").strip(),
+                "status": "clean" if style_clean else "advisory-fail",
+                "ruff_source": ruff.source,
+                "ruff_detail": ruff.detail,
+            }
+            if args.strict_style and (lint_result.returncode != 0 or format_result.returncode != 0):
+                _write_json_report(args.json_out, payload)
+                raise SystemExit(1)
+            if not style_clean:
+                print("changed_style_status: advisory-fail")
+            else:
+                print("changed_style_status: clean")
     else:
         print("changed_python_files: 0")
         payload["style"] = {"status": "skipped"}

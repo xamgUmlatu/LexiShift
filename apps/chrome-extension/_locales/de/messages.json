@@ -45,7 +45,7 @@
     "message": "Noch keine Datei importiert. Nach Änderungen erneut importieren."
   },
   "section_display": {
-    "message": "Anzeige"
+    "message": "Seitenanzeige"
   },
   "toggle_highlight": {
     "message": "Ersetzte Wörter hervorheben (Klick schaltet Original um)"
@@ -54,10 +54,10 @@
     "message": "Hervorhebungsfarbe"
   },
   "section_replacement_behavior": {
-    "message": "Ersetzungsverhalten"
+    "message": "Ersetzungsdichte auf der Seite"
   },
   "hint_replacement_behavior_scope": {
-    "message": "Diese Einstellungen gelten für alle Ersetzungen (Ruleset und SRS)."
+    "message": "Gilt, nachdem Wortschatztraining und manuelle Regeln für die Seitenanzeige zusammengeführt wurden."
   },
   "toggle_max_one": {
     "message": "Max. 1 Wort pro Textblock ersetzen"
@@ -75,22 +75,112 @@
     "message": "Max. Ersetzungen pro Seite"
   },
   "hint_max_replacements_page": {
-    "message": "0 bedeutet unbegrenzt. Begrenzt die Gesamtzahl der Ersetzungen auf der aktuellen Seite."
+    "message": "Der Standardwert ist 20. Verwende 0 nur für unbegrenzte Ersetzungen."
   },
   "label_max_replacements_lemma_page": {
     "message": "Max. pro Wort pro Seite"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "0 bedeutet unbegrenzt. Verhindert, dass ein Wort die Seite dominiert."
+    "message": "Der Standardwert ist 2. Verhindert, dass ein Wort die Seite dominiert."
   },
   "section_srs": {
-    "message": "SRS-Training"
+    "message": "Wortschatztraining"
   },
-  "toggle_srs_enabled": {
-    "message": "SRS-Übungsmodus aktivieren"
+  "badge_srs_active_story": {
+    "message": "Aktiv"
   },
-  "hint_srs_dataset": {
-    "message": "Verwendet vorerst einen festen Testdatensatz (keine externen Downloads)."
+  "summary_srs_story_sampling": {
+    "message": "Nächste Wörter testen"
+  },
+  "hint_srs_story_sampling_curtain": {
+    "message": "Vorschau auf Wörter, die deine aktuellen Präferenzen als Nächstes vorschlagen könnten."
+  },
+  "action_srs_open_panel": {
+    "message": "Öffnen"
+  },
+  "heading_srs_start_new_story": {
+    "message": "Wortschatztraining starten"
+  },
+  "hint_srs_start_new_story": {
+    "message": "Wähle ein Sprachpaar, stimme deine Präferenzen ab und starte dann das Training."
+  },
+  "button_srs_start_new_story": {
+    "message": "Einrichtung starten"
+  },
+  "heading_srs_add_new_story": {
+    "message": "Weitere Sprache hinzufügen"
+  },
+  "hint_srs_add_new_story": {
+    "message": "Erstelle ein separates Wortschatztraining für ein neues Sprachpaar. Dein bestehendes Training bleibt unverändert."
+  },
+  "button_srs_add_new_story": {
+    "message": "Sprache hinzufügen"
+  },
+  "heading_srs_story_flow": {
+    "message": "Wortschatztraining einrichten"
+  },
+  "hint_srs_story_flow": {
+    "message": "Wähle Sprachen, Lernpräferenzen und Starttempo vor dem Start."
+  },
+  "heading_srs_story_flow_pair": {
+    "message": "Sprache wählen"
+  },
+  "heading_srs_story_flow_preferences": {
+    "message": "Lernpräferenzen"
+  },
+  "heading_srs_story_flow_size": {
+    "message": "Starttempo wählen"
+  },
+  "heading_srs_story_flow_review": {
+    "message": "Testen und starten"
+  },
+  "hint_srs_story_flow_review": {
+    "message": "Teste Wörter, bis die Mischung passt, und starte dann das Training."
+  },
+  "label_srs_language_data": {
+    "message": "Sprachdaten"
+  },
+  "button_srs_open_resource_settings": {
+    "message": "LexiShift-Ressourceneinstellungen öffnen"
+  },
+  "button_srs_retry_data_check": {
+    "message": "Erneut prüfen"
+  },
+  "status_srs_language_data_missing": {
+    "message": "LexiShift benötigt Sprachdaten für $1, bevor Wörter getestet oder das Training gestartet werden können."
+  },
+  "status_srs_language_data_check_required": {
+    "message": "Installiere die erforderlichen Sprachdaten und prüfe erneut."
+  },
+  "status_srs_opening_resource_settings": {
+    "message": "LexiShift-Ressourceneinstellungen werden geöffnet…"
+  },
+  "hint_srs_retry_after_data_install": {
+    "message": "Installiere die erforderlichen Pakete und kehre dann hierher zurück, um erneut zu prüfen."
+  },
+  "label_srs_frequency_data": {
+    "message": "Frequenzdaten"
+  },
+  "label_srs_translation_dictionary": {
+    "message": "Übersetzungswörterbuch"
+  },
+  "label_srs_jmdict_data": {
+    "message": "JMDict-Daten"
+  },
+  "button_srs_story_flow_initialize": {
+    "message": "Training starten"
+  },
+  "status_srs_story_flow_previewing": {
+    "message": "Einstellungen werden gespeichert und mögliche Wörter getestet…"
+  },
+  "status_srs_story_flow_sampled": {
+    "message": "Probe aktualisiert."
+  },
+  "status_srs_story_flow_initializing": {
+    "message": "Einstellungen werden gespeichert und Wortschatztraining wird gestartet…"
+  },
+  "status_srs_story_flow_initialized": {
+    "message": "Wortschatztraining gestartet."
   },
   "label_srs_pair": {
     "message": "Sprachpaar"
@@ -102,28 +192,172 @@
     "message": "Alle Paare"
   },
   "label_srs_max_active": {
-    "message": "Max. aktive Wörter"
+    "message": "Wörter in aktiver Übung"
+  },
+  "hint_srs_max_active": {
+    "message": "Wie viele Lernwörter LexiShift gleichzeitig in der Übungsrotation hält."
   },
   "label_srs_bootstrap_top_n": {
-    "message": "Bootstrap-S-Größe (Top N)"
+    "message": "Wortschatz-Suchbereich"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "Gesamtzahl der Wörter, die beim initialen S-Bootstrap aufgenommen werden."
+    "message": "Erweitert den gerankten Wortpool für Stichproben und neue Wörter. Belasse den Standard, solange die Stichprobe nicht zu eng wirkt."
   },
   "label_srs_initial_active_count": {
-    "message": "Initiale aktive Teilmenge"
+    "message": "Startwörter"
   },
   "hint_srs_initial_active_count": {
-    "message": "Anzahl der anfänglich nicht-null/aktiven Wörter aus der Bootstrap-Liste."
+    "message": "Wie viele vorbereitete Wörter direkt nach der Einrichtung erscheinen können."
+  },
+  "summary_srs_starting_size_advanced": {
+    "message": "Erweiterte Startgröße"
+  },
+  "label_srs_topic_interest_presets": {
+    "message": "Themenprioritäten"
+  },
+  "badge_srs_topic_interest_pair_support": {
+    "message": "Abdeckung variiert je Paar"
+  },
+  "topic_srs_medicine_health": {
+    "message": "Medizin & Gesundheit"
+  },
+  "topic_srs_finance_business": {
+    "message": "Finanzen & Geschäft"
+  },
+  "topic_srs_sports_fitness": {
+    "message": "Sport & Fitness"
+  },
+  "topic_srs_games": {
+    "message": "Spiele"
+  },
+  "topic_srs_music_media_entertainment": {
+    "message": "Musik & Medien"
+  },
+  "topic_srs_law_politics_civics": {
+    "message": "Recht & Politik"
+  },
+  "topic_srs_science_technology": {
+    "message": "Wissenschaft & Technik"
+  },
+  "topic_srs_arts_literature_humanities": {
+    "message": "Kunst & Literatur"
+  },
+  "topic_srs_animals": {
+    "message": "Tiere"
+  },
+  "topic_srs_food_cooking": {
+    "message": "Essen & Kochen"
+  },
+  "topic_srs_plants_nature": {
+    "message": "Pflanzen & Natur"
+  },
+  "summary_srs_advanced_topic_tags": {
+    "message": "Erweiterte Tags"
+  },
+  "label_srs_topic_interests": {
+    "message": "Themeninteressen"
+  },
+  "hint_srs_topic_interests": {
+    "message": "Füge kommagetrennte Tags für Experimente oder oben nicht aufgeführte Themen hinzu."
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "Kompetenzeinschätzung"
+  },
+  "label_srs_proficiency_previous": {
+    "message": "Vorherige Einstellung:"
+  },
+  "button_srs_proficiency_restore": {
+    "message": "Wiederherstellen"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "Ziehe den Regler zu dem Niveau, zu dem neue Übungswörter passen sollen."
+  },
+  "summary_srs_challenge_tuning": {
+    "message": "Erweiterte Schwierigkeit"
+  },
+  "label_srs_challenge_target": {
+    "message": "Zielschwierigkeit (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 bis 100. Leer lassen, um die Schwierigkeitspräferenz neutral zu halten."
   },
   "label_srs_highlight_color": {
-    "message": "SRS-Hervorhebungsfarbe"
+    "message": "Farbe der Worthervorhebung"
   },
-  "toggle_srs_feedback_srs": {
-    "message": "Feedback für SRS-Wörter aktivieren"
+  "label_srs_semantic_admission_status": {
+    "message": "Satz-Passung prüfen"
   },
-  "toggle_srs_feedback_rules": {
-    "message": "Feedback für Regeln-Wörter aktivieren"
+  "status_srs_semantic_capability_checking": {
+    "message": "Wird geprüft…"
+  },
+  "hint_srs_semantic_capability_checking": {
+    "message": "Status der Satz-Passung wird geprüft…"
+  },
+  "status_srs_semantic_capability_active": {
+    "message": "Ein"
+  },
+  "hint_srs_semantic_capability_active": {
+    "message": "LexiShift prüft vor der Anzeige, ob ausgewählte Übungsersetzungen zum Satz passen."
+  },
+  "status_srs_semantic_capability_published_unready": {
+    "message": "Noch nicht verfügbar"
+  },
+  "hint_srs_semantic_capability_published_unready": {
+    "message": "Satzpassungsdaten sind veröffentlicht, aber für dieses Sprachpaar/Profil gibt es noch keine ready-Abdeckung. LexiShift verwendet derzeit normale Lernersetzungen."
+  },
+  "status_srs_semantic_capability_unavailable": {
+    "message": "Nicht verfügbar"
+  },
+  "hint_srs_semantic_capability_unavailable": {
+    "message": "Für dieses Sprachpaar/Profil ist derzeit keine Satzpassungs-Abdeckung veröffentlicht. LexiShift verwendet derzeit normale Lernersetzungen."
+  },
+  "status_srs_semantic_capability_error": {
+    "message": "Reparatur nötig"
+  },
+  "hint_srs_semantic_capability_error": {
+    "message": "Satzpassungsdaten sind vorhanden, aber inkonsistent oder unlesbar. Bis zur Reparatur verwendet LexiShift normale Lernersetzungen."
+  },
+  "status_srs_semantic_capability_unknown": {
+    "message": "Status nicht verfügbar"
+  },
+  "hint_srs_semantic_capability_unknown": {
+    "message": "Der Status der Satz-Passung konnte gerade nicht geprüft werden."
+  },
+  "toggle_srs_semantic_admission": {
+    "message": "Satzpassungsprüfung aktivieren (experimentell)"
+  },
+  "hint_srs_semantic_admission": {
+    "message": "Filtert geeignete Übungsersetzungen mit satzbasierten Prüfungen auf der Hilfsdienst-Seite. Die Fallback-Richtlinie bestimmt, was passiert, wenn Satzpassungsdaten oder der Hilfsdienst nicht verfügbar sind."
+  },
+  "label_srs_semantic_fallback_policy": {
+    "message": "Fallback-Richtlinie für Satzpassung"
+  },
+  "option_srs_semantic_fallback_legacy": {
+    "message": "Bisheriges Ersetzen beibehalten"
+  },
+  "option_srs_semantic_fallback_abstain": {
+    "message": "Nicht ersetzen"
+  },
+  "option_srs_semantic_fallback_soft": {
+    "message": "Weiche Andeutung (reserviert)"
+  },
+  "summary_srs_auto_refresh": {
+    "message": "Wann neue Wörter hinzugefügt werden"
+  },
+  "label_srs_auto_refresh_min_feedback": {
+    "message": "Minimale Feedback-Ereignisse"
+  },
+  "label_srs_auto_refresh_min_good_easy": {
+    "message": "Benötigte Gut/Einfach-Bewertungen"
+  },
+  "label_srs_auto_refresh_repeat_min_good_easy": {
+    "message": "Benötigte Gut/Einfach-Bewertungen am selben Tag"
+  },
+  "label_srs_auto_refresh_cooldown": {
+    "message": "Cooldown in Minuten"
+  },
+  "hint_srs_auto_refresh": {
+    "message": "Der Helper sucht erst nach genug Feedback nach neuen Wörtern; Kapazität, Fälligkeit und Behaltensrate entscheiden weiterhin, ob etwas hinzugefügt wird."
   },
   "toggle_srs_sound": {
     "message": "Feedback-Sound abspielen"
@@ -155,6 +389,18 @@
   "status_helper_failed": {
     "message": "Helper-Fehler."
   },
+  "status_helper_native_messaging_failed": {
+    "message": "Mit dem Helper konnte nicht kommuniziert werden."
+  },
+  "status_helper_native_messaging_forbidden": {
+    "message": "Der Browser hat den Zugriff auf den Helper blockiert."
+  },
+  "status_helper_native_host_exited": {
+    "message": "Der Helper wurde unerwartet beendet."
+  },
+  "status_helper_timeout": {
+    "message": "Der Helper hat nicht rechtzeitig geantwortet."
+  },
   "status_helper_missing": {
     "message": "Helper nicht verfügbar."
   },
@@ -170,6 +416,12 @@
   "status_helper_open_failed": {
     "message": "Öffnen fehlgeschlagen: $1"
   },
+  "status_helper_open_resource_settings_opened": {
+    "message": "LexiShift-Ressourceneinstellungen geöffnet."
+  },
+  "status_helper_open_resource_settings_failed": {
+    "message": "Öffnen fehlgeschlagen: $1"
+  },
   "toggle_exposure_logging": {
     "message": "Ersetzungs-Expositionen protokollieren"
   },
@@ -179,11 +431,17 @@
   "button_srs_sample": {
     "message": "Aktive Wörter testen…"
   },
-  "button_srs_initialize": {
-    "message": "S für dieses Paar initialisieren"
+  "button_srs_admission_preview": {
+    "message": "10 passende Wörter testen…"
   },
-  "button_srs_refresh_set": {
-    "message": "S aktualisieren + Regeln veröffentlichen"
+  "button_srs_initialize": {
+    "message": "Training starten"
+  },
+  "button_srs_save_preferences": {
+    "message": "Einstellungen speichern"
+  },
+  "summary_srs_story_advanced": {
+    "message": "Erweitert"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS-Laufzeitdiagnose"
@@ -194,14 +452,239 @@
   "button_srs_rulegen_sampled_preview": {
     "message": "Stichproben-Regelgen (5)…"
   },
-  "button_srs_reset": {
-    "message": "SRS-Daten zurücksetzen"
+  "button_srs_delete_story": {
+    "message": "Wortschatztraining löschen"
+  },
+  "heading_srs_words_dashboard": {
+    "message": "Lernwörter"
+  },
+  "hint_srs_words_dashboard": {
+    "message": "Sieh dir die Wörter an, die aktuell in diesem Training sind."
+  },
+  "button_srs_words_refresh": {
+    "message": "Wörter aktualisieren"
+  },
+  "button_srs_words_open_library": {
+    "message": "Wortschatzbibliothek öffnen"
+  },
+  "heading_srs_vocabulary_library_entry": {
+    "message": "Wortschatzbibliothek"
+  },
+  "hint_srs_vocabulary_library_entry": {
+    "message": "Prüfe Lernwörter, Definitionen, Fortschritt und Quellen für Seitenersetzungen."
+  },
+  "toggle_srs_words_advanced": {
+    "message": "Erweiterte Details"
+  },
+  "label_srs_words_search": {
+    "message": "Suchen"
+  },
+  "label_srs_words_status_filter": {
+    "message": "Status"
+  },
+  "option_srs_words_status_all": {
+    "message": "Alle"
+  },
+  "option_srs_words_status_active": {
+    "message": "Aktiv"
+  },
+  "option_srs_words_status_due": {
+    "message": "Fällig"
+  },
+  "option_srs_words_status_queued": {
+    "message": "Kommend"
+  },
+  "option_srs_words_status_removed": {
+    "message": "Entfernt"
+  },
+  "label_srs_words_sort": {
+    "message": "Sortieren"
+  },
+  "option_srs_words_sort_source": {
+    "message": "Quellreihenfolge"
+  },
+  "option_srs_words_sort_due": {
+    "message": "Fällige zuerst"
+  },
+  "option_srs_words_sort_word": {
+    "message": "Wort A-Z"
+  },
+  "option_srs_words_sort_reviews": {
+    "message": "Meiste Wiederholungen"
+  },
+  "option_srs_words_sort_seen": {
+    "message": "Am häufigsten gesehen"
+  },
+  "label_srs_words_page_size": {
+    "message": "Zeilen"
+  },
+  "button_srs_words_clear_filters": {
+    "message": "Filter löschen"
+  },
+  "learning_dashboard_title": {
+    "message": "Wortschatzbibliothek"
+  },
+  "learning_dashboard_subtitle": {
+    "message": "Prüfe Lernwörter, Bedeutungen, Fortschritt und Quellen für Seitenersetzungen."
+  },
+  "learning_dashboard_back": {
+    "message": "Zurück zu den Optionen"
+  },
+  "learning_dashboard_refresh": {
+    "message": "Aktualisieren"
+  },
+  "learning_dashboard_pair_select": {
+    "message": "Training"
+  },
+  "learning_dashboard_search": {
+    "message": "Suchen"
+  },
+  "learning_dashboard_status_filter": {
+    "message": "Fortschritt"
+  },
+  "learning_dashboard_sort": {
+    "message": "Sortieren"
+  },
+  "learning_dashboard_rows": {
+    "message": "Zeilen"
+  },
+  "learning_dashboard_col_word": {
+    "message": "Wort"
+  },
+  "learning_dashboard_col_meaning": {
+    "message": "Bedeutung"
+  },
+  "learning_dashboard_col_progress": {
+    "message": "Fortschritt"
+  },
+  "learning_dashboard_col_activity": {
+    "message": "Aktivität"
+  },
+  "learning_dashboard_col_topic": {
+    "message": "Thema"
+  },
+  "learning_dashboard_col_action": {
+    "message": "Aktion"
+  },
+  "learning_dashboard_summary_active": {
+    "message": "Aktiv"
+  },
+  "learning_dashboard_summary_due": {
+    "message": "Fällig"
+  },
+  "learning_dashboard_summary_can_appear": {
+    "message": "Kann erscheinen"
+  },
+  "learning_dashboard_summary_upcoming": {
+    "message": "Kommend"
+  },
+  "learning_dashboard_summary_removed": {
+    "message": "Entfernt"
+  },
+  "learning_dashboard_summary_total": {
+    "message": "Gesamt"
+  },
+  "learning_dashboard_status_loading": {
+    "message": "Wortschatzbibliothek wird geladen..."
+  },
+  "learning_dashboard_status_refreshing": {
+    "message": "Lernwörter werden geladen..."
+  },
+  "learning_dashboard_status_ready": {
+    "message": "$1 Lernwörter geladen."
+  },
+  "learning_dashboard_status_failed": {
+    "message": "Lernwörter konnten nicht geladen werden."
+  },
+  "learning_dashboard_no_practices": {
+    "message": "Für dieses Profil wurden keine Vokabeltrainings gefunden."
+  },
+  "learning_dashboard_no_practices_short": {
+    "message": "Kein aktives Training"
+  },
+  "learning_dashboard_empty_filtered": {
+    "message": "Keine Lernwörter passen zu diesen Filtern."
+  },
+  "learning_dashboard_empty_unloaded": {
+    "message": "Noch keine Lernwörter geladen."
+  },
+  "learning_dashboard_page_info": {
+    "message": "$1-$2 von $3 Wörtern werden angezeigt"
+  },
+  "learning_dashboard_page_empty": {
+    "message": "0 Wörter werden angezeigt"
+  },
+  "learning_dashboard_detail_empty": {
+    "message": "Doppelklicke ein Wort, um Definitionen und Übungsdetails zu sehen."
+  },
+  "learning_dashboard_definition": {
+    "message": "Definition"
+  },
+  "learning_dashboard_definition_loading": {
+    "message": "Definition wird geladen..."
+  },
+  "learning_dashboard_definition_unavailable": {
+    "message": "Definition nicht verfügbar."
+  },
+  "learning_dashboard_replacement_sources": {
+    "message": "Seitenersetzungen"
+  },
+  "learning_dashboard_no_replacement_sources": {
+    "message": "Keine veröffentlichten Quellen für Seitenersetzungen gefunden."
+  },
+  "learning_dashboard_dictionaries": {
+    "message": "Wörterbücher"
+  },
+  "learning_dashboard_advanced": {
+    "message": "Erweitert"
+  },
+  "learning_dashboard_advanced_rules": {
+    "message": "Veröffentlichte Regeln"
+  },
+  "learning_dashboard_page_replacement_label": {
+    "message": "Seitenersetzung"
+  },
+  "learning_dashboard_practice_state_label": {
+    "message": "Übungsstatus"
+  },
+  "learning_dashboard_scheduler_label": {
+    "message": "Planung"
+  },
+  "learning_dashboard_step_label": {
+    "message": "Schritt"
+  },
+  "learning_dashboard_confidence_label": {
+    "message": "Konfidenz"
+  },
+  "learning_dashboard_stability_label": {
+    "message": "Stabilität"
+  },
+  "learning_dashboard_difficulty_label": {
+    "message": "Schwierigkeit"
+  },
+  "learning_dashboard_no_published_rules": {
+    "message": "Keine veröffentlichten Regeln gefunden."
+  },
+  "learning_dashboard_discard": {
+    "message": "Verwerfen"
+  },
+  "pagination_first": {
+    "message": "Erste"
+  },
+  "pagination_prev": {
+    "message": "Zurück"
+  },
+  "pagination_next": {
+    "message": "Weiter"
+  },
+  "pagination_last": {
+    "message": "Letzte"
   },
   "confirm_srs_reset_1": {
-    "message": "Möchtest du den gesamten SRS-Fortschritt für dieses Sprachpaar wirklich zurücksetzen? Dies kann nicht rückgängig gemacht werden."
+    "message": "Dieses Wortschatztraining für das aktuelle Profil und Sprachpaar löschen? Dies kann nicht rückgängig gemacht werden."
   },
   "confirm_srs_reset_2": {
-    "message": "Lernverlauf für dieses Paar wirklich löschen und neu beginnen?"
+    "message": "Wirklich die Lernwörter, den Wiederholungsverlauf und die Verwerfungsdaten dieses Trainings löschen?"
   },
   "status_srs_sampling": {
     "message": "Stichprobe läuft…"
@@ -219,19 +702,19 @@
     "message": "Stichproben-Regelgen: $1 Wörter, $2 Ziele, $3 Regeln ($4s)"
   },
   "status_srs_set_init_running": {
-    "message": "S wird initialisiert…"
+    "message": "Training wird gestartet…"
   },
   "status_srs_refresh_running": {
-    "message": "S wird aktualisiert und Regeln werden veröffentlicht…"
+    "message": "Lernwörter werden aktualisiert…"
   },
   "status_srs_refresh_success": {
-    "message": "S für $1 aktualisiert: +$2 neu aufgenommen."
+    "message": "Lernwörter für $1 aktualisiert: +$2 neue Wörter."
   },
   "status_srs_refresh_noop": {
-    "message": "S-Aktualisierung für $1: keine neuen Aufnahmen."
+    "message": "Lernwörter für $1 aktualisiert: keine neuen Wörter hinzugefügt."
   },
   "status_srs_refresh_failed": {
-    "message": "S-Aktualisierung fehlgeschlagen."
+    "message": "Aktualisierung der Lernwörter fehlgeschlagen."
   },
   "status_srs_diagnostics_running": {
     "message": "SRS-Laufzeitdiagnose wird gesammelt…"
@@ -246,19 +729,19 @@
     "message": "SRS-Diagnose konnte nicht erfasst werden."
   },
   "status_srs_set_init_result": {
-    "message": "S für $3 initialisiert: +$1 Einträge (gesamt $2)."
+    "message": "Training für $3 gestartet: +$1 Lernwörter (gesamt $2)."
   },
   "status_srs_set_plan_result": {
-    "message": "S-Plan für $1 erstellt."
+    "message": "Trainingseinrichtung für $1 geprüft."
   },
   "status_srs_set_init_success": {
-    "message": "S für $1 initialisiert."
+    "message": "Training für $1 gestartet."
   },
   "status_srs_set_plan_only": {
-    "message": "S-Plan für $1 erstellt (keine Änderungen angewendet)."
+    "message": "Trainingseinrichtung für $1 geprüft (keine Änderungen angewendet)."
   },
   "status_srs_set_init_failed": {
-    "message": "S-Initialisierung fehlgeschlagen."
+    "message": "Trainingseinrichtung fehlgeschlagen."
   },
   "status_srs_sample_empty": {
     "message": "Keine Wörter verfügbar."
@@ -267,7 +750,7 @@
     "message": "Keine Regeln für die aktuellen Wörter gefunden."
   },
   "status_srs_sample_failed": {
-    "message": "SRS-Stichprobe fehlgeschlagen."
+    "message": "Wortstichprobe fehlgeschlagen."
   },
   "status_srs_rulegen_failed": {
     "message": "Regelvorschau fehlgeschlagen."
@@ -300,16 +783,16 @@
     "message": "Lösung:"
   },
   "status_srs_resetting": {
-    "message": "SRS-Daten werden zurückgesetzt…"
+    "message": "Wortschatztraining wird gelöscht…"
   },
   "status_srs_reset_success": {
-    "message": "SRS-Daten wurden erfolgreich zurückgesetzt."
+    "message": "Wortschatztraining gelöscht."
   },
   "status_srs_reset_failed": {
-    "message": "SRS-Zurücksetzen fehlgeschlagen."
+    "message": "Wortschatztraining konnte nicht gelöscht werden."
   },
   "status_srs_reset_outdated": {
-    "message": "Helper veraltet: Befehl nicht gefunden. Helper neu starten?"
+    "message": "Löschen fehlgeschlagen: Helper-Befehl nicht gefunden. Helper neu starten?"
   },
   "section_share_center": {
     "message": "Share Center"
@@ -339,13 +822,13 @@
     "message": "Schließen"
   },
   "hint_share_center_export_mode": {
-    "message": "Wähle den Exportmodus. Vollständiges Profil exportiert alles; Benutzerdefinierte Auswahl lässt dich bestimmte Knoten wählen."
+    "message": "Wähle den Exportmodus. Vollständiges Profil nutzt das bestehende Profil-Freigabeformat; Benutzerdefinierte Auswahl lässt dich bestimmte Knoten wählen."
   },
   "share_center_mode_full_title": {
     "message": "Vollständiges Profil"
   },
   "share_center_mode_full_hint": {
-    "message": "Empfohlen. Exportiert vollständige Profildaten in einem Schritt."
+    "message": "Empfohlen. Exportiert vollständige Profildaten im bestehenden Profil-Freigabeformat."
   },
   "share_center_mode_custom_title": {
     "message": "Benutzerdefinierte Auswahl"
@@ -369,7 +852,10 @@
     "message": "Profileinstellungen"
   },
   "share_center_target_profile_settings_hint": {
-    "message": "Profilkonfiguration und SRS-Einstellungen."
+    "message": "Profilkonfiguration und SRS-Einstellungen im bestehenden SRS-Einstellungsformat."
+  },
+  "share_center_compatibility_note": {
+    "message": "Kompatibilitätshinweis: Vollständiges Profil nutzt das bestehende Profil-Freigabeformat, und das Ziel „Profileinstellungen“ nutzt das bestehende SRS-Einstellungsformat."
   },
   "share_center_group_rulesets": {
     "message": "Regelsätze"
@@ -480,7 +966,7 @@
     "message": "Wähle vor dem Generieren einen gültigen SRS-Paareintrag."
   },
   "share_center_hint_ready_full_export": {
-    "message": "Bereit, vollständiges Profil als JSON-Datei zu exportieren."
+    "message": "Bereit, vollständiges Profil als JSON-Datei im bestehenden Profil-Freigabeformat zu exportieren."
   },
   "share_center_hint_ready_selection_export": {
     "message": "Bereit, Auswahl als JSON-Datei zu exportieren."
@@ -641,6 +1127,18 @@
   "hint_share_code": {
     "message": "Erzeuge einen kompakten Code zum Teilen der Regeln."
   },
+  "label_share_scope": {
+    "message": "Einbeziehen"
+  },
+  "option_share_scope_rules": {
+    "message": "Manuelle Regeln"
+  },
+  "option_share_scope_srs": {
+    "message": "SRS-Status"
+  },
+  "option_share_scope_profile": {
+    "message": "Gesamte Profildaten"
+  },
   "toggle_share_code_cjk": {
     "message": "Kurzer Code (CJK)"
   },
@@ -693,7 +1191,19 @@
     "message": "Ersetzungseinstellungen gespeichert."
   },
   "status_srs_saved": {
-    "message": "SRS-Einstellungen gespeichert."
+    "message": "Trainingseinstellungen gespeichert."
+  },
+  "status_srs_preferences_saved": {
+    "message": "Einstellungen gespeichert."
+  },
+  "status_srs_preferences_unsaved": {
+    "message": "Nicht gespeicherte Änderungen."
+  },
+  "status_srs_save_failed": {
+    "message": "Trainingseinstellungen konnten nicht gespeichert werden."
+  },
+  "status_srs_save_partial": {
+    "message": "Trainingseinstellungen wurden nur teilweise gespeichert. Laden Sie die Seite neu und prüfen Sie die aktuellen Werte."
   },
   "status_switch_edit_json": {
     "message": "Zum Speichern auf „JSON bearbeiten“ wechseln."
@@ -767,6 +1277,21 @@
   "button_modules": {
     "message": "Module"
   },
+  "button_word_popup_settings": {
+    "message": "Wort-Popup-Einstellungen"
+  },
+  "heading_word_popup_settings": {
+    "message": "Wort-Popup-Einstellungen"
+  },
+  "hint_word_popup_settings": {
+    "message": "Gilt für die Zielsprache des aktiven Wortschatztrainings. Wähle aus, was beim Interagieren mit übersetzten Wörtern angezeigt wird."
+  },
+  "module_quick_definition": {
+    "message": "Definition"
+  },
+  "module_quick_definition_desc": {
+    "message": "Zeigt eine kurze Definition im Popup."
+  },
   "module_ja_script_forms": {
     "message": "Japanische Schriftformen"
   },
@@ -796,6 +1321,18 @@
   },
   "label_module_drag_reorder": {
     "message": "Zum Neuordnen ziehen"
+  },
+  "popup_definition_loading": {
+    "message": "Definition wird geladen..."
+  },
+  "popup_definition_unavailable": {
+    "message": "Keine Definition verfügbar."
+  },
+  "popup_definition_missing": {
+    "message": "Definitionsdaten für dieses Wort sind nicht installiert."
+  },
+  "popup_definition_error": {
+    "message": "Definition konnte nicht geladen werden."
   },
   "popup_feedback_history_loading": {
     "message": "Feedback-Verlauf (wird geladen...)"
@@ -871,6 +1408,18 @@
   },
   "section_profile": {
     "message": "Profil"
+  },
+  "section_your_setup": {
+    "message": "Dein Setup"
+  },
+  "hint_your_setup": {
+    "message": "Sprach- und Profilkontext für diese Optionsseite."
+  },
+  "section_manual_rules": {
+    "message": "Manuelle Regeln"
+  },
+  "hint_manual_rules": {
+    "message": "Bearbeite oder importiere manuelle Regelsets für das ausgewählte Profil."
   },
   "label_profile_id": {
     "message": "Profil"
@@ -1006,5 +1555,56 @@
   },
   "button_get_plugin": {
     "message": "BetterDiscord-Plugin holen"
+  },
+  "label_semantic_pack_inventory_path": {
+    "message": "Semantic inventory path override"
+  },
+  "label_semantic_pack_id": {
+    "message": "Semantic pack id"
+  },
+  "toggle_semantic_pack_default_data_root": {
+    "message": "Install to default helper data folder"
+  },
+  "label_semantic_pack_data_root": {
+    "message": "Semantic pack data root"
+  },
+  "button_semantic_pack_install": {
+    "message": "Install semantic pack…"
+  },
+  "status_semantic_pack_inventory_path_required": {
+    "message": "Semantic inventory path is required."
+  },
+  "status_semantic_pack_data_root_required": {
+    "message": "Data root is required unless default data root is enabled."
+  },
+  "confirm_semantic_pack_install": {
+    "message": "Install semantic pack for $1 profile $2? This overwrites the profile-local semantic publication files."
+  },
+  "status_semantic_pack_install_running": {
+    "message": "Installing semantic pack…"
+  },
+  "status_semantic_pack_install_success": {
+    "message": "Installed $1 for $2: $3 rules, $4 competition sets."
+  },
+  "status_semantic_pack_install_ready": {
+    "message": "Semantic pack installed."
+  },
+  "status_semantic_pack_install_failed": {
+    "message": "Semantic pack install failed."
+  },
+  "status_srs_items_list_ready": {
+    "message": "$1 Lernwörter geladen."
+  },
+  "status_srs_items_list_failed": {
+    "message": "Lernwörter konnten nicht geladen werden."
+  },
+  "confirm_srs_discard_word": {
+    "message": "$1 verwerfen? Das Wort wird aus dem Wortschatztraining entfernt und bis zum Zurücksetzen der Trainingsdaten für zukünftige Aufnahme blockiert."
+  },
+  "status_srs_discard_success": {
+    "message": "$1 verworfen."
+  },
+  "status_srs_discard_failed": {
+    "message": "Lernwort konnte nicht verworfen werden."
   }
 }

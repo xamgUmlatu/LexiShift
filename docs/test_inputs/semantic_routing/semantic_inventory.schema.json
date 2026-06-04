@@ -1,0 +1,645 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LexiShift Semantic Routing Inventory",
+  "description": "Schema reference for current semantic inventory sidecar artifacts published alongside rulesets and snapshots.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "pair",
+    "profile_id",
+    "generated_at",
+    "generation_id",
+    "triggers",
+    "senses",
+    "competition_sets",
+    "phrase_sets"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "pair": {
+      "type": "string",
+      "pattern": "^[a-z]{2,3}-[a-z]{2,3}$"
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capability": {
+      "$ref": "#/definitions/publicationCapability"
+    },
+    "triggers": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/triggerRecord"
+      }
+    },
+    "senses": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/senseRecord"
+      }
+    },
+    "competition_sets": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/competitionSet"
+      }
+    },
+    "phrase_sets": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/phraseSet"
+      }
+    }
+  },
+  "definitions": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "unavailable",
+        "not_applicable"
+      ]
+    },
+    "publicationCapability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pointer_modes",
+        "default_unavailable_reason_code",
+        "competition_mode",
+        "competition_reason_code",
+        "phrase_mode",
+        "phrase_reason_code"
+      ],
+      "properties": {
+        "pointer_modes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "sense_provenance",
+              "translation_gloss",
+              "jmdict_entry",
+              "trigger_only"
+            ]
+          }
+        },
+        "default_unavailable_reason_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "competition_mode": {
+          "type": "string",
+          "enum": [
+            "not_published",
+            "emitted_rule_siblings",
+            "active_only_anchor_cue"
+          ]
+        },
+        "competition_reason_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phrase_mode": {
+          "type": "string",
+          "enum": [
+            "not_published"
+          ]
+        },
+        "phrase_reason_code": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "triggerRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trigger_id",
+        "source_phrase",
+        "normalized_source_phrase",
+        "token_count"
+      ],
+      "properties": {
+        "trigger_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_phrase": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalized_source_phrase": {
+          "type": "string",
+          "minLength": 1
+        },
+        "token_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "locator_kind"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator_kind": {
+          "type": "string",
+          "enum": [
+            "wiktionary_ordinal",
+            "jmdict_entry",
+            "translation_gloss",
+            "opaque"
+          ]
+        },
+        "entry_ord": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sense_ord": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gloss_ord": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "target_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kanji_forms": {
+          "$ref": "#/definitions/stringArray"
+        },
+        "kana_forms": {
+          "$ref": "#/definitions/stringArray"
+        },
+        "opaque_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "locator_kind": {
+                "const": "wiktionary_ordinal"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "entry_ord",
+              "sense_ord"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "locator_kind": {
+                "const": "jmdict_entry"
+              }
+            }
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": [
+                  "kanji_forms"
+                ]
+              },
+              {
+                "required": [
+                  "kana_forms"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "locator_kind": {
+                "const": "translation_gloss"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "target_key",
+              "gloss_ord"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "locator_kind": {
+                "const": "opaque"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "opaque_id"
+            ]
+          }
+        }
+      ]
+    },
+    "qualifierRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "$ref": "#/definitions/stringArray"
+        },
+        "topics": {
+          "$ref": "#/definitions/stringArray"
+        },
+        "categories": {
+          "$ref": "#/definitions/stringArray"
+        }
+      }
+    },
+    "senseRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sense_id",
+        "trigger_id",
+        "status",
+        "target_lemma"
+      ],
+      "properties": {
+        "sense_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "reason_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_lemma": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sense_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_pos": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "$ref": "#/definitions/locator"
+        },
+        "qualifiers": {
+          "$ref": "#/definitions/qualifierRecord"
+        },
+        "evidence_views": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ready"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "provider",
+              "locator"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unavailable"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reason_code"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_applicable"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reason_code"
+            ]
+          }
+        }
+      ]
+    },
+    "competitionSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "competition_set_id",
+        "trigger_id",
+        "status"
+      ],
+      "properties": {
+        "competition_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "reason_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "active_sense_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "shadow_sense_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "selection_mode": {
+          "type": "string",
+          "enum": [
+            "automatic",
+            "manual",
+            "mixed",
+            "active_only"
+          ]
+        },
+        "selection_policy_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ready"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "active_sense_id",
+              "shadow_sense_ids",
+              "selection_mode",
+              "selection_policy_version"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "status",
+              "selection_mode"
+            ],
+            "properties": {
+              "status": {
+                "const": "ready"
+              },
+              "selection_mode": {
+                "const": "active_only"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "shadow_sense_ids": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "if": {
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "const": "ready"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "shadow_sense_ids": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unavailable"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reason_code"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_applicable"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reason_code"
+            ]
+          }
+        }
+      ]
+    },
+    "phrasePattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pattern_id",
+        "pattern_text",
+        "policy"
+      ],
+      "properties": {
+        "pattern_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pattern_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy": {
+          "type": "string",
+          "enum": [
+            "block_replace",
+            "soft_only"
+          ]
+        }
+      }
+    },
+    "phraseSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phrase_set_id",
+        "trigger_id",
+        "status"
+      ],
+      "properties": {
+        "phrase_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "reason_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "patterns": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/phrasePattern"
+          }
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ready"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "patterns",
+              "policy_version"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unavailable"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reason_code"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_applicable"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reason_code"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

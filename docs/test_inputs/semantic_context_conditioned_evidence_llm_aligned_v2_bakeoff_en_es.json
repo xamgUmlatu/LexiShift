@@ -1,0 +1,378 @@
+{
+  "schema_version": 1,
+  "matrix_id": "en_es_semantic_context_conditioned_evidence_llm_aligned_bakeoff_v2",
+  "description": "No-spend plus bounded sentence-transformer bakeoff for dynamic active/shadow evidence selection using the v2 admitted LLM aligned source-frame gap candidate. It preserves earlier bakeoff manifests as frozen controls and tests whether selector contexts improve once every active/shadow family has trigger-bearing source rows.",
+  "include_case_results": false,
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "source_evidence_batch_paths": [
+    "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json"
+  ],
+  "evaluation_suites": [
+    {
+      "suite_id": "frozen_v10",
+      "suite_role": "frozen_current",
+      "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json"
+    },
+    {
+      "suite_id": "source_heldout_v2",
+      "suite_role": "locked_active_shadow",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_heldout_v2",
+      "suite_role": "locked_phrase_no_winner",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_challenge_v1",
+      "suite_role": "locked_phrase_challenge",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_challenge_cases_v1.json"
+    }
+  ],
+  "defaults": {
+    "scorer_id": "tfidf_cosine",
+    "context_view": "masked_sentence",
+    "evidence_selector_context_view": "masked_sentence",
+    "evidence_selector_source_view": "masked_sentence",
+    "sense_representation": "source_rows_separate",
+    "aggregation_rule": "max_row_score",
+    "decision_rule": "active_minus_strongest_shadow",
+    "phrase_handling": "phrase_override",
+    "window_tokens": 4,
+    "mask_token": "___",
+    "min_active_score": 0.05,
+    "min_margin": 0.0,
+    "ratio_threshold": 1.0,
+    "softmax_threshold": 0.5,
+    "softmax_temperature": 8.0,
+    "pairwise_min_win_rate": 0.75,
+    "top_k": 2,
+    "selection_top_k": 2,
+    "phrase_guard_pos_scope": "family_all",
+    "evidence_control": "normal",
+    "split_modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ]
+  },
+  "rows": [
+    {
+      "config_id": "context_conditioned_control_current_all",
+      "label": "Current all-evidence score surface control",
+      "category": "context_conditioned_control",
+      "algorithm_family": "control:current_all",
+      "is_control": true,
+      "sense_representation": "all_evidence_text",
+      "aggregation_rule": "single_concatenated_text"
+    },
+    {
+      "config_id": "context_conditioned_control_rows_max",
+      "label": "Best prior separate-row evidence control",
+      "category": "context_conditioned_control",
+      "algorithm_family": "control:rows_max",
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "min_active_score": 0.1
+    },
+    {
+      "config_id": "source_rows_max_tfidf",
+      "label": "Admitted source rows with max-row scoring",
+      "category": "source_rows_control",
+      "algorithm_family": "source_rows:max",
+      "sense_representation": "source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "source_plus_definition_rows_max_tfidf",
+      "label": "Base definition rows plus admitted source rows",
+      "category": "source_rows_control",
+      "algorithm_family": "source_plus_definition:max",
+      "sense_representation": "source_plus_definition_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.02,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005,
+          0.02
+        ]
+      }
+    },
+    {
+      "config_id": "context_selected_source_masked_sentence",
+      "label": "Context-selected source rows using masked-sentence selector",
+      "category": "context_conditioned_evidence",
+      "algorithm_family": "context_selected:masked_sentence",
+      "sense_representation": "contextualized_source_rows",
+      "aggregation_rule": "context_selected_max_row_score",
+      "evidence_selector_context_view": "masked_sentence",
+      "evidence_selector_source_view": "masked_sentence",
+      "parameter_grid": {
+        "selection_top_k": [
+          1,
+          2,
+          3
+        ],
+        "min_active_score": [
+          0.0,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005
+        ]
+      }
+    },
+    {
+      "config_id": "context_selected_source_raw_window",
+      "label": "Context-selected source rows using raw-window selector",
+      "category": "context_conditioned_evidence",
+      "algorithm_family": "context_selected:raw_window",
+      "sense_representation": "contextualized_source_rows",
+      "aggregation_rule": "context_selected_max_row_score",
+      "evidence_selector_context_view": "raw_window",
+      "evidence_selector_source_view": "raw_window",
+      "parameter_grid": {
+        "selection_top_k": [
+          1,
+          2,
+          3
+        ],
+        "min_active_score": [
+          0.0,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005
+        ]
+      }
+    },
+    {
+      "config_id": "context_selected_source_before_after",
+      "label": "Context-selected source rows using before/after trigger slots",
+      "category": "context_conditioned_evidence",
+      "algorithm_family": "context_selected:before_after",
+      "sense_representation": "contextualized_source_rows",
+      "aggregation_rule": "context_selected_max_row_score",
+      "evidence_selector_context_view": "before_after_slot_context",
+      "evidence_selector_source_view": "before_after_slot_context",
+      "parameter_grid": {
+        "selection_top_k": [
+          1,
+          2,
+          3
+        ],
+        "min_active_score": [
+          0.0,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005
+        ]
+      }
+    },
+    {
+      "config_id": "context_selected_source_surface_frame",
+      "label": "Context-selected source rows using surface-frame selector",
+      "category": "context_conditioned_evidence",
+      "algorithm_family": "context_selected:surface_frame",
+      "sense_representation": "contextualized_source_rows",
+      "aggregation_rule": "context_selected_max_row_score",
+      "evidence_selector_context_view": "surface_frame_context",
+      "evidence_selector_source_view": "surface_frame_context",
+      "parameter_grid": {
+        "selection_top_k": [
+          1,
+          2,
+          3
+        ],
+        "min_active_score": [
+          0.0,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005
+        ]
+      }
+    },
+    {
+      "config_id": "context_selected_source_dependency_role",
+      "label": "Context-selected source rows using heuristic dependency-role selector",
+      "category": "context_conditioned_evidence",
+      "algorithm_family": "context_selected:dependency_role",
+      "sense_representation": "contextualized_source_rows",
+      "aggregation_rule": "context_selected_max_row_score",
+      "evidence_selector_context_view": "dependency_role_context",
+      "evidence_selector_source_view": "dependency_role_context",
+      "parameter_grid": {
+        "selection_top_k": [
+          1,
+          2,
+          3
+        ],
+        "min_active_score": [
+          0.0,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005
+        ]
+      }
+    },
+    {
+      "config_id": "context_selected_definition_source_before_after",
+      "label": "Context-selected source plus definition rows using before/after selector",
+      "category": "context_conditioned_evidence",
+      "algorithm_family": "context_selected_definition_source:before_after",
+      "sense_representation": "contextualized_source_plus_definition_rows",
+      "aggregation_rule": "context_selected_top_k_mean",
+      "evidence_selector_context_view": "before_after_slot_context",
+      "evidence_selector_source_view": "before_after_slot_context",
+      "parameter_grid": {
+        "selection_top_k": [
+          2,
+          3
+        ],
+        "top_k": [
+          1,
+          2
+        ],
+        "min_active_score": [
+          0.0,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005
+        ]
+      }
+    },
+    {
+      "config_id": "context_selected_definition_source_surface_frame",
+      "label": "Context-selected source plus definition rows using surface-frame selector",
+      "category": "context_conditioned_evidence",
+      "algorithm_family": "context_selected_definition_source:surface_frame",
+      "sense_representation": "contextualized_source_plus_definition_rows",
+      "aggregation_rule": "context_selected_top_k_mean",
+      "evidence_selector_context_view": "surface_frame_context",
+      "evidence_selector_source_view": "surface_frame_context",
+      "parameter_grid": {
+        "selection_top_k": [
+          2,
+          3
+        ],
+        "top_k": [
+          1,
+          2
+        ],
+        "min_active_score": [
+          0.0,
+          0.05,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.005
+        ]
+      }
+    },
+    {
+      "config_id": "sentence_transformer_source_rows_max",
+      "label": "Sentence-transformer source-row max subset",
+      "category": "sentence_transformer_probe",
+      "algorithm_family": "sentence_transformer:source_rows_max",
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.05
+        ]
+      }
+    },
+    {
+      "config_id": "sentence_transformer_context_selected_source_before_after",
+      "label": "Sentence-transformer context-selected source subset",
+      "category": "sentence_transformer_probe",
+      "algorithm_family": "sentence_transformer:context_selected_before_after",
+      "scorer_id": "sentence_transformer_cosine",
+      "sense_representation": "contextualized_source_rows",
+      "aggregation_rule": "context_selected_max_row_score",
+      "evidence_selector_context_view": "before_after_slot_context",
+      "evidence_selector_source_view": "before_after_slot_context",
+      "selection_top_k": 2,
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.1
+        ],
+        "min_margin": [
+          0.0,
+          0.05
+        ]
+      }
+    },
+    {
+      "config_id": "context_conditioned_negative_active_only",
+      "label": "Negative control: active-only source should over-replace",
+      "category": "context_conditioned_negative_control",
+      "algorithm_family": "negative:active_only",
+      "expected_failure_mode": "over_replace",
+      "sense_representation": "contextualized_source_rows",
+      "aggregation_rule": "context_selected_max_row_score",
+      "evidence_selector_context_view": "before_after_slot_context",
+      "evidence_selector_source_view": "before_after_slot_context",
+      "evidence_control": "active_only_source",
+      "min_active_score": 0.0,
+      "min_margin": 0.0
+    },
+    {
+      "config_id": "context_conditioned_negative_target_lemma",
+      "label": "Negative control: target-lemma-only lexical leakage",
+      "category": "context_conditioned_negative_control",
+      "algorithm_family": "negative:target_lemma_only",
+      "expected_failure_mode": "lexical_leakage",
+      "sense_representation": "target_lemma_only",
+      "aggregation_rule": "single_concatenated_text",
+      "evidence_control": "target_lemma_only",
+      "min_active_score": 0.0,
+      "min_margin": 0.0
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "policy_id": "semantic_veto_product_quality_policy_en_es_v1",
+  "pair": "en-es",
+  "description": "Product-oriented semantic-veto quality policy. Good replacements should usually be shown, and bad replacements should be hidden often enough to improve browser UX.",
+  "acceptance": {
+    "positive_allow_rate_min": 0.8,
+    "negative_abstain_rate_min": 0.5,
+    "utility_must_beat_lexical_baseline": true,
+    "utility_must_beat_abstain_all_baseline": false,
+    "representative_lane_required_for_promotion": true
+  },
+  "utility_weights": {
+    "positive_allow": 1.0,
+    "positive_abstain": -0.4,
+    "negative_abstain": 0.8,
+    "negative_allow": -0.6
+  },
+  "lanes": [
+    {
+      "lane_id": "wave7_phrase_control_triage_stress",
+      "lane_type": "stress",
+      "description": "Known hard wave7 active/shadow plus phrase/no-winner stress slice after phrase-control triage.",
+      "interpretation": "Useful for guarding known hard cases; not representative browsing evidence.",
+      "reports": [
+        {
+          "source_id": "wave7_active_shadow",
+          "suite_id": "active_shadow",
+          "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_heldout_validation_latest.json"
+        },
+        {
+          "source_id": "wave7_phrase_no_winner",
+          "suite_id": "phrase_no_winner",
+          "path": "docs/test_outputs/semantic_source_non_v10_wave7_source_class_breadth_v1_phrase_control_triage_phrase_validation_latest.json"
+        }
+      ]
+    },
+    {
+      "lane_id": "sampling_stage1_representative_proxy",
+      "lane_type": "representative",
+      "description": "Filled Stage 1 representative proxy: existing sentence-veto v10 rows plus 25 corpus-like app-candidate gap rows.",
+      "interpretation": "Useful for measuring product-facing recall on the filled 120-row representative proxy; still not a final browsing distribution, and the 25 corpus-like rows need human review.",
+      "reports": [
+        {
+          "source_id": "sampling_stage1_representative_current_policy",
+          "suite_id": "sampling_stage1_representative",
+          "path": "docs/test_outputs/semantic_veto_sampling_stage1_representative_scoring_en_es_latest.json"
+        }
+      ]
+    }
+  ],
+  "planned_lanes": [
+    {
+      "lane_id": "representative_browsing_expanded_en_es_v1",
+      "lane_type": "representative_expanded",
+      "status": "planned",
+      "purpose": "Expand beyond the existing sentence-veto v10 proxy into ordinary browser-like contexts."
+    },
+    {
+      "lane_id": "llm_expanded_locked_eval_en_es_v1",
+      "lane_type": "llm_expanded_eval",
+      "status": "planned",
+      "purpose": "Use LLM generation budget to create admitted positive, negative, and phrase/no-winner breadth before promotion claims."
+    }
+  ],
+  "next_steps": [
+    "Human-review the 25 corpus-like representative gap rows before promotion claims.",
+    "Add observed representative browsing and LLM-expanded locked evaluation lanes before broad product-quality claims.",
+    "Keep stress and representative results separate in every report."
+  ]
+}

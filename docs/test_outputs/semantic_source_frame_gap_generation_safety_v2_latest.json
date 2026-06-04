@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-04-28T21:08:45Z",
+  "plan_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_source_frame_gap_plan_def_example_plus_llm_aligned_v2_en_es_latest.json",
+  "pricing_source": "https://openai.com/api/pricing/",
+  "prompt_version": "aligned-sentence-frame-v2",
+  "request_rows": [
+    {
+      "estimated_input_tokens": 461,
+      "expected_output_tokens": 50,
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "max_output_tokens": 180,
+      "prompt_slot": "shadow_example",
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-01"
+    },
+    {
+      "estimated_input_tokens": 455,
+      "expected_output_tokens": 50,
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "max_output_tokens": 180,
+      "prompt_slot": "shadow_example",
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-02"
+    },
+    {
+      "estimated_input_tokens": 453,
+      "expected_output_tokens": 50,
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "max_output_tokens": 180,
+      "prompt_slot": "shadow_example",
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-03"
+    },
+    {
+      "estimated_input_tokens": 452,
+      "expected_output_tokens": 50,
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "max_output_tokens": 180,
+      "prompt_slot": "shadow_example",
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-04"
+    },
+    {
+      "estimated_input_tokens": 459,
+      "expected_output_tokens": 50,
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "max_output_tokens": 180,
+      "prompt_slot": "shadow_example",
+      "request_id": "en-es:source-frame-gap:shadow_example:en-es-sentence-veto-board-tablero:en-es-sentence-veto-board-junta-shadow:candidate-05"
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "source_id": "llm_aligned_sentence_frame_rows",
+  "summary": {
+    "estimated_cost_ceiling": 0.00576,
+    "estimated_cost_expected": 0.002835,
+    "estimated_input_tokens": 2280,
+    "expected_output_tokens": 250,
+    "max_output_tokens": 900,
+    "selected_request_count": 5
+  }
+}

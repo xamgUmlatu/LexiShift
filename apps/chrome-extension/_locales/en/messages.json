@@ -12,7 +12,7 @@
     "message": "LexiShift"
   },
   "header_subtitle": {
-    "message": "Configure SRS practice and manual replacement rules for your browser experience."
+    "message": "Configure vocabulary practice and manual replacement rules for your browser experience."
   },
   "section_quick_controls": {
     "message": "Quick Controls"
@@ -45,7 +45,7 @@
     "message": "No file imported yet. Re-import after changes."
   },
   "section_display": {
-    "message": "Display"
+    "message": "Page Display"
   },
   "toggle_highlight": {
     "message": "Highlight replaced words (click to toggle original)"
@@ -54,10 +54,10 @@
     "message": "Highlight color"
   },
   "section_replacement_behavior": {
-    "message": "Replacement Behavior"
+    "message": "Page Replacement Density"
   },
   "hint_replacement_behavior_scope": {
-    "message": "Applies to all replacements (ruleset and SRS)."
+    "message": "Applies after vocabulary practice and manual rules are merged for page display."
   },
   "toggle_max_one": {
     "message": "Replace max 1 word per text block"
@@ -75,22 +75,115 @@
     "message": "Max replacements per page"
   },
   "hint_max_replacements_page": {
-    "message": "0 means unlimited. Caps total replacements shown on the current page."
+    "message": "Standard default is 20. Use 0 only for unlimited replacement."
   },
   "label_max_replacements_lemma_page": {
     "message": "Max per word per page"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "0 means unlimited. Prevents one word from dominating the page."
+    "message": "Standard default is 2. Prevents one word from dominating the page."
   },
   "section_srs": {
-    "message": "SRS Practice"
+    "message": "Vocabulary Practice"
   },
-  "toggle_srs_enabled": {
-    "message": "Enable SRS practice mode"
+  "badge_srs_active_story": {
+    "message": "Active"
   },
-  "hint_srs_dataset": {
-    "message": "Uses a fixed test dataset for now (no external downloads)."
+  "summary_srs_story_sampling": {
+    "message": "Sample next words"
+  },
+  "hint_srs_story_sampling_curtain": {
+    "message": "Preview words your current preferences may suggest next."
+  },
+  "action_srs_open_panel": {
+    "message": "Open"
+  },
+  "heading_srs_start_new_story": {
+    "message": "Start Vocabulary Practice"
+  },
+  "hint_srs_start_new_story": {
+    "message": "Choose a language pair, tune your preferences, then start practicing."
+  },
+  "button_srs_start_new_story": {
+    "message": "Start setup"
+  },
+  "heading_srs_add_new_story": {
+    "message": "Add another language"
+  },
+  "hint_srs_add_new_story": {
+    "message": "Create a separate Vocabulary Practice for a new language pair. Your existing practice stays unchanged."
+  },
+  "button_srs_add_new_story": {
+    "message": "Add language"
+  },
+  "heading_srs_story_flow": {
+    "message": "Set up Vocabulary Practice"
+  },
+  "hint_srs_story_flow": {
+    "message": "Choose languages, learning preferences, and starting pace before you start."
+  },
+  "heading_srs_story_flow_pair": {
+    "message": "Choose language"
+  },
+  "heading_srs_story_flow_preferences": {
+    "message": "Learning preferences"
+  },
+  "heading_srs_story_flow_size": {
+    "message": "Choose starting pace"
+  },
+  "heading_srs_story_flow_review": {
+    "message": "Sample and start"
+  },
+  "hint_srs_story_flow_review": {
+    "message": "Sample words until the mix looks right, then start practice."
+  },
+  "label_srs_language_data": {
+    "message": "Language data"
+  },
+  "button_srs_open_resource_settings": {
+    "message": "Install language data in LexiShift"
+  },
+  "button_srs_retry_data_check": {
+    "message": "Retry check"
+  },
+  "status_srs_language_data_missing": {
+    "message": "LexiShift needs language data for $1 before it can sample words or start practice."
+  },
+  "status_srs_language_data_check_required": {
+    "message": "Install the required language data, then retry."
+  },
+  "status_srs_opening_resource_settings": {
+    "message": "Opening LexiShift resource settings…"
+  },
+  "hint_srs_retry_after_data_install": {
+    "message": "After installing the required packs, return here and retry the check."
+  },
+  "label_srs_frequency_data": {
+    "message": "Word frequency data"
+  },
+  "label_srs_translation_dictionary": {
+    "message": "Translation dictionary"
+  },
+  "label_srs_jmdict_data": {
+    "message": "Japanese-English dictionary"
+  },
+  "label_srs_language_resource": {
+    "message": "Language data"
+  },
+  "button_srs_story_flow_initialize": {
+    "message": "Start practice"
+  },
+  "status_srs_story_flow_previewing": {
+    "message": "Saving settings and sampling possible words…"
+  },
+  "status_srs_story_flow_sampled": {
+    "message": "Sample updated."
+  },
+  "status_srs_story_flow_initializing": {
+    "message": "Saving settings and starting Vocabulary Practice…"
+  },
+  "status_srs_story_flow_initialized": {
+    "message": "Vocabulary Practice started."
   },
   "label_srs_pair": {
     "message": "Language pair"
@@ -102,28 +195,172 @@
     "message": "All pairs"
   },
   "label_srs_max_active": {
-    "message": "Max active words"
+    "message": "Words in active practice"
+  },
+  "hint_srs_max_active": {
+    "message": "How many learning words LexiShift keeps in rotation at once."
   },
   "label_srs_bootstrap_top_n": {
-    "message": "Bootstrap S size (top N)"
+    "message": "Vocabulary search range"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "Total number of words admitted during initial S bootstrap."
+    "message": "Broadens the ranked word pool used for samples and new-word selection. Leave at default unless samples feel too narrow."
   },
   "label_srs_initial_active_count": {
-    "message": "Initial active subset"
+    "message": "Starting words"
   },
   "hint_srs_initial_active_count": {
-    "message": "Initial non-zero/active words selected from the bootstrap list."
+    "message": "How many prepared words can appear immediately after setup."
+  },
+  "summary_srs_starting_size_advanced": {
+    "message": "Advanced starting size"
+  },
+  "label_srs_topic_interest_presets": {
+    "message": "Topic priorities"
+  },
+  "badge_srs_topic_interest_pair_support": {
+    "message": "Coverage varies by pair"
+  },
+  "topic_srs_medicine_health": {
+    "message": "Medicine & health"
+  },
+  "topic_srs_finance_business": {
+    "message": "Finance & business"
+  },
+  "topic_srs_sports_fitness": {
+    "message": "Sports & fitness"
+  },
+  "topic_srs_games": {
+    "message": "Games"
+  },
+  "topic_srs_music_media_entertainment": {
+    "message": "Music & media"
+  },
+  "topic_srs_law_politics_civics": {
+    "message": "Law & civics"
+  },
+  "topic_srs_science_technology": {
+    "message": "Science & technology"
+  },
+  "topic_srs_arts_literature_humanities": {
+    "message": "Arts & literature"
+  },
+  "topic_srs_animals": {
+    "message": "Animals"
+  },
+  "topic_srs_food_cooking": {
+    "message": "Food & cooking"
+  },
+  "topic_srs_plants_nature": {
+    "message": "Plants & nature"
+  },
+  "summary_srs_advanced_topic_tags": {
+    "message": "Advanced tags"
+  },
+  "label_srs_topic_interests": {
+    "message": "Topic interests"
+  },
+  "hint_srs_topic_interests": {
+    "message": "Add comma-separated tags for experiments or topics not listed above."
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "Proficiency estimate"
+  },
+  "label_srs_proficiency_previous": {
+    "message": "Previous setting:"
+  },
+  "button_srs_proficiency_restore": {
+    "message": "Restore"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "Drag toward the level you want new practice words to fit."
+  },
+  "summary_srs_challenge_tuning": {
+    "message": "Advanced challenge tuning"
+  },
+  "label_srs_challenge_target": {
+    "message": "Challenge target (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 to 100. Leave blank to keep challenge preference neutral."
   },
   "label_srs_highlight_color": {
-    "message": "SRS highlight color"
+    "message": "Word highlight color"
   },
-  "toggle_srs_feedback_srs": {
-    "message": "Enable feedback for SRS words"
+  "label_srs_semantic_admission_status": {
+    "message": "Sentence fit check"
   },
-  "toggle_srs_feedback_rules": {
-    "message": "Enable feedback for ruleset words"
+  "status_srs_semantic_capability_checking": {
+    "message": "Checking…"
+  },
+  "hint_srs_semantic_capability_checking": {
+    "message": "Checking sentence-fit status…"
+  },
+  "status_srs_semantic_capability_active": {
+    "message": "On"
+  },
+  "hint_srs_semantic_capability_active": {
+    "message": "LexiShift checks whether selected practice replacements fit the sentence before showing them."
+  },
+  "status_srs_semantic_capability_published_unready": {
+    "message": "Not yet available"
+  },
+  "hint_srs_semantic_capability_published_unready": {
+    "message": "Sentence-fit data is published, but this pair/profile has no ready coverage yet. LexiShift currently uses standard learning replacements."
+  },
+  "status_srs_semantic_capability_unavailable": {
+    "message": "Unavailable"
+  },
+  "hint_srs_semantic_capability_unavailable": {
+    "message": "This pair/profile does not currently publish sentence-fit coverage. LexiShift currently uses standard learning replacements."
+  },
+  "status_srs_semantic_capability_error": {
+    "message": "Needs repair"
+  },
+  "hint_srs_semantic_capability_error": {
+    "message": "Sentence-fit data is present but inconsistent or unreadable. LexiShift currently uses standard learning replacements until it is repaired."
+  },
+  "status_srs_semantic_capability_unknown": {
+    "message": "Status unavailable"
+  },
+  "hint_srs_semantic_capability_unknown": {
+    "message": "Sentence-fit status could not be checked right now."
+  },
+  "toggle_srs_semantic_admission": {
+    "message": "Enable sentence fit check (experimental)"
+  },
+  "hint_srs_semantic_admission": {
+    "message": "Filters eligible practice replacements with helper-side sentence checks. Fallback policy decides what happens when sentence-fit data or helper service is unavailable."
+  },
+  "label_srs_semantic_fallback_policy": {
+    "message": "Sentence-fit fallback policy"
+  },
+  "option_srs_semantic_fallback_legacy": {
+    "message": "Keep legacy replacement"
+  },
+  "option_srs_semantic_fallback_abstain": {
+    "message": "Abstain"
+  },
+  "option_srs_semantic_fallback_soft": {
+    "message": "Soft affordance (reserved)"
+  },
+  "summary_srs_auto_refresh": {
+    "message": "When new words are added"
+  },
+  "label_srs_auto_refresh_min_feedback": {
+    "message": "Minimum feedback events"
+  },
+  "label_srs_auto_refresh_min_good_easy": {
+    "message": "Good/Easy needed"
+  },
+  "label_srs_auto_refresh_repeat_min_good_easy": {
+    "message": "Same-day Good/Easy needed"
+  },
+  "label_srs_auto_refresh_cooldown": {
+    "message": "Cooldown minutes"
+  },
+  "hint_srs_auto_refresh": {
+    "message": "The helper checks for new words only after enough feedback; capacity, due pressure, and retention still decide whether anything is added."
   },
   "toggle_srs_sound": {
     "message": "Play feedback sound"
@@ -155,6 +392,18 @@
   "status_helper_failed": {
     "message": "Helper error."
   },
+  "status_helper_native_messaging_failed": {
+    "message": "Could not communicate with the helper."
+  },
+  "status_helper_native_messaging_forbidden": {
+    "message": "The browser blocked access to the helper."
+  },
+  "status_helper_native_host_exited": {
+    "message": "The helper exited unexpectedly."
+  },
+  "status_helper_timeout": {
+    "message": "The helper did not respond in time."
+  },
   "status_helper_missing": {
     "message": "Helper unavailable."
   },
@@ -170,6 +419,12 @@
   "status_helper_open_failed": {
     "message": "Open failed: $1"
   },
+  "status_helper_open_resource_settings_opened": {
+    "message": "Opened LexiShift resource settings."
+  },
+  "status_helper_open_resource_settings_failed": {
+    "message": "Open failed: $1"
+  },
   "toggle_exposure_logging": {
     "message": "Log replacement exposure events"
   },
@@ -179,11 +434,17 @@
   "button_srs_sample": {
     "message": "Sample active words…"
   },
-  "button_srs_initialize": {
-    "message": "Initialize S for this pair"
+  "button_srs_admission_preview": {
+    "message": "Sample 10 preference-matched words…"
   },
-  "button_srs_refresh_set": {
-    "message": "Refresh S + publish rules"
+  "button_srs_initialize": {
+    "message": "Start practice"
+  },
+  "button_srs_save_preferences": {
+    "message": "Save preferences"
+  },
+  "summary_srs_story_advanced": {
+    "message": "Advanced"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS runtime diagnostics"
@@ -194,14 +455,239 @@
   "button_srs_rulegen_sampled_preview": {
     "message": "Run sampled rulegen (5)…"
   },
-  "button_srs_reset": {
-    "message": "Reset SRS data"
+  "button_srs_delete_story": {
+    "message": "Delete Vocabulary Practice"
+  },
+  "heading_srs_words_dashboard": {
+    "message": "Learning words"
+  },
+  "hint_srs_words_dashboard": {
+    "message": "Review the words currently in this practice."
+  },
+  "button_srs_words_refresh": {
+    "message": "Refresh words"
+  },
+  "button_srs_words_open_library": {
+    "message": "Open Vocabulary Library"
+  },
+  "heading_srs_vocabulary_library_entry": {
+    "message": "Vocabulary Library"
+  },
+  "hint_srs_vocabulary_library_entry": {
+    "message": "Review learning words, definitions, progress, and page-replacement sources."
+  },
+  "toggle_srs_words_advanced": {
+    "message": "Advanced details"
+  },
+  "label_srs_words_search": {
+    "message": "Search"
+  },
+  "label_srs_words_status_filter": {
+    "message": "Status"
+  },
+  "option_srs_words_status_all": {
+    "message": "All"
+  },
+  "option_srs_words_status_active": {
+    "message": "Active"
+  },
+  "option_srs_words_status_due": {
+    "message": "Due"
+  },
+  "option_srs_words_status_queued": {
+    "message": "Upcoming"
+  },
+  "option_srs_words_status_removed": {
+    "message": "Removed"
+  },
+  "label_srs_words_sort": {
+    "message": "Sort"
+  },
+  "option_srs_words_sort_source": {
+    "message": "Source order"
+  },
+  "option_srs_words_sort_due": {
+    "message": "Due first"
+  },
+  "option_srs_words_sort_word": {
+    "message": "Word A-Z"
+  },
+  "option_srs_words_sort_reviews": {
+    "message": "Most reviews"
+  },
+  "option_srs_words_sort_seen": {
+    "message": "Most seen"
+  },
+  "label_srs_words_page_size": {
+    "message": "Rows"
+  },
+  "button_srs_words_clear_filters": {
+    "message": "Clear filters"
+  },
+  "learning_dashboard_title": {
+    "message": "Vocabulary Library"
+  },
+  "learning_dashboard_subtitle": {
+    "message": "Review your learning words, definitions, progress, and page-replacement sources."
+  },
+  "learning_dashboard_back": {
+    "message": "Back to options"
+  },
+  "learning_dashboard_refresh": {
+    "message": "Refresh"
+  },
+  "learning_dashboard_pair_select": {
+    "message": "Practice"
+  },
+  "learning_dashboard_search": {
+    "message": "Search"
+  },
+  "learning_dashboard_status_filter": {
+    "message": "Progress"
+  },
+  "learning_dashboard_sort": {
+    "message": "Sort"
+  },
+  "learning_dashboard_rows": {
+    "message": "Rows"
+  },
+  "learning_dashboard_col_word": {
+    "message": "Word"
+  },
+  "learning_dashboard_col_meaning": {
+    "message": "Meaning"
+  },
+  "learning_dashboard_col_progress": {
+    "message": "Progress"
+  },
+  "learning_dashboard_col_activity": {
+    "message": "Activity"
+  },
+  "learning_dashboard_col_topic": {
+    "message": "Topic"
+  },
+  "learning_dashboard_col_action": {
+    "message": "Action"
+  },
+  "learning_dashboard_summary_active": {
+    "message": "Active"
+  },
+  "learning_dashboard_summary_due": {
+    "message": "Due now"
+  },
+  "learning_dashboard_summary_can_appear": {
+    "message": "Can appear"
+  },
+  "learning_dashboard_summary_upcoming": {
+    "message": "Upcoming"
+  },
+  "learning_dashboard_summary_removed": {
+    "message": "Removed"
+  },
+  "learning_dashboard_summary_total": {
+    "message": "Total"
+  },
+  "learning_dashboard_status_loading": {
+    "message": "Loading Vocabulary Library..."
+  },
+  "learning_dashboard_status_refreshing": {
+    "message": "Loading learning words..."
+  },
+  "learning_dashboard_status_ready": {
+    "message": "Loaded $1 learning words."
+  },
+  "learning_dashboard_status_failed": {
+    "message": "Failed to load learning words."
+  },
+  "learning_dashboard_no_practices": {
+    "message": "No Vocabulary Practice stories found for this profile."
+  },
+  "learning_dashboard_no_practices_short": {
+    "message": "No active practice"
+  },
+  "learning_dashboard_empty_filtered": {
+    "message": "No learning words match these filters."
+  },
+  "learning_dashboard_empty_unloaded": {
+    "message": "No learning words loaded yet."
+  },
+  "learning_dashboard_page_info": {
+    "message": "Showing $1-$2 of $3 words"
+  },
+  "learning_dashboard_page_empty": {
+    "message": "Showing 0 words"
+  },
+  "learning_dashboard_detail_empty": {
+    "message": "Double-click a word to view definitions and practice details."
+  },
+  "learning_dashboard_definition": {
+    "message": "Definition"
+  },
+  "learning_dashboard_definition_loading": {
+    "message": "Loading definition..."
+  },
+  "learning_dashboard_definition_unavailable": {
+    "message": "Definition unavailable."
+  },
+  "learning_dashboard_replacement_sources": {
+    "message": "Page replacements"
+  },
+  "learning_dashboard_no_replacement_sources": {
+    "message": "No published page-replacement sources found."
+  },
+  "learning_dashboard_dictionaries": {
+    "message": "Dictionaries"
+  },
+  "learning_dashboard_advanced": {
+    "message": "Advanced"
+  },
+  "learning_dashboard_advanced_rules": {
+    "message": "Published rules"
+  },
+  "learning_dashboard_page_replacement_label": {
+    "message": "Page replacement"
+  },
+  "learning_dashboard_practice_state_label": {
+    "message": "Practice state"
+  },
+  "learning_dashboard_scheduler_label": {
+    "message": "Scheduler"
+  },
+  "learning_dashboard_step_label": {
+    "message": "Step"
+  },
+  "learning_dashboard_confidence_label": {
+    "message": "Confidence"
+  },
+  "learning_dashboard_stability_label": {
+    "message": "Stability"
+  },
+  "learning_dashboard_difficulty_label": {
+    "message": "Difficulty"
+  },
+  "learning_dashboard_no_published_rules": {
+    "message": "No published rules found."
+  },
+  "learning_dashboard_discard": {
+    "message": "Discard"
+  },
+  "pagination_first": {
+    "message": "First"
+  },
+  "pagination_prev": {
+    "message": "Prev"
+  },
+  "pagination_next": {
+    "message": "Next"
+  },
+  "pagination_last": {
+    "message": "Last"
   },
   "confirm_srs_reset_1": {
-    "message": "Are you sure you want to reset all SRS progress for this language pair? This cannot be undone."
+    "message": "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone."
   },
   "confirm_srs_reset_2": {
-    "message": "Really delete all learning history and start over for this pair?"
+    "message": "Really delete this practice's learning words, review history, and discard data?"
   },
   "status_srs_sampling": {
     "message": "Sampling…"
@@ -219,19 +705,19 @@
     "message": "Sampled rulegen: $1 words, $2 targets, $3 rules ($4s)"
   },
   "status_srs_set_init_running": {
-    "message": "Initializing S…"
+    "message": "Starting practice…"
   },
   "status_srs_refresh_running": {
-    "message": "Refreshing S and publishing rules…"
+    "message": "Refreshing learning words…"
   },
   "status_srs_refresh_success": {
-    "message": "S refreshed for $1: +$2 admitted."
+    "message": "Learning words refreshed for $1: +$2 new words."
   },
   "status_srs_refresh_noop": {
-    "message": "S refresh for $1: no new admissions."
+    "message": "Learning words refreshed for $1: no new words added."
   },
   "status_srs_refresh_failed": {
-    "message": "S refresh failed."
+    "message": "Learning words refresh failed."
   },
   "status_srs_diagnostics_running": {
     "message": "Collecting SRS runtime diagnostics…"
@@ -246,19 +732,19 @@
     "message": "Failed to collect SRS diagnostics."
   },
   "status_srs_set_init_result": {
-    "message": "S initialized for $3: +$1 items (total $2)."
+    "message": "Practice started for $3: +$1 learning words (total $2)."
   },
   "status_srs_set_plan_result": {
-    "message": "S planning completed for $1."
+    "message": "Practice setup checked for $1."
   },
   "status_srs_set_init_success": {
-    "message": "S initialized for $1."
+    "message": "Practice started for $1."
   },
   "status_srs_set_plan_only": {
-    "message": "S planning completed for $1; no changes were applied."
+    "message": "Practice setup checked for $1; no changes were applied."
   },
   "status_srs_set_init_failed": {
-    "message": "S initialization failed."
+    "message": "Practice setup failed."
   },
   "status_srs_sample_empty": {
     "message": "No words available."
@@ -267,7 +753,7 @@
     "message": "No rules found for current active words."
   },
   "status_srs_sample_failed": {
-    "message": "SRS sample failed."
+    "message": "Word sample failed."
   },
   "status_srs_rulegen_failed": {
     "message": "Rule preview failed."
@@ -300,16 +786,16 @@
     "message": "Fix:"
   },
   "status_srs_resetting": {
-    "message": "Resetting SRS data…"
+    "message": "Deleting Vocabulary Practice…"
   },
   "status_srs_reset_success": {
-    "message": "SRS data reset successfully."
+    "message": "Vocabulary Practice deleted."
   },
   "status_srs_reset_failed": {
-    "message": "SRS reset failed."
+    "message": "Vocabulary Practice deletion failed."
   },
   "status_srs_reset_outdated": {
-    "message": "Helper outdated: command not found. Restart helper?"
+    "message": "Delete failed: helper command not found. Restart helper?"
   },
   "section_share_center": {
     "message": "Share Center"
@@ -339,13 +825,13 @@
     "message": "Close"
   },
   "hint_share_center_export_mode": {
-    "message": "Choose export mode. Full profile exports everything; custom selection lets you pick specific nodes."
+    "message": "Choose export mode. Full profile uses the existing profile share format; custom selection lets you pick specific nodes."
   },
   "share_center_mode_full_title": {
     "message": "Full profile"
   },
   "share_center_mode_full_hint": {
-    "message": "Recommended. Export complete profile data in one step."
+    "message": "Recommended. Export complete profile data using the existing profile share format."
   },
   "share_center_mode_custom_title": {
     "message": "Custom selection"
@@ -369,7 +855,10 @@
     "message": "Profile settings"
   },
   "share_center_target_profile_settings_hint": {
-    "message": "Profile configuration and SRS settings."
+    "message": "Profile configuration and SRS settings using the existing SRS settings format."
+  },
+  "share_center_compatibility_note": {
+    "message": "Compatibility note: Full profile uses the existing profile share format, and the Profile settings target uses the existing SRS settings format."
   },
   "share_center_group_rulesets": {
     "message": "Rulesets"
@@ -480,7 +969,7 @@
     "message": "Choose a valid SRS pair entry before generating."
   },
   "share_center_hint_ready_full_export": {
-    "message": "Ready to export full profile as JSON file."
+    "message": "Ready to export full profile as a JSON file using the existing profile share format."
   },
   "share_center_hint_ready_selection_export": {
     "message": "Ready to export selection as JSON file."
@@ -705,7 +1194,19 @@
     "message": "Replacement settings saved."
   },
   "status_srs_saved": {
-    "message": "SRS settings saved."
+    "message": "Practice settings saved."
+  },
+  "status_srs_preferences_saved": {
+    "message": "Preferences saved."
+  },
+  "status_srs_preferences_unsaved": {
+    "message": "Unsaved changes."
+  },
+  "status_srs_save_failed": {
+    "message": "Failed to save practice settings."
+  },
+  "status_srs_save_partial": {
+    "message": "Practice settings were partially saved. Reload the page and review the current values."
   },
   "status_switch_edit_json": {
     "message": "Switch to Edit JSON to save changes."
@@ -785,6 +1286,21 @@
   "button_modules": {
     "message": "Modules"
   },
+  "button_word_popup_settings": {
+    "message": "Word popup settings"
+  },
+  "heading_word_popup_settings": {
+    "message": "Word popup settings"
+  },
+  "hint_word_popup_settings": {
+    "message": "For the active Vocabulary Practice target language. Choose what appears when you interact with translated words."
+  },
+  "module_quick_definition": {
+    "message": "Definition"
+  },
+  "module_quick_definition_desc": {
+    "message": "Show a quick definition in the popup."
+  },
   "module_ja_script_forms": {
     "message": "Japanese script forms"
   },
@@ -798,7 +1314,7 @@
     "message": "Feedback history"
   },
   "module_feedback_history_desc": {
-    "message": "Store and display your SRS rating history for this word."
+    "message": "Store and display your review rating history for this word."
   },
   "module_encounter_history": {
     "message": "Encounter history"
@@ -814,6 +1330,18 @@
   },
   "label_module_drag_reorder": {
     "message": "Drag to reorder"
+  },
+  "popup_definition_loading": {
+    "message": "Loading definition..."
+  },
+  "popup_definition_unavailable": {
+    "message": "No definition available."
+  },
+  "popup_definition_missing": {
+    "message": "Definition data is not installed for this word."
+  },
+  "popup_definition_error": {
+    "message": "Failed to load definition."
   },
   "popup_feedback_history_loading": {
     "message": "Feedback history (loading...)"
@@ -900,7 +1428,7 @@
     "message": "Manual Rules"
   },
   "hint_manual_rules": {
-    "message": "Tune replacement behavior and edit/import the manual ruleset."
+    "message": "Edit/import manual rulesets for the selected profile."
   },
   "label_profile_id": {
     "message": "Profile"
@@ -1036,5 +1564,56 @@
   },
   "button_get_plugin": {
     "message": "Get BetterDiscord Plugin"
+  },
+  "label_semantic_pack_inventory_path": {
+    "message": "Semantic inventory path override"
+  },
+  "label_semantic_pack_id": {
+    "message": "Semantic pack id"
+  },
+  "toggle_semantic_pack_default_data_root": {
+    "message": "Install to default helper data folder"
+  },
+  "label_semantic_pack_data_root": {
+    "message": "Semantic pack data root"
+  },
+  "button_semantic_pack_install": {
+    "message": "Install semantic pack…"
+  },
+  "status_semantic_pack_inventory_path_required": {
+    "message": "Semantic inventory path is required."
+  },
+  "status_semantic_pack_data_root_required": {
+    "message": "Data root is required unless default data root is enabled."
+  },
+  "confirm_semantic_pack_install": {
+    "message": "Install semantic pack for $1 profile $2? This overwrites the profile-local semantic publication files."
+  },
+  "status_semantic_pack_install_running": {
+    "message": "Installing semantic pack…"
+  },
+  "status_semantic_pack_install_success": {
+    "message": "Installed $1 for $2: $3 rules, $4 competition sets."
+  },
+  "status_semantic_pack_install_ready": {
+    "message": "Semantic pack installed."
+  },
+  "status_semantic_pack_install_failed": {
+    "message": "Semantic pack install failed."
+  },
+  "status_srs_items_list_ready": {
+    "message": "Loaded $1 learning words."
+  },
+  "status_srs_items_list_failed": {
+    "message": "Failed to load learning words."
+  },
+  "confirm_srs_discard_word": {
+    "message": "Discard $1? It will be removed from Vocabulary Practice and blocked from future admission until practice data is reset."
+  },
+  "status_srs_discard_success": {
+    "message": "Discarded $1."
+  },
+  "status_srs_discard_failed": {
+    "message": "Failed to discard learning word."
   }
 }

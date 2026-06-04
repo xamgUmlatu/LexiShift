@@ -1,7 +1,11 @@
 # LexiShift TODOs
 
 Status: Active backlog
+Role: Planning / WIP
 Last updated: 2026-03-26
+Last verified: 2026-05-14 metadata-only Lane 1 normalization; backlog content not re-audited
+Purpose: consolidated product and architecture backlog retained after root README cleanup
+Source-of-truth: backlog planning only; current implementation truth lives in source code, tests, and `docs/developer/feature_state_matrix.md`.
 
 This file is the consolidated TODO source of truth. It replaces the large TODO and plan sections that previously lived in the root `README.md`.
 
@@ -121,13 +125,8 @@ Acceptance criteria:
 - Keep exact substring mode as a user-selectable fallback for mixed-language text.
 
 ### Replacement pacing/sensitivity controls
-- Move "Replacement Behavior" settings out of "Manual Rules" scope into global scope for the full experience.
-- Applies to all replacements (ruleset and SRS).
-- Settings to move:
-  - Replace max 1 word per text block.
-  - Allow replacing adjacent words.
-  - Max replacements per page (`0` = unlimited).
-  - Max per word per page (`0` = unlimited).
+- Page replacement density settings now apply to the merged SRS/manual runtime
+  output and use explicit standard defaults.
 - Consider limiting replacements per sentence.
 - Add settings to adjust sensitivity/strictness for the rules above.
 
@@ -182,6 +181,22 @@ Acceptance criteria:
   - analyze which profiles win by feature region,
   - later route runtime rulegen through an interpretable profile selector,
   - planning spec: `docs/rulegen/trait_conditioned_rulegen_profiles.md`.
+- Generalize the benchmark/resource contract beyond the current `en-es` reference lane:
+  - clean up generic resource naming so non-FreeDict providers do not leak through generic fields,
+  - define a normalized translation-pack contract for benchmark/helper/adapter code,
+  - move installed translation packs to a manifest-backed compiled-artifact model with SQLite as the preferred canonical runtime format,
+  - treat provider-native raw downloads/extraction trees as build inputs rather than runtime contracts, and delete them after successful build by default,
+  - treat app-managed GUI/helper/native-host/tooling surfaces as free to rename/remove now rather than preserving legacy `freedict_*` or TEI-first naming for compatibility,
+  - apply the same manifest-backed compiled-artifact model to existing frequency and embedding pack flows, not only translation packs,
+  - require any new data-source onboarding to use pack-id roots + manifest + canonical compiled artifact + raw cleanup by default,
+  - generalize the compiled pair-context boundary,
+  - use `de-en` as the first additional translation LP once the contract is clean enough,
+  - use German frequency workflow polish as the first missing data-source lane that unlocks multiple LPs,
+  - planning specs:
+    - `docs/developer/data_source_normalization_architecture.md`
+    - `docs/developer/data_source_normalization_execution_order.md`
+    - `docs/developer/language_pair_generalization_roadmap.md`
+    - `docs/language_pairs/de_en_workstream_roadmap.md`
 - Improve benchmark portability before the large broad sweep:
   - optionally add single-file archive/import ergonomics on top of the existing portable bundle export/replay flow if directory transfer becomes annoying.
 
@@ -211,6 +226,7 @@ Acceptance criteria:
 3. Finish language pack UX polish:
    - Pack-specific validators for edge layouts.
    - Clear handling for external/manual paths vs. app-managed files.
+   - Decide whether to phase out broad manual file-path selection entirely; current expectation is probably yes unless a concrete user need survives.
    - Re-enable Wiktionary when we are ready to handle large downloads.
 4. Add language selection controls tied to profiles/rulesets:
    - Monolingual vs cross-lingual toggle per profile or per ruleset.

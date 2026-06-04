@@ -1,5 +1,12 @@
 # CWS Upload Gate (Solo Maintainer)
 
+Status: active runbook
+Role: Runbook / operational
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization; preflight command not rerun
+Purpose: define the mandatory lightweight gate before a Chrome Web Store upload
+Source-of-truth: operational runbook; current command behavior lives in `scripts/package.json` and the preflight implementation.
+
 This runbook defines the lightweight mandatory gate before Chrome Web Store upload.
 
 ## Goal

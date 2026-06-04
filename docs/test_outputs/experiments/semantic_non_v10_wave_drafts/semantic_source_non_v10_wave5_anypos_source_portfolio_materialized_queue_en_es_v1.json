@@ -1,0 +1,156 @@
+{
+  "dataset_id": "en_es_source_non_v10_wave5_anypos_ranked_slate_selected_v1",
+  "families": [
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:dry:seco",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 1,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "dry"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:use:uso",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 2,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "use"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:plain:llano",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 3,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "plain"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:fast:r-pido",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 4,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "fast"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:train:tren",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 5,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "train"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 6,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "land"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:mean:medio",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 7,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "mean"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 8,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "offer"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:present:presente",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 9,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "present"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:sign:se-al",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 10,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "sign"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:quiet:silencio",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 11,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "quiet"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:change:cambio",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 12,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "change"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 13,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "look"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:rest:reposo",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 14,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "rest"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:answer:respuesta",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 15,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "answer"
+    },
+    {
+      "archetype": "automatic_non_v10_source_portfolio_materialized",
+      "family_id": "en-es:sentence-veto:end:fin",
+      "likely_bucket": "source_coverage_probe",
+      "priority_rank": 16,
+      "review_state": "draft_source_portfolio_materialized_needs_case_review",
+      "role": "target",
+      "trigger": "end"
+    }
+  ],
+  "generated_at": "2026-04-28T22:34:17Z",
+  "pair": "en-es",
+  "queue_id": "semantic_source_non_v10_wave5_anypos_ranked_slate_selected_queue_en_es_v1",
+  "schema_version": 1,
+  "source_sweep_selection_strategy": "portfolio_materialized",
+  "source_sweep_variant_id": "min0p12-extract0-definition_and_example-rows2",
+  "translation_support_mode": "reverse_or_freedict_required"
+}

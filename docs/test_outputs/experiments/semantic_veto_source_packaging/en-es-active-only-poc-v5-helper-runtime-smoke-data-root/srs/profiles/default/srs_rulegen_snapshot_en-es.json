@@ -1,0 +1,152 @@
+{
+  "generated_at": "2026-05-09T02:08:15Z",
+  "generation_id": "en-es:default:f65b6e23c37cb343",
+  "pair": "en-es",
+  "stats": {
+    "rule_count": 24,
+    "source_count": 24,
+    "target_count": 23
+  },
+  "targets": [
+    {
+      "lemma": "alem\u00e1n",
+      "sources": [
+        "german"
+      ]
+    },
+    {
+      "lemma": "americano",
+      "sources": [
+        "american"
+      ]
+    },
+    {
+      "lemma": "caldo",
+      "sources": [
+        "bouillon"
+      ]
+    },
+    {
+      "lemma": "cercar",
+      "sources": [
+        "bar"
+      ]
+    },
+    {
+      "lemma": "comenzar",
+      "sources": [
+        "begin"
+      ]
+    },
+    {
+      "lemma": "coraz\u00f3n",
+      "sources": [
+        "heart"
+      ]
+    },
+    {
+      "lemma": "dentista",
+      "sources": [
+        "dentist"
+      ]
+    },
+    {
+      "lemma": "descuento",
+      "sources": [
+        "rebate"
+      ]
+    },
+    {
+      "lemma": "diciembre",
+      "sources": [
+        "december"
+      ]
+    },
+    {
+      "lemma": "distancia",
+      "sources": [
+        "offset"
+      ]
+    },
+    {
+      "lemma": "elegante",
+      "sources": [
+        "chic"
+      ]
+    },
+    {
+      "lemma": "enteramente",
+      "sources": [
+        "entirely"
+      ]
+    },
+    {
+      "lemma": "entre",
+      "sources": [
+        "among"
+      ]
+    },
+    {
+      "lemma": "gobernar",
+      "sources": [
+        "control",
+        "govern"
+      ]
+    },
+    {
+      "lemma": "hermano",
+      "sources": [
+        "brother"
+      ]
+    },
+    {
+      "lemma": "ma\u00f1ana",
+      "sources": [
+        "tomorrow"
+      ]
+    },
+    {
+      "lemma": "quebrar",
+      "sources": [
+        "break"
+      ]
+    },
+    {
+      "lemma": "razonable",
+      "sources": [
+        "acceptable"
+      ]
+    },
+    {
+      "lemma": "reprimir",
+      "sources": [
+        "bridle"
+      ]
+    },
+    {
+      "lemma": "rumano",
+      "sources": [
+        "rumanian"
+      ]
+    },
+    {
+      "lemma": "sonre\u00edr",
+      "sources": [
+        "smile"
+      ]
+    },
+    {
+      "lemma": "vecino",
+      "sources": [
+        "adjoining"
+      ]
+    },
+    {
+      "lemma": "vendedor",
+      "sources": [
+        "salesman"
+      ]
+    }
+  ],
+  "version": 1
+}

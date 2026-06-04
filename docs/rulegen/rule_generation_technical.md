@@ -1,8 +1,14 @@
 # LexiShift Rule Generation: Precomputed Rules + Confidence Scoring
 
+Status: active mixed technical reference
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 rulegen authority note; rulegen behavior claims not re-audited
+Source-of-truth: mixed technical reference; current implementation truth lives in rulegen/helper/SRS code, focused tests, benchmark artifacts, and `docs/developer/feature_state_matrix.md`.
+
 Purpose
 - Define a generalized, language‑pair aware pipeline for precomputing replacement rules from a target set S.
-- Attach a confidence score to each rule so downstream UI can filter by a user‑controlled threshold.
+- Attach a confidence score to each rule so generation-time thresholds and downstream tooling can inspect or prune outputs.
 - Keep the pipeline modular so pair‑specific logic can be plugged in without rewriting the core flow.
 - Set planning architecture details live in `docs/srs/srs_set_planning_technical.md`.
 
@@ -10,6 +16,14 @@ Scope
 - Covers rule generation for monolingual and cross‑lingual language pairs.
 - Focuses on precomputed rules (no runtime dictionary queries in the extension/plugin).
 - Integrates optional embeddings‑based scoring (when available) without making it mandatory.
+
+Companion current references
+- `docs/rulegen/rulegen_lp_support_guide.md` is the current implementation-facing map for LP support layers, benchmark/probe artifacts, and new-LP bring-up workflow.
+- `docs/rulegen/lp_onboarding_operating_model.md` is the onboarding/process contract for turning those support layers into a repeatable LP golden path.
+- `docs/rulegen/rulegen_congruity_implementation_plan.md` records the top-3/scoring hardening history and phase-by-phase implementation findings.
+- `docs/rulegen/semantic_routing_runtime_readiness.md` defines the future semantic-routing admission layer boundary, including what is still manual today and what must exist before safe runtime use.
+- `docs/rulegen/semantic_routing_data_contract.md` defines the recommended long-term semantic-routing payload split between emitted rules, sidecar inventory, and runtime decision records.
+- `docs/rulegen/semantic_routing_publication_contract.md` defines the future emitted-rule `metadata.semantic_admission` shape plus helper publication and diagnostics expectations for the semantic inventory sidecar.
 
 Key concepts
 - **Target set S**: the words/lemmas the user is learning (the words we want to surface).
@@ -24,7 +38,14 @@ Rule schema (canonical)
 - `confidence` (float, 0.00–1.00)
 - `source_dict` (string; dictionary id)
 - `source_type` (enum: synonym | translation | expansion | slang | phrase | inferred)
-- `metadata` (object; optional: POS, sense_id, frequency, notes, morphology)
+- `metadata` (object; optional: word-package/script metadata, POS, morphology, narrow rulegen ids)
+
+Important current boundary:
+- candidate-generation layers may carry richer pair-local provenance such as gloss order or sense-order evidence,
+- emitted runtime rules can now carry a shared `metadata.semantic_admission` contract across LPs,
+- current rulegen LPs can now emit stable active pointers with pair-specific locator strength (`sense_provenance`, `translation_gloss`, or `jmdict_entry`),
+- but no LP emits a fully ready competition/shadow payload by default yet,
+- so active-sense provenance is now a partial implementation seam rather than a finished runtime guarantee.
 
 Pipeline overview
 0) **Set Planning (new scaffold)**
@@ -61,8 +82,9 @@ Pipeline overview
    - Morphology variants for selected definitions are retained.
 
 5) **Rule Emission**
-   - Emit rules with full metadata + confidence.
+   - Emit rules with persisted runtime metadata + confidence.
    - Store per language_pair ruleset.
+   - Current emission is intentionally narrower than full candidate metadata; pair-local candidate provenance used for benchmark/ranking is not yet preserved as a shared runtime sense-identity payload.
 
 Pair‑agnostic core
 - The core pipeline should operate on:
@@ -109,10 +131,10 @@ Embeddings‑based scoring (optional)
 - Recommended: apply as a multiplicative or additive adjustment with a clamp.
 - If embeddings are missing/disabled for a pair, skip this step entirely.
 
-Filtering at runtime
-- Extension/app reads the precomputed ruleset and filters:
-  - `confidence >= user_threshold`.
-- Threshold slider should be pair‑aware (same slider can apply to a selected pair).
+Current filtering contract
+- Rule generation applies `confidence_threshold` before emitting rules.
+- The current extension helper-rules path does not apply an additional live confidence filter before SRS gating.
+- A pair-aware runtime confidence slider/filter remains planned rather than verified current behavior.
 
 Data requirements (by pair)
 - **Monolingual (EN/DE/ES/JP)**
@@ -136,7 +158,7 @@ Storage & versioning
 
 Planned UX implications
 - Users select dictionaries per language pair.
-- Users adjust confidence threshold (slider).
+- Planned: users adjust confidence threshold (slider).
 - Embeddings are an optional download; if enabled, they improve scoring.
 
 Open questions
@@ -155,14 +177,15 @@ Reference plan:
 - `docs/rulegen/rulegen_congruity_implementation_plan.md` documents the temporary top-3 source limitation decision and the scoring-framework direction, plus the architecture-investigation checklist used before implementation changes.
 
 Current operational policy update:
-- Rulegen now applies pair-specific generic-gloss demotion lists (for example `appearing`, `looking`, `like` for English-source LPs) via metadata-driven ranking penalties.
-- The defaults are centralized in `core/lexishift_core/rulegen/semantic_demotion.py` and consumed by pair adapters.
-- Penalty sensitivity is controlled by `semantic_demotion_scale` (threaded through pair tuning / benchmarks; `0` disables, `1` uses base priors).
-- This is a conservative heuristic layer and remains tunable; it does not replace future context-dependent disambiguation work.
+- Rulegen supports optional exact phrase-level gloss demotion overrides (for example `appearing`, `looking`, `like`) via metadata-driven ranking penalties.
+- The override lists are centralized in `core/lexishift_core/rulegen/semantic_demotion.py` and consumed by pair adapters only when `enable_exact_gloss_demotions` is explicitly enabled.
+- Canonical benchmark lanes keep these exact overrides off by default so benchmark scores continue to reflect general ranking quality rather than hand-authored per-phrase suppression.
+- `semantic_demotion_scale` only modulates this override layer when it is enabled.
+- This is a narrow heuristic seam and does not replace future context-dependent disambiguation work.
 
 1) Generic gloss suppression
-   - Maintain pair-specific denylist/demotion lists for broad function-like terms and over-generic glosses.
-   - Apply strong penalties before final candidate ranking.
+   - Keep exact phrase-level override lists as an opt-in long-tail mechanism only.
+   - Prefer general ranking signals over benchmark-shaped lexical suppressions.
 2) POS/sense-aware filtering
    - Require POS compatibility where available.
    - Prefer primary sense; aggressively down-rank secondary/ambiguous senses unless evidence is strong.
@@ -231,7 +254,7 @@ See `docs/rulegen/weight_selection_diagram.mmd` for the S bootstrap + rulegen fl
 - All-in-one runner (writes output files): `scripts/testing/run_en_ja_tests.py`
 - Human review sampler: `scripts/testing/en_ja_sample_review.py`
 - Pair-level benchmark sweep + leaderboard: `scripts/testing/rulegen_benchmark.py`
-  - Dataset: `docs/test_inputs/rulegen_benchmark_cases.json`
+  - Dataset: `docs/test_inputs/rulegen_benchmark_cases/`
   - Outputs ranked JSON/Markdown reports for iterative tuning across pairs.
 2) **Rulegen harness for JA→EN**
    - Why: generate a concrete ruleset JSON from a target set S and JMDict.

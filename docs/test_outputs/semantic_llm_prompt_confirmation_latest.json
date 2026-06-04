@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "pair": "en-es",
+  "generated_at": "2026-04-24T18:13:41Z",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "prompt_spec_id": "semantic_prompt_spec_en_es_v10",
+  "prompt_version": "semantic_prompt_bakeoff_v3",
+  "stage": "target",
+  "execution_mode": "live",
+  "replay_source": "",
+  "batch_id": "en-es:target:prompt-target-overlap-v3-20260425a",
+  "source_id": "semantic_prompt_bakeoff_en_es_v10:target",
+  "selected_model_id": "gpt-5.4",
+  "selected_temperature": 0.2,
+  "summary": {
+    "selected_request_count": 6,
+    "accepted_item_count": 6,
+    "api_error_count": 0,
+    "invalid_output_count": 0,
+    "normalized_row_count": 6,
+    "input_tokens": 2825,
+    "output_tokens": 179,
+    "reasoning_tokens": 0
+  },
+  "artifacts": {
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_raw_responses.json",
+    "intake_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_intake_batch.json",
+    "normalized_batch_json": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_normalized_evidence.json"
+  },
+  "request_rows": [
+    {
+      "request_id": "en-es:target:cue-contrastive-overlap-v1:plant:fabrica",
+      "prompt_slot": "cue_contrastive_overlap_v1",
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "status": "accepted",
+      "response_id": "resp_049a2505f38beae40169ebb2d744c4819791e22a5fb0fa8684",
+      "evidence_text": "green leaves, roots in soil",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_raw_responses.json#en-es:target:cue-contrastive-overlap-v1:plant:fabrica",
+      "usage": {
+        "input_tokens": 442,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 29,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 471
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-contrastive-overlap-v1:drink:beber",
+      "prompt_slot": "cue_contrastive_overlap_v1",
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "trigger": "drink",
+      "active_target": "bebida",
+      "candidate_target": "beber",
+      "status": "accepted",
+      "response_id": "resp_0c9e4632466240010169ebb2d987a48196822f49996e983c01",
+      "evidence_text": "soft drink, alcoholic beverage, hot drink",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_raw_responses.json#en-es:target:cue-contrastive-overlap-v1:drink:beber",
+      "usage": {
+        "input_tokens": 443,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 31,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 474
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-cross-pos-overlap-v1:check:revisar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "trigger": "check",
+      "active_target": "cheque",
+      "candidate_target": "revisar",
+      "status": "accepted",
+      "response_id": "resp_02fd6fb50ed47cdb0169ebb2db20648190a3a2ea37a1a70181",
+      "evidence_text": "write a check to pay the rent",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_raw_responses.json#en-es:target:cue-cross-pos-overlap-v1:check:revisar",
+      "usage": {
+        "input_tokens": 493,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 30,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 523
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-cross-pos-overlap-v1:order:ordenar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "trigger": "order",
+      "active_target": "pedido",
+      "candidate_target": "ordenar",
+      "status": "accepted",
+      "response_id": "resp_060861d17433ba0e0169ebb2dc63f88194ae0ff10426cd54f2",
+      "evidence_text": "place an order for delivery today",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_raw_responses.json#en-es:target:cue-cross-pos-overlap-v1:order:ordenar",
+      "usage": {
+        "input_tokens": 484,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 29,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 513
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-cross-pos-overlap-v1:trip:tropezar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "trigger": "trip",
+      "active_target": "viaje",
+      "candidate_target": "tropezar",
+      "status": "accepted",
+      "response_id": "resp_0feda5b4266c010c0169ebb2ddb408819594a58a8f06b764a2",
+      "evidence_text": "booked a short trip to Madrid",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_raw_responses.json#en-es:target:cue-cross-pos-overlap-v1:trip:tropezar",
+      "usage": {
+        "input_tokens": 476,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 30,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 506
+      }
+    },
+    {
+      "request_id": "en-es:target:cue-cross-pos-overlap-v1:report:informar",
+      "prompt_slot": "cue_cross_pos_overlap_v1",
+      "family_id": "en-es:sentence-veto:report:informe",
+      "trigger": "report",
+      "active_target": "informe",
+      "candidate_target": "informar",
+      "status": "accepted",
+      "response_id": "resp_0b795cb839a3f5e30169ebb2df1f548194bc3dd332d0ddbc28",
+      "evidence_text": "the final report on findings and results",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_llm_prompt_batches/en-es-target-prompt-target-overlap-v3-20260425a_raw_responses.json#en-es:target:cue-cross-pos-overlap-v1:report:informar",
+      "usage": {
+        "input_tokens": 487,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 30,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 517
+      }
+    }
+  ]
+}

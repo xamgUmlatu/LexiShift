@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-03-17
-Last verified: 2026-03-17 package-script inventory review + build-script path audit
+Last updated: 2026-06-03
+Last verified: 2026-06-03 hosting/distribution roadmap routing review and doc-reference check; build not rerun
 Purpose: current build, packaging, signing, and release entrypoints for maintained surfaces
 Source-of-truth: build/release runbook; operational behavior is defined by `scripts/package.json`, `scripts/dev/dev_workflow_build.py`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
 
@@ -21,8 +21,8 @@ npm --prefix scripts run build
 Notes:
 - `check` is the stable non-mutating repo safety loop and now includes the strict Windows parity audit.
 - `build` is the local build smoke for surfaces with maintained build paths.
-- `build:report` is the full build contract and is what hosted macOS CI runs.
-- `build:ci` / `build:ci:report` run the same build workflow in CI-safe mode and explicitly skip macOS-only GUI validation on unsupported hosts.
+- `build:report` is the full build contract and is what hosted macOS and Windows CI run.
+- `build:ci` / `build:ci:report` run the same build workflow in CI-safe mode and explicitly record GUI-validation skips on unsupported hosts.
 - Repo-wide style lint is now part of `check`; use `check:style:report` / `check:style:summary` when you want durable style artifacts without running the full safety loop.
 
 ## GUI App Packaging (PyInstaller)
@@ -57,6 +57,12 @@ pyinstaller --clean --noconfirm apps/gui/packaging/pyinstaller.spec
 Expected outputs:
 - macOS: `dist/LexiShift.app` and `dist/LexiShift Helper.app`
 - Windows: `dist/LexiShift.exe`
+
+Startup-performance planning:
+- `packaged_gui_startup_performance_plan.md` owns the packaged GUI launch
+  performance workstream, including extension-to-GUI resource-settings handoff
+  timing, PyInstaller bundle slimming, launch-path comparison, and first-paint
+  deferral planning.
 
 ## Installer Packaging (DMG/EXE)
 
@@ -117,6 +123,8 @@ Reports folder:
 
 ## Release References
 
+- Hosting/distribution roadmap: `hosting_distribution_roadmap.md`
+- Cloudflare distribution setup: `../runbooks/cloudflare_distribution_setup.md`
 - Architecture + policy status: `../architecture/chrome_web_store_review_working_doc.md`
 - Native messaging checklist: `../architecture/native_messaging_checklist.md`
 - Full scripts map: `../../scripts/README.md`

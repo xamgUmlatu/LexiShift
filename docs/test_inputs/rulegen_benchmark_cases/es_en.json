@@ -1,0 +1,225 @@
+{
+  "version": 1,
+  "pair": "es-en",
+  "description": "LexiShift rulegen benchmark cases for es-en.",
+  "cases": [
+    {
+      "case_id": "es-en:house",
+      "target": "house",
+      "tier": "smoke",
+      "expected_any": [
+        "casa",
+        "hogar"
+      ],
+      "expected_top1_any": [
+        "casa",
+        "hogar"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:water",
+      "target": "water",
+      "tier": "smoke",
+      "expected_any": [
+        "agua"
+      ],
+      "expected_top1_any": [
+        "agua"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:book",
+      "target": "book",
+      "tier": "smoke",
+      "expected_any": [
+        "libro"
+      ],
+      "expected_top1_any": [
+        "libro"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:world",
+      "target": "world",
+      "tier": "smoke",
+      "expected_any": [
+        "mundo"
+      ],
+      "expected_top1_any": [
+        "mundo"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:life",
+      "target": "life",
+      "tier": "smoke",
+      "expected_any": [
+        "vida"
+      ],
+      "expected_top1_any": [
+        "vida"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:city",
+      "target": "city",
+      "tier": "smoke",
+      "expected_any": [
+        "ciudad"
+      ],
+      "expected_top1_any": [
+        "ciudad"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:family",
+      "target": "family",
+      "tier": "smoke",
+      "expected_any": [
+        "familia"
+      ],
+      "expected_top1_any": [
+        "familia"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:friend",
+      "target": "friend",
+      "tier": "smoke",
+      "expected_any": [
+        "amigo",
+        "amiga"
+      ],
+      "expected_top1_any": [
+        "amigo",
+        "amiga"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:mother",
+      "target": "mother",
+      "tier": "smoke",
+      "expected_any": [
+        "madre"
+      ],
+      "expected_top1_any": [
+        "madre"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:father",
+      "target": "father",
+      "tier": "smoke",
+      "expected_any": [
+        "padre"
+      ],
+      "expected_top1_any": [
+        "padre"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:love",
+      "target": "love",
+      "tier": "smoke",
+      "expected_any": [
+        "amor"
+      ],
+      "expected_top1_any": [
+        "amor"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:money",
+      "target": "money",
+      "tier": "smoke",
+      "expected_any": [
+        "dinero"
+      ],
+      "expected_top1_any": [
+        "dinero"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:school",
+      "target": "school",
+      "tier": "smoke",
+      "expected_any": [
+        "escuela"
+      ],
+      "expected_top1_any": [
+        "escuela"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:road",
+      "target": "road",
+      "tier": "smoke",
+      "expected_any": [
+        "camino",
+        "ruta",
+        "carretera"
+      ],
+      "expected_top1_any": [
+        "camino",
+        "ruta",
+        "carretera"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:work",
+      "target": "work",
+      "tier": "smoke",
+      "expected_any": [
+        "trabajo"
+      ],
+      "expected_top1_any": [
+        "trabajo"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "es-en:time",
+      "target": "time",
+      "tier": "hard",
+      "expected_any": [
+        "tiempo",
+        "hora"
+      ],
+      "expected_top1_any": [
+        "tiempo",
+        "hora"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    }
+  ]
+}

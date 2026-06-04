@@ -1,5 +1,12 @@
 # SRS Set Planning Technical Notes
 
+Status: active mixed technical reference
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; set-planning content not fully re-audited
+Purpose: document current SRS planning modules, helper APIs, sizing policy, strategy status, and planned follow-through
+Source-of-truth: mixed technical reference; current planning/mutation truth lives in SRS planner/policy code, helper use cases, and SRS harness/tests.
+
 Related design:
 - `docs/srs/srs_hybrid_model_technical.md`
 
@@ -35,12 +42,18 @@ Define how set `S` is planned and mutated:
   - Behavior: initialize `S` from frequency + dictionary constraints.
 
 - `profile_bootstrap`
-  - Status: scaffolded fallback.
-  - Behavior: planner accepts profile context, currently executes as frequency bootstrap.
+  - Status: executable when requested.
+  - Behavior: applies profile-aware scoring and capped reserved topic-lane
+    selection to the frequency seed frontier. Options initialize and admission
+    preview explicitly request this strategy.
 
 - `profile_growth`
-  - Status: planner-only.
-  - Behavior: returns requirements/notes; no mutation yet.
+  - Status: executable for refresh/growth admission and dedicated rebalance.
+  - Behavior: refresh/growth admission reuses the profile-bootstrap utility
+    model over the current eligible seed frontier, then applies the normal SRS
+    capacity, due-pressure, retention, POS, and lifecycle gates before adding
+    new items into `S`. Dedicated rebalance preview/apply also keep
+    `profile_growth` as the effective strategy for inventory-aware replacement.
 
 - `adaptive_refresh`
   - Status: planner-only.
@@ -61,6 +74,11 @@ Define how set `S` is planned and mutated:
   - Input: same planning fields + sources (`jmdict_path`, `set_source_db`).
   - Output: plan metadata + mutation result (`applied`, counts).
   - Side effects: updates helper-owned `srs/profiles/<profile_id>/srs_store.json` only when plan is executable.
+  - Current execution note:
+    - `strategy_requested="profile_bootstrap"` reports
+      `strategy_effective="profile_bootstrap"` and executes the profile-aware
+      reserved topic-lane selector over the frequency seed frontier while
+      returning profile-bootstrap diagnostics.
 
 ## Sizing policy (implemented)
 
@@ -111,12 +129,13 @@ Policy decision for SRS scheduling:
   - `initial_active_count`
   - `max_active_items_hint`
   - `trigger: "options_initialize_button"`
-- Current executable fallback remains frequency bootstrap.
+- Planner diagnostics now normalize `profile_context` and expose profile-bootstrap summaries.
+- Current helper execution resolves that path to
+  `strategy_effective="profile_bootstrap"` /
+  `execution_mode="profile_bootstrap"`.
 
 ## Planned implementation steps
 
-1. Implement profile-aware candidate weighting for `profile_bootstrap`.
-2. Implement executable `profile_growth` for controlled admission into `S`.
-3. Add feedback-window aggregation for `adaptive_refresh`.
-4. Add policy registry by pair/domain to route strategy defaults.
-5. Add UI surfaces to edit profile signals and inspect planner diagnostics.
+1. Add feedback-window aggregation for `adaptive_refresh`.
+2. Add policy registry by pair/domain to route strategy defaults.
+3. Expand UI diagnostics for profile signal coverage and planner decisions.

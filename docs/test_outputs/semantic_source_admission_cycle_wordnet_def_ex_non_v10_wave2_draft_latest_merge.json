@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-27T22:24:32Z",
+  "status": "ok",
+  "batch_id": "en-es:wordnet-def-ex-non-v10-wave2-draft-v1:source-admission-cycle",
+  "source_id": "wordnet_def_ex_non_v10_wave2_draft",
+  "summary": {
+    "component_count": 2,
+    "row_count": 34,
+    "family_count": 8,
+    "relation_counts": {
+      "anchor_cue": 16,
+      "shadow_candidate": 18
+    }
+  },
+  "component_batches": [
+    {
+      "component_index": 1,
+      "batch_id": "en-es:example-frame-empty-base",
+      "source_id": "empty_source_admission_base",
+      "source_type": "internal",
+      "source_family": "internal_rulegen_artifact",
+      "input_row_count": 0,
+      "accepted_row_count": 0,
+      "duplicate_row_count": 0
+    },
+    {
+      "component_index": 2,
+      "batch_id": "en-es:wordnet-example-frames:wordnet-def-ex-non-v10-wave2-draft-v1-20260428b:filtered",
+      "source_id": "wordnet_example_frames",
+      "source_type": "external",
+      "source_family": "external_sense_graph",
+      "input_row_count": 34,
+      "accepted_row_count": 34,
+      "duplicate_row_count": 0
+    }
+  ]
+}

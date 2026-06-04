@@ -1,5 +1,12 @@
 # SRS Hybrid Model Technical Spec (Feedback-Driven)
 
+Status: active mixed reference
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; model content not fully re-audited
+Purpose: describe the current-plus-target hybrid SRS model separating persisted study inventory, admission weighting, and serving priority
+Source-of-truth: mixed model reference; current implementation truth lives in `core/lexishift_core/srs/`, helper use cases, extension SRS runtime code, and SRS tests.
+
 ## Purpose
 Define a concrete architecture for set `S` as "the user's current study inventory," while keeping room for future profile-driven growth.
 

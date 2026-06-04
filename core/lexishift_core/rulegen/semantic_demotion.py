@@ -19,10 +19,18 @@ _DEFAULT_SPANISH_GLOSS_DEMOTIONS: Mapping[str, float] = {
     "cosa": 0.8,
 }
 
+_DEFAULT_GERMAN_GLOSS_DEMOTIONS: Mapping[str, float] = {
+    "art": 0.85,
+    "typ": 0.85,
+    "sorte": 0.85,
+    "ding": 0.8,
+}
+
 _PAIR_GENERIC_GLOSS_DEMOTIONS: Mapping[str, Mapping[str, float]] = {
     "en-ja": _DEFAULT_ENGLISH_GLOSS_DEMOTIONS,
     "en-es": _DEFAULT_ENGLISH_GLOSS_DEMOTIONS,
     "en-de": _DEFAULT_ENGLISH_GLOSS_DEMOTIONS,
+    "de-en": _DEFAULT_GERMAN_GLOSS_DEMOTIONS,
     "es-en": _DEFAULT_SPANISH_GLOSS_DEMOTIONS,
 }
 

@@ -5,8 +5,26 @@ from typing import Callable, Optional
 
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.status import HelperStatus, load_status, save_status
-from lexishift_core.srs import SrsStore, load_srs_store, save_srs_store
-from lexishift_core.srs.time import now_utc
+from lexishift_core.srs import (
+    SrsStore,
+    load_srs_inventory,
+    load_srs_store,
+    remove_pair_inventory,
+    save_srs_inventory,
+    save_srs_store,
+)
+from lexishift_core.srs.admission_suppression import (
+    SrsAdmissionSuppressionStore,
+    load_admission_suppression_store,
+    save_admission_suppression_store,
+)
+from lexishift_core.srs.auto_refresh import (
+    load_auto_refresh_state,
+    remove_auto_refresh_pair_state,
+    save_auto_refresh_state,
+)
+from lexishift_core.srs.signal_queue import load_signal_events, save_signal_events
+from lexishift_core.srs.time import format_ts, now_utc
 
 
 def _remove_file(path: Path) -> bool:
@@ -21,13 +39,18 @@ def reset_srs_data(
     *,
     pair: Optional[str] = None,
     profile_id: str = "default",
+    preserve_lifecycle_metadata: bool = False,
     resolve_profile_id_fn: Callable[..., str],
 ) -> dict:
     normalized_profile_id = resolve_profile_id_fn(paths, profile_id=profile_id)
     scoped_pair = str(pair or "").strip() or None
     profile_store_path = paths.srs_store_path_for(normalized_profile_id)
+    profile_inventory_path = paths.srs_inventory_path_for(normalized_profile_id)
     profile_srs_dir = paths.profile_srs_dir(normalized_profile_id)
     profile_status_path = paths.srs_status_path_for(normalized_profile_id)
+    signal_queue_path = paths.srs_signal_queue_path_for(normalized_profile_id)
+    suppression_path = paths.srs_admission_suppression_store_path_for(normalized_profile_id)
+    auto_refresh_state_path = paths.srs_auto_refresh_state_path_for(normalized_profile_id)
 
     removed_items = 0
     remaining_items = 0
@@ -45,11 +68,37 @@ def reset_srs_data(
 
     removed_snapshots = 0
     removed_rulesets = 0
+    removed_inventory_files = 0
+    removed_inventory_pairs = 0
+    removed_semantic_inventories = 0
+    removed_publication_manifests = 0
+    if profile_inventory_path.exists():
+        inventory = load_srs_inventory(profile_inventory_path)
+        if scoped_pair:
+            if scoped_pair in dict(inventory.pairs or {}):
+                removed_inventory_pairs = 1
+                updated_inventory = remove_pair_inventory(inventory, scoped_pair)
+                if dict(updated_inventory.pairs or {}):
+                    save_srs_inventory(updated_inventory, profile_inventory_path)
+                elif _remove_file(profile_inventory_path):
+                    removed_inventory_files = 1
+        else:
+            removed_inventory_pairs = len(dict(inventory.pairs or {}))
+            if _remove_file(profile_inventory_path):
+                removed_inventory_files = 1
     if scoped_pair:
         if _remove_file(paths.snapshot_path(scoped_pair, profile_id=normalized_profile_id)):
             removed_snapshots += 1
         if _remove_file(paths.ruleset_path(scoped_pair, profile_id=normalized_profile_id)):
             removed_rulesets += 1
+        if _remove_file(
+            paths.semantic_inventory_path(scoped_pair, profile_id=normalized_profile_id)
+        ):
+            removed_semantic_inventories += 1
+        if _remove_file(
+            paths.publication_manifest_path(scoped_pair, profile_id=normalized_profile_id)
+        ):
+            removed_publication_manifests += 1
     else:
         for snapshot in profile_srs_dir.glob("srs_rulegen_snapshot_*.json"):
             if _remove_file(snapshot):
@@ -57,6 +106,28 @@ def reset_srs_data(
         for ruleset in profile_srs_dir.glob("srs_ruleset_*.json"):
             if _remove_file(ruleset):
                 removed_rulesets += 1
+        for semantic_inventory in profile_srs_dir.glob("srs_semantic_inventory_*.json"):
+            if _remove_file(semantic_inventory):
+                removed_semantic_inventories += 1
+        for publication_manifest in profile_srs_dir.glob("srs_publication_manifest_*.json"):
+            if _remove_file(publication_manifest):
+                removed_publication_manifests += 1
+
+    removed_suppression_entries = 0
+    removed_suppression_file = 0
+    if not preserve_lifecycle_metadata:
+        removed_suppression_entries, removed_suppression_file = _reset_suppression_store(
+            suppression_path,
+            pair=scoped_pair,
+        )
+    removed_auto_refresh_state_entries, removed_auto_refresh_state_file = _reset_auto_refresh_state(
+        auto_refresh_state_path,
+        pair=scoped_pair,
+    )
+    removed_signal_events, removed_signal_queue_file = _reset_signal_queue(
+        signal_queue_path,
+        pair=scoped_pair,
+    )
 
     status = load_status(profile_status_path)
     save_status(
@@ -79,4 +150,84 @@ def reset_srs_data(
         "remaining_items": remaining_items,
         "removed_snapshots": removed_snapshots,
         "removed_rulesets": removed_rulesets,
+        "removed_inventory_files": removed_inventory_files,
+        "removed_inventory_pairs": removed_inventory_pairs,
+        "removed_semantic_inventories": removed_semantic_inventories,
+        "removed_publication_manifests": removed_publication_manifests,
+        "removed_suppression_entries": removed_suppression_entries,
+        "removed_suppression_file": removed_suppression_file,
+        "removed_auto_refresh_state_entries": removed_auto_refresh_state_entries,
+        "removed_auto_refresh_state_file": removed_auto_refresh_state_file,
+        "removed_signal_events": removed_signal_events,
+        "removed_signal_queue_file": removed_signal_queue_file,
+        "preserved_lifecycle_metadata": bool(preserve_lifecycle_metadata),
     }
+
+
+def _reset_suppression_store(path: Path, *, pair: Optional[str]) -> tuple[int, int]:
+    if not path.exists():
+        return 0, 0
+    store = load_admission_suppression_store(path)
+    if pair is None:
+        removed_entries = len(tuple(store.entries or ()))
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_entries, removed_file
+
+    kept_entries = tuple(entry for entry in store.entries if entry.pair != pair)
+    removed_entries = len(tuple(store.entries or ())) - len(kept_entries)
+    if removed_entries <= 0:
+        return 0, 0
+    if not kept_entries:
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_entries, removed_file
+    save_admission_suppression_store(
+        SrsAdmissionSuppressionStore(
+            profile_id=store.profile_id,
+            entries=kept_entries,
+            version=store.version,
+            policy_version=store.policy_version,
+            updated_at=format_ts(now_utc()),
+        ),
+        path,
+    )
+    return removed_entries, 0
+
+
+def _reset_auto_refresh_state(path: Path, *, pair: Optional[str]) -> tuple[int, int]:
+    if not path.exists():
+        return 0, 0
+    state = load_auto_refresh_state(path)
+    if pair is None:
+        removed_entries = len(dict(state.pairs or {}))
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_entries, removed_file
+
+    existing_pairs = dict(state.pairs or {})
+    if pair not in existing_pairs:
+        return 0, 0
+    updated_state = remove_auto_refresh_pair_state(state, pair=pair)
+    if not dict(updated_state.pairs or {}):
+        removed_file = 1 if _remove_file(path) else 0
+        return 1, removed_file
+    save_auto_refresh_state(updated_state, path)
+    return 1, 0
+
+
+def _reset_signal_queue(path: Path, *, pair: Optional[str]) -> tuple[int, int]:
+    if not path.exists():
+        return 0, 0
+    events = load_signal_events(path)
+    if pair is None:
+        removed_events = len(events)
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_events, removed_file
+
+    kept_events = tuple(event for event in events if event.pair != pair)
+    removed_events = len(events) - len(kept_events)
+    if removed_events <= 0:
+        return 0, 0
+    if not kept_events:
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_events, removed_file
+    save_signal_events(path, kept_events)
+    return removed_events, 0

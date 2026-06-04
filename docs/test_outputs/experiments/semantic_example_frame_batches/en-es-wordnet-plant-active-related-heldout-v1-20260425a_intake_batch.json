@@ -1,0 +1,1001 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+  "pair": "en-es",
+  "source_type": "external",
+  "source_id": "wordnet_example_frames",
+  "source_family": "external_sense_graph",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-25T03:12:44Z",
+  "ingested_at": "2026-04-25T03:12:44Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "wordnet-example-frames-v1",
+  "provenance": {
+    "dataset_id": "en_es_sentence_veto_v10",
+    "source_scope": "family_keys",
+    "source_note": "local English WordNet definitions/examples linked to dataset senses",
+    "min_link_score": 0.12,
+    "evidence_mode": "definition_preferred",
+    "max_rows_per_sense": 12,
+    "include_related_hyponyms": true,
+    "max_related_rows_per_sense": 20,
+    "related_hyponym_roles": "active",
+    "family_rows": [
+      {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "trigger": "plant",
+        "active_target": "planta",
+        "role": "target",
+        "active_wordnet_count": 12,
+        "shadow_wordnet_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 14,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:plant:planta:active",
+            "target_lemma": "planta",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_wordnet_sense_id": "plant%1:03:00::",
+            "best_wordnet_synset_id": "00017402-n",
+            "best_link_score": 0.2,
+            "best_overlap": [
+              "liv",
+              "organism"
+            ],
+            "candidate_count": 21
+          },
+          {
+            "sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+            "target_lemma": "fábrica",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_wordnet_sense_id": "plant%1:06:01::",
+            "best_wordnet_synset_id": "03963198-n",
+            "best_link_score": 0.1429,
+            "best_overlap": [
+              "industrial"
+            ],
+            "candidate_count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-1",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00::",
+          "wordnet_synset_id": "00017402-n",
+          "wordnet_link_score": 0.2,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "(botany) a living organism lacking the power of locomotion",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00::",
+        "wordnet_synset_id": "00017402-n",
+        "wordnet_link_score": 0.2,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-2",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:01386537-n",
+          "wordnet_synset_id": "01386537-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "01386537-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "photosynthetic or plant constituent of plankton; mainly unicellular algae",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:01386537-n",
+        "wordnet_synset_id": "01386537-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "01386537-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-3",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11550459-n",
+          "wordnet_synset_id": "11550459-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11550459-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "microscopic plants; bacteria are often considered to be microflora",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11550459-n",
+        "wordnet_synset_id": "11550459-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11550459-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-4",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11550963-n",
+          "wordnet_synset_id": "11550963-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11550963-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a cultivated plant that is grown commercially on a large scale",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11550963-n",
+        "wordnet_synset_id": "11550963-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11550963-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-5",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11551311-n",
+          "wordnet_synset_id": "11551311-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11551311-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "an organism that produces its own food by photosynthesis",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11551311-n",
+        "wordnet_synset_id": "11551311-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11551311-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-6",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11551441-n",
+          "wordnet_synset_id": "11551441-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11551441-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a plant that does not bear flowers",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11551441-n",
+        "wordnet_synset_id": "11551441-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11551441-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-7",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11551541-n",
+          "wordnet_synset_id": "11551541-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11551541-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a young plant or a small plant",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11551541-n",
+        "wordnet_synset_id": "11551541-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11551541-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-8",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11551644-n",
+          "wordnet_synset_id": "11551644-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11551644-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a wild uncultivated plant (especially a wild apple or crabapple tree)",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11551644-n",
+        "wordnet_synset_id": "11551644-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11551644-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-9",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11556538-n",
+          "wordnet_synset_id": "11556538-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11556538-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "any plant grown for its beauty or ornamental value",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11556538-n",
+        "wordnet_synset_id": "11556538-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11556538-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-10",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11556681-n",
+          "wordnet_synset_id": "11556681-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11556681-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a plant suitable for growing in a flowerpot (especially indoors)",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11556681-n",
+        "wordnet_synset_id": "11556681-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11556681-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-11",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11556820-n",
+          "wordnet_synset_id": "11556820-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11556820-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "any flowerless plant such as a fern (pteridophyte) or moss (bryophyte) in which growth occurs only at the tip of the main stem",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11556820-n",
+        "wordnet_synset_id": "11556820-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11556820-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-wordnet-definition-12",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:03:00:::hyponym:11557018-n",
+          "wordnet_synset_id": "11557018-n",
+          "wordnet_link_score": 0.15,
+          "wordnet_link_overlap": [
+            "liv",
+            "organism"
+          ],
+          "wordnet_source_relation": "direct_hyponym",
+          "wordnet_relation_path": [
+            "00017402-n",
+            "11557018-n"
+          ]
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "a plant that reproduces or is reproduced by apomixis",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:03:00:::hyponym:11557018-n",
+        "wordnet_synset_id": "11557018-n",
+        "wordnet_link_score": 0.15,
+        "wordnet_link_overlap": [
+          "liv",
+          "organism"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct_hyponym",
+        "wordnet_relation_path": [
+          "00017402-n",
+          "11557018-n"
+        ]
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wordnet-definition-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:06:01::",
+          "wordnet_synset_id": "03963198-n",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "industrial"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "buildings for carrying on industrial labor",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:06:01::",
+        "wordnet_synset_id": "03963198-n",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "industrial"
+        ],
+        "wordnet_evidence_kind": "definition",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wordnet-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "wordnet_linked_candidate",
+        "metadata": {
+          "wordnet_provider": "wordnet_en_json",
+          "wordnet_locator_kind": "synset_id",
+          "wordnet_sense_id": "plant%1:06:01::",
+          "wordnet_synset_id": "03963198-n",
+          "wordnet_link_score": 0.1429,
+          "wordnet_link_overlap": [
+            "industrial"
+          ],
+          "wordnet_source_relation": "direct",
+          "wordnet_relation_path": []
+        }
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "they built a large plant to manufacture automobiles",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "example_bucket": "shadow",
+        "source_view": "wordnet_synset",
+        "wordnet_sense_id": "plant%1:06:01::",
+        "wordnet_synset_id": "03963198-n",
+        "wordnet_link_score": 0.1429,
+        "wordnet_link_overlap": [
+          "industrial"
+        ],
+        "wordnet_evidence_kind": "example",
+        "wordnet_source_relation": "direct",
+        "wordnet_relation_path": []
+      }
+    }
+  ]
+}

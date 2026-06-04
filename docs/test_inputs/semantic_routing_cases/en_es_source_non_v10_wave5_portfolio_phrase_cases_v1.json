@@ -1,0 +1,218 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave5_portfolio_phrase_cases_v1",
+  "base_dataset": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave5_anypos_source_portfolio_materialized_v1_dataset.json",
+  "description": "Independent phrase/no-winner abstain cases for the materialized non-v10 wave5 source portfolio.",
+  "case_scope": "non_v10_wave5_source_portfolio_phrase_no_winner",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:dry:seco",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:dry:001",
+          "sentence": "The committee ran dry on new ideas.",
+          "source_phrase": "dry",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:use:uso",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:use:001",
+          "sentence": "The hikers could use up the batteries before dusk.",
+          "source_phrase": "use",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:plain:llano",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:plain:001",
+          "sentence": "It was plain to see that the road was closed.",
+          "source_phrase": "plain",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "alternate_adjective"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fast:r-pido",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:fast:001",
+          "sentence": "The sailors held fast to the rail.",
+          "source_phrase": "fast",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:train:tren",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:train:001",
+          "sentence": "The dress had a long train behind it.",
+          "source_phrase": "train",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:land:001",
+          "sentence": "The joke did not land with the audience.",
+          "source_phrase": "land",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:mean:medio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:mean:001",
+          "sentence": "That was a mean trick to play on a guest.",
+          "source_phrase": "mean",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "alternate_adjective"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:offer:001",
+          "sentence": "The priest will offer up a prayer at dawn.",
+          "source_phrase": "offer",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:present:presente",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:present:001",
+          "sentence": "The host will present the award after dinner.",
+          "source_phrase": "present",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "verb_frame"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:sign:se-al",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:sign:001",
+          "sentence": "Managers will sign off on the budget today.",
+          "source_phrase": "sign",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:quiet:silencio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:quiet:001",
+          "sentence": "The brand became famous for quiet luxury.",
+          "source_phrase": "quiet",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "alternate_adjective"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:change:cambio",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:change:001",
+          "sentence": "Do you have change for a twenty?",
+          "source_phrase": "change",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:look:001",
+          "sentence": "Investigators will look into the complaint tomorrow.",
+          "source_phrase": "look",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rest:reposo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:rest:001",
+          "sentence": "The rest of the team arrived after dinner.",
+          "source_phrase": "rest",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:answer:respuesta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:answer:001",
+          "sentence": "The supervisor must answer for the missing funds.",
+          "source_phrase": "answer",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:end:fin",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave5-portfolio-phrase:v1:end:001",
+          "sentence": "The end table held a small lamp.",
+          "source_phrase": "end",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave5_portfolio_phrase", "phrase_no_winner", "compound_noun"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,560 @@
+{
+  "schema_version": 1,
+  "normalization_version": "semantic_evidence_v1",
+  "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+  "pair": "en-es",
+  "source_type": "llm",
+  "source_id": "llm_example_frame_residual_remediation",
+  "source_family": "silver_llm_generation",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-24T22:42:27Z",
+  "ingested_at": "2026-04-24T22:42:27Z",
+  "review_state": "unreviewed",
+  "model_id": "gpt-5.4-mini",
+  "prompt_version": "example-frame-residual-remediation-v1",
+  "row_count": 6,
+  "rows": [
+    {
+      "evidence_id": "evidence:88c01152fe8458ba8b8cb3ca01d2d28af8275df7",
+      "dedupe_key": "dedupe:d47773126878844e9f609c5d4de9ad7a873157bf",
+      "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+      "row_id": "en-es-sentence-veto-check-cheque:llm:active:remediation-active-002:v1",
+      "pair": "en-es",
+      "source_type": "llm",
+      "source_id": "llm_example_frame_residual_remediation",
+      "source_family": "silver_llm_generation",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "check",
+      "normalized_trigger": "check",
+      "active_target": "cheque",
+      "normalized_active_target": "cheque",
+      "candidate_target": "cheque",
+      "normalized_candidate_target": "cheque",
+      "is_multiword": false,
+      "evidence_text": "She mailed the rent check with the signed lease yesterday.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "llm",
+        "source_id": "llm_example_frame_residual_remediation",
+        "source_family": "silver_llm_generation",
+        "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+        "row_id": "en-es-sentence-veto-check-cheque:llm:active:remediation-active-002:v1",
+        "model_id": "gpt-5.4-mini",
+        "prompt_version": "example-frame-residual-remediation-v1",
+        "generated_at": "2026-04-24T22:42:27Z",
+        "ingested_at": "2026-04-24T22:42:27Z",
+        "normalization_version": "semantic_evidence_v1",
+        "temperature": 0.2,
+        "prompt_slot": "remediation_active_example",
+        "input_ref": "en-es:example-frame-remediation:active:en-es-sentence-veto-check-cheque",
+        "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-check-cheque",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:check:cheque:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.96,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:check:cheque",
+        "active_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "candidate_sense_id": "en-es:sentence-veto:check:cheque:active",
+        "generation_target": "active_example",
+        "source_gap": "remediation_active_example",
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ],
+        "failure_mode": "false_abstain_active_example_gap",
+        "failure_case_ids": [
+          "en-es:sentence-veto:check:002"
+        ],
+        "failure_slice_tags": [
+          "clear_active",
+          "finance",
+          "weak_active_support",
+          "cross_pos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:ffaa97b06f6001747842a618e8ae88ba41705635",
+      "dedupe_key": "dedupe:001e0a65d056d3d24ffbfba7c76daf17cb42bb33",
+      "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+      "row_id": "en-es-sentence-veto-order-pedido:llm:active:remediation-active-002:v1",
+      "pair": "en-es",
+      "source_type": "llm",
+      "source_id": "llm_example_frame_residual_remediation",
+      "source_family": "silver_llm_generation",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "order",
+      "normalized_trigger": "order",
+      "active_target": "pedido",
+      "normalized_active_target": "pedido",
+      "candidate_target": "pedido",
+      "normalized_candidate_target": "pedido",
+      "is_multiword": false,
+      "evidence_text": "I placed an order for two laptops and extra chargers online.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "llm",
+        "source_id": "llm_example_frame_residual_remediation",
+        "source_family": "silver_llm_generation",
+        "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+        "row_id": "en-es-sentence-veto-order-pedido:llm:active:remediation-active-002:v1",
+        "model_id": "gpt-5.4-mini",
+        "prompt_version": "example-frame-residual-remediation-v1",
+        "generated_at": "2026-04-24T22:42:27Z",
+        "ingested_at": "2026-04-24T22:42:27Z",
+        "normalization_version": "semantic_evidence_v1",
+        "temperature": 0.2,
+        "prompt_slot": "remediation_active_example",
+        "input_ref": "en-es:example-frame-remediation:active:en-es-sentence-veto-order-pedido",
+        "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-order-pedido",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:order:pedido:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.98,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:order:pedido",
+        "active_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "candidate_sense_id": "en-es:sentence-veto:order:pedido:active",
+        "generation_target": "active_example",
+        "source_gap": "remediation_active_example",
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Held-out noun-active / verb-shadow residue remains unresolved after the accepted overlay."
+        ],
+        "failure_mode": "false_abstain_active_example_gap",
+        "failure_case_ids": [
+          "en-es:sentence-veto:order:002"
+        ],
+        "failure_slice_tags": [
+          "clear_active",
+          "commerce",
+          "weak_active_support",
+          "cross_pos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:159bbc55c09b6a9b5f65f933d41554915314cb09",
+      "dedupe_key": "dedupe:a8761dddb3cfe3fce45df44afc3d1b239e42669b",
+      "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+      "row_id": "en-es-sentence-veto-plant-planta:llm:active:remediation-active-001-002:v1",
+      "pair": "en-es",
+      "source_type": "llm",
+      "source_id": "llm_example_frame_residual_remediation",
+      "source_family": "silver_llm_generation",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "normalized_trigger": "plant",
+      "active_target": "planta",
+      "normalized_active_target": "planta",
+      "candidate_target": "planta",
+      "normalized_candidate_target": "planta",
+      "is_multiword": false,
+      "evidence_text": "I watered the plant on the windowsill every morning.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "llm",
+        "source_id": "llm_example_frame_residual_remediation",
+        "source_family": "silver_llm_generation",
+        "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+        "row_id": "en-es-sentence-veto-plant-planta:llm:active:remediation-active-001-002:v1",
+        "model_id": "gpt-5.4-mini",
+        "prompt_version": "example-frame-residual-remediation-v1",
+        "generated_at": "2026-04-24T22:42:27Z",
+        "ingested_at": "2026-04-24T22:42:27Z",
+        "normalization_version": "semantic_evidence_v1",
+        "temperature": 0.2,
+        "prompt_slot": "remediation_active_example",
+        "input_ref": "en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+        "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-plant-planta",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.98,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "generation_target": "active_example",
+        "source_gap": "remediation_active_example",
+        "queue_role": "target",
+        "queue_archetype": "ordinary_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_contrastive_general_v1",
+        "queue_priority_rank": 2,
+        "queue_notes": [
+          "Useful same-POS cue calibration family.",
+          "Current hard row still misses plant:002, but the accepted overlay already rescues it."
+        ],
+        "failure_mode": "false_abstain_active_example_gap",
+        "failure_case_ids": [
+          "en-es:sentence-veto:plant:001",
+          "en-es:sentence-veto:plant:002"
+        ],
+        "failure_slice_tags": [
+          "clear_active",
+          "home"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:7889452d7ba7c52cc1675ac86c288d959361ab70",
+      "dedupe_key": "dedupe:0ebcf41eacc61a442caa0f587b7bf87dd35492d3",
+      "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+      "row_id": "en-es-sentence-veto-play-obra:llm:active:remediation-active-001:v1",
+      "pair": "en-es",
+      "source_type": "llm",
+      "source_id": "llm_example_frame_residual_remediation",
+      "source_family": "silver_llm_generation",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "play",
+      "normalized_trigger": "play",
+      "active_target": "obra",
+      "normalized_active_target": "obra",
+      "candidate_target": "obra",
+      "normalized_candidate_target": "obra",
+      "is_multiword": false,
+      "evidence_text": "The school play opened to a full house on Friday night.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "llm",
+        "source_id": "llm_example_frame_residual_remediation",
+        "source_family": "silver_llm_generation",
+        "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+        "row_id": "en-es-sentence-veto-play-obra:llm:active:remediation-active-001:v1",
+        "model_id": "gpt-5.4-mini",
+        "prompt_version": "example-frame-residual-remediation-v1",
+        "generated_at": "2026-04-24T22:42:27Z",
+        "ingested_at": "2026-04-24T22:42:27Z",
+        "normalization_version": "semantic_evidence_v1",
+        "temperature": 0.2,
+        "prompt_slot": "remediation_active_example",
+        "input_ref": "en-es:example-frame-remediation:active:en-es-sentence-veto-play-obra",
+        "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-play-obra",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:play:obra:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.98,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:play:obra",
+        "active_sense_id": "en-es:sentence-veto:play:obra:active",
+        "candidate_sense_id": "en-es:sentence-veto:play:obra:active",
+        "generation_target": "active_example",
+        "source_gap": "remediation_active_example",
+        "queue_role": "negative_control",
+        "queue_archetype": "phrase_leak_control",
+        "queue_likely_bucket": "needs_phrase_parsing_fix",
+        "queue_priority_rank": 0,
+        "queue_notes": [
+          "Do not spend prompt budget here.",
+          "Use only as a phrase-sensitive guardrail when evaluating cue prompts."
+        ],
+        "failure_mode": "false_abstain_active_example_gap",
+        "failure_case_ids": [
+          "en-es:sentence-veto:play:001"
+        ],
+        "failure_slice_tags": [
+          "clear_active",
+          "arts",
+          "weak_active_support",
+          "cross_pos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:7f7928b0697f335d4c9850870cb76557a8da2c34",
+      "dedupe_key": "dedupe:0dc216aeb3ef1d8357beaf87997c77ea89616173",
+      "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+      "row_id": "en-es-sentence-veto-report-informe:llm:active:remediation-active-001-002:v1",
+      "pair": "en-es",
+      "source_type": "llm",
+      "source_id": "llm_example_frame_residual_remediation",
+      "source_family": "silver_llm_generation",
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "relation_type": "anchor_cue",
+      "trigger": "report",
+      "normalized_trigger": "report",
+      "active_target": "informe",
+      "normalized_active_target": "informe",
+      "candidate_target": "informe",
+      "normalized_candidate_target": "informe",
+      "is_multiword": false,
+      "evidence_text": "The final report summarized the survey results and recommendations.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "llm",
+        "source_id": "llm_example_frame_residual_remediation",
+        "source_family": "silver_llm_generation",
+        "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+        "row_id": "en-es-sentence-veto-report-informe:llm:active:remediation-active-001-002:v1",
+        "model_id": "gpt-5.4-mini",
+        "prompt_version": "example-frame-residual-remediation-v1",
+        "generated_at": "2026-04-24T22:42:27Z",
+        "ingested_at": "2026-04-24T22:42:27Z",
+        "normalization_version": "semantic_evidence_v1",
+        "temperature": 0.2,
+        "prompt_slot": "remediation_active_example",
+        "input_ref": "en-es:example-frame-remediation:active:en-es-sentence-veto-report-informe",
+        "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:active:en-es-sentence-veto-report-informe",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_candidate"
+      },
+      "candidate_pos": "noun",
+      "confidence": 0.97,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informe:active",
+        "generation_target": "active_example",
+        "source_gap": "remediation_active_example",
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Harder held-out noun-active / verb-shadow family with two unresolved active rows."
+        ],
+        "failure_mode": "false_abstain_active_example_gap",
+        "failure_case_ids": [
+          "en-es:sentence-veto:report:001",
+          "en-es:sentence-veto:report:002"
+        ],
+        "failure_slice_tags": [
+          "clear_active",
+          "document",
+          "weak_active_support",
+          "cross_pos"
+        ]
+      }
+    },
+    {
+      "evidence_id": "evidence:ab856a3c521ecf9df1e3e3f8066b99f94605ee54",
+      "dedupe_key": "dedupe:5e5edbfa98593e8d925db3143f1896d11fe4e589",
+      "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+      "row_id": "en-es-sentence-veto-report-informe:llm:shadow:en-es-sentence-veto-report-informar-shadow:remediation-shadow-003-004:v1",
+      "pair": "en-es",
+      "source_type": "llm",
+      "source_id": "llm_example_frame_residual_remediation",
+      "source_family": "silver_llm_generation",
+      "roles": [
+        "discrimination"
+      ],
+      "relation_type": "shadow_candidate",
+      "trigger": "report",
+      "normalized_trigger": "report",
+      "active_target": "informe",
+      "normalized_active_target": "informe",
+      "candidate_target": "informar",
+      "normalized_candidate_target": "informar",
+      "is_multiword": false,
+      "evidence_text": "Please report the delay to the manager before noon.",
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "linkage_status": "partially_linked",
+      "runtime_publishable": false,
+      "provenance": {
+        "source_type": "llm",
+        "source_id": "llm_example_frame_residual_remediation",
+        "source_family": "silver_llm_generation",
+        "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+        "row_id": "en-es-sentence-veto-report-informe:llm:shadow:en-es-sentence-veto-report-informar-shadow:remediation-shadow-003-004:v1",
+        "model_id": "gpt-5.4-mini",
+        "prompt_version": "example-frame-residual-remediation-v1",
+        "generated_at": "2026-04-24T22:42:27Z",
+        "ingested_at": "2026-04-24T22:42:27Z",
+        "normalization_version": "semantic_evidence_v1",
+        "temperature": 0.2,
+        "prompt_slot": "remediation_shadow_example",
+        "input_ref": "en-es:example-frame-remediation:shadow:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow",
+        "raw_response_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json#en-es:example-frame-remediation:shadow:en-es-sentence-veto-report-informe:en-es-sentence-veto-report-informar-shadow",
+        "requested_runtime_publishable": false
+      },
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informe:active",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:report:informar:shadow",
+        "canonical_pos": "verb",
+        "note": "fixed_shadow_candidate"
+      },
+      "candidate_pos": "verb",
+      "confidence": 0.96,
+      "metadata": {
+        "family_id": "en-es:sentence-veto:report:informe",
+        "active_sense_id": "en-es:sentence-veto:report:informe:active",
+        "candidate_sense_id": "en-es:sentence-veto:report:informar:shadow",
+        "generation_target": "shadow_example",
+        "source_gap": "remediation_shadow_example",
+        "queue_role": "target",
+        "queue_archetype": "cross_pos_weak_active_support",
+        "queue_likely_bucket": "needs_cue_data",
+        "queue_primary_prompt_slot": "cue_cross_pos_frame_v1",
+        "queue_priority_rank": 1,
+        "queue_notes": [
+          "Harder held-out noun-active / verb-shadow family with two unresolved active rows."
+        ],
+        "failure_mode": "harmful_replace_shadow_example_gap",
+        "failure_case_ids": [
+          "en-es:sentence-veto:report:003",
+          "en-es:sentence-veto:report:004"
+        ],
+        "failure_slice_tags": [
+          "clear_shadow",
+          "verb",
+          "cross_pos",
+          "communication"
+        ]
+      }
+    }
+  ],
+  "provenance": {
+    "source_type": "llm",
+    "source_id": "llm_example_frame_residual_remediation",
+    "source_family": "silver_llm_generation",
+    "batch_id": "en-es:example-frame-missing-rows:example-frame-balanced-remediation-v1-20260425a-rekeyed:replay",
+    "model_id": "gpt-5.4-mini",
+    "prompt_version": "example-frame-residual-remediation-v1",
+    "generated_at": "2026-04-24T22:42:27Z",
+    "ingested_at": "2026-04-24T22:42:27Z",
+    "normalization_version": "semantic_evidence_v1",
+    "temperature": 0.2,
+    "cost_metadata": {
+      "request_count": 6,
+      "requests_with_usage": 6,
+      "input_tokens": 2182,
+      "output_tokens": 198,
+      "reasoning_tokens": 0
+    },
+    "upstream": {
+      "generation_plan_batch_id": "",
+      "required_family_source": "semantic_prompt_bakeoff_en_es_v10",
+      "execution_mode": "replay",
+      "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a-rekeyed-replay_raw_responses.json",
+      "replay_source": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-balanced-remediation-v1-20260425a_raw_responses.json"
+    }
+  },
+  "temperature": 0.2,
+  "cost_metadata": {
+    "request_count": 6,
+    "requests_with_usage": 6,
+    "input_tokens": 2182,
+    "output_tokens": 198,
+    "reasoning_tokens": 0
+  }
+}

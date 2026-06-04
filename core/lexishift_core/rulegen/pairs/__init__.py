@@ -1,3 +1,8 @@
+from lexishift_core.rulegen.pairs.de_en import (
+    DeEnRulegenConfig,
+    generate_de_en_results,
+    generate_de_en_rules,
+)
 from lexishift_core.rulegen.pairs.en_de import (
     EnDeRulegenConfig,
     generate_en_de_results,
@@ -20,10 +25,13 @@ from lexishift_core.rulegen.pairs.en_ja import (
 )
 
 __all__ = [
+    "DeEnRulegenConfig",
     "EnDeRulegenConfig",
     "EnEsRulegenConfig",
     "EsEnRulegenConfig",
     "EnJaRulegenConfig",
+    "generate_de_en_results",
+    "generate_de_en_rules",
     "generate_en_de_results",
     "generate_en_de_rules",
     "generate_en_es_results",

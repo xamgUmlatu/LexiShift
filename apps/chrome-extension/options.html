@@ -10,7 +10,7 @@
     <main id="options-main-content" class="container">
       <header>
         <h1 data-i18n="header_title">LexiShift</h1>
-        <p data-i18n="header_subtitle">Configure SRS practice and manual replacement rules for your browser experience.</p>
+        <p data-i18n="header_subtitle">Configure vocabulary practice and manual replacement rules for your browser experience.</p>
       </header>
       <div class="layout">
         <section class="card card-group">
@@ -46,112 +46,323 @@
           </div>
         </section>
         <section class="card">
-          <h2 data-i18n="section_srs">SRS Practice</h2>
-          <label class="toggle">
-            <input id="srs-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_enabled">Enable SRS practice mode</span>
-          </label>
-          <p class="hint" data-i18n="hint_srs_dataset">
-            Uses a fixed test dataset for now (no external downloads).
-          </p>
-          <div class="field-row">
-            <label for="source-language" data-i18n="label_source_language">Source language</label>
-            <select id="source-language">
-              <option value="en">English</option>
-              <option value="es">Español</option>
-              <option value="ja">日本語</option>
-              <option value="zh">简体中文</option>
-              <option value="de">Deutsch</option>
-            </select>
-          </div>
-          <div class="field-row">
-            <label for="target-language" data-i18n="label_target_language">Target language</label>
-            <div class="target-language-controls">
-              <select id="target-language">
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="ja">日本語</option>
-                <option value="zh">简体中文</option>
-                <option value="de">Deutsch</option>
-              </select>
-              <button
-                id="target-language-gear"
-                type="button"
-                class="target-language-modules-button"
-                data-i18n="button_modules"
-                aria-label="Modules"
-                title="Modules"
-              >
-                Modules
-              </button>
+          <h2 data-i18n="section_srs">Vocabulary Practice</h2>
+          <input id="srs-enabled" type="checkbox" hidden aria-hidden="true" />
+          <select id="source-language" hidden aria-hidden="true">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="ja">日本語</option>
+            <option value="zh">简体中文</option>
+            <option value="de">Deutsch</option>
+          </select>
+          <select id="target-language" hidden aria-hidden="true">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="ja">日本語</option>
+            <option value="zh">简体中文</option>
+            <option value="de">Deutsch</option>
+          </select>
+          <input id="srs-initial-active-count" type="hidden" />
+          <input id="srs-bootstrap-top-n" type="hidden" />
+          <button id="srs-initialize-set" type="button" data-i18n="button_srs_initialize" hidden>
+            Start practice
+          </button>
+          <div class="srs-story-list">
+            <details id="srs-story-current-card" class="srs-story-card" aria-labelledby="srs-story-current-heading">
+              <summary class="srs-story-summary">
+                <div class="srs-story-summary-copy">
+                  <h3 id="srs-story-current-heading">
+                    <span id="srs-story-current-pair" class="srs-story-pair-label">English -> Spanish</span>
+                  </h3>
+                </div>
+                <span class="srs-story-badge" data-i18n="badge_srs_active_story">Active</span>
+              </summary>
+              <div class="srs-story-body">
+                <div class="srs-story-preferences">
+                <section class="srs-settings-section srs-story-core-settings">
+                  <div class="srs-field-grid">
+                    <div class="field-row srs-active-practice-row">
+                      <span class="srs-field-copy">
+                        <label for="srs-max-active" data-i18n="label_srs_max_active">Words in active practice</label>
+                        <span class="field-hint" data-i18n="hint_srs_max_active">
+                          How many learning words LexiShift keeps in rotation at once.
+                        </span>
+                      </span>
+                      <input id="srs-max-active" type="number" min="1" max="200" step="1" />
+                    </div>
+                  </div>
+                </section>
+                <section class="srs-settings-section srs-admission-settings">
+                  <div class="srs-topic-interest-picker" aria-labelledby="srs-topic-interest-picker-label">
+                    <div class="srs-topic-interest-picker-heading">
+                      <span
+                        id="srs-topic-interest-picker-label"
+                        class="meta-label"
+                        data-i18n="label_srs_topic_interest_presets"
+                      >Topic priorities</span>
+                    </div>
+                    <div id="srs-topic-interest-chips" class="srs-topic-interest-chips" role="group">
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="medicine_health"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_medicine_health">Medicine & health</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="finance_business"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_finance_business">Finance & business</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="sports_fitness"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_sports_fitness">Sports & fitness</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="games"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_games">Games</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="music_media_entertainment"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_music_media_entertainment">Music & media</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="law_politics_civics"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_law_politics_civics">Law & civics</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="science_technology"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_science_technology">Science & technology</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="arts_literature_humanities"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_arts_literature_humanities">Arts & literature</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="animals"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_animals">Animals</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="food_cooking"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_food_cooking">Food & cooking</span>
+                      </button>
+                    </div>
+                  </div>
+                  <details class="advanced srs-advanced-topic-tags" hidden>
+                    <summary data-i18n="summary_srs_advanced_topic_tags">Advanced tags</summary>
+                    <div class="field-row">
+                      <label for="srs-topic-interests" data-i18n="label_srs_topic_interests">Topic interests</label>
+                      <input id="srs-topic-interests" type="text" />
+                    </div>
+                    <p class="hint" data-i18n="hint_srs_topic_interests">
+                      Add comma-separated tags for experiments or topics not listed above.
+                    </p>
+                  </details>
+                  <div class="srs-range-field">
+                    <div class="srs-range-label-row">
+                      <label for="srs-proficiency-estimate" data-i18n="label_srs_proficiency_estimate">Proficiency estimate</label>
+                      <output id="srs-proficiency-estimate-value" for="srs-proficiency-estimate">50%</output>
+                    </div>
+                    <input
+                      id="srs-proficiency-estimate"
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="1"
+                      value="50"
+                      data-srs-has-value="false"
+                    />
+                    <div class="srs-saved-setting">
+                      <span>
+                        <span data-i18n="label_srs_proficiency_previous">Previous setting:</span>
+                        <output id="srs-proficiency-estimate-saved" for="srs-proficiency-estimate">Not set</output>
+                      </span>
+                      <button
+                        id="srs-proficiency-estimate-restore"
+                        type="button"
+                        data-i18n="button_srs_proficiency_restore"
+                        disabled
+                      >Restore</button>
+                    </div>
+                  </div>
+                  <details class="advanced srs-advanced-challenge" hidden>
+                    <summary data-i18n="summary_srs_challenge_tuning">Advanced challenge tuning</summary>
+                    <div class="field-row">
+                      <label for="srs-challenge-target" data-i18n="label_srs_challenge_target">Challenge target (%)</label>
+                      <input id="srs-challenge-target" type="number" min="0" max="100" step="1" />
+                    </div>
+                    <p class="hint" data-i18n="hint_srs_challenge_target">
+                      0 to 100. Leave blank to keep challenge preference neutral.
+                    </p>
+                  </details>
+                  <div class="srs-preference-actions">
+                    <button id="srs-save-preferences" type="button" data-i18n="button_srs_save_preferences" disabled>
+                      Save preferences
+                    </button>
+                    <span
+                      id="srs-preferences-save-status"
+                      class="hint"
+                      data-i18n="status_srs_preferences_saved"
+                    >Preferences saved.</span>
+                  </div>
+                </section>
+                <details id="srs-story-sampling-curtain" class="srs-story-curtain srs-story-sampling-curtain">
+                  <summary class="srs-curtain-summary">
+                    <span class="srs-curtain-copy">
+                      <span class="srs-curtain-title" data-i18n="summary_srs_story_sampling">Sample next words</span>
+                      <span class="srs-curtain-subtitle" data-i18n="hint_srs_story_sampling_curtain">
+                        Preview words your current preferences may suggest next.
+                      </span>
+                    </span>
+                    <span class="srs-curtain-action" data-i18n="action_srs_open_panel">Open</span>
+                  </summary>
+                  <div class="actions srs-primary-actions">
+                    <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
+                  </div>
+                  <div id="srs-admission-preview-output" class="srs-preview" role="status"></div>
+                </details>
+          <section id="srs-story-dashboard-link-card" class="srs-story-link-card srs-story-dashboard-link-card">
+            <div class="srs-story-link-copy">
+              <h4 data-i18n="heading_srs_vocabulary_library_entry">Vocabulary Library</h4>
+              <p class="hint" data-i18n="hint_srs_vocabulary_library_entry">
+                Review learning words, definitions, progress, and page-replacement sources.
+              </p>
             </div>
-          </div>
-          <div class="field-row">
-            <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
-            <input id="srs-max-active" type="number" min="1" max="200" step="1" />
-          </div>
-          <div class="field-row">
-            <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Bootstrap S size (top N)</label>
-            <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
-          </div>
-          <p class="hint" data-i18n="hint_srs_bootstrap_top_n">
-            Total number of words admitted during initial S bootstrap.
-          </p>
-          <div class="field-row">
-            <label for="srs-initial-active-count" data-i18n="label_srs_initial_active_count">Initial active subset</label>
-            <input id="srs-initial-active-count" type="number" min="1" max="5000" step="1" />
-          </div>
-          <p class="hint" data-i18n="hint_srs_initial_active_count">
-            Initial non-zero/active words selected from the bootstrap list.
-          </p>
-          <div class="field-row">
-            <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
-            <input id="srs-highlight-color" type="color" />
-            <input id="srs-highlight-color-text" type="text" class="color-text" />
-          </div>
-          <label class="toggle">
-            <input id="srs-feedback-srs-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_feedback_srs">Enable feedback for SRS words</span>
-          </label>
-          <label class="toggle">
-            <input id="srs-feedback-rules-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_feedback_rules">Enable feedback for ruleset words</span>
-          </label>
-          <label class="toggle">
-            <input id="srs-sound-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_sound">Play feedback sound</span>
-          </label>
-          <div class="helper-status">
-            <div class="meta-row">
-              <div>
-                <span class="meta-label" data-i18n="label_helper_status">Helper status</span>
-                <span id="helper-status" class="meta-value">—</span>
-              </div>
-              <div>
-                <span class="meta-label" data-i18n="label_helper_last_sync">Last sync</span>
-                <span id="helper-last-sync" class="meta-value">—</span>
-              </div>
+            <a
+              id="srs-words-open-library"
+              class="srs-words-library-link"
+              href="learning_dashboard.html"
+              target="_blank"
+              rel="noopener"
+              data-i18n="button_srs_words_open_library"
+            >Open Vocabulary Library</a>
+          </section>
+          <div class="srs-display-inline-controls">
+            <div class="field-row srs-highlight-color-row">
+              <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">Word highlight color</label>
+              <input id="srs-highlight-color" type="color" />
+              <input id="srs-highlight-color-text" type="text" class="color-text" />
             </div>
+            <label class="toggle srs-toggle-switch srs-sound-inline-toggle">
+              <input id="srs-sound-enabled" type="checkbox" />
+              <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+              <span data-i18n="toggle_srs_sound">Play feedback sound</span>
+            </label>
           </div>
-          <div class="actions">
-            <button id="srs-initialize-set" data-i18n="button_srs_initialize">Initialize S for this pair</button>
-          </div>
-          <div class="actions">
-            <button id="srs-refresh-set" data-i18n="button_srs_refresh_set">Refresh S + publish rules</button>
-          </div>
-          <div class="actions">
-            <button id="srs-reset" data-i18n="button_srs_reset" style="color: #b42318;">Reset SRS Data</button>
-          </div>
+          <details class="advanced srs-maintenance-tools srs-story-advanced-tools">
+            <summary data-i18n="summary_srs_story_advanced">Advanced</summary>
+            <section class="srs-auto-refresh-settings" aria-labelledby="srs-auto-refresh-settings-heading">
+              <h4 id="srs-auto-refresh-settings-heading" data-i18n="summary_srs_auto_refresh">When new words are added</h4>
+              <div class="srs-field-grid">
+                <div class="field-row">
+                  <label for="srs-auto-refresh-min-feedback" data-i18n="label_srs_auto_refresh_min_feedback">Minimum feedback events</label>
+                  <input id="srs-auto-refresh-min-feedback" type="number" min="1" max="200" step="1" />
+                </div>
+                <div class="field-row">
+                  <label for="srs-auto-refresh-min-good-easy" data-i18n="label_srs_auto_refresh_min_good_easy">Good/Easy needed</label>
+                  <input id="srs-auto-refresh-min-good-easy" type="number" min="1" max="200" step="1" />
+                </div>
+                <div class="field-row">
+                  <label for="srs-auto-refresh-repeat-min-good-easy" data-i18n="label_srs_auto_refresh_repeat_min_good_easy">Same-day Good/Easy needed</label>
+                  <input id="srs-auto-refresh-repeat-min-good-easy" type="number" min="1" max="300" step="1" />
+                </div>
+                <div class="field-row">
+                  <label for="srs-auto-refresh-cooldown" data-i18n="label_srs_auto_refresh_cooldown">Cooldown minutes</label>
+                  <input id="srs-auto-refresh-cooldown" type="number" min="0" max="1440" step="5" />
+                </div>
+              </div>
+              <p class="hint" data-i18n="hint_srs_auto_refresh">
+                The helper checks for new words only after enough feedback; capacity, due pressure, and retention still decide whether anything is added.
+              </p>
+            </section>
+            <div class="actions srs-danger-actions">
+              <button id="srs-delete-story" class="danger-button" data-i18n="button_srs_delete_story">Delete Vocabulary Practice</button>
+            </div>
+          </details>
+              </div>
           <div id="srs-rulegen-output" class="srs-preview" role="status"></div>
+              </div>
+            </details>
+            <article class="srs-story-start-card" aria-labelledby="srs-story-start-heading">
+              <div>
+                <h3 id="srs-story-start-heading" data-i18n="heading_srs_start_new_story">Start Vocabulary Practice</h3>
+                <p id="srs-story-start-hint" class="hint" data-i18n="hint_srs_start_new_story">
+                  Choose a language pair, tune your preferences, then start practicing.
+                </p>
+              </div>
+              <button id="srs-story-start" type="button" class="srs-story-start-link" data-i18n="button_srs_start_new_story">
+                Start setup
+              </button>
+            </article>
+          </div>
+          <section
+            id="target-language-popup-settings"
+            class="srs-popup-settings-card"
+            data-language-popup-settings
+            hidden
+          >
+            <div>
+              <h3 data-i18n="heading_word_popup_settings">Word popup settings</h3>
+              <p class="hint" data-i18n="hint_word_popup_settings">
+                Choose what appears when you interact with translated words.
+              </p>
+            </div>
+            <button
+              id="target-language-gear"
+              type="button"
+              data-i18n="button_word_popup_settings"
+              aria-label="Word popup settings"
+              title="Word popup settings"
+              hidden
+            >
+              Word popup settings
+            </button>
+          </section>
         </section>
         <section class="card card-group span-2">
           <h2 data-i18n="section_manual_rules">Manual Rules</h2>
           <p class="hint" data-i18n="hint_manual_rules">
-            Tune replacement behavior and edit/import the manual ruleset.
+            Edit/import manual rulesets for the selected profile.
           </p>
           <div class="group-stack">
             <section class="group-subcard">
-              <h3 data-i18n="section_display">Display</h3>
+              <h3 data-i18n="section_display">Page Display</h3>
               <label class="toggle">
                 <input id="highlight-enabled" type="checkbox" />
                 <span data-i18n="toggle_highlight">Highlight replaced words (click to toggle original)</span>
@@ -161,9 +372,9 @@
                 <input id="highlight-color" type="color" />
                 <input id="highlight-color-text" type="text" class="color-text" />
               </div>
-              <h4 data-i18n="section_replacement_behavior">Replacement Behavior</h4>
+              <h4 data-i18n="section_replacement_behavior">Page Replacement Density</h4>
               <p class="hint" data-i18n="hint_replacement_behavior_scope">
-                Applies to all replacements (ruleset and SRS).
+                Applies after SRS and manual rules are merged for page display.
               </p>
               <label class="toggle">
                 <input id="max-one-per-block" type="checkbox" />
@@ -182,14 +393,14 @@
                 <input id="max-replacements-per-page" type="number" min="0" max="2000" step="1" />
               </div>
               <p class="hint" data-i18n="hint_max_replacements_page">
-                0 means unlimited. Caps total replacements shown on the current page.
+                Standard default is 20. Use 0 only for unlimited replacement.
               </p>
               <div class="field-row">
                 <label for="max-replacements-per-lemma-page" data-i18n="label_max_replacements_lemma_page">Max per word per page</label>
                 <input id="max-replacements-per-lemma-page" type="number" min="0" max="200" step="1" />
               </div>
               <p class="hint" data-i18n="hint_max_replacements_lemma_page">
-                0 means unlimited. Prevents one word from dominating the page.
+                Standard default is 2. Prevents one word from dominating the page.
               </p>
             </section>
             <section class="group-subcard">
@@ -410,6 +621,38 @@
             <div class="actions">
               <button id="srs-rulegen-sampled-preview" data-i18n="button_srs_rulegen_sampled_preview">Run sampled rulegen (5)…</button>
             </div>
+            <div class="field-row">
+              <label for="debug-semantic-pack-inventory-path" data-i18n="label_semantic_pack_inventory_path">Semantic inventory path override</label>
+              <input
+                id="debug-semantic-pack-inventory-path"
+                type="text"
+                placeholder="optional; backend resolves the current dev pack"
+              />
+            </div>
+            <div class="field-row">
+              <label for="debug-semantic-pack-id" data-i18n="label_semantic_pack_id">Semantic pack id</label>
+              <input
+                id="debug-semantic-pack-id"
+                type="text"
+                value="en-es-active-only-combined-full-v1-tranche-011"
+              />
+            </div>
+            <label class="toggle">
+              <input id="debug-semantic-pack-default-data-root" type="checkbox" checked />
+              <span data-i18n="toggle_semantic_pack_default_data_root">Install to default helper data folder</span>
+            </label>
+            <div class="field-row">
+              <label for="debug-semantic-pack-data-root" data-i18n="label_semantic_pack_data_root">Semantic pack data root</label>
+              <input
+                id="debug-semantic-pack-data-root"
+                type="text"
+                placeholder="/path/to/disposable/lexishift-data-root"
+              />
+            </div>
+            <div class="actions">
+              <button id="debug-semantic-pack-install" data-i18n="button_semantic_pack_install">Install semantic pack…</button>
+              <span id="debug-semantic-pack-install-output" class="hint"></span>
+            </div>
             <div class="actions">
               <button id="debug-helper-test" data-i18n="button_helper_test">Test helper connection</button>
               <span id="debug-helper-test-output" class="hint"></span>
@@ -464,6 +707,9 @@
             </span>
           </label>
         </div>
+        <p class="hint" data-i18n="share_center_compatibility_note">
+          Compatibility note: Full profile uses the existing profile share format, and the Profile settings target uses the existing SRS settings format.
+        </p>
         <div class="share-center-layout">
           <div id="share-center-tree-panel" class="share-center-tree">
             <section class="share-center-group">
@@ -596,13 +842,221 @@
         <p id="share-center-import-status" class="hint share-center-inline-status"></p>
       </div>
     </div>
+    <div id="srs-story-flow-backdrop" class="srs-story-flow-backdrop hidden" aria-hidden="true">
+      <div
+        id="srs-story-flow"
+        class="srs-story-flow"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="srs-story-flow-title"
+        tabindex="-1"
+      >
+        <div class="srs-story-flow-header">
+          <div>
+            <h3 id="srs-story-flow-title" data-i18n="heading_srs_story_flow">Set up Vocabulary Practice</h3>
+            <p class="hint" data-i18n="hint_srs_story_flow">
+              Choose languages, preferences, and starting pace before you start.
+            </p>
+          </div>
+          <button id="srs-story-flow-close" type="button" class="srs-story-flow-close" data-i18n="button_close">
+            Close
+          </button>
+        </div>
+        <div class="srs-story-flow-steps" aria-label="Vocabulary Practice setup steps">
+          <select id="srs-story-flow-profile-id" hidden aria-hidden="true" tabindex="-1"></select>
+          <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-pair">
+            <span class="srs-story-flow-step-index">1</span>
+            <div>
+              <h4 id="srs-story-flow-step-pair" data-i18n="heading_srs_story_flow_pair">Choose language</h4>
+              <div class="field-row">
+                <label for="srs-story-flow-source-language" data-i18n="label_source_language">Source language</label>
+                <select id="srs-story-flow-source-language">
+                  <option value="en">English</option>
+                  <option value="es">Español</option>
+                  <option value="ja">日本語</option>
+                  <option value="zh">简体中文</option>
+                  <option value="de">Deutsch</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <label for="srs-story-flow-target-language" data-i18n="label_target_language">Target language</label>
+                <select id="srs-story-flow-target-language">
+                  <option value="en">English</option>
+                  <option value="es">Español</option>
+                  <option value="ja">日本語</option>
+                  <option value="zh">简体中文</option>
+                  <option value="de">Deutsch</option>
+                </select>
+              </div>
+            </div>
+          </section>
+          <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-preferences">
+            <span class="srs-story-flow-step-index">2</span>
+            <div>
+              <h4 id="srs-story-flow-step-preferences" data-i18n="heading_srs_story_flow_preferences">Learning preferences</h4>
+              <div class="srs-range-field">
+                <div class="srs-range-label-row">
+                  <label for="srs-story-flow-proficiency-estimate" data-i18n="label_srs_proficiency_estimate">Proficiency estimate</label>
+                  <output id="srs-story-flow-proficiency-estimate-value" for="srs-story-flow-proficiency-estimate">0%</output>
+                </div>
+                <input
+                  id="srs-story-flow-proficiency-estimate"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="0"
+                  data-srs-has-value="true"
+                />
+              </div>
+              <div class="srs-topic-interest-picker" aria-labelledby="srs-story-flow-topic-label">
+                <div class="srs-topic-interest-picker-heading">
+                  <span
+                    id="srs-story-flow-topic-label"
+                    class="meta-label"
+                    data-i18n="label_srs_topic_interest_presets"
+                  >Topic priorities</span>
+                  <span
+                    class="srs-topic-interest-support"
+                    data-i18n="badge_srs_topic_interest_pair_support"
+                  >Coverage varies by pair</span>
+                </div>
+                <div id="srs-story-flow-topic-chips" class="srs-topic-interest-chips" role="group">
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="medicine_health" aria-pressed="false">
+                    <span data-i18n="topic_srs_medicine_health">Medicine & health</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="finance_business" aria-pressed="false">
+                    <span data-i18n="topic_srs_finance_business">Finance & business</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="sports_fitness" aria-pressed="false">
+                    <span data-i18n="topic_srs_sports_fitness">Sports & fitness</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="games" aria-pressed="false">
+                    <span data-i18n="topic_srs_games">Games</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="music_media_entertainment" aria-pressed="false">
+                    <span data-i18n="topic_srs_music_media_entertainment">Music & media</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="law_politics_civics" aria-pressed="false">
+                    <span data-i18n="topic_srs_law_politics_civics">Law & civics</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="science_technology" aria-pressed="false">
+                    <span data-i18n="topic_srs_science_technology">Science & technology</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="arts_literature_humanities" aria-pressed="false">
+                    <span data-i18n="topic_srs_arts_literature_humanities">Arts & literature</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="animals" aria-pressed="false">
+                    <span data-i18n="topic_srs_animals">Animals</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="food_cooking" aria-pressed="false">
+                    <span data-i18n="topic_srs_food_cooking">Food & cooking</span>
+                  </button>
+                </div>
+              </div>
+              <details class="advanced srs-story-flow-advanced-tags" hidden>
+                <summary data-i18n="summary_srs_advanced_topic_tags">Advanced tags</summary>
+                <div class="field-row">
+                  <label for="srs-story-flow-topic-interests" data-i18n="label_srs_topic_interests">Topic interests</label>
+                  <input id="srs-story-flow-topic-interests" type="text" />
+                </div>
+              </details>
+            </div>
+          </section>
+          <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-size">
+            <span class="srs-story-flow-step-index">3</span>
+            <div>
+              <h4 id="srs-story-flow-step-size" data-i18n="heading_srs_story_flow_size">Choose starting pace</h4>
+              <div class="field-row srs-active-practice-row">
+                <span class="srs-field-copy">
+                  <label for="srs-story-flow-max-active" data-i18n="label_srs_max_active">Words in active practice</label>
+                  <span class="field-hint" data-i18n="hint_srs_max_active">
+                    How many learning words LexiShift keeps in rotation at once.
+                  </span>
+                </span>
+                <input id="srs-story-flow-max-active" type="number" min="1" max="200" step="1" />
+              </div>
+              <details class="advanced srs-story-size-advanced srs-story-flow-size-advanced">
+                <summary data-i18n="summary_srs_starting_size_advanced">Advanced starting size</summary>
+                <div class="srs-field-grid">
+                  <div class="field-row">
+                    <label for="srs-story-flow-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Vocabulary search range</label>
+                    <input id="srs-story-flow-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
+                    <span class="field-hint" data-i18n="hint_srs_bootstrap_top_n">
+                      Broadens the ranked word pool used for samples and new-word selection. Leave at default unless samples feel too narrow.
+                    </span>
+                  </div>
+                  <div class="field-row">
+                    <label for="srs-story-flow-initial-active-count" data-i18n="label_srs_initial_active_count">Starting words</label>
+                    <input id="srs-story-flow-initial-active-count" type="number" min="1" max="5000" step="1" />
+                    <span class="field-hint" data-i18n="hint_srs_initial_active_count">
+                      How many prepared words can appear immediately after setup.
+                    </span>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </section>
+          <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-review">
+            <span class="srs-story-flow-step-index">4</span>
+            <div>
+              <h4 id="srs-story-flow-step-review" data-i18n="heading_srs_story_flow_review">Sample and start</h4>
+              <p class="hint" data-i18n="hint_srs_story_flow_review">
+                Sample words until the mix looks right, then start practice.
+              </p>
+              <div
+                id="srs-story-flow-resource-check"
+                class="srs-story-flow-resource-check hidden"
+                role="status"
+                aria-live="polite"
+              >
+                <div class="srs-story-flow-resource-copy">
+                  <span class="meta-label" data-i18n="label_srs_language_data">Language data</span>
+                  <p id="srs-story-flow-resource-message" class="hint"></p>
+                  <ul id="srs-story-flow-resource-list" class="srs-story-flow-resource-list"></ul>
+                </div>
+                <div class="actions srs-story-flow-resource-actions">
+                  <button
+                    id="srs-story-flow-open-resource-settings"
+                    type="button"
+                    data-i18n="button_srs_open_resource_settings"
+                  >
+                    Install language data in LexiShift
+                  </button>
+                  <button
+                    id="srs-story-flow-retry-resources"
+                    type="button"
+                    data-i18n="button_srs_retry_data_check"
+                  >
+                    Retry check
+                  </button>
+                </div>
+              </div>
+              <div class="actions srs-story-flow-actions">
+                <button id="srs-story-flow-sample" type="button" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
+                <button id="srs-story-flow-initialize" type="button" data-i18n="button_srs_story_flow_initialize">Start practice</button>
+              </div>
+              <div id="srs-story-flow-preview-output" class="srs-preview srs-story-flow-preview-output" role="status"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div id="srs-story-flow-busy-backdrop" class="srs-story-flow-busy-backdrop hidden" aria-hidden="true">
+      <div class="srs-story-flow-busy-popup" role="status" aria-live="assertive">
+        <span class="srs-story-flow-busy-spinner" aria-hidden="true"></span>
+        <p id="srs-story-flow-busy-message" data-i18n="status_srs_story_flow_initializing">
+          Saving settings and starting Vocabulary Practice…
+        </p>
+      </div>
+    </div>
     <div id="target-language-prefs-modal-backdrop" class="language-pref-modal-backdrop hidden" aria-hidden="true">
       <div
         id="target-language-prefs-modal"
         class="language-pref-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Modules"
+        aria-label="Word popup settings"
         tabindex="-1"
       >
         <div id="target-language-modules-list" class="language-modules-list"></div>
@@ -618,8 +1072,10 @@
     <script src="shared/srs/popup_modules_registry.js"></script>
     <script src="shared/srs/srs_runtime_diagnostics.js"></script>
     <script src="shared/srs/srs_selector.js"></script>
+    <script src="shared/helper/helper_error_copy.js"></script>
     <script src="shared/helper/helper_transport_extension.js"></script>
     <script src="shared/helper/helper_client.js"></script>
+    <script src="shared/helper/word_info_api.js"></script>
     <script src="shared/helper/helper_cache.js"></script>
     <script src="shared/profile/profile_media_store.js"></script>
     <script src="options/vendor/lzstring.js"></script>
@@ -636,11 +1092,13 @@
     <script src="options/core/rules_manager/base_methods.js"></script>
     <script src="options/core/rules_manager/ruleset_methods.js"></script>
     <script src="options/core/rules_manager/profile_share_methods.js"></script>
+    <script src="options/core/rules_manager/profile_share_module_methods.js"></script>
     <script src="options/core/rules_manager/bundle_methods.js"></script>
     <script src="options/core/helper/base_methods.js"></script>
     <script src="options/core/helper/diagnostics_methods.js"></script>
     <script src="options/core/helper/srs_set_methods.js"></script>
     <script src="options/core/helper_manager.js"></script>
+    <script src="options/core/srs_start_card_presenter.js"></script>
     <script src="options/core/ui_manager.js"></script>
     <script src="options/core/bootstrap/controller_factory.js"></script>
     <script src="options/core/bootstrap/ui_bridge.js"></script>
@@ -668,10 +1126,30 @@
     <script src="options/controllers/profile/background/controller_context.js"></script>
     <script src="options/controllers/profile/background_controller.js"></script>
     <script src="options/controllers/srs/profile_selector_controller.js"></script>
+    <script src="options/controllers/srs/planning_state.js"></script>
+    <script src="options/controllers/srs/actions/planning_state_resolver.js"></script>
+    <script src="options/controllers/srs/actions/admission_preview_formatter.js"></script>
+    <script src="options/controllers/srs/actions/admission_preview_workflow.js"></script>
+    <script src="options/controllers/srs/actions/rebalance_formatter.js"></script>
+    <script src="options/controllers/srs/actions/rebalance_workflow.js"></script>
+    <script src="options/controllers/srs/actions/refresh_result_formatter.js"></script>
     <script src="options/controllers/srs/actions/formatters.js"></script>
     <script src="options/controllers/srs/actions/shared.js"></script>
+    <script src="options/controllers/srs/actions/semantic_pack_install_workflow.js"></script>
+    <script src="options/controllers/srs/actions/words_dashboard_model.js"></script>
+    <script src="options/controllers/srs/actions/words_dashboard_formatting.js"></script>
+    <script src="options/controllers/srs/actions/words_dashboard_renderer.js"></script>
+    <script src="options/controllers/srs/actions/words_dashboard_rule_details.js"></script>
+    <script src="options/controllers/srs/actions/words_dashboard_workflow.js"></script>
+    <script src="options/controllers/srs/actions/delete_story_state.js"></script>
+    <script src="options/controllers/srs/actions/maintenance_workflow.js"></script>
     <script src="options/controllers/srs/actions/workflows.js"></script>
     <script src="options/controllers/srs/actions_controller.js"></script>
+    <script src="options/controllers/srs/story_flow_utils.js"></script>
+    <script src="options/controllers/srs/story_flow_resource_check.js"></script>
+    <script src="options/controllers/srs/story_flow_busy_overlay.js"></script>
+    <script src="options/controllers/srs/story_flow_initializer.js"></script>
+    <script src="options/controllers/srs/story_flow_controller.js"></script>
     <script src="options/controllers/rules/profile_rulesets_state.js"></script>
     <script src="options/controllers/rules/profile_rulesets_controller.js"></script>
     <script src="options/controllers/rules/share_center/utils.js"></script>
@@ -690,6 +1168,9 @@
     <script src="options/controllers/rules/share_center_controller.js"></script>
     <script src="options/controllers/rules/share_controller.js"></script>
     <script src="options/controllers/helper/actions_controller.js"></script>
+    <script src="options/controllers/srs/semantic_admission_status.js"></script>
+    <script src="options/controllers/srs/profile_runtime_values.js"></script>
+    <script src="options/controllers/srs/auto_refresh_settings.js"></script>
     <script src="options/controllers/srs/profile_runtime_controller.js"></script>
     <script src="options/controllers/page/init_controller.js"></script>
     <script src="options/controllers/page/events/general/rules_bindings.js"></script>

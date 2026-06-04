@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "authorization_frame_rows_ready",
+  "generated_at": "2026-04-30T03:42:03Z",
+  "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+  "run_id": "authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+  "batch_id": "en-es:authorization-frame-evidence:authorization-frame-non-v10-wave6-wiktextract-supported-v1-latest",
+  "source_id": "authorization_frame_evidence",
+  "source_family": "internal_rulegen_artifact",
+  "prompt_version": "authorization-frame-evidence-v1",
+  "summary": {
+    "family_count": 16,
+    "target_family_count": 1,
+    "selected_sense_count": 38,
+    "matching_sense_count": 1,
+    "row_count": 5,
+    "active_row_count": 5,
+    "shadow_row_count": 0
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "selected_sense_count": 3,
+      "matching_sense_count": 1,
+      "row_count": 5,
+      "active_row_count": 5,
+      "shadow_row_count": 0,
+      "sense_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:active",
+          "relation_type": "anchor_cue",
+          "matched": true,
+          "canonical_pos": "noun",
+          "target_lemma": "permiso",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "leave noun sense: permission to be absent | permission to be absent | leave noun sense: permission to be absent | permission to be absent | permission to be absent | permission to be absent",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": false,
+          "canonical_pos": "noun",
+          "target_lemma": "excedencia",
+          "support_sources": [
+            "wiktionary_en_es",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "leave noun sense: absence from work | absence from work | leave noun sense: absence from work | absence from work | absence from work | absence from work",
+          "target_lemma_in_source_match_text": false
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+          "relation_type": "shadow_candidate",
+          "matched": false,
+          "canonical_pos": "verb",
+          "target_lemma": "dejar",
+          "support_sources": [
+            "wiktionary_en_es",
+            "freedict_es_en",
+            "wiktextract_en_es_translation_table"
+          ],
+          "source_match_text": "leave verb sense: to cause to remain as available, not take away, refrain from depleting | to cause to remain as available, not take away, refrain from depleting | leave verb sense: to cause to remain as available, not take away, refrain from depleting | to cause to remain as available, not take away, refrain from depleting | to cause to remain as available, not take away, refrain from depleting | to cause to remain as available, not take away, refrain from depleting | to transfer possession after death | to give (something) to someone; to deliver (something) to a repository; to deposit | to transfer responsibility or attention | to depart from, end one's connection or affiliation with",
+          "target_lemma_in_source_match_text": false
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "deterministic_semantic_class_frame_not_runtime_policy",
+    "authorization_class_templates_require_heldout_validation",
+    "does_not_use_heldout_sentence_text"
+  ]
+}

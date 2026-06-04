@@ -23,6 +23,52 @@
     return { srsRules, nonSrsRules };
   }
 
+  function getSrsServingMetadata(rule) {
+    const metadata = rule && rule.metadata && typeof rule.metadata === "object"
+      ? rule.metadata
+      : null;
+    if (!metadata) {
+      return null;
+    }
+    const rulegen = metadata.rulegen && typeof metadata.rulegen === "object"
+      ? metadata.rulegen
+      : null;
+    const srs = rulegen && rulegen.srs && typeof rulegen.srs === "object"
+      ? rulegen.srs
+      : null;
+    if (srs) {
+      return srs;
+    }
+    if (
+      Object.prototype.hasOwnProperty.call(metadata, "next_due")
+      || Object.prototype.hasOwnProperty.call(metadata, "in_due")
+    ) {
+      return metadata;
+    }
+    return null;
+  }
+
+  function isRuleDue(rule, nowMs) {
+    const srs = getSrsServingMetadata(rule);
+    if (!srs) {
+      return true;
+    }
+    const nextDue = String(srs.next_due || srs.nextDue || "").trim();
+    if (nextDue) {
+      const parsed = Date.parse(nextDue);
+      if (!Number.isNaN(parsed)) {
+        return parsed <= nowMs;
+      }
+    }
+    if (typeof srs.in_due === "boolean") {
+      return srs.in_due;
+    }
+    if (typeof srs.inDue === "boolean") {
+      return srs.inDue;
+    }
+    return true;
+  }
+
   async function buildSrsGate(settings, enabledRules, log) {
     if (!settings || !settings.srsEnabled) {
       return {
@@ -48,8 +94,10 @@
         enabled: true
       };
     }
+    const nowMs = Date.now();
+    const activeSrsRules = srsRules.filter((rule) => isRuleDue(rule, nowMs));
     const activeLemmas = new Set(
-      srsRules
+      activeSrsRules
         .map((rule) => String(rule.replacement || "").toLowerCase())
         .filter(Boolean)
     );
@@ -58,16 +106,18 @@
       log(`SRS gate mode=helper_ruleset; active SRS lemmas sample: ${sample.join(", ")}`);
     }
     return {
-      activeRules: [...nonSrsRules, ...srsRules],
+      activeRules: [...nonSrsRules, ...activeSrsRules],
       activeLemmas,
       stats: {
         total: srsRules.length,
-        filtered: srsRules.length,
+        filtered: activeSrsRules.length,
         nonSrsCount: nonSrsRules.length,
         srsCount: srsRules.length,
-        srsActiveCount: srsRules.length,
+        srsActiveCount: activeSrsRules.length,
+        srsDueFilteredCount: srsRules.length - activeSrsRules.length,
         datasetLoaded: false,
-        mode: "helper_ruleset"
+        mode: "helper_ruleset",
+        servingMode: "due_metadata"
       },
       enabled: true
     };

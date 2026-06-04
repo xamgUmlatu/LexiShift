@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-03-21T02:48:05.854221+00:00",
+  "generated_at": "<generated_at>",
   "fail_on_warn": false,
   "supported_pairs": [
     "en-ja",
@@ -8,9 +8,9 @@
   ],
   "unsupported_pairs": [],
   "summary": {
-    "status": "WARN",
-    "pass_count": 15,
-    "warn_count": 1,
+    "status": "PASS",
+    "pass_count": 22,
+    "warn_count": 0,
     "fail_count": 0,
     "should_fail": false
   },
@@ -37,7 +37,7 @@
         "replace_pair": true,
         "added_items": 40,
         "total_items_for_pair": 40,
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_store.json",
+        "store_path": "<temp_root>/srs/profiles/default/srs_store.json",
         "stopwords_path": null,
         "bootstrap_diagnostics": {
           "selected_count": 70,
@@ -267,14 +267,28 @@
               "pos_weight": 1.0,
               "admission_weight": 0.926939
             }
-          ]
+          ],
+          "selection_strategy": "frequency_bootstrap",
+          "selection_policy": "top_n",
+          "selection_seed": null,
+          "selector_version": null
+        },
+        "inventory": {
+          "path": "<temp_root>/srs/profiles/default/srs_inventory.json",
+          "exists": true,
+          "active_items_for_pair": 40,
+          "source": "initialized",
+          "backfilled_from_store": false,
+          "updated_at": "<timestamp>"
         },
         "rulegen": {
           "published": true,
           "targets": 40,
           "rules": 40,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_ruleset_en-ja.json"
+          "snapshot_path": "<temp_root>/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "ruleset_path": "<temp_root>/srs/profiles/default/srs_ruleset_en-ja.json",
+          "publication_manifest_path": "<temp_root>/srs/profiles/default/srs_publication_manifest_en-ja.json",
+          "semantic_inventory_path": "<temp_root>/srs/profiles/default/srs_semantic_inventory_en-ja.json"
         },
         "applied": true,
         "plan": {
@@ -318,6 +332,8 @@
       "refresh": {
         "pair": "en-ja",
         "profile_id": "default",
+        "strategy_requested": "profile_growth",
+        "strategy_effective": "profile_growth",
         "set_top_n": 200,
         "feedback_window_size": 40,
         "allowed_pos": [],
@@ -334,12 +350,17 @@
         "max_new_items_per_day": 8,
         "added_items": 8,
         "total_items_for_pair": 48,
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_store.json",
+        "store_path": "<temp_root>/srs/profiles/default/srs_store.json",
         "stopwords_path": null,
         "admission_refresh": {
           "pair": "en-ja",
           "max_active_items": 100,
           "max_new_items_per_day": 8,
+          "active_count": 40,
+          "active_zero_exposure_zero_feedback": 40,
+          "active_zero_exposure_zero_feedback_age_unknown": 0,
+          "active_stale_zero_exposure_zero_feedback": 0,
+          "stale_active_age_days": 7,
           "due_count": 40,
           "due_pressure": 0.4,
           "capacity_budget": 60,
@@ -375,6 +396,8 @@
           ],
           "diagnostics": {
             "filtered_by_pos": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
             "admitted_by_pos_bucket": {
               "noun": 8
             },
@@ -383,17 +406,736 @@
             "candidate_pool_effective": 70
           },
           "applied": true,
+          "active_rotation_release": {
+            "pair": "en-ja",
+            "active_count_before": 40,
+            "active_count_after": 40,
+            "released_count": 0,
+            "released_item_ids": [],
+            "released_lemmas": [],
+            "policy": {
+              "min_history_count": 4,
+              "min_future_due_days": 7,
+              "require_review_state": true
+            }
+          },
+          "selection_strategy_requested": "profile_growth",
+          "selection_strategy_effective": "profile_growth",
+          "selection_policy": "reserved_topic_lane",
+          "profile_growth": {
+            "selector_version": "profile_bootstrap_v5",
+            "selector_policy_version": "profile_bootstrap_policy_v4",
+            "selection_weights": {
+              "base_freq": 0.55,
+              "topic_bias": 0.15,
+              "scarcity_bonus": 0.05,
+              "user_pref": 0.1,
+              "confidence": 0.0,
+              "difficulty_target": 0.1
+            },
+            "selection_policy": "reserved_topic_lane",
+            "utility_weights": {
+              "coverage_gain": 0.55,
+              "topic_affinity": 0.15,
+              "scarcity_bonus": 0.05,
+              "proficiency_fit": 0.1,
+              "challenge_fit": 0.1,
+              "lexical_risk": 0.0,
+              "redundancy": 0.0,
+              "exploration_bonus": 0.0
+            },
+            "profile_context": {
+              "version": "admission_profile_features_v1",
+              "topic_normalization_version": "topic_family_v1",
+              "raw_profile_keys": [],
+              "interests": [],
+              "explicit_topic_weights": {},
+              "implicit_topic_weights": {},
+              "topic_weights": {},
+              "topic_weight_sources": {},
+              "proficiency_estimate": null,
+              "challenge_target": null,
+              "challenge_spread": null,
+              "goal_mode": null,
+              "active_signals": [],
+              "missing_signals": [
+                "interests",
+                "proficiency",
+                "challenge_preference"
+              ],
+              "signal_sources": {}
+            }
+          },
           "weight_terms": {
             "admission_weight": "Entry/growth score for adding words into S.",
             "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
           }
         },
+        "inventory": {
+          "path": "<temp_root>/srs/profiles/default/srs_inventory.json",
+          "exists": true,
+          "active_items_for_pair": 48,
+          "source": "refreshed",
+          "backfilled_from_store": false,
+          "updated_at": "<timestamp>"
+        },
+        "suppression": {
+          "path": "<temp_root>/srs/profiles/default/srs_admission_suppression.json",
+          "exists": false,
+          "active_suppressed_lemmas": {},
+          "active_suppressed_count": 0
+        },
+        "browsing_admission_preview": {
+          "status": "ok",
+          "scope": "refresh_candidate_preview_only",
+          "applied_to_actual_admission": false,
+          "runtime_srs_mutation": false,
+          "admission_budget": 8,
+          "candidate_pool_effective": 30,
+          "aggregate_item_count": 2,
+          "matching_signal_count": 2,
+          "blocked_by_lifecycle": 0,
+          "blocked_lemmas": [],
+          "neutral_selected_lemmas": [
+            "jaabo",
+            "jaabp",
+            "jaabq",
+            "jaabr",
+            "jaabs",
+            "jaabt",
+            "jaabu",
+            "jaabv"
+          ],
+          "simulations": {
+            "off": {
+              "strength": "off",
+              "admission_budget": 8,
+              "browsing_budget": 0,
+              "general_budget": 8,
+              "signal_volume": 2.0,
+              "volume_factor": 0.632121,
+              "selected_lemmas": [
+                "jaabo",
+                "jaabp",
+                "jaabq",
+                "jaabr",
+                "jaabs",
+                "jaabt",
+                "jaabu",
+                "jaabv"
+              ],
+              "neutral_selected_lemmas": [
+                "jaabo",
+                "jaabp",
+                "jaabq",
+                "jaabr",
+                "jaabs",
+                "jaabt",
+                "jaabu",
+                "jaabv"
+              ],
+              "browsing_lane_count": 0,
+              "browsing_relevant_selected_count": 0,
+              "browsing_driven_count": 0,
+              "suppressed_count": 0,
+              "browsing_lane_share": 0.0,
+              "browsing_relevant_share": 0.0,
+              "browsing_driven_share": 0.0,
+              "probability_semantics": {
+                "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+              },
+              "rows": [
+                {
+                  "lemma": "jaabo",
+                  "neutral_rank": 1,
+                  "final_rank": 1,
+                  "neutral_score": 0.443076,
+                  "final_score": 0.443076,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.296571,
+                  "approximate_selection_probability": 0.296571
+                },
+                {
+                  "lemma": "jaabp",
+                  "neutral_rank": 2,
+                  "final_rank": 2,
+                  "neutral_score": 0.438846,
+                  "final_score": 0.438846,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.294204,
+                  "approximate_selection_probability": 0.294204
+                },
+                {
+                  "lemma": "jaabq",
+                  "neutral_rank": 3,
+                  "final_rank": 3,
+                  "neutral_score": 0.434471,
+                  "final_score": 0.434471,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.291748,
+                  "approximate_selection_probability": 0.291748
+                },
+                {
+                  "lemma": "jaabr",
+                  "neutral_rank": 4,
+                  "final_rank": 4,
+                  "neutral_score": 0.429944,
+                  "final_score": 0.429944,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.289198,
+                  "approximate_selection_probability": 0.289198
+                },
+                {
+                  "lemma": "jaabs",
+                  "neutral_rank": 5,
+                  "final_rank": 5,
+                  "neutral_score": 0.425251,
+                  "final_score": 0.425251,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.286545,
+                  "approximate_selection_probability": 0.286545
+                },
+                {
+                  "lemma": "jaabt",
+                  "neutral_rank": 6,
+                  "final_rank": 6,
+                  "neutral_score": 0.420382,
+                  "final_score": 0.420382,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.283781,
+                  "approximate_selection_probability": 0.283781
+                },
+                {
+                  "lemma": "jaabu",
+                  "neutral_rank": 7,
+                  "final_rank": 7,
+                  "neutral_score": 0.415321,
+                  "final_score": 0.415321,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.280897,
+                  "approximate_selection_probability": 0.280897
+                },
+                {
+                  "lemma": "jaabv",
+                  "neutral_rank": 8,
+                  "final_rank": 8,
+                  "neutral_score": 0.410054,
+                  "final_score": 0.410054,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.277884,
+                  "approximate_selection_probability": 0.277884
+                },
+                {
+                  "lemma": "jaabw",
+                  "neutral_rank": 9,
+                  "final_rank": 9,
+                  "neutral_score": 0.404563,
+                  "final_score": 0.404563,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.274729,
+                  "approximate_selection_probability": 0.274729
+                },
+                {
+                  "lemma": "jaabx",
+                  "neutral_rank": 10,
+                  "final_rank": 10,
+                  "neutral_score": 0.398827,
+                  "final_score": 0.398827,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.271418,
+                  "approximate_selection_probability": 0.271418
+                }
+              ],
+              "row_count": 30,
+              "row_preview_count": 10
+            },
+            "balanced": {
+              "strength": "balanced",
+              "admission_budget": 8,
+              "browsing_budget": 1,
+              "general_budget": 7,
+              "signal_volume": 2.0,
+              "volume_factor": 0.632121,
+              "selected_lemmas": [
+                "jaabw",
+                "jaabo",
+                "jaabp",
+                "jaabq",
+                "jaabr",
+                "jaabs",
+                "jaabt",
+                "jaabu"
+              ],
+              "neutral_selected_lemmas": [
+                "jaabo",
+                "jaabp",
+                "jaabq",
+                "jaabr",
+                "jaabs",
+                "jaabt",
+                "jaabu",
+                "jaabv"
+              ],
+              "browsing_lane_count": 1,
+              "browsing_relevant_selected_count": 1,
+              "browsing_driven_count": 1,
+              "suppressed_count": 0,
+              "browsing_lane_share": 0.125,
+              "browsing_relevant_share": 0.125,
+              "browsing_driven_share": 0.125,
+              "probability_semantics": {
+                "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+              },
+              "rows": [
+                {
+                  "lemma": "jaabw",
+                  "neutral_rank": 9,
+                  "final_rank": 1,
+                  "neutral_score": 0.404563,
+                  "final_score": 0.470031,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.161825,
+                  "selected": true,
+                  "selected_lane": "browsing",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.395929,
+                  "general_lane_probability": 0.245016,
+                  "approximate_selection_probability": 0.543936
+                },
+                {
+                  "lemma": "jaabo",
+                  "neutral_rank": 1,
+                  "final_rank": 3,
+                  "neutral_score": 0.443076,
+                  "final_score": 0.443076,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.264948,
+                  "approximate_selection_probability": 0.264948
+                },
+                {
+                  "lemma": "jaabp",
+                  "neutral_rank": 2,
+                  "final_rank": 4,
+                  "neutral_score": 0.438846,
+                  "final_score": 0.438846,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.262785,
+                  "approximate_selection_probability": 0.262785
+                },
+                {
+                  "lemma": "jaabq",
+                  "neutral_rank": 3,
+                  "final_rank": 5,
+                  "neutral_score": 0.434471,
+                  "final_score": 0.434471,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.260541,
+                  "approximate_selection_probability": 0.260541
+                },
+                {
+                  "lemma": "jaabr",
+                  "neutral_rank": 4,
+                  "final_rank": 6,
+                  "neutral_score": 0.429944,
+                  "final_score": 0.429944,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.258211,
+                  "approximate_selection_probability": 0.258211
+                },
+                {
+                  "lemma": "jaabs",
+                  "neutral_rank": 5,
+                  "final_rank": 7,
+                  "neutral_score": 0.425251,
+                  "final_score": 0.425251,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.255789,
+                  "approximate_selection_probability": 0.255789
+                },
+                {
+                  "lemma": "jaabt",
+                  "neutral_rank": 6,
+                  "final_rank": 8,
+                  "neutral_score": 0.420382,
+                  "final_score": 0.420382,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.253267,
+                  "approximate_selection_probability": 0.253267
+                },
+                {
+                  "lemma": "jaabu",
+                  "neutral_rank": 7,
+                  "final_rank": 9,
+                  "neutral_score": 0.415321,
+                  "final_score": 0.415321,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.250637,
+                  "approximate_selection_probability": 0.250637
+                },
+                {
+                  "lemma": "jaabx",
+                  "neutral_rank": 10,
+                  "final_rank": 2,
+                  "neutral_score": 0.398827,
+                  "final_score": 0.462453,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.159531,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.391,
+                  "general_lane_probability": 0.242001,
+                  "approximate_selection_probability": 0.538378
+                },
+                {
+                  "lemma": "jaabv",
+                  "neutral_rank": 8,
+                  "final_rank": 10,
+                  "neutral_score": 0.410054,
+                  "final_score": 0.410054,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.24789,
+                  "approximate_selection_probability": 0.24789
+                }
+              ],
+              "row_count": 30,
+              "row_preview_count": 10
+            },
+            "strong": {
+              "strength": "strong",
+              "admission_budget": 8,
+              "browsing_budget": 2,
+              "general_budget": 6,
+              "signal_volume": 2.0,
+              "volume_factor": 0.632121,
+              "selected_lemmas": [
+                "jaabw",
+                "jaabx",
+                "jaabo",
+                "jaabp",
+                "jaabq",
+                "jaabr",
+                "jaabs",
+                "jaabt"
+              ],
+              "neutral_selected_lemmas": [
+                "jaabo",
+                "jaabp",
+                "jaabq",
+                "jaabr",
+                "jaabs",
+                "jaabt",
+                "jaabu",
+                "jaabv"
+              ],
+              "browsing_lane_count": 2,
+              "browsing_relevant_selected_count": 2,
+              "browsing_driven_count": 2,
+              "suppressed_count": 0,
+              "browsing_lane_share": 0.25,
+              "browsing_relevant_share": 0.25,
+              "browsing_driven_share": 0.25,
+              "probability_semantics": {
+                "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+              },
+              "rows": [
+                {
+                  "lemma": "jaabw",
+                  "neutral_rank": 9,
+                  "final_rank": 1,
+                  "neutral_score": 0.404563,
+                  "final_score": 0.538476,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.331006,
+                  "selected": true,
+                  "selected_lane": "browsing",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.635382,
+                  "general_lane_probability": 0.214085,
+                  "approximate_selection_probability": 0.713441
+                },
+                {
+                  "lemma": "jaabx",
+                  "neutral_rank": 10,
+                  "final_rank": 2,
+                  "neutral_score": 0.398827,
+                  "final_score": 0.52897,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.326313,
+                  "selected": true,
+                  "selected_lane": "browsing",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.62883,
+                  "general_lane_probability": 0.211397,
+                  "approximate_selection_probability": 0.707294
+                },
+                {
+                  "lemma": "jaabo",
+                  "neutral_rank": 1,
+                  "final_rank": 3,
+                  "neutral_score": 0.443076,
+                  "final_score": 0.443076,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.231904,
+                  "approximate_selection_probability": 0.231904
+                },
+                {
+                  "lemma": "jaabp",
+                  "neutral_rank": 2,
+                  "final_rank": 4,
+                  "neutral_score": 0.438846,
+                  "final_score": 0.438846,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.229967,
+                  "approximate_selection_probability": 0.229967
+                },
+                {
+                  "lemma": "jaabq",
+                  "neutral_rank": 3,
+                  "final_rank": 5,
+                  "neutral_score": 0.434471,
+                  "final_score": 0.434471,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.227958,
+                  "approximate_selection_probability": 0.227958
+                },
+                {
+                  "lemma": "jaabr",
+                  "neutral_rank": 4,
+                  "final_rank": 6,
+                  "neutral_score": 0.429944,
+                  "final_score": 0.429944,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.225874,
+                  "approximate_selection_probability": 0.225874
+                },
+                {
+                  "lemma": "jaabs",
+                  "neutral_rank": 5,
+                  "final_rank": 7,
+                  "neutral_score": 0.425251,
+                  "final_score": 0.425251,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.223708,
+                  "approximate_selection_probability": 0.223708
+                },
+                {
+                  "lemma": "jaabt",
+                  "neutral_rank": 6,
+                  "final_rank": 8,
+                  "neutral_score": 0.420382,
+                  "final_score": 0.420382,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.221454,
+                  "approximate_selection_probability": 0.221454
+                },
+                {
+                  "lemma": "jaabu",
+                  "neutral_rank": 7,
+                  "final_rank": 9,
+                  "neutral_score": 0.415321,
+                  "final_score": 0.415321,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.219104,
+                  "approximate_selection_probability": 0.219104
+                },
+                {
+                  "lemma": "jaabv",
+                  "neutral_rank": 8,
+                  "final_rank": 10,
+                  "neutral_score": 0.410054,
+                  "final_score": 0.410054,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.216651,
+                  "approximate_selection_probability": 0.216651
+                }
+              ],
+              "row_count": 30,
+              "row_preview_count": 10
+            }
+          },
+          "store_path": "<temp_root>/srs/profiles/default/srs_browsing_signals_en-ja.json",
+          "store_exists": true,
+          "selection_strategy_requested": "profile_growth",
+          "selection_strategy_effective": "profile_growth"
+        },
         "rulegen": {
           "published": true,
           "targets": 48,
           "rules": 48,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_ruleset_en-ja.json"
+          "snapshot_path": "<temp_root>/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "ruleset_path": "<temp_root>/srs/profiles/default/srs_ruleset_en-ja.json",
+          "publication_manifest_path": "<temp_root>/srs/profiles/default/srs_publication_manifest_en-ja.json",
+          "semantic_inventory_path": "<temp_root>/srs/profiles/default/srs_semantic_inventory_en-ja.json"
         },
         "applied": true,
         "persisted": true,
@@ -404,13 +1146,13 @@
         "profile_id": "default",
         "requirements": {
           "pair": "en-ja",
-          "rulegen_mode": "ja_en",
+          "rulegen_mode": "en_ja",
           "supports_rulegen": true,
           "srs_selectable": true,
           "default_frequency_db": "freq-ja-bccwj.sqlite",
           "requires_jmdict_for_seed": true,
           "requires_jmdict_for_rulegen": true,
-          "requires_freedict_de_en_for_rulegen": false
+          "requires_translation_dictionary_for_rulegen": false
         },
         "pair_policy": {
           "pair": "en-ja",
@@ -421,36 +1163,88 @@
           "max_new_items_per_day_default": null,
           "notes": []
         },
-        "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/language_packs/JMdict_e",
+        "jmdict_path": "<temp_root>/language_packs/JMdict_e",
         "jmdict_exists": true,
-        "freedict_de_en_path": null,
-        "freedict_de_en_exists": false,
-        "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/frequency_packs/freq-ja-bccwj.sqlite",
+        "translation_dict_path": null,
+        "translation_dict_exists": false,
+        "translation_pack_path": null,
+        "translation_pack_exists": false,
+        "translation_dict_provider": null,
+        "translation_pack_id": null,
+        "translation_pos_source_profile": null,
+        "reverse_translation_dict_path": null,
+        "reverse_translation_dict_exists": false,
+        "reverse_translation_pack_path": null,
+        "reverse_translation_pack_exists": false,
+        "reverse_translation_dict_provider": null,
+        "reverse_translation_pack_id": null,
+        "reverse_translation_pos_source_profile": null,
+        "set_source_db": "<temp_root>/frequency_packs/freq-ja-bccwj.sqlite",
         "set_source_db_exists": true,
+        "frequency_pack_path": "<temp_root>/frequency_packs/freq-ja-bccwj.sqlite",
+        "frequency_pack_exists": true,
+        "frequency_pack_id": "freq-ja-bccwj",
+        "frequency_pack_provider": "freq-ja-bccwj",
+        "frequency_pos_source_profile": "bccwj",
         "stopwords_path": null,
         "stopwords_exists": false,
         "missing_inputs": [],
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_store.json",
+        "store_path": "<temp_root>/srs/profiles/default/srs_store.json",
         "store_exists": true,
         "store_items_total": 48,
         "store_items_for_pair": 48,
         "store_items_with_word_package_total": 48,
         "store_items_with_word_package_for_pair": 48,
         "store_error": null,
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_ruleset_en-ja.json",
+        "inventory_path": "<temp_root>/srs/profiles/default/srs_inventory.json",
+        "inventory_exists": true,
+        "inventory_active_items_for_pair": 48,
+        "inventory_source": "inventory",
+        "inventory_last_initialized_at": "<timestamp>",
+        "inventory_last_refreshed_at": "<timestamp>",
+        "inventory_last_rebalanced_at": null,
+        "inventory_store_missing_item_ids_count": 0,
+        "inventory_error": null,
+        "ruleset_path": "<temp_root>/srs/profiles/default/srs_ruleset_en-ja.json",
         "ruleset_exists": true,
         "ruleset_rules_count": 48,
         "ruleset_rules_with_script_forms": 48,
         "ruleset_rules_with_word_package": 48,
+        "ruleset_rules_with_semantic_admission": 48,
+        "ruleset_rules_semantic_ready": 0,
+        "ruleset_rules_semantic_unavailable": 48,
+        "ruleset_rules_semantic_not_applicable": 0,
+        "semantic_runtime_capability": "published_unready",
+        "semantic_runtime_reason_code": "no_ready_rules",
         "ruleset_error": null,
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp0rmuu9nf/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "snapshot_path": "<temp_root>/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
         "snapshot_exists": true,
         "snapshot_target_count": 48,
+        "snapshot_generation_id": "en-ja:default:<generated>",
         "snapshot_error": null,
+        "semantic_inventory_path": "<temp_root>/srs/profiles/default/srs_semantic_inventory_en-ja.json",
+        "semantic_inventory_exists": true,
+        "semantic_inventory_schema_version": 1,
+        "semantic_inventory_generation_id": "en-ja:default:<generated>",
+        "semantic_inventory_pointer_modes": [
+          "jmdict_entry"
+        ],
+        "semantic_inventory_default_unavailable_reason_code": "missing_jmdict_entry_locator",
+        "semantic_inventory_trigger_count": 48,
+        "semantic_inventory_sense_count": 48,
+        "semantic_inventory_competition_set_count": 48,
+        "semantic_inventory_phrase_set_count": 0,
+        "semantic_inventory_error": null,
+        "publication_manifest_path": "<temp_root>/srs/profiles/default/srs_publication_manifest_en-ja.json",
+        "publication_manifest_exists": true,
+        "publication_manifest_generation_id": "en-ja:default:<generated>",
+        "publication_manifest_family_valid": true,
+        "publication_manifest_error_count": 0,
+        "publication_manifest_errors": [],
         "status": {
           "version": 1,
           "helper_version": "0.1.0",
-          "last_run_at": "2026-03-21T02:48:05.792476+00:00",
+          "last_run_at": "<timestamp>",
           "last_error": null,
           "last_pair": "en-ja",
           "last_rule_count": 48,
@@ -460,6 +1254,8 @@
       "store_items_for_pair": 48,
       "due_count": 48,
       "ruleset_unique_targets": 48,
+      "srs_due_metadata_count": 48,
+      "runtime_due_active_count": 48,
       "snapshot_target_count": 48,
       "findings": [
         {
@@ -475,6 +1271,13 @@
           "pair": "en-ja",
           "message": "Refresh applied and published helper outputs.",
           "details": "added_items=8"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_BROWSING_PREVIEW_SIGNAL_VISIBLE",
+          "pair": "en-ja",
+          "message": "Refresh preview shows non-empty browsing signal without mutating actual SRS admission.",
+          "details": "aggregate_item_count=2 matching_signal_count=2 balanced_browsing_lane_count=1 strong_browsing_lane_count=2"
         },
         {
           "level": "PASS",
@@ -528,8 +1331,8 @@
         "replace_pair": true,
         "added_items": 40,
         "total_items_for_pair": 40,
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_store.json",
-        "stopwords_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/stopwords/stopwords-de.json",
+        "store_path": "<temp_root>/srs/profiles/default/srs_store.json",
+        "stopwords_path": "<temp_root>/srs/stopwords/stopwords-de.json",
         "bootstrap_diagnostics": {
           "selected_count": 70,
           "selected_unique_count": 70,
@@ -758,14 +1561,28 @@
               "pos_weight": 1.0,
               "admission_weight": 0.926939
             }
-          ]
+          ],
+          "selection_strategy": "frequency_bootstrap",
+          "selection_policy": "top_n",
+          "selection_seed": null,
+          "selector_version": null
+        },
+        "inventory": {
+          "path": "<temp_root>/srs/profiles/default/srs_inventory.json",
+          "exists": true,
+          "active_items_for_pair": 40,
+          "source": "initialized",
+          "backfilled_from_store": false,
+          "updated_at": "<timestamp>"
         },
         "rulegen": {
           "published": true,
           "targets": 40,
           "rules": 40,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_ruleset_en-de.json"
+          "snapshot_path": "<temp_root>/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
+          "ruleset_path": "<temp_root>/srs/profiles/default/srs_ruleset_en-de.json",
+          "publication_manifest_path": "<temp_root>/srs/profiles/default/srs_publication_manifest_en-de.json",
+          "semantic_inventory_path": "<temp_root>/srs/profiles/default/srs_semantic_inventory_en-de.json"
         },
         "applied": true,
         "plan": {
@@ -809,6 +1626,8 @@
       "refresh": {
         "pair": "en-de",
         "profile_id": "default",
+        "strategy_requested": "profile_growth",
+        "strategy_effective": "profile_growth",
         "set_top_n": 200,
         "feedback_window_size": 40,
         "allowed_pos": [],
@@ -825,12 +1644,17 @@
         "max_new_items_per_day": 8,
         "added_items": 8,
         "total_items_for_pair": 48,
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_store.json",
-        "stopwords_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/stopwords/stopwords-de.json",
+        "store_path": "<temp_root>/srs/profiles/default/srs_store.json",
+        "stopwords_path": "<temp_root>/srs/stopwords/stopwords-de.json",
         "admission_refresh": {
           "pair": "en-de",
           "max_active_items": 100,
           "max_new_items_per_day": 8,
+          "active_count": 40,
+          "active_zero_exposure_zero_feedback": 40,
+          "active_zero_exposure_zero_feedback_age_unknown": 0,
+          "active_stale_zero_exposure_zero_feedback": 0,
+          "stale_active_age_days": 7,
           "due_count": 40,
           "due_pressure": 0.4,
           "capacity_budget": 60,
@@ -866,6 +1690,8 @@
           ],
           "diagnostics": {
             "filtered_by_pos": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
             "admitted_by_pos_bucket": {
               "noun": 8
             },
@@ -874,17 +1700,736 @@
             "candidate_pool_effective": 70
           },
           "applied": true,
+          "active_rotation_release": {
+            "pair": "en-de",
+            "active_count_before": 40,
+            "active_count_after": 40,
+            "released_count": 0,
+            "released_item_ids": [],
+            "released_lemmas": [],
+            "policy": {
+              "min_history_count": 4,
+              "min_future_due_days": 7,
+              "require_review_state": true
+            }
+          },
+          "selection_strategy_requested": "profile_growth",
+          "selection_strategy_effective": "profile_growth",
+          "selection_policy": "reserved_topic_lane",
+          "profile_growth": {
+            "selector_version": "profile_bootstrap_v5",
+            "selector_policy_version": "profile_bootstrap_policy_v4",
+            "selection_weights": {
+              "base_freq": 0.55,
+              "topic_bias": 0.15,
+              "scarcity_bonus": 0.05,
+              "user_pref": 0.1,
+              "confidence": 0.0,
+              "difficulty_target": 0.1
+            },
+            "selection_policy": "reserved_topic_lane",
+            "utility_weights": {
+              "coverage_gain": 0.55,
+              "topic_affinity": 0.15,
+              "scarcity_bonus": 0.05,
+              "proficiency_fit": 0.1,
+              "challenge_fit": 0.1,
+              "lexical_risk": 0.0,
+              "redundancy": 0.0,
+              "exploration_bonus": 0.0
+            },
+            "profile_context": {
+              "version": "admission_profile_features_v1",
+              "topic_normalization_version": "topic_family_v1",
+              "raw_profile_keys": [],
+              "interests": [],
+              "explicit_topic_weights": {},
+              "implicit_topic_weights": {},
+              "topic_weights": {},
+              "topic_weight_sources": {},
+              "proficiency_estimate": null,
+              "challenge_target": null,
+              "challenge_spread": null,
+              "goal_mode": null,
+              "active_signals": [],
+              "missing_signals": [
+                "interests",
+                "proficiency",
+                "challenge_preference"
+              ],
+              "signal_sources": {}
+            }
+          },
           "weight_terms": {
             "admission_weight": "Entry/growth score for adding words into S.",
             "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
           }
         },
+        "inventory": {
+          "path": "<temp_root>/srs/profiles/default/srs_inventory.json",
+          "exists": true,
+          "active_items_for_pair": 48,
+          "source": "refreshed",
+          "backfilled_from_store": false,
+          "updated_at": "<timestamp>"
+        },
+        "suppression": {
+          "path": "<temp_root>/srs/profiles/default/srs_admission_suppression.json",
+          "exists": false,
+          "active_suppressed_lemmas": {},
+          "active_suppressed_count": 0
+        },
+        "browsing_admission_preview": {
+          "status": "ok",
+          "scope": "refresh_candidate_preview_only",
+          "applied_to_actual_admission": false,
+          "runtime_srs_mutation": false,
+          "admission_budget": 8,
+          "candidate_pool_effective": 30,
+          "aggregate_item_count": 2,
+          "matching_signal_count": 2,
+          "blocked_by_lifecycle": 0,
+          "blocked_lemmas": [],
+          "neutral_selected_lemmas": [
+            "deabo",
+            "deabp",
+            "deabq",
+            "deabr",
+            "deabs",
+            "deabt",
+            "deabu",
+            "deabv"
+          ],
+          "simulations": {
+            "off": {
+              "strength": "off",
+              "admission_budget": 8,
+              "browsing_budget": 0,
+              "general_budget": 8,
+              "signal_volume": 2.0,
+              "volume_factor": 0.632121,
+              "selected_lemmas": [
+                "deabo",
+                "deabp",
+                "deabq",
+                "deabr",
+                "deabs",
+                "deabt",
+                "deabu",
+                "deabv"
+              ],
+              "neutral_selected_lemmas": [
+                "deabo",
+                "deabp",
+                "deabq",
+                "deabr",
+                "deabs",
+                "deabt",
+                "deabu",
+                "deabv"
+              ],
+              "browsing_lane_count": 0,
+              "browsing_relevant_selected_count": 0,
+              "browsing_driven_count": 0,
+              "suppressed_count": 0,
+              "browsing_lane_share": 0.0,
+              "browsing_relevant_share": 0.0,
+              "browsing_driven_share": 0.0,
+              "probability_semantics": {
+                "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+              },
+              "rows": [
+                {
+                  "lemma": "deabo",
+                  "neutral_rank": 1,
+                  "final_rank": 1,
+                  "neutral_score": 0.443076,
+                  "final_score": 0.443076,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.296571,
+                  "approximate_selection_probability": 0.296571
+                },
+                {
+                  "lemma": "deabp",
+                  "neutral_rank": 2,
+                  "final_rank": 2,
+                  "neutral_score": 0.438846,
+                  "final_score": 0.438846,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.294204,
+                  "approximate_selection_probability": 0.294204
+                },
+                {
+                  "lemma": "deabq",
+                  "neutral_rank": 3,
+                  "final_rank": 3,
+                  "neutral_score": 0.434471,
+                  "final_score": 0.434471,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.291748,
+                  "approximate_selection_probability": 0.291748
+                },
+                {
+                  "lemma": "deabr",
+                  "neutral_rank": 4,
+                  "final_rank": 4,
+                  "neutral_score": 0.429944,
+                  "final_score": 0.429944,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.289198,
+                  "approximate_selection_probability": 0.289198
+                },
+                {
+                  "lemma": "deabs",
+                  "neutral_rank": 5,
+                  "final_rank": 5,
+                  "neutral_score": 0.425251,
+                  "final_score": 0.425251,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.286545,
+                  "approximate_selection_probability": 0.286545
+                },
+                {
+                  "lemma": "deabt",
+                  "neutral_rank": 6,
+                  "final_rank": 6,
+                  "neutral_score": 0.420382,
+                  "final_score": 0.420382,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.283781,
+                  "approximate_selection_probability": 0.283781
+                },
+                {
+                  "lemma": "deabu",
+                  "neutral_rank": 7,
+                  "final_rank": 7,
+                  "neutral_score": 0.415321,
+                  "final_score": 0.415321,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.280897,
+                  "approximate_selection_probability": 0.280897
+                },
+                {
+                  "lemma": "deabv",
+                  "neutral_rank": 8,
+                  "final_rank": 8,
+                  "neutral_score": 0.410054,
+                  "final_score": 0.410054,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.277884,
+                  "approximate_selection_probability": 0.277884
+                },
+                {
+                  "lemma": "deabw",
+                  "neutral_rank": 9,
+                  "final_rank": 9,
+                  "neutral_score": 0.404563,
+                  "final_score": 0.404563,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.274729,
+                  "approximate_selection_probability": 0.274729
+                },
+                {
+                  "lemma": "deabx",
+                  "neutral_rank": 10,
+                  "final_rank": 10,
+                  "neutral_score": 0.398827,
+                  "final_score": 0.398827,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.271418,
+                  "approximate_selection_probability": 0.271418
+                }
+              ],
+              "row_count": 30,
+              "row_preview_count": 10
+            },
+            "balanced": {
+              "strength": "balanced",
+              "admission_budget": 8,
+              "browsing_budget": 1,
+              "general_budget": 7,
+              "signal_volume": 2.0,
+              "volume_factor": 0.632121,
+              "selected_lemmas": [
+                "deabw",
+                "deabo",
+                "deabp",
+                "deabq",
+                "deabr",
+                "deabs",
+                "deabt",
+                "deabu"
+              ],
+              "neutral_selected_lemmas": [
+                "deabo",
+                "deabp",
+                "deabq",
+                "deabr",
+                "deabs",
+                "deabt",
+                "deabu",
+                "deabv"
+              ],
+              "browsing_lane_count": 1,
+              "browsing_relevant_selected_count": 1,
+              "browsing_driven_count": 1,
+              "suppressed_count": 0,
+              "browsing_lane_share": 0.125,
+              "browsing_relevant_share": 0.125,
+              "browsing_driven_share": 0.125,
+              "probability_semantics": {
+                "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+              },
+              "rows": [
+                {
+                  "lemma": "deabw",
+                  "neutral_rank": 9,
+                  "final_rank": 1,
+                  "neutral_score": 0.404563,
+                  "final_score": 0.470031,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.161825,
+                  "selected": true,
+                  "selected_lane": "browsing",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.395929,
+                  "general_lane_probability": 0.245016,
+                  "approximate_selection_probability": 0.543936
+                },
+                {
+                  "lemma": "deabo",
+                  "neutral_rank": 1,
+                  "final_rank": 3,
+                  "neutral_score": 0.443076,
+                  "final_score": 0.443076,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.264948,
+                  "approximate_selection_probability": 0.264948
+                },
+                {
+                  "lemma": "deabp",
+                  "neutral_rank": 2,
+                  "final_rank": 4,
+                  "neutral_score": 0.438846,
+                  "final_score": 0.438846,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.262785,
+                  "approximate_selection_probability": 0.262785
+                },
+                {
+                  "lemma": "deabq",
+                  "neutral_rank": 3,
+                  "final_rank": 5,
+                  "neutral_score": 0.434471,
+                  "final_score": 0.434471,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.260541,
+                  "approximate_selection_probability": 0.260541
+                },
+                {
+                  "lemma": "deabr",
+                  "neutral_rank": 4,
+                  "final_rank": 6,
+                  "neutral_score": 0.429944,
+                  "final_score": 0.429944,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.258211,
+                  "approximate_selection_probability": 0.258211
+                },
+                {
+                  "lemma": "deabs",
+                  "neutral_rank": 5,
+                  "final_rank": 7,
+                  "neutral_score": 0.425251,
+                  "final_score": 0.425251,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.255789,
+                  "approximate_selection_probability": 0.255789
+                },
+                {
+                  "lemma": "deabt",
+                  "neutral_rank": 6,
+                  "final_rank": 8,
+                  "neutral_score": 0.420382,
+                  "final_score": 0.420382,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.253267,
+                  "approximate_selection_probability": 0.253267
+                },
+                {
+                  "lemma": "deabu",
+                  "neutral_rank": 7,
+                  "final_rank": 9,
+                  "neutral_score": 0.415321,
+                  "final_score": 0.415321,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.250637,
+                  "approximate_selection_probability": 0.250637
+                },
+                {
+                  "lemma": "deabx",
+                  "neutral_rank": 10,
+                  "final_rank": 2,
+                  "neutral_score": 0.398827,
+                  "final_score": 0.462453,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.159531,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.391,
+                  "general_lane_probability": 0.242001,
+                  "approximate_selection_probability": 0.538378
+                },
+                {
+                  "lemma": "deabv",
+                  "neutral_rank": 8,
+                  "final_rank": 10,
+                  "neutral_score": 0.410054,
+                  "final_score": 0.410054,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.24789,
+                  "approximate_selection_probability": 0.24789
+                }
+              ],
+              "row_count": 30,
+              "row_preview_count": 10
+            },
+            "strong": {
+              "strength": "strong",
+              "admission_budget": 8,
+              "browsing_budget": 2,
+              "general_budget": 6,
+              "signal_volume": 2.0,
+              "volume_factor": 0.632121,
+              "selected_lemmas": [
+                "deabw",
+                "deabx",
+                "deabo",
+                "deabp",
+                "deabq",
+                "deabr",
+                "deabs",
+                "deabt"
+              ],
+              "neutral_selected_lemmas": [
+                "deabo",
+                "deabp",
+                "deabq",
+                "deabr",
+                "deabs",
+                "deabt",
+                "deabu",
+                "deabv"
+              ],
+              "browsing_lane_count": 2,
+              "browsing_relevant_selected_count": 2,
+              "browsing_driven_count": 2,
+              "suppressed_count": 0,
+              "browsing_lane_share": 0.25,
+              "browsing_relevant_share": 0.25,
+              "browsing_driven_share": 0.25,
+              "probability_semantics": {
+                "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+              },
+              "rows": [
+                {
+                  "lemma": "deabw",
+                  "neutral_rank": 9,
+                  "final_rank": 1,
+                  "neutral_score": 0.404563,
+                  "final_score": 0.538476,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.331006,
+                  "selected": true,
+                  "selected_lane": "browsing",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.635382,
+                  "general_lane_probability": 0.214085,
+                  "approximate_selection_probability": 0.713441
+                },
+                {
+                  "lemma": "deabx",
+                  "neutral_rank": 10,
+                  "final_rank": 2,
+                  "neutral_score": 0.398827,
+                  "final_score": 0.52897,
+                  "browsing_signal": 1.0,
+                  "browsing_boost": 1.326313,
+                  "selected": true,
+                  "selected_lane": "browsing",
+                  "neutral_selected": false,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.62883,
+                  "general_lane_probability": 0.211397,
+                  "approximate_selection_probability": 0.707294
+                },
+                {
+                  "lemma": "deabo",
+                  "neutral_rank": 1,
+                  "final_rank": 3,
+                  "neutral_score": 0.443076,
+                  "final_score": 0.443076,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.231904,
+                  "approximate_selection_probability": 0.231904
+                },
+                {
+                  "lemma": "deabp",
+                  "neutral_rank": 2,
+                  "final_rank": 4,
+                  "neutral_score": 0.438846,
+                  "final_score": 0.438846,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.229967,
+                  "approximate_selection_probability": 0.229967
+                },
+                {
+                  "lemma": "deabq",
+                  "neutral_rank": 3,
+                  "final_rank": 5,
+                  "neutral_score": 0.434471,
+                  "final_score": 0.434471,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.227958,
+                  "approximate_selection_probability": 0.227958
+                },
+                {
+                  "lemma": "deabr",
+                  "neutral_rank": 4,
+                  "final_rank": 6,
+                  "neutral_score": 0.429944,
+                  "final_score": 0.429944,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.225874,
+                  "approximate_selection_probability": 0.225874
+                },
+                {
+                  "lemma": "deabs",
+                  "neutral_rank": 5,
+                  "final_rank": 7,
+                  "neutral_score": 0.425251,
+                  "final_score": 0.425251,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.223708,
+                  "approximate_selection_probability": 0.223708
+                },
+                {
+                  "lemma": "deabt",
+                  "neutral_rank": 6,
+                  "final_rank": 8,
+                  "neutral_score": 0.420382,
+                  "final_score": 0.420382,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": true,
+                  "selected_lane": "general",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 1.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.221454,
+                  "approximate_selection_probability": 0.221454
+                },
+                {
+                  "lemma": "deabu",
+                  "neutral_rank": 7,
+                  "final_rank": 9,
+                  "neutral_score": 0.415321,
+                  "final_score": 0.415321,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.219104,
+                  "approximate_selection_probability": 0.219104
+                },
+                {
+                  "lemma": "deabv",
+                  "neutral_rank": 8,
+                  "final_rank": 10,
+                  "neutral_score": 0.410054,
+                  "final_score": 0.410054,
+                  "browsing_signal": 0.0,
+                  "browsing_boost": 1.0,
+                  "selected": false,
+                  "selected_lane": "not_selected",
+                  "neutral_selected": true,
+                  "deterministic_selection_probability": 0.0,
+                  "browsing_lane_probability": 0.0,
+                  "general_lane_probability": 0.216651,
+                  "approximate_selection_probability": 0.216651
+                }
+              ],
+              "row_count": 30,
+              "row_preview_count": 10
+            }
+          },
+          "store_path": "<temp_root>/srs/profiles/default/srs_browsing_signals_en-de.json",
+          "store_exists": true,
+          "selection_strategy_requested": "profile_growth",
+          "selection_strategy_effective": "profile_growth"
+        },
         "rulegen": {
           "published": true,
           "targets": 48,
           "rules": 48,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_ruleset_en-de.json"
+          "snapshot_path": "<temp_root>/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
+          "ruleset_path": "<temp_root>/srs/profiles/default/srs_ruleset_en-de.json",
+          "publication_manifest_path": "<temp_root>/srs/profiles/default/srs_publication_manifest_en-de.json",
+          "semantic_inventory_path": "<temp_root>/srs/profiles/default/srs_semantic_inventory_en-de.json"
         },
         "applied": true,
         "persisted": true,
@@ -901,7 +2446,7 @@
           "default_frequency_db": "freq-de-default.sqlite",
           "requires_jmdict_for_seed": false,
           "requires_jmdict_for_rulegen": false,
-          "requires_freedict_de_en_for_rulegen": true
+          "requires_translation_dictionary_for_rulegen": true
         },
         "pair_policy": {
           "pair": "en-de",
@@ -914,34 +2459,87 @@
         },
         "jmdict_path": null,
         "jmdict_exists": false,
-        "freedict_de_en_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/language_packs/deu-eng.tei",
-        "freedict_de_en_exists": true,
-        "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/frequency_packs/freq-de-default.sqlite",
+        "translation_dict_path": "<temp_root>/language_packs/freedict-de-en.sqlite",
+        "translation_dict_exists": true,
+        "translation_pack_path": "<temp_root>/language_packs/freedict-de-en.sqlite",
+        "translation_pack_exists": true,
+        "translation_dict_provider": "freedict",
+        "translation_pack_id": "freedict_de_en",
+        "translation_pos_source_profile": "freedict",
+        "reverse_translation_dict_path": "<temp_root>/language_packs/freedict-en-de.sqlite",
+        "reverse_translation_dict_exists": false,
+        "reverse_translation_pack_path": "<temp_root>/language_packs/freedict-en-de.sqlite",
+        "reverse_translation_pack_exists": false,
+        "reverse_translation_dict_provider": "freedict",
+        "reverse_translation_pack_id": "freedict_en_de",
+        "reverse_translation_pos_source_profile": "freedict",
+        "set_source_db": "<temp_root>/frequency_packs/freq-de-default.sqlite",
         "set_source_db_exists": true,
-        "stopwords_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/stopwords/stopwords-de.json",
+        "frequency_pack_path": "<temp_root>/frequency_packs/freq-de-default.sqlite",
+        "frequency_pack_exists": true,
+        "frequency_pack_id": "freq-de-default",
+        "frequency_pack_provider": "freq-de-default",
+        "frequency_pos_source_profile": "freq-de-default",
+        "stopwords_path": "<temp_root>/srs/stopwords/stopwords-de.json",
         "stopwords_exists": true,
         "missing_inputs": [],
-        "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_store.json",
+        "store_path": "<temp_root>/srs/profiles/default/srs_store.json",
         "store_exists": true,
         "store_items_total": 48,
         "store_items_for_pair": 48,
         "store_items_with_word_package_total": 48,
         "store_items_with_word_package_for_pair": 48,
         "store_error": null,
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_ruleset_en-de.json",
+        "inventory_path": "<temp_root>/srs/profiles/default/srs_inventory.json",
+        "inventory_exists": true,
+        "inventory_active_items_for_pair": 48,
+        "inventory_source": "inventory",
+        "inventory_last_initialized_at": "<timestamp>",
+        "inventory_last_refreshed_at": "<timestamp>",
+        "inventory_last_rebalanced_at": null,
+        "inventory_store_missing_item_ids_count": 0,
+        "inventory_error": null,
+        "ruleset_path": "<temp_root>/srs/profiles/default/srs_ruleset_en-de.json",
         "ruleset_exists": true,
         "ruleset_rules_count": 48,
         "ruleset_rules_with_script_forms": 48,
         "ruleset_rules_with_word_package": 48,
+        "ruleset_rules_with_semantic_admission": 48,
+        "ruleset_rules_semantic_ready": 0,
+        "ruleset_rules_semantic_unavailable": 48,
+        "ruleset_rules_semantic_not_applicable": 0,
+        "semantic_runtime_capability": "published_unready",
+        "semantic_runtime_reason_code": "no_ready_rules",
         "ruleset_error": null,
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp5u3h42xm/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
+        "snapshot_path": "<temp_root>/srs/profiles/default/srs_rulegen_snapshot_en-de.json",
         "snapshot_exists": true,
         "snapshot_target_count": 48,
+        "snapshot_generation_id": "en-de:default:<generated>",
         "snapshot_error": null,
+        "semantic_inventory_path": "<temp_root>/srs/profiles/default/srs_semantic_inventory_en-de.json",
+        "semantic_inventory_exists": true,
+        "semantic_inventory_schema_version": 1,
+        "semantic_inventory_generation_id": "en-de:default:<generated>",
+        "semantic_inventory_pointer_modes": [
+          "sense_provenance",
+          "translation_gloss"
+        ],
+        "semantic_inventory_default_unavailable_reason_code": "missing_source_sense_locator",
+        "semantic_inventory_trigger_count": 48,
+        "semantic_inventory_sense_count": 48,
+        "semantic_inventory_competition_set_count": 48,
+        "semantic_inventory_phrase_set_count": 0,
+        "semantic_inventory_error": null,
+        "publication_manifest_path": "<temp_root>/srs/profiles/default/srs_publication_manifest_en-de.json",
+        "publication_manifest_exists": true,
+        "publication_manifest_generation_id": "en-de:default:<generated>",
+        "publication_manifest_family_valid": true,
+        "publication_manifest_error_count": 0,
+        "publication_manifest_errors": [],
         "status": {
           "version": 1,
           "helper_version": "0.1.0",
-          "last_run_at": "2026-03-21T02:48:05.824311+00:00",
+          "last_run_at": "<timestamp>",
           "last_error": null,
           "last_pair": "en-de",
           "last_rule_count": 48,
@@ -951,6 +2549,8 @@
       "store_items_for_pair": 48,
       "due_count": 48,
       "ruleset_unique_targets": 48,
+      "srs_due_metadata_count": 48,
+      "runtime_due_active_count": 48,
       "snapshot_target_count": 48,
       "findings": [
         {
@@ -966,6 +2566,13 @@
           "pair": "en-de",
           "message": "Refresh applied and published helper outputs.",
           "details": "added_items=8"
+        },
+        {
+          "level": "PASS",
+          "code": "SRS_BROWSING_PREVIEW_SIGNAL_VISIBLE",
+          "pair": "en-de",
+          "message": "Refresh preview shows non-empty browsing signal without mutating actual SRS admission.",
+          "details": "aggregate_item_count=2 matching_signal_count=2 balanced_browsing_lane_count=1 strong_browsing_lane_count=2"
         },
         {
           "level": "PASS",
@@ -1000,41 +2607,495 @@
   ],
   "feedback_cycle_scenario": {
     "pair": "en-ja",
+    "initial_snapshot": {
+      "total_items_for_pair": 1,
+      "active_count": 1,
+      "due_count": 1,
+      "lemmas": [
+        "alpha"
+      ],
+      "due_lemmas": [
+        "alpha"
+      ],
+      "items": [
+        {
+          "item_id": "en-ja:alpha",
+          "lemma": "alpha",
+          "lifecycle_state": "active",
+          "scheduler_state": null,
+          "scheduler_step": null,
+          "stability": null,
+          "difficulty": null,
+          "last_review": null,
+          "next_due": null,
+          "exposures": 0,
+          "history_count": 0
+        }
+      ]
+    },
     "phases": [
       {
         "label": "high_retention_1",
         "applied": true,
         "added_items": 2,
+        "selected_lemmas": [
+          "beta",
+          "gamma"
+        ],
         "total_items_for_pair": 3,
         "reason_code": "normal",
         "feedback_count": 8,
         "retention_ratio": 1.0,
         "ruleset_count": 3,
+        "srs_due_metadata_count": 3,
+        "runtime_due_active_count": 2,
         "snapshot_target_count": 3,
+        "before_refresh": {
+          "total_items_for_pair": 1,
+          "active_count": 1,
+          "due_count": 0,
+          "lemmas": [
+            "alpha"
+          ],
+          "due_lemmas": [],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "review",
+              "scheduler_step": null,
+              "stability": 16.132179,
+              "difficulty": 1.0,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 8,
+              "history_count": 8
+            }
+          ]
+        },
+        "after_refresh": {
+          "total_items_for_pair": 3,
+          "active_count": 3,
+          "due_count": 2,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "review",
+              "scheduler_step": null,
+              "stability": 16.132179,
+              "difficulty": 1.0,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 8,
+              "history_count": 8
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "feedback_delta": {
+          "total_items_delta": 0,
+          "active_count_delta": 0,
+          "due_count_delta": -1,
+          "added_lemmas": [],
+          "removed_lemmas": [],
+          "changed_lemmas": [
+            "alpha"
+          ],
+          "reviewed_lemmas": [
+            "alpha"
+          ],
+          "scheduler_changed_lemmas": [
+            "alpha"
+          ]
+        },
+        "refresh_delta": {
+          "total_items_delta": 2,
+          "active_count_delta": 2,
+          "due_count_delta": 2,
+          "added_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "removed_lemmas": [],
+          "changed_lemmas": [],
+          "reviewed_lemmas": [],
+          "scheduler_changed_lemmas": []
+        },
         "due_count": 2
       },
       {
         "label": "low_retention_pause",
         "applied": false,
         "added_items": 0,
+        "selected_lemmas": [],
         "total_items_for_pair": 3,
         "reason_code": "retention_low",
         "feedback_count": 8,
         "retention_ratio": 0.0,
         "ruleset_count": 3,
+        "srs_due_metadata_count": 3,
+        "runtime_due_active_count": 2,
         "snapshot_target_count": 3,
+        "before_refresh": {
+          "total_items_for_pair": 3,
+          "active_count": 3,
+          "due_count": 2,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "relearning",
+              "scheduler_step": 0,
+              "stability": 0.040565,
+              "difficulty": 9.948232,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 16,
+              "history_count": 16
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "after_refresh": {
+          "total_items_for_pair": 3,
+          "active_count": 3,
+          "due_count": 2,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "relearning",
+              "scheduler_step": 0,
+              "stability": 0.040565,
+              "difficulty": 9.948232,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 16,
+              "history_count": 16
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "feedback_delta": {
+          "total_items_delta": 0,
+          "active_count_delta": 0,
+          "due_count_delta": 0,
+          "added_lemmas": [],
+          "removed_lemmas": [],
+          "changed_lemmas": [
+            "alpha"
+          ],
+          "reviewed_lemmas": [
+            "alpha"
+          ],
+          "scheduler_changed_lemmas": [
+            "alpha"
+          ]
+        },
+        "refresh_delta": {
+          "total_items_delta": 0,
+          "active_count_delta": 0,
+          "due_count_delta": 0,
+          "added_lemmas": [],
+          "removed_lemmas": [],
+          "changed_lemmas": [],
+          "reviewed_lemmas": [],
+          "scheduler_changed_lemmas": []
+        },
         "due_count": 2
       },
       {
         "label": "high_retention_2",
         "applied": true,
         "added_items": 2,
+        "selected_lemmas": [
+          "delta",
+          "epsilon"
+        ],
         "total_items_for_pair": 5,
         "reason_code": "normal",
         "feedback_count": 8,
         "retention_ratio": 1.0,
         "ruleset_count": 5,
+        "srs_due_metadata_count": 5,
+        "runtime_due_active_count": 4,
         "snapshot_target_count": 5,
+        "before_refresh": {
+          "total_items_for_pair": 3,
+          "active_count": 3,
+          "due_count": 2,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "review",
+              "scheduler_step": null,
+              "stability": 1.137139,
+              "difficulty": 9.645387,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 24,
+              "history_count": 24
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "after_refresh": {
+          "total_items_for_pair": 5,
+          "active_count": 5,
+          "due_count": 4,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "delta",
+            "epsilon",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma",
+            "delta",
+            "epsilon"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "review",
+              "scheduler_step": null,
+              "stability": 1.137139,
+              "difficulty": 9.645387,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 24,
+              "history_count": 24
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:delta",
+              "lemma": "delta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:epsilon",
+              "lemma": "epsilon",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "feedback_delta": {
+          "total_items_delta": 0,
+          "active_count_delta": 0,
+          "due_count_delta": 0,
+          "added_lemmas": [],
+          "removed_lemmas": [],
+          "changed_lemmas": [
+            "alpha"
+          ],
+          "reviewed_lemmas": [
+            "alpha"
+          ],
+          "scheduler_changed_lemmas": [
+            "alpha"
+          ]
+        },
+        "refresh_delta": {
+          "total_items_delta": 2,
+          "active_count_delta": 2,
+          "due_count_delta": 2,
+          "added_lemmas": [
+            "delta",
+            "epsilon"
+          ],
+          "removed_lemmas": [],
+          "changed_lemmas": [],
+          "reviewed_lemmas": [],
+          "scheduler_changed_lemmas": []
+        },
         "due_count": 4
       }
     ],
@@ -1061,11 +3122,128 @@
         "details": null
       },
       {
-        "level": "WARN",
-        "code": "SRS_DUE_AWARE_PUBLISH_UNVERIFIED",
+        "level": "PASS",
+        "code": "SRS_FEEDBACK_SNAPSHOTS_CAPTURED",
         "pair": "en-ja",
-        "message": "Published ruleset appears to cover admitted items beyond the due subset.",
-        "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3"
+        "message": "Feedback-cycle phases include before/after store snapshots and separate feedback vs refresh deltas.",
+        "details": "phase1_reviewed=alpha phase1_added=beta,gamma phase3_added=delta,epsilon"
+      },
+      {
+        "level": "PASS",
+        "code": "SRS_DUE_AWARE_RUNTIME_GATE_VERIFIED",
+        "pair": "en-ja",
+        "message": "Helper ruleset may remain broader than due, but due metadata supports runtime due-aware serving.",
+        "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3 srs_due_metadata_count=3 runtime_due_active_count=2"
+      }
+    ]
+  },
+  "encounter_watch_scenario": {
+    "pair": "en-ja",
+    "now": "<timestamp>",
+    "stale_age_days": 7,
+    "dashboard_summary": {
+      "total": 5,
+      "active": 5,
+      "queued": 0,
+      "due_now": 0,
+      "due_soon": 0,
+      "learning": 5,
+      "reviewing": 0,
+      "discarded": 0,
+      "cleared": 0,
+      "removed": 0,
+      "with_word_package": 0,
+      "inventory_active_count": 5,
+      "serving_now": 4,
+      "serving_not_due": 0,
+      "serving_without_enabled_rules": 1,
+      "active_zero_exposure": 4,
+      "active_zero_feedback": 4,
+      "active_zero_exposure_zero_feedback": 4,
+      "active_zero_exposure_zero_feedback_age_unknown": 1,
+      "active_stale_zero_exposure_zero_feedback": 2,
+      "active_without_enabled_rules": 1,
+      "encounter_watch": 4,
+      "encounter_stale_age_days": 7
+    },
+    "item_states_by_lemma": {
+      "fresh": {
+        "admitted_age_days": 2,
+        "exposures": 0,
+        "review_count": 0,
+        "enabled_rule_count": 1,
+        "zero_exposure_zero_feedback": true,
+        "age_unknown": false,
+        "stale": false,
+        "without_enabled_rules": false,
+        "needs_attention": true
+      },
+      "legacy": {
+        "admitted_age_days": null,
+        "exposures": 0,
+        "review_count": 0,
+        "enabled_rule_count": 1,
+        "zero_exposure_zero_feedback": true,
+        "age_unknown": true,
+        "stale": false,
+        "without_enabled_rules": false,
+        "needs_attention": true
+      },
+      "orphan": {
+        "admitted_age_days": 8,
+        "exposures": 0,
+        "review_count": 0,
+        "enabled_rule_count": 0,
+        "zero_exposure_zero_feedback": true,
+        "age_unknown": false,
+        "stale": true,
+        "without_enabled_rules": true,
+        "needs_attention": true
+      },
+      "seen": {
+        "admitted_age_days": 8,
+        "exposures": 1,
+        "review_count": 1,
+        "enabled_rule_count": 1,
+        "zero_exposure_zero_feedback": false,
+        "age_unknown": false,
+        "stale": false,
+        "without_enabled_rules": false,
+        "needs_attention": false
+      },
+      "stale": {
+        "admitted_age_days": 8,
+        "exposures": 0,
+        "review_count": 0,
+        "enabled_rule_count": 1,
+        "zero_exposure_zero_feedback": true,
+        "age_unknown": false,
+        "stale": true,
+        "without_enabled_rules": false,
+        "needs_attention": true
+      }
+    },
+    "findings": [
+      {
+        "level": "PASS",
+        "code": "SRS_ENCOUNTER_WATCH_SUMMARY_VERIFIED",
+        "pair": "en-ja",
+        "message": "Encounter-watch summary counts stale, legacy, and no-rule risks.",
+        "details": "active_zero_exposure=4 active_zero_feedback=4 active_zero_exposure_zero_feedback=4 active_zero_exposure_zero_feedback_age_unknown=1 active_stale_zero_exposure_zero_feedback=2 active_without_enabled_rules=1 encounter_watch=4"
+      },
+      {
+        "level": "PASS",
+        "code": "SRS_ENCOUNTER_STALE_AGE_CLASSIFICATION",
+        "pair": "en-ja",
+        "message": "Encounter diagnostics distinguish fresh, stale, and age-unknown items.",
+        "details": "fresh_age=2 stale_age=8 threshold_days=7 legacy_age=unknown"
+      },
+      {
+        "level": "PASS",
+        "code": "SRS_ENCOUNTER_REVIEW_AND_RULE_CLASSIFICATION",
+        "pair": "en-ja",
+        "message": "Reviewed items clear encounter watch and no-rule active items stay visible.",
+        "details": "seen_needs_attention=false orphan_without_enabled_rules=true"
       }
     ]
   },
@@ -1083,6 +3261,13 @@
       "pair": "en-ja",
       "message": "Refresh applied and published helper outputs.",
       "details": "added_items=8"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_BROWSING_PREVIEW_SIGNAL_VISIBLE",
+      "pair": "en-ja",
+      "message": "Refresh preview shows non-empty browsing signal without mutating actual SRS admission.",
+      "details": "aggregate_item_count=2 matching_signal_count=2 balanced_browsing_lane_count=1 strong_browsing_lane_count=2"
     },
     {
       "level": "PASS",
@@ -1125,6 +3310,13 @@
       "pair": "en-de",
       "message": "Refresh applied and published helper outputs.",
       "details": "added_items=8"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_BROWSING_PREVIEW_SIGNAL_VISIBLE",
+      "pair": "en-de",
+      "message": "Refresh preview shows non-empty browsing signal without mutating actual SRS admission.",
+      "details": "aggregate_item_count=2 matching_signal_count=2 balanced_browsing_lane_count=1 strong_browsing_lane_count=2"
     },
     {
       "level": "PASS",
@@ -1176,11 +3368,46 @@
       "details": null
     },
     {
-      "level": "WARN",
-      "code": "SRS_DUE_AWARE_PUBLISH_UNVERIFIED",
+      "level": "PASS",
+      "code": "SRS_FEEDBACK_SNAPSHOTS_CAPTURED",
       "pair": "en-ja",
-      "message": "Published ruleset appears to cover admitted items beyond the due subset.",
-      "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3"
+      "message": "Feedback-cycle phases include before/after store snapshots and separate feedback vs refresh deltas.",
+      "details": "phase1_reviewed=alpha phase1_added=beta,gamma phase3_added=delta,epsilon"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_DUE_AWARE_RUNTIME_GATE_VERIFIED",
+      "pair": "en-ja",
+      "message": "Helper ruleset may remain broader than due, but due metadata supports runtime due-aware serving.",
+      "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3 srs_due_metadata_count=3 runtime_due_active_count=2"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_ENCOUNTER_WATCH_SUMMARY_VERIFIED",
+      "pair": "en-ja",
+      "message": "Encounter-watch summary counts stale, legacy, and no-rule risks.",
+      "details": "active_zero_exposure=4 active_zero_feedback=4 active_zero_exposure_zero_feedback=4 active_zero_exposure_zero_feedback_age_unknown=1 active_stale_zero_exposure_zero_feedback=2 active_without_enabled_rules=1 encounter_watch=4"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_ENCOUNTER_STALE_AGE_CLASSIFICATION",
+      "pair": "en-ja",
+      "message": "Encounter diagnostics distinguish fresh, stale, and age-unknown items.",
+      "details": "fresh_age=2 stale_age=8 threshold_days=7 legacy_age=unknown"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_ENCOUNTER_REVIEW_AND_RULE_CLASSIFICATION",
+      "pair": "en-ja",
+      "message": "Reviewed items clear encounter watch and no-rule active items stay visible.",
+      "details": "seen_needs_attention=false orphan_without_enabled_rules=true"
     }
-  ]
+  ],
+  "artifact_normalization": {
+    "mode": "stable_latest_v1",
+    "generated_at": "<generated_at>",
+    "timestamps": "<timestamp>",
+    "temp_root": "<temp_root>",
+    "generation_ids": "<generated>"
+  }
 }

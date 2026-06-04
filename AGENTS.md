@@ -75,7 +75,8 @@ python3 scripts/testing/srs_quality_summary.py \
 Current harness coverage:
 - bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`
 - feedback-cycle pause/resume scenario for `en-ja`
-- due-aware publication mismatch surfaced as a warning, not a hard pass/fail gate
+- due-aware runtime serving through helper SRS metadata plus extension gating;
+  publication may remain broader than the due subset
 
 ## Baseline and policy safety
 
@@ -86,7 +87,7 @@ Current harness coverage:
 ## Failure-to-case promotion
 
 For each FAIL/REVIEW triage item:
-- either update benchmark cases in `docs/test_inputs/rulegen_benchmark_cases.json`,
+- either update benchmark cases in `docs/test_inputs/rulegen_benchmark_cases/<pair>.json`,
 - or document why it remains unresolved.
 
 ## Meta workflow and state tracking

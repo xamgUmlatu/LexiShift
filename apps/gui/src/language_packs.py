@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import gzip
+import inspect
 import os
 import shutil
 import tarfile
@@ -10,19 +12,211 @@ from pathlib import Path
 import ssl
 import sys
 from datetime import datetime
+from typing import Mapping
 
 from PySide6.QtCore import QThread, Signal, QStandardPaths
 
 from lexishift_core.frequency.sqlite import (
     convert_frequency_to_sqlite,
 )
+from lexishift_core.helper.installed_packs import (
+    write_installed_pack_manifest,
+)
+from lexishift_core.helper.pack_artifact_metrics import sqlite_artifact_metrics_for_pack
+from lexishift_core.helper.pack_provenance import write_app_managed_pack_provenance
+from lexishift_core.helper.pack_source_identity import (
+    safe_pack_source_identity_fields,
+    source_bundle_fields_for_pack,
+)
+from lexishift_core.resources.freedict_sqlite import convert_freedict_tei_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_glosses_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_translations_to_sqlite
 from language_packs_catalog import (
+    CROSS_EMBEDDING_PACKS,
+    EMBEDDING_PACKS,
+    FREQUENCY_PACKS,
     FrequencyPackInfo,
+    LANGUAGE_PACKS,
     LanguagePackInfo,
+    PackCatalogSnapshot,
+    PackTransportOverride,
     _frequency_pos_inventory_config,
+    build_pack_catalogs,
 )
+from pack_download_failures import encode_pack_download_failure
+
+__all__ = [
+    "CROSS_EMBEDDING_PACKS",
+    "EMBEDDING_PACKS",
+    "FREQUENCY_PACKS",
+    "LANGUAGE_PACKS",
+    "PackCatalogSnapshot",
+    "PackTransportOverride",
+    "FrequencyPackDownloadThread",
+    "FrequencyPackInfo",
+    "LanguagePackDownloadThread",
+    "LanguagePackInfo",
+    "build_pack_catalogs",
+]
+
+
+def _build_command_for_mode(build_mode: str) -> str:
+    commands = {
+        "download_only": "download_only",
+        "freedict_tei_to_sqlite": "convert_freedict_tei_to_sqlite",
+        "kaikki_glosses_to_sqlite": "convert_kaikki_glosses_to_sqlite",
+        "kaikki_translations_to_sqlite": "convert_kaikki_translations_to_sqlite",
+        "convert_archive": "convert_frequency_to_sqlite",
+        "de_frequency_pipeline": "run_de_frequency_pipeline",
+        "convert_to_sqlite": "scripts/data/convert_embeddings.py",
+    }
+    normalized = str(build_mode or "").strip()
+    return commands.get(normalized, normalized)
+
+
+def _language_parser_config(pack: LanguagePackInfo) -> dict[str, object]:
+    build_mode = str(pack.build_mode or "").strip()
+    if build_mode == "freedict_tei_to_sqlite":
+        return {
+            "target_lang": str(pack.target_lang_code or "").strip(),
+            "tei_filename": pack.required_files[0] if pack.required_files else "",
+        }
+    if build_mode == "kaikki_glosses_to_sqlite":
+        return {
+            "source_lang_code": str(pack.source_lang_code or "").strip().lower() or "es",
+            "gloss_language": str(pack.gloss_language or "").strip().lower() or "en",
+            "source_dump": _kaikki_source_dump_for_pack(pack),
+        }
+    if build_mode == "kaikki_translations_to_sqlite":
+        target_lang = str(pack.target_lang_code or "").strip().lower()
+        return {
+            "source_lang_code": str(pack.source_lang_code or "").strip().lower(),
+            "target_lang_code": target_lang,
+            "translation_language": str(pack.gloss_language or target_lang).strip().lower(),
+            "source_dump": _kaikki_source_dump_for_pack(pack),
+        }
+    return {}
+
+
+def _kaikki_source_dump_for_pack(pack: LanguagePackInfo) -> str:
+    return str(pack.source_dump or "enwiktionary").strip() or "enwiktionary"
+
+
+def _known_download_size_bytes(pack: object) -> int:
+    raw_size = getattr(pack, "download_size_bytes", None)
+    if raw_size is None:
+        return 0
+    try:
+        size = int(raw_size)
+    except (TypeError, ValueError):
+        return 0
+    return max(0, size)
+
+
+def _response_download_total_bytes(response: object, pack: object) -> int:
+    headers = getattr(response, "headers", {})
+    raw_total = None
+    if hasattr(headers, "get"):
+        raw_total = headers.get("Content-Length")
+    try:
+        total = int(raw_total or 0)
+    except (TypeError, ValueError):
+        total = 0
+    return total if total > 0 else _known_download_size_bytes(pack)
+
+
+def _frequency_parser_config(pack: FrequencyPackInfo) -> dict[str, object]:
+    if str(pack.build_mode or "").strip() == "de_frequency_pipeline":
+        return {"drop_proper_nouns": True}
+    config = pack.parse_config
+    parser_config: dict[str, object] = {
+        "delimiter": config.delimiter,
+        "header_starts_with": config.header_starts_with,
+        "skip_prefixes": list(config.skip_prefixes),
+        "encoding": config.encoding,
+        "errors": config.errors,
+        "index_column": pack.index_column,
+    }
+    pos_inventory = _frequency_pos_inventory_config(pack.pack_id)
+    if pos_inventory is not None:
+        parser_config["pos_inventory"] = {
+            "source_provider": pos_inventory.source_provider,
+            "source_kind": pos_inventory.source_kind,
+            "source_profile": pos_inventory.source_profile,
+            "pos_columns": list(pos_inventory.pos_columns),
+        }
+    return parser_config
+
+
+def _file_checksums(path: str | Path) -> dict[str, str]:
+    file_path = Path(path)
+    if not file_path.is_file():
+        return {}
+    sha1 = hashlib.sha1()
+    sha256 = hashlib.sha256()
+    with file_path.open("rb") as handle:
+        while chunk := handle.read(1024 * 1024):
+            sha1.update(chunk)
+            sha256.update(chunk)
+    return {
+        "sha1": sha1.hexdigest(),
+        "sha256": sha256.hexdigest(),
+    }
+
+
+def _converter_version_for_mode(build_mode: str) -> str:
+    normalized = str(build_mode or "").strip()
+    converter_sources = {
+        "freedict_tei_to_sqlite": (
+            "lexishift_core.resources.freedict_sqlite",
+            convert_freedict_tei_to_sqlite,
+        ),
+        "kaikki_glosses_to_sqlite": (
+            "lexishift_core.resources.kaikki_sqlite",
+            convert_kaikki_glosses_to_sqlite,
+        ),
+        "kaikki_translations_to_sqlite": (
+            "lexishift_core.resources.kaikki_sqlite",
+            convert_kaikki_translations_to_sqlite,
+        ),
+        "convert_archive": (
+            "lexishift_core.frequency.sqlite",
+            convert_frequency_to_sqlite,
+        ),
+    }
+    if normalized in converter_sources:
+        label, converter = converter_sources[normalized]
+        source_file = inspect.getsourcefile(converter)
+        return _source_file_version(label, source_file)
+    if normalized == "de_frequency_pipeline":
+        from lexishift_core.frequency.de.pipeline import run_de_frequency_pipeline
+
+        source_file = inspect.getsourcefile(run_de_frequency_pipeline)
+        return _source_file_version("lexishift_core.frequency.de.pipeline", source_file)
+    if normalized == "convert_to_sqlite":
+        return _source_file_version(
+            "scripts.data.convert_embeddings",
+            _repo_relative_file("scripts/data/convert_embeddings.py"),
+        )
+    return ""
+
+
+def _source_file_version(label: str, path: str | Path | None) -> str:
+    if not path:
+        return ""
+    digest = _file_checksums(path).get("sha256", "")
+    if not digest:
+        return ""
+    return f"source_sha256:{label}:{digest}"
+
+
+def _repo_relative_file(relative_path: str) -> Path:
+    this_file = Path(__file__).resolve()
+    for root in (this_file.parents[3], this_file.parents[2]):
+        candidate = root / relative_path
+        if candidate.exists():
+            return candidate
+    return this_file.parents[3] / relative_path
 
 
 def _app_data_root() -> str:
@@ -71,12 +265,24 @@ class LanguagePackDownloadThread(QThread):
     completed = Signal(str, str)
     failed = Signal(str, str)
 
-    def __init__(self, pack: LanguagePackInfo, dest_path: str, parent=None) -> None:
+    def __init__(
+        self,
+        pack: LanguagePackInfo,
+        dest_path: str,
+        parent=None,
+        *,
+        pack_kind: str = "language",
+        write_manifest_on_complete: bool = True,
+    ) -> None:
         super().__init__(parent)
         self._pack = pack
         self._pack_id = pack.pack_id
         self._url = pack.url
         self._dest_path = dest_path
+        self._pack_kind = str(pack_kind or "language")
+        self._write_manifest_on_complete = bool(write_manifest_on_complete)
+        self._raw_artifact_sha1 = ""
+        self._raw_artifact_sha256 = ""
 
     def run(self) -> None:
         try:
@@ -84,20 +290,26 @@ class LanguagePackDownloadThread(QThread):
                 f"[{self._pack_id}] starting download url={self._url} dest={self._dest_path} "
                 f"py={sys.version.split()[0]} meipass={getattr(sys, '_MEIPASS', None)}"
             )
+            # TODO(kaikki-cache): Kaikki managed packs currently download their raw dump into
+            # each pack root independently. Cache large raw archives by shared source URL/hash
+            # and link pack-local filenames to that shared blob so users do not re-download the
+            # same multi-GB Wiktextract dump for every Kaikki-derived pack.
             request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
             with _open_request(request, timeout=30) as response:
                 status = getattr(response, "status", None)
                 _log_download(
                     f"[{self._pack_id}] response status={status} final_url={response.geturl()}"
                 )
-                total = int(response.headers.get("Content-Length") or 0)
+                total = _response_download_total_bytes(response, self._pack)
                 downloaded = 0
                 os.makedirs(os.path.dirname(self._dest_path), exist_ok=True)
                 with open(self._dest_path, "wb") as handle:
                     while True:
                         if self.isInterruptionRequested():
                             self._cleanup_partial(self._dest_path)
-                            self.failed.emit(self._pack_id, "cancelled")
+                            self.failed.emit(
+                                self._pack_id, encode_pack_download_failure("cancelled")
+                            )
                             return
                         chunk = response.read(1024 * 128)
                         if not chunk:
@@ -107,9 +319,12 @@ class LanguagePackDownloadThread(QThread):
                         self.progress.emit(self._pack_id, downloaded, total)
             if self.isInterruptionRequested():
                 self._cleanup_partial(self._dest_path)
-                self.failed.emit(self._pack_id, "cancelled")
+                self.failed.emit(self._pack_id, encode_pack_download_failure("cancelled"))
                 return
+            self._capture_raw_artifact_checksums(self._dest_path)
             final_path = self._build_local_artifact(self._dest_path)
+            if self._write_manifest_on_complete:
+                self._write_manifest(final_path)
             _log_download(f"[{self._pack_id}] completed path={final_path}")
             self.completed.emit(self._pack_id, final_path)
         except Exception as exc:
@@ -117,9 +332,11 @@ class LanguagePackDownloadThread(QThread):
             sqlite_path = self._pack.sqlite_filename
             if sqlite_path:
                 self._cleanup_partial(str(Path(self._dest_path).with_name(sqlite_path)))
-            self.failed.emit(self._pack_id, str(exc))
+            self.failed.emit(self._pack_id, encode_pack_download_failure(exc))
 
     def _build_local_artifact(self, dest_path: str) -> str:
+        if self._pack.build_mode == "freedict_tei_to_sqlite":
+            return self._build_freedict_sqlite(dest_path)
         if self._pack.build_mode == "kaikki_glosses_to_sqlite":
             return self._build_kaikki_glosses_sqlite(dest_path)
         if self._pack.build_mode == "kaikki_translations_to_sqlite":
@@ -154,12 +371,14 @@ class LanguagePackDownloadThread(QThread):
         if not self._pack.required_files:
             self._cleanup_archive(archive_path)
             return extracted_path
-        target_dir = (
-            extracted_path if os.path.isdir(extracted_path) else os.path.dirname(extracted_path)
-        )
+        target_dir = os.path.dirname(archive_path)
+        os.makedirs(target_dir, exist_ok=True)
         required = list(self._pack.required_files)
         found = {}
-        for root, _dirs, files in os.walk(target_dir):
+        search_root = (
+            extracted_path if os.path.isdir(extracted_path) else os.path.dirname(extracted_path)
+        )
+        for root, _dirs, files in os.walk(search_root):
             for name in files:
                 if name in required and name not in found:
                     found[name] = os.path.join(root, name)
@@ -171,6 +390,8 @@ class LanguagePackDownloadThread(QThread):
                 continue
             dest = os.path.join(target_dir, name)
             if os.path.abspath(src) != os.path.abspath(dest):
+                if os.path.exists(dest):
+                    os.remove(dest)
                 os.makedirs(os.path.dirname(dest), exist_ok=True)
                 shutil.move(src, dest)
         for entry in os.listdir(target_dir):
@@ -186,6 +407,55 @@ class LanguagePackDownloadThread(QThread):
                 pass
         self._cleanup_archive(archive_path)
         return target_dir
+
+    def _write_manifest(self, final_path: str) -> None:
+        pack_root = Path(self._dest_path).parent
+        artifact_path = self._manifest_artifact_path(Path(final_path))
+        write_installed_pack_manifest(
+            pack_root.parent,
+            pack_id=self._pack_id,
+            pack_kind=self._pack_kind,
+            provider=str(self._pack.source or "").strip().lower(),
+            local_kind=self._pack.local_kind,
+            build_mode=self._pack.build_mode,
+            artifact_path=artifact_path,
+            source_filename=self._pack.source_filename or self._pack.filename,
+            sqlite_filename=self._pack.sqlite_filename,
+            required_files=self._pack.required_files,
+            raw_retained=False,
+        )
+        write_app_managed_pack_provenance(
+            pack_root=pack_root,
+            pack_id=self._pack_id,
+            pack_kind=self._pack_kind,
+            provider=str(self._pack.source or "").strip().lower(),
+            source_name=str(self._pack.source or "").strip(),
+            source_url=str(self._pack.url or "").strip(),
+            wayback_url=self._pack.wayback_url,
+            build_mode=self._pack.build_mode,
+            build_command=_build_command_for_mode(self._pack.build_mode),
+            converter_version=_converter_version_for_mode(self._pack.build_mode),
+            parser_config=_language_parser_config(self._pack),
+            artifact_path=artifact_path,
+            source_filename=self._pack.source_filename or self._pack.filename,
+            sqlite_filename=self._pack.sqlite_filename,
+            required_files=self._pack.required_files,
+            raw_artifact_sha1=self._raw_artifact_sha1 or None,
+            raw_artifact_sha256=self._raw_artifact_sha256 or None,
+            **safe_pack_source_identity_fields(self._pack),
+        )
+
+    def _capture_raw_artifact_checksums(self, path: str | Path) -> None:
+        checksums = _file_checksums(path)
+        self._raw_artifact_sha1 = checksums.get("sha1", "")
+        self._raw_artifact_sha256 = checksums.get("sha256", "")
+
+    def _manifest_artifact_path(self, final_path: Path) -> Path:
+        if self._pack.local_kind == "dir" and len(self._pack.required_files) == 1:
+            candidate = final_path / self._pack.required_files[0]
+            if candidate.exists():
+                return candidate
+        return final_path
 
     def _cleanup_archive(self, archive_path: str) -> None:
         try:
@@ -212,7 +482,7 @@ class LanguagePackDownloadThread(QThread):
             source_lang_code=source_lang_code,
             gloss_language=gloss_language,
             source_provider=self._pack.pack_id,
-            source_dump="enwiktionary",
+            source_dump=_kaikki_source_dump_for_pack(self._pack),
             overwrite=True,
         )
         _log_download(
@@ -237,13 +507,33 @@ class LanguagePackDownloadThread(QThread):
             target_lang_code=target_lang_code,
             translation_language=str(self._pack.gloss_language or target_lang_code),
             source_provider=self._pack.pack_id,
-            source_dump="enwiktionary",
+            source_dump=_kaikki_source_dump_for_pack(self._pack),
             overwrite=True,
         )
         _log_download(
             f"[{self._pack_id}] converted sqlite={output_path} "
             f"selected_records={int(metadata.get('selected_records', 0))} "
             f"inserted_sense_rows={int(metadata.get('inserted_sense_rows', 0))}"
+        )
+        self._cleanup_archive(archive_path)
+        return output_path
+
+    def _build_freedict_sqlite(self, archive_path: str) -> str:
+        sqlite_filename = self._pack.sqlite_filename or f"{Path(archive_path).stem}.sqlite"
+        output_path = str(Path(archive_path).with_name(sqlite_filename))
+        target_lang_code = str(self._pack.target_lang_code or "").strip().lower()
+        tei_filename = self._pack.required_files[0] if self._pack.required_files else ""
+        metadata = convert_freedict_tei_to_sqlite(
+            Path(archive_path),
+            Path(output_path),
+            target_lang=target_lang_code,
+            tei_filename=tei_filename,
+            overwrite=True,
+        )
+        _log_download(
+            f"[{self._pack_id}] converted sqlite={output_path} "
+            f"pair_count={int(metadata.get('pair_count', 0))} "
+            f"headword_count={int(metadata.get('headword_count', 0))}"
         )
         self._cleanup_archive(archive_path)
         return output_path
@@ -267,6 +557,9 @@ class FrequencyPackDownloadThread(QThread):
         self._url = pack.url
         self._archive_path = archive_path
         self._sqlite_path = sqlite_path
+        self._raw_artifact_sha1 = ""
+        self._raw_artifact_sha256 = ""
+        self._source_bundle_fields: dict[str, Mapping[str, object]] = {}
 
     def run(self) -> None:
         try:
@@ -281,15 +574,16 @@ class FrequencyPackDownloadThread(QThread):
                 self._download_archive()
                 if self.isInterruptionRequested():
                     self._cleanup_partial(self._archive_path)
-                    self.failed.emit(self._pack_id, "cancelled")
+                    self.failed.emit(self._pack_id, encode_pack_download_failure("cancelled"))
                     return
                 sqlite_path = self._convert_to_sqlite(self._archive_path)
+            self._write_manifest(sqlite_path)
             _log_download(f"[{self._pack_id}] converted sqlite={sqlite_path}")
             self.completed.emit(self._pack_id, sqlite_path)
         except Exception as exc:
             _log_download(f"[{self._pack_id}] failed error={exc}")
             self._cleanup_partial(self._sqlite_path)
-            self.failed.emit(self._pack_id, str(exc))
+            self.failed.emit(self._pack_id, encode_pack_download_failure(exc))
 
     def _download_archive(self) -> None:
         request = urllib.request.Request(self._url, headers={"User-Agent": "LexiShift/1.0"})
@@ -298,7 +592,7 @@ class FrequencyPackDownloadThread(QThread):
             _log_download(
                 f"[{self._pack_id}] response status={status} final_url={response.geturl()}"
             )
-            total = int(response.headers.get("Content-Length") or 0)
+            total = _response_download_total_bytes(response, self._pack)
             downloaded = 0
             os.makedirs(os.path.dirname(self._archive_path), exist_ok=True)
             with open(self._archive_path, "wb") as handle:
@@ -323,6 +617,12 @@ class FrequencyPackDownloadThread(QThread):
         def _progress(done: int, total: int) -> None:
             self.progress.emit(self._pack_id, int(done), int(total))
 
+        def _capture_source_bundle(component_paths: Mapping[str, Path]) -> None:
+            self._source_bundle_fields = source_bundle_fields_for_pack(
+                self._pack,
+                component_paths=component_paths,
+            )
+
         result = run_de_frequency_pipeline(
             output_sqlite=Path(self._sqlite_path),
             language_packs_dir=self._language_packs_dir(),
@@ -330,6 +630,7 @@ class FrequencyPackDownloadThread(QThread):
             drop_proper_nouns=True,
             progress_cb=_progress,
             cancel_cb=lambda: bool(self.isInterruptionRequested()),
+            source_bundle_component_paths_cb=_capture_source_bundle,
         )
         if self.isInterruptionRequested():
             self._cleanup_partial(self._sqlite_path)
@@ -342,8 +643,52 @@ class FrequencyPackDownloadThread(QThread):
         target.mkdir(parents=True, exist_ok=True)
         return target
 
+    def _write_manifest(self, sqlite_path: str) -> None:
+        pack_root = Path(self._sqlite_path).parent
+        artifact_path = Path(sqlite_path)
+        source_bundle_fields = self._source_bundle_fields or source_bundle_fields_for_pack(
+            self._pack
+        )
+        write_installed_pack_manifest(
+            pack_root.parent,
+            pack_id=self._pack_id,
+            pack_kind="frequency",
+            provider=str(self._pack.source or "").strip().lower(),
+            local_kind="file",
+            build_mode=self._pack.build_mode,
+            artifact_path=artifact_path,
+            source_filename=self._pack.source_filename or self._pack.filename,
+            sqlite_filename=self._pack.sqlite_filename,
+            raw_retained=False,
+        )
+        write_app_managed_pack_provenance(
+            pack_root=pack_root,
+            pack_id=self._pack_id,
+            pack_kind="frequency",
+            provider=str(self._pack.source or "").strip().lower(),
+            source_name=str(self._pack.source or "").strip(),
+            source_url=str(self._pack.url or "").strip(),
+            wayback_url=self._pack.wayback_url,
+            build_mode=self._pack.build_mode,
+            build_command=_build_command_for_mode(self._pack.build_mode),
+            converter_version=_converter_version_for_mode(self._pack.build_mode),
+            parser_config=_frequency_parser_config(self._pack),
+            artifact_path=artifact_path,
+            source_filename=self._pack.source_filename or self._pack.filename,
+            sqlite_filename=self._pack.sqlite_filename,
+            raw_artifact_sha1=self._raw_artifact_sha1 or None,
+            raw_artifact_sha256=self._raw_artifact_sha256 or None,
+            artifact_metrics=sqlite_artifact_metrics_for_pack(
+                pack_kind="frequency",
+                artifact_path=artifact_path,
+            ),
+            **safe_pack_source_identity_fields(self._pack),
+            **source_bundle_fields,
+        )
+
     def _convert_to_sqlite(self, archive_path: str) -> str:
         source_path, cleanup_paths = self._prepare_source(archive_path)
+        self._capture_raw_artifact_checksums(source_path)
         os.makedirs(os.path.dirname(self._sqlite_path), exist_ok=True)
         try:
             pos_inventory = _frequency_pos_inventory_config(self._pack_id)
@@ -366,6 +711,11 @@ class FrequencyPackDownloadThread(QThread):
             for path in cleanup_paths:
                 self._cleanup_path(path)
         return self._sqlite_path
+
+    def _capture_raw_artifact_checksums(self, path: str | Path) -> None:
+        checksums = _file_checksums(path)
+        self._raw_artifact_sha1 = checksums.get("sha1", "")
+        self._raw_artifact_sha256 = checksums.get("sha256", "")
 
     def _prepare_source(self, archive_path: str) -> tuple[str, list[str]]:
         cleanup_paths: list[str] = []

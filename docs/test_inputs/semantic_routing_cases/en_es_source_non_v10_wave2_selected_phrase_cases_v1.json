@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave2_selected_phrase_cases_v1",
+  "base_dataset": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts/en_es_source_non_v10_wave2_admission_selected_v1_dataset.json",
+  "description": "Independent phrase/no-winner abstain cases for the admission-selected non-v10 wave2 draft.",
+  "case_scope": "non_v10_wave2_admission_selected_phrase_no_winner",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:look:aspecto",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-phrase:v1:look:001",
+          "sentence": "Investigators will look into the complaint tomorrow.",
+          "source_phrase": "look",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:use:uso",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-phrase:v1:use:001",
+          "sentence": "The hikers could use up the batteries before dusk.",
+          "source_phrase": "use",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:train:tren",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-phrase:v1:train:001",
+          "sentence": "The dress had a long train behind it.",
+          "source_phrase": "train",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:land:tierra",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-phrase:v1:land:001",
+          "sentence": "The joke did not land with the audience.",
+          "source_phrase": "land",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_phrase", "phrase_no_winner", "idiom"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:offer:oferta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-phrase:v1:offer:001",
+          "sentence": "The priest will offer up a prayer at dawn.",
+          "source_phrase": "offer",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rest:reposo",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-phrase:v1:rest:001",
+          "sentence": "The rest of the team arrived after dinner.",
+          "source_phrase": "rest",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_phrase", "phrase_no_winner", "alternate_noun"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:sign:se-al",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-phrase:v1:sign:001",
+          "sentence": "Managers will sign off on the budget today.",
+          "source_phrase": "sign",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_phrase", "phrase_no_winner", "phrasal_verb"]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:answer:respuesta",
+      "cases": [
+        {
+          "case_id": "en-es:source-non-v10-wave2-phrase:v1:answer:001",
+          "sentence": "The supervisor must answer for the missing funds.",
+          "source_phrase": "answer",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["non_v10_wave2_phrase", "phrase_no_winner", "verb_phrase"]
+        }
+      ]
+    }
+  ]
+}

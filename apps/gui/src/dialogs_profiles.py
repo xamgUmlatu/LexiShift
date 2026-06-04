@@ -25,6 +25,7 @@ from PySide6.QtWidgets import (
 
 from lexishift_core import Profile, VocabDataset, save_vocab_dataset
 from i18n import t
+from localized_message_box import localized_question
 from profile_ruleset_service import (
     add_ruleset_to_editor_state,
     commit_profile_edits,
@@ -500,7 +501,7 @@ class ProfilesDialog(QDialog):
             )
             return
         profile = self._profiles[row]
-        confirm = QMessageBox.question(
+        confirm = localized_question(
             self,
             t("dialogs.profiles.title"),
             t(

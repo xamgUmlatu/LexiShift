@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T02:03:10Z",
+  "status": "ok",
+  "pair": "en-es",
+  "dataset_id": "en_es_sentence_veto_v10",
+  "run_id": "wiktextract-plant-example-frames-v10-20260425a",
+  "source_scope": "family_keys",
+  "batch_id": "en-es:wiktextract-example-frames:wiktextract-plant-example-frames-v10-20260425a",
+  "source_type": "external",
+  "source_id": "wiktextract_example_frames",
+  "source_family": "external_example_corpus",
+  "resource_status": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "raw_wiktextract_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/raw-wiktextract-data.jsonl.gz",
+    "raw_wiktextract_exists": true
+  },
+  "summary": {
+    "queue_family_count": 8,
+    "source_family_count": 1,
+    "target_family_count": 1,
+    "row_count": 3,
+    "families_with_active_examples": 1,
+    "families_with_shadow_examples": 1,
+    "families_with_phrase_control_examples": 0,
+    "min_link_score": 0.08
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "role": "target",
+      "active_example_count": 1,
+      "shadow_example_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 3,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:plant:planta:active",
+          "target_lemma": "planta",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_link_score": 0.1,
+          "best_overlap": [
+            "organism"
+          ],
+          "sense_index": 0
+        },
+        {
+          "sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "target_lemma": "fábrica",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_link_score": 0.2857,
+          "best_overlap": [
+            "factory",
+            "industrial"
+          ],
+          "sense_index": 4
+        }
+      ]
+    }
+  ],
+  "recommendation": "Use this adapter for residual source-example coverage, then rerun the source-admission cycle against the composite source batch."
+}

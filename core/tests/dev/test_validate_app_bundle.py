@@ -45,6 +45,48 @@ class TestValidateAppBundle(unittest.TestCase):
 
         self.assertEqual(result, 0)
 
+    def test_validate_windows_dist_prefers_collected_layout_over_root_exes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            dist = Path(tmpdir) / "dist"
+            collected_main = dist / "LexiShift"
+            collected_helper = dist / "LexiShiftHelper"
+            collected_host = dist / "LexiShiftNativeHost"
+            root_main = dist / "LexiShift.exe"
+            root_helper = dist / "LexiShiftHelper.exe"
+            root_host = dist / "lexishift_native_host.exe"
+            collected_main_internal = collected_main / "_internal" / "resources"
+            collected_helper_internal = collected_helper / "_internal" / "resources"
+
+            (collected_main_internal / "helper" / "lexishift_core").mkdir(
+                parents=True, exist_ok=True
+            )
+            (collected_main_internal / "i18n").mkdir(parents=True, exist_ok=True)
+            (collected_main_internal / "themes").mkdir(parents=True, exist_ok=True)
+            (collected_main_internal / "sample_images").mkdir(parents=True, exist_ok=True)
+            (collected_helper_internal / "i18n").mkdir(parents=True, exist_ok=True)
+            collected_host.mkdir(parents=True, exist_ok=True)
+
+            (collected_main / "LexiShift.exe").write_bytes(b"main")
+            (collected_helper / "LexiShiftHelper.exe").write_bytes(b"helper")
+            (collected_host / "lexishift_native_host.exe").write_bytes(b"host")
+            root_main.write_bytes(b"wrong-main")
+            root_helper.write_bytes(b"wrong-helper")
+            root_host.write_bytes(b"wrong-host")
+
+            (collected_main_internal / "helper" / "lexishift_native_host.py").write_text(
+                "host\n",
+                encoding="utf-8",
+            )
+            (collected_main_internal / "helper" / "helper_daemon.py").write_text(
+                "daemon\n",
+                encoding="utf-8",
+            )
+            (collected_helper_internal / "ttbn.ico").write_bytes(b"ico")
+
+            result = _validate_dist(dist)
+
+        self.assertEqual(result, 0)
+
     def test_validate_windows_dist_passes_for_internal_resource_layout(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             dist = Path(tmpdir) / "dist"

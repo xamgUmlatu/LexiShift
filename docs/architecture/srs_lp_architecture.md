@@ -19,7 +19,7 @@ Primary registry:
 Current capability responsibilities:
 - Rulegen support (`rulegen_mode`)
 - Default frequency DB name (`default_frequency_db`)
-- Seed/rulegen dictionary requirements (`requires_jmdict_*`, `requires_freedict_de_en_for_rulegen`)
+- Seed/rulegen dictionary requirements (`requires_jmdict_*`, `requires_translation_dictionary_for_rulegen`)
 - UI SRS pair exposure (`srs_selectable`)
 
 Compatibility rule:

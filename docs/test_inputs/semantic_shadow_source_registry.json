@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "purpose": "Track current and proposed semantic-shadow data sources so source-heavy veto experimentation stays explicit, comparable, and approval-aware.",
+  "last_updated": "2026-04-25",
+  "statuses": [
+    "integrated",
+    "planned",
+    "approved"
+  ],
+  "approval_states": [
+    "not_required",
+    "pending_user_ok",
+    "approved",
+    "rejected"
+  ],
+  "sources": [
+    {
+      "source_id": "benchmark_reviewed",
+      "label": "Reviewed benchmark trigger families",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "internal_reviewed_dataset",
+      "roles": [
+        "seed"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "High-precision control lane for overlap and veto lower-bound measurement.",
+      "main_risk": "Not production-eligible; can hide automatic seed weakness if treated as more than a control."
+    },
+    {
+      "source_id": "reviewed_sentence_veto_example_frames",
+      "label": "Reviewed sentence-veto example frames",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "internal_reviewed_dataset",
+      "roles": [
+        "discrimination",
+        "cue_generation",
+        "phrase_containment"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Upper-bound source/insertion and prototype-admission probe for competition-symmetric active, shadow, and phrase-control example-frame evidence.",
+      "main_risk": "Oracle-style internal evaluation evidence; useful for source-shape direction, not as production or paid-generation acceptance evidence."
+    },
+    {
+      "source_id": "reverse_aux_example_frames",
+      "label": "Reverse auxiliary sense text as example-frame evidence",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "installed_translation_pack",
+      "roles": [
+        "discrimination",
+        "cue_generation"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Real non-LLM active and shadow source evidence for gap-routing against the active/shadow/phrase-control example-frame contract.",
+      "main_risk": "Auxiliary sense text is not true contextual example evidence and currently has no phrase-control rows."
+    },
+    {
+      "source_id": "rulegen_sources",
+      "label": "Rulegen top-N English source phrases",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "internal_rulegen_artifact",
+      "roles": [
+        "seed"
+      ],
+      "runtime_publishable": true,
+      "expected_value": "Production-shaped trigger seeding from the same LP admission/rulegen surface.",
+      "main_risk": "Coverage is still weak without supplementary source data."
+    },
+    {
+      "source_id": "forward_gloss_fragments",
+      "label": "Forward glossary fragment seeding",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "installed_translation_pack",
+      "roles": [
+        "seed",
+        "candidate_generation"
+      ],
+      "runtime_publishable": true,
+      "expected_value": "Source-only coverage boost for missing English triggers and sibling discovery.",
+      "main_risk": "Quickly introduces noise if phrase length or thresholding is too loose."
+    },
+    {
+      "source_id": "current_lexical_inventory",
+      "label": "Current lexical inventory lanes",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "installed_translation_pack_plus_internal_derivations",
+      "roles": [
+        "candidate_generation",
+        "discrimination"
+      ],
+      "runtime_publishable": true,
+      "expected_value": "Current baseline from reverse lookup, forward index, lexical bridge, neighbor borrow, and support scoring.",
+      "main_risk": "Still leaves both empty-pool misses and near-neighbor overblocking unresolved."
+    },
+    {
+      "source_id": "embedding_bridge_target_cards",
+      "label": "Target-card embedding bridge",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "derived_embedding_probe",
+      "roles": [
+        "candidate_generation"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Recall probe for lexical misses like harder semantic bridges.",
+      "main_risk": "Current best rows show strong overblocking pressure."
+    },
+    {
+      "source_id": "frequency_metadata",
+      "label": "Target frequency metadata",
+      "status": "integrated",
+      "approval_state": "not_required",
+      "pair_scope": [
+        "en-es"
+      ],
+      "source_family": "installed_frequency_pack",
+      "roles": [
+        "discrimination"
+      ],
+      "runtime_publishable": true,
+      "expected_value": "Optional weak prior for condensation and feature analysis.",
+      "main_risk": "Current sweeps do not support making it a default blocker-selection signal."
+    },
+    {
+      "source_id": "wiktionary_sense_inventory_dump",
+      "label": "Wiktionary sense and translation inventory",
+      "status": "approved",
+      "approval_state": "approved",
+      "pair_scope": [
+        "generic",
+        "en-es"
+      ],
+      "source_family": "external_structured_dictionary_dump",
+      "roles": [
+        "candidate_generation",
+        "sense_linking"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Likely strongest next structured coverage source for missing sibling senses and trigger links.",
+      "main_risk": "Normalization burden and sense-granularity mismatch."
+    },
+    {
+      "source_id": "open_multilingual_wordnet",
+      "label": "Open Multilingual WordNet style graph",
+      "status": "planned",
+      "approval_state": "pending_user_ok",
+      "pair_scope": [
+        "generic",
+        "en-es"
+      ],
+      "source_family": "external_sense_graph",
+      "roles": [
+        "candidate_generation",
+        "discrimination"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Coarse sense-graph coverage and semantic-neighborhood constraints for broad ambiguity families.",
+      "main_risk": "Learner-facing sense mapping may be too coarse or too mismatched."
+    },
+    {
+      "source_id": "aligned_phrase_table",
+      "label": "Aligned phrase or translation table",
+      "status": "planned",
+      "approval_state": "pending_user_ok",
+      "pair_scope": [
+        "generic",
+        "en-es"
+      ],
+      "source_family": "external_parallel_corpus_derivation",
+      "roles": [
+        "candidate_generation"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Coverage for phrase-sensitive blockers and MWE leakage families.",
+      "main_risk": "High noise floor unless combined with strong downstream gating."
+    },
+    {
+      "source_id": "example_sentence_bank",
+      "label": "Example sentence bank",
+      "status": "approved",
+      "approval_state": "approved",
+      "pair_scope": [
+        "generic",
+        "en-es"
+      ],
+      "source_family": "external_example_corpus",
+      "roles": [
+        "discrimination",
+        "cue_generation"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Better near-neighbor discrimination and stronger future runtime evidence text.",
+      "main_risk": "Preprocessing cost and uneven coverage."
+    },
+    {
+      "source_id": "llm_shadow_proposals",
+      "label": "LLM-generated shadow proposals",
+      "status": "planned",
+      "approval_state": "pending_user_ok",
+      "pair_scope": [
+        "generic",
+        "en-es"
+      ],
+      "source_family": "silver_llm_generation",
+      "roles": [
+        "candidate_generation"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Cheap recall expansion for hard lexical misses after strict downstream filtering.",
+      "main_risk": "Hallucinated candidates and benchmark-shaped overfitting."
+    },
+    {
+      "source_id": "llm_anchor_cues",
+      "label": "LLM-generated anchors or cues",
+      "status": "planned",
+      "approval_state": "pending_user_ok",
+      "pair_scope": [
+        "generic",
+        "en-es"
+      ],
+      "source_family": "silver_llm_generation",
+      "roles": [
+        "cue_generation"
+      ],
+      "runtime_publishable": false,
+      "expected_value": "Richer runtime-facing evidence once blocker identities are already known.",
+      "main_risk": "Natural-sounding but semantically weak cue text."
+    }
+  ]
+}

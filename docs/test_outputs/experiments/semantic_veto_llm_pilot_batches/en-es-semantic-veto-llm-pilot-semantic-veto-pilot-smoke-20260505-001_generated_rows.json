@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:semantic-veto-llm-pilot:semantic-veto-pilot-smoke-20260505-001",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_llm_pilot_en_es_v1",
+  "prompt_id": "semantic_veto_eval_sentence_pilot_v1",
+  "generated_at": "2026-05-04T21:41:50Z",
+  "model_id": "gpt-5.4-mini",
+  "execution_mode": "live",
+  "source_request_packet": "docs/test_inputs/semantic_veto_llm_pilot_plan_en_es.json",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-smoke-20260505-001_raw_responses.json",
+  "selected_request_ids": [
+    "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:001"
+  ],
+  "selected_expected_row_ids": [
+    "pilotrow:pilot_bank_banco:positive_active:001"
+  ],
+  "rows": [
+    {
+      "row_id": "pilotrow:pilot_bank_banco:positive_active:001",
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "sentence": "The bank approved the loan after a quick review.",
+      "gold_decision": "allow",
+      "gold_type": "positive_active",
+      "active_sense": "financial institution",
+      "gold_reason": "Bank clearly means a financial institution here.",
+      "pos": "noun",
+      "generator_id": "operator-filled-model-id",
+      "prompt_id": "semantic_veto_eval_sentence_pilot_v1",
+      "negative_sense": "",
+      "no_winner_reason": "",
+      "difficulty_tags": [
+        "word_order=canonical_subject_verb_object",
+        "trigger_position=middle",
+        "context_distance=near_disambiguator",
+        "morphology=singular_or_base",
+        "register=headline_or_fragment",
+        "difficulty=hard"
+      ],
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-smoke-20260505-001_raw_responses.json#semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:001",
+      "source_request_id": "semantic_veto_llm_pilot_en_es_v1:pilotrow:pilot_bank_banco:positive_active:001"
+    }
+  ]
+}

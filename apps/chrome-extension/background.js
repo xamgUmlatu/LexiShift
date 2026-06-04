@@ -14,6 +14,42 @@
     return { ok: false, error: { code: "invalid_request", message } };
   }
 
+  function classifyNativeMessagingError(rawMessage, fallbackCode) {
+    const detail = String(rawMessage || "").trim();
+    const lowerDetail = detail.toLowerCase();
+    if (
+      lowerDetail.includes("specified native messaging host not found")
+      || lowerDetail.includes("no such native application")
+    ) {
+      return {
+        code: "native_unavailable",
+        message: "Helper unavailable.",
+        detail
+      };
+    }
+    if (lowerDetail.includes("native host has exited")) {
+      return {
+        code: "native_host_exited",
+        message: "The helper exited unexpectedly.",
+        detail
+      };
+    }
+    if (lowerDetail.includes("access to the specified native messaging host is forbidden")) {
+      return {
+        code: "native_forbidden",
+        message: "Native messaging access is blocked.",
+        detail
+      };
+    }
+    return {
+      code: fallbackCode,
+      message: fallbackCode === "bridge_error"
+        ? "Helper bridge failed."
+        : "Could not communicate with the helper.",
+      detail
+    };
+  }
+
   function sendNativeMessage(type, payload = {}, timeoutMs = 4000) {
     return new Promise((resolve) => {
       if (!chrome || !chrome.runtime || typeof chrome.runtime.sendNativeMessage !== "function") {
@@ -47,12 +83,13 @@
           finished = true;
           clearTimeout(timer);
           if (chrome.runtime.lastError) {
+            const error = classifyNativeMessagingError(
+              chrome.runtime.lastError.message,
+              "native_error"
+            );
             resolve({
               ok: false,
-              error: {
-                code: "native_error",
-                message: chrome.runtime.lastError.message
-              }
+              error
             });
             return;
           }
@@ -66,10 +103,10 @@
         clearTimeout(timer);
         resolve({
           ok: false,
-          error: {
-            code: "native_exception",
-            message: error && error.message ? error.message : "Native messaging failed."
-          }
+          error: classifyNativeMessagingError(
+            error && error.message ? error.message : "Native messaging failed.",
+            "native_exception"
+          )
         });
       }
     });
@@ -89,12 +126,13 @@
     sendNativeMessage(requestType, payload, timeoutMs)
       .then((response) => sendResponse(response))
       .catch((error) => {
+        const normalizedError = classifyNativeMessagingError(
+          error && error.message ? error.message : "Bridge request failed.",
+          "bridge_error"
+        );
         sendResponse({
           ok: false,
-          error: {
-            code: "bridge_error",
-            message: error && error.message ? error.message : "Bridge request failed."
-          }
+          error: normalizedError
         });
       });
     return true;

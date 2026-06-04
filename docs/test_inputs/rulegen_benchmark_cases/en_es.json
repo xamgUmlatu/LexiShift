@@ -1,0 +1,1613 @@
+{
+  "version": 1,
+  "pair": "en-es",
+  "description": "LexiShift rulegen benchmark cases for en-es.",
+  "cases": [
+    {
+      "case_id": "en-es:hora",
+      "target": "hora",
+      "tier": "hard",
+      "expected_any": [
+        "hour",
+        "time"
+      ],
+      "expected_top1_any": [
+        "hour"
+      ],
+      "forbidden_top1": [
+        "times"
+      ],
+      "forbidden_any": [
+        "times"
+      ],
+      "notes": "Avoid unstable plural/context mapping as top-1."
+    },
+    {
+      "case_id": "en-es:trabajo",
+      "target": "trabajo",
+      "tier": "smoke",
+      "expected_any": [
+        "work",
+        "job",
+        "labor"
+      ],
+      "expected_top1_any": [
+        "work",
+        "job"
+      ],
+      "forbidden_top1": [
+        "toil"
+      ],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:job"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "job"
+        ]
+      }
+    },
+    {
+      "case_id": "en-es:casa",
+      "target": "casa",
+      "tier": "smoke",
+      "expected_any": [
+        "house",
+        "home"
+      ],
+      "expected_top1_any": [
+        "house",
+        "home"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:agua",
+      "target": "agua",
+      "tier": "smoke",
+      "expected_any": [
+        "water"
+      ],
+      "expected_top1_any": [
+        "water"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:libro",
+      "target": "libro",
+      "tier": "smoke",
+      "expected_any": [
+        "book"
+      ],
+      "expected_top1_any": [
+        "book"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:mundo",
+      "target": "mundo",
+      "tier": "smoke",
+      "expected_any": [
+        "world"
+      ],
+      "expected_top1_any": [
+        "world"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:vida",
+      "target": "vida",
+      "tier": "smoke",
+      "expected_any": [
+        "life"
+      ],
+      "expected_top1_any": [
+        "life"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:ciudad",
+      "target": "ciudad",
+      "tier": "smoke",
+      "expected_any": [
+        "city",
+        "town"
+      ],
+      "expected_top1_any": [
+        "city",
+        "town"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:familia",
+      "target": "familia",
+      "tier": "smoke",
+      "expected_any": [
+        "family"
+      ],
+      "expected_top1_any": [
+        "family"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:amigo",
+      "target": "amigo",
+      "tier": "smoke",
+      "expected_any": [
+        "friend"
+      ],
+      "expected_top1_any": [
+        "friend"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:madre",
+      "target": "madre",
+      "tier": "smoke",
+      "expected_any": [
+        "mother",
+        "mom"
+      ],
+      "expected_top1_any": [
+        "mother",
+        "mom"
+      ],
+      "forbidden_top1": [
+        "bed",
+        "watercourse"
+      ],
+      "forbidden_any": [
+        "bed",
+        "watercourse"
+      ],
+      "notes": "Reverse-check red anchor: avoid rare FreeDict senses outranking mother/mom."
+    },
+    {
+      "case_id": "en-es:padre",
+      "target": "padre",
+      "tier": "smoke",
+      "expected_any": [
+        "father",
+        "dad"
+      ],
+      "expected_top1_any": [
+        "father",
+        "dad"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:amor",
+      "target": "amor",
+      "tier": "smoke",
+      "expected_any": [
+        "love",
+        "affection"
+      ],
+      "expected_top1_any": [
+        "love",
+        "affection"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:dinero",
+      "target": "dinero",
+      "tier": "smoke",
+      "expected_any": [
+        "money"
+      ],
+      "expected_top1_any": [
+        "money"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:escuela",
+      "target": "escuela",
+      "tier": "smoke",
+      "expected_any": [
+        "school"
+      ],
+      "expected_top1_any": [
+        "school"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-es:camino",
+      "target": "camino",
+      "tier": "smoke",
+      "expected_any": [
+        "road",
+        "way",
+        "path"
+      ],
+      "expected_top1_any": [
+        "road",
+        "way",
+        "path"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:path_route"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "path_route"
+        ]
+      }
+    },
+    {
+      "case_id": "en-es:banco",
+      "target": "banco",
+      "tier": "smoke",
+      "expected_any": [
+        "bank",
+        "bench"
+      ],
+      "expected_top1_any": [
+        "bank",
+        "bench"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:bank_bench"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "bank_bench"
+        ]
+      },
+      "notes": "Reverse-check Green: stable polysemy anchor; both common noun senses are acceptable without context."
+    },
+    {
+      "case_id": "en-es:capital",
+      "target": "capital",
+      "tier": "smoke",
+      "expected_any": [
+        "capital",
+        "metropolis"
+      ],
+      "expected_top1_any": [
+        "capital"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Green: current output is stable; keep city-related readings from regressing."
+    },
+    {
+      "case_id": "en-es:luz",
+      "target": "luz",
+      "tier": "smoke",
+      "expected_any": [
+        "light"
+      ],
+      "expected_top1_any": [
+        "light"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Green: one-to-one anchor used to detect collateral regressions."
+    },
+    {
+      "case_id": "en-es:fondo",
+      "target": "fondo",
+      "tier": "smoke",
+      "expected_any": [
+        "background",
+        "bottom",
+        "fund"
+      ],
+      "expected_top1_any": [
+        "background",
+        "bottom",
+        "fund"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Gray: advisory ambiguous case; multiple common noun senses are acceptable."
+    },
+    {
+      "case_id": "en-es:medio",
+      "target": "medio",
+      "tier": "smoke",
+      "expected_any": [
+        "half",
+        "medium",
+        "means",
+        "middle"
+      ],
+      "expected_top1_any": [
+        "half",
+        "medium",
+        "means",
+        "middle"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Reverse-check Gray: advisory ambiguity case; use it to watch ranking shifts without hard-blocking a single sense."
+    },
+    {
+      "case_id": "en-es:planta",
+      "target": "planta",
+      "tier": "hard",
+      "expected_any": [
+        "plant",
+        "floor"
+      ],
+      "expected_top1_any": [
+        "plant",
+        "floor"
+      ],
+      "forbidden_top1": [
+        "sole"
+      ],
+      "forbidden_any": [],
+      "notes": "Reverse-check Red: sole is a rare sense and should not outrank the common plant/floor readings."
+    },
+    {
+      "case_id": "en-es:derecho",
+      "target": "derecho",
+      "tier": "hard",
+      "expected_any": [
+        "right",
+        "law",
+        "straight"
+      ],
+      "expected_top1_any": [
+        "right",
+        "law"
+      ],
+      "forbidden_top1": [
+        "claim",
+        "presumption",
+        "pretence"
+      ],
+      "forbidden_any": [
+        "claim",
+        "presumption",
+        "pretence"
+      ],
+      "slice_tags": [
+        "family:right_law_straight",
+        "hazard:mixed_pos"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "mixed"
+        ],
+        "semantic_family": [
+          "right_law_straight"
+        ],
+        "hazard": [
+          "mixed_pos"
+        ]
+      },
+      "notes": "Reverse-check Red: current top outputs drift into low-value legal glosses instead of the dominant right/law readings."
+    },
+    {
+      "case_id": "en-es:cuadro",
+      "target": "cuadro",
+      "tier": "hard",
+      "expected_any": [
+        "picture",
+        "painting",
+        "chart",
+        "table"
+      ],
+      "expected_top1_any": [
+        "picture",
+        "painting",
+        "chart",
+        "table"
+      ],
+      "forbidden_top1": [
+        "bed"
+      ],
+      "forbidden_any": [
+        "bed"
+      ],
+      "slice_tags": [
+        "family:table_board_chart"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "table_board_chart"
+        ]
+      },
+      "notes": "Reverse-check Red: picture/chart senses are acceptable; bed should not survive as a product-facing candidate."
+    },
+    {
+      "case_id": "en-es:orden",
+      "target": "orden",
+      "tier": "hard",
+      "expected_any": [
+        "order",
+        "command",
+        "arrangement"
+      ],
+      "expected_top1_any": [
+        "order",
+        "command"
+      ],
+      "forbidden_top1": [
+        "warrant",
+        "writ"
+      ],
+      "forbidden_any": [
+        "writ"
+      ],
+      "notes": "Common organizational noun; keep default order/command readings ahead of legal-document drift."
+    },
+    {
+      "case_id": "en-es:punto",
+      "target": "punto",
+      "tier": "hard",
+      "expected_any": [
+        "point",
+        "dot",
+        "period"
+      ],
+      "expected_top1_any": [
+        "point",
+        "dot"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Frequent punctuation/location polysemy anchor; preserve common point/dot readings."
+    },
+    {
+      "case_id": "en-es:cuenta",
+      "target": "cuenta",
+      "tier": "hard",
+      "expected_any": [
+        "account",
+        "bill",
+        "invoice"
+      ],
+      "expected_top1_any": [
+        "account",
+        "bill"
+      ],
+      "forbidden_top1": [
+        "calculation"
+      ],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:account_bill",
+        "hazard:domain_competition"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "account_bill"
+        ],
+        "hazard": [
+          "domain_competition"
+        ]
+      },
+      "notes": "Common finance/count polysemy; prefer account/bill as the default noun reading."
+    },
+    {
+      "case_id": "en-es:cargo",
+      "target": "cargo",
+      "tier": "hard",
+      "expected_any": [
+        "charge",
+        "position",
+        "post",
+        "office",
+        "function",
+        "job"
+      ],
+      "expected_top1_any": [
+        "charge",
+        "position",
+        "post",
+        "office",
+        "function"
+      ],
+      "forbidden_top1": [
+        "accusal",
+        "accusation",
+        "complaint",
+        "indictment"
+      ],
+      "forbidden_any": [
+        "accusal",
+        "accusation",
+        "complaint",
+        "indictment"
+      ],
+      "slice_tags": [
+        "family:job"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "job"
+        ]
+      },
+      "notes": "High-value red case: avoid rare accusation senses outranking role/charge senses."
+    },
+    {
+      "case_id": "en-es:firma",
+      "target": "firma",
+      "tier": "hard",
+      "expected_any": [
+        "company",
+        "signature",
+        "firm"
+      ],
+      "expected_top1_any": [
+        "company",
+        "signature",
+        "firm"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Product-relevant business polysemy anchor covering company/signature."
+    },
+    {
+      "case_id": "en-es:campo",
+      "target": "campo",
+      "tier": "hard",
+      "expected_any": [
+        "field",
+        "countryside",
+        "country"
+      ],
+      "expected_top1_any": [
+        "field",
+        "countryside",
+        "country"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:field_area_country"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "field_area_country"
+        ]
+      },
+      "notes": "Common location/domain polysemy anchor for field vs countryside country readings."
+    },
+    {
+      "case_id": "en-es:plaza",
+      "target": "plaza",
+      "tier": "smoke",
+      "expected_any": [
+        "plaza",
+        "square"
+      ],
+      "expected_top1_any": [
+        "plaza",
+        "square"
+      ],
+      "forbidden_top1": [
+        "publicsquare"
+      ],
+      "forbidden_any": [
+        "publicsquare"
+      ],
+      "notes": "Green control with a frequent public-space reading and an obviously poor concatenated candidate."
+    },
+    {
+      "case_id": "en-es:masa",
+      "target": "masa",
+      "tier": "hard",
+      "expected_any": [
+        "mass",
+        "dough",
+        "paste"
+      ],
+      "expected_top1_any": [
+        "mass",
+        "dough"
+      ],
+      "forbidden_top1": [
+        "lump"
+      ],
+      "forbidden_any": [
+        "lump"
+      ],
+      "notes": "High-value red case: reverse-check should demote lump and surface mass/dough."
+    },
+    {
+      "case_id": "en-es:red",
+      "target": "red",
+      "tier": "smoke",
+      "expected_any": [
+        "net",
+        "network"
+      ],
+      "expected_top1_any": [
+        "net",
+        "network"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:net_mesh_network"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "net_mesh_network"
+        ]
+      },
+      "notes": "Stable two-sense control for network/net without overconstraining order."
+    },
+    {
+      "case_id": "en-es:lengua",
+      "target": "lengua",
+      "tier": "hard",
+      "expected_any": [
+        "tongue",
+        "language"
+      ],
+      "expected_top1_any": [
+        "tongue",
+        "language"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Frequent body-part vs language polysemy anchor."
+    },
+    {
+      "case_id": "en-es:cura",
+      "target": "cura",
+      "tier": "hard",
+      "expected_any": [
+        "priest",
+        "treatment",
+        "cure",
+        "healing"
+      ],
+      "expected_top1_any": [
+        "priest",
+        "treatment",
+        "cure"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Common clergy vs cure polysemy; useful for observing reverse-driven rescue without hard-forcing one sense."
+    },
+    {
+      "case_id": "en-es:caso",
+      "target": "caso",
+      "tier": "hard",
+      "expected_any": [
+        "case",
+        "matter",
+        "instance"
+      ],
+      "expected_top1_any": [
+        "case",
+        "matter"
+      ],
+      "forbidden_top1": [
+        "affair"
+      ],
+      "forbidden_any": [],
+      "notes": "High-frequency default-noun case; affair is too broad as the bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:parte",
+      "target": "parte",
+      "tier": "hard",
+      "expected_any": [
+        "part",
+        "piece",
+        "share"
+      ],
+      "expected_top1_any": [
+        "part",
+        "piece",
+        "share"
+      ],
+      "forbidden_top1": [
+        "parthian"
+      ],
+      "forbidden_any": [
+        "parthian"
+      ],
+      "notes": "Control for absurd false-friend leakage; part-family readings should dominate."
+    },
+    {
+      "case_id": "en-es:vista",
+      "target": "vista",
+      "tier": "hard",
+      "expected_any": [
+        "sight",
+        "view"
+      ],
+      "expected_top1_any": [
+        "sight",
+        "view"
+      ],
+      "forbidden_top1": [
+        "appearance",
+        "aspect",
+        "look"
+      ],
+      "forbidden_any": [],
+      "notes": "High-value red case: reverse-check should move sight/view above abstract appearance glosses."
+    },
+    {
+      "case_id": "en-es:movimiento",
+      "target": "movimiento",
+      "tier": "smoke",
+      "expected_any": [
+        "movement",
+        "motion"
+      ],
+      "expected_top1_any": [
+        "movement",
+        "motion"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey; FreeDict misses this common lemma."
+    },
+    {
+      "case_id": "en-es:área",
+      "target": "área",
+      "tier": "smoke",
+      "expected_any": [
+        "area"
+      ],
+      "expected_top1_any": [
+        "area"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:estilo",
+      "target": "estilo",
+      "tier": "smoke",
+      "expected_any": [
+        "style"
+      ],
+      "expected_top1_any": [
+        "style"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:presentar",
+      "target": "presentar",
+      "tier": "smoke",
+      "expected_any": [
+        "present",
+        "introduce",
+        "submit"
+      ],
+      "expected_top1_any": [
+        "present",
+        "introduce"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common high-value verb missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:crear",
+      "target": "crear",
+      "tier": "smoke",
+      "expected_any": [
+        "create",
+        "make"
+      ],
+      "expected_top1_any": [
+        "create"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:ocurrir",
+      "target": "ocurrir",
+      "tier": "smoke",
+      "expected_any": [
+        "occur",
+        "happen"
+      ],
+      "expected_top1_any": [
+        "occur",
+        "happen"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe from the installed-resource SRS journey common-word gap list."
+    },
+    {
+      "case_id": "en-es:sacar",
+      "target": "sacar",
+      "tier": "smoke",
+      "expected_any": [
+        "take out",
+        "remove",
+        "draw"
+      ],
+      "expected_top1_any": [
+        "take out",
+        "remove"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:remove_take_out",
+        "hazard:phrase_sensitive"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "remove_take_out"
+        ],
+        "hazard": [
+          "phrase_sensitive"
+        ]
+      },
+      "notes": "Coverage probe for a common high-polysemy verb currently absent in FreeDict."
+    },
+    {
+      "case_id": "en-es:ese",
+      "target": "ese",
+      "tier": "smoke",
+      "expected_any": [
+        "that"
+      ],
+      "expected_top1_any": [
+        "that"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common determiner/pronoun missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:hasta",
+      "target": "hasta",
+      "tier": "smoke",
+      "expected_any": [
+        "until",
+        "up to"
+      ],
+      "expected_top1_any": [
+        "until",
+        "up to"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common function word missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:según",
+      "target": "según",
+      "tier": "smoke",
+      "expected_any": [
+        "according to"
+      ],
+      "expected_top1_any": [
+        "according to"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Coverage probe for a common function word missing from the FreeDict source."
+    },
+    {
+      "case_id": "en-es:marco",
+      "target": "marco",
+      "tier": "hard",
+      "expected_any": [
+        "frame",
+        "framework"
+      ],
+      "expected_top1_any": [
+        "frame"
+      ],
+      "forbidden_top1": [
+        "mark"
+      ],
+      "forbidden_any": [],
+      "notes": "Cuadro-family sibling around frame/framework competition; keep mark-like leakage out of bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:tabla",
+      "target": "tabla",
+      "tier": "hard",
+      "expected_any": [
+        "board",
+        "table",
+        "plank"
+      ],
+      "expected_top1_any": [
+        "board",
+        "table"
+      ],
+      "forbidden_top1": [
+        "slab"
+      ],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:table_board_chart"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "table_board_chart"
+        ]
+      },
+      "notes": "Cuadro-family sibling covering board/table/plank competition without forcing a single dominant noun sense."
+    },
+    {
+      "case_id": "en-es:malla",
+      "target": "malla",
+      "tier": "hard",
+      "expected_any": [
+        "mesh",
+        "net"
+      ],
+      "expected_top1_any": [
+        "mesh",
+        "net"
+      ],
+      "forbidden_top1": [
+        "leggings"
+      ],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:net_mesh_network"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "net_mesh_network"
+        ]
+      },
+      "notes": "Red-family physical-net sibling; protect mesh/net readings from clothing-noise drift."
+    },
+    {
+      "case_id": "en-es:quitar",
+      "target": "quitar",
+      "tier": "smoke",
+      "expected_any": [
+        "remove",
+        "take off",
+        "take away"
+      ],
+      "expected_top1_any": [
+        "remove",
+        "take off"
+      ],
+      "forbidden_top1": [
+        "quit"
+      ],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:remove_take_out",
+        "hazard:phrase_sensitive"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "remove_take_out"
+        ],
+        "hazard": [
+          "phrase_sensitive"
+        ]
+      },
+      "notes": "Phrase-sensitive common removal verb; single-word remove is acceptable now, but false-friend quit should stay out of top-1."
+    },
+    {
+      "case_id": "en-es:meter",
+      "target": "meter",
+      "tier": "smoke",
+      "expected_any": [
+        "insert",
+        "put in",
+        "stick in"
+      ],
+      "expected_top1_any": [
+        "insert",
+        "put in"
+      ],
+      "forbidden_top1": [
+        "stuff",
+        "cram"
+      ],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common verb sibling to sacar; allow precise insert/put in while blocking low-value stuffing senses as defaults."
+    },
+    {
+      "case_id": "en-es:salir",
+      "target": "salir",
+      "tier": "smoke",
+      "expected_any": [
+        "leave",
+        "go out",
+        "come out",
+        "exit"
+      ],
+      "expected_top1_any": [
+        "leave",
+        "go out",
+        "come out"
+      ],
+      "forbidden_top1": [
+        "quit"
+      ],
+      "forbidden_any": [],
+      "notes": "High-frequency phrase-sensitive motion verb; keep leave/go out/come out ahead of quit-like false-friend drift."
+    },
+    {
+      "case_id": "en-es:subir",
+      "target": "subir",
+      "tier": "smoke",
+      "expected_any": [
+        "climb",
+        "go up",
+        "rise",
+        "increase"
+      ],
+      "expected_top1_any": [
+        "climb",
+        "go up",
+        "rise"
+      ],
+      "forbidden_top1": [
+        "upload"
+      ],
+      "forbidden_any": [],
+      "notes": "Phrase-sensitive common verb with clear technical drift risk; upload is a real sense but should not dominate the bare lemma."
+    },
+    {
+      "case_id": "en-es:acabar",
+      "target": "acabar",
+      "tier": "hard",
+      "expected_any": [
+        "finish",
+        "end"
+      ],
+      "expected_top1_any": [
+        "finish",
+        "end"
+      ],
+      "forbidden_top1": [
+        "cum",
+        "orgasm"
+      ],
+      "forbidden_any": [
+        "cum",
+        "orgasm"
+      ],
+      "slice_tags": [
+        "family:finish_end",
+        "hazard:slang_leakage"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "finish_end"
+        ],
+        "hazard": [
+          "slang_leakage"
+        ]
+      },
+      "notes": "High-frequency verb with an undesirable sexual-slang side sense; keep finish/end and suppress the slang candidate family."
+    },
+    {
+      "case_id": "en-es:coger",
+      "target": "coger",
+      "tier": "hard",
+      "expected_any": [
+        "take",
+        "catch",
+        "grab"
+      ],
+      "expected_top1_any": [
+        "take",
+        "catch"
+      ],
+      "forbidden_top1": [
+        "fuck",
+        "bang"
+      ],
+      "forbidden_any": [
+        "fuck",
+        "bang"
+      ],
+      "slice_tags": [
+        "family:take_carry",
+        "hazard:phrase_sensitive",
+        "hazard:slang_leakage"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "take_carry"
+        ],
+        "hazard": [
+          "phrase_sensitive",
+          "slang_leakage"
+        ]
+      },
+      "notes": "Common verb with strong regional/slang leakage; take/catch should survive while sexual slang senses stay out of the candidate set."
+    },
+    {
+      "case_id": "en-es:canal",
+      "target": "canal",
+      "tier": "hard",
+      "expected_any": [
+        "canal",
+        "channel"
+      ],
+      "expected_top1_any": [
+        "canal",
+        "channel"
+      ],
+      "forbidden_top1": [
+        "cleavage"
+      ],
+      "forbidden_any": [],
+      "notes": "Technical/domain competition case around waterway/channel senses; keep anatomical cleavage noise from dominating the bare lemma."
+    },
+    {
+      "case_id": "en-es:clave",
+      "target": "clave",
+      "tier": "hard",
+      "expected_any": [
+        "key",
+        "code",
+        "password"
+      ],
+      "expected_top1_any": [
+        "key"
+      ],
+      "forbidden_top1": [
+        "clef"
+      ],
+      "forbidden_any": [],
+      "notes": "Cross-domain competition case spanning everyday, computing, and music-adjacent readings; key/code should outrank clef-like drift for the bare lemma."
+    },
+    {
+      "case_id": "en-es:gato",
+      "target": "gato",
+      "tier": "hard",
+      "expected_any": [
+        "cat",
+        "jack"
+      ],
+      "expected_top1_any": [
+        "cat"
+      ],
+      "forbidden_top1": [
+        "tic-tac-toe",
+        "c-clamp"
+      ],
+      "forbidden_any": [],
+      "notes": "Everyday-vs-tool/game competition case; cat should lead while game/tool side senses stay out of bare-lemma top-1."
+    },
+    {
+      "case_id": "en-es:masa",
+      "target": "masa",
+      "tier": "hard",
+      "expected_any": [
+        "mass",
+        "dough"
+      ],
+      "expected_top1_any": [
+        "mass",
+        "dough"
+      ],
+      "forbidden_top1": [
+        "drove"
+      ],
+      "forbidden_any": [],
+      "notes": "Broad-vs-domain competition case spanning physics and food readings; allow mass/dough while blocking drove-like noise from top-1."
+    },
+    {
+      "case_id": "en-es:señal",
+      "target": "señal",
+      "tier": "smoke",
+      "expected_any": [
+        "signal",
+        "sign"
+      ],
+      "expected_top1_any": [
+        "signal",
+        "sign"
+      ],
+      "forbidden_top1": [
+        "landmark",
+        "reminder"
+      ],
+      "forbidden_any": [],
+      "notes": "Review-boundary noun balancing signal/sign against weaker reminder/landmark drift."
+    },
+    {
+      "case_id": "en-es:batería",
+      "target": "batería",
+      "tier": "hard",
+      "expected_any": [
+        "battery",
+        "drum kit"
+      ],
+      "expected_top1_any": [
+        "battery"
+      ],
+      "forbidden_top1": [
+        "drummer",
+        "set"
+      ],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:battery_music",
+        "hazard:domain_competition"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "battery_music"
+        ],
+        "hazard": [
+          "domain_competition"
+        ]
+      },
+      "notes": "Everyday electrical noun with music-side competition; battery should dominate the bare lemma while drummer/set stay out of top-1."
+    },
+    {
+      "case_id": "en-es:llevar",
+      "target": "llevar",
+      "tier": "smoke",
+      "expected_any": [
+        "take",
+        "carry",
+        "bring",
+        "wear"
+      ],
+      "expected_top1_any": [
+        "take",
+        "carry"
+      ],
+      "forbidden_top1": [
+        "bear"
+      ],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:take_carry",
+        "hazard:phrase_sensitive"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "verb"
+        ],
+        "semantic_family": [
+          "take_carry"
+        ],
+        "hazard": [
+          "phrase_sensitive"
+        ]
+      },
+      "notes": "Phrase-sensitive common verb with broad lexical coverage; take/carry should lead while bear-like drift stays out of top-1."
+    },
+    {
+      "case_id": "en-es:empleo",
+      "target": "empleo",
+      "tier": "hard",
+      "expected_any": [
+        "employment",
+        "job",
+        "work"
+      ],
+      "expected_top1_any": [
+        "employment",
+        "job"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:job"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "job"
+        ]
+      },
+      "notes": "Job-family sibling focused on employment/job; useful for checking whether source-only shadows cover the broader work/job lane beyond trabajo."
+    },
+    {
+      "case_id": "en-es:ruta",
+      "target": "ruta",
+      "tier": "smoke",
+      "expected_any": [
+        "route",
+        "road",
+        "path"
+      ],
+      "expected_top1_any": [
+        "route",
+        "road"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:path_route"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "path_route"
+        ]
+      },
+      "notes": "Path-route family sibling centered on route/road; expands the current camino-only coverage in the road/path lane."
+    },
+    {
+      "case_id": "en-es:sendero",
+      "target": "sendero",
+      "tier": "smoke",
+      "expected_any": [
+        "path",
+        "trail"
+      ],
+      "expected_top1_any": [
+        "path",
+        "trail"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:path_route"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "path_route"
+        ]
+      },
+      "notes": "Path-route family sibling with a narrower path/trail reading; useful for checking whether current overblocking is a camino-specific issue or a broader route family issue."
+    },
+    {
+      "case_id": "en-es:terreno",
+      "target": "terreno",
+      "tier": "smoke",
+      "expected_any": [
+        "land",
+        "terrain",
+        "ground",
+        "field"
+      ],
+      "expected_top1_any": [
+        "land",
+        "terrain",
+        "ground"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:field_area_country"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "field_area_country"
+        ]
+      },
+      "notes": "Field-area family sibling emphasizing land/terrain/ground while still allowing field; expands the current campo-only family coverage."
+    },
+    {
+      "case_id": "en-es:rejilla",
+      "target": "rejilla",
+      "tier": "hard",
+      "expected_any": [
+        "grid",
+        "grille",
+        "mesh"
+      ],
+      "expected_top1_any": [
+        "grid",
+        "grille"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:net_mesh_network"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "net_mesh_network"
+        ]
+      },
+      "notes": "Physical-net family sibling around grid/grille/mesh; extends the current red/malla family with another surface-form realization of the mesh side."
+    },
+    {
+      "case_id": "en-es:ocupación",
+      "target": "ocupación",
+      "tier": "hard",
+      "expected_any": [
+        "occupation",
+        "job",
+        "employment"
+      ],
+      "expected_top1_any": [
+        "occupation",
+        "job"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:job"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "job"
+        ]
+      },
+      "notes": "Job-family sibling centered on occupation/job; increases shared-trigger coverage beyond empleo/trabajo while staying in the same role/work noun lane."
+    },
+    {
+      "case_id": "en-es:carretera",
+      "target": "carretera",
+      "tier": "smoke",
+      "expected_any": [
+        "road",
+        "highway"
+      ],
+      "expected_top1_any": [
+        "road",
+        "highway"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:path_route"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "path_route"
+        ]
+      },
+      "notes": "Path-route family sibling for the road/highway sub-lane; should help distinguish broad route-family blockers from camino-only noise."
+    },
+    {
+      "case_id": "en-es:reja",
+      "target": "reja",
+      "tier": "hard",
+      "expected_any": [
+        "grille",
+        "grating",
+        "mesh"
+      ],
+      "expected_top1_any": [
+        "grille",
+        "grating"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:net_mesh_network"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "net_mesh_network"
+        ]
+      },
+      "notes": "Physical-net family sibling around grille/grating/mesh; gives the current mesh/net lane another shared surface apart from malla and rejilla."
+    },
+    {
+      "case_id": "en-es:tierra",
+      "target": "tierra",
+      "tier": "smoke",
+      "expected_any": [
+        "land",
+        "earth",
+        "ground",
+        "soil"
+      ],
+      "expected_top1_any": [
+        "land",
+        "earth"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "slice_tags": [
+        "family:field_area_country"
+      ],
+      "slice_dimensions": {
+        "pos": [
+          "noun"
+        ],
+        "semantic_family": [
+          "field_area_country"
+        ]
+      },
+      "notes": "Field-area family sibling emphasizing land/earth/ground; pairs naturally with terreno and should expose whether current noun-side veto misses generalize across the land-ground lane."
+    }
+  ]
+}

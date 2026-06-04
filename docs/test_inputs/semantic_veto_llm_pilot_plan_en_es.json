@@ -1,0 +1,365 @@
+{
+  "schema_version": 1,
+  "pilot_id": "semantic_veto_llm_pilot_en_es_v1",
+  "pair": "en-es",
+  "status": "no_spend_preflight",
+  "purpose": "No-spend plan and admission contract for broadening en-es semantic-veto product evaluation with LLM-generated sentence rows.",
+  "candidate": {
+    "candidate_id": "control_st_masked_all_margin_phrase_override|shadow_or_phrase_score|lead=0.05|score=0.0",
+    "decision_shape": "allow_default_shadow_veto",
+    "base_config_id": "control_st_masked_all_margin_phrase_override",
+    "phrase_mode": "shadow_or_phrase_score",
+    "shadow_lead_min": 0.05,
+    "shadow_score_min": 0.0,
+    "runtime_policy_change": "none",
+    "source_evidence_promotion": "none"
+  },
+  "acceptance_context": {
+    "positive_allow_rate_min": 0.8,
+    "negative_abstain_rate_min": 0.5,
+    "lane_role": "research_eval_expansion",
+    "promotion_dependency": "Rows admitted here must be scored in product-quality and stress lanes before any runtime promotion claim."
+  },
+  "flow_steps": [
+    {
+      "step_id": "freeze_candidate",
+      "required": true,
+      "description": "Record the current shared veto-only candidate before generation."
+    },
+    {
+      "step_id": "select_pilot_families",
+      "required": true,
+      "description": "Choose breadth families before seeing generated rows."
+    },
+    {
+      "step_id": "generate_rows",
+      "required": false,
+      "blocked_until_preflight_passes": true,
+      "description": "Generate rows only after this no-spend plan and admission contract pass."
+    },
+    {
+      "step_id": "admission_filter",
+      "required": true,
+      "description": "Reject rows with leakage, missing context, broken labels, duplicates, or contract gaps."
+    },
+    {
+      "step_id": "split_discovery_locked_eval",
+      "required": true,
+      "description": "Assign admitted rows deterministically before any threshold tuning."
+    },
+    {
+      "step_id": "score_candidate",
+      "required": true,
+      "description": "Score admitted rows with the frozen candidate and current product metrics."
+    },
+    {
+      "step_id": "expand_or_diagnose",
+      "required": true,
+      "description": "Only expand, tune, or diagnose after discovery and locked-eval outputs stay separate."
+    }
+  ],
+  "split_policy": {
+    "method": "sha256_row_id_modulo",
+    "modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ],
+    "threshold_tuning_allowed_on_locked_eval": false
+  },
+  "generation_strata": {
+    "word_order": [
+      "canonical_subject_verb_object",
+      "fronted_context",
+      "modifier_before_trigger",
+      "modifier_after_trigger",
+      "separated_by_clause"
+    ],
+    "trigger_position": [
+      "early",
+      "middle",
+      "late"
+    ],
+    "context_distance": [
+      "near_disambiguator",
+      "far_disambiguator"
+    ],
+    "morphology": [
+      "singular_or_base",
+      "plural_or_inflected",
+      "compound_or_phrase"
+    ],
+    "register": [
+      "ordinary_web",
+      "headline_or_fragment",
+      "technical_or_domain"
+    ],
+    "difficulty": [
+      "obvious",
+      "moderate",
+      "hard"
+    ]
+  },
+  "row_contract": {
+    "required_fields": [
+      "row_id",
+      "family_id",
+      "trigger",
+      "candidate_replacement",
+      "sentence",
+      "gold_decision",
+      "gold_type",
+      "active_sense",
+      "gold_reason",
+      "pos",
+      "generator_id",
+      "prompt_id"
+    ],
+    "gold_types": [
+      "positive_active",
+      "shadow_negative",
+      "phrase_no_winner"
+    ],
+    "gold_decisions": [
+      "allow",
+      "abstain"
+    ],
+    "decision_by_gold_type": {
+      "positive_active": "allow",
+      "shadow_negative": "abstain",
+      "phrase_no_winner": "abstain"
+    },
+    "conditional_fields": {
+      "shadow_negative": [
+        "negative_sense"
+      ],
+      "phrase_no_winner": [
+        "no_winner_reason"
+      ]
+    },
+    "optional_fields": [
+      "difficulty_tags",
+      "source_url_family",
+      "word_order",
+      "trigger_position",
+      "context_distance",
+      "morphology",
+      "register"
+    ]
+  },
+  "admission_filters": [
+    {
+      "filter_id": "required_fields_present",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "known_pilot_family",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "gold_decision_matches_gold_type",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "trigger_present_in_sentence",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "spanish_target_lemma_absent_from_sentence",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "label_leakage_absent_from_sentence",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "duplicate_sentence_absent",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "duplicate_row_id_absent",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "conditional_reason_present",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "minimum_sentence_shape",
+      "severity": "reject"
+    },
+    {
+      "filter_id": "locked_eval_not_used_for_threshold_tuning",
+      "severity": "reject"
+    }
+  ],
+  "pilot_families": [
+    {
+      "family_id": "pilot:bank:banco",
+      "trigger": "bank",
+      "candidate_replacement": "banco",
+      "active_sense": "financial institution",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:plant:planta",
+      "trigger": "plant",
+      "candidate_replacement": "planta",
+      "active_sense": "living organism",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:board:tablero",
+      "trigger": "board",
+      "candidate_replacement": "tablero",
+      "active_sense": "flat game or display surface",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:check:cheque",
+      "trigger": "check",
+      "candidate_replacement": "cheque",
+      "active_sense": "bank payment document",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:branch:sucursal",
+      "trigger": "branch",
+      "candidate_replacement": "sucursal",
+      "active_sense": "local office of an organization",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:file:archivo",
+      "trigger": "file",
+      "candidate_replacement": "archivo",
+      "active_sense": "digital or stored document",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "medium",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:play:obra",
+      "trigger": "play",
+      "candidate_replacement": "obra",
+      "active_sense": "theatrical work",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:seal:sello",
+      "trigger": "seal",
+      "candidate_replacement": "sello",
+      "active_sense": "stamp or official mark",
+      "pos": "noun",
+      "frequency_band": "medium",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:report:informe",
+      "trigger": "report",
+      "candidate_replacement": "informe",
+      "active_sense": "written account or document",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "medium",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:order:pedido",
+      "trigger": "order",
+      "candidate_replacement": "pedido",
+      "active_sense": "commercial request for goods",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:match:partido",
+      "trigger": "match",
+      "candidate_replacement": "partido",
+      "active_sense": "sports contest",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    },
+    {
+      "family_id": "pilot:watch:reloj",
+      "trigger": "watch",
+      "candidate_replacement": "reloj",
+      "active_sense": "timepiece worn on the wrist",
+      "pos": "noun",
+      "frequency_band": "common",
+      "ambiguity_class": "high",
+      "planned_rows": {
+        "positive_active": 3,
+        "shadow_negative": 2,
+        "phrase_no_winner": 1
+      }
+    }
+  ]
+}

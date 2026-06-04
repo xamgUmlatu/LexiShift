@@ -1,0 +1,535 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-30T03:34:14Z",
+  "status": "ok",
+  "decision": "candidate_batch_ready",
+  "pair": "en-es",
+  "dataset_id": "en_es_source_non_v10_wave6_anypos_unsupported_upper_bound_selected_v1",
+  "run_id": "translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+  "batch_id": "en-es:translation-sense-evidence:translation-sense-non-v10-wave6-wiktextract-supported-v1-latest",
+  "source_type": "external",
+  "source_id": "translation_sense_evidence",
+  "source_family": "external_structured_dictionary_dump",
+  "summary": {
+    "family_count": 16,
+    "source_family_count": 16,
+    "target_family_count": 16,
+    "selected_sense_count": 38,
+    "source_supported_sense_count": 38,
+    "skipped_sense_count": 0,
+    "row_count": 38,
+    "active_row_count": 16,
+    "shadow_row_count": 22
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:leave:permiso",
+      "trigger": "leave",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:active",
+          "target_lemma": "permiso",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "permission to be absent",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:excedencia:shadow",
+          "target_lemma": "excedencia",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "absence from work",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:leave:permiso:dejar:shadow",
+          "target_lemma": "dejar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to cause to remain as available, not take away, refrain from depleting",
+          "source_supported": true,
+          "support_match_count": 5
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:black:oscuro",
+      "trigger": "black",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:black:oscuro:active",
+          "target_lemma": "oscuro",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "without light",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:black:oscuro:negro:shadow",
+          "target_lemma": "negro",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "colour/color",
+          "source_supported": true,
+          "support_match_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:serve:servicio",
+      "trigger": "serve",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:serve:servicio:active",
+          "target_lemma": "servicio",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "sports: act of putting the ball or shuttlecock in play",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:serve:servicio:servir:shadow",
+          "target_lemma": "servir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to work for",
+          "source_supported": true,
+          "support_match_count": 12
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:low:bajo",
+      "trigger": "low",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:low:bajo:active",
+          "target_lemma": "bajo",
+          "canonical_pos": "adverb",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "close to the ground",
+          "source_supported": true,
+          "support_match_count": 3
+        },
+        {
+          "sense_id": "en-es:sentence-veto:low:bajo:deca-do:shadow",
+          "target_lemma": "decaído",
+          "canonical_pos": "adjective",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "depressed, sad",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:part:parte",
+      "trigger": "part",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:active",
+          "target_lemma": "parte",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "fraction of a whole",
+          "source_supported": true,
+          "support_match_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:papel:shadow",
+          "target_lemma": "papel",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "position or role, especially in a play",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:part:parte:repartir:shadow",
+          "target_lemma": "repartir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to divide in two",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:feel:talento",
+      "trigger": "feel",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:feel:talento:active",
+          "target_lemma": "talento",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "intuitive ability",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:feel:talento:sentir:shadow",
+          "target_lemma": "sentir",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "transitive: to sense by touch",
+          "source_supported": true,
+          "support_match_count": 3
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:still:quietud",
+      "trigger": "still",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:active",
+          "target_lemma": "quietud",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "period of calm or silence",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:alambique:shadow",
+          "target_lemma": "alambique",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "a device for distilling liquids",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:still:quietud:aquietar:shadow",
+          "target_lemma": "aquietar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to calm down",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bear:bajista",
+      "trigger": "bear",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:bear:bajista:active",
+          "target_lemma": "bajista",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "investor who sells in anticipation of falling prices",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:bear:bajista:llevar:shadow",
+          "target_lemma": "llevar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to carry",
+          "source_supported": true,
+          "support_match_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:finish:meta",
+      "trigger": "finish",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:active",
+          "target_lemma": "meta",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "end",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:acabado:shadow",
+          "target_lemma": "acabado",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "protective coating",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:finish:meta:acabar:shadow",
+          "target_lemma": "acabar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to complete",
+          "source_supported": true,
+          "support_match_count": 2
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:throw:lanzamiento",
+      "trigger": "throw",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:throw:lanzamiento:active",
+          "target_lemma": "lanzamiento",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "flight of a thrown object",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:throw:lanzamiento:lanzar:shadow",
+          "target_lemma": "lanzar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to cause an object to move rapidly through the air",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:upset:disgustado",
+      "trigger": "upset",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:upset:disgustado:active",
+          "target_lemma": "disgustado",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "angry, distressed, unhappy",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:upset:disgustado:trastrocar:shadow",
+          "target_lemma": "trastrocar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "disturb, disrupt, unfavorably alter",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:piece:trozo",
+      "trigger": "piece",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:active",
+          "target_lemma": "trozo",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "part of a larger whole",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:ficha:shadow",
+          "target_lemma": "ficha",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "chess: figure other than pawn; similar counter in other games",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:piece:trozo:montar:shadow",
+          "target_lemma": "montar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to create or construct by assembling parts",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:fair:pastel",
+      "trigger": "fair",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:fair:pastel:active",
+          "target_lemma": "pastel",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "light in color or pale",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:fair:pastel:feria-de-muestras:shadow",
+          "target_lemma": "feria de muestras",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "professional event, trade fair",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:show:espect-culo",
+      "trigger": "show",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:show:espect-culo:active",
+          "target_lemma": "espectáculo",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "entertainment",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:show:espect-culo:demostrar:shadow",
+          "target_lemma": "demostrar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to indicate (a fact) to be true",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:advance:avance",
+      "trigger": "advance",
+      "active_row_count": 1,
+      "shadow_row_count": 2,
+      "skipped_sense_count": 0,
+      "row_count": 3,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:active",
+          "target_lemma": "avance",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "forward move",
+          "source_supported": true,
+          "support_match_count": 2
+        },
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:adelanto:shadow",
+          "target_lemma": "adelanto",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "amount of money",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:advance:avance:avanzar:shadow",
+          "target_lemma": "avanzar",
+          "canonical_pos": "verb",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "to bring forward; to move towards the front; to make to go on",
+          "source_supported": true,
+          "support_match_count": 1
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:rank:rancio",
+      "trigger": "rank",
+      "active_row_count": 1,
+      "shadow_row_count": 1,
+      "skipped_sense_count": 0,
+      "row_count": 2,
+      "senses": [
+        {
+          "sense_id": "en-es:sentence-veto:rank:rancio:active",
+          "target_lemma": "rancio",
+          "canonical_pos": "adjective",
+          "relation_type": "anchor_cue",
+          "translation_sense_text": "having a very strong and bad odor",
+          "source_supported": true,
+          "support_match_count": 1
+        },
+        {
+          "sense_id": "en-es:sentence-veto:rank:rancio:fila:shadow",
+          "target_lemma": "fila",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "translation_sense_text": "row of people or things organized in a grid pattern",
+          "source_supported": true,
+          "support_match_count": 2
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "translation_sense_text_is_dictionary_gloss_not_sentence_example",
+    "runtime_publishable=false_until_admission_and_heldout_validation",
+    "does_not_cover_unselected_no_winner_senses",
+    "does_not_add_phrase_containment_examples",
+    "spanish_target_lemmas_are_excluded_from_evidence_text"
+  ]
+}

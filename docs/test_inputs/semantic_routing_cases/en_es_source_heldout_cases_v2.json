@@ -1,0 +1,585 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "dataset_id": "en_es_source_heldout_cases_v2",
+  "base_dataset": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "description": "Broader non-benchmark active/shadow semantic validation cases for the current en-es source-admission promotion-candidate lane. This suite covers every v10 family with one fresh active case and one fresh shadow case. Phrase-control and no-winner idiom rows remain excluded so phrase-source policy stays separate.",
+  "case_scope": "semantic_active_shadow_only",
+  "families": [
+    {
+      "family_id": "en-es:sentence-veto:ball:pelota",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:ball:001",
+          "sentence": "The pitcher threw the ball across the field.",
+          "source_phrase": "ball",
+          "gold_winner": "en-es:sentence-veto:ball:pelota:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:ball:002",
+          "sentence": "Guests wore masks to the winter ball.",
+          "source_phrase": "ball",
+          "gold_winner": "en-es:sentence-veto:ball:baile:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:bank:banco",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:bank:001",
+          "sentence": "The neighborhood bank financed the bakery expansion.",
+          "source_phrase": "bank",
+          "gold_winner": "en-es:sentence-veto:bank:banco:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:bank:002",
+          "sentence": "Campers ate lunch on the sandy bank of the stream.",
+          "source_phrase": "bank",
+          "gold_winner": "en-es:sentence-veto:bank:orilla:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:plant:001",
+          "sentence": "A basil plant wilted beside the kitchen window.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:sentence-veto:plant:planta:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:plant:002",
+          "sentence": "The recycling plant processed bottles through the night.",
+          "source_phrase": "plant",
+          "gold_winner": "en-es:sentence-veto:plant:fabrica:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:cell:celula",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:cell:001",
+          "sentence": "A red blood cell carries oxygen through the body.",
+          "source_phrase": "cell",
+          "gold_winner": "en-es:sentence-veto:cell:celula:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:cell:002",
+          "sentence": "The detective found the suspect in a holding cell.",
+          "source_phrase": "cell",
+          "gold_winner": "en-es:sentence-veto:cell:celda:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:spring:primavera",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:spring:001",
+          "sentence": "Cherry blossoms bloom in spring across the city.",
+          "source_phrase": "spring",
+          "gold_winner": "en-es:sentence-veto:spring:primavera:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:spring:002",
+          "sentence": "A metal spring supports the mattress frame.",
+          "source_phrase": "spring",
+          "gold_winner": "en-es:sentence-veto:spring:resorte:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:seal:sello",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:seal:001",
+          "sentence": "The notary placed a seal on the deed.",
+          "source_phrase": "seal",
+          "gold_winner": "en-es:sentence-veto:seal:sello:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:seal:002",
+          "sentence": "A young seal swam near the pier.",
+          "source_phrase": "seal",
+          "gold_winner": "en-es:sentence-veto:seal:foca:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:file:archivo",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:file:001",
+          "sentence": "The contract file sat on the secure server.",
+          "source_phrase": "file",
+          "gold_winner": "en-es:sentence-veto:file:archivo:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:file:002",
+          "sentence": "The carpenter used a file on the metal hinge.",
+          "source_phrase": "file",
+          "gold_winner": "en-es:sentence-veto:file:lima:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:match:partido",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:match:001",
+          "sentence": "The final match drew a huge crowd.",
+          "source_phrase": "match",
+          "gold_winner": "en-es:sentence-veto:match:partido:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:match:002",
+          "sentence": "A match flared when she struck it.",
+          "source_phrase": "match",
+          "gold_winner": "en-es:sentence-veto:match:cerilla:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:board:tablero",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:board:001",
+          "sentence": "The chess board had several missing squares.",
+          "source_phrase": "board",
+          "gold_winner": "en-es:sentence-veto:board:tablero:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:board:002",
+          "sentence": "The school board voted on the budget.",
+          "source_phrase": "board",
+          "gold_winner": "en-es:sentence-veto:board:junta:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:table:mesa",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:table:001",
+          "sentence": "The lamp stood on the bedside table.",
+          "source_phrase": "table",
+          "gold_winner": "en-es:sentence-veto:table:mesa:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:table:002",
+          "sentence": "The table in the report lists population growth.",
+          "source_phrase": "table",
+          "gold_winner": "en-es:sentence-veto:table:tabla:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:branch:sucursal",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:branch:001",
+          "sentence": "The bank branch opened near the station.",
+          "source_phrase": "branch",
+          "gold_winner": "en-es:sentence-veto:branch:sucursal:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "same_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:branch:002",
+          "sentence": "A pine branch scratched the window.",
+          "source_phrase": "branch",
+          "gold_winner": "en-es:sentence-veto:branch:rama:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "same_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:park:parque",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:park:001",
+          "sentence": "Families gathered in the park for music.",
+          "source_phrase": "park",
+          "gold_winner": "en-es:sentence-veto:park:parque:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "cross_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:park:002",
+          "sentence": "Drivers park near the loading dock each morning.",
+          "source_phrase": "park",
+          "gold_winner": "en-es:sentence-veto:park:aparcar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "cross_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:drink:bebida",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:drink:001",
+          "sentence": "A cold drink waited beside the sandwich.",
+          "source_phrase": "drink",
+          "gold_winner": "en-es:sentence-veto:drink:bebida:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "cross_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:drink:002",
+          "sentence": "Guests drink coffee after dessert.",
+          "source_phrase": "drink",
+          "gold_winner": "en-es:sentence-veto:drink:beber:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "cross_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:play:obra",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:play:001",
+          "sentence": "The school play won local awards.",
+          "source_phrase": "play",
+          "gold_winner": "en-es:sentence-veto:play:obra:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "cross_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:play:002",
+          "sentence": "The teams play basketball on Fridays.",
+          "source_phrase": "play",
+          "gold_winner": "en-es:sentence-veto:play:jugar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "cross_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:watch:reloj",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:watch:001",
+          "sentence": "Her silver watch stopped during the exam.",
+          "source_phrase": "watch",
+          "gold_winner": "en-es:sentence-veto:watch:reloj:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "cross_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:watch:002",
+          "sentence": "Volunteers watch the trail for fires.",
+          "source_phrase": "watch",
+          "gold_winner": "en-es:sentence-veto:watch:vigilar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "cross_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:check:cheque",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:check:001",
+          "sentence": "The cashier accepted the check for the bill.",
+          "source_phrase": "check",
+          "gold_winner": "en-es:sentence-veto:check:cheque:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "cross_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:check:002",
+          "sentence": "Nurses check vital signs before breakfast.",
+          "source_phrase": "check",
+          "gold_winner": "en-es:sentence-veto:check:revisar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "cross_pos"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:order:pedido",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:order:001",
+          "sentence": "The online order included two books.",
+          "source_phrase": "order",
+          "gold_winner": "en-es:sentence-veto:order:pedido:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "cross_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:order:002",
+          "sentence": "Officers order traffic to stop at the gate.",
+          "source_phrase": "order",
+          "gold_winner": "en-es:sentence-veto:order:ordenar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "cross_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:trip:viaje",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:trip:001",
+          "sentence": "The camping trip lasted a week.",
+          "source_phrase": "trip",
+          "gold_winner": "en-es:sentence-veto:trip:viaje:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "cross_pos",
+            "new_family"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:trip:002",
+          "sentence": "Hikers trip over roots on the trail.",
+          "source_phrase": "trip",
+          "gold_winner": "en-es:sentence-veto:trip:viaje:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "cross_pos",
+            "new_family"
+          ]
+        }
+      ]
+    },
+    {
+      "family_id": "en-es:sentence-veto:report:informe",
+      "cases": [
+        {
+          "case_id": "en-es:source-heldout:v2:report:001",
+          "sentence": "The climate report described rising seas.",
+          "source_phrase": "report",
+          "gold_winner": "en-es:sentence-veto:report:informe:active",
+          "gold_decision": "replace",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_active",
+            "cross_pos"
+          ]
+        },
+        {
+          "case_id": "en-es:source-heldout:v2:report:002",
+          "sentence": "Scientists report new results in the journal.",
+          "source_phrase": "report",
+          "gold_winner": "en-es:sentence-veto:report:informar:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": [
+            "source_heldout_v2",
+            "semantic_shadow",
+            "cross_pos"
+          ]
+        }
+      ]
+    }
+  ]
+}

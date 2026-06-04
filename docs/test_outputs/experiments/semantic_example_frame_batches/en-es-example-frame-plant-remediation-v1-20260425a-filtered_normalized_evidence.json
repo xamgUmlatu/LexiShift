@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "normalization_version": "semantic_evidence_v1",
+  "batch_id": "en-es:example-frame-missing-rows:example-frame-plant-remediation-v1-20260425a:filtered",
+  "pair": "en-es",
+  "source_type": "llm",
+  "source_id": "llm_example_frame_residual_remediation",
+  "source_family": "silver_llm_generation",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-24T23:05:52Z",
+  "ingested_at": "2026-04-24T23:05:52Z",
+  "review_state": "review",
+  "model_id": "gpt-5.4-mini",
+  "prompt_version": "example-frame-residual-remediation-v1",
+  "row_count": 0,
+  "rows": [],
+  "provenance": {
+    "source_type": "llm",
+    "source_id": "llm_example_frame_residual_remediation",
+    "source_family": "silver_llm_generation",
+    "batch_id": "en-es:example-frame-missing-rows:example-frame-plant-remediation-v1-20260425a",
+    "model_id": "gpt-5.4-mini",
+    "prompt_version": "example-frame-residual-remediation-v1",
+    "generated_at": "2026-04-24T23:05:52Z",
+    "ingested_at": "2026-04-24T23:05:52Z",
+    "normalization_version": "semantic_evidence_v1",
+    "temperature": 0.2,
+    "cost_metadata": {
+      "request_count": 1,
+      "requests_with_usage": 1,
+      "input_tokens": 386,
+      "output_tokens": 33,
+      "reasoning_tokens": 0
+    },
+    "upstream": {
+      "generation_plan_batch_id": "",
+      "required_family_source": "semantic_prompt_bakeoff_en_es_v10",
+      "execution_mode": "live",
+      "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-example-frame-missing-rows-example-frame-plant-remediation-v1-20260425a_raw_responses.json"
+    },
+    "leakage_audit": {
+      "status": "review",
+      "removed_row_count": 1,
+      "jaccard_threshold": 0.75,
+      "min_contained_tokens": 5
+    }
+  },
+  "temperature": 0.2,
+  "cost_metadata": {
+    "request_count": 1,
+    "requests_with_usage": 1,
+    "input_tokens": 386,
+    "output_tokens": 33,
+    "reasoning_tokens": 0
+  }
+}

@@ -1,0 +1,3604 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "generated_at": "2026-04-10T22:26:14Z",
+  "status": "ok",
+  "benchmark_dataset": {
+    "path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
+    "target_count": 72,
+    "reviewed_trigger_count": 175
+  },
+  "inventory_status": "ok",
+  "inventory_promotion_policy": "same_pos_lenient_v1",
+  "proxy_evaluation": {
+    "schema_version": 1,
+    "status": "ok",
+    "candidate_pool_summary": {
+      "trigger_rows_total": 175,
+      "trigger_rows_with_inventory_entry": 148,
+      "gold_trigger_rows": 33,
+      "gold_trigger_rows_with_inventory_entry": 15,
+      "gold_trigger_rows_with_active_candidates": 14,
+      "gold_trigger_rows_with_mined_overlap": 14,
+      "gold_trigger_rows_with_exact_mined_set": 0,
+      "inventory_entry_coverage_rate": 0.8457142857142858,
+      "gold_trigger_inventory_coverage_rate": 0.45454545454545453,
+      "candidate_pool_trigger_recall": 0.42424242424242425,
+      "candidate_pool_exact_match_rate": 0.0,
+      "gold_trigger_active_support_rate": 0.42424242424242425
+    },
+    "policies": {
+      "same_pos_lenient_v1": {
+        "summary": {
+          "trigger_rows_total": 175,
+          "gold_trigger_rows": 33,
+          "trigger_rows_with_active_candidates": 114,
+          "promoted_trigger_rows": 126,
+          "candidate_true_positive_count": 13,
+          "candidate_false_positive_count": 305,
+          "candidate_false_negative_count": 37,
+          "gold_trigger_rows_hit": 12,
+          "gold_trigger_rows_exact_match": 0,
+          "gold_trigger_rows_underblocked": 21,
+          "gold_trigger_rows_partial": 12,
+          "top1_gold_trigger_rows_hit": 9,
+          "no_gold_trigger_rows": 142,
+          "no_gold_trigger_rows_overblocked": 111,
+          "candidate_precision": 0.040880503144654086,
+          "candidate_recall": 0.26,
+          "candidate_f1": 0.07065217391304347,
+          "gold_trigger_hit_rate": 0.36363636363636365,
+          "gold_trigger_exact_match_rate": 0.0,
+          "top1_gold_trigger_hit_rate": 0.2727272727272727,
+          "underblocking_rate": 0.6363636363636364,
+          "overblocking_rate": 0.7816901408450704
+        },
+        "sample_underblocked_rows": [
+          {
+            "target": "camino",
+            "trigger": "path",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "ruta",
+              "sendero"
+            ],
+            "mined_shadow_targets": [
+              "canal",
+              "mixtilínea",
+              "ruta",
+              "senda",
+              "sendero",
+              "trayectoria",
+              "trillo",
+              "trocha"
+            ],
+            "promoted_targets": [
+              "canal",
+              "trocha",
+              "trillo"
+            ]
+          },
+          {
+            "target": "carretera",
+            "trigger": "road",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "camino",
+              "ruta"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "ocupación"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "work",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "ocupación",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "empleo",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "ocupación",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "grille",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "mesh",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "malla",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "rejilla",
+            "trigger": "grille",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "reja"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "rejilla",
+            "trigger": "mesh",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "malla",
+              "reja"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "ruta",
+            "trigger": "road",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "camino",
+              "carretera"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          }
+        ],
+        "sample_overblocked_rows": [
+          {
+            "target": "acabar",
+            "trigger": "finish",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabado",
+              "acabarse",
+              "cabalear",
+              "fenecer",
+              "fin",
+              "finir",
+              "meta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir",
+              "ultimar",
+              "terminarse"
+            ]
+          },
+          {
+            "target": "acabar",
+            "trigger": "end",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabarse",
+              "cabo",
+              "concluir",
+              "extremo",
+              "fin",
+              "fin (desus.)",
+              "final",
+              "finalizar",
+              "finir",
+              "lado",
+              "muerte",
+              "parte",
+              "poner fin a",
+              "punta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir",
+              "parte",
+              "ultimar"
+            ]
+          },
+          {
+            "target": "agua",
+            "trigger": "water",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "[un] agua",
+              "abrevar",
+              "aguacha",
+              "aguar",
+              "aguas",
+              "aguas menores",
+              "dar agua a",
+              "fluidos corporales",
+              "hacer agua",
+              "linfa",
+              "regar",
+              "wata"
+            ],
+            "promoted_targets": [
+              "wata",
+              "linfa",
+              "fluidos corporales"
+            ]
+          },
+          {
+            "target": "amigo",
+            "trigger": "friend",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acere",
+              "acuache",
+              "aliada",
+              "aliado",
+              "amiga",
+              "amigar",
+              "amiguito",
+              "amistad",
+              "amistar",
+              "asere",
+              "chero",
+              "chochera",
+              "compadre",
+              "conocida",
+              "conocido",
+              "cousín",
+              "cuate",
+              "favorecer",
+              "fulano",
+              "hacer amigos",
+              "mijo",
+              "novia",
+              "novio",
+              "parcero"
+            ],
+            "promoted_targets": [
+              "parcero",
+              "novio",
+              "novia"
+            ]
+          },
+          {
+            "target": "amor",
+            "trigger": "love",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "adorar",
+              "amar",
+              "cariño",
+              "cero",
+              "chiflar",
+              "encantar",
+              "gustar",
+              "hacer el amor",
+              "nada",
+              "querer"
+            ],
+            "promoted_targets": [
+              "nada",
+              "hacer el amor",
+              "cero"
+            ]
+          },
+          {
+            "target": "banco",
+            "trigger": "bank",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "ahorrar",
+              "almacén",
+              "amontonar",
+              "apilar",
+              "bajío",
+              "banca",
+              "depositar",
+              "hilera",
+              "hucha",
+              "ingresar",
+              "juntar",
+              "ladear",
+              "ladearse",
+              "ladeo",
+              "orilla",
+              "peraltar",
+              "recoger",
+              "ribera",
+              "sucursal",
+              "talud",
+              "teclado",
+              "tener la cuenta en",
+              "terraplén"
+            ],
+            "promoted_targets": [
+              "terraplén",
+              "teclado",
+              "talud"
+            ]
+          },
+          {
+            "target": "banco",
+            "trigger": "bench",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "banca",
+              "banquillo",
+              "escaño",
+              "poyete",
+              "poyo",
+              "pretil",
+              "sillete"
+            ],
+            "promoted_targets": [
+              "sillete",
+              "pretil",
+              "poyo"
+            ]
+          },
+          {
+            "target": "camino",
+            "trigger": "way",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "canal",
+              "derrota",
+              "derrotero",
+              "forma",
+              "manera",
+              "medios",
+              "modo",
+              "usanza",
+              "vía"
+            ],
+            "promoted_targets": [
+              "canal",
+              "vía",
+              "usanza"
+            ]
+          },
+          {
+            "target": "campo",
+            "trigger": "countryside",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "campaña",
+              "campiña",
+              "provincia"
+            ],
+            "promoted_targets": [
+              "provincia",
+              "campiña",
+              "campaña"
+            ]
+          },
+          {
+            "target": "campo",
+            "trigger": "country",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "agreste",
+              "campaña",
+              "campero",
+              "campesino",
+              "campestre",
+              "campeño",
+              "campiña",
+              "country",
+              "de campo",
+              "de provincia",
+              "hábitat",
+              "país",
+              "provincia",
+              "provinciano",
+              "ranchera",
+              "territorio",
+              "zona"
+            ],
+            "promoted_targets": [
+              "zona",
+              "territorio",
+              "ranchera"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "cauz",
+              "caz"
+            ],
+            "promoted_targets": [
+              "camino",
+              "caz",
+              "cauz"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "channel",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "canalizar",
+              "dirigir",
+              "encauzar",
+              "estrecho",
+              "álveo"
+            ],
+            "promoted_targets": [
+              "camino",
+              "álveo",
+              "estrecho"
+            ]
+          }
+        ],
+        "sample_partial_rows": [
+          {
+            "target": "camino",
+            "trigger": "road",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "carretera",
+              "ruta"
+            ],
+            "mined_shadow_targets": [
+              "calle",
+              "calzada",
+              "canal",
+              "carretera",
+              "ruta"
+            ],
+            "promoted_targets": [
+              "canal",
+              "ruta",
+              "carretera"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "campo",
+            "trigger": "field",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "terreno"
+            ],
+            "mined_shadow_targets": [
+              "agro",
+              "cancha",
+              "chacra",
+              "chagra",
+              "chácara",
+              "cuerpo",
+              "desplegar",
+              "implementar",
+              "rubro",
+              "sortear",
+              "terreno",
+              "ámbito"
+            ],
+            "promoted_targets": [
+              "ámbito",
+              "terreno",
+              "rubro"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "rubro",
+              "ámbito"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [
+              "brete",
+              "camello",
+              "chamba",
+              "cheje",
+              "curro",
+              "empleo",
+              "encargo",
+              "jale",
+              "laburo",
+              "pega",
+              "punto",
+              "talacha",
+              "tarea",
+              "trabajo",
+              "yob"
+            ],
+            "promoted_targets": [
+              "trabajo",
+              "punto"
+            ],
+            "missing_gold_targets": [
+              "empleo",
+              "ocupación"
+            ],
+            "extra_promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "coger",
+            "trigger": "take",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "llevar"
+            ],
+            "mined_shadow_targets": [
+              "aguantar",
+              "apechugar",
+              "chapar",
+              "durar",
+              "llevar",
+              "opositar",
+              "prender",
+              "punto de vista",
+              "recompensa",
+              "sacar",
+              "soportar",
+              "toma",
+              "tomar",
+              "violar"
+            ],
+            "promoted_targets": [
+              "llevar",
+              "sacar",
+              "violar"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "sacar",
+              "violar"
+            ]
+          },
+          {
+            "target": "cuadro",
+            "trigger": "table",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "tabla"
+            ],
+            "mined_shadow_targets": [
+              "entremijo",
+              "entremiso",
+              "expremijo",
+              "mesa",
+              "plaza",
+              "poner sobre la mesa",
+              "tabla",
+              "tablas",
+              "tabular",
+              "traer a discusión"
+            ],
+            "promoted_targets": [
+              "tabla",
+              "plaza",
+              "tablas"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "plaza",
+              "tablas"
+            ]
+          },
+          {
+            "target": "llevar",
+            "trigger": "take",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "coger"
+            ],
+            "mined_shadow_targets": [
+              "aguantar",
+              "apechugar",
+              "chapar",
+              "coger",
+              "durar",
+              "opositar",
+              "prender",
+              "punto de vista",
+              "recompensa",
+              "soportar",
+              "toma",
+              "tomar",
+              "violar"
+            ],
+            "promoted_targets": [
+              "coger",
+              "violar",
+              "tomar"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "tomar",
+              "violar"
+            ]
+          },
+          {
+            "target": "malla",
+            "trigger": "mesh",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "reja",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [
+              "encastrar",
+              "endentar",
+              "engranaje",
+              "engranar",
+              "red",
+              "rejilla"
+            ],
+            "promoted_targets": [
+              "red",
+              "rejilla",
+              "engranaje"
+            ],
+            "missing_gold_targets": [
+              "reja"
+            ],
+            "extra_promoted_targets": [
+              "engranaje",
+              "red"
+            ]
+          },
+          {
+            "target": "malla",
+            "trigger": "net",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "red"
+            ],
+            "mined_shadow_targets": [
+              "almadraba",
+              "jábeca",
+              "jábega",
+              "líquido",
+              "net",
+              "neto",
+              "red"
+            ],
+            "promoted_targets": [
+              "red",
+              "net",
+              "jábega"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "jábega",
+              "net"
+            ]
+          },
+          {
+            "target": "quitar",
+            "trigger": "remove",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "sacar"
+            ],
+            "mined_shadow_targets": [
+              "detraer",
+              "remover",
+              "sacar"
+            ],
+            "promoted_targets": [
+              "sacar",
+              "remover",
+              "detraer"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "detraer",
+              "remover"
+            ]
+          },
+          {
+            "target": "red",
+            "trigger": "net",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "malla"
+            ],
+            "mined_shadow_targets": [
+              "almadraba",
+              "jábeca",
+              "jábega",
+              "luz",
+              "líquido",
+              "malla",
+              "net",
+              "neto"
+            ],
+            "promoted_targets": [
+              "malla",
+              "luz",
+              "net"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "luz",
+              "net"
+            ]
+          },
+          {
+            "target": "sacar",
+            "trigger": "remove",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "quitar"
+            ],
+            "mined_shadow_targets": [
+              "coger",
+              "detraer",
+              "quitar",
+              "remover"
+            ],
+            "promoted_targets": [
+              "quitar",
+              "coger",
+              "remover"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "coger",
+              "remover"
+            ]
+          },
+          {
+            "target": "tabla",
+            "trigger": "table",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "cuadro"
+            ],
+            "mined_shadow_targets": [
+              "cuadro",
+              "entremijo",
+              "entremiso",
+              "expremijo",
+              "mesa",
+              "poner sobre la mesa",
+              "tablas",
+              "tabular",
+              "traer a discusión"
+            ],
+            "promoted_targets": [
+              "cuadro",
+              "tablas",
+              "mesa"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "mesa",
+              "tablas"
+            ]
+          }
+        ]
+      },
+      "support_score_v1": {
+        "summary": {
+          "trigger_rows_total": 175,
+          "gold_trigger_rows": 33,
+          "trigger_rows_with_active_candidates": 114,
+          "promoted_trigger_rows": 45,
+          "candidate_true_positive_count": 9,
+          "candidate_false_positive_count": 55,
+          "candidate_false_negative_count": 41,
+          "gold_trigger_rows_hit": 9,
+          "gold_trigger_rows_exact_match": 4,
+          "gold_trigger_rows_underblocked": 24,
+          "gold_trigger_rows_partial": 5,
+          "top1_gold_trigger_rows_hit": 9,
+          "no_gold_trigger_rows": 142,
+          "no_gold_trigger_rows_overblocked": 33,
+          "candidate_precision": 0.140625,
+          "candidate_recall": 0.18,
+          "candidate_f1": 0.15789473684210525,
+          "gold_trigger_hit_rate": 0.2727272727272727,
+          "gold_trigger_exact_match_rate": 0.12121212121212122,
+          "top1_gold_trigger_hit_rate": 0.2727272727272727,
+          "underblocking_rate": 0.7272727272727273,
+          "overblocking_rate": 0.2323943661971831
+        },
+        "sample_underblocked_rows": [
+          {
+            "target": "camino",
+            "trigger": "road",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "carretera",
+              "ruta"
+            ],
+            "mined_shadow_targets": [
+              "calle",
+              "calzada",
+              "canal",
+              "carretera",
+              "ruta"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "camino",
+            "trigger": "path",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "ruta",
+              "sendero"
+            ],
+            "mined_shadow_targets": [
+              "canal",
+              "mixtilínea",
+              "ruta",
+              "senda",
+              "sendero",
+              "trayectoria",
+              "trillo",
+              "trocha"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "campo",
+            "trigger": "field",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "terreno"
+            ],
+            "mined_shadow_targets": [
+              "agro",
+              "cancha",
+              "chacra",
+              "chagra",
+              "chácara",
+              "cuerpo",
+              "desplegar",
+              "implementar",
+              "rubro",
+              "sortear",
+              "terreno",
+              "ámbito"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "carretera",
+            "trigger": "road",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "camino",
+              "ruta"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "ocupación"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "work",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "malla",
+            "trigger": "mesh",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "reja",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [
+              "encastrar",
+              "endentar",
+              "engranaje",
+              "engranar",
+              "red",
+              "rejilla"
+            ],
+            "promoted_targets": [
+              "red"
+            ]
+          },
+          {
+            "target": "ocupación",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "empleo",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "ocupación",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "grille",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "mesh",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "malla",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          }
+        ],
+        "sample_overblocked_rows": [
+          {
+            "target": "acabar",
+            "trigger": "finish",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabado",
+              "acabarse",
+              "cabalear",
+              "fenecer",
+              "fin",
+              "finir",
+              "meta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir"
+            ]
+          },
+          {
+            "target": "acabar",
+            "trigger": "end",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabarse",
+              "cabo",
+              "concluir",
+              "extremo",
+              "fin",
+              "fin (desus.)",
+              "final",
+              "finalizar",
+              "finir",
+              "lado",
+              "muerte",
+              "parte",
+              "poner fin a",
+              "punta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir"
+            ]
+          },
+          {
+            "target": "camino",
+            "trigger": "way",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "canal",
+              "derrota",
+              "derrotero",
+              "forma",
+              "manera",
+              "medios",
+              "modo",
+              "usanza",
+              "vía"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "cauz",
+              "caz"
+            ],
+            "promoted_targets": [
+              "camino"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "channel",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "canalizar",
+              "dirigir",
+              "encauzar",
+              "estrecho",
+              "álveo"
+            ],
+            "promoted_targets": [
+              "camino"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "charge",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acometer",
+              "acometida",
+              "acusación",
+              "arremeter contra",
+              "arremetida",
+              "atacar",
+              "carga",
+              "cargar",
+              "cobranza",
+              "cobrar",
+              "cobro",
+              "embestida",
+              "embestir",
+              "encargo",
+              "energizar",
+              "energizarse",
+              "figura",
+              "punto",
+              "repostar",
+              "repostarse"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "position",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "posición",
+              "puesto",
+              "punto"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "post",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "cibercolgamiento",
+              "cibercolgar",
+              "colgamiento",
+              "colgamiento cibernético",
+              "colgar",
+              "colgar cibernéticamente",
+              "correo",
+              "enviar (por correo)",
+              "fijar",
+              "post",
+              "postar",
+              "poste",
+              "postear",
+              "publicación",
+              "publicar",
+              "punto"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "coger",
+            "trigger": "catch",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "a atrapar",
+              "abarajar",
+              "agarrar",
+              "ampay",
+              "ampayar",
+              "aparar",
+              "apercibimiento",
+              "apercibo (desus.)",
+              "atajar",
+              "atrapada",
+              "atrapar",
+              "barajar",
+              "cachar",
+              "captar",
+              "captura",
+              "capturar",
+              "cazar",
+              "chapar",
+              "comprehender (desus.)",
+              "comprender",
+              "conquista",
+              "cuestión",
+              "descubrir",
+              "emparar",
+              "interceptar",
+              "intríngulis",
+              "oído",
+              "partido",
+              "pega",
+              "percatación",
+              "percebimiento",
+              "percepción",
+              "pescar",
+              "pillar",
+              "sacar",
+              "traba",
+              "trampa",
+              "truco",
+              "vista"
+            ],
+            "promoted_targets": [
+              "sacar"
+            ]
+          },
+          {
+            "target": "cuadro",
+            "trigger": "chart",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "lista de éxitos",
+              "plaza"
+            ],
+            "promoted_targets": [
+              "plaza"
+            ]
+          },
+          {
+            "target": "cura",
+            "trigger": "priest",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "padre",
+              "párroco",
+              "sacerdote"
+            ],
+            "promoted_targets": [
+              "padre"
+            ]
+          },
+          {
+            "target": "cura",
+            "trigger": "cure",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "curación",
+              "curado",
+              "curar",
+              "curtir",
+              "curtirse",
+              "padre",
+              "remedio",
+              "salar"
+            ],
+            "promoted_targets": [
+              "padre"
+            ]
+          }
+        ],
+        "sample_partial_rows": [
+          {
+            "target": "cargo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [
+              "brete",
+              "camello",
+              "chamba",
+              "cheje",
+              "curro",
+              "empleo",
+              "encargo",
+              "jale",
+              "laburo",
+              "pega",
+              "punto",
+              "talacha",
+              "tarea",
+              "trabajo",
+              "yob"
+            ],
+            "promoted_targets": [
+              "trabajo"
+            ],
+            "missing_gold_targets": [
+              "empleo",
+              "ocupación"
+            ],
+            "extra_promoted_targets": []
+          },
+          {
+            "target": "coger",
+            "trigger": "take",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "llevar"
+            ],
+            "mined_shadow_targets": [
+              "aguantar",
+              "apechugar",
+              "chapar",
+              "durar",
+              "llevar",
+              "opositar",
+              "prender",
+              "punto de vista",
+              "recompensa",
+              "sacar",
+              "soportar",
+              "toma",
+              "tomar",
+              "violar"
+            ],
+            "promoted_targets": [
+              "llevar",
+              "sacar"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "sacar"
+            ]
+          },
+          {
+            "target": "cuadro",
+            "trigger": "table",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "tabla"
+            ],
+            "mined_shadow_targets": [
+              "entremijo",
+              "entremiso",
+              "expremijo",
+              "mesa",
+              "plaza",
+              "poner sobre la mesa",
+              "tabla",
+              "tablas",
+              "tabular",
+              "traer a discusión"
+            ],
+            "promoted_targets": [
+              "tabla",
+              "plaza"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "plaza"
+            ]
+          },
+          {
+            "target": "red",
+            "trigger": "net",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "malla"
+            ],
+            "mined_shadow_targets": [
+              "almadraba",
+              "jábeca",
+              "jábega",
+              "luz",
+              "líquido",
+              "malla",
+              "net",
+              "neto"
+            ],
+            "promoted_targets": [
+              "malla",
+              "luz"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "luz"
+            ]
+          },
+          {
+            "target": "sacar",
+            "trigger": "remove",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "quitar"
+            ],
+            "mined_shadow_targets": [
+              "coger",
+              "detraer",
+              "quitar",
+              "remover"
+            ],
+            "promoted_targets": [
+              "quitar",
+              "coger"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "coger"
+            ]
+          }
+        ]
+      },
+      "benchmark_backed_v1": {
+        "summary": {
+          "trigger_rows_total": 175,
+          "gold_trigger_rows": 33,
+          "trigger_rows_with_active_candidates": 114,
+          "promoted_trigger_rows": 64,
+          "candidate_true_positive_count": 9,
+          "candidate_false_positive_count": 79,
+          "candidate_false_negative_count": 41,
+          "gold_trigger_rows_hit": 9,
+          "gold_trigger_rows_exact_match": 4,
+          "gold_trigger_rows_underblocked": 24,
+          "gold_trigger_rows_partial": 5,
+          "top1_gold_trigger_rows_hit": 9,
+          "no_gold_trigger_rows": 142,
+          "no_gold_trigger_rows_overblocked": 52,
+          "candidate_precision": 0.10227272727272728,
+          "candidate_recall": 0.18,
+          "candidate_f1": 0.13043478260869565,
+          "gold_trigger_hit_rate": 0.2727272727272727,
+          "gold_trigger_exact_match_rate": 0.12121212121212122,
+          "top1_gold_trigger_hit_rate": 0.2727272727272727,
+          "underblocking_rate": 0.7272727272727273,
+          "overblocking_rate": 0.36619718309859156
+        },
+        "sample_underblocked_rows": [
+          {
+            "target": "camino",
+            "trigger": "road",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "carretera",
+              "ruta"
+            ],
+            "mined_shadow_targets": [
+              "calle",
+              "calzada",
+              "canal",
+              "carretera",
+              "ruta"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "camino",
+            "trigger": "path",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "ruta",
+              "sendero"
+            ],
+            "mined_shadow_targets": [
+              "canal",
+              "mixtilínea",
+              "ruta",
+              "senda",
+              "sendero",
+              "trayectoria",
+              "trillo",
+              "trocha"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "campo",
+            "trigger": "field",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "terreno"
+            ],
+            "mined_shadow_targets": [
+              "agro",
+              "cancha",
+              "chacra",
+              "chagra",
+              "chácara",
+              "cuerpo",
+              "desplegar",
+              "implementar",
+              "rubro",
+              "sortear",
+              "terreno",
+              "ámbito"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "carretera",
+            "trigger": "road",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "camino",
+              "ruta"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "ocupación"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "work",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "malla",
+            "trigger": "mesh",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "reja",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [
+              "encastrar",
+              "endentar",
+              "engranaje",
+              "engranar",
+              "red",
+              "rejilla"
+            ],
+            "promoted_targets": [
+              "red"
+            ]
+          },
+          {
+            "target": "ocupación",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "empleo",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "ocupación",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "grille",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "mesh",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "malla",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          }
+        ],
+        "sample_overblocked_rows": [
+          {
+            "target": "acabar",
+            "trigger": "finish",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabado",
+              "acabarse",
+              "cabalear",
+              "fenecer",
+              "fin",
+              "finir",
+              "meta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir"
+            ]
+          },
+          {
+            "target": "acabar",
+            "trigger": "end",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabarse",
+              "cabo",
+              "concluir",
+              "extremo",
+              "fin",
+              "fin (desus.)",
+              "final",
+              "finalizar",
+              "finir",
+              "lado",
+              "muerte",
+              "parte",
+              "poner fin a",
+              "punta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir",
+              "parte"
+            ]
+          },
+          {
+            "target": "camino",
+            "trigger": "way",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "canal",
+              "derrota",
+              "derrotero",
+              "forma",
+              "manera",
+              "medios",
+              "modo",
+              "usanza",
+              "vía"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "cauz",
+              "caz"
+            ],
+            "promoted_targets": [
+              "camino"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "channel",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "canalizar",
+              "dirigir",
+              "encauzar",
+              "estrecho",
+              "álveo"
+            ],
+            "promoted_targets": [
+              "camino"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "charge",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acometer",
+              "acometida",
+              "acusación",
+              "arremeter contra",
+              "arremetida",
+              "atacar",
+              "carga",
+              "cargar",
+              "cobranza",
+              "cobrar",
+              "cobro",
+              "embestida",
+              "embestir",
+              "encargo",
+              "energizar",
+              "energizarse",
+              "figura",
+              "punto",
+              "repostar",
+              "repostarse"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "position",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "posición",
+              "puesto",
+              "punto"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "post",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "cibercolgamiento",
+              "cibercolgar",
+              "colgamiento",
+              "colgamiento cibernético",
+              "colgar",
+              "colgar cibernéticamente",
+              "correo",
+              "enviar (por correo)",
+              "fijar",
+              "post",
+              "postar",
+              "poste",
+              "postear",
+              "publicación",
+              "publicar",
+              "punto"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "office",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "despacho",
+              "oficina",
+              "oficio",
+              "punto",
+              "sede"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "function",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "funcar",
+              "funcionar",
+              "función",
+              "fungir",
+              "punto"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "caso",
+            "trigger": "matter",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "asunto",
+              "cuestión",
+              "importar",
+              "materia",
+              "punto",
+              "tema"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "coger",
+            "trigger": "catch",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "a atrapar",
+              "abarajar",
+              "agarrar",
+              "ampay",
+              "ampayar",
+              "aparar",
+              "apercibimiento",
+              "apercibo (desus.)",
+              "atajar",
+              "atrapada",
+              "atrapar",
+              "barajar",
+              "cachar",
+              "captar",
+              "captura",
+              "capturar",
+              "cazar",
+              "chapar",
+              "comprehender (desus.)",
+              "comprender",
+              "conquista",
+              "cuestión",
+              "descubrir",
+              "emparar",
+              "interceptar",
+              "intríngulis",
+              "oído",
+              "partido",
+              "pega",
+              "percatación",
+              "percebimiento",
+              "percepción",
+              "pescar",
+              "pillar",
+              "sacar",
+              "traba",
+              "trampa",
+              "truco",
+              "vista"
+            ],
+            "promoted_targets": [
+              "sacar",
+              "vista"
+            ]
+          }
+        ],
+        "sample_partial_rows": [
+          {
+            "target": "cargo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [
+              "brete",
+              "camello",
+              "chamba",
+              "cheje",
+              "curro",
+              "empleo",
+              "encargo",
+              "jale",
+              "laburo",
+              "pega",
+              "punto",
+              "talacha",
+              "tarea",
+              "trabajo",
+              "yob"
+            ],
+            "promoted_targets": [
+              "trabajo",
+              "punto"
+            ],
+            "missing_gold_targets": [
+              "empleo",
+              "ocupación"
+            ],
+            "extra_promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "coger",
+            "trigger": "take",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "llevar"
+            ],
+            "mined_shadow_targets": [
+              "aguantar",
+              "apechugar",
+              "chapar",
+              "durar",
+              "llevar",
+              "opositar",
+              "prender",
+              "punto de vista",
+              "recompensa",
+              "sacar",
+              "soportar",
+              "toma",
+              "tomar",
+              "violar"
+            ],
+            "promoted_targets": [
+              "llevar",
+              "sacar"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "sacar"
+            ]
+          },
+          {
+            "target": "cuadro",
+            "trigger": "table",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "tabla"
+            ],
+            "mined_shadow_targets": [
+              "entremijo",
+              "entremiso",
+              "expremijo",
+              "mesa",
+              "plaza",
+              "poner sobre la mesa",
+              "tabla",
+              "tablas",
+              "tabular",
+              "traer a discusión"
+            ],
+            "promoted_targets": [
+              "tabla",
+              "plaza"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "plaza"
+            ]
+          },
+          {
+            "target": "red",
+            "trigger": "net",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "malla"
+            ],
+            "mined_shadow_targets": [
+              "almadraba",
+              "jábeca",
+              "jábega",
+              "luz",
+              "líquido",
+              "malla",
+              "net",
+              "neto"
+            ],
+            "promoted_targets": [
+              "malla",
+              "luz"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "luz"
+            ]
+          },
+          {
+            "target": "sacar",
+            "trigger": "remove",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "quitar"
+            ],
+            "mined_shadow_targets": [
+              "coger",
+              "detraer",
+              "quitar",
+              "remover"
+            ],
+            "promoted_targets": [
+              "quitar",
+              "coger"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "coger"
+            ]
+          }
+        ]
+      },
+      "cross_checked_v1": {
+        "summary": {
+          "trigger_rows_total": 175,
+          "gold_trigger_rows": 33,
+          "trigger_rows_with_active_candidates": 114,
+          "promoted_trigger_rows": 45,
+          "candidate_true_positive_count": 9,
+          "candidate_false_positive_count": 55,
+          "candidate_false_negative_count": 41,
+          "gold_trigger_rows_hit": 9,
+          "gold_trigger_rows_exact_match": 4,
+          "gold_trigger_rows_underblocked": 24,
+          "gold_trigger_rows_partial": 5,
+          "top1_gold_trigger_rows_hit": 9,
+          "no_gold_trigger_rows": 142,
+          "no_gold_trigger_rows_overblocked": 33,
+          "candidate_precision": 0.140625,
+          "candidate_recall": 0.18,
+          "candidate_f1": 0.15789473684210525,
+          "gold_trigger_hit_rate": 0.2727272727272727,
+          "gold_trigger_exact_match_rate": 0.12121212121212122,
+          "top1_gold_trigger_hit_rate": 0.2727272727272727,
+          "underblocking_rate": 0.7272727272727273,
+          "overblocking_rate": 0.2323943661971831
+        },
+        "sample_underblocked_rows": [
+          {
+            "target": "camino",
+            "trigger": "road",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "carretera",
+              "ruta"
+            ],
+            "mined_shadow_targets": [
+              "calle",
+              "calzada",
+              "canal",
+              "carretera",
+              "ruta"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "camino",
+            "trigger": "path",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "ruta",
+              "sendero"
+            ],
+            "mined_shadow_targets": [
+              "canal",
+              "mixtilínea",
+              "ruta",
+              "senda",
+              "sendero",
+              "trayectoria",
+              "trillo",
+              "trocha"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "campo",
+            "trigger": "field",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "terreno"
+            ],
+            "mined_shadow_targets": [
+              "agro",
+              "cancha",
+              "chacra",
+              "chagra",
+              "chácara",
+              "cuerpo",
+              "desplegar",
+              "implementar",
+              "rubro",
+              "sortear",
+              "terreno",
+              "ámbito"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "carretera",
+            "trigger": "road",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "camino",
+              "ruta"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "ocupación"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "work",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "malla",
+            "trigger": "mesh",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "reja",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [
+              "encastrar",
+              "endentar",
+              "engranaje",
+              "engranar",
+              "red",
+              "rejilla"
+            ],
+            "promoted_targets": [
+              "red"
+            ]
+          },
+          {
+            "target": "ocupación",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "empleo",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "ocupación",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "grille",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "mesh",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "malla",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          }
+        ],
+        "sample_overblocked_rows": [
+          {
+            "target": "acabar",
+            "trigger": "finish",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabado",
+              "acabarse",
+              "cabalear",
+              "fenecer",
+              "fin",
+              "finir",
+              "meta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir"
+            ]
+          },
+          {
+            "target": "acabar",
+            "trigger": "end",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabarse",
+              "cabo",
+              "concluir",
+              "extremo",
+              "fin",
+              "fin (desus.)",
+              "final",
+              "finalizar",
+              "finir",
+              "lado",
+              "muerte",
+              "parte",
+              "poner fin a",
+              "punta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir"
+            ]
+          },
+          {
+            "target": "camino",
+            "trigger": "way",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "canal",
+              "derrota",
+              "derrotero",
+              "forma",
+              "manera",
+              "medios",
+              "modo",
+              "usanza",
+              "vía"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "cauz",
+              "caz"
+            ],
+            "promoted_targets": [
+              "camino"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "channel",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "canalizar",
+              "dirigir",
+              "encauzar",
+              "estrecho",
+              "álveo"
+            ],
+            "promoted_targets": [
+              "camino"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "charge",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acometer",
+              "acometida",
+              "acusación",
+              "arremeter contra",
+              "arremetida",
+              "atacar",
+              "carga",
+              "cargar",
+              "cobranza",
+              "cobrar",
+              "cobro",
+              "embestida",
+              "embestir",
+              "encargo",
+              "energizar",
+              "energizarse",
+              "figura",
+              "punto",
+              "repostar",
+              "repostarse"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "position",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "posición",
+              "puesto",
+              "punto"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "post",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "cibercolgamiento",
+              "cibercolgar",
+              "colgamiento",
+              "colgamiento cibernético",
+              "colgar",
+              "colgar cibernéticamente",
+              "correo",
+              "enviar (por correo)",
+              "fijar",
+              "post",
+              "postar",
+              "poste",
+              "postear",
+              "publicación",
+              "publicar",
+              "punto"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "coger",
+            "trigger": "catch",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "a atrapar",
+              "abarajar",
+              "agarrar",
+              "ampay",
+              "ampayar",
+              "aparar",
+              "apercibimiento",
+              "apercibo (desus.)",
+              "atajar",
+              "atrapada",
+              "atrapar",
+              "barajar",
+              "cachar",
+              "captar",
+              "captura",
+              "capturar",
+              "cazar",
+              "chapar",
+              "comprehender (desus.)",
+              "comprender",
+              "conquista",
+              "cuestión",
+              "descubrir",
+              "emparar",
+              "interceptar",
+              "intríngulis",
+              "oído",
+              "partido",
+              "pega",
+              "percatación",
+              "percebimiento",
+              "percepción",
+              "pescar",
+              "pillar",
+              "sacar",
+              "traba",
+              "trampa",
+              "truco",
+              "vista"
+            ],
+            "promoted_targets": [
+              "sacar"
+            ]
+          },
+          {
+            "target": "cuadro",
+            "trigger": "chart",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "lista de éxitos",
+              "plaza"
+            ],
+            "promoted_targets": [
+              "plaza"
+            ]
+          },
+          {
+            "target": "cura",
+            "trigger": "priest",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "padre",
+              "párroco",
+              "sacerdote"
+            ],
+            "promoted_targets": [
+              "padre"
+            ]
+          },
+          {
+            "target": "cura",
+            "trigger": "cure",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "curación",
+              "curado",
+              "curar",
+              "curtir",
+              "curtirse",
+              "padre",
+              "remedio",
+              "salar"
+            ],
+            "promoted_targets": [
+              "padre"
+            ]
+          }
+        ],
+        "sample_partial_rows": [
+          {
+            "target": "cargo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [
+              "brete",
+              "camello",
+              "chamba",
+              "cheje",
+              "curro",
+              "empleo",
+              "encargo",
+              "jale",
+              "laburo",
+              "pega",
+              "punto",
+              "talacha",
+              "tarea",
+              "trabajo",
+              "yob"
+            ],
+            "promoted_targets": [
+              "trabajo"
+            ],
+            "missing_gold_targets": [
+              "empleo",
+              "ocupación"
+            ],
+            "extra_promoted_targets": []
+          },
+          {
+            "target": "coger",
+            "trigger": "take",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "llevar"
+            ],
+            "mined_shadow_targets": [
+              "aguantar",
+              "apechugar",
+              "chapar",
+              "durar",
+              "llevar",
+              "opositar",
+              "prender",
+              "punto de vista",
+              "recompensa",
+              "sacar",
+              "soportar",
+              "toma",
+              "tomar",
+              "violar"
+            ],
+            "promoted_targets": [
+              "llevar",
+              "sacar"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "sacar"
+            ]
+          },
+          {
+            "target": "cuadro",
+            "trigger": "table",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "tabla"
+            ],
+            "mined_shadow_targets": [
+              "entremijo",
+              "entremiso",
+              "expremijo",
+              "mesa",
+              "plaza",
+              "poner sobre la mesa",
+              "tabla",
+              "tablas",
+              "tabular",
+              "traer a discusión"
+            ],
+            "promoted_targets": [
+              "tabla",
+              "plaza"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "plaza"
+            ]
+          },
+          {
+            "target": "red",
+            "trigger": "net",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "malla"
+            ],
+            "mined_shadow_targets": [
+              "almadraba",
+              "jábeca",
+              "jábega",
+              "luz",
+              "líquido",
+              "malla",
+              "net",
+              "neto"
+            ],
+            "promoted_targets": [
+              "malla",
+              "luz"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "luz"
+            ]
+          },
+          {
+            "target": "sacar",
+            "trigger": "remove",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "quitar"
+            ],
+            "mined_shadow_targets": [
+              "coger",
+              "detraer",
+              "quitar",
+              "remover"
+            ],
+            "promoted_targets": [
+              "quitar",
+              "coger"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "coger"
+            ]
+          }
+        ]
+      },
+      "cross_checked_backoff_missing_active_v1": {
+        "summary": {
+          "trigger_rows_total": 175,
+          "gold_trigger_rows": 33,
+          "trigger_rows_with_active_candidates": 114,
+          "promoted_trigger_rows": 45,
+          "candidate_true_positive_count": 9,
+          "candidate_false_positive_count": 55,
+          "candidate_false_negative_count": 41,
+          "gold_trigger_rows_hit": 9,
+          "gold_trigger_rows_exact_match": 4,
+          "gold_trigger_rows_underblocked": 24,
+          "gold_trigger_rows_partial": 5,
+          "top1_gold_trigger_rows_hit": 9,
+          "no_gold_trigger_rows": 142,
+          "no_gold_trigger_rows_overblocked": 33,
+          "candidate_precision": 0.140625,
+          "candidate_recall": 0.18,
+          "candidate_f1": 0.15789473684210525,
+          "gold_trigger_hit_rate": 0.2727272727272727,
+          "gold_trigger_exact_match_rate": 0.12121212121212122,
+          "top1_gold_trigger_hit_rate": 0.2727272727272727,
+          "underblocking_rate": 0.7272727272727273,
+          "overblocking_rate": 0.2323943661971831
+        },
+        "sample_underblocked_rows": [
+          {
+            "target": "camino",
+            "trigger": "road",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "carretera",
+              "ruta"
+            ],
+            "mined_shadow_targets": [
+              "calle",
+              "calzada",
+              "canal",
+              "carretera",
+              "ruta"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "camino",
+            "trigger": "path",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "ruta",
+              "sendero"
+            ],
+            "mined_shadow_targets": [
+              "canal",
+              "mixtilínea",
+              "ruta",
+              "senda",
+              "sendero",
+              "trayectoria",
+              "trillo",
+              "trocha"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "campo",
+            "trigger": "field",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "terreno"
+            ],
+            "mined_shadow_targets": [
+              "agro",
+              "cancha",
+              "chacra",
+              "chagra",
+              "chácara",
+              "cuerpo",
+              "desplegar",
+              "implementar",
+              "rubro",
+              "sortear",
+              "terreno",
+              "ámbito"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "carretera",
+            "trigger": "road",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "camino",
+              "ruta"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "ocupación"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "work",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "malla",
+            "trigger": "mesh",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "reja",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [
+              "encastrar",
+              "endentar",
+              "engranaje",
+              "engranar",
+              "red",
+              "rejilla"
+            ],
+            "promoted_targets": [
+              "red"
+            ]
+          },
+          {
+            "target": "ocupación",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "empleo",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "ocupación",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "grille",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "reja",
+            "trigger": "mesh",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "malla",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          }
+        ],
+        "sample_overblocked_rows": [
+          {
+            "target": "acabar",
+            "trigger": "finish",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabado",
+              "acabarse",
+              "cabalear",
+              "fenecer",
+              "fin",
+              "finir",
+              "meta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir"
+            ]
+          },
+          {
+            "target": "acabar",
+            "trigger": "end",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acabarse",
+              "cabo",
+              "concluir",
+              "extremo",
+              "fin",
+              "fin (desus.)",
+              "final",
+              "finalizar",
+              "finir",
+              "lado",
+              "muerte",
+              "parte",
+              "poner fin a",
+              "punta",
+              "salir",
+              "terminar",
+              "terminarse",
+              "ultimar"
+            ],
+            "promoted_targets": [
+              "salir"
+            ]
+          },
+          {
+            "target": "camino",
+            "trigger": "way",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "canal",
+              "derrota",
+              "derrotero",
+              "forma",
+              "manera",
+              "medios",
+              "modo",
+              "usanza",
+              "vía"
+            ],
+            "promoted_targets": [
+              "canal"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "canal",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "cauz",
+              "caz"
+            ],
+            "promoted_targets": [
+              "camino"
+            ]
+          },
+          {
+            "target": "canal",
+            "trigger": "channel",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "camino",
+              "canalizar",
+              "dirigir",
+              "encauzar",
+              "estrecho",
+              "álveo"
+            ],
+            "promoted_targets": [
+              "camino"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "charge",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "acometer",
+              "acometida",
+              "acusación",
+              "arremeter contra",
+              "arremetida",
+              "atacar",
+              "carga",
+              "cargar",
+              "cobranza",
+              "cobrar",
+              "cobro",
+              "embestida",
+              "embestir",
+              "encargo",
+              "energizar",
+              "energizarse",
+              "figura",
+              "punto",
+              "repostar",
+              "repostarse"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "position",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "posición",
+              "puesto",
+              "punto"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "cargo",
+            "trigger": "post",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "cibercolgamiento",
+              "cibercolgar",
+              "colgamiento",
+              "colgamiento cibernético",
+              "colgar",
+              "colgar cibernéticamente",
+              "correo",
+              "enviar (por correo)",
+              "fijar",
+              "post",
+              "postar",
+              "poste",
+              "postear",
+              "publicación",
+              "publicar",
+              "punto"
+            ],
+            "promoted_targets": [
+              "punto"
+            ]
+          },
+          {
+            "target": "coger",
+            "trigger": "catch",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "a atrapar",
+              "abarajar",
+              "agarrar",
+              "ampay",
+              "ampayar",
+              "aparar",
+              "apercibimiento",
+              "apercibo (desus.)",
+              "atajar",
+              "atrapada",
+              "atrapar",
+              "barajar",
+              "cachar",
+              "captar",
+              "captura",
+              "capturar",
+              "cazar",
+              "chapar",
+              "comprehender (desus.)",
+              "comprender",
+              "conquista",
+              "cuestión",
+              "descubrir",
+              "emparar",
+              "interceptar",
+              "intríngulis",
+              "oído",
+              "partido",
+              "pega",
+              "percatación",
+              "percebimiento",
+              "percepción",
+              "pescar",
+              "pillar",
+              "sacar",
+              "traba",
+              "trampa",
+              "truco",
+              "vista"
+            ],
+            "promoted_targets": [
+              "sacar"
+            ]
+          },
+          {
+            "target": "cuadro",
+            "trigger": "chart",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "lista de éxitos",
+              "plaza"
+            ],
+            "promoted_targets": [
+              "plaza"
+            ]
+          },
+          {
+            "target": "cura",
+            "trigger": "priest",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "padre",
+              "párroco",
+              "sacerdote"
+            ],
+            "promoted_targets": [
+              "padre"
+            ]
+          },
+          {
+            "target": "cura",
+            "trigger": "cure",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [],
+            "mined_shadow_targets": [
+              "curación",
+              "curado",
+              "curar",
+              "curtir",
+              "curtirse",
+              "padre",
+              "remedio",
+              "salar"
+            ],
+            "promoted_targets": [
+              "padre"
+            ]
+          }
+        ],
+        "sample_partial_rows": [
+          {
+            "target": "cargo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [
+              "brete",
+              "camello",
+              "chamba",
+              "cheje",
+              "curro",
+              "empleo",
+              "encargo",
+              "jale",
+              "laburo",
+              "pega",
+              "punto",
+              "talacha",
+              "tarea",
+              "trabajo",
+              "yob"
+            ],
+            "promoted_targets": [
+              "trabajo"
+            ],
+            "missing_gold_targets": [
+              "empleo",
+              "ocupación"
+            ],
+            "extra_promoted_targets": []
+          },
+          {
+            "target": "coger",
+            "trigger": "take",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "llevar"
+            ],
+            "mined_shadow_targets": [
+              "aguantar",
+              "apechugar",
+              "chapar",
+              "durar",
+              "llevar",
+              "opositar",
+              "prender",
+              "punto de vista",
+              "recompensa",
+              "sacar",
+              "soportar",
+              "toma",
+              "tomar",
+              "violar"
+            ],
+            "promoted_targets": [
+              "llevar",
+              "sacar"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "sacar"
+            ]
+          },
+          {
+            "target": "cuadro",
+            "trigger": "table",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "tabla"
+            ],
+            "mined_shadow_targets": [
+              "entremijo",
+              "entremiso",
+              "expremijo",
+              "mesa",
+              "plaza",
+              "poner sobre la mesa",
+              "tabla",
+              "tablas",
+              "tabular",
+              "traer a discusión"
+            ],
+            "promoted_targets": [
+              "tabla",
+              "plaza"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "plaza"
+            ]
+          },
+          {
+            "target": "red",
+            "trigger": "net",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "malla"
+            ],
+            "mined_shadow_targets": [
+              "almadraba",
+              "jábeca",
+              "jábega",
+              "luz",
+              "líquido",
+              "malla",
+              "net",
+              "neto"
+            ],
+            "promoted_targets": [
+              "malla",
+              "luz"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "luz"
+            ]
+          },
+          {
+            "target": "sacar",
+            "trigger": "remove",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "quitar"
+            ],
+            "mined_shadow_targets": [
+              "coger",
+              "detraer",
+              "quitar",
+              "remover"
+            ],
+            "promoted_targets": [
+              "quitar",
+              "coger"
+            ],
+            "missing_gold_targets": [],
+            "extra_promoted_targets": [
+              "coger"
+            ]
+          }
+        ]
+      },
+      "none": {
+        "summary": {
+          "trigger_rows_total": 175,
+          "gold_trigger_rows": 33,
+          "trigger_rows_with_active_candidates": 114,
+          "promoted_trigger_rows": 0,
+          "candidate_true_positive_count": 0,
+          "candidate_false_positive_count": 0,
+          "candidate_false_negative_count": 50,
+          "gold_trigger_rows_hit": 0,
+          "gold_trigger_rows_exact_match": 0,
+          "gold_trigger_rows_underblocked": 33,
+          "gold_trigger_rows_partial": 0,
+          "top1_gold_trigger_rows_hit": 0,
+          "no_gold_trigger_rows": 142,
+          "no_gold_trigger_rows_overblocked": 0,
+          "candidate_precision": null,
+          "candidate_recall": 0.0,
+          "candidate_f1": null,
+          "gold_trigger_hit_rate": 0.0,
+          "gold_trigger_exact_match_rate": 0.0,
+          "top1_gold_trigger_hit_rate": 0.0,
+          "underblocking_rate": 1.0,
+          "overblocking_rate": 0.0
+        },
+        "sample_underblocked_rows": [
+          {
+            "target": "camino",
+            "trigger": "road",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "carretera",
+              "ruta"
+            ],
+            "mined_shadow_targets": [
+              "calle",
+              "calzada",
+              "canal",
+              "carretera",
+              "ruta"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "camino",
+            "trigger": "path",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "ruta",
+              "sendero"
+            ],
+            "mined_shadow_targets": [
+              "canal",
+              "mixtilínea",
+              "ruta",
+              "senda",
+              "sendero",
+              "trayectoria",
+              "trillo",
+              "trocha"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "campo",
+            "trigger": "field",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "terreno"
+            ],
+            "mined_shadow_targets": [
+              "agro",
+              "cancha",
+              "chacra",
+              "chagra",
+              "chácara",
+              "cuerpo",
+              "desplegar",
+              "implementar",
+              "rubro",
+              "sortear",
+              "terreno",
+              "ámbito"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "cargo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "empleo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [
+              "brete",
+              "camello",
+              "chamba",
+              "cheje",
+              "curro",
+              "empleo",
+              "encargo",
+              "jale",
+              "laburo",
+              "pega",
+              "punto",
+              "talacha",
+              "tarea",
+              "trabajo",
+              "yob"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "carretera",
+            "trigger": "road",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "camino",
+              "ruta"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "coger",
+            "trigger": "take",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "llevar"
+            ],
+            "mined_shadow_targets": [
+              "aguantar",
+              "apechugar",
+              "chapar",
+              "durar",
+              "llevar",
+              "opositar",
+              "prender",
+              "punto de vista",
+              "recompensa",
+              "sacar",
+              "soportar",
+              "toma",
+              "tomar",
+              "violar"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "cuadro",
+            "trigger": "table",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "tabla"
+            ],
+            "mined_shadow_targets": [
+              "entremijo",
+              "entremiso",
+              "expremijo",
+              "mesa",
+              "plaza",
+              "poner sobre la mesa",
+              "tabla",
+              "tablas",
+              "tabular",
+              "traer a discusión"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "employment",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "ocupación"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "job",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "cargo",
+              "ocupación",
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "empleo",
+            "trigger": "work",
+            "active_candidate_count": 0,
+            "gold_shadow_targets": [
+              "trabajo"
+            ],
+            "mined_shadow_targets": [],
+            "promoted_targets": []
+          },
+          {
+            "target": "llevar",
+            "trigger": "take",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "coger"
+            ],
+            "mined_shadow_targets": [
+              "aguantar",
+              "apechugar",
+              "chapar",
+              "coger",
+              "durar",
+              "opositar",
+              "prender",
+              "punto de vista",
+              "recompensa",
+              "soportar",
+              "toma",
+              "tomar",
+              "violar"
+            ],
+            "promoted_targets": []
+          },
+          {
+            "target": "malla",
+            "trigger": "mesh",
+            "active_candidate_count": 1,
+            "gold_shadow_targets": [
+              "reja",
+              "rejilla"
+            ],
+            "mined_shadow_targets": [
+              "encastrar",
+              "endentar",
+              "engranaje",
+              "engranar",
+              "red",
+              "rejilla"
+            ],
+            "promoted_targets": []
+          }
+        ],
+        "sample_overblocked_rows": [],
+        "sample_partial_rows": []
+      },
+      "gold_overlap_oracle": {
+        "summary": {
+          "trigger_rows_total": 175,
+          "gold_trigger_rows": 33,
+          "trigger_rows_with_active_candidates": 114,
+          "promoted_trigger_rows": 33,
+          "candidate_true_positive_count": 50,
+          "candidate_false_positive_count": 0,
+          "candidate_false_negative_count": 0,
+          "gold_trigger_rows_hit": 33,
+          "gold_trigger_rows_exact_match": 33,
+          "gold_trigger_rows_underblocked": 0,
+          "gold_trigger_rows_partial": 0,
+          "top1_gold_trigger_rows_hit": 33,
+          "no_gold_trigger_rows": 142,
+          "no_gold_trigger_rows_overblocked": 0,
+          "candidate_precision": 1.0,
+          "candidate_recall": 1.0,
+          "candidate_f1": 1.0,
+          "gold_trigger_hit_rate": 1.0,
+          "gold_trigger_exact_match_rate": 1.0,
+          "top1_gold_trigger_hit_rate": 1.0,
+          "underblocking_rate": 0.0,
+          "overblocking_rate": 0.0
+        },
+        "sample_underblocked_rows": [],
+        "sample_overblocked_rows": [],
+        "sample_partial_rows": []
+      }
+    }
+  }
+}

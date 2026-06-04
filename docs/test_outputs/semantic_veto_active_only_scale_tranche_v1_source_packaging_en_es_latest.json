@@ -1,0 +1,179 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-scale-tranche-v1-source-packaging-latest",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:adder:v-bora",
+      "packaged_row_count": 2,
+      "targets": [
+        "víbora"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:adjoining:contiguo",
+      "packaged_row_count": 2,
+      "targets": [
+        "contiguo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:altitude:elevaci-n",
+      "packaged_row_count": 2,
+      "targets": [
+        "elevación"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:billow:oleaje",
+      "packaged_row_count": 2,
+      "targets": [
+        "oleaje"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:continue:durar",
+      "packaged_row_count": 2,
+      "targets": [
+        "durar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:current:contempor-neo",
+      "packaged_row_count": 2,
+      "targets": [
+        "contemporáneo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:emotion:emoci-n",
+      "packaged_row_count": 2,
+      "targets": [
+        "emoción"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:handiwork:artesan-a",
+      "packaged_row_count": 2,
+      "targets": [
+        "artesanía"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:health:salud",
+      "packaged_row_count": 2,
+      "targets": [
+        "salud"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:june:junio",
+      "packaged_row_count": 2,
+      "targets": [
+        "junio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:pair:par",
+      "packaged_row_count": 2,
+      "targets": [
+        "par"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:parrot:loro",
+      "packaged_row_count": 2,
+      "targets": [
+        "loro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:recover:sanar",
+      "packaged_row_count": 2,
+      "targets": [
+        "sanar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:snore:roncar",
+      "packaged_row_count": 2,
+      "targets": [
+        "roncar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:stall:cuadra",
+      "packaged_row_count": 2,
+      "targets": [
+        "cuadra"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:full-family-repaired-full:upon:sobre",
+      "packaged_row_count": 2,
+      "targets": [
+        "sobre"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-09T22:53:13Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_scale_tranche_v1_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 7547,
+    "model_id": "gpt-5.4-mini",
+    "output_tokens": 2742,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "none",
+    "temperature": 0.2
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 32,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 16,
+    "packaged_row_count": 32,
+    "promotion_state_counts": {
+      "proposed": 32
+    },
+    "relation_type_counts": {
+      "anchor_cue": 32
+    },
+    "review_state_counts": {
+      "unreviewed": 32
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

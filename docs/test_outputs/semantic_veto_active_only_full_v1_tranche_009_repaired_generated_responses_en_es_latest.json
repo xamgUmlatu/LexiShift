@@ -1,0 +1,1058 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-009-approved",
+  "execution_mode": "live",
+  "generated_at": "2026-05-13T19:27:24Z",
+  "model_id": "gpt-5.4-mini",
+  "operator_repairs": [
+    {
+      "family_id": "en-es:srs-source-target:perchance:quizas:4ed5b37e",
+      "invalid_output_family_id": "en-es:srs-source-target:perchance:quizas:4ed5e37e",
+      "invalid_output_request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:perchance:quizas:4ed5e37e:active_evidence_expansion",
+      "invalid_output_slot_id": "en-es:srs-source-target:perchance:quizas:4ed5e37e:active_evidence_expansion",
+      "repair_reason": "generator twice changed the source-target hash from 4ed5b37e to 4ed5e37e; sentence content preserved and metadata restored to the reviewed request packet",
+      "repair_type": "metadata_id_restoration_after_repeated_invalid_output",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:perchance:quizas:4ed5b37e:active_evidence_expansion",
+      "reviewed_by": "codex_operator",
+      "sentence_content_changed": false,
+      "slot_id": "en-es:srs-source-target:perchance:quizas:4ed5b37e:active_evidence_expansion",
+      "source_phrase": "perchance",
+      "target_lemma": "quizás"
+    }
+  ],
+  "pair": "en-es",
+  "pilot_id": "en-es-active-only-full-v1-tranche-009",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:glove:guante:898c0a5b",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Protective hand covering used for safety while cooking.",
+          "sentence": "He pulled on a glove before handling the hot pan."
+        },
+        {
+          "evidence_note": "Sports equipment worn on the hand to catch a ball.",
+          "sentence": "The catcher adjusted his glove and waited for the pitch."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:glove:guante:898c0a5b:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:glove:guante:898c0a5b:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:glove:guante:898c0a5b:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "glove",
+      "target_lemma": "guante",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:goose:ganso:6f61cd68",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Animal noun context clearly refers to a goose.",
+          "sentence": "The farm had a loud goose that chased the children around the yard."
+        },
+        {
+          "evidence_note": "Natural animal scene with goose as the bird.",
+          "sentence": "We watched a white goose glide across the pond at dusk."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:goose:ganso:6f61cd68:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:goose:ganso:6f61cd68:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:goose:ganso:6f61cd68:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "goose",
+      "target_lemma": "ganso",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:idol:idolo:f73701e0",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Clear person-as-admired-figure sense.",
+          "sentence": "The singer was her idol, and she kept a poster of him above her desk."
+        },
+        {
+          "evidence_note": "Shows idol as a beloved role model, not a statue.",
+          "sentence": "As a child, he treated the basketball star as an idol and copied his every move."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:idol:idolo:f73701e0:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:idol:idolo:f73701e0:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:idol:idolo:f73701e0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "idol",
+      "target_lemma": "ídolo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:inflammation:inflamacion:642fc467",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Medical context clearly indicates the bodily swelling and irritation sense.",
+          "sentence": "The doctor prescribed rest and medication to reduce the inflammation in her knee after the run."
+        },
+        {
+          "evidence_note": "Clinical wording makes the intended medical noun sense explicit.",
+          "sentence": "Blood tests showed that the inflammation was still active, so the patient continued treatment."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:inflammation:inflamacion:642fc467:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:inflammation:inflamacion:642fc467:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:inflammation:inflamacion:642fc467:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "inflammation",
+      "target_lemma": "inflamación",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:intoxicated:ebrio:9307c97f",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Alcohol context shows the intended sense of being drunk.",
+          "sentence": "After three beers, he was clearly intoxicated and needed a ride home."
+        },
+        {
+          "evidence_note": "Refers to people drunk from alcohol, matching the active target sense.",
+          "sentence": "The party ended early because several guests were intoxicated and could not drive safely."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:intoxicated:ebrio:9307c97f:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:intoxicated:ebrio:9307c97f:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:intoxicated:ebrio:9307c97f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "intoxicated",
+      "target_lemma": "ebrio",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:jest:bromear:55d79731",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "jest is used as a light joking remark, matching the intended sense of joking or teasing.",
+          "sentence": "He meant the remark as a jest, not a serious criticism."
+        },
+        {
+          "evidence_note": "jest clearly means to joke rather than to speak seriously.",
+          "sentence": "She smiled to show that her comment was a jest and meant in fun."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:jest:bromear:55d79731:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:jest:bromear:55d79731:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:jest:bromear:55d79731:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "jest",
+      "target_lemma": "bromear",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:lick:lamer:ec658c72",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Active verb use showing an animal using its tongue to take up liquid.",
+          "sentence": "The cat will lick the milk from the saucer."
+        },
+        {
+          "evidence_note": "Natural transitive action of using the tongue to remove food from an object.",
+          "sentence": "Before baking, she likes to lick the spoon clean."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:lick:lamer:ec658c72:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:lick:lamer:ec658c72:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:lick:lamer:ec658c72:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "lick",
+      "target_lemma": "lamer",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:mist:niebla:b7b6f5af",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Weather noun use referring to low-lying fog.",
+          "sentence": "A cold mist settled over the harbor before sunrise."
+        },
+        {
+          "evidence_note": "Visible atmospheric haze obscuring the view.",
+          "sentence": "The road disappeared into the mist as the hills grew farther away."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:mist:niebla:b7b6f5af:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:mist:niebla:b7b6f5af:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:mist:niebla:b7b6f5af:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "mist",
+      "target_lemma": "niebla",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:mosaic:mosaico:a3468e64",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Direct noun use for a tiled decorative mosaic.",
+          "sentence": "The kitchen wall featured a colorful mosaic made of tiny ceramic tiles."
+        },
+        {
+          "evidence_note": "Clear referent is a decorative tiled mosaic.",
+          "sentence": "She admired the mosaic in the church floor, which depicted a scene in glass and stone."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:mosaic:mosaico:a3468e64:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:mosaic:mosaico:a3468e64:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:mosaic:mosaico:a3468e64:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "mosaic",
+      "target_lemma": "mosaico",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:nameless:anonimo:c9e71255",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Describes an unidentified person whose name is not disclosed.",
+          "sentence": "The donation came from a nameless benefactor who asked to stay out of the public record."
+        },
+        {
+          "evidence_note": "Signals an unnamed sender in a context of identity concealment.",
+          "sentence": "Her letter was signed with a nameless initials-only mark, keeping the sender anonymous."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:nameless:anonimo:c9e71255:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:nameless:anonimo:c9e71255:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:nameless:anonimo:c9e71255:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "nameless",
+      "target_lemma": "anónimo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:offspring:descendiente:5e3ee01c",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Direct lineage meaning: children or young produced by a parent animal.",
+          "sentence": "The farmer chose his best horse as breeding stock so its offspring would inherit a strong build and calm temperament."
+        },
+        {
+          "evidence_note": "Direct lineage meaning: a person’s child or children as heirs.",
+          "sentence": "Her legal will left the estate to any living offspring, whether son or daughter, rather than to distant relatives."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:offspring:descendiente:5e3ee01c:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:offspring:descendiente:5e3ee01c:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:offspring:descendiente:5e3ee01c:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "offspring",
+      "target_lemma": "descendiente",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:patriarch:patriarca:06c74e78",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses patriarch as the male head of a family.",
+          "sentence": "The family patriarch gathered everyone for the annual reunion and gave a toast."
+        },
+        {
+          "evidence_note": "Shows patriarch in the sense of respected elder family leader.",
+          "sentence": "As the village patriarch, he was the eldest man whose advice settled every dispute."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:patriarch:patriarca:06c74e78:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:patriarch:patriarca:06c74e78:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:patriarch:patriarca:06c74e78:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "patriarch",
+      "target_lemma": "patriarca",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:phenomenal:fenomenal:856698e7",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Praises an exceptionally impressive performance, matching the intended adjective sense.",
+          "sentence": "Her phenomenal performance earned a standing ovation from the entire crowd."
+        },
+        {
+          "evidence_note": "Describes something extraordinarily good and impressive in a natural active context.",
+          "sentence": "The team made a phenomenal comeback in the final minutes."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:phenomenal:fenomenal:856698e7:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:phenomenal:fenomenal:856698e7:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:phenomenal:fenomenal:856698e7:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "phenomenal",
+      "target_lemma": "fenomenal",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:pigeon:paloma:ac24415a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Bird-context use that matches the intended Spanish bird noun sense.",
+          "sentence": "A pigeon landed on the balcony and pecked at the crumbs I had left."
+        },
+        {
+          "evidence_note": "Natural avian context where the source phrase clearly refers to the bird sense.",
+          "sentence": "We watched a pigeon circle the plaza before settling on the fountain edge."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:pigeon:paloma:ac24415a:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:pigeon:paloma:ac24415a:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:pigeon:paloma:ac24415a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "pigeon",
+      "target_lemma": "paloma",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:protestant:protestante:d26b0ede",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Religious affiliation context clearly indicates the adjective/noun sense.",
+          "sentence": "My grandmother was raised protestant, so Sunday worship was an important part of her childhood."
+        },
+        {
+          "evidence_note": "Contrasts protestant with another Christian tradition, showing the intended religious sense.",
+          "sentence": "The town has both a Catholic church and a protestant chapel on the main square."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:protestant:protestante:d26b0ede:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:protestant:protestante:d26b0ede:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:protestant:protestante:d26b0ede:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "protestant",
+      "target_lemma": "protestante",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:relinquish:ceder:0ecd236b",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Giving up a position to someone else.",
+          "sentence": "She decided to relinquish her seat on the committee so a younger member could take it."
+        },
+        {
+          "evidence_note": "Yielding authority or control.",
+          "sentence": "After a long debate, he agreed to relinquish control of the project and let his partner lead."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:relinquish:ceder:0ecd236b:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:relinquish:ceder:0ecd236b:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:relinquish:ceder:0ecd236b:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "relinquish",
+      "target_lemma": "ceder",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:restrain:reprimir:991f7bb9",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "restrain means suppress or hold down public unrest.",
+          "sentence": "The government tried to restrain the protests after the speech stirred public anger."
+        },
+        {
+          "evidence_note": "restrain means suppress an emotion rather than physically hold something back.",
+          "sentence": "She bit her tongue to restrain her frustration during the meeting."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:restrain:reprimir:991f7bb9:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:restrain:reprimir:991f7bb9:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:restrain:reprimir:991f7bb9:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "restrain",
+      "target_lemma": "reprimir",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:romanian:rumano:8319ecf3",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Nationality adjective referring to a person from Romania.",
+          "sentence": "She met a romanian engineer who had just moved to Madrid."
+        },
+        {
+          "evidence_note": "Used as a demonym for a Romanian person in a family context.",
+          "sentence": "His romanian grandmother still speaks three languages at home."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:romanian:rumano:8319ecf3:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:romanian:rumano:8319ecf3:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:romanian:rumano:8319ecf3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "romanian",
+      "target_lemma": "rumano",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:satisfy:complacer:a006be45",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "satisfy means please or make someone happy.",
+          "sentence": "I tried to satisfy her by choosing the restaurant she loves."
+        },
+        {
+          "evidence_note": "satisfy means please or meet the person's expectations.",
+          "sentence": "Nothing I did could satisfy the judge, who wanted a fuller explanation."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:satisfy:complacer:a006be45:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:satisfy:complacer:a006be45:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:satisfy:complacer:a006be45:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "satisfy",
+      "target_lemma": "complacer",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:skirt:falda:f8e36e29",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Clothing item worn around the waist, matching the intended noun sense.",
+          "sentence": "She chose a blue skirt for the summer wedding."
+        },
+        {
+          "evidence_note": "Describes a garment, clearly the clothing sense of skirt.",
+          "sentence": "The skirt she wore with the blouse reached her knees."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:skirt:falda:f8e36e29:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:skirt:falda:f8e36e29:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:skirt:falda:f8e36e29:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "skirt",
+      "target_lemma": "falda",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:subscriber:abonado:aa293bd4",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "A customer who maintains an active paid service membership.",
+          "sentence": "The subscriber renewed her monthly plan to keep streaming movies without interruption."
+        },
+        {
+          "evidence_note": "A person enrolled in a paid service account.",
+          "sentence": "Each subscriber received an email confirming the updated billing date for the service."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:subscriber:abonado:aa293bd4:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:subscriber:abonado:aa293bd4:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:subscriber:abonado:aa293bd4:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "subscriber",
+      "target_lemma": "abonado",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:swede:sueco:37f9f298",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Refers to a Swedish person, not the vegetable.",
+          "sentence": "The swede explained that Stockholm was his hometown and that he still followed Swedish hockey."
+        },
+        {
+          "evidence_note": "Clear nationality context shows the intended person sense.",
+          "sentence": "As a swede living in London, she missed the long summer daylight back home in Sweden."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:swede:sueco:37f9f298:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:swede:sueco:37f9f298:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:swede:sueco:37f9f298:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "swede",
+      "target_lemma": "sueco",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:terrace:terraza:443fe232",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Outdoor seating area attached to a building; direct terrace-to-terraza sense.",
+          "sentence": "We had coffee on the terrace while the sun set over the square."
+        },
+        {
+          "evidence_note": "A usable open-air dining space on a building, matching the intended terrace sense.",
+          "sentence": "The hotel breakfast is served on a terrace overlooking the sea."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:terrace:terraza:443fe232:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:terrace:terraza:443fe232:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:terrace:terraza:443fe232:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "terrace",
+      "target_lemma": "terraza",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:unmarried:soltero:cf105107",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Direct adjective use describing a person who is not married.",
+          "sentence": "She is unmarried and lives alone in a small apartment."
+        },
+        {
+          "evidence_note": "Clear status contrast showing unmarried as the opposite of married.",
+          "sentence": "The form asks whether he is married or unmarried."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:unmarried:soltero:cf105107:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:unmarried:soltero:cf105107:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:unmarried:soltero:cf105107:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "unmarried",
+      "target_lemma": "soltero",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:urine:orina:cab34771",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Medical context where urine means a bodily fluid sample.",
+          "sentence": "The doctor asked for a urine sample to check for signs of infection."
+        },
+        {
+          "evidence_note": "Clinical lab context clearly using urine as the intended noun.",
+          "sentence": "A nurse tested the urine for sugar and ketones after the patient reported fatigue."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:urine:orina:cab34771:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:urine:orina:cab34771:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:urine:orina:cab34771:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "urine",
+      "target_lemma": "orina",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:viper:vibora:f4742aaa",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Direct snake sense, with threatening behavior that matches the intended animal meaning.",
+          "sentence": "A viper coiled under the rocks, ready to strike at anything that came too close."
+        },
+        {
+          "evidence_note": "Natural wildlife context makes the snake meaning of viper clear.",
+          "sentence": "The hiker backed away slowly when he spotted a viper crossing the trail in front of him."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:viper:vibora:f4742aaa:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:viper:vibora:f4742aaa:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:viper:vibora:f4742aaa:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "viper",
+      "target_lemma": "víbora",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:wasp:avispa:c4a7f83a",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Direct insect context; source_phrase refers to the flying insect.",
+          "sentence": "A wasp flew into the kitchen and hovered near the fruit bowl."
+        },
+        {
+          "evidence_note": "Natural insect sighting where wasp clearly means the stinging insect.",
+          "sentence": "He backed away slowly when a wasp landed on the picnic table."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:wasp:avispa:c4a7f83a:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:wasp:avispa:c4a7f83a:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:wasp:avispa:c4a7f83a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "wasp",
+      "target_lemma": "avispa",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:wholly:enteramente:98f796f3",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "wholly means completely, matching the intended adverb sense.",
+          "sentence": "I wholly agree with your proposal because it solves the problem cleanly."
+        },
+        {
+          "evidence_note": "wholly intensifies the dependency to a complete degree.",
+          "sentence": "The plan was wholly dependent on the weather, so a storm would cancel it."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:wholly:enteramente:98f796f3:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:wholly:enteramente:98f796f3:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:wholly:enteramente:98f796f3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "wholly",
+      "target_lemma": "enteramente",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:widower:viudo:48deec53",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Direct noun sense: a man whose spouse has died.",
+          "sentence": "After his wife passed away, the widower raised their two children alone."
+        },
+        {
+          "evidence_note": "Clear marital-status context showing the intended meaning.",
+          "sentence": "The widower still keeps a photo of his late wife on the mantel."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:widower:viudo:48deec53:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:widower:viudo:48deec53:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:widower:viudo:48deec53:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "widower",
+      "target_lemma": "viudo",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:willow:sauce:a4b9514b",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Tree sense: a willow is a riverside tree with drooping branches.",
+          "sentence": "The old willow leaned over the riverbank, its long branches dipping into the water."
+        },
+        {
+          "evidence_note": "Tree sense: the sentence clearly refers to the plant, not any other meaning.",
+          "sentence": "We sat in the shade of a willow while the breeze moved through its leaves."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:willow:sauce:a4b9514b:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:willow:sauce:a4b9514b:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:willow:sauce:a4b9514b:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "willow",
+      "target_lemma": "sauce",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:zinc:zinc:40042c08",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Direct cognate noun sense: zinc as the chemical element and protective coating material.",
+          "sentence": "The lab report showed that the coating contains zinc to prevent rust."
+        },
+        {
+          "evidence_note": "Direct cognate noun sense: zinc as a nutrient in a supplement.",
+          "sentence": "She takes a daily supplement with zinc to help support her immune system."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:zinc:zinc:40042c08:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:zinc:zinc:40042c08:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:zinc:zinc:40042c08:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "zinc",
+      "target_lemma": "zinc",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:abatement:descuento:8ec99746",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Tax-context reduction/discount sense.",
+          "sentence": "The city offered a property tax abatement for new homeowners."
+        },
+        {
+          "evidence_note": "Price reduction or discount sense in a billing context.",
+          "sentence": "We asked for an abatement on the bill after the service outage."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:abatement:descuento:8ec99746:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:abatement:descuento:8ec99746:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:abatement:descuento:8ec99746:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "abatement",
+      "target_lemma": "descuento",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:acquaint:informar:48d3e377",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Here acquaint means to inform or make aware of the new rules.",
+          "sentence": "Please acquaint the team with the new safety rules before the shift begins."
+        },
+        {
+          "evidence_note": "Here acquaint means to let someone know the updated schedule.",
+          "sentence": "I will acquaint you with the schedule changes once the meeting starts."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:acquaint:informar:48d3e377:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:acquaint:informar:48d3e377:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:acquaint:informar:48d3e377:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "acquaint",
+      "target_lemma": "informar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:barque:barco:5b3c803d",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "barque refers to a type of boat or ship.",
+          "sentence": "The old barque glided into the harbor with a full load of timber."
+        },
+        {
+          "evidence_note": "barque is clearly used as a vessel on the water.",
+          "sentence": "We watched the barque tack across the bay under a sudden gust."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:barque:barco:5b3c803d:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:barque:barco:5b3c803d:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:barque:barco:5b3c803d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "barque",
+      "target_lemma": "barco",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:depository:deposito:0c2e4143",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "depository means a secure storage place for valuables.",
+          "sentence": "The bank kept the gold bars in a secure depository downtown."
+        },
+        {
+          "evidence_note": "depository refers to a storage facility for preserved items.",
+          "sentence": "Each museum document was moved to a climate-controlled depository for long-term storage."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:depository:deposito:0c2e4143:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:depository:deposito:0c2e4143:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:depository:deposito:0c2e4143:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "depository",
+      "target_lemma": "depósito",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:mayhap:quizas:f7426c37",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Archaic adverb meaning perhaps; expresses uncertainty about making a decision now.",
+          "sentence": "Mayhap we should wait until morning before we decide."
+        },
+        {
+          "evidence_note": "Signals possibility rather than certainty, matching the sense of perhaps.",
+          "sentence": "If the road is clear, mayhap we can reach the village by dusk."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:mayhap:quizas:f7426c37:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:mayhap:quizas:f7426c37:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:mayhap:quizas:f7426c37:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "mayhap",
+      "target_lemma": "quizás",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:perchance:quizas:4ed5b37e",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "Uses perchance as a formal synonym of perhaps, expressing uncertainty about a future event.",
+          "sentence": "Perchance he will arrive before dawn, so keep the gate unlatched."
+        },
+        {
+          "evidence_note": "Clear tentative meaning: perhaps she has already decided.",
+          "sentence": "We should ask her now, perchance she has already decided."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:perchance:quizas:4ed5b37e:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:perchance:quizas:4ed5b37e:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:perchance:quizas:4ed5b37e:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "perchance",
+      "target_lemma": "quizás",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "",
+      "competitor_sense_label": "",
+      "family_id": "en-es:srs-source-target:repose:descansar:42429a75",
+      "generator_id": "gpt-5.4-mini",
+      "items": [
+        {
+          "evidence_note": "repose is used as a verb meaning to rest or relax after exertion.",
+          "sentence": "After the long hike, we stopped to repose beside the river before heading home."
+        },
+        {
+          "evidence_note": "Clear resting context matches the intended active sense of descansar.",
+          "sentence": "She wanted to repose for an hour before dinner so she could feel refreshed."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json#en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:repose:descansar:42429a75:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:repose:descansar:42429a75:active_evidence_expansion",
+      "slot_id": "en-es:srs-source-target:repose:descansar:42429a75:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "source_phrase": "repose",
+      "target_lemma": "descansar",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:glove:guante:898c0a5b:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:goose:ganso:6f61cd68:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:idol:idolo:f73701e0:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:inflammation:inflamacion:642fc467:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:intoxicated:ebrio:9307c97f:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:jest:bromear:55d79731:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:lick:lamer:ec658c72:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:mist:niebla:b7b6f5af:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:mosaic:mosaico:a3468e64:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:nameless:anonimo:c9e71255:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:offspring:descendiente:5e3ee01c:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:patriarch:patriarca:06c74e78:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:phenomenal:fenomenal:856698e7:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:pigeon:paloma:ac24415a:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:protestant:protestante:d26b0ede:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:relinquish:ceder:0ecd236b:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:restrain:reprimir:991f7bb9:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:romanian:rumano:8319ecf3:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:satisfy:complacer:a006be45:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:skirt:falda:f8e36e29:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:subscriber:abonado:aa293bd4:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:swede:sueco:37f9f298:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:terrace:terraza:443fe232:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:unmarried:soltero:cf105107:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:urine:orina:cab34771:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:viper:vibora:f4742aaa:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:wasp:avispa:c4a7f83a:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:wholly:enteramente:98f796f3:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:widower:viudo:48deec53:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:willow:sauce:a4b9514b:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:zinc:zinc:40042c08:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:abatement:descuento:8ec99746:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:acquaint:informar:48d3e377:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:barque:barco:5b3c803d:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:depository:deposito:0c2e4143:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:mayhap:quizas:f7426c37:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:perchance:quizas:4ed5b37e:active_evidence_expansion",
+    "en-es-active-only-full-v1-tranche-009:en-es:srs-source-target:repose:descansar:42429a75:active_evidence_expansion"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_009_pre_spend_en_es_latest.json"
+}

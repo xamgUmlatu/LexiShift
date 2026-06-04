@@ -45,7 +45,7 @@
     "message": "尚未导入文件。修改后请重新导入。"
   },
   "section_display": {
-    "message": "显示"
+    "message": "页面显示"
   },
   "toggle_highlight": {
     "message": "高亮替换词（点击切换原词）"
@@ -54,10 +54,10 @@
     "message": "高亮颜色"
   },
   "section_replacement_behavior": {
-    "message": "替换行为"
+    "message": "页面替换密度"
   },
   "hint_replacement_behavior_scope": {
-    "message": "这些设置适用于所有替换（规则集和 SRS）。"
+    "message": "在词汇练习和手动规则合并后，应用于页面显示。"
   },
   "toggle_max_one": {
     "message": "每个文本块最多替换 1 个词"
@@ -75,22 +75,112 @@
     "message": "每页最大替换数"
   },
   "hint_max_replacements_page": {
-    "message": "0 表示不限制。限制当前页面显示的替换总数。"
+    "message": "标准默认值为 20。仅在需要无限替换时使用 0。"
   },
   "label_max_replacements_lemma_page": {
     "message": "每个词每页上限"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "0 表示不限制。防止单个词在页面中过度出现。"
+    "message": "标准默认值为 2。防止单个词在页面中过度出现。"
   },
   "section_srs": {
-    "message": "SRS 练习"
+    "message": "词汇练习"
   },
-  "toggle_srs_enabled": {
-    "message": "启用 SRS 练习模式"
+  "badge_srs_active_story": {
+    "message": "活跃"
   },
-  "hint_srs_dataset": {
-    "message": "目前使用固定测试数据集（无需外部下载）。"
+  "summary_srs_story_sampling": {
+    "message": "抽样下一批词"
+  },
+  "hint_srs_story_sampling_curtain": {
+    "message": "预览当前偏好接下来可能推荐的词。"
+  },
+  "action_srs_open_panel": {
+    "message": "打开"
+  },
+  "heading_srs_start_new_story": {
+    "message": "开始词汇练习"
+  },
+  "hint_srs_start_new_story": {
+    "message": "选择语言对，调整偏好，然后开始练习。"
+  },
+  "button_srs_start_new_story": {
+    "message": "开始设置"
+  },
+  "heading_srs_add_new_story": {
+    "message": "添加另一种语言"
+  },
+  "hint_srs_add_new_story": {
+    "message": "为新的语言对创建单独的词汇练习。现有练习不会改变。"
+  },
+  "button_srs_add_new_story": {
+    "message": "添加语言"
+  },
+  "heading_srs_story_flow": {
+    "message": "设置词汇练习"
+  },
+  "hint_srs_story_flow": {
+    "message": "开始前选择语言、学习偏好和起始节奏。"
+  },
+  "heading_srs_story_flow_pair": {
+    "message": "选择语言"
+  },
+  "heading_srs_story_flow_preferences": {
+    "message": "学习偏好"
+  },
+  "heading_srs_story_flow_size": {
+    "message": "选择起始节奏"
+  },
+  "heading_srs_story_flow_review": {
+    "message": "抽样并开始"
+  },
+  "hint_srs_story_flow_review": {
+    "message": "先抽样查看词汇组合，满意后再开始练习。"
+  },
+  "label_srs_language_data": {
+    "message": "语言数据"
+  },
+  "button_srs_open_resource_settings": {
+    "message": "打开 LexiShift 资源设置"
+  },
+  "button_srs_retry_data_check": {
+    "message": "重新检查"
+  },
+  "status_srs_language_data_missing": {
+    "message": "LexiShift 需要 $1 的语言数据，之后才能抽样或开始练习。"
+  },
+  "status_srs_language_data_check_required": {
+    "message": "请安装所需语言数据，然后重试。"
+  },
+  "status_srs_opening_resource_settings": {
+    "message": "正在打开 LexiShift 资源设置…"
+  },
+  "hint_srs_retry_after_data_install": {
+    "message": "安装所需包后，回到这里重新检查。"
+  },
+  "label_srs_frequency_data": {
+    "message": "频率数据"
+  },
+  "label_srs_translation_dictionary": {
+    "message": "翻译词典"
+  },
+  "label_srs_jmdict_data": {
+    "message": "JMDict 数据"
+  },
+  "button_srs_story_flow_initialize": {
+    "message": "开始练习"
+  },
+  "status_srs_story_flow_previewing": {
+    "message": "正在保存设置并抽样可能出现的词…"
+  },
+  "status_srs_story_flow_sampled": {
+    "message": "抽样已更新。"
+  },
+  "status_srs_story_flow_initializing": {
+    "message": "正在保存设置并开始词汇练习…"
+  },
+  "status_srs_story_flow_initialized": {
+    "message": "词汇练习已开始。"
   },
   "label_srs_pair": {
     "message": "语言对"
@@ -102,28 +192,172 @@
     "message": "全部语言对"
   },
   "label_srs_max_active": {
-    "message": "最大激活词数"
+    "message": "活跃练习词数"
+  },
+  "hint_srs_max_active": {
+    "message": "LexiShift 同时保留在练习轮换中的学习词数量。"
   },
   "label_srs_bootstrap_top_n": {
-    "message": "S 引导规模（Top N）"
+    "message": "词汇搜索范围"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "初始 S 引导阶段纳入的词总数。"
+    "message": "扩大用于抽样和新词选择的排序词池。除非样本感觉太窄，否则请保持默认值。"
   },
   "label_srs_initial_active_count": {
-    "message": "初始活跃子集"
+    "message": "起始词数"
   },
   "hint_srs_initial_active_count": {
-    "message": "从引导列表中首批设为非零/活跃的词数。"
+    "message": "设置完成后可立即出现的已准备词数量。"
+  },
+  "summary_srs_starting_size_advanced": {
+    "message": "高级起始规模"
+  },
+  "label_srs_topic_interest_presets": {
+    "message": "主题优先级"
+  },
+  "badge_srs_topic_interest_pair_support": {
+    "message": "覆盖因语言对而异"
+  },
+  "topic_srs_medicine_health": {
+    "message": "医学与健康"
+  },
+  "topic_srs_finance_business": {
+    "message": "金融与商业"
+  },
+  "topic_srs_sports_fitness": {
+    "message": "运动与健身"
+  },
+  "topic_srs_games": {
+    "message": "游戏"
+  },
+  "topic_srs_music_media_entertainment": {
+    "message": "音乐与媒体"
+  },
+  "topic_srs_law_politics_civics": {
+    "message": "法律与公民"
+  },
+  "topic_srs_science_technology": {
+    "message": "科学与技术"
+  },
+  "topic_srs_arts_literature_humanities": {
+    "message": "艺术与文学"
+  },
+  "topic_srs_animals": {
+    "message": "动物"
+  },
+  "topic_srs_food_cooking": {
+    "message": "食物与烹饪"
+  },
+  "topic_srs_plants_nature": {
+    "message": "植物与自然"
+  },
+  "summary_srs_advanced_topic_tags": {
+    "message": "高级标签"
+  },
+  "label_srs_topic_interests": {
+    "message": "主题兴趣"
+  },
+  "hint_srs_topic_interests": {
+    "message": "可为实验或上方未列出的主题添加逗号分隔标签。"
+  },
+  "label_srs_proficiency_estimate": {
+    "message": "熟练度估计"
+  },
+  "label_srs_proficiency_previous": {
+    "message": "上一次设置："
+  },
+  "button_srs_proficiency_restore": {
+    "message": "恢复"
+  },
+  "hint_srs_proficiency_estimate": {
+    "message": "将滑块拖到你希望新练习词匹配的水平。"
+  },
+  "summary_srs_challenge_tuning": {
+    "message": "高级挑战调节"
+  },
+  "label_srs_challenge_target": {
+    "message": "挑战目标 (%)"
+  },
+  "hint_srs_challenge_target": {
+    "message": "0 到 100。留空则保持难度偏好中性。"
   },
   "label_srs_highlight_color": {
-    "message": "SRS 高亮颜色"
+    "message": "单词高亮颜色"
   },
-  "toggle_srs_feedback_srs": {
-    "message": "对 SRS 词启用反馈"
+  "label_srs_semantic_admission_status": {
+    "message": "句子适配检查"
   },
-  "toggle_srs_feedback_rules": {
-    "message": "对规则词启用反馈"
+  "status_srs_semantic_capability_checking": {
+    "message": "检查中…"
+  },
+  "hint_srs_semantic_capability_checking": {
+    "message": "正在检查句子适配状态…"
+  },
+  "status_srs_semantic_capability_active": {
+    "message": "开启"
+  },
+  "hint_srs_semantic_capability_active": {
+    "message": "LexiShift 会在显示前检查选中的练习替换是否适合该句子。"
+  },
+  "status_srs_semantic_capability_published_unready": {
+    "message": "尚未可用"
+  },
+  "hint_srs_semantic_capability_published_unready": {
+    "message": "句子适配数据已发布，但此语言对/配置档还没有 ready 覆盖。当前会继续使用标准学习替换。"
+  },
+  "status_srs_semantic_capability_unavailable": {
+    "message": "不可用"
+  },
+  "hint_srs_semantic_capability_unavailable": {
+    "message": "此语言对/配置档目前没有发布句子适配覆盖。当前会继续使用标准学习替换。"
+  },
+  "status_srs_semantic_capability_error": {
+    "message": "需要修复"
+  },
+  "hint_srs_semantic_capability_error": {
+    "message": "句子适配数据已存在，但不一致或无法读取。在修复之前，当前会继续使用标准学习替换。"
+  },
+  "status_srs_semantic_capability_unknown": {
+    "message": "状态不可用"
+  },
+  "hint_srs_semantic_capability_unknown": {
+    "message": "目前无法检查句子适配状态。"
+  },
+  "toggle_srs_semantic_admission": {
+    "message": "启用句子适配检查（实验性）"
+  },
+  "hint_srs_semantic_admission": {
+    "message": "用助手端的句子检查过滤可候选的练习替换。若句子适配数据或助手服务不可用，则由回退策略决定行为。"
+  },
+  "label_srs_semantic_fallback_policy": {
+    "message": "句子适配回退策略"
+  },
+  "option_srs_semantic_fallback_legacy": {
+    "message": "保持旧版替换行为"
+  },
+  "option_srs_semantic_fallback_abstain": {
+    "message": "弃权"
+  },
+  "option_srs_semantic_fallback_soft": {
+    "message": "软提示（预留）"
+  },
+  "summary_srs_auto_refresh": {
+    "message": "何时添加新词"
+  },
+  "label_srs_auto_refresh_min_feedback": {
+    "message": "最少反馈事件"
+  },
+  "label_srs_auto_refresh_min_good_easy": {
+    "message": "需要的 Good/Easy 数"
+  },
+  "label_srs_auto_refresh_repeat_min_good_easy": {
+    "message": "同日再次刷新需要的 Good/Easy 数"
+  },
+  "label_srs_auto_refresh_cooldown": {
+    "message": "冷却分钟数"
+  },
+  "hint_srs_auto_refresh": {
+    "message": "Helper 只会在足够反馈后检查新词；容量、到期压力和留存门槛仍决定是否添加。"
   },
   "toggle_srs_sound": {
     "message": "播放反馈音效"
@@ -155,6 +389,18 @@
   "status_helper_failed": {
     "message": "Helper 错误。"
   },
+  "status_helper_native_messaging_failed": {
+    "message": "无法与 Helper 通信。"
+  },
+  "status_helper_native_messaging_forbidden": {
+    "message": "浏览器阻止了对 Helper 的访问。"
+  },
+  "status_helper_native_host_exited": {
+    "message": "Helper 意外退出。"
+  },
+  "status_helper_timeout": {
+    "message": "Helper 未能及时响应。"
+  },
   "status_helper_missing": {
     "message": "Helper 不可用。"
   },
@@ -170,6 +416,12 @@
   "status_helper_open_failed": {
     "message": "打开失败：$1"
   },
+  "status_helper_open_resource_settings_opened": {
+    "message": "已打开 LexiShift 资源设置。"
+  },
+  "status_helper_open_resource_settings_failed": {
+    "message": "打开失败：$1"
+  },
   "toggle_exposure_logging": {
     "message": "记录替换曝光事件"
   },
@@ -179,11 +431,17 @@
   "button_srs_sample": {
     "message": "抽样活跃词…"
   },
-  "button_srs_initialize": {
-    "message": "为该语言对初始化 S"
+  "button_srs_admission_preview": {
+    "message": "抽样 10 个匹配偏好的词…"
   },
-  "button_srs_refresh_set": {
-    "message": "刷新 S 并发布规则"
+  "button_srs_initialize": {
+    "message": "开始练习"
+  },
+  "button_srs_save_preferences": {
+    "message": "保存偏好"
+  },
+  "summary_srs_story_advanced": {
+    "message": "高级"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS 运行时诊断"
@@ -194,14 +452,239 @@
   "button_srs_rulegen_sampled_preview": {
     "message": "运行采样规则生成（5）…"
   },
-  "button_srs_reset": {
-    "message": "重置 SRS 数据"
+  "button_srs_delete_story": {
+    "message": "删除词汇练习"
+  },
+  "heading_srs_words_dashboard": {
+    "message": "学习词"
+  },
+  "hint_srs_words_dashboard": {
+    "message": "查看当前在这个练习中的词。"
+  },
+  "button_srs_words_refresh": {
+    "message": "刷新词"
+  },
+  "button_srs_words_open_library": {
+    "message": "打开词汇库"
+  },
+  "heading_srs_vocabulary_library_entry": {
+    "message": "词汇库"
+  },
+  "hint_srs_vocabulary_library_entry": {
+    "message": "查看学习词、释义、进度和页面替换来源。"
+  },
+  "toggle_srs_words_advanced": {
+    "message": "高级详情"
+  },
+  "label_srs_words_search": {
+    "message": "搜索"
+  },
+  "label_srs_words_status_filter": {
+    "message": "状态"
+  },
+  "option_srs_words_status_all": {
+    "message": "全部"
+  },
+  "option_srs_words_status_active": {
+    "message": "活跃"
+  },
+  "option_srs_words_status_due": {
+    "message": "到期"
+  },
+  "option_srs_words_status_queued": {
+    "message": "即将学习"
+  },
+  "option_srs_words_status_removed": {
+    "message": "已移除"
+  },
+  "label_srs_words_sort": {
+    "message": "排序"
+  },
+  "option_srs_words_sort_source": {
+    "message": "来源顺序"
+  },
+  "option_srs_words_sort_due": {
+    "message": "到期优先"
+  },
+  "option_srs_words_sort_word": {
+    "message": "词 A-Z"
+  },
+  "option_srs_words_sort_reviews": {
+    "message": "复习最多"
+  },
+  "option_srs_words_sort_seen": {
+    "message": "显示最多"
+  },
+  "label_srs_words_page_size": {
+    "message": "行数"
+  },
+  "button_srs_words_clear_filters": {
+    "message": "清除筛选"
+  },
+  "learning_dashboard_title": {
+    "message": "词汇库"
+  },
+  "learning_dashboard_subtitle": {
+    "message": "查看学习词、释义、进度和页面替换来源。"
+  },
+  "learning_dashboard_back": {
+    "message": "返回选项"
+  },
+  "learning_dashboard_refresh": {
+    "message": "刷新"
+  },
+  "learning_dashboard_pair_select": {
+    "message": "练习"
+  },
+  "learning_dashboard_search": {
+    "message": "搜索"
+  },
+  "learning_dashboard_status_filter": {
+    "message": "进度"
+  },
+  "learning_dashboard_sort": {
+    "message": "排序"
+  },
+  "learning_dashboard_rows": {
+    "message": "行数"
+  },
+  "learning_dashboard_col_word": {
+    "message": "词"
+  },
+  "learning_dashboard_col_meaning": {
+    "message": "含义"
+  },
+  "learning_dashboard_col_progress": {
+    "message": "进度"
+  },
+  "learning_dashboard_col_activity": {
+    "message": "活动"
+  },
+  "learning_dashboard_col_topic": {
+    "message": "主题"
+  },
+  "learning_dashboard_col_action": {
+    "message": "操作"
+  },
+  "learning_dashboard_summary_active": {
+    "message": "活跃"
+  },
+  "learning_dashboard_summary_due": {
+    "message": "到期"
+  },
+  "learning_dashboard_summary_can_appear": {
+    "message": "可出现"
+  },
+  "learning_dashboard_summary_upcoming": {
+    "message": "即将学习"
+  },
+  "learning_dashboard_summary_removed": {
+    "message": "已移除"
+  },
+  "learning_dashboard_summary_total": {
+    "message": "总计"
+  },
+  "learning_dashboard_status_loading": {
+    "message": "正在加载词汇库..."
+  },
+  "learning_dashboard_status_refreshing": {
+    "message": "正在加载学习词..."
+  },
+  "learning_dashboard_status_ready": {
+    "message": "已加载 $1 个学习词。"
+  },
+  "learning_dashboard_status_failed": {
+    "message": "无法加载学习词。"
+  },
+  "learning_dashboard_no_practices": {
+    "message": "这个个人资料还没有词汇练习。"
+  },
+  "learning_dashboard_no_practices_short": {
+    "message": "没有活跃练习"
+  },
+  "learning_dashboard_empty_filtered": {
+    "message": "没有学习词符合这些筛选条件。"
+  },
+  "learning_dashboard_empty_unloaded": {
+    "message": "尚未加载学习词。"
+  },
+  "learning_dashboard_page_info": {
+    "message": "显示 $3 个词中的 $1-$2"
+  },
+  "learning_dashboard_page_empty": {
+    "message": "显示 0 个词"
+  },
+  "learning_dashboard_detail_empty": {
+    "message": "双击一个词以查看释义和练习详情。"
+  },
+  "learning_dashboard_definition": {
+    "message": "释义"
+  },
+  "learning_dashboard_definition_loading": {
+    "message": "正在加载释义..."
+  },
+  "learning_dashboard_definition_unavailable": {
+    "message": "释义不可用。"
+  },
+  "learning_dashboard_replacement_sources": {
+    "message": "页面替换"
+  },
+  "learning_dashboard_no_replacement_sources": {
+    "message": "没有找到已发布的页面替换来源。"
+  },
+  "learning_dashboard_dictionaries": {
+    "message": "词典"
+  },
+  "learning_dashboard_advanced": {
+    "message": "高级"
+  },
+  "learning_dashboard_advanced_rules": {
+    "message": "已发布规则"
+  },
+  "learning_dashboard_page_replacement_label": {
+    "message": "页面替换"
+  },
+  "learning_dashboard_practice_state_label": {
+    "message": "练习状态"
+  },
+  "learning_dashboard_scheduler_label": {
+    "message": "调度器"
+  },
+  "learning_dashboard_step_label": {
+    "message": "步骤"
+  },
+  "learning_dashboard_confidence_label": {
+    "message": "置信度"
+  },
+  "learning_dashboard_stability_label": {
+    "message": "稳定度"
+  },
+  "learning_dashboard_difficulty_label": {
+    "message": "难度"
+  },
+  "learning_dashboard_no_published_rules": {
+    "message": "没有找到已发布规则。"
+  },
+  "learning_dashboard_discard": {
+    "message": "丢弃"
+  },
+  "pagination_first": {
+    "message": "首页"
+  },
+  "pagination_prev": {
+    "message": "上一页"
+  },
+  "pagination_next": {
+    "message": "下一页"
+  },
+  "pagination_last": {
+    "message": "末页"
   },
   "confirm_srs_reset_1": {
-    "message": "确定要重置此语言对的所有 SRS 进度吗？此操作无法撤销。"
+    "message": "删除当前配置档和语言对的词汇练习？此操作无法撤销。"
   },
   "confirm_srs_reset_2": {
-    "message": "确定要删除此语言对的全部学习历史并重新开始吗？"
+    "message": "真的要删除这个练习的学习词、复习历史和丢弃数据吗？"
   },
   "status_srs_sampling": {
     "message": "正在抽样…"
@@ -219,19 +702,19 @@
     "message": "采样规则生成：$1 个词，$2 个目标，$3 条规则（$4秒）"
   },
   "status_srs_set_init_running": {
-    "message": "正在初始化 S…"
+    "message": "正在开始练习…"
   },
   "status_srs_refresh_running": {
-    "message": "正在刷新 S 并发布规则…"
+    "message": "正在刷新学习词…"
   },
   "status_srs_refresh_success": {
-    "message": "已刷新 $1 的 S：新增 $2 项。"
+    "message": "已刷新 $1 的学习词：新增 $2 个词。"
   },
   "status_srs_refresh_noop": {
-    "message": "$1 的 S 刷新完成：没有新增项。"
+    "message": "已刷新 $1 的学习词：没有新增词。"
   },
   "status_srs_refresh_failed": {
-    "message": "S 刷新失败。"
+    "message": "学习词刷新失败。"
   },
   "status_srs_diagnostics_running": {
     "message": "正在收集 SRS 运行时诊断…"
@@ -246,19 +729,19 @@
     "message": "收集 SRS 诊断失败。"
   },
   "status_srs_set_init_result": {
-    "message": "已为 $3 初始化 S：+$1 项（总计 $2）。"
+    "message": "已为 $3 开始练习：+$1 个学习词（总计 $2）。"
   },
   "status_srs_set_plan_result": {
-    "message": "已完成 $1 的 S 规划。"
+    "message": "已检查 $1 的练习设置。"
   },
   "status_srs_set_init_success": {
-    "message": "已为 $1 初始化 S。"
+    "message": "已为 $1 开始练习。"
   },
   "status_srs_set_plan_only": {
-    "message": "已完成 $1 的 S 规划（未应用变更）。"
+    "message": "已检查 $1 的练习设置（未应用变更）。"
   },
   "status_srs_set_init_failed": {
-    "message": "初始化 S 失败。"
+    "message": "练习设置失败。"
   },
   "status_srs_sample_empty": {
     "message": "暂无可用词。"
@@ -267,7 +750,7 @@
     "message": "当前活跃词没有对应规则。"
   },
   "status_srs_sample_failed": {
-    "message": "SRS 抽样失败。"
+    "message": "词语抽样失败。"
   },
   "status_srs_rulegen_failed": {
     "message": "规则预览失败。"
@@ -300,16 +783,16 @@
     "message": "修复："
   },
   "status_srs_resetting": {
-    "message": "正在重置 SRS 数据…"
+    "message": "正在删除词汇练习…"
   },
   "status_srs_reset_success": {
-    "message": "SRS 数据已重置。"
+    "message": "词汇练习已删除。"
   },
   "status_srs_reset_failed": {
-    "message": "重置 SRS 失败。"
+    "message": "词汇练习删除失败。"
   },
   "status_srs_reset_outdated": {
-    "message": "Helper 版本过旧：找不到命令。请重启 Helper。"
+    "message": "删除失败：找不到 Helper 命令。要重启 Helper 吗？"
   },
   "section_share_center": {
     "message": "分享中心"
@@ -339,13 +822,13 @@
     "message": "关闭"
   },
   "hint_share_center_export_mode": {
-    "message": "选择导出模式。完整配置档会导出全部数据；自定义选择可挑选具体节点。"
+    "message": "选择导出模式。完整配置档使用现有的配置档分享格式；自定义选择可挑选具体节点。"
   },
   "share_center_mode_full_title": {
     "message": "完整配置档"
   },
   "share_center_mode_full_hint": {
-    "message": "推荐。一键导出完整配置档数据。"
+    "message": "推荐。使用现有的配置档分享格式导出完整配置档数据。"
   },
   "share_center_mode_custom_title": {
     "message": "自定义选择"
@@ -369,7 +852,10 @@
     "message": "配置档设置"
   },
   "share_center_target_profile_settings_hint": {
-    "message": "配置档配置与 SRS 设置。"
+    "message": "使用现有的 SRS 设置格式导出配置档配置与 SRS 设置。"
+  },
+  "share_center_compatibility_note": {
+    "message": "兼容性说明：完整配置档使用现有的配置档分享格式，“配置档设置”目标使用现有的 SRS 设置格式。"
   },
   "share_center_group_rulesets": {
     "message": "规则集"
@@ -480,7 +966,7 @@
     "message": "生成前请选择有效的 SRS 语言对条目。"
   },
   "share_center_hint_ready_full_export": {
-    "message": "已可将完整配置档导出为 JSON 文件。"
+    "message": "已准备好以 JSON 文件导出完整配置档，并使用现有的配置档分享格式。"
   },
   "share_center_hint_ready_selection_export": {
     "message": "已可将所选内容导出为 JSON 文件。"
@@ -641,6 +1127,18 @@
   "hint_share_code": {
     "message": "生成压缩代码以便跨设备共享规则。"
   },
+  "label_share_scope": {
+    "message": "包含内容"
+  },
+  "option_share_scope_rules": {
+    "message": "手动规则"
+  },
+  "option_share_scope_srs": {
+    "message": "SRS 状态"
+  },
+  "option_share_scope_profile": {
+    "message": "完整配置数据"
+  },
   "toggle_share_code_cjk": {
     "message": "短代码（CJK）"
   },
@@ -693,7 +1191,19 @@
     "message": "替换设置已保存。"
   },
   "status_srs_saved": {
-    "message": "SRS 设置已保存。"
+    "message": "练习设置已保存。"
+  },
+  "status_srs_preferences_saved": {
+    "message": "偏好已保存。"
+  },
+  "status_srs_preferences_unsaved": {
+    "message": "有未保存的更改。"
+  },
+  "status_srs_save_failed": {
+    "message": "无法保存练习设置。"
+  },
+  "status_srs_save_partial": {
+    "message": "练习设置已部分保存。请重新加载页面并检查当前值。"
   },
   "status_switch_edit_json": {
     "message": "请切换到“编辑 JSON”后再保存。"
@@ -767,6 +1277,21 @@
   "button_modules": {
     "message": "模块"
   },
+  "button_word_popup_settings": {
+    "message": "单词弹窗设置"
+  },
+  "heading_word_popup_settings": {
+    "message": "单词弹窗设置"
+  },
+  "hint_word_popup_settings": {
+    "message": "适用于当前词汇练习的目标语言。选择与已翻译单词互动时显示的内容。"
+  },
+  "module_quick_definition": {
+    "message": "定义"
+  },
+  "module_quick_definition_desc": {
+    "message": "在弹窗中显示简短定义。"
+  },
   "module_ja_script_forms": {
     "message": "日语脚本形式"
   },
@@ -796,6 +1321,18 @@
   },
   "label_module_drag_reorder": {
     "message": "拖动以重新排序"
+  },
+  "popup_definition_loading": {
+    "message": "正在加载定义..."
+  },
+  "popup_definition_unavailable": {
+    "message": "暂无可用定义。"
+  },
+  "popup_definition_missing": {
+    "message": "尚未安装该词的定义数据。"
+  },
+  "popup_definition_error": {
+    "message": "无法加载定义。"
   },
   "popup_feedback_history_loading": {
     "message": "评分历史（加载中...）"
@@ -871,6 +1408,18 @@
   },
   "section_profile": {
     "message": "配置"
+  },
+  "section_your_setup": {
+    "message": "当前设置"
+  },
+  "hint_your_setup": {
+    "message": "此选项页面使用的语言与配置上下文。"
+  },
+  "section_manual_rules": {
+    "message": "手动规则"
+  },
+  "hint_manual_rules": {
+    "message": "为所选配置编辑或导入手动规则集。"
   },
   "label_profile_id": {
     "message": "配置"
@@ -1006,5 +1555,56 @@
   },
   "button_get_plugin": {
     "message": "获取 BetterDiscord 插件"
+  },
+  "label_semantic_pack_inventory_path": {
+    "message": "Semantic inventory path override"
+  },
+  "label_semantic_pack_id": {
+    "message": "Semantic pack id"
+  },
+  "toggle_semantic_pack_default_data_root": {
+    "message": "Install to default helper data folder"
+  },
+  "label_semantic_pack_data_root": {
+    "message": "Semantic pack data root"
+  },
+  "button_semantic_pack_install": {
+    "message": "Install semantic pack…"
+  },
+  "status_semantic_pack_inventory_path_required": {
+    "message": "Semantic inventory path is required."
+  },
+  "status_semantic_pack_data_root_required": {
+    "message": "Data root is required unless default data root is enabled."
+  },
+  "confirm_semantic_pack_install": {
+    "message": "Install semantic pack for $1 profile $2? This overwrites the profile-local semantic publication files."
+  },
+  "status_semantic_pack_install_running": {
+    "message": "Installing semantic pack…"
+  },
+  "status_semantic_pack_install_success": {
+    "message": "Installed $1 for $2: $3 rules, $4 competition sets."
+  },
+  "status_semantic_pack_install_ready": {
+    "message": "Semantic pack installed."
+  },
+  "status_semantic_pack_install_failed": {
+    "message": "Semantic pack install failed."
+  },
+  "status_srs_items_list_ready": {
+    "message": "已加载 $1 个学习词。"
+  },
+  "status_srs_items_list_failed": {
+    "message": "无法加载学习词。"
+  },
+  "confirm_srs_discard_word": {
+    "message": "丢弃 $1？它会从词汇练习中移除，并在重置练习数据前阻止再次加入。"
+  },
+  "status_srs_discard_success": {
+    "message": "已丢弃 $1。"
+  },
+  "status_srs_discard_failed": {
+    "message": "无法丢弃学习词。"
   }
 }

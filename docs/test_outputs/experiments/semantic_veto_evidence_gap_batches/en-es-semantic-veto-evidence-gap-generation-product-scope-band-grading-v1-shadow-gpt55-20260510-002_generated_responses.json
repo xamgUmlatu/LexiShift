@@ -1,0 +1,190 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:product-scope-band-grading-v1-shadow-gpt55-20260510-002",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T21:41:41Z",
+  "model_id": "gpt-5.5",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "raw_response_bundle_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json",
+  "responses": [
+    {
+      "active_sense_contrast": "This sense is about penalizing someone for a violation, not mentioning or referring to a source, person, or fact.",
+      "competitor_sense_label": "issue a penalty or ticket for an infraction",
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "generator_id": "gpt-5.5",
+      "items": [
+        {
+          "active_mismatch_note": "mencionar is wrong here because the officer is not referring to the driver in speech or writing; the officer is imposing a penalty for illegal parking.",
+          "evidence_note": "Here, cite means to issue a traffic penalty or ticket, so the Spanish replacement would be multar.",
+          "sentence": "The officer will cite any driver who parks in the fire lane."
+        },
+        {
+          "active_mismatch_note": "mencionar is wrong here because the inspectors are not naming or referring to the restaurant as a source or fact; they are threatening an official penalty for a violation.",
+          "evidence_note": "Here, cite means to penalize the restaurant for a safety violation, making multar the correct Spanish replacement.",
+          "sentence": "City inspectors may cite the restaurant if employees block the emergency exit."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "multar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "cite",
+      "target_lemma": "multar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "In these sentences, smile is a noun naming the visible facial expression, not a verb meaning to change one's facial expression.",
+      "competitor_sense_label": "noun: facial expression",
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "generator_id": "gpt-5.5",
+      "items": [
+        {
+          "active_mismatch_note": "sonreír is wrong here because the word is a noun naming the expression, not a verb describing the action of making that expression.",
+          "evidence_note": "The word smile refers to a visible facial expression, so the correct Spanish replacement is the noun sonrisa.",
+          "sentence": "Her smile made the nervous child feel welcome."
+        },
+        {
+          "active_mismatch_note": "sonreír is wrong here because the sentence needs a noun for the expression that was captured, not an infinitive verb meaning to make that expression.",
+          "evidence_note": "The word smile denotes the facial expression shown in the photograph, which corresponds to the Spanish noun sonrisa.",
+          "sentence": "The photographer captured his smile just before the ceremony began."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "sonrisa",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "smile",
+      "target_lemma": "sonrisa",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentences use bar as a drinking establishment, not as a verb meaning to block or fence in passage.",
+      "competitor_sense_label": "pub or tavern",
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "generator_id": "gpt-5.5",
+      "items": [
+        {
+          "active_mismatch_note": "cercar is wrong here because the sentence is about visiting an establishment, not blocking, fencing, or preventing passage.",
+          "evidence_note": "Here, bar refers to a public drinking establishment, for which taberna is an appropriate Spanish translation.",
+          "sentence": "We met at the bar after work to celebrate the promotion."
+        },
+        {
+          "active_mismatch_note": "cercar is wrong here because the word denotes a place of business, not an action of enclosing or obstructing something.",
+          "evidence_note": "Here, bar names a local establishment that serves drinks, matching the Spanish sense taberna.",
+          "sentence": "The old bar on the corner serves coffee in the morning and beer at night."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "taberna",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "bar",
+      "target_lemma": "taberna",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "Here, control means changing or regulating a parameter such as temperature or brightness, not exercising authority over a place, organization, or group.",
+      "competitor_sense_label": "adjust or regulate a setting",
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "generator_id": "gpt-5.5",
+      "items": [
+        {
+          "active_mismatch_note": "gobernar is wrong here because the dial is not exercising authority over the oven temperature; it is used to change a setting.",
+          "evidence_note": "In this sentence, control means to set or regulate the oven temperature, so the Spanish replacement would reasonably use ajustar.",
+          "sentence": "Turn the dial to control the oven temperature before baking the bread."
+        },
+        {
+          "active_mismatch_note": "gobernar is wrong here because the slider is not ruling or directing a group or place; it is used to modify a display setting.",
+          "evidence_note": "In this sentence, control means to change the level of screen brightness, making ajustar the appropriate Spanish replacement.",
+          "sentence": "Use the slider to control the screen brightness during the presentation."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "ajustar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "control",
+      "target_lemma": "ajustar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "The sentence uses except as a verb meaning to object, not as a preposition or conjunction meaning excluding.",
+      "competitor_sense_label": "verb meaning to object or take exception",
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "generator_id": "gpt-5.5",
+      "items": [
+        {
+          "active_mismatch_note": "excepto is wrong here because the word is functioning as a verb meaning to object, not as a preposition meaning excluding.",
+          "evidence_note": "Here, except is a formal verb meaning to object to a ruling, so objetar is the appropriate Spanish lemma.",
+          "sentence": "During the appeal, counsel will except to the judge's refusal to admit the exhibit."
+        },
+        {
+          "active_mismatch_note": "excepto is wrong here because the sentence does not express exclusion; it describes attorneys objecting to a characterization.",
+          "evidence_note": "Here, except means object to or take exception to a statement, which corresponds to objetar in Spanish.",
+          "sentence": "The defense attorneys except to the prosecutor's characterization of the witness testimony."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "objetar",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "except",
+      "target_lemma": "objetar",
+      "unable_to_find_distinct_competitor": false
+    },
+    {
+      "active_sense_contrast": "This sense refers to a specific area on a body, object, or surface, not to a local district or territorial comarca-like region.",
+      "competitor_sense_label": "localized area or part of a surface/body",
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "generator_id": "gpt-5.5",
+      "items": [
+        {
+          "active_mismatch_note": "comarca is wrong here because the sentence refers to an area of the body, not a local district or territorial region.",
+          "evidence_note": "Here, region means a localized anatomical area, so the Spanish lemma zona is the appropriate competitor translation.",
+          "sentence": "The doctor examined the region around the patient's knee for swelling."
+        },
+        {
+          "active_mismatch_note": "comarca is wrong here because the sentence refers to a localized spot on an object, not an administrative or territorial district.",
+          "evidence_note": "Here, region means a specific area on a physical surface, so the Spanish lemma zona is the appropriate competitor translation.",
+          "sentence": "The technician marked the overheated region on the circuit board with tape."
+        }
+      ],
+      "no_distinct_competitor_reason": "",
+      "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+      "proposed_competitor_target_lemma": "zona",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-product-scope-band-grading-v1-shadow-gpt55-20260510-002_raw_responses.json#semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "slot_id": "en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "source_phrase": "region",
+      "target_lemma": "zona",
+      "unable_to_find_distinct_competitor": false
+    }
+  ],
+  "schema_version": 1,
+  "selected_request_ids": [
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+    "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe"
+  ],
+  "source_request_packet": "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_requests_en_es_latest.json"
+}

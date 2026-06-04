@@ -1,0 +1,987 @@
+{
+  "meaning_rules": [],
+  "rules": [
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:acceptable:razonable:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:acceptable:razonable:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:acceptable:razonable:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "razonable",
+      "source_phrase": "acceptable",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:adder:v-bora:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:adder:v-bora:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:adder:v-bora:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "v\u00edbora",
+      "source_phrase": "adder",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:adjoining:contiguo:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:adjoining:contiguo:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:adjoining:contiguo:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "contiguo",
+      "source_phrase": "adjoining",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:adjoining:vecino:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:adjoining:vecino:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:adjoining:vecino:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "vecino",
+      "source_phrase": "adjoining",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:altitude:elevaci-n:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:altitude:elevaci-n:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:altitude:elevaci-n:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "elevaci\u00f3n",
+      "source_phrase": "altitude",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:american:americano:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:american:americano:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:american:americano:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "americano",
+      "source_phrase": "american",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:among:entre:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:among:entre:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:among:entre:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "entre",
+      "source_phrase": "among",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:argentinean:argentino:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:argentinean:argentino:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:argentinean:argentino:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "argentino",
+      "source_phrase": "argentinean",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:bar:cercar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:bar:cercar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:bar:cercar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "cercar",
+      "source_phrase": "bar",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:begin:comenzar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:begin:comenzar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:begin:comenzar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "comenzar",
+      "source_phrase": "begin",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:billow:oleaje:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:billow:oleaje:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:billow:oleaje:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "oleaje",
+      "source_phrase": "billow",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:bouillon:caldo:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:bouillon:caldo:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:bouillon:caldo:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "caldo",
+      "source_phrase": "bouillon",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:break:quebrar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:break:quebrar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:break:quebrar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "quebrar",
+      "source_phrase": "break",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:bridle:reprimir:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:bridle:reprimir:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:bridle:reprimir:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "reprimir",
+      "source_phrase": "bridle",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:brother:hermano:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:brother:hermano:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:brother:hermano:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "hermano",
+      "source_phrase": "brother",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:chic:elegante:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:chic:elegante:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:chic:elegante:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "elegante",
+      "source_phrase": "chic",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:cite:mencionar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:cite:mencionar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:cite:mencionar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "mencionar",
+      "source_phrase": "cite",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:continue:durar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:continue:durar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:continue:durar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "durar",
+      "source_phrase": "continue",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:control:gobernar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:control:gobernar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:control:gobernar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "gobernar",
+      "source_phrase": "control",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:current:contempor-neo:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:current:contempor-neo:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:current:contempor-neo:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "contempor\u00e1neo",
+      "source_phrase": "current",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:december:diciembre:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:december:diciembre:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:december:diciembre:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "diciembre",
+      "source_phrase": "december",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:dentist:dentista:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:dentist:dentista:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:dentist:dentista:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "dentista",
+      "source_phrase": "dentist",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:emotion:emoci-n:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:emotion:emoci-n:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:emotion:emoci-n:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "emoci\u00f3n",
+      "source_phrase": "emotion",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:endure:durar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:endure:durar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:endure:durar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "durar",
+      "source_phrase": "endure",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:entirely:enteramente:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:entirely:enteramente:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:entirely:enteramente:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "enteramente",
+      "source_phrase": "entirely",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:except:excepto:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:except:excepto:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:except:excepto:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "excepto",
+      "source_phrase": "except",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:german:alem-n:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:german:alem-n:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:german:alem-n:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "alem\u00e1n",
+      "source_phrase": "german",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:govern:gobernar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:govern:gobernar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:govern:gobernar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "gobernar",
+      "source_phrase": "govern",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:handiwork:artesan-a:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:handiwork:artesan-a:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:handiwork:artesan-a:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "artesan\u00eda",
+      "source_phrase": "handiwork",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:health:salud:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:health:salud:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:health:salud:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "salud",
+      "source_phrase": "health",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:heart:coraz-n:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:heart:coraz-n:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:heart:coraz-n:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "coraz\u00f3n",
+      "source_phrase": "heart",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:june:junio:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:june:junio:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:june:junio:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "junio",
+      "source_phrase": "june",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:offset:distancia:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:offset:distancia:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:offset:distancia:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "distancia",
+      "source_phrase": "offset",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:owe:deber:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:owe:deber:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:owe:deber:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "deber",
+      "source_phrase": "owe",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:pair:par:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:pair:par:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:pair:par:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "par",
+      "source_phrase": "pair",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:parrot:loro:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:parrot:loro:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:parrot:loro:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "loro",
+      "source_phrase": "parrot",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:pub:taberna:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:pub:taberna:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:pub:taberna:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "taberna",
+      "source_phrase": "pub",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:rebate:descuento:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:rebate:descuento:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:rebate:descuento:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "descuento",
+      "source_phrase": "rebate",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:recover:sanar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:recover:sanar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:recover:sanar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "sanar",
+      "source_phrase": "recover",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:region:comarca:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:region:comarca:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:region:comarca:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "comarca",
+      "source_phrase": "region",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:rumanian:rumano:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:rumanian:rumano:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:rumanian:rumano:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "rumano",
+      "source_phrase": "rumanian",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:russian:ruso:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:russian:ruso:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:russian:ruso:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "ruso",
+      "source_phrase": "russian",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:salesman:vendedor:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:salesman:vendedor:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:salesman:vendedor:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "vendedor",
+      "source_phrase": "salesman",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:shortage:falta:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:shortage:falta:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:shortage:falta:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "falta",
+      "source_phrase": "shortage",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:smile:sonre-r:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:smile:sonre-r:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:smile:sonre-r:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "sonre\u00edr",
+      "source_phrase": "smile",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:snore:roncar:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:snore:roncar:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:snore:roncar:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "roncar",
+      "source_phrase": "snore",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:stall:cuadra:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:stall:cuadra:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:stall:cuadra:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "cuadra",
+      "source_phrase": "stall",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:tomorrow:ma-ana:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "ma\u00f1ana",
+      "source_phrase": "tomorrow",
+      "tags": []
+    },
+    {
+      "case_policy": "match",
+      "enabled": true,
+      "metadata": {
+        "language_pair": "en-es",
+        "semantic_admission": {
+          "competition_set_id": "en-es:full-family-repaired-full:upon:sobre:competition:active-only-replay",
+          "schema_version": 1,
+          "sense_id": "en-es:full-family-repaired-full:upon:sobre:active",
+          "status": "ready",
+          "trigger_id": "en-es:full-family-repaired-full:upon:sobre:trigger"
+        },
+        "source": "semantic_pack_install",
+        "source_type": "semantic_veto_candidate"
+      },
+      "priority": 0,
+      "replacement": "sobre",
+      "source_phrase": "upon",
+      "tags": []
+    }
+  ],
+  "synonyms": {},
+  "version": 1
+}

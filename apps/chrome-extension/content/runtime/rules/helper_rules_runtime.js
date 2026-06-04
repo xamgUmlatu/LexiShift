@@ -1,5 +1,14 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const helperErrorCopy = root.helperErrorCopy;
+
+  if (
+    !helperErrorCopy
+    || typeof helperErrorCopy.normalizeHelperErrorMessage !== "function"
+    || typeof helperErrorCopy.normalizeHelperThrownErrorMessage !== "function"
+  ) {
+    throw new Error("[LexiShift][Content] Missing shared helper error copy.");
+  }
 
   function createRuntime(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -17,6 +26,19 @@
       : (rules) => (Array.isArray(rules) ? rules : []);
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const helperRulesCache = new Map();
+    const helperSemanticInventoryCache = new Map();
+
+    function normalizeHelperMessage(error, fallbackText) {
+      return helperErrorCopy.normalizeHelperErrorMessage(error, {
+        fallbackText
+      });
+    }
+
+    function normalizeThrownHelperMessage(error, fallbackText) {
+      return helperErrorCopy.normalizeHelperThrownErrorMessage(error, {
+        fallbackText
+      });
+    }
 
     function rulesCacheKey(pair, profileId) {
       const normalizedPair = String(pair || "").trim();
@@ -39,19 +61,82 @@
       }
     }
 
+    function cacheSemanticInventory(pair, inventory, profileId) {
+      const key = rulesCacheKey(pair, profileId);
+      if (!key || !inventory || typeof inventory !== "object") {
+        return;
+      }
+      const normalizedProfileId = normalizeProfileId(profileId);
+      helperSemanticInventoryCache.set(key, inventory);
+      if (helperCache && typeof helperCache.saveSemanticInventory === "function") {
+        helperCache.saveSemanticInventory(pair, inventory, { profileId: normalizedProfileId });
+      }
+    }
+
     async function fetchHelperRules(pair, profileId) {
       const helperClient = getHelperClient();
       if (!helperClient || typeof helperClient.getRuleset !== "function") {
-        return { ruleset: null, error: "Helper client unavailable." };
+        return {
+          ruleset: null,
+          error: normalizeHelperMessage(
+            { code: "helper_missing", message: "Helper client unavailable." },
+            "Failed to load helper ruleset."
+          )
+        };
       }
       const response = await helperClient.getRuleset(pair, profileId);
       if (!response || response.ok === false) {
-        const message = response && response.error && response.error.message
-          ? response.error.message
-          : "Failed to load helper ruleset.";
+        const message = normalizeHelperMessage(
+          response && response.error,
+          "Failed to load helper ruleset."
+        );
         return { ruleset: null, error: message };
       }
       return { ruleset: response.data || null, error: null };
+    }
+
+    async function fetchSemanticInventory(pair, profileId) {
+      const helperClient = getHelperClient();
+      if (!helperClient || typeof helperClient.getSemanticInventory !== "function") {
+        return {
+          inventory: null,
+          error: normalizeHelperMessage(
+            { code: "helper_missing", message: "Helper client unavailable." },
+            "Failed to load helper semantic inventory."
+          )
+        };
+      }
+      const response = await helperClient.getSemanticInventory(pair, profileId);
+      if (!response || response.ok === false) {
+        const message = normalizeHelperMessage(
+          response && response.error,
+          "Failed to load helper semantic inventory."
+        );
+        return { inventory: null, error: message };
+      }
+      return { inventory: response.data || null, error: null };
+    }
+
+    async function requestSemanticAdmitBatch(payload, timeoutMs) {
+      const helperClient = getHelperClient();
+      if (!helperClient || typeof helperClient.semanticAdmitBatch !== "function") {
+        return {
+          response: null,
+          error: normalizeHelperMessage(
+            { code: "helper_missing", message: "Helper client unavailable." },
+            "Failed to evaluate helper semantic admission batch."
+          )
+        };
+      }
+      const response = await helperClient.semanticAdmitBatch(payload, timeoutMs);
+      if (!response || response.ok === false) {
+        const message = normalizeHelperMessage(
+          response && response.error,
+          "Failed to evaluate helper semantic admission batch."
+        );
+        return { response: null, error: message };
+      }
+      return { response: response.data || null, error: null };
     }
 
     async function loadCachedRules(pair, profileId) {
@@ -67,6 +152,27 @@
         const cachedPersisted = await helperCache.loadRuleset(pair, { profileId: normalizeProfileId(profileId) });
         if (cachedPersisted && Array.isArray(cachedPersisted.rules)) {
           return cachedPersisted.rules;
+        }
+      }
+      return null;
+    }
+
+    async function loadCachedSemanticInventory(pair, profileId) {
+      const key = rulesCacheKey(pair, profileId);
+      if (!key) {
+        return null;
+      }
+      const cachedInMemory = helperSemanticInventoryCache.get(key);
+      if (cachedInMemory && typeof cachedInMemory === "object") {
+        return cachedInMemory;
+      }
+      if (helperCache && typeof helperCache.loadSemanticInventory === "function") {
+        const cachedPersisted = await helperCache.loadSemanticInventory(
+          pair,
+          { profileId: normalizeProfileId(profileId) }
+        );
+        if (cachedPersisted && typeof cachedPersisted === "object") {
+          return cachedPersisted;
         }
       }
       return null;
@@ -99,7 +205,10 @@
           }
         }
       } catch (error) {
-        helperRulesError = error && error.message ? error.message : "Failed to fetch helper rules.";
+        helperRulesError = normalizeThrownHelperMessage(
+          error,
+          "Failed to fetch helper rules."
+        );
         const fallback = await loadCachedRules(normalizedPair, normalizedProfileId);
         if (fallback) {
           helperRules = tagRulesWithOrigin(fallback, ruleOriginSrs);
@@ -114,8 +223,73 @@
       };
     }
 
+    async function resolveSemanticInventory(pair, profileId) {
+      const normalizedPair = String(pair || "").trim();
+      const normalizedProfileId = normalizeProfileId(profileId);
+      if (!normalizedPair) {
+        return { inventory: null, source: "none", error: null };
+      }
+
+      let inventory = null;
+      let inventoryError = null;
+      let source = "none";
+
+      try {
+        const helperFetch = await fetchSemanticInventory(normalizedPair, normalizedProfileId);
+        const helperInventory = helperFetch && typeof helperFetch === "object"
+          ? helperFetch.inventory
+          : null;
+        inventoryError = helperFetch && typeof helperFetch === "object"
+          ? helperFetch.error
+          : null;
+        if (helperInventory && typeof helperInventory === "object") {
+          inventory = helperInventory;
+          source = "helper";
+          cacheSemanticInventory(normalizedPair, helperInventory, normalizedProfileId);
+        } else {
+          const fallback = await loadCachedSemanticInventory(normalizedPair, normalizedProfileId);
+          if (fallback && typeof fallback === "object") {
+            inventory = fallback;
+            source = "helper-cache";
+          }
+        }
+      } catch (error) {
+        inventoryError = normalizeThrownHelperMessage(
+          error,
+          "Failed to fetch helper semantic inventory."
+        );
+        const fallback = await loadCachedSemanticInventory(normalizedPair, normalizedProfileId);
+        if (fallback && typeof fallback === "object") {
+          inventory = fallback;
+          source = "helper-cache";
+        }
+      }
+
+      return {
+        inventory,
+        source,
+        error: inventoryError
+      };
+    }
+
+    async function semanticAdmitBatch(payload, timeoutMs) {
+      try {
+        return await requestSemanticAdmitBatch(payload, timeoutMs);
+      } catch (error) {
+        return {
+          response: null,
+          error: normalizeThrownHelperMessage(
+            error,
+            "Failed to evaluate helper semantic admission batch."
+          )
+        };
+      }
+    }
+
     return {
-      resolveHelperRules
+      resolveHelperRules,
+      resolveSemanticInventory,
+      semanticAdmitBatch
     };
   }
 

@@ -1,0 +1,436 @@
+{
+  "schema_version": 1,
+  "pair": "en-es",
+  "forward_seed_max_words": 1,
+  "include_neighbor_borrow_seed_modes": true,
+  "defaults": {
+    "policy": "support_score_v1",
+    "trigger_support_score_min": 0.0,
+    "support_score_min": 5.0,
+    "support_score_max_promoted": 2,
+    "support_frequency_representative_bonus": 0.0,
+    "support_frequency_representative_top_k": 0,
+    "support_frequency_similarity_weight": 0.0,
+    "support_frequency_similarity_tau": 0.15,
+    "semantic_bridge_include_aux_text": false,
+    "semantic_bridge_include_examples": false,
+    "support_representative_pruning_mode": "off",
+    "trigger_support_weights": {},
+    "shadow_support_weights": {}
+  },
+  "experiments": [
+    {
+      "experiment_id": "reviewed_auto_control",
+      "label": "Reviewed-trigger automatic control",
+      "seed_mode": "benchmark_reviewed",
+      "support_score_max_promoted": 1
+    },
+    {
+      "experiment_id": "source_only_baseline",
+      "label": "Source-only lexical baseline",
+      "seed_mode": "rulegen_top3_plus_forward_gloss"
+    },
+    {
+      "experiment_id": "source_only_trigger_filtered",
+      "label": "Source-only with upstream trigger filter",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0
+    },
+    {
+      "experiment_id": "source_only_borrowed",
+      "label": "Source-only with borrowed triggers",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow"
+    },
+    {
+      "experiment_id": "source_only_borrowed_threshold_2",
+      "label": "Borrowed triggers with threshold 2",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "trigger_support_score_min": 2.0
+    },
+    {
+      "experiment_id": "source_only_borrowed_threshold_3",
+      "label": "Borrowed triggers with threshold 3",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "trigger_support_score_min": 3.0
+    },
+    {
+      "experiment_id": "promotion_min_4",
+      "label": "Borrowed baseline with support min 4",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 4.0
+    },
+    {
+      "experiment_id": "promotion_min_6",
+      "label": "Borrowed baseline with support min 6",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 6.0
+    },
+    {
+      "experiment_id": "promotion_top1",
+      "label": "Borrowed baseline with top1 promotion",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_max_promoted": 1
+    },
+    {
+      "experiment_id": "promotion_top3",
+      "label": "Borrowed baseline with top3 promotion",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_max_promoted": 3
+    },
+    {
+      "experiment_id": "promotion_forward_support_off",
+      "label": "Borrowed baseline with forward support off",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "forward_trigger_support": 0.0
+      }
+    },
+    {
+      "experiment_id": "promotion_forward_support_half",
+      "label": "Borrowed baseline with forward support half",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "forward_trigger_support": 0.25
+      }
+    },
+    {
+      "experiment_id": "promotion_forward_support_high",
+      "label": "Borrowed baseline with forward support high",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "forward_trigger_support": 1.0
+      }
+    },
+    {
+      "experiment_id": "promotion_same_pos_off",
+      "label": "Borrowed baseline with same-POS reward off",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "same_pos_as_active": 0.0
+      }
+    },
+    {
+      "experiment_id": "promotion_same_pos_high",
+      "label": "Borrowed baseline with same-POS reward high",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "same_pos_as_active": 1.5
+      }
+    },
+    {
+      "experiment_id": "promotion_active_profile_off",
+      "label": "Borrowed baseline with active-profile support off",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "active_profile_support": 0.0
+      }
+    },
+    {
+      "experiment_id": "promotion_active_profile_high",
+      "label": "Borrowed baseline with active-profile support high",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "active_profile_support": 1.5
+      }
+    },
+    {
+      "experiment_id": "promotion_semantic_bridge_off",
+      "label": "Borrowed baseline with semantic-bridge support off",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "semantic_bridge_support": 0.0
+      }
+    },
+    {
+      "experiment_id": "promotion_semantic_bridge_high",
+      "label": "Borrowed baseline with semantic-bridge support high",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "semantic_bridge_support": 1.5
+      }
+    },
+    {
+      "experiment_id": "promotion_semantic_bridge_aux_text_on",
+      "label": "Borrowed baseline with semantic-bridge aux text on",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "semantic_bridge_include_aux_text": true
+    },
+    {
+      "experiment_id": "promotion_semantic_bridge_aux_text_examples_on",
+      "label": "Borrowed baseline with semantic-bridge aux text and examples on",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "semantic_bridge_include_aux_text": true,
+      "semantic_bridge_include_examples": true
+    },
+    {
+      "experiment_id": "promotion_cross_pos_penalty_off",
+      "label": "Borrowed baseline with cross-POS penalty off",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "cross_pos_mismatch_penalty": 0.0
+      }
+    },
+    {
+      "experiment_id": "promotion_cross_pos_penalty_strong",
+      "label": "Borrowed baseline with cross-POS penalty strong",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "cross_pos_mismatch_penalty": -2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_candidate_1",
+      "label": "Borrowed baseline with multi-source candidate support 1.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_candidate_1_5",
+      "label": "Borrowed baseline with multi-source candidate support 1.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5
+      }
+    },
+    {
+      "experiment_id": "promotion_triplet_core_bonus",
+      "label": "Borrowed baseline with multi-source 1.5 plus triplet core bonus 1.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "triplet_core_bonus": 1.0
+      }
+    },
+    {
+      "experiment_id": "promotion_triplet_forward_bonus",
+      "label": "Borrowed baseline with multi-source 1.5 plus triplet core 1.0 and forward bonus 0.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "triplet_core_bonus": 1.0,
+        "triplet_forward_bonus": 0.5
+      }
+    },
+    {
+      "experiment_id": "promotion_triplet_bridge_guard_bonus",
+      "label": "Borrowed baseline with multi-source 1.5 plus triplet core 1.0 and bridge-guard bonus 1.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "triplet_core_bonus": 1.0,
+        "triplet_bridge_guard_bonus": 1.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_candidate_2",
+      "label": "Borrowed baseline with multi-source candidate support 2.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_2",
+      "label": "Borrowed baseline with multi-source 1.5 plus neighborhood overlap 2.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3",
+      "label": "Borrowed baseline with multi-source 1.5 plus neighborhood overlap 3.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_2_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 2.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 5.5,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 5.5,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_2_threshold_6",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 2.0, threshold 6.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 6.0,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3_threshold_6",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, threshold 6.0",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 6.0,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_trigger_family_reentry_2_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, trigger-family reentry 2.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 5.5,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "trigger_family_reentry": 2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_trigger_family_reentry_3_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, trigger-family reentry 3.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 5.5,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "trigger_family_reentry": 3.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3_plus_trigger_family_reentry_2_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, trigger-family reentry 2.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 5.5,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0,
+        "trigger_family_reentry": 2.0
+      }
+    },
+    {
+      "experiment_id": "promotion_multi_source_plus_forward_neighborhood_3_plus_trigger_family_reentry_3_threshold_5_5",
+      "label": "Borrowed baseline with multi-source 1.5, neighborhood overlap 3.0, trigger-family reentry 3.0, threshold 5.5",
+      "seed_mode": "rulegen_top3_plus_forward_gloss_plus_neighbor_borrow",
+      "support_score_min": 5.5,
+      "shadow_support_weights": {
+        "multi_source_candidate_support": 1.5,
+        "forward_neighborhood_overlap": 3.0,
+        "trigger_family_reentry": 3.0
+      }
+    },
+    {
+      "experiment_id": "source_only_forward_reward_off",
+      "label": "Source-only with forward support ablated",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "shadow_support_weights": {
+        "forward_trigger_support": 0.0
+      }
+    },
+    {
+      "experiment_id": "admission_threshold_2",
+      "label": "Admission threshold 2",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 2.0
+    },
+    {
+      "experiment_id": "admission_threshold_4",
+      "label": "Admission threshold 4",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 4.0
+    },
+    {
+      "experiment_id": "admission_forward_gloss_off",
+      "label": "Admission forward-gloss reward off",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0,
+      "trigger_support_weights": {
+        "forward_gloss_fragment": 0.0
+      }
+    },
+    {
+      "experiment_id": "admission_forward_gloss_half",
+      "label": "Admission forward-gloss reward half",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0,
+      "trigger_support_weights": {
+        "forward_gloss_fragment": 0.5
+      }
+    },
+    {
+      "experiment_id": "admission_forward_gloss_high",
+      "label": "Admission forward-gloss reward high",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0,
+      "trigger_support_weights": {
+        "forward_gloss_fragment": 1.5
+      }
+    },
+    {
+      "experiment_id": "admission_multi_source_off",
+      "label": "Admission multi-source reward off",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0,
+      "trigger_support_weights": {
+        "multi_source_support": 0.0
+      }
+    },
+    {
+      "experiment_id": "admission_multi_source_high",
+      "label": "Admission multi-source reward high",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0,
+      "trigger_support_weights": {
+        "multi_source_support": 1.5
+      }
+    },
+    {
+      "experiment_id": "admission_reverse_shadow_off",
+      "label": "Admission reverse-shadow reward off",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0,
+      "trigger_support_weights": {
+        "reverse_shadow_support": 0.0
+      }
+    },
+    {
+      "experiment_id": "admission_reverse_shadow_high",
+      "label": "Admission reverse-shadow reward high",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0,
+      "trigger_support_weights": {
+        "reverse_shadow_support": 1.5
+      }
+    },
+    {
+      "experiment_id": "admission_multiword_penalty_off",
+      "label": "Admission multiword penalty off",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0,
+      "trigger_support_weights": {
+        "multi_word_penalty": 0.0
+      }
+    },
+    {
+      "experiment_id": "admission_multiword_penalty_strong",
+      "label": "Admission multiword penalty strong",
+      "seed_mode": "rulegen_top3_plus_forward_gloss",
+      "trigger_support_score_min": 3.0,
+      "trigger_support_weights": {
+        "multi_word_penalty": -2.0
+      }
+    }
+  ]
+}

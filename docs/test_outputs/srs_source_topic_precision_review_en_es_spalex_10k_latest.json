@@ -1,0 +1,3907 @@
+{
+  "decision": "srs_source_topic_precision_review_ready",
+  "findings": [
+    {
+      "code": "frontier_available",
+      "level": "PASS",
+      "message": "Depth-audit frontier exists."
+    },
+    {
+      "code": "release_topics_selected",
+      "level": "PASS",
+      "message": "Release-candidate topics were selected."
+    },
+    {
+      "code": "review_rows_present",
+      "level": "PASS",
+      "message": "Review rows were generated."
+    },
+    {
+      "code": "manual_labels_applied",
+      "level": "PASS",
+      "message": "Manual labels applied."
+    },
+    {
+      "code": "accepted_majority",
+      "level": "PASS",
+      "message": "Accepted rows outnumber rejects in the reviewed sample."
+    },
+    {
+      "code": "source_false_positive_classes_present",
+      "level": "WARN",
+      "message": "Rejects identify source-label false-positive classes before promotion."
+    }
+  ],
+  "generated_at": "2026-05-19T22:39:49.721800+00:00",
+  "inputs": {
+    "depth_audit_json": "docs/test_outputs/srs_topic_family_depth_audit_en_es_latest.json",
+    "frontier_label": "spalex_10k_research",
+    "labels_json": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+    "labels_review_id": "srs_source_topic_precision_review_en_es_spalex_10k_v1",
+    "labels_state": "agent_labeled_pending_user_approval",
+    "max_rows_per_family": 12,
+    "release_readiness_json": "docs/test_outputs/srs_topic_release_readiness_en_es_latest.json",
+    "release_statuses": [
+      "release_candidate",
+      "release_candidate_limited_depth"
+    ]
+  },
+  "label_result": {
+    "invalid_decisions": [],
+    "labels_json": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+    "labels_provided": true,
+    "labels_review_id": "srs_source_topic_precision_review_en_es_spalex_10k_v1",
+    "labels_state": "agent_labeled_pending_user_approval",
+    "missing_review_ids": [],
+    "retired_review_ids": [
+      "srs-src-topic-001",
+      "srs-src-topic-017",
+      "srs-src-topic-018",
+      "srs-src-topic-030",
+      "srs-src-topic-037",
+      "srs-src-topic-049",
+      "srs-src-topic-053",
+      "srs-src-topic-075",
+      "srs-src-topic-078",
+      "srs-src-topic-079",
+      "srs-src-topic-080"
+    ],
+    "unknown_review_ids": []
+  },
+  "language_pair": "en-es",
+  "limitations": [
+    "This packet samples compact evidence retained by the depth audit, not every source row.",
+    "Agent labels are pending user approval and do not promote runtime topic truth by themselves.",
+    "Rejects in this sample should tighten release guidance before default-visible topics are accepted."
+  ],
+  "precision_by_family": [
+    {
+      "accepted_count": 12,
+      "accepted_rate": 1.0,
+      "count": 12,
+      "decision_counts": {
+        "accept_light_topic": 7,
+        "accept_strong_topic": 5
+      },
+      "label": "science_technology",
+      "light_count": 7,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 5,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 10,
+      "accepted_rate": 1.0,
+      "count": 10,
+      "decision_counts": {
+        "accept_light_topic": 7,
+        "accept_strong_topic": 3
+      },
+      "label": "arts_literature_humanities",
+      "light_count": 7,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 3,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 10,
+      "accepted_rate": 1.0,
+      "count": 10,
+      "decision_counts": {
+        "accept_light_topic": 10
+      },
+      "label": "games",
+      "light_count": 10,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 10,
+      "accepted_rate": 1.0,
+      "count": 10,
+      "decision_counts": {
+        "accept_light_topic": 7,
+        "accept_strong_topic": 3
+      },
+      "label": "law_politics_civics",
+      "light_count": 7,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 3,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 10,
+      "accepted_rate": 1.0,
+      "count": 10,
+      "decision_counts": {
+        "accept_light_topic": 10
+      },
+      "label": "sports_fitness",
+      "light_count": 10,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 7,
+      "accepted_rate": 0.777778,
+      "count": 9,
+      "decision_counts": {
+        "accept_light_topic": 5,
+        "accept_strong_topic": 2,
+        "reject_secondary_or_obscure_sense": 2
+      },
+      "label": "travel_places_transport",
+      "light_count": 5,
+      "pending_count": 0,
+      "rejected_count": 2,
+      "rejected_rate": 0.222222,
+      "secondary_or_obscure_count": 2,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 6,
+      "accepted_rate": 0.75,
+      "count": 8,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "accept_strong_topic": 3,
+        "reject_secondary_or_obscure_sense": 2
+      },
+      "label": "finance_business",
+      "light_count": 3,
+      "pending_count": 0,
+      "rejected_count": 2,
+      "rejected_rate": 0.25,
+      "secondary_or_obscure_count": 2,
+      "strong_count": 3,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 8,
+      "accepted_rate": 1.0,
+      "count": 8,
+      "decision_counts": {
+        "accept_light_topic": 4,
+        "accept_strong_topic": 4
+      },
+      "label": "medicine_health",
+      "light_count": 4,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 4,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 8,
+      "accepted_rate": 1.0,
+      "count": 8,
+      "decision_counts": {
+        "accept_light_topic": 4,
+        "accept_strong_topic": 4
+      },
+      "label": "music_media_entertainment",
+      "light_count": 4,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 4,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    }
+  ],
+  "precision_by_source_label": [
+    {
+      "accepted_count": 11,
+      "accepted_rate": 1.0,
+      "count": 11,
+      "decision_counts": {
+        "accept_light_topic": 6,
+        "accept_strong_topic": 5
+      },
+      "label": "sciences",
+      "light_count": 6,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 5,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 10,
+      "accepted_rate": 1.0,
+      "count": 10,
+      "decision_counts": {
+        "accept_light_topic": 10
+      },
+      "label": "games",
+      "light_count": 10,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 10,
+      "accepted_rate": 1.0,
+      "count": 10,
+      "decision_counts": {
+        "accept_light_topic": 6,
+        "accept_strong_topic": 4
+      },
+      "label": "mathematics",
+      "light_count": 6,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 4,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 10,
+      "accepted_rate": 1.0,
+      "count": 10,
+      "decision_counts": {
+        "accept_light_topic": 6,
+        "accept_strong_topic": 4
+      },
+      "label": "natural_sciences",
+      "light_count": 6,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 4,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 10,
+      "accepted_rate": 1.0,
+      "count": 10,
+      "decision_counts": {
+        "accept_light_topic": 6,
+        "accept_strong_topic": 4
+      },
+      "label": "physical_sciences",
+      "light_count": 6,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 4,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 10,
+      "accepted_rate": 1.0,
+      "count": 10,
+      "decision_counts": {
+        "accept_light_topic": 10
+      },
+      "label": "sports",
+      "light_count": 10,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 9,
+      "accepted_rate": 1.0,
+      "count": 9,
+      "decision_counts": {
+        "accept_light_topic": 5,
+        "accept_strong_topic": 4
+      },
+      "label": "engineering",
+      "light_count": 5,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 4,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 8,
+      "accepted_rate": 1.0,
+      "count": 8,
+      "decision_counts": {
+        "accept_light_topic": 5,
+        "accept_strong_topic": 3
+      },
+      "label": "computing",
+      "light_count": 5,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 3,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 8,
+      "accepted_rate": 1.0,
+      "count": 8,
+      "decision_counts": {
+        "accept_light_topic": 4,
+        "accept_strong_topic": 4
+      },
+      "label": "entertainment",
+      "light_count": 4,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 4,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 6,
+      "accepted_rate": 0.75,
+      "count": 8,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "accept_strong_topic": 3,
+        "reject_secondary_or_obscure_sense": 2
+      },
+      "label": "finance",
+      "light_count": 3,
+      "pending_count": 0,
+      "rejected_count": 2,
+      "rejected_rate": 0.25,
+      "secondary_or_obscure_count": 2,
+      "strong_count": 3,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 8,
+      "accepted_rate": 1.0,
+      "count": 8,
+      "decision_counts": {
+        "accept_light_topic": 5,
+        "accept_strong_topic": 3
+      },
+      "label": "law",
+      "light_count": 5,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 3,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 8,
+      "accepted_rate": 1.0,
+      "count": 8,
+      "decision_counts": {
+        "accept_light_topic": 4,
+        "accept_strong_topic": 4
+      },
+      "label": "medicine",
+      "light_count": 4,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 4,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 5,
+      "accepted_rate": 0.714286,
+      "count": 7,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "accept_strong_topic": 2,
+        "reject_secondary_or_obscure_sense": 2
+      },
+      "label": "business",
+      "light_count": 3,
+      "pending_count": 0,
+      "rejected_count": 2,
+      "rejected_rate": 0.285714,
+      "secondary_or_obscure_count": 2,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 7,
+      "accepted_rate": 1.0,
+      "count": 7,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "accept_strong_topic": 4
+      },
+      "label": "music",
+      "light_count": 3,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 4,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 5,
+      "accepted_rate": 0.833333,
+      "count": 6,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "accept_strong_topic": 2,
+        "reject_secondary_or_obscure_sense": 1
+      },
+      "label": "transport",
+      "light_count": 3,
+      "pending_count": 0,
+      "rejected_count": 1,
+      "rejected_rate": 0.166667,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 4,
+      "accepted_rate": 0.8,
+      "count": 5,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "accept_strong_topic": 1,
+        "reject_secondary_or_obscure_sense": 1
+      },
+      "label": "nautical",
+      "light_count": 3,
+      "pending_count": 0,
+      "rejected_count": 1,
+      "rejected_rate": 0.2,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 4,
+      "accepted_rate": 1.0,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 3
+      },
+      "label": "anatomy",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 3,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 4,
+      "accepted_rate": 1.0,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 4
+      },
+      "label": "ball_games",
+      "light_count": 4,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 4,
+      "accepted_rate": 1.0,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 4
+      },
+      "label": "card_games",
+      "light_count": 4,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 4,
+      "accepted_rate": 1.0,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "accept_strong_topic": 1
+      },
+      "label": "literature",
+      "light_count": 3,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 4,
+      "accepted_rate": 1.0,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 4
+      },
+      "label": "soccer",
+      "light_count": 4,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 0.666667,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 2,
+        "reject_secondary_or_obscure_sense": 1
+      },
+      "label": "geography",
+      "light_count": 2,
+      "pending_count": 0,
+      "rejected_count": 1,
+      "rejected_rate": 0.333333,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 3
+      },
+      "label": "government",
+      "light_count": 3,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 2
+      },
+      "label": "linguistics",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 2
+      },
+      "label": "arts",
+      "light_count": 2,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 1
+      },
+      "label": "physics",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 2
+      },
+      "label": "politics",
+      "light_count": 2,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 1
+      },
+      "label": "theater",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "accounting",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "aeronautics",
+      "light_count": 0,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "aerospace",
+      "light_count": 0,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "architecture",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "art",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "aviation",
+      "light_count": 0,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "broadcasting",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "chemistry",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "economics",
+      "light_count": 0,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "film",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "history",
+      "light_count": 0,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "media",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "philosophy",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "television",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "video_games",
+      "light_count": 1,
+      "pending_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    }
+  ],
+  "rejected_rows": [
+    {
+      "admission_weight": 0.998541,
+      "difficulty": 0.001459,
+      "difficulty_band": "",
+      "family": "finance_business",
+      "lemma": "silicio",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Silicon business/finance relation is source-fragile and primarily science/technology vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-012",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 371,
+      "source_labels": [
+        "business",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": 0.84839,
+      "difficulty": 0.15161,
+      "difficulty_band": "",
+      "family": "finance_business",
+      "lemma": "raso",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "The business/finance relation is too weak compared with the broad adjective.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-015",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 6734,
+      "source_labels": [
+        "business",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": 0.976732,
+      "difficulty": 0.023268,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "plutón",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Planet/geography evidence is not useful travel or transport preference evidence.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-072",
+      "sample_source": "hardest_example",
+      "score": 0.525,
+      "seed_rank": 6516,
+      "source_labels": [
+        "geography"
+      ]
+    },
+    {
+      "admission_weight": 0.9767,
+      "difficulty": 0.0233,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "bonanza",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Nautical fair-weather sense is too narrow compared with common prosperity/good-fortune senses.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-073",
+      "sample_source": "hardest_example",
+      "score": 0.68,
+      "seed_rank": 6524,
+      "source_labels": [
+        "nautical",
+        "transport"
+      ]
+    }
+  ],
+  "review_policy": {
+    "allowed_decisions": [
+      "accept_strong_topic",
+      "accept_light_topic",
+      "reject_wrong_topic",
+      "reject_secondary_or_obscure_sense",
+      "uncertain_needs_source_check"
+    ],
+    "scope": "Sampled release-candidate evidence from the topic-family depth audit; not a full-universe precision estimate.",
+    "state": "agent_labeled_pending_user_approval"
+  },
+  "review_queue": [
+    {
+      "admission_weight": 0.999851,
+      "difficulty": 0.000149,
+      "difficulty_band": "",
+      "family": "medicine_health",
+      "lemma": "corazón",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct anatomy and health vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-001",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 32,
+      "source_labels": [
+        "anatomy",
+        "medicine"
+      ]
+    },
+    {
+      "admission_weight": 0.999837,
+      "difficulty": 0.000163,
+      "difficulty_band": "",
+      "family": "medicine_health",
+      "lemma": "rostro",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Body/anatomy vocabulary is health-relevant, but the lemma is broad and basic.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-002",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 37,
+      "source_labels": [
+        "anatomy",
+        "medicine"
+      ]
+    },
+    {
+      "admission_weight": 0.999727,
+      "difficulty": 0.000273,
+      "difficulty_band": "",
+      "family": "medicine_health",
+      "lemma": "órgano",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct anatomy and medicine vocabulary despite nonmedical senses.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-003",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 65,
+      "source_labels": [
+        "anatomy",
+        "medicine"
+      ]
+    },
+    {
+      "admission_weight": 0.999579,
+      "difficulty": 0.000421,
+      "difficulty_band": "",
+      "family": "medicine_health",
+      "lemma": "estadio",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Disease stage is a real medicine sense, but the lemma is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-004",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 95,
+      "source_labels": [
+        "medicine"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.302479,
+      "difficulty_band": "0.20-0.40",
+      "family": "medicine_health",
+      "lemma": "enconar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "The inflame/fester sense is medical, but specialized.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-005",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "medicine"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.305559,
+      "difficulty_band": "0.20-0.40",
+      "family": "medicine_health",
+      "lemma": "dormir",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Sleep is health-relevant, but the verb remains very general.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-006",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "medicine"
+      ]
+    },
+    {
+      "admission_weight": 0.832944,
+      "difficulty": 0.167056,
+      "difficulty_band": "",
+      "family": "medicine_health",
+      "lemma": "renal",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct kidney/anatomy and health vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-007",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 7849,
+      "source_labels": [
+        "anatomy",
+        "medicine"
+      ]
+    },
+    {
+      "admission_weight": 0.831783,
+      "difficulty": 0.168217,
+      "difficulty_band": "",
+      "family": "medicine_health",
+      "lemma": "inmune",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct immune/health vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-008",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 7933,
+      "source_labels": [
+        "medicine"
+      ]
+    },
+    {
+      "admission_weight": 0.999903,
+      "difficulty": 9.7e-05,
+      "difficulty_band": "",
+      "family": "finance_business",
+      "lemma": "capital",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct finance and business vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-009",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 15,
+      "source_labels": [
+        "business",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": 0.999781,
+      "difficulty": 0.000219,
+      "difficulty_band": "",
+      "family": "finance_business",
+      "lemma": "par",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Par value and market senses are real, but the lemma is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-010",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 51,
+      "source_labels": [
+        "business",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": 0.999405,
+      "difficulty": 0.000595,
+      "difficulty_band": "",
+      "family": "finance_business",
+      "lemma": "fusión",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Merger/fusion is direct finance and business vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-011",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 140,
+      "source_labels": [
+        "economics",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": 0.998541,
+      "difficulty": 0.001459,
+      "difficulty_band": "",
+      "family": "finance_business",
+      "lemma": "silicio",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Silicon business/finance relation is source-fragile and primarily science/technology vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-012",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 371,
+      "source_labels": [
+        "business",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.314492,
+      "difficulty_band": "0.20-0.40",
+      "family": "finance_business",
+      "lemma": "cancelar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Cancel/pay off debt or invoice senses are finance-relevant, but the lemma is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-013",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "business",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": 0.848567,
+      "difficulty": 0.151433,
+      "difficulty_band": "",
+      "family": "finance_business",
+      "lemma": "auxiliar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Accounting or business assistant/subledger senses are useful, but the lemma is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-014",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 6714,
+      "source_labels": [
+        "accounting",
+        "business",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": 0.84839,
+      "difficulty": 0.15161,
+      "difficulty_band": "",
+      "family": "finance_business",
+      "lemma": "raso",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "The business/finance relation is too weak compared with the broad adjective.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-015",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 6734,
+      "source_labels": [
+        "business",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": 0.84666,
+      "difficulty": 0.15334,
+      "difficulty_band": "",
+      "family": "finance_business",
+      "lemma": "acreedor",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct creditor/finance vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-016",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 6990,
+      "source_labels": [
+        "business",
+        "finance"
+      ]
+    },
+    {
+      "admission_weight": 0.999791,
+      "difficulty": 0.000209,
+      "difficulty_band": "",
+      "family": "sports_fitness",
+      "lemma": "entrada",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Tackle/ticket/entry sports senses exist, but the lemma is highly polysemous.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-017",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 48,
+      "source_labels": [
+        "ball_games",
+        "soccer",
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": 0.999559,
+      "difficulty": 0.000441,
+      "difficulty_band": "",
+      "family": "sports_fitness",
+      "lemma": "pista",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Track/court sense is useful for sports, but clue/trail senses compete.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-018",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 98,
+      "source_labels": [
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": 0.999525,
+      "difficulty": 0.000475,
+      "difficulty_band": "",
+      "family": "sports_fitness",
+      "lemma": "palo",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Stick/post sports senses are real, but the word is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-019",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 109,
+      "source_labels": [
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": 0.999496,
+      "difficulty": 0.000504,
+      "difficulty_band": "",
+      "family": "sports_fitness",
+      "lemma": "titular",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Starter/headline sports sense is useful, but headline/title senses are broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-020",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 114,
+      "source_labels": [
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.300049,
+      "difficulty_band": "0.20-0.40",
+      "family": "sports_fitness",
+      "lemma": "sacar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Serve/kick-off use is real, but the general verb is very broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-021",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "ball_games",
+        "soccer",
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.300149,
+      "difficulty_band": "0.20-0.40",
+      "family": "sports_fitness",
+      "lemma": "marcar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Score/mark is common sports vocabulary, but the non-sports senses are broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-022",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": 0.686895,
+      "difficulty": 0.313105,
+      "difficulty_band": "",
+      "family": "sports_fitness",
+      "lemma": "recortar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Cut back/change direction is useful sports vocabulary, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-023",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 8953,
+      "source_labels": [
+        "ball_games",
+        "soccer",
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": 0.686085,
+      "difficulty": 0.313915,
+      "difficulty_band": "",
+      "family": "sports_fitness",
+      "lemma": "remontar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Comeback sense is common in sports, but the verb also has general senses.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-024",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 8999,
+      "source_labels": [
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": 0.685283,
+      "difficulty": 0.314717,
+      "difficulty_band": "",
+      "family": "sports_fitness",
+      "lemma": "fichar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Player-signing sense is useful, but hiring/registering senses compete.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-025",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 9043,
+      "source_labels": [
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": 0.684847,
+      "difficulty": 0.315153,
+      "difficulty_band": "",
+      "family": "sports_fitness",
+      "lemma": "despejar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear-the-ball sense is real, but the verb is not sports-exclusive.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-026",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 9064,
+      "source_labels": [
+        "ball_games",
+        "soccer",
+        "sports"
+      ]
+    },
+    {
+      "admission_weight": 0.999878,
+      "difficulty": 0.000122,
+      "difficulty_band": "",
+      "family": "games",
+      "lemma": "jefe",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Boss-enemy sense is real in games, but chief/boss senses dominate generally.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-027",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 25,
+      "source_labels": [
+        "games",
+        "video_games"
+      ]
+    },
+    {
+      "admission_weight": 0.999851,
+      "difficulty": 0.000149,
+      "difficulty_band": "",
+      "family": "games",
+      "lemma": "corazón",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Card-suit and game-life senses are useful, but heart/body senses compete.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-028",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 32,
+      "source_labels": [
+        "card_games",
+        "games"
+      ]
+    },
+    {
+      "admission_weight": 0.999559,
+      "difficulty": 0.000441,
+      "difficulty_band": "",
+      "family": "games",
+      "lemma": "pista",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Clue/hint sense is useful for games, but non-game senses compete.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-029",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 98,
+      "source_labels": [
+        "games"
+      ]
+    },
+    {
+      "admission_weight": 0.999525,
+      "difficulty": 0.000475,
+      "difficulty_band": "",
+      "family": "games",
+      "lemma": "palo",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Card-suit or game-piece sense is useful, but stick/club senses compete.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-030",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 109,
+      "source_labels": [
+        "card_games",
+        "games"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.30027,
+      "difficulty_band": "0.20-0.40",
+      "family": "games",
+      "lemma": "cargar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Load-game sense is real, but charge/load senses are broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-031",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "games"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.30042,
+      "difficulty_band": "0.20-0.40",
+      "family": "games",
+      "lemma": "descartar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Discard is direct card/game vocabulary, but also a general verb.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-032",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "card_games",
+        "games"
+      ]
+    },
+    {
+      "admission_weight": 0.694869,
+      "difficulty": 0.305131,
+      "difficulty_band": "",
+      "family": "games",
+      "lemma": "tocar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Turn/play/touch senses can be useful in games, but the verb is very broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-033",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 8444,
+      "source_labels": [
+        "games"
+      ]
+    },
+    {
+      "admission_weight": 0.694095,
+      "difficulty": 0.305905,
+      "difficulty_band": "",
+      "family": "games",
+      "lemma": "lanzar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Throw/launch is useful in games, but also broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-034",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 8497,
+      "source_labels": [
+        "games"
+      ]
+    },
+    {
+      "admission_weight": 0.688198,
+      "difficulty": 0.311802,
+      "difficulty_band": "",
+      "family": "games",
+      "lemma": "apuntar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Aim/point is common gameplay vocabulary, but the verb is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-035",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 8880,
+      "source_labels": [
+        "card_games",
+        "games"
+      ]
+    },
+    {
+      "admission_weight": 0.684847,
+      "difficulty": 0.315153,
+      "difficulty_band": "",
+      "family": "games",
+      "lemma": "despejar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear-board or clear-area gameplay sense is real, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-036",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 9064,
+      "source_labels": [
+        "games"
+      ]
+    },
+    {
+      "admission_weight": 0.999938,
+      "difficulty": 6.2e-05,
+      "difficulty_band": "",
+      "family": "music_media_entertainment",
+      "lemma": "movimiento",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Musical movement is a real sense, but the lemma is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-037",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 6,
+      "source_labels": [
+        "entertainment",
+        "music"
+      ]
+    },
+    {
+      "admission_weight": 0.999832,
+      "difficulty": 0.000168,
+      "difficulty_band": "",
+      "family": "music_media_entertainment",
+      "lemma": "orquesta",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct music vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-038",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 38,
+      "source_labels": [
+        "entertainment",
+        "music"
+      ]
+    },
+    {
+      "admission_weight": 0.999727,
+      "difficulty": 0.000273,
+      "difficulty_band": "",
+      "family": "music_media_entertainment",
+      "lemma": "órgano",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Musical instrument sense is direct and learner-useful.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-039",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 65,
+      "source_labels": [
+        "entertainment",
+        "music"
+      ]
+    },
+    {
+      "admission_weight": 0.999559,
+      "difficulty": 0.000441,
+      "difficulty_band": "",
+      "family": "music_media_entertainment",
+      "lemma": "pista",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Track/media sense is useful, but the lemma is highly polysemous.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-040",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 98,
+      "source_labels": [
+        "entertainment",
+        "music"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.301313,
+      "difficulty_band": "0.20-0.40",
+      "family": "music_media_entertainment",
+      "lemma": "pinchar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "DJ/play-record sense is entertainment-relevant, but broad and colloquial.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-041",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "entertainment",
+        "music"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.306597,
+      "difficulty_band": "0.20-0.40",
+      "family": "music_media_entertainment",
+      "lemma": "interpretar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct perform/interpret vocabulary for music, theater, and entertainment.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-042",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "entertainment",
+        "music",
+        "theater"
+      ]
+    },
+    {
+      "admission_weight": 0.839038,
+      "difficulty": 0.160962,
+      "difficulty_band": "",
+      "family": "music_media_entertainment",
+      "lemma": "trágico",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Tragic drama/film/theater usage is entertainment-relevant, but the adjective is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-043",
+      "sample_source": "hardest_example",
+      "score": 0.68,
+      "seed_rank": 7436,
+      "source_labels": [
+        "broadcasting",
+        "entertainment",
+        "film",
+        "media",
+        "television",
+        "theater"
+      ]
+    },
+    {
+      "admission_weight": 0.836843,
+      "difficulty": 0.163157,
+      "difficulty_band": "",
+      "family": "music_media_entertainment",
+      "lemma": "presto",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct music tempo vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-044",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 7582,
+      "source_labels": [
+        "entertainment",
+        "music"
+      ]
+    },
+    {
+      "admission_weight": 0.999878,
+      "difficulty": 0.000122,
+      "difficulty_band": "",
+      "family": "law_politics_civics",
+      "lemma": "jefe",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Leader/chief is civics-adjacent, but the lemma is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-045",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 25,
+      "source_labels": [
+        "government",
+        "politics"
+      ]
+    },
+    {
+      "admission_weight": 0.999772,
+      "difficulty": 0.000228,
+      "difficulty_band": "",
+      "family": "law_politics_civics",
+      "lemma": "demanda",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct legal vocabulary for claim/lawsuit.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-046",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 54,
+      "source_labels": [
+        "law"
+      ]
+    },
+    {
+      "admission_weight": 0.999745,
+      "difficulty": 0.000255,
+      "difficulty_band": "",
+      "family": "law_politics_civics",
+      "lemma": "tropa",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Military/government vocabulary is relevant, but not strictly civics.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-047",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 61,
+      "source_labels": [
+        "government",
+        "politics"
+      ]
+    },
+    {
+      "admission_weight": 0.999727,
+      "difficulty": 0.000273,
+      "difficulty_band": "",
+      "family": "law_politics_civics",
+      "lemma": "órgano",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Institutional body sense is relevant, but body-organ sense competes.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-048",
+      "sample_source": "top_example",
+      "score": 0.81,
+      "seed_rank": 65,
+      "source_labels": [
+        "law"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.30003,
+      "difficulty_band": "0.20-0.40",
+      "family": "law_politics_civics",
+      "lemma": "presentar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "File/submit a legal or government document is relevant, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-049",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "government",
+        "law"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.30034,
+      "difficulty_band": "0.20-0.40",
+      "family": "law_politics_civics",
+      "lemma": "recurrir",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Appeal/legal recourse sense is direct legal vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-050",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "law"
+      ]
+    },
+    {
+      "admission_weight": 0.687204,
+      "difficulty": 0.312796,
+      "difficulty_band": "",
+      "family": "law_politics_civics",
+      "lemma": "comparecer",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Appear before court or authority is direct legal/civics vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-051",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 8939,
+      "source_labels": [
+        "law"
+      ]
+    },
+    {
+      "admission_weight": 0.686703,
+      "difficulty": 0.313297,
+      "difficulty_band": "",
+      "family": "law_politics_civics",
+      "lemma": "alzar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Legal or political uprising/appeal senses are relevant, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-052",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 8961,
+      "source_labels": [
+        "law"
+      ]
+    },
+    {
+      "admission_weight": 0.685886,
+      "difficulty": 0.314114,
+      "difficulty_band": "",
+      "family": "law_politics_civics",
+      "lemma": "fallar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Rule/decide in court is relevant, but fail/misfire senses compete.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-053",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 9010,
+      "source_labels": [
+        "law"
+      ]
+    },
+    {
+      "admission_weight": 0.68516,
+      "difficulty": 0.31484,
+      "difficulty_band": "",
+      "family": "law_politics_civics",
+      "lemma": "reivindicar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Claim/assert-rights sense is relevant, but not exclusively legal.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-054",
+      "sample_source": "hardest_example",
+      "score": 0.81,
+      "seed_rank": 9051,
+      "source_labels": [
+        "law"
+      ]
+    },
+    {
+      "admission_weight": 0.999791,
+      "difficulty": 0.000209,
+      "difficulty_band": "",
+      "family": "science_technology",
+      "lemma": "entrada",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Input/entry sense is useful in computing, but the lemma is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-055",
+      "sample_source": "top_example",
+      "score": 0.765,
+      "seed_rank": 48,
+      "source_labels": [
+        "computing",
+        "engineering",
+        "mathematics",
+        "natural_sciences",
+        "physical_sciences",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": 0.999359,
+      "difficulty": 0.000641,
+      "difficulty_band": "",
+      "family": "science_technology",
+      "lemma": "defecto",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Defect/fault is useful in engineering and technology, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-056",
+      "sample_source": "top_example",
+      "score": 0.765,
+      "seed_rank": 150,
+      "source_labels": [
+        "computing",
+        "engineering",
+        "mathematics",
+        "natural_sciences",
+        "physical_sciences",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": 0.997264,
+      "difficulty": 0.002736,
+      "difficulty_band": "",
+      "family": "science_technology",
+      "lemma": "controlador",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct controller/driver technical vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-057",
+      "sample_source": "top_example",
+      "score": 0.765,
+      "seed_rank": 717,
+      "source_labels": [
+        "computing",
+        "engineering",
+        "mathematics",
+        "natural_sciences",
+        "physical_sciences",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": 0.995717,
+      "difficulty": 0.004283,
+      "difficulty_band": "",
+      "family": "science_technology",
+      "lemma": "vida",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Life is relevant to biology/science, but the word is very broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-058",
+      "sample_source": "top_example",
+      "score": 0.765,
+      "seed_rank": 1108,
+      "source_labels": [
+        "computing",
+        "engineering",
+        "mathematics",
+        "natural_sciences",
+        "physical_sciences",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 6.4e-05,
+      "difficulty_band": "0.00-0.20",
+      "family": "science_technology",
+      "lemma": "luz",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct physics/science vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-059",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "engineering",
+        "natural_sciences",
+        "physical_sciences",
+        "physics",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 9.3e-05,
+      "difficulty_band": "0.00-0.20",
+      "family": "science_technology",
+      "lemma": "área",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct mathematics/science vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-060",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "mathematics",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.300196,
+      "difficulty_band": "0.20-0.40",
+      "family": "science_technology",
+      "lemma": "trasladar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Translate/transfer sense is relevant in math or engineering, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-061",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "mathematics",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.30027,
+      "difficulty_band": "0.20-0.40",
+      "family": "science_technology",
+      "lemma": "cargar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Load/charge is useful computing and engineering vocabulary, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-062",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "computing",
+        "engineering",
+        "mathematics",
+        "natural_sciences",
+        "physical_sciences",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": 0.6873,
+      "difficulty": 0.3127,
+      "difficulty_band": "",
+      "family": "science_technology",
+      "lemma": "activar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Activation is useful technical vocabulary, but the verb is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-063",
+      "sample_source": "hardest_example",
+      "score": 0.6375,
+      "seed_rank": 8937,
+      "source_labels": [
+        "chemistry",
+        "natural_sciences",
+        "physical_sciences",
+        "physics"
+      ]
+    },
+    {
+      "admission_weight": 0.686889,
+      "difficulty": 0.313111,
+      "difficulty_band": "",
+      "family": "science_technology",
+      "lemma": "actualizar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct computing/technology vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-064",
+      "sample_source": "hardest_example",
+      "score": 0.765,
+      "seed_rank": 8954,
+      "source_labels": [
+        "computing",
+        "engineering",
+        "mathematics",
+        "natural_sciences",
+        "physical_sciences",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": 0.684429,
+      "difficulty": 0.315571,
+      "difficulty_band": "",
+      "family": "science_technology",
+      "lemma": "colgar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Hang/freeze computing sense is useful, but the word is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-065",
+      "sample_source": "hardest_example",
+      "score": 0.765,
+      "seed_rank": 9084,
+      "source_labels": [
+        "computing",
+        "engineering",
+        "mathematics",
+        "natural_sciences",
+        "physical_sciences",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": 0.683746,
+      "difficulty": 0.316254,
+      "difficulty_band": "",
+      "family": "science_technology",
+      "lemma": "programar",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct computing/technology vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "verb",
+      "review_id": "srs-src-topic-066",
+      "sample_source": "hardest_example",
+      "score": 0.765,
+      "seed_rank": 9126,
+      "source_labels": [
+        "computing",
+        "engineering",
+        "mathematics",
+        "natural_sciences",
+        "physical_sciences",
+        "sciences"
+      ]
+    },
+    {
+      "admission_weight": 0.999667,
+      "difficulty": 0.000333,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "tren",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct transport vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-067",
+      "sample_source": "top_example",
+      "score": 0.68,
+      "seed_rank": 81,
+      "source_labels": [
+        "transport"
+      ]
+    },
+    {
+      "admission_weight": 0.999205,
+      "difficulty": 0.000795,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "bordo",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Aboard/ship-side travel expressions are relevant, but the lemma is specialized.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-068",
+      "sample_source": "top_example",
+      "score": 0.68,
+      "seed_rank": 194,
+      "source_labels": [
+        "nautical",
+        "transport"
+      ]
+    },
+    {
+      "admission_weight": 0.998247,
+      "difficulty": 0.001753,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "propulsión",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct propulsion/transport vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-069",
+      "sample_source": "top_example",
+      "score": 0.68,
+      "seed_rank": 449,
+      "source_labels": [
+        "aeronautics",
+        "aerospace",
+        "aviation",
+        "nautical",
+        "transport"
+      ]
+    },
+    {
+      "admission_weight": 0.997403,
+      "difficulty": 0.002597,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "quilla",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Keel is direct nautical/transport vocabulary, but specialized.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-070",
+      "sample_source": "top_example",
+      "score": 0.68,
+      "seed_rank": 677,
+      "source_labels": [
+        "nautical",
+        "transport"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.000217,
+      "difficulty_band": "0.00-0.20",
+      "family": "travel_places_transport",
+      "lemma": "etapa",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Trip stage or leg is travel-relevant, but the lemma is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-071",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "geography"
+      ]
+    },
+    {
+      "admission_weight": 0.976732,
+      "difficulty": 0.023268,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "plutón",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Planet/geography evidence is not useful travel or transport preference evidence.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-072",
+      "sample_source": "hardest_example",
+      "score": 0.525,
+      "seed_rank": 6516,
+      "source_labels": [
+        "geography"
+      ]
+    },
+    {
+      "admission_weight": 0.9767,
+      "difficulty": 0.0233,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "bonanza",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Nautical fair-weather sense is too narrow compared with common prosperity/good-fortune senses.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-073",
+      "sample_source": "hardest_example",
+      "score": 0.68,
+      "seed_rank": 6524,
+      "source_labels": [
+        "nautical",
+        "transport"
+      ]
+    },
+    {
+      "admission_weight": 0.849485,
+      "difficulty": 0.150515,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "naval",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Naval/maritime adjective is transport-adjacent, but not ordinary travel vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-074",
+      "sample_source": "hardest_example",
+      "score": 0.68,
+      "seed_rank": 6587,
+      "source_labels": [
+        "nautical",
+        "transport"
+      ]
+    },
+    {
+      "admission_weight": 0.832044,
+      "difficulty": 0.167956,
+      "difficulty_band": "",
+      "family": "travel_places_transport",
+      "lemma": "antártico",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Place/geography adjective is useful for travel and places, but narrow.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-075",
+      "sample_source": "hardest_example",
+      "score": 0.525,
+      "seed_rank": 7915,
+      "source_labels": [
+        "geography"
+      ]
+    },
+    {
+      "admission_weight": 0.994709,
+      "difficulty": 0.005291,
+      "difficulty_band": "",
+      "family": "arts_literature_humanities",
+      "lemma": "pie",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Verse/footnote/text sense is relevant, but body-part sense dominates.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-076",
+      "sample_source": "top_example",
+      "score": 0.765,
+      "seed_rank": 1469,
+      "source_labels": [
+        "arts",
+        "literature"
+      ]
+    },
+    {
+      "admission_weight": 0.994659,
+      "difficulty": 0.005341,
+      "difficulty_band": "",
+      "family": "arts_literature_humanities",
+      "lemma": "género",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct genre/linguistics/literature vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-077",
+      "sample_source": "top_example",
+      "score": 0.765,
+      "seed_rank": 1489,
+      "source_labels": [
+        "linguistics",
+        "literature"
+      ]
+    },
+    {
+      "admission_weight": 0.994562,
+      "difficulty": 0.005438,
+      "difficulty_band": "",
+      "family": "arts_literature_humanities",
+      "lemma": "concepto",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Useful humanities vocabulary, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-078",
+      "sample_source": "top_example",
+      "score": 0.765,
+      "seed_rank": 1523,
+      "source_labels": [
+        "literature"
+      ]
+    },
+    {
+      "admission_weight": 0.993518,
+      "difficulty": 0.006482,
+      "difficulty_band": "",
+      "family": "arts_literature_humanities",
+      "lemma": "metro",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Metre/meter is relevant to poetry and humanities, but transit/measurement senses compete.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "noun",
+      "review_id": "srs-src-topic-079",
+      "sample_source": "top_example",
+      "score": 0.765,
+      "seed_rank": 1881,
+      "source_labels": [
+        "literature"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 6.4e-05,
+      "difficulty_band": "0.00-0.20",
+      "family": "arts_literature_humanities",
+      "lemma": "luz",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Light is relevant to architecture/arts, but the word is broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-080",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "architecture"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.000207,
+      "difficulty_band": "0.00-0.20",
+      "family": "arts_literature_humanities",
+      "lemma": "sombra",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Shadow/shading is useful in art vocabulary, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-081",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "art",
+        "arts"
+      ]
+    },
+    {
+      "admission_weight": null,
+      "difficulty": 0.608917,
+      "difficulty_band": "0.60-0.80",
+      "family": "arts_literature_humanities",
+      "lemma": "afrodita",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Mythology/culture relevance is real, but proper-noun policy should stay light.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "",
+      "review_id": "srs-src-topic-082",
+      "sample_source": "band_example",
+      "score": null,
+      "seed_rank": null,
+      "source_labels": [
+        "philosophy"
+      ]
+    },
+    {
+      "admission_weight": 0.833654,
+      "difficulty": 0.166346,
+      "difficulty_band": "",
+      "family": "arts_literature_humanities",
+      "lemma": "paleolítico",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct history/humanities vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-083",
+      "sample_source": "hardest_example",
+      "score": 0.56,
+      "seed_rank": 7800,
+      "source_labels": [
+        "history"
+      ]
+    },
+    {
+      "admission_weight": 0.831235,
+      "difficulty": 0.168765,
+      "difficulty_band": "",
+      "family": "arts_literature_humanities",
+      "lemma": "neutro",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Neutral/neuter grammar and humanities sense is relevant, but broad.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-084",
+      "sample_source": "hardest_example",
+      "score": 0.385,
+      "seed_rank": 7970,
+      "source_labels": [
+        "linguistics"
+      ]
+    },
+    {
+      "admission_weight": 0.830486,
+      "difficulty": 0.169514,
+      "difficulty_band": "",
+      "family": "arts_literature_humanities",
+      "lemma": "reflexivo",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_strong_topic",
+        "label_match": "family_lemma",
+        "label_source": "docs/test_inputs/srs_source_topic_precision_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct linguistics/grammar vocabulary.",
+        "reviewed_at": "2026-05-20",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "pos_bucket": "adjective",
+      "review_id": "srs-src-topic-085",
+      "sample_source": "hardest_example",
+      "score": 0.385,
+      "seed_rank": 8013,
+      "source_labels": [
+        "linguistics"
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "accepted_count": 81,
+    "accepted_rate": 0.952941,
+    "count": 85,
+    "decision_counts": {
+      "accept_light_topic": 57,
+      "accept_strong_topic": 24,
+      "reject_secondary_or_obscure_sense": 4
+    },
+    "family_count": 9,
+    "finding_counts": {
+      "PASS": 5,
+      "WARN": 1
+    },
+    "issues": [],
+    "label": "overall",
+    "light_count": 57,
+    "pending_count": 0,
+    "rejected_count": 4,
+    "rejected_rate": 0.047059,
+    "secondary_or_obscure_count": 4,
+    "strong_count": 24,
+    "uncertain_count": 0,
+    "warnings": [
+      "source_false_positive_classes_present"
+    ],
+    "wrong_topic_count": 0
+  }
+}

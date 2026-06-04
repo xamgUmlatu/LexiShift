@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "batch_id": "en-es:wiktextract-example-frames:wiktextract-plant-heldout-v1-20260425a",
+  "pair": "en-es",
+  "source_type": "external",
+  "source_id": "wiktextract_example_frames",
+  "source_family": "external_example_corpus",
+  "roles": [
+    "cue_generation",
+    "discrimination"
+  ],
+  "generated_at": "2026-04-25T03:06:51Z",
+  "ingested_at": "2026-04-25T03:06:51Z",
+  "review_state": "unreviewed",
+  "model_id": "not_applicable",
+  "prompt_version": "wiktextract-example-frames-v1",
+  "provenance": {
+    "dataset_id": "en_es_sentence_veto_v10",
+    "source_scope": "family_keys",
+    "source_note": "local raw Wiktextract English examples linked to dataset senses",
+    "min_link_score": 0.02,
+    "max_examples_per_sense": 5,
+    "family_rows": [
+      {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "trigger": "plant",
+        "active_target": "planta",
+        "role": "target",
+        "active_example_count": 1,
+        "shadow_example_count": 2,
+        "phrase_control_example_count": 0,
+        "row_count": 3,
+        "link_rows": [
+          {
+            "sense_id": "en-es:sentence-veto:plant:planta:active",
+            "target_lemma": "planta",
+            "canonical_pos": "noun",
+            "relation_type": "anchor_cue",
+            "linked": true,
+            "best_link_score": 0.1,
+            "best_overlap": [
+              "organism"
+            ],
+            "sense_index": 0
+          },
+          {
+            "sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+            "target_lemma": "fábrica",
+            "canonical_pos": "noun",
+            "relation_type": "shadow_candidate",
+            "linked": true,
+            "best_link_score": 0.2857,
+            "best_overlap": [
+              "factory",
+              "industrial"
+            ],
+            "sense_index": 4
+          }
+        ]
+      }
+    ]
+  },
+  "items": [
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:active-en-es-sentence-veto-plant-planta-active-wiktextract-example-1",
+      "relation_type": "anchor_cue",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "planta",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The garden had a couple of trees, and a cluster of colourful plants around the border.",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "cue_generation",
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "example_bucket": "active",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 0,
+        "wiktextract_link_score": 0.1,
+        "wiktextract_link_overlap": [
+          "organism"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wiktextract-example-1",
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "The company has production plants in three countries.",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 4,
+        "wiktextract_link_score": 0.2857,
+        "wiktextract_link_overlap": [
+          "factory",
+          "industrial"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    },
+    {
+      "row_id": "en-es-sentence-veto-plant-planta:shadow-en-es-sentence-veto-plant-fabrica-shadow-wiktextract-example-2",
+      "relation_type": "shadow_candidate",
+      "trigger": "plant",
+      "active_target": "planta",
+      "candidate_target": "fábrica",
+      "active_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:planta:active",
+        "canonical_pos": "noun",
+        "note": "fixed_shadow_active"
+      },
+      "candidate_sense_hint": {
+        "provider": "sentence_veto_dataset",
+        "locator_kind": "sense_id",
+        "target_key": "en-es:sentence-veto:plant:fabrica:shadow",
+        "canonical_pos": "noun",
+        "note": "wiktextract_linked_candidate"
+      },
+      "candidate_pos": "noun",
+      "evidence_text": "My dad worked at the plant for 27 years.",
+      "example_count": 1,
+      "review_state": "unreviewed",
+      "promotion_state": "proposed",
+      "runtime_publishable": false,
+      "roles": [
+        "discrimination"
+      ],
+      "metadata": {
+        "family_id": "en-es:sentence-veto:plant:planta",
+        "queue_role": "target",
+        "active_sense_id": "en-es:sentence-veto:plant:planta:active",
+        "candidate_sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+        "example_bucket": "shadow",
+        "source_view": "raw_wiktextract_example",
+        "wiktextract_record_pos": "noun",
+        "wiktextract_sense_index": 4,
+        "wiktextract_link_score": 0.2857,
+        "wiktextract_link_overlap": [
+          "factory",
+          "industrial"
+        ],
+        "wiktextract_example_type": "example"
+      }
+    }
+  ]
+}

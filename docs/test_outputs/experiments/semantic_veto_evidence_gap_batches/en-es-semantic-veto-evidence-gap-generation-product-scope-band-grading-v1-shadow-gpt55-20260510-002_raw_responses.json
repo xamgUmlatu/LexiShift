@@ -1,0 +1,707 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:product-scope-band-grading-v1-shadow-gpt55-20260510-002",
+  "execution_mode": "live",
+  "generated_at": "2026-05-09T21:41:41Z",
+  "pair": "en-es",
+  "pilot_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_count": 6,
+  "requests": [
+    {
+      "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+      "model_id": "gpt-5.5",
+      "output_text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:cite:mencionar\",\"slot_id\":\"en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"cite\",\"target_lemma\":\"multar\",\"proposed_competitor_target_lemma\":\"multar\",\"competitor_sense_label\":\"issue a penalty or ticket for an infraction\",\"active_sense_contrast\":\"This sense is about penalizing someone for a violation, not mentioning or referring to a source, person, or fact.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"The officer will cite any driver who parks in the fire lane.\",\"evidence_note\":\"Here, cite means to issue a traffic penalty or ticket, so the Spanish replacement would be multar.\",\"active_mismatch_note\":\"mencionar is wrong here because the officer is not referring to the driver in speech or writing; the officer is imposing a penalty for illegal parking.\"},{\"sentence\":\"City inspectors may cite the restaurant if employees block the emergency exit.\",\"evidence_note\":\"Here, cite means to penalize the restaurant for a safety violation, making multar the correct Spanish replacement.\",\"active_mismatch_note\":\"mencionar is wrong here because the inspectors are not naming or referring to the restaurant as a source or fact; they are threatening an official penalty for a violation.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:cite:mencionar\nslot_id: en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: cite\ntarget_lemma: multar\nactive_target_lemma: mencionar\nactive_evidence_text: cite -> mencionar | mention or refer to a source, person, or fact\nknown_shadow_targets: multar, elogiar\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:cite:mencionar\", \"slot_id\": \"en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"cite\", \"target_lemma\": \"multar\", \"items\": \"...\"}\n\nTask: generate competitor-sense evidence. First decide whether source_phrase has a clearly different English sense from the active target sense. Distinct means the active_target_lemma would be wrong in that sentence and a bilingual dictionary would reasonably choose another Spanish lemma. If slot target_lemma is provided, every generated sentence must make that target_lemma the correct Spanish replacement. Never generate a sentence where target_lemma or proposed_competitor_target_lemma would be wrong. If the provided target_lemma does not seem like a valid distinct competitor for source_phrase, return unable_to_find_distinct_competitor:true with empty items and explain why. If blank, propose one plausible Spanish competitor target only when it meets that distinct-sense test. Do not use near-synonyms, stylistic variants, grammatical meta-examples, or examples that still fit active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. When generating items, include a competitor_sense_label and active_sense_contrast at the response level. If target_lemma is provided, leave proposed_competitor_target_lemma blank or set it to exactly the same target_lemma; do not propose a different lemma. For each item, include active_mismatch_note that starts with active_target_lemma exactly and explains why that active target is wrong in the generated sentence. Do not say the competitor target is wrong. Example: if active_target_lemma is razonable and target_lemma is correcto, write `razonable is wrong here because ...`, never `correcto is wrong here because ...`. Before returning, verify each item: target_lemma/proposed_competitor_target_lemma must be correct for the sentence, and active_target_lemma must be incorrect.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, competitor_sense_label, active_sense_contrast, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note, active_mismatch_note}]}",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0e88a13d043b959e0169ffaa165e7881978b91fda7f6812b30",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778362928.0,
+        "conversation": null,
+        "created_at": 1778362902.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0e88a13d043b959e0169ffaa165e7881978b91fda7f6812b30",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 1400,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:cite:mencionar",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.5-2026-04-23",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": null,
+            "encrypted_content": null,
+            "id": "rs_0e88a13d043b959e0169ffaa1e62ac81978483fc0cccd546bc",
+            "status": null,
+            "summary": [],
+            "type": "reasoning"
+          },
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:cite:mencionar\",\"slot_id\":\"en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"cite\",\"target_lemma\":\"multar\",\"proposed_competitor_target_lemma\":\"multar\",\"competitor_sense_label\":\"issue a penalty or ticket for an infraction\",\"active_sense_contrast\":\"This sense is about penalizing someone for a violation, not mentioning or referring to a source, person, or fact.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"The officer will cite any driver who parks in the fire lane.\",\"evidence_note\":\"Here, cite means to issue a traffic penalty or ticket, so the Spanish replacement would be multar.\",\"active_mismatch_note\":\"mencionar is wrong here because the officer is not referring to the driver in speech or writing; the officer is imposing a penalty for illegal parking.\"},{\"sentence\":\"City inspectors may cite the restaurant if employees block the emergency exit.\",\"evidence_note\":\"Here, cite means to penalize the restaurant for a safety violation, making multar the correct Spanish replacement.\",\"active_mismatch_note\":\"mencionar is wrong here because the inspectors are not naming or referring to the restaurant as a source or fact; they are threatening an official penalty for a violation.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0e88a13d043b959e0169ffaa2b21e081979ab307563ece3fb2",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "24h",
+        "reasoning": {
+          "effort": "medium",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 866,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 744,
+          "output_tokens_details": {
+            "reasoning_tokens": 389
+          },
+          "total_tokens": 1610
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:cite:mencionar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 866,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 744,
+        "output_tokens_details": {
+          "reasoning_tokens": 389
+        },
+        "total_tokens": 1610
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+      "model_id": "gpt-5.5",
+      "output_text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:smile:sonre-r\",\"slot_id\":\"en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"smile\",\"target_lemma\":\"sonrisa\",\"proposed_competitor_target_lemma\":\"sonrisa\",\"competitor_sense_label\":\"noun: facial expression\",\"active_sense_contrast\":\"In these sentences, smile is a noun naming the visible facial expression, not a verb meaning to change one's facial expression.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"Her smile made the nervous child feel welcome.\",\"evidence_note\":\"The word smile refers to a visible facial expression, so the correct Spanish replacement is the noun sonrisa.\",\"active_mismatch_note\":\"sonreír is wrong here because the word is a noun naming the expression, not a verb describing the action of making that expression.\"},{\"sentence\":\"The photographer captured his smile just before the ceremony began.\",\"evidence_note\":\"The word smile denotes the facial expression shown in the photograph, which corresponds to the Spanish noun sonrisa.\",\"active_mismatch_note\":\"sonreír is wrong here because the sentence needs a noun for the expression that was captured, not an infinitive verb meaning to make that expression.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:smile:sonre-r\nslot_id: en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: smile\ntarget_lemma: sonrisa\nactive_target_lemma: sonreír\nactive_evidence_text: smile -> sonreír | smile as a verb, changing one's facial expression\nknown_shadow_targets: sonrisa, agradecer con una sonrisa\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:smile:sonre-r\", \"slot_id\": \"en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"smile\", \"target_lemma\": \"sonrisa\", \"items\": \"...\"}\n\nTask: generate competitor-sense evidence. First decide whether source_phrase has a clearly different English sense from the active target sense. Distinct means the active_target_lemma would be wrong in that sentence and a bilingual dictionary would reasonably choose another Spanish lemma. If slot target_lemma is provided, every generated sentence must make that target_lemma the correct Spanish replacement. Never generate a sentence where target_lemma or proposed_competitor_target_lemma would be wrong. If the provided target_lemma does not seem like a valid distinct competitor for source_phrase, return unable_to_find_distinct_competitor:true with empty items and explain why. If blank, propose one plausible Spanish competitor target only when it meets that distinct-sense test. Do not use near-synonyms, stylistic variants, grammatical meta-examples, or examples that still fit active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. When generating items, include a competitor_sense_label and active_sense_contrast at the response level. If target_lemma is provided, leave proposed_competitor_target_lemma blank or set it to exactly the same target_lemma; do not propose a different lemma. For each item, include active_mismatch_note that starts with active_target_lemma exactly and explains why that active target is wrong in the generated sentence. Do not say the competitor target is wrong. Example: if active_target_lemma is razonable and target_lemma is correcto, write `razonable is wrong here because ...`, never `correcto is wrong here because ...`. Before returning, verify each item: target_lemma/proposed_competitor_target_lemma must be correct for the sentence, and active_target_lemma must be incorrect.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, competitor_sense_label, active_sense_contrast, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note, active_mismatch_note}]}",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_04ea7ec139cc91b80169ffa9967478819595b016b5d0267a9d",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778362785.0,
+        "conversation": null,
+        "created_at": 1778362774.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_04ea7ec139cc91b80169ffa9967478819595b016b5d0267a9d",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:smile:sonre-r",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.5-2026-04-23",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": null,
+            "encrypted_content": null,
+            "id": "rs_04ea7ec139cc91b80169ffa997585c819584bd8b2e0b9ea618",
+            "status": null,
+            "summary": [],
+            "type": "reasoning"
+          },
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:smile:sonre-r\",\"slot_id\":\"en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"smile\",\"target_lemma\":\"sonrisa\",\"proposed_competitor_target_lemma\":\"sonrisa\",\"competitor_sense_label\":\"noun: facial expression\",\"active_sense_contrast\":\"In these sentences, smile is a noun naming the visible facial expression, not a verb meaning to change one's facial expression.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"Her smile made the nervous child feel welcome.\",\"evidence_note\":\"The word smile refers to a visible facial expression, so the correct Spanish replacement is the noun sonrisa.\",\"active_mismatch_note\":\"sonreír is wrong here because the word is a noun naming the expression, not a verb describing the action of making that expression.\"},{\"sentence\":\"The photographer captured his smile just before the ceremony began.\",\"evidence_note\":\"The word smile denotes the facial expression shown in the photograph, which corresponds to the Spanish noun sonrisa.\",\"active_mismatch_note\":\"sonreír is wrong here because the sentence needs a noun for the expression that was captured, not an infinitive verb meaning to make that expression.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_04ea7ec139cc91b80169ffa99d304c8195b93fce39fe35ce8f",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "24h",
+        "reasoning": {
+          "effort": "medium",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 882,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 640,
+          "output_tokens_details": {
+            "reasoning_tokens": 296
+          },
+          "total_tokens": 1522
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:smile:sonre-r:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 882,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 640,
+        "output_tokens_details": {
+          "reasoning_tokens": 296
+        },
+        "total_tokens": 1522
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:bar:cercar",
+      "model_id": "gpt-5.5",
+      "output_text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:bar:cercar\",\"slot_id\":\"en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"bar\",\"target_lemma\":\"taberna\",\"proposed_competitor_target_lemma\":\"taberna\",\"competitor_sense_label\":\"pub or tavern\",\"active_sense_contrast\":\"The sentences use bar as a drinking establishment, not as a verb meaning to block or fence in passage.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"We met at the bar after work to celebrate the promotion.\",\"evidence_note\":\"Here, bar refers to a public drinking establishment, for which taberna is an appropriate Spanish translation.\",\"active_mismatch_note\":\"cercar is wrong here because the sentence is about visiting an establishment, not blocking, fencing, or preventing passage.\"},{\"sentence\":\"The old bar on the corner serves coffee in the morning and beer at night.\",\"evidence_note\":\"Here, bar names a local establishment that serves drinks, matching the Spanish sense taberna.\",\"active_mismatch_note\":\"cercar is wrong here because the word denotes a place of business, not an action of enclosing or obstructing something.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:bar:cercar\nslot_id: en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: bar\ntarget_lemma: taberna\nactive_target_lemma: cercar\nactive_evidence_text: bar -> cercar | block, bar, fence in, or prevent passage with a barrier\nknown_shadow_targets: taberna, compás\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:bar:cercar\", \"slot_id\": \"en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"bar\", \"target_lemma\": \"taberna\", \"items\": \"...\"}\n\nTask: generate competitor-sense evidence. First decide whether source_phrase has a clearly different English sense from the active target sense. Distinct means the active_target_lemma would be wrong in that sentence and a bilingual dictionary would reasonably choose another Spanish lemma. If slot target_lemma is provided, every generated sentence must make that target_lemma the correct Spanish replacement. Never generate a sentence where target_lemma or proposed_competitor_target_lemma would be wrong. If the provided target_lemma does not seem like a valid distinct competitor for source_phrase, return unable_to_find_distinct_competitor:true with empty items and explain why. If blank, propose one plausible Spanish competitor target only when it meets that distinct-sense test. Do not use near-synonyms, stylistic variants, grammatical meta-examples, or examples that still fit active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. When generating items, include a competitor_sense_label and active_sense_contrast at the response level. If target_lemma is provided, leave proposed_competitor_target_lemma blank or set it to exactly the same target_lemma; do not propose a different lemma. For each item, include active_mismatch_note that starts with active_target_lemma exactly and explains why that active target is wrong in the generated sentence. Do not say the competitor target is wrong. Example: if active_target_lemma is razonable and target_lemma is correcto, write `razonable is wrong here because ...`, never `correcto is wrong here because ...`. Before returning, verify each item: target_lemma/proposed_competitor_target_lemma must be correct for the sentence, and active_target_lemma must be incorrect.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, competitor_sense_label, active_sense_contrast, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note, active_mismatch_note}]}",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_08f91fca835649110169ffa9a1aee88193a3986efd3ab87c07",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778362807.0,
+        "conversation": null,
+        "created_at": 1778362785.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_08f91fca835649110169ffa9a1aee88193a3986efd3ab87c07",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:bar:cercar",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.5-2026-04-23",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": null,
+            "encrypted_content": null,
+            "id": "rs_08f91fca835649110169ffa9a55d348193acecb55857948258",
+            "status": null,
+            "summary": [],
+            "type": "reasoning"
+          },
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:bar:cercar\",\"slot_id\":\"en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"bar\",\"target_lemma\":\"taberna\",\"proposed_competitor_target_lemma\":\"taberna\",\"competitor_sense_label\":\"pub or tavern\",\"active_sense_contrast\":\"The sentences use bar as a drinking establishment, not as a verb meaning to block or fence in passage.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"We met at the bar after work to celebrate the promotion.\",\"evidence_note\":\"Here, bar refers to a public drinking establishment, for which taberna is an appropriate Spanish translation.\",\"active_mismatch_note\":\"cercar is wrong here because the sentence is about visiting an establishment, not blocking, fencing, or preventing passage.\"},{\"sentence\":\"The old bar on the corner serves coffee in the morning and beer at night.\",\"evidence_note\":\"Here, bar names a local establishment that serves drinks, matching the Spanish sense taberna.\",\"active_mismatch_note\":\"cercar is wrong here because the word denotes a place of business, not an action of enclosing or obstructing something.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_08f91fca835649110169ffa9b1c27081938ad615d7e0c29762",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "24h",
+        "reasoning": {
+          "effort": "medium",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 870,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 665,
+          "output_tokens_details": {
+            "reasoning_tokens": 335
+          },
+          "total_tokens": 1535
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:bar:cercar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 870,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 665,
+        "output_tokens_details": {
+          "reasoning_tokens": 335
+        },
+        "total_tokens": 1535
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:control:gobernar",
+      "model_id": "gpt-5.5",
+      "output_text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:control:gobernar\",\"slot_id\":\"en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"control\",\"target_lemma\":\"ajustar\",\"proposed_competitor_target_lemma\":\"ajustar\",\"competitor_sense_label\":\"adjust or regulate a setting\",\"active_sense_contrast\":\"Here, control means changing or regulating a parameter such as temperature or brightness, not exercising authority over a place, organization, or group.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"Turn the dial to control the oven temperature before baking the bread.\",\"evidence_note\":\"In this sentence, control means to set or regulate the oven temperature, so the Spanish replacement would reasonably use ajustar.\",\"active_mismatch_note\":\"gobernar is wrong here because the dial is not exercising authority over the oven temperature; it is used to change a setting.\"},{\"sentence\":\"Use the slider to control the screen brightness during the presentation.\",\"evidence_note\":\"In this sentence, control means to change the level of screen brightness, making ajustar the appropriate Spanish replacement.\",\"active_mismatch_note\":\"gobernar is wrong here because the slider is not ruling or directing a group or place; it is used to modify a display setting.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:control:gobernar\nslot_id: en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: control\ntarget_lemma: ajustar\nactive_target_lemma: gobernar\nactive_evidence_text: control -> gobernar | exercise authority over a place, organization, or group\nknown_shadow_targets: ajustar, grupo de control\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:control:gobernar\", \"slot_id\": \"en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"control\", \"target_lemma\": \"ajustar\", \"items\": \"...\"}\n\nTask: generate competitor-sense evidence. First decide whether source_phrase has a clearly different English sense from the active target sense. Distinct means the active_target_lemma would be wrong in that sentence and a bilingual dictionary would reasonably choose another Spanish lemma. If slot target_lemma is provided, every generated sentence must make that target_lemma the correct Spanish replacement. Never generate a sentence where target_lemma or proposed_competitor_target_lemma would be wrong. If the provided target_lemma does not seem like a valid distinct competitor for source_phrase, return unable_to_find_distinct_competitor:true with empty items and explain why. If blank, propose one plausible Spanish competitor target only when it meets that distinct-sense test. Do not use near-synonyms, stylistic variants, grammatical meta-examples, or examples that still fit active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. When generating items, include a competitor_sense_label and active_sense_contrast at the response level. If target_lemma is provided, leave proposed_competitor_target_lemma blank or set it to exactly the same target_lemma; do not propose a different lemma. For each item, include active_mismatch_note that starts with active_target_lemma exactly and explains why that active target is wrong in the generated sentence. Do not say the competitor target is wrong. Example: if active_target_lemma is razonable and target_lemma is correcto, write `razonable is wrong here because ...`, never `correcto is wrong here because ...`. Before returning, verify each item: target_lemma/proposed_competitor_target_lemma must be correct for the sentence, and active_target_lemma must be incorrect.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, competitor_sense_label, active_sense_contrast, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note, active_mismatch_note}]}",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0a761ec8664c98700169ffa9b7b8888193b3ff1057347cb972",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": null,
+        "conversation": null,
+        "created_at": 1778362807.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0a761ec8664c98700169ffa9b7b8888193b3ff1057347cb972",
+        "incomplete_details": {
+          "reason": "max_output_tokens"
+        },
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:control:gobernar",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.5-2026-04-23",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": null,
+            "encrypted_content": null,
+            "id": "rs_0a761ec8664c98700169ffa9b8bad48193b300948986c3e553",
+            "status": null,
+            "summary": [],
+            "type": "reasoning"
+          },
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:control:gobernar\",\"slot_id\":\"en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"control\",\"target_lemma\":\"ajustar\",\"proposed_competitor_target_lemma\":\"ajustar\",\"competitor_sense_label\":\"adjust or regulate a setting\",\"active_sense_contrast\":\"Here, control means changing or regulating a parameter such as temperature or brightness, not exercising authority over a place, organization, or group.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"Turn the dial to control the oven temperature before baking the bread.\",\"evidence_note\":\"In this sentence, control means to set or regulate the oven temperature, so the Spanish replacement would reasonably use ajustar.\",\"active_mismatch_note\":\"gobernar is wrong here because the dial is not exercising authority over the oven temperature; it is used to change a setting.\"},{\"sentence\":\"Use the slider to control the screen brightness during the presentation.\",\"evidence_note\":\"In this sentence, control means to change the level of screen brightness, making ajustar the appropriate Spanish replacement.\",\"active_mismatch_note\":\"gobernar is wrong here because the slider is not ruling or directing a group or place; it is used to modify a display setting.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0a761ec8664c98700169ffa9c569f481938642dfc8b4436401",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "incomplete",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "24h",
+        "reasoning": {
+          "effort": "medium",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "incomplete",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 873,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 700,
+          "output_tokens_details": {
+            "reasoning_tokens": 349
+          },
+          "total_tokens": 1573
+        },
+        "user": null
+      },
+      "response_status": "incomplete",
+      "slot_id": "en-es:full-family-repaired-full:control:gobernar:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 873,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 700,
+        "output_tokens_details": {
+          "reasoning_tokens": 349
+        },
+        "total_tokens": 1573
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:except:excepto",
+      "model_id": "gpt-5.5",
+      "output_text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:except:excepto\",\"slot_id\":\"en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"except\",\"target_lemma\":\"objetar\",\"proposed_competitor_target_lemma\":\"objetar\",\"competitor_sense_label\":\"verb meaning to object or take exception\",\"active_sense_contrast\":\"The sentence uses except as a verb meaning to object, not as a preposition or conjunction meaning excluding.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"During the appeal, counsel will except to the judge's refusal to admit the exhibit.\",\"evidence_note\":\"Here, except is a formal verb meaning to object to a ruling, so objetar is the appropriate Spanish lemma.\",\"active_mismatch_note\":\"excepto is wrong here because the word is functioning as a verb meaning to object, not as a preposition meaning excluding.\"},{\"sentence\":\"The defense attorneys except to the prosecutor's characterization of the witness testimony.\",\"evidence_note\":\"Here, except means object to or take exception to a statement, which corresponds to objetar in Spanish.\",\"active_mismatch_note\":\"excepto is wrong here because the sentence does not express exclusion; it describes attorneys objecting to a characterization.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:except:excepto\nslot_id: en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: except\ntarget_lemma: objetar\nactive_target_lemma: excepto\nactive_evidence_text: except -> excepto | except/excluding as a preposition or conjunction\nknown_shadow_targets: objetar, excluir\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:except:excepto\", \"slot_id\": \"en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"except\", \"target_lemma\": \"objetar\", \"items\": \"...\"}\n\nTask: generate competitor-sense evidence. First decide whether source_phrase has a clearly different English sense from the active target sense. Distinct means the active_target_lemma would be wrong in that sentence and a bilingual dictionary would reasonably choose another Spanish lemma. If slot target_lemma is provided, every generated sentence must make that target_lemma the correct Spanish replacement. Never generate a sentence where target_lemma or proposed_competitor_target_lemma would be wrong. If the provided target_lemma does not seem like a valid distinct competitor for source_phrase, return unable_to_find_distinct_competitor:true with empty items and explain why. If blank, propose one plausible Spanish competitor target only when it meets that distinct-sense test. Do not use near-synonyms, stylistic variants, grammatical meta-examples, or examples that still fit active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. When generating items, include a competitor_sense_label and active_sense_contrast at the response level. If target_lemma is provided, leave proposed_competitor_target_lemma blank or set it to exactly the same target_lemma; do not propose a different lemma. For each item, include active_mismatch_note that starts with active_target_lemma exactly and explains why that active target is wrong in the generated sentence. Do not say the competitor target is wrong. Example: if active_target_lemma is razonable and target_lemma is correcto, write `razonable is wrong here because ...`, never `correcto is wrong here because ...`. Before returning, verify each item: target_lemma/proposed_competitor_target_lemma must be correct for the sentence, and active_target_lemma must be incorrect.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, competitor_sense_label, active_sense_contrast, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note, active_mismatch_note}]}",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_00386ccc6f4231700169ffaa306ec48190b092f849cba15479",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778362949.0,
+        "conversation": null,
+        "created_at": 1778362928.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_00386ccc6f4231700169ffaa306ec48190b092f849cba15479",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 1400,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:except:excepto",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.5-2026-04-23",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": null,
+            "encrypted_content": null,
+            "id": "rs_00386ccc6f4231700169ffaa3172508190940ba2d6f169a3cd",
+            "status": null,
+            "summary": [],
+            "type": "reasoning"
+          },
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:except:excepto\",\"slot_id\":\"en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"except\",\"target_lemma\":\"objetar\",\"proposed_competitor_target_lemma\":\"objetar\",\"competitor_sense_label\":\"verb meaning to object or take exception\",\"active_sense_contrast\":\"The sentence uses except as a verb meaning to object, not as a preposition or conjunction meaning excluding.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"During the appeal, counsel will except to the judge's refusal to admit the exhibit.\",\"evidence_note\":\"Here, except is a formal verb meaning to object to a ruling, so objetar is the appropriate Spanish lemma.\",\"active_mismatch_note\":\"excepto is wrong here because the word is functioning as a verb meaning to object, not as a preposition meaning excluding.\"},{\"sentence\":\"The defense attorneys except to the prosecutor's characterization of the witness testimony.\",\"evidence_note\":\"Here, except means object to or take exception to a statement, which corresponds to objetar in Spanish.\",\"active_mismatch_note\":\"excepto is wrong here because the sentence does not express exclusion; it describes attorneys objecting to a characterization.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_00386ccc6f4231700169ffaa3f8e2081909399a344ebb9e118",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "24h",
+        "reasoning": {
+          "effort": "medium",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 863,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 856,
+          "output_tokens_details": {
+            "reasoning_tokens": 516
+          },
+          "total_tokens": 1719
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:except:excepto:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 863,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 856,
+        "output_tokens_details": {
+          "reasoning_tokens": 516
+        },
+        "total_tokens": 1719
+      }
+    },
+    {
+      "family_id": "en-es:full-family-repaired-full:region:comarca",
+      "model_id": "gpt-5.5",
+      "output_text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:region:comarca\",\"slot_id\":\"en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"region\",\"target_lemma\":\"zona\",\"proposed_competitor_target_lemma\":\"zona\",\"competitor_sense_label\":\"localized area or part of a surface/body\",\"active_sense_contrast\":\"This sense refers to a specific area on a body, object, or surface, not to a local district or territorial comarca-like region.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"The doctor examined the region around the patient's knee for swelling.\",\"evidence_note\":\"Here, region means a localized anatomical area, so the Spanish lemma zona is the appropriate competitor translation.\",\"active_mismatch_note\":\"comarca is wrong here because the sentence refers to an area of the body, not a local district or territorial region.\"},{\"sentence\":\"The technician marked the overheated region on the circuit board with tape.\",\"evidence_note\":\"Here, region means a specific area on a physical surface, so the Spanish lemma zona is the appropriate competitor translation.\",\"active_mismatch_note\":\"comarca is wrong here because the sentence refers to a localized spot on an object, not an administrative or territorial district.\"}]}",
+      "pilot_arm": "high_need",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe\nfamily_id: en-es:full-family-repaired-full:region:comarca\nslot_id: en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe\nslot_type: shadow_or_competitor_evidence_probe\nsource_phrase: region\ntarget_lemma: zona\nactive_target_lemma: comarca\nactive_evidence_text: region -> comarca | a local district, territory, or comarca-like region\nknown_shadow_targets: zona, alrededor de\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe\", \"family_id\": \"en-es:full-family-repaired-full:region:comarca\", \"slot_id\": \"en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe\", \"slot_type\": \"shadow_or_competitor_evidence_probe\", \"source_phrase\": \"region\", \"target_lemma\": \"zona\", \"items\": \"...\"}\n\nTask: generate competitor-sense evidence. First decide whether source_phrase has a clearly different English sense from the active target sense. Distinct means the active_target_lemma would be wrong in that sentence and a bilingual dictionary would reasonably choose another Spanish lemma. If slot target_lemma is provided, every generated sentence must make that target_lemma the correct Spanish replacement. Never generate a sentence where target_lemma or proposed_competitor_target_lemma would be wrong. If the provided target_lemma does not seem like a valid distinct competitor for source_phrase, return unable_to_find_distinct_competitor:true with empty items and explain why. If blank, propose one plausible Spanish competitor target only when it meets that distinct-sense test. Do not use near-synonyms, stylistic variants, grammatical meta-examples, or examples that still fit active_evidence_text. If no clearly distinct competitor exists, return unable_to_find_distinct_competitor:true with empty items and explain why. When generating items, include a competitor_sense_label and active_sense_contrast at the response level. If target_lemma is provided, leave proposed_competitor_target_lemma blank or set it to exactly the same target_lemma; do not propose a different lemma. For each item, include active_mismatch_note that starts with active_target_lemma exactly and explains why that active target is wrong in the generated sentence. Do not say the competitor target is wrong. Example: if active_target_lemma is razonable and target_lemma is correcto, write `razonable is wrong here because ...`, never `correcto is wrong here because ...`. Before returning, verify each item: target_lemma/proposed_competitor_target_lemma must be correct for the sentence, and active_target_lemma must be incorrect.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, proposed_competitor_target_lemma, competitor_sense_label, active_sense_contrast, unable_to_find_distinct_competitor, no_distinct_competitor_reason, items:[{sentence, evidence_note, active_mismatch_note}]}",
+      "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "requested_items": 2,
+      "response_id": "resp_0a0fd6fdf33c74750169ffaa4586008196914313b57eb61a39",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778362968.0,
+        "conversation": null,
+        "created_at": 1778362949.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0a0fd6fdf33c74750169ffaa4586008196914313b57eb61a39",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 1400,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:full-family-repaired-full:region:comarca",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+          "slot_id": "en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe"
+        },
+        "model": "gpt-5.5-2026-04-23",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": null,
+            "encrypted_content": null,
+            "id": "rs_0a0fd6fdf33c74750169ffaa463f8c8196bebcddc8ebbe44f6",
+            "status": null,
+            "summary": [],
+            "type": "reasoning"
+          },
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"semantic_veto_product_scope_band_grading_v1_allocation_en_es:en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe\",\"family_id\":\"en-es:full-family-repaired-full:region:comarca\",\"slot_id\":\"en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe\",\"slot_type\":\"shadow_or_competitor_evidence_probe\",\"source_phrase\":\"region\",\"target_lemma\":\"zona\",\"proposed_competitor_target_lemma\":\"zona\",\"competitor_sense_label\":\"localized area or part of a surface/body\",\"active_sense_contrast\":\"This sense refers to a specific area on a body, object, or surface, not to a local district or territorial comarca-like region.\",\"unable_to_find_distinct_competitor\":false,\"no_distinct_competitor_reason\":\"\",\"items\":[{\"sentence\":\"The doctor examined the region around the patient's knee for swelling.\",\"evidence_note\":\"Here, region means a localized anatomical area, so the Spanish lemma zona is the appropriate competitor translation.\",\"active_mismatch_note\":\"comarca is wrong here because the sentence refers to an area of the body, not a local district or territorial region.\"},{\"sentence\":\"The technician marked the overheated region on the circuit board with tape.\",\"evidence_note\":\"Here, region means a specific area on a physical surface, so the Spanish lemma zona is the appropriate competitor translation.\",\"active_mismatch_note\":\"comarca is wrong here because the sentence refers to a localized spot on an object, not an administrative or territorial district.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0a0fd6fdf33c74750169ffaa5362f0819689b232746011fa12",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "24h",
+        "reasoning": {
+          "effort": "medium",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 862,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 744,
+          "output_tokens_details": {
+            "reasoning_tokens": 404
+          },
+          "total_tokens": 1606
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:full-family-repaired-full:region:comarca:shadow_or_competitor_evidence_probe",
+      "slot_type": "shadow_or_competitor_evidence_probe",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 862,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 744,
+        "output_tokens_details": {
+          "reasoning_tokens": 404
+        },
+        "total_tokens": 1606
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.5",
+  "selected_temperature": null
+}

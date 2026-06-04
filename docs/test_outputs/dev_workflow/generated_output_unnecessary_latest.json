@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-05-15T22:49:41.535206+00:00",
+  "root": "/Users/takeyayuki/Documents/projects/LexiShift",
+  "rules": [
+    {
+      "rule_id": "unreferenced_root_dated_report_view_with_json_counterpart",
+      "posture": "definite_prune",
+      "description": "A root-level dated `.html` or `.md` generated report view has no references and a same-stem JSON evidence file remains."
+    },
+    {
+      "rule_id": "unreferenced_semantic_repair_report_bundle",
+      "posture": "definite_prune",
+      "description": "A dated semantic-veto LLM pilot repair admission/generation-run report bundle has no references. Generated-row payloads are not included."
+    },
+    {
+      "rule_id": "unreferenced_semantic_install_root_with_retained_source_evidence",
+      "posture": "definite_prune",
+      "description": "A copied semantic install-root fixture has no references and matching top-level normalized evidence plus semantic inventory remain."
+    },
+    {
+      "rule_id": "unreferenced_root_dated_primary_or_provenance_output",
+      "posture": "review_only",
+      "description": "A dated root generated output has no references, but may be primary JSON evidence or provenance data."
+    },
+    {
+      "rule_id": "install_root_missing_retained_source_evidence",
+      "posture": "review_only",
+      "description": "An unreferenced install-root fixture lacks the retained source-evidence counterparts required for automatic pruning."
+    },
+    {
+      "rule_id": "referenced_generated_output",
+      "posture": "retain",
+      "description": "The path is still referenced by docs, tests, scripts, or retained outputs."
+    }
+  ],
+  "summary": {
+    "group_count": 1,
+    "definite_prune_group_count": 0,
+    "definite_prune_file_count": 0,
+    "definite_prune_bytes": 0,
+    "review_only_group_count": 0,
+    "retain_group_count": 1,
+    "status_counts": {
+      "retain": 1
+    },
+    "rule_counts": {
+      "referenced_generated_output": 1
+    }
+  },
+  "groups": [
+    {
+      "status": "retain",
+      "rule_id": "referenced_generated_output",
+      "group_id": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root",
+      "reason": "The install root or one of its files is still referenced.",
+      "paths": [
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/language_packs/en-es/semantic_packs/en-es-active-only-combined-full-v1-tranche-011/manifest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/language_packs/en-es/semantic_packs/en-es-active-only-combined-full-v1-tranche-011/semantic_inventory.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/profiles/default/srs_publication_manifest_en-es.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/profiles/default/srs_ruleset_en-es.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/profiles/default/srs_semantic_inventory_en-es.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/stopwords/stopwords-de.json"
+      ],
+      "file_count": 7,
+      "total_file_bytes": 2021577,
+      "external_reference_count": 1,
+      "generated_output_reference_count": 3,
+      "external_reference_samples": [
+        "docs/rulegen/semantic_veto_active_only_tranche_runbook.md"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_live_page_scan_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_live_page_scan_en_es_latest.md",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_pack_install_en_es_latest.json"
+      ],
+      "source_evidence_paths": [
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011_semantic_inventory.json"
+      ],
+      "missing_source_evidence_paths": []
+    }
+  ]
+}

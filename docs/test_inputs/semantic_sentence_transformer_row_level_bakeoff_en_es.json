@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "matrix_id": "en_es_semantic_sentence_transformer_row_level_bakeoff_v1",
+  "description": "Dedicated row-level sentence-transformer bakeoff for the current additive source-evidence candidate. This tests whether the TF-IDF additive source-scope win survives a semantic scorer with its own threshold sweep and negative controls.",
+  "include_case_results": false,
+  "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+  "evaluation_suites": [
+    {
+      "suite_id": "frozen_v10",
+      "suite_role": "frozen_current",
+      "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json"
+    },
+    {
+      "suite_id": "source_heldout_v2",
+      "suite_role": "locked_active_shadow",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_heldout_v2",
+      "suite_role": "locked_phrase_no_winner",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_heldout_cases_v2.json"
+    },
+    {
+      "suite_id": "phrase_challenge_v1",
+      "suite_role": "locked_phrase_challenge",
+      "base_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json",
+      "case_dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_source_phrase_challenge_cases_v1.json"
+    }
+  ],
+  "defaults": {
+    "scorer_id": "sentence_transformer_cosine",
+    "model_name": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "context_view": "masked_sentence",
+    "evidence_selector_context_view": "before_after_slot_context",
+    "evidence_selector_source_view": "before_after_slot_context",
+    "sense_representation": "definition_example_plus_source_rows_separate",
+    "aggregation_rule": "max_row_score",
+    "decision_rule": "active_minus_strongest_shadow",
+    "phrase_handling": "phrase_override",
+    "window_tokens": 4,
+    "mask_token": "___",
+    "min_active_score": 0.35,
+    "min_margin": 0.05,
+    "ratio_threshold": 1.0,
+    "softmax_threshold": 0.5,
+    "softmax_temperature": 8.0,
+    "pairwise_min_win_rate": 0.75,
+    "top_k": 2,
+    "selection_top_k": 2,
+    "phrase_guard_pos_scope": "family_all",
+    "evidence_control": "normal",
+    "split_modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ]
+  },
+  "rows": [
+    {
+      "config_id": "st_definition_example_row_control",
+      "label": "Sentence-transformer definition/example row control with no source rows",
+      "category": "sentence_transformer_control",
+      "algorithm_family": "st_control:definition_example_rows:max",
+      "is_control": true,
+      "source_evidence_scope_id": "no_source",
+      "source_evidence_batch_paths": [],
+      "sense_representation": "definition_and_example_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.35,
+          0.5
+        ],
+        "min_margin": [
+          0.0,
+          0.02,
+          0.05,
+          0.08,
+          0.12
+        ]
+      }
+    },
+    {
+      "config_id": "st_combined_definition_example_plus_source_max",
+      "label": "Sentence-transformer definition/example rows plus LLM-v2 and WordNet reference source rows",
+      "category": "sentence_transformer_additive_source",
+      "algorithm_family": "st_combined:definition_example_plus_source:max",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.35,
+          0.5
+        ],
+        "min_margin": [
+          0.0,
+          0.02,
+          0.05,
+          0.08,
+          0.12
+        ]
+      }
+    },
+    {
+      "config_id": "st_combined_source_plus_definition_max",
+      "label": "Sentence-transformer source rows plus definitions",
+      "category": "sentence_transformer_additive_source",
+      "algorithm_family": "st_combined:source_plus_definition:max",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "source_plus_definition_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.35,
+          0.5
+        ],
+        "min_margin": [
+          0.0,
+          0.05,
+          0.1
+        ]
+      }
+    },
+    {
+      "config_id": "st_combined_source_rows_max",
+      "label": "Sentence-transformer source rows only",
+      "category": "sentence_transformer_source_only",
+      "algorithm_family": "st_combined:source_rows:max",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "parameter_grid": {
+        "min_active_score": [
+          0.0,
+          0.35,
+          0.5
+        ],
+        "min_margin": [
+          0.0,
+          0.05,
+          0.1
+        ]
+      }
+    },
+    {
+      "config_id": "st_combined_definition_example_plus_source_topk",
+      "label": "Sentence-transformer definition/example plus source rows with top-k mean",
+      "category": "sentence_transformer_additive_source",
+      "algorithm_family": "st_combined:definition_example_plus_source:top_k_mean",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "top_k_mean",
+      "parameter_grid": {
+        "top_k": [
+          2,
+          3
+        ],
+        "min_active_score": [
+          0.0,
+          0.35
+        ],
+        "min_margin": [
+          0.0,
+          0.05,
+          0.1
+        ]
+      }
+    },
+    {
+      "config_id": "st_combined_definition_example_plus_source_weighted_topk",
+      "label": "Sentence-transformer definition/example plus source rows with source-weighted top-k",
+      "category": "sentence_transformer_additive_source",
+      "algorithm_family": "st_combined:definition_example_plus_source:source_weighted_top_k",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "source_weighted_top_k",
+      "parameter_grid": {
+        "top_k": [
+          2,
+          3
+        ],
+        "min_active_score": [
+          0.0,
+          0.35
+        ],
+        "min_margin": [
+          0.0,
+          0.05,
+          0.1
+        ]
+      }
+    },
+    {
+      "config_id": "st_negative_active_only_additive_source",
+      "label": "Negative control: active-only source under the additive sentence-transformer surface",
+      "category": "negative_control",
+      "algorithm_family": "negative_control:active_only_source",
+      "expected_failure_mode": "over_replace",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "evidence_control": "active_only_source",
+      "min_active_score": 0.35,
+      "min_margin": 0.05
+    },
+    {
+      "config_id": "st_negative_shadow_only_additive_source",
+      "label": "Negative control: shadow-only source under the additive sentence-transformer surface",
+      "category": "negative_control",
+      "algorithm_family": "negative_control:shadow_only_source",
+      "expected_failure_mode": "over_abstain",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "evidence_control": "shadow_only_source",
+      "min_active_score": 0.35,
+      "min_margin": 0.05
+    },
+    {
+      "config_id": "st_negative_no_shadow_additive_source",
+      "label": "Negative control: no-shadow competition under the additive sentence-transformer surface",
+      "category": "negative_control",
+      "algorithm_family": "negative_control:no_shadow_competition",
+      "expected_failure_mode": "over_replace",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "evidence_control": "no_shadow_competition",
+      "min_active_score": 0.35,
+      "min_margin": 0.05
+    },
+    {
+      "config_id": "st_negative_shuffled_labels_additive_source",
+      "label": "Negative control: shuffled active/shadow labels under the additive sentence-transformer surface",
+      "category": "negative_control",
+      "algorithm_family": "negative_control:shuffled_labels",
+      "expected_failure_mode": "collapse",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "evidence_control": "shuffled_labels",
+      "min_active_score": 0.35,
+      "min_margin": 0.05
+    },
+    {
+      "config_id": "st_negative_target_lemma_only_additive_source",
+      "label": "Negative control: target-lemma-only evidence under the additive sentence-transformer surface",
+      "category": "negative_control",
+      "algorithm_family": "negative_control:target_lemma_only",
+      "expected_failure_mode": "lexical_leakage",
+      "source_evidence_scope_id": "llm_v2_plus_wordnet_reference",
+      "source_evidence_batch_paths": [
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-def-example-plus-llm-aligned-frame-gap-v2-20260429a_cycle_sense_admitted_normalized_evidence.json",
+        "docs/test_outputs/experiments/semantic_example_frame_batches/en-es-wordnet-active-related-plant-cell-depth3-heldout-v2-policy-v1-20260425a_cycle_sense_admitted_normalized_evidence.json"
+      ],
+      "sense_representation": "definition_example_plus_source_rows_separate",
+      "aggregation_rule": "max_row_score",
+      "evidence_control": "target_lemma_only",
+      "min_active_score": 0.35,
+      "min_margin": 0.05
+    }
+  ],
+  "threshold_sensitivity": {
+    "min_active_score": [
+      0.0,
+      0.35,
+      0.5
+    ],
+    "min_margin": [
+      0.0,
+      0.02,
+      0.05,
+      0.08,
+      0.12
+    ]
+  },
+  "source_dropout": {
+    "drop_family_ids": [
+      "source:llm_aligned",
+      "source:wordnet_reference"
+    ]
+  },
+  "overfitting_checks": {
+    "leave_one_family_out": true,
+    "split_modulo": 4,
+    "locked_eval_remainders": [
+      0
+    ]
+  }
+}

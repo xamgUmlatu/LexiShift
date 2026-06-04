@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LexiShift SRS Admission Lab</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      --border: #c9d2dc;
+      --ink: #142033;
+      --muted: #5d6b7c;
+      --surface: #f6f8fa;
+      --panel: #ffffff;
+      --accent: #1467b8;
+      --accent-soft: #e8f2ff;
+      --warn: #8a5400;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--surface);
+    }
+    header {
+      padding: 18px 24px 12px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel);
+    }
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 720;
+      letter-spacing: 0;
+    }
+    main {
+      display: grid;
+      grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+      min-height: calc(100vh - 60px);
+    }
+    aside {
+      padding: 18px;
+      border-right: 1px solid var(--border);
+      background: var(--panel);
+    }
+    section {
+      padding: 18px 22px;
+    }
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 0 0 14px;
+      padding: 12px;
+    }
+    legend {
+      padding: 0 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    label {
+      display: block;
+      margin: 10px 0;
+      font-size: 13px;
+      font-weight: 650;
+    }
+    input,
+    select,
+    textarea,
+    button {
+      font: inherit;
+    }
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      margin-top: 5px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fff;
+      color: var(--ink);
+    }
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 78px;
+      gap: 10px;
+      align-items: center;
+    }
+    .check-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin: 8px 0;
+      font-size: 13px;
+      font-weight: 620;
+    }
+    .check-row input {
+      width: 16px;
+      height: 16px;
+    }
+    .topic-control-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      max-height: 440px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+    .topic-control {
+      border: 1px solid #d9e1ea;
+      border-radius: 8px;
+      padding: 9px;
+      background: #fbfcfd;
+    }
+    .topic-control-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: start;
+    }
+    .topic-control-title {
+      min-width: 0;
+      margin: 0;
+      font-size: 13px;
+      font-weight: 720;
+    }
+    .topic-control-title input {
+      width: 16px;
+      height: 16px;
+      margin: 0 7px 0 0;
+      vertical-align: -2px;
+    }
+    .topic-control-meta {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .topic-control .row {
+      margin-top: 7px;
+    }
+    .topic-control .row label {
+      margin: 0;
+    }
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 6px;
+      background: #edf1f5;
+      color: #485466;
+      font-size: 11px;
+      font-weight: 720;
+      white-space: nowrap;
+    }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    button {
+      min-height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 11px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+    }
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+    .status {
+      min-height: 20px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .error {
+      color: #a01818;
+      white-space: pre-wrap;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .metric {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+    .metric b {
+      display: block;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .result-panel {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: auto;
+    }
+    .result-panel h2 {
+      margin: 0;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th,
+    td {
+      padding: 8px 9px;
+      border-bottom: 1px solid #e4e9ef;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      background: #fbfcfd;
+    }
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: var(--accent-soft);
+      color: #0c4f92;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+    .muted {
+      color: var(--muted);
+    }
+    .coverage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 12px;
+      font-size: 13px;
+    }
+    .coverage-grid b {
+      display: block;
+      margin-bottom: 3px;
+    }
+    .warn {
+      color: var(--warn);
+    }
+    pre {
+      margin: 0;
+      padding: 12px;
+      overflow: auto;
+      background: #111827;
+      color: #e5e7eb;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    @media (max-width: 900px) {
+      main,
+      .comparison,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LexiShift SRS Admission Lab</h1>
+  </header>
+  <main>
+    <aside>
+      <fieldset>
+        <legend>Candidate Pool</legend>
+        <label>Pair
+          <input id="pair" type="text" value="en-es">
+        </label>
+        <label>Pool top N
+          <input id="setTopN" type="number" min="1" max="50000" value="10000">
+        </label>
+        <label>Initial active count
+          <input id="initialActiveCount" type="number" min="1" max="10000" value="120">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Topic Signals</legend>
+        <div id="topicControls" class="topic-control-grid"></div>
+        <div class="button-row">
+          <button type="button" data-preset="neutral">Neutral</button>
+          <button type="button" data-preset="animals">Animals</button>
+          <button type="button" data-preset="plants">Plants</button>
+          <button type="button" data-preset="food">Food</button>
+          <button type="button" data-preset="medicine">Medicine</button>
+          <button type="button" data-preset="finance">Finance</button>
+          <button type="button" data-preset="sports">Sports</button>
+          <button type="button" data-preset="games">Games</button>
+          <button type="button" data-preset="music">Music</button>
+          <button type="button" data-preset="law">Law</button>
+          <button type="button" data-preset="science">Science</button>
+          <button type="button" data-preset="travel">Travel</button>
+          <button type="button" data-preset="mixed">Mixed</button>
+        </div>
+        <div id="topicWeightSummary" class="status">Effective topic weights: none</div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Difficulty Signals</legend>
+        <div class="row">
+          <label>Proficiency
+            <input id="proficiency" type="range" min="0" max="1" step="0.05" value="0.45">
+          </label>
+          <output id="proficiencyOut">0.45</output>
+        </div>
+        <div class="row">
+          <label>Target challenge
+            <input id="challengeTarget" type="range" min="0" max="1" step="0.05" value="0.45">
+          </label>
+          <output id="challengeTargetOut">0.45</output>
+        </div>
+        <div class="row">
+          <label>Challenge spread
+            <input id="challengeSpread" type="range" min="0.05" max="1" step="0.05" value="0.20">
+          </label>
+          <output id="challengeSpreadOut">0.20</output>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Sampling</legend>
+        <label>Mode
+          <select id="samplingMode">
+            <option value="ranked">ranked</option>
+            <option value="reserved_topic_lane">reserved_topic_lane</option>
+            <option value="weighted_without_replacement">weighted_without_replacement</option>
+          </select>
+        </label>
+        <label>Seed
+          <input id="seed" type="number" value="424242">
+        </label>
+        <label>Count
+          <input id="previewCount" type="number" min="1" max="20" value="10">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Advanced</legend>
+        <label class="check-row">
+          <input id="useRawProfile" type="checkbox"> Use raw profile context JSON
+        </label>
+        <textarea id="rawProfile">{}</textarea>
+      </fieldset>
+
+      <button id="sampleButton" class="primary" type="button">Sample 10</button>
+      <div id="status" class="status">Idle.</div>
+    </aside>
+
+    <section>
+      <div class="grid">
+        <div class="metric">
+          <b id="selectedCount">-</b>
+          <span>selected candidates</span>
+        </div>
+        <div class="metric">
+          <b id="topicMoverCount">-</b>
+          <span>topic movers in sample</span>
+        </div>
+        <div class="metric">
+          <b id="topicMoverShare">-</b>
+          <span>preferred-topic share</span>
+        </div>
+        <div class="metric">
+          <b id="movedIntoSample">-</b>
+          <span>changed vs neutral</span>
+        </div>
+      </div>
+
+      <div class="result-panel" style="margin-bottom: 14px;">
+        <h2>Topic Coverage</h2>
+        <div id="topicCoverage"></div>
+      </div>
+
+      <div class="comparison">
+        <div class="result-panel">
+          <h2>Preference Sample</h2>
+          <div id="preferenceTable"></div>
+        </div>
+        <div class="result-panel">
+          <h2>Neutral Baseline</h2>
+          <div id="neutralTable"></div>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <h2>Profile Context Sent To Admission</h2>
+        <pre id="profileJson">{}</pre>
+      </div>
+
+      <div class="result-panel" style="margin-top: 14px;">
+        <h2>Diagnostics</h2>
+        <pre id="diagnostics">No run yet.</pre>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+    const difficultyRangeIds = [
+      ["proficiency", "proficiencyOut"],
+      ["challengeTarget", "challengeTargetOut"],
+      ["challengeSpread", "challengeSpreadOut"]
+    ];
+    const fallbackTopicOptions = [
+      { id: "medicine_health", display_name: "Medicine & Health", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["medicine", "anatomy", "healthcare"] },
+      { id: "finance_business", display_name: "Finance & Business", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["finance", "business", "economics"] },
+      { id: "sports_fitness", display_name: "Sports & Fitness", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["sports", "athletics"] },
+      { id: "games", display_name: "Games", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["games", "gaming"] },
+      { id: "music_media_entertainment", display_name: "Music, Media & Entertainment", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["music", "entertainment"] },
+      { id: "law_politics_civics", display_name: "Law, Politics & Civics", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["law", "politics", "government"] },
+      { id: "science_technology", display_name: "Science & Technology", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["science", "technology"] },
+      { id: "travel_places_transport", display_name: "Travel, Places & Transport", readiness_state: "partial", axis: "topic", mvp_picker_visibility: "future_beta_hidden", runtime_aliases: ["travel", "transport", "geography"] },
+      { id: "arts_literature_humanities", display_name: "Arts, Literature & Humanities", readiness_state: "partial", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["art", "literature", "humanities"] },
+      { id: "animals", display_name: "Animals", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["zoology", "wildlife", "pets"] },
+      { id: "plants_nature", display_name: "Plants & Nature", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "future_beta_hidden", runtime_aliases: ["botany", "plants", "nature"] },
+      { id: "food_cooking", display_name: "Food & Cooking", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["food", "cooking"] },
+      { id: "anime_manga_pop_culture", display_name: "Anime, Manga & Pop Culture", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "hidden_source_required", runtime_aliases: ["anime", "manga"] },
+      { id: "hobbies_crafts", display_name: "Hobbies & Crafts", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "hidden_source_required", runtime_aliases: ["hobbies", "crafts"] },
+      { id: "casual_slang_register", display_name: "Casual & Slang", readiness_state: "review_only", axis: "register", mvp_picker_visibility: "future_register_hidden", runtime_aliases: ["slang", "colloquial"] },
+      { id: "formal_professional_register", display_name: "Formal & Professional", readiness_state: "review_only", axis: "register", mvp_picker_visibility: "future_register_hidden", runtime_aliases: ["formal", "professional"] },
+      { id: "sat_toefl_exam_prep", display_name: "SAT & TOEFL Prep", readiness_state: "legal_source_gated", axis: "topic", mvp_picker_visibility: "legal_source_gated_hidden", runtime_aliases: ["sat", "toefl"] }
+    ];
+    let topicOptions = fallbackTopicOptions;
+
+    function numberValue(id, fallback) {
+      const element = $(id);
+      const parsed = Number(element ? element.value : fallback);
+      return Number.isFinite(parsed) ? parsed : fallback;
+    }
+
+    function updateOutputs() {
+      for (const [inputId, outputId] of difficultyRangeIds) {
+        $("#" + outputId).textContent = numberValue("#" + inputId, 0).toFixed(2);
+      }
+      $$("[data-topic-weight]").forEach((input) => {
+        const output = $('[data-topic-output="' + input.dataset.topicWeight + '"]');
+        if (output) {
+          output.textContent = Number(input.value || 0).toFixed(2);
+        }
+      });
+      $("#sampleButton").textContent = "Sample " + numberValue("#previewCount", 10);
+      updateTopicWeightSummary();
+    }
+
+    function selectedInterests() {
+      return $$("[data-topic-interest]:checked").map((input) => input.dataset.topicInterest);
+    }
+
+    function sliderTopicWeights() {
+      const weights = {};
+      $$("[data-topic-weight]").forEach((input) => {
+        const value = Number(input.value || 0);
+        if (Number.isFinite(value)) {
+          weights[input.dataset.topicWeight] = value;
+        }
+      });
+      return weights;
+    }
+
+    function effectiveTopicWeights() {
+      const effective = {};
+      for (const topic of selectedInterests()) {
+        effective[topic] = { value: 1, source: "chip" };
+      }
+      for (const [topic, value] of Object.entries(sliderTopicWeights())) {
+        if (value <= 0) {
+          continue;
+        }
+        const current = effective[topic];
+        if (!current || value >= current.value) {
+          effective[topic] = { value, source: "scalar" };
+        }
+      }
+      return effective;
+    }
+
+    function topicOptionById(topicId) {
+      return topicOptions.find((topic) => topic.id === topicId) || { id: topicId, display_name: topicId, runtime_aliases: [] };
+    }
+
+    function expandedTopicWeights() {
+      const expanded = {};
+      for (const [topicId, entry] of Object.entries(effectiveTopicWeights())) {
+        const option = topicOptionById(topicId);
+        const aliases = [topicId, ...(Array.isArray(option.runtime_aliases) ? option.runtime_aliases : [])];
+        for (const alias of aliases) {
+          const key = String(alias || "").trim();
+          if (!key) {
+            continue;
+          }
+          if (!expanded[key] || entry.value > expanded[key]) {
+            expanded[key] = entry.value;
+          }
+        }
+      }
+      return expanded;
+    }
+
+    function updateTopicWeightSummary() {
+      const summary = $("#topicWeightSummary");
+      if ($("#useRawProfile").checked) {
+        summary.textContent = "Effective topic weights: raw profile JSON";
+        return;
+      }
+      const entries = Object.entries(effectiveTopicWeights())
+        .sort(([left], [right]) => left.localeCompare(right))
+        .map(([topic, entry]) => {
+          const option = topicOptionById(topic);
+          return option.display_name + "=" + entry.value.toFixed(2) + " (" + entry.source + ")";
+        });
+      summary.textContent = "Effective topic weights: " + (entries.length ? entries.join(", ") : "none");
+    }
+
+    function clearTopics() {
+      $$("[data-topic-interest]").forEach((input) => {
+        input.checked = false;
+      });
+      $$("[data-topic-weight]").forEach((input) => {
+        input.value = "0";
+      });
+    }
+
+    function setTopic(topicId, value, checked = false) {
+      const checkbox = $('[data-topic-interest="' + topicId + '"]');
+      const slider = $('[data-topic-weight="' + topicId + '"]');
+      if (checkbox) {
+        checkbox.checked = Boolean(checked);
+      }
+      if (slider) {
+        slider.value = String(value);
+      }
+    }
+
+    function applyPreset(name) {
+      clearTopics();
+      $("#useRawProfile").checked = false;
+      $("#rawProfile").value = "{}";
+      if (name === "animals") {
+        setTopic("animals", 0, true);
+      } else if (name === "plants") {
+        setTopic("plants_nature", 0, true);
+      } else if (name === "food") {
+        setTopic("food_cooking", 0, true);
+      } else if (name === "medicine") {
+        setTopic("medicine_health", 0, true);
+      } else if (name === "finance") {
+        setTopic("finance_business", 0, true);
+      } else if (name === "sports") {
+        setTopic("sports_fitness", 0, true);
+      } else if (name === "games") {
+        setTopic("games", 0, true);
+      } else if (name === "music") {
+        setTopic("music_media_entertainment", 0, true);
+      } else if (name === "law") {
+        setTopic("law_politics_civics", 0, true);
+      } else if (name === "science") {
+        setTopic("science_technology", 0, true);
+      } else if (name === "travel") {
+        setTopic("travel_places_transport", 0, true);
+      } else if (name === "mixed") {
+        setTopic("animals", 0.35);
+        setTopic("plants_nature", 0.35);
+        setTopic("food_cooking", 0.35);
+      }
+      updateOutputs();
+    }
+
+    function renderTopicControls() {
+      const container = $("#topicControls");
+      container.innerHTML = topicOptions.map((topic) => {
+        const id = escapeHtml(topic.id);
+        const display = escapeHtml(topic.display_name || topic.id);
+        const axis = escapeHtml(topic.axis || "topic");
+        const readiness = escapeHtml((topic.readiness_state || "unknown").replaceAll("_", " "));
+        const visibility = escapeHtml((topic.mvp_picker_visibility || "unclassified").replaceAll("_", " "));
+        const aliases = Array.isArray(topic.runtime_aliases) && topic.runtime_aliases.length
+          ? "aliases: " + topic.runtime_aliases.slice(0, 6).join(", ")
+          : "direct topic id only";
+        return '<div class="topic-control" data-topic-control="' + id + '">'
+          + '<div class="topic-control-header">'
+          + '<label class="topic-control-title">'
+          + '<input type="checkbox" data-topic-interest="' + id + '">'
+          + display
+          + '</label>'
+          + '<span class="badge">' + readiness + '</span>'
+          + '<span class="badge">' + visibility + '</span>'
+          + '</div>'
+          + '<div class="topic-control-meta">' + axis + " · " + escapeHtml(aliases) + '</div>'
+          + '<div class="row">'
+          + '<label>Preference strength'
+          + '<input data-topic-weight="' + id + '" type="range" min="0" max="1" step="0.05" value="0">'
+          + '</label>'
+          + '<output data-topic-output="' + id + '">0.00</output>'
+          + '</div>'
+          + '</div>';
+      }).join("");
+      $$("[data-topic-interest]").forEach((input) => {
+        input.addEventListener("change", updateOutputs);
+      });
+      $$("[data-topic-weight]").forEach((input) => {
+        input.addEventListener("input", updateOutputs);
+        input.addEventListener("change", updateOutputs);
+      });
+    }
+
+    function readProfilePayload() {
+      if ($("#useRawProfile").checked) {
+        return {
+          use_profile_context: true,
+          profile_context: JSON.parse($("#rawProfile").value || "{}")
+        };
+      }
+      const interests = selectedInterests();
+      return {
+        interests,
+        topic_weights: expandedTopicWeights(),
+        proficiency_estimate: numberValue("#proficiency", 0.45),
+        challenge_target: numberValue("#challengeTarget", 0.45),
+        challenge_spread: numberValue("#challengeSpread", 0.2)
+      };
+    }
+
+    function readPayload() {
+      return {
+        pair: $("#pair").value,
+        set_top_n: numberValue("#setTopN", 5000),
+        initial_active_count: numberValue("#initialActiveCount", 120),
+        preview_count: numberValue("#previewCount", 10),
+        preview_sampling_mode: $("#samplingMode").value,
+        preview_seed: numberValue("#seed", 424242),
+        ...readProfilePayload()
+      };
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function renderWords(words) {
+      if (!words || words.length === 0) {
+        return '<p class="muted" style="padding: 12px;">No sampled words.</p>';
+      }
+      const rows = words.map((word, index) => {
+        const topic = word.topic_affinity_source_display
+          ? '<span class="tag">' + escapeHtml(word.topic_affinity_source_display) + '</span>'
+          : '<span class="muted">none</span>';
+        const difficulty = word.difficulty_estimate === null || word.difficulty_estimate === undefined
+          ? ""
+          : "d=" + word.difficulty_estimate;
+        const proficiencyFit = word.proficiency_fit === null || word.proficiency_fit === undefined
+          ? ""
+          : "p=" + word.proficiency_fit;
+        const challengeFit = word.challenge_fit === null || word.challenge_fit === undefined
+          ? ""
+          : "c=" + word.challenge_fit;
+        const fit = [difficulty, proficiencyFit, challengeFit].filter(Boolean).join(" ");
+        const readiness = word.readiness_multiplier === null || word.readiness_multiplier === undefined
+          ? ""
+          : "r=" + word.readiness_multiplier;
+        const readinessBand = word.readiness_lower_bound === null || word.readiness_lower_bound === undefined
+          || word.readiness_upper_bound === null || word.readiness_upper_bound === undefined
+          ? ""
+          : "[" + word.readiness_lower_bound + ".." + word.readiness_upper_bound + "]";
+        const easyGap = word.readiness_too_easy_gap
+          ? "easy=" + word.readiness_too_easy_gap
+          : "";
+        const hardGap = word.readiness_too_hard_gap
+          ? "hard=" + word.readiness_too_hard_gap
+          : "";
+        const readinessClass = Number(word.readiness_multiplier) < 0.5 ? "mono warn" : "mono";
+        const gate = [readiness, readinessBand, easyGap, hardGap].filter(Boolean).join(" ");
+        const delta = word.rank_delta === null || word.rank_delta === undefined
+          ? ""
+          : (word.rank_delta >= 0 ? "+" : "") + word.rank_delta;
+        const posDetail = [
+          word.pos_raw ? "raw=" + word.pos_raw : "",
+          word.pos_canonical ? "canon=" + word.pos_canonical : "",
+          word.pos_matched_rule ? word.pos_matched_rule : ""
+        ].filter(Boolean).join(" ");
+        return '<tr>'
+          + '<td class="mono">' + (index + 1) + '</td>'
+          + '<td><b>' + escapeHtml(word.lemma) + '</b><br><span class="muted">'
+          + escapeHtml(word.explanation || "") + '</span></td>'
+          + '<td>' + escapeHtml(word.pos_bucket || "") + '<br><span class="muted mono">'
+          + escapeHtml(posDetail) + '</span></td>'
+          + '<td>' + topic + '</td>'
+          + '<td class="mono">' + escapeHtml(fit) + '</td>'
+          + '<td class="' + readinessClass + '">' + escapeHtml(gate) + '</td>'
+          + '<td class="mono">' + escapeHtml(word.profile_score ?? "") + '</td>'
+          + '<td class="mono">' + escapeHtml(delta) + '</td>'
+          + '</tr>';
+      }).join("");
+      return '<table><thead><tr>'
+        + '<th>#</th><th>Lemma</th><th>POS</th><th>Topic</th><th>Fit</th><th>Gate</th><th>Score</th><th>Delta</th>'
+        + '</tr></thead><tbody>' + rows + '</tbody></table>';
+    }
+
+    function renderSourceAugmentation(source) {
+      const augmentation = source && source.source_augmentation
+        ? source.source_augmentation
+        : {};
+      if (!augmentation.status || augmentation.status !== "applied") {
+        return '<span class="muted">base frequency source only</span>';
+      }
+      const examples = augmentation.example_zipf_ranks || {};
+      const exampleText = Object.entries(examples).map(([lemma, entry]) => {
+        return lemma + "#" + (entry.rank ?? "?") + " z=" + (entry.zipf ?? "?");
+      }).join(", ");
+      return "Zipf bridge lab source, rows=" + (augmentation.output_row_count ?? "?")
+        + ", added=" + (augmentation.added_row_count ?? "?")
+        + (exampleText ? "<br><span class=\"muted mono\">" + escapeHtml(exampleText) + "</span>" : "");
+    }
+
+    function renderTopicDepth(depth) {
+      if (!depth || !Array.isArray(depth.topics) || depth.topics.length === 0) {
+        return '<div class="muted" style="padding: 12px;">No active preferred topic depth to show.</div>';
+      }
+      const threshold = depth.ready_threshold ?? 0.5;
+      const topicSections = depth.topics.map((topic) => {
+        const rows = Array.isArray(topic.bands) ? topic.bands.map((band) => {
+          const examples = Array.isArray(band.top_examples) && band.top_examples.length
+            ? band.top_examples.map((entry) => {
+                return entry.lemma + " d=" + entry.difficulty_estimate + " r=" + entry.readiness_multiplier;
+              }).join(", ")
+            : "";
+          return '<tr>'
+            + '<td class="mono">' + escapeHtml(band.band || "") + '</td>'
+            + '<td class="mono">' + escapeHtml(band.candidate_count ?? 0) + '</td>'
+            + '<td class="mono">' + escapeHtml(band.ready_candidate_count ?? 0) + '</td>'
+            + '<td class="muted mono">' + escapeHtml(examples) + '</td>'
+            + '</tr>';
+        }).join("") : "";
+        const hardest = Array.isArray(topic.hardest_examples) && topic.hardest_examples.length
+          ? topic.hardest_examples.map((entry) => {
+              return entry.lemma + " d=" + entry.difficulty_estimate + " r=" + entry.readiness_multiplier;
+            }).join(", ")
+          : "none";
+        return '<div style="padding: 12px; border-top: 1px solid #e4e9ef;">'
+          + '<b>' + escapeHtml(topic.topic || "topic") + '</b>'
+          + '<div class="muted">weight=' + escapeHtml(topic.requested_weight ?? "")
+          + ', candidates=' + escapeHtml(topic.candidate_count ?? 0)
+          + ', ready>=' + escapeHtml(threshold) + ': ' + escapeHtml(topic.ready_candidate_count ?? 0)
+          + ', max difficulty=' + escapeHtml(topic.max_difficulty ?? "none") + '</div>'
+          + '<div class="muted mono">hardest: ' + escapeHtml(hardest) + '</div>'
+          + '<table style="margin-top: 8px;"><thead><tr>'
+          + '<th>Difficulty</th><th>Topic candidates</th><th>Ready</th><th>Best examples</th>'
+          + '</tr></thead><tbody>' + rows + '</tbody></table>'
+          + '</div>';
+      }).join("");
+      return '<div><b style="display:block; padding: 12px 12px 0;">Topic Depth By Difficulty</b>'
+        + topicSections + '</div>';
+    }
+
+    function renderTopicCoverage(preference, source) {
+      const support = preference && preference.active_topic_support
+        ? preference.active_topic_support
+        : {};
+      const overlay = preference && preference.profile_topic_overlay
+        ? preference.profile_topic_overlay
+        : {};
+      const topics = Array.isArray(support.topics) ? support.topics : [];
+      const topicText = topics.length
+        ? topics.map((topic) => {
+            const examples = Array.isArray(topic.top_examples) && topic.top_examples.length
+              ? " examples: " + topic.top_examples.join(", ")
+              : "";
+            return escapeHtml(topic.topic || "topic")
+              + ": " + escapeHtml(topic.candidate_count ?? 0)
+              + " / " + escapeHtml(support.total_candidates ?? "?")
+              + " candidates" + escapeHtml(examples);
+          }).join("<br>")
+        : '<span class="muted">No active supported topic in the current candidate frontier.</span>';
+      const unmatched = Array.isArray(overlay.unmatched_eligible_lemma_sample)
+        && overlay.unmatched_eligible_lemma_sample.length
+        ? overlay.unmatched_eligible_lemma_sample.join(", ")
+        : "none";
+      const applied = Array.isArray(overlay.applied_lemma_sample)
+        && overlay.applied_lemma_sample.length
+        ? overlay.applied_lemma_sample.join(", ")
+        : "none";
+      const overlayText = overlay.status
+        ? "overlay " + overlay.status
+          + ", applied=" + (overlay.applied_seed_count ?? 0)
+          + " / eligible=" + (overlay.eligible_lemma_count ?? overlay.eligible_row_count ?? 0)
+          + ", missing-from-seed=" + (overlay.unmatched_eligible_lemma_count ?? 0)
+        : "overlay inactive";
+      const depth = preference && preference.topic_depth_by_level
+        ? preference.topic_depth_by_level
+        : {};
+      return '<div class="coverage-grid">'
+        + '<div><b>Candidate Support</b>' + topicText + '</div>'
+        + '<div><b>Overlay Match</b>'
+        + '<div>' + escapeHtml(overlayText) + '</div>'
+        + '<div class="muted">applied: ' + escapeHtml(applied) + '</div>'
+        + '<div class="muted">missing: ' + escapeHtml(unmatched) + '</div>'
+        + '</div>'
+        + '<div><b>Source Frontier</b>' + renderSourceAugmentation(source) + '</div>'
+        + '</div>'
+        + renderTopicDepth(depth);
+    }
+
+    function summarizeChanged(comparison) {
+      const moved = comparison.changed_or_new || [];
+      if (moved.length === 0) {
+        return "No changed words in the top sample.";
+      }
+      return moved.map((entry) => {
+        const from = entry.neutral_position ? "from #" + entry.neutral_position : "new";
+        return entry.lemma + " " + from + " -> #" + entry.preference_position;
+      }).join("\n");
+    }
+
+    function renderResult(data) {
+      $("#selectedCount").textContent = data.preference.preview_counts.selected_count ?? "-";
+      $("#topicMoverCount").textContent = data.preference.topic_mover_count ?? "-";
+      $("#topicMoverShare").textContent = data.preference.topic_mover_share === null
+        || data.preference.topic_mover_share === undefined
+        ? "-"
+        : Math.round(Number(data.preference.topic_mover_share) * 100) + "%";
+      $("#movedIntoSample").textContent = (data.comparison.changed_or_new || []).length;
+      $("#topicCoverage").innerHTML = renderTopicCoverage(data.preference, data.source);
+      $("#preferenceTable").innerHTML = renderWords(data.preference.admitted_words);
+      $("#neutralTable").innerHTML = renderWords(data.neutral.admitted_words);
+      $("#profileJson").textContent = JSON.stringify(data.profile_context, null, 2);
+      $("#diagnostics").textContent = JSON.stringify({
+        source: data.source,
+        parameters: data.parameters,
+        comparison: {
+          changed_or_new: summarizeChanged(data.comparison),
+          moved_up: data.comparison.moved_up,
+          new_to_sample: data.comparison.new_to_sample
+        },
+        preference_overlay: data.preference.profile_topic_overlay,
+        preference_context: data.preference.effective_profile_context,
+        active_topic_support: data.preference.active_topic_support,
+        topic_depth_by_level: data.preference.topic_depth_by_level,
+        plan: data.preference.plan
+      }, null, 2);
+    }
+
+    async function sample() {
+      const button = $("#sampleButton");
+      const status = $("#status");
+      button.disabled = true;
+      status.className = "status";
+      status.textContent = "Running admission preview...";
+      try {
+        updateOutputs();
+        const response = await fetch("/api/preview", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(readPayload())
+        });
+        const data = await response.json();
+        if (!response.ok || data.ok === false) {
+          throw new Error(data.error || "Preview failed.");
+        }
+        renderResult(data);
+        status.textContent = "Done.";
+      } catch (error) {
+        status.className = "status error";
+        status.textContent = error && error.message ? error.message : String(error);
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function loadConfig() {
+      renderTopicControls();
+      try {
+        const response = await fetch("/api/config");
+        const data = await response.json();
+        if (response.ok && data.ok !== false && Array.isArray(data.topics) && data.topics.length) {
+          topicOptions = data.topics;
+          renderTopicControls();
+        }
+        if (data.defaults) {
+          if (data.defaults.pair) {
+            $("#pair").value = data.defaults.pair;
+          }
+          if (data.defaults.set_top_n) {
+            $("#setTopN").value = data.defaults.set_top_n;
+          }
+          if (data.defaults.initial_active_count) {
+            $("#initialActiveCount").value = data.defaults.initial_active_count;
+          }
+          if (data.defaults.preview_count) {
+            $("#previewCount").value = data.defaults.preview_count;
+          }
+          if (data.defaults.preview_sampling_mode) {
+            $("#samplingMode").value = data.defaults.preview_sampling_mode;
+          }
+          if (data.defaults.preview_seed !== null && data.defaults.preview_seed !== undefined) {
+            $("#seed").value = data.defaults.preview_seed;
+          }
+        }
+      } catch (_error) {
+        renderTopicControls();
+      }
+      updateOutputs();
+    }
+
+    for (const [inputId] of difficultyRangeIds) {
+      $("#" + inputId).addEventListener("input", updateOutputs);
+      $("#" + inputId).addEventListener("change", updateOutputs);
+    }
+    $("#previewCount").addEventListener("input", updateOutputs);
+    $("#previewCount").addEventListener("change", updateOutputs);
+    $("#useRawProfile").addEventListener("change", updateOutputs);
+    $("#rawProfile").addEventListener("input", updateOutputs);
+    $("#sampleButton").addEventListener("click", sample);
+    $$("[data-preset]").forEach((button) => {
+      button.addEventListener("click", () => applyPreset(button.dataset.preset));
+    });
+    loadConfig();
+  </script>
+</body>
+</html>

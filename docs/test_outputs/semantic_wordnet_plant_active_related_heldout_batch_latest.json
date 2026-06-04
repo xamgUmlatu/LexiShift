@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-25T03:12:44Z",
+  "status": "ok",
+  "pair": "en-es",
+  "queue_id": "semantic_prompt_bakeoff_en_es_v10",
+  "dataset_id": "en_es_sentence_veto_v10",
+  "run_id": "wordnet-plant-active-related-heldout-v1-20260425a",
+  "source_scope": "family_keys",
+  "batch_id": "en-es:wordnet-example-frames:wordnet-plant-active-related-heldout-v1-20260425a",
+  "source_type": "external",
+  "source_id": "wordnet_example_frames",
+  "source_family": "external_sense_graph",
+  "resource_status": {
+    "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+    "wordnet_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json",
+    "wordnet_dir_exists": true,
+    "wordnet_source_file_count": 72,
+    "wordnet_entry_count": 127311,
+    "wordnet_synset_count": 107519,
+    "missing_resources": []
+  },
+  "summary": {
+    "queue_family_count": 8,
+    "source_family_count": 1,
+    "target_family_count": 1,
+    "row_count": 14,
+    "families_with_active_wordnet": 1,
+    "families_with_shadow_wordnet": 1,
+    "target_families_with_active_wordnet": 1,
+    "target_families_with_shadow_wordnet": 1,
+    "families_with_phrase_control_examples": 0,
+    "missing_active_family_keys": [],
+    "missing_shadow_family_keys": [],
+    "min_link_score": 0.12,
+    "evidence_mode": "definition_preferred"
+  },
+  "family_rows": [
+    {
+      "family_id": "en-es:sentence-veto:plant:planta",
+      "trigger": "plant",
+      "active_target": "planta",
+      "role": "target",
+      "active_wordnet_count": 12,
+      "shadow_wordnet_count": 2,
+      "phrase_control_example_count": 0,
+      "row_count": 14,
+      "link_rows": [
+        {
+          "sense_id": "en-es:sentence-veto:plant:planta:active",
+          "target_lemma": "planta",
+          "canonical_pos": "noun",
+          "relation_type": "anchor_cue",
+          "linked": true,
+          "best_wordnet_sense_id": "plant%1:03:00::",
+          "best_wordnet_synset_id": "00017402-n",
+          "best_link_score": 0.2,
+          "best_overlap": [
+            "liv",
+            "organism"
+          ],
+          "candidate_count": 21
+        },
+        {
+          "sense_id": "en-es:sentence-veto:plant:fabrica:shadow",
+          "target_lemma": "fábrica",
+          "canonical_pos": "noun",
+          "relation_type": "shadow_candidate",
+          "linked": true,
+          "best_wordnet_sense_id": "plant%1:06:01::",
+          "best_wordnet_synset_id": "03963198-n",
+          "best_link_score": 0.1429,
+          "best_overlap": [
+            "industrial"
+          ],
+          "candidate_count": 1
+        }
+      ]
+    }
+  ],
+  "recommendation": "This adapter is a real local source pass for active/shadow semantic evidence, but it intentionally does not solve phrase containment. Run the source-admission cycle before using it as a challenger, and treat missing/low-score links as source gaps rather than generated coverage."
+}

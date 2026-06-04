@@ -3,8 +3,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Mapping, Sequence
 
+from lexishift_core.srs.profile_bootstrap import summarize_profile_bootstrap_context
 from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
+    OBJECTIVE_GROWTH,
+    OBJECTIVE_REBALANCE,
+    OBJECTIVE_REFRESH,
     STRATEGY_ADAPTIVE_REFRESH,
     STRATEGY_FREQUENCY_BOOTSTRAP,
     STRATEGY_PROFILE_BOOTSTRAP,
@@ -51,26 +55,69 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
     can_execute = False
     execution_mode = "planner_only"
     effective = requested
+    extra_diagnostics: dict[str, object] = {}
 
     if requested == STRATEGY_FREQUENCY_BOOTSTRAP:
         can_execute = True
         execution_mode = "frequency_bootstrap"
         notes.append("Using frequency bootstrap strategy.")
     elif requested == STRATEGY_PROFILE_BOOTSTRAP:
-        required_fields.extend(("interests", "proficiency", "empirical_trends"))
+        required_fields.extend(("interests", "proficiency", "difficulty_preferences"))
         can_execute = True
-        execution_mode = "frequency_bootstrap"
-        effective = STRATEGY_FREQUENCY_BOOTSTRAP
+        execution_mode = "profile_bootstrap"
+        profile_bootstrap_summary = summarize_profile_bootstrap_context(request.profile_context)
+        extra_diagnostics = {
+            "profile_bootstrap": profile_bootstrap_summary,
+        }
         notes.append(
-            "Profile-aware weighting is scaffolding-only. Falling back to frequency bootstrap."
+            "Profile bootstrap applies profile-aware candidate scoring to the frequency "
+            "bootstrap seed frontier."
         )
+        profile_context_summary = profile_bootstrap_summary.get("context")
+        profile_context_payload = (
+            profile_context_summary if isinstance(profile_context_summary, Mapping) else {}
+        )
+        active_signals = _tuple_payload(profile_context_payload.get("active_signals"))
+        missing_signals = _tuple_payload(profile_context_payload.get("missing_signals"))
+        if not request.profile_context:
+            notes.append(
+                "No profile context was provided; ranking would remain close to neutral frequency order."
+            )
+        elif missing_signals:
+            notes.append(
+                "Profile bootstrap will keep missing signals neutral: "
+                + ", ".join(str(signal) for signal in missing_signals)
+                + "."
+            )
+        if active_signals:
+            notes.append(
+                "Active bootstrap profile signals: "
+                + ", ".join(str(signal) for signal in active_signals)
+                + "."
+            )
     elif requested == STRATEGY_PROFILE_GROWTH:
         required_fields.extend(("interests", "proficiency", "empirical_trends"))
-        can_execute = False
-        execution_mode = "planner_only"
-        notes.append(
-            "Profile growth strategy is planned but not implemented. Planner returns requirements only."
-        )
+        if objective == OBJECTIVE_REBALANCE:
+            can_execute = True
+            execution_mode = "rebalance_preview"
+            notes.append(
+                "Profile growth rebalance reranks retained and seed candidates against the "
+                "current active inventory."
+            )
+        elif objective in {OBJECTIVE_GROWTH, OBJECTIVE_REFRESH}:
+            can_execute = True
+            execution_mode = "profile_growth"
+            notes.append(
+                "Profile growth applies profile-aware candidate scoring during ongoing "
+                "refresh/growth admission."
+            )
+        else:
+            can_execute = False
+            execution_mode = "planner_only"
+            notes.append(
+                "Profile growth is executable for refresh/growth objectives; choose "
+                "objective=growth or objective=refresh for admission into S."
+            )
     elif requested == STRATEGY_ADAPTIVE_REFRESH:
         required_fields.extend(("feedback_signals", "exposure_signals"))
         can_execute = False
@@ -104,6 +151,7 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
         "existing_items_for_pair": max(0, int(request.existing_items_for_pair)),
         "profile_keys": sorted(str(key) for key in request.profile_context.keys()),
         "signal_summary_keys": sorted(str(key) for key in request.signal_summary.keys()),
+        **extra_diagnostics,
     }
     return SrsSetPlan(
         pair=pair,
@@ -116,6 +164,12 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
         notes=tuple(notes),
         diagnostics=diagnostics,
     )
+
+
+def _tuple_payload(value: object) -> tuple[object, ...]:
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return tuple(value)
+    return ()
 
 
 def plan_to_dict(plan: SrsSetPlan) -> dict[str, object]:

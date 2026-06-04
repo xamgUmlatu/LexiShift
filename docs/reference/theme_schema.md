@@ -1,6 +1,12 @@
 # LexiShift Theme Schema (Draft)
 
-This schema describes user-provided themes for the GUI. It is not wired yet, but it is the target format for future customization.
+Status: draft reference with implemented subset
+Role: Planning / WIP plus current theme-loader contract
+Last updated: 2026-06-02
+Purpose: preserve the target GUI theme schema while documenting the customization surface currently accepted by the GUI loader
+Source-of-truth: current GUI theme behavior verifies in source code and GUI tests; future-only sections remain marked as planned.
+
+This schema describes user-provided themes for the GUI. Colors, background images, screen overrides, and `surface_opacities.table` are wired in the current GUI; the broader per-screen element taxonomy remains a target for future customization.
 
 ## Theme object (draft)
 ```json
@@ -30,6 +36,9 @@ This schema describes user-provided themes for the GUI. It is not wired yet, but
     "repeat": "no-repeat",
     "blend_mode": "multiply"
   },
+  "surface_opacities": {
+    "table": 0.9
+  },
   "notes": "Optional free-form notes."
 }
 ```
@@ -40,6 +49,7 @@ This schema describes user-provided themes for the GUI. It is not wired yet, but
 - `version`: schema version for forward compatibility.
 - `colors`: required palette keys. These map to Settings UI styling and will later apply app-wide.
 - `background`: optional background image config. If present, the GUI should layer the image behind panels.
+- `surface_opacities`: optional numeric opacity controls for dense surfaces. `table` controls table row/header surface opacity; omitted values use the app default.
 
 ## Theme folder structure (recommended)
 Store each theme in its own folder so assets are grouped with the theme JSON.
@@ -70,11 +80,13 @@ to the base `colors` and `background` fields above.
   "screen_overrides": {
     "main_window": {
       "colors": { "...": "..." },
-      "background": { "...": "..." }
+      "background": { "...": "..." },
+      "surface_opacities": { "...": "..." }
     },
     "profiles_dialog": {
       "colors": { "...": "..." },
-      "background": { "...": "..." }
+      "background": { "...": "..." },
+      "surface_opacities": { "...": "..." }
     }
   }
 }
@@ -149,8 +161,12 @@ Background image (entire screen):
 - `repeat`: `no-repeat`, `repeat`, `repeat-x`, `repeat-y`.
 - `blend_mode`: `normal`, `multiply`, `screen`, etc.
 
+## Surface opacity keys
+- `table`: 0.0 to 1.0. Controls table surface opacity where table-heavy screens intentionally let the themed settings backdrop remain visible. The default is `0.9`.
+
 ## Validation (planned)
 - All `colors` keys are required.
 - Hex colors must be `#RRGGBB`.
 - `opacity` must be numeric in `[0.0, 1.0]`.
+- `surface_opacities` values must be numeric in `[0.0, 1.0]`; unknown keys are ignored.
 - Unknown keys should be ignored for forward compatibility.

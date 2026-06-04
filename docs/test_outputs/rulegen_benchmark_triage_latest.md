@@ -2,19 +2,36 @@
 
 - benchmark_json: `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
 - pairs_processed: 1
-- failing_or_review_count: 7
+- failing_or_review_count: 13
 
 | Pair | Case | Target | Status | Reasons | Top1 | Top3 |
 |---|---|---|---|---|---|---|
+| en-es | `en-es:amor` | amor | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
 | en-es | `en-es:derecho` | derecho | REVIEW | top1_not_in_expected_set | straight | straight, right, upright |
 | en-es | `en-es:cuadro` | cuadro | FAIL | expected_candidate_missing_from_top3 | square | square, frame, rectangle |
 | en-es | `en-es:cuenta` | cuenta | REVIEW | top1_not_in_expected_set | count | count, account, bead |
 | en-es | `en-es:red` | red | REVIEW | top1_not_in_expected_set | web | web, net, network |
 | en-es | `en-es:sacar` | sacar | REVIEW | top1_not_in_expected_set | withdraw | withdraw, draw, unsheathe |
+| en-es | `en-es:malla` | malla | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
 | en-es | `en-es:acabar` | acabar | FAIL | forbidden_candidate_present | finish | finish, cum, exhaust |
 | en-es | `en-es:coger` | coger | FAIL | forbidden_candidate_present | take | take, fuck, catch |
+| en-es | `en-es:batería` | batería | FAIL | top1_is_forbidden, expected_candidate_missing_from_top3 | drummer | drummer, set |
+| en-es | `en-es:ruta` | ruta | REVIEW | top1_not_in_expected_set | highway | highway, route, path |
+| en-es | `en-es:rejilla` | rejilla | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
+| en-es | `en-es:reja` | reja | REVIEW | top1_not_in_expected_set | grate | grate, plowshare, grating |
 
 ## Suggested Case Patches
+
+### en-es / en-es:amor
+```json
+{
+  "action": "review_labels",
+  "priority": "high",
+  "notes": [
+    "Review case labels and pair tuning; this case violates hard quality expectations."
+  ]
+}
+```
 
 ### en-es / en-es:derecho
 ```json
@@ -121,6 +138,17 @@
 }
 ```
 
+### en-es / en-es:malla
+```json
+{
+  "action": "review_labels",
+  "priority": "high",
+  "notes": [
+    "Review case labels and pair tuning; this case violates hard quality expectations."
+  ]
+}
+```
+
 ### en-es / en-es:acabar
 ```json
 {
@@ -159,6 +187,79 @@
     "take",
     "fuck",
     "catch"
+  ]
+}
+```
+
+### en-es / en-es:batería
+```json
+{
+  "action": "review_labels",
+  "priority": "high",
+  "notes": [
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
+    "Observed top1 source: drummer",
+    "Observed top3 sources: drummer, set"
+  ],
+  "candidate_forbidden_top1": [
+    "drummer"
+  ],
+  "candidate_expected_any": [
+    "drummer",
+    "set"
+  ]
+}
+```
+
+### en-es / en-es:ruta
+```json
+{
+  "action": "review_labels",
+  "priority": "medium",
+  "notes": [
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: highway",
+    "Observed top3 sources: highway, route, path"
+  ],
+  "candidate_forbidden_top1": [
+    "highway"
+  ],
+  "candidate_expected_any": [
+    "highway",
+    "route",
+    "path"
+  ]
+}
+```
+
+### en-es / en-es:rejilla
+```json
+{
+  "action": "review_labels",
+  "priority": "high",
+  "notes": [
+    "Review case labels and pair tuning; this case violates hard quality expectations."
+  ]
+}
+```
+
+### en-es / en-es:reja
+```json
+{
+  "action": "review_labels",
+  "priority": "medium",
+  "notes": [
+    "Review expected_top1_any labels or scoring weights for this case.",
+    "Observed top1 source: grate",
+    "Observed top3 sources: grate, plowshare, grating"
+  ],
+  "candidate_forbidden_top1": [
+    "grate"
+  ],
+  "candidate_expected_any": [
+    "grate",
+    "plowshare",
+    "grating"
   ]
 }
 ```

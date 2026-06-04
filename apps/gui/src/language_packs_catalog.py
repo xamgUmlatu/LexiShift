@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
+from typing import Mapping, Sequence, TypeVar
 
 from i18n import t
 from lexishift_core.frequency.sqlite import ParseConfig, PosInventoryConfig
@@ -46,6 +47,8 @@ class LanguagePackInfo:
     required_files: tuple[str, ...] = ()
     sqlite_filename: str | None = None
     source_filename: str | None = None
+    source_version: str | None = None
+    source_dump: str | None = None
     build_mode: str = "download_only"
     source_lang_code: str | None = None
     target_lang_code: str | None = None
@@ -54,6 +57,7 @@ class LanguagePackInfo:
     language_key: str | None = None
     source_key: str | None = None
     pair_key: str | None = None
+    download_size_bytes: int | None = None
 
     def display_name(self) -> str:
         return t(self.name_key) if self.name_key else self.name
@@ -77,12 +81,14 @@ class FrequencyPackInfo:
     filename: str
     sqlite_filename: str
     source_filename: str | None = None
+    source_version: str | None = None
     parse_config: ParseConfig = field(default_factory=ParseConfig)
     index_column: str = "lemma"
     build_mode: str = "convert_archive"
     name_key: str | None = None
     language_key: str | None = None
     source_key: str | None = None
+    download_size_bytes: int | None = None
 
     def display_name(self) -> str:
         return t(self.name_key) if self.name_key else self.name
@@ -92,6 +98,16 @@ class FrequencyPackInfo:
 
     def display_source(self) -> str:
         return t(self.source_key) if self.source_key else self.source
+
+
+@dataclass(frozen=True)
+class PackTransportOverride:
+    url: str | None = None
+    wayback_url: str | None = None
+    filename: str | None = None
+    expected_content_type: str | None = None
+    disabled: bool = False
+    disabled_reason: str | None = None
 
 
 LANGUAGE_PACKS = [
@@ -204,6 +220,9 @@ LANGUAGE_PACKS = [
         filename="freedict-deu-eng-1.9-fd1.src.tar.xz",
         local_kind="dir",
         required_files=("deu-eng.tei",),
+        sqlite_filename="main.sqlite",
+        build_mode="freedict_tei_to_sqlite",
+        target_lang_code="en",
         name_key="packs.freedict_de_en",
         language_key="languages.german_english",
         source_key="providers.freedict",
@@ -219,6 +238,9 @@ LANGUAGE_PACKS = [
         filename="freedict-eng-deu-1.9-fd1.src.tar.xz",
         local_kind="dir",
         required_files=("eng-deu.tei",),
+        sqlite_filename="main.sqlite",
+        build_mode="freedict_tei_to_sqlite",
+        target_lang_code="de",
         name_key="packs.freedict_en_de",
         language_key="languages.english_german",
         source_key="providers.freedict",
@@ -228,56 +250,82 @@ LANGUAGE_PACKS = [
         name="FreeDict (ES→EN)",
         language="Spanish → English",
         source="FreeDict",
-        size="119 KB",
+        size="121.6 KB",
         url="https://download.freedict.org/dictionaries/spa-eng/0.3.1/freedict-spa-eng-0.3.1.src.tar.xz",
         wayback_url="https://web.archive.org/web/*/https://download.freedict.org/dictionaries/spa-eng/0.3.1/freedict-spa-eng-0.3.1.src.tar.xz",
         filename="freedict-spa-eng-0.3.1.src.tar.xz",
         local_kind="dir",
         required_files=("spa-eng.tei",),
+        sqlite_filename="main.sqlite",
+        build_mode="freedict_tei_to_sqlite",
+        target_lang_code="en",
         source_key="providers.freedict",
+        download_size_bytes=121_624,
     ),
     LanguagePackInfo(
         pack_id="freedict-en-es",
         name="FreeDict (EN→ES)",
         language="English → Spanish",
         source="FreeDict",
-        size="3.5 MB",
+        size="3.72 MB",
         url="https://download.freedict.org/dictionaries/eng-spa/2025.11.23/freedict-eng-spa-2025.11.23.src.tar.xz",
         wayback_url="https://web.archive.org/web/*/https://download.freedict.org/dictionaries/eng-spa/2025.11.23/freedict-eng-spa-2025.11.23.src.tar.xz",
         filename="freedict-eng-spa-2025.11.23.src.tar.xz",
         local_kind="dir",
         required_files=("eng-spa.tei",),
+        sqlite_filename="main.sqlite",
+        build_mode="freedict_tei_to_sqlite",
+        target_lang_code="es",
         source_key="providers.freedict",
+        download_size_bytes=3_715_012,
+    ),
+    LanguagePackInfo(
+        pack_id="wiktionary-de-en",
+        name="Wiktionary (DE→EN)",
+        language="German → English",
+        source="Kaikki",
+        size="2.54 GB",
+        url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+        wayback_url="https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+        filename="raw-wiktextract-data-de-en.jsonl.gz",
+        local_kind="file",
+        sqlite_filename="main.sqlite",
+        build_mode="kaikki_glosses_to_sqlite",
+        source_lang_code="de",
+        gloss_language="en",
+        download_size_bytes=2_535_682_507,
     ),
     LanguagePackInfo(
         pack_id="wiktionary-es-en",
         name="Wiktionary (ES→EN)",
         language="Spanish → English",
         source="Kaikki",
-        size="2.4 GB",
+        size="2.67 GB",
         url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
         wayback_url="https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
         filename="raw-wiktextract-data.jsonl.gz",
         local_kind="file",
-        sqlite_filename="wiktionary-es-en.sqlite",
+        sqlite_filename="main.sqlite",
         build_mode="kaikki_glosses_to_sqlite",
         source_lang_code="es",
         gloss_language="en",
+        download_size_bytes=2_665_722_104,
     ),
     LanguagePackInfo(
         pack_id="wiktionary-en-es",
         name="Wiktionary (EN→ES)",
         language="English → Spanish",
         source="Kaikki",
-        size="2.4 GB",
+        size="2.67 GB",
         url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
         wayback_url="https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
         filename="raw-wiktextract-data-en-es.jsonl.gz",
         local_kind="file",
-        sqlite_filename="wiktionary-en-es.sqlite",
+        sqlite_filename="main.sqlite",
         build_mode="kaikki_translations_to_sqlite",
         source_lang_code="en",
         target_lang_code="es",
+        download_size_bytes=2_665_722_104,
     ),
     LanguagePackInfo(
         pack_id="cc-cedict-zh-en",
@@ -363,7 +411,7 @@ CROSS_EMBEDDING_PACKS = [
         name="fastText English (Aligned)",
         language="English (Aligned)",
         source="fastText",
-        size="1.6 GB",
+        size="5.69 GB",
         url="https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec",
         wayback_url="https://web.archive.org/web/2025/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.en.align.vec",
         filename="wiki.en.align.vec",
@@ -372,6 +420,7 @@ CROSS_EMBEDDING_PACKS = [
         language_key="languages.english_aligned",
         source_key="providers.fasttext",
         pair_key="en-ja",
+        download_size_bytes=5_685_446_378,
     ),
     LanguagePackInfo(
         pack_id="embed-xling-de",
@@ -408,13 +457,14 @@ CROSS_EMBEDDING_PACKS = [
         name="fastText Spanish (Aligned)",
         language="Spanish (Aligned)",
         source="fastText",
-        size="2.1 GB",
+        size="2.23 GB",
         url="https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.es.align.vec",
         wayback_url="https://web.archive.org/web/*/https://dl.fbaipublicfiles.com/fasttext/vectors-aligned/wiki.es.align.vec",
         filename="wiki.es.align.vec",
         local_kind="file",
         source_key="providers.fasttext",
         pair_key="en-es",
+        download_size_bytes=2_227_283_009,
     ),
 ]
 
@@ -428,7 +478,7 @@ FREQUENCY_PACKS = [
         url="https://www.wordfrequency.info/samples/lemmas_60k.txt",
         wayback_url="https://web.archive.org/web/20210127204059/https://www.wordfrequency.info/samples/lemmas_60k.txt",
         filename="lemmas_60k.txt",
-        sqlite_filename="freq-en-coca.sqlite",
+        sqlite_filename="main.sqlite",
         parse_config=ParseConfig(
             delimiter="\t",
             header_starts_with="rank",
@@ -448,7 +498,7 @@ FREQUENCY_PACKS = [
         url="https://repository.ninjal.ac.jp/record/3234/files/BCCWJ_frequencylist_suw_ver1_0.zip",
         wayback_url="https://web.archive.org/web/0/https://repository.ninjal.ac.jp/record/3234/files/BCCWJ_frequencylist_suw_ver1_0.zip",
         filename="BCCWJ_frequencylist_suw_ver1_0.zip",
-        sqlite_filename="freq-ja-bccwj.sqlite",
+        sqlite_filename="main.sqlite",
         source_filename="BCCWJ_frequencylist_suw_ver1_0.tsv",
         parse_config=ParseConfig(
             delimiter="\t",
@@ -469,7 +519,7 @@ FREQUENCY_PACKS = [
         url="https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
         wayback_url="https://web.archive.org/web/*/https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
         filename="deu_news_2023_1M.tar.gz",
-        sqlite_filename="freq-de-default.sqlite",
+        sqlite_filename="main.sqlite",
         build_mode="de_frequency_pipeline",
         name_key="packs.freq_de_default",
         language_key="languages.german",
@@ -480,11 +530,11 @@ FREQUENCY_PACKS = [
         name="Corpus del Espanol Frequency (sample)",
         language="Spanish",
         source="Corpus del Espanol",
-        size="42 KB",
+        size="42.9 KB",
         url="https://www.wordfrequency.info/files/spanish/spanish_lemmas20k.txt",
         wayback_url="https://web.archive.org/web/*/https://www.wordfrequency.info/files/spanish/spanish_lemmas20k.txt",
         filename="spanish_lemmas20k.txt",
-        sqlite_filename="freq-es-cde.sqlite",
+        sqlite_filename="main.sqlite",
         parse_config=ParseConfig(
             delimiter="\t",
             header_starts_with="ID",
@@ -492,5 +542,124 @@ FREQUENCY_PACKS = [
             encoding="latin-1",
         ),
         index_column="lemma",
+        download_size_bytes=42_922,
     ),
 ]
+
+
+@dataclass(frozen=True)
+class PackCatalogSnapshot:
+    language_packs: tuple[LanguagePackInfo, ...]
+    embedding_packs: tuple[LanguagePackInfo, ...]
+    cross_embedding_packs: tuple[LanguagePackInfo, ...]
+    frequency_packs: tuple[FrequencyPackInfo, ...]
+
+
+_PackInfoT = TypeVar("_PackInfoT", LanguagePackInfo, FrequencyPackInfo)
+
+
+def _normalized_transport_value(raw: object) -> str | None:
+    if not isinstance(raw, str):
+        return None
+    normalized = raw.strip()
+    return normalized or None
+
+
+def _normalized_transport_flag(raw: object) -> bool:
+    if isinstance(raw, bool):
+        return raw
+    if isinstance(raw, int):
+        return raw == 1
+    if isinstance(raw, str):
+        normalized = raw.strip().lower()
+        if normalized in {"1", "true", "yes", "on"}:
+            return True
+        if normalized in {"", "0", "false", "no", "off"}:
+            return False
+    return False
+
+
+def _coerce_transport_override(
+    raw: PackTransportOverride | Mapping[str, object],
+) -> PackTransportOverride:
+    if isinstance(raw, PackTransportOverride):
+        return raw
+    return PackTransportOverride(
+        url=_normalized_transport_value(raw.get("url")),
+        wayback_url=_normalized_transport_value(raw.get("wayback_url")),
+        filename=_normalized_transport_value(raw.get("filename")),
+        expected_content_type=_normalized_transport_value(raw.get("expected_content_type")),
+        disabled=_normalized_transport_flag(raw.get("disabled")),
+        disabled_reason=_normalized_transport_value(raw.get("disabled_reason")),
+    )
+
+
+def _normalize_transport_overrides(
+    source_overrides: Mapping[str, PackTransportOverride | Mapping[str, object]] | None,
+) -> dict[str, PackTransportOverride]:
+    normalized: dict[str, PackTransportOverride] = {}
+    if not source_overrides:
+        return normalized
+    for raw_pack_id, raw_override in source_overrides.items():
+        pack_id = str(raw_pack_id or "").strip()
+        if not pack_id or raw_override is None:
+            continue
+        override = _coerce_transport_override(raw_override)
+        if (
+            override.url is None
+            and override.wayback_url is None
+            and override.filename is None
+            and override.expected_content_type is None
+            and not override.disabled
+            and override.disabled_reason is None
+        ):
+            continue
+        normalized[pack_id] = override
+    return normalized
+
+
+def _apply_transport_overrides(
+    packs: Sequence[_PackInfoT],
+    *,
+    source_overrides: Mapping[str, PackTransportOverride],
+) -> tuple[_PackInfoT, ...]:
+    result: list[_PackInfoT] = []
+    for pack in packs:
+        override = source_overrides.get(str(pack.pack_id))
+        if override is None:
+            result.append(pack)
+            continue
+        updates: dict[str, str] = {}
+        if override.url is not None:
+            updates["url"] = override.url
+        if override.wayback_url is not None:
+            updates["wayback_url"] = override.wayback_url
+        if override.filename is not None:
+            updates["filename"] = override.filename
+        result.append(replace(pack, **updates) if updates else pack)
+    return tuple(result)
+
+
+def build_pack_catalogs(
+    *,
+    source_overrides: Mapping[str, PackTransportOverride | Mapping[str, object]] | None = None,
+) -> PackCatalogSnapshot:
+    normalized_overrides = _normalize_transport_overrides(source_overrides)
+    return PackCatalogSnapshot(
+        language_packs=_apply_transport_overrides(
+            LANGUAGE_PACKS,
+            source_overrides=normalized_overrides,
+        ),
+        embedding_packs=_apply_transport_overrides(
+            EMBEDDING_PACKS,
+            source_overrides=normalized_overrides,
+        ),
+        cross_embedding_packs=_apply_transport_overrides(
+            CROSS_EMBEDDING_PACKS,
+            source_overrides=normalized_overrides,
+        ),
+        frequency_packs=_apply_transport_overrides(
+            FREQUENCY_PACKS,
+            source_overrides=normalized_overrides,
+        ),
+    )
