@@ -383,9 +383,70 @@ html[data-guide-theme="dark"] .guide-theme-toggle__icon--moon {
   color: #5b7077;
 }
 
+.site-home,
 .beta-page,
-.download-page {
+.download-page,
+.privacy-page,
+.support-page,
+.releases-page {
   margin-top: 1.25rem;
+}
+
+.site-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.85fr);
+  gap: 1rem;
+  align-items: stretch;
+  margin: 1rem 0 1.75rem;
+  padding: 1rem;
+  border: 1px solid #d7e3e0;
+  border-radius: 8px;
+  background: #f7fbfa;
+}
+
+.site-hero h1,
+.site-hero h2,
+.beta-hero h1 {
+  margin: 0 0 0.55rem;
+  color: #173c46;
+}
+
+.site-hero__lede {
+  margin: 0;
+  color: #354d56;
+}
+
+.site-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.site-status {
+  padding: 0.9rem;
+  border: 1px solid #d7e3e0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.site-status dl {
+  margin: 0.7rem 0 0;
+}
+
+.site-status dl div {
+  padding: 0.58rem 0;
+  border-top: 1px solid #eef3f2;
+}
+
+.site-status dt {
+  color: #60727a;
+  font-weight: 700;
+}
+
+.site-status dd {
+  margin: 0.12rem 0 0;
+  color: #243f49;
 }
 
 .beta-hero,
@@ -462,6 +523,9 @@ html[data-guide-theme="dark"] .guide-theme-toggle__icon--moon {
 
 .beta-release-card,
 .download-status__badge,
+.site-card,
+.support-card,
+.release-channel,
 .beta-card,
 .beta-check {
   border: 1px solid #d7e3e0;
@@ -517,13 +581,9 @@ html[data-guide-theme="dark"] .guide-theme-toggle__icon--moon {
   margin: 1.8rem 0;
 }
 
-.beta-section--split {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 1fr);
-  gap: 1rem;
-  align-items: start;
-}
-
+.site-card-grid,
+.release-channel-grid,
+.support-grid,
 .beta-check-grid,
 .beta-card-grid {
   display: grid;
@@ -531,11 +591,24 @@ html[data-guide-theme="dark"] .guide-theme-toggle__icon--moon {
   gap: 0.75rem;
 }
 
+.beta-section--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.site-card,
+.support-card,
+.release-channel,
 .beta-check,
 .beta-card {
   padding: 0.85rem;
 }
 
+.site-card h3,
+.support-card h3,
+.release-channel h2,
 .beta-check strong,
 .beta-card h3 {
   display: block;
@@ -543,10 +616,70 @@ html[data-guide-theme="dark"] .guide-theme-toggle__icon--moon {
   color: #1d4852;
 }
 
+.site-card p,
+.support-card p,
+.release-channel p,
 .beta-check span,
 .beta-card p {
   margin: 0;
   color: #435a63;
+}
+
+.site-card a {
+  display: inline-block;
+  margin-top: 0.7rem;
+  font-weight: 700;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid #cad9d6;
+  border-radius: 999px;
+  background: #eef6f4;
+  color: #315962;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.status-pill--pending {
+  border-color: #f0c27a;
+  background: #fff7e8;
+  color: #925a11;
+}
+
+.release-flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.release-flow__step {
+  min-height: 6.5rem;
+  padding: 0.8rem;
+  border: 1px solid #d7e3e0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.release-flow__step strong {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.6rem;
+  border-radius: 999px;
+  background: #1f6f5f;
+  color: #ffffff;
+}
+
+.release-flow__step span {
+  display: block;
+  color: #243f49;
+  font-weight: 700;
 }
 
 .download-status__badge {
@@ -748,9 +881,14 @@ html[data-guide-theme="dark"] .guide-screenshot__filename {
 }
 
 @media (max-width: 58rem) {
+  .site-hero,
   .beta-hero,
   .download-status,
   .beta-section--split,
+  .site-card-grid,
+  .release-channel-grid,
+  .support-grid,
+  .release-flow,
   .beta-check-grid,
   .beta-card-grid {
     grid-template-columns: 1fr;
@@ -758,6 +896,7 @@ html[data-guide-theme="dark"] .guide-screenshot__filename {
 }
 
 @media (max-width: 32rem) {
+  .site-hero,
   .beta-hero,
   .download-status {
     padding: 0.8rem;

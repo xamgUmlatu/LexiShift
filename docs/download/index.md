@@ -6,7 +6,7 @@ title: Download LexiShift
 <!--
 Status: staging
 Role: Public download page
-Last updated: 2026-06-04
+Last updated: 2026-06-05
 Purpose: route users to signed installer assets, checksums, and release metadata after R2 distribution is live.
 -->
 
@@ -17,8 +17,8 @@ Purpose: route users to signed installer assets, checksums, and release metadata
       <h2>Installer downloads are not live yet.</h2>
       <p>
         This page is ready to become the beta download surface once the first
-        installer is uploaded to <code>downloads.lexishift.app</code>. Until then, use it
-        as the checklist for what each posted build must include.
+        installer is uploaded to <code>downloads.lexishift.app</code>. Until
+        then, use it as the checklist for what each posted build must include.
       </p>
     </div>
     <div class="download-status__badge">Preparing first beta</div>
@@ -40,13 +40,13 @@ Purpose: route users to signed installer assets, checksums, and release metadata
           <tr>
             <td>macOS</td>
             <td><code>LexiShift-0.1.0.dmg</code></td>
-            <td>Preparing</td>
+            <td><span class="status-pill status-pill--pending">Preparing</span></td>
             <td>SHA-256, signing, and notarization status pending</td>
           </tr>
           <tr>
             <td>Windows</td>
             <td><code>LexiShift-0.1.0.exe</code></td>
-            <td>Planned</td>
+            <td><span class="status-pill">Planned</span></td>
             <td>SHA-256 and signing status pending</td>
           </tr>
         </tbody>
@@ -69,6 +69,33 @@ Purpose: route users to signed installer assets, checksums, and release metadata
       <li>Check whether the build is signed or notarized for your platform.</li>
       <li>Read the release notes for known limitations and rollback notes.</li>
     </ol>
+  </section>
+
+  <section class="beta-section">
+    <h2>How downloads will be published</h2>
+    <div class="site-card-grid">
+      <article class="site-card">
+        <h3>Versioned installers</h3>
+        <p>
+          Installer URLs will include channel, version, platform, and filename
+          so a build can be referenced and verified after newer builds ship.
+        </p>
+      </article>
+      <article class="site-card">
+        <h3>Short-cache manifest</h3>
+        <p>
+          <code>latest.json</code> will point to the current beta or stable
+          build and should be treated as release metadata, not an installer.
+        </p>
+      </article>
+      <article class="site-card">
+        <h3>Checksum first</h3>
+        <p>
+          Each download row should show the same SHA-256 value recorded in the
+          release manifest and checksum file.
+        </p>
+      </article>
+    </div>
   </section>
 </div>
 

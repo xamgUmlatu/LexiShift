@@ -6,15 +6,15 @@ title: LexiShift Beta
 <!--
 Status: staging
 Role: Beta entrypoint
-Last updated: 2026-06-04
+Last updated: 2026-06-05
 Purpose: provide the public beta entrypoint for tester-facing install and support links once hosted distribution is live.
 -->
 
-<div class="beta-page">
+<div class="beta-page" markdown="1">
   <section class="beta-hero">
     <div class="beta-hero__copy">
       <p class="beta-kicker">Desktop beta</p>
-      <h2>Try LexiShift before the production release.</h2>
+      <h1>Try LexiShift before the production release.</h1>
       <p class="beta-lede">
         LexiShift is a local-first desktop app for language-learning workflows.
         This beta is for early testers who are comfortable with fast-moving
@@ -32,7 +32,7 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
       </div>
       <dl>
         <div>
-          <dt>Installer</dt>
+          <dt>Download status</dt>
           <dd>Not posted yet</dd>
         </div>
         <div>
@@ -41,13 +41,39 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
         </div>
         <div>
           <dt>Distribution</dt>
-          <dd>downloads.lexishift.app</dd>
+          <dd>R2-backed downloads planned</dd>
         </div>
         <div>
           <dt>Update model</dt>
           <dd>Manual beta downloads</dd>
         </div>
       </dl>
+    </div>
+  </section>
+
+  <section class="beta-section">
+    <h2>Release Flow</h2>
+    <div class="release-flow" aria-label="LexiShift beta release flow">
+      <div class="release-flow__step">
+        <strong>1</strong>
+        <span>Build installer</span>
+      </div>
+      <div class="release-flow__step">
+        <strong>2</strong>
+        <span>Generate checksum and manifest</span>
+      </div>
+      <div class="release-flow__step">
+        <strong>3</strong>
+        <span>Upload to downloads host</span>
+      </div>
+      <div class="release-flow__step">
+        <strong>4</strong>
+        <span>Publish release notes</span>
+      </div>
+      <div class="release-flow__step">
+        <strong>5</strong>
+        <span>Tester installs and reports</span>
+      </div>
     </div>
   </section>
 
@@ -79,10 +105,11 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
 ## Install
 
 1. Open the [download page]({{ '/download/' | relative_url }}).
-2. Choose the installer for your platform when the first beta is posted.
-3. Verify the SHA-256 checksum listed beside the installer.
-4. Follow the [getting started guide]({{ '/getting-started/' | relative_url }}).
-5. Send feedback through the [support page]({{ '/support/' | relative_url }}).
+2. Confirm the page says an installer is live.
+3. Choose the installer for your platform.
+4. Verify the SHA-256 checksum listed beside the installer.
+5. Follow the [getting started guide]({{ '/getting-started/' | relative_url }}).
+6. Send feedback through the [support page]({{ '/support/' | relative_url }}).
 
 ## Before You Install
 
