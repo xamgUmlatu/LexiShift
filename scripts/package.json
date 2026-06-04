@@ -28,6 +28,7 @@
     "inventory:experiments": "node dev/run_python.js dev/experiment_payload_retention_audit.py",
     "inventory:structure": "node dev/run_python.js dev/project_structure_inventory.py",
     "inventory:unnecessary": "node dev/run_python.js dev/generated_output_unnecessary_audit.py",
+    "render:landing-mocks": "node dev/render_landing_visual_mocks.js",
     "dev:srs-admission-lab": "node dev/run_python.js dev/srs_admission_lab_server.py",
     "preflight:srs:beta:en-es": "node dev/run_python.js testing/srs_beta_preflight_en_es.py",
     "preflight:cws": "node dev/cws_preflight.js",

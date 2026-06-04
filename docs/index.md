@@ -7,14 +7,14 @@ title: LexiShift
 Status: active Pages entrypoint
 Role: Public landing page
 Last updated: 2026-06-05
-Last verified: 2026-06-05 landing-page Jekyll build, repo checks, desktop preview, and mobile screenshot
+Last verified: 2026-06-05 landing-page Jekyll build, repo checks, desktop/mobile previews, and generated visual mocks
 Purpose: present LexiShift as the public beta front door and route visitors to downloads, extension status, setup, support, privacy, and release pages
 Source-of-truth: Pages navigation entrypoint only; implementation truth remains in source code, canonical developer docs, architecture docs, and feature-state evidence.
 -->
 
 <div class="landing-page">
   <section class="landing-hero" aria-labelledby="landing-title">
-    <div class="landing-hero__scene" aria-hidden="true">
+    <div class="landing-hero__scene" aria-hidden="true" data-landing-mock-root>
       <div class="landing-scene__grid"></div>
       <div class="landing-scene__browser">
         <div class="landing-scene__bar">
@@ -23,15 +23,21 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
           <span></span>
         </div>
         <div class="landing-scene__body">
-          <p class="landing-scene__label">Reading view</p>
+          <p class="landing-scene__label" data-landing-mock-label>Spanish reading view</p>
           <div class="landing-scene__line landing-scene__line--long"></div>
           <div class="landing-scene__line"></div>
-          <div class="landing-scene__sentence">
-            At <span>gloaming</span>, the page becomes a study surface.
+          <div class="landing-scene__translation">
+            <span data-landing-mock-source>apple</span>
+            <b aria-hidden="true">-&gt;</b>
+            <strong data-landing-mock-target>manzana</strong>
+          </div>
+          <div class="landing-scene__sentence" data-landing-mock-sentence>
+            She packed <span>manzana</span> for lunch.
           </div>
           <div class="landing-scene__line landing-scene__line--mid"></div>
-          <div class="landing-scene__feedback">
-            <strong>gloaming</strong>
+          <div class="landing-scene__feedback" data-landing-mock-feedback>
+            <strong>manzana</strong>
+            <em>apple</em>
             <span>Again</span>
             <span>Hard</span>
             <span>Good</span>
@@ -43,15 +49,15 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
         <p>Desktop authoring</p>
         <div>
           <span>Profile</span>
-          <strong>Reading beta</strong>
+          <strong data-landing-mock-profile>Reading beta</strong>
         </div>
         <div>
           <span>Ruleset</span>
-          <strong>en-es review</strong>
+          <strong data-landing-mock-ruleset>en-es review</strong>
         </div>
         <div>
           <span>Runtime</span>
-          <strong>Local helper</strong>
+          <strong data-landing-mock-runtime>Local helper</strong>
         </div>
       </div>
     </div>
@@ -242,3 +248,5 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
     </div>
   </section>
 </div>
+
+<script src="{{ '/assets/js/landing-visual-mocks.js' | relative_url }}" defer></script>

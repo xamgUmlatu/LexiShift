@@ -1,0 +1,67 @@
+{
+  "defaultMock": "en-es",
+  "aliases": {
+    "de": "en-de",
+    "en": "es-en",
+    "english": "es-en",
+    "es": "en-es",
+    "german": "en-de",
+    "ja": "en-ja",
+    "japanese": "en-ja",
+    "spanish": "en-es"
+  },
+  "mocks": [
+    {
+      "id": "en-es",
+      "label": "Spanish",
+      "profile": "Reading beta",
+      "ruleset": "en-es review",
+      "runtime": "Local helper",
+      "sourceWord": "apple",
+      "targetWord": "manzana",
+      "sentencePrefix": "She packed ",
+      "sentenceSuffix": " for lunch.",
+      "gloss": "apple",
+      "feedback": ["Again", "Hard", "Good", "Easy"]
+    },
+    {
+      "id": "en-de",
+      "label": "German",
+      "profile": "Reading beta",
+      "ruleset": "en-de review",
+      "runtime": "Local helper",
+      "sourceWord": "apple",
+      "targetWord": "Apfel",
+      "sentencePrefix": "She packed ",
+      "sentenceSuffix": " for lunch.",
+      "gloss": "apple",
+      "feedback": ["Again", "Hard", "Good", "Easy"]
+    },
+    {
+      "id": "en-ja",
+      "label": "Japanese",
+      "profile": "Reading beta",
+      "ruleset": "en-ja review",
+      "runtime": "Local helper",
+      "sourceWord": "apple",
+      "targetWord": "りんご",
+      "sentencePrefix": "She packed ",
+      "sentenceSuffix": " for lunch.",
+      "gloss": "apple",
+      "feedback": ["Again", "Hard", "Good", "Easy"]
+    },
+    {
+      "id": "es-en",
+      "label": "English",
+      "profile": "Reverse beta",
+      "ruleset": "es-en review",
+      "runtime": "Local helper",
+      "sourceWord": "manzana",
+      "targetWord": "apple",
+      "sentencePrefix": "Compró ",
+      "sentenceSuffix": " en el mercado.",
+      "gloss": "manzana",
+      "feedback": ["Again", "Hard", "Good", "Easy"]
+    }
+  ]
+}

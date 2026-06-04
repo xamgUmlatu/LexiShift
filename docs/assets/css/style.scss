@@ -625,9 +625,34 @@ body:has(.landing-page) .main-content p {
   margin-top: 1rem;
 }
 
+.landing-scene__translation {
+  display: inline-flex;
+  max-width: min(24rem, 100%);
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  padding: 0.34rem 0.48rem;
+  border: 1px solid #d8e1dd;
+  border-radius: 8px;
+  background: #fbf8ef;
+  box-shadow: 0 10px 24px rgba(18, 51, 61, 0.08);
+  color: #587079;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.landing-scene__translation strong {
+  color: #1e685d;
+  overflow-wrap: anywhere;
+}
+
+.landing-scene__translation b {
+  color: #a65e3e;
+}
+
 .landing-scene__sentence {
   max-width: 26rem;
-  margin: 1.4rem 0;
+  margin: 1rem 0 1.4rem;
   color: #17333b;
   font-size: 1.48rem;
   line-height: 1.35;
@@ -640,13 +665,14 @@ body:has(.landing-page) .main-content p {
   background: #f1cf7f;
   color: #17333b;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .landing-scene__feedback {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
-  width: min(22rem, 92%);
+  gap: 0.4rem;
+  width: min(25rem, 94%);
   margin-top: 1.5rem;
   padding: 0.72rem;
   border: 1px solid #d6e2df;
@@ -655,6 +681,7 @@ body:has(.landing-page) .main-content p {
 }
 
 .landing-scene__feedback strong,
+.landing-scene__feedback em,
 .landing-scene__feedback span {
   display: inline-flex;
   min-height: 1.75rem;
@@ -663,11 +690,18 @@ body:has(.landing-page) .main-content p {
   border-radius: 6px;
   color: #17333b;
   font-size: 0.8rem;
+  font-style: normal;
 }
 
 .landing-scene__feedback strong {
-  flex-basis: 100%;
+  max-width: 100%;
   color: #1e685d;
+  overflow-wrap: anywhere;
+}
+
+.landing-scene__feedback em {
+  background: #fff6df;
+  color: #795229;
 }
 
 .landing-scene__feedback span {
@@ -676,9 +710,9 @@ body:has(.landing-page) .main-content p {
 
 .landing-scene__app {
   right: max(2rem, calc(50vw - 30rem));
-  bottom: 9%;
+  bottom: 1%;
   width: min(19rem, 28vw);
-  padding: 1rem;
+  padding: 0.85rem;
   transform: rotate(2deg);
   color: #17333b;
 }
@@ -687,7 +721,7 @@ body:has(.landing-page) .main-content p {
   display: flex;
   justify-content: space-between;
   gap: 0.8rem;
-  padding: 0.65rem 0;
+  padding: 0.52rem 0;
   border-top: 1px solid #dbe6e2;
 }
 
