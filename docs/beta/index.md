@@ -21,7 +21,7 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
         builds, manual updates, and clear issue reports.
       </p>
       <div class="beta-actions">
-        <a class="beta-button beta-button--primary" href="{{ '/download/' | relative_url }}">Download beta app</a>
+        <a class="beta-button beta-button--primary" href="{{ '/download/' | relative_url }}">Request beta download</a>
         <a class="beta-button" href="{{ '/getting-started/' | relative_url }}">Read setup guide</a>
       </div>
     </div>
@@ -33,7 +33,7 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
       <dl>
         <div>
           <dt>Download status</dt>
-          <dd>Not posted yet</dd>
+          <dd>Private access staging</dd>
         </div>
         <div>
           <dt>Primary platform</dt>
@@ -41,7 +41,7 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
         </div>
         <div>
           <dt>Distribution</dt>
-          <dd>R2-backed downloads planned</dd>
+          <dd>Gated R2-backed downloads planned</dd>
         </div>
         <div>
           <dt>Update model</dt>
@@ -106,15 +106,18 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
 
 1. Open the [download page]({{ '/download/' | relative_url }}).
 2. Confirm the page says an installer is live.
-3. Choose the installer for your platform.
-4. Verify the SHA-256 checksum listed beside the installer.
-5. Follow the [getting started guide]({{ '/getting-started/' | relative_url }}).
-6. Send feedback through the [support page]({{ '/support/' | relative_url }}).
+3. Use the private tester link if you have been invited.
+4. Choose the installer for your platform.
+5. Verify the SHA-256 checksum listed beside the installer.
+6. Follow the [getting started guide]({{ '/getting-started/' | relative_url }}).
+7. Send feedback through the [support page]({{ '/support/' | relative_url }}).
 
 ## Before You Install
 
 - Beta builds may change quickly and may require manual replacement.
 - Hosted installer links will point to versioned files on `downloads.lexishift.app`.
+- A shared password is acceptable only as a server-side beta gate, not as static
+  JavaScript on GitHub Pages.
 - The app is being treated as local-first; account, sync, and backup features are not part of this beta lane.
 - Publicly hosted app data must stay inside the project's distribution and licensing rules.
 - Use the [release notes]({{ '/releases/' | relative_url }}) before replacing an older build.
