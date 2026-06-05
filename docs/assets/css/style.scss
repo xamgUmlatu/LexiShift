@@ -1263,14 +1263,27 @@ body:has(.landing-page) .main-content p {
 
 .download-status__badge {
   display: flex;
+  flex-direction: column;
   min-height: 8rem;
   align-items: center;
   justify-content: center;
+  gap: 0.35rem;
   padding: 1rem;
   color: #9b5f11;
   font-weight: 800;
   text-align: center;
   background: #fff7e8;
+}
+
+.download-status__badge strong,
+.download-status__badge span {
+  display: block;
+}
+
+.download-status__badge span {
+  color: #6d5e4e;
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .download-table {
@@ -1301,6 +1314,11 @@ body:has(.landing-page) .main-content p {
   border: 1px solid #d7e3e0;
   border-radius: 8px;
   background: #ffffff;
+}
+
+.download-steps ol {
+  margin: 0;
+  padding-left: 1rem;
 }
 
 .download-steps li + li {

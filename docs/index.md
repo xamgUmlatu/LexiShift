@@ -80,8 +80,9 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
         <a class="landing-button landing-button--quiet" href="{{ '/getting-started/' | relative_url }}">Setup Guide</a>
       </div>
       <p class="landing-hero__note">
-        First installer links are preparing. The download page will carry the
-        versioned app files, checksums, signing status, and release notes.
+        Private beta access is being staged. The download page will carry the
+        tester gate, versioned app files, checksums, signing status, and release
+        notes.
       </p>
     </div>
   </section>

@@ -189,8 +189,13 @@ Cloudflare API token stored as a GitHub Actions secret.
 For fewer than 100 users, use one of these simple gates:
 
 1. Obscure beta URL plus signed/manual installer links.
-2. Shared beta password on the landing page.
+2. Shared beta password enforced by a Worker, Access policy, or other
+   server-side gate before returning the installer URL.
 3. Invite code checked by a small Worker before returning a signed R2 URL.
+
+Do not treat a password embedded in static GitHub Pages HTML or JavaScript as
+real privacy. It can be acceptable as a visual affordance for testers, but the
+binary URL and token would still be inspectable by anyone who can load the page.
 
 Avoid Cloudflare Access as long-term product-user auth. It is excellent for
 private admin/internal tooling, but per-user pricing is the wrong shape for
