@@ -4,266 +4,178 @@
 Status: active fallback onboarding guide
 Role: Runbook / operational
 Last updated: 2026-06-06
-Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; UI walkthrough content not fully re-audited
+Last verified: 2026-06-06 user-facing structure pass; screenshot capture still pending
 Purpose: provide the repository-view fallback onboarding guide when the rendered GitHub Pages manual is unavailable
 Source-of-truth: user-facing fallback guide only; current behavior truth lives in source code, tests, and canonical developer/domain docs.
 -->
 
-This page is the canonical onboarding guide for the desktop GUI app and the fallback public manual target when GitHub Pages is unavailable.
+This page is the fallback version of the user-facing onboarding guide. The
+rendered guide is the preferred version when GitHub Pages is available.
 
 Rendered guide: `https://lexishift.app/getting-started/`
 Short invited-tester notes: `https://lexishift.app/tester-notes/`
 
-Setup steps use verbatim UI labels (button/menu text) so operators can follow them exactly.
+LexiShift helps you practice vocabulary while reading normal text. Use the
+desktop app to choose what you want to learn, then use the browser or chat tools
+to see those words appear in context.
 
-## Manual Sections
+## Sections
 
-1. First Launch and Workspace Orientation
-2. Profile Management
-3. Ruleset Management
-4. Manual Rule Authoring
-5. Synonym Bulk Generation and Language Packs
-6. Import, Export, and Backup
-7. Chrome Extension Runtime Setup
-8. BetterDiscord Plugin Setup
-9. SRS Setup and Expectations
+1. Quick Start
+2. Install and Open LexiShift
+3. Make Your First Setup
+4. Add Your First Replacements
+5. Try Replacements in a Browser
+6. Save, Export, and Back Up
+7. Grow Your Vocabulary List
+8. Optional Chat Setup
+9. Optional Study Mode
 10. Troubleshooting and FAQ
 
-## 1. First Launch and Workspace Orientation
+## 1. Quick Start
 
-Goal: create a clean authoring baseline before you add any rules.
+If you only want to see whether LexiShift makes sense, follow this path first.
 
-1. Launch the desktop GUI app.
-2. Create a new profile or import an existing profile from JSON/share code.
-3. Create a ruleset for that profile (or link an existing one).
-4. Confirm the profile and ruleset selectors point to the pair you intend to edit.
+1. Install the desktop app and open it.
+2. Create a profile for the language or reading goal you want to try.
+3. Add a few replacements, save them, and try them in a real reading place.
 
-The GUI is the authoring tool. Runtime replacement happens in the extension/plugin, so this setup step is mainly about making sure your profile/ruleset structure is correct.
+First beta note: the current macOS build is unsigned. If macOS blocks the first
+launch, Control-click LexiShift and choose Open.
 
 > Screenshot placeholder: `images/ch01-first-launch-workspace.png`
-> Capture: initial GUI view with profile/ruleset selectors visible.
+> Capture: first app window and main setup controls.
 
-## 2. Profile Management
+## 2. Install and Open LexiShift
 
-Profiles are top-level containers. They define the active working context and hold links to one or more rulesets.
+Start from the download page or the private beta link you were given.
 
-- Use `Manage Profiles` to create, rename, or delete profiles.
-- Use the profile selector to switch active context quickly.
-- Keep separate profiles for separate goals (for example: reading practice vs domain vocabulary).
+1. Download the current build from `https://lexishift.app/download/` or the private beta gate.
+2. Open the downloaded file.
+3. Move LexiShift into Applications if macOS asks.
+4. Open LexiShift from Applications.
 
-Recommended structure: one profile per workflow, multiple rulesets per profile, and one active ruleset per session.
+Unsigned beta: if macOS says the app cannot be verified, Control-click the app
+and choose Open. If needed, check System Settings -> Privacy & Security for the
+allow/open option.
 
-> Screenshot placeholder: `images/ch02-manage-profiles-dialog.png`
-> Capture: profile list, create/delete controls, active-profile indicator.
+> Screenshot placeholder: `images/ch02-install-open.png`
+> Capture: DMG/app install step and first launch warning if present.
 
-## 3. Ruleset Management
+## 3. Make Your First Setup
 
-Rulesets are where actual replacements live.
+LexiShift keeps your work in profiles and rulesets.
 
-- Create a new ruleset for new work.
-- Link existing rulesets when reusing prior datasets.
-- Use save frequently after edits or bulk generation.
-- Use ruleset management tools to reveal file locations and keep dataset hygiene.
+- Profile: a workspace for one goal, such as Spanish reading practice or a specific topic.
+- Ruleset: the list of words or phrases LexiShift should replace for that profile.
 
-Runtime surfaces use these rulesets directly (local rules + optional helper-generated rules). A wrong active ruleset is the most common source of "nothing replaced" behavior.
+1. Create a profile for the language or reading goal you want to test.
+2. Create a ruleset inside that profile.
+3. Choose the source and target languages if the app asks.
+4. Save before moving on.
 
-> Screenshot placeholder: `images/ch03-ruleset-management.png`
-> Capture: create/link actions and active ruleset selected in top controls.
+> Screenshot placeholder: `images/ch03-first-setup.png`
+> Capture: profile selector and first ruleset setup.
 
-## 4. Manual Rule Authoring
+## 4. Add Your First Replacements
 
-LexiShift replacement is deterministic: left-to-right longest-match using a trie with whitespace-preserving output.
+A replacement tells LexiShift what text to look for and what learning word to
+show instead. Start small so the result is easy to understand.
 
-- Add rules manually for precise source phrase to replacement mappings.
-- Use priority when you need conflict control between overlapping phrases.
-- Use case policies (`match`, `as-is`, `lower`, `upper`, `title`) deliberately.
-- Keep phrase variants explicit when punctuation/spacing behavior matters.
+- Add one common word or short phrase.
+- Choose the replacement you want to see while reading.
+- Save the ruleset.
+- Add only a few examples before testing them somewhere real.
 
-Start with high-confidence manual rules before widening coverage with generated synonyms.
+Good first test: use words you already recognize. The point is to confirm the
+replacement flow, not to build a huge vocabulary list on day one.
 
 > Screenshot placeholder: `images/ch04-manual-rule-editing.png`
-> Capture: rules table with source/replacement columns and one metadata edit.
+> Capture: rules table with one simple source and replacement pair.
 
-## 5. Synonym Bulk Generation and Language Packs
+## 5. Try Replacements in a Browser
 
-Bulk Add lets you scale rules quickly from installed dictionaries and language-pair pipelines.
+The desktop app is where you set up your words. The browser extension is where
+those words appear while you read web pages.
 
-- Open `Settings -> App` and install language packs.
-- Supported wired sources include WordNet, Moby, OpenThesaurus, JP WordNet, JMDict, and CC-CEDICT.
-- Current language-pair pipelines include `en_ja`, `en_de`, `en_es`, and `es_en`.
-- Optional embedding conversion can improve ranking workflows for large vector sets.
+1. Install or enable the LexiShift Chrome extension when it is available for your test.
+2. Open the extension options.
+3. Choose the same profile you created in the desktop app.
+4. Open a normal web page and check whether your replacements appear.
 
-Use conservative confidence thresholds first, then loosen only after reviewing generated samples.
+If you are only testing the desktop app right now, you can stop after creating
+and saving a few replacements. The browser path can be tested separately.
 
-> Screenshot placeholder: `images/ch05-language-packs-bulk-add.png`
-> Capture: Settings -> App language-pack manager plus synonym bulk-add dialog.
+> Screenshot placeholder: `images/ch05-browser-setup.png`
+> Capture: extension options and a simple replacement on a page.
 
-## 6. Import, Export, and Backup
+## 6. Save, Export, and Back Up
 
-LexiShift supports both ruleset-level and profile-level portability.
+LexiShift is local-first. Your profiles, rulesets, and study state live on your
+machine unless you export or share them.
 
-- Export rulesets as JSON or share code.
-- Import rulesets from JSON or share code.
-- Export/import profiles for full workflow transfer.
-- Keep dated backups before major bulk operations.
-
-Practical backup pattern: daily JSON export + milestone export before dictionary refreshes or mass rule changes.
+- Save after editing replacements.
+- Export a ruleset before making major changes.
+- Export a profile when you want to move a setup to another machine.
+- Keep a dated backup before trying bulk generation.
 
 > Screenshot placeholder: `images/ch06-import-export-actions.png`
-> Capture: File menu import/export options for rulesets and profiles.
+> Capture: export actions for rulesets and profiles.
 
-## 7. Chrome Extension Runtime Setup
+## 7. Grow Your Vocabulary List
 
-The Chrome extension is the primary runtime where replacements are applied on web pages and frames.
+After the manual flow feels clear, LexiShift can help you build larger
+replacement lists from installed language resources.
 
-Browser support in this guide is Chrome-only for now.
+- Open `Settings -> App` and install language packs when they are available for your pair.
+- Use Bulk Add to generate candidate replacements.
+- Start with conservative settings and review samples.
+- Save or export before applying large changes.
 
-This is also where SRS feedback is captured during real reading.
+> Screenshot placeholder: `images/ch07-language-packs-bulk-add.png`
+> Capture: installed language resources and the bulk suggestion flow.
 
-### Section 7.1: Runtime model
+## 8. Optional Chat Setup
 
-- Runtime applies local rules and helper rules together.
-- SRS gating filters by replacement lemma when SRS is enabled.
-- Feedback popup and exposure logging are runtime features on replaced spans.
-- Module preferences are profile-scoped (enable/disable, order, per-module tuning).
+If you use Discord with BetterDiscord, LexiShift can also apply replacements in
+chat-style reading. This is optional and not part of the shortest first-day setup.
 
-### Section 7.2: Setup checklist in Options
-
-1. Open Chrome extension options.
-2. Check whether helper is connected in extension options.
-3. If helper is not connected, open the core app and run `App -> Install Helper`, then re-check extension options.
-4. Select the extension profile used for this learning context (from profiles created in the core app).
-5. Confirm language pair and runtime display settings.
-6. Confirm feedback sound if desired; SRS learning-word feedback is always available in MVP, while manual-ruleset replacement feedback is not exposed.
-7. Turn on debug/exposure logging only when actively diagnosing behavior.
-
-### Section 7.3: Verify runtime state
-
-- Open a real webpage and confirm replacements render with expected highlighting.
-- Right-click a replacement to open modules/feedback popup.
-- Left-click a replacement to show original word view.
-- If needed, run `SRS runtime diagnostics` from options debug tools.
-
-### Section 7.4: Mismatch triage
-
-- Profile mismatch between GUI and extension is the most common failure mode.
-- Unsaved rulesets in GUI produce stale runtime behavior.
-- Helper offline/bridge issues can shift runtime to cached helper rules.
-
-> Screenshot placeholder: `images/ch07-extension-options-overview.png`
-> Capture: profile picker, pair selection, and key runtime/SRS toggles.
-
-> Screenshot placeholder: `images/ch07-extension-module-preferences.png`
-> Capture: per-profile module enable/disable, drag reorder, and color preview controls.
-
-## 8. BetterDiscord Plugin Setup
-
-BetterDiscord uses the same replacement core and is best for chat/message environments.
-
-- Import the same JSON/share-code rules you use in other surfaces.
-- Adjust highlight and click-to-toggle behavior for readability in chat streams.
-- Treat plugin usage as another runtime profile target, not a separate authoring system.
-
-Keep plugin and extension rulesets aligned when you want consistent vocabulary exposure across platforms.
+- Use the same exported rules or profile where possible.
+- Keep browser and chat replacements aligned if you want a consistent experience.
+- Adjust highlight settings for readability in message streams.
 
 > Screenshot placeholder: `images/ch08-betterdiscord-plugin.png`
-> Capture: plugin settings panel and a message with replacement highlighting.
+> Capture: plugin settings and a simple replacement in a message.
 
-## 9. SRS Setup and Expectations
+## 9. Optional Study Mode
 
-This is the most important section. SRS behavior lives in the extension plus helper loop: initialize set `S`, collect feedback, refresh admissions, republish rules.
+Spaced review features are meant to help LexiShift adapt what you see over
+time. You do not need this for the first install test.
 
-### Section 9.1: SRS model you should assume
+- Feedback: rate learning words while reading so LexiShift can tell what felt easy or hard.
+- Refresh: update the study list when you want LexiShift to change what it shows next.
 
-- Scheduling is feedback-driven (ratings 1..4).
-- Exposure logs are diagnostics/telemetry, not authoritative scheduling events.
-- Helper profile store is the source of truth for mutable SRS schedule state.
-- Local rules and helper SRS rules can run concurrently in runtime.
+Advanced checks:
 
-### Section 9.2: Extension preflight before initializing S
-
-1. Open Chrome extension options and verify helper connection.
-2. If helper is disconnected, open core app and run `App -> Install Helper`, then verify connection again.
-3. Select the extension SRS profile (`srsSelectedProfileId`).
-4. Select the language pair for this profile context.
-5. First-time default values: source language = English, target language = Japanese (pair `en-ja`).
-6. Confirm pair resources are available (dictionaries/frequency inputs for that pair).
-
-### Section 9.3: Core SRS controls in extension options
-
-- `srsEnabled`: enables runtime SRS gating.
-- `srsMaxActive`: cap on active lemmas allowed by gate.
-- `srsBootstrapTopN`: initialization candidate pool size.
-- `srsInitialActiveCount`: initial active subset size.
-- `srsFeedbackSrsEnabled`: SRS learning-word popup feedback is enabled in MVP.
-- `srsFeedbackRulesEnabled`: reserved compatibility flag for ruleset-origin spans; not exposed and treated as off in MVP.
-- `srsSoundEnabled`: feedback sound toggle.
-- `srsExposureLoggingEnabled`: diagnostics logging toggle.
-
-### Section 9.4: Bootstrap and publish flow (first run)
-
-1. Click `Initialize S for this pair` in extension options.
-2. Wait for helper response with plan metadata and diagnostics notes.
-3. Confirm runtime helper rules are published for the selected profile and pair.
-
-Expected result: helper-managed `S` is initialized, ruleset/snapshot publish occurs, and runtime starts applying SRS-origin replacements.
-
-### Section 9.5: Daily feedback loop in pages
-
-1. Read normally on pages where replacements appear.
-2. Right-click replacement spans to open modules/feedback popup, then rate: 1=Again, 2=Hard, 3=Good, 4=Easy.
-3. Left-click replacement spans to show original word view.
-4. Allow helper feedback sync queue to flush ratings to helper store.
-
-Hotkeys can be documented later in an advanced section; this core flow stays pointer-first.
-
-### Section 9.6: Refresh admissions and publish updates
-
-1. Run `Refresh S + publish rules` from extension options.
-2. Verify updated serving behavior on live pages.
-
-Current model is explicit/manual refresh. Automatic adaptive refresh policy is still an in-progress track.
-
-### Section 9.7: SRS diagnostics checklist
-
-- Run `SRS runtime diagnostics` for helper/store/ruleset/cache counts.
-- Run helper connection test and open helper data folder when troubleshooting.
-- If no SRS changes appear, check selected profile id + selected pair + feedback queue state first.
-
-Advanced-only tool: sampled rulegen preview is useful for non-mutating inspection of current helper-managed `S`, but it is not required for baseline setup.
+- Make sure the extension is connected to the background helper.
+- Choose the correct profile and language pair.
+- Use diagnostics only when study behavior looks wrong.
 
 > Screenshot placeholder: `images/ch09-srs-profile-pair-setup.png`
-> Capture: selected profile, pair controls, and initialize/refresh buttons in extension options.
-
-> Screenshot placeholder: `images/ch09-srs-feedback-popup.png`
-> Capture: in-page popup with rating actions (1..4) and any module stack above feedback controls.
-
-> Screenshot placeholder: `images/ch09-srs-diagnostics.png`
-> Capture: runtime diagnostics output including helper/store/ruleset/cache count summary.
+> Capture: study profile controls and feedback buttons.
 
 ## 10. Troubleshooting and FAQ
 
-### No replacements are happening
-
-- Confirm the active profile and active ruleset in GUI and runtime surface.
-- Confirm rules are enabled and the ruleset is saved.
-- Check for phrase mismatch, priority conflicts, or case-policy mismatch.
-
-### Bulk generation quality is weak
-
-- Raise confidence threshold and reduce source breadth.
-- Verify language pack quality and pair alignment.
-- Review samples before applying generated output broadly.
-
-### Downloads or helper flows fail
-
-- Use diagnostics and local log directory actions in the GUI.
-- Re-run helper installation from the App menu if needed.
+- The app will not open: on unsigned macOS beta builds, use Control-click > Open or check Privacy & Security settings.
+- No replacements appear: make sure the right profile is selected, the ruleset is saved, and the extension is using that profile.
+- Generated suggestions look weak: use fewer suggestions, raise confidence, and review examples before applying them.
+- Browser connection fails: re-run helper installation from the app menu, then re-check extension options.
 
 ### Manual URL behavior
 
-- Preferred guide URL: `https://xamgUmlatu.github.io/LexiShift/getting-started/`.
+- Preferred guide URL: `https://lexishift.app/getting-started/`.
+- Short tester notes URL: `https://lexishift.app/tester-notes/`.
 - Fallback URL: repository `docs/getting-started/README.md`.
 
 > Screenshot placeholder: `images/ch10-diagnostics-logs.png`
-> Capture: debug menu actions and startup diagnostics dialog.
+> Capture: useful diagnostics and helper connection checks.

@@ -6,8 +6,8 @@ title: LexiShift Getting Started
 <!--
 Status: active Pages onboarding guide
 Role: Runbook / operational
-Last updated: 2026-05-14
-Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; UI walkthrough content not fully re-audited
+Last updated: 2026-06-06
+Last verified: 2026-06-06 user-facing structure pass; screenshot capture still pending
 Purpose: present the rendered interactive getting-started guide for LexiShift users
 Source-of-truth: user-facing onboarding guide only; current GUI, extension, plugin, and SRS behavior truth lives in source code, tests, and canonical developer/domain docs.
 -->
@@ -139,326 +139,294 @@ Source-of-truth: user-facing onboarding guide only; current GUI, extension, plug
   </div>
   <aside class="guide-rail" aria-label="Getting started sections">
     <p class="guide-rail__title">Sections</p>
-    <a class="guide-rail__link is-active" href="#chapter-1">1. First Launch</a>
-    <a class="guide-rail__link" href="#chapter-2">2. Profiles</a>
-    <a class="guide-rail__link" href="#chapter-3">3. Rulesets</a>
-    <a class="guide-rail__link" href="#chapter-4">4. Manual Rules</a>
-    <a class="guide-rail__link" href="#chapter-5">5. Synonym Bulk Add</a>
-    <a class="guide-rail__link" href="#chapter-6">6. Import and Backup</a>
-    <a class="guide-rail__link" href="#chapter-7">7. Chrome Extension</a>
-    <a class="guide-rail__link" href="#chapter-8">8. BetterDiscord</a>
-    <a class="guide-rail__link" href="#chapter-9">9. SRS Setup</a>
+    <a class="guide-rail__link is-active" href="#chapter-1">1. Quick Start</a>
+    <a class="guide-rail__link" href="#chapter-2">2. Install</a>
+    <a class="guide-rail__link" href="#chapter-3">3. First Setup</a>
+    <a class="guide-rail__link" href="#chapter-4">4. Replacements</a>
+    <a class="guide-rail__link" href="#chapter-5">5. Try in Browser</a>
+    <a class="guide-rail__link" href="#chapter-6">6. Save and Backup</a>
+    <a class="guide-rail__link" href="#chapter-7">7. Grow Vocabulary</a>
+    <a class="guide-rail__link" href="#chapter-8">8. Chat Setup</a>
+    <a class="guide-rail__link" href="#chapter-9">9. Study Mode</a>
     <a class="guide-rail__link" href="#chapter-10">10. Troubleshooting</a>
   </aside>
 
   <article class="guide-content">
     <header class="guide-hero">
-      <p class="guide-eyebrow">LexiShift Manual</p>
+      <p class="guide-eyebrow">LexiShift Guide</p>
       <h1>Getting Started</h1>
       <p>
-        LexiShift has one authoring surface (desktop GUI) and runtime surfaces (Chrome extension and BetterDiscord plugin).
-        Build rules in the GUI, then activate them in the runtime surfaces.
+        LexiShift helps you practice vocabulary while reading normal text. Use
+        the desktop app to choose what you want to learn, then use the browser
+        or chat tools to see those words appear in context.
       </p>
       <p>
-        Setup steps use verbatim UI labels (button/menu text) so operators can follow them exactly.
+        This guide starts with the shortest useful path. Advanced features are
+        still here, but they come after the basics.
       </p>
+      <div class="guide-hero__actions">
+        <a class="guide-button guide-button--primary" href="{{ '/download/' | relative_url }}">Download LexiShift</a>
+        <a class="guide-button" href="{{ '/tester-notes/' | relative_url }}">Beta Tester Notes</a>
+      </div>
     </header>
 
     <section id="chapter-1" class="guide-section" data-guide-section>
-      <h2>1. First Launch and Workspace Orientation</h2>
-      <p>Goal: create a clean authoring baseline before you add any rules.</p>
-      <ol>
-        <li>Launch the desktop GUI app.</li>
-        <li>Create a new profile or import an existing profile from JSON/share code.</li>
-        <li>Create a ruleset for that profile (or link an existing one).</li>
-        <li>Confirm the profile and ruleset selectors point to the pair you intend to edit.</li>
-      </ol>
+      <h2>1. Quick Start</h2>
       <p>
-        The GUI is the authoring tool. Runtime replacement happens in the extension/plugin,
-        so this setup step is mainly about making sure your profile/ruleset structure is correct.
+        If you only want to see whether LexiShift makes sense, follow this path
+        first. You can come back to the advanced sections later.
       </p>
+      <div class="guide-step-grid">
+        <div class="guide-step">
+          <strong>1</strong>
+          <span>Install the desktop app and open it.</span>
+        </div>
+        <div class="guide-step">
+          <strong>2</strong>
+          <span>Create a profile for the language or reading goal you want to try.</span>
+        </div>
+        <div class="guide-step">
+          <strong>3</strong>
+          <span>Add a few replacements, save them, and try them in a real reading place.</span>
+        </div>
+      </div>
+      <div class="guide-callout">
+        <p>
+          <strong>First beta note:</strong> the current macOS build is unsigned.
+          If macOS blocks the first launch, Control-click LexiShift and choose
+          Open.
+        </p>
+      </div>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for first launch workspace">
-        <p class="guide-screenshot__label">Screenshot Placeholder: First Launch Workspace</p>
-        <p class="guide-screenshot__note">Capture the initial GUI view with profile/ruleset selectors visible.</p>
+        <p class="guide-screenshot__label">Screenshot Coming Soon: First Launch</p>
+        <p class="guide-screenshot__note">This slot will show the first app window and the main setup controls.</p>
         <p class="guide-screenshot__filename">Suggested file: <code>images/ch01-first-launch-workspace.png</code></p>
       </div>
     </section>
 
     <section id="chapter-2" class="guide-section" data-guide-section>
-      <h2>2. Profile Management</h2>
+      <h2>2. Install and Open LexiShift</h2>
       <p>
-        Profiles are top-level containers. They define the active working context and hold links to one or more rulesets.
+        Start from the download page or the private beta link you were given.
+        The app should be installed like a normal desktop app.
       </p>
-      <ul>
-        <li>Use <code>Manage Profiles</code> to create, rename, or delete profiles.</li>
-        <li>Use the profile selector to switch active context quickly.</li>
-        <li>Keep separate profiles for separate goals (for example: reading practice vs domain vocabulary).</li>
-      </ul>
-      <p>
-        Recommended structure: one profile per workflow, multiple rulesets per profile, and one active ruleset per session.
-      </p>
-      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for profile management dialog">
-        <p class="guide-screenshot__label">Screenshot Placeholder: Manage Profiles Dialog</p>
-        <p class="guide-screenshot__note">Capture profile list, create/delete controls, and active-profile indicator.</p>
-        <p class="guide-screenshot__filename">Suggested file: <code>images/ch02-manage-profiles-dialog.png</code></p>
+      <ol>
+        <li>Download the current build from the <a href="{{ '/download/' | relative_url }}">download page</a> or private beta gate.</li>
+        <li>Open the downloaded file.</li>
+        <li>Move LexiShift into Applications if macOS asks.</li>
+        <li>Open LexiShift from Applications.</li>
+      </ol>
+      <div class="guide-callout">
+        <p>
+          <strong>Unsigned beta:</strong> if macOS says the app cannot be
+          verified, Control-click the app and choose Open. If needed, check
+          System Settings -> Privacy &amp; Security for the allow/open option.
+        </p>
+      </div>
+      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for install flow">
+        <p class="guide-screenshot__label">Screenshot Coming Soon: Install Flow</p>
+        <p class="guide-screenshot__note">This slot will show the DMG/app install step and the first launch warning if present.</p>
+        <p class="guide-screenshot__filename">Suggested file: <code>images/ch02-install-open.png</code></p>
       </div>
     </section>
 
     <section id="chapter-3" class="guide-section" data-guide-section>
-      <h2>3. Ruleset Management</h2>
-      <p>Rulesets are where actual replacements live.</p>
-      <ul>
-        <li>Create a new ruleset for new work.</li>
-        <li>Link existing rulesets when reusing prior datasets.</li>
-        <li>Use save frequently after edits or bulk generation.</li>
-        <li>Use ruleset management tools to reveal file locations and keep dataset hygiene.</li>
-      </ul>
+      <h2>3. Make Your First Setup</h2>
       <p>
-        Runtime surfaces use these rulesets directly (local rules + optional helper-generated rules).
-        A wrong active ruleset is the most common source of "nothing replaced" behavior.
+        LexiShift keeps your work in profiles and rulesets. The names are a bit
+        technical, but the idea is simple.
       </p>
-      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for ruleset management flow">
-        <p class="guide-screenshot__label">Screenshot Placeholder: Ruleset Management</p>
-        <p class="guide-screenshot__note">Capture create/link actions plus the active ruleset selected in the top controls.</p>
-        <p class="guide-screenshot__filename">Suggested file: <code>images/ch03-ruleset-management.png</code></p>
+      <div class="guide-card-grid">
+        <div class="guide-card">
+          <strong>Profile</strong>
+          <span>A workspace for one goal, such as Spanish reading practice or a specific topic.</span>
+        </div>
+        <div class="guide-card">
+          <strong>Ruleset</strong>
+          <span>The list of words or phrases LexiShift should replace for that profile.</span>
+        </div>
+      </div>
+      <ol>
+        <li>Create a profile for the language or reading goal you want to test.</li>
+        <li>Create a ruleset inside that profile.</li>
+        <li>Choose the source and target languages if the app asks.</li>
+        <li>Save before moving on.</li>
+      </ol>
+      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for first setup">
+        <p class="guide-screenshot__label">Screenshot Coming Soon: First Profile and Ruleset</p>
+        <p class="guide-screenshot__note">This slot will show the profile selector and first ruleset setup.</p>
+        <p class="guide-screenshot__filename">Suggested file: <code>images/ch03-first-setup.png</code></p>
       </div>
     </section>
 
     <section id="chapter-4" class="guide-section" data-guide-section>
-      <h2>4. Manual Rule Authoring</h2>
+      <h2>4. Add Your First Replacements</h2>
       <p>
-        LexiShift replacement is deterministic: left-to-right longest-match using a trie with whitespace-preserving output.
+        A replacement tells LexiShift what text to look for and what learning
+        word to show instead. Start small so the result is easy to understand.
       </p>
       <ul>
-        <li>Add rules manually for precise source phrase to replacement mappings.</li>
-        <li>Use priority when you need conflict control between overlapping phrases.</li>
-        <li>Use case policies (<code>match</code>, <code>as-is</code>, <code>lower</code>, <code>upper</code>, <code>title</code>) deliberately.</li>
-        <li>Keep phrase variants explicit when punctuation/spacing behavior matters.</li>
+        <li>Add one common word or short phrase.</li>
+        <li>Choose the replacement you want to see while reading.</li>
+        <li>Save the ruleset.</li>
+        <li>Add only a few examples before testing them somewhere real.</li>
       </ul>
-      <p>
-        Start with high-confidence manual rules before widening coverage with generated synonyms.
-      </p>
+      <div class="guide-callout">
+        <p>
+          <strong>Good first test:</strong> use words you already recognize.
+          The point is to confirm the replacement flow, not to build a huge
+          vocabulary list on day one.
+        </p>
+      </div>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for manual rule editing">
-        <p class="guide-screenshot__label">Screenshot Placeholder: Manual Rule Editing</p>
-        <p class="guide-screenshot__note">Capture the rules table with source/replacement columns and one metadata edit example.</p>
+        <p class="guide-screenshot__label">Screenshot Coming Soon: First Replacement</p>
+        <p class="guide-screenshot__note">This slot will show the rules table with one simple source and replacement pair.</p>
         <p class="guide-screenshot__filename">Suggested file: <code>images/ch04-manual-rule-editing.png</code></p>
       </div>
     </section>
 
     <section id="chapter-5" class="guide-section" data-guide-section>
-      <h2>5. Synonym Bulk Generation and Language Packs</h2>
+      <h2>5. Try Replacements in a Browser</h2>
       <p>
-        Bulk Add lets you scale rules quickly from installed dictionaries and language-pair pipelines.
+        The desktop app is where you set up your words. The browser extension is
+        where those words appear while you read web pages.
       </p>
-      <ul>
-        <li>Open <code>Settings -> App</code> and install language packs.</li>
-        <li>Supported wired sources include WordNet, Moby, OpenThesaurus, JP WordNet, JMDict, and CC-CEDICT.</li>
-        <li>Current language-pair pipelines include <code>en_ja</code>, <code>en_de</code>, <code>en_es</code>, and <code>es_en</code>.</li>
-        <li>Optional embedding conversion can improve ranking workflows for large vector sets.</li>
-      </ul>
-      <p>
-        Use conservative confidence thresholds first, then loosen only after reviewing generated samples.
-      </p>
-      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for language packs and bulk add">
-        <p class="guide-screenshot__label">Screenshot Placeholder: Language Packs and Bulk Add</p>
-        <p class="guide-screenshot__note">Capture Settings -> App language-pack manager and the synonym bulk-add dialog.</p>
-        <p class="guide-screenshot__filename">Suggested file: <code>images/ch05-language-packs-bulk-add.png</code></p>
+      <ol>
+        <li>Install or enable the LexiShift Chrome extension when it is available for your test.</li>
+        <li>Open the extension options.</li>
+        <li>Choose the same profile you created in the desktop app.</li>
+        <li>Open a normal web page and check whether your replacements appear.</li>
+      </ol>
+      <div class="guide-callout">
+        <p>
+          If you are only testing the desktop app right now, you can stop after
+          creating and saving a few replacements. The browser path can be tested
+          separately.
+        </p>
+      </div>
+      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for browser extension setup">
+        <p class="guide-screenshot__label">Screenshot Coming Soon: Browser Setup</p>
+        <p class="guide-screenshot__note">This slot will show the extension options and a simple replacement on a page.</p>
+        <p class="guide-screenshot__filename">Suggested file: <code>images/ch05-browser-setup.png</code></p>
       </div>
     </section>
 
     <section id="chapter-6" class="guide-section" data-guide-section>
-      <h2>6. Import, Export, and Backup</h2>
-      <p>LexiShift supports both ruleset-level and profile-level portability.</p>
-      <ul>
-        <li>Export rulesets as JSON or share code.</li>
-        <li>Import rulesets from JSON or share code.</li>
-        <li>Export/import profiles for full workflow transfer.</li>
-        <li>Keep dated backups before major bulk operations.</li>
-      </ul>
+      <h2>6. Save, Export, and Back Up</h2>
       <p>
-        Practical backup pattern: daily JSON export + milestone export before dictionary refreshes or mass rule changes.
+        LexiShift is local-first. Your profiles, rulesets, and study state live
+        on your machine unless you export or share them.
       </p>
+      <ul>
+        <li>Save after editing replacements.</li>
+        <li>Export a ruleset before making major changes.</li>
+        <li>Export a profile when you want to move a setup to another machine.</li>
+        <li>Keep a dated backup before trying bulk generation.</li>
+      </ul>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for import and export actions">
-        <p class="guide-screenshot__label">Screenshot Placeholder: Import/Export Actions</p>
-        <p class="guide-screenshot__note">Capture File menu import/export options for rulesets and profiles.</p>
+        <p class="guide-screenshot__label">Screenshot Coming Soon: Export and Backup</p>
+        <p class="guide-screenshot__note">This slot will show the export actions for rulesets and profiles.</p>
         <p class="guide-screenshot__filename">Suggested file: <code>images/ch06-import-export-actions.png</code></p>
       </div>
     </section>
 
     <section id="chapter-7" class="guide-section" data-guide-section>
-      <h2>7. Chrome Extension Runtime Setup</h2>
+      <h2>7. Grow Your Vocabulary List</h2>
       <p>
-        The Chrome extension is the primary runtime where replacements are applied on web pages and frames.
-        Browser support in this guide is Chrome-only for now.
-        This is also where SRS feedback is captured during real reading.
+        After the manual flow feels clear, LexiShift can help you build larger
+        replacement lists from installed language resources.
       </p>
-      <h3>Section 7.1: Runtime model</h3>
-      <ul>
-        <li>Runtime applies local rules and helper rules together.</li>
-        <li>SRS gating filters by replacement lemma when SRS is enabled.</li>
-        <li>Feedback popup and exposure logging are runtime features on replaced spans.</li>
-        <li>Module preferences are profile-scoped (enable/disable, order, per-module tuning).</li>
-      </ul>
-      <h3>Section 7.2: Setup checklist in Options</h3>
-      <ol>
-        <li>Open Chrome extension options.</li>
-        <li>Check whether helper is connected in extension options.</li>
-        <li>If helper is not connected, open the core app and run <code>App -> Install Helper</code>, then re-check extension options.</li>
-        <li>Select the extension profile used for this learning context (from profiles created in the core app).</li>
-        <li>Confirm language pair and runtime display settings.</li>
-        <li>Confirm feedback sound if desired; SRS learning-word feedback is always available in MVP, while manual-ruleset replacement feedback is not exposed.</li>
-        <li>Turn on debug/exposure logging only when actively diagnosing behavior.</li>
-      </ol>
-      <h3>Section 7.3: Verify runtime state</h3>
-      <ul>
-        <li>Open a real webpage and confirm replacements render with expected highlighting.</li>
-        <li>Right-click a replacement to open modules/feedback popup.</li>
-        <li>Left-click a replacement to show original word view.</li>
-        <li>If needed, run <code>SRS runtime diagnostics</code> from options debug tools.</li>
-      </ul>
-      <h3>Section 7.4: Mismatch triage</h3>
-      <ul>
-        <li>Profile mismatch between GUI and extension is the most common failure mode.</li>
-        <li>Unsaved rulesets in GUI produce stale runtime behavior.</li>
-        <li>Helper offline/bridge issues can shift runtime to cached helper rules.</li>
-      </ul>
-      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for extension options overview">
-        <p class="guide-screenshot__label">Screenshot Placeholder: Extension Options Overview</p>
-        <p class="guide-screenshot__note">Capture profile picker, pair selection, and key runtime/SRS toggles.</p>
-        <p class="guide-screenshot__filename">Suggested file: <code>images/ch07-extension-options-overview.png</code></p>
+      <div class="guide-check-grid">
+        <div class="guide-check">
+          <strong>Use this later</strong>
+          <span>Bulk tools are useful once you trust the basic setup.</span>
+        </div>
+        <div class="guide-check">
+          <strong>Review before applying</strong>
+          <span>Generated suggestions should be checked before they become part of your main list.</span>
+        </div>
       </div>
-      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for popup module preferences">
-        <p class="guide-screenshot__label">Screenshot Placeholder: Popup Module Preferences</p>
-        <p class="guide-screenshot__note">Capture per-profile module enable/disable, drag reorder, and color preview controls.</p>
-        <p class="guide-screenshot__filename">Suggested file: <code>images/ch07-extension-module-preferences.png</code></p>
+      <ul>
+        <li>Open <code>Settings -> App</code> and install language packs when they are available for your pair.</li>
+        <li>Use Bulk Add to generate candidate replacements.</li>
+        <li>Start with conservative settings and review samples.</li>
+        <li>Save or export before applying large changes.</li>
+      </ul>
+      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for language packs and bulk add">
+        <p class="guide-screenshot__label">Screenshot Coming Soon: Language Packs and Bulk Add</p>
+        <p class="guide-screenshot__note">This slot will show installed language resources and the bulk suggestion flow.</p>
+        <p class="guide-screenshot__filename">Suggested file: <code>images/ch07-language-packs-bulk-add.png</code></p>
       </div>
     </section>
 
     <section id="chapter-8" class="guide-section" data-guide-section>
-      <h2>8. BetterDiscord Plugin Setup</h2>
+      <h2>8. Optional Chat Setup</h2>
       <p>
-        BetterDiscord uses the same replacement core and is best for chat/message environments.
+        If you use Discord with BetterDiscord, LexiShift can also apply
+        replacements in chat-style reading. This is optional and not part of the
+        shortest first-day setup.
       </p>
       <ul>
-        <li>Import the same JSON/share-code rules you use in other surfaces.</li>
-        <li>Adjust highlight and click-to-toggle behavior for readability in chat streams.</li>
-        <li>Treat plugin usage as another runtime profile target, not a separate authoring system.</li>
+        <li>Use the same exported rules or profile where possible.</li>
+        <li>Keep browser and chat replacements aligned if you want a consistent experience.</li>
+        <li>Adjust highlight settings for readability in message streams.</li>
       </ul>
-      <p>
-        Keep plugin and extension rulesets aligned when you want consistent vocabulary exposure across platforms.
-      </p>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for BetterDiscord plugin settings">
-        <p class="guide-screenshot__label">Screenshot Placeholder: BetterDiscord Plugin</p>
-        <p class="guide-screenshot__note">Capture plugin settings panel and a message example showing replacement highlights.</p>
+        <p class="guide-screenshot__label">Screenshot Coming Soon: Chat Setup</p>
+        <p class="guide-screenshot__note">This slot will show plugin settings and a simple replacement in a message.</p>
         <p class="guide-screenshot__filename">Suggested file: <code>images/ch08-betterdiscord-plugin.png</code></p>
       </div>
     </section>
 
     <section id="chapter-9" class="guide-section" data-guide-section>
-      <h2>9. SRS Setup and Expectations</h2>
+      <h2>9. Optional Study Mode</h2>
       <p>
-        This is the most important section. SRS behavior lives in the extension plus helper loop:
-        initialize set <code>S</code>, collect feedback, refresh admissions, republish rules.
+        Spaced review features are meant to help LexiShift adapt what you see
+        over time. You do not need this for the first install test.
       </p>
-      <h3>Section 9.1: SRS model you should assume</h3>
+      <div class="guide-card-grid">
+        <div class="guide-card">
+          <strong>Feedback</strong>
+          <span>Rate learning words while reading so LexiShift can tell what felt easy or hard.</span>
+        </div>
+        <div class="guide-card">
+          <strong>Refresh</strong>
+          <span>Update the study list when you want LexiShift to change what it shows next.</span>
+        </div>
+      </div>
+      <h3>Advanced checks</h3>
       <ul>
-        <li>Scheduling is feedback-driven (ratings 1..4).</li>
-        <li>Exposure logs are diagnostics/telemetry, not authoritative scheduling events.</li>
-        <li>Helper profile store is the source of truth for mutable SRS schedule state.</li>
-        <li>Local rules and helper SRS rules can run concurrently in runtime.</li>
+        <li>Make sure the extension is connected to the background helper.</li>
+        <li>Choose the correct profile and language pair.</li>
+        <li>Use diagnostics only when study behavior looks wrong.</li>
       </ul>
-      <h3>Section 9.2: Extension preflight before initializing S</h3>
-      <ol>
-        <li>Open Chrome extension options and verify helper connection.</li>
-        <li>If helper is disconnected, open core app and run <code>App -> Install Helper</code>, then verify connection again.</li>
-        <li>Select the extension SRS profile (<code>srsSelectedProfileId</code>).</li>
-        <li>Select the language pair for this profile context.</li>
-        <li>First-time default values: source language = English, target language = Japanese (pair <code>en-ja</code>).</li>
-        <li>Confirm pair resources are available (dictionaries/frequency inputs for that pair).</li>
-      </ol>
-      <h3>Section 9.3: Core SRS controls in extension options</h3>
-      <ul>
-        <li><code>srsEnabled</code>: enables runtime SRS gating.</li>
-        <li><code>srsMaxActive</code>: cap on active lemmas allowed by gate.</li>
-        <li><code>srsBootstrapTopN</code>: initialization candidate pool size.</li>
-        <li><code>srsInitialActiveCount</code>: initial active subset size.</li>
-        <li><code>srsFeedbackSrsEnabled</code>: SRS learning-word popup feedback is enabled in MVP.</li>
-        <li><code>srsFeedbackRulesEnabled</code>: reserved compatibility flag for ruleset-origin spans; not exposed and treated as off in MVP.</li>
-        <li><code>srsSoundEnabled</code>: feedback sound toggle.</li>
-        <li><code>srsExposureLoggingEnabled</code>: diagnostics logging toggle.</li>
-      </ul>
-      <h3>Section 9.4: Bootstrap and publish flow (first run)</h3>
-      <ol>
-        <li>Click <code>Initialize S for this pair</code> in extension options.</li>
-        <li>Wait for helper response with plan metadata and diagnostics notes.</li>
-        <li>Confirm runtime helper rules are published for the selected profile and pair.</li>
-      </ol>
-      <p>
-        Expected result: helper-managed <code>S</code> is initialized, ruleset/snapshot publish occurs, and runtime starts applying SRS-origin replacements.
-      </p>
-      <h3>Section 9.5: Daily feedback loop in pages</h3>
-      <ol>
-        <li>Read normally on pages where replacements appear.</li>
-        <li>Right-click replacement spans to open modules/feedback popup, then rate: 1=Again, 2=Hard, 3=Good, 4=Easy.</li>
-        <li>Left-click replacement spans to show original word view.</li>
-        <li>Allow helper feedback sync queue to flush ratings to helper store.</li>
-      </ol>
-      <p>
-        Hotkeys can be documented later in an advanced section; this core flow stays pointer-first.
-      </p>
-      <h3>Section 9.6: Refresh admissions and publish updates</h3>
-      <ol>
-        <li>Run <code>Refresh S + publish rules</code> from extension options.</li>
-        <li>Verify updated serving behavior on live pages.</li>
-      </ol>
-      <p>
-        Current model is explicit/manual refresh. Automatic adaptive refresh policy is still an in-progress track.
-      </p>
-      <h3>Section 9.7: SRS diagnostics checklist</h3>
-      <ul>
-        <li>Run <code>SRS runtime diagnostics</code> for helper/store/ruleset/cache counts.</li>
-        <li>Run helper connection test and open helper data folder when troubleshooting.</li>
-        <li>If no SRS changes appear, check selected profile id + selected pair + feedback queue state first.</li>
-      </ul>
-      <p>
-        Advanced-only tool: sampled rulegen preview is useful for non-mutating inspection of current helper-managed <code>S</code>, but it is not required for baseline setup.
-      </p>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for SRS profile and pair setup">
-        <p class="guide-screenshot__label">Screenshot Placeholder: SRS Profile and Pair Setup</p>
-        <p class="guide-screenshot__note">Capture selected profile, pair controls, and initialize/refresh buttons in extension options.</p>
+        <p class="guide-screenshot__label">Screenshot Coming Soon: Study Mode</p>
+        <p class="guide-screenshot__note">This slot will show the study profile controls and feedback buttons.</p>
         <p class="guide-screenshot__filename">Suggested file: <code>images/ch09-srs-profile-pair-setup.png</code></p>
-      </div>
-      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for SRS feedback popup ratings">
-        <p class="guide-screenshot__label">Screenshot Placeholder: SRS Feedback Popup</p>
-        <p class="guide-screenshot__note">Capture in-page popup with rating actions (1..4) and any module stack shown above feedback controls.</p>
-        <p class="guide-screenshot__filename">Suggested file: <code>images/ch09-srs-feedback-popup.png</code></p>
-      </div>
-      <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for SRS diagnostics output">
-        <p class="guide-screenshot__label">Screenshot Placeholder: SRS Diagnostics</p>
-        <p class="guide-screenshot__note">Capture runtime diagnostics output including helper/store/ruleset/cache count summary.</p>
-        <p class="guide-screenshot__filename">Suggested file: <code>images/ch09-srs-diagnostics.png</code></p>
       </div>
     </section>
 
     <section id="chapter-10" class="guide-section" data-guide-section>
       <h2>10. Troubleshooting and FAQ</h2>
-      <h3>No replacements are happening</h3>
-      <ul>
-        <li>Confirm the active profile and active ruleset in GUI and runtime surface.</li>
-        <li>Confirm rules are enabled and the ruleset is saved.</li>
-        <li>Check for phrase mismatch, priority conflicts, or case-policy mismatch.</li>
-      </ul>
-      <h3>Bulk generation quality is weak</h3>
-      <ul>
-        <li>Raise confidence threshold and reduce source breadth.</li>
-        <li>Verify language pack quality and pair alignment.</li>
-        <li>Review samples before applying generated output broadly.</li>
-      </ul>
-      <h3>Downloads or helper flows fail</h3>
-      <ul>
-        <li>Use diagnostics and local log directory actions in the GUI.</li>
-        <li>Re-run helper installation from the App menu if needed.</li>
-      </ul>
+      <div class="guide-check-grid">
+        <div class="guide-check">
+          <strong>The app will not open</strong>
+          <span>On unsigned macOS beta builds, use Control-click > Open or check Privacy &amp; Security settings.</span>
+        </div>
+        <div class="guide-check">
+          <strong>No replacements appear</strong>
+          <span>Make sure the right profile is selected, the ruleset is saved, and the extension is using that profile.</span>
+        </div>
+        <div class="guide-check">
+          <strong>Generated suggestions look weak</strong>
+          <span>Use fewer suggestions, raise confidence, and review examples before applying them.</span>
+        </div>
+        <div class="guide-check">
+          <strong>Browser connection fails</strong>
+          <span>Re-run helper installation from the app menu, then re-check extension options.</span>
+        </div>
+      </div>
       <h3>Manual URL behavior</h3>
       <ul>
         <li>Preferred guide URL: <code>https://lexishift.app/getting-started/</code>.</li>
@@ -466,8 +434,8 @@ Source-of-truth: user-facing onboarding guide only; current GUI, extension, plug
         <li>Fallback URL: repository <code>docs/getting-started/README.md</code>.</li>
       </ul>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for diagnostics and logs">
-        <p class="guide-screenshot__label">Screenshot Placeholder: Diagnostics and Logs</p>
-        <p class="guide-screenshot__note">Capture debug menu actions and startup diagnostics dialog for troubleshooting.</p>
+        <p class="guide-screenshot__label">Screenshot Coming Soon: Troubleshooting</p>
+        <p class="guide-screenshot__note">This slot will show the most useful diagnostics and helper connection checks.</p>
         <p class="guide-screenshot__filename">Suggested file: <code>images/ch10-diagnostics-logs.png</code></p>
       </div>
     </section>
