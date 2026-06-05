@@ -71,7 +71,7 @@ def _build_dmg(*, app_paths: list[Path], output_dir: Path, volume_name: str, dmg
     with tempfile.TemporaryDirectory(prefix="lexishift_dmg_") as staging:
         stage_dir = Path(staging)
         for app_path in app_paths:
-            shutil.copytree(app_path, stage_dir / app_path.name)
+            shutil.copytree(app_path, stage_dir / app_path.name, symlinks=True)
         apps_link = stage_dir / "Applications"
         try:
             apps_link.symlink_to("/Applications")

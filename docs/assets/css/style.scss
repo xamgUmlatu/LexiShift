@@ -1229,6 +1229,12 @@ body:has(.landing-page) .main-content p {
   color: #925a11;
 }
 
+.status-pill--live {
+  border-color: #89c9b6;
+  background: #eaf8f2;
+  color: #20614f;
+}
+
 .release-flow {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));

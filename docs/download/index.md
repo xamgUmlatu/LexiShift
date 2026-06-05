@@ -4,30 +4,30 @@ title: Download LexiShift
 ---
 
 <!--
-Status: active beta access staging
+Status: active beta access
 Role: Public download page
 Last updated: 2026-06-05
-Purpose: route testers to beta access, signed installer assets, checksums, and release metadata as private distribution comes online.
+Purpose: route testers to beta access, installer assets, checksums, and release metadata while private distribution is active.
 -->
 
 <div class="download-page">
   <section class="download-status">
     <div>
       <p class="beta-kicker">Beta download status</p>
-      <h2>Private beta access is being staged.</h2>
+      <h2>Private beta downloads are live.</h2>
       <p>
-        The public CTA now leads here. The actual installer link should stay
-        limited to invited testers through the Cloudflare download gate until
-        the first beta build has versioned assets, checksums, and release notes.
+        Invited testers can open the Cloudflare download gate, enter the shared
+        beta password, and download the current macOS beta artifact. Checksums
+        and release metadata are public so the file can be verified.
       </p>
       <div class="beta-actions">
-        <a class="beta-button beta-button--primary" href="{{ '/support/' | relative_url }}">Request beta access</a>
+        <a class="beta-button beta-button--primary" href="https://downloads.lexishift.app/beta/">Open beta gate</a>
         <a class="beta-button" href="{{ '/getting-started/' | relative_url }}">Preview setup steps</a>
       </div>
     </div>
     <div class="download-status__badge">
       <strong>Invited testers only</strong>
-      <span>Download link pending first signed artifact</span>
+      <span>macOS 0.1.0 is live; password required</span>
     </div>
   </section>
 
@@ -35,18 +35,18 @@ Purpose: route testers to beta access, signed installer assets, checksums, and r
     <div>
       <h2>Access model for the first beta</h2>
       <p>
-        A shared password can be useful as light beta friction, but only when
-        the installer itself is protected by a server-side gate. A password
-        written into a static GitHub Pages page is not private because the page
-        source and linked files can be inspected.
+        The beta password is enforced by a Cloudflare Worker before the
+        installer object is streamed from private R2 storage. GitHub Pages stays
+        public and intentionally does not contain the password or direct binary
+        object access.
       </p>
     </div>
     <div class="download-steps">
       <ol>
         <li>Invite testers directly through a private thread.</li>
-        <li>Send <code>https://downloads.lexishift.app/beta/</code> only after the build is ready.</li>
-        <li>Protect the binary with a server-side password, signed URL, or invite-code check.</li>
-        <li>Keep checksums and release notes public enough for testers to verify the file.</li>
+        <li>Send <code>https://downloads.lexishift.app/beta/</code> with the shared beta password.</li>
+        <li>Keep the binary behind the server-side gate.</li>
+        <li>Use the manifest and checksum file to verify the downloaded artifact.</li>
       </ol>
     </div>
   </section>
@@ -67,8 +67,8 @@ Purpose: route testers to beta access, signed installer assets, checksums, and r
           <tr>
             <td>macOS</td>
             <td><code>LexiShift-0.1.0.dmg</code></td>
-            <td><span class="status-pill status-pill--pending">Preparing</span></td>
-            <td>Gate, SHA-256, signing, and notarization status pending</td>
+            <td><span class="status-pill status-pill--live">Live beta</span></td>
+            <td>Gated download, SHA-256 checksum, unsigned, not notarized</td>
           </tr>
           <tr>
             <td>Windows</td>
@@ -87,14 +87,13 @@ Purpose: route testers to beta access, signed installer assets, checksums, and r
       <p>
         Each posted installer should be treated as a specific release artifact,
         not a generic download. Match the version, checksum, and release notes
-        before replacing an older build. If a tester link asks for a password,
-        it should be protecting the hosted file, not just hiding a link in page
-        JavaScript.
+        before replacing an older build. The current macOS beta is unsigned and
+        not notarized, so macOS may require Control-click > Open.
       </p>
     </div>
     <ol class="download-steps">
       <li>Download the platform-specific installer.</li>
-      <li>Compare the SHA-256 checksum with the value on this page.</li>
+      <li>Compare the SHA-256 checksum with the value in the manifest or checksum file.</li>
       <li>Check whether the build is signed or notarized for your platform.</li>
       <li>Read the release notes for known limitations and rollback notes.</li>
     </ol>
@@ -106,9 +105,8 @@ Purpose: route testers to beta access, signed installer assets, checksums, and r
       <article class="site-card">
         <h3>Gated beta link</h3>
         <p>
-          The first private beta can use a shared password or invite code, but
-          the check should happen in the Cloudflare Worker before the installer
-          object is returned from R2.
+          The private beta uses a shared password checked by the Cloudflare
+          Worker before the installer object is returned from R2.
         </p>
       </article>
       <article class="site-card">
@@ -121,21 +119,21 @@ Purpose: route testers to beta access, signed installer assets, checksums, and r
       <article class="site-card">
         <h3>Short-cache manifest</h3>
         <p>
-          <code>latest.json</code> will point to the current beta or stable
-          build and should be treated as release metadata, not an installer.
+          <code>latest.json</code> points to the current beta or stable build
+          and should be treated as release metadata, not an installer.
         </p>
       </article>
     </div>
   </section>
 </div>
 
-The planned beta release manifest is:
+The beta release manifest is:
 
 ```text
 https://downloads.lexishift.app/releases/beta/latest.json
 ```
 
-The planned private beta gate is:
+The private beta gate is:
 
 ```text
 https://downloads.lexishift.app/beta/
