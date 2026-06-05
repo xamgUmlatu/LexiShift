@@ -74,6 +74,6 @@ early feedback loop before signing and production distribution are finished.
 
 - [Download LexiShift]({{ '/download/' | relative_url }})
 - [Beta]({{ '/beta/' | relative_url }})
-- [Getting Started]({{ '/getting-started/' | relative_url }})
+- [Guide]({{ '/guide/' | relative_url }})
 
 </div>

@@ -68,7 +68,7 @@ Screenshots are useful, but crop or blur anything personal first.
 ## Useful Links
 
 - [Download LexiShift]({{ '/download/' | relative_url }})
-- [Getting Started]({{ '/getting-started/' | relative_url }})
+- [Guide]({{ '/guide/' | relative_url }})
 - [Release Notes]({{ '/releases/0.1.0/' | relative_url }})
 - [Privacy]({{ '/privacy/' | relative_url }})
 - [Support]({{ '/support/' | relative_url }})

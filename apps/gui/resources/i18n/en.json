@@ -70,7 +70,7 @@
     "browser_connections": "Connections...",
     "debug": "Debug",
     "help": "Help",
-    "open_setup_guide": "Open Setup Guide",
+    "open_setup_guide": "Open Guide",
     "startup_diagnostics": "Startup Diagnostics...",
     "open_log_directory": "Open Log Directory"
   },
@@ -482,7 +482,7 @@
     "delete_tooltip": "Delete rule (Alt+click to skip confirmation)",
     "empty_title": "This ruleset has no rules yet.",
     "empty_hint": "Use Add Rule, Synonym Bulk Add, or import a ruleset to get started.",
-    "open_setup_guide": "Open Setup Guide"
+    "open_setup_guide": "Open Guide"
   },
   "ruleset": {
     "missing": "{label} (missing)",

@@ -163,6 +163,6 @@ opens and the setup flow is understandable.
 
 - [Beta]({{ '/beta/' | relative_url }})
 - [Releases]({{ '/releases/' | relative_url }})
-- [Getting Started]({{ '/getting-started/' | relative_url }})
+- [Guide]({{ '/guide/' | relative_url }})
 - [Tester Notes]({{ '/tester-notes/' | relative_url }})
 - [Support]({{ '/support/' | relative_url }})

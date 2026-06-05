@@ -362,6 +362,11 @@ html[data-guide-theme="dark"] .guide-theme-toggle__icon--moon {
   padding-top: 0.5rem;
 }
 
+.guide-anchor-compat {
+  position: absolute;
+  top: 0;
+}
+
 .guide-section + .guide-section {
   margin-top: 3.65rem;
   padding-top: 2.45rem;

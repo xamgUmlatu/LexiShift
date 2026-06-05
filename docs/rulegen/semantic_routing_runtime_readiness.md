@@ -8,7 +8,7 @@ Purpose: describe the current shipped semantic-routing runtime seam and the rema
 Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
 - `README.md`
-- `docs/getting-started/index.md`
+- `docs/guide/index.md`
 - `docs/architecture/extension_system_map.md`
 - `docs/srs/srs_roadmap.md`
 - `docs/rulegen/rule_generation_technical.md`

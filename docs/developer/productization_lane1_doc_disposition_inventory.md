@@ -97,7 +97,7 @@ exact-reference search and value-migration check.
 | Language-pair docs | Resource requirements, inventory matrices, setup checklists, and workstream roadmaps now have metadata and a dedicated authority map at `docs/language_pairs/README.md`. | Normalize metadata complete for non-packet docs / Supersession review complete | Use `docs/language_pairs/README.md` before editing individual LP docs. Keep status-sensitive LP claims routed through feature-state, code, tests, and generated audits. |
 | Reference docs | `reference/schema.md`, `glossary.md`, and `theme_schema.md` lack governance metadata but are linked from routing docs. | Normalize metadata | Add exact role/source-of-truth metadata before content changes. |
 | Runbooks | Runbooks are operationally useful but mostly lack role/status metadata. | Normalize metadata | Add standard metadata and verification commands where obvious. |
-| Handbook and getting-started pages | These are GitHub Pages/user-facing entrypoints with Jekyll front matter, not developer source-of-truth docs. They now carry hidden governance comments so source readers see authority boundaries without adding visible site clutter. | Site-route review complete | Keep them out of developer authority paths unless explicitly routed as user docs. Re-audit page content separately if UI/command claims become release-facing. |
+| Handbook, guide, and compatibility getting-started pages | These are GitHub Pages/user-facing entrypoints with Jekyll front matter, not developer source-of-truth docs. Active user-guide content now lives under `docs/guide/`; `docs/getting-started/` is a compatibility route. They carry hidden governance comments so source readers see authority boundaries without adding visible site clutter. | Site-route review complete | Keep them out of developer authority paths unless explicitly routed as user docs. Re-audit page content separately if UI/command claims become release-facing. |
 | `docs/test_inputs/**/README.md` | Test-input READMEs are local dataset/schema guides, not user or architecture docs. | Normalize metadata complete for missing-role READMEs | Keep implemented/default-on/verified state outside these READMEs; use feature-state and generated artifacts for status. |
 | `docs/semantic_routing_html/README.md` | Auxiliary local preview guide for semantic-routing HTML pages. | Normalize metadata complete | Keep it as a preview runbook; semantic runtime truth remains in code, tests, and canonical semantic-veto docs. |
 
@@ -340,7 +340,8 @@ Candidate docs:
 
 1. `docs/index.md`,
 2. `docs/handbook/*.md`,
-3. `docs/getting-started/*.md`.
+3. `docs/guide/*.md`,
+4. `docs/getting-started/*.md` compatibility pointers.
 
 This is a site-routing pass, not a product behavior pass.
 
@@ -354,6 +355,9 @@ Progress:
   - `docs/handbook/diagrams.md`,
   - `docs/handbook/index.md`,
   - `docs/handbook/release.md`,
+  - `docs/guide/README.md`,
+  - `docs/guide/images/README.md`,
+  - `docs/guide/index.md`,
   - `docs/getting-started/README.md`,
   - `docs/getting-started/images/README.md`,
   - `docs/getting-started/index.md`.

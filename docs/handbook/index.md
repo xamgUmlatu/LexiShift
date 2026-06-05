@@ -21,8 +21,8 @@ Quick navigation:
 
 ## Choose A Track
 
-1. User onboarding
-- [Getting Started](../getting-started/)
+1. User guide
+- [Guide](../guide/)
 
 2. Daily developer workflow
 - [Developer Workflow](./developer/)
