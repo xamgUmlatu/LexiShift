@@ -8,7 +8,7 @@ title: Cloudflare Distribution Setup
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-06-05
-Last verified: 2026-06-05 repo-side Worker/R2 gate scaffold review; live Cloudflare provisioning blocked until R2 is enabled in the dashboard
+Last verified: 2026-06-05 live `downloads.lexishift.app` Worker/R2 gate smoke after R2 enablement
 Purpose: define the low-cost Cloudflare lane for LexiShift installer downloads, release metadata, and future hosted app data
 Source-of-truth: operational runbook; live Cloudflare resource names, DNS records, and billing state must be checked in the Cloudflare dashboard before deployment.
 Related docs:
@@ -257,12 +257,24 @@ normal app customers once the free user tier is exceeded.
 
 ## Verification
 
+Live gate smoke:
+
+```bash
+curl https://downloads.lexishift.app/health
+curl -I https://downloads.lexishift.app/beta/
+```
+
+Expected:
+- `/health` returns `{"ok":true}`
+- `/beta/` returns the password gate or beta download list
+- `installers/beta/...` redirects to `/beta/` until a valid beta session cookie
+  is present
+
 After the first real upload:
 
 ```bash
 curl -I https://downloads.lexishift.app/releases/beta/latest.json
 curl https://downloads.lexishift.app/releases/beta/latest.json
-curl -I https://downloads.lexishift.app/beta/
 ```
 
 Expected:
@@ -270,7 +282,6 @@ Expected:
 - small JSON body
 - short cache on `latest.json`
 - installer URLs in the manifest resolve to versioned immutable objects
-- `/beta/` returns the password gate or beta download list
 
 Before publishing docs changes that alter this runbook or linked Pages routes:
 
