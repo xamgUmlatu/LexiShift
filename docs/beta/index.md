@@ -6,7 +6,7 @@ title: LexiShift Beta
 <!--
 Status: active beta entrypoint
 Role: Beta entrypoint
-Last updated: 2026-06-05
+Last updated: 2026-06-06
 Purpose: provide the public beta entrypoint for tester-facing install and support links while hosted distribution is live.
 -->
 
@@ -17,12 +17,12 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
       <h1>Try LexiShift before the production release.</h1>
       <p class="beta-lede">
         LexiShift is a local-first desktop app for language-learning workflows.
-        This beta is for early testers who are comfortable with fast-moving
-        builds, manual updates, and clear issue reports.
+        This first beta is informal: directly invited testers can install the
+        app, try the setup flow, and send back plain-language feedback.
       </p>
       <div class="beta-actions">
         <a class="beta-button beta-button--primary" href="{{ '/download/' | relative_url }}">Download beta app</a>
-        <a class="beta-button" href="{{ '/getting-started/' | relative_url }}">Read setup guide</a>
+        <a class="beta-button" href="{{ '/tester-notes/' | relative_url }}">Read tester notes</a>
       </div>
     </div>
     <div class="beta-release-card" aria-label="Beta release status">
@@ -81,15 +81,15 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
     <div>
       <h2>What this beta is for</h2>
       <p>
-        The beta should prove that a real tester can install the app, open it,
-        follow the setup flow, understand the current limitations, and send a
-        useful report when something breaks.
+        The beta should prove that a directly invited tester can install the
+        app, open it, follow the first setup path, and say where the experience
+        becomes unclear.
       </p>
     </div>
     <div class="beta-check-grid">
       <div class="beta-check">
         <strong>Install flow</strong>
-        <span>Download, verify, open, and complete the first setup pass.</span>
+        <span>Download, open, and complete the first setup pass.</span>
       </div>
       <div class="beta-check">
         <strong>Local behavior</strong>
@@ -97,7 +97,7 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
       </div>
       <div class="beta-check">
         <strong>Release trust</strong>
-        <span>Check version, checksum, release notes, and signing status.</span>
+        <span>Make the unsigned macOS warning clear before launch.</span>
       </div>
     </div>
   </section>
@@ -107,10 +107,10 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
 1. Open the [download page]({{ '/download/' | relative_url }}).
 2. Open the private beta gate if you have been invited.
 3. Enter the shared beta password from your invite.
-4. Choose the installer for your platform.
-5. Verify the SHA-256 checksum listed beside the installer.
-6. Follow the [getting started guide]({{ '/getting-started/' | relative_url }}).
-7. Send feedback through the [support page]({{ '/support/' | relative_url }}).
+4. Download the macOS installer.
+5. Use Control-click > Open if macOS blocks the unsigned app.
+6. Follow the short [tester notes]({{ '/tester-notes/' | relative_url }}) or the full [getting started guide]({{ '/getting-started/' | relative_url }}).
+7. Send feedback through the same private thread where you received the link.
 
 ## Before You Install
 
@@ -154,6 +154,7 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
 ## Help
 
 - Support: [Support]({{ '/support/' | relative_url }})
+- Tester notes: [Tester Notes]({{ '/tester-notes/' | relative_url }})
 - Privacy summary: [Privacy]({{ '/privacy/' | relative_url }})
 - Release notes: [Releases]({{ '/releases/' | relative_url }})
 
