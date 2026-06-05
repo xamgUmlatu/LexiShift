@@ -8,7 +8,7 @@ title: Cloudflare Distribution Setup
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-06-05
-Last verified: 2026-06-05 repo-side Worker/R2 gate scaffold review; live Cloudflare resources still require valid API credentials
+Last verified: 2026-06-05 repo-side Worker/R2 gate scaffold review; live Cloudflare provisioning blocked until R2 is enabled in the dashboard
 Purpose: define the low-cost Cloudflare lane for LexiShift installer downloads, release metadata, and future hosted app data
 Source-of-truth: operational runbook; live Cloudflare resource names, DNS records, and billing state must be checked in the Cloudflare dashboard before deployment.
 Related docs:
@@ -134,7 +134,8 @@ R2.
 1. Create or log into the Cloudflare account.
 2. Add the product domain, for example `lexishift.app`.
 3. Move domain nameservers to Cloudflare.
-4. Create an R2 bucket named `lexishift-distribution`.
+4. Enable R2 in the Cloudflare dashboard, then create an R2 bucket named
+   `lexishift-distribution`.
 5. Deploy the `cloudflare/download-gate` Worker.
 6. Route `downloads.lexishift.app/*` to the Worker. Do not attach
    `downloads.lexishift.app` directly to public R2 for the private beta.
@@ -147,6 +148,11 @@ R2.
 
 Do not store Cloudflare API tokens, account IDs, signing credentials, or
 notarization passwords in the repository.
+
+Automation requires a valid account token with R2 storage access, Worker script
+and route access, and DNS record read/edit access for `lexishift.app`. If R2 has
+not been enabled in the Cloudflare dashboard, Wrangler bucket creation fails
+with Cloudflare API code `10042`.
 
 ## Local Upload Commands
 
@@ -170,6 +176,10 @@ Create the bucket if it has not been created in the dashboard:
 ```bash
 npx wrangler r2 bucket create lexishift-distribution
 ```
+
+If this returns `Please enable R2 through the Cloudflare Dashboard`, open
+Cloudflare Dashboard > R2 Object Storage and complete the R2 enablement step
+before retrying the command.
 
 Set the shared beta password as a Worker secret. Do not commit it:
 
