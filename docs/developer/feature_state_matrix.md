@@ -892,7 +892,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
 - Last documented checkpoint: `2026-05-15` Lane 5 contains thrown semantic inventory/helper exceptions inside the fail-closed semantic admission fallback path
-- Last verified: `2026-05-15` Lane 5 L5-E semantic inventory exception containment validation with focused semantic gate/runtime tests; `2026-05-16` routing-only evidence sync for semantic-shadow review queue path
+- Last verified: `2026-05-15` Lane 5 L5-E semantic inventory exception containment validation with focused semantic gate/runtime tests; `2026-05-16` routing-only evidence sync for semantic-shadow review queue path; `2026-06-06` route-only evidence sync from getting-started page to guide page
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -1276,7 +1276,7 @@ Use this file when:
   - `docs/rulegen/semantic_routing_publication_contract.md`
   - `docs/rulegen/rule_generation_technical.md`
   - `docs/architecture/extension_system_map.md`
-  - `docs/getting-started/index.md`
+  - `docs/guide/index.md`
   - `docs/srs/srs_roadmap.md`
   - `core/lexishift_core/replacement/core.py`
   - `core/lexishift_core/persistence/storage.py`

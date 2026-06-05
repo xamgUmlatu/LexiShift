@@ -17,10 +17,10 @@ It combines:
 
 ## User Quick Start
 
-1. Open the onboarding guide: `docs/getting-started/README.md`.
-2. Create a profile and ruleset in the desktop app.
+1. Open the guide: `docs/guide/README.md`.
+2. Create a profile in the desktop app.
 3. Load the extension from `apps/chrome-extension/` and configure options.
-4. (Optional) Enable helper-backed SRS flows for init/refresh/feedback sync.
+4. Start Vocabulary Practice for the profile and language pair you want to test.
 
 If you prefer the GitHub Pages manual view, use `docs/index.md` (and its linked pages).
 
@@ -72,7 +72,7 @@ Run main surfaces:
 ## Documentation
 
 Current user/developer routing:
-- Getting started guide: `docs/getting-started/README.md`
+- User guide: `docs/guide/README.md`
 - Manual entrypoint: `docs/index.md`
 - Handbook entrypoint (Pages): `docs/handbook/index.md`
 - Rendered diagrams page: `docs/handbook/diagrams.md`

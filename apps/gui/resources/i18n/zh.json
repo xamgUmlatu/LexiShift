@@ -69,7 +69,7 @@
     "browser_connections": "连接...",
     "debug": "调试",
     "help": "帮助",
-    "open_setup_guide": "打开使用指南",
+    "open_setup_guide": "打开指南",
     "startup_diagnostics": "启动诊断...",
     "open_log_directory": "打开日志目录"
   },
@@ -481,7 +481,7 @@
     "delete_tooltip": "删除规则（Alt+点击跳过确认）",
     "empty_title": "该规则集还没有规则。",
     "empty_hint": "可通过“添加规则”“批量添加同义词”或导入规则集开始。",
-    "open_setup_guide": "打开使用指南"
+    "open_setup_guide": "打开指南"
   },
   "ruleset": {
     "missing": "{label}（缺失）",

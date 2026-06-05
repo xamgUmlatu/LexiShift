@@ -109,7 +109,7 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
 3. Enter the shared beta password from your invite.
 4. Download the macOS installer.
 5. Use Control-click > Open if macOS blocks the unsigned app.
-6. Follow the short [tester notes]({{ '/tester-notes/' | relative_url }}) or the full [getting started guide]({{ '/getting-started/' | relative_url }}).
+6. Follow the short [tester notes]({{ '/tester-notes/' | relative_url }}) or the full [LexiShift guide]({{ '/guide/' | relative_url }}).
 7. Send feedback through the same private thread where you received the link.
 
 ## Before You Install

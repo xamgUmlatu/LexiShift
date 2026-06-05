@@ -106,7 +106,7 @@ Acceptance criteria:
 - Fix squished UI elements in settings of core app.
 - Fix ghost ruleset populated in ruleset selection UI in core app when no ruleset exists.
 
-### Getting-started guide completion
+### Guide completion
 - Complete the manual end-to-end (all sections finalized, screenshots added, and setup steps verified against current UI labels).
 - Keep guide steps synchronized with extension/core app releases when labels or flow change.
 

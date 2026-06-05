@@ -77,7 +77,7 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
       <div class="landing-actions" aria-label="Primary LexiShift actions">
         <a class="landing-button landing-button--primary" href="{{ '/download/' | relative_url }}">Download Beta App</a>
         <a class="landing-button" href="#runtime-links">Chrome Extension</a>
-        <a class="landing-button landing-button--quiet" href="{{ '/getting-started/' | relative_url }}">Setup Guide</a>
+        <a class="landing-button landing-button--quiet" href="{{ '/guide/' | relative_url }}">Guide</a>
       </div>
       <p class="landing-hero__note">
         Private beta access is live for invited testers. The download page

@@ -69,7 +69,7 @@
     "browser_connections": "接続...",
     "debug": "デバッグ",
     "help": "ヘルプ",
-    "open_setup_guide": "セットアップガイドを開く",
+    "open_setup_guide": "ガイドを開く",
     "startup_diagnostics": "起動診断...",
     "open_log_directory": "ログの場所を開く"
   },
@@ -481,7 +481,7 @@
     "delete_tooltip": "ルールを削除（Alt+クリックで確認を省略）",
     "empty_title": "このルールセットにはまだルールがありません。",
     "empty_hint": "「ルールを追加」「同義語の一括追加」またはルールセットのインポートで開始できます。",
-    "open_setup_guide": "セットアップガイドを開く"
+    "open_setup_guide": "ガイドを開く"
   },
   "ruleset": {
     "missing": "{label}（見つかりません）",

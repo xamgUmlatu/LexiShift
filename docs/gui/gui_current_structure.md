@@ -62,19 +62,19 @@ These cards are the primary quick-switch controls.
 - Uses a custom delete delegate for prominent delete actions.
 - Shows a themed empty-state card when no rules exist.
 - Includes a contextual guide affordance: a small circular `?` button in the empty card.
-  - This button opens the setup guide URL used for onboarding/help.
+  - This button opens the user guide URL used for onboarding/help.
 
 ### Instruction Entry Points
 
 Current instruction surface in the app:
 
-1. `Help` menu -> `Open Setup Guide`
+1. `Help` menu -> `Open Guide`
 2. Rules table empty-state `?` button (contextual onboarding affordance)
 
-The setup guide currently targets:
+The user guide currently targets:
 
-- Preferred: `https://xamgUmlatu.github.io/LexiShift/getting-started/` (GitHub Pages)
-- Fallback: `docs/getting-started/README.md` (repository URL)
+- Preferred: `https://lexishift.app/guide/`
+- Fallback: `docs/guide/README.md` (repository URL)
 
 ### Replacements Panel
 

@@ -56,7 +56,7 @@ happened during install or first launch.
 
 ## Useful Links
 
-- [Getting Started]({{ '/getting-started/' | relative_url }})
+- [Guide]({{ '/guide/' | relative_url }})
 - [Download LexiShift]({{ '/download/' | relative_url }})
 - [Tester Notes]({{ '/tester-notes/' | relative_url }})
 - [Privacy]({{ '/privacy/' | relative_url }})

@@ -58,7 +58,7 @@ Build contract:
 ## Expected Result
 
 - Site root: `https://lexishift.app/`
-- Getting started page: `https://lexishift.app/getting-started/`
+- Guide page: `https://lexishift.app/guide/`
 - Beta page: `https://lexishift.app/beta/`
 - Download page: `https://lexishift.app/download/`
 - Repository fallback during transition: `https://xamgUmlatu.github.io/LexiShift/`

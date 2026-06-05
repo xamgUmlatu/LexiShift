@@ -5,10 +5,10 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 # Single source for "open instructions" actions (Help menu + empty-state affordances).
-# Prefer the GitHub Pages manual, but fall back to the repository README until Pages is enabled.
+# Prefer the public guide, but fall back to the repository README if the site is unavailable.
 SETUP_GUIDE_URLS: tuple[str, ...] = (
-    "https://xamgUmlatu.github.io/LexiShift/getting-started/",
-    "https://github.com/xamgUmlatu/LexiShift/blob/main/docs/getting-started/README.md",
+    "https://lexishift.app/guide/",
+    "https://github.com/xamgUmlatu/LexiShift/blob/main/docs/guide/README.md",
 )
 
 

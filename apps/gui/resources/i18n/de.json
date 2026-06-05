@@ -69,7 +69,7 @@
     "browser_connections": "Verbindungen...",
     "debug": "Debug",
     "help": "Hilfe",
-    "open_setup_guide": "Setup-Anleitung öffnen",
+    "open_setup_guide": "Anleitung öffnen",
     "startup_diagnostics": "Startdiagnose...",
     "open_log_directory": "Log-Verzeichnis öffnen"
   },
@@ -481,7 +481,7 @@
     "delete_tooltip": "Regel löschen (Alt+Klick überspringt Bestätigung)",
     "empty_title": "Dieser Regelsatz enthält noch keine Regeln.",
     "empty_hint": "Verwenden Sie „Regel hinzufügen“, „Synonyme gesammelt hinzufügen“ oder importieren Sie einen Regelsatz.",
-    "open_setup_guide": "Setup-Anleitung öffnen"
+    "open_setup_guide": "Anleitung öffnen"
   },
   "ruleset": {
     "missing": "{label} (fehlend)",
