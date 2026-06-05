@@ -1,0 +1,12 @@
+name = "lexishift-download-gate"
+main = "src/worker.js"
+compatibility_date = "2026-06-05"
+workers_dev = false
+
+routes = [
+  { pattern = "downloads.lexishift.app/*", zone_name = "lexishift.app" }
+]
+
+[[r2_buckets]]
+binding = "DISTRIBUTION_BUCKET"
+bucket_name = "lexishift-distribution"
