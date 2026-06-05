@@ -98,7 +98,7 @@ async function renderBetaDownloads(env) {
   const manifest = await readManifest(env);
   const rows = manifest
     ? Object.entries(manifest.platforms || {})
-        .map(([platform, meta]) => renderDownloadRow(platform, meta))
+        .map(([platform, meta]) => renderDownloadRow(platform, meta, manifest))
         .join("")
     : "";
   const releaseMeta = manifest
@@ -129,17 +129,55 @@ async function renderBetaDownloads(env) {
 </html>`);
 }
 
-function renderDownloadRow(platform, meta) {
+function renderDownloadRow(platform, meta, manifest) {
   const href = safeDownloadHref(meta && meta.url);
+  const filename = href ? basename(href) : "";
   const sha = meta && meta.sha256 ? String(meta.sha256) : "";
   const size = meta && Number.isFinite(Number(meta.size_bytes)) ? Number(meta.size_bytes) : 0;
+  const checksumHref = checksumPath(manifest);
   return `<article class="download">
     <div>
-      <h2>${escapeHtml(platform)}</h2>
-      <p>${size ? `${formatBytes(size)} · ` : ""}${sha ? `SHA-256 ${escapeHtml(sha.slice(0, 12))}...` : "Checksum pending"}</p>
+      <h2>${escapeHtml(platformLabel(platform))}</h2>
+      <p class="filename">${filename ? escapeHtml(filename) : "Installer pending"}</p>
+      <dl class="artifact-meta">
+        ${size ? `<div><dt>Size</dt><dd>${escapeHtml(formatBytes(size))}</dd></div>` : ""}
+        <div><dt>SHA-256</dt><dd>${sha ? `<code>${escapeHtml(sha)}</code>` : "Pending"}</dd></div>
+        ${
+          checksumHref
+            ? `<div><dt>Checksum file</dt><dd><a href="${escapeAttribute(checksumHref)}">SHA256SUMS.txt</a></dd></div>`
+            : ""
+        }
+      </dl>
+      ${renderTrustNotes(platform, meta)}
     </div>
     ${href ? `<a class="button" href="${escapeAttribute(href)}">Download</a>` : `<span class="disabled">Pending</span>`}
   </article>`;
+}
+
+function renderTrustNotes(platform, meta) {
+  const normalized = String(platform || "").toLowerCase();
+  const notes = [];
+  if (normalized === "macos") {
+    if (meta && meta.signed === true && meta.notarized === true) {
+      notes.push("Signed and notarized for macOS.");
+    } else {
+      notes.push("Unsigned beta build. macOS may require Control-click > Open.");
+      notes.push("Not notarized yet; this is expected for the current private beta.");
+    }
+  } else if (normalized === "windows") {
+    if (meta && meta.signed === true) {
+      notes.push("Signed Windows build.");
+    } else {
+      notes.push("Unsigned beta build. Windows SmartScreen may require More info > Run anyway.");
+    }
+  } else if (meta && meta.signed === false) {
+    notes.push("Unsigned beta build.");
+  }
+
+  if (!notes.length) {
+    return "";
+  }
+  return `<ul class="trust-notes">${notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}</ul>`;
 }
 
 function renderBetaLogin(next, errorMessage = "", status = 200) {
@@ -306,6 +344,26 @@ function safeDownloadHref(value) {
     return "";
   }
   return url.pathname.startsWith(`/${INSTALLER_PREFIX}`) ? url.pathname : "";
+}
+
+function checksumPath(manifest) {
+  const channel = manifest && typeof manifest.channel === "string" ? manifest.channel : "";
+  const version = manifest && typeof manifest.version === "string" ? manifest.version : "";
+  if (!channel || !version || !/^[a-z0-9._-]+$/i.test(channel) || !/^[a-z0-9._-]+$/i.test(version)) {
+    return "";
+  }
+  return `/${CHECKSUM_PREFIX}${channel}/${version}/SHA256SUMS.txt`;
+}
+
+function platformLabel(platform) {
+  const normalized = String(platform || "").toLowerCase();
+  if (normalized === "macos") {
+    return "macOS";
+  }
+  if (normalized === "windows") {
+    return "Windows";
+  }
+  return platform || "Platform";
 }
 
 function normalizePath(pathname) {
@@ -485,6 +543,41 @@ function inlineStyles() {
       color: #526a72;
       overflow-wrap: anywhere;
     }
+    .filename {
+      font-weight: 800;
+    }
+    .artifact-meta {
+      display: grid;
+      gap: 0.35rem;
+      margin: 0.7rem 0 0;
+    }
+    .artifact-meta div {
+      display: grid;
+      grid-template-columns: 7.4rem minmax(0, 1fr);
+      gap: 0.55rem;
+    }
+    .artifact-meta dt {
+      color: #526a72;
+      font-weight: 800;
+    }
+    .artifact-meta dd {
+      min-width: 0;
+      margin: 0;
+      color: #213f49;
+      overflow-wrap: anywhere;
+    }
+    .artifact-meta code {
+      font-size: 0.82rem;
+      white-space: normal;
+    }
+    .trust-notes {
+      margin: 0.75rem 0 0;
+      padding-left: 1.15rem;
+      color: #81510f;
+    }
+    .trust-notes li + li {
+      margin-top: 0.18rem;
+    }
     .disabled,
     .error {
       color: #9b5f11;
@@ -494,6 +587,10 @@ function inlineStyles() {
       .download {
         align-items: stretch;
         flex-direction: column;
+      }
+      .artifact-meta div {
+        grid-template-columns: 1fr;
+        gap: 0.1rem;
       }
       .button {
         width: 100%;

@@ -4,10 +4,10 @@ title: LexiShift Beta
 ---
 
 <!--
-Status: staging
+Status: active beta entrypoint
 Role: Beta entrypoint
 Last updated: 2026-06-05
-Purpose: provide the public beta entrypoint for tester-facing install and support links once hosted distribution is live.
+Purpose: provide the public beta entrypoint for tester-facing install and support links while hosted distribution is live.
 -->
 
 <div class="beta-page" markdown="1">
@@ -21,19 +21,19 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
         builds, manual updates, and clear issue reports.
       </p>
       <div class="beta-actions">
-        <a class="beta-button beta-button--primary" href="{{ '/download/' | relative_url }}">Request beta download</a>
+        <a class="beta-button beta-button--primary" href="{{ '/download/' | relative_url }}">Download beta app</a>
         <a class="beta-button" href="{{ '/getting-started/' | relative_url }}">Read setup guide</a>
       </div>
     </div>
     <div class="beta-release-card" aria-label="Beta release status">
       <div class="beta-release-card__header">
         <span>Current beta</span>
-        <strong>Preparing</strong>
+        <strong>0.1.0</strong>
       </div>
       <dl>
         <div>
           <dt>Download status</dt>
-          <dd>Private access staging</dd>
+          <dd>macOS beta live behind password gate</dd>
         </div>
         <div>
           <dt>Primary platform</dt>
@@ -41,7 +41,7 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
         </div>
         <div>
           <dt>Distribution</dt>
-          <dd>Gated R2-backed downloads planned</dd>
+          <dd>Cloudflare Worker plus private R2</dd>
         </div>
         <div>
           <dt>Update model</dt>
@@ -105,8 +105,8 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
 ## Install
 
 1. Open the [download page]({{ '/download/' | relative_url }}).
-2. Confirm the page says an installer is live.
-3. Use the private tester link if you have been invited.
+2. Open the private beta gate if you have been invited.
+3. Enter the shared beta password from your invite.
 4. Choose the installer for your platform.
 5. Verify the SHA-256 checksum listed beside the installer.
 6. Follow the [getting started guide]({{ '/getting-started/' | relative_url }}).
@@ -115,9 +115,11 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
 ## Before You Install
 
 - Beta builds may change quickly and may require manual replacement.
-- Hosted installer links will point to versioned files on `downloads.lexishift.app`.
+- Hosted installer links point to versioned files on `downloads.lexishift.app`.
 - A shared password is acceptable only as a server-side beta gate, not as static
   JavaScript on GitHub Pages.
+- The current macOS beta is unsigned and not notarized; macOS may require
+  Control-click > Open.
 - The app is being treated as local-first; account, sync, and backup features are not part of this beta lane.
 - Publicly hosted app data must stay inside the project's distribution and licensing rules.
 - Use the [release notes]({{ '/releases/' | relative_url }}) before replacing an older build.

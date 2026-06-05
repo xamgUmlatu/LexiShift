@@ -18,12 +18,14 @@ Release notes will appear here when beta installers are available.
 
 <section class="release-channel-grid">
   <article class="release-channel">
-    <span class="status-pill status-pill--pending">Preparing</span>
+    <span class="status-pill status-pill--live">Live beta</span>
     <h2>Beta 0.1.0</h2>
     <p>
-      First public beta artifacts are not posted yet. The release must include
-      installer links, checksums, platform signing status, and known limitations.
+      The macOS beta artifact is live behind the private download gate. This
+      build is unsigned and not notarized; use the release notes before sharing
+      it with testers.
     </p>
+    <a href="{{ '/releases/0.1.0/' | relative_url }}">Read 0.1.0 notes</a>
   </article>
   <article class="release-channel">
     <span class="status-pill">Planned</span>
@@ -41,6 +43,10 @@ Release notes will appear here when beta installers are available.
 | --- | --- |
 | Beta | `https://downloads.lexishift.app/releases/beta/latest.json` |
 | Stable | `https://downloads.lexishift.app/releases/stable/latest.json` |
+
+## Published Beta Builds
+
+- [0.1.0]({{ '/releases/0.1.0/' | relative_url }}) - macOS private beta, unsigned and not notarized.
 
 ## Related Pages
 

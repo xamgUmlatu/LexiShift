@@ -8,7 +8,7 @@ title: Cloudflare Distribution Setup
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-06-05
-Last verified: 2026-06-05 live `downloads.lexishift.app` Worker/R2 gate smoke after R2 enablement
+Last verified: 2026-06-05 live `downloads.lexishift.app` Worker/R2 gate smoke with a macOS 0.1.0 beta artifact
 Purpose: define the low-cost Cloudflare lane for LexiShift installer downloads, release metadata, and future hosted app data
 Source-of-truth: operational runbook; live Cloudflare resource names, DNS records, and billing state must be checked in the Cloudflare dashboard before deployment.
 Related docs:
@@ -199,7 +199,8 @@ Upload an installer:
 ```bash
 npx wrangler r2 object put \
   lexishift-distribution/installers/beta/0.1.0/macos/LexiShift-0.1.0.dmg \
-  --file apps/gui/dist/installers/LexiShift-0.1.0.dmg
+  --file apps/gui/dist/installers/LexiShift-0.1.0.dmg \
+  --remote
 ```
 
 Upload the beta manifest:
@@ -207,7 +208,8 @@ Upload the beta manifest:
 ```bash
 npx wrangler r2 object put \
   lexishift-distribution/releases/beta/latest.json \
-  --file docs/test_outputs/release_manifests/beta_latest.json
+  --file docs/test_outputs/release_manifests/beta_latest.json \
+  --remote
 ```
 
 Generate a real manifest and checksum file from installer artifacts:
@@ -219,6 +221,12 @@ npm --prefix scripts run release:manifest -- \
   --asset macos=apps/gui/dist/installers/LexiShift-0.1.0.dmg \
   --print-wrangler-commands
 ```
+
+Wrangler's remote R2 upload command currently rejects files larger than 300 MiB.
+Keep beta artifacts below that limit or use an S3-compatible multipart upload
+path instead of `wrangler r2 object put`. The macOS DMG builder preserves app
+bundle symlinks so the packaged artifact should stay well below the inflated
+copy size of the raw bundles.
 
 When automating this, prefer a GitHub Actions workflow with a narrowly scoped
 Cloudflare API token stored as a GitHub Actions secret.

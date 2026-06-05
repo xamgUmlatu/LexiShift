@@ -80,9 +80,9 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
         <a class="landing-button landing-button--quiet" href="{{ '/getting-started/' | relative_url }}">Setup Guide</a>
       </div>
       <p class="landing-hero__note">
-        Private beta access is being staged. The download page will carry the
-        tester gate, versioned app files, checksums, signing status, and release
-        notes.
+        Private beta access is live for invited testers. The download page
+        links to the tester gate, versioned app file, checksum, signing status,
+        and release notes.
       </p>
     </div>
   </section>
@@ -91,11 +91,11 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
     <div class="landing-status-band__inner">
       <article>
         <span>Desktop app</span>
-        <strong>macOS first beta lane</strong>
+        <strong>macOS 0.1.0 beta live</strong>
       </article>
       <article>
         <span>Downloads</span>
-        <strong>Versioned installers planned</strong>
+        <strong>Gated artifact plus checksum</strong>
       </article>
       <article>
         <span>Runtime</span>
@@ -156,11 +156,11 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
       </div>
       <div class="landing-install-grid">
         <article class="landing-install-card landing-install-card--primary">
-          <span class="landing-badge">Preparing</span>
+          <span class="landing-badge">Beta live</span>
           <h3>Desktop App</h3>
           <p>
-            The app download page is the canonical place for beta installers,
-            checksums, signing status, and release notes.
+            The app download page is the canonical place for the beta gate,
+            installer artifacts, checksums, signing status, and release notes.
           </p>
           <a href="{{ '/download/' | relative_url }}">Open download page</a>
         </article>

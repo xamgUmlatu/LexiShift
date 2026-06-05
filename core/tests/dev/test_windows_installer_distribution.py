@@ -11,10 +11,42 @@ SCRIPT_DIR = REPO_ROOT / "scripts" / "build"
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from installer import _build_windows_installer, _ensure_iscc, _find_windows_distribution  # noqa: E402
+from installer import _build_dmg, _build_windows_installer, _ensure_iscc, _find_windows_distribution  # noqa: E402
 
 
 class TestWindowsInstallerDistribution(unittest.TestCase):
+    def test_build_dmg_preserves_app_bundle_symlinks(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            app = root / "LexiShift.app"
+            framework_dir = app / "Contents" / "Frameworks"
+            framework_dir.mkdir(parents=True)
+            target = framework_dir / "A"
+            target.write_text("framework", encoding="utf-8")
+            link = framework_dir / "Current"
+            try:
+                link.symlink_to("A")
+            except OSError as exc:
+                self.skipTest(f"symlinks are unavailable on this filesystem: {exc}")
+
+            def fake_hdiutil(command: list[str], check: bool = False) -> mock.Mock:
+                self.assertFalse(check)
+                stage_dir = Path(command[command.index("-srcfolder") + 1])
+                copied_link = stage_dir / "LexiShift.app" / "Contents" / "Frameworks" / "Current"
+                self.assertTrue(copied_link.is_symlink())
+                self.assertEqual(copied_link.readlink(), Path("A"))
+                return mock.Mock(returncode=0)
+
+            with mock.patch("installer.subprocess.run", side_effect=fake_hdiutil):
+                result = _build_dmg(
+                    app_paths=[app],
+                    output_dir=root / "installers",
+                    volume_name="LexiShift",
+                    dmg_name="LexiShift-0.1.0",
+                )
+
+        self.assertEqual(result.name, "LexiShift-0.1.0.dmg")
+
     def test_find_windows_distribution_prefers_collected_main_exe(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             dist = Path(tmpdir) / "dist"

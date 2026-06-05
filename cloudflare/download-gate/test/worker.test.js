@@ -14,6 +14,8 @@ const manifest = {
       url: "https://downloads.lexishift.app/installers/beta/0.1.0/macos/LexiShift-0.1.0.dmg",
       sha256: "a".repeat(64),
       size_bytes: 1024 * 1024 * 42,
+      signed: false,
+      notarized: false,
     },
   },
 };
@@ -60,6 +62,23 @@ test("correct password creates a signed session cookie", async () => {
   assert.match(response.headers.get("set-cookie") || "", /HttpOnly/);
 });
 
+test("authenticated beta page renders artifact trust metadata", async () => {
+  const session = await fetchWorker("https://downloads.lexishift.app/beta/session", {
+    method: "POST",
+    body: new URLSearchParams({ password: fixturePassword }),
+  });
+  const response = await fetchWorker("https://downloads.lexishift.app/beta/", {
+    headers: { Cookie: session.headers.get("set-cookie") || "" },
+  });
+  const body = await response.text();
+  assert.equal(response.status, 200);
+  assert.match(body, /LexiShift-0\.1\.0\.dmg/);
+  assert.match(body, /SHA256SUMS\.txt/);
+  assert.match(body, /Unsigned beta build/);
+  assert.match(body, /Not notarized yet/);
+  assert.match(body, new RegExp("a{64}"));
+});
+
 test("installer redirects to beta gate without a session", async () => {
   const response = await fetchWorker(
     "https://downloads.lexishift.app/installers/beta/0.1.0/macos/LexiShift-0.1.0.dmg",
@@ -98,6 +117,7 @@ function makeEnv() {
   const objects = new Map([
     ["releases/beta/latest.json", JSON.stringify(manifest)],
     ["installers/beta/0.1.0/macos/LexiShift-0.1.0.dmg", "fake dmg"],
+    ["checksums/beta/0.1.0/SHA256SUMS.txt", `${"a".repeat(64)}  fake dmg\n`],
   ]);
   return {
     BETA_DOWNLOAD_PASSWORD: fixturePassword,
