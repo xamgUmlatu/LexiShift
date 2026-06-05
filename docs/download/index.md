@@ -6,7 +6,7 @@ title: Download LexiShift
 <!--
 Status: active beta access
 Role: Public download page
-Last updated: 2026-06-05
+Last updated: 2026-06-06
 Purpose: route testers to beta access, installer assets, checksums, and release metadata while private distribution is active.
 -->
 
@@ -16,13 +16,14 @@ Purpose: route testers to beta access, installer assets, checksums, and release 
       <p class="beta-kicker">Beta download status</p>
       <h2>Private beta downloads are live.</h2>
       <p>
-        Invited testers can open the Cloudflare download gate, enter the shared
-        beta password, and download the current macOS beta artifact. Checksums
-        and release metadata are public so the file can be verified.
+        Invited testers can open the download gate, enter the beta password
+        from their private invite, and download the current macOS beta. This
+        first beta is intentionally informal: install it, try the basic flow,
+        and send back what happened.
       </p>
       <div class="beta-actions">
         <a class="beta-button beta-button--primary" href="https://downloads.lexishift.app/beta/">Open beta gate</a>
-        <a class="beta-button" href="{{ '/getting-started/' | relative_url }}">Preview setup steps</a>
+        <a class="beta-button" href="{{ '/tester-notes/' | relative_url }}">Read tester notes</a>
       </div>
     </div>
     <div class="download-status__badge">
@@ -35,18 +36,17 @@ Purpose: route testers to beta access, installer assets, checksums, and release 
     <div>
       <h2>Access model for the first beta</h2>
       <p>
-        The beta password is enforced by a Cloudflare Worker before the
-        installer object is streamed from private R2 storage. GitHub Pages stays
-        public and intentionally does not contain the password or direct binary
-        object access.
+        The public website explains the install path, but the actual app file
+        stays behind the private download gate. The shared password is sent
+        privately and is not published on this page.
       </p>
     </div>
     <div class="download-steps">
       <ol>
-        <li>Invite testers directly through a private thread.</li>
-        <li>Send <code>https://downloads.lexishift.app/beta/</code> with the shared beta password.</li>
-        <li>Keep the binary behind the server-side gate.</li>
-        <li>Use the manifest and checksum file to verify the downloaded artifact.</li>
+        <li>Open <code>https://downloads.lexishift.app/beta/</code>.</li>
+        <li>Enter the beta password from the private invite.</li>
+        <li>Download the macOS installer.</li>
+        <li>Use the unsigned-app instructions below if macOS blocks first launch.</li>
       </ol>
     </div>
   </section>
@@ -85,17 +85,16 @@ Purpose: route testers to beta access, installer assets, checksums, and release 
     <div>
       <h2>Before installing a beta build</h2>
       <p>
-        Each posted installer should be treated as a specific release artifact,
-        not a generic download. Match the version, checksum, and release notes
-        before replacing an older build. The current macOS beta is unsigned and
-        not notarized, so macOS may require Control-click > Open.
+        The current macOS beta is unsigned and not notarized. That is expected
+        for this first casual test, but it means macOS may show a warning the
+        first time the app is opened.
       </p>
     </div>
     <ol class="download-steps">
-      <li>Download the platform-specific installer.</li>
-      <li>Compare the SHA-256 checksum with the value in the manifest or checksum file.</li>
-      <li>Check whether the build is signed or notarized for your platform.</li>
-      <li>Read the release notes for known limitations and rollback notes.</li>
+      <li>Download <code>LexiShift-0.1.0.dmg</code> from the beta gate.</li>
+      <li>Open the DMG and drag LexiShift into Applications if prompted.</li>
+      <li>If macOS blocks the app, Control-click LexiShift and choose Open.</li>
+      <li>If it still will not open, check System Settings -> Privacy &amp; Security for the allow/open option.</li>
     </ol>
   </section>
 
@@ -105,8 +104,8 @@ Purpose: route testers to beta access, installer assets, checksums, and release 
       <article class="site-card">
         <h3>Gated beta link</h3>
         <p>
-          The private beta uses a shared password checked by the Cloudflare
-          Worker before the installer object is returned from R2.
+          The private beta uses a shared password checked before the installer
+          object is returned from private storage.
         </p>
       </article>
       <article class="site-card">
@@ -156,9 +155,14 @@ Each published installer should have:
 - signed status for Windows,
 - release notes linked from the manifest.
 
+For casual invited testers, checksum verification is optional. If the file was
+downloaded from the beta gate, the most important check is whether the app
+opens and the setup flow is understandable.
+
 ## Related Pages
 
 - [Beta]({{ '/beta/' | relative_url }})
 - [Releases]({{ '/releases/' | relative_url }})
 - [Getting Started]({{ '/getting-started/' | relative_url }})
+- [Tester Notes]({{ '/tester-notes/' | relative_url }})
 - [Support]({{ '/support/' | relative_url }})

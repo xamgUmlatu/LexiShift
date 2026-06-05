@@ -6,7 +6,7 @@ title: LexiShift Support
 <!--
 Status: active beta support route
 Role: Public support page
-Last updated: 2026-06-05
+Last updated: 2026-06-06
 Purpose: provide a stable support route for beta testers, users, release manifests, and store listings.
 -->
 
@@ -14,8 +14,9 @@ Purpose: provide a stable support route for beta testers, users, release manifes
 
 # LexiShift Support
 
-The beta support route is intentionally lightweight while installer downloads
-are still being prepared.
+The first beta is intentionally lightweight. If you were invited directly,
+reply in the same private thread first; that is the fastest way to report what
+happened during install or first launch.
 
 ## Access And Feedback
 
@@ -45,8 +46,9 @@ are still being prepared.
 
 ## Known Beta Boundaries
 
-- Installer links are not public until the first beta artifact is uploaded and
-  the beta gate is ready.
+- macOS beta downloads are live behind the private beta gate.
+- The current macOS app is unsigned and not notarized, so macOS may require
+  Control-click > Open or an allow action in System Settings.
 - Manual updates are expected during beta.
 - Account sync and cloud backup are not part of the current beta scope.
 - Hosted resource downloads must stay inside the project's licensing and
@@ -56,6 +58,7 @@ are still being prepared.
 
 - [Getting Started]({{ '/getting-started/' | relative_url }})
 - [Download LexiShift]({{ '/download/' | relative_url }})
+- [Tester Notes]({{ '/tester-notes/' | relative_url }})
 - [Privacy]({{ '/privacy/' | relative_url }})
 - [Releases]({{ '/releases/' | relative_url }})
 

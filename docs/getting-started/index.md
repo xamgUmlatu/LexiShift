@@ -461,7 +461,8 @@ Source-of-truth: user-facing onboarding guide only; current GUI, extension, plug
       </ul>
       <h3>Manual URL behavior</h3>
       <ul>
-        <li>Preferred guide URL: <code>https://xamgUmlatu.github.io/LexiShift/getting-started/</code>.</li>
+        <li>Preferred guide URL: <code>https://lexishift.app/getting-started/</code>.</li>
+        <li>Short tester notes URL: <code>https://lexishift.app/tester-notes/</code>.</li>
         <li>Fallback URL: repository <code>docs/getting-started/README.md</code>.</li>
       </ul>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for diagnostics and logs">
