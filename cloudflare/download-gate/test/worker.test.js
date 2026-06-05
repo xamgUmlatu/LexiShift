@@ -32,6 +32,15 @@ test("beta gate does not expose the password", async () => {
   assert.doesNotMatch(body, new RegExp(`\\b${fixturePassword}\\b`));
 });
 
+test("beta gate supports smoke-test HEAD requests", async () => {
+  const response = await fetchWorker("https://downloads.lexishift.app/beta/", {
+    method: "HEAD",
+  });
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") || "", /text\/html/);
+  assert.equal(await response.text(), "");
+});
+
 test("wrong password is rejected", async () => {
   const response = await fetchWorker("https://downloads.lexishift.app/beta/session", {
     method: "POST",
