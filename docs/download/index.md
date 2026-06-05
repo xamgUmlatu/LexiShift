@@ -17,8 +17,8 @@ Purpose: route testers to beta access, signed installer assets, checksums, and r
       <h2>Private beta access is being staged.</h2>
       <p>
         The public CTA now leads here. The actual installer link should stay
-        limited to invited testers until the first beta build has versioned
-        assets, checksums, and release notes.
+        limited to invited testers through the Cloudflare download gate until
+        the first beta build has versioned assets, checksums, and release notes.
       </p>
       <div class="beta-actions">
         <a class="beta-button beta-button--primary" href="{{ '/support/' | relative_url }}">Request beta access</a>
@@ -44,7 +44,7 @@ Purpose: route testers to beta access, signed installer assets, checksums, and r
     <div class="download-steps">
       <ol>
         <li>Invite testers directly through a private thread.</li>
-        <li>Send the gated download URL only after the build is ready.</li>
+        <li>Send <code>https://downloads.lexishift.app/beta/</code> only after the build is ready.</li>
         <li>Protect the binary with a server-side password, signed URL, or invite-code check.</li>
         <li>Keep checksums and release notes public enough for testers to verify the file.</li>
       </ol>
@@ -107,7 +107,8 @@ Purpose: route testers to beta access, signed installer assets, checksums, and r
         <h3>Gated beta link</h3>
         <p>
           The first private beta can use a shared password or invite code, but
-          the check should happen before the installer URL is returned.
+          the check should happen in the Cloudflare Worker before the installer
+          object is returned from R2.
         </p>
       </article>
       <article class="site-card">
@@ -132,6 +133,12 @@ The planned beta release manifest is:
 
 ```text
 https://downloads.lexishift.app/releases/beta/latest.json
+```
+
+The planned private beta gate is:
+
+```text
+https://downloads.lexishift.app/beta/
 ```
 
 The planned stable release manifest is:

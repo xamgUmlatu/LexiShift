@@ -39,6 +39,8 @@
     "build:ci:report": "node dev/run_python.js dev/dev_workflow_build.py --ci-safe --json-out ../docs/test_outputs/dev_workflow/build_ci_latest.json",
     "build:gui": "node dev/run_python.js build/gui_app.py --validate",
     "release:manifest": "node dev/run_python.js dev/release_distribution_manifest.py",
+    "test:downloads:gate": "npm --prefix ../cloudflare/download-gate test",
+    "deploy:downloads:gate": "npm --prefix ../cloudflare/download-gate run deploy",
     "hooks:install": "node dev/run_python.js -m pre_commit install --install-hooks --config ../.pre-commit-config.yaml --hook-type pre-commit --hook-type pre-push",
     "hooks:run:pre-push": "node dev/run_python.js -m pre_commit run repo-safety-check --hook-stage pre-push --all-files",
     "health:project": "node dev/check_project_health.js --advisory",
