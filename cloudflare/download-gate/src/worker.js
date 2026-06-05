@@ -26,12 +26,12 @@ async function handleRequest(request, env) {
     return jsonResponse({ ok: true });
   }
 
-  if (request.method === "GET" && (pathname === "/beta" || pathname === "/beta/")) {
+  if ((request.method === "GET" || request.method === "HEAD") && (pathname === "/beta" || pathname === "/beta/")) {
     const session = await hasValidSession(request, env);
-    if (!session) {
-      return renderBetaLogin(url.searchParams.get("next") || "/beta/");
-    }
-    return renderBetaDownloads(env);
+    const response = session
+      ? await renderBetaDownloads(env)
+      : renderBetaLogin(url.searchParams.get("next") || "/beta/");
+    return withoutBodyForHead(request, response);
   }
 
   if (request.method === "POST" && pathname === "/beta/session") {
@@ -358,6 +358,16 @@ function htmlResponse(body, status = 200) {
       "X-Content-Type-Options": "nosniff",
       "Referrer-Policy": "no-referrer",
     },
+  });
+}
+
+function withoutBodyForHead(request, response) {
+  if (request.method !== "HEAD") {
+    return response;
+  }
+  return new Response(null, {
+    status: response.status,
+    headers: response.headers,
   });
 }
 
