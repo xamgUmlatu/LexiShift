@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Optional
 
 from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
+from lexishift_core.helper.source_stacks import source_stack_for_pair
 
 
 @dataclass(frozen=True)
@@ -21,10 +22,12 @@ class PairCapability:
     pair: str
     rulegen_mode: Optional[str] = None
     default_frequency_db: Optional[str] = None
+    fallback_frequency_dbs: tuple[str, ...] = ()
     srs_selectable: bool = False
     requires_jmdict_for_seed: bool = False
     requires_jmdict_for_rulegen: bool = False
     requires_translation_dictionary_for_rulegen: bool = False
+    default_semantic_pack_id: Optional[str] = None
     semantic_publication: SemanticPublicationCapability = field(
         default_factory=SemanticPublicationCapability
     )
@@ -50,13 +53,15 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
     ),
     "en-en": PairCapability(
         pair="en-en",
-        default_frequency_db="freq-en-coca.sqlite",
+        default_frequency_db="freq-en-leipzig-default.sqlite",
+        fallback_frequency_dbs=("freq-en-coca.sqlite",),
         srs_selectable=True,
     ),
     "de-en": PairCapability(
         pair="de-en",
         rulegen_mode="de_en",
-        default_frequency_db="freq-en-coca.sqlite",
+        default_frequency_db="freq-en-leipzig-default.sqlite",
+        fallback_frequency_dbs=("freq-en-coca.sqlite",),
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
         semantic_publication=SemanticPublicationCapability(
@@ -78,9 +83,10 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
     "en-es": PairCapability(
         pair="en-es",
         rulegen_mode="en_es",
-        default_frequency_db="freq-es-cde.sqlite",
+        default_frequency_db="freq-es-spalex-v1.sqlite",
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
+        default_semantic_pack_id="en-es-active-only-combined-full-v1-tranche-011",
         semantic_publication=SemanticPublicationCapability(
             locator_modes=("sense_provenance", "translation_gloss"),
             missing_locator_reason_code="missing_source_sense_locator",
@@ -91,7 +97,8 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
     "es-en": PairCapability(
         pair="es-en",
         rulegen_mode="es_en",
-        default_frequency_db="freq-en-coca.sqlite",
+        default_frequency_db="freq-en-leipzig-default.sqlite",
+        fallback_frequency_dbs=("freq-en-coca.sqlite",),
         srs_selectable=True,
         requires_translation_dictionary_for_rulegen=True,
         semantic_publication=SemanticPublicationCapability(
@@ -101,7 +108,7 @@ _PAIR_CAPABILITIES: dict[str, PairCapability] = {
     ),
     "es-es": PairCapability(
         pair="es-es",
-        default_frequency_db="freq-es-cde.sqlite",
+        default_frequency_db="freq-es-spalex-v1.sqlite",
         srs_selectable=True,
     ),
     "de-de": PairCapability(pair="de-de", srs_selectable=True),
@@ -151,11 +158,10 @@ def default_frequency_db_path(
 ) -> Optional[Path]:
     capability = resolve_pair_capability(pair)
     if capability.default_frequency_db:
-        pack_id = Path(capability.default_frequency_db).stem
-        resolved_pack_artifact = resolve_installed_pack_artifact(frequency_packs_dir, pack_id)
-        if resolved_pack_artifact is not None:
-            return resolved_pack_artifact
-        return frequency_packs_dir / capability.default_frequency_db
+        return _resolve_default_frequency_db(
+            frequency_packs_dir=frequency_packs_dir,
+            filenames=(capability.default_frequency_db, *capability.fallback_frequency_dbs),
+        )
     target_lang = _target_language(capability.pair)
     if not target_lang:
         return None
@@ -170,6 +176,29 @@ def default_frequency_db_path(
     return frequency_packs_dir / fallback_filename
 
 
+def _resolve_default_frequency_db(
+    *,
+    frequency_packs_dir: Path,
+    filenames: tuple[str, ...],
+) -> Path:
+    candidates: list[Path] = []
+    for filename in filenames:
+        normalized = str(filename or "").strip()
+        if not normalized:
+            continue
+        pack_id = Path(normalized).stem
+        resolved_pack_artifact = resolve_installed_pack_artifact(frequency_packs_dir, pack_id)
+        if resolved_pack_artifact is not None:
+            return resolved_pack_artifact
+        candidate = frequency_packs_dir / normalized
+        if candidate.is_file():
+            return candidate
+        candidates.append(candidate)
+    if candidates:
+        return candidates[0]
+    return frequency_packs_dir / filenames[0]
+
+
 def default_jmdict_path(
     pair: str,
     *,
@@ -178,6 +207,12 @@ def default_jmdict_path(
     capability = resolve_pair_capability(pair)
     if not (capability.requires_jmdict_for_seed or capability.requires_jmdict_for_rulegen):
         return None
+    managed_artifact = resolve_installed_pack_artifact(language_packs_dir, "jmdict-ja-en")
+    if managed_artifact is not None:
+        return managed_artifact
+    managed_legacy_artifact = language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+    if managed_legacy_artifact.exists():
+        return managed_legacy_artifact
     return language_packs_dir / "JMdict_e"
 
 
@@ -362,6 +397,7 @@ def _resolve_pack_root_legacy_artifact(
 
 def pair_requirements(pair: str) -> dict[str, object]:
     capability = resolve_pair_capability(pair)
+    source_stack = source_stack_for_pair(capability.pair)
     fallback_frequency = capability.default_frequency_db
     if not fallback_frequency:
         target_lang = _target_language(capability.pair)
@@ -376,5 +412,11 @@ def pair_requirements(pair: str) -> dict[str, object]:
         "requires_jmdict_for_rulegen": capability.requires_jmdict_for_rulegen,
         "requires_translation_dictionary_for_rulegen": (
             capability.requires_translation_dictionary_for_rulegen
+        ),
+        "source_stack_id": source_stack.stack_id if source_stack is not None else None,
+        "source_stack_resources": (
+            [resource.as_dict() for resource in source_stack.resources]
+            if source_stack is not None
+            else []
         ),
     }

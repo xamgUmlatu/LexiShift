@@ -12,6 +12,7 @@ from semantic_routing_sentence_veto_support import (
     DEFAULT_SENTENCE_VETO_SWEEP_MARKDOWN_OUT,
     SENTENCE_VETO_CONTEXT_VIEWS,
     SENTENCE_VETO_EVIDENCE_VIEWS,
+    SENTENCE_VETO_PHRASE_GUARD_POS_SCOPES,
     SENTENCE_VETO_SCORERS,
     build_sentence_veto_sweep_report,
     render_sentence_veto_sweep_markdown,
@@ -95,6 +96,12 @@ def _parse_args() -> argparse.Namespace:
         help="Comma-separated phrase/frame control mode ids.",
     )
     parser.add_argument(
+        "--phrase-guard-pos-scopes",
+        type=str,
+        default="family_all",
+        help="Comma-separated POS scopes used by noun-family phrase guards.",
+    )
+    parser.add_argument(
         "--active-rescue-modes",
         type=str,
         default="off,sense_label_near_tie_active_rescue",
@@ -152,6 +159,10 @@ def main() -> int:
         phrase_control_modes=_parse_string_grid(
             args.phrase_control_modes,
             default_values=("off",),
+        ),
+        phrase_guard_pos_scopes=_parse_string_grid(
+            args.phrase_guard_pos_scopes,
+            default_values=SENTENCE_VETO_PHRASE_GUARD_POS_SCOPES,
         ),
         active_rescue_modes=_parse_string_grid(
             args.active_rescue_modes,

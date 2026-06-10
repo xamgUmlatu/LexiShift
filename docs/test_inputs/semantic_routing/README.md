@@ -57,6 +57,22 @@ Files:
   - intended current use: compare scorer families, context transforms, evidence views, and threshold ladders without changing the mined shadow source
 
 Datasets:
+- `docs/test_inputs/semantic_routing_cases/en_ja_sentence_veto_breadth_v1.json`
+  - research-only `en-ja` breadth-stress sentence-veto dataset
+  - currently 19 ambiguity families / 95 labeled sentences
+  - purpose: provide the first en-ja active/shadow/phrase veto signal at
+    `en-es` v10 ambiguity-family breadth through the same sentence-veto harness
+  - caveat: not representative browsing evidence and not final production
+    promotion evidence; current use is scorer/config sanity before runtime
+    default-on decisions
+- `docs/test_inputs/semantic_routing_cases/en_ja_sentence_veto_seed_v1.json`
+  - preserved research-only `en-ja` seed-stress sentence-veto dataset
+  - currently 10 ambiguity families / 50 labeled sentences
+  - purpose: provide the first executable en-ja active/shadow/phrase veto signal
+    through the same sentence-veto harness used for `en-es`
+  - caveat: not representative browsing evidence and not a promotion/parity
+    suite; current use is first-pass scorer/config sanity before expanding
+    toward `en-es` breadth
 - `docs/test_inputs/semantic_veto_representative_gap_rows_en_es.json`
   - research-only `en-es` representative gap row dataset for Stage 1 sampling
   - currently 25 corpus-like app-candidate proxy rows

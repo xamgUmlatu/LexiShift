@@ -51,9 +51,6 @@
       const backgroundAssetId = String(
         raw.backgroundAssetId !== undefined ? raw.backgroundAssetId : (base.backgroundAssetId || "")
       ).trim();
-      const requestedEnabled = raw.backgroundEnabled !== undefined
-        ? raw.backgroundEnabled === true
-        : (base.backgroundEnabled === true);
       const backgroundOpacity = this._normalizeFloat(
         raw.backgroundOpacity !== undefined ? raw.backgroundOpacity : base.backgroundOpacity,
         this.defaults.profileBackgroundOpacity || 0.18,
@@ -84,7 +81,7 @@
         defaults: themeDefaults
       });
       return {
-        backgroundEnabled: requestedEnabled && Boolean(backgroundAssetId),
+        backgroundEnabled: Boolean(backgroundAssetId),
         backgroundAssetId,
         backgroundOpacity,
         backgroundBackdropColor,

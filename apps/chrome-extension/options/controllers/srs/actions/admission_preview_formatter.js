@@ -1,17 +1,19 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const TOPIC_LABELS = {
-    arts_literature_humanities: "arts & literature",
-    animals: "animals",
-    finance_business: "finance & business",
-    food_cooking: "food & cooking",
-    games: "games",
-    law_politics_civics: "law & civics",
-    medicine_health: "medicine & health",
-    music_media_entertainment: "music & media",
-    plants_nature: "plants & nature",
-    science_technology: "science & technology",
-    sports_fitness: "sports & fitness"
+  const TOPIC_LABEL_KEYS = {
+    arts_literature_humanities: "topic_srs_arts_literature_humanities",
+    animals: "topic_srs_animals",
+    finance_business: "topic_srs_finance_business",
+    food_cooking: "topic_srs_food_cooking",
+    games: "topic_srs_games",
+    general: "topic_srs_general",
+    law_politics_civics: "topic_srs_law_politics_civics",
+    medicine_health: "topic_srs_medicine_health",
+    music_media_entertainment: "topic_srs_music_media_entertainment",
+    plants_nature: "topic_srs_plants_nature",
+    science_technology: "topic_srs_science_technology",
+    sports_fitness: "topic_srs_sports_fitness",
+    travel_places_transport: "topic_srs_travel_places_transport"
   };
 
   function escapeHtml(value) {
@@ -112,15 +114,19 @@
     return topic && topic !== "none" ? topic : "general";
   }
 
-  function formatTopicLabel(topic) {
+  function formatTopicLabel(topic, translate) {
     const normalized = String(topic || "general").trim() || "general";
-    if (normalized === "general") {
-      return "general";
+    const fallback = normalized.replace(/_/g, " ");
+    const key = TOPIC_LABEL_KEYS[normalized];
+    if (key && typeof translate === "function") {
+      return translate(key, null, fallback);
     }
-    return TOPIC_LABELS[normalized] || normalized.replace(/_/g, " ");
+    return fallback;
   }
 
-  function buildSimpleWordsHtml(admittedWords) {
+  function buildSimpleWordsHtml(admittedWords, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const items = admittedWords
       .map((entry) => {
         const lemma = String(entry && entry.lemma ? entry.lemma : "").trim();
@@ -128,7 +134,7 @@
           return "";
         }
         const topic = topicForAdmissionEntry(entry);
-        const topicLabel = formatTopicLabel(topic);
+        const topicLabel = formatTopicLabel(topic, translate);
         const topicClass = topic === "general" ? "is-general" : "is-topic";
         return [
           '<li class="srs-admission-word-item">',
@@ -139,6 +145,42 @@
       })
       .filter(Boolean);
     return items.length ? `<ul class="srs-admission-word-list">${items.join("")}</ul>` : "";
+  }
+
+  function buildTopicSummaryHtml(options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
+    const interests = Array.isArray(opts.interests) ? opts.interests : [];
+    const admittedWords = Array.isArray(opts.admittedWords) ? opts.admittedWords : [];
+    const activeTopicSupportEntries = Array.isArray(opts.activeTopicSupportEntries)
+      ? opts.activeTopicSupportEntries
+      : [];
+    const profileTopicOverlay = opts.profileTopicOverlay && typeof opts.profileTopicOverlay === "object"
+      ? opts.profileTopicOverlay
+      : {};
+    const selectedLabels = interests.map((topic) => formatTopicLabel(topic, translate));
+    const sampledTopicWords = admittedWords.filter((entry) => topicForAdmissionEntry(entry) !== "general").length;
+    const candidateCount = activeTopicSupportEntries.reduce((total, entry) => {
+      const count = Number(entry && entry.candidate_count);
+      return total + (Number.isFinite(count) ? count : 0);
+    }, 0);
+    const appliedSeedCount = Number(profileTopicOverlay.applied_seed_count);
+    const overlayStatus = String(profileTopicOverlay.application_status || profileTopicOverlay.status || "").trim();
+    const parts = [];
+    if (selectedLabels.length) {
+      parts.push(`Selected topics: ${selectedLabels.join(", ")}.`);
+      parts.push(`${sampledTopicWords} sampled topic ${sampledTopicWords === 1 ? "word" : "words"}.`);
+      if (candidateCount > 0) {
+        parts.push(`${candidateCount} matched candidates in the preview frontier.`);
+      } else if (Number.isFinite(appliedSeedCount) && appliedSeedCount === 0) {
+        parts.push("No matching candidates for those topics in this preview window.");
+      } else if (overlayStatus) {
+        parts.push(`Overlay status: ${overlayStatus}.`);
+      }
+    } else {
+      parts.push("No topic priorities reached the helper for this sample.");
+    }
+    return `<p class="srs-admission-preview-topic-summary">${escapeHtml(parts.join(" "))}</p>`;
   }
 
   function buildAdmissionPreviewOutput(options) {
@@ -343,6 +385,7 @@
 
   function buildAdmissionPreviewView(options) {
     const opts = options && typeof options === "object" ? options : {};
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const srsPair = String(opts.srsPair || "en-en");
     const plan = opts.plan && typeof opts.plan === "object" ? opts.plan : {};
     const preview = opts.preview && typeof opts.preview === "object" ? opts.preview : {};
@@ -352,16 +395,38 @@
     const possibleCount = preview.admitted_count ?? 0;
     const summary = `Showing ${shownCount} of ${possibleCount} possible words for ${srsPair}.`;
     const bodyHtml = plan.can_execute && admittedWords.length
-      ? buildSimpleWordsHtml(admittedWords)
+      ? buildSimpleWordsHtml(admittedWords, { translate })
       : `<p class="srs-admission-preview-empty">${escapeHtml(
           plan.can_execute
             ? `No admission sample is available for ${srsPair}.`
             : "Preview unavailable for the selected strategy."
         )}</p>`;
+    const profileBootstrap = preview.profile_bootstrap && typeof preview.profile_bootstrap === "object"
+      ? preview.profile_bootstrap
+      : {};
+    const profileContext = profileBootstrap.profile_context && typeof profileBootstrap.profile_context === "object"
+      ? profileBootstrap.profile_context
+      : {};
+    const activeTopicSupport = profileBootstrap.active_topic_support
+      && typeof profileBootstrap.active_topic_support === "object"
+      ? profileBootstrap.active_topic_support
+      : {};
+    const profileTopicOverlay = profileBootstrap.profile_topic_overlay
+      && typeof profileBootstrap.profile_topic_overlay === "object"
+      ? profileBootstrap.profile_topic_overlay
+      : {};
+    const topicSummaryHtml = buildTopicSummaryHtml({
+      translate,
+      interests: Array.isArray(profileContext.interests) ? profileContext.interests : [],
+      admittedWords,
+      activeTopicSupportEntries: Array.isArray(activeTopicSupport.topics) ? activeTopicSupport.topics : [],
+      profileTopicOverlay
+    });
     const html = [
       '<div class="srs-admission-preview-view">',
       '<p class="srs-admission-preview-note">Sample only. No words were added.</p>',
       `<p class="srs-admission-preview-summary">${escapeHtml(summary)}</p>`,
+      topicSummaryHtml,
       bodyHtml,
       '<details class="srs-admission-preview-advanced">',
       '<summary>Advanced details</summary>',

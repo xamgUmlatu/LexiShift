@@ -247,7 +247,7 @@
       srsSoundEnabled: nextPairProfile.srsSoundEnabled !== false,
       srsHighlightColor: String(nextPairProfile.srsHighlightColor || this.settingsManager.defaults.srsHighlightColor || "#2f74d0"),
       srsSemanticAdmissionEnabled: true,
-      srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
+      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
       srsFeedbackSrsEnabled: nextPairProfile.srsFeedbackSrsEnabled !== false,
       srsFeedbackRulesEnabled: nextPairProfile.srsFeedbackRulesEnabled === true,
       srsExposureLoggingEnabled: nextPairProfile.srsExposureLoggingEnabled !== false,

@@ -68,16 +68,26 @@
             Start practice
           </button>
           <div class="srs-story-list">
-            <details id="srs-story-current-card" class="srs-story-card" aria-labelledby="srs-story-current-heading">
-              <summary class="srs-story-summary">
-                <div class="srs-story-summary-copy">
-                  <h3 id="srs-story-current-heading">
-                    <span id="srs-story-current-pair" class="srs-story-pair-label">English -> Spanish</span>
+            <details
+              id="srs-story-current-card"
+              class="srs-active-story-panel"
+              aria-labelledby="srs-story-current-heading"
+            >
+              <summary class="srs-active-story-summary">
+                <div class="srs-story-pair-copy">
+                  <h3 id="srs-story-current-heading" class="srs-story-pair-title">
+                    <span id="srs-story-current-pair">English -> Spanish</span>
                   </h3>
+                  <span id="srs-story-current-meta" class="srs-story-pair-meta">40 active words</span>
                 </div>
-                <span class="srs-story-badge" data-i18n="badge_srs_active_story">Active</span>
+                <div class="srs-story-pair-actions">
+                  <span class="srs-story-badge" data-i18n="badge_srs_active_story">Active</span>
+                </div>
               </summary>
-              <div class="srs-story-body">
+              <div class="srs-active-story-body">
+                <h4 class="srs-active-story-settings-heading" data-i18n="heading_srs_practice_settings">
+                  Practice settings
+                </h4>
                 <div class="srs-story-preferences">
                 <section class="srs-settings-section srs-story-core-settings">
                   <div class="srs-field-grid">
@@ -319,6 +329,13 @@
           <div id="srs-rulegen-output" class="srs-preview" role="status"></div>
               </div>
             </details>
+            <div
+              id="srs-story-pair-list"
+              class="srs-story-pair-list"
+              role="list"
+              aria-label="Vocabulary Practice stories"
+              hidden
+            ></div>
             <article class="srs-story-start-card" aria-labelledby="srs-story-start-heading">
               <div>
                 <h3 id="srs-story-start-heading" data-i18n="heading_srs_start_new_story">Start Vocabulary Practice</h3>
@@ -521,10 +538,6 @@
             <label for="profile-bg-backdrop-color" data-i18n="label_profile_bg_backdrop_color">Options page backdrop color</label>
             <input id="profile-bg-backdrop-color" type="color" value="#fbf7f0" />
           </div>
-          <label class="toggle">
-            <input id="profile-bg-enabled" type="checkbox" />
-            <span data-i18n="toggle_profile_bg_enabled">Enable options page background image</span>
-          </label>
           <div class="field-row">
             <label for="profile-bg-opacity" data-i18n="label_profile_bg_opacity">Image opacity</label>
             <input id="profile-bg-opacity" type="range" min="0" max="100" step="1" />
@@ -548,9 +561,6 @@
             <button id="profile-bg-position-reset" type="button" data-i18n="button_profile_bg_position_reset">
               Reset image position
             </button>
-          </div>
-          <div class="actions">
-            <button id="profile-bg-apply" data-i18n="button_profile_bg_apply">Apply options page background</button>
           </div>
           <div class="profile-background-panel">
             <h3 data-i18n="subsection_profile_card_theme">Card color tuning</h3>
@@ -1099,6 +1109,8 @@
     <script src="options/core/helper/srs_set_methods.js"></script>
     <script src="options/core/helper_manager.js"></script>
     <script src="options/core/srs_start_card_presenter.js"></script>
+    <script src="options/core/srs_story_view_model.js"></script>
+    <script src="options/core/srs_topic_support.js"></script>
     <script src="options/core/ui_manager.js"></script>
     <script src="options/core/bootstrap/controller_factory.js"></script>
     <script src="options/core/bootstrap/ui_bridge.js"></script>

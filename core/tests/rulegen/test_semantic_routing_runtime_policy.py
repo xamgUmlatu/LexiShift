@@ -59,6 +59,26 @@ class SemanticRoutingRuntimePolicyTests(unittest.TestCase):
         self.assertEqual(policy.policy_id, "en_es_sentence_veto_v1")
         self.assertEqual(policy.scorer_id, "sentence_transformer_cosine")
 
+    def test_resolve_semantic_decision_policy_allows_explicit_en_ja_breadth_only(
+        self,
+    ) -> None:
+        with self.assertRaisesRegex(ValueError, "No semantic decision policy configured"):
+            resolve_semantic_decision_policy(pair="en-ja")
+
+        policy = resolve_semantic_decision_policy(
+            pair="en-ja",
+            decision_policy_id="en_ja_sentence_veto_breadth_v1",
+        )
+
+        self.assertEqual(policy.policy_id, "en_ja_sentence_veto_breadth_v1")
+        self.assertEqual(policy.pair, "en-ja")
+        self.assertEqual(policy.scorer_id, "tfidf_cosine")
+        self.assertEqual(policy.context_view, "masked_sentence")
+        self.assertEqual(policy.evidence_view, "all_evidence_text")
+        self.assertEqual(policy.min_active_score, 0.0)
+        self.assertEqual(policy.min_margin, 0.02)
+        self.assertEqual(policy.phrase_guard_pos_scope, "active_only")
+
     def test_resolve_runtime_fallback_decision_maps_all_supported_policies(self) -> None:
         self.assertEqual(resolve_runtime_fallback_decision("legacy_on_unavailable"), "replace")
         self.assertEqual(resolve_runtime_fallback_decision("abstain_on_unavailable"), "abstain")
@@ -281,6 +301,85 @@ class SemanticRoutingRuntimePolicyTests(unittest.TestCase):
         self.assertEqual(decision["decision_source"], "policy")
         self.assertEqual(decision["top_shadow_score"], 0.0)
         self.assertEqual(decision["score_margin"], decision["active_score"])
+
+    def test_en_ja_explicit_policy_uses_active_only_phrase_guard_pos_scope(self) -> None:
+        class FakeBackend:
+            def __init__(self, *, scorer_id: str, model_name: str = "") -> None:
+                self.scorer_id = scorer_id
+                self.model_name = model_name
+
+            def fit(self, texts: object) -> None:
+                return None
+
+            def similarity(self, _left_text: str, right_text: str) -> float:
+                normalized_right = str(right_text or "").lower()
+                if "public park" in normalized_right:
+                    return 0.50
+                if "park a vehicle" in normalized_right:
+                    return 0.05
+                return 0.0
+
+        inventory = {
+            "schema_version": 1,
+            "pair": "en-ja",
+            "profile_id": "default",
+            "senses": {
+                "sense:kouen": {
+                    "sense_id": "sense:kouen",
+                    "target_lemma": "公園",
+                    "sense_label": "public park",
+                    "canonical_pos": "noun",
+                    "evidence_views": {"all_evidence_text": "public park green space"},
+                },
+                "sense:chuusha": {
+                    "sense_id": "sense:chuusha",
+                    "target_lemma": "駐車する",
+                    "sense_label": "park a vehicle",
+                    "canonical_pos": "verb",
+                    "evidence_views": {"all_evidence_text": "park a vehicle"},
+                },
+            },
+            "competition_sets": {
+                "comp:park": {
+                    "competition_set_id": "comp:park",
+                    "status": "ready",
+                    "shadow_sense_ids": ["sense:chuusha"],
+                    "selection_policy_version": "en_ja_breadth_fixture",
+                }
+            },
+        }
+        matches = [
+            {
+                "match_id": "match:park:idiom",
+                "source_phrase": "park",
+                "context_text": "The committee will park that issue for now.",
+                "semantic_admission": {
+                    "schema_version": 1,
+                    "status": "ready",
+                    "trigger_id": "en-ja:trigger:park",
+                    "sense_id": "sense:kouen",
+                    "competition_set_id": "comp:park",
+                },
+            }
+        ]
+
+        response = build_semantic_admit_batch_response(
+            pair="en-ja",
+            profile_id="default",
+            matches=matches,
+            inventory=inventory,
+            decision_policy_id="en_ja_sentence_veto_breadth_v1",
+            backend_factory=FakeBackend,
+        )
+
+        self.assertEqual(response["decision_policy_id"], "en_ja_sentence_veto_breadth_v1")
+        decision = response["decisions"][0]
+        self.assertEqual(decision["decision"], "abstain")
+        self.assertEqual(decision["decision_source"], "policy")
+        self.assertEqual(decision["phrase_guard_pos_scope"], "active_only")
+        self.assertEqual(decision["phrase_preempted"], True)
+        self.assertIn("phrase_preemption", decision["reason_codes"])
+        self.assertIn("modal_trigger_frame", decision["reason_codes"])
 
     def test_per_match_fit_scope_preserves_single_match_tfidf_semantics(self) -> None:
         class FitSensitiveBackend:

@@ -275,6 +275,7 @@ def main() -> None:
             policy_payload=policy_payload,
             findings=findings,
             strict_saturation=bool(args.strict_saturation),
+            pair_scope=pair_scope,
         )
 
     if dataset_payload is not None and policy_payload is not None:

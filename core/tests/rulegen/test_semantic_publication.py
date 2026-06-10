@@ -15,6 +15,7 @@ from lexishift_core.rulegen.semantic_publication import (  # noqa: E402
     annotate_results_with_semantic_admission,
     build_semantic_inventory_from_results,
     merge_semantic_publication_with_context_inventory,
+    merge_semantic_publication_with_reference_inventory,
 )
 
 
@@ -247,6 +248,76 @@ class TestSemanticPublication(unittest.TestCase):
         )
         self.assertEqual(len(merged_competition_set["shadow_sense_ids"]), 1)
         self.assertEqual(len(merged_inventory["senses"]), 2)
+
+    def test_merge_reference_inventory_upgrades_matching_unavailable_rule_only(
+        self,
+    ) -> None:
+        primary_results = annotate_results_with_semantic_admission(
+            (
+                _build_en_es_result(
+                    source_phrase="light",
+                    replacement="luz",
+                    entry_ord=30,
+                    sense_ord=0,
+                ),
+            )
+        )
+        primary_inventory = build_semantic_inventory_from_results(
+            results=primary_results,
+            pair="en-es",
+            profile_id="default",
+            generated_at="2026-04-10T00:00:00Z",
+        )
+        reference_inventory = {
+            "schema_version": 1,
+            "pair": "en-es",
+            "profile_id": "semantic_pack_builder",
+            "generated_at": "2026-04-09T00:00:00Z",
+            "capability": {},
+            "triggers": {
+                "pack:trigger:light": {
+                    "trigger_id": "pack:trigger:light",
+                    "source_phrase": "light",
+                }
+            },
+            "senses": {
+                "pack:sense:luz": {
+                    "sense_id": "pack:sense:luz",
+                    "trigger_id": "pack:trigger:light",
+                    "target_lemma": "luz",
+                }
+            },
+            "competition_sets": {
+                "pack:competition:light:luz": {
+                    "competition_set_id": "pack:competition:light:luz",
+                    "trigger_id": "pack:trigger:light",
+                    "status": "ready",
+                    "active_sense_id": "pack:sense:luz",
+                    "shadow_sense_ids": [],
+                }
+            },
+            "phrase_sets": {},
+        }
+
+        merged_rules, merged_inventory = merge_semantic_publication_with_reference_inventory(
+            rules=tuple(result.rule for result in primary_results),
+            primary_inventory=primary_inventory,
+            reference_inventory=reference_inventory,
+        )
+
+        self.assertEqual(len(merged_rules), 1)
+        merged_admission = merged_rules[0].metadata.semantic_admission
+        assert isinstance(merged_admission, dict)
+        self.assertEqual(merged_admission["status"], "ready")
+        self.assertEqual(merged_admission["trigger_id"], "pack:trigger:light")
+        self.assertEqual(merged_admission["sense_id"], "pack:sense:luz")
+        self.assertEqual(
+            merged_admission["competition_set_id"],
+            "pack:competition:light:luz",
+        )
+        self.assertIn("pack:trigger:light", merged_inventory["triggers"])
+        self.assertIn("pack:sense:luz", merged_inventory["senses"])
+        self.assertIn("pack:competition:light:luz", merged_inventory["competition_sets"])
 
     def test_de_en_missing_gloss_index_reports_translation_gloss_reason_code(self) -> None:
         results = annotate_results_with_semantic_admission(

@@ -3,8 +3,8 @@
 Status: active planning doc
 Role: Planning / WIP
 Purpose: define the German-target `en-de` quality workstream now that baseline pair enablement exists and the next step is to give the lane a durable benchmark/gate/triage surface modeled on `en-es` without pretending the pair is already at `en-es` maturity.
-Last updated: 2026-05-14
-Last verified: 2026-05-14 Lane 1 reverse-check authority pass against feature-state evidence, rollout matrix, LP support guide, and adapter/probe code references; benchmark artifacts were not rerun
+Last updated: 2026-06-09
+Last verified: 2026-06-09 en-de Leipzig source-frequency default implementation, scoped rulegen gate refresh, SRS harness, and LP conformance/resource audits
 Source-of-truth: planning doc only; executable truth still lives in code, tests, benchmark artifacts, and `docs/developer/feature_state_matrix.md`.
 
 ## Scope
@@ -29,7 +29,7 @@ Primary goal:
 Primary non-goals:
 
 - do not claim `en-de` is already at `en-es` quality maturity
-- do not block the quality-lane scaffold on the missing `freq-de-default.sqlite`
+- do not treat current resource/runtime enablement as quality parity
 - do not promote reverse-check or Kaikki-style provenance work before the
   baseline lane is stable enough to measure them
 - do not invent a separate benchmark architecture for `en-de`
@@ -42,24 +42,79 @@ What already exists:
 - `en-de` resolves the normalized translation-pack seam through `freedict-de-en`
 - the pair is benchmarkable in the shared rulegen harness
 - the pair has baseline helper / adapter / POS / SRS coverage
-- the pair already has dated benchmark evidence from the all-pairs advisory run family
+- the pair has source-stack setup resources for `freq-de-default`,
+  `freedict-de-en`, `freedict-en-de`, and the English source-frequency prior
+- the installed helper/resource smoke now shows `en-de` is usable in the
+  runtime/SRS beta path when those resources are present
 
 Current known benchmark picture:
 
-- dataset size is `16` targets
-- the best committed dated advisory run is still `top1=75.00%`, `top3=100.00%`
-- current actionable REVIEW cases are:
-  - `Haus`
-  - `Schule`
-  - `Weg`
-  - `Zeit`
+- dataset size is `58` targets in the latest advisory artifact
+- latest top3-first Leipzig default run: `top1=86.21%`, `top3=100.00%`,
+  `forbidden_top1=0.00%`, `forbidden_any=15.52%`, and
+  `avg_rules_per_target=2.29`
+- latest scoped quality gate passes the current advisory floors; delta checks
+  still warn with `DELTA_SCOPE_BASELINE_MISSING` until an `en-de` machine
+  delta baseline is promoted
+- product acceptance: the current scoped advisory result is accepted for
+  current beta/onboarding use as of 2026-06-09, without claiming hard-gated
+  parity with `en-es`
+- latest triage has `12` actionable items (`9` FAIL, `3` REVIEW). The failures
+  are forbidden-any cases rather than forbidden-top1 cases, so the correct cue
+  is retained in top3 but some broad/default glosses still need severity-aware
+  cleanup.
+- the installed English source-frequency prior used by `en-de` rulegen is now
+  `freq-en-leipzig-default/main.sqlite` from Leipzig English News 2025 1M,
+  with `113,401` kept English lemmas; `freq-en-coca.sqlite` remains a fallback
+  compatibility artifact
+
+2026-06-09 source-frequency implementation checkpoint:
+
+- A temporary `wordfreq` 60k English SQLite is the strongest observed research
+  signal so far: a focused top3-preserving sweep reached `86.21%` top1,
+  `100.00%` top3, `0.00%` forbidden-top1, and `9` forbidden-any cases.
+  Keep this as evidence that broad English source frequency is high leverage,
+  not as the first production pack choice: upstream `wordfreq` docs explicitly
+  discourage converting the data to flat formats because attribution/license
+  context and normalization code are not separable.
+- `freq-en-leipzig-default` is now implemented as an app-managed local build
+  from Leipzig English News 2025 1M, reusing the existing Leipzig frequency
+  builder shape. It is wired as the default English source-frequency prior for
+  `en-de` rulegen and as the default English frequency source for English
+  target/bootstrap lanes, with `freq-en-coca` retained only as fallback.
+- Leipzig 2025 100K produced the same best focused score as 1M in this small
+  benchmark (`84.48%` top1 / `98.28%` top3), but 1M remains the safer default
+  candidate until download/runtime tradeoffs are measured.
+- The canonical top3-first refresh now keeps every expected answer in top3.
+  Remaining forbidden-any hits are mostly broad/defaultness cases
+  (`Schule -> pod`, `Zeit -> spell/most`, `Fenster -> box`, `Tag -> tag`,
+  `Kopf -> mind`, `Ohr -> hearing/audition`, `Fuß -> head`, `Zug -> strain`,
+  `Stimme -> part`).
+
+Recommended next scoring order:
+
+1. Leave the current scoped `en-de` result accepted for beta/advisory use, and
+   defer machine delta-baseline promotion until a release-gate decision needs
+   it.
+2. Keep reverse-check as a follow-up TODO, not the next automatic fix. It is promising
+   for cases like `Fenster -> box`, `Tag -> tag`, `Fuß -> base/head`, and
+   `Zug -> strain`, but early experiments did not beat the best frequency-only
+   configuration.
+3. Keep a severity-aware forbidden-any review as a TODO. Some forbidden labels
+   are truly bad for teaching, while others are valid-but-non-default senses
+   such as `Tag -> tag`; do not chase zero forbidden-any before separating
+   severity from correctness.
+4. Keep English POS/defaultness enrichment as a later TODO if source frequency
+   plus retuning leaves systematic broad-sense failures such as
+   `Stimme -> part` or `Kopf -> mind`.
 
 What does not exist yet:
 
 - no promoted reverse-check lane or default-on decision
 - no `en-es`-style richer scoring frontier
 - no hard-gated pair status
-- no broad enough benchmark corpus to support strong pair-level claims
+- no promoted `en-de` machine delta baseline
+- no default `en-de` semantic/veto reference pack
 
 ## What "Dedicated Lane" Means For `en-de`
 
@@ -258,9 +313,11 @@ Goal:
 
 Possible candidates:
 
-- lexical-choice signals
-- dictionary-structure handling
-- limited reverse-aware scoring
+- optional machine delta-baseline promotion after release-gate review
+- dictionary-structure/default-sense handling for broad glosses
+- limited reverse-aware scoring for false-friend/defaultness cases
+- severity-aware forbidden-any triage so valid loan/non-default senses do not
+  get treated like truly wrong translations
 - later provenance-like additions if the pair resources ever justify them
 
 Non-goal:
@@ -273,10 +330,11 @@ Definition of done:
 
 ## Current Open Risks
 
-1. `freq-de-default.sqlite` is still missing in the current workspace, so practical initialize/refresh work remains blocked even though benchmark refresh is possible.
-2. The current case set is too small for strong optimization claims.
-3. The current failures still look like lexical-quality failures first, not obviously reverse-check failures.
-4. `en-de` can now look more mature than it is because it has a named lane; the docs must keep advisory and hard-gated status separate.
+1. `en-de` can now look more mature than it is because runtime/SRS smoke passes; docs must keep runtime beta, advisory rulegen quality, and hard-gated parity separate.
+2. The current scoped rulegen quality gate passes and is product-accepted for beta use, but delta checks intentionally warn until a machine baseline is promoted.
+3. The current failures still look like lexical-quality/default-gloss failures first, not obviously reverse-check failures.
+4. There is no committed `en-de` semantic/veto reference artifact, so semantic parity and false-abstain cleanup should not be claimed before a real reference pack is generated and evaluated.
+5. Topic coverage is limited: current profile/topic plumbing can carry topic preferences, but `freq-de-default` does not provide topic columns and the Options UI exposes only a supported subset for `en-de`.
 
 ## Primary Evidence And Code Anchors
 
@@ -298,7 +356,8 @@ For now, treat `en-de` as acceptable to move forward when all of these are true:
 1. the dedicated advisory lane exists and is refreshable
 2. latest artifacts are present and current
 3. failures are visible in triage rather than hidden in prose
-4. the lane still clearly says:
+4. the scoped advisory gate passes its current floors
+5. the lane still clearly says:
    - advisory, not hard-gated
    - no promoted reverse-check lane yet
    - no richer scoring frontier yet

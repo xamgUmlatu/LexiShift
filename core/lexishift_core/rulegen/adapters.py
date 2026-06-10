@@ -173,6 +173,7 @@ def build_en_de_rulegen_config(request: RulegenAdapterRequest) -> EnDeRulegenCon
         enable_source_frequency_prior=request.enable_source_frequency_prior,
         source_frequency_db_path=request.source_frequency_db_path,
         cleaner_later_competition_penalty=request.cleaner_later_competition_penalty,
+        sense_defaultness_competition_penalty=(request.sense_defaultness_competition_penalty),
         kaikki_policy=EnDeKaikkiPolicyConfig(
             enable_shadow_metadata=True,
             enable_live_demotion=bool(request.kaikki_policy_live_demotion),

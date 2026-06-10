@@ -36,6 +36,7 @@ def cmd_install_semantic_pack(args: argparse.Namespace) -> int:
                 pack_id=args.pack_id,
                 generated_at=args.generated_at,
                 copy_pack=not args.no_pack_copy,
+                copy_only=args.copy_only,
                 dry_run=args.dry_run,
                 rule_source=args.rule_source,
                 rule_source_type=args.rule_source_type,
@@ -93,6 +94,11 @@ def register_install_semantic_pack_command(subparsers: argparse._SubParsersActio
         "--no-pack-copy",
         action="store_true",
         help="Do not copy the semantic pack into language_packs before materialization.",
+    )
+    install_semantic.add_argument(
+        "--copy-only",
+        action="store_true",
+        help="Copy the semantic pack into language_packs without overwriting profile artifacts.",
     )
     install_semantic.add_argument("--rule-source", default="semantic_pack_install")
     install_semantic.add_argument("--rule-source-type", default="semantic_veto_candidate")

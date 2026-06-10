@@ -35,6 +35,8 @@
     "delete_ruleset_file": "ルールセットファイルを削除...",
     "set_active": "アクティブに設定",
     "open_themes_folder": "テーマフォルダを開く",
+    "show_details": "詳細を表示",
+    "hide_details": "詳細を隠す",
     "use_embedding": "使用"
   },
   "menu": {
@@ -500,6 +502,7 @@
       "title": "学習する言語",
       "description": "LexiShiftで使う言語ペアを追加し、そのペアに必要な正確なデータをインストールします。",
       "add_pair": "言語ペアを追加",
+      "all_pairs_added": "利用可能な言語ペアはすべて表示済みです",
       "empty": "言語ペアはまだ追加されていません。言語ペアを追加すると、必要なデータが表示されます。",
       "download_missing": "不足データをダウンロード",
       "recheck": "再確認",
@@ -514,28 +517,52 @@
       "manual_setup": "手動で設定...",
       "manual_setup_tooltip": "このリソースの手動設定手順を表示します。",
       "manual_setup_required": "手動設定が必要",
+      "not_available_yet": "まだ利用できません",
       "manual_setup_opened": "{resource} の詳細設定を開きました。",
       "manual_setup_title": "{resource} の手動設定",
       "manual_setup_summary": "LexiShiftはこのリソースを自動ダウンロードできません。",
-      "manual_setup_instructions": "ご自身のライセンスまたは利用権限に従ってソースデータを入手し、ここでローカルファイルを選択してください。{expected}",
+      "manual_setup_instructions": "提供元の利用条件を確認し、ご自身でソースデータをダウンロードしてから、ここでローカルファイルをインポートしてください。{expected}",
       "manual_setup_expected_frequency": "必要なファイル: frequency テーブルを含むローカル SQLite データベース。",
-      "manual_setup_expected_frequency_import": "必要なファイル: spanish_lemmas20k.txt または同等のライセンス済みタブ区切りソースファイル。LexiShiftがローカルで変換します。frequency テーブルを含む変換済み SQLite も使用できます。",
+      "manual_setup_expected_frequency_import": "必要なファイル: このパックの提供元アーカイブまたはソースファイル。frequency テーブルを含む変換済み SQLite も使用できます。ソースファイルは LexiShift がローカルで変換します。",
       "manual_setup_expected_language": "必要なファイル: このパックが要求する正確なローカル辞書ファイルまたはデータベース。",
-      "manual_setup_details": "理由: {reason}\nソース: {source}\nパック: {pack_id}\nURL: {url}",
+      "manual_setup_expected_pos_overlay": "必要なファイル: pos_overlay テーブルを含むローカル SQLite データベース。",
+      "manual_setup_details": "理由: {reason}\nソース: {source}\nパック: {pack_id}\nライセンス/利用条件: {license}\n利用条件 URL: {license_url}\nソースページ: {url}",
       "open_provider_page": "提供元ページを開く",
       "provider_page_opened": "{resource} の提供元ページを開きました。",
       "import_file": "ファイルをインポート...",
+      "import_file_tooltip": "ローカルのソースファイルを選び、LexiShiftのアプリデータにインポートします。",
+      "downloaded_source_found": "ダウンロード済みソースを検出",
+      "import_downloaded": "ダウンロード済みをインポート",
+      "file_location_opened": "{resource} のファイルの場所を開きました。",
       "download_progress": "ダウンロード中...",
       "download_progress_pct": "ダウンロード中 {percent}%",
       "unavailable_resource": "この必須リソースは現在のカタログでは利用できません。",
       "resource_source": "ソース: {source}。パック: {pack_id}。サイズ: {size}。",
+      "semantic_pack_installed": "{resource} をインストールしました。次回、SRSルールを更新または公開すると、対象ルールにセマンティック証拠を付与できます。パス: {path}",
+      "semantic_pack_install_failed": "{resource} をインストールできませんでした: {error}",
+      "semantic_pack_detail": "{resource} はローカルのセマンティック参照パックです。ここでインストールしてからストーリーを更新または再公開すると、対象ルールにセマンティック証拠を付与できます。",
+      "semantic_pack_pending": "この言語ペアには、まだパッケージ化されたセマンティック参照パックがありません。通常の置換はそのまま動作しますが、文単位のvetoカバレッジは未対応です。",
+      "semantic_pack_pending_tooltip": "この言語ペアには現在、宣言済みのセマンティック参照パックがありません。",
       "pairs": {
-        "en_es": "英語からスペイン語"
+        "en_de": "英語→ドイツ語",
+        "en_es": "英語→スペイン語",
+        "en_ja": "英語→日本語"
       },
       "resources": {
+        "freq_de_default": "ドイツ語単語頻度データ",
+        "freq_en_leipzig_default": "英語単語頻度データ",
+        "freq_ja_bccwj": "BCCWJ 日本語単語頻度データ",
+        "freedict_de_en": "ドイツ語-英語辞書",
+        "freedict_en_de": "英語-ドイツ語辞書",
+        "freq_es_spalex": "SPALEX スペイン語単語頻度データ",
         "freq_es_cde": "スペイン語の単語頻度データ",
+        "pos_es_ud_ancora": "スペイン語品詞オーバーレイ",
         "wiktionary_es_en": "Wiktionary スペイン語-英語辞書",
-        "freedict_es_en": "スペイン語-英語辞書"
+        "freedict_es_en": "スペイン語-英語辞書",
+        "jmdict_ja_en": "JMDict 日本語-英語辞書",
+        "jp_wordnet_sqlite": "日本語 WordNet エンリッチメント",
+        "semantic_en_es_sentence_veto": "文vetoセマンティック参照",
+        "semantic_en_de_pending": "文vetoセマンティック参照"
       }
     },
     "pair_setup": {
@@ -543,6 +570,8 @@
       "description": "語彙練習で単語をサンプルしたり開始したりする前に、必要なデータをインストールします。",
       "installed": "インストール済み",
       "missing": "必要",
+      "recommended": "推奨",
+      "not_available_yet": "まだ利用できません",
       "download_required": "必要なデータをダウンロード",
       "status_missing": "{installed}/{total} インストール済み",
       "status_ready": "このストーリーの準備ができています。",
@@ -564,7 +593,29 @@
       "local": "ローカル",
       "use": "使用",
       "delete": "削除",
-      "size": "サイズ"
+      "size": "サイズ",
+      "info": "情報"
+    },
+    "source_license": {
+      "button": "ソースとライセンス",
+      "button_tooltip": "{name} のソースとライセンス情報を表示します。",
+      "title": "ソースとライセンス",
+      "summary": "{name}",
+      "informative": "ソース: {source}。ライセンス: {license}。",
+      "open_source": "ソースページを開く",
+      "open_license": "ライセンスを開く",
+      "not_recorded": "未記録",
+      "pack": "パック",
+      "pack_id": "パックID",
+      "source": "ソース",
+      "source_url": "ソースURL",
+      "license": "ライセンス",
+      "license_url": "ライセンスURL",
+      "distribution_mode": "配布モード",
+      "status": "ライセンス状態",
+      "installed_path": "インストール先",
+      "notes": "メモ",
+      "notices": "サードパーティーデータ通知"
     },
     "status": {
       "local_ok": "ローカルOK",
@@ -639,17 +690,18 @@
   },
   "languages": {
     "english": "英語",
+    "spanish": "スペイン語",
     "german": "ドイツ語",
     "japanese": "日本語",
     "english_aligned": "英語（アライン）",
     "german_aligned": "ドイツ語（アライン）",
     "japanese_aligned": "日本語（アライン）",
-    "japanese_english": "日本語 -> 英語",
-    "chinese_english": "中国語 -> 英語",
-    "german_english": "ドイツ語 -> 英語",
-    "english_german": "英語 -> ドイツ語"
+    "japanese_english": "日本語→英語",
+    "chinese_english": "中国語→英語",
+    "german_english": "ドイツ語→英語",
+    "english_german": "英語→ドイツ語"
   },
-  "providers": {
+    "providers": {
     "princeton": "Princeton",
     "moby": "Moby",
     "openthesaurus": "OpenThesaurus",
@@ -659,9 +711,13 @@
     "mdbg": "MDBG",
     "freedict": "FreeDict",
     "fasttext": "fastText",
+    "spalex": "SPALEX",
     "coca": "COCA",
+    "leipzig": "Leipzig Wortschatz",
     "ninjal": "NINJAL",
-    "leipzig_languagetool": "Leipzig + LanguageTool"
+    "leipzig_languagetool": "Leipzig + LanguageTool",
+    "universal_dependencies": "Universal Dependencies",
+    "lexishift_semantic_pack_builder": "LexiShiftセマンティックパックビルダー"
   },
   "embeddings": {
     "fasttext_en": "fastText 英語（Common Crawl）",
@@ -683,8 +739,12 @@
     "freedict_de_en": "FreeDict (DE->EN)",
     "freedict_en_de": "FreeDict (EN->DE)",
     "freq_en_coca": "COCA 英語頻度（原形）",
+    "freq_en_leipzig_default": "英語ニュース頻度（原形）",
+    "freq_es_spalex": "SPALEX スペイン語頻度（単語）",
     "freq_ja_bccwj": "BCCWJ 日本語頻度（SUW）",
     "freq_de_default": "ドイツ語ニュース頻度（原形）",
+    "pos_es_ud_ancora": "UD AnCora スペイン語品詞オーバーレイ",
+    "semantic_en_es_sentence_veto": "英語-スペイン語 文vetoセマンティック参照",
     "label": "{name}（{language}）"
   },
   "common": {
@@ -699,9 +759,9 @@
   },
   "integrations": {
     "title": "LexiShift をどこでも使う",
-    "description": "デスクトップアプリ、Chrome拡張、BetterDiscordプラグインを導入してルールセットを同期します。",
-    "app_button": "デスクトップアプリを入手",
+    "description": "Chrome拡張とBetterDiscordプラグインを連携するか、LexiShiftのサイトを開きます。",
     "extension_button": "Chrome拡張を入手",
-    "plugin_button": "BetterDiscordプラグインを入手"
+    "plugin_button": "BetterDiscordプラグインを入手",
+    "website_button": "LexiShiftサイトを開く"
   }
 }

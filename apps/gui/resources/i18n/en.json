@@ -34,8 +34,9 @@
     "add_ruleset": "Add Ruleset",
     "delete_ruleset_file": "Delete Ruleset File...",
     "set_active": "Set Active",
-    "open_themes_folder": "Open themes folder"
-    ,
+    "open_themes_folder": "Open themes folder",
+    "show_details": "Show details",
+    "hide_details": "Hide details",
     "use_embedding": "Use"
   },
   "menu": {
@@ -501,6 +502,7 @@
       "title": "Learning Languages",
       "description": "Add the language pairs you want to use with LexiShift, then install the exact data each pair requires.",
       "add_pair": "Add language pair",
+      "all_pairs_added": "All available language pairs are already shown",
       "empty": "No language pairs added yet. Add a language pair to see the data LexiShift needs for it.",
       "download_missing": "Download missing data",
       "recheck": "Recheck",
@@ -515,28 +517,52 @@
       "manual_setup": "Manual setup...",
       "manual_setup_tooltip": "Show manual setup instructions for this resource.",
       "manual_setup_required": "Manual setup needed",
+      "not_available_yet": "Not available yet",
       "manual_setup_opened": "Opened detailed setup for {resource}.",
       "manual_setup_title": "Manual setup for {resource}",
       "manual_setup_summary": "LexiShift cannot download this resource automatically.",
-      "manual_setup_instructions": "Get the source data under your own license or usage rights, then select the local file here. {expected}",
+      "manual_setup_instructions": "Review the provider terms, download the source data yourself, then import the local file here. {expected}",
       "manual_setup_expected_frequency": "Expected file: a local SQLite database with a frequency table.",
-      "manual_setup_expected_frequency_import": "Expected file: spanish_lemmas20k.txt or the equivalent licensed tab-delimited source file. LexiShift will convert it locally. Already-converted SQLite with a frequency table also works.",
+      "manual_setup_expected_frequency_import": "Expected file: the provider archive/source file for this pack, or an already-converted SQLite database with a frequency table. LexiShift will convert source files locally.",
       "manual_setup_expected_language": "Expected file: the exact local dictionary file or database required by this pack.",
-      "manual_setup_details": "Reason: {reason}\nSource: {source}\nPack: {pack_id}\nURL: {url}",
+      "manual_setup_expected_pos_overlay": "Expected file: a local SQLite database with a pos_overlay table.",
+      "manual_setup_details": "Reason: {reason}\nSource: {source}\nPack: {pack_id}\nLicense/terms: {license}\nTerms URL: {license_url}\nSource page: {url}",
       "open_provider_page": "Open provider page",
       "provider_page_opened": "Opened the provider page for {resource}.",
       "import_file": "Import file...",
+      "import_file_tooltip": "Choose a local source file to import into LexiShift's app data.",
+      "downloaded_source_found": "Downloaded source found",
+      "import_downloaded": "Import downloaded",
+      "file_location_opened": "Opened the file location for {resource}.",
       "download_progress": "Downloading...",
       "download_progress_pct": "Downloading {percent}%",
       "unavailable_resource": "This required resource is not available in the current catalog.",
       "resource_source": "Source: {source}. Pack: {pack_id}. Size: {size}.",
+      "semantic_pack_installed": "Installed {resource}. It will be used by the next SRS rule publication that can attach semantic evidence. Path: {path}",
+      "semantic_pack_install_failed": "Could not install {resource}: {error}",
+      "semantic_pack_detail": "{resource} is a local semantic reference pack. Install it here, then refresh or republish the story so semantic evidence can attach to eligible rules.",
+      "semantic_pack_pending": "This pair does not have a packaged semantic reference pack yet. Runtime replacements still work without it; sentence-veto coverage is pending.",
+      "semantic_pack_pending_tooltip": "No semantic reference pack is currently declared for this language pair.",
       "pairs": {
-        "en_es": "English to Spanish"
+        "en_de": "English to German",
+        "en_es": "English to Spanish",
+        "en_ja": "English to Japanese"
       },
       "resources": {
+        "freq_de_default": "German word frequency data",
+        "freq_en_leipzig_default": "English word frequency data",
+        "freq_ja_bccwj": "BCCWJ Japanese word frequency data",
+        "freedict_de_en": "German-English dictionary",
+        "freedict_en_de": "English-German dictionary",
+        "freq_es_spalex": "SPALEX Spanish word frequency data",
         "freq_es_cde": "Spanish word frequency data",
+        "pos_es_ud_ancora": "Spanish POS overlay",
         "wiktionary_es_en": "Wiktionary Spanish-English dictionary",
-        "freedict_es_en": "Spanish-English dictionary"
+        "freedict_es_en": "Spanish-English dictionary",
+        "jmdict_ja_en": "JMDict Japanese-English dictionary",
+        "jp_wordnet_sqlite": "Japanese WordNet enrichment",
+        "semantic_en_es_sentence_veto": "Sentence-veto semantic reference",
+        "semantic_en_de_pending": "Sentence-veto semantic reference"
       }
     },
     "pair_setup": {
@@ -544,6 +570,8 @@
       "description": "Install the data LexiShift needs before Vocabulary Practice can sample words or start.",
       "installed": "Installed",
       "missing": "Needed",
+      "recommended": "Recommended",
+      "not_available_yet": "Not available yet",
       "download_required": "Download needed data",
       "status_missing": "{installed} of {total} installed",
       "status_ready": "Ready for this story.",
@@ -559,7 +587,29 @@
       "local": "Local",
       "use": "Use",
       "delete": "Delete",
-      "size": "Size"
+      "size": "Size",
+      "info": "Info"
+    },
+    "source_license": {
+      "button": "Source & license",
+      "button_tooltip": "Show source and license details for {name}.",
+      "title": "Source & license",
+      "summary": "{name}",
+      "informative": "Source: {source}. License: {license}.",
+      "open_source": "Open source page",
+      "open_license": "Open license",
+      "not_recorded": "Not recorded",
+      "pack": "Pack",
+      "pack_id": "Pack ID",
+      "source": "Source",
+      "source_url": "Source URL",
+      "license": "License",
+      "license_url": "License URL",
+      "distribution_mode": "Distribution mode",
+      "status": "License status",
+      "installed_path": "Installed path",
+      "notes": "Notes",
+      "notices": "Third-party notices"
     },
     "embeddings_title": "Embeddings (Optional)",
     "embeddings_help": "Use app-managed embedding packs by default. Manual files remain a compatibility or import path for external vectors, and embeddings are still optional.",
@@ -640,6 +690,7 @@
   },
   "languages": {
     "english": "English",
+    "spanish": "Spanish",
     "german": "German",
     "japanese": "Japanese",
     "english_aligned": "English (Aligned)",
@@ -650,7 +701,7 @@
     "german_english": "German -> English",
     "english_german": "English -> German"
   },
-  "providers": {
+    "providers": {
     "princeton": "Princeton",
     "moby": "Moby",
     "openthesaurus": "OpenThesaurus",
@@ -660,9 +711,13 @@
     "mdbg": "MDBG",
     "freedict": "FreeDict",
     "fasttext": "fastText",
+    "spalex": "SPALEX",
     "coca": "COCA",
+    "leipzig": "Leipzig Wortschatz",
     "ninjal": "NINJAL",
-    "leipzig_languagetool": "Leipzig + LanguageTool"
+    "leipzig_languagetool": "Leipzig + LanguageTool",
+    "universal_dependencies": "Universal Dependencies",
+    "lexishift_semantic_pack_builder": "LexiShift semantic pack builder"
   },
   "embeddings": {
     "fasttext_en": "fastText English (Common Crawl)",
@@ -684,8 +739,12 @@
     "freedict_de_en": "FreeDict (DE->EN)",
     "freedict_en_de": "FreeDict (EN->DE)",
     "freq_en_coca": "COCA English Frequency (Lemmas)",
+    "freq_en_leipzig_default": "English News Frequency (Lemmas)",
+    "freq_es_spalex": "SPALEX Spanish Frequency (Words)",
     "freq_ja_bccwj": "BCCWJ Japanese Frequency (SUW)",
     "freq_de_default": "German News Frequency (Lemmas)",
+    "pos_es_ud_ancora": "UD AnCora Spanish POS Overlay",
+    "semantic_en_es_sentence_veto": "English-Spanish Sentence Veto Semantic Reference",
     "label": "{name} ({language})"
   },
   "common": {
@@ -700,9 +759,9 @@
   },
   "integrations": {
     "title": "Get LexiShift Everywhere",
-    "description": "Install the desktop app, Chrome extension, and BetterDiscord plugin to sync your rulesets across platforms.",
-    "app_button": "Download Desktop App",
+    "description": "Connect the Chrome extension and BetterDiscord plugin, or open the LexiShift website.",
     "extension_button": "Get Chrome Extension",
-    "plugin_button": "Get BetterDiscord Plugin"
+    "plugin_button": "Get BetterDiscord Plugin",
+    "website_button": "Open LexiShift Website"
   }
 }

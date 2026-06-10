@@ -347,3 +347,21 @@ unzipped_name: spanish_lemmas20k.txt
 layout: tab-delimited text sample
 parse_hint: ParseConfig(delimiter="\t", header_starts_with="ID", skip_prefixes=("----",)); decode Latin-1 to preserve accents
 notes: this file is a sample (about 2,000 rows, every 10th rank from the 20k list); converter: scripts/data/convert_cde_frequency_to_sqlite.py; converter provider/profile: freq-es-cde / freq-es-cde
+
+-- POS Overlays --
+pack_id: pos-es-ud-ancora-v1
+name: UD AnCora Spanish POS Overlay
+type: pos_overlay
+languages: es -> es
+size: ~20 MB
+url: https://universaldependencies.org/treebanks/es_ancora/index.html
+source_urls:
+  - https://raw.githubusercontent.com/UniversalDependencies/UD_Spanish-AnCora/master/es_ancora-ud-train.conllu
+  - https://raw.githubusercontent.com/UniversalDependencies/UD_Spanish-AnCora/master/es_ancora-ud-dev.conllu
+  - https://raw.githubusercontent.com/UniversalDependencies/UD_Spanish-AnCora/master/es_ancora-ud-test.conllu
+wayback_url: https://web.archive.org/web/*/https://universaldependencies.org/treebanks/es_ancora/index.html
+filename: ud-spanish-ancora-sources
+unzipped_name: main.sqlite
+layout: app-managed SQLite with pos_overlay table
+parse_hint: built by lexishift_core.pos.ud_ancora (majority UPOS keyed by Spanish word form)
+notes: first-class recommended en-es POS enrichment; GUI pair setup downloads sources and builds pos_packs/pos-es-ud-ancora-v1/main.sqlite

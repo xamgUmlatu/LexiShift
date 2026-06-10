@@ -35,6 +35,8 @@
     "delete_ruleset_file": "删除规则集文件...",
     "set_active": "设为活动",
     "open_themes_folder": "打开主题文件夹",
+    "show_details": "显示详细信息",
+    "hide_details": "隐藏详细信息",
     "use_embedding": "使用"
   },
   "menu": {
@@ -500,6 +502,7 @@
       "title": "学习语言",
       "description": "添加你想在 LexiShift 中使用的语言对，然后安装每个语言对所需的准确数据。",
       "add_pair": "添加语言对",
+      "all_pairs_added": "所有可用语言对都已显示",
       "empty": "还没有添加语言对。添加语言对后即可看到 LexiShift 需要的数据。",
       "download_missing": "下载缺失数据",
       "recheck": "重新检查",
@@ -514,28 +517,52 @@
       "manual_setup": "手动设置...",
       "manual_setup_tooltip": "显示此资源的手动设置说明。",
       "manual_setup_required": "需要手动设置",
+      "not_available_yet": "尚不可用",
       "manual_setup_opened": "已打开 {resource} 的详细设置。",
       "manual_setup_title": "{resource} 的手动设置",
       "manual_setup_summary": "LexiShift 无法自动下载此资源。",
-      "manual_setup_instructions": "请在你自己的许可证或使用权范围内获取源数据，然后在这里选择本地文件。{expected}",
+      "manual_setup_instructions": "请先查看提供方的使用条款，自行下载源数据，然后在这里导入本地文件。{expected}",
       "manual_setup_expected_frequency": "所需文件：包含 frequency 表的本地 SQLite 数据库。",
-      "manual_setup_expected_frequency_import": "所需文件：spanish_lemmas20k.txt 或等效的已授权制表符分隔源文件。LexiShift 会在本地转换它。已转换且包含 frequency 表的 SQLite 文件也可以使用。",
+      "manual_setup_expected_frequency_import": "所需文件：此资源包的提供方压缩包或源文件。已转换且包含 frequency 表的 SQLite 文件也可以使用。LexiShift 会在本地转换源文件。",
       "manual_setup_expected_language": "所需文件：此资源包要求的准确本地词典文件或数据库。",
-      "manual_setup_details": "原因：{reason}\n来源：{source}\n包：{pack_id}\nURL：{url}",
+      "manual_setup_expected_pos_overlay": "所需文件：包含 pos_overlay 表的本地 SQLite 数据库。",
+      "manual_setup_details": "原因：{reason}\n来源：{source}\n包：{pack_id}\n许可证/使用条款：{license}\n条款 URL：{license_url}\n源页面：{url}",
       "open_provider_page": "打开提供方页面",
       "provider_page_opened": "已打开 {resource} 的提供方页面。",
       "import_file": "导入文件...",
+      "import_file_tooltip": "选择本地源文件并导入到 LexiShift 应用数据中。",
+      "downloaded_source_found": "找到已下载的源文件",
+      "import_downloaded": "导入已下载文件",
+      "file_location_opened": "已打开 {resource} 的文件位置。",
       "download_progress": "正在下载...",
       "download_progress_pct": "正在下载 {percent}%",
       "unavailable_resource": "当前目录中没有此必需资源。",
       "resource_source": "来源：{source}。包：{pack_id}。大小：{size}。",
+      "semantic_pack_installed": "已安装 {resource}。下一次 SRS 规则发布可附加语义证据时将使用它。路径：{path}",
+      "semantic_pack_install_failed": "无法安装 {resource}：{error}",
+      "semantic_pack_detail": "{resource} 是本地语义参考包。请在此安装，然后刷新或重新发布故事，以便为符合条件的规则附加语义证据。",
+      "semantic_pack_pending": "此语言对尚无已打包的语义参考包。运行时替换仍可正常工作；句子 veto 覆盖仍待补齐。",
+      "semantic_pack_pending_tooltip": "当前没有为此语言对声明语义参考包。",
       "pairs": {
-        "en_es": "英语到西班牙语"
+        "en_de": "英语到德语",
+        "en_es": "英语到西班牙语",
+        "en_ja": "英语到日语"
       },
       "resources": {
+        "freq_de_default": "德语词频数据",
+        "freq_en_leipzig_default": "英语词频数据",
+        "freq_ja_bccwj": "BCCWJ 日语词频数据",
+        "freedict_de_en": "德语-英语词典",
+        "freedict_en_de": "英语-德语词典",
+        "freq_es_spalex": "SPALEX 西班牙语词频数据",
         "freq_es_cde": "西班牙语词频数据",
+        "pos_es_ud_ancora": "西班牙语词性叠加数据",
         "wiktionary_es_en": "Wiktionary 西班牙语-英语词典",
-        "freedict_es_en": "西班牙语-英语词典"
+        "freedict_es_en": "西班牙语-英语词典",
+        "jmdict_ja_en": "JMDict 日语-英语词典",
+        "jp_wordnet_sqlite": "日语 WordNet 增强数据",
+        "semantic_en_es_sentence_veto": "句子 veto 语义参考",
+        "semantic_en_de_pending": "句子 veto 语义参考"
       }
     },
     "pair_setup": {
@@ -543,6 +570,8 @@
       "description": "在词汇练习可以采样单词或开始之前，请先安装所需数据。",
       "installed": "已安装",
       "missing": "需要",
+      "recommended": "推荐",
+      "not_available_yet": "尚不可用",
       "download_required": "下载所需数据",
       "status_missing": "已安装 {installed}/{total}",
       "status_ready": "此学习故事已准备好。",
@@ -564,7 +593,29 @@
       "local": "本地",
       "use": "使用",
       "delete": "删除",
-      "size": "大小"
+      "size": "大小",
+      "info": "信息"
+    },
+    "source_license": {
+      "button": "来源和许可",
+      "button_tooltip": "显示 {name} 的来源和许可详情。",
+      "title": "来源和许可",
+      "summary": "{name}",
+      "informative": "来源：{source}。许可：{license}。",
+      "open_source": "打开来源页面",
+      "open_license": "打开许可",
+      "not_recorded": "未记录",
+      "pack": "包",
+      "pack_id": "包 ID",
+      "source": "来源",
+      "source_url": "来源 URL",
+      "license": "许可",
+      "license_url": "许可 URL",
+      "distribution_mode": "分发模式",
+      "status": "许可状态",
+      "installed_path": "安装路径",
+      "notes": "备注",
+      "notices": "第三方数据声明"
     },
     "status": {
       "local_ok": "本地正常",
@@ -639,6 +690,7 @@
   },
   "languages": {
     "english": "英语",
+    "spanish": "西班牙语",
     "german": "德语",
     "japanese": "日语",
     "english_aligned": "英语（对齐）",
@@ -649,7 +701,7 @@
     "german_english": "德语 -> 英语",
     "english_german": "英语 -> 德语"
   },
-  "providers": {
+    "providers": {
     "princeton": "Princeton",
     "moby": "Moby",
     "openthesaurus": "OpenThesaurus",
@@ -659,9 +711,13 @@
     "mdbg": "MDBG",
     "freedict": "FreeDict",
     "fasttext": "fastText",
+    "spalex": "SPALEX",
     "coca": "COCA",
+    "leipzig": "Leipzig Wortschatz",
     "ninjal": "NINJAL",
-    "leipzig_languagetool": "Leipzig + LanguageTool"
+    "leipzig_languagetool": "Leipzig + LanguageTool",
+    "universal_dependencies": "Universal Dependencies",
+    "lexishift_semantic_pack_builder": "LexiShift 语义包构建器"
   },
   "embeddings": {
     "fasttext_en": "fastText 英语（Common Crawl）",
@@ -683,8 +739,12 @@
     "freedict_de_en": "FreeDict (DE->EN)",
     "freedict_en_de": "FreeDict (EN->DE)",
     "freq_en_coca": "COCA 英语词频（词元）",
+    "freq_en_leipzig_default": "英语新闻词频（词元）",
+    "freq_es_spalex": "SPALEX 西班牙语词频（单词）",
     "freq_ja_bccwj": "BCCWJ 日语词频（SUW）",
     "freq_de_default": "德语新闻词频（词元）",
+    "pos_es_ud_ancora": "UD AnCora 西班牙语词性叠加数据",
+    "semantic_en_es_sentence_veto": "英语-西班牙语句子 veto 语义参考",
     "label": "{name}（{language}）"
   },
   "common": {
@@ -699,9 +759,9 @@
   },
   "integrations": {
     "title": "在各处使用 LexiShift",
-    "description": "安装桌面应用、Chrome 扩展和 BetterDiscord 插件以同步规则集。",
-    "app_button": "下载桌面应用",
+    "description": "连接 Chrome 扩展和 BetterDiscord 插件，或打开 LexiShift 网站。",
     "extension_button": "获取 Chrome 扩展",
-    "plugin_button": "获取 BetterDiscord 插件"
+    "plugin_button": "获取 BetterDiscord 插件",
+    "website_button": "打开 LexiShift 网站"
   }
 }

@@ -10,12 +10,10 @@
       ? opts.profileBackgroundController
       : null;
     const elements = opts.elements && typeof opts.elements === "object" ? opts.elements : {};
-    const profileBgEnabledInput = elements.profileBgEnabledInput || null;
     const profileBgBackdropColorInput = elements.profileBgBackdropColorInput || null;
     const profileBgOpacityInput = elements.profileBgOpacityInput || null;
     const profileBgFileInput = elements.profileBgFileInput || null;
     const profileBgRemoveButton = elements.profileBgRemoveButton || null;
-    const profileBgApplyButton = elements.profileBgApplyButton || null;
     const profileBgPositionResetButton = elements.profileBgPositionResetButton || null;
     const profileCardThemeHueInput = elements.profileCardThemeHueInput || null;
     const profileCardThemeSaturationInput = elements.profileCardThemeSaturationInput || null;
@@ -23,10 +21,6 @@
     const profileCardThemeTransparencyInput = elements.profileCardThemeTransparencyInput || null;
     const profileCardThemeResetButton = elements.profileCardThemeResetButton || null;
 
-    bindAsyncListener(profileBgEnabledInput, "change", () => profileBackgroundController.onEnabledChange(), {
-      fallbackMessage: "Failed to save profile background setting.",
-      logMessage: "Profile background enable save failed."
-    });
     bindAsyncListener(profileBgBackdropColorInput, "change", () => profileBackgroundController.onBackdropColorChange(), {
       fallbackMessage: "Failed to save backdrop color.",
       logMessage: "Profile background backdrop color save failed."
@@ -40,18 +34,13 @@
         logMessage: "Profile background opacity save failed."
       });
     }
-    if (profileBgFileInput) {
-      profileBgFileInput.addEventListener("change", () => {
-        profileBackgroundController.onFileChange();
-      });
-    }
+    bindAsyncListener(profileBgFileInput, "change", () => profileBackgroundController.onFileChange(), {
+      fallbackMessage: "Failed to save profile background image.",
+      logMessage: "Profile background image save failed."
+    });
     bindAsyncListener(profileBgRemoveButton, "click", () => profileBackgroundController.onRemove(), {
       fallbackMessage: "Failed to remove profile background image.",
       logMessage: "Profile background removal failed."
-    });
-    bindAsyncListener(profileBgApplyButton, "click", () => profileBackgroundController.onApply(), {
-      fallbackMessage: "Failed to apply profile background.",
-      logMessage: "Profile background apply failed."
     });
     bindAsyncListener(profileBgPositionResetButton, "click", () => profileBackgroundController.onPositionReset(), {
       fallbackMessage: "Failed to reset image position.",

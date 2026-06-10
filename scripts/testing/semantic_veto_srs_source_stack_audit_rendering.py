@@ -42,8 +42,8 @@ def render_source_stack_markdown(report: Mapping[str, object]) -> str:
             "",
             "## Source Roles",
             "",
-            "- `freq-es-cde`: keep as the current seed/baseline, especially because SPALEX does not cover every short/function-heavy current row.",
-            "- `SPALEX`: use as the candidate frontier expansion source with frequency, Zipf, and prevalence signals.",
+            "- `SPALEX`: use as the publishable candidate frontier source with frequency, Zipf, and prevalence signals.",
+            "- `freq-es-cde`: keep only as the current manual-supply/internal benchmark; do not make it a dependency of publishable SPALEX packs.",
             "- `Kaikki/Wiktionary`: use as the POS/gloss/dictionary/topic enrichment layer, not as the primary ranking source.",
             "",
             "## Recommended Next Steps",
@@ -77,7 +77,10 @@ def build_summary(
         status = "ok"
     return {
         "status": status,
-        "recommended_stack": "freq-es-cde_seed_plus_spalex_expansion_plus_kaikki_enrichment",
+        "recommended_stack": (
+            "spalex_only_publishable_frontier_plus_optional_kaikki_enrichment_"
+            "with_freq_es_cde_internal_benchmark"
+        ),
         "error_source_count": error_count,
         "spalex_clean_distinct_count": spalex.get("clean_distinct_spelling_count", 0),
         "current_cde_distinct_count": current.get("distinct_lemma_count", 0),
@@ -134,8 +137,8 @@ def build_findings(
                 "code": "SPALEX_NOT_STANDALONE_REPLACEMENT",
                 "message": (
                     f"{stack['cde_missing_from_spalex_count']} current CDE lemmas "
-                    "are absent from SPALEX, so the first stack should retain CDE "
-                    "as a seed/baseline."
+                    "are absent from SPALEX. Keep the CDE-seed union as an internal "
+                    "continuity benchmark, not as a publishable pack dependency."
                 ),
             }
         )
@@ -162,8 +165,9 @@ def recommended_next_steps(findings: Sequence[Mapping[str, str]]) -> list[str]:
             "Do not promote an expanded SRS source while the audit cannot read all source layers.",
         ]
     return [
-        "Treat SPALEX as the leading open candidate-frontier source, but not as a standalone replacement for `freq-es-cde`.",
-        "Prototype `freq-es-spalex-expanded-v1.sqlite` as a union: current CDE seed rows first, then SPALEX-ranked additions with field-level provenance.",
+        "Treat SPALEX as the leading publishable candidate-frontier source.",
+        "Prototype `freq-es-spalex-v1` as SPALEX-only, with optional Kaikki POS/topic enrichment tracked as a review-gated component.",
+        "Keep `freq-es-spalex-expanded-v1` as a CDE-seed union only for internal comparison against the current manual-supply baseline.",
         "Backfill POS/gloss/topic metadata from the installed Kaikki forward pack and keep missing Kaikki rows explicit.",
         "Add a narrow topic overlay for medicine/health before claiming interest-tailored admission quality.",
         "Encode SPALEX CC BY attribution and Kaikki review-required attribution/share-alike/dump-pin requirements in source manifests before promotion.",

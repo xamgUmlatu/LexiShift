@@ -198,6 +198,22 @@ class SettingsDialogAppearanceMixin:
             f"background: {theme['primary_hover']};"
             f"color: {readable_text_color(primary_text, theme['primary_hover'])};"
             "}"
+            "QPushButton#integrationTileButton {"
+            f"background: {theme['table_bg']};"
+            f"color: {table_text};"
+            f"border: 1px solid {theme['panel_border']};"
+            "border-radius: 8px;"
+            "padding: 0px;"
+            "}"
+            "QPushButton#integrationTileButton:hover {"
+            f"background: {theme['accent_soft']};"
+            f"color: {readable_text_color(table_text, theme['accent_soft'])};"
+            "}"
+            'QLabel[integrationTileLabel="true"] {'
+            f"color: {canvas_text};"
+            "font-size: 13px;"
+            "font-weight: 600;"
+            "}"
             f"{build_browser_connection_styles(theme)}"
         )
         apply_combo_popup_theme_to_children(self, theme)

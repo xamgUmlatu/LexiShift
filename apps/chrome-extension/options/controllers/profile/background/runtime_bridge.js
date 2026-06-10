@@ -51,14 +51,9 @@
       : (key, substitutions, fallback) => {
           setProfileBgStatus(translate(key, substitutions, fallback || ""));
         };
-    const setProfileBgApplyState = typeof opts.setProfileBgApplyState === "function"
-      ? opts.setProfileBgApplyState
-      : (() => {});
     const updateProfileCardThemeLabels = typeof opts.updateProfileCardThemeLabels === "function"
       ? opts.updateProfileCardThemeLabels
       : (() => {});
-    const getPendingFile = typeof opts.getPendingFile === "function" ? opts.getPendingFile : (() => null);
-    const setPendingFile = typeof opts.setPendingFile === "function" ? opts.setPendingFile : (() => {});
     const clearFileInput = typeof opts.clearFileInput === "function" ? opts.clearFileInput : (() => {});
     const defaultOpacity = Number.isFinite(Number(opts.defaultOpacity))
       ? Number(opts.defaultOpacity)
@@ -120,7 +115,6 @@
       cardThemeManager.applyCardThemeFromPrefs(prefs);
       const localOptions = options && typeof options === "object" ? options : {};
       const eagerBackdrop = localOptions.eagerBackdrop === true;
-      const enabled = prefs.backgroundEnabled === true;
       const assetId = String(prefs.backgroundAssetId || "").trim();
       const backdropColor = normalizeProfileBackgroundBackdropColor(prefs.backgroundBackdropColor);
       const position = normalizeProfileBackgroundPosition(
@@ -128,7 +122,7 @@
         prefs.backgroundPositionY
       );
       const preferredBlob = localOptions.preferredBlob instanceof Blob ? localOptions.preferredBlob : null;
-      if (!enabled || !assetId) {
+      if (!assetId) {
         pageBackgroundManager.applyBackdropOnly(backdropColor);
         return;
       }
@@ -210,8 +204,6 @@
         brightnessPercent: normalized.cardThemeBrightnessPercent,
         transparencyPercent: normalized.cardThemeTransparencyPercent
       });
-      // Apply button is only for committing pending file uploads.
-      setProfileBgApplyState(Boolean(getPendingFile()), false);
       return normalized;
     }
 
@@ -231,7 +223,6 @@
     }
 
     async function syncForLoadedPrefs(uiPrefs) {
-      setPendingFile(null);
       clearFileInput();
       const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
       updateProfileBgOpacityLabel((prefs.backgroundOpacity || defaultOpacity) * 100);
@@ -249,8 +240,6 @@
         transparencyPercent: prefs.cardThemeTransparencyPercent
       });
       await refreshProfileBackgroundPreview(prefs);
-      // Always render the selected profile's saved UI prefs on options page load/switch.
-      setProfileBgApplyState(Boolean(getPendingFile()), false);
       await applyOptionsPageBackgroundFromPrefs(prefs);
     }
 

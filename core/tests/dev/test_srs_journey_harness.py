@@ -278,12 +278,13 @@ class TestSrsJourneyHarness(unittest.TestCase):
 
         self.assertEqual(report["scenario"]["resource_mode"], "installed")
         self.assertEqual(report["scenario"]["pair"], "en-es")
-        self.assertEqual(report["scenario"]["cohorts"]["stable"], ["siglo", "millón"])
+        self.assertEqual(report["scenario"]["cohorts"]["stable"], ["parte", "vez"])
         self.assertEqual(
             report["initialize"]["bootstrap_diagnostics"]["initial_active_preview"],
-            ["siglo", "millón", "hora"],
+            ["parte", "vez", "presidente"],
         )
-        self.assertEqual(phases[2]["refresh"]["audit"]["selected_lemmas"], ["música", "principio"])
+        self.assertTrue(report["initialize"]["pos_overlay_exists"])
+        self.assertEqual(phases[2]["refresh"]["audit"]["selected_lemmas"], ["señor", "tiempo"])
         self.assertIn(report["summary"]["status"], {"PASS", "WARN"})
 
 

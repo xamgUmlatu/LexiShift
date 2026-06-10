@@ -38,8 +38,10 @@ DEFAULT_SPALEX_DOI = "10.6084/m9.figshare.5924794.v4"
 DEFAULT_SPALEX_LICENSE_NAME = "CC BY 4.0"
 DEFAULT_SPALEX_LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 DEFAULT_DATA_ROOT = Path.home() / "Library/Application Support/LexiShift/LexiShift"
-DEFAULT_CURRENT_FREQUENCY_DB = DEFAULT_DATA_ROOT / "frequency_packs" / "freq-es-cde.sqlite"
-DEFAULT_KAIKKI_FORWARD_DB = DEFAULT_DATA_ROOT / "language_packs" / "wiktionary-es-en.sqlite"
+DEFAULT_CURRENT_FREQUENCY_DB = DEFAULT_DATA_ROOT / "frequency_packs" / "freq-es-cde" / "main.sqlite"
+DEFAULT_KAIKKI_FORWARD_DB = (
+    DEFAULT_DATA_ROOT / "language_packs" / "wiktionary-es-en" / "main.sqlite"
+)
 DEFAULT_KAIKKI_REVERSE_DB = DEFAULT_DATA_ROOT / "language_packs" / "wiktionary-en-es.sqlite"
 SPALEX_REQUIRED_COLUMNS = (
     "spelling",
@@ -319,7 +321,7 @@ def audit_spalex_csv(path: Path, *, target_sizes: Sequence[int]) -> dict[str, ob
 
 
 def audit_current_frequency_db(path: Path) -> dict[str, object]:
-    resolved = Path(path).expanduser().resolve(strict=False)
+    resolved = _resolve_optional_pack_sqlite(path) or Path(path).expanduser().resolve(strict=False)
     base: dict[str, object] = {
         "path": str(resolved),
         "exists": resolved.exists(),
@@ -388,7 +390,7 @@ def audit_current_frequency_db(path: Path) -> dict[str, object]:
 
 
 def audit_kaikki_forward_db(path: Path) -> dict[str, object]:
-    resolved = Path(path).expanduser().resolve(strict=False)
+    resolved = _resolve_optional_pack_sqlite(path) or Path(path).expanduser().resolve(strict=False)
     base: dict[str, object] = {
         "path": str(resolved),
         "exists": resolved.exists(),
@@ -407,11 +409,16 @@ def audit_kaikki_forward_db(path: Path) -> dict[str, object]:
         return base
     try:
         with sqlite3.connect(resolved) as conn:
-            entry_count = _count_rows(conn, "entries")
+            headword_table = _first_existing_table(conn, ("entries", "entry_meta"))
+            if not headword_table:
+                base["status"] = "error"
+                base["issues"] = ["kaikki_forward_missing_headword_table"]
+                return base
+            entry_count = _count_rows(conn, headword_table)
             headwords = {
                 _normalize_lemma(row[0])
                 for row in conn.execute(
-                    "SELECT DISTINCT headword_lc FROM entries "
+                    f"SELECT DISTINCT headword_lc FROM {headword_table} "
                     "WHERE TRIM(COALESCE(headword_lc, '')) != ''"
                 )
             }
@@ -495,6 +502,23 @@ def audit_kaikki_forward_db(path: Path) -> dict[str, object]:
         }
     )
     return base
+
+
+def _resolve_optional_pack_sqlite(path: Path | None) -> Path | None:
+    if path is None:
+        return None
+    requested = Path(path).expanduser().resolve(strict=False)
+    if requested.is_file():
+        return requested
+    if requested.suffix == ".sqlite":
+        managed = requested.parent / requested.stem / "main.sqlite"
+        if managed.is_file():
+            return managed.expanduser().resolve(strict=False)
+    if requested.is_dir():
+        managed = requested / "main.sqlite"
+        if managed.is_file():
+            return managed.expanduser().resolve(strict=False)
+    return None
 
 
 def audit_kaikki_reverse_db(path: Path) -> dict[str, object]:
@@ -707,6 +731,17 @@ def _dedupe_spalex_rows(rows: Iterable[Mapping[str, object]]) -> list[dict[str, 
 
 def _column_names(conn: sqlite3.Connection, table_name: str) -> list[str]:
     return [str(row[1]) for row in conn.execute(f"PRAGMA table_info({table_name})")]
+
+
+def _first_existing_table(conn: sqlite3.Connection, table_names: Sequence[str]) -> str:
+    for table_name in table_names:
+        exists = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?",
+            (table_name,),
+        ).fetchone()
+        if exists:
+            return table_name
+    return ""
 
 
 def _count_rows(conn: sqlite3.Connection, table_name: str) -> int:

@@ -37,8 +37,8 @@ diagnostics -> capped summaries and on-demand details
 | --- | ---: | --- | --- |
 | Active SRS items | `40` default | helper | `SrsSettings.max_active_items`; capacity gate for refresh. |
 | New items per refresh | `8` default | helper | Stored as `max_new_items_per_day`, currently enforced as per-refresh cap. |
-| Page replacements | `20` per page | extension | Standard replacement density default. |
-| Replacements per lemma | `2` per page | extension | Prevents one learned word from dominating a page. |
+| Page replacements | unlimited by default (`0`) | extension | Standard replacement density default. |
+| Replacements per lemma | unlimited by default (`0`) | extension | Can be capped explicitly when needed. |
 | Extension SRS projection | `8000` items | extension | Local projection, not helper authority. |
 | Extension SRS history | `50` entries per item | extension | Local history clamp. |
 | Extension exposure log | `2000` entries | extension | Telemetry log ring buffer. |

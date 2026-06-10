@@ -86,3 +86,41 @@ def test_load_settings_migrates_managed_translation_frequency_and_embedding_path
         assert synonyms.embedding_pair_paths == {}
         assert synonyms.embedding_pair_pack_ids == {"en-es": ["embed-xling-es"]}
         assert synonyms.embedding_pair_enabled == {"en-es": True}
+
+
+def test_load_settings_drops_retired_cde_frequency_pack_state() -> None:
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        cde_root = root / "frequency_packs" / "freq-es-cde"
+        cde_root.mkdir(parents=True, exist_ok=True)
+        cde_artifact = cde_root / "main.sqlite"
+        cde_artifact.write_bytes(b"SQLite format 3\x00")
+        write_installed_pack_manifest(
+            root / "frequency_packs",
+            pack_id="freq-es-cde",
+            pack_kind="frequency",
+            provider="freq-es-cde",
+            local_kind="file",
+            build_mode="convert_archive",
+            artifact_path=cde_artifact,
+            sqlite_filename="main.sqlite",
+        )
+        settings_path = root / "settings.json"
+        save_app_settings(
+            AppSettings(
+                synonyms=SynonymSourceSettings(
+                    managed_frequency_pack_ids=("freq-es-cde",),
+                    frequency_pack_paths={"freq-es-cde": str(cde_artifact)},
+                )
+            ),
+            settings_path,
+        )
+
+        state = AppState(settings_path=settings_path)
+        with patch("state._app_data_dir", return_value=root):
+            state.load_settings()
+
+        synonyms = state.settings.synonyms
+        assert synonyms is not None
+        assert tuple(synonyms.managed_frequency_pack_ids) == ()
+        assert synonyms.frequency_pack_paths == {}

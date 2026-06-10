@@ -53,6 +53,11 @@ def _resolve_active_profile_id(settings: AppSettings) -> str:
     return "default"
 
 
+def resolve_active_profile_id(paths: HelperPaths) -> str:
+    settings, _load_error = _load_settings(paths)
+    return _resolve_active_profile_id(settings)
+
+
 def _resolve_profile(
     settings: AppSettings, requested_profile_id: str | None
 ) -> tuple[Profile | None, str]:

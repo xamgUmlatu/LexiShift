@@ -15,9 +15,9 @@
   const replacementDensityDefaults = Object.freeze({
     standard: Object.freeze({
       maxOnePerTextBlock: false,
-      allowAdjacentReplacements: false,
-      maxReplacementsPerPage: 20,
-      maxReplacementsPerLemmaPerPage: 2
+      allowAdjacentReplacements: true,
+      maxReplacementsPerPage: 0,
+      maxReplacementsPerLemmaPerPage: 0
     })
   });
   const standardReplacementDensity = replacementDensityDefaults.standard;
@@ -74,7 +74,7 @@
     srsAutoRefreshCooldownMinutes: 90,
     srsBrowsingAdmissionSignalsEnabled: false,
     srsSemanticAdmissionEnabled: true,
-    srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
+    srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
     profileBackgroundEnabled: false,
     profileBackgroundAssetId: "",
     profileBackgroundOpacity: 0.18,

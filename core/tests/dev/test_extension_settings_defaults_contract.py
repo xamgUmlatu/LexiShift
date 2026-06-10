@@ -42,9 +42,9 @@ vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modul
 
 const density = context.LexiShift.replacementDensityDefaults.standard;
 assert.equal(density.maxOnePerTextBlock, false);
-assert.equal(density.allowAdjacentReplacements, false);
-assert.equal(density.maxReplacementsPerPage, 20);
-assert.equal(density.maxReplacementsPerLemmaPerPage, 2);
+assert.equal(density.allowAdjacentReplacements, true);
+assert.equal(density.maxReplacementsPerPage, 0);
+assert.equal(density.maxReplacementsPerLemmaPerPage, 0);
 assert.equal(context.LexiShift.defaults.maxOnePerTextBlock, density.maxOnePerTextBlock);
 assert.equal(context.LexiShift.defaults.allowAdjacentReplacements, density.allowAdjacentReplacements);
 assert.equal(context.LexiShift.defaults.maxReplacementsPerPage, density.maxReplacementsPerPage);

@@ -7,6 +7,9 @@
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const log = typeof opts.log === "function" ? opts.log : (() => {});
+    const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object"
+      ? opts.settingsManager
+      : null;
     const saveLanguageSettings = typeof opts.saveLanguageSettings === "function"
       ? opts.saveLanguageSettings
       : (() => Promise.resolve());
@@ -60,8 +63,10 @@
     const mainMaxActiveInput = elements.mainMaxActiveInput || null;
     const mainBootstrapTopNInput = elements.mainBootstrapTopNInput || null;
     const mainInitialActiveCountInput = elements.mainInitialActiveCountInput || null;
-    const mainSamplingCurtain = elements.mainSamplingCurtain || null;
-    const mainAdmissionPreviewOutput = elements.mainAdmissionPreviewOutput || null;
+    const topicSupport = root.optionsSrsTopicSupport
+      && typeof root.optionsSrsTopicSupport === "object"
+      ? root.optionsSrsTopicSupport
+      : null;
 
     let bound = false;
     let isOpen = false;
@@ -91,6 +96,18 @@
       previewOutput.style.color = color || "";
     }
 
+    function renderPreviewContent(content, color) {
+      if (!previewOutput) {
+        return;
+      }
+      if (content && typeof content === "object" && typeof content.html === "string") {
+        previewOutput.innerHTML = content.html;
+        previewOutput.style.color = "";
+        return;
+      }
+      setPreviewText(String(content ?? ""), color);
+    }
+
     function syncBodyModalOpen() {
       if (globalThis.document && globalThis.document.body) {
         globalThis.document.body.classList.toggle("modal-open", isOpen || isInitializing);
@@ -101,6 +118,90 @@
       const source = modalSourceLanguageInput ? String(modalSourceLanguageInput.value || "").trim() : "en";
       const target = modalTargetLanguageInput ? String(modalTargetLanguageInput.value || "").trim() : "es";
       return `${source || "en"}-${target || "es"}`;
+    }
+
+    function normalizeProfileId(profileId, items) {
+      if (settingsManager && typeof settingsManager.normalizeSrsProfileId === "function") {
+        return settingsManager.normalizeSrsProfileId(
+          profileId || (typeof settingsManager.getSelectedSrsProfileId === "function"
+            ? settingsManager.getSelectedSrsProfileId(items)
+            : "default")
+        );
+      }
+      return String(profileId || "default").trim() || "default";
+    }
+
+    function parsePercentValue(value) {
+      const trimmed = String(value || "").trim();
+      if (!trimmed) {
+        return null;
+      }
+      const parsed = Number.parseFloat(trimmed);
+      if (!Number.isFinite(parsed)) {
+        return null;
+      }
+      return Math.min(100, Math.max(0, parsed)) / 100;
+    }
+
+    function buildPreviewPlanningState(values, items, pairKey) {
+      if (!settingsManager) {
+        return null;
+      }
+      const profileId = normalizeProfileId(values.profileId, items);
+      const storedProfile = settingsManager.getSrsProfile(items, pairKey, { profileId });
+      const storedSignals = settingsManager.getSrsProfileSignals(items, pairKey, {
+        profileId: storedProfile.profileId || profileId
+      });
+      const maxActiveRaw = parseInt(values.maxActive, 10);
+      const srsMaxActive = Number.isFinite(maxActiveRaw)
+        ? Math.max(1, maxActiveRaw)
+        : storedProfile.srsMaxActive;
+      const sizing = settingsManager.resolveSrsSetSizing(
+        {
+          srsMaxActive,
+          srsBootstrapTopN: values.bootstrapTopN || storedProfile.srsBootstrapTopN,
+          srsInitialActiveCount: values.initialActiveCount || storedProfile.srsInitialActiveCount
+        },
+        settingsManager.defaults
+      );
+      const effectiveProfile = {
+        ...storedProfile,
+        srsMaxActive,
+        srsBootstrapTopN: sizing.srsBootstrapTopN,
+        srsInitialActiveCount: sizing.srsInitialActiveCount
+      };
+      const effectiveProficiency = storedSignals.proficiency && typeof storedSignals.proficiency === "object"
+        ? { ...storedSignals.proficiency }
+        : {};
+      const proficiencyEstimate = parsePercentValue(values.proficiencyEstimate);
+      if (proficiencyEstimate === null) {
+        delete effectiveProficiency.estimated_value;
+      } else {
+        effectiveProficiency.estimated_value = Number(proficiencyEstimate.toFixed(2));
+      }
+      const effectiveSignals = {
+        ...storedSignals,
+        interests: normalizeInterestList(values.interests),
+        proficiency: effectiveProficiency
+      };
+      return {
+        profileId: storedProfile.profileId || profileId,
+        profile: effectiveProfile,
+        signals: effectiveSignals,
+        profileContext: settingsManager.composeSrsPlanContext(pairKey, effectiveProfile, effectiveSignals, {
+          profileId: storedProfile.profileId || profileId
+        }),
+        contextMeta: {
+          source: "story_setup_form",
+          pendingOverrides: ["story_setup"]
+        }
+      };
+    }
+
+    function updateModalTopicSupport() {
+      if (topicSupport && typeof topicSupport.applyTopicChipSupport === "function") {
+        topicSupport.applyTopicChipSupport(modalTopicInterestChipButtons, currentPair());
+      }
     }
 
     const resourceCheck = root.optionsSrsStoryFlowResourceCheck.createController({
@@ -193,6 +294,7 @@
         modalInitialActiveCountInput.value = mainInitialActiveCountInput.value || "";
       }
       setModalInterests("");
+      updateModalTopicSupport();
       setPreviewText("");
       clearResourceCheck();
     }
@@ -285,26 +387,30 @@
       );
       try {
         clearResourceCheck();
-        await persistVisibleSettings({ activateStory: false });
-        if (mainSamplingCurtain) {
-          mainSamplingCurtain.open = true;
-        }
-        await srsActionsController.previewAdmission();
+        const values = readVisibleValues();
+        const pairKey = `${values.sourceLanguage || "en"}-${values.targetLanguage || "es"}`;
+        const items = settingsManager && typeof settingsManager.load === "function"
+          ? await settingsManager.load()
+          : null;
+        const planningState = items
+          ? buildPreviewPlanningState(values, items, pairKey)
+          : null;
+        await srsActionsController.previewAdmission({
+          pairKey,
+          profileId: values.profileId,
+          items,
+          planningState,
+          skipSelectedProfileSync: Boolean(planningState),
+          setOutputText: (content) => {
+            renderPreviewContent(content, colors.DEFAULT);
+          }
+        });
         if (resourceCheck.latestBlock()) {
           setPreviewText(
             translate("status_srs_language_data_check_required", null, "Install the required language data, then retry."),
             colors.ERROR
           );
           return;
-        }
-        if (previewOutput && mainAdmissionPreviewOutput) {
-          const previewHtml = String(mainAdmissionPreviewOutput.innerHTML || "");
-          if (previewHtml) {
-            previewOutput.innerHTML = previewHtml;
-          } else {
-            previewOutput.textContent = mainAdmissionPreviewOutput.textContent || "";
-          }
-          previewOutput.style.color = "";
         }
         setStatus(translate("status_srs_story_flow_sampled", null, "Sample updated."), colors.SUCCESS);
       } catch (err) {
@@ -369,10 +475,14 @@
       }
       [modalSourceLanguageInput, modalTargetLanguageInput, modalProfileIdInput].forEach((input) => {
         if (input && typeof input.addEventListener === "function") {
-          input.addEventListener("change", clearResourceCheck);
+          input.addEventListener("change", () => {
+            clearResourceCheck();
+            updateModalTopicSupport();
+          });
         }
       });
       updateModalProficiencyOutput();
+      updateModalTopicSupport();
       modalTopicInterestChipButtons.forEach((button) => {
         button.addEventListener("click", () => {
           toggleModalTopic(button);

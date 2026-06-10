@@ -130,6 +130,9 @@ class LanguagePackPanelStateMixin:
         for thread in list(self._frequency_pack_threads):
             if thread.isRunning():
                 thread.requestInterruption()
+        for thread in list(self._pos_overlay_pack_threads):
+            if thread.isRunning():
+                thread.requestInterruption()
         for thread in list(self._embedding_conversion_threads):
             if thread.isRunning():
                 thread.requestInterruption()

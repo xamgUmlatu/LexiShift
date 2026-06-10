@@ -381,6 +381,7 @@ def _handle_install_semantic_pack(payload: Dict[str, Any]) -> dict[str, object]:
             pack_id=str(payload.get("pack_id", DEFAULT_PACK_ID)).strip() or DEFAULT_PACK_ID,
             generated_at=str(payload.get("generated_at", "")).strip(),
             copy_pack=copy_pack,
+            copy_only=_optional_bool(payload, "copy_only") is True,
             dry_run=_optional_bool(payload, "dry_run") is True,
             rule_source=str(payload.get("rule_source", "semantic_pack_install")).strip()
             or "semantic_pack_install",

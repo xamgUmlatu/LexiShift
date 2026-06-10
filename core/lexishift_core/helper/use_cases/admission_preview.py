@@ -10,6 +10,10 @@ from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import SetInitializationConfig, SetInitializationReport
 from lexishift_core.srs import SrsStore
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
+from lexishift_core.srs.pos_overlay import (
+    pos_overlay_resource_payload,
+    resolve_pair_pos_overlay,
+)
 from lexishift_core.srs.selector import (
     SELECTION_POLICY_RESERVED_TOPIC_LANE,
     SELECTION_POLICY_TOP_N,
@@ -105,11 +109,19 @@ def preview_srs_admission(
     )
     if resolved_set_source_db is None:
         raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
+    resolved_frequency_pack = resolve_pair_frequency_pack(
+        paths,
+        pair=pair,
+        set_source_db=resolved_set_source_db,
+    )
+    resolved_pos_overlay = resolve_pair_pos_overlay(paths, pair=pair)
     frequency_resource_payload = _build_frequency_resource_payload(
         paths,
         pair=pair,
         resolved_set_source_db=resolved_set_source_db,
     )
+    frequency_resource_payload.update(pos_overlay_resource_payload(resolved_pos_overlay))
+    frequency_source_label = resolved_frequency_pack.provider if resolved_frequency_pack else None
 
     profile_id = resolve_profile_id_fn(
         paths,
@@ -205,6 +217,8 @@ def preview_srs_admission(
             language_pair=pair,
             stopwords_path=stopwords_path,
             require_jmdict=capability.requires_jmdict_for_seed,
+            source_label=frequency_source_label,
+            pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
             strategy=str(config.strategy or "frequency_bootstrap"),
             profile_context=config.profile_context,
             selection_seed=getattr(config, "preview_seed", None),

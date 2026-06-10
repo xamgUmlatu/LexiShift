@@ -10,7 +10,10 @@ def reveal_path(path: str) -> None:
         return
     target = os.path.abspath(os.path.expanduser(path))
     if sys.platform == "darwin":
-        subprocess.run(["open", "-R", target], check=False)
+        if os.path.isdir(target):
+            subprocess.run(["open", target], check=False)
+        else:
+            subprocess.run(["open", "-R", target], check=False)
         return
     if sys.platform.startswith("win"):
         if os.path.isdir(target):

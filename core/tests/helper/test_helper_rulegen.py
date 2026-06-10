@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import json
 import sys
 import tempfile
 import unittest
@@ -21,6 +22,8 @@ from lexishift_core.helper.rulegen import (  # noqa: E402
     load_targets_from_store,
     run_rulegen_for_pair,
 )
+from lexishift_core.helper.installed_packs import write_installed_pack_manifest  # noqa: E402
+from lexishift_core.helper.use_cases.semantic_pack_install import DEFAULT_PACK_ID  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
 from lexishift_core.rulegen.generation import RuleCandidate  # noqa: E402
@@ -345,6 +348,56 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertAlmostEqual(request.scoring.weights.pos_match, 0.1, places=6)
         self.assertFalse(request.reverse_check.enabled)
 
+    def test_run_rulegen_for_pair_resolves_source_frequency_prior(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            pack_root = paths.frequency_packs_dir / "freq-en-leipzig-default"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "main.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                paths.frequency_packs_dir,
+                pack_id="freq-en-leipzig-default",
+                pack_kind="frequency",
+                provider="freq-en-leipzig-default",
+                local_kind="file",
+                build_mode="en_frequency_pipeline",
+                artifact_path=artifact,
+                sqlite_filename="main.sqlite",
+            )
+            store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-de:Zeit",
+                        lemma="Zeit",
+                        language_pair="en-de",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+            with patch(
+                "lexishift_core.helper.rulegen.run_results_with_adapter", return_value=[]
+            ) as run_results:
+                run_rulegen_for_pair(
+                    paths=paths,
+                    pair="en-de",
+                    store=store,
+                    settings=None,
+                    translation_dict_path=Path("/tmp/freedict-de-en.sqlite"),
+                    rulegen_config=RulegenConfig(
+                        language_pair="en-de",
+                        enable_source_frequency_prior=True,
+                    ),
+                    initialize_if_empty=False,
+                    persist_store=False,
+                )
+
+        request = run_results.call_args.args[0]
+        self.assertTrue(request.enable_source_frequency_prior)
+        self.assertEqual(request.source_frequency_db_path, artifact)
+
     def test_store_targets_and_packages_exclude_inactive_lifecycle_items(self) -> None:
         store = SrsStore(
             items=(
@@ -541,6 +594,68 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         competition_set = next(iter(output.semantic_inventory["competition_sets"].values()))
         self.assertEqual(competition_set["status"], "ready")
 
+    def test_run_rulegen_for_pair_can_upgrade_primary_rules_from_installed_semantic_pack(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            pack_inventory = (
+                paths.language_packs_dir
+                / "en-es"
+                / "semantic_packs"
+                / DEFAULT_PACK_ID
+                / "semantic_inventory.json"
+            )
+            pack_inventory.parent.mkdir(parents=True, exist_ok=True)
+            pack_inventory.write_text(
+                json.dumps(_build_reference_semantic_inventory(), ensure_ascii=False),
+                encoding="utf-8",
+            )
+            store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-es:luz",
+                        lemma="luz",
+                        language_pair="en-es",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+            primary_results = annotate_results_with_semantic_admission(
+                [
+                    _build_semantic_result(
+                        source_phrase="light",
+                        replacement="luz",
+                        entry_ord=30,
+                        sense_ord=0,
+                    ),
+                ]
+            )
+            with patch(
+                "lexishift_core.helper.rulegen.run_results_with_adapter",
+                return_value=primary_results,
+            ) as run_results:
+                _updated_store, output = run_rulegen_for_pair(
+                    paths=paths,
+                    pair="en-es",
+                    store=store,
+                    settings=None,
+                    translation_dict_path=Path("/tmp/freedict-es-en.sqlite"),
+                    rulegen_config=RulegenConfig(language_pair="en-es"),
+                    initialize_if_empty=False,
+                    persist_store=False,
+                )
+
+        self.assertEqual(run_results.call_count, 1)
+        self.assertEqual(len(output.rules), 1)
+        admission = output.rules[0].metadata.semantic_admission
+        assert isinstance(admission, dict)
+        self.assertEqual(admission["status"], "ready")
+        self.assertEqual(admission["trigger_id"], "pack:trigger:light")
+        self.assertIn("pack:competition:light:luz", output.semantic_inventory["competition_sets"])
+
 
 def _build_semantic_result(
     *,
@@ -575,6 +690,39 @@ def _build_semantic_result(
         ),
         confidence=0.9,
     )
+
+
+def _build_reference_semantic_inventory() -> dict[str, object]:
+    return {
+        "schema_version": 1,
+        "pair": "en-es",
+        "profile_id": "semantic_pack_builder",
+        "generated_at": "2026-04-09T00:00:00Z",
+        "capability": {},
+        "triggers": {
+            "pack:trigger:light": {
+                "trigger_id": "pack:trigger:light",
+                "source_phrase": "light",
+            }
+        },
+        "senses": {
+            "pack:sense:luz": {
+                "sense_id": "pack:sense:luz",
+                "trigger_id": "pack:trigger:light",
+                "target_lemma": "luz",
+            }
+        },
+        "competition_sets": {
+            "pack:competition:light:luz": {
+                "competition_set_id": "pack:competition:light:luz",
+                "trigger_id": "pack:trigger:light",
+                "status": "ready",
+                "active_sense_id": "pack:sense:luz",
+                "shadow_sense_ids": [],
+            }
+        },
+        "phrase_sets": {},
+    }
 
 
 if __name__ == "__main__":

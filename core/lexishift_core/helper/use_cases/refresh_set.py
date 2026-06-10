@@ -5,8 +5,12 @@ from pathlib import Path
 from typing import Callable, Mapping, Optional, Sequence, cast
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
+from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput
+from lexishift_core.helper.use_cases.rule_availability import (
+    reconcile_active_items_without_enabled_rules,
+)
 from lexishift_core.rulegen.tuning import resolve_rulegen_tuning
 from lexishift_core.srs import (
     SrsInventory,
@@ -34,6 +38,10 @@ from lexishift_core.srs.admission_suppression import (
 )
 from lexishift_core.srs.browsing_admission import load_browsing_signal_store
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
+from lexishift_core.srs.pos_overlay import (
+    pos_overlay_resource_payload,
+    resolve_pair_pos_overlay,
+)
 from lexishift_core.srs.profile_bootstrap import (
     DEFAULT_PROFILE_BOOTSTRAP_POLICY,
     score_seed_words_for_profile,
@@ -103,6 +111,13 @@ def refresh_srs_set(
     )
     if resolved_set_source_db is None:
         raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
+    resolved_frequency_pack = resolve_pair_frequency_pack(
+        paths,
+        pair=pair,
+        set_source_db=resolved_set_source_db,
+    )
+    resolved_pos_overlay = resolve_pair_pos_overlay(paths, pair=pair)
+    pos_overlay_payload = pos_overlay_resource_payload(resolved_pos_overlay)
 
     profile_id = resolve_profile_id_fn(
         paths,
@@ -156,6 +171,8 @@ def refresh_srs_set(
             jmdict_path=resolved_jmdict_path,
             stopwords_path=stopwords_path,
             require_jmdict=capability.requires_jmdict_for_seed,
+            source_label=resolved_frequency_pack.provider if resolved_frequency_pack else None,
+            pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
         ),
     )
     semantic_context_targets = tuple(
@@ -281,6 +298,9 @@ def refresh_srs_set(
                 max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
                 max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
                 semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
+                enable_source_frequency_prior=(
+                    effective_rulegen_tuning.source_frequency_prior_enabled
+                ),
                 include_variants=effective_rulegen_tuning.include_variants,
                 allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
                 scoring=effective_rulegen_tuning.scoring,
@@ -294,6 +314,24 @@ def refresh_srs_set(
             initialize_if_empty=False,
             persist_store=False,
         )
+        rule_availability_reconciliation = None
+        if config.persist_store and active_item_ids:
+            (
+                updated_store,
+                inventory,
+                rule_availability_reconciliation,
+            ) = reconcile_active_items_without_enabled_rules(
+                store=updated_store,
+                inventory=inventory,
+                pair=pair,
+                active_item_ids=active_item_ids,
+                rules=rulegen_output.rules,
+                last_refreshed_at=inventory_updated_at,
+            )
+            if rule_availability_reconciliation.changed:
+                active_item_ids = rule_availability_reconciliation.active_item_ids_after
+                save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
+                save_srs_inventory(inventory, inventory_path)
         write_rulegen_outputs_fn(
             paths=paths,
             pair=pair,
@@ -322,6 +360,11 @@ def refresh_srs_set(
             "semantic_inventory_path": (
                 str(paths.semantic_inventory_path(pair, profile_id=profile_id))
                 if getattr(rulegen_output, "semantic_inventory", None) is not None
+                else None
+            ),
+            "rule_availability_reconciliation": (
+                rule_availability_reconciliation.to_dict()
+                if rule_availability_reconciliation is not None
                 else None
             ),
         }
@@ -356,6 +399,7 @@ def refresh_srs_set(
         "total_items_for_pair": after_pair_count,
         "store_path": str(paths.srs_store_path_for(profile_id)),
         "stopwords_path": str(stopwords_path) if stopwords_path else None,
+        **pos_overlay_payload,
         "admission_refresh": refresh_payload,
         "inventory": {
             "path": str(inventory_path),

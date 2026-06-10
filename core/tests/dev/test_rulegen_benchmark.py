@@ -2240,10 +2240,12 @@ class TestRulegenBenchmark(unittest.TestCase):
         self.assertIn("en_es_stage_a_admission_frontier_v2", presets)
         self.assertIn("en_es_stage_a_reverse_frontier_v2", presets)
         self.assertIn("en_es_stage_a_combined_frontier_v1", presets)
+        self.assertIn("en_ja_canonical_matrix", presets)
         listing = format_benchmark_presets_listing(presets)
         self.assertIn("en_es_canonical_matrix", listing)
         self.assertIn("en_es_stage_a_toggle_frontier_v1", listing)
         self.assertIn("en_es_stage_a_combined_frontier_v1", listing)
+        self.assertIn("en_ja_canonical_matrix", listing)
 
     def test_resolve_cli_with_preset_allows_explicit_cli_override(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

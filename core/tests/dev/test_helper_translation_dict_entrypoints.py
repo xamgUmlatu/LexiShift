@@ -110,6 +110,7 @@ class TestHelperTranslationDictEntrypoints(unittest.TestCase):
         self.assertIn("--data-root", help_text)
         self.assertIn("--allow-default-data-root", help_text)
         self.assertIn("--dry-run", help_text)
+        self.assertIn("--copy-only", help_text)
 
     def test_helper_cli_install_semantic_pack_requires_explicit_data_root(self) -> None:
         result = subprocess.run(

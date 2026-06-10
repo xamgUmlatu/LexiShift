@@ -1,57 +1,125 @@
 ---
 layout: default
-title: LexiShift Privacy
+title: LexiShift Privacy Policy
 ---
 
 <!--
-Status: active beta summary
-Role: Public privacy summary
-Last updated: 2026-06-05
-Purpose: provide a beta-facing privacy summary before public download links and store listings point here.
+Status: active beta policy
+Role: Public Chrome Web Store and beta privacy policy
+Last updated: 2026-06-06
+Purpose: disclose LexiShift beta data handling for the website, Chrome extension, and desktop helper.
 -->
 
 <div class="privacy-page" markdown="1">
 
-# LexiShift Privacy
+# LexiShift Privacy Policy
 
-This is the beta privacy summary for LexiShift. It is intentionally plain:
-the beta is local-first and does not require a LexiShift account.
+Last updated: June 6, 2026
 
-## Current Summary
+LexiShift is a beta vocabulary-practice tool. It combines a Chrome extension,
+a local desktop app, and a local native-messaging helper so testers can practice
+vocabulary while browsing the web.
 
-LexiShift is designed around local desktop app behavior, local helper/runtime
-services, and locally installed language resources.
+This policy describes the current beta behavior. LexiShift does not require a
+LexiShift account, does not sell user data, and does not use user data for
+advertising.
 
-For the current beta lane:
+## Data LexiShift Handles
 
-- profiles, rulesets, study state, and imported resources are local to your
-  machine unless you choose to export or share them;
-- beta support reports are user-initiated, so do not include private logs,
-  screenshots, or files unless you intend to share them;
-- release manifests, installer files, and hosted app data may be downloaded
-  from LexiShift domains when those links are live;
-- account sync, cloud backup, and server-side user profiles are not part of the
-  current beta scope.
+LexiShift may handle these categories of user data:
 
-## Tester Reports
+- Website content: visible page text is read so LexiShift can apply vocabulary
+  replacements and show practice feedback on pages you browse.
+- Web history: page URLs or page-related metadata may be stored locally in
+  limited practice, feedback, exposure, or diagnostic records.
+- Extension and app settings: language/profile choices, rulesets, display
+  settings, practice state, feedback history, and local beta diagnostics may be
+  saved in Chrome extension storage or local app storage.
+- User-provided support information: if you contact support, the message,
+  screenshots, logs, or files you choose to send may be used to troubleshoot
+  your report.
 
-Useful issue reports may include:
+LexiShift does not intentionally collect personal identifiers, health
+information, financial information, authentication credentials, precise
+location, keystroke logs, mouse-position logs, or personal communications for a
+separate purpose.
 
-- app version,
-- operating system,
-- install method,
-- clear reproduction steps,
-- screenshots with sensitive text removed.
+Because the extension can run on pages you choose to browse, page text may
+include sensitive content. LexiShift's purpose is to process that visible text
+locally for vocabulary practice, not to profile you or inspect unrelated
+personal information.
 
-## Hosted Resources
+## How LexiShift Uses Data
 
-Hosted language/resource data must follow the project distribution register.
-Manual-supply or legally uncertain resources should not be exposed through
-public download or app-data URLs until the register explicitly allows it.
+LexiShift uses data only to provide and improve the beta vocabulary-practice
+experience:
 
-## Future Features
+- applying vocabulary replacements on web pages;
+- loading local vocabulary, ruleset, language-pair, and profile data;
+- saving your settings and local practice state;
+- showing feedback, encounter, and SRS practice history;
+- diagnosing beta setup issues when you choose to view diagnostics or contact
+  support.
 
-If LexiShift later adds accounts, sync, cloud backup, or support dashboards,
-this page must be updated before those features are offered to beta users.
+LexiShift's use and transfer of information received from Chrome extension APIs
+complies with the Chrome Web Store User Data Policy, including the Limited Use
+requirements.
+
+## Local Storage And Native Messaging
+
+The Chrome extension uses `chrome.storage` to save settings, rules, selected
+language/profile options, vocabulary practice state, feedback history, and local
+diagnostics.
+
+The Chrome extension uses Chrome native messaging to communicate with the
+locally installed LexiShift desktop helper. The helper provides local
+vocabulary, ruleset, and language-processing data that cannot be packaged
+entirely inside the extension.
+
+Current beta data is local-first. LexiShift does not currently provide account
+sync, cloud backup, server-side user profiles, or hosted personal dashboards.
+
+## Sharing
+
+LexiShift does not sell user data.
+
+LexiShift does not transfer user data to third parties except:
+
+- when you intentionally send information to support;
+- when hosting, email, browser, operating-system, or infrastructure providers
+  process data as needed to deliver the website, downloads, email routing, or
+  the Chrome Web Store listing;
+- when required by law.
+
+LexiShift does not use or transfer user data for advertising, creditworthiness,
+or lending purposes.
+
+## Remote Code
+
+The LexiShift Chrome extension does not execute remotely hosted JavaScript or
+Wasm. Extension code is packaged with the extension. Links to LexiShift website
+pages, downloads, or support resources are not remote code execution.
+
+## Website And Downloads
+
+The LexiShift website may provide beta downloads, release notes, documentation,
+and support links. Website and download infrastructure may process ordinary
+technical information, such as request time, requested URL, IP address, browser
+metadata, and security logs, as part of hosting and abuse prevention.
+
+Do not include private logs, screenshots, files, or page text in a support
+message unless you intend to share that information for troubleshooting.
+
+## Future Changes
+
+If LexiShift adds accounts, sync, cloud backup, analytics, hosted user data, or
+other server-side user features, this policy will be updated before those
+features are offered to beta users.
+
+## Contact
+
+For privacy or beta support questions, contact:
+
+support@lexishift.app
 
 </div>

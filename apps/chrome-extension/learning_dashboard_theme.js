@@ -98,7 +98,7 @@
       const prefs = isObject(rawPrefs) ? rawPrefs : {};
       const backdropColor = utils.normalizeBackdropColor(prefs.backgroundBackdropColor);
       const assetId = String(prefs.backgroundAssetId || "").trim();
-      if (prefs.backgroundEnabled !== true || !assetId || !mediaStore || typeof mediaStore.getAsset !== "function") {
+      if (!assetId || !mediaStore || typeof mediaStore.getAsset !== "function") {
         pageBackgroundManager.applyBackdropOnly(backdropColor);
         return;
       }

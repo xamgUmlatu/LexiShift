@@ -7,6 +7,7 @@ from i18n import t
 from language_packs import (
     FrequencyPackDownloadThread,
     LanguagePackDownloadThread,
+    PosOverlayPackDownloadThread,
     _converter_version_for_mode,
     _file_checksums,
     download_log_path,
@@ -56,6 +57,10 @@ class LanguagePackPanelTransferMixin:
             row.status_item.setText(t("language_packs.status.downloading_pct", percent=pct))
         else:
             row.status_item.setText(t("language_packs.status.downloading"))
+
+    def _on_pos_overlay_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
+        if hasattr(self, "_update_learning_pair_resource_progress"):
+            self._update_learning_pair_resource_progress(pack_id, downloaded, total)
 
     def _on_embedding_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
         row = self._embedding_row_for(pack_id)
@@ -146,6 +151,26 @@ class LanguagePackPanelTransferMixin:
             return
         self._set_download_failed_status(pack=pack, row=row, message=message)
 
+    def _on_pos_overlay_pack_failed(self, pack_id: str, message: str) -> None:
+        if hasattr(self, "_clear_learning_pair_resource_progress"):
+            self._clear_learning_pair_resource_progress(pack_id)
+        pack = self._pos_overlay_pack_info.get(pack_id)
+        if not pack:
+            return
+        failure = parse_pack_download_failure(message)
+        if failure.kind == PACK_DOWNLOAD_FAILURE_CANCELLED and self._closing:
+            self._set_status_message(t("language_packs.status.cancelled"), tone="muted")
+        else:
+            log_path = download_log_path()
+            tooltip = self._download_failure_tooltip(log_path=log_path, failure=failure)
+            self._set_status_message(
+                self._download_failure_message(pack=pack, failure=failure),
+                tone="error",
+                tooltip=tooltip,
+            )
+        if hasattr(self, "_refresh_pair_resource_setup_panel"):
+            self._refresh_pair_resource_setup_panel()
+
     def _on_embedding_pack_failed(self, pack_id: str, message: str) -> None:
         pack = self._embedding_pack_info.get(pack_id)
         row = self._embedding_row_for(pack_id)
@@ -161,6 +186,11 @@ class LanguagePackPanelTransferMixin:
     def _cleanup_frequency_pack_thread(self, thread: FrequencyPackDownloadThread) -> None:
         if thread in self._frequency_pack_threads:
             self._frequency_pack_threads.remove(thread)
+        thread.deleteLater()
+
+    def _cleanup_pos_overlay_pack_thread(self, thread: PosOverlayPackDownloadThread) -> None:
+        if thread in self._pos_overlay_pack_threads:
+            self._pos_overlay_pack_threads.remove(thread)
         thread.deleteLater()
 
     def _cleanup_embedding_conversion_thread(self, thread: EmbeddingConversionThread) -> None:
@@ -271,6 +301,26 @@ class LanguagePackPanelTransferMixin:
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.redownload"))
         self._refresh_frequency_pack_table()
+        if hasattr(self, "_refresh_pair_resource_setup_panel"):
+            self._refresh_pair_resource_setup_panel()
+
+    def _on_pos_overlay_pack_completed(self, pack_id: str, dest_path: str) -> None:
+        if hasattr(self, "_clear_learning_pair_resource_progress"):
+            self._clear_learning_pair_resource_progress(pack_id)
+        pack = self._pos_overlay_pack_info.get(pack_id)
+        if not pack:
+            return
+        valid, message = self._validate_pos_overlay_pack_path(pack, dest_path)
+        if valid:
+            self._set_status_message(
+                t("language_packs.installed_linked", name=pack.display_name(), path=dest_path),
+                tone="success",
+            )
+        else:
+            self._set_status_message(
+                t("language_packs.installed_invalid", name=pack.display_name(), message=message),
+                tone="error",
+            )
         if hasattr(self, "_refresh_pair_resource_setup_panel"):
             self._refresh_pair_resource_setup_panel()
 

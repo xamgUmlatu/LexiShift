@@ -24,6 +24,22 @@
     ? replacementSelection.filterMatches
     : ((matches) => matches);
 
+  function translateMessage(key, substitutions, fallback) {
+    try {
+      if (typeof chrome !== "undefined"
+        && chrome.i18n
+        && typeof chrome.i18n.getMessage === "function") {
+        const message = chrome.i18n.getMessage(key, substitutions);
+        if (message) {
+          return message;
+        }
+      }
+    } catch (_error) {
+      // Ignore i18n runtime errors and use the stable fallback text.
+    }
+    return String(fallback || "");
+  }
+
   function normalizeDisplayScript(value) {
     const normalized = String(value || "").trim().toLowerCase();
     if (normalized === "kana" || normalized === "romaji") {
@@ -215,14 +231,34 @@
       semanticDebug.applyToSpan(span, metadata);
     }
 
-    let tooltip = "Click to toggle original";
+    const toggleTooltip = translateMessage(
+      "replacement_tooltip_toggle_original",
+      null,
+      "Click to toggle original"
+    );
+    const detailsTooltip = translateMessage(
+      "replacement_tooltip_details_feedback",
+      null,
+      "Right-click (or Ctrl+Click on macOS) for details and feedback."
+    );
+    const toggleWithDetailsTooltip = translateMessage(
+      "replacement_tooltip_toggle_original_with_details",
+      null,
+      `${toggleTooltip}. ${detailsTooltip}`
+    );
+    const originalTooltip = translateMessage(
+      "replacement_tooltip_original",
+      [originalText],
+      `Original: ${originalText}`
+    );
+    let tooltip = toggleTooltip;
     if (payload.scriptForms && Object.keys(payload.scriptForms).length > 1) {
-      tooltip = "Click to toggle original. Right-click (or Ctrl+Click on macOS) for details and feedback.";
+      tooltip = toggleWithDetailsTooltip;
     }
     if (rule && rule.metadata && rule.metadata.description) {
-      tooltip = `${rule.metadata.description}\n\n(Original: ${originalText})`;
+      tooltip = `${rule.metadata.description}\n\n(${originalTooltip})`;
       if (payload.scriptForms && Object.keys(payload.scriptForms).length > 1) {
-        tooltip += "\n(Right-click or Ctrl+Click on macOS for details and feedback.)";
+        tooltip += `\n(${detailsTooltip})`;
       }
     }
     span.title = tooltip;

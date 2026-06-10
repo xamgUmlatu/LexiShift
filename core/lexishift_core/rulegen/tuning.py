@@ -18,6 +18,7 @@ class RulegenPairTuning:
     max_definitions_per_target: int = 3
     max_rules_per_target: Optional[int] = None
     semantic_demotion_scale: float = 1.0
+    source_frequency_prior_enabled: bool = False
     enable_exact_gloss_demotions: bool = False
     include_variants: bool = True
     allow_multiword_glosses: bool = False
@@ -32,6 +33,7 @@ class RulegenTuningOverrides:
     max_definitions_per_target: Optional[int] = None
     max_rules_per_target: Optional[int] = None
     semantic_demotion_scale: Optional[float] = None
+    source_frequency_prior_enabled: Optional[bool] = None
     enable_exact_gloss_demotions: Optional[bool] = None
     include_variants: Optional[bool] = None
     allow_multiword_glosses: Optional[bool] = None
@@ -62,6 +64,7 @@ class ResolvedRulegenTuning:
     max_definitions_per_target: Optional[int]
     max_rules_per_target: Optional[int]
     semantic_demotion_scale: float
+    source_frequency_prior_enabled: bool
     enable_exact_gloss_demotions: bool
     include_variants: bool
     allow_multiword_glosses: bool
@@ -81,7 +84,7 @@ _PAIR_TUNINGS: dict[str, RulegenPairTuning] = {
             "Production default tuned from benchmark sweeps: prioritize high-precision top-1 mapping with one rule per target.",
         ),
     ),
-    "en-de": RulegenPairTuning(pair="en-de"),
+    "en-de": RulegenPairTuning(pair="en-de", source_frequency_prior_enabled=True),
     "en-es": RulegenPairTuning(
         pair="en-es",
         max_definitions_per_target=3,
@@ -131,6 +134,11 @@ def resolve_rulegen_tuning(
         if applied_overrides.semantic_demotion_scale is not None
         else _normalize_semantic_demotion_scale(resolved_pair.semantic_demotion_scale)
     )
+    source_frequency_prior_enabled = (
+        bool(applied_overrides.source_frequency_prior_enabled)
+        if applied_overrides.source_frequency_prior_enabled is not None
+        else bool(resolved_pair.source_frequency_prior_enabled)
+    )
     include_variants = (
         bool(applied_overrides.include_variants)
         if applied_overrides.include_variants is not None
@@ -166,6 +174,7 @@ def resolve_rulegen_tuning(
         max_definitions_per_target=max_definitions_per_target,
         max_rules_per_target=max_rules_per_target,
         semantic_demotion_scale=semantic_demotion_scale,
+        source_frequency_prior_enabled=source_frequency_prior_enabled,
         enable_exact_gloss_demotions=enable_exact_gloss_demotions,
         include_variants=include_variants,
         allow_multiword_glosses=allow_multiword_glosses,
@@ -183,6 +192,7 @@ def rulegen_pair_tuning_to_dict(policy: RulegenPairTuning) -> dict[str, object]:
             int(policy.max_rules_per_target) if policy.max_rules_per_target is not None else None
         ),
         "semantic_demotion_scale": float(policy.semantic_demotion_scale),
+        "source_frequency_prior_enabled": bool(policy.source_frequency_prior_enabled),
         "enable_exact_gloss_demotions": bool(policy.enable_exact_gloss_demotions),
         "include_variants": bool(policy.include_variants),
         "allow_multiword_glosses": bool(policy.allow_multiword_glosses),
@@ -205,6 +215,7 @@ def resolved_rulegen_tuning_to_dict(tuning: ResolvedRulegenTuning) -> dict[str, 
             int(tuning.max_rules_per_target) if tuning.max_rules_per_target is not None else None
         ),
         "semantic_demotion_scale": float(tuning.semantic_demotion_scale),
+        "source_frequency_prior_enabled": bool(tuning.source_frequency_prior_enabled),
         "enable_exact_gloss_demotions": bool(tuning.enable_exact_gloss_demotions),
         "include_variants": bool(tuning.include_variants),
         "allow_multiword_glosses": bool(tuning.allow_multiword_glosses),
@@ -223,6 +234,7 @@ def rulegen_tuning_overrides_to_dict(
         "max_definitions_per_target": overrides.max_definitions_per_target,
         "max_rules_per_target": overrides.max_rules_per_target,
         "semantic_demotion_scale": overrides.semantic_demotion_scale,
+        "source_frequency_prior_enabled": overrides.source_frequency_prior_enabled,
         "enable_exact_gloss_demotions": overrides.enable_exact_gloss_demotions,
         "include_variants": overrides.include_variants,
         "allow_multiword_glosses": overrides.allow_multiword_glosses,

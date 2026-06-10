@@ -14,12 +14,10 @@
     const maxUploadBytes = Number.isFinite(Number(opts.maxUploadBytes))
       ? Math.max(1, Number(opts.maxUploadBytes))
       : (8 * 1024 * 1024);
-    const profileBgEnabledInput = opts.profileBgEnabledInput || null;
     const profileBgBackdropColorInput = opts.profileBgBackdropColorInput || null;
     const profileBgOpacityInput = opts.profileBgOpacityInput || null;
     const profileBgFileInput = opts.profileBgFileInput || null;
     const profileBgRemoveButton = opts.profileBgRemoveButton || null;
-    const profileBgApplyButton = opts.profileBgApplyButton || null;
     const profileMediaStore = opts.profileMediaStore && typeof opts.profileMediaStore === "object"
       ? opts.profileMediaStore
       : null;
@@ -32,9 +30,6 @@
       : (key, substitutions, fallback) => {
           setProfileBgStatus(translate(key, substitutions, fallback || ""));
         };
-    const setProfileBgApplyState = typeof opts.setProfileBgApplyState === "function"
-      ? opts.setProfileBgApplyState
-      : (() => {});
     const updateProfileBgOpacityLabel = typeof opts.updateProfileBgOpacityLabel === "function"
       ? opts.updateProfileBgOpacityLabel
       : (() => {});
@@ -83,51 +78,16 @@
             y: Math.min(100, Math.max(0, fallbackY))
           };
         };
-    const getPendingFile = typeof opts.getPendingFile === "function" ? opts.getPendingFile : (() => null);
-    const setPendingFile = typeof opts.setPendingFile === "function" ? opts.setPendingFile : (() => {});
-    const hasPendingApply = typeof opts.hasPendingApply === "function" ? opts.hasPendingApply : (() => false);
-
-    async function onEnabledChange() {
-      if (!profileBgEnabledInput) {
-        return;
-      }
-      if (getPendingFile()) {
-        setProfileBgApplyState(true, false);
-        setStatus("Background toggle staged. Click Apply to commit.", colors.SUCCESS);
-        return;
-      }
-      const state = await loadActiveProfileUiPrefs();
-      if (!state.uiPrefs.backgroundAssetId) {
-        setProfileBgApplyState(Boolean(getPendingFile()), false);
-        setStatus("Choose an image file, then click Apply.", colors.DEFAULT);
-        return;
-      }
-      const nextPrefs = {
-        ...state.uiPrefs,
-        backgroundEnabled: profileBgEnabledInput.checked === true
-      };
-      await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
-        profileId: state.profileId,
-        publishRuntime: false
-      });
-      await applyOptionsPageBackgroundFromPrefs(nextPrefs);
-      setStatus("Background toggle saved.", colors.SUCCESS);
-    }
-
     async function onOpacityChange() {
       if (!profileBgOpacityInput) {
         return;
       }
       const percent = Number.parseFloat(profileBgOpacityInput.value);
       updateProfileBgOpacityLabel(percent);
-      if (getPendingFile()) {
-        setProfileBgApplyState(true, false);
-        setStatus("Background opacity staged. Click Apply to commit.", colors.SUCCESS);
-        return;
-      }
       const state = await loadActiveProfileUiPrefs();
+      const currentPrefs = state.uiPrefs && typeof state.uiPrefs === "object" ? state.uiPrefs : {};
       const nextPrefs = {
-        ...state.uiPrefs,
+        ...currentPrefs,
         backgroundOpacity: clampProfileBackgroundOpacity(percent / 100)
       };
       await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
@@ -145,8 +105,9 @@
       const color = normalizeProfileBackgroundBackdropColor(profileBgBackdropColorInput.value);
       profileBgBackdropColorInput.value = color;
       const state = await loadActiveProfileUiPrefs();
+      const currentPrefs = state.uiPrefs && typeof state.uiPrefs === "object" ? state.uiPrefs : {};
       const nextPrefs = {
-        ...state.uiPrefs,
+        ...currentPrefs,
         backgroundBackdropColor: color
       };
       await saveProfileUiPrefsForCurrentProfile(nextPrefs, {
@@ -164,42 +125,95 @@
       updateProfileBgOpacityLabel(profileBgOpacityInput.value);
     }
 
-    function onFileChange() {
+    async function onFileChange() {
       if (!profileBgFileInput) {
         return;
       }
       const file = profileBgFileInput.files && profileBgFileInput.files[0];
       if (!file) {
-        setPendingFile(null);
         return;
       }
       if (!String(file.type || "").startsWith("image/")) {
-        setPendingFile(null);
+        setProfileBgStatus("Only image files are supported.");
         setStatus("Only image files are supported.", colors.ERROR);
         profileBgFileInput.value = "";
         return;
       }
       if (Number(file.size || 0) > maxUploadBytes) {
-        setPendingFile(null);
-        setStatus(`Image too large. Maximum is ${formatBytes(maxUploadBytes)}.`, colors.ERROR);
+        const message = `Image too large. Maximum is ${formatBytes(maxUploadBytes)}.`;
+        setProfileBgStatus(message);
+        setStatus(message, colors.ERROR);
         profileBgFileInput.value = "";
         return;
       }
-      setPendingFile(file);
-      previewManager.setPreviewFromBlob(file);
-      if (profileBgEnabledInput) {
-        profileBgEnabledInput.checked = true;
+      if (!profileMediaStore || typeof profileMediaStore.upsertProfileBackground !== "function") {
+        const message = "Profile media store is unavailable.";
+        setProfileBgStatus(message);
+        setStatus(message, colors.ERROR);
+        profileBgFileInput.value = "";
+        return;
       }
-      setProfileBgStatus(`Preview ready: ${file.type || "image/*"}, ${formatBytes(file.size || 0)}.`);
-      setProfileBgApplyState(true, false);
-      setStatus("File selected. Click Apply options page background.", colors.SUCCESS);
+
+      profileBgFileInput.disabled = true;
+      setProfileBgStatus(`Saving: ${file.type || "image/*"}, ${formatBytes(file.size || 0)}.`);
+      setStatus("Saving options page background image.", colors.DEFAULT);
+      try {
+        const state = await loadActiveProfileUiPrefs();
+        const currentPrefs = state.uiPrefs && typeof state.uiPrefs === "object" ? state.uiPrefs : {};
+        const previewPosition = resolveBackgroundPositionFromSource(currentPrefs);
+        const meta = await profileMediaStore.upsertProfileBackground(
+          state.profileId,
+          file,
+          {
+            previousAssetId: currentPrefs.backgroundAssetId,
+            mimeType: file.type || "application/octet-stream"
+          }
+        );
+        const finalPrefs = {
+          ...currentPrefs,
+          backgroundAssetId: meta.asset_id,
+          backgroundEnabled: true,
+          backgroundOpacity: profileBgOpacityInput
+            ? clampProfileBackgroundOpacity(Number(profileBgOpacityInput.value || 18) / 100)
+            : (currentPrefs.backgroundOpacity || 0.18),
+          backgroundBackdropColor: profileBgBackdropColorInput
+            ? normalizeProfileBackgroundBackdropColor(profileBgBackdropColorInput.value)
+            : normalizeProfileBackgroundBackdropColor(currentPrefs.backgroundBackdropColor),
+          backgroundPositionX: previewPosition.x,
+          backgroundPositionY: previewPosition.y
+        };
+        await saveProfileUiPrefsForCurrentProfile(finalPrefs, {
+          profileId: state.profileId,
+          publishRuntime: false
+        });
+        await publishProfileUiPrefsForCurrentProfile(finalPrefs, {
+          profileId: state.profileId
+        });
+        previewManager.setPreviewFromBlob(file);
+        if (typeof previewManager.setPreviewPosition === "function") {
+          previewManager.setPreviewPosition(previewPosition.x, previewPosition.y);
+        }
+        await applyOptionsPageBackgroundFromPrefs(finalPrefs, {
+          preferredBlob: file
+        });
+        setProfileBgStatus(
+          `Asset: ${meta.mime_type || file.type || "image/*"}, ${formatBytes(meta.byte_size || file.size || 0)}.`
+        );
+        setStatus("Options page background image saved.", colors.SUCCESS);
+      } catch (err) {
+        const msg = err && err.message ? err.message : "Failed to save profile background image.";
+        setProfileBgStatus(msg);
+        setStatus(msg, colors.ERROR);
+      } finally {
+        profileBgFileInput.disabled = false;
+        profileBgFileInput.value = "";
+      }
     }
 
     async function onRemove() {
       if (!profileBgRemoveButton) {
         return;
       }
-      setPendingFile(null);
       if (profileBgFileInput) {
         profileBgFileInput.value = "";
       }
@@ -211,12 +225,13 @@
       let removed = false;
       try {
         const state = await loadActiveProfileUiPrefs();
-        const existingAssetId = String(state.uiPrefs.backgroundAssetId || "").trim();
+        const currentPrefs = state.uiPrefs && typeof state.uiPrefs === "object" ? state.uiPrefs : {};
+        const existingAssetId = String(currentPrefs.backgroundAssetId || "").trim();
         if (existingAssetId) {
           await profileMediaStore.deleteAsset(existingAssetId);
         }
         const nextPrefs = {
-          ...state.uiPrefs,
+          ...currentPrefs,
           backgroundEnabled: false,
           backgroundAssetId: ""
         };
@@ -226,7 +241,6 @@
         });
         previewManager.clearPreview();
         await applyOptionsPageBackgroundFromPrefs(nextPrefs);
-        setProfileBgApplyState(Boolean(getPendingFile()), false);
         setProfileBgStatusLocalized(
           "hint_profile_bg_status_empty",
           null,
@@ -238,92 +252,16 @@
         const msg = err && err.message ? err.message : "Failed to remove profile background image.";
         setStatus(msg, colors.ERROR);
       } finally {
-        if (!removed) {
-          profileBgRemoveButton.disabled = false;
-        }
-      }
-    }
-
-    async function onApply() {
-      if (!profileBgApplyButton) {
-        return;
-      }
-      if (!hasPendingApply()) {
-        setStatus("No pending background changes.", colors.DEFAULT);
-        return;
-      }
-      profileBgApplyButton.disabled = true;
-      try {
-        const state = await loadActiveProfileUiPrefs();
-        const previewPosition = resolveBackgroundPositionFromSource(state.uiPrefs);
-        let finalPrefs = { ...state.uiPrefs };
-        let preferredBlob = null;
-        if (getPendingFile()) {
-          if (!profileMediaStore || typeof profileMediaStore.upsertProfileBackground !== "function") {
-            throw new Error("Profile media store is unavailable.");
-          }
-          const committedFile = getPendingFile();
-          const meta = await profileMediaStore.upsertProfileBackground(
-            state.profileId,
-            committedFile,
-            {
-              previousAssetId: state.uiPrefs.backgroundAssetId,
-              mimeType: committedFile.type || "application/octet-stream"
-            }
-          );
-          finalPrefs = {
-            ...state.uiPrefs,
-            backgroundAssetId: meta.asset_id,
-            backgroundEnabled: profileBgEnabledInput ? profileBgEnabledInput.checked === true : true,
-            backgroundOpacity: profileBgOpacityInput
-              ? clampProfileBackgroundOpacity(Number(profileBgOpacityInput.value || 18) / 100)
-              : (state.uiPrefs.backgroundOpacity || 0.18),
-            backgroundBackdropColor: profileBgBackdropColorInput
-              ? normalizeProfileBackgroundBackdropColor(profileBgBackdropColorInput.value)
-              : normalizeProfileBackgroundBackdropColor(state.uiPrefs.backgroundBackdropColor),
-            backgroundPositionX: previewPosition.x,
-            backgroundPositionY: previewPosition.y
-          };
-          preferredBlob = committedFile;
-          setPendingFile(null);
-          if (profileBgFileInput) {
-            profileBgFileInput.value = "";
-          }
-          await saveProfileUiPrefsForCurrentProfile(finalPrefs, {
-            profileId: state.profileId,
-            publishRuntime: false
-          });
-          previewManager.setPreviewFromBlob(committedFile);
-          if (typeof previewManager.setPreviewPosition === "function") {
-            previewManager.setPreviewPosition(previewPosition.x, previewPosition.y);
-          }
-          setProfileBgStatus(
-            `Asset: ${meta.mime_type || committedFile.type || "image/*"}, ${formatBytes(meta.byte_size || committedFile.size || 0)}.`
-          );
-        }
-        await publishProfileUiPrefsForCurrentProfile(finalPrefs, {
-          profileId: state.profileId
-        });
-        await applyOptionsPageBackgroundFromPrefs(finalPrefs, {
-          preferredBlob
-        });
-        setProfileBgApplyState(false, false);
-        setStatus("Options page background applied.", colors.SUCCESS);
-      } catch (err) {
-        setProfileBgApplyState(true, false);
-        const msg = err && err.message ? err.message : "Failed to apply profile background.";
-        setStatus(msg, colors.ERROR);
+        profileBgRemoveButton.disabled = removed;
       }
     }
 
     return {
-      onEnabledChange,
       onOpacityInput,
       onOpacityChange,
       onBackdropColorChange,
       onFileChange,
-      onRemove,
-      onApply
+      onRemove
     };
   }
 

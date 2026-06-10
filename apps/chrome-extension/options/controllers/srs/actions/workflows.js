@@ -175,6 +175,9 @@
             : setOutputText,
           markRulesetUpdatedNow,
           preflightSrsPairResources,
+          activateSrsStoryPair: typeof opts.activateSrsStoryPair === "function"
+            ? opts.activateSrsStoryPair
+            : null,
           loadSrsProfileForPair: typeof opts.loadSrsProfileForPair === "function"
             ? opts.loadSrsProfileForPair
             : null,

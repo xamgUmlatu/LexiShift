@@ -83,6 +83,27 @@ class TestRulegenEnEsGlossProcessing(unittest.TestCase):
 
         self.assertEqual(lookup, {"run": ("correr", "ejecutar")})
 
+    def test_definition_bucket_key_splits_legacy_freedict_gloss_rows(self) -> None:
+        record = FreedictGlossRecord(
+            translation="alley",
+            pos_raw="noun",
+            metadata={"entry_ord": 9652, "gloss_ord": 1},
+        )
+        auxiliary_record = FreedictGlossRecord(
+            translation="alley",
+            pos_raw="noun",
+            metadata={"entry_ord": 9652, "sense_ord": 0, "gloss_ord": 1},
+        )
+
+        self.assertEqual(
+            en_es_support.build_definition_bucket_key(record, fallback_index=0),
+            "sense:9652:gloss:1",
+        )
+        self.assertEqual(
+            en_es_support.build_definition_bucket_key(auxiliary_record, fallback_index=0),
+            "sense:9652:0",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

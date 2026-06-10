@@ -20,6 +20,7 @@ from frozen_layout import (
     resolve_windows_sibling_executable,
 )
 from lexishift_core.helper.paths import build_helper_paths
+from lexishift_core.helper.profiles import resolve_active_profile_id
 from lexishift_core.helper.status import load_status
 from helper_daemon import DaemonConfig, run_daemon
 from i18n import set_locale, t
@@ -156,9 +157,7 @@ class HelperTrayController:
         self.open_data_action.triggered.connect(lambda: reveal_path(str(self.paths.data_root)))
 
         self.open_status_action = QAction(t("helper_tray.action_open_status"))
-        self.open_status_action.triggered.connect(
-            lambda: reveal_path(str(self.paths.srs_status_path))
-        )
+        self.open_status_action.triggered.connect(self._open_active_status)
 
         self.notify_action = QAction(t("helper_tray.action_show_notification"))
         self.notify_action.triggered.connect(self._show_notification)
@@ -202,13 +201,19 @@ class HelperTrayController:
         self._refresh_status()
 
     def _refresh_status(self) -> None:
-        status = load_status(self.paths.srs_status_path)
+        status = load_status(self._active_status_path())
         label = t("helper_tray.status_running")
         if status.last_error:
             label = t("helper_tray.status_error", error=status.last_error)
         elif status.last_run_at:
             label = t("helper_tray.status_last_run", value=status.last_run_at)
         self.status_action.setText(label)
+
+    def _active_status_path(self):
+        return self.paths.srs_status_path_for(resolve_active_profile_id(self.paths))
+
+    def _open_active_status(self) -> None:
+        reveal_path(str(self._active_status_path()))
 
     def _show_notification(self) -> None:
         self.tray.showMessage(

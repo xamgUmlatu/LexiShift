@@ -29,10 +29,16 @@
       "disabled_reason": "Manual setup required: WordFrequency/Corpus del Espanol frequency data cannot be redistributed by LexiShift.",
       "expected_content_type": "text/plain"
     },
+    "freq-es-spalex-v1": {
+      "expected_content_type": "text/csv"
+    },
     "jmdict-ja-en": {
       "expected_content_type": "application/gzip"
     },
     "moby-en": {
+      "expected_content_type": "text/plain"
+    },
+    "pos-es-ud-ancora-v1": {
       "expected_content_type": "text/plain"
     }
   }

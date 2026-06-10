@@ -87,6 +87,21 @@ def _build_freq_db_with_spanish_style_columns(path: Path) -> None:
     conn.close()
 
 
+def _build_spalex_style_freq_db_without_pos_values(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute("CREATE TABLE frequency (id REAL, freq REAL, lemma TEXT, pos TEXT)")
+    conn.executemany(
+        "INSERT INTO frequency (id, freq, lemma, pos) VALUES (?, ?, ?, ?)",
+        [
+            (1, 1000.0, "gato", ""),
+            (2, 900.0, "correr", None),
+            (3, 800.0, "rápido", ""),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
 def _build_freq_db_with_compact_spanish_tags(path: Path) -> None:
     conn = sqlite3.connect(path)
     conn.execute("CREATE TABLE frequency (ID REAL, freq REAL, lemma TEXT, pos TEXT)")
@@ -98,6 +113,79 @@ def _build_freq_db_with_compact_spanish_tags(path: Path) -> None:
             (3, 800.0, "correr", "v"),
             (4, 700.0, "rapidamente", "r"),
             (5, 600.0, "hola", "i"),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
+def _build_ud_pos_overlay(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute(
+        """
+        CREATE TABLE pos_overlay (
+          lemma TEXT PRIMARY KEY,
+          raw_pos TEXT,
+          pos_canonical TEXT,
+          pos_bucket TEXT,
+          pos_source_profile TEXT,
+          pos_matched_rule TEXT,
+          confidence REAL,
+          source_count INTEGER,
+          total_count INTEGER,
+          source_provider TEXT,
+          overlay_id TEXT
+        )
+        """
+    )
+    conn.executemany(
+        """
+        INSERT INTO pos_overlay (
+          lemma, raw_pos, pos_canonical, pos_bucket, pos_source_profile,
+          pos_matched_rule, confidence, source_count, total_count,
+          source_provider, overlay_id
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        [
+            (
+                "gato",
+                "NOUN",
+                "noun",
+                "noun",
+                "universal-dependencies",
+                "ud_upos:NOUN",
+                1.0,
+                4,
+                4,
+                "universal-dependencies-ud-ancora",
+                "pos-es-ud-ancora-v1",
+            ),
+            (
+                "correr",
+                "VERB",
+                "verb",
+                "verb",
+                "universal-dependencies",
+                "ud_upos:VERB",
+                0.75,
+                3,
+                4,
+                "universal-dependencies-ud-ancora",
+                "pos-es-ud-ancora-v1",
+            ),
+            (
+                "rápido",
+                "ADJ",
+                "adjective",
+                "adjective",
+                "universal-dependencies",
+                "ud_upos:ADJ",
+                1.0,
+                2,
+                2,
+                "universal-dependencies-ud-ancora",
+                "pos-es-ud-ancora-v1",
+            ),
         ],
     )
     conn.commit()
@@ -315,6 +403,66 @@ class TestSrsSeedStopwords(unittest.TestCase):
             self.assertEqual(selector_by_lemma["gato"].pos, "noun")
             self.assertEqual(selector_by_lemma["gato"].metadata["pos_raw"], "n")
             self.assertEqual(selector_by_lemma["gato"].metadata["pos_canonical"], "noun")
+
+    def test_seed_uses_pos_overlay_when_frequency_pos_is_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq-es-spalex-v1.sqlite"
+            overlay_path = root / "pos-es-ud-ancora-v1.sqlite"
+            _build_spalex_style_freq_db_without_pos_values(db_path)
+            _build_ud_pos_overlay(overlay_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-es",
+                    top_n=3,
+                    require_jmdict=False,
+                    pos_overlay_path=overlay_path,
+                ),
+            )
+
+            by_lemma = {item.lemma: item for item in selected}
+            self.assertEqual(by_lemma["gato"].pos_raw, "NOUN")
+            self.assertEqual(by_lemma["gato"].pos_canonical, "noun")
+            self.assertEqual(by_lemma["gato"].pos_bucket, "noun")
+            self.assertEqual(by_lemma["gato"].metadata["pos_source_kind"], "pos_overlay")
+            self.assertEqual(
+                by_lemma["gato"].metadata["pos_source_profile"],
+                "universal-dependencies",
+            )
+            self.assertEqual(by_lemma["gato"].metadata["frequency_pos_raw"], "")
+            self.assertEqual(
+                by_lemma["gato"].metadata["pos_overlay_id"],
+                "pos-es-ud-ancora-v1",
+            )
+            self.assertAlmostEqual(
+                float(by_lemma["correr"].metadata["pos_overlay_confidence"]),
+                0.75,
+            )
+
+    def test_seed_keeps_frequency_pos_over_pos_overlay_when_mapped(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq-es-cde.sqlite"
+            overlay_path = root / "pos-es-ud-ancora-v1.sqlite"
+            _build_freq_db_with_compact_spanish_tags(db_path)
+            _build_ud_pos_overlay(overlay_path)
+
+            selected = build_seed_candidates(
+                frequency_db=db_path,
+                config=SeedSelectionConfig(
+                    language_pair="en-es",
+                    top_n=5,
+                    require_jmdict=False,
+                    pos_overlay_path=overlay_path,
+                ),
+            )
+
+            by_lemma = {item.lemma: item for item in selected}
+            self.assertEqual(by_lemma["gato"].pos_raw, "n")
+            self.assertEqual(by_lemma["gato"].metadata["pos_source_kind"], "frequency")
+            self.assertNotIn("pos_overlay_id", by_lemma["gato"].metadata)
 
     def test_seed_prefers_pmw_when_pmw_and_freq_are_both_present(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

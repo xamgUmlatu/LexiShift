@@ -30,7 +30,7 @@
         ));
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const ruleOriginRuleset = String(opts.ruleOriginRuleset || "ruleset");
-    const DEFAULT_SEMANTIC_FALLBACK_POLICY = "abstain_on_unavailable";
+    const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
 
     function countRulesByOrigin(rules) {
       const counts = {

@@ -3,8 +3,8 @@
 Status: active planning doc
 Role: Planning / WIP
 Purpose: Define the recommended order for generalizing the current `en-es`-optimized rulegen and benchmark stack so it can support additional language pairs and additional data-source families without duplicating pair-specific infrastructure.
-Last updated: 2026-04-03
-Last verified: 2026-04-03
+Last updated: 2026-06-08
+Last verified: 2026-06-08 en-de onboarding follow-up audit against current source-stack setup resources, German frequency workflow, and active LP checklists
 Source-of-truth: planning doc only; executable truth still lives in code, tests, and the current pair/resource capability docs.
 
 ## Scope
@@ -69,7 +69,7 @@ Many are blocked by:
 
 - pair-specific adapter gaps
 - helper/runtime generalization gaps
-- missing frequency packs
+- missing frequency packs for some target languages, especially ZH
 - missing monolingual synonym pipelines
 
 ## High-Level Goal
@@ -284,8 +284,11 @@ Why `de-en` is the best first concrete target:
 
 Why not another pair first:
 
-- `en-de` still needs a practical real German frequency setup for full usability
-- `de-de` is still blocked by a real German frequency pack plus monolingual pipeline work
+- `en-de` no longer needs a practical real German frequency setup for beta use,
+  but still needs rulegen quality work and a real semantic/veto reference pack
+  before parity claims
+- `de-de` is no longer blocked by basic German frequency availability, but it
+  still needs monolingual adapter/source-ranking work
 - `en-en` has sources available, but monolingual synonym-rulegen is a distinct pipeline family and should not be the first proof target if the immediate goal is to generalize the current translation-pair architecture
 - `en-zh` is still blocked by missing Chinese frequency infrastructure and adapter work
 
@@ -298,7 +301,10 @@ Definition of done for this phase:
 
 ## Phase 6: Add The First Missing Data-Source Pack That Unlocks Multiple LPs
 
-This is the first "just add the missing data source" moment.
+This was the first "just add the missing data source" moment. The German
+frequency workflow has now landed far enough for `en-de` runtime/SRS beta use,
+so the remaining work is polish/provenance and downstream quality rather than
+basic frequency availability.
 
 Recommended first missing data-source addition:
 
@@ -306,18 +312,23 @@ Recommended first missing data-source addition:
 
 Why this is the best first missing data-source lane:
 
-- it unlocks practical `en-de`
-- it is also a blocker for `de-de`
-- the build path already exists and is documented
-- this is a more leveraged addition than adding a one-off niche dictionary endpoint
+- it unlocked practical `en-de` beta runtime/SRS usage
+- it also gives `de-de` the frequency substrate it will need once a monolingual
+  adapter exists
+- the build path exists and is documented
+- it is more leveraged than adding a one-off niche dictionary endpoint
 
 Concrete targets:
 
-- make `freq-de-default.sqlite` a first-class, reproducible pack workflow
+- keep `freq-de-default` as a first-class, reproducible managed pack workflow
 - keep or improve app-button wiring for German frequency generation/install
 - add stopword readiness where appropriate
 
-This is the moment to tell the user "it is now easiest to just land a concrete missing data-source lane."
+Current status:
+
+- the missing-data-source lane is no longer the active `en-de` blocker
+- remaining `en-de` blockers are rulegen quality, semantic/veto reference pack
+  creation, and topic/enrichment coverage
 
 ## Phase 7: Broaden To Monolingual LPs
 
@@ -334,7 +345,8 @@ Reasoning:
 
 - `en-en` has the cleanest source availability: WordNet + Moby + English frequency already exist
 - `ja-ja` also has source availability, but the monolingual Japanese semantics deserve a more careful adapter
-- `de-de` depends on the German frequency lane becoming real
+- `de-de` can reuse the German frequency lane, but still needs a monolingual
+  source adapter and source-ranking policy
 - `es-es` still needs concrete monolingual source selection
 
 This phase should reuse the same benchmark/resource contract, but it will need a different rule source family:
@@ -370,7 +382,7 @@ This is the concrete order I would follow from the current codebase:
 3. generic compiled pair-context boundary cleanup
 4. pair capability / LP readiness model cleanup
 5. implement `de-en` on the cleaned contract
-6. land/polish German frequency pack workflow
+6. keep polishing the German frequency pack workflow as a managed resource
 7. only then widen to monolingual LPs such as `en-en`
 
 ## When To Tell The User "Now Is The Time To Add A Specific Language"
@@ -383,12 +395,16 @@ There are two decision points:
 
 2. First concrete missing data-source moment:
 - once the translation contract is stable enough that new LP work is no longer architecture-blocked
-- then German frequency is the best missing data-source lane to add next
+- then German frequency was the best missing data-source lane to add next; this
+  lane is now usable for `en-de` beta, so future "missing data-source" moments
+  should be chosen from still-missing target resources such as ZH or from
+  monolingual source families
 
 So the short version is:
 
 - first concrete LP: `de-en`
-- first concrete missing data-source lane: German frequency / stopword readiness
+- first concrete missing data-source lane: German frequency / stopword
+  readiness, now moved from blocker to polish/quality-support status
 
 ## Non-Goals For The First Generalization Slice
 

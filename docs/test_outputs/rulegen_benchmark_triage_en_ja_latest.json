@@ -1,0 +1,43 @@
+{
+  "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_en_ja_latest.json",
+  "pairs_processed": 1,
+  "failing_or_review_count": 1,
+  "items": [
+    {
+      "pair": "en-ja",
+      "case_id": "en-ja:世界",
+      "target": "世界",
+      "status": "FAIL",
+      "reasons": [
+        "forbidden_candidate_present"
+      ],
+      "top1_source": "society",
+      "top3_sources": [
+        "society",
+        "sphere"
+      ],
+      "expected_matches": [
+        "society"
+      ],
+      "forbidden_matches": [
+        "sphere"
+      ],
+      "suggested_case_patch": {
+        "action": "review_labels",
+        "priority": "high",
+        "notes": [
+          "Review case labels and pair tuning; this case violates hard quality expectations.",
+          "Observed top1 source: society",
+          "Observed top3 sources: society, sphere"
+        ],
+        "candidate_forbidden_top1": [
+          "society"
+        ],
+        "candidate_expected_any": [
+          "society",
+          "sphere"
+        ]
+      }
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 {
   "app_name": {
-    "message": "LexiShift"
+    "message": "LexiShift Beta"
   },
   "app_description": {
-    "message": "設定可能なルールで表示テキストを置換し、ハイライト可能。"
+    "message": "BETAテスト版。ローカルのLexiShiftデータで、閲覧中に語彙を練習できます。"
   },
   "options_title": {
     "message": "LexiShift オプション"
@@ -88,6 +88,21 @@
   },
   "badge_srs_active_story": {
     "message": "アクティブ"
+  },
+  "badge_srs_ready_story": {
+    "message": "準備済み"
+  },
+  "badge_srs_paused_story": {
+    "message": "一時停止"
+  },
+  "button_srs_story_switch": {
+    "message": "切り替え"
+  },
+  "heading_srs_practice_settings": {
+    "message": "練習設定"
+  },
+  "label_srs_active_words": {
+    "message": "アクティブな単語 $1 語"
   },
   "summary_srs_story_sampling": {
     "message": "次の単語をサンプル"
@@ -218,6 +233,12 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "カバレッジはペアで変わります"
   },
+  "tooltip_srs_topic_not_covered": {
+    "message": "$1 ではまだ対応していません"
+  },
+  "topic_srs_general": {
+    "message": "一般"
+  },
   "topic_srs_medicine_health": {
     "message": "医療・健康"
   },
@@ -250,6 +271,9 @@
   },
   "topic_srs_plants_nature": {
     "message": "植物・自然"
+  },
+  "topic_srs_travel_places_transport": {
+    "message": "旅行・交通"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高度なタグ"
@@ -1436,9 +1460,6 @@
   "hint_profile_bg_scope": {
     "message": "このプロファイルのオプション画面デザインのみを変更します。"
   },
-  "toggle_profile_bg_enabled": {
-    "message": "オプション画面の背景画像を有効化"
-  },
   "label_profile_bg_backdrop_color": {
     "message": "オプション画面の背景色"
   },
@@ -1450,9 +1471,6 @@
   },
   "button_profile_bg_remove": {
     "message": "削除"
-  },
-  "button_profile_bg_apply": {
-    "message": "オプション画面の背景を適用"
   },
   "button_profile_bg_position_reset": {
     "message": "画像位置をリセット"
@@ -1606,5 +1624,44 @@
   },
   "status_srs_discard_failed": {
     "message": "学習語を破棄できませんでした。"
+  },
+  "label_language_pair": {
+    "message": "$1→$2"
+  },
+  "replacement_tooltip_toggle_original": {
+    "message": "クリックで元の語に切り替え"
+  },
+  "replacement_tooltip_details_feedback": {
+    "message": "詳細とフィードバックは右クリック（macOSではCtrl+クリック）"
+  },
+  "replacement_tooltip_toggle_original_with_details": {
+    "message": "クリックで元の語に切り替え。詳細とフィードバックは右クリック（macOSではCtrl+クリック）"
+  },
+  "replacement_tooltip_original": {
+    "message": "元の語: $1"
+  },
+  "manual_source_prompt_title": {
+    "message": "LexiShift データソース"
+  },
+  "manual_source_prompt_body": {
+    "message": "このページには $2 用の $1 があります。提供元の利用条件を確認してから、必要なソースファイルをダウンロードしてください。"
+  },
+  "manual_source_prompt_file": {
+    "message": "必要なファイル: $1"
+  },
+  "manual_source_prompt_terms": {
+    "message": "このページの利用条件を確認"
+  },
+  "manual_source_prompt_download": {
+    "message": "ソースファイルをダウンロード"
+  },
+  "manual_source_prompt_after_download": {
+    "message": "ダウンロード後、LexiShift に戻ってファイルをインポートしてください。"
+  },
+  "manual_source_prompt_download_opened": {
+    "message": "ダウンロードを開きました。完了後、LexiShift に戻ってください。"
+  },
+  "manual_source_prompt_dismiss": {
+    "message": "閉じる"
   }
 }

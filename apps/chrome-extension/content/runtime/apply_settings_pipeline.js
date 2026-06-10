@@ -109,7 +109,7 @@
       const semanticAdmissionEnabled = activeRulesState && activeRulesState.semanticAdmissionEnabled === true;
       const semanticFallbackPolicy = activeRulesState && activeRulesState.semanticFallbackPolicy
         ? activeRulesState.semanticFallbackPolicy
-        : "abstain_on_unavailable";
+        : "legacy_on_unavailable";
       const semanticRuntimeCapability = activeRulesState && activeRulesState.semanticRuntimeCapability
         ? activeRulesState.semanticRuntimeCapability
         : "unavailable";

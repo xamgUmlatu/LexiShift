@@ -61,7 +61,7 @@
         : 0,
       semantic_fallback_policy: state.semantic_fallback_policy
         ? String(state.semantic_fallback_policy)
-        : "abstain_on_unavailable",
+        : "legacy_on_unavailable",
       semantic_inventory_loaded: state.semantic_inventory_loaded === true,
       semantic_inventory_source: state.semantic_inventory_source
         ? String(state.semantic_inventory_source)

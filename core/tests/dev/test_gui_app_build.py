@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -24,6 +25,58 @@ class TestGuiAppBuild(unittest.TestCase):
         self.assertIn("PYINSTALLER_UPX_ENABLED", spec_text)
         self.assertEqual(spec_text.count("exclude_binaries=True"), 3)
         self.assertNotIn("upx=True", spec_text)
+
+    def test_pyinstaller_spec_collects_core_hidden_imports(self) -> None:
+        spec_text = (REPO_ROOT / "apps" / "gui" / "packaging" / "pyinstaller.spec").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("LEXISHIFT_HELPER_USE_CASE_HIDDEN_IMPORTS", spec_text)
+        self.assertIn("LEXISHIFT_CORE_HIDDEN_IMPORTS", spec_text)
+        self.assertIn('"lexishift_core.helper.use_cases.rulegen_job"', spec_text)
+        self.assertIn('"lexishift_core.helper.use_cases.runtime_diagnostics"', spec_text)
+        self.assertIn('"lexishift_core.helper.use_cases.semantic_admission"', spec_text)
+        self.assertIn('"lexishift_core.srs.seed"', spec_text)
+        self.assertIn('"lexishift_core.srs.topic_overlay"', spec_text)
+        self.assertNotIn('hiddenimports=["lexishift_core"]', spec_text)
+
+    def test_pyinstaller_spec_excludes_optional_heavy_packages(self) -> None:
+        spec_text = (REPO_ROOT / "apps" / "gui" / "packaging" / "pyinstaller.spec").read_text(
+            encoding="utf-8"
+        )
+        match = re.search(
+            r"PYINSTALLER_OPTIONAL_EXCLUDES = \[(?P<body>.*?)\]\n\nmain_datas",
+            spec_text,
+            flags=re.DOTALL,
+        )
+
+        self.assertIsNotNone(match)
+        exclude_body = match.group("body") if match is not None else ""
+        for package_name in (
+            "accelerate",
+            "cv2",
+            "datasets",
+            "diffusers",
+            "fsrs.optimizer",
+            "jieba",
+            "matplotlib",
+            "pandas",
+            "peft",
+            "scipy",
+            "sentence_transformers",
+            "sklearn",
+            "spacy",
+            "sudachidict_core",
+            "sudachipy",
+            "torch",
+            "torchvision",
+            "transformers",
+            "yt_dlp",
+        ):
+            self.assertIn(f'"{package_name}"', exclude_body)
+        self.assertNotIn('"simplemma"', exclude_body)
+        self.assertEqual(spec_text.count("excludes=PYINSTALLER_OPTIONAL_EXCLUDES"), 3)
+        self.assertNotIn("excludes=[]", spec_text)
 
     def test_build_command_keeps_pyinstaller_args_after_spec(self) -> None:
         command = _build_command(

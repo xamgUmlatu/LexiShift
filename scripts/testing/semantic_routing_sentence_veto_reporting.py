@@ -29,6 +29,7 @@ def render_sentence_veto_markdown(report: Mapping[str, object]) -> str:
         f"- Context view: `{config.get('context_view', '')}`",
         f"- Evidence view: `{config.get('evidence_view', '')}`",
         f"- Phrase control mode: `{config.get('phrase_control_mode', 'off')}`",
+        f"- Phrase guard POS scope: `{config.get('phrase_guard_pos_scope', 'family_all')}`",
         f"- Active rescue mode: `{config.get('active_rescue_mode', 'off')}`",
         f"- Thresholds: `min_active={config.get('min_active_score', '')}`, `min_margin={config.get('min_margin', '')}`",
         "",
@@ -122,6 +123,7 @@ def render_sentence_veto_sweep_markdown(report: Mapping[str, object]) -> str:
         f"- Context views: `{', '.join(str(value) for value in grid.get('context_views', ()))}`",
         f"- Evidence views: `{', '.join(str(value) for value in grid.get('evidence_views', ()))}`",
         f"- Phrase control modes: `{', '.join(str(value) for value in grid.get('phrase_control_modes', ()))}`",
+        f"- Phrase guard POS scopes: `{', '.join(str(value) for value in grid.get('phrase_guard_pos_scopes', ()))}`",
         f"- Active rescue modes: `{', '.join(str(value) for value in grid.get('active_rescue_modes', ()))}`",
         "",
         "## Best Overall",
@@ -151,10 +153,10 @@ def render_sentence_veto_sweep_markdown(report: Mapping[str, object]) -> str:
         lines.append("")
     lines.extend(["## Top Configs", ""])
     lines.append(
-        "| Rank | Scorer | Context | Evidence | Phrase Mode | Rescue Mode | min_active | min_margin | Harmful Cnt | Phrase Hits | Rescue Hits | Decision Acc. | Harmful Replace | False Abstain | Winner Acc. |"
+        "| Rank | Scorer | Context | Evidence | Phrase Mode | POS Scope | Rescue Mode | min_active | min_margin | Harmful Cnt | Phrase Hits | Rescue Hits | Decision Acc. | Harmful Replace | False Abstain | Winner Acc. |"
     )
     lines.append(
-        "| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"
+        "| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"
     )
     for index, row in enumerate(rows[:12], start=1):
         lines.append(
@@ -166,6 +168,7 @@ def render_sentence_veto_sweep_markdown(report: Mapping[str, object]) -> str:
                     str(row.get("context_view") or ""),
                     str(row.get("evidence_view") or ""),
                     str(row.get("phrase_control_mode") or "off"),
+                    str(row.get("phrase_guard_pos_scope") or "family_all"),
                     str(row.get("active_rescue_mode") or "off"),
                     f"{float(row.get('min_active_score') or 0.0):.2f}",
                     f"{float(row.get('min_margin') or 0.0):.2f}",
@@ -618,6 +621,7 @@ def sentence_veto_sweep_rank_key(row: Mapping[str, object]) -> tuple[object, ...
         str(row.get("context_view") or ""),
         str(row.get("evidence_view") or ""),
         str(row.get("phrase_control_mode") or ""),
+        str(row.get("phrase_guard_pos_scope") or ""),
         str(row.get("active_rescue_mode") or ""),
         coerce_metric(row.get("min_active_score"), default=0.0),
         coerce_metric(row.get("min_margin"), default=0.0),
@@ -662,6 +666,7 @@ def _sentence_veto_objective_rank_key(row: Mapping[str, object]) -> tuple[object
         str(row.get("context_view") or ""),
         str(row.get("evidence_view") or ""),
         str(row.get("phrase_control_mode") or ""),
+        str(row.get("phrase_guard_pos_scope") or ""),
         str(row.get("active_rescue_mode") or ""),
         -coerce_metric(row.get("min_active_score"), default=0.0),
         -coerce_metric(row.get("min_margin"), default=0.0),

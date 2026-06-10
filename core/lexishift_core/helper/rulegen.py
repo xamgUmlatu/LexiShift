@@ -19,7 +19,11 @@ from lexishift_core.lexicon.word_package import (
     resolve_language_tag_from_pair,
 )
 from lexishift_core.replacement.core import RuleMetadata, VocabRule
-from lexishift_core.helper.lp_capabilities import default_reverse_translation_dictionary_path
+from lexishift_core.helper.lp_capabilities import (
+    default_frequency_db_path,
+    default_reverse_translation_dictionary_path,
+    resolve_pair_capability,
+)
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.rulegen.adapters import (
     RulegenAdapterRequest,
@@ -74,6 +78,7 @@ __all__ = [
 class SetInitializationConfig:
     frequency_db: Path
     jmdict_path: Optional[Path] = None
+    source_label: Optional[str] = None
     top_n: int = 2000
     initial_active_count: int = 40
     language_pair: str = "en-ja"
@@ -83,6 +88,7 @@ class SetInitializationConfig:
     profile_context: Optional[Mapping[str, object]] = None
     selection_seed: Optional[int] = None
     selection_policy_override: Optional[str] = None
+    pos_overlay_path: Optional[Path] = None
     profile_topic_overlay: Optional[Mapping[str, object]] = None
     profile_topic_overlay_diagnostics: Mapping[str, object] = field(default_factory=dict)
 
@@ -113,6 +119,7 @@ class RulegenConfig:
     max_definitions_per_target: Optional[int] = 3
     max_rules_per_target: Optional[int] = None
     semantic_demotion_scale: float = 1.0
+    enable_source_frequency_prior: bool = False
     scoring: RuleScoringConfig = field(default_factory=RuleScoringConfig)
     reverse_check: ReverseCheckScoringConfig = field(default_factory=ReverseCheckScoringConfig)
     max_snapshot_targets: int = 50
@@ -259,6 +266,8 @@ def initialize_store_from_frequency_list_with_report(
         stopwords_path=config.stopwords_path,
         require_jmdict=config.require_jmdict,
         admission_pos_weights=resolved_pos_weights,
+        source_label=config.source_label,
+        pos_overlay_path=config.pos_overlay_path,
     )
     selected_words = _coerce_seed_words(
         build_seed_candidates(
@@ -678,6 +687,7 @@ def _build_rulegen_adapter_request(
     jmdict_path: Optional[Path],
     translation_dict_path: Optional[Path],
     resolved_reverse_translation_dict_path: Optional[Path],
+    source_frequency_db_path: Optional[Path] = None,
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
 ) -> RulegenAdapterRequest:
     return RulegenAdapterRequest(
@@ -707,6 +717,8 @@ def _build_rulegen_adapter_request(
             direction=REVERSE_PACK_DIRECTION,
         ),
         reverse_translation_dict_path=resolved_reverse_translation_dict_path,
+        enable_source_frequency_prior=rulegen_config.enable_source_frequency_prior,
+        source_frequency_db_path=source_frequency_db_path,
         word_packages_by_target=word_packages_by_target,
     )
 
@@ -763,6 +775,11 @@ def run_rulegen_for_pair(
         and not resolved_reverse_translation_dict_path.exists()
     ):
         resolved_reverse_translation_dict_path = None
+    source_frequency_db_path = _resolve_source_frequency_db_path(
+        paths,
+        pair=pair,
+        enabled=rulegen_config.enable_source_frequency_prior,
+    )
     results = run_results_with_adapter(
         _build_rulegen_adapter_request(
             pair=pair,
@@ -771,6 +788,7 @@ def run_rulegen_for_pair(
             jmdict_path=jmdict_path,
             translation_dict_path=translation_dict_path,
             resolved_reverse_translation_dict_path=resolved_reverse_translation_dict_path,
+            source_frequency_db_path=source_frequency_db_path,
             word_packages_by_target=target_word_packages or None,
         )
     )
@@ -815,6 +833,7 @@ def run_rulegen_for_pair(
                 jmdict_path=jmdict_path,
                 translation_dict_path=translation_dict_path,
                 resolved_reverse_translation_dict_path=resolved_reverse_translation_dict_path,
+                source_frequency_db_path=source_frequency_db_path,
             )
         )
         context_inventory = semantic_publication_module.build_semantic_inventory_from_results(
@@ -830,6 +849,15 @@ def run_rulegen_for_pair(
                 context_inventory=context_inventory,
             )
         )
+    reference_inventory = _load_installed_semantic_reference_inventory(paths=paths, pair=pair)
+    if reference_inventory is not None:
+        rules, semantic_inventory = (
+            semantic_publication_module.merge_semantic_publication_with_reference_inventory(
+                rules=rules,
+                primary_inventory=semantic_inventory,
+                reference_inventory=reference_inventory,
+            )
+        )
     if persist_store and updated_store is not store:
         save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
     return updated_store, RulegenOutput(
@@ -838,3 +866,54 @@ def run_rulegen_for_pair(
         target_count=len(targets),
         semantic_inventory=semantic_inventory,
     )
+
+
+def _resolve_source_frequency_db_path(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    enabled: bool,
+) -> Optional[Path]:
+    if not enabled:
+        return None
+    normalized_pair = str(pair or "").strip().lower()
+    if "-" not in normalized_pair:
+        return None
+    source_lang = normalized_pair.split("-", 1)[0].strip()
+    if not source_lang:
+        return None
+    candidate = default_frequency_db_path(
+        f"{source_lang}-{source_lang}",
+        frequency_packs_dir=paths.frequency_packs_dir,
+    )
+    if candidate is None or not candidate.exists() or not candidate.is_file():
+        return None
+    return candidate
+
+
+def _load_installed_semantic_reference_inventory(
+    *,
+    paths: HelperPaths,
+    pair: str,
+) -> Mapping[str, object] | None:
+    import json
+
+    pack_id = resolve_pair_capability(pair).default_semantic_pack_id
+    if not pack_id:
+        return None
+    semantic_pack_module = __import__(
+        "lexishift_core.helper.use_cases.semantic_pack_install",
+        fromlist=["resolve_installed_semantic_pack_inventory_path"],
+    )
+    inventory_path = semantic_pack_module.resolve_installed_semantic_pack_inventory_path(
+        paths=paths,
+        pair=pair,
+        pack_id=pack_id,
+    )
+    if inventory_path is None:
+        return None
+    try:
+        payload = json.loads(inventory_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return payload if isinstance(payload, Mapping) else None

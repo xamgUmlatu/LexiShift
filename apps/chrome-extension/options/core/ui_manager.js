@@ -1,6 +1,7 @@
 class UIManager {
-  constructor() {
+  constructor(i18n) {
     this.dom = {};
+    this.i18n = i18n && typeof i18n.t === "function" ? i18n : null;
     this.COLORS = {
       SUCCESS: "#3c5a2a",
       ERROR: "#b42318",
@@ -24,8 +25,8 @@ class UIManager {
       "target-language-prefs-modal", "target-language-prefs-modal-ok", "target-language-modules-list",
       "srs-profile-id", "srs-profile-refresh", "srs-profile-status",
       "profile-bg-backdrop-color",
-      "profile-bg-enabled", "profile-bg-opacity", "profile-bg-opacity-value",
-      "profile-bg-file", "profile-bg-remove", "profile-bg-apply",
+      "profile-bg-opacity", "profile-bg-opacity-value",
+      "profile-bg-file", "profile-bg-remove",
       "profile-bg-status", "profile-bg-preview-wrap", "profile-bg-preview",
       "profile-bg-focal-marker", "profile-bg-position-reset",
       "profile-card-theme-hue", "profile-card-theme-hue-value",
@@ -48,7 +49,8 @@ class UIManager {
       "srs-story-sampling-curtain",
       "srs-refresh-set", "srs-runtime-diagnostics",
       "srs-rulegen-sampled-preview",
-      "srs-story-current-card", "srs-story-current-pair",
+      "srs-story-pair-list",
+      "srs-story-current-card", "srs-story-current-pair", "srs-story-current-meta",
       "srs-rulegen-output", "srs-delete-story", "helper-status",
       "srs-story-start", "srs-story-flow-backdrop", "srs-story-flow",
       "srs-story-flow-close", "srs-story-flow-source-language",
@@ -102,7 +104,33 @@ class UIManager {
     this.dom.srsStoryTopicInterestChipButtons = Array.from(
       document.querySelectorAll("[data-srs-story-topic-interest]")
     );
+    this.srsStoryPairSwitchHandler = null;
+    if (this.dom.srsStoryPairList) {
+      this.dom.srsStoryPairList.addEventListener("click", (event) => {
+        const button = event.target && typeof event.target.closest === "function"
+          ? event.target.closest("[data-srs-story-switch-pair]")
+          : null;
+        if (!button || typeof this.srsStoryPairSwitchHandler !== "function") {
+          return;
+        }
+        const pairKey = String(button.getAttribute("data-srs-story-switch-pair") || "").trim();
+        if (pairKey) {
+          Promise.resolve(this.srsStoryPairSwitchHandler(pairKey)).catch((error) => {
+            console.error("[LexiShift][Options] SRS story pair switch failed.", error);
+          });
+        }
+      });
+    }
     this.updateSrsStorySummary();
+  }
+
+  escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
   getSelectedOptionLabel(select, fallback) {
@@ -114,20 +142,189 @@ class UIManager {
     return label || String(select.value || fallback || "").trim();
   }
 
+  getLanguageOptionLabel(languageCode) {
+    const code = String(languageCode || "").trim();
+    if (!code) {
+      return "";
+    }
+    const selects = [this.dom.sourceLanguage, this.dom.targetLanguage].filter(Boolean);
+    for (const select of selects) {
+      const options = Array.from(select.options || []);
+      const match = options.find((option) => option.value === code);
+      if (match) {
+        return String(match.textContent || match.label || match.value || "").trim() || code;
+      }
+    }
+    return code.toUpperCase();
+  }
+
+  formatSrsPairLabel(pairKey) {
+    const [sourceLanguage = "", targetLanguage = ""] = String(pairKey || "").split("-");
+    const sourceLabel = this.getLanguageOptionLabel(sourceLanguage);
+    const targetLabel = this.getLanguageOptionLabel(targetLanguage);
+    const source = sourceLabel || sourceLanguage || "Source";
+    const target = targetLabel || targetLanguage || "Target";
+    return this.translateMessage("label_language_pair", [source, target], `${source} -> ${target}`);
+  }
+
+  translateMessage(key, substitutions, fallback) {
+    const safeFallback = String(fallback || "");
+    if (!key) {
+      return safeFallback;
+    }
+    if (this.i18n) {
+      const message = this.i18n.t(key, substitutions, "");
+      if (message) {
+        return message;
+      }
+    }
+    if (globalThis.chrome && chrome.i18n && typeof chrome.i18n.getMessage === "function") {
+      const message = chrome.i18n.getMessage(key, substitutions);
+      if (message) {
+        return message;
+      }
+    }
+    return safeFallback;
+  }
+
+  formatSrsActiveWordsLabel(value) {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) {
+      return this.translateMessage("section_srs", null, "Vocabulary Practice");
+    }
+    const count = String(Math.max(0, Math.round(numeric)));
+    return this.translateMessage("label_srs_active_words", [count], `${count} active words`);
+  }
+
+  resolveCurrentSrsPairKey() {
+    const source = this.dom.sourceLanguage ? String(this.dom.sourceLanguage.value || "").trim() : "en";
+    const target = this.dom.targetLanguage ? String(this.dom.targetLanguage.value || "").trim() : "es";
+    return `${source || "en"}-${target || "es"}`;
+  }
+
+  srsStoryViewModel() {
+    return globalThis.LexiShift && globalThis.LexiShift.optionsSrsStoryViewModel
+      ? globalThis.LexiShift.optionsSrsStoryViewModel
+      : {
+          currentStoryCard(profile) {
+            const exists = Boolean(profile && (profile.srsStoryExists === true || profile.srsEnabled === true));
+            return { exists, shouldShow: exists };
+          },
+          switchableStoryCards() {
+            return [];
+          }
+        };
+  }
+
+  setSrsStoryPairSwitchHandler(handler) {
+    this.srsStoryPairSwitchHandler = typeof handler === "function" ? handler : null;
+  }
+
+  updateSrsTopicChipSupport(pairKey) {
+    const support = globalThis.LexiShift && globalThis.LexiShift.optionsSrsTopicSupport;
+    if (!support || typeof support.applyTopicChipSupport !== "function") {
+      return;
+    }
+    support.applyTopicChipSupport(this.dom.srsTopicInterestChipButtons, pairKey);
+    support.applyTopicChipSupport(this.dom.srsStoryTopicInterestChipButtons, pairKey);
+  }
+
   updateSrsStorySummary() {
     const pairOutput = this.dom.srsStoryCurrentPair;
-    if (!pairOutput) return;
     const sourceLabel = this.getSelectedOptionLabel(this.dom.sourceLanguage, "Source");
     const targetLabel = this.getSelectedOptionLabel(this.dom.targetLanguage, "Target");
-    pairOutput.textContent = `${sourceLabel} -> ${targetLabel}`;
+    if (pairOutput) {
+      pairOutput.textContent = this.translateMessage(
+        "label_language_pair",
+        [sourceLabel, targetLabel],
+        `${sourceLabel} -> ${targetLabel}`
+      );
+    }
+    if (this.dom.srsStoryCurrentMeta) {
+      const maxActive = this.dom.srsMaxActive ? this.dom.srsMaxActive.value : "";
+      this.dom.srsStoryCurrentMeta.textContent = this.formatSrsActiveWordsLabel(maxActive);
+    }
+    this.updateSrsTopicChipSupport(this.resolveCurrentSrsPairKey());
   }
 
   updateSrsStoryVisibility(profile) {
     const card = this.dom.srsStoryCurrentCard;
     if (!card) return;
-    const isActive = Boolean(profile && profile.srsEnabled === true);
-    card.hidden = !isActive;
-    if (!isActive && "open" in card) card.open = false;
+    const storyCard = this.srsStoryViewModel().currentStoryCard(profile);
+    card.hidden = storyCard.shouldShow !== true;
+    if (storyCard.shouldShow !== true && "open" in card) card.open = false;
+  }
+
+  updateSrsStoryPairList(entriesArg) {
+    const root = this.dom.srsStoryPairList;
+    if (!root) {
+      return;
+    }
+    const entries = Array.isArray(entriesArg) ? entriesArg : [];
+    const currentPairKey = this.resolveCurrentSrsPairKey();
+    const normalizePairKey = this.srsStoryViewModel().normalizePairKey || ((value) => String(value || "").trim());
+    const normalizedCurrentPair = normalizePairKey(currentPairKey);
+    const currentEntry = entries.find((entry) => (
+      normalizePairKey(entry && entry.pairKey) === normalizedCurrentPair
+    )) || entries.find((entry) => entry && entry.isActive === true);
+    this.updateSrsCurrentStoryOrder(currentEntry);
+    const visibleEntries = this.srsStoryViewModel().switchableStoryCards({
+      entries,
+      currentPairKey
+    });
+    root.hidden = visibleEntries.length === 0;
+    if (!visibleEntries.length) {
+      root.innerHTML = "";
+      return;
+    }
+    root.innerHTML = visibleEntries.map((entry) => {
+      const pairKey = String(entry.pairKey || "").trim();
+      const rawOrder = Number(entry.creationIndex);
+      const orderStyle = Number.isFinite(rawOrder)
+        ? ` style="order: ${this.escapeHtml(String(rawOrder))};"`
+        : "";
+      const badgeKey = String(entry.badgeKey || "").trim();
+      const badgeFallback = String(entry.badgeFallback || "").trim();
+      const badgeText = badgeKey || badgeFallback
+        ? this.translateMessage(badgeKey, null, badgeFallback)
+        : "";
+      const badgeClass = String(entry.badgeClass || "");
+      const badgeI18n = badgeKey ? ` data-i18n="${this.escapeHtml(badgeKey)}"` : "";
+      const badgeMarkup = badgeText
+        ? `<span class="srs-story-badge${this.escapeHtml(badgeClass)}"${badgeI18n}>${this.escapeHtml(badgeText)}</span>`
+        : "";
+      const maxActive = this.formatSrsActiveWordsLabel(entry.srsMaxActive);
+      const switchButton = entry.canSwitch === true
+        ? `<button type="button" class="srs-story-pair-switch" data-srs-story-switch-pair="${this.escapeHtml(pairKey)}" data-i18n="button_srs_story_switch">${this.escapeHtml(this.translateMessage("button_srs_story_switch", null, "Switch"))}</button>`
+        : "";
+      return [
+        `<article class="srs-story-pair-card" role="listitem" data-srs-story-pair="${this.escapeHtml(pairKey)}"${orderStyle}>`,
+        '<div class="srs-story-pair-copy">',
+        `<span class="srs-story-pair-title">${this.escapeHtml(this.formatSrsPairLabel(pairKey))}</span>`,
+        `<span class="srs-story-pair-meta">${this.escapeHtml(maxActive)}</span>`,
+        "</div>",
+        '<div class="srs-story-pair-actions">',
+        badgeMarkup,
+        switchButton,
+        "</div>",
+        "</article>"
+      ].join("");
+    }).join("");
+  }
+
+  updateSrsCurrentStoryOrder(entry) {
+    const card = this.dom.srsStoryCurrentCard;
+    if (!card || !card.style) {
+      return;
+    }
+    const rawOrder = Number(entry && entry.creationIndex);
+    if (Number.isFinite(rawOrder)) {
+      card.style.order = String(rawOrder);
+    } else if (typeof card.style.removeProperty === "function") {
+      card.style.removeProperty("order");
+    } else {
+      delete card.style.order;
+    }
   }
 
   formatSrsProficiencyLabel(value, hasValue) {
@@ -269,6 +466,7 @@ class UIManager {
       this.dom.srsTopicInterests.value = interests.join(", ");
     }
     this.syncSrsTopicInterestChips(interests);
+    this.updateSrsTopicChipSupport(this.resolveCurrentSrsPairKey());
     if (this.dom.srsProficiencyEstimate) {
       this.dom.srsProficiencyEstimate.value = String(proficiencyEstimate);
       this.dom.srsProficiencyEstimate.dataset.srsHasValue = hasProficiencyEstimate ? "true" : "false";
@@ -342,10 +540,6 @@ class UIManager {
       this.dom.profileBgBackdropColor.value = String(source.backgroundBackdropColor || "#fbf7f0");
       this.dom.profileBgBackdropColor.disabled = false;
     }
-    if (this.dom.profileBgEnabled) {
-      this.dom.profileBgEnabled.checked = source.backgroundEnabled === true && hasAsset;
-      this.dom.profileBgEnabled.disabled = false;
-    }
     if (this.dom.profileBgOpacity) {
       const opacity = Number.isFinite(Number(source.backgroundOpacity))
         ? Number(source.backgroundOpacity)
@@ -362,9 +556,6 @@ class UIManager {
     }
     if (this.dom.profileBgRemove) {
       this.dom.profileBgRemove.disabled = !hasAsset;
-    }
-    if (this.dom.profileBgApply) {
-      this.dom.profileBgApply.disabled = !hasAsset;
     }
     if (this.dom.profileBgPositionReset) {
       this.dom.profileBgPositionReset.disabled = false;

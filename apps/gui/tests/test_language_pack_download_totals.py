@@ -37,4 +37,5 @@ def test_known_catalog_totals_cover_large_spanish_resource_downloads() -> None:
     assert packs["wiktionary-es-en"].download_size_bytes == 2_665_722_104
     assert packs["freedict-es-en"].download_size_bytes == 121_624
     assert packs["embed-xling-es"].download_size_bytes == 2_227_283_009
+    assert packs["freq-es-spalex-v1"].download_size_bytes == 5_407_807
     assert packs["freq-es-cde"].download_size_bytes == 42_922

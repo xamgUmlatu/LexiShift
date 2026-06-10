@@ -23,6 +23,7 @@ class TestGuiImportContract(unittest.TestCase):
 
         self.assertIs(language_packs.LANGUAGE_PACKS, language_packs_catalog.LANGUAGE_PACKS)
         self.assertIs(language_packs.FREQUENCY_PACKS, language_packs_catalog.FREQUENCY_PACKS)
+        self.assertIs(language_packs.POS_OVERLAY_PACKS, language_packs_catalog.POS_OVERLAY_PACKS)
         self.assertIs(language_packs.EMBEDDING_PACKS, language_packs_catalog.EMBEDDING_PACKS)
         self.assertIs(
             language_packs.CROSS_EMBEDDING_PACKS,

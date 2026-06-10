@@ -81,9 +81,9 @@ Set Planner (bootstrap/growth/refresh strategy)
 ## 3.1) Page Replacement Load
 - Page replacement load is enforced by the extension page budget pipeline, not
   by helper admission.
-- The standard MVP page-density policy is explicit in the extension defaults:
-  `maxReplacementsPerPage = 20`, `maxReplacementsPerLemmaPerPage = 2`,
-  `allowAdjacentReplacements = false`, and `maxOnePerTextBlock = false`.
+- The standard page-density policy is explicit in the extension defaults:
+  `maxReplacementsPerPage = 0`, `maxReplacementsPerLemmaPerPage = 0`,
+  `allowAdjacentReplacements = true`, and `maxOnePerTextBlock = false`.
 - `maxReplacementsPerPage` caps total replacement count on the page (`0` remains
   an explicit unlimited override).
 - `maxReplacementsPerLemmaPerPage` caps repeated display of the same target

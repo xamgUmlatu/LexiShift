@@ -17,8 +17,11 @@ if TYPE_CHECKING:
 
 _EN_DE_COMPETITION_MIN_CLEAN_PRIOR = 0.25
 _EN_DE_COMPETITION_MIN_PRIOR_GAP = 0.10
+_EN_DE_DEFAULTNESS_MIN_CANDIDATE_SCORE = 0.35
+_EN_DE_DEFAULTNESS_MIN_SCORE_GAP = 0.12
 _EN_DE_SENSE_REPRESENTATIVE_MIN_PRIOR_GAP = 0.05
 _EN_DE_MAX_SPLIT_PARTS = 8
+_EN_DE_SIMPLE_REPRESENTATIVE_RE = re.compile(r"^[A-Za-z][A-Za-z'-]*$")
 _EN_DE_ARTICLE_PREFIXES = ("a ", "an ", "the ")
 _EN_DE_INLINE_ANNOTATION_RE = re.compile(r"\s*(?:\([^)]*\)|\[[^\]]*\]|\{[^}]*\})")
 _EN_DE_SIMPLE_SLASH_VARIANT_RE = re.compile(r"^[A-Za-z]{1,8}(?:/[A-Za-z]{1,8})+$")
@@ -176,6 +179,127 @@ def _resolve_cleaner_later_competition(
     )
 
 
+def _metadata_operations(metadata: Mapping[str, object]) -> tuple[str, ...]:
+    operations = metadata.get("gloss_fragment_operations")
+    if not isinstance(operations, Sequence) or isinstance(operations, (str, bytes)):
+        return ()
+    return tuple(str(item).strip() for item in operations if str(item).strip())
+
+
+def _metadata_has_onomastic_marker(metadata: Mapping[str, object]) -> bool:
+    markers = set(_collect_lowered_metadata_markers(metadata.get("sense_tags")))
+    markers.update(_collect_lowered_metadata_markers(metadata.get("sense_categories")))
+    markers.update(_collect_lowered_metadata_markers(metadata.get("categories")))
+    return any(
+        "proper-noun" in marker
+        or "proper noun" in marker
+        or "surname" in marker
+        or "given-name" in marker
+        or "given name" in marker
+        for marker in markers
+    )
+
+
+def _candidate_defaultness_score(
+    entry: FreedictGlossRecord,
+    *,
+    source_frequency_prior: float,
+) -> float:
+    metadata = entry.metadata if isinstance(entry.metadata, Mapping) else {}
+    if bool(metadata.get("gloss_fragment_parenthetical_stripped")):
+        return 0.0
+    input_text = str(metadata.get("gloss_input_text") or "").strip()
+    emitted_text = str(metadata.get("gloss_fragment_emitted_text") or "").strip()
+    if (
+        input_text
+        and emitted_text
+        and input_text != emitted_text
+        and _EN_DE_INLINE_ANNOTATION_RE.search(input_text) is not None
+    ):
+        return 0.0
+    if _metadata_has_onomastic_marker(metadata):
+        return 0.0
+    operations = _metadata_operations(metadata)
+    if any(operation.startswith("trim_head_") for operation in operations):
+        return 0.0
+    text = str(entry.translation or "").strip()
+    if not _EN_DE_SIMPLE_REPRESENTATIVE_RE.fullmatch(text):
+        return 0.0
+    return max(0.0, min(1.0, float(source_frequency_prior)))
+
+
+def _resolve_sense_defaultness_competition(
+    *,
+    current_index: int,
+    entries: Sequence[FreedictGlossRecord],
+    source_frequency_priors: Sequence[float],
+    canonical_inventory: Sequence[str],
+) -> Optional[int]:
+    if current_index < 0 or current_index >= len(entries):
+        return None
+    current_entry = entries[current_index]
+    current_metadata = current_entry.metadata if isinstance(current_entry.metadata, Mapping) else {}
+    current_sense_key = _sense_key_for_entry(current_metadata, fallback_index=current_index)
+    current_score = _candidate_defaultness_score(
+        current_entry,
+        source_frequency_prior=(
+            float(source_frequency_priors[current_index])
+            if current_index < len(source_frequency_priors)
+            else 0.0
+        ),
+    )
+    current_canonical = (
+        canonical_inventory[current_index] if current_index < len(canonical_inventory) else ""
+    )
+    candidate_indexes: list[int] = []
+    for candidate_index in range(current_index + 1, len(entries)):
+        candidate_entry = entries[candidate_index]
+        candidate_metadata = (
+            candidate_entry.metadata if isinstance(candidate_entry.metadata, Mapping) else {}
+        )
+        if (
+            _sense_key_for_entry(candidate_metadata, fallback_index=candidate_index)
+            == current_sense_key
+        ):
+            continue
+        candidate_canonical = (
+            canonical_inventory[candidate_index]
+            if candidate_index < len(canonical_inventory)
+            else ""
+        )
+        if current_canonical and candidate_canonical and candidate_canonical != current_canonical:
+            continue
+        candidate_score = _candidate_defaultness_score(
+            candidate_entry,
+            source_frequency_prior=(
+                float(source_frequency_priors[candidate_index])
+                if candidate_index < len(source_frequency_priors)
+                else 0.0
+            ),
+        )
+        if candidate_score < _EN_DE_DEFAULTNESS_MIN_CANDIDATE_SCORE:
+            continue
+        if (candidate_score - current_score) < _EN_DE_DEFAULTNESS_MIN_SCORE_GAP:
+            continue
+        candidate_indexes.append(candidate_index)
+    if not candidate_indexes:
+        return None
+    return max(
+        candidate_indexes,
+        key=lambda candidate_index: (
+            _candidate_defaultness_score(
+                entries[candidate_index],
+                source_frequency_prior=(
+                    float(source_frequency_priors[candidate_index])
+                    if candidate_index < len(source_frequency_priors)
+                    else 0.0
+                ),
+            ),
+            -int(candidate_index),
+        ),
+    )
+
+
 def _sense_key_for_entry(
     metadata: Mapping[str, object],
     *,
@@ -183,6 +307,9 @@ def _sense_key_for_entry(
 ) -> tuple[str, object, object]:
     entry_ord = metadata.get("entry_ord")
     sense_ord = metadata.get("sense_ord")
+    gloss_ord = metadata.get("gloss_ord")
+    if entry_ord is not None and sense_ord is None and gloss_ord is not None:
+        return ("sense", entry_ord, gloss_ord)
     if entry_ord is not None or sense_ord is not None:
         return ("sense", entry_ord, sense_ord)
     return ("gloss", fallback_index, None)

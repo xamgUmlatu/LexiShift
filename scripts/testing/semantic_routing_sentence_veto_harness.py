@@ -9,6 +9,7 @@ from semantic_routing_sentence_veto_support import (
     DEFAULT_SENTENCE_VETO_DATASET,
     DEFAULT_SENTENCE_VETO_JSON_OUT,
     DEFAULT_SENTENCE_VETO_MARKDOWN_OUT,
+    SENTENCE_VETO_PHRASE_GUARD_POS_SCOPES,
     build_sentence_veto_report,
     render_sentence_veto_markdown,
 )
@@ -70,6 +71,13 @@ def _parse_args() -> argparse.Namespace:
         help="Phrase/frame control mode id.",
     )
     parser.add_argument(
+        "--phrase-guard-pos-scope",
+        type=str,
+        default="family_all",
+        choices=SENTENCE_VETO_PHRASE_GUARD_POS_SCOPES,
+        help="POS scope used by noun-family phrase guards.",
+    )
+    parser.add_argument(
         "--active-rescue-mode",
         type=str,
         default="off",
@@ -113,6 +121,7 @@ def main() -> int:
         min_active_score=float(args.min_active_score),
         min_margin=float(args.min_margin),
         phrase_control_mode=str(args.phrase_control_mode or "").strip(),
+        phrase_guard_pos_scope=str(args.phrase_guard_pos_scope or "").strip(),
         active_rescue_mode=str(args.active_rescue_mode or "").strip(),
         window_tokens=max(0, int(args.window_tokens)),
         mask_token=str(args.mask_token or "").strip() or "___",

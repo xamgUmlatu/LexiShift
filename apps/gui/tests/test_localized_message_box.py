@@ -4,10 +4,10 @@ import os
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
-from PySide6.QtWidgets import QApplication, QMessageBox  # noqa: E402
+from PySide6.QtWidgets import QApplication, QMessageBox, QPushButton  # noqa: E402
 
 from i18n import set_locale, t  # noqa: E402
-from localized_message_box import localized_question  # noqa: E402
+from localized_message_box import localized_question, prepare_message_box  # noqa: E402
 
 
 def _app() -> QApplication:
@@ -46,3 +46,23 @@ def test_localized_question_uses_catalog_button_text(monkeypatch) -> None:
         "yes": t("buttons.yes"),
         "cancel": t("buttons.cancel"),
     }
+
+
+def test_message_box_details_button_is_localized_and_themed() -> None:
+    app = _app()
+    set_locale("ja")
+
+    dialog = QMessageBox()
+    dialog.setText("message")
+    dialog.setDetailedText("details")
+    dialog.addButton(QMessageBox.StandardButton.Close)
+    prepare_message_box(dialog)
+
+    buttons = dialog.findChildren(QPushButton)
+    detail_button = next(button for button in buttons if button.text() == t("buttons.show_details"))
+    assert dialog.styleSheet()
+
+    detail_button.click()
+    app.processEvents()
+
+    assert detail_button.text() == t("buttons.hide_details")

@@ -1,9 +1,9 @@
 {
   "app_name": {
-    "message": "LexiShift"
+    "message": "LexiShift Beta"
   },
   "app_description": {
-    "message": "Sichtbaren Text anhand eines konfigurierbaren Regelwerks ersetzen, optional hervorgehoben."
+    "message": "BETA-TESTVERSION. Übe Vokabeln beim Browsen mit lokalen LexiShift-Daten."
   },
   "options_title": {
     "message": "LexiShift Optionen"
@@ -88,6 +88,21 @@
   },
   "badge_srs_active_story": {
     "message": "Aktiv"
+  },
+  "badge_srs_ready_story": {
+    "message": "Bereit"
+  },
+  "badge_srs_paused_story": {
+    "message": "Pausiert"
+  },
+  "button_srs_story_switch": {
+    "message": "Wechseln"
+  },
+  "heading_srs_practice_settings": {
+    "message": "Übungseinstellungen"
+  },
+  "label_srs_active_words": {
+    "message": "$1 aktive Wörter"
   },
   "summary_srs_story_sampling": {
     "message": "Nächste Wörter testen"
@@ -218,6 +233,12 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "Abdeckung variiert je Paar"
   },
+  "tooltip_srs_topic_not_covered": {
+    "message": "Für $1 noch nicht abgedeckt"
+  },
+  "topic_srs_general": {
+    "message": "Allgemein"
+  },
   "topic_srs_medicine_health": {
     "message": "Medizin & Gesundheit"
   },
@@ -250,6 +271,9 @@
   },
   "topic_srs_plants_nature": {
     "message": "Pflanzen & Natur"
+  },
+  "topic_srs_travel_places_transport": {
+    "message": "Reisen & Verkehr"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Erweiterte Tags"
@@ -1436,9 +1460,6 @@
   "hint_profile_bg_scope": {
     "message": "Ändert nur das Design der Optionsseite für dieses Profil."
   },
-  "toggle_profile_bg_enabled": {
-    "message": "Hintergrundbild auf der Optionsseite aktivieren"
-  },
   "label_profile_bg_backdrop_color": {
     "message": "Hintergrundfarbe der Optionsseite"
   },
@@ -1450,9 +1471,6 @@
   },
   "button_profile_bg_remove": {
     "message": "Entfernen"
-  },
-  "button_profile_bg_apply": {
-    "message": "Optionsseiten-Hintergrund anwenden"
   },
   "button_profile_bg_position_reset": {
     "message": "Bildposition zurücksetzen"
@@ -1606,5 +1624,44 @@
   },
   "status_srs_discard_failed": {
     "message": "Lernwort konnte nicht verworfen werden."
+  },
+  "label_language_pair": {
+    "message": "$1 -> $2"
+  },
+  "replacement_tooltip_toggle_original": {
+    "message": "Klicken, um das Original umzuschalten"
+  },
+  "replacement_tooltip_details_feedback": {
+    "message": "Rechtsklick (oder Ctrl+Klick auf macOS) für Details und Feedback."
+  },
+  "replacement_tooltip_toggle_original_with_details": {
+    "message": "Klicken, um das Original umzuschalten. Rechtsklick (oder Ctrl+Klick auf macOS) für Details und Feedback."
+  },
+  "replacement_tooltip_original": {
+    "message": "Original: $1"
+  },
+  "manual_source_prompt_title": {
+    "message": "LexiShift-Datenquelle"
+  },
+  "manual_source_prompt_body": {
+    "message": "Diese Seite hostet $1 für $2. Prüfen Sie die Nutzungsbedingungen des Anbieters und laden Sie dann die benötigte Quelldatei herunter."
+  },
+  "manual_source_prompt_file": {
+    "message": "Erwartete Datei: $1"
+  },
+  "manual_source_prompt_terms": {
+    "message": "Nutzungsbedingungen auf dieser Seite prüfen"
+  },
+  "manual_source_prompt_download": {
+    "message": "Quelldatei herunterladen"
+  },
+  "manual_source_prompt_after_download": {
+    "message": "Kehren Sie nach dem Download zu LexiShift zurück und importieren Sie die Datei."
+  },
+  "manual_source_prompt_download_opened": {
+    "message": "Download geöffnet. Kehren Sie nach Abschluss zu LexiShift zurück."
+  },
+  "manual_source_prompt_dismiss": {
+    "message": "Schließen"
   }
 }

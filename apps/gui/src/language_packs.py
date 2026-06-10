@@ -40,9 +40,14 @@ from language_packs_catalog import (
     LanguagePackInfo,
     PackCatalogSnapshot,
     PackTransportOverride,
+    POS_OVERLAY_PACKS,
+    PosOverlayPackInfo,
+    SEMANTIC_PACKS,
+    SemanticPackInfo,
     _frequency_pos_inventory_config,
     build_pack_catalogs,
 )
+from lexishift_core.pos.ud_ancora import build_ud_ancora_pos_overlay
 from pack_download_failures import encode_pack_download_failure
 
 __all__ = [
@@ -50,12 +55,17 @@ __all__ = [
     "EMBEDDING_PACKS",
     "FREQUENCY_PACKS",
     "LANGUAGE_PACKS",
+    "POS_OVERLAY_PACKS",
+    "SEMANTIC_PACKS",
     "PackCatalogSnapshot",
     "PackTransportOverride",
     "FrequencyPackDownloadThread",
     "FrequencyPackInfo",
     "LanguagePackDownloadThread",
     "LanguagePackInfo",
+    "PosOverlayPackDownloadThread",
+    "PosOverlayPackInfo",
+    "SemanticPackInfo",
     "build_pack_catalogs",
 ]
 
@@ -68,6 +78,9 @@ def _build_command_for_mode(build_mode: str) -> str:
         "kaikki_translations_to_sqlite": "convert_kaikki_translations_to_sqlite",
         "convert_archive": "convert_frequency_to_sqlite",
         "de_frequency_pipeline": "run_de_frequency_pipeline",
+        "en_frequency_pipeline": "run_en_frequency_pipeline",
+        "spalex_frequency_pipeline": "build_spalex_frequency_pack",
+        "ud_ancora_pos_overlay": "build_ud_ancora_pos_overlay",
         "convert_to_sqlite": "scripts/data/convert_embeddings.py",
     }
     normalized = str(build_mode or "").strip()
@@ -128,6 +141,23 @@ def _response_download_total_bytes(response: object, pack: object) -> int:
 def _frequency_parser_config(pack: FrequencyPackInfo) -> dict[str, object]:
     if str(pack.build_mode or "").strip() == "de_frequency_pipeline":
         return {"drop_proper_nouns": True}
+    if str(pack.build_mode or "").strip() == "en_frequency_pipeline":
+        return {
+            "source": "leipzig_words",
+            "lang": "en",
+            "min_lemma_count": 2,
+            "lemmatized": True,
+            "pos_policy": "none",
+        }
+    if str(pack.build_mode or "").strip() == "spalex_frequency_pipeline":
+        return {
+            "primary_source": "spalex_word_info_csv",
+            "rank_policy": "spalex_zipf_then_prevalence",
+            "runtime_pmw": "rank_descending_commonness_score",
+            "current_seed": "none",
+            "pos_policy": "none",
+            "topic_policy": "none",
+        }
     config = pack.parse_config
     parser_config: dict[str, object] = {
         "delimiter": config.delimiter,
@@ -193,6 +223,19 @@ def _converter_version_for_mode(build_mode: str) -> str:
 
         source_file = inspect.getsourcefile(run_de_frequency_pipeline)
         return _source_file_version("lexishift_core.frequency.de.pipeline", source_file)
+    if normalized == "en_frequency_pipeline":
+        from lexishift_core.frequency.en.pipeline import run_en_frequency_pipeline
+
+        source_file = inspect.getsourcefile(run_en_frequency_pipeline)
+        return _source_file_version("lexishift_core.frequency.en.pipeline", source_file)
+    if normalized == "spalex_frequency_pipeline":
+        from lexishift_core.frequency.es.spalex import build_spalex_frequency_pack
+
+        source_file = inspect.getsourcefile(build_spalex_frequency_pack)
+        return _source_file_version("lexishift_core.frequency.es.spalex", source_file)
+    if normalized == "ud_ancora_pos_overlay":
+        source_file = inspect.getsourcefile(build_ud_ancora_pos_overlay)
+        return _source_file_version("lexishift_core.pos.ud_ancora", source_file)
     if normalized == "convert_to_sqlite":
         return _source_file_version(
             "scripts.data.convert_embeddings",
@@ -539,6 +582,92 @@ class LanguagePackDownloadThread(QThread):
         return output_path
 
 
+class PosOverlayPackDownloadThread(QThread):
+    progress = Signal(str, int, int)
+    completed = Signal(str, str)
+    failed = Signal(str, str)
+
+    def __init__(
+        self,
+        pack: PosOverlayPackInfo,
+        source_dir: str,
+        sqlite_path: str,
+        parent=None,
+    ) -> None:
+        super().__init__(parent)
+        self._pack = pack
+        self._pack_id = pack.pack_id
+        self._source_dir = Path(source_dir)
+        self._sqlite_path = Path(sqlite_path)
+
+    def run(self) -> None:
+        try:
+            _log_download(
+                f"[{self._pack_id}] starting POS overlay build source_dir={self._source_dir} "
+                f"sqlite={self._sqlite_path} py={sys.version.split()[0]}"
+            )
+            source_paths = self._download_sources()
+            if self.isInterruptionRequested():
+                self._cleanup_partial(self._sqlite_path)
+                self.failed.emit(self._pack_id, encode_pack_download_failure("cancelled"))
+                return
+            metadata = build_ud_ancora_pos_overlay(
+                source_paths=tuple(source_paths),
+                output_sqlite=self._sqlite_path,
+                pack_id=self._pack_id,
+                provider=self._pack.provider,
+                overwrite=True,
+                write_sidecars=True,
+            )
+            _log_download(
+                f"[{self._pack_id}] POS overlay built rows={metadata.get('row_count', 0)}"
+            )
+            self.completed.emit(self._pack_id, str(self._sqlite_path))
+        except Exception as exc:  # noqa: BLE001
+            _log_download(f"[{self._pack_id}] POS overlay failed error={exc}")
+            self._cleanup_partial(self._sqlite_path)
+            self.failed.emit(self._pack_id, encode_pack_download_failure(exc))
+
+    def _download_sources(self) -> list[Path]:
+        urls = tuple(self._pack.source_urls or (self._pack.url,))
+        if not urls:
+            raise ValueError(f"No POS overlay source URLs configured for {self._pack_id}.")
+        self._source_dir.mkdir(parents=True, exist_ok=True)
+        source_paths: list[Path] = []
+        total = len(urls)
+        for index, url in enumerate(urls, start=1):
+            if self.isInterruptionRequested():
+                raise RuntimeError("cancelled")
+            filename = Path(str(url).split("?", 1)[0]).name
+            if not filename:
+                raise ValueError(f"Could not infer filename from URL: {url}")
+            target = self._source_dir / filename
+            request = urllib.request.Request(str(url), headers={"User-Agent": "LexiShift/1.0"})
+            with _open_request(request, timeout=60) as response:
+                status = getattr(response, "status", None)
+                _log_download(
+                    f"[{self._pack_id}] POS source status={status} final_url={response.geturl()}"
+                )
+                with target.open("wb") as handle:
+                    while True:
+                        if self.isInterruptionRequested():
+                            raise RuntimeError("cancelled")
+                        chunk = response.read(1024 * 128)
+                        if not chunk:
+                            break
+                        handle.write(chunk)
+            source_paths.append(target)
+            self.progress.emit(self._pack_id, index, total)
+        return source_paths
+
+    def _cleanup_partial(self, path: str | Path) -> None:
+        try:
+            if Path(path).exists():
+                Path(path).unlink()
+        except OSError:
+            pass
+
+
 class FrequencyPackDownloadThread(QThread):
     progress = Signal(str, int, int)
     completed = Signal(str, str)
@@ -566,6 +695,10 @@ class FrequencyPackDownloadThread(QThread):
             sqlite_path = ""
             if self._pack.build_mode == "de_frequency_pipeline":
                 sqlite_path = self._build_de_pipeline()
+            elif self._pack.build_mode == "en_frequency_pipeline":
+                sqlite_path = self._build_en_pipeline()
+            elif self._pack.build_mode == "spalex_frequency_pipeline":
+                sqlite_path = self._build_spalex_pipeline()
             else:
                 _log_download(
                     f"[{self._pack_id}] starting download url={self._url} dest={self._archive_path} "
@@ -577,7 +710,8 @@ class FrequencyPackDownloadThread(QThread):
                     self.failed.emit(self._pack_id, encode_pack_download_failure("cancelled"))
                     return
                 sqlite_path = self._convert_to_sqlite(self._archive_path)
-            self._write_manifest(sqlite_path)
+            if self._pack.build_mode != "spalex_frequency_pipeline":
+                self._write_manifest(sqlite_path)
             _log_download(f"[{self._pack_id}] converted sqlite={sqlite_path}")
             self.completed.emit(self._pack_id, sqlite_path)
         except Exception as exc:
@@ -637,6 +771,68 @@ class FrequencyPackDownloadThread(QThread):
             raise RuntimeError("cancelled")
         self._cleanup_partial(self._archive_path)
         return str(result.output_path)
+
+    def _build_en_pipeline(self) -> str:
+        _log_download(
+            f"[{self._pack_id}] starting EN pipeline output={self._sqlite_path} "
+            f"language_packs={self._language_packs_dir()} py={sys.version.split()[0]}"
+        )
+        from lexishift_core.frequency.en.pipeline import run_en_frequency_pipeline
+
+        def _progress(done: int, total: int) -> None:
+            self.progress.emit(self._pack_id, int(done), int(total))
+
+        def _capture_source_bundle(component_paths: Mapping[str, Path]) -> None:
+            self._source_bundle_fields = source_bundle_fields_for_pack(
+                self._pack,
+                component_paths=component_paths,
+            )
+
+        result = run_en_frequency_pipeline(
+            output_sqlite=Path(self._sqlite_path),
+            language_packs_dir=self._language_packs_dir(),
+            overwrite=True,
+            progress_cb=_progress,
+            cancel_cb=lambda: bool(self.isInterruptionRequested()),
+            source_bundle_component_paths_cb=_capture_source_bundle,
+        )
+        if self.isInterruptionRequested():
+            self._cleanup_partial(self._sqlite_path)
+            raise RuntimeError("cancelled")
+        self._cleanup_partial(self._archive_path)
+        return str(result.output_path)
+
+    def _build_spalex_pipeline(self) -> str:
+        _log_download(
+            f"[{self._pack_id}] starting SPALEX pipeline output={self._sqlite_path} "
+            f"py={sys.version.split()[0]}"
+        )
+        self._download_archive()
+        if self.isInterruptionRequested():
+            self._cleanup_partial(self._archive_path)
+            raise RuntimeError("cancelled")
+        self._capture_raw_artifact_checksums(self._archive_path)
+        from lexishift_core.frequency.es.spalex import build_spalex_frequency_pack
+
+        metadata = build_spalex_frequency_pack(
+            spalex_csv=Path(self._archive_path),
+            current_frequency_db=None,
+            output_sqlite=Path(self._sqlite_path),
+            kaikki_forward_db=None,
+            pack_id=self._pack_id,
+            provider=self._pack_id,
+            source_mode="spalex_only",
+            overwrite=True,
+            write_sidecars=True,
+        )
+        _log_download(
+            f"[{self._pack_id}] SPALEX pipeline"
+            f" rows={int(metadata.get('row_count', 0))}"
+            f" pos_rows={int(metadata.get('metrics', {}).get('pos_rows', 0))}"
+            f" topic_rows={int(metadata.get('metrics', {}).get('topic_domain_rows', 0))}"
+        )
+        self._cleanup_partial(self._archive_path)
+        return self._sqlite_path
 
     def _language_packs_dir(self) -> Path:
         target = Path(_app_data_root()) / "language_packs"

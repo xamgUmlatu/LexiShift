@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 from hashlib import sha1
 import re
-from typing import Any, Mapping, Sequence, TypeVar, cast
+from typing import Any, Mapping, NamedTuple, Sequence, TypeVar, cast
 
 from lexishift_core.helper.lp_capabilities import (
     SemanticPublicationCapability,
@@ -22,6 +22,13 @@ class _CompetitionPublicationContext:
     selection_mode: str
     selection_policy_version: str
     sense_ids: tuple[str, ...]
+
+
+class _ReferenceCompetitionRecord(NamedTuple):
+    trigger_id: str
+    active_sense_id: str
+    competition_set_id: str
+    shadow_sense_ids: tuple[str, ...]
 
 
 def normalize_semantic_admission_metadata(value: object) -> dict[str, object] | None:
@@ -241,6 +248,147 @@ def merge_semantic_publication_with_context_inventory(
         "phrase_sets": primary_phrase_sets,
     }
     return merged_rules, merged_inventory
+
+
+def merge_semantic_publication_with_reference_inventory(
+    *,
+    rules: Sequence[VocabRule],
+    primary_inventory: Mapping[str, object],
+    reference_inventory: Mapping[str, object] | None,
+) -> tuple[list[VocabRule], dict[str, object]]:
+    """Upgrade current publication rules from a broader semantic-pack inventory.
+
+    The reference inventory is intentionally used only as evidence for rules that
+    are already present in the current SRS publication. It must not widen the
+    active ruleset on its own.
+    """
+
+    if not isinstance(primary_inventory, Mapping):
+        return list(rules), {}
+    if not isinstance(reference_inventory, Mapping):
+        return list(rules), dict(primary_inventory)
+
+    primary_triggers = _mapping_copy(primary_inventory.get("triggers"))
+    primary_senses = _mapping_copy(primary_inventory.get("senses"))
+    primary_competition_sets = _mapping_copy(primary_inventory.get("competition_sets"))
+    primary_phrase_sets = _mapping_copy(primary_inventory.get("phrase_sets"))
+    reference_triggers = _mapping_copy(reference_inventory.get("triggers"))
+    reference_senses = _mapping_copy(reference_inventory.get("senses"))
+    reference_competition_sets = _mapping_copy(reference_inventory.get("competition_sets"))
+    reference_index = _build_reference_competition_index(
+        triggers=reference_triggers,
+        senses=reference_senses,
+        competition_sets=reference_competition_sets,
+    )
+    if not reference_index:
+        return list(rules), dict(primary_inventory)
+
+    merged_rules: list[VocabRule] = []
+    referenced_trigger_ids: set[str] = set()
+    referenced_sense_ids: set[str] = set()
+    referenced_competition_set_ids: set[str] = set()
+
+    for rule in rules:
+        metadata = rule.metadata or RuleMetadata()
+        semantic_admission = normalize_semantic_admission_metadata(metadata.semantic_admission)
+        if semantic_admission is None:
+            merged_rules.append(rule)
+            continue
+        if str(semantic_admission.get("status") or "").strip() == "ready":
+            merged_rules.append(rule)
+            continue
+        family_key = (_normalize_phrase(rule.source_phrase), _normalize_phrase(rule.replacement))
+        reference_record = reference_index.get(family_key)
+        if reference_record is None:
+            merged_rules.append(rule)
+            continue
+        upgraded_admission = {
+            "schema_version": 1,
+            "status": "ready",
+            "trigger_id": reference_record.trigger_id,
+            "sense_id": reference_record.active_sense_id,
+            "competition_set_id": reference_record.competition_set_id,
+        }
+        merged_rules.append(_replace_rule_semantic_admission(rule, upgraded_admission))
+        referenced_trigger_ids.add(reference_record.trigger_id)
+        referenced_sense_ids.add(reference_record.active_sense_id)
+        referenced_sense_ids.update(reference_record.shadow_sense_ids)
+        referenced_competition_set_ids.add(reference_record.competition_set_id)
+
+    merged_triggers = dict(primary_triggers)
+    merged_senses = dict(primary_senses)
+    merged_competition_sets = dict(primary_competition_sets)
+    for trigger_id in referenced_trigger_ids:
+        trigger = reference_triggers.get(trigger_id)
+        if isinstance(trigger, Mapping):
+            merged_triggers[trigger_id] = dict(trigger)
+    for sense_id in referenced_sense_ids:
+        sense = reference_senses.get(sense_id)
+        if isinstance(sense, Mapping):
+            merged_senses[sense_id] = dict(sense)
+    for competition_set_id in referenced_competition_set_ids:
+        competition_set = reference_competition_sets.get(competition_set_id)
+        if isinstance(competition_set, Mapping):
+            merged_competition_sets[competition_set_id] = dict(competition_set)
+
+    capability_payload = primary_inventory.get("capability")
+    merged_inventory = {
+        "schema_version": _as_int(primary_inventory.get("schema_version")) or 1,
+        "pair": str(primary_inventory.get("pair") or "").strip(),
+        "profile_id": str(primary_inventory.get("profile_id") or "").strip() or "default",
+        "generated_at": str(primary_inventory.get("generated_at") or "").strip(),
+        "capability": dict(capability_payload) if isinstance(capability_payload, Mapping) else {},
+        "triggers": merged_triggers,
+        "senses": merged_senses,
+        "competition_sets": merged_competition_sets,
+        "phrase_sets": primary_phrase_sets,
+    }
+    return merged_rules, merged_inventory
+
+
+def _build_reference_competition_index(
+    *,
+    triggers: Mapping[str, object],
+    senses: Mapping[str, object],
+    competition_sets: Mapping[str, object],
+) -> dict[tuple[str, str], _ReferenceCompetitionRecord]:
+    index: dict[tuple[str, str], _ReferenceCompetitionRecord] = {}
+    for competition_set_id, raw_competition_set in competition_sets.items():
+        if not isinstance(raw_competition_set, Mapping):
+            continue
+        if str(raw_competition_set.get("status") or "").strip() != "ready":
+            continue
+        trigger_id = str(raw_competition_set.get("trigger_id") or "").strip()
+        active_sense_id = str(raw_competition_set.get("active_sense_id") or "").strip()
+        trigger = triggers.get(trigger_id)
+        active_sense = senses.get(active_sense_id)
+        if not isinstance(trigger, Mapping) or not isinstance(active_sense, Mapping):
+            continue
+        source_phrase = _normalize_phrase(str(trigger.get("source_phrase") or ""))
+        target_lemma = _normalize_phrase(str(active_sense.get("target_lemma") or ""))
+        if not source_phrase or not target_lemma:
+            continue
+        raw_shadow_sense_ids = raw_competition_set.get("shadow_sense_ids")
+        shadow_sense_ids = tuple(
+            str(sense_id).strip()
+            for sense_id in (
+                raw_shadow_sense_ids
+                if isinstance(raw_shadow_sense_ids, Sequence)
+                and not isinstance(raw_shadow_sense_ids, (str, bytes))
+                else ()
+            )
+            if str(sense_id).strip() and isinstance(senses.get(str(sense_id).strip()), Mapping)
+        )
+        index.setdefault(
+            (source_phrase, target_lemma),
+            _ReferenceCompetitionRecord(
+                trigger_id=trigger_id,
+                active_sense_id=active_sense_id,
+                competition_set_id=str(competition_set_id),
+                shadow_sense_ids=shadow_sense_ids,
+            ),
+        )
+    return index
 
 
 def _replace_rule_semantic_admission(

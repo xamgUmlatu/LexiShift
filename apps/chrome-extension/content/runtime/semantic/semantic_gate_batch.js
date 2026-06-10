@@ -1,6 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "abstain_on_unavailable";
+  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
   const FALLBACK_POLICIES = new Set(["legacy_on_unavailable", "abstain_on_unavailable", "soft_affordance_on_unavailable"]);
   const DEBUG_DECISION_OVERRIDES = new Set(["replace", "abstain", "soft_affordance"]);
   const INVENTORY_RESOLUTION_CACHE_TTL_MS = 5 * 60 * 1000;

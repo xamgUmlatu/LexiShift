@@ -1,9 +1,9 @@
 {
   "app_name": {
-    "message": "LexiShift"
+    "message": "LexiShift Beta"
   },
   "app_description": {
-    "message": "Replace visible text using a configurable ruleset with optional highlighting."
+    "message": "THIS EXTENSION IS FOR BETA TESTING. Practice vocabulary while browsing with local LexiShift data."
   },
   "options_title": {
     "message": "LexiShift Options"
@@ -88,6 +88,21 @@
   },
   "badge_srs_active_story": {
     "message": "Active"
+  },
+  "badge_srs_ready_story": {
+    "message": "Ready"
+  },
+  "badge_srs_paused_story": {
+    "message": "Paused"
+  },
+  "button_srs_story_switch": {
+    "message": "Switch"
+  },
+  "heading_srs_practice_settings": {
+    "message": "Practice settings"
+  },
+  "label_srs_active_words": {
+    "message": "$1 active words"
   },
   "summary_srs_story_sampling": {
     "message": "Sample next words"
@@ -221,6 +236,12 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "Coverage varies by pair"
   },
+  "tooltip_srs_topic_not_covered": {
+    "message": "Not covered for $1 yet"
+  },
+  "topic_srs_general": {
+    "message": "General"
+  },
   "topic_srs_medicine_health": {
     "message": "Medicine & health"
   },
@@ -253,6 +274,9 @@
   },
   "topic_srs_plants_nature": {
     "message": "Plants & nature"
+  },
+  "topic_srs_travel_places_transport": {
+    "message": "Travel & transport"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Advanced tags"
@@ -1445,9 +1469,6 @@
   "hint_profile_bg_scope": {
     "message": "Only changes the options page design for this profile."
   },
-  "toggle_profile_bg_enabled": {
-    "message": "Enable options page background image"
-  },
   "label_profile_bg_backdrop_color": {
     "message": "Options page backdrop color"
   },
@@ -1459,9 +1480,6 @@
   },
   "button_profile_bg_remove": {
     "message": "Remove"
-  },
-  "button_profile_bg_apply": {
-    "message": "Apply options page background"
   },
   "button_profile_bg_position_reset": {
     "message": "Reset image position"
@@ -1615,5 +1633,44 @@
   },
   "status_srs_discard_failed": {
     "message": "Failed to discard learning word."
+  },
+  "label_language_pair": {
+    "message": "$1 -> $2"
+  },
+  "replacement_tooltip_toggle_original": {
+    "message": "Click to toggle original"
+  },
+  "replacement_tooltip_details_feedback": {
+    "message": "Right-click (or Ctrl+Click on macOS) for details and feedback."
+  },
+  "replacement_tooltip_toggle_original_with_details": {
+    "message": "Click to toggle original. Right-click (or Ctrl+Click on macOS) for details and feedback."
+  },
+  "replacement_tooltip_original": {
+    "message": "Original: $1"
+  },
+  "manual_source_prompt_title": {
+    "message": "LexiShift data source"
+  },
+  "manual_source_prompt_body": {
+    "message": "This page hosts $1 for $2. Review the provider terms, then download the required source file."
+  },
+  "manual_source_prompt_file": {
+    "message": "Expected file: $1"
+  },
+  "manual_source_prompt_terms": {
+    "message": "Review terms on this page"
+  },
+  "manual_source_prompt_download": {
+    "message": "Download source file"
+  },
+  "manual_source_prompt_after_download": {
+    "message": "After it downloads, return to LexiShift and import the file."
+  },
+  "manual_source_prompt_download_opened": {
+    "message": "Download opened. Return to LexiShift when it finishes."
+  },
+  "manual_source_prompt_dismiss": {
+    "message": "Dismiss"
   }
 }

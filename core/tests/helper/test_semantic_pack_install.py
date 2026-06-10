@@ -156,6 +156,43 @@ class TestSemanticPackInstall(unittest.TestCase):
                 paths.semantic_inventory_path("en-es", profile_id="semantic-alpha").exists()
             )
 
+    def test_copy_only_writes_pack_without_profile_publication_family(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            source_inventory = Path(tmp) / "source_inventory.json"
+            source_inventory.write_text(
+                json.dumps(_sample_inventory(), ensure_ascii=False), encoding="utf-8"
+            )
+            paths = build_helper_paths(Path(tmp) / "data-root")
+
+            report = install_semantic_pack(
+                paths,
+                config=SemanticPackInstallConfig(
+                    pair="en-es",
+                    profile_id="semantic-alpha",
+                    semantic_inventory_path=source_inventory,
+                    pack_id="en-es-active-only-v1",
+                    generated_at="2026-05-10T00:00:00Z",
+                    copy_only=True,
+                ),
+            )
+
+            pack_inventory = (
+                paths.language_packs_dir
+                / "en-es"
+                / "semantic_packs"
+                / "en-es-active-only-v1"
+                / "semantic_inventory.json"
+            )
+            self.assertEqual(report["status"], "ok")
+            self.assertEqual(report["decision"], "semantic_pack_copy_written")
+            self.assertFalse(report["written"]["ruleset"])
+            self.assertFalse(report["written"]["semantic_inventory"])
+            self.assertTrue(pack_inventory.exists())
+            self.assertFalse(
+                paths.semantic_inventory_path("en-es", profile_id="semantic-alpha").exists()
+            )
+            self.assertFalse(paths.ruleset_path("en-es", profile_id="semantic-alpha").exists())
+
     def test_default_dev_pack_resolves_to_current_tranche_fixture(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp) / "data-root")

@@ -1,9 +1,9 @@
 {
   "app_name": {
-    "message": "LexiShift"
+    "message": "LexiShift Beta"
   },
   "app_description": {
-    "message": "使用可配置规则替换可见文本，并可选高亮。"
+    "message": "BETA 测试版。使用本地 LexiShift 数据，在浏览网页时练习词汇。"
   },
   "options_title": {
     "message": "LexiShift 选项"
@@ -88,6 +88,21 @@
   },
   "badge_srs_active_story": {
     "message": "活跃"
+  },
+  "badge_srs_ready_story": {
+    "message": "就绪"
+  },
+  "badge_srs_paused_story": {
+    "message": "已暂停"
+  },
+  "button_srs_story_switch": {
+    "message": "切换"
+  },
+  "heading_srs_practice_settings": {
+    "message": "练习设置"
+  },
+  "label_srs_active_words": {
+    "message": "$1 个活跃词"
   },
   "summary_srs_story_sampling": {
     "message": "抽样下一批词"
@@ -218,6 +233,12 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "覆盖因语言对而异"
   },
+  "tooltip_srs_topic_not_covered": {
+    "message": "$1 尚未覆盖"
+  },
+  "topic_srs_general": {
+    "message": "通用"
+  },
   "topic_srs_medicine_health": {
     "message": "医学与健康"
   },
@@ -250,6 +271,9 @@
   },
   "topic_srs_plants_nature": {
     "message": "植物与自然"
+  },
+  "topic_srs_travel_places_transport": {
+    "message": "旅行与交通"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高级标签"
@@ -1436,9 +1460,6 @@
   "hint_profile_bg_scope": {
     "message": "仅更改该配置在选项页中的界面外观。"
   },
-  "toggle_profile_bg_enabled": {
-    "message": "启用选项页背景图片"
-  },
   "label_profile_bg_backdrop_color": {
     "message": "选项页底色"
   },
@@ -1450,9 +1471,6 @@
   },
   "button_profile_bg_remove": {
     "message": "移除"
-  },
-  "button_profile_bg_apply": {
-    "message": "应用选项页背景"
   },
   "button_profile_bg_position_reset": {
     "message": "重置图片位置"
@@ -1606,5 +1624,44 @@
   },
   "status_srs_discard_failed": {
     "message": "无法丢弃学习词。"
+  },
+  "label_language_pair": {
+    "message": "$1 -> $2"
+  },
+  "replacement_tooltip_toggle_original": {
+    "message": "点击切换为原文"
+  },
+  "replacement_tooltip_details_feedback": {
+    "message": "右键点击（macOS 上 Ctrl+点击）查看详情和反馈。"
+  },
+  "replacement_tooltip_toggle_original_with_details": {
+    "message": "点击切换为原文。右键点击（macOS 上 Ctrl+点击）查看详情和反馈。"
+  },
+  "replacement_tooltip_original": {
+    "message": "原文：$1"
+  },
+  "manual_source_prompt_title": {
+    "message": "LexiShift 数据源"
+  },
+  "manual_source_prompt_body": {
+    "message": "此页面托管 $2 所需的 $1。请先查看提供方条款，然后下载所需源文件。"
+  },
+  "manual_source_prompt_file": {
+    "message": "所需文件：$1"
+  },
+  "manual_source_prompt_terms": {
+    "message": "查看此页面上的条款"
+  },
+  "manual_source_prompt_download": {
+    "message": "下载源文件"
+  },
+  "manual_source_prompt_after_download": {
+    "message": "下载完成后，请返回 LexiShift 并导入文件。"
+  },
+  "manual_source_prompt_download_opened": {
+    "message": "已打开下载。完成后请返回 LexiShift。"
+  },
+  "manual_source_prompt_dismiss": {
+    "message": "关闭"
   }
 }

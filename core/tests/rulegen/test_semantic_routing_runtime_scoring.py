@@ -191,6 +191,16 @@ class SemanticRoutingRuntimeScoringTests(unittest.TestCase):
         self.assertEqual(signals.matched_phrase_pattern, "keep the ball rolling")
         self.assertEqual(signals.phrase_reason_code, "idiom_progressive_object_frame")
 
+    def test_extract_runtime_phrase_control_signals_detects_ball_court_idiom(self) -> None:
+        signals = extract_runtime_phrase_control_signals(
+            "The ball is in your court now.",
+            source_phrase="ball",
+            family_pos_tags=("noun", "noun"),
+        )
+        self.assertTrue(signals.phrase_preemption_hit)
+        self.assertEqual(signals.matched_phrase_pattern, "ball is in your court")
+        self.assertEqual(signals.phrase_reason_code, "idiom_in_determiner_noun_frame")
+
     def test_extract_runtime_phrase_control_signals_skips_literal_ball_rolling_frame(self) -> None:
         signals = extract_runtime_phrase_control_signals(
             "She saw the ball rolling down the hill.",

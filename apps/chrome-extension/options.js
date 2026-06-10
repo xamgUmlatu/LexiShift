@@ -3,7 +3,7 @@ const settingsManager = new SettingsManager();
 const i18n = new LocalizationService();
 const t = (k, s, f) => i18n.t(k, s, f);
 const rulesManager = new RulesManager(settingsManager, i18n);
-const ui = new UIManager();
+const ui = new UIManager(i18n);
 
 function logOptions(...args) {
   console.log("[LexiShift][Options]", ...args);

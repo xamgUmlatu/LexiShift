@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from pathlib import Path
 from typing import Optional
 
-from PySide6.QtCore import QSettings, Qt
+from PySide6.QtCore import QRectF, QSize, QSettings, Qt
+from PySide6.QtGui import QColor, QIcon, QPainter, QPainterPath, QPen, QPixmap
 from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -42,6 +44,89 @@ from settings_language_packs_support import split_language_resource_bindings
 from helper_ui import helper_connection_summary_text, manage_browser_connections
 from dialogs_theme_utils import _parse_int
 from integrations import open_integration_link
+from utils_paths import resource_path
+
+
+def _draw_browser_extension_icon() -> QIcon:
+    pixmap = QPixmap(96, 96)
+    pixmap.fill(Qt.GlobalColor.transparent)
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+
+    browser_pen = QPen(QColor("#4E8CFF"), 5)
+    browser_pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
+    painter.setPen(browser_pen)
+    painter.setBrush(Qt.BrushStyle.NoBrush)
+    painter.drawRoundedRect(QRectF(11, 18, 74, 56), 10, 10)
+    painter.drawLine(13, 35, 83, 35)
+
+    puzzle_color = QColor("#F3C74F")
+    painter.setPen(QPen(puzzle_color, 3))
+    painter.setBrush(puzzle_color)
+    puzzle = QPainterPath()
+    puzzle.addRoundedRect(QRectF(48, 45, 27, 25), 5, 5)
+    painter.drawPath(puzzle)
+    painter.drawEllipse(QRectF(56, 37, 11, 11))
+    painter.drawEllipse(QRectF(69, 53, 11, 11))
+    painter.end()
+    return QIcon(pixmap)
+
+
+def _draw_plugin_icon() -> QIcon:
+    pixmap = QPixmap(96, 96)
+    pixmap.fill(Qt.GlobalColor.transparent)
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+
+    plugin_color = QColor("#9A75FF")
+    pen = QPen(plugin_color, 6)
+    pen.setCapStyle(Qt.PenCapStyle.RoundCap)
+    pen.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
+    painter.setPen(pen)
+    painter.setBrush(plugin_color)
+    painter.drawLine(39, 17, 39, 31)
+    painter.drawLine(57, 17, 57, 31)
+    painter.drawRoundedRect(QRectF(34, 31, 28, 31), 7, 7)
+    painter.drawLine(48, 62, 48, 78)
+    painter.drawArc(QRectF(48, 67, 25, 18), 180 * 16, 120 * 16)
+    painter.end()
+    return QIcon(pixmap)
+
+
+def _draw_website_fallback_icon() -> QIcon:
+    pixmap = QPixmap(96, 96)
+    pixmap.fill(Qt.GlobalColor.transparent)
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+
+    color = QColor("#2FAE8F")
+    painter.setPen(QPen(color, 5))
+    painter.setBrush(Qt.BrushStyle.NoBrush)
+    painter.drawEllipse(QRectF(17, 17, 62, 62))
+    painter.drawLine(20, 48, 76, 48)
+    painter.drawArc(QRectF(31, 17, 34, 62), 90 * 16, 180 * 16)
+    painter.drawArc(QRectF(31, 17, 34, 62), 270 * 16, 180 * 16)
+    painter.end()
+    return QIcon(pixmap)
+
+
+def _lexishift_app_icon() -> QIcon:
+    for candidate in (resource_path("ttbn.icns"), resource_path("ttbn.ico")):
+        if Path(candidate).exists():
+            icon = QIcon(candidate)
+            if not icon.isNull():
+                return icon
+    return _draw_website_fallback_icon()
+
+
+def _integration_tile_icon(icon_key: str) -> QIcon:
+    if icon_key == "extension":
+        return _draw_browser_extension_icon()
+    if icon_key == "plugin":
+        return _draw_plugin_icon()
+    if icon_key == "lexishift":
+        return _lexishift_app_icon()
+    return _draw_website_fallback_icon()
 
 
 def _language_label(code: str) -> str:
@@ -352,11 +437,7 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
     def _build_resources_tab(self) -> QWidget:
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(8)
-        description = QLabel(t("language_packs.resources_description"))
-        description.setObjectName("settingsIntroLabel")
-        description.setWordWrap(True)
-        layout.addWidget(description)
+        layout.setSpacing(0)
         layout.addWidget(self.language_pack_panel)
 
         panel = QWidget()
@@ -369,18 +450,29 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         description = QLabel(t("integrations.description"))
         description.setWordWrap(True)
 
-        app_button = QPushButton(t("integrations.app_button"))
-        extension_button = QPushButton(t("integrations.extension_button"))
-        plugin_button = QPushButton(t("integrations.plugin_button"))
-
-        app_button.clicked.connect(lambda: open_integration_link("app_download"))
-        extension_button.clicked.connect(lambda: open_integration_link("chrome_extension"))
-        plugin_button.clicked.connect(lambda: open_integration_link("betterdiscord_plugin"))
-
         buttons = QHBoxLayout()
-        buttons.addWidget(app_button)
-        buttons.addWidget(extension_button)
-        buttons.addWidget(plugin_button)
+        buttons.setSpacing(18)
+        buttons.addWidget(
+            self._integration_link_tile(
+                t("integrations.extension_button"),
+                "chrome_extension",
+                "extension",
+            )
+        )
+        buttons.addWidget(
+            self._integration_link_tile(
+                t("integrations.plugin_button"),
+                "betterdiscord_plugin",
+                "plugin",
+            )
+        )
+        buttons.addWidget(
+            self._integration_link_tile(
+                t("integrations.website_button"),
+                "website",
+                "lexishift",
+            )
+        )
         buttons.addStretch()
 
         layout = QVBoxLayout()
@@ -393,6 +485,33 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         panel = QWidget()
         panel.setLayout(layout)
         return panel
+
+    def _integration_link_tile(self, label_text: str, link_key: str, icon_key: str) -> QWidget:
+        tile = QWidget()
+        tile.setProperty("integrationTile", True)
+        layout = QVBoxLayout(tile)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(8)
+
+        button = QPushButton(tile)
+        button.setObjectName("integrationTileButton")
+        button.setProperty("integrationLinkKey", link_key)
+        button.setProperty("integrationIconKey", icon_key)
+        button.setAccessibleName(label_text)
+        button.setToolTip(label_text)
+        button.setFixedSize(108, 108)
+        button.setIcon(_integration_tile_icon(icon_key))
+        button.setIconSize(QSize(58, 58))
+        button.clicked.connect(lambda _checked=False, key=link_key: open_integration_link(key))
+
+        label = QLabel(label_text, tile)
+        label.setProperty("integrationTileLabel", True)
+        label.setAlignment(Qt.AlignCenter)
+        label.setWordWrap(True)
+
+        layout.addWidget(button, 0, Qt.AlignHCenter)
+        layout.addWidget(label)
+        return tile
 
     def _build_dataset_tab(self) -> QWidget:
         self.inflections_enabled_check = QCheckBox(t("settings.inflections_enabled"))

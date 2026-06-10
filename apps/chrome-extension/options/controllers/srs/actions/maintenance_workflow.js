@@ -52,6 +52,7 @@
       })
     );
     const loadSrsProfileForPair = getFunction(opts.loadSrsProfileForPair, null);
+    const activateSrsStoryPair = getFunction(opts.activateSrsStoryPair, null);
     const resolvePlanningState = getFunction(opts.resolvePlanningState, () => null);
     const refreshSemanticAdmissionStatus = getFunction(
       opts.refreshSemanticAdmissionStatus,
@@ -408,6 +409,7 @@
         await syncDeletedStoryState({
           settingsManager,
           loadSrsProfileForPair,
+          activateSrsStoryPair,
           srsPair,
           profileId,
           items

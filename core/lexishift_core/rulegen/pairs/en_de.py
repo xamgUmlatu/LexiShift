@@ -32,6 +32,7 @@ from lexishift_core.rulegen.pairs.en_de_gloss_processing import (
     _resolve_cleaner_later_competition,
     _resolve_en_de_kaikki_register_demotion,
     _resolve_en_de_marked_sense_demotion,
+    _resolve_sense_defaultness_competition,
     _resolve_sense_representative_indexes,
 )
 from lexishift_core.rulegen.pairs.en_de_live_source import (
@@ -68,6 +69,7 @@ _COMPAT_REEXPORTS = (
     _resolve_cleaner_later_competition,
     _resolve_en_de_kaikki_register_demotion,
     _resolve_en_de_marked_sense_demotion,
+    _resolve_sense_defaultness_competition,
     _resolve_sense_representative_indexes,
 )
 
@@ -115,6 +117,7 @@ class EnDeRulegenConfig:
     enable_source_frequency_prior: bool = False
     source_frequency_db_path: Optional[Path] = None
     cleaner_later_competition_penalty: float = 0.0
+    sense_defaultness_competition_penalty: float = 0.0
     kaikki_policy: "EnDeKaikkiPolicyConfig" = field(
         default_factory=lambda: EnDeKaikkiPolicyConfig()
     )
@@ -184,6 +187,7 @@ def build_en_de_pipeline(
         source_frequency_provider=source_frequency_provider,
         cleaner_later_competition_penalty=config.cleaner_later_competition_penalty,
         sense_representative_selection=config.sense_representative_selection,
+        sense_defaultness_competition_penalty=config.sense_defaultness_competition_penalty,
         kaikki_policy=config.kaikki_policy,
     )
     normalizers: list[CandidateNormalizer] = [

@@ -16,6 +16,11 @@ from lexishift_core.srs.admission_policy import (
     compute_admission_weight,
     resolve_default_pos_weights,
 )
+from lexishift_core.srs.pos_overlay import (
+    PosOverlayEntry,
+    load_pos_overlay_entries,
+    lookup_pos_overlay_entry,
+)
 from lexishift_core.srs.selector import SelectorCandidate
 from lexishift_core.scoring.weighting import PmwWeighting
 
@@ -59,6 +64,7 @@ class SeedSelectionConfig:
     stopwords_path: Optional[Path] = None
     stopwords: Optional[set[str]] = None
     source_label: Optional[str] = None
+    pos_overlay_path: Optional[Path] = None
     topic_columns: Sequence[str] = (
         "sense_topics",
         "topics",
@@ -89,6 +95,7 @@ def build_seed_candidates(
     jmdict_lemmas = _load_jmdict_lemmas(config.jmdict_path) if config.require_jmdict else None
     stopwords = _resolve_stopwords(config)
     source_label = _resolve_source_label(config=config, frequency_db=frequency_db)
+    pos_overlay_entries = load_pos_overlay_entries(config.pos_overlay_path)
     store_config = SqliteFrequencyConfig(
         path=frequency_db,
         lemma_column=config.lemma_column,
@@ -193,11 +200,18 @@ def build_seed_candidates(
                 and row[resolved_pos_column] is not None
                 else None
             )
-            normalized_pos = normalize_pos(
+            frequency_normalized_pos = normalize_pos(
                 raw_pos,
                 language_pair=config.language_pair,
                 source_provider=source_label,
                 source_kind="frequency",
+            )
+            pos_overlay_entry = lookup_pos_overlay_entry(pos_overlay_entries, lemma)
+            raw_pos, normalized_pos, pos_source_metadata = _resolve_effective_pos(
+                raw_pos=raw_pos,
+                frequency_normalized_pos=frequency_normalized_pos,
+                overlay_entry=pos_overlay_entry,
+                language_pair=config.language_pair,
             )
             raw_lform = (
                 str(row[resolved_lform_column]).strip()
@@ -266,6 +280,7 @@ def build_seed_candidates(
                     "lform_column": resolved_lform_column if include_lform else None,
                     "wtype_column": resolved_wtype_column if include_wtype else None,
                     "sublemma_column": resolved_sublemma_column if include_sublemma else None,
+                    **pos_source_metadata,
                     **bootstrap_metadata,
                 },
             )
@@ -299,6 +314,7 @@ def build_seed_candidates(
                         "pos_mapped": normalized_pos.mapped,
                         "pos_source_profile": normalized_pos.source_profile,
                         "pos_matched_rule": normalized_pos.matched_rule,
+                        **pos_source_metadata,
                         "rank_column": resolved_rank_column,
                         "pmw_column": resolved_pmw_column,
                         "pos_column": resolved_pos_column if include_pos else None,
@@ -321,6 +337,68 @@ def build_seed_candidates(
         if config.sort_by_admission_weight:
             results.sort(key=_admission_sort_key)
         return results
+
+
+def _resolve_effective_pos(
+    *,
+    raw_pos: str | None,
+    frequency_normalized_pos,
+    overlay_entry: PosOverlayEntry | None,
+    language_pair: str,
+):
+    frequency_raw_pos = raw_pos
+    if raw_pos and frequency_normalized_pos.mapped:
+        return (
+            raw_pos,
+            frequency_normalized_pos,
+            {
+                "pos_source_kind": "frequency",
+                "frequency_pos_raw": frequency_raw_pos,
+            },
+        )
+    if overlay_entry is None:
+        return (
+            raw_pos,
+            frequency_normalized_pos,
+            {
+                "pos_source_kind": "frequency",
+                "frequency_pos_raw": frequency_raw_pos,
+            },
+        )
+    overlay_normalized_pos = normalize_pos(
+        overlay_entry.raw_pos,
+        language_pair=language_pair,
+        source_provider=overlay_entry.source_provider,
+        source_kind="pos_overlay",
+        source_profile=overlay_entry.pos_source_profile,
+    )
+    if not overlay_normalized_pos.mapped:
+        return (
+            raw_pos,
+            frequency_normalized_pos,
+            {
+                "pos_source_kind": "frequency",
+                "frequency_pos_raw": frequency_raw_pos,
+                "pos_overlay_id": overlay_entry.overlay_id,
+                "pos_overlay_raw_pos": overlay_entry.raw_pos,
+                "pos_overlay_mapped": False,
+            },
+        )
+    return (
+        overlay_entry.raw_pos,
+        overlay_normalized_pos,
+        {
+            "pos_source_kind": "pos_overlay",
+            "frequency_pos_raw": frequency_raw_pos,
+            "pos_overlay_id": overlay_entry.overlay_id,
+            "pos_overlay_provider": overlay_entry.source_provider,
+            "pos_overlay_raw_pos": overlay_entry.raw_pos,
+            "pos_overlay_confidence": overlay_entry.confidence,
+            "pos_overlay_source_count": overlay_entry.source_count,
+            "pos_overlay_total_count": overlay_entry.total_count,
+            "pos_overlay_mapped": True,
+        },
+    )
 
 
 def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandidate]:

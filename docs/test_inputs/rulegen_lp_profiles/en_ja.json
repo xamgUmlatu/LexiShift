@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "pair": "en-ja",
+  "languages": {
+    "source": "en",
+    "target": "ja"
+  },
+  "translation_lanes": [
+    {
+      "lane_id": "canonical_jmdict",
+      "family": "jmdict",
+      "pack_id": "jmdict-ja-en",
+      "record_shape": "jmdict_entry_gloss_ordered",
+      "default_for_pair": true,
+      "metadata_capabilities": [
+        "translation",
+        "gloss_index",
+        "gloss_total",
+        "jmdict_entry_pos",
+        "script_forms"
+      ]
+    }
+  ],
+  "reverse_lanes": [],
+  "pos_profile": {
+    "profile_id": "en_ja_pos_v1",
+    "dictionary_profile_id": "jmdict_pos_v1",
+    "compatibility_profile_id": "default_pos_compatibility_v1"
+  },
+  "normalization_profile": {
+    "profile_id": "en_ja_jmdict_gloss_shape_v1",
+    "rule_ids": [
+      "leading_infinitive_strip",
+      "single_word_gloss_filter",
+      "stopword_filter",
+      "exact_generic_gloss_demotion"
+    ]
+  },
+  "metadata_family_profile": {
+    "profile_id": "jmdict_metadata_family_mapping_v1",
+    "family_ids": [
+      "jmdict_pos",
+      "script_forms",
+      "target_word_package"
+    ]
+  },
+  "morphology_profile": {
+    "profile_id": "en_ja_no_variants_v1",
+    "variant_policy": "context_free_variants_disabled"
+  },
+  "mechanism_support": {
+    "pos_scoring": true,
+    "variants": false,
+    "source_frequency_prior": false,
+    "reverse_check": false,
+    "kaikki_live_demotion": false,
+    "kaikki_risk_family_controls": false,
+    "same_sense_representative_selection": false,
+    "sense_defaultness_competition": false,
+    "provenance_competition": false,
+    "compiled_resources": false,
+    "prepared_sweep_tables": false
+  },
+  "benchmark_profile": {
+    "case_file": "docs/test_inputs/rulegen_benchmark_cases/en_ja.json",
+    "preset_name": "en_ja_canonical_matrix",
+    "wrapper_command": "npm --prefix scripts run quality:rulegen:en-ja",
+    "latest_benchmark_json": "docs/test_outputs/rulegen_benchmark_en_ja_latest.json"
+  }
+}

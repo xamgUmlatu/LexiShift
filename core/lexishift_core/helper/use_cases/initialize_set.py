@@ -4,12 +4,16 @@ from pathlib import Path
 from typing import Callable
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
+from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import (
     RulegenConfig,
     RulegenOutput,
     SetInitializationConfig,
     SetInitializationReport,
+)
+from lexishift_core.helper.use_cases.rule_availability import (
+    reconcile_active_items_without_enabled_rules,
 )
 from lexishift_core.rulegen.tuning import resolve_rulegen_tuning
 from lexishift_core.srs import (
@@ -25,6 +29,10 @@ from lexishift_core.srs import (
     srs_item_is_active,
 )
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
+from lexishift_core.srs.pos_overlay import (
+    pos_overlay_resource_payload,
+    resolve_pair_pos_overlay,
+)
 from lexishift_core.srs.set_policy import resolve_set_sizing_policy
 from lexishift_core.srs.signal_queue import summarize_signal_events
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
@@ -88,6 +96,14 @@ def initialize_srs_set(
     )
     if resolved_set_source_db is None:
         raise ValueError(f"Missing frequency source DB for pair '{pair}'.")
+    resolved_frequency_pack = resolve_pair_frequency_pack(
+        paths,
+        pair=pair,
+        set_source_db=resolved_set_source_db,
+    )
+    resolved_pos_overlay = resolve_pair_pos_overlay(paths, pair=pair)
+    frequency_source_label = resolved_frequency_pack.provider if resolved_frequency_pack else None
+    pos_overlay_payload = pos_overlay_resource_payload(resolved_pos_overlay)
 
     profile_id = resolve_profile_id_fn(
         paths,
@@ -151,6 +167,7 @@ def initialize_srs_set(
             "total_items_for_pair": before_pair_count,
             "store_path": str(paths.srs_store_path_for(profile_id)),
             "stopwords_path": str(stopwords_path) if stopwords_path else None,
+            **pos_overlay_payload,
             "applied": False,
             "plan": plan_payload,
             "signal_summary": signal_summary,
@@ -171,6 +188,8 @@ def initialize_srs_set(
             language_pair=pair,
             stopwords_path=stopwords_path,
             require_jmdict=capability.requires_jmdict_for_seed,
+            source_label=frequency_source_label,
+            pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
             strategy=str(config.strategy or "frequency_bootstrap"),
             profile_context=config.profile_context,
         ),
@@ -223,6 +242,7 @@ def initialize_srs_set(
             max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
             max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
             semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
+            enable_source_frequency_prior=effective_rulegen_tuning.source_frequency_prior_enabled,
             include_variants=effective_rulegen_tuning.include_variants,
             allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
             scoring=effective_rulegen_tuning.scoring,
@@ -238,6 +258,22 @@ def initialize_srs_set(
         initialize_if_empty=False,
         persist_store=False,
     )
+    (
+        updated_store,
+        updated_inventory,
+        rule_availability_reconciliation,
+    ) = reconcile_active_items_without_enabled_rules(
+        store=updated_store,
+        inventory=updated_inventory,
+        pair=pair,
+        active_item_ids=active_item_ids,
+        rules=rulegen_output.rules,
+        last_initialized_at=inventory_updated_at,
+    )
+    if rule_availability_reconciliation.changed:
+        active_item_ids = rule_availability_reconciliation.active_item_ids_after
+        save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
+        save_srs_inventory(updated_inventory, inventory_path)
     write_rulegen_outputs_fn(
         paths=paths,
         pair=pair,
@@ -271,6 +307,7 @@ def initialize_srs_set(
         "total_items_for_pair": after_pair_count,
         "store_path": str(paths.srs_store_path_for(profile_id)),
         "stopwords_path": str(stopwords_path) if stopwords_path else None,
+        **pos_overlay_payload,
         "bootstrap_diagnostics": {
             "selected_count": init_report.selected_count,
             "selected_unique_count": init_report.selected_unique_count,
@@ -304,6 +341,7 @@ def initialize_srs_set(
             ),
             "updated_at": inventory_updated_at,
         },
+        "rule_availability_reconciliation": rule_availability_reconciliation.to_dict(),
         "rulegen": {
             "published": True,
             "targets": rulegen_output.target_count,

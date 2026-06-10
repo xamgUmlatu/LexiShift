@@ -2,8 +2,8 @@
 
 Status: active mixed rollout checklist
 Role: Mixed
-Last updated: 2026-05-14
-Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; checklist claims not re-audited
+Last updated: 2026-06-10
+Last verified: 2026-06-10 en-ja advisory rulegen acceptance, SRS/runtime journey smoke, installed-resource journey smoke, and targeted SRS/extension/helper contract tests
 Source-of-truth: mixed rollout checklist; current implementation truth lives in `docs/architecture/srs_lp_architecture.md`, helper/SRS/rulegen code, tests, and `docs/developer/feature_state_matrix.md`.
 
 Purpose:
@@ -18,6 +18,13 @@ Status baseline (current):
 - Extension UI resolves LP dynamically from source/target language inputs.
 - Helper SRS bootstrap/rulegen paths use LP capabilities for requirement resolution.
 - Pair-specific rulegen is implemented for `en-ja`, `en-de`, `en-es`, and `es-en`.
+- Learning Languages uses the source-stack registry for setup resources; `en-de`
+  now exposes `freq-de-default`, `freq-en-leipzig-default`, `freedict-de-en`,
+  `freedict-en-de`, and an explicit non-blocking semantic-reference pending
+  row.
+- Installed helper/resource smoke on 2026-06-08 verified active profile
+  `suisui`, daemon pairs `en-de`/`en-es`, clean active status, and valid local
+  SQLite artifacts for the required en-de resources.
 
 ## 1) LP Strategy And Direction Policy
 
@@ -33,14 +40,14 @@ Use this matrix to determine what must exist before a pair can be marked impleme
 
 | LP | Rule source(s) | Bootstrap/growth frequency source | Stopwords file | Current status |
 | --- | --- | --- | --- | --- |
-| `en-ja` | JMDict | BCCWJ (`freq-ja-bccwj`) | `stopwords-ja.json` (optional fallback search path) | Partial/implemented |
-| `de-en` | FreeDict (`freedict-en-de`) | English frequency (`freq-en-coca`) | `stopwords-en.json` for target-side seed filtering (optional) | Baseline adapter implemented; benchmark/tuning still pending |
-| `en-de` | FreeDict (`freedict-de-en`) | German frequency (`freq-de-default`) | `stopwords-de.json` (optional fallback exists) | Implemented (quality tuning pending) |
-| `en-es` | FreeDict (`freedict-es-en`) | Spanish frequency (`freq-es-cde`) | `stopwords-es.json` (missing) | Implemented (paired plural morphology enabled) |
-| `es-en` | FreeDict (`freedict-en-es`) | English frequency (`freq-en-coca`) | `stopwords-en.json` (optional) | Implemented baseline |
-| `es-es` | Spanish monolingual source (TBD) | Spanish frequency (`freq-es-cde`) | `stopwords-es.json` (missing) | Missing monolingual adapter/source |
-| `en-en` | WordNet, Moby | English frequency (`freq-en-coca`) | `stopwords-en.json` (optional) | Data available, SRS pipeline missing |
-| `de-de` | OdeNet, OpenThesaurus | German frequency pack (missing today) | `stopwords-de.json` (missing) | Blocked by missing frequency + pipeline |
+| `en-ja` | JMDict | BCCWJ (`freq-ja-bccwj`) | `stopwords-ja.json` (optional fallback search path) | Advisory rulegen accepted for current stage; SRS/runtime and installed-resource smoke passed; semantic-veto breadth-stress gate passes; default-on and representative veto coverage pending |
+| `de-en` | FreeDict (`freedict-en-de`) | English frequency (`freq-en-leipzig-default`; `freq-en-coca` fallback) | `stopwords-en.json` for target-side seed filtering (optional) | Baseline adapter implemented; benchmark/tuning still pending |
+| `en-de` | FreeDict (`freedict-de-en`) plus reverse FreeDict (`freedict-en-de`) for reverse-check experiments | German frequency (`freq-de-default`) plus English source prior (`freq-en-leipzig-default`; `freq-en-coca` fallback) | `stopwords-de.json` (optional fallback exists) | Runtime/SRS beta implemented; installed smoke passed; scoped rulegen quality accepted for beta/advisory use; semantic reference pack pending |
+| `en-es` | Wiktionary (`wiktionary-es-en`) primary; FreeDict (`freedict-es-en`) fallback | Spanish frequency (`freq-es-spalex-v1`) | `stopwords-es.json` (missing) | Implemented; CDE retired from runtime fallback |
+| `es-en` | FreeDict (`freedict-en-es`) | English frequency (`freq-en-leipzig-default`; `freq-en-coca` fallback) | `stopwords-en.json` (optional) | Implemented baseline |
+| `es-es` | Spanish monolingual source (TBD) | Spanish frequency (`freq-es-spalex-v1`) | `stopwords-es.json` (missing) | Missing monolingual adapter/source |
+| `en-en` | WordNet, Moby | English frequency (`freq-en-leipzig-default`; `freq-en-coca` fallback) | `stopwords-en.json` (optional) | Data available, SRS pipeline missing |
+| `de-de` | OdeNet, OpenThesaurus | German frequency (`freq-de-default`) | `stopwords-de.json` (optional fallback exists) | Frequency path is now available through the German target stack; monolingual adapter/source-ranking pipeline missing |
 | `ja-ja` | JP WordNet (tab/sqlite) | BCCWJ (`freq-ja-bccwj`) | `stopwords-ja.json` (optional fallback search path) | Data mostly available, SRS pipeline missing |
 | `en-zh` | CC-CEDICT | Chinese frequency pack (missing today) | `stopwords-zh.json` (missing) | Blocked by missing frequency + pipeline |
 
@@ -109,8 +116,19 @@ Checklist for each LP row:
 
 ## Immediate Work Queue (Recommended Order)
 
-- [ ] Introduce pair capability/source registry used by helper commands.
-- [ ] Remove unconditional JMDict requirement from non-`en-ja` paths.
+- [x] Introduce pair capability/source registry used by helper commands.
+- [x] Remove unconditional JMDict requirement from non-`en-ja` paths.
 - [x] Implement `de-en` first baseline adapter path (it can reuse existing EN frequency pack).
-- [ ] Add extension-side LP readiness messaging using helper diagnostics.
-- [ ] Add German frequency pack to unlock `en-de` and `de-de`.
+- [x] Add Learning Languages setup-resource readiness for `en-de` and `en-es`
+      using the shared source-stack registry.
+- [x] Add German frequency pack workflow to unlock `en-de` SRS/runtime beta.
+- [x] Improve `en-de` rulegen quality enough for the scoped advisory gate to
+      pass with the Leipzig top3-first preset.
+- [x] Document that the current scoped `en-de` result is accepted for
+      beta/advisory use while machine delta-baseline promotion remains separate.
+- [ ] Decide later whether to promote an `en-de` machine delta baseline before
+      using delta checks as a release signal.
+- [ ] Generate/evaluate a real `en-de` semantic/veto reference pack before
+      claiming semantic parity with `en-es`.
+- [ ] Expand en-de topic coverage beyond the current limited supported-topic
+      subset if product sampling needs broader preference coverage.

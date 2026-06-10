@@ -35,6 +35,10 @@ STORY_FLOW_INITIALIZER_JS = (
 STORY_FLOW_UTILS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_utils.js"
 )
+ADMISSION_PREVIEW_FORMATTER_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/options/controllers/srs/actions/admission_preview_formatter.js"
+)
 CONTROLLER_GRAPH_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/bootstrap/controller_graph.js"
 )
@@ -47,12 +51,22 @@ TOPIC_TAXONOMY_JSON = PROJECT_ROOT / "docs/test_inputs/srs_topic_preference_taxo
 SRS_START_CARD_PRESENTER_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/srs_start_card_presenter.js"
 )
+SRS_STORY_VIEW_MODEL_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/srs_story_view_model.js"
+)
 UI_MANAGER_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/ui_manager.js"
+SRS_TOPIC_SUPPORT_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/srs_topic_support.js"
 SETTINGS_BASE_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/base_methods.js"
+SETTINGS_LANGUAGE_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/settings/language_methods.js"
+)
 SETTINGS_SRS_PROFILE_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/settings/srs_profile_methods.js"
 )
 SIGNALS_METHODS_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/signals_methods.js"
+SETTINGS_UI_PREFS_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/settings/ui_prefs_methods.js"
+)
 
 
 def _run_node(script: str) -> None:
@@ -87,14 +101,242 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertNotIn("plants_nature", actual_topic_ids)
         self.assertNotIn("travel_places_transport", actual_topic_ids)
 
+    def test_admission_preview_topic_tags_use_options_locale_messages(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const formatterPath = {json.dumps(str(ADMISSION_PREVIEW_FORMATTER_JS))};
+const messages = {{
+  topic_srs_general: "Localized General",
+  topic_srs_medicine_health: "Localized Medicine"
+}};
+const context = vm.createContext({{
+  console,
+  LexiShift: {{
+    optionsTranslateResolver: {{
+      resolveTranslate(translate) {{
+        return typeof translate === "function"
+          ? translate
+          : ((key, _args, fallback) => messages[key] || fallback);
+      }}
+    }}
+  }}
+}});
+context.globalThis = context;
+vm.runInContext(fs.readFileSync(formatterPath, "utf8"), context, {{ filename: formatterPath }});
+
+const view = context.LexiShift.optionsSrsAdmissionPreviewFormatter.buildAdmissionPreviewView({{
+  translate: (key, _args, fallback) => messages[key] || fallback,
+  srsPair: "en-de",
+  plan: {{ can_execute: true }},
+  preview: {{
+    admitted_count: 2,
+    sample_count_effective: 2,
+    admitted_words: [
+      {{ lemma: "haus", signals: {{}} }},
+      {{
+        lemma: "arzt",
+        signals: {{ topic_affinity_source: "topic_hint:medicine_health" }}
+      }}
+    ],
+    profile_bootstrap: {{
+      profile_context: {{ interests: ["medicine_health"] }},
+      active_topic_support: {{ topics: [] }}
+    }}
+  }}
+}});
+
+assert.match(view.html, /Localized General/);
+assert.match(view.html, /Localized Medicine/);
+assert.doesNotMatch(view.html, />general</);
+assert.doesNotMatch(view.html, />medicine & health</i);
+assert.match(view.html, /Selected topics: Localized Medicine/);
+"""
+        _run_node(script)
+
+    def test_en_ja_topic_chip_support_matches_approved_strong_overlay_families(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const supportPath = {json.dumps(str(SRS_TOPIC_SUPPORT_JS))};
+const context = vm.createContext({{
+  console,
+  chrome: {{
+    i18n: {{
+      getMessage(key, substitutions) {{
+        return `${{key}}:${{(substitutions || []).join(",")}}`;
+      }}
+    }}
+  }}
+}});
+context.globalThis = context;
+vm.runInContext(fs.readFileSync(supportPath, "utf8"), context, {{ filename: supportPath }});
+
+const support = context.LexiShift.optionsSrsTopicSupport;
+const expectedSupported = [
+  "finance_business",
+  "games",
+  "law_politics_civics",
+  "medicine_health",
+  "science_technology",
+  "sports_fitness"
+];
+assert.deepEqual(Array.from(support.supportedTopicsForPair("en-ja")).sort(), expectedSupported);
+assert.equal(support.isTopicSupported("en-ja", "medicine_health"), true);
+assert.equal(support.isTopicSupported("en-ja", "animals"), false);
+assert.equal(support.isTopicSupported("en-ja", "food_cooking"), false);
+assert.equal(support.isTopicSupported("en-es", "animals"), true);
+
+function button(topic) {{
+  const attrs = {{ "data-srs-topic-interest": topic }};
+  return {{
+    disabled: false,
+    classList: {{
+      values: new Set(),
+      toggle(name, enabled) {{
+        if (enabled) this.values.add(name);
+        else this.values.delete(name);
+      }}
+    }},
+    getAttribute(name) {{ return attrs[name] || ""; }},
+    setAttribute(name, value) {{ attrs[name] = String(value); }},
+    removeAttribute(name) {{ delete attrs[name]; }},
+    attrs
+  }};
+}}
+const enabled = button("medicine_health");
+const disabled = button("animals");
+support.applyTopicChipSupport([enabled, disabled], "en-ja");
+assert.equal(enabled.disabled, false);
+assert.equal(enabled.attrs["aria-disabled"], "false");
+assert.equal(enabled.attrs.title, undefined);
+assert.equal(disabled.disabled, true);
+assert.equal(disabled.attrs["aria-disabled"], "true");
+assert.equal(disabled.classList.values.has("is-unsupported"), true);
+assert.equal(disabled.attrs.title, "tooltip_srs_topic_not_covered:en-ja");
+"""
+        _run_node(script)
+
+    def test_profile_background_uses_asset_presence_without_enable_checkbox(self) -> None:
+        html = OPTIONS_HTML.read_text(encoding="utf-8")
+        self.assertNotIn('id="profile-bg-enabled"', html)
+        self.assertNotIn('id="profile-bg-apply"', html)
+        self.assertNotIn("toggle_profile_bg_enabled", html)
+        self.assertNotIn("button_profile_bg_apply", html)
+
+        for locale in ("en", "de", "ja", "zh"):
+            messages_path = PROJECT_ROOT / f"apps/chrome-extension/_locales/{locale}/messages.json"
+            messages = json.loads(messages_path.read_text(encoding="utf-8"))
+            self.assertNotIn("toggle_profile_bg_enabled", messages)
+            self.assertNotIn("button_profile_bg_apply", messages)
+
+    def test_profile_background_asset_presence_enables_saved_image(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const basePath = {json.dumps(str(SETTINGS_BASE_JS))};
+const uiPrefsPath = {json.dumps(str(SETTINGS_UI_PREFS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  profileUiThemePrefs: {{
+    resolveCardThemeDefaults() {{
+      return {{
+        hueDeg: 0,
+        saturationPercent: 100,
+        brightnessPercent: 100,
+        transparencyPercent: 100
+      }};
+    }},
+    normalizeCardThemePrefs(raw, options) {{
+      const fallback = options && options.fallback ? options.fallback : {{}};
+      const defaults = options && options.defaults ? options.defaults : {{}};
+      return {{
+        cardThemeHueDeg: raw.cardThemeHueDeg ?? fallback.cardThemeHueDeg ?? defaults.cardThemeHueDeg ?? 0,
+        cardThemeSaturationPercent:
+          raw.cardThemeSaturationPercent
+          ?? fallback.cardThemeSaturationPercent
+          ?? defaults.cardThemeSaturationPercent
+          ?? 100,
+        cardThemeBrightnessPercent:
+          raw.cardThemeBrightnessPercent
+          ?? fallback.cardThemeBrightnessPercent
+          ?? defaults.cardThemeBrightnessPercent
+          ?? 100,
+        cardThemeTransparencyPercent:
+          raw.cardThemeTransparencyPercent
+          ?? fallback.cardThemeTransparencyPercent
+          ?? defaults.cardThemeTransparencyPercent
+          ?? 100
+      }};
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(basePath, "utf8"), context, {{ filename: basePath }});
+vm.runInContext(fs.readFileSync(uiPrefsPath, "utf8"), context, {{ filename: uiPrefsPath }});
+
+function SettingsManager() {{
+  this.DEFAULT_PROFILE_ID = "default";
+  this.defaults = {{
+    srsPair: "en-en",
+    profileBackgroundOpacity: 0.18,
+    profileBackgroundBackdropColor: "#fbf7f0",
+    profileBackgroundPositionX: 50,
+    profileBackgroundPositionY: 50,
+    profileCardThemeHueDeg: 0,
+    profileCardThemeSaturationPercent: 100,
+    profileCardThemeBrightnessPercent: 100,
+    profileCardThemeTransparencyPercent: 100
+  }};
+}}
+context.LexiShift.optionsSettingsInstallBaseMethods(SettingsManager);
+context.LexiShift.optionsSettingsInstallUiPrefsMethods(SettingsManager);
+
+const manager = new SettingsManager();
+const prefs = manager.getProfileUiPrefs({{
+  optionsSelectedProfileId: "suisui",
+  srsProfiles: {{
+    suisui: {{
+      uiPrefs: {{
+        backgroundEnabled: false,
+        backgroundAssetId: "suisui:profile_background:asset",
+        backgroundOpacity: 0.22,
+        backgroundBackdropColor: "#123456"
+      }}
+    }}
+  }}
+}}, {{ profileId: "suisui" }});
+
+assert.equal(prefs.profileId, "suisui");
+assert.equal(prefs.backgroundAssetId, "suisui:profile_background:asset");
+assert.equal(prefs.backgroundEnabled, true);
+assert.equal(prefs.backgroundOpacity, 0.22);
+assert.equal(prefs.backgroundBackdropColor, "#123456");
+"""
+        _run_node(script)
+
     def test_srs_maintenance_and_challenge_controls_are_collapsed(self) -> None:
         html = OPTIONS_HTML.read_text(encoding="utf-8")
         css = OPTIONS_CSS.read_text(encoding="utf-8")
+        ui_js = UI_MANAGER_JS.read_text(encoding="utf-8")
+        story_view_model_js = SRS_STORY_VIEW_MODEL_JS.read_text(encoding="utf-8")
 
         self.assertIn('class="srs-story-list"', html)
         self.assertIn('id="srs-story-current-card"', html)
         self.assertIn('id="srs-story-current-heading"', html)
         self.assertIn('id="srs-story-current-pair"', html)
+        self.assertIn('id="srs-story-current-meta"', html)
+        self.assertIn('data-i18n="heading_srs_practice_settings"', html)
+        self.assertLess(
+            html.index('id="srs-story-current-card"'),
+            html.index('id="srs-story-pair-list"'),
+        )
         self.assertNotIn("Selected SRS story", html)
         self.assertNotIn("Current SRS story", html)
         self.assertNotIn("Preferences, dashboard, and maintenance", html)
@@ -106,7 +348,12 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertNotIn("Preview rebalance to current preferences", html)
         self.assertNotIn("heading_srs_current_story", html)
         self.assertNotIn("badge_srs_selected_story", html)
-        self.assertIn('data-i18n="badge_srs_active_story"', html)
+        self.assertIn("optionsSrsStoryViewModel", ui_js)
+        self.assertIn('"badge_srs_active_story"', story_view_model_js)
+        self.assertLess(
+            html.index("options/core/srs_story_view_model.js"),
+            html.index("options/core/ui_manager.js"),
+        )
         self.assertIn('id="srs-story-start-heading"', html)
         self.assertIn('id="srs-story-flow"', html)
         self.assertIn('id="srs-story-flow-source-language"', html)
@@ -150,15 +397,16 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertNotIn('class="toggle srs-enable-switch"', html)
         self.assertNotIn("srs-enable-switch-ui", html)
         current_story_open_tag = re.search(
-            r'<details id="srs-story-current-card" class="srs-story-card"[^>]*>',
+            r'<details\s+id="srs-story-current-card"\s+class="srs-active-story-panel"[^>]*>',
             html,
         )
         self.assertIsNotNone(current_story_open_tag)
         self.assertNotIn(" open", current_story_open_tag.group(0))
         self.assertRegex(
             html,
-            r'(?s)<details id="srs-story-current-card" class="srs-story-card"'
-            r'.*?<summary class="srs-story-summary">.*?class="srs-story-badge"',
+            r'(?s)<details\s+id="srs-story-current-card"\s+class="srs-active-story-panel"'
+            r'.*?<summary class="srs-active-story-summary">'
+            r'.*?data-i18n="badge_srs_active_story"',
         )
         self.assertRegex(
             html,
@@ -176,7 +424,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertNotIn('data-i18n="summary_srs_story_pool_advanced"', html)
         self.assertNotIn('data-i18n="section_srs_admission_preferences"', html)
         self.assertIn('data-i18n="summary_srs_starting_size_advanced"', html)
-        current_card_start = html.index('<details id="srs-story-current-card"')
+        current_card_start = current_story_open_tag.start()
         start_card_start = html.index('<article class="srs-story-start-card"', current_card_start)
         current_card_markup = html[current_card_start:start_card_start]
         self.assertNotIn('data-i18n="hint_srs_current_story"', current_card_markup)
@@ -274,7 +522,13 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn(".advanced.srs-story-size-advanced", css)
         self.assertRegex(
             css,
-            r"(?s)\.srs-story-card,\s*\.srs-story-start-card\s*\{"
+            r"(?s)\.srs-story-pair-card\s*\{"
+            r".*?border: 1px solid var\(--ls-group-subcard-separator\);"
+            r".*?background: var\(--ls-group-subcard-bg\);",
+        )
+        self.assertRegex(
+            css,
+            r"(?s)\.srs-story-start-card\s*\{"
             r".*?border: 1px solid var\(--ls-group-subcard-separator\);"
             r".*?background: var\(--ls-group-subcard-bg\);",
         )
@@ -455,7 +709,7 @@ const elements = {{
   modalInitialActiveCountInput: createInput("40"),
   sampleButton: createButton(),
   initializeButton: createButton(),
-  previewOutput: {{ textContent: "", style: {{}} }},
+	  previewOutput: {{ textContent: "", innerHTML: "", style: {{}} }},
   busyBackdrop,
   busyMessage: {{ textContent: "" }},
   mainSourceLanguageInput: createSelect("ja", ["ja", "en", "es"]),
@@ -479,7 +733,10 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   saveLanguageSettings: async () => calls.push("saveLanguage"),
   saveSrsSettings: async () => calls.push("saveSrs"),
   srsActionsController: {{
-    previewAdmission: async () => calls.push("previewAdmission"),
+	    previewAdmission: async (options) => {{
+	      calls.push(`previewAdmission:${{options.pairKey}}:${{options.profileId}}`);
+	      options.setOutputText({{ html: "<strong>sample output</strong>", text: "sample output" }});
+	    }},
     initializeSet: async () => {{
       calls.push("initializeSet");
       assert.equal(busyBackdrop.classList.contains("hidden"), false);
@@ -525,12 +782,12 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   assert.equal(elements.mainInitialActiveCountInput.value, "40");
   assert.equal(mainTopicAnimals.attributes["aria-pressed"], "true");
 
-  calls.length = 0;
-  await controller.previewAdmission();
-  assert.deepEqual(calls.slice(0, 3), ["saveLanguage", "saveSrs", "previewAdmission"]);
-  assert.equal(elements.mainSrsEnabledInput.checked, false);
-  assert.equal(mainSamplingCurtain.open, true);
-  assert.equal(elements.previewOutput.textContent, "sample output");
+	  calls.length = 0;
+	  await controller.previewAdmission();
+	  assert.deepEqual(calls, ["previewAdmission:en-es:default", "status:Sample updated."]);
+	  assert.equal(elements.mainSrsEnabledInput.checked, false);
+	  assert.equal(mainSamplingCurtain.open, false);
+	  assert.equal(elements.previewOutput.innerHTML, "<strong>sample output</strong>");
 
   calls.length = 0;
   await controller.initializeStory();
@@ -1006,7 +1263,7 @@ const controller = createController({{
       srsInitialActiveCount: 40,
       srsHighlightColor: "#2F74D0",
       srsSemanticAdmissionEnabled: true,
-      srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
+      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
       srsFeedbackSrsEnabled: true,
       srsFeedbackRulesEnabled: false,
       srsExposureLoggingEnabled: true
@@ -1069,7 +1326,7 @@ const controller = createController({{
   assert.equal(captured.profileSave.profile.srsBootstrapTopN, 900);
   assert.equal(captured.profileSave.profile.srsInitialActiveCount, 33);
   assert.equal(captured.profileSave.profile.srsSemanticAdmissionEnabled, true);
-  assert.equal(captured.profileSave.profile.srsSemanticAdmissionFallbackPolicy, "abstain_on_unavailable");
+  assert.equal(captured.profileSave.profile.srsSemanticAdmissionFallbackPolicy, "legacy_on_unavailable");
   assert.equal(captured.profileSave.profile.srsFeedbackSrsEnabled, true);
   assert.equal(captured.profileSave.profile.srsFeedbackRulesEnabled, false);
   assert.equal(captured.profileSave.profile.srsAutoRefreshEnabled, true);
@@ -1139,7 +1396,7 @@ const controller = createController({{
       srsInitialActiveCount: 40,
       srsHighlightColor: "#2F74D0",
       srsSemanticAdmissionEnabled: true,
-      srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
+      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
       srsFeedbackSrsEnabled: true,
       srsFeedbackRulesEnabled: false,
       srsExposureLoggingEnabled: true
@@ -1701,6 +1958,140 @@ const manager = new SettingsManager();
 """
         _run_node(script)
 
+    def test_activate_srs_profile_pair_makes_selected_story_the_only_active_runtime_story(
+        self,
+    ) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const settingsBasePath = {json.dumps(str(SETTINGS_BASE_JS))};
+const settingsLanguagePath = {json.dumps(str(SETTINGS_LANGUAGE_JS))};
+const settingsProfilePath = {json.dumps(str(SETTINGS_SRS_PROFILE_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(settingsBasePath, "utf8"), context, {{ filename: settingsBasePath }});
+vm.runInContext(fs.readFileSync(settingsLanguagePath, "utf8"), context, {{ filename: settingsLanguagePath }});
+vm.runInContext(fs.readFileSync(settingsProfilePath, "utf8"), context, {{ filename: settingsProfilePath }});
+
+const installBaseMethods = context.LexiShift.optionsSettingsInstallBaseMethods;
+const installLanguageMethods = context.LexiShift.optionsSettingsInstallLanguageMethods;
+const installSrsProfileMethods = context.LexiShift.optionsSettingsInstallSrsProfileMethods;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+
+function SettingsManager() {{
+  this._items = {{
+    sourceLanguage: "en",
+    targetLanguage: "es",
+    targetDisplayScript: "kanji",
+    srsPair: "en-es",
+    srsEnabled: true,
+    srsSelectedProfileId: "suisui",
+    srsProfiles: {{
+      suisui: {{
+        languagePrefs: {{
+          sourceLanguage: "en",
+          targetLanguage: "es",
+          srsPairAuto: true,
+          srsPair: "en-es",
+          targetScriptPrefs: {{ ja: {{ primaryDisplayScript: "romaji" }} }}
+        }},
+        srsByPair: {{
+          "en-es": {{ srsEnabled: true, srsMaxActive: 40 }},
+          "en-de": {{ srsEnabled: false, srsMaxActive: 30 }},
+          "en-ja": {{ srsEnabled: true, srsMaxActive: 20 }}
+        }},
+        srsSignalsByPair: {{}}
+      }}
+    }}
+  }};
+}}
+
+SettingsManager.prototype.DEFAULT_PROFILE_ID = "default";
+SettingsManager.prototype.defaults = {{
+  sourceLanguage: "en",
+  targetLanguage: "en",
+  targetDisplayScript: "kanji",
+  srsPair: "en-en",
+  srsMaxActive: 40,
+  srsBootstrapTopN: 800,
+  srsInitialActiveCount: 40,
+  srsSoundEnabled: true,
+  srsHighlightColor: "#2F74D0",
+  srsFeedbackSrsEnabled: true,
+  srsFeedbackRulesEnabled: false,
+  srsExposureLoggingEnabled: true,
+  srsAutoRefreshEnabled: true,
+  srsAutoRefreshMinFeedbackEvents: 4,
+  srsAutoRefreshMinGoodEasy: 2,
+  srsAutoRefreshRepeatMinGoodEasy: 4,
+  srsAutoRefreshCooldownMinutes: 0
+}};
+SettingsManager.prototype.load = async function load() {{
+  return normalize(this._items);
+}};
+SettingsManager.prototype.save = async function save(updates) {{
+  this._items = {{
+    ...this._items,
+    ...updates
+  }};
+}};
+
+installBaseMethods(SettingsManager);
+installLanguageMethods(SettingsManager);
+installSrsProfileMethods(SettingsManager);
+
+const manager = new SettingsManager();
+
+(async () => {{
+  const result = await manager.activateSrsProfilePair("en-de", {{
+    profileId: "suisui"
+  }});
+
+  assert.deepEqual(normalize(result), {{
+    pairKey: "en-de",
+    profileId: "suisui",
+    sourceLanguage: "en",
+    targetLanguage: "de"
+  }});
+  assert.equal(manager._items.sourceLanguage, "en");
+  assert.equal(manager._items.targetLanguage, "de");
+  assert.equal(manager._items.srsPair, "en-de");
+  assert.equal(manager._items.srsEnabled, true);
+  assert.equal(manager._items.srsSelectedProfileId, "suisui");
+  assert.equal(manager._items.srsProfileId, "suisui");
+
+  const savedProfile = manager._items.srsProfiles.suisui;
+  assert.equal(savedProfile.languagePrefs.sourceLanguage, "en");
+  assert.equal(savedProfile.languagePrefs.targetLanguage, "de");
+  assert.equal(savedProfile.languagePrefs.srsPair, "en-de");
+  assert.equal(savedProfile.srsByPair["en-de"].srsEnabled, true);
+  assert.equal(savedProfile.srsByPair["en-es"].srsEnabled, false);
+  assert.equal(savedProfile.srsByPair["en-ja"].srsEnabled, false);
+
+  const pairs = manager.listSrsProfilePairs(manager._items, {{
+    profileId: "suisui",
+    activePair: "en-de"
+  }});
+  assert.deepEqual(normalize(pairs.map((entry) => [
+    entry.pairKey,
+    entry.isActive,
+    entry.srsEnabled,
+    entry.creationIndex
+  ])), [
+    ["en-es", false, false, 0],
+    ["en-de", true, true, 1],
+    ["en-ja", false, false, 2]
+  ]);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_delete_srs_profile_pair_removes_story_state_and_runtime_enablement(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
@@ -1787,7 +2178,12 @@ const manager = new SettingsManager();
     profileId: "suisui"
   }});
 
-  assert.deepEqual(normalize(result), {{ pairKey: "en-es", profileId: "suisui" }});
+  assert.deepEqual(normalize(result), {{
+    pairKey: "en-es",
+    profileId: "suisui",
+    nextPairKey: "en-ja",
+    remainingPairCount: 1
+  }});
   const savedProfile = manager._items.srsProfiles.suisui;
   assert.equal(Object.hasOwn(savedProfile.srsByPair, "en-es"), false);
   assert.equal(Object.hasOwn(savedProfile.srsSignalsByPair, "en-es"), false);
@@ -1800,8 +2196,10 @@ const manager = new SettingsManager();
   }});
   assert.equal(manager._items.srsSelectedProfileId, "suisui");
   assert.equal(manager._items.srsProfileId, "suisui");
-  assert.equal(manager._items.srsPair, "en-es");
-  assert.equal(manager._items.srsEnabled, false);
+  assert.equal(manager._items.srsPair, "en-ja");
+  assert.equal(manager._items.srsEnabled, true);
+  assert.equal(manager._items.sourceLanguage, "en");
+  assert.equal(manager._items.targetLanguage, "ja");
 
   const deletedProfile = manager.getSrsProfile(manager._items, "en-es", {{
     profileId: "suisui"
@@ -1816,12 +2214,13 @@ const manager = new SettingsManager();
 """
         _run_node(script)
 
-    def test_srs_story_card_visibility_tracks_loaded_profile_enablement(self) -> None:
+    def test_srs_story_card_visibility_tracks_loaded_story_existence(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const viewModelPath = {json.dumps(str(SRS_STORY_VIEW_MODEL_JS))};
 const uiManagerPath = {json.dumps(str(UI_MANAGER_JS))};
 const storyCard = {{ hidden: false, open: true }};
 const context = vm.createContext({{
@@ -1839,6 +2238,7 @@ const context = vm.createContext({{
   }}
 }});
 context.globalThis = context;
+vm.runInContext(fs.readFileSync(viewModelPath, "utf8"), context, {{ filename: viewModelPath }});
 vm.runInContext(
   `${{fs.readFileSync(uiManagerPath, "utf8")}}\nglobalThis.__UIManager = UIManager;`,
   context,
@@ -1847,13 +2247,163 @@ vm.runInContext(
 
 const ui = new context.__UIManager();
 
-ui.updateSrsInputs({{ srsEnabled: false }}, {{}});
-assert.equal(storyCard.hidden, true);
-assert.equal(storyCard.open, false);
+	ui.updateSrsInputs({{ srsEnabled: false, srsStoryExists: false }}, {{}});
+	assert.equal(storyCard.hidden, true);
+	assert.equal(storyCard.open, false);
 
-ui.updateSrsInputs({{ srsEnabled: true }}, {{}});
-assert.equal(storyCard.hidden, false);
-assert.equal(storyCard.open, false);
+	ui.updateSrsInputs({{ srsEnabled: false, srsStoryExists: true }}, {{}});
+	assert.equal(storyCard.hidden, false);
+	assert.equal(storyCard.open, false);
+
+	ui.updateSrsInputs({{ srsEnabled: true }}, {{}});
+	assert.equal(storyCard.hidden, false);
+	assert.equal(storyCard.open, false);
+"""
+        _run_node(script)
+
+    def test_srs_story_view_model_separates_current_story_from_switchable_stories(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const viewModelPath = {json.dumps(str(SRS_STORY_VIEW_MODEL_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+vm.runInContext(fs.readFileSync(viewModelPath, "utf8"), context, {{ filename: viewModelPath }});
+
+const viewModel = context.LexiShift.optionsSrsStoryViewModel;
+
+const emptyCard = viewModel.currentStoryCard({{ srsStoryExists: false, srsEnabled: false }});
+assert.equal(emptyCard.exists, false);
+assert.equal(emptyCard.shouldShow, false);
+assert.equal(emptyCard.badgeKey, "badge_srs_active_story");
+assert.equal(emptyCard.badgeFallback, "Active");
+assert.equal(viewModel.currentStoryCard({{ srsStoryExists: true, srsEnabled: false }}).shouldShow, true);
+assert.equal(viewModel.currentStoryCard({{ srsEnabled: true }}).shouldShow, true);
+
+const cards = viewModel.switchableStoryCards({{
+  currentPairKey: "en-de",
+  entries: [
+    {{ pairKey: "en-es", isActive: false, srsEnabled: true, creationIndex: 0, srsMaxActive: 30 }},
+    {{ pairKey: "en-de", isActive: true, srsEnabled: true, creationIndex: 1, srsMaxActive: 40 }},
+    {{ pairKey: "en-ja", isActive: false, srsEnabled: false, creationIndex: 2, srsMaxActive: 20 }}
+  ]
+}});
+assert.deepEqual(cards.map((card) => card.pairKey), ["en-es", "en-ja"]);
+assert.equal(cards[0].canSwitch, true);
+assert.equal(cards[0].creationIndex, 0);
+assert.equal(cards[1].creationIndex, 2);
+assert.equal(cards[0].badgeKey, undefined);
+assert.equal(cards[1].badgeKey, undefined);
+"""
+        _run_node(script)
+
+    def test_srs_story_pair_list_omits_active_story_and_localizes_summary(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const viewModelPath = {json.dumps(str(SRS_STORY_VIEW_MODEL_JS))};
+const uiManagerPath = {json.dumps(str(UI_MANAGER_JS))};
+const elements = new Map();
+function createElement(options) {{
+  const opts = options || {{}};
+  return {{
+    hidden: false,
+    open: false,
+    value: opts.value || "",
+    textContent: "",
+    innerHTML: "",
+    style: {{}},
+    selectedIndex: opts.selectedIndex ?? -1,
+    options: opts.options || [],
+    addEventListener() {{}}
+  }};
+}}
+elements.set("source-language", createElement({{
+  value: "en",
+  selectedIndex: 0,
+  options: [{{ value: "en", textContent: "English" }}]
+}}));
+elements.set("target-language", createElement({{
+  value: "de",
+  selectedIndex: 1,
+  options: [
+    {{ value: "es", textContent: "Español" }},
+    {{ value: "de", textContent: "Deutsch" }}
+  ]
+}}));
+elements.set("srs-max-active", createElement({{ value: "40" }}));
+elements.set("srs-story-current-card", createElement());
+elements.set("srs-story-current-pair", createElement());
+elements.set("srs-story-current-meta", createElement());
+elements.set("srs-story-pair-list", createElement());
+
+const messages = {{
+  label_srs_active_words: "$1 localized active",
+  section_srs: "Localized Practice",
+  button_srs_story_switch: "Localized Switch"
+}};
+const context = vm.createContext({{
+  console,
+  chrome: {{
+    i18n: {{
+      getMessage(key, substitutions) {{
+        const template = messages[key] || "";
+        const first = Array.isArray(substitutions) ? substitutions[0] : substitutions;
+        return template.replace("$1", first || "");
+      }}
+    }}
+  }},
+  document: {{
+    getElementById(id) {{
+      return elements.get(id) || null;
+    }},
+    querySelectorAll() {{
+      return [];
+    }}
+  }},
+  setTimeout(callback) {{
+    callback();
+  }}
+}});
+context.globalThis = context;
+vm.runInContext(fs.readFileSync(viewModelPath, "utf8"), context, {{ filename: viewModelPath }});
+vm.runInContext(
+  `${{fs.readFileSync(uiManagerPath, "utf8")}}\nglobalThis.__UIManager = UIManager;`,
+  context,
+  {{ filename: uiManagerPath }}
+);
+
+const ui = new context.__UIManager();
+ui.updateSrsStorySummary();
+assert.equal(elements.get("srs-story-current-pair").textContent, "English -> Deutsch");
+assert.equal(elements.get("srs-story-current-meta").textContent, "40 localized active");
+
+ui.updateSrsStoryPairList([
+  {{ pairKey: "en-es", isActive: false, srsEnabled: false, creationIndex: 0, srsMaxActive: 40 }},
+  {{ pairKey: "en-de", isActive: true, srsEnabled: true, creationIndex: 1, srsMaxActive: 30 }},
+  {{ pairKey: "en-ja", isActive: false, srsEnabled: false, creationIndex: 2, srsMaxActive: 20 }}
+]);
+const markup = elements.get("srs-story-pair-list").innerHTML;
+assert.equal(elements.get("srs-story-pair-list").hidden, false);
+assert.equal(elements.get("srs-story-current-card").style.order, "1");
+assert.match(markup, /data-srs-story-pair="en-es" style="order: 0;"/);
+assert.doesNotMatch(markup, /data-srs-story-pair="en-de"/);
+assert.match(markup, /data-srs-story-pair="en-ja" style="order: 2;"/);
+assert.ok(markup.indexOf('data-srs-story-pair="en-es"') < markup.indexOf('data-srs-story-pair="en-ja"'));
+assert.match(markup, /20 localized active/);
+assert.doesNotMatch(markup, /Localized Ready|Localized Paused/);
+assert.match(markup, /Localized Switch/);
+
+ui.updateSrsStoryPairList([
+  {{ pairKey: "en-de", isActive: true, srsEnabled: true, creationIndex: 0, srsMaxActive: 40 }}
+]);
+assert.equal(elements.get("srs-story-pair-list").hidden, true);
+assert.equal(elements.get("srs-story-pair-list").innerHTML, "");
+assert.equal(elements.get("srs-story-current-card").style.order, "0");
 """
         _run_node(script)
 
@@ -1970,6 +2520,7 @@ vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modul
 const createController = context.LexiShift.optionsSrsProfileRuntime.createController;
 const statusOutput = {{ textContent: "" }};
 const detailOutput = {{ textContent: "" }};
+let publishProfileUiPrefsCalls = 0;
 
 const controller = createController({{
   settingsManager: {{
@@ -1994,7 +2545,7 @@ const controller = createController({{
         srsSoundEnabled: true,
         srsHighlightColor: "#2F74D0",
         srsSemanticAdmissionEnabled: true,
-        srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
+        srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
         srsFeedbackSrsEnabled: true,
         srsFeedbackRulesEnabled: false,
         srsExposureLoggingEnabled: true
@@ -2005,6 +2556,9 @@ const controller = createController({{
     }},
     getProfileUiPrefs() {{
       return {{}};
+    }},
+    async publishProfileUiPrefs() {{
+      publishProfileUiPrefsCalls += 1;
     }},
     async publishSrsRuntimeProfile() {{
       return {{}};
@@ -2043,6 +2597,7 @@ const controller = createController({{
 
 (async () => {{
   await controller.loadSrsProfileForPair({{}}, "en-es");
+  assert.equal(publishProfileUiPrefsCalls, 0);
   assert.equal(statusOutput.textContent, "Not yet available");
   assert.match(detailOutput.textContent, /no ready coverage yet/i);
 }})().catch((error) => {{

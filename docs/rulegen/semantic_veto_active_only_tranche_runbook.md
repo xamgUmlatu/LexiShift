@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-05-14
-Last verified: 2026-05-14 against tranche-001/tranche-011 artifacts, the post-tranche-011 coverage plan, tranche-011 operator checkpoint, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
+Last updated: 2026-06-08
+Last verified: 2026-06-08 against tranche-001/tranche-011 artifacts, the post-tranche-011 coverage plan, tranche-011 operator checkpoint, SPALEX-only 10k bridge and generation plan, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
 Purpose: make future active-only semantic-veto data tranches repeatable, guarded, and easy to checkpoint without reopening algorithm research
 Source-of-truth: operational runbook only; current implementation truth lives in the scripts and generated artifacts named below
 Related docs:
@@ -42,6 +42,16 @@ Do not start another paid run from the post-tranche-011 plan directly.
 The tranche-006 through tranche-011 pre-spend request packets below are
 historical evidence of completed paid runs. A future pre-spend packet does not
 exist unless source-target review or the SRS denominator is expanded again.
+
+The SRS denominator has now been expanded in a separate clean-source planning
+lane using `freq-es-spalex-v1`. That does not discard tranche-011. The full
+tranche-011 evidence remains the current operator-accepted semantic reference
+checkpoint, with `922` normalized evidence rows and `455` active family keys.
+The SPALEX-only 10k bridge should be used only for future expansion queueing:
+review source-target rows from
+`docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_spalex_only_10k_latest.json`,
+then run a new SPALEX-only tranche. Do not use the old post-tranche-011 empty
+queue as evidence that SPALEX-only coverage is complete.
 
 ```text
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md

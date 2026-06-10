@@ -1,6 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "abstain_on_unavailable";
+  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
   const createPlanningStateResolver = root.optionsSrsPlanningState
     && typeof root.optionsSrsPlanningState.createResolver === "function"
     ? root.optionsSrsPlanningState.createResolver
@@ -132,6 +132,13 @@
       const uiPrefs = settingsManager.getProfileUiPrefs(synced.items, {
         profileId: synced.profileId
       });
+      if (ui && typeof ui.updateSrsStoryPairList === "function"
+        && typeof settingsManager.listSrsProfilePairs === "function") {
+        ui.updateSrsStoryPairList(settingsManager.listSrsProfilePairs(synced.items, {
+          profileId: synced.profileId,
+          activePair: pairKey
+        }));
+      }
       ui.updateSrsInputs(profile, signals);
       ui.updateProfileBackgroundInputs(uiPrefs);
       await syncProfileBackgroundForPrefs(uiPrefs);
@@ -170,6 +177,18 @@
         profileUiPrefs: uiPrefs
       });
       return { profile, signals, uiPrefs, profileId: synced.profileId, items: synced.items };
+    }
+
+    async function refreshSrsStoryPairList(profileId, activePair) {
+      if (!ui || typeof ui.updateSrsStoryPairList !== "function"
+        || typeof settingsManager.listSrsProfilePairs !== "function") {
+        return;
+      }
+      const items = await settingsManager.load();
+      ui.updateSrsStoryPairList(settingsManager.listSrsProfilePairs(items, {
+        profileId,
+        activePair
+      }));
     }
 
     async function saveSrsSettings() {
@@ -311,6 +330,7 @@
         }, {
           profileId: selectedProfileId
         });
+        await refreshSrsStoryPairList(selectedProfileId, pairKey);
 
         setStatus(translate("status_srs_saved", null, "Practice settings saved."), colors.SUCCESS);
         log("SRS settings saved.", {
@@ -375,6 +395,34 @@
       }
     }
 
+    async function activateSrsStoryPair(pairKey) {
+      const normalizedPair = settingsManager._normalizePairKey(pairKey);
+      const parts = normalizedPair.split("-");
+      const sourceLanguage = parts[0] || currentSourceLanguage();
+      const targetLanguage = parts[1] || currentTargetLanguage();
+      const items = await settingsManager.load();
+      const profileId = settingsManager.getSelectedSrsProfileId(items);
+      const languagePrefs = {
+        sourceLanguage,
+        targetLanguage,
+        srsPairAuto: true,
+        srsPair: normalizedPair
+      };
+      const activated = typeof settingsManager.activateSrsProfilePair === "function"
+        ? await settingsManager.activateSrsProfilePair(normalizedPair, { profileId })
+        : await settingsManager.updateProfileLanguagePrefs(languagePrefs, { profileId });
+      applyLanguagePrefsToInputs({
+        ...languagePrefs,
+        ...activated
+      });
+      const refreshed = await settingsManager.load();
+      await loadSrsProfileForPair(refreshed, normalizedPair, { profileId });
+      setStatus(
+        translate("status_srs_story_pair_activated", [normalizedPair], `Active Vocabulary Practice story: ${normalizedPair}.`),
+        colors.SUCCESS
+      );
+    }
+
     async function saveSrsProfileId() {
       if (!srsProfileIdInput) {
         return;
@@ -432,6 +480,7 @@
       refreshSemanticAdmissionStatus,
       saveSrsSettings,
       saveLanguageSettings,
+      activateSrsStoryPair,
       saveSrsProfileId,
       refreshSrsProfiles,
       resolveEffectiveSrsPlanningState

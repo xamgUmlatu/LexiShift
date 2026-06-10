@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "policy_id": "semantic_veto_product_quality_policy_en_ja_breadth_v1",
+  "pair": "en-ja",
+  "description": "Product-oriented semantic-veto quality policy for the first en-ja breadth suite. Thresholds intentionally mirror en-es product goals so en-ja starts by aiming for comparable user-visible behavior.",
+  "acceptance": {
+    "positive_allow_rate_min": 0.8,
+    "negative_abstain_rate_min": 0.5,
+    "utility_must_beat_lexical_baseline": true,
+    "utility_must_beat_abstain_all_baseline": false,
+    "representative_lane_required_for_promotion": true
+  },
+  "utility_weights": {
+    "positive_allow": 1.0,
+    "positive_abstain": -0.4,
+    "negative_abstain": 0.8,
+    "negative_allow": -0.6
+  },
+  "lanes": [
+    {
+      "lane_id": "en_ja_sentence_veto_breadth_v1",
+      "lane_type": "stress",
+      "description": "First expanded en-ja active/shadow/phrase stress suite aligned to en-es v10 ambiguity-family breadth.",
+      "interpretation": "Useful for scoring and parameter sanity across en-es-style stress breadth; still not representative browsing evidence by itself.",
+      "reports": [
+        {
+          "source_id": "en_ja_breadth_reference_config",
+          "suite_id": "en_ja_sentence_veto_breadth_v1",
+          "path": "docs/test_outputs/semantic_routing_sentence_veto_en_ja_breadth_latest.json"
+        }
+      ]
+    }
+  ],
+  "planned_lanes": [
+    {
+      "lane_id": "en_ja_representative_browsing_v1",
+      "lane_type": "representative",
+      "status": "planned",
+      "purpose": "Add ordinary browser-like contexts from likely en-ja runtime candidates before default-on/product claims."
+    }
+  ],
+  "next_steps": [
+    "Add a representative browsing lane before making promotion claims.",
+    "Keep seed, stress, and representative results separate in reports.",
+    "Only add an en-ja production semantic decision policy after the reference and product-quality artifacts are healthy."
+  ]
+}

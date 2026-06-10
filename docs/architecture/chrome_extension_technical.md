@@ -262,8 +262,8 @@ SRS settings (extension)
   - Background runtime mirrors are now used by the options page flow only (not injected into general web pages).
 - `profileBackgroundOpacity` (float): selected profile background opacity (0..1).
 - `profileBackgroundBackdropColor` (hex): selected profile backdrop color for options page (`#RRGGBB`).
-- `maxReplacementsPerPage` (int): hard cap for total replacements on a page (standard default `20`; `0` = unlimited).
-- `maxReplacementsPerLemmaPerPage` (int): cap for each replacement lemma on a page (standard default `2`; `0` = unlimited).
+- `maxReplacementsPerPage` (int): hard cap for total replacements on a page (standard default `0`; `0` = unlimited).
+- `maxReplacementsPerLemmaPerPage` (int): cap for each replacement lemma on a page (standard default `0`; `0` = unlimited).
 
 Replacement pipeline (content script)
 1. Load and normalize settings from storage.
@@ -365,11 +365,11 @@ Debug tooling
 Settings added for page replacement density
 - `maxOnePerTextBlock` (default: false)
   - Limits each text node to a single replacement.
-- `allowAdjacentReplacements` (default: false)
+- `allowAdjacentReplacements` (default: true)
   - When disabled, prevents replacements that occur on immediately adjacent words.
-- `maxReplacementsPerPage` (default: 20)
+- `maxReplacementsPerPage` (default: 0)
   - Caps the total number of replacements per page scan/session (`0` means unlimited).
-- `maxReplacementsPerLemmaPerPage` (default: 2)
+- `maxReplacementsPerLemmaPerPage` (default: 0)
   - Caps repeated replacements of the same lemma on a page (`0` means unlimited).
   - When replacement-load constraints are active, SRS candidates are selected
     with scheduler metadata-aware priority before deterministic tie-breaking.

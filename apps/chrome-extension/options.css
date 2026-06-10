@@ -781,6 +781,11 @@ header p {
   color: #1d3f2d;
 }
 
+.srs-topic-interest-chip.is-unsupported {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
 .srs-topic-interest-picker .hint {
   margin: 8px 0 0;
 }
@@ -809,22 +814,81 @@ header p {
   margin-top: 14px;
 }
 
-.srs-story-card,
+.srs-story-pair-list {
+  display: contents;
+}
+
+.srs-story-pair-list[hidden] {
+  display: none;
+}
+
+.srs-story-pair-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid var(--ls-group-subcard-separator);
+  border-radius: 8px;
+  background: var(--ls-group-subcard-bg);
+  padding: 10px 12px;
+}
+
+.srs-story-pair-card.is-active {
+  border-color: #4c8a62;
+}
+
+.srs-story-pair-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.srs-story-pair-title {
+  color: #2f2a23;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.srs-story-pair-meta {
+  color: #6c675f;
+  font-size: 12px;
+}
+
+.srs-story-pair-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.srs-story-pair-switch {
+  border: 1px solid var(--ls-card-border);
+  border-radius: 6px;
+  background: #fffaf2;
+  color: #4d473f;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.srs-story-pair-switch:hover {
+  border-color: #9d8f7a;
+  background: #fff6e8;
+}
+
 .srs-story-start-card {
   border: 1px solid var(--ls-group-subcard-separator);
   border-radius: 8px;
   background: var(--ls-group-subcard-bg);
 }
 
-.srs-story-card {
-  overflow: hidden;
-}
-
 .srs-story-start-card {
   padding: 14px;
 }
 
-.srs-story-summary,
 .srs-story-start-card {
   display: flex;
   gap: 14px;
@@ -833,24 +897,35 @@ header p {
   flex-wrap: wrap;
 }
 
-.srs-story-summary {
-  cursor: pointer;
-  list-style: none;
-  padding: 14px;
+.srs-active-story-panel {
+  border: 1px solid #4c8a62;
+  border-radius: 8px;
+  background: var(--ls-group-subcard-bg);
+  padding: 10px 12px;
 }
 
-.srs-story-summary-copy {
+.srs-active-story-summary {
   display: grid;
-  gap: 4px;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  padding: 0;
+}
+
+.srs-active-story-summary-copy {
+  display: grid;
+  gap: 2px;
   flex: 1 1 auto;
   min-width: 0;
 }
 
-.srs-story-summary::-webkit-details-marker {
+.srs-active-story-summary::-webkit-details-marker {
   display: none;
 }
 
-.srs-story-summary::after {
+.srs-active-story-summary::after {
   content: "";
   flex: 0 0 auto;
   width: 8px;
@@ -861,36 +936,45 @@ header p {
   transition: transform 160ms ease;
 }
 
-.srs-story-card[open] .srs-story-summary::after {
+.srs-active-story-panel[open] .srs-active-story-summary::after {
   transform: rotate(225deg);
 }
 
-.srs-story-body {
-  border-top: 1px solid var(--ls-group-subcard-separator);
-  padding: 0 14px 14px;
+.srs-active-story-body {
+  padding: 14px 0 0;
 }
 
-.srs-story-summary h3,
+.srs-active-story-summary h3,
 .srs-story-start-card h3 {
   margin: 0 0 4px;
   font-size: 16px;
   color: #4d473f;
 }
 
-.srs-story-summary h3 {
+.srs-active-story-summary h3 {
   margin: 0;
+}
+
+.srs-active-story-settings-heading {
+  margin: 0 0 12px;
+  color: #4d473f;
+  font-size: 14px;
 }
 
 .srs-story-start-card .hint {
   margin: 0;
 }
 
-.srs-story-pair-label {
+.srs-story-start-card {
+  order: 10000;
+}
+
+.srs-active-story-pair {
   display: block;
   max-width: 100%;
-  color: #2f2a23;
-  font-size: 17px;
-  font-weight: 700;
+  color: #6c675f;
+  font-size: 12px;
+  font-weight: 600;
   line-height: 1.25;
   overflow-wrap: anywhere;
 }
@@ -907,6 +991,16 @@ header p {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   white-space: nowrap;
+}
+
+.srs-story-badge.is-ready {
+  background: #f8f3ea;
+  color: #625a4e;
+}
+
+.srs-story-badge.is-paused {
+  background: #f4f1ec;
+  color: #766c5e;
 }
 
 .srs-story-preferences {
@@ -2145,6 +2239,12 @@ textarea {
 .srs-admission-preview-note {
   color: #625b52;
   font-weight: 650;
+}
+
+.srs-admission-preview-topic-summary {
+  margin: 0;
+  color: #5f574c;
+  font-size: 12px;
 }
 
 .srs-admission-word-list {

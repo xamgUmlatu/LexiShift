@@ -5,6 +5,25 @@ from typing import Mapping, Sequence, TypeVar
 
 from i18n import t
 from lexishift_core.frequency.sqlite import ParseConfig, PosInventoryConfig
+from lexishift_core.pos.ud_ancora import (
+    DEFAULT_PACK_ID as DEFAULT_UD_ANCORA_PACK_ID,
+    DEFAULT_PROVIDER as DEFAULT_UD_ANCORA_PROVIDER,
+    DEFAULT_SOURCE_NAME as DEFAULT_UD_ANCORA_SOURCE_NAME,
+    DEFAULT_SOURCE_URL as DEFAULT_UD_ANCORA_SOURCE_URL,
+    DEFAULT_UD_ANCORA_URLS,
+)
+
+CC_BY_4_URL = "https://creativecommons.org/licenses/by/4.0/"
+CC_BY_SA_3_URL = "https://creativecommons.org/licenses/by-sa/3.0/"
+CC_BY_SA_4_URL = "https://creativecommons.org/licenses/by-sa/4.0/"
+GPL_2_URL = "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"
+GPL_3_URL = "https://www.gnu.org/licenses/gpl-3.0.en.html"
+LGPL_2_1_URL = "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html"
+AUTO_DOWNLOAD_MODE = "auto-download"
+MANUAL_SUPPLY_MODE = "manual-supply"
+REVIEW_REQUIRED_MODE = "review-required"
+EXPECTED_NOT_VERIFIED = "expected-not-verified"
+VERIFIED_FROM_UPSTREAM = "verified-from-upstream"
 
 
 def _frequency_pos_inventory_config(pack_id: str) -> PosInventoryConfig | None:
@@ -21,6 +40,13 @@ def _frequency_pos_inventory_config(pack_id: str) -> PosInventoryConfig | None:
             source_provider="freq-es-cde",
             source_kind="frequency",
             source_profile="freq-es-cde",
+            pos_columns=("pos",),
+        )
+    if normalized == "freq-es-spalex-v1":
+        return PosInventoryConfig(
+            source_provider="freq-es-spalex-v1",
+            source_kind="frequency",
+            source_profile="spalex_only_v1",
             pos_columns=("pos",),
         )
     if normalized == "freq-en-coca":
@@ -58,6 +84,11 @@ class LanguagePackInfo:
     source_key: str | None = None
     pair_key: str | None = None
     download_size_bytes: int | None = None
+    license_name: str = ""
+    license_url: str = ""
+    license_status: str = ""
+    distribution_mode: str = ""
+    license_notes: tuple[str, ...] = ()
 
     def display_name(self) -> str:
         return t(self.name_key) if self.name_key else self.name
@@ -89,12 +120,80 @@ class FrequencyPackInfo:
     language_key: str | None = None
     source_key: str | None = None
     download_size_bytes: int | None = None
+    license_name: str = ""
+    license_url: str = ""
+    license_status: str = ""
+    distribution_mode: str = ""
+    license_notes: tuple[str, ...] = ()
 
     def display_name(self) -> str:
         return t(self.name_key) if self.name_key else self.name
 
     def display_language(self) -> str:
         return t(self.language_key) if self.language_key else self.language
+
+    def display_source(self) -> str:
+        return t(self.source_key) if self.source_key else self.source
+
+
+@dataclass(frozen=True)
+class PosOverlayPackInfo:
+    pack_id: str
+    name: str
+    language: str
+    source: str
+    size: str
+    url: str
+    wayback_url: str
+    filename: str
+    sqlite_filename: str
+    source_urls: tuple[str, ...] = ()
+    provider: str = ""
+    build_mode: str = "ud_ancora_pos_overlay"
+    name_key: str | None = None
+    language_key: str | None = None
+    source_key: str | None = None
+    download_size_bytes: int | None = None
+    license_name: str = ""
+    license_url: str = ""
+    license_status: str = ""
+    distribution_mode: str = ""
+    license_notes: tuple[str, ...] = ()
+
+    def display_name(self) -> str:
+        return t(self.name_key) if self.name_key else self.name
+
+    def display_language(self) -> str:
+        return t(self.language_key) if self.language_key else self.language
+
+    def display_source(self) -> str:
+        return t(self.source_key) if self.source_key else self.source
+
+
+@dataclass(frozen=True)
+class SemanticPackInfo:
+    pack_id: str
+    name: str
+    pair: str
+    source: str
+    size: str
+    url: str = ""
+    wayback_url: str = ""
+    filename: str = "semantic_inventory.json"
+    name_key: str | None = None
+    language_key: str | None = None
+    source_key: str | None = None
+    license_name: str = ""
+    license_url: str = ""
+    license_status: str = ""
+    distribution_mode: str = ""
+    license_notes: tuple[str, ...] = ()
+
+    def display_name(self) -> str:
+        return t(self.name_key) if self.name_key else self.name
+
+    def display_language(self) -> str:
+        return self.pair
 
     def display_source(self) -> str:
         return t(self.source_key) if self.source_key else self.source
@@ -124,6 +223,10 @@ LANGUAGE_PACKS = [
         name_key="packs.wordnet",
         language_key="languages.english",
         source_key="providers.princeton",
+        license_name="CC BY 4.0",
+        license_url=CC_BY_4_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="moby-en",
@@ -138,6 +241,10 @@ LANGUAGE_PACKS = [
         name_key="packs.moby",
         language_key="languages.english",
         source_key="providers.moby",
+        license_name="Project Gutenberg public-domain notice",
+        license_url="https://www.gutenberg.org/ebooks/3202",
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="openthesaurus-de",
@@ -152,6 +259,10 @@ LANGUAGE_PACKS = [
         name_key="packs.openthesaurus",
         language_key="languages.german",
         source_key="providers.openthesaurus",
+        license_name="LGPL 2.1 or later",
+        license_url=LGPL_2_1_URL,
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="odenet-de",
@@ -166,6 +277,10 @@ LANGUAGE_PACKS = [
         name_key="packs.odenet",
         language_key="languages.german",
         source_key="providers.odenet",
+        license_name="CC BY-SA 4.0",
+        license_url=CC_BY_SA_4_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="jp-wordnet-sqlite",
@@ -180,6 +295,10 @@ LANGUAGE_PACKS = [
         name_key="packs.jp_wordnet_sqlite",
         language_key="languages.japanese",
         source_key="providers.ntt",
+        license_name="Japanese WordNet license",
+        license_url="https://bond-lab.github.io/wnja/license.txt",
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="jp-wordnet",
@@ -194,6 +313,10 @@ LANGUAGE_PACKS = [
         name_key="packs.jp_wordnet",
         language_key="languages.japanese",
         source_key="providers.ntt",
+        license_name="Japanese WordNet license",
+        license_url="https://bond-lab.github.io/wnja/license.txt",
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="jmdict-ja-en",
@@ -208,6 +331,10 @@ LANGUAGE_PACKS = [
         name_key="packs.jmdict",
         language_key="languages.japanese_english",
         source_key="providers.edrdg",
+        license_name="CC BY-SA 4.0",
+        license_url="https://www.edrdg.org/edrdg/licence.html",
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="freedict-de-en",
@@ -226,6 +353,10 @@ LANGUAGE_PACKS = [
         name_key="packs.freedict_de_en",
         language_key="languages.german_english",
         source_key="providers.freedict",
+        license_name="FreeDict source license; see TEI header",
+        license_url="https://freedict.org/license/",
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="freedict-en-de",
@@ -244,6 +375,10 @@ LANGUAGE_PACKS = [
         name_key="packs.freedict_en_de",
         language_key="languages.english_german",
         source_key="providers.freedict",
+        license_name="FreeDict source license; see TEI header",
+        license_url="https://freedict.org/license/",
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="freedict-es-en",
@@ -261,6 +396,10 @@ LANGUAGE_PACKS = [
         target_lang_code="en",
         source_key="providers.freedict",
         download_size_bytes=121_624,
+        license_name="GPL 2.0 or later",
+        license_url=GPL_2_URL,
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="freedict-en-es",
@@ -278,6 +417,10 @@ LANGUAGE_PACKS = [
         target_lang_code="es",
         source_key="providers.freedict",
         download_size_bytes=3_715_012,
+        license_name="CC BY-SA 3.0",
+        license_url=CC_BY_SA_3_URL,
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="wiktionary-de-en",
@@ -294,6 +437,10 @@ LANGUAGE_PACKS = [
         source_lang_code="de",
         gloss_language="en",
         download_size_bytes=2_535_682_507,
+        license_name="CC BY-SA / GFDL Wiktionary terms",
+        license_url="https://kaikki.org/dictionary/rawdata.html",
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="wiktionary-es-en",
@@ -310,6 +457,10 @@ LANGUAGE_PACKS = [
         source_lang_code="es",
         gloss_language="en",
         download_size_bytes=2_665_722_104,
+        license_name="CC BY-SA / GFDL Wiktionary terms",
+        license_url="https://kaikki.org/dictionary/rawdata.html",
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="wiktionary-en-es",
@@ -326,6 +477,10 @@ LANGUAGE_PACKS = [
         source_lang_code="en",
         target_lang_code="es",
         download_size_bytes=2_665_722_104,
+        license_name="CC BY-SA / GFDL Wiktionary terms",
+        license_url="https://kaikki.org/dictionary/rawdata.html",
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="cc-cedict-zh-en",
@@ -341,6 +496,10 @@ LANGUAGE_PACKS = [
         name_key="packs.cc_cedict",
         language_key="languages.chinese_english",
         source_key="providers.mdbg",
+        license_name="CC BY-SA 4.0",
+        license_url=CC_BY_SA_4_URL,
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
 ]
 
@@ -359,6 +518,10 @@ EMBEDDING_PACKS = [
         language_key="languages.english",
         source_key="providers.fasttext",
         pair_key="en-en",
+        license_name="CC BY-SA 3.0",
+        license_url=CC_BY_SA_3_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="embed-de-cc",
@@ -374,6 +537,10 @@ EMBEDDING_PACKS = [
         language_key="languages.german",
         source_key="providers.fasttext",
         pair_key="de-de",
+        license_name="CC BY-SA 3.0",
+        license_url=CC_BY_SA_3_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="embed-ja-cc",
@@ -389,6 +556,10 @@ EMBEDDING_PACKS = [
         language_key="languages.japanese",
         source_key="providers.fasttext",
         pair_key="ja-ja",
+        license_name="CC BY-SA 3.0",
+        license_url=CC_BY_SA_3_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="embed-es-cc",
@@ -402,6 +573,10 @@ EMBEDDING_PACKS = [
         local_kind="file",
         source_key="providers.fasttext",
         pair_key="es-es",
+        license_name="CC BY-SA 3.0",
+        license_url=CC_BY_SA_3_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
 ]
 
@@ -421,6 +596,10 @@ CROSS_EMBEDDING_PACKS = [
         source_key="providers.fasttext",
         pair_key="en-ja",
         download_size_bytes=5_685_446_378,
+        license_name="CC BY-SA 3.0",
+        license_url=CC_BY_SA_3_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="embed-xling-de",
@@ -436,6 +615,10 @@ CROSS_EMBEDDING_PACKS = [
         language_key="languages.german_aligned",
         source_key="providers.fasttext",
         pair_key="de-en",
+        license_name="CC BY-SA 3.0",
+        license_url=CC_BY_SA_3_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="embed-xling-ja",
@@ -451,6 +634,10 @@ CROSS_EMBEDDING_PACKS = [
         language_key="languages.japanese_aligned",
         source_key="providers.fasttext",
         pair_key="en-ja",
+        license_name="CC BY-SA 3.0",
+        license_url=CC_BY_SA_3_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     LanguagePackInfo(
         pack_id="embed-xling-es",
@@ -465,6 +652,10 @@ CROSS_EMBEDDING_PACKS = [
         source_key="providers.fasttext",
         pair_key="en-es",
         download_size_bytes=2_227_283_009,
+        license_name="CC BY-SA 3.0",
+        license_url=CC_BY_SA_3_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
 ]
 
@@ -488,6 +679,34 @@ FREQUENCY_PACKS = [
         name_key="packs.freq_en_coca",
         language_key="languages.english",
         source_key="providers.coca",
+        license_name="WordFrequency.info manual/local-use terms",
+        license_url="https://www.wordfrequency.info/",
+        license_status="manual-review-required",
+        distribution_mode=MANUAL_SUPPLY_MODE,
+    ),
+    FrequencyPackInfo(
+        pack_id="freq-en-leipzig-default",
+        name="English News Frequency (Lemmas)",
+        language="English",
+        source="Leipzig Wortschatz",
+        size="~280 MB",
+        url="https://downloads.wortschatz-leipzig.de/corpora/eng_news_2025_1M.tar.gz",
+        wayback_url="https://web.archive.org/web/*/https://downloads.wortschatz-leipzig.de/corpora/eng_news_2025_1M.tar.gz",
+        filename="eng_news_2025_1M.tar.gz",
+        sqlite_filename="main.sqlite",
+        build_mode="en_frequency_pipeline",
+        name_key="packs.freq_en_leipzig_default",
+        language_key="languages.english",
+        source_key="providers.leipzig",
+        download_size_bytes=291_283_406,
+        license_name="Leipzig downloadable corpus CC BY",
+        license_url="https://wortschatz.informatik.uni-leipzig.de/en/download/eng",
+        license_status=EXPECTED_NOT_VERIFIED,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
+        license_notes=(
+            "Auto-download/build is intended for user-local source acquisition.",
+            "Bundled or hosted converted artifacts remain review-required.",
+        ),
     ),
     FrequencyPackInfo(
         pack_id="freq-ja-bccwj",
@@ -509,6 +728,15 @@ FREQUENCY_PACKS = [
         name_key="packs.freq_ja_bccwj",
         language_key="languages.japanese",
         source_key="providers.ninjal",
+        license_name="NINJAL BCCWJ terms",
+        license_url="https://clrd.ninjal.ac.jp/bccwj/en/freq-list.html#freq-list",
+        license_status="manual-review-required",
+        distribution_mode=MANUAL_SUPPLY_MODE,
+        license_notes=(
+            "Quality-preferred en-ja target-frequency source.",
+            "Public upstream page frames usage as research or educational.",
+            "Do not bundle or host converted artifacts without policy review.",
+        ),
     ),
     FrequencyPackInfo(
         pack_id="freq-de-default",
@@ -524,6 +752,36 @@ FREQUENCY_PACKS = [
         name_key="packs.freq_de_default",
         language_key="languages.german",
         source_key="providers.leipzig_languagetool",
+        license_name="Composite local build: Leipzig + LanguageTool + optional open inputs",
+        license_url="https://wortschatz.uni-leipzig.de/en/download/",
+        license_status="source-stack-audited",
+        distribution_mode=AUTO_DOWNLOAD_MODE,
+        license_notes=(
+            "Auto-download/build is intended for user-local source acquisition.",
+            "Bundled or hosted composite artifacts remain review-required.",
+        ),
+    ),
+    FrequencyPackInfo(
+        pack_id="freq-es-spalex-v1",
+        name="SPALEX Spanish Frequency (Words)",
+        language="Spanish",
+        source="SPALEX",
+        size="5.2 MB",
+        url="https://ndownloader.figshare.com/files/11826623",
+        wayback_url="https://web.archive.org/web/*/https://ndownloader.figshare.com/files/11826623",
+        filename="word_info.csv",
+        sqlite_filename="main.sqlite",
+        source_filename="word_info.csv",
+        source_version="10.6084/m9.figshare.5924794.v4",
+        build_mode="spalex_frequency_pipeline",
+        name_key="packs.freq_es_spalex",
+        language_key="languages.spanish",
+        source_key="providers.spalex",
+        download_size_bytes=5_407_807,
+        license_name="CC BY 4.0",
+        license_url=CC_BY_4_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
     ),
     FrequencyPackInfo(
         pack_id="freq-es-cde",
@@ -543,6 +801,58 @@ FREQUENCY_PACKS = [
         ),
         index_column="lemma",
         download_size_bytes=42_922,
+        license_name="WordFrequency.info manual/local-use terms",
+        license_url="https://www.wordfrequency.info/spanish/",
+        license_status="manual-review-required",
+        distribution_mode=MANUAL_SUPPLY_MODE,
+    ),
+]
+
+
+POS_OVERLAY_PACKS = [
+    PosOverlayPackInfo(
+        pack_id=DEFAULT_UD_ANCORA_PACK_ID,
+        name="UD AnCora Spanish POS Overlay",
+        language="Spanish",
+        source=DEFAULT_UD_ANCORA_SOURCE_NAME,
+        size="~20 MB",
+        url=DEFAULT_UD_ANCORA_SOURCE_URL,
+        wayback_url=(
+            "https://web.archive.org/web/*/"
+            "https://universaldependencies.org/treebanks/es_ancora/index.html"
+        ),
+        filename="ud-spanish-ancora-sources",
+        sqlite_filename="main.sqlite",
+        source_urls=tuple(DEFAULT_UD_ANCORA_URLS),
+        provider=DEFAULT_UD_ANCORA_PROVIDER,
+        name_key="packs.pos_es_ud_ancora",
+        language_key="languages.spanish",
+        source_key="providers.universal_dependencies",
+        license_name="CC BY 4.0",
+        license_url=CC_BY_4_URL,
+        license_status=VERIFIED_FROM_UPSTREAM,
+        distribution_mode=AUTO_DOWNLOAD_MODE,
+    ),
+]
+
+
+SEMANTIC_PACKS = [
+    SemanticPackInfo(
+        pack_id="en-es-active-only-combined-full-v1-tranche-011",
+        name="English-Spanish sentence veto semantic reference",
+        pair="en-es",
+        source="LexiShift semantic pack builder",
+        size="local reference",
+        name_key="packs.semantic_en_es_sentence_veto",
+        source_key="providers.lexishift_semantic_pack_builder",
+        license_name="Derived local artifact; source notices apply",
+        license_status="local-reference",
+        distribution_mode="local-copy",
+        license_notes=(
+            "Generated semantic reference inventory used for local sentence-veto publication.",
+            "Installing this pack copies a local reference inventory into the app data root; it is not a hosted converted-artifact redistribution approval.",
+            "Underlying source data notices remain listed with the frequency, dictionary, and POS packs used to build or validate the reference.",
+        ),
     ),
 ]
 
@@ -553,9 +863,17 @@ class PackCatalogSnapshot:
     embedding_packs: tuple[LanguagePackInfo, ...]
     cross_embedding_packs: tuple[LanguagePackInfo, ...]
     frequency_packs: tuple[FrequencyPackInfo, ...]
+    pos_overlay_packs: tuple[PosOverlayPackInfo, ...]
+    semantic_packs: tuple[SemanticPackInfo, ...]
 
 
-_PackInfoT = TypeVar("_PackInfoT", LanguagePackInfo, FrequencyPackInfo)
+_PackInfoT = TypeVar(
+    "_PackInfoT",
+    LanguagePackInfo,
+    FrequencyPackInfo,
+    PosOverlayPackInfo,
+    SemanticPackInfo,
+)
 
 
 def _normalized_transport_value(raw: object) -> str | None:
@@ -660,6 +978,14 @@ def build_pack_catalogs(
         ),
         frequency_packs=_apply_transport_overrides(
             FREQUENCY_PACKS,
+            source_overrides=normalized_overrides,
+        ),
+        pos_overlay_packs=_apply_transport_overrides(
+            POS_OVERLAY_PACKS,
+            source_overrides=normalized_overrides,
+        ),
+        semantic_packs=_apply_transport_overrides(
+            SEMANTIC_PACKS,
             source_overrides=normalized_overrides,
         ),
     )

@@ -190,6 +190,14 @@
       colors: ui.COLORS,
       elements: graphElements.srsProfileRuntime
     });
+    if (ui && typeof ui.setSrsStoryPairSwitchHandler === "function") {
+      ui.setSrsStoryPairSwitchHandler((pairKey) => (
+        srsProfileRuntimeController
+        && typeof srsProfileRuntimeController.activateSrsStoryPair === "function"
+          ? srsProfileRuntimeController.activateSrsStoryPair(pairKey)
+          : Promise.resolve()
+      ));
+    }
 
     const srsActionsController = requireControllerFactory("optionsSrsActions")({
       settingsManager,
@@ -197,6 +205,9 @@
       t,
       setStatus: uiBridge.setStatus,
       resolvePair: languagePrefsAdapter.resolvePairFromInputs,
+      activateSrsStoryPair: (pairKey) => (
+        srsProfileRuntimeController.activateSrsStoryPair(pairKey)
+      ),
       syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
       resolveEffectiveSrsPlanningState: (items, pairKey, options) => (
         srsProfileRuntimeController.resolveEffectiveSrsPlanningState(items, pairKey, options)
@@ -234,6 +245,7 @@
 
     const srsStoryFlowController = requireControllerFactory("optionsSrsStoryFlow")({
       t,
+      settingsManager,
       setStatus: uiBridge.setStatus,
       saveLanguageSettings: controllerAdapters.saveLanguageSettings,
       saveSrsSettings: controllerAdapters.saveSrsSettings,

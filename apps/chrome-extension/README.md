@@ -44,9 +44,9 @@ Purpose:
   - Supports morphology-aware display surfaces via rule metadata (`metadata.morphology.target_surface`) while keeping canonical replacement lemma identity for SRS keys.
   - Runtime replacement controls:
     - `maxOnePerTextBlock` (standard default: `false`)
-    - `allowAdjacentReplacements` (standard default: `false`)
-    - `maxReplacementsPerPage` (standard default: `20`; `0` = unlimited)
-    - `maxReplacementsPerLemmaPerPage` (standard default: `2`; `0` = unlimited)
+    - `allowAdjacentReplacements` (standard default: `true`)
+    - `maxReplacementsPerPage` (standard default: `0`; `0` = unlimited)
+    - `maxReplacementsPerLemmaPerPage` (standard default: `0`; `0` = unlimited)
   - Works on all matching frames/pages and skips editable inputs/contenteditable areas.
 
 - Rule source model

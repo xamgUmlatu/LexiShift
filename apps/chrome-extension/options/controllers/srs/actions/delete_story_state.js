@@ -9,6 +9,9 @@
     const loadSrsProfileForPair = typeof opts.loadSrsProfileForPair === "function"
       ? opts.loadSrsProfileForPair
       : null;
+    const activateSrsStoryPair = typeof opts.activateSrsStoryPair === "function"
+      ? opts.activateSrsStoryPair
+      : null;
     const srsPair = String(opts.srsPair || "").trim();
     const profileId = String(opts.profileId || "").trim();
     const items = opts.items && typeof opts.items === "object" ? opts.items : {};
@@ -17,8 +20,9 @@
       return;
     }
 
+    let deleteResult = null;
     if (typeof settingsManager.deleteSrsProfilePair === "function") {
-      await settingsManager.deleteSrsProfilePair(srsPair, { profileId });
+      deleteResult = await settingsManager.deleteSrsProfilePair(srsPair, { profileId });
     } else if (typeof settingsManager.updateSrsProfile === "function") {
       const currentProfile = typeof settingsManager.getSrsProfile === "function"
         ? settingsManager.getSrsProfile(items, srsPair, { profileId })
@@ -34,7 +38,15 @@
       });
     }
 
-    if (typeof settingsManager.publishSrsRuntimeProfile === "function") {
+    const nextPair = deleteResult && typeof deleteResult === "object"
+      ? String(deleteResult.nextPairKey || "").trim()
+      : "";
+    if (nextPair && activateSrsStoryPair) {
+      await activateSrsStoryPair(nextPair);
+      return;
+    }
+
+    if (!nextPair && typeof settingsManager.publishSrsRuntimeProfile === "function") {
       await settingsManager.publishSrsRuntimeProfile(srsPair, {
         srsEnabled: false
       }, {
@@ -46,7 +58,7 @@
 
     if (loadSrsProfileForPair && typeof settingsManager.load === "function") {
       const refreshedItems = await settingsManager.load();
-      await loadSrsProfileForPair(refreshedItems, srsPair, {
+      await loadSrsProfileForPair(refreshedItems, nextPair || srsPair, {
         profileId,
         forceHelperRefresh: true
       });

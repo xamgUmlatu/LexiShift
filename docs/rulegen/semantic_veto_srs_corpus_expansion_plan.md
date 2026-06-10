@@ -2,8 +2,8 @@
 
 Status: active planning reference
 Role: Planning / WIP
-Last updated: 2026-05-17
-Last verified: 2026-05-17 with source-readiness audit review, local no-download wordfreq candidate probe, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, candidate POS backfill audit, and SRS Zipf bridge candidate frequency override tests
+Last updated: 2026-06-08
+Last verified: 2026-06-08 with SPALEX Figshare metadata/API check, SPALEX-only pack build, source-stack audit refresh, corpus expansion audit, SRS Zipf bridge full-rulegen run, active-only generation plan, and SRS quality harness
 Related docs:
 - `semantic_veto_srs_corpus_candidate_readiness_runbook.md`
 - `semantic_veto_srs_spanish_expansion_source_probe_2026-05-16.md`
@@ -101,11 +101,13 @@ for the next expansion slice. SPALEX `word_info.csv` has `44,853` clean distinct
 spellings with complete frequency, Zipf, prevalence, and percentage-known
 coverage. The Figshare metadata reports `CC BY 4.0`, which makes it more
 promotion-friendly than the proprietary CDE/WordFrequency Spanish 40k option,
-subject to attribution and source-manifest handling. However, SPALEX is not a
-standalone replacement for the current baseline: `278` current CDE lemmas are
-absent from SPALEX, including short/function-heavy or otherwise baseline-useful
-rows. The first practical stack should therefore be `freq-es-cde` as seed plus
-SPALEX-ranked additions.
+subject to attribution and source-manifest handling. However, SPALEX is not an
+exact standalone replacement for the current baseline: `278` current CDE lemmas
+are absent from SPALEX, including short/function-heavy or otherwise
+baseline-useful rows. That is a continuity/comparison concern, not a reason to
+make CDE part of the publishable pack. The production-safe frequency frontier
+should be `freq-es-spalex-v1` in SPALEX-only mode, while the CDE-seed union
+remains an internal/manual-supply benchmark.
 
 Against that combined 10k target, installed Kaikki/Wiktionary coverage is strong
 enough for a research pack: `9,469 / 10,000` candidates have Spanish-headword
@@ -117,28 +119,54 @@ Kaikki enrichment also remains promotion-review data until attribution,
 share-alike/GFDL posture, and dated dump identity are encoded.
 
 The follow-up 2026-05-17 provisional pack build moved this from source-stack
-audit to a concrete research artifact. `scripts/data/build_spalex_frequency_pack_en_es.py`
-builds `freq-es-spalex-expanded-v1` as a normal frequency-pack-shaped SQLite:
-current `freq-es-cde` rows first, then SPALEX-ranked additions, with runtime
-`pmw` as a unified rank-descending commonness score and original source
-frequencies preserved in separate fields. The generated pack has `45,131` rows
-and `45,131` distinct lemmas; source-readiness audit status is `ok`, with `75.3%`
-POS row coverage and `9.1%` topic row coverage. Pack lifecycle audit status is
-`review` only because the combined source stack still needs an explicit license
-decision; manifest, artifact, and provenance sidecars are present and valid. The
-SRS Zipf bridge accepts the pack as a candidate override and reports `45,131`
-full SRS-admissible targets.
+audit to a concrete research artifact. The original
+`freq-es-spalex-expanded-v1` artifact is a CDE-seed plus SPALEX union and should
+now be treated as an internal benchmark only, because it inherits the
+manual-supply CDE dependency. `scripts/data/build_spalex_frequency_pack_en_es.py`
+now defaults to `freq-es-spalex-v1` in `spalex_only` mode: SPALEX-ranked rows are
+the primary frequency frontier, runtime `pmw` is a unified rank-descending
+commonness score, and original SPALEX frequency fields are preserved in separate
+columns. Optional Kaikki enrichment may add POS/topics, but that component stays
+review-gated until attribution, share-alike/GFDL posture, and dated dump identity
+are encoded.
 
-The first full-rulegen 10k bridge run is also clean: the SPALEX candidate
-override produced `10,000` SRS target lemmas, `4,260` source-target families,
-`3,200` distinct English source triggers, and no bridge issues in `6.78`
-seconds. The active-only generation planner reads that expanded bridge as a
-real denominator and reports `49 / 4,260` currently covered families, `4,211`
-uncovered families, and a review posture of `406` approved, `115` excluded, and
-`3,690` unreviewed source-target rows. This is useful expansion evidence, but
-not a spend decision: the unreviewed majority needs tranche review before paid
-generation, and SRS-only admission remains separable from semantic-veto evidence
-generation.
+The 2026-06-08 clean-source bridge run is also clean: the `freq-es-spalex-v1`
+candidate override produced `10,000` SRS target lemmas, `17,328` source-target
+families, `10,547` distinct English source triggers, and no bridge issues. This
+denominator is larger than the earlier CDE-seed/older-source run because the
+current installed rulegen source resolves through the managed Wiktionary ES->EN
+pack.
+
+The existing LLM-generated tranche-011 evidence should be retained. It contains
+`922` normalized evidence rows and `455` active source-target family keys. Under
+the old/frozen denominator, that represented `455 / 570` active-only families
+covered, with the remaining `115` excluded by source-target review. Against the
+new SPALEX-only 10k denominator, a direct full-artifact overlap check finds about
+`270` tranche-011 source-target families still inside the expanded denominator.
+The `23 / 17,328` figure from
+`semantic_veto_active_only_full_generation_plan_en_es_spalex_only_10k_latest`
+comes from a smaller product-scope evidence input, not from the full
+tranche-011 normalized evidence file. Do not read it as a discard or failure of
+the previous paid LLM run.
+
+This leaves a clear product posture:
+
+- keep `en-es-active-only-combined-full-v1-tranche-011` as the current
+  operator-accepted semantic reference checkpoint,
+- run a provenance audit before hosted/bundled redistribution so the semantic
+  pack does not carry protected CDE/WordFrequency rank, frequency, or source
+  table data,
+- make future paid generation SPALEX-only by default, using
+  `freq-es-spalex-v1`, managed Wiktionary, and reviewed POS/topic overlays,
+- use the expanded active-only generation plan as a queueing and spend-planning
+  artifact, not as an automatic quality failure.
+
+The active-only generation planner reads the expanded bridge as a real
+denominator and reports `17,305` uncovered families, with a review posture of
+`247` approved, `6` excluded, and `17,052` unreviewed source-target rows. This is
+useful expansion evidence, but not a spend decision: the unreviewed majority
+needs tranche review before paid generation, and SRS-only admission remains
+separable from semantic-veto evidence generation.
 
 The SRS admission check is now the first UX-pipeline gate before veto work. The
 SPALEX 10k admission audit passes with `10,000` selected unique lemmas, rank
@@ -175,7 +203,8 @@ automatic admissions signals until then.
 
 | Source Family | Why It Might Help | Main Risk | First Validation |
 | --- | --- | --- | --- |
-| SPALEX plus current CDE seed | Leading practical path: SPALEX supplies 44,853 frequency/prevalence rows while current CDE preserves baseline/function-word coverage. | SPALEX spellings are not guaranteed to behave exactly like lemmas, and it omits 278 current CDE rows. | Build CDE-seed plus SPALEX-ranked research pack and audit overlap, POS, topic, and rulegen yield. |
+| SPALEX-only | Leading publishable frequency path: SPALEX supplies 44,853 frequency/prevalence rows under CC BY 4.0 source posture and avoids inheriting CDE. | SPALEX spellings are not guaranteed to behave exactly like lemmas, and it omits 278 current CDE rows. | Build `freq-es-spalex-v1`, audit overlap/POS/topic/rulegen yield, and compare against the current CDE baseline. |
+| SPALEX plus current CDE seed | Internal continuity benchmark: keeps the old CDE rows first, then adds SPALEX-ranked rows. | Not publishable by default because it inherits the manual-supply CDE source. | Use only for comparison against current behavior, not as the release candidate. |
 | Kaikki/Wiktionary enrichment | Supplies POS, glosses, dictionary compatibility, reverse-check support, and partial topic/category metadata. | Share-alike/GFDL posture and dated dump identity are promotion gates; explicit topic coverage is partial. | Join against SPALEX/CDE combined candidates and record field-level provenance. |
 | Recovered or rebuilt Spanish 20k frequency list | Fastest continuity path if it preserves current rank/POS semantics. | Provenance or license may be unclear; likely no topic metadata. | Confirm source, row count, schema, POS coverage, duplicate rate. |
 | General frequency corpus | Best broad 5k-10k browsing/SRS coverage. | Frequency alone may include low-learning-value rows. | Compare overlap with current 2k and rulegen family yield. |
@@ -246,28 +275,35 @@ Spanish translation targets.
 
 Do not overwrite `freq-es-cde.sqlite` during research.
 
-Preferred provisional naming:
+Preferred naming:
 
 - `freq-es-cde.sqlite`: frozen current baseline,
-- `freq-es-spalex-expanded-v1`: first CDE-seed plus SPALEX-ranked research pack,
+- `freq-es-spalex-v1`: publishable SPALEX-only default frequency pack,
+- `freq-es-spalex-expanded-v1`: internal CDE-seed plus SPALEX-ranked comparison pack,
 - `freq-es-expanded-topic-v1.sqlite`: first topic/domain-aware candidate,
 - `freq-es-hybrid-v1.sqlite`: first merged baseline plus overlays candidate.
 
-The first install should be local and reversible. Only promote a pack as the
-default after SRS, rulegen, and semantic-veto denominator artifacts are refreshed.
+The app-managed/default frequency source can be promoted independently from
+semantic-veto coverage. `freq-es-spalex-v1` is the preferred clean source
+default; semantic-veto denominator coverage remains a separate tranche-review
+and generation problem.
 
-Build the provisional SPALEX pack into a normal data-root-shaped temp directory:
+Build the SPALEX pack into a normal data-root-shaped temp directory:
 
 ```bash
 python3 scripts/data/build_spalex_frequency_pack_en_es.py \
   --spalex-csv /path/to/word_info.csv \
-  --pack-root /tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1 \
+  --pack-root /tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-v1 \
   --overwrite \
   --write-sidecars
 ```
 
 This writes `main.sqlite`, `manifest.json`, and `provenance.json`; it does not
 download SPALEX or Kaikki and it does not mutate the installed product data root.
+Add `--no-kaikki-enrichment` when a pure CC BY frequency-only pack is needed for
+license isolation. Add `--source-mode spalex_cde_union --pack-id
+freq-es-spalex-expanded-v1 --provider freq-es-spalex-expanded-v1` only when
+building the legacy internal comparison pack.
 
 ### Phase 3: SRS And Rulegen Denominator Refresh
 

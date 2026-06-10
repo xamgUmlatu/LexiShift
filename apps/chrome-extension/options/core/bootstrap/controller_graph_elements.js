@@ -6,12 +6,10 @@
     return {
       profileBackground: {
         profileBgBackdropColorInput: dom.profileBgBackdropColorInput,
-        profileBgEnabledInput: dom.profileBgEnabledInput,
         profileBgOpacityInput: dom.profileBgOpacityInput,
         profileBgOpacityValueOutput: dom.profileBgOpacityValueOutput,
         profileBgFileInput: dom.profileBgFileInput,
         profileBgRemoveButton: dom.profileBgRemoveButton,
-        profileBgApplyButton: dom.profileBgApplyButton,
         profileBgStatusOutput: dom.profileBgStatusOutput,
         profileBgPreviewWrap: dom.profileBgPreviewWrap,
         profileBgPreviewImage: dom.profileBgPreviewImage,
@@ -85,9 +83,7 @@
         mainTopicInterestChipButtons: dom.srsTopicInterestChipButtons,
         mainMaxActiveInput: dom.srsMaxActiveInput,
         mainBootstrapTopNInput: dom.srsBootstrapTopNInput,
-        mainInitialActiveCountInput: dom.srsInitialActiveCountInput,
-        mainSamplingCurtain: dom.srsStorySamplingCurtain,
-        mainAdmissionPreviewOutput: dom.srsAdmissionPreviewOutput
+        mainInitialActiveCountInput: dom.srsInitialActiveCountInput
       },
       rulesShare: {
         rulesInput: dom.rulesInput,
@@ -215,12 +211,10 @@
         srsEnabledInput: dom.srsEnabledInput,
         srsProfileIdInput: dom.srsProfileIdInput,
         srsProfileRefreshButton: dom.srsProfileRefreshButton,
-        profileBgEnabledInput: dom.profileBgEnabledInput,
         profileBgBackdropColorInput: dom.profileBgBackdropColorInput,
         profileBgOpacityInput: dom.profileBgOpacityInput,
         profileBgFileInput: dom.profileBgFileInput,
         profileBgRemoveButton: dom.profileBgRemoveButton,
-        profileBgApplyButton: dom.profileBgApplyButton,
         profileBgPositionResetButton: dom.profileBgPositionResetButton,
         profileCardThemeHueInput: dom.profileCardThemeHueInput,
         profileCardThemeSaturationInput: dom.profileCardThemeSaturationInput,

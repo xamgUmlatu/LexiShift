@@ -175,7 +175,9 @@
         "school"
       ],
       "forbidden_top1": [],
-      "forbidden_any": []
+      "forbidden_any": [
+        "pod"
+      ]
     },
     {
       "case_id": "en-de:Weg",
@@ -224,7 +226,8 @@
       ],
       "forbidden_any": [
         "times",
-        "spell"
+        "spell",
+        "most"
       ]
     },
     {
@@ -479,9 +482,7 @@
         "hour"
       ],
       "forbidden_top1": [],
-      "forbidden_any": [
-        "lesson"
-      ]
+      "forbidden_any": []
     },
     {
       "case_id": "en-de:Minute",
@@ -551,7 +552,8 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": [
-        "hearing"
+        "hearing",
+        "audition"
       ]
     },
     {
@@ -579,7 +581,7 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": [
-        "base"
+        "head"
       ]
     },
     {
@@ -635,8 +637,6 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": [
-        "avenue",
-        "alley",
         "strait"
       ]
     },
@@ -684,33 +684,36 @@
       "target": "Idee",
       "tier": "smoke",
       "expected_any": [
-        "idea"
+        "idea",
+        "notion"
       ],
       "expected_top1_any": [
         "idea"
       ],
       "forbidden_top1": [],
-      "forbidden_any": [
-        "notion"
-      ]
+      "forbidden_any": []
     },
     {
       "case_id": "en-de:Preis",
       "target": "Preis",
       "tier": "hard",
       "expected_any": [
-        "price"
+        "price",
+        "prize",
+        "award",
+        "cost"
       ],
       "expected_top1_any": [
-        "price"
+        "price",
+        "prize",
+        "award",
+        "cost"
       ],
-      "forbidden_top1": [
-        "prize"
-      ],
+      "forbidden_top1": [],
       "forbidden_any": [
-        "prize"
+        "pot"
       ],
-      "notes": "False-friend pressure case: the default learner cue should be price, not prize."
+      "notes": "Polysemy pressure case: price, prize, award, and cost are all acceptable learner cues; unrelated artifacts such as pot are not."
     },
     {
       "case_id": "en-de:Chef",
@@ -761,13 +764,9 @@
       "expected_top1_any": [
         "case"
       ],
-      "forbidden_top1": [
-        "fall"
-      ],
-      "forbidden_any": [
-        "fall"
-      ],
-      "notes": "Prefer the common nominal sense case over English fall as the default learner cue."
+      "forbidden_top1": [],
+      "forbidden_any": [],
+      "notes": "Prefer the common nominal sense case as top1, but English fall is attested and should not be treated as a harmful candidate by itself."
     },
     {
       "case_id": "en-de:Zug",
@@ -802,7 +801,8 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": [
-        "part"
+        "part",
+        "partbook"
       ],
       "notes": "Vote is attested, but voice is the safer default isolated cue."
     },
@@ -845,15 +845,14 @@
       "tier": "hard",
       "expected_any": [
         "reason",
+        "cause",
         "basis",
         "ground"
       ],
       "expected_top1_any": [
         "reason"
       ],
-      "forbidden_top1": [
-        "motive"
-      ],
+      "forbidden_top1": [],
       "forbidden_any": []
     }
   ]

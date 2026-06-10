@@ -38,6 +38,25 @@ class TestPackSourceIdentity(unittest.TestCase):
             {"source_version": "freedict-eng-spa-2025.11.23"},
         )
 
+    def test_spalex_frequency_pack_exports_doi_source_version(self) -> None:
+        pack = SimpleNamespace(
+            pack_id="freq-es-spalex-v1",
+            source="SPALEX",
+            filename="word_info.csv",
+            source_version="10.6084/m9.figshare.5924794.v4",
+            url="https://ndownloader.figshare.com/files/11826623",
+            build_mode="spalex_frequency_pipeline",
+        )
+
+        decision = classify_pack_source_identity(pack)
+
+        self.assertEqual(decision.classification, "safe_to_write")
+        self.assertEqual(decision.candidate_field, "source_version")
+        self.assertEqual(
+            safe_pack_source_identity_fields(pack),
+            {"source_version": "10.6084/m9.figshare.5924794.v4"},
+        )
+
     def test_label_only_and_policy_rows_are_not_exported_as_durable_identity(self) -> None:
         label_only_pack = SimpleNamespace(
             pack_id="freq-es-cde",
@@ -200,6 +219,25 @@ class TestPackSourceIdentity(unittest.TestCase):
         self.assertIn("lexicon_whitelist", component_roles)
         self.assertIn("pos_lexicon_primary", component_roles)
         self.assertIn("pos_tooling", component_roles)
+
+    def test_en_frequency_pipeline_exports_source_bundle_fields(self) -> None:
+        pack = SimpleNamespace(
+            pack_id="freq-en-leipzig-default",
+            source="Leipzig Wortschatz",
+            filename="eng_news_2025_1M.tar.gz",
+            url="https://downloads.wortschatz-leipzig.de/corpora/eng_news_2025_1M.tar.gz",
+            build_mode="en_frequency_pipeline",
+        )
+
+        fields = source_bundle_fields_for_pack(pack)
+        bundle = fields["source_bundle"]
+
+        self.assertEqual(bundle["bundle_id"], "freq-en-leipzig-default:en_frequency_pipeline")
+        self.assertEqual(bundle["bundle_kind"], "generated_frequency_pipeline")
+        self.assertEqual([str(item["role"]) for item in bundle["components"]], ["corpus"])
+        self.assertIn(
+            "english_leipzig_pipeline_uses_source_frequency_only_no_pos_overlay", bundle["notes"]
+        )
 
     def test_de_frequency_source_bundle_fields_include_component_checksums(self) -> None:
         pack = SimpleNamespace(

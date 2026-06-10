@@ -156,6 +156,27 @@ def classify_pack_source_identity(pack: object) -> PackSourceIdentityDecision:
             recommended_action="keep_as_label_until_source_policy_defines_version_semantics",
         )
 
+    if pack_id == "freq-en-leipzig-default":
+        return PackSourceIdentityDecision(
+            candidate_field="source_label",
+            candidate_value=candidate or "eng_news_2025_1M",
+            classification="source_bundle_needed",
+            rationale=(
+                "Leipzig corpus filename identifies the source corpus, but source-bundle "
+                "metadata should carry URL/checksum lineage for generated SQLite artifacts."
+            ),
+            recommended_action="record_source_bundle_for_generated_pack",
+        )
+
+    if pack_id == "freq-es-spalex-v1":
+        return PackSourceIdentityDecision(
+            candidate_field="source_version",
+            candidate_value=explicit_source_version or "10.6084/m9.figshare.5924794.v4",
+            classification="safe_to_write",
+            rationale="SPALEX catalog entry pins the Figshare dataset DOI/version.",
+            recommended_action="eligible_for_future_source_version_writer",
+        )
+
     if pack_id in {"moby-en", "jmdict-ja-en", "cc-cedict-zh-en"}:
         return PackSourceIdentityDecision(
             candidate_field="source_label",
@@ -218,9 +239,11 @@ def source_bundle_fields_for_pack(
     component_paths: Mapping[str, Path] | None = None,
 ) -> dict[str, Mapping[str, object]]:
     build_mode = _text(getattr(pack, "build_mode", "download_only")) or "download_only"
-    if build_mode != "de_frequency_pipeline":
-        return {}
-    return {"source_bundle": _de_frequency_source_bundle(pack, component_paths=component_paths)}
+    if build_mode == "de_frequency_pipeline":
+        return {"source_bundle": _de_frequency_source_bundle(pack, component_paths=component_paths)}
+    if build_mode == "en_frequency_pipeline":
+        return {"source_bundle": _en_frequency_source_bundle(pack, component_paths=component_paths)}
+    return {}
 
 
 def _artifact_identity(filename: str) -> str:
@@ -351,6 +374,41 @@ def _de_frequency_source_bundle(
         "notes": [
             "source_bundle_is_not_license_approval",
             "de_pos_source_auto_prefers_german_dict_then_eig_sonstige",
+        ],
+    }
+
+
+def _en_frequency_source_bundle(
+    pack: object,
+    *,
+    component_paths: Mapping[str, Path] | None = None,
+) -> dict[str, object]:
+    from lexishift_core.frequency.en import pipeline as en_pipeline
+
+    pack_id = _text(getattr(pack, "pack_id", "")) or "freq-en-leipzig-default"
+    corpus_filename = _text(getattr(pack, "source_filename", "")) or _text(
+        getattr(pack, "filename", "")
+    )
+    source_url = _text(getattr(pack, "url", "")) or en_pipeline.LEIPZIG_EN_CORPUS_URL
+    components: list[dict[str, object]] = [
+        {
+            "role": "corpus",
+            "source_name": _text(getattr(pack, "source", "")) or "Leipzig Wortschatz",
+            "source_url": source_url,
+            "filename": corpus_filename or Path(source_url).name,
+        },
+    ]
+    checked_components = [
+        _with_component_checksum(component, component_paths or {}) for component in components
+    ]
+    return {
+        "bundle_id": f"{pack_id}:en_frequency_pipeline",
+        "bundle_kind": "generated_frequency_pipeline",
+        "lineage_status": "component_urls_recorded",
+        "components": checked_components,
+        "notes": [
+            "source_bundle_is_not_license_approval",
+            "english_leipzig_pipeline_uses_source_frequency_only_no_pos_overlay",
         ],
     }
 

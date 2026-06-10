@@ -7,8 +7,9 @@ def render_product_quality_markdown(report: Mapping[str, object]) -> str:
     summary = _as_mapping(report.get("summary"))
     overall = _as_mapping(summary.get("overall"))
     decision_rationale = _as_sequence(summary.get("decision_rationale"))
+    pair = str(report.get("pair") or "").strip() or "unknown-pair"
     lines = [
-        "# en-es Semantic Veto Product Quality",
+        f"# {pair} Semantic Veto Product Quality",
         "",
         f"- Status: `{report.get('status', 'unknown')}`",
         f"- Decision: `{report.get('decision', '')}`",

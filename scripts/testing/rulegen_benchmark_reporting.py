@@ -137,6 +137,9 @@ def _config_from_payload(payload: Mapping[str, object]) -> SweepConfig:
         cleaner_later_competition_penalty=float(
             payload.get("cleaner_later_competition_penalty") or 0.0
         ),
+        sense_defaultness_competition_penalty=float(
+            payload.get("sense_defaultness_competition_penalty") or 0.0
+        ),
         include_variants=bool(payload.get("include_variants", False)),
         pos_scoring_enabled=bool(payload.get("pos_scoring_enabled", False)),
         pos_exact_match_bonus=float(payload.get("pos_exact_match_bonus") or 0.0),
@@ -465,6 +468,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--exact-gloss-demotion-values", default="false")
     parser.add_argument("--source-frequency-prior-values", default="false")
     parser.add_argument("--cleaner-later-competition-penalty-values", default="0.0")
+    parser.add_argument("--sense-defaultness-competition-penalty-values", default="0.0")
     parser.add_argument("--include-variants-values", default="true,false")
     parser.add_argument("--pos-scoring-values", default="true,false")
     parser.add_argument("--pos-exact-values", default="1.0")

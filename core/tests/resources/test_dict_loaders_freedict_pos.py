@@ -175,8 +175,17 @@ class TestFreedictPosLoaders(unittest.TestCase):
         self.assertIn("Haus", records)
         self.assertEqual([entry.translation for entry in records["Haus"]], ["house", "home"])
         self.assertEqual(records["Haus"][0].pos_raw, "noun")
+        self.assertEqual(records["Haus"][0].metadata.get("rank"), 1)
+        self.assertEqual(records["Haus"][0].metadata.get("entry_ord"), 1)
+        self.assertEqual(records["Haus"][0].metadata.get("gloss_ord"), 0)
+        self.assertEqual(records["Haus"][1].metadata.get("rank"), 2)
+        self.assertEqual(records["Haus"][1].metadata.get("entry_ord"), 1)
+        self.assertEqual(records["Haus"][1].metadata.get("gloss_ord"), 1)
         self.assertEqual(records["laufen"][0].translation, "run")
         self.assertEqual(records["laufen"][0].pos_raw, "verb")
+        self.assertEqual(records["laufen"][0].metadata.get("rank"), 1)
+        self.assertEqual(records["laufen"][0].metadata.get("entry_ord"), 2)
+        self.assertEqual(records["laufen"][0].metadata.get("gloss_ord"), 0)
 
     def test_sqlite_loader_backfills_missing_pos_for_duplicate_translation(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

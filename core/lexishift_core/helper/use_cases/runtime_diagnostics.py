@@ -5,6 +5,7 @@ from hashlib import sha1
 from pathlib import Path
 from typing import Mapping
 
+from lexishift_core.helper.installed_packs import resolve_installed_pack_artifact
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
 from lexishift_core.helper.pair_resources import (
     resolve_pair_frequency_pack,
@@ -13,9 +14,15 @@ from lexishift_core.helper.pair_resources import (
     resolve_stopwords_path,
 )
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.source_stacks import (
+    PairSourceStack,
+    SourceStackResource,
+    source_stack_for_pair,
+)
 from lexishift_core.helper.status import load_status
 from lexishift_core.srs import load_srs_inventory, load_srs_store, resolve_active_item_ids
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
+from lexishift_core.srs.pos_overlay import pos_overlay_resource_payload, resolve_pair_pos_overlay
 
 
 def _read_artifact_state(path: Path) -> dict[str, object]:
@@ -37,6 +44,125 @@ def _append_family_error(errors: list[str], message: str) -> None:
     rendered = str(message or "").strip()
     if rendered and rendered not in errors:
         errors.append(rendered)
+
+
+def _pack_id_key(pack_id: object) -> str:
+    return str(pack_id or "").strip().lower().replace("_", "-")
+
+
+def _pack_ids_match(left: object, right: object) -> bool:
+    return bool(_pack_id_key(left)) and _pack_id_key(left) == _pack_id_key(right)
+
+
+def _pack_path_if_matches(resource: SourceStackResource, ref: object) -> Path | None:
+    if ref is None:
+        return None
+    if not _pack_ids_match(resource.pack_id, getattr(ref, "pack_id", "")):
+        return None
+    path = getattr(ref, "path", None)
+    return Path(path) if path is not None else None
+
+
+def _managed_pack_artifact(base_dir: Path, pack_id: str) -> Path | None:
+    artifact = resolve_installed_pack_artifact(base_dir, pack_id)
+    if artifact is not None:
+        return artifact
+    return None
+
+
+def _source_stack_resource_path(
+    paths: HelperPaths,
+    resource: SourceStackResource,
+    *,
+    resolved_frequency_pack: object,
+    resolved_translation_pack: object,
+    resolved_reverse_translation_pack: object,
+    resolved_pos_overlay: object,
+) -> Path | None:
+    if resource.family == "frequency":
+        artifact = _managed_pack_artifact(paths.frequency_packs_dir, resource.pack_id)
+        if artifact is not None:
+            return artifact
+        return _pack_path_if_matches(resource, resolved_frequency_pack)
+    if resource.family == "language":
+        artifact = _managed_pack_artifact(paths.language_packs_dir, resource.pack_id)
+        if artifact is not None:
+            return artifact
+        forward_path = _pack_path_if_matches(resource, resolved_translation_pack)
+        if forward_path is not None:
+            return forward_path
+        return _pack_path_if_matches(resource, resolved_reverse_translation_pack)
+    if resource.family == "pos_overlay":
+        pos_path = _pack_path_if_matches(resource, resolved_pos_overlay)
+        if pos_path is not None:
+            return pos_path
+        for base_dir_name in ("pos_packs", "pos_overlays"):
+            artifact = _managed_pack_artifact(paths.data_root / base_dir_name, resource.pack_id)
+            if artifact is not None:
+                return artifact
+    return None
+
+
+def _source_stack_status_payload(
+    paths: HelperPaths,
+    stack: PairSourceStack | None,
+    *,
+    resolved_frequency_pack: object,
+    resolved_translation_pack: object,
+    resolved_reverse_translation_pack: object,
+    resolved_pos_overlay: object,
+) -> dict[str, object] | None:
+    if stack is None:
+        return None
+    resources: list[dict[str, object]] = []
+    for resource in stack.resources:
+        path = _source_stack_resource_path(
+            paths,
+            resource,
+            resolved_frequency_pack=resolved_frequency_pack,
+            resolved_translation_pack=resolved_translation_pack,
+            resolved_reverse_translation_pack=resolved_reverse_translation_pack,
+            resolved_pos_overlay=resolved_pos_overlay,
+        )
+        payload = resource.as_dict()
+        payload.update(
+            {
+                "path": str(path) if path is not None else None,
+                "exists": bool(path is not None and path.exists()),
+            }
+        )
+        resources.append(payload)
+    return {
+        "pair": stack.pair,
+        "stack_id": stack.stack_id,
+        "label_key": stack.label_key,
+        "resources": resources,
+    }
+
+
+def _missing_source_stack_resources(
+    source_stack: dict[str, object] | None,
+    *,
+    required: bool,
+) -> list[dict[str, object]]:
+    if not source_stack:
+        return []
+    raw_resources = source_stack.get("resources")
+    if not isinstance(raw_resources, list):
+        return []
+    missing: list[dict[str, object]] = []
+    for item in raw_resources:
+        if not isinstance(item, dict):
+            continue
+        if item.get("exists") is True or item.get("wired") is False:
+            continue
+        has_required_stage = bool(item.get("required_for"))
+        has_optional_stage = bool(item.get("optional_for"))
+        if required and has_required_stage:
+            missing.append(item)
+        elif not required and has_optional_stage:
+            missing.append(item)
+    return missing
 
 
 def _resolve_semantic_runtime_capability(
@@ -225,7 +351,17 @@ def get_srs_runtime_diagnostics(
         pair=normalized_pair,
         set_source_db=resolved_set_source_db,
     )
+    resolved_pos_overlay = resolve_pair_pos_overlay(paths, pair=normalized_pair)
+    pos_overlay_payload = pos_overlay_resource_payload(resolved_pos_overlay)
     resolved_stopwords_path = resolve_stopwords_path(paths, pair=normalized_pair)
+    source_stack = _source_stack_status_payload(
+        paths,
+        source_stack_for_pair(normalized_pair),
+        resolved_frequency_pack=resolved_frequency_pack,
+        resolved_translation_pack=resolved_translation_pack,
+        resolved_reverse_translation_pack=resolved_reverse_translation_pack,
+        resolved_pos_overlay=resolved_pos_overlay,
+    )
     missing_inputs: list[dict[str, object]] = []
     if capability.requires_jmdict_for_seed or capability.requires_jmdict_for_rulegen:
         if not resolved_jmdict_path:
@@ -269,6 +405,16 @@ def get_srs_runtime_diagnostics(
         "pair": normalized_pair,
         "profile_id": normalized_profile_id,
         "requirements": pair_requirements(normalized_pair),
+        "source_stack": source_stack,
+        "source_stack_id": source_stack.get("stack_id") if source_stack else None,
+        "source_stack_missing_required": _missing_source_stack_resources(
+            source_stack,
+            required=True,
+        ),
+        "source_stack_missing_recommended": _missing_source_stack_resources(
+            source_stack,
+            required=False,
+        ),
         "pair_policy": pair_policy_to_dict(pair_policy),
         "jmdict_path": str(resolved_jmdict_path) if resolved_jmdict_path else None,
         "jmdict_exists": bool(resolved_jmdict_path and resolved_jmdict_path.exists()),
@@ -327,6 +473,7 @@ def get_srs_runtime_diagnostics(
         ),
         "stopwords_path": str(resolved_stopwords_path) if resolved_stopwords_path else None,
         "stopwords_exists": bool(resolved_stopwords_path and resolved_stopwords_path.exists()),
+        **pos_overlay_payload,
         "missing_inputs": missing_inputs,
         "store_path": str(store_path),
         "store_exists": store_path.exists(),

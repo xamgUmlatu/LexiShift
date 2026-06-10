@@ -7,6 +7,7 @@ def _render_sentence_veto_sweep_row(row: Mapping[str, object]) -> list[str]:
     return [
         f"- Config: `{row.get('config_id', '')}`",
         f"- Phrase control mode: `{row.get('phrase_control_mode', 'off')}`",
+        f"- Phrase guard POS scope: `{row.get('phrase_guard_pos_scope', 'family_all')}`",
         f"- Active rescue mode: `{row.get('active_rescue_mode', 'off')}`",
         f"- Harmful replace count / false abstain count: "
         f"`{int(row.get('harmful_replace_count') or 0)}` / "

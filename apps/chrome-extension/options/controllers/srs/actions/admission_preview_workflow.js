@@ -38,32 +38,54 @@
       : (() => {});
     const log = typeof opts.log === "function" ? opts.log : (() => {});
 
-    return async function previewAdmission() {
+    return async function previewAdmission(optionsArg) {
+      const previewOptions = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
+      const outputWriter = typeof previewOptions.setOutputText === "function"
+        ? previewOptions.setOutputText
+        : setAdmissionPreviewOutputText;
       if (!admissionPreviewButton) {
         return;
       }
-      const srsPair = resolvePair();
-      const previewCount = 10;
+      const srsPair = String(previewOptions.pairKey || resolvePair() || "en-en").trim() || "en-en";
+      const requestedPreviewCount = Number(previewOptions.previewCount);
+      const previewCount = Number.isFinite(requestedPreviewCount) && requestedPreviewCount > 0
+        ? Math.round(requestedPreviewCount)
+        : 10;
       admissionPreviewButton.disabled = true;
-      setAdmissionPreviewOutputText(translate(
+      outputWriter(translate(
         "status_srs_admission_preview_running",
         [previewCount],
         `Sampling possible next words (${previewCount})…`
       ));
 
       try {
-        const items = await settingsManager.load();
-        const synced = await syncSelectedProfile(items);
+        const items = previewOptions.items && typeof previewOptions.items === "object"
+          ? previewOptions.items
+          : await settingsManager.load();
+        const synced = previewOptions.skipSelectedProfileSync === true
+          ? {
+              items,
+              profileId: String(
+                previewOptions.profileId
+                || (settingsManager && typeof settingsManager.getSelectedSrsProfileId === "function"
+                  ? settingsManager.getSelectedSrsProfileId(items)
+                  : "default")
+              ).trim() || "default"
+            }
+          : await syncSelectedProfile(items);
+        const profileId = String(previewOptions.profileId || synced.profileId || "default").trim() || "default";
         const canProceed = await preflightSrsPairResources(
           srsPair,
-          synced.profileId,
+          profileId,
           "word sampling",
-          { setOutputText: setAdmissionPreviewOutputText }
+          { setOutputText: outputWriter }
         );
         if (!canProceed) {
           return;
         }
-        const planningState = resolvePlanningState(synced.items, srsPair, synced.profileId);
+        const planningState = previewOptions.planningState && typeof previewOptions.planningState === "object"
+          ? previewOptions.planningState
+          : resolvePlanningState(synced.items, srsPair, profileId);
         const profileContext = planningState.profileContext;
         const previewSeed = generatePreviewSeed();
         const previewPayload = await helperManager.previewSrsAdmission(
@@ -74,7 +96,7 @@
             maxActiveItemsHint: planningState.profile.srsMaxActive
           },
           {
-            profileId: synced.profileId,
+            profileId,
             strategy: "profile_bootstrap",
             objective: "bootstrap",
             trigger: "options_admission_preview_button",
@@ -84,17 +106,17 @@
             profileContext
           }
         );
-        setAdmissionPreviewOutputText(buildAdmissionPreviewOutput({
+        outputWriter(buildAdmissionPreviewOutput({
           translate,
           srsPair,
-          profileId: previewPayload.profile_id || synced.profileId,
+          profileId: previewPayload.profile_id || profileId,
           plan: previewPayload.plan || {},
           preview: previewPayload.preview || {},
           requestProfileContextMeta: planningState.contextMeta
         }));
         log("SRS admission preview", {
           pair: srsPair,
-          profileId: synced.profileId,
+          profileId,
           previewSeed,
           requestProfileContext: profileContext,
           requestProfileContextMeta: planningState.contextMeta,
@@ -105,7 +127,7 @@
         const msg = err && err.message
           ? err.message
           : translate("status_srs_admission_preview_failed", null, "Word sample failed.");
-        setAdmissionPreviewOutputText(msg);
+        outputWriter(msg);
         log("SRS admission preview failed.", err);
       } finally {
         admissionPreviewButton.disabled = false;

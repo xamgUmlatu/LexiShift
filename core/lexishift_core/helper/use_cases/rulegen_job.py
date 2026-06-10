@@ -10,6 +10,9 @@ from lexishift_core.helper.pair_resources import (
 )
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput, SetInitializationConfig
+from lexishift_core.helper.use_cases.rule_availability import (
+    reconcile_active_items_without_enabled_rules,
+)
 from lexishift_core.rulegen.tuning import (
     RulegenTuningOverrides,
     resolve_pair_rulegen_tuning,
@@ -26,6 +29,7 @@ from lexishift_core.srs import (
     load_srs_inventory,
     resolve_active_item_ids,
     save_srs_inventory,
+    save_srs_store,
     set_active_item_ids,
 )
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
@@ -110,6 +114,7 @@ def run_rulegen_job(
             language_pair=pair,
             stopwords_path=stopwords_path,
             require_jmdict=capability.requires_jmdict_for_seed,
+            source_label=resolved_frequency_pack.provider if resolved_frequency_pack else None,
         )
     pair_tuning = resolve_pair_rulegen_tuning(pair)
     rulegen_overrides = RulegenTuningOverrides(
@@ -148,6 +153,7 @@ def run_rulegen_job(
         max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
         max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
         semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
+        enable_source_frequency_prior=effective_rulegen_tuning.source_frequency_prior_enabled,
         enable_exact_gloss_demotions=effective_rulegen_tuning.enable_exact_gloss_demotions,
         include_variants=effective_rulegen_tuning.include_variants,
         allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
@@ -402,6 +408,28 @@ def run_rulegen_job(
         diagnostics["inventory_active_items_for_pair"] = len(active_item_ids or ())
         diagnostics["inventory_source"] = inventory_source
         diagnostics["inventory_backfilled_from_store"] = inventory_backfilled
+    rule_availability_reconciliation = None
+    if (
+        targets_override is None
+        and config.persist_store
+        and config.persist_outputs
+        and active_item_ids
+    ):
+        store, inventory, rule_availability_reconciliation = (
+            reconcile_active_items_without_enabled_rules(
+                store=store,
+                inventory=inventory,
+                pair=pair,
+                active_item_ids=active_item_ids,
+                rules=output.rules,
+            )
+        )
+        if rule_availability_reconciliation.changed:
+            active_item_ids = rule_availability_reconciliation.active_item_ids_after
+            save_srs_inventory(inventory, inventory_path)
+            save_srs_store(store, paths.srs_store_path_for(profile_id))
+            if diagnostics is not None:
+                diagnostics["inventory_active_items_for_pair"] = len(active_item_ids)
     if config.persist_outputs:
         write_rulegen_outputs_fn(
             paths=paths,
@@ -454,6 +482,11 @@ def run_rulegen_job(
             "backfilled_from_store": inventory_backfilled,
             "applied_to_targets": targets_override is None,
         },
+        "rule_availability_reconciliation": (
+            rule_availability_reconciliation.to_dict()
+            if rule_availability_reconciliation is not None
+            else None
+        ),
     }
     if diagnostics is not None:
         response["diagnostics"] = diagnostics

@@ -22,6 +22,11 @@ SENTENCE_VETO_ACTIVE_RESCUE_MODES = (
     "off",
     "sense_label_near_tie_active_rescue",
 )
+DEFAULT_SENTENCE_VETO_PHRASE_GUARD_POS_SCOPE = "family_all"
+SENTENCE_VETO_PHRASE_GUARD_POS_SCOPES = (
+    "family_all",
+    "active_only",
+)
 DEFAULT_RUNTIME_SEMANTIC_FALLBACK_POLICY = "abstain_on_unavailable"
 RUNTIME_SEMANTIC_FALLBACK_POLICIES = (
     "legacy_on_unavailable",
@@ -46,6 +51,7 @@ class SemanticDecisionPolicyConfig:
     min_active_score: float = DEFAULT_SENTENCE_VETO_MIN_ACTIVE_SCORE
     min_margin: float = DEFAULT_SENTENCE_VETO_MIN_MARGIN
     phrase_control_mode: str = DEFAULT_SENTENCE_VETO_PHRASE_CONTROL_MODE
+    phrase_guard_pos_scope: str = DEFAULT_SENTENCE_VETO_PHRASE_GUARD_POS_SCOPE
     active_rescue_mode: str = DEFAULT_SENTENCE_VETO_ACTIVE_RESCUE_MODE
     window_tokens: int = DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS
     mask_token: str = DEFAULT_SENTENCE_VETO_MASK_TOKEN
@@ -88,6 +94,7 @@ PRODUCTION_SEMANTIC_DECISION_POLICIES: dict[str, SemanticDecisionPolicyConfig] =
         min_active_score=0.0,
         min_margin=0.0,
         phrase_control_mode="noun_family_frame_guard",
+        phrase_guard_pos_scope="family_all",
         active_rescue_mode="sense_label_near_tie_active_rescue",
         window_tokens=DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
         mask_token=DEFAULT_SENTENCE_VETO_MASK_TOKEN,
@@ -101,6 +108,7 @@ PRODUCTION_SEMANTIC_DECISION_POLICIES: dict[str, SemanticDecisionPolicyConfig] =
         min_active_score=0.015,
         min_margin=0.0,
         phrase_control_mode="noun_family_frame_guard",
+        phrase_guard_pos_scope="family_all",
         active_rescue_mode="sense_label_near_tie_active_rescue",
         window_tokens=DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
         mask_token=DEFAULT_SENTENCE_VETO_MASK_TOKEN,
@@ -114,6 +122,21 @@ PRODUCTION_SEMANTIC_DECISION_POLICIES: dict[str, SemanticDecisionPolicyConfig] =
         min_active_score=0.0,
         min_margin=0.0,
         phrase_control_mode="noun_family_frame_guard",
+        phrase_guard_pos_scope="family_all",
+        active_rescue_mode="sense_label_near_tie_active_rescue",
+        window_tokens=DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
+        mask_token=DEFAULT_SENTENCE_VETO_MASK_TOKEN,
+    ),
+    "en_ja_sentence_veto_breadth_v1": SemanticDecisionPolicyConfig(
+        policy_id="en_ja_sentence_veto_breadth_v1",
+        pair="en-ja",
+        scorer_id="tfidf_cosine",
+        context_view="masked_sentence",
+        evidence_view="all_evidence_text",
+        min_active_score=0.0,
+        min_margin=0.02,
+        phrase_control_mode="noun_family_frame_guard",
+        phrase_guard_pos_scope="active_only",
         active_rescue_mode="sense_label_near_tie_active_rescue",
         window_tokens=DEFAULT_SENTENCE_VETO_CONTEXT_WINDOW_TOKENS,
         mask_token=DEFAULT_SENTENCE_VETO_MASK_TOKEN,
@@ -516,7 +539,6 @@ def build_semantic_admit_batch_response(
         prepared_raw_match = item.get("raw_match")
         active_sense = item.get("active_sense")
         shadow_senses = _mapping_sequence(item.get("shadow_senses"))
-        family_pos_tags = _string_sequence(item.get("family_pos_tags"))
         semantic_admission = item.get("semantic_admission")
         if not isinstance(prepared_raw_match, Mapping) or not isinstance(active_sense, Mapping):
             continue
@@ -543,7 +565,11 @@ def build_semantic_admit_batch_response(
             scorer=primary_backend,
             backup_scorer=backup_backend,
             family_id=str(item.get("trigger_id") or ""),
-            family_pos_tags=family_pos_tags,
+            family_pos_tags=_resolve_policy_phrase_guard_pos_tags(
+                policy=policy,
+                active_sense=active_sense,
+                shadow_senses=shadow_senses,
+            ),
         )
         decisions.append(
             {
@@ -557,6 +583,7 @@ def build_semantic_admit_batch_response(
                 "phrase_set_id": str(item.get("phrase_set_id") or ""),
                 "selection_policy_version": str(item.get("selection_policy_version") or ""),
                 "context_view_id": policy.context_view,
+                "phrase_guard_pos_scope": policy.phrase_guard_pos_scope,
                 "active_score": float(result.active_score),
                 "top_shadow_score": float(result.strongest_shadow_score),
                 "score_margin": float(result.margin),
@@ -723,6 +750,36 @@ def _prepare_runtime_policy_match(
         "shadow_senses": shadow_senses,
         "family_pos_tags": family_pos_tags,
     }
+
+
+def _resolve_policy_phrase_guard_pos_tags(
+    *,
+    policy: SemanticDecisionPolicyConfig,
+    active_sense: Mapping[str, object],
+    shadow_senses: Sequence[Mapping[str, object]],
+) -> tuple[str, ...]:
+    resolved_scope = (
+        str(policy.phrase_guard_pos_scope or "").strip()
+        or DEFAULT_SENTENCE_VETO_PHRASE_GUARD_POS_SCOPE
+    )
+    if resolved_scope not in SENTENCE_VETO_PHRASE_GUARD_POS_SCOPES:
+        raise ValueError(
+            f"Unsupported sentence-veto phrase guard POS scope: {resolved_scope!r}; "
+            f"expected one of {SENTENCE_VETO_PHRASE_GUARD_POS_SCOPES!r}"
+        )
+    if resolved_scope == "active_only":
+        active_pos = str(active_sense.get("canonical_pos") or "").strip()
+        return (active_pos,) if active_pos else ()
+    return tuple(
+        {
+            str(value or "").strip()
+            for value in (
+                active_sense.get("canonical_pos"),
+                *(shadow.get("canonical_pos") for shadow in shadow_senses),
+            )
+            if str(value or "").strip()
+        }
+    )
 
 
 def _validate_inventory_for_pair(
