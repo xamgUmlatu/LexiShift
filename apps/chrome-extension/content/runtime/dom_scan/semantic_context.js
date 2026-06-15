@@ -8,6 +8,7 @@
   const MAX_ANCESTOR_DEPTH = 8;
   const MAX_CACHE_CHARS = MAX_CHARS * 4;
   const SIDE_NODE_BUDGET = Math.floor((MAX_TEXT_NODES - 1) / 2);
+  const LEXISHIFT_SCAN_SKIP_ATTR = "data-lexishift-scan-skip";
   const CONTAINER_TAGS = new Set(["P", "LI", "TD", "TH", "BLOCKQUOTE", "FIGCAPTION", "CAPTION", "DD", "DT", "PRE"]);
   const FALLBACK_CONTAINER_TAGS = new Set(["ARTICLE", "SECTION", "MAIN", "DIV"]);
   const SKIP_TAGS = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE"]);
@@ -84,6 +85,12 @@
     let cursor = element;
     while (cursor && isElementNode(cursor)) {
       if (hasClassName(cursor, "lexishift-replacement")) return true;
+      if (
+        typeof cursor.getAttribute === "function"
+        && String(cursor.getAttribute(LEXISHIFT_SCAN_SKIP_ATTR) || "").trim().toLowerCase() === "true"
+      ) {
+        return true;
+      }
       if (cursor === stopElement) return false;
       cursor = getParentElement(cursor);
     }

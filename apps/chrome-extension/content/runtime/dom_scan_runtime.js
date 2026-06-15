@@ -1,5 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const LEXISHIFT_SCAN_SKIP_SELECTOR = ".lexishift-replacement, [data-lexishift-scan-skip=\"true\"]";
   const functionType = "fun" + "ction";
   const returnEmptyObject = () => ({});
   const returnNull = () => null;
@@ -191,7 +192,7 @@
             if (!node || !node.parentElement) {
               return false;
             }
-            return Boolean(node.parentElement.closest(".lexishift-replacement"));
+            return Boolean(node.parentElement.closest(LEXISHIFT_SCAN_SKIP_SELECTOR));
           }
         };
 

@@ -49,6 +49,7 @@
       }
       const popup = document.createElement("div");
       popup.className = "lexishift-feedback-popup";
+      popup.dataset.lexishiftScanSkip = "true";
       popup.setAttribute("role", "dialog");
       popup.setAttribute("aria-live", "polite");
       popup.setAttribute("aria-hidden", "true");

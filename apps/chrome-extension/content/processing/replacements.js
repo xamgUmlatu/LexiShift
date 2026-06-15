@@ -196,6 +196,7 @@
       span.classList.add("lexishift-highlight");
     }
     span.textContent = payload.displayReplacement;
+    span.dataset.lexishiftScanSkip = "true";
     span.dataset.original = originalText;
     span.dataset.replacement = payload.canonicalReplacement;
     span.dataset.displayReplacement = payload.displayReplacement;

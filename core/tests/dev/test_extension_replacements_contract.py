@@ -115,6 +115,7 @@ assert.equal(span.dataset.semanticCompetitionSetId, "comp:light");
 assert.equal(span.dataset.semanticScoreMargin, "0.02");
 assert.equal(span.dataset.semanticActiveScore, "0.18");
 assert.equal(span.dataset.semanticTopShadowScore, "0.16");
+assert.equal(span.dataset.lexishiftScanSkip, "true");
 assert.equal(span.title, "Click to toggle original");
         """
         _run_node(script)
