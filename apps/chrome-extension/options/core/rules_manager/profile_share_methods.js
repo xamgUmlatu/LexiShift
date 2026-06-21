@@ -238,9 +238,7 @@
       srsMaxActive: Number.isFinite(Number(nextPairProfile.srsMaxActive))
         ? Number(nextPairProfile.srsMaxActive)
         : (this.settingsManager.defaults.srsMaxActive || 20),
-      srsBootstrapTopN: Number.isFinite(Number(nextPairProfile.srsBootstrapTopN))
-        ? Number(nextPairProfile.srsBootstrapTopN)
-        : (this.settingsManager.defaults.srsBootstrapTopN || 800),
+      srsBootstrapTopN: null,
       srsInitialActiveCount: Number.isFinite(Number(nextPairProfile.srsInitialActiveCount))
         ? Number(nextPairProfile.srsInitialActiveCount)
         : (this.settingsManager.defaults.srsInitialActiveCount || 40),

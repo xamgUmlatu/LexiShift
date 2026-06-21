@@ -159,6 +159,71 @@ layout: XML (Standard EDRDG DTD)
 parse_hint: Extract <entry> nodes; map <reb> (reading) and <keb> (kanji) to <gloss> (English senses).
 notes: optional in V1; _e version contains English glosses only
 
+pack_id: kanjidic2-ja
+name: KANJIDIC2
+type: learner-signal
+languages: ja -> ja
+size: 1.5 MB
+url: https://www.edrdg.org/kanjidic/kanjidic2.xml.gz
+wayback_url: https://web.archive.org/web/*/https://www.edrdg.org/kanjidic/kanjidic2.xml.gz
+filename: kanjidic2.xml.gz
+unzipped_name: kanjidic2.xml
+layout: XML (EDRDG KANJIDIC2 DTD)
+parse_hint: Extract <character> nodes; map <literal> to misc/grade, stroke_count, freq, and old jlpt.
+notes: optional en-ja learner-difficulty enrichment; GUI pack id is kanjidic2-ja; absence must not block bootstrap or rulegen.
+
+pack_id: jmnedict-ja
+name: JMnedict
+type: learner-signal
+languages: ja -> ja
+size: 11.9 MB
+url: https://www.edrdg.org/pub/Nihongo/JMnedict.xml.gz
+wayback_url: https://web.archive.org/web/*/https://www.edrdg.org/pub/Nihongo/JMnedict.xml.gz
+filename: JMnedict.xml.gz
+unzipped_name: JMnedict.xml
+layout: XML (EDRDG JMnedict DTD)
+parse_hint: Extract <entry> nodes; map <keb>/<reb> to trans/name_type and trans_det fields.
+notes: optional en-ja proper-name/admission enrichment; GUI pack id is jmnedict-ja; absence must not block bootstrap or rulegen.
+
+pack_id: kanjivg-ja
+name: KanjiVG
+type: learner-signal
+languages: ja -> ja
+size: 3.4 MB
+url: https://github.com/KanjiVG/kanjivg/releases/download/r20250816/kanjivg-20250816.xml.gz
+wayback_url: https://web.archive.org/web/*/https://github.com/KanjiVG/kanjivg/releases/download/r20250816/kanjivg-20250816.xml.gz
+filename: kanjivg-20250816.xml.gz
+unzipped_name: kanjivg-20250816.xml
+layout: XML (KanjiVG)
+parse_hint: Extract <kanji> nodes; map id codepoint to path count, kvg:element group components, and nesting depth.
+notes: optional en-ja visual/component enrichment; GUI pack id is kanjivg-ja; absence must not block bootstrap or rulegen.
+
+pack_id: jlpt-tanos-vocab-ja
+name: Tanos JLPT Vocabulary
+type: learner-signal
+languages: ja -> ja
+size: 191.6 KB
+url: https://raw.githubusercontent.com/Bluskyo/JLPT_Vocabulary/main/data/vocab/results/JLPT_vocab_ALL.csv
+wayback_url: https://web.archive.org/web/*/https://raw.githubusercontent.com/Bluskyo/JLPT_Vocabulary/main/data/vocab/results/JLPT_vocab_ALL.csv
+filename: JLPT_vocab_ALL.csv
+unzipped_name: JLPT_vocab_ALL.csv
+layout: CSV
+parse_hint: Kanji,Reading,Level; map surface and reading to JLPT vocabulary level.
+notes: optional en-ja learner-difficulty enrichment; vocabulary source is Jonathan Waller/Tanos under Tanos sharing terms, with machine-readable conversion from Bluskyo.
+
+pack_id: sbsjapanese1-ja
+name: Step-by-Step Japanese 1
+type: learner-signal
+languages: ja -> ja
+size: 15.8 MB
+url: https://utsa.pressbooks.pub/sbsjapanese1/open/download?type=epub
+wayback_url: https://web.archive.org/web/*/https://utsa.pressbooks.pub/sbsjapanese1/
+filename: sbsjapanese1.zip
+unzipped_name: sbsjapanese1-ja/
+layout: EPUB ZIP archive extracted to XHTML files
+parse_hint: Extract vocabulary tables from EPUB/*.xhtml; map Hiragana/Kanji rows to earliest lesson order.
+notes: optional en-ja beginner lesson-order enrichment; filename intentionally ends .zip so the GUI extraction path handles the EPUB archive; book is CC BY 4.0 except where otherwise noted.
+
 pack_id: cc-cedict-zh-en
 name: CC-CEDICT
 type: translation

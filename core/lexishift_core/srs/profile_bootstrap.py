@@ -14,6 +14,14 @@ from lexishift_core.srs.admission_features import (
     normalize_topic_token,
     safe_optional_float,
 )
+from lexishift_core.srs.candidate_classification import (
+    CANDIDATE_STATE_DEPRIORITIZED_VOCAB,
+    CANDIDATE_STATE_TOPIC_ONLY,
+    CandidateClassification,
+    classify_srs_candidate,
+)
+from lexishift_core.srs.candidate_identity import candidate_identity_key_from_seed
+from lexishift_core.srs.learner_difficulty import estimate_learner_difficulty
 from lexishift_core.srs.profile_bootstrap_support import (
     build_active_topic_support_summary as _build_active_topic_support_summary,
     build_policy_summary as _build_policy_summary,
@@ -65,7 +73,7 @@ class ProfileBootstrapPolicy:
             ),
         )
     )
-    difficulty_proxy: str = "1_minus_admission_weight"
+    difficulty_proxy: str = "1_minus_base_weight"
     topic_metadata_keys: Sequence[str] = (
         "sense_topics",
         "topics",
@@ -138,13 +146,14 @@ def extract_profile_bootstrap_candidate_traits(
     *,
     policy: ProfileBootstrapPolicy = DEFAULT_PROFILE_BOOTSTRAP_POLICY,
 ) -> ProfileBootstrapCandidateTraits:
-    lexical_commonness = (
-        clamp01(
-            safe_optional_float(getattr(seed, "admission_weight", None))
-            or safe_optional_float(getattr(seed, "base_weight", None))
-        )
-        or 0.0
-    )
+    source_commonness_value = safe_optional_float(getattr(seed, "base_weight", None))
+    if source_commonness_value is None:
+        source_commonness_value = safe_optional_float(getattr(seed, "admission_weight", None))
+    source_commonness = clamp01(source_commonness_value) or 0.0
+    coverage_gain_value = safe_optional_float(getattr(seed, "admission_weight", None))
+    if coverage_gain_value is None:
+        coverage_gain_value = safe_optional_float(getattr(seed, "base_weight", None))
+    coverage_gain = clamp01(coverage_gain_value) or 0.0
     lexical_forms: set[str] = set()
     _add_lexical_form(lexical_forms, getattr(seed, "lemma", None))
     word_package = getattr(seed, "word_package", None)
@@ -158,6 +167,9 @@ def extract_profile_bootstrap_candidate_traits(
     word_package_source = (
         mapping_or_empty(word_package.get("source")) if isinstance(word_package, Mapping) else {}
     )
+    learner_signals = mapping_or_empty(metadata.get("learner_signals"))
+    if not learner_signals:
+        learner_signals = mapping_or_empty(word_package_source.get("learner_signals"))
     for lexical_key in (
         "source_surface_original",
         "surface_normalized_from",
@@ -173,13 +185,35 @@ def extract_profile_bootstrap_candidate_traits(
         if isinstance(word_package, Mapping):
             _add_topic_hints(raw_topic_hints, topic_hint_origins, word_package.get(topic_key))
         _add_topic_hints(raw_topic_hints, topic_hint_origins, word_package_source.get(topic_key))
+    classification = _resolve_candidate_classification(seed, metadata=metadata)
+    frequency_difficulty = clamp01(1.0 - source_commonness) or 0.0
+    learner_difficulty = estimate_learner_difficulty(
+        language_pair=str(
+            getattr(seed, "language_pair", "") or metadata.get("language_pair") or ""
+        ),
+        lemma=str(getattr(seed, "lemma", "") or "").strip(),
+        frequency_proxy=frequency_difficulty,
+        candidate_state=classification.candidate_state,
+        presentation_mode=classification.presentation_mode,
+        problem_class=classification.problem_class,
+    )
 
     return ProfileBootstrapCandidateTraits(
+        candidate_identity_key=candidate_identity_key_from_seed(seed),
         lemma=str(getattr(seed, "lemma", "") or "").strip(),
-        lexical_commonness=lexical_commonness,
-        difficulty_estimate=clamp01(1.0 - lexical_commonness) or 0.0,
-        difficulty_proxy=policy.difficulty_proxy,
+        lexical_commonness=source_commonness,
+        coverage_gain=coverage_gain,
+        difficulty_estimate=learner_difficulty.value,
+        difficulty_proxy=learner_difficulty.proxy,
+        difficulty_sources=tuple(learner_difficulty.sources),
+        candidate_state=classification.candidate_state,
+        presentation_mode=classification.presentation_mode,
+        problem_class=classification.problem_class,
+        classification_confidence=classification.confidence,
+        classification_reasons=tuple(classification.reasons),
+        admission_suitability=classification.admission_suitability,
         lexical_forms=tuple(sorted(form for form in lexical_forms if form)),
+        learner_signals=learner_signals,
         raw_topic_hints=tuple(sorted(topic for topic in raw_topic_hints if topic)),
         topic_hints=tuple(sorted(topic for topic in topic_hint_origins.keys() if topic)),
         topic_hint_origins={
@@ -214,6 +248,117 @@ def _add_topic_hints(
         for origin in origins.get(canonical_key, []):
             if origin:
                 bucket.add(origin)
+
+
+def _resolve_candidate_classification(
+    seed: object,
+    *,
+    metadata: Mapping[str, object],
+) -> CandidateClassification:
+    fallback = classify_srs_candidate(
+        language_pair=str(
+            getattr(seed, "language_pair", "") or metadata.get("language_pair") or ""
+        ),
+        lemma=str(getattr(seed, "lemma", "") or metadata.get("lemma") or "").strip(),
+        raw_pos=(
+            getattr(seed, "pos_raw", None)
+            or getattr(seed, "pos", None)
+            or metadata.get("pos_raw")
+            or metadata.get("pos")
+        ),
+    )
+    candidate_state = _string_attr_or_metadata(
+        seed,
+        metadata,
+        attr="candidate_state",
+        fallback=fallback.candidate_state,
+    )
+    presentation_mode = _string_attr_or_metadata(
+        seed,
+        metadata,
+        attr="presentation_mode",
+        fallback=fallback.presentation_mode,
+    )
+    problem_class = _string_attr_or_metadata(
+        seed,
+        metadata,
+        attr="problem_class",
+        fallback=fallback.problem_class,
+    )
+    confidence = _string_attr_or_metadata(
+        seed,
+        metadata,
+        attr="classification_confidence",
+        fallback=fallback.confidence,
+    )
+    reasons = _sequence_attr_or_metadata(
+        seed,
+        metadata,
+        attr="classification_reasons",
+        fallback=tuple(fallback.reasons),
+    )
+    suitability_value = safe_optional_float(getattr(seed, "admission_suitability", None))
+    if suitability_value is None:
+        suitability_value = safe_optional_float(metadata.get("admission_suitability"))
+    suitability = clamp01(suitability_value)
+    if suitability is None:
+        suitability = fallback.admission_suitability
+    return CandidateClassification(
+        candidate_state=candidate_state,
+        presentation_mode=presentation_mode,
+        problem_class=problem_class,
+        confidence=confidence,
+        reasons=reasons,
+        admission_suitability=suitability,
+    )
+
+
+def _string_attr_or_metadata(
+    seed: object,
+    metadata: Mapping[str, object],
+    *,
+    attr: str,
+    fallback: str,
+) -> str:
+    value = getattr(seed, attr, None)
+    if value is None:
+        value = metadata.get(attr)
+    text = str(value or "").strip()
+    return text or fallback
+
+
+def _sequence_attr_or_metadata(
+    seed: object,
+    metadata: Mapping[str, object],
+    *,
+    attr: str,
+    fallback: Sequence[str],
+) -> tuple[str, ...]:
+    value = getattr(seed, attr, None)
+    if value is None:
+        value = metadata.get(attr)
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        normalized = tuple(str(item).strip() for item in value if str(item).strip())
+        if normalized:
+            return normalized
+    text = str(value or "").strip()
+    if text:
+        return (text,)
+    return tuple(fallback)
+
+
+def _compute_admission_suitability(
+    traits: ProfileBootstrapCandidateTraits,
+    *,
+    preference_affinity: float,
+) -> float:
+    base = clamp01(safe_optional_float(traits.admission_suitability)) or 0.0
+    affinity = clamp01(safe_optional_float(preference_affinity)) or 0.0
+    if traits.candidate_state == CANDIDATE_STATE_DEPRIORITIZED_VOCAB and affinity > 0.0:
+        return max(base, min(1.0, base + (0.55 * affinity)))
+    if traits.candidate_state == CANDIDATE_STATE_TOPIC_ONLY and affinity > 0.0:
+        return max(base, min(1.0, base + (0.75 * affinity)))
+    return base
 
 
 def build_profile_bootstrap_signal_pack(
@@ -251,14 +396,20 @@ def build_profile_bootstrap_signal_pack(
         active_topic_support=active_topic_support,
         policy=policy,
     )
+    readiness_center, readiness_center_source = _resolve_readiness_center(context)
     readiness_gate = _compute_readiness_gate(
         traits.difficulty_estimate,
-        context.proficiency_estimate,
+        readiness_center,
         preference_affinity,
         policy=policy,
     )
+    admission_suitability = _compute_admission_suitability(
+        traits,
+        preference_affinity=preference_affinity,
+    )
     return ProfileBootstrapSignalPack(
         coverage_gain=traits.lexical_commonness,
+        admission_suitability=admission_suitability,
         difficulty_estimate=traits.difficulty_estimate,
         preference_affinity=preference_affinity,
         preference_affinity_source=preference_affinity_source,
@@ -270,12 +421,26 @@ def build_profile_bootstrap_signal_pack(
         proficiency_fit=proficiency_fit,
         challenge_fit=challenge_fit,
         readiness_multiplier=readiness_gate.multiplier,
+        readiness_center=readiness_center,
+        readiness_center_source=readiness_center_source,
         readiness_lower_bound=readiness_gate.lower_bound,
         readiness_upper_bound=readiness_gate.upper_bound,
         readiness_topic_strength=readiness_gate.topic_strength,
         readiness_too_easy_gap=readiness_gate.too_easy_gap,
         readiness_too_hard_gap=readiness_gate.too_hard_gap,
     )
+
+
+def _resolve_readiness_center(
+    context: NormalizedProfileBootstrapContext,
+) -> tuple[float | None, str | None]:
+    challenge_target = clamp01(safe_optional_float(context.challenge_target))
+    if challenge_target is not None:
+        return challenge_target, "challenge_target"
+    proficiency = clamp01(safe_optional_float(context.proficiency_estimate))
+    if proficiency is not None:
+        return proficiency, "proficiency"
+    return None, None
 
 
 def rerank_seed_words_for_profile(
@@ -333,6 +498,7 @@ def score_seed_words_for_profile(
             lemma=traits.lemma,
             language_pair=str(getattr(seed, "language_pair", "") or "").strip(),
             base_freq=float(signal_pack.coverage_gain),
+            admission_suitability=float(signal_pack.admission_suitability),
             topic_bias=float(signal_pack.preference_affinity),
             scarcity_bonus=float(signal_pack.scarcity_bonus),
             user_pref=float(signal_pack.proficiency_fit),
@@ -340,6 +506,7 @@ def score_seed_words_for_profile(
             difficulty_target=float(signal_pack.challenge_fit),
             pos=str(getattr(seed, "pos_bucket", "") or "").strip() or None,
             metadata={
+                "candidate_identity_key": traits.candidate_identity_key,
                 "readiness_multiplier": signal_pack.readiness_multiplier,
                 "profile_bootstrap_traits": traits.to_dict(),
                 "profile_bootstrap_signals": signal_pack.to_dict(),
@@ -361,10 +528,10 @@ def score_seed_words_for_profile(
             entry.base_index,
         )
     )
-    base_rank_by_lemma = {
-        str(getattr(seed, "lemma", "") or "").strip(): index + 1
+    base_rank_by_identity = {
+        candidate_identity_key_from_seed(seed): index + 1
         for index, seed in enumerate(seeds)
-        if str(getattr(seed, "lemma", "") or "").strip()
+        if candidate_identity_key_from_seed(seed)
     }
     if preview_limit is None:
         ranking_preview_limit = len(ranked_entries)
@@ -377,9 +544,7 @@ def score_seed_words_for_profile(
             traits=entry.traits,
             signal_pack=entry.signal_pack,
             scored_candidate=entry.scored_candidate,
-            base_rank=base_rank_by_lemma.get(
-                str(getattr(entry.seed, "lemma", "") or "").strip(), 0
-            ),
+            base_rank=base_rank_by_identity.get(entry.traits.candidate_identity_key, 0),
             policy=policy,
         )
         for index, entry in enumerate(ranked_entries[:ranking_preview_limit])
@@ -403,6 +568,7 @@ def score_seed_words_for_profile(
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
+            "admission_suitability": 1.0,
         },
         "profile_context": normalized_context.to_dict(),
         "admission_profile": normalized_context.to_dict(),

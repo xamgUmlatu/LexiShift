@@ -212,12 +212,6 @@
   "hint_srs_max_active": {
     "message": "LexiShift 同时保留在练习轮换中的学习词数量。"
   },
-  "label_srs_bootstrap_top_n": {
-    "message": "词汇搜索范围"
-  },
-  "hint_srs_bootstrap_top_n": {
-    "message": "扩大用于抽样和新词选择的排序词池。除非样本感觉太窄，否则请保持默认值。"
-  },
   "label_srs_initial_active_count": {
     "message": "起始词数"
   },

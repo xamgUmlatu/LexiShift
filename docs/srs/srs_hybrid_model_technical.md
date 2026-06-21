@@ -173,8 +173,9 @@ The options debug button should be interpreted as:
 Recommended practical starter policy:
 1. initialize `S` from a high-frequency, dictionary-valid subset for pair
 2. cap by explicit sizing policy:
-   - `bootstrap_top_n` default `800` (clamped)
-   - `initial_active_count` default `40` (clamped, never above bootstrap size)
+   - omitted/null `bootstrap_top_n` uses all available seed rows
+   - explicit finite `bootstrap_top_n` remains clamped for debugging/probes
+   - `initial_active_count` default `40` (clamped, and never above finite bootstrap size)
 3. start with default FSRS scheduler parameters and tune later only when real review history exists
 4. move quickly to feedback-driven adaptation
 

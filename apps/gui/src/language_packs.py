@@ -69,6 +69,36 @@ __all__ = [
     "build_pack_catalogs",
 ]
 
+_CONFIRMED_CATALOG_LICENSE_STATUSES = frozenset(
+    {
+        "verified-from-upstream",
+        "source-stack-audited",
+        "local-reference",
+    }
+)
+_REVIEW_CATALOG_LICENSE_STATUSES = frozenset(
+    {
+        "",
+        "expected-not-verified",
+        "manual-review-required",
+        "requires_review",
+        "requires-review",
+    }
+)
+
+
+def provenance_license_status_for_pack(pack: object) -> str:
+    status = str(getattr(pack, "license_status", "") or "").strip().lower()
+    if status in _CONFIRMED_CATALOG_LICENSE_STATUSES:
+        return "confirmed"
+    if status in {"not_redistributable", "not-redistributable"}:
+        return "not_redistributable"
+    if status in {"internal_only", "internal-only"}:
+        return "internal_only"
+    if status in _REVIEW_CATALOG_LICENSE_STATUSES:
+        return "requires_review"
+    return "requires_review"
+
 
 def _build_command_for_mode(build_mode: str) -> str:
     commands = {
@@ -475,6 +505,7 @@ class LanguagePackDownloadThread(QThread):
             source_name=str(self._pack.source or "").strip(),
             source_url=str(self._pack.url or "").strip(),
             wayback_url=self._pack.wayback_url,
+            license_status=provenance_license_status_for_pack(self._pack),
             build_mode=self._pack.build_mode,
             build_command=_build_command_for_mode(self._pack.build_mode),
             converter_version=_converter_version_for_mode(self._pack.build_mode),
@@ -865,6 +896,7 @@ class FrequencyPackDownloadThread(QThread):
             source_name=str(self._pack.source or "").strip(),
             source_url=str(self._pack.url or "").strip(),
             wayback_url=self._pack.wayback_url,
+            license_status=provenance_license_status_for_pack(self._pack),
             build_mode=self._pack.build_mode,
             build_command=_build_command_for_mode(self._pack.build_mode),
             converter_version=_converter_version_for_mode(self._pack.build_mode),

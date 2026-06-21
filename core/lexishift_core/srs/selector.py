@@ -52,6 +52,7 @@ class SelectorCandidate:
     lemma: str
     language_pair: str
     base_freq: float = 0.0
+    admission_suitability: float = 1.0
     topic_bias: float = 0.0
     scarcity_bonus: float = 0.0
     user_pref: float = 0.0
@@ -140,6 +141,11 @@ def score_candidate(candidate: SelectorCandidate, config: SelectorConfig) -> Sco
         score *= readiness_multiplier
         penalties.append("readiness_gate")
 
+    admission_suitability = _candidate_suitability_multiplier(candidate)
+    if admission_suitability < 1.0:
+        score *= admission_suitability
+        penalties.append("admission_suitability")
+
     return ScoredCandidate(
         candidate=candidate,
         breakdown=ScoreBreakdown(
@@ -173,14 +179,16 @@ def resolve_selection_mass(entry: ScoredCandidate, config: SelectorConfig) -> fl
     baseline_alpha = _clamp_01(config.sampling_baseline_alpha)
     score_temperature = max(0.05, float(config.sampling_temperature))
     readiness_multiplier = _candidate_readiness_multiplier(entry.candidate)
-    base_mass = max(0.0, float(entry.candidate.base_freq)) * readiness_multiplier
+    suitability_multiplier = _candidate_suitability_multiplier(entry.candidate)
+    gate_multiplier = readiness_multiplier * suitability_multiplier
+    base_mass = max(0.0, float(entry.candidate.base_freq)) * gate_multiplier
     score_mass = max(0.0, float(entry.breakdown.final_score))
     if score_mass > 0.0 and score_temperature != 1.0:
         score_mass = score_mass ** (1.0 / score_temperature)
     combined_mass = (baseline_alpha * base_mass) + ((1.0 - baseline_alpha) * score_mass)
     if combined_mass <= 0.0:
         return 0.0
-    return max(float(config.sampling_min_mass) * readiness_multiplier, combined_mass)
+    return max(float(config.sampling_min_mass) * gate_multiplier, combined_mass)
 
 
 def select_candidates(
@@ -350,3 +358,26 @@ def _candidate_readiness_multiplier(candidate: SelectorCandidate) -> float:
     if parsed != parsed:
         return 1.0
     return _clamp_01(parsed)
+
+
+def _candidate_suitability_multiplier(candidate: SelectorCandidate) -> float:
+    raw_value: object = candidate.admission_suitability
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    candidate_value = _safe_float(raw_value)
+    if "admission_suitability" in metadata and (candidate_value is None or candidate_value == 1.0):
+        raw_value = metadata.get("admission_suitability")
+        candidate_value = _safe_float(raw_value)
+    parsed = candidate_value
+    if parsed is None:
+        return 1.0
+    return _clamp_01(parsed)
+
+
+def _safe_float(value: object) -> float | None:
+    try:
+        parsed = float(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+    if parsed != parsed:
+        return None
+    return parsed

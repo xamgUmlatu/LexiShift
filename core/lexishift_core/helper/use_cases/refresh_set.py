@@ -173,6 +173,7 @@ def refresh_srs_set(
             require_jmdict=capability.requires_jmdict_for_seed,
             source_label=resolved_frequency_pack.provider if resolved_frequency_pack else None,
             pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
+            cache_dir=paths.srs_seed_frontier_cache_dir(),
         ),
     )
     semantic_context_targets = tuple(

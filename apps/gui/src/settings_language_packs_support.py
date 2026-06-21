@@ -238,6 +238,37 @@ class EmbeddingConversionThread(QThread):
             self.failed.emit(self._pack_id, str(exc))
 
 
+class SeedFrontierCachePrepareThread(QThread):
+    completed = Signal(str, object)
+    failed = Signal(str, str)
+
+    def __init__(
+        self,
+        *,
+        pack_id: str,
+        data_root: str | Path,
+        parent=None,
+    ) -> None:
+        super().__init__(parent)
+        self._pack_id = str(pack_id or "").strip()
+        self._data_root = Path(data_root)
+
+    def run(self) -> None:
+        try:
+            from lexishift_core.helper.paths import build_helper_paths
+            from lexishift_core.helper.use_cases.seed_cache import (
+                prepare_srs_seed_frontier_caches_for_pack,
+            )
+
+            payload = prepare_srs_seed_frontier_caches_for_pack(
+                build_helper_paths(self._data_root),
+                pack_id=self._pack_id,
+            )
+            self.completed.emit(self._pack_id, payload)
+        except Exception as exc:  # noqa: BLE001
+            self.failed.emit(self._pack_id, str(exc))
+
+
 def language_pack_dir() -> str:
     base = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
     if not base:

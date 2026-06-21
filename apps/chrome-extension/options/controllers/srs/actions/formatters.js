@@ -135,6 +135,9 @@
     const plan = opts.plan && typeof opts.plan === "object" ? opts.plan : {};
     const result = opts.result && typeof opts.result === "object" ? opts.result : {};
     const bootstrapTopN = Number(opts.bootstrapTopN || 0);
+    const bootstrapTopNDisplay = formatBootstrapTopN(
+      result.bootstrap_top_n ?? result.set_top_n ?? bootstrapTopN
+    );
     const initialActiveCount = Number(opts.initialActiveCount || 0);
     const maxActiveItemsHint = Number(opts.maxActiveItemsHint || 0);
     const bootstrapDiagnostics = opts.bootstrapDiagnostics && typeof opts.bootstrapDiagnostics === "object"
@@ -169,7 +172,7 @@
       `- applied: ${applied}`,
       `- strategy_requested: ${plan.strategy_requested || "n/a"}`,
       `- strategy_effective: ${plan.strategy_effective || "n/a"}`,
-      `- bootstrap_top_n: ${result.bootstrap_top_n ?? result.set_top_n ?? bootstrapTopN}`,
+      `- bootstrap_top_n: ${bootstrapTopNDisplay}`,
       `- initial_active_count: ${result.initial_active_count ?? initialActiveCount}`,
       `- max_active_items_hint: ${result.max_active_items_hint ?? maxActiveItemsHint}`,
       `- source_type: ${result.source_type || "initial_set"}`,
@@ -195,6 +198,14 @@
       noteLines.length ? "Plan notes:" : null,
       ...noteLines
     ].filter(Boolean).join("\n");
+  }
+
+  function formatBootstrapTopN(value) {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric) || numeric <= 0) {
+      return "all";
+    }
+    return String(Math.round(numeric));
   }
 
   function buildRuntimeDiagnosticsOutput(options) {

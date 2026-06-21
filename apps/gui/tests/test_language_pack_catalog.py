@@ -123,6 +123,9 @@ def test_catalog_records_license_posture_for_auto_and_manual_sources() -> None:
     wordfrequency = _frequency_pack("freq-es-cde")
     german_frequency = _frequency_pack("freq-de-default")
     english_leipzig = _frequency_pack("freq-en-leipzig-default")
+    kanjivg = _language_pack("kanjivg-ja")
+    jlpt_vocab = _language_pack("jlpt-tanos-vocab-ja")
+    sbsjapanese1 = _language_pack("sbsjapanese1-ja")
 
     assert spalex.license_name == "CC BY 4.0"
     assert spalex.distribution_mode == AUTO_DOWNLOAD_MODE
@@ -135,6 +138,12 @@ def test_catalog_records_license_posture_for_auto_and_manual_sources() -> None:
     assert english_leipzig.build_mode == "en_frequency_pipeline"
     assert english_leipzig.distribution_mode == AUTO_DOWNLOAD_MODE
     assert english_leipzig.license_status == "expected-not-verified"
+    assert kanjivg.license_name == "CC BY-SA 3.0"
+    assert kanjivg.distribution_mode == AUTO_DOWNLOAD_MODE
+    assert jlpt_vocab.license_url == "https://www.tanos.co.uk/jlpt/sharing/"
+    assert jlpt_vocab.distribution_mode == AUTO_DOWNLOAD_MODE
+    assert sbsjapanese1.license_name == "CC BY 4.0"
+    assert sbsjapanese1.distribution_mode == AUTO_DOWNLOAD_MODE
 
 
 def test_third_party_data_notices_render_from_catalog_metadata() -> None:

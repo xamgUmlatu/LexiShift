@@ -60,7 +60,7 @@
     srsEnabled: false,
     srsPair: "en-en",
     srsMaxActive: 40,
-    srsBootstrapTopN: 800,
+    srsBootstrapTopN: null,
     srsInitialActiveCount: 40,
     srsSoundEnabled: true,
     srsHighlightColor: "#2F74D0",

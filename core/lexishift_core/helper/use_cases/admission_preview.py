@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import random
-from typing import Callable, Mapping, Sequence
+from typing import Callable, Mapping, Optional, Sequence
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
@@ -63,7 +63,7 @@ def preview_srs_admission(
     config,
     resolve_profile_id_fn: Callable[..., str],
     ensure_store_fn: Callable[..., SrsStore],
-    resolve_pair_set_top_n_fn: Callable[..., int],
+    resolve_pair_set_top_n_fn: Callable[..., Optional[int]],
     resolve_pair_initial_active_count_fn: Callable[..., int],
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
@@ -132,9 +132,7 @@ def preview_srs_admission(
     existing_items_for_pair = count_items_for_pair_fn(store, pair)
     sizing_policy = resolve_set_sizing_policy(
         bootstrap_top_n=(
-            max(1, int(config.bootstrap_top_n))
-            if config.bootstrap_top_n is not None
-            else resolved_set_top_n
+            config.bootstrap_top_n if config.bootstrap_top_n is not None else resolved_set_top_n
         ),
         initial_active_count=resolved_initial_active_count,
         max_active_items_hint=config.max_active_items_hint,
@@ -219,6 +217,7 @@ def preview_srs_admission(
             require_jmdict=capability.requires_jmdict_for_seed,
             source_label=frequency_source_label,
             pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
+            seed_cache_dir=paths.srs_seed_frontier_cache_dir(),
             strategy=str(config.strategy or "frequency_bootstrap"),
             profile_context=config.profile_context,
             selection_seed=getattr(config, "preview_seed", None),
@@ -260,29 +259,45 @@ def _build_preview_payload(
     ranking_preview_raw = raw_profile_bootstrap.get("ranking_preview")
     ranking_preview = list(ranking_preview_raw) if isinstance(ranking_preview_raw, list) else []
     ranking_by_lemma: dict[str, dict[str, object]] = {}
+    ranking_by_identity: dict[str, dict[str, object]] = {}
     for entry in ranking_preview:
         if not isinstance(entry, Mapping):
             continue
         lemma = str(entry.get("lemma", "")).strip()
         if lemma and lemma not in ranking_by_lemma:
             ranking_by_lemma[lemma] = dict(entry)
+        identity_key = str(entry.get("candidate_identity_key") or "").strip()
+        if identity_key and identity_key not in ranking_by_identity:
+            ranking_by_identity[identity_key] = dict(entry)
     weight_preview_raw = getattr(init_report, "initial_active_weight_preview", ()) or ()
     weight_by_lemma: dict[str, dict[str, object]] = {}
+    weight_by_identity: dict[str, dict[str, object]] = {}
     for entry in weight_preview_raw:
         if not isinstance(entry, Mapping):
             continue
         lemma = str(entry.get("lemma", "")).strip()
         if lemma and lemma not in weight_by_lemma:
             weight_by_lemma[lemma] = dict(entry)
+        identity_key = str(entry.get("candidate_identity_key") or "").strip()
+        if identity_key and identity_key not in weight_by_identity:
+            weight_by_identity[identity_key] = dict(entry)
     planned_active_lemmas = [
         str(lemma).strip()
         for lemma in getattr(init_report, "initial_active_preview", ()) or ()
         if str(lemma).strip()
     ]
+    planned_active_identity_keys = [
+        str(identity_key).strip()
+        for identity_key in getattr(init_report, "initial_active_identity_keys", ()) or ()
+        if str(identity_key).strip()
+    ]
     planned_active_words = _build_planned_active_words(
         planned_active_lemmas=planned_active_lemmas,
+        planned_active_identity_keys=planned_active_identity_keys,
         ranking_by_lemma=ranking_by_lemma,
+        ranking_by_identity=ranking_by_identity,
         weight_by_lemma=weight_by_lemma,
+        weight_by_identity=weight_by_identity,
     )
     sampling_mode = str(
         getattr(init_report, "selection_policy", None) or PREVIEW_SAMPLING_MODE_RANKED
@@ -329,21 +344,31 @@ def _build_helper_preview_profile_bootstrap_payload(
 def _build_planned_active_words(
     *,
     planned_active_lemmas: Sequence[str],
+    planned_active_identity_keys: Sequence[str],
     ranking_by_lemma: Mapping[str, dict[str, object]],
+    ranking_by_identity: Mapping[str, dict[str, object]],
     weight_by_lemma: Mapping[str, dict[str, object]],
+    weight_by_identity: Mapping[str, dict[str, object]],
 ) -> list[dict[str, object]]:
     planned_active_words: list[dict[str, object]] = []
     seen_lemmas: set[str] = set()
-    for lemma in planned_active_lemmas:
+    for index, lemma in enumerate(planned_active_lemmas):
         normalized_lemma = str(lemma or "").strip()
         if not normalized_lemma or normalized_lemma in seen_lemmas:
             continue
         seen_lemmas.add(normalized_lemma)
+        identity_key = (
+            planned_active_identity_keys[index] if index < len(planned_active_identity_keys) else ""
+        )
         word_payload = {
             "lemma": normalized_lemma,
             **weight_by_lemma.get(normalized_lemma, {}),
             **ranking_by_lemma.get(normalized_lemma, {}),
+            **weight_by_identity.get(identity_key, {}),
+            **ranking_by_identity.get(identity_key, {}),
         }
+        if identity_key and "candidate_identity_key" not in word_payload:
+            word_payload["candidate_identity_key"] = identity_key
         if "explanation" not in word_payload:
             word_payload["explanation"] = "Selected for the initial active bootstrap preview."
         planned_active_words.append(word_payload)

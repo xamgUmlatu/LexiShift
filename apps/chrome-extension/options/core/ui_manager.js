@@ -57,8 +57,7 @@ class UIManager {
       "srs-story-flow-target-language", "srs-story-flow-profile-id",
       "srs-story-flow-proficiency-estimate", "srs-story-flow-topic-interests",
       "srs-story-flow-proficiency-estimate-value",
-      "srs-story-flow-max-active", "srs-story-flow-bootstrap-top-n",
-      "srs-story-flow-initial-active-count", "srs-story-flow-sample",
+      "srs-story-flow-max-active", "srs-story-flow-initial-active-count", "srs-story-flow-sample",
       "srs-story-flow-initialize", "srs-story-flow-preview-output",
       "srs-story-flow-busy-backdrop", "srs-story-flow-busy-message",
       "srs-story-flow-resource-check", "srs-story-flow-resource-message", "srs-story-flow-resource-list", "srs-story-flow-open-resource-settings", "srs-story-flow-retry-resources",
@@ -457,7 +456,7 @@ class UIManager {
       this.dom.srsMaxActive.value = String(profile.srsMaxActive);
     }
     if (this.dom.srsBootstrapTopN) {
-      this.dom.srsBootstrapTopN.value = String(profile.srsBootstrapTopN);
+      this.dom.srsBootstrapTopN.value = "";
     }
     if (this.dom.srsInitialActiveCount) {
       this.dom.srsInitialActiveCount.value = String(profile.srsInitialActiveCount);

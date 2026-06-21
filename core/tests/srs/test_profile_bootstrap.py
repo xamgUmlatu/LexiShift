@@ -93,10 +93,50 @@ class TestProfileBootstrapTraits(unittest.TestCase):
 
         self.assertAlmostEqual(traits.base_freq, 0.72, places=6)
         self.assertAlmostEqual(traits.difficulty_estimate, 0.28, places=6)
-        self.assertEqual(traits.difficulty_proxy, "1_minus_admission_weight")
+        self.assertEqual(traits.difficulty_proxy, "1_minus_base_weight")
         self.assertEqual(set(traits.lexical_forms), {"する", "為る"})
         self.assertEqual(set(traits.raw_topic_hints), {"animals", "daily_life", "grammar"})
         self.assertEqual(set(traits.topic_hints), {"animals", "daily_life", "grammar"})
+
+    def test_difficulty_uses_base_weight_not_pos_demoted_admission_weight(self) -> None:
+        traits = extract_profile_bootstrap_candidate_traits(
+            SimpleNamespace(
+                lemma="七百",
+                language_pair="en-ja",
+                pos="名詞-数詞",
+                base_weight=0.82,
+                admission_weight=0.33,
+                metadata={},
+            )
+        )
+
+        self.assertAlmostEqual(traits.lexical_commonness, 0.82, places=6)
+        self.assertAlmostEqual(traits.coverage_gain, 0.33, places=6)
+        self.assertAlmostEqual(traits.base_freq, 0.33, places=6)
+        self.assertAlmostEqual(traits.difficulty_estimate, 0.18, places=6)
+        self.assertEqual(traits.candidate_state, "suppressed_default")
+        self.assertEqual(traits.presentation_mode, "suppress")
+        self.assertEqual(traits.problem_class, "numeral_or_counter")
+        self.assertAlmostEqual(traits.admission_suitability, 0.0, places=6)
+
+    def test_en_ja_learner_difficulty_overlay_corrects_beginner_staples(self) -> None:
+        traits = extract_profile_bootstrap_candidate_traits(
+            SimpleNamespace(
+                lemma="猫",
+                language_pair="en-ja",
+                pos="名詞-普通名詞-一般",
+                base_weight=0.39,
+                admission_weight=0.39,
+                metadata={},
+            )
+        )
+
+        self.assertAlmostEqual(traits.difficulty_estimate, 0.20, places=6)
+        self.assertEqual(
+            traits.difficulty_proxy,
+            "learner_difficulty_v1:en_ja_exact_overlay",
+        )
+        self.assertIn("beginner_core_animal", traits.difficulty_sources)
 
     def test_builds_signal_pack_from_traits_and_context(self) -> None:
         context = normalize_profile_bootstrap_context(
@@ -120,6 +160,28 @@ class TestProfileBootstrapTraits(unittest.TestCase):
         self.assertGreater(signal_pack.proficiency_fit, 0.0)
         self.assertGreater(signal_pack.challenge_fit, 0.0)
         self.assertAlmostEqual(signal_pack.readiness_multiplier, 1.0, places=6)
+        self.assertAlmostEqual(signal_pack.admission_suitability, 1.0, places=6)
+
+    def test_deprioritized_vocab_candidates_recover_suitability_when_topic_matches(self) -> None:
+        topic_context = normalize_profile_bootstrap_context({"interests": ["history"]})
+        neutral_context = normalize_profile_bootstrap_context({})
+        traits = extract_profile_bootstrap_candidate_traits(
+            SimpleNamespace(
+                lemma="自民",
+                language_pair="en-ja",
+                pos="名詞-固有名詞-一般",
+                base_weight=0.70,
+                admission_weight=0.70,
+                metadata={"topics": ["history"]},
+            )
+        )
+
+        topic_signal_pack = build_profile_bootstrap_signal_pack(traits, topic_context)
+        neutral_signal_pack = build_profile_bootstrap_signal_pack(traits, neutral_context)
+
+        self.assertEqual(traits.candidate_state, "deprioritized_vocab")
+        self.assertAlmostEqual(neutral_signal_pack.admission_suitability, 0.25, places=6)
+        self.assertAlmostEqual(topic_signal_pack.admission_suitability, 0.80, places=6)
 
     def test_readiness_gate_suppresses_far_too_easy_words_for_advanced_users(self) -> None:
         context = normalize_profile_bootstrap_context(
@@ -161,6 +223,31 @@ class TestProfileBootstrapTraits(unittest.TestCase):
         self.assertAlmostEqual(slightly_easy_signal_pack.readiness_too_easy_gap, 0.0, places=6)
         self.assertLess(far_too_easy_signal_pack.readiness_multiplier, 0.01)
         self.assertGreater(far_too_easy_signal_pack.readiness_too_easy_gap, 0.40)
+
+    def test_explicit_challenge_target_sets_readiness_center(self) -> None:
+        context = normalize_profile_bootstrap_context(
+            {
+                "proficiency": {"estimated_value": 0.80},
+                "difficulty_preferences": {
+                    "target_challenge_center": 0.20,
+                    "target_challenge_spread": 0.12,
+                },
+            }
+        )
+        easy_traits = extract_profile_bootstrap_candidate_traits(
+            SimpleNamespace(
+                lemma="cat",
+                admission_weight=0.80,
+                metadata={},
+            )
+        )
+
+        signal_pack = build_profile_bootstrap_signal_pack(easy_traits, context)
+
+        self.assertEqual(signal_pack.readiness_center_source, "challenge_target")
+        self.assertAlmostEqual(signal_pack.readiness_center or 0.0, 0.20, places=6)
+        self.assertAlmostEqual(signal_pack.readiness_multiplier, 1.0, places=6)
+        self.assertAlmostEqual(signal_pack.readiness_too_easy_gap, 0.0, places=6)
 
     def test_topic_family_expansion_allows_pets_to_match_animals(self) -> None:
         context = normalize_profile_bootstrap_context({"interests": ["animals"]})
@@ -346,6 +433,46 @@ class TestProfileBootstrapReranking(unittest.TestCase):
         self.assertIn(
             "readiness_gate",
             preview_by_lemma["basic"]["penalties"],
+        )
+
+    def test_admission_suitability_suppresses_compositional_numbers_in_default_vocab_lane(
+        self,
+    ) -> None:
+        seeds = [
+            SimpleNamespace(
+                lemma="学校",
+                language_pair="en-ja",
+                pos="名詞-普通名詞",
+                base_weight=0.50,
+                admission_weight=0.50,
+                metadata={},
+            ),
+            SimpleNamespace(
+                lemma="七百",
+                language_pair="en-ja",
+                pos="名詞-数詞",
+                base_weight=0.95,
+                admission_weight=0.95,
+                metadata={},
+            ),
+        ]
+
+        reranked, diagnostics = rerank_seed_words_for_profile(seeds, profile_context={})
+
+        self.assertEqual([item.lemma for item in reranked], ["学校", "七百"])
+        preview_by_lemma = {entry["lemma"]: entry for entry in diagnostics["ranking_preview"]}
+        self.assertEqual(
+            preview_by_lemma["七百"]["candidate_traits"]["candidate_state"],
+            "suppressed_default",
+        )
+        self.assertAlmostEqual(
+            preview_by_lemma["七百"]["signals"]["admission_suitability"],
+            0.0,
+            places=6,
+        )
+        self.assertIn(
+            "admission_suitability",
+            preview_by_lemma["七百"]["penalties"],
         )
 
     def test_active_topic_support_reports_sparse_topic_as_not_ready(self) -> None:

@@ -212,12 +212,6 @@
   "hint_srs_max_active": {
     "message": "Wie viele Lernwörter LexiShift gleichzeitig in der Übungsrotation hält."
   },
-  "label_srs_bootstrap_top_n": {
-    "message": "Wortschatz-Suchbereich"
-  },
-  "hint_srs_bootstrap_top_n": {
-    "message": "Erweitert den gerankten Wortpool für Stichproben und neue Wörter. Belasse den Standard, solange die Stichprobe nicht zu eng wirkt."
-  },
   "label_srs_initial_active_count": {
     "message": "Startwörter"
   },

@@ -124,6 +124,7 @@ try:
         default_jmdict_path,
         default_translation_dictionary_path,
     )
+    from lexishift_native_host_seed_cache import handle_srs_seed_cache_request
 except Exception as exc:  # noqa: BLE001
     _log_native_host_failure("startup_import", exc)
     raise
@@ -435,6 +436,8 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
     if msg_type == "srs_items_list":
         pair = str(payload.get("pair", "en-ja"))
         return list_srs_items(paths, pair=pair, profile_id=profile_id or "default")
+    if msg_type in {"srs_seed_cache_status", "srs_seed_cache_prepare"}:
+        return handle_srs_seed_cache_request(paths, msg_type, payload)
     if msg_type == "srs_item_rule_details":
         pair = str(payload.get("pair", "en-ja"))
         return get_srs_item_rule_details(

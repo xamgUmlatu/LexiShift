@@ -38,6 +38,7 @@ from lexishift_core.srs.profile_bootstrap import (
     ProfileBootstrapScoredEntry,
     score_seed_words_for_profile,
 )
+from lexishift_core.srs.candidate_identity import candidate_identity_key_from_seed
 from lexishift_core.srs.selector import (
     SELECTION_POLICY_TOP_N,
     SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT,
@@ -55,6 +56,8 @@ from lexishift_core.srs.source import SOURCE_INITIAL_SET
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
 from lexishift_core.srs.time import format_ts, now_utc, parse_ts
 from lexishift_core.scoring.weighting import GlossDecay
+
+PROFILE_BOOTSTRAP_DIAGNOSTIC_PREVIEW_LIMIT = 200
 
 __all__ = [
     "RulegenConfig",
@@ -79,7 +82,7 @@ class SetInitializationConfig:
     frequency_db: Path
     jmdict_path: Optional[Path] = None
     source_label: Optional[str] = None
-    top_n: int = 2000
+    top_n: Optional[int] = None
     initial_active_count: int = 40
     language_pair: str = "en-ja"
     stopwords_path: Optional[Path] = None
@@ -89,6 +92,7 @@ class SetInitializationConfig:
     selection_seed: Optional[int] = None
     selection_policy_override: Optional[str] = None
     pos_overlay_path: Optional[Path] = None
+    seed_cache_dir: Optional[Path] = None
     profile_topic_overlay: Optional[Mapping[str, object]] = None
     profile_topic_overlay_diagnostics: Mapping[str, object] = field(default_factory=dict)
 
@@ -110,6 +114,8 @@ class SetInitializationReport:
     selection_seed: Optional[int] = None
     selector_version: Optional[str] = None
     profile_bootstrap_diagnostics: Mapping[str, object] = field(default_factory=dict)
+    selected_unique_identity_keys: Sequence[str] = ()
+    initial_active_identity_keys: Sequence[str] = ()
 
 
 @dataclass(frozen=True)
@@ -268,6 +274,7 @@ def initialize_store_from_frequency_list_with_report(
         admission_pos_weights=resolved_pos_weights,
         source_label=config.source_label,
         pos_overlay_path=config.pos_overlay_path,
+        cache_dir=config.seed_cache_dir,
     )
     selected_words = _coerce_seed_words(
         build_seed_candidates(
@@ -299,7 +306,7 @@ def initialize_store_from_frequency_list_with_report(
         scored_entries, profile_bootstrap_diagnostics = score_seed_words_for_profile(
             selected_words,
             profile_context=config.profile_context,
-            preview_limit=len(selected_words),
+            preview_limit=min(len(selected_words), PROFILE_BOOTSTRAP_DIAGNOSTIC_PREVIEW_LIMIT),
         )
         selection_strategy = STRATEGY_PROFILE_BOOTSTRAP
         selector_version = str(profile_bootstrap_diagnostics.get("selector_version") or "").strip()
@@ -402,6 +409,18 @@ def initialize_store_from_frequency_list_with_report(
     initial_active_preview = tuple(
         selected.lemma for selected in admitted_words[:initial_active_count]
     )
+    selected_unique_identity_keys = tuple(
+        identity_key
+        for selected in unique_selected_words
+        for identity_key in (candidate_identity_key_from_seed(selected),)
+        if identity_key
+    )
+    initial_active_identity_keys = tuple(
+        identity_key
+        for selected in admitted_words[:initial_active_count]
+        for identity_key in (candidate_identity_key_from_seed(selected),)
+        if identity_key
+    )
     report = SetInitializationReport(
         selected_count=len(selected_words),
         selected_unique_count=len(unique_selected_words),
@@ -424,6 +443,8 @@ def initialize_store_from_frequency_list_with_report(
         selection_seed=selection_seed,
         selector_version=selector_version or None,
         profile_bootstrap_diagnostics=dict(profile_bootstrap_diagnostics),
+        selected_unique_identity_keys=selected_unique_identity_keys,
+        initial_active_identity_keys=initial_active_identity_keys,
     )
     return updated, report
 
@@ -485,6 +506,7 @@ def _build_weight_preview_entry(selected: object) -> Mapping[str, object]:
     pos_weight = _safe_optional_float(getattr(selected, "pos_weight", None))
     admission_weight = _safe_optional_float(getattr(selected, "admission_weight", None))
     return {
+        "candidate_identity_key": candidate_identity_key_from_seed(selected),
         "lemma": str(getattr(selected, "lemma", "")).strip(),
         "pos": getattr(selected, "pos", None),
         "pos_bucket": str(getattr(selected, "pos_bucket", "")),
@@ -557,18 +579,52 @@ def _annotate_rule_with_srs_serving_metadata(
 
 
 def _dedupe_seed_words(selected_words: Sequence[object]) -> list[_SeedWordLike]:
-    seen_ids: set[str] = set()
-    unique_selected_words: list[_SeedWordLike] = []
+    selected_by_id: dict[str, _SeedWordLike] = {}
+    order_by_id: dict[str, int] = {}
     for selected in selected_words:
         seed = _as_seed_word_like(selected)
         if seed is None:
             continue
         item_id = build_item_id(seed.language_pair, seed.lemma)
-        if item_id in seen_ids:
-            continue
-        seen_ids.add(item_id)
-        unique_selected_words.append(seed)
-    return unique_selected_words
+        order_by_id.setdefault(item_id, len(order_by_id))
+        existing = selected_by_id.get(item_id)
+        if existing is None or _seed_choice_key(seed) > _seed_choice_key(existing):
+            selected_by_id[item_id] = seed
+    return [
+        selected_by_id[item_id]
+        for item_id, _order in sorted(order_by_id.items(), key=lambda item: item[1])
+    ]
+
+
+def _seed_choice_key(seed: object) -> tuple[float, float, float, float]:
+    rank = _safe_optional_float(getattr(seed, "core_rank", None))
+    rank_score = -rank if rank is not None else float("-inf")
+    return (
+        _resolve_seed_admission_suitability(seed),
+        _safe_optional_float(getattr(seed, "admission_weight", None)) or 0.0,
+        _safe_optional_float(getattr(seed, "base_weight", None)) or 0.0,
+        rank_score,
+    )
+
+
+def _profile_entry_choice_key(entry: ProfileBootstrapScoredEntry) -> tuple[float, float, float]:
+    return (
+        float(entry.scored_candidate.breakdown.final_score),
+        float(entry.signal_pack.admission_suitability),
+        float(entry.traits.coverage_gain),
+    )
+
+
+def _resolve_seed_admission_suitability(seed: object) -> float:
+    value = _safe_optional_float(getattr(seed, "admission_suitability", None))
+    if value is not None:
+        return value
+    metadata = getattr(seed, "metadata", None)
+    if isinstance(metadata, Mapping):
+        value = _safe_optional_float(metadata.get("admission_suitability"))
+        if value is not None:
+            return value
+    return 1.0
 
 
 def _coerce_seed_words(selected_words: object) -> list[_SeedWordLike]:
@@ -591,19 +647,24 @@ def _as_seed_word_like(value: object) -> _SeedWordLike | None:
 def _dedupe_profile_bootstrap_entries(
     scored_entries: Sequence[ProfileBootstrapScoredEntry],
 ) -> list[ProfileBootstrapScoredEntry]:
-    seen_ids: set[str] = set()
-    unique_entries: list[ProfileBootstrapScoredEntry] = []
+    entry_by_id: dict[str, ProfileBootstrapScoredEntry] = {}
+    order_by_id: dict[str, int] = {}
     for entry in scored_entries:
         seed = getattr(entry, "seed", None)
         seed_like = _as_seed_word_like(seed)
         if seed_like is None:
             continue
         item_id = build_item_id(seed_like.language_pair, seed_like.lemma)
-        if item_id in seen_ids:
-            continue
-        seen_ids.add(item_id)
-        unique_entries.append(entry)
-    return unique_entries
+        order_by_id.setdefault(item_id, len(order_by_id))
+        existing = entry_by_id.get(item_id)
+        if existing is None or _profile_entry_choice_key(entry) > _profile_entry_choice_key(
+            existing
+        ):
+            entry_by_id[item_id] = entry
+    return [
+        entry_by_id[item_id]
+        for item_id, _order in sorted(order_by_id.items(), key=lambda item: item[1])
+    ]
 
 
 def _seed_to_bootstrap_selector_candidates(seeds: Sequence[object]) -> list[SelectorCandidate]:
@@ -619,9 +680,11 @@ def _seed_to_bootstrap_selector_candidates(seeds: Sequence[object]) -> list[Sele
                 lemma=str(getattr(seed, "lemma", "") or "").strip(),
                 language_pair=str(getattr(seed, "language_pair", "") or "").strip(),
                 base_freq=admission_weight,
+                admission_suitability=_resolve_seed_admission_suitability(seed),
                 confidence=0.0,
                 pos=str(getattr(seed, "pos_bucket", "") or "").strip() or None,
                 metadata={
+                    "candidate_identity_key": candidate_identity_key_from_seed(seed),
                     "base_weight": _safe_optional_float(getattr(seed, "base_weight", None)),
                     "admission_weight": admission_weight,
                     "pos_bucket": str(getattr(seed, "pos_bucket", "") or "").strip() or None,

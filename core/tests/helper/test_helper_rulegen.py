@@ -91,6 +91,65 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertEqual(report.admitted_count, 3)
         self.assertEqual(report.inserted_count, 3)
 
+    def test_same_surface_dedupe_prefers_admissible_reading_row(self) -> None:
+        suffix_package = {
+            "version": 1,
+            "language_tag": "ja",
+            "surface": "的",
+            "reading": "てき",
+            "script_forms": {"kanji": "的", "kana": "てき", "romaji": "teki"},
+            "source": {"provider": "freq-ja-bccwj"},
+            "pos": "接尾辞-形状詞的",
+            "pos_raw": "接尾辞-形状詞的",
+        }
+        noun_package = {
+            "version": 1,
+            "language_tag": "ja",
+            "surface": "的",
+            "reading": "まと",
+            "script_forms": {"kanji": "的", "kana": "まと", "romaji": "mato"},
+            "source": {"provider": "freq-ja-bccwj"},
+            "pos": "名詞-普通名詞-一般",
+            "pos_raw": "名詞-普通名詞-一般",
+        }
+        selected = [
+            SimpleNamespace(
+                lemma="的",
+                language_pair="en-ja",
+                base_weight=0.99,
+                admission_weight=0.99,
+                admission_suitability=0.02,
+                pos="接尾辞-形状詞的",
+                word_package=suffix_package,
+            ),
+            SimpleNamespace(
+                lemma="的",
+                language_pair="en-ja",
+                base_weight=0.20,
+                admission_weight=0.20,
+                admission_suitability=1.0,
+                pos="名詞-普通名詞-一般",
+                word_package=noun_package,
+            ),
+        ]
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
+            store, report = initialize_store_from_frequency_list_with_report(
+                SrsStore(),
+                config=SetInitializationConfig(
+                    frequency_db=Path("/tmp/freq.sqlite"),
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    top_n=800,
+                    initial_active_count=1,
+                    language_pair="en-ja",
+                ),
+            )
+
+        self.assertEqual(report.selected_unique_count, 1)
+        self.assertEqual(report.admitted_count, 1)
+        self.assertEqual(store.items[0].lemma, "的")
+        self.assertEqual(store.items[0].word_package["reading"], "まと")
+        self.assertEqual(report.initial_active_weight_preview[0]["pos"], "名詞-普通名詞-一般")
+
     def test_reports_updates_for_existing_items_in_admitted_subset(self) -> None:
         selected = [
             SimpleNamespace(lemma="alpha", language_pair="en-ja"),

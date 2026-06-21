@@ -127,6 +127,11 @@ class HelperPaths:
     def srs_admission_suppression_store_path_for(self, profile_id: str | None = None) -> Path:
         return self.profile_srs_dir(profile_id) / "srs_admission_suppression.json"
 
+    def srs_seed_frontier_cache_dir(self) -> Path:
+        directory = self.srs_dir / "cache" / "seed_frontiers"
+        directory.mkdir(parents=True, exist_ok=True)
+        return directory
+
     def snapshot_path(self, pair: str, profile_id: str | None = None) -> Path:
         safe_pair = pair.replace("/", "-").replace(":", "-")
         return self.profile_srs_dir(profile_id) / f"srs_rulegen_snapshot_{safe_pair}.json"

@@ -6,6 +6,16 @@
       return;
     }
 
+    function applyBootstrapTopN(payload, sizing) {
+      const rawTopN = sizing && Number.parseInt(sizing.bootstrapTopN, 10);
+      if (!Number.isFinite(rawTopN)) {
+        return payload;
+      }
+      payload.set_top_n = Math.max(200, rawTopN);
+      payload.bootstrap_top_n = Math.max(200, rawTopN);
+      return payload;
+    }
+
     proto.initializeSrsSet = async function initializeSrsSet(pair, setTopN, options) {
       const client = this.getClient();
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
@@ -19,11 +29,9 @@
         ? opts.profileContext
         : {};
 
-      const response = await client.initializeSrs({
+      const payload = applyBootstrapTopN({
         pair,
         profile_id: profileId,
-        set_top_n: sizing.bootstrapTopN,
-        bootstrap_top_n: sizing.bootstrapTopN,
         initial_active_count: sizing.initialActiveCount,
         max_active_items_hint: sizing.maxActiveItemsHint,
         replace_pair: false,
@@ -31,7 +39,8 @@
         objective,
         trigger,
         profile_context: profileContext
-      }, 30000);
+      }, sizing);
+      const response = await client.initializeSrs(payload, 30000);
       if (!response || response.ok === false) {
         throw new Error(
           this.normalizeHelperErrorMessage(
@@ -56,18 +65,17 @@
       const profileContext = opts.profileContext && typeof opts.profileContext === "object"
         ? opts.profileContext
         : {};
-      const response = await client.planSrsSet({
+      const payload = applyBootstrapTopN({
         pair,
         profile_id: profileId,
         strategy,
         objective,
-        set_top_n: sizing.bootstrapTopN,
-        bootstrap_top_n: sizing.bootstrapTopN,
         initial_active_count: sizing.initialActiveCount,
         max_active_items_hint: sizing.maxActiveItemsHint,
         trigger,
         profile_context: profileContext
-      }, 15000);
+      }, sizing);
+      const response = await client.planSrsSet(payload, 15000);
       if (!response || response.ok === false) {
         throw new Error(
           this.normalizeHelperErrorMessage(
@@ -97,13 +105,11 @@
       const profileContext = opts.profileContext && typeof opts.profileContext === "object"
         ? opts.profileContext
         : {};
-      const response = await client.previewSrsAdmission({
+      const payload = applyBootstrapTopN({
         pair,
         profile_id: profileId,
         strategy,
         objective,
-        set_top_n: sizing.bootstrapTopN,
-        bootstrap_top_n: sizing.bootstrapTopN,
         initial_active_count: sizing.initialActiveCount,
         max_active_items_hint: sizing.maxActiveItemsHint,
         preview_count: Number.isFinite(previewCount) ? Math.max(1, Math.min(previewCount, 20)) : 10,
@@ -111,7 +117,8 @@
         preview_seed: Number.isFinite(previewSeed) ? previewSeed : undefined,
         trigger,
         profile_context: profileContext
-      }, 30000);
+      }, sizing);
+      const response = await client.previewSrsAdmission(payload, 30000);
       if (!response || response.ok === false) {
         throw new Error(
           this.normalizeHelperErrorMessage(
@@ -271,12 +278,11 @@
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
       const opts = options && typeof options === "object" ? options : {};
       const profileId = this.normalizeProfileId(opts.profileId);
-      const response = await client.planSrsRebalance({
+      const payload = {
         pair,
         profile_id: profileId,
         strategy: typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_growth",
         objective: typeof opts.objective === "string" && opts.objective ? opts.objective : "rebalance",
-        set_top_n: Number.parseInt(opts.setTopN, 10) || 800,
         max_active_items: Number.isFinite(Number(opts.maxActiveItems))
           ? Number(opts.maxActiveItems)
           : undefined,
@@ -284,7 +290,12 @@
           ? opts.profileContext
           : undefined,
         trigger: typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_rebalance_preview_button"
-      }, 30000);
+      };
+      const rawSetTopN = Number.parseInt(opts.setTopN, 10);
+      if (Number.isFinite(rawSetTopN)) {
+        payload.set_top_n = Math.max(200, rawSetTopN);
+      }
+      const response = await client.planSrsRebalance(payload, 30000);
       if (!response || response.ok === false) {
         throw new Error(
           this.normalizeHelperErrorMessage(
@@ -302,12 +313,11 @@
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
       const opts = options && typeof options === "object" ? options : {};
       const profileId = this.normalizeProfileId(opts.profileId);
-      const response = await client.applySrsRebalance({
+      const payload = {
         pair,
         profile_id: profileId,
         strategy: typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_growth",
         objective: typeof opts.objective === "string" && opts.objective ? opts.objective : "rebalance",
-        set_top_n: Number.parseInt(opts.setTopN, 10) || 800,
         max_active_items: Number.isFinite(Number(opts.maxActiveItems))
           ? Number(opts.maxActiveItems)
           : undefined,
@@ -315,7 +325,12 @@
           ? opts.profileContext
           : undefined,
         trigger: typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_rebalance_apply_button"
-      }, 30000);
+      };
+      const rawSetTopN = Number.parseInt(opts.setTopN, 10);
+      if (Number.isFinite(rawSetTopN)) {
+        payload.set_top_n = Math.max(200, rawSetTopN);
+      }
+      const response = await client.applySrsRebalance(payload, 30000);
       if (!response || response.ok === false) {
         throw new Error(
           this.normalizeHelperErrorMessage(

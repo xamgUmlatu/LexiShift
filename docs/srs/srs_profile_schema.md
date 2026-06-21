@@ -160,7 +160,7 @@ Current normalized helper example:
     "max_active_items": 40
   },
   "sizing": {
-    "bootstrap_top_n": 800,
+    "bootstrap_top_n": null,
     "initial_active_count": 40
   }
 }
@@ -199,8 +199,6 @@ Current request envelope example:
 {
   "pair": "en-ja",
   "profile_id": "default",
-  "set_top_n": 800,
-  "bootstrap_top_n": 800,
   "initial_active_count": 40,
   "max_active_items_hint": 40,
   "profile_context": {
@@ -225,7 +223,7 @@ Current request envelope example:
       "max_active_items": 40
     },
     "sizing": {
-      "bootstrap_top_n": 800,
+      "bootstrap_top_n": null,
       "initial_active_count": 40
     }
   }
@@ -235,8 +233,8 @@ Current request envelope example:
 Notes:
 
 - helper use cases currently resolve sizing from top-level request fields:
-  - `set_top_n`
-  - `bootstrap_top_n`
+  - `set_top_n` / `bootstrap_top_n` when a finite override is explicitly supplied;
+    omitted/null means all available seed rows for bootstrap/admission sampling
   - `initial_active_count`
   - `max_active_items_hint`
 - sizing normalization is centralized in `srs/set_policy.py`
@@ -270,7 +268,7 @@ Example:
         "en-ja": {
           "srsEnabled": true,
           "srsMaxActive": 40,
-          "srsBootstrapTopN": 800,
+          "srsBootstrapTopN": null,
           "srsInitialActiveCount": 40
         }
       },

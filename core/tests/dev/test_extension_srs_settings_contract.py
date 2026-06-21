@@ -436,10 +436,10 @@ assert.equal(prefs.backgroundBackdropColor, "#123456");
         self.assertNotIn('id="target-language-gear"', current_card_markup)
         self.assertNotIn('for="srs-initial-active-count"', current_card_markup)
         self.assertNotIn('for="srs-bootstrap-top-n"', current_card_markup)
+        self.assertNotIn('id="srs-story-flow-bootstrap-top-n"', html)
         self.assertRegex(
             html,
             r'(?s)<details class="advanced srs-story-size-advanced srs-story-flow-size-advanced">'
-            r'.*?id="srs-story-flow-bootstrap-top-n"'
             r'.*?for="srs-story-flow-initial-active-count"',
         )
         admission_start = current_card_markup.index(
@@ -705,7 +705,6 @@ const elements = {{
   modalTopicInterestsInput: createInput("animals"),
   modalTopicInterestChipButtons: [modalTopicAnimals],
   modalMaxActiveInput: createInput("30"),
-  modalBootstrapTopNInput: createInput("1000"),
   modalInitialActiveCountInput: createInput("40"),
   sampleButton: createButton(),
   initializeButton: createButton(),
@@ -720,7 +719,6 @@ const elements = {{
   mainTopicInterestsInput: createInput(""),
   mainTopicInterestChipButtons: [mainTopicAnimals],
   mainMaxActiveInput: createInput("20"),
-  mainBootstrapTopNInput: createInput("800"),
   mainInitialActiveCountInput: createInput("25"),
   mainSamplingCurtain,
   mainAdmissionPreviewOutput
@@ -764,7 +762,6 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   elements.modalProficiencyEstimateInput.dataset.srsHasValue = "true";
   elements.modalTopicInterestsInput.value = "animals";
   elements.modalMaxActiveInput.value = "30";
-  elements.modalBootstrapTopNInput.value = "1000";
   elements.modalInitialActiveCountInput.value = "40";
   calls.length = 0;
 
@@ -778,7 +775,6 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   assert.equal(elements.mainProficiencyEstimateInput.value, "70");
   assert.equal(elements.mainTopicInterestsInput.value, "animals");
   assert.equal(elements.mainMaxActiveInput.value, "30");
-  assert.equal(elements.mainBootstrapTopNInput.value, "1000");
   assert.equal(elements.mainInitialActiveCountInput.value, "40");
   assert.equal(mainTopicAnimals.attributes["aria-pressed"], "true");
 
@@ -1259,7 +1255,7 @@ const controller = createController({{
       sourceLanguage: "en",
       targetLanguage: "ja",
       srsMaxActive: 20,
-      srsBootstrapTopN: 800,
+      srsBootstrapTopN: null,
       srsInitialActiveCount: 40,
       srsHighlightColor: "#2F74D0",
       srsSemanticAdmissionEnabled: true,
@@ -1276,7 +1272,7 @@ const controller = createController({{
     }},
     resolveSrsSetSizing(raw, defaults) {{
       return {{
-        srsBootstrapTopN: Number.parseInt(raw.srsBootstrapTopN, 10) || defaults.srsBootstrapTopN,
+        srsBootstrapTopN: null,
         srsInitialActiveCount: Number.parseInt(raw.srsInitialActiveCount, 10)
           || defaults.srsInitialActiveCount
       }};
@@ -1306,7 +1302,6 @@ const controller = createController({{
     targetLanguageInput: {{ value: "ja" }},
     srsEnabledInput: {{ checked: true }},
     srsMaxActiveInput: {{ value: "24" }},
-    srsBootstrapTopNInput: {{ value: "900" }},
     srsInitialActiveCountInput: {{ value: "33" }},
       srsTopicInterestsInput: {{ value: "animals, travel" }},
       srsProficiencyEstimateInput: {{ value: "55" }},
@@ -1323,7 +1318,7 @@ const controller = createController({{
 
   assert.equal(captured.profileSave.pairKey, "en-ja");
   assert.equal(captured.profileSave.profile.srsMaxActive, 24);
-  assert.equal(captured.profileSave.profile.srsBootstrapTopN, 900);
+  assert.equal(captured.profileSave.profile.srsBootstrapTopN, null);
   assert.equal(captured.profileSave.profile.srsInitialActiveCount, 33);
   assert.equal(captured.profileSave.profile.srsSemanticAdmissionEnabled, true);
   assert.equal(captured.profileSave.profile.srsSemanticAdmissionFallbackPolicy, "legacy_on_unavailable");
@@ -1392,7 +1387,7 @@ const controller = createController({{
       sourceLanguage: "en",
       targetLanguage: "ja",
       srsMaxActive: 20,
-      srsBootstrapTopN: 800,
+      srsBootstrapTopN: null,
       srsInitialActiveCount: 40,
       srsHighlightColor: "#2F74D0",
       srsSemanticAdmissionEnabled: true,
@@ -1413,7 +1408,7 @@ const controller = createController({{
     }},
     resolveSrsSetSizing(raw, defaults) {{
       return {{
-        srsBootstrapTopN: Number.parseInt(raw.srsBootstrapTopN, 10) || defaults.srsBootstrapTopN,
+        srsBootstrapTopN: null,
         srsInitialActiveCount: Number.parseInt(raw.srsInitialActiveCount, 10)
           || defaults.srsInitialActiveCount
       }};
@@ -1443,7 +1438,6 @@ const controller = createController({{
     targetLanguageInput: {{ value: "ja" }},
     srsEnabledInput: {{ checked: true }},
     srsMaxActiveInput: {{ value: "24" }},
-    srsBootstrapTopNInput: {{ value: "900" }},
     srsInitialActiveCountInput: {{ value: "33" }},
     srsTopicInterestsInput: {{ value: "animals, travel" }},
     srsProficiencyEstimateInput: {{ value: "55" }},
@@ -2016,7 +2010,7 @@ SettingsManager.prototype.defaults = {{
   targetDisplayScript: "kanji",
   srsPair: "en-en",
   srsMaxActive: 40,
-  srsBootstrapTopN: 800,
+  srsBootstrapTopN: null,
   srsInitialActiveCount: 40,
   srsSoundEnabled: true,
   srsHighlightColor: "#2F74D0",
@@ -2138,7 +2132,7 @@ SettingsManager.prototype.DEFAULT_PROFILE_ID = "default";
 SettingsManager.prototype.defaults = {{
   srsPair: "en-en",
   srsMaxActive: 40,
-  srsBootstrapTopN: 800,
+  srsBootstrapTopN: null,
   srsInitialActiveCount: 40,
   srsSoundEnabled: true,
   srsHighlightColor: "#2F74D0",
@@ -2528,7 +2522,7 @@ const controller = createController({{
       sourceLanguage: "en",
       targetLanguage: "es",
       srsMaxActive: 40,
-      srsBootstrapTopN: 800,
+      srsBootstrapTopN: null,
       srsInitialActiveCount: 40,
       srsHighlightColor: "#2F74D0",
       srsFeedbackSrsEnabled: true,
@@ -2540,7 +2534,7 @@ const controller = createController({{
         profileId: "default",
         srsEnabled: true,
         srsMaxActive: 40,
-        srsBootstrapTopN: 800,
+        srsBootstrapTopN: null,
         srsInitialActiveCount: 40,
         srsSoundEnabled: true,
         srsHighlightColor: "#2F74D0",

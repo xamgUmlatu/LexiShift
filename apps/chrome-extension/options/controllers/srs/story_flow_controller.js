@@ -159,7 +159,6 @@
       const sizing = settingsManager.resolveSrsSetSizing(
         {
           srsMaxActive,
-          srsBootstrapTopN: values.bootstrapTopN || storedProfile.srsBootstrapTopN,
           srsInitialActiveCount: values.initialActiveCount || storedProfile.srsInitialActiveCount
         },
         settingsManager.defaults
@@ -287,9 +286,6 @@
       if (modalMaxActiveInput && mainMaxActiveInput) {
         modalMaxActiveInput.value = mainMaxActiveInput.value || "";
       }
-      if (modalBootstrapTopNInput && mainBootstrapTopNInput) {
-        modalBootstrapTopNInput.value = mainBootstrapTopNInput.value || "";
-      }
       if (modalInitialActiveCountInput && mainInitialActiveCountInput) {
         modalInitialActiveCountInput.value = mainInitialActiveCountInput.value || "";
       }
@@ -348,9 +344,6 @@
       }
       if (mainMaxActiveInput) {
         mainMaxActiveInput.value = values.maxActive;
-      }
-      if (mainBootstrapTopNInput) {
-        mainBootstrapTopNInput.value = values.bootstrapTopN;
       }
       if (mainInitialActiveCountInput) {
         mainInitialActiveCountInput.value = values.initialActiveCount;

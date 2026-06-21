@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-06-10
+Last updated: 2026-06-17
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -564,6 +564,32 @@ Use this file when:
   - Coverage is synthetic and pair-limited; it does not yet grade pedagogical quality or real user data.
   - The harness verifies runtime due-aware serving through metadata; it does not require or prove a dedicated due-only publication artifact.
   - `es-en` / `en-es` SRS quality scenarios are not yet represented in the synthetic harness.
+
+## Testing Artifact Provenance / Freshness
+
+- Status: `implemented`, `verified`; `default-on` = `partial` for the en-ja SRS learner-difficulty research chain
+- Last documented checkpoint: `2026-06-17` generated SRS learner-difficulty research artifacts now have a standardized provenance contract and a reusable freshness checker; missing provenance is treated as stale.
+- Last verified: `2026-06-17` focused artifact-provenance unit coverage plus live acronym-audit freshness smoke.
+- Default behavior:
+  - Do not trust `*_latest` by filename alone.
+  - Use live producer/consumer code as source of truth, then regenerate or run `scripts/testing/check_artifact_freshness.py` before using an existing artifact for a tuning decision.
+  - Generated artifacts under `docs/test_outputs/` are recursively checked when they are inputs to another generated artifact, so a downstream report cannot silently rely on an unprovenanced upstream matrix/search output.
+- Evidence:
+  - `docs/developer/testing_artifact_provenance.md`
+  - `scripts/testing/artifact_provenance.py`
+  - `scripts/testing/check_artifact_freshness.py`
+  - `scripts/testing/srs_ja_acronym_signal_audit_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_signal_sweep_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_piecewise_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_model_family_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_model_family_meta_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_model_tree_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_curve_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_tail_partition_search_en_ja.py`
+  - `core/tests/dev/test_artifact_provenance.py`
+- Known gaps:
+  - Coverage is not repo-wide yet; older rulegen/semantic artifacts may still lack this generated-artifact provenance block.
+  - Large external installed-resource files may be tracked by size/mtime instead of SHA-256 when they exceed the configured hash threshold.
 
 ## Kaikki `en-es` Compatibility Dictionary Pipeline
 
@@ -1619,11 +1645,17 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented`, `default-on` for refresh, `verified`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-06-02` Options admission preview remains read-only but now returns a seed-controlled sampled subset from the planned active pool instead of the deterministic prefix, so repeated user-facing samples can vary while advanced diagnostics retain the full planned pool and seed. `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes with expected-vs-observed reserved-lane topic counts. Refresh payloads now report realized preferred-topic share for selected new admissions, and the preference product-loop test derives expected post-feedback topic share from topic strength, the capped topic lane, and remaining eligible topic capacity, including sparse medicine/technology cases. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met, and extension retry-only feedback flushes do not run the refresh check. The en-es topic taxonomy now records `mvp_picker_visibility`, the options-page topic chips exactly mirror `strict_mvp_visible`, and the dev admission lab surfaces beta/hidden/register visibility metadata without removing diagnostic scenarios.
-- Last verified: `2026-06-02` focused helper admission-preview tests covering weighted and reserved-topic seeded preview sampling, plus state and changed-file gates. Earlier `2026-05-27` coverage included focused profile-growth refresh/helper/native-host/options tests, preference-shaped product-loop tests with derived strong/weaker/sparse post-feedback topic-share assertions, automatic refresh policy/state tests, extension feedback-sync auto-refresh contract tests, content-runtime/background bridge auto-refresh contract tests, options SRS bridge contract tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, strict-MVP options topic-picker contract tests, taxonomy visibility validation, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last documented checkpoint: `2026-06-11` seed-frontier cache lifecycle now includes explicit status/prepare APIs, single-flight locking, stale-cache cleanup, native-host/CLI entrypoints, and desktop resource-flow background warmup after relevant pack download/link/import. Full-frontier SRS bootstrap/admission now omits `bootstrap_top_n` by default and helper-driven initialize, preview, refresh, rebalance, and rulegen-job flows cache source-normalized seed rows under `srs/cache/seed_frontiers/` without caching profile scores. `2026-06-02` Options admission preview remains read-only but now returns a seed-controlled sampled subset from the planned active pool instead of the deterministic prefix, so repeated user-facing samples can vary while advanced diagnostics retain the full planned pool and seed. `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes with expected-vs-observed reserved-lane topic counts. Refresh payloads now report realized preferred-topic share for selected new admissions, and the preference product-loop test derives expected post-feedback topic share from topic strength, the capped topic lane, and remaining eligible topic capacity, including sparse medicine/technology cases. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met, and extension retry-only feedback flushes do not run the refresh check. The en-es topic taxonomy now records `mvp_picker_visibility`, the options-page topic chips exactly mirror `strict_mvp_visible`, and the dev admission lab surfaces beta/hidden/register visibility metadata without removing diagnostic scenarios.
+- Last verified: `2026-06-11` focused seed-cache lifecycle/use-case tests (`21 passed`) plus syntax/style checks for the helper/native-host/GUI cache-prep entrypoints. Earlier `2026-06-11` coverage included focused SRS/helper/options contract test set (`177 passed`), SRS quality harness (`pass=22 warn=0 fail=0`), en-ja learner-difficulty audit regeneration (`72,758` deduped unique lemmas), local installed en-ja seed-cache timing probe (`10.379s` first full-frontier seed build, `2.497s` repeat cache hit, same `78,316` raw normalized seed rows), and local installed en-ja profile-bootstrap timing probe (`17.201s` first initialization, `8.326s` repeat cached initialization, same `72,758` selected unique count). Earlier `2026-06-02` coverage included focused helper admission-preview tests covering weighted and reserved-topic seeded preview sampling, plus state and changed-file gates. Earlier `2026-05-27` coverage included focused profile-growth refresh/helper/native-host/options tests, preference-shaped product-loop tests with derived strong/weaker/sparse post-feedback topic-share assertions, automatic refresh policy/state tests, extension feedback-sync auto-refresh contract tests, content-runtime/background bridge auto-refresh contract tests, options SRS bridge contract tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, strict-MVP options topic-picker contract tests, taxonomy visibility validation, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, a proficiency readiness multiplier, and capped reserved topic-lane selection over the frequency seed frontier before initial active selection.
+  - Bootstrap/admission uses all available seed rows by default when
+    `bootstrap_top_n` is omitted/null. Helper-driven flows use the
+    source-normalized seed-frontier cache as a latency optimization; cache
+    misses, stale keys, and corrupt files rebuild the same configured frontier.
+    Cache status/prepare routes and desktop resource-flow warmup are
+    profile-independent and do not change admission scoring.
   - Options admission preview sends a fresh seed per sample request and displays
     a sampled subset of the planned active pool; it does not initialize,
     persist, or publish SRS words.
@@ -1666,7 +1698,9 @@ Use this file when:
   - `core/lexishift_core/srs/admission_features.py`
   - `core/lexishift_core/srs/profile_bootstrap.py`
   - `core/lexishift_core/srs/profile_bootstrap_support.py`
+  - `core/lexishift_core/srs/seed_cache.py`
   - `core/lexishift_core/helper/use_cases/admission_preview.py`
+  - `core/lexishift_core/helper/use_cases/seed_cache.py`
   - `core/lexishift_core/helper/use_cases/refresh_set.py`
   - `core/lexishift_core/helper/use_cases/auto_refresh_set.py`
   - `core/lexishift_core/srs/auto_refresh.py`

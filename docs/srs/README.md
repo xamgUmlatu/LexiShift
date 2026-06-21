@@ -32,6 +32,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | SRS resource, storage, and cognitive-load budgets | `docs/srs/srs_resource_budget_and_load_audit.md` | Current-plus-readiness audit for active-set size, page replacement density, extension storage caps, helper artifacts, browsing aggregates, and encounter-starvation diagnostics. | Claiming live Chrome storage bytes have been audited without a browser-profile export. |
 | Admitted-words dashboard and lifecycle UX policy | `docs/srs/srs_admitted_words_dashboard_plan.md` | Product/implementation contract and verification runbook for the admitted-words dashboard, including read-only listing/rule details, local controls, encounter-watch visibility, advanced-details boundary, and confirmed discard. | Claiming restore, mastery/release, or undo controls are shipped. |
 | Vocabulary Library, word info, and quick-definition popup | `docs/srs/srs_vocabulary_library_and_word_info_plan.md` | Mixed implementation contract for the shared helper word-info read model, dedicated Vocabulary Library surface, and built-in popup definition module. | Claiming cross-profile library enumeration, completed/mastered lifecycle UX, or a public third-party popup module API is implemented. |
+| Learner difficulty and admission target semantics | `docs/srs/srs_learner_difficulty_model_workplan.md` | Planning authority for separating corpus frequency, learner difficulty, admission suitability, and aim-here vs can-handle semantics. | Claiming the learner-difficulty overlay is implemented or default-on. |
 | Story-based Options SRS UX | `docs/srs/srs_story_based_options_flow_plan.md` | Target UX plan plus current implementation notes for presenting SRS journeys as story blocks and routing first-run initialization through a guided setup flow. | Claiming full multi-story enumeration or replacing the current feature-state ledger. |
 | Preference taxonomy lifecycle | `docs/srs/srs_preference_taxonomy_lifecycle.md` | Planning policy for adding topic/register preferences without damaging existing SRS progress. | Claiming a preference family is sourced, default-on, or broadly supported. |
 | en-es topic coverage pause state | `docs/srs/srs_topic_coverage_pause_state_en_es.md` | Current closeout snapshot for the paused topic-coverage slice, including overlay stack, readiness status, and resume criteria. | Treating topic coverage as comprehensive or default product copy. |
@@ -62,6 +63,10 @@ Current disposition:
 - `srs_topic_coverage_pause_state_en_es.md` is the current closeout snapshot
   for the paused en-es topic coverage work; it records the accepted incomplete
   state but does not make topic coverage comprehensive or default-on.
+- `srs_learner_difficulty_model_workplan.md` records the active plan for
+  replacing frequency-as-difficulty with separate learner-difficulty,
+  admission-suitability, presentation-mode, and challenge-target semantics; it
+  is not implemented/default-on evidence.
 - `srs_admitted_words_dashboard_plan.md` records the user-facing admitted-words
   dashboard decision, mostly read-only listing/rule-detail behavior,
   encounter-watch visibility, confirmed discard policy, and deferred

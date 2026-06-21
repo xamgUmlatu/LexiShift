@@ -78,7 +78,6 @@
         pair,
         profile_id: profileId,
         strategy: "profile_growth",
-        set_top_n: normalizePositiveInt(current.srsBootstrapTopN, 800, 1),
         max_active_items: normalizePositiveInt(current.srsMaxActive, 40, 1),
         auto_refresh_enabled: current.srsAutoRefreshEnabled !== false,
         auto_refresh_min_feedback_events: normalizePositiveInt(

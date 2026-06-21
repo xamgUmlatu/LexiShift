@@ -100,29 +100,49 @@ class AdmissionProfileFeatures:
 @dataclass(frozen=True)
 class AdmissionCandidateFeatures:
     version: str = ADMISSION_CANDIDATE_FEATURES_VERSION
+    candidate_identity_key: str = ""
     lemma: str = ""
     lexical_commonness: float = 0.0
+    coverage_gain: float = 0.0
     difficulty_estimate: float = 0.0
     difficulty_proxy: str = ""
+    difficulty_sources: Sequence[str] = field(default_factory=tuple)
+    candidate_state: str = "normal_vocab"
+    presentation_mode: str = "vocab"
+    problem_class: str = "normal_vocab"
+    classification_confidence: str = "review"
+    classification_reasons: Sequence[str] = field(default_factory=tuple)
+    admission_suitability: float = 1.0
     lexical_forms: Sequence[str] = field(default_factory=tuple)
+    learner_signals: Mapping[str, object] = field(default_factory=dict)
     raw_topic_hints: Sequence[str] = field(default_factory=tuple)
     topic_hints: Sequence[str] = field(default_factory=tuple)
     topic_hint_origins: Mapping[str, Sequence[str]] = field(default_factory=dict)
 
     @property
     def base_freq(self) -> float:
-        return self.lexical_commonness
+        return self.coverage_gain
 
     def to_dict(self) -> dict[str, object]:
         return {
             "version": self.version,
             "topic_normalization_version": TOPIC_FAMILY_NORMALIZATION_VERSION,
+            "candidate_identity_key": self.candidate_identity_key,
             "lemma": self.lemma,
             "lexical_commonness": rounded_or_none(self.lexical_commonness),
-            "base_freq": rounded_or_none(self.lexical_commonness),
+            "coverage_gain": rounded_or_none(self.coverage_gain),
+            "base_freq": rounded_or_none(self.coverage_gain),
             "difficulty_estimate": rounded_or_none(self.difficulty_estimate),
             "difficulty_proxy": self.difficulty_proxy,
+            "difficulty_sources": list(self.difficulty_sources),
+            "candidate_state": self.candidate_state,
+            "presentation_mode": self.presentation_mode,
+            "problem_class": self.problem_class,
+            "classification_confidence": self.classification_confidence,
+            "classification_reasons": list(self.classification_reasons),
+            "admission_suitability": rounded_or_none(self.admission_suitability),
             "lexical_forms": list(self.lexical_forms),
+            "learner_signals": dict(self.learner_signals),
             "raw_topic_hints": list(self.raw_topic_hints),
             "topic_hints": list(self.topic_hints),
             "topic_hint_origins": {
@@ -135,6 +155,7 @@ class AdmissionCandidateFeatures:
 class AdmissionUtilitySignals:
     version: str = ADMISSION_UTILITY_SIGNALS_VERSION
     coverage_gain: float = 0.0
+    admission_suitability: float = 1.0
     preference_affinity: float = 0.0
     preference_affinity_source: Optional[str] = None
     scarcity_bonus: float = 0.0
@@ -145,6 +166,8 @@ class AdmissionUtilitySignals:
     proficiency_fit: float = 0.0
     challenge_fit: float = 0.0
     readiness_multiplier: float = 1.0
+    readiness_center: Optional[float] = None
+    readiness_center_source: Optional[str] = None
     readiness_lower_bound: float = 0.0
     readiness_upper_bound: float = 1.0
     readiness_topic_strength: float = 0.0
@@ -171,6 +194,7 @@ class AdmissionUtilitySignals:
         return {
             "version": self.version,
             "coverage_gain": rounded_or_none(self.coverage_gain),
+            "admission_suitability": rounded_or_none(self.admission_suitability),
             "preference_affinity": rounded_or_none(self.preference_affinity),
             "preference_affinity_source": self.preference_affinity_source,
             "scarcity_bonus": rounded_or_none(self.scarcity_bonus),
@@ -181,6 +205,8 @@ class AdmissionUtilitySignals:
             "proficiency_fit": rounded_or_none(self.proficiency_fit),
             "challenge_fit": rounded_or_none(self.challenge_fit),
             "readiness_multiplier": rounded_or_none(self.readiness_multiplier),
+            "readiness_center": rounded_or_none(self.readiness_center),
+            "readiness_center_source": self.readiness_center_source,
             "readiness_lower_bound": rounded_or_none(self.readiness_lower_bound),
             "readiness_upper_bound": rounded_or_none(self.readiness_upper_bound),
             "readiness_topic_strength": rounded_or_none(self.readiness_topic_strength),

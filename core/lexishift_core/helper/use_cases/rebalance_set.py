@@ -56,13 +56,14 @@ class _RebalanceContext(TypedDict):
     inventory_source: str
     active_item_ids_before: tuple[str, ...]
     existing_items_for_pair: int
-    resolved_set_top_n: int
+    resolved_set_top_n: Optional[int]
     resolved_jmdict_path: Path | None
     resolved_translation_dict_path: Path | None
     resolved_set_source_db: Path
     resolved_frequency_pack: FrequencyPackRef | None
     resolved_pos_overlay: PosOverlayRef | None
     stopwords_path: Path | None
+    seed_cache_dir: Path
     signal_summary: Mapping[str, object]
     plan_payload: Mapping[str, object]
     max_active_items: int
@@ -96,7 +97,7 @@ def plan_srs_rebalance(
     paths: HelperPaths,
     *,
     config,
-    resolve_pair_set_top_n_fn: Callable[..., int],
+    resolve_pair_set_top_n_fn: Callable[..., Optional[int]],
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
@@ -133,7 +134,7 @@ def apply_srs_rebalance(
     paths: HelperPaths,
     *,
     config,
-    resolve_pair_set_top_n_fn: Callable[..., int],
+    resolve_pair_set_top_n_fn: Callable[..., Optional[int]],
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
@@ -331,7 +332,7 @@ def _prepare_rebalance_context(
     *,
     paths: HelperPaths,
     config,
-    resolve_pair_set_top_n_fn: Callable[..., int],
+    resolve_pair_set_top_n_fn: Callable[..., Optional[int]],
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
@@ -431,6 +432,7 @@ def _prepare_rebalance_context(
         "resolved_frequency_pack": resolved_frequency_pack,
         "resolved_pos_overlay": resolved_pos_overlay,
         "stopwords_path": stopwords_path,
+        "seed_cache_dir": paths.srs_seed_frontier_cache_dir(),
         "signal_summary": signal_summary,
         "plan_payload": plan_payload,
         "max_active_items": max_active_items,
@@ -449,13 +451,14 @@ def _build_rebalance_preview_payload(
     inventory_source: str,
     active_item_ids_before: Sequence[str],
     existing_items_for_pair: int,
-    resolved_set_top_n: int,
+    resolved_set_top_n: Optional[int],
     resolved_jmdict_path: Optional[Path],
     resolved_translation_dict_path: Optional[Path],
     resolved_set_source_db: Path,
     resolved_frequency_pack: FrequencyPackRef | None,
     resolved_pos_overlay: PosOverlayRef | None,
     stopwords_path: Optional[Path],
+    seed_cache_dir: Path,
     signal_summary: Mapping[str, object],
     plan_payload: Mapping[str, object],
     max_active_items: int,
@@ -528,6 +531,7 @@ def _build_rebalance_preview_payload(
             require_jmdict=resolve_pair_capability(pair).requires_jmdict_for_seed,
             source_label=resolved_frequency_pack.provider if resolved_frequency_pack else None,
             pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
+            cache_dir=seed_cache_dir,
         ),
     )
     rebalance_plan = build_rebalance_plan(

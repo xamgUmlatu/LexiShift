@@ -115,6 +115,7 @@ def run_rulegen_job(
             stopwords_path=stopwords_path,
             require_jmdict=capability.requires_jmdict_for_seed,
             source_label=resolved_frequency_pack.provider if resolved_frequency_pack else None,
+            seed_cache_dir=paths.srs_seed_frontier_cache_dir(),
         )
     pair_tuning = resolve_pair_rulegen_tuning(pair)
     rulegen_overrides = RulegenTuningOverrides(

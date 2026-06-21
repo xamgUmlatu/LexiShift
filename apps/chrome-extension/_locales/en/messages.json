@@ -215,12 +215,6 @@
   "hint_srs_max_active": {
     "message": "How many learning words LexiShift keeps in rotation at once."
   },
-  "label_srs_bootstrap_top_n": {
-    "message": "Vocabulary search range"
-  },
-  "hint_srs_bootstrap_top_n": {
-    "message": "Broadens the ranked word pool used for samples and new-word selection. Leave at default unless samples feel too narrow."
-  },
   "label_srs_initial_active_count": {
     "message": "Starting words"
   },

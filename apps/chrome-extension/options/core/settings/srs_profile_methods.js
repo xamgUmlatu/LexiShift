@@ -31,19 +31,13 @@
         fallbackItems.srsMaxActive || this.defaults.srsMaxActive,
         1
       );
-      const bootstrapTopN = this._normalizeInt(
-        source.srsBootstrapTopN,
-        fallbackItems.srsBootstrapTopN || this.defaults.srsBootstrapTopN,
-        200
-      );
       const initialActiveCount = this._normalizeInt(
         source.srsInitialActiveCount,
         maxActive || this.defaults.srsInitialActiveCount,
-        1,
-        bootstrapTopN
+        1
       );
       return {
-        srsBootstrapTopN: bootstrapTopN,
+        srsBootstrapTopN: null,
         srsInitialActiveCount: initialActiveCount
       };
     };
@@ -410,7 +404,7 @@
         srsProfileId: profileId,
         srsEnabled: runtimeProfile.srsEnabled === true,
         srsMaxActive: runtimeProfile.srsMaxActive || this.defaults.srsMaxActive,
-        srsBootstrapTopN: runtimeProfile.srsBootstrapTopN || this.defaults.srsBootstrapTopN,
+        srsBootstrapTopN: null,
         srsInitialActiveCount: runtimeProfile.srsInitialActiveCount || this.defaults.srsInitialActiveCount,
         srsSoundEnabled: runtimeProfile.srsSoundEnabled !== false,
         srsHighlightColor: runtimeProfile.srsHighlightColor || this.defaults.srsHighlightColor,
@@ -455,7 +449,7 @@
           max_active_items: runtimeProfile.srsMaxActive
         },
         sizing: {
-          bootstrap_top_n: runtimeProfile.srsBootstrapTopN,
+          bootstrap_top_n: null,
           initial_active_count: runtimeProfile.srsInitialActiveCount
         }
       };

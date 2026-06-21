@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Mapping, Sequence
+from typing import Mapping, Optional, Sequence
 
 from lexishift_core.srs.profile_bootstrap import summarize_profile_bootstrap_context
 from lexishift_core.srs.set_strategy import (
@@ -23,7 +23,7 @@ class SrsSetPlanRequest:
     pair: str
     strategy: str = STRATEGY_FREQUENCY_BOOTSTRAP
     objective: str = OBJECTIVE_BOOTSTRAP
-    set_top_n: int = 800
+    set_top_n: Optional[int] = None
     initial_active_count: int = 40
     max_active_items_hint: int = 0
     replace_pair: bool = False
@@ -140,10 +140,12 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
         can_execute = False
         execution_mode = "planner_only"
 
+    resolved_top_n = _optional_positive_int(request.set_top_n)
     diagnostics = {
         "pair": pair,
-        "set_top_n": max(1, int(request.set_top_n)),
-        "bootstrap_top_n": max(1, int(request.set_top_n)),
+        "set_top_n": resolved_top_n,
+        "bootstrap_top_n": resolved_top_n,
+        "candidate_frontier": "limited" if resolved_top_n is not None else "all",
         "initial_active_count": max(1, int(request.initial_active_count)),
         "max_active_items_hint": max(0, int(request.max_active_items_hint)),
         "replace_pair": bool(request.replace_pair),
@@ -164,6 +166,16 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
         notes=tuple(notes),
         diagnostics=diagnostics,
     )
+
+
+def _optional_positive_int(value: object) -> Optional[int]:
+    if value is None:
+        return None
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError, OverflowError):
+        return None
+    return max(1, parsed)
 
 
 def _tuple_payload(value: object) -> tuple[object, ...]:

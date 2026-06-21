@@ -63,6 +63,14 @@
     "quality:rulegen:triage:summary": "node dev/run_python.js testing/rulegen_benchmark_triage_summary.py --triage-json ../docs/test_outputs/rulegen_benchmark_triage_latest.json --markdown-out ../docs/test_outputs/rulegen_benchmark_triage_summary_latest.md",
     "quality:srs:harness": "node dev/run_python.js testing/srs_quality_harness.py --json-out ../docs/test_outputs/srs_quality_latest.json",
     "quality:srs:summary": "node dev/run_python.js testing/srs_quality_summary.py --quality-json ../docs/test_outputs/srs_quality_latest.json --markdown-out ../docs/test_outputs/srs_quality_summary_latest.md",
+    "quality:srs:learner-difficulty:proficiency-ordering": "node dev/run_python.js testing/srs_learner_difficulty_proficiency_ordering_en_ja.py",
+    "quality:srs:learner-difficulty:method-samples": "node dev/run_python.js testing/srs_learner_difficulty_method_sample_compare_en_ja.py",
+    "quality:srs:learner-difficulty:disagreement-review": "node dev/run_python.js testing/srs_learner_difficulty_disagreement_review_en_ja.py",
+    "quality:srs:learner-difficulty:bounded-hybrid": "node dev/run_python.js testing/srs_learner_difficulty_bounded_hybrid_search_en_ja.py",
+    "quality:srs:learner-difficulty:bounded-hybrid:stability": "node dev/run_python.js testing/srs_learner_difficulty_bounded_hybrid_stability_en_ja.py",
+    "quality:srs:learner-difficulty:structured-failure-groups": "node dev/run_python.js testing/srs_learner_difficulty_structured_failure_groups_en_ja.py",
+    "quality:srs:learner-difficulty:proficiency-ordering:search": "node dev/run_python.js testing/srs_learner_difficulty_proficiency_ordering_search_en_ja.py",
+    "quality:srs:learner-difficulty:proficiency-ordering:stability": "node dev/run_python.js testing/srs_learner_difficulty_proficiency_ordering_stability_en_ja.py",
     "quality:srs:topic:en-ja": "node dev/run_python.js testing/srs_jmdict_topic_source_readiness_en_ja.py --json-out ../docs/test_outputs/srs_jmdict_topic_source_readiness_en_ja_latest.json --markdown-out ../docs/test_outputs/srs_jmdict_topic_source_readiness_en_ja_latest.md",
     "quality:srs:topic:en-ja:review": "node dev/run_python.js testing/srs_jmdict_topic_review_packet_en_ja.py --json-out ../docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json --markdown-out ../docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.md",
     "quality:srs:topic:en-ja:overlay": "node dev/run_python.js testing/srs_jmdict_topic_overlay_poc_en_ja.py --overlay-json-out ../docs/test_outputs/srs_jmdict_topic_overlay_en_ja_latest.json --json-out ../docs/test_outputs/srs_jmdict_topic_overlay_poc_en_ja_latest.json --markdown-out ../docs/test_outputs/srs_jmdict_topic_overlay_poc_en_ja_latest.md",
@@ -94,9 +102,9 @@
     "quality:srs:journey:en-es:installed:summary": "node dev/run_python.js testing/srs_journey_summary.py --journey-json ../docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json --markdown-out ../docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.md",
     "quality:srs:journey:en-es:installed:html": "node dev/run_python.js testing/srs_journey_html.py --journey-json ../docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json --html-out ../docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.html",
     "quality:pack-sources:audit": "node dev/run_python.js testing/pack_source_url_audit.py",
-    "build:bd": "node betterdiscord_plugin/build_plugin.js",
-    "watch:bd": "node betterdiscord_plugin/watch_plugin.js",
-    "sync:bd": "node betterdiscord_plugin/sync_plugin.js",
-    "build-and-sync:bd": "node betterdiscord_plugin/build_plugin.js && node betterdiscord_plugin/sync_plugin.js"
+    "build:bd": "node ../apps/betterdiscord-plugin/build_plugin.js",
+    "watch:bd": "node ../apps/betterdiscord-plugin/watch_plugin.js",
+    "sync:bd": "node ../apps/betterdiscord-plugin/sync_plugin.js",
+    "build-and-sync:bd": "node ../apps/betterdiscord-plugin/build_plugin.js && node ../apps/betterdiscord-plugin/sync_plugin.js"
   }
 }

@@ -44,7 +44,7 @@ def initialize_srs_set(
     paths: HelperPaths,
     *,
     config,
-    resolve_pair_set_top_n_fn: Callable[..., int],
+    resolve_pair_set_top_n_fn: Callable[..., int | None],
     resolve_pair_initial_active_count_fn: Callable[..., int],
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
@@ -123,9 +123,7 @@ def initialize_srs_set(
     before_pair_count = count_items_for_pair_fn(store, pair)
     sizing_policy = resolve_set_sizing_policy(
         bootstrap_top_n=(
-            max(1, int(config.bootstrap_top_n))
-            if config.bootstrap_top_n is not None
-            else resolved_set_top_n
+            config.bootstrap_top_n if config.bootstrap_top_n is not None else resolved_set_top_n
         ),
         initial_active_count=resolved_initial_active_count,
         max_active_items_hint=config.max_active_items_hint,
@@ -190,6 +188,7 @@ def initialize_srs_set(
             require_jmdict=capability.requires_jmdict_for_seed,
             source_label=frequency_source_label,
             pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
+            seed_cache_dir=paths.srs_seed_frontier_cache_dir(),
             strategy=str(config.strategy or "frequency_bootstrap"),
             profile_context=config.profile_context,
         ),
@@ -252,7 +251,7 @@ def initialize_srs_set(
         active_item_ids=active_item_ids,
         semantic_context_targets=tuple(
             str(lemma).strip()
-            for lemma in getattr(init_report, "selected_unique_lemmas", ()) or ()
+            for lemma in getattr(init_report, "initial_active_preview", ()) or ()
             if str(lemma).strip()
         ),
         initialize_if_empty=False,

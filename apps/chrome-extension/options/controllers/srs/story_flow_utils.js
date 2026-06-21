@@ -88,7 +88,6 @@
         : "",
       interests: normalizeInterestList(source.modalTopicInterestsInput ? source.modalTopicInterestsInput.value : ""),
       maxActive: source.modalMaxActiveInput ? source.modalMaxActiveInput.value : "",
-      bootstrapTopN: source.modalBootstrapTopNInput ? source.modalBootstrapTopNInput.value : "",
       initialActiveCount: source.modalInitialActiveCountInput ? source.modalInitialActiveCountInput.value : ""
     };
   }

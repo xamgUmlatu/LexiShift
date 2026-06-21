@@ -21,7 +21,7 @@ def build_set_plan_payload(
     pair: str,
     strategy: str,
     objective: str,
-    set_top_n: int,
+    set_top_n: Optional[int],
     initial_active_count: int,
     max_active_items_hint: int,
     replace_pair: bool,
@@ -62,11 +62,24 @@ def build_set_plan_payload(
     diagnostics: dict[str, object] = (
         dict(raw_diagnostics) if isinstance(raw_diagnostics, Mapping) else {}
     )
-    diagnostics["bootstrap_top_n"] = max(1, int(set_top_n))
+    diagnostics["bootstrap_top_n"] = _optional_positive_int(set_top_n)
+    diagnostics["candidate_frontier"] = (
+        "limited" if diagnostics["bootstrap_top_n"] is not None else "all"
+    )
     diagnostics["initial_active_count"] = max(1, int(initial_active_count))
     diagnostics["max_active_items_hint"] = max(0, int(max_active_items_hint))
     payload["diagnostics"] = diagnostics
     return payload
+
+
+def _optional_positive_int(value: object) -> Optional[int]:
+    if value is None:
+        return None
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError, OverflowError):
+        return None
+    return max(1, parsed)
 
 
 def plan_srs_set(
@@ -75,7 +88,7 @@ def plan_srs_set(
     config,
     resolve_profile_id_fn: Callable[..., str],
     ensure_store_fn: Callable[..., SrsStore],
-    resolve_pair_set_top_n_fn: Callable[..., int],
+    resolve_pair_set_top_n_fn: Callable[..., Optional[int]],
     resolve_pair_initial_active_count_fn: Callable[..., int],
     resolve_stopwords_path_fn: Callable[..., Path | None],
 ) -> dict[str, object]:
@@ -102,9 +115,7 @@ def plan_srs_set(
     )
     sizing_policy = resolve_set_sizing_policy(
         bootstrap_top_n=(
-            max(1, int(config.bootstrap_top_n))
-            if config.bootstrap_top_n is not None
-            else resolved_set_top_n
+            config.bootstrap_top_n if config.bootstrap_top_n is not None else resolved_set_top_n
         ),
         initial_active_count=resolved_initial_active_count,
         max_active_items_hint=config.max_active_items_hint,

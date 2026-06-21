@@ -249,7 +249,7 @@
         const sourceLanguage = currentSourceLanguage();
         const targetLanguage = currentTargetLanguage();
         srsMaxActiveInput.value = String(srsMaxActive);
-        if (srsBootstrapTopNInput) srsBootstrapTopNInput.value = String(sizing.srsBootstrapTopN);
+        if (srsBootstrapTopNInput) srsBootstrapTopNInput.value = "";
         if (srsInitialActiveCountInput) srsInitialActiveCountInput.value = String(sizing.srsInitialActiveCount);
         if (srsHighlightInput) srsHighlightInput.value = srsHighlightColor;
         if (srsHighlightTextInput) srsHighlightTextInput.value = srsHighlightColor;

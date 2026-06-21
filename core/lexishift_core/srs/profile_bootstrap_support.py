@@ -77,7 +77,7 @@ def build_policy_summary(policy: ProfileBootstrapPolicy) -> dict[str, object]:
             ],
             "negative_terms": ["lexical_risk", "redundancy"],
             "exploration_terms": ["exploration_bonus"],
-            "multipliers": ["readiness_multiplier"],
+            "multipliers": ["readiness_multiplier", "admission_suitability"],
         },
     }
 
@@ -367,6 +367,7 @@ def build_preview_entry(
         has_coverage_support=has_coverage_support,
     )
     return {
+        "candidate_identity_key": traits.candidate_identity_key,
         "lemma": str(getattr(seed, "lemma", "") or "").strip(),
         "base_rank": base_rank,
         "reranked_rank": reranked_rank,

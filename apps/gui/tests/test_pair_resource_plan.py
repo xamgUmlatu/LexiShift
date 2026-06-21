@@ -56,6 +56,19 @@ def test_en_ja_pair_requires_bccwj_and_jmdict_resources() -> None:
     assert pack_ids == [
         "freq-ja-bccwj",
         "jmdict-ja-en",
+        "kanjidic2-ja",
+        "jmnedict-ja",
+        "kanjivg-ja",
+        "jlpt-tanos-vocab-ja",
+        "sbsjapanese1-ja",
+    ]
+    optional_pack_ids = [resource.pack_id for resource in plan.resources if resource.optional]
+    assert optional_pack_ids == [
+        "kanjidic2-ja",
+        "jmnedict-ja",
+        "kanjivg-ja",
+        "jlpt-tanos-vocab-ja",
+        "sbsjapanese1-ja",
     ]
     required_pack_ids = [resource.pack_id for resource in plan.required_resources]
     assert required_pack_ids == [

@@ -111,9 +111,6 @@
           return;
         }
         const planningState = resolvePlanningState(synced.items, srsPair, synced.profileId);
-        const bootstrapTopN = Number(
-          planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800
-        );
         const initialActiveCount = Number(
           planningState.profile.srsInitialActiveCount || settingsManager.defaults.srsInitialActiveCount || 40
         );
@@ -133,7 +130,6 @@
         const result = await helperManager.initializeSrsSet(
           srsPair,
           {
-            bootstrapTopN,
             initialActiveCount,
             maxActiveItemsHint
           },
@@ -157,7 +153,7 @@
           srsPair,
           plan,
           result,
-          bootstrapTopN,
+          bootstrapTopN: null,
           initialActiveCount,
           maxActiveItemsHint,
           bootstrapDiagnostics,
@@ -173,7 +169,6 @@
         setStatus(statusMessage, applied ? colors.SUCCESS : colors.DEFAULT);
         log("SRS set initialized", {
           pair: srsPair,
-          bootstrapTopN,
           initialActiveCount,
           maxActiveItemsHint,
           applied,
@@ -219,7 +214,6 @@
         const profileContext = planningState.profileContext;
         const result = await helperManager.refreshSrsSet(srsPair, {
           profileId: synced.profileId,
-          setTopN: planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
           maxActiveItems: planningState.profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
           strategy: "profile_growth",
           trigger: "options_refresh_set_button",

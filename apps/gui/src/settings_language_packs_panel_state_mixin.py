@@ -136,6 +136,9 @@ class LanguagePackPanelStateMixin:
         for thread in list(self._embedding_conversion_threads):
             if thread.isRunning():
                 thread.requestInterruption()
+        for thread in list(getattr(self, "_seed_cache_prepare_threads", [])):
+            if thread.isRunning():
+                thread.requestInterruption()
 
     def set_theme(self, theme: dict) -> None:
         self._theme = dict(theme or {})

@@ -460,11 +460,18 @@ def semantic_admit_batch(
     return _semantic_admit_batch_use_case(paths, payload=payload)
 
 
-def _resolve_pair_set_top_n(*, pair: str, requested_top_n: Optional[int], purpose: str) -> int:
+def _resolve_pair_set_top_n(
+    *,
+    pair: str,
+    requested_top_n: Optional[int],
+    purpose: str,
+) -> Optional[int]:
     policy = resolve_srs_pair_policy(pair)
     if requested_top_n is not None:
         return max(1, int(requested_top_n))
     if purpose == "bootstrap":
+        if policy.bootstrap_top_n_default is None:
+            return None
         return max(1, int(policy.bootstrap_top_n_default))
     return max(1, int(policy.refresh_top_n_default))
 

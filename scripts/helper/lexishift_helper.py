@@ -35,6 +35,11 @@ from lexishift_core.helper.lp_capabilities import (
     default_jmdict_path,
     default_translation_dictionary_path,
 )
+from lexishift_core.helper.use_cases.seed_cache import (
+    get_srs_seed_frontier_cache_status,
+    prepare_srs_seed_frontier_cache,
+    prepare_srs_seed_frontier_caches_for_pack,
+)
 from lexishift_helper_semantic_pack import register_install_semantic_pack_command
 from srs_browsing_admission_cli_support import register_browsing_admission_ingest_command
 from srs_admission_cli_support import register_srs_preview_and_rebalance_commands
@@ -168,6 +173,38 @@ def cmd_srs_items_list(args: argparse.Namespace) -> int:
     payload = list_srs_items(paths, pair=args.pair, profile_id=args.profile_id or "default")
     _print_json(payload)
     return 0
+
+
+def cmd_srs_seed_cache_status(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    payload = get_srs_seed_frontier_cache_status(
+        paths,
+        pair=args.pair,
+        set_source_db=Path(args.set_source_db) if args.set_source_db else None,
+        jmdict_path=Path(args.jmdict) if args.jmdict else None,
+    )
+    _print_json(payload)
+    return 0 if payload.get("ok") is not False else 1
+
+
+def cmd_srs_seed_cache_prepare(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    if args.pack_id:
+        payload = prepare_srs_seed_frontier_caches_for_pack(
+            paths,
+            pack_id=args.pack_id,
+            cleanup=not args.no_cleanup,
+        )
+    else:
+        payload = prepare_srs_seed_frontier_cache(
+            paths,
+            pair=args.pair,
+            set_source_db=Path(args.set_source_db) if args.set_source_db else None,
+            jmdict_path=Path(args.jmdict) if args.jmdict else None,
+            cleanup=not args.no_cleanup,
+        )
+    _print_json(payload)
+    return 0 if payload.get("ok") is not False else 1
 
 
 def cmd_run_rulegen(args: argparse.Namespace) -> int:
@@ -441,6 +478,40 @@ def build_parser() -> argparse.ArgumentParser:
     srs_items_list.add_argument("--pair", default="en-ja")
     srs_items_list.add_argument("--profile-id", help="Profile id (default: default)")
     srs_items_list.set_defaults(func=cmd_srs_items_list)
+
+    seed_cache_status = sub.add_parser(
+        "srs_seed_cache_status",
+        help="Show profile-independent SRS seed frontier cache status for a pair.",
+    )
+    seed_cache_status.add_argument("--pair", default="en-ja")
+    seed_cache_status.add_argument("--jmdict", help="Optional JMDict path override")
+    seed_cache_status.add_argument(
+        "--frequency-pack-path",
+        "--set-source-db",
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
+    )
+    seed_cache_status.set_defaults(func=cmd_srs_seed_cache_status)
+
+    seed_cache_prepare = sub.add_parser(
+        "srs_seed_cache_prepare",
+        help="Prepare profile-independent SRS seed frontier cache for a pair or installed pack.",
+    )
+    seed_cache_prepare.add_argument("--pair", default="en-ja")
+    seed_cache_prepare.add_argument("--pack-id", help="Installed resource pack id to warm")
+    seed_cache_prepare.add_argument("--jmdict", help="Optional JMDict path override")
+    seed_cache_prepare.add_argument(
+        "--frequency-pack-path",
+        "--set-source-db",
+        dest="set_source_db",
+        help=_FREQUENCY_PACK_OVERRIDE_HELP,
+    )
+    seed_cache_prepare.add_argument(
+        "--no-cleanup",
+        action="store_true",
+        help="Leave older seed frontier cache files in place.",
+    )
+    seed_cache_prepare.set_defaults(func=cmd_srs_seed_cache_prepare)
 
     run = sub.add_parser("run_rulegen", help="Run rulegen for a language pair")
     run.add_argument("--pair", default="en-ja")

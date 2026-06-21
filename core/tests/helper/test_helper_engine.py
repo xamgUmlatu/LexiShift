@@ -2093,7 +2093,7 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 )
 
             set_init_config = init_patch.call_args.kwargs["config"]
-            self.assertEqual(set_init_config.top_n, 800)
+            self.assertIsNone(set_init_config.top_n)
             self.assertEqual(set_init_config.initial_active_count, 40)
             rulegen_config = run_rulegen_patch.call_args.kwargs["rulegen_config"]
             rulegen_defaults = resolve_pair_rulegen_tuning("en-ja")
@@ -2113,7 +2113,9 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 rulegen_config.reverse_check.enabled,
                 rulegen_defaults.reverse_check.enabled,
             )
-            self.assertEqual(result["set_top_n"], 800)
+            self.assertIsNone(result["set_top_n"])
+            self.assertIsNone(result["plan"]["diagnostics"]["bootstrap_top_n"])
+            self.assertEqual(result["plan"]["diagnostics"]["candidate_frontier"], "all")
             self.assertEqual(result["initial_active_count"], 40)
             self.assertEqual(result["pair_policy"]["pair"], "en-ja")
 
@@ -2379,7 +2381,9 @@ class TestHelperEnginePlanSrsSet(unittest.TestCase):
                 ),
             )
 
-            self.assertEqual(plan_payload["set_top_n"], 800)
+            self.assertIsNone(plan_payload["set_top_n"])
+            self.assertIsNone(plan_payload["plan"]["diagnostics"]["bootstrap_top_n"])
+            self.assertEqual(plan_payload["plan"]["diagnostics"]["candidate_frontier"], "all")
             self.assertEqual(plan_payload["initial_active_count"], 40)
             self.assertEqual(plan_payload["pair_policy"]["pair"], "en-de")
 

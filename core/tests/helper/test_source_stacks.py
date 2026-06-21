@@ -23,6 +23,11 @@ class TestSourceStacks(unittest.TestCase):
             [
                 "freq-ja-bccwj",
                 "jmdict-ja-en",
+                "kanjidic2-ja",
+                "jmnedict-ja",
+                "kanjivg-ja",
+                "jlpt-tanos-vocab-ja",
+                "sbsjapanese1-ja",
             ],
         )
         target_frequency = next(

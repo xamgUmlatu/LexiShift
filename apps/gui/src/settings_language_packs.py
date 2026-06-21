@@ -49,6 +49,7 @@ from settings_language_packs_support import (
     FrequencyPackRow,
     LanguageResourceBinding,
     LanguagePackRow,
+    SeedFrontierCachePrepareThread,
     embedding_pack_dir as _embedding_pack_dir,
     frequency_pack_dir as _frequency_pack_dir,
     has_frequency_table as _has_frequency_table,
@@ -108,6 +109,7 @@ class LanguagePackPanel(
         self._frequency_pack_threads: list[FrequencyPackDownloadThread] = []
         self._pos_overlay_pack_threads: list[PosOverlayPackDownloadThread] = []
         self._embedding_conversion_threads: list[EmbeddingConversionThread] = []
+        self._seed_cache_prepare_threads: list[SeedFrontierCachePrepareThread] = []
         self._language_resource_bindings: dict[str, LanguageResourceBinding] = {}
         self._language_pack_paths: dict[str, str] = {}
         self._managed_language_pack_ids: set[str] = set()
@@ -529,6 +531,7 @@ class LanguagePackPanel(
             tone="success",
         )
         self._refresh_language_pack_table()
+        self._prepare_seed_cache_for_pack(pack_id)
 
     def _select_frequency_pack_path(self, pack_id: str) -> None:
         pack = self._frequency_pack_info.get(pack_id)
@@ -569,6 +572,7 @@ class LanguagePackPanel(
             tone="success",
         )
         self._refresh_frequency_pack_table()
+        self._prepare_seed_cache_for_pack(pack_id)
 
     def _select_pos_overlay_pack_path(self, pack_id: str) -> None:
         pack = self._pos_overlay_pack_info.get(pack_id)
@@ -597,6 +601,7 @@ class LanguagePackPanel(
             t("language_packs.installed_linked", name=pack.display_name(), path=managed_path),
             tone="success",
         )
+        self._prepare_seed_cache_for_pack(pack_id)
         if hasattr(self, "_refresh_pair_resource_setup_panel"):
             self._refresh_pair_resource_setup_panel()
 
@@ -737,6 +742,7 @@ class LanguagePackPanel(
                 tone="success",
             )
             self._refresh_frequency_pack_table()
+            self._prepare_seed_cache_for_pack(pack_id)
             if hasattr(self, "_refresh_pair_resource_setup_panel"):
                 self._refresh_pair_resource_setup_panel()
             return

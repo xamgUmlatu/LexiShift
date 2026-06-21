@@ -51,17 +51,28 @@ requirements before mutating state.
 
 Sizing is centralized in `core/lexishift_core/srs/set_policy.py`:
 
-- default `bootstrap_top_n`: `800`
+- default `bootstrap_top_n`: omitted/null, meaning all available seed rows
 - default `initial_active_count`: `40`
-- `bootstrap_top_n` clamp: `200..50000`
+- explicit finite `bootstrap_top_n` clamp: `200..50000`
 - `initial_active_count` clamp: `1..5000`
-- `initial_active_count` is capped by effective `bootstrap_top_n`
+- `initial_active_count` is capped by effective `bootstrap_top_n` only when a finite bootstrap override is supplied
 
 Bootstrap selection is in `core/lexishift_core/helper/rulegen.py`:
 
 - `frequency_bootstrap` is the no-strategy native-host baseline.
 - `profile_bootstrap` is executable when requested; options initialize and
   admission preview request it with current profile context.
+- Helper-driven bootstrap, preview, refresh, rebalance, and rulegen-job flows
+  use a local seed-frontier cache under `srs/cache/seed_frontiers/` when
+  building source-normalized seed rows. The cache does not store profile scores
+  and does not change admission order; corrupt or stale cache files fall back to
+  rebuilding the full configured frontier.
+- Cache lifecycle is also explicit: helper CLI/native-host expose
+  seed-frontier cache status/prepare commands, and the desktop resource flow
+  starts a background cache warmup after relevant language, frequency, or
+  POS-overlay pack download/link/import. Warmup is a latency optimization only;
+  missing companion resources block cache preparation without changing
+  admission eligibility or scoring.
 - Admission preview is read-only. When Options sends a preview seed, the helper
   samples the learner-visible returned words from the planned active pool rather
   than showing only the deterministic prefix of that pool.

@@ -5,8 +5,9 @@ from typing import Optional, Sequence
 
 
 # Keep sizing policy constants centralized so callers do not duplicate
-# "magic numbers" in UI, planner, and helper execution paths.
-DEFAULT_BOOTSTRAP_TOP_N = 800
+# "magic numbers" in UI, planner, and helper execution paths. The default
+# bootstrap frontier is unbounded; explicit finite overrides remain clamped.
+DEFAULT_BOOTSTRAP_TOP_N: Optional[int] = None
 MIN_BOOTSTRAP_TOP_N = 200
 MAX_BOOTSTRAP_TOP_N = 50000
 
@@ -18,7 +19,7 @@ MAX_INITIAL_ACTIVE_COUNT = 5000
 @dataclass(frozen=True)
 class SrsSetSizingPolicy:
     bootstrap_top_n_requested: Optional[int]
-    bootstrap_top_n_effective: int
+    bootstrap_top_n_effective: Optional[int]
     initial_active_count_requested: Optional[int]
     initial_active_count_effective: int
     max_active_items_hint: Optional[int] = None
@@ -57,7 +58,7 @@ def resolve_set_sizing_policy(
     requested_top_n = _parse_optional_int(bootstrap_top_n)
     if requested_top_n is None:
         effective_top_n = DEFAULT_BOOTSTRAP_TOP_N
-        notes.append(f"bootstrap_top_n missing/invalid; defaulting to {DEFAULT_BOOTSTRAP_TOP_N}.")
+        notes.append("bootstrap_top_n missing/invalid; using all available seed rows.")
     else:
         effective_top_n = _clamp(
             requested_top_n,
@@ -98,7 +99,7 @@ def resolve_set_sizing_policy(
                 f"(allowed: {MIN_INITIAL_ACTIVE_COUNT}..{MAX_INITIAL_ACTIVE_COUNT})."
             )
 
-    if effective_initial_active > effective_top_n:
+    if effective_top_n is not None and effective_initial_active > effective_top_n:
         effective_initial_active = effective_top_n
         notes.append("initial_active_count exceeded bootstrap_top_n and was clamped.")
 
