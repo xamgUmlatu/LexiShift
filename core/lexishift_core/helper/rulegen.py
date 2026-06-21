@@ -2,23 +2,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
 from pathlib import Path
-from typing import Iterable, Mapping, Optional, Protocol, Sequence, cast
+from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.helper.rulegen_outputs import (
     RulegenOutput,
     build_snapshot,
     write_rulegen_outputs,
 )
-from lexishift_core.helper.translation_packs import (
-    FORWARD_PACK_DIRECTION,
-    REVERSE_PACK_DIRECTION,
-    build_translation_pack_ref,
-)
 from lexishift_core.lexicon.word_package import (
     normalize_word_package,
     resolve_language_tag_from_pair,
 )
-from lexishift_core.replacement.core import RuleMetadata, VocabRule
 from lexishift_core.helper.lp_capabilities import (
     default_frequency_db_path,
     default_reverse_translation_dictionary_path,
@@ -26,25 +20,19 @@ from lexishift_core.helper.lp_capabilities import (
 )
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.rulegen.adapters import (
-    RulegenAdapterRequest,
     run_results_with_adapter,
     run_rules_with_adapter,
 )
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
-from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store, srs_item_is_active
+from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.profile_bootstrap import (
-    ProfileBootstrapScoredEntry,
     score_seed_words_for_profile,
 )
-from lexishift_core.srs.candidate_identity import candidate_identity_key_from_seed
 from lexishift_core.srs.selector import (
     SELECTION_POLICY_TOP_N,
     SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT,
-    SelectorCandidate,
-    SelectorConfig,
-    SelectorWeights,
     select_candidates,
     select_scored_candidates,
 )
@@ -54,8 +42,29 @@ from lexishift_core.srs.set_strategy import (
 )
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
-from lexishift_core.srs.time import format_ts, now_utc, parse_ts
+from lexishift_core.srs.time import format_ts, now_utc
 from lexishift_core.scoring.weighting import GlossDecay
+from lexishift_core.helper.rulegen_bootstrap_selection import (
+    SeedWordLike as _SeedWordLike,
+    as_seed_word_like as _as_seed_word_like,
+    build_frequency_bootstrap_selector_config as _build_frequency_bootstrap_selector_config,
+    build_profile_bootstrap_selector_config as _build_profile_bootstrap_selector_config,
+    build_weight_preview_entry as _build_weight_preview_entry,
+    coerce_seed_words as _coerce_seed_words,
+    dedupe_profile_bootstrap_entries as _dedupe_profile_bootstrap_entries,
+    dedupe_seed_words as _dedupe_seed_words,
+    safe_optional_float as _safe_optional_float,
+    seed_to_bootstrap_selector_candidates as _seed_to_bootstrap_selector_candidates,
+)
+from lexishift_core.helper.rulegen_srs_serving import (
+    annotate_rules_with_srs_serving_metadata,
+    item_is_active_for_pair as _item_is_active_for_pair,
+    normalize_item_id_filter as _normalize_item_id_filter,
+    normalize_item_id_sequence as _normalize_item_id_sequence,
+)
+from lexishift_core.helper.rulegen_adapter_request import (
+    build_rulegen_adapter_request as _build_rulegen_adapter_request,
+)
 
 PROFILE_BOOTSTRAP_DIAGNOSTIC_PREVIEW_LIMIT = 200
 
@@ -136,11 +145,6 @@ class RulegenConfig:
     enable_exact_gloss_demotions: bool = False
 
 
-class _SeedWordLike(Protocol):
-    lemma: str
-    language_pair: str
-
-
 def _load_seed_module():
     return __import__(
         "lexishift_core.srs.seed",
@@ -218,35 +222,6 @@ def load_target_word_packages_from_store(
             continue
         packages[item.lemma] = normalized
     return packages
-
-
-def annotate_rules_with_srs_serving_metadata(
-    rules: Sequence[VocabRule],
-    *,
-    store: SrsStore,
-    pair: str,
-    active_item_ids: Optional[Sequence[str]] = None,
-) -> tuple[VocabRule, ...]:
-    active_item_id_set = _normalize_item_id_filter(active_item_ids)
-    now = now_utc()
-    items_by_lemma: dict[str, SrsItem] = {}
-    for item in store.items:
-        if not _item_is_active_for_pair(item, pair):
-            continue
-        if active_item_id_set is not None and item.item_id not in active_item_id_set:
-            continue
-        items_by_lemma.setdefault(item.lemma, item)
-
-    annotated: list[VocabRule] = []
-    for rule in rules:
-        matching_item = items_by_lemma.get(str(rule.replacement or "").strip())
-        if matching_item is None:
-            annotated.append(rule)
-            continue
-        annotated.append(
-            _annotate_rule_with_srs_serving_metadata(rule, item=matching_item, now=now)
-        )
-    return tuple(annotated)
 
 
 def initialize_store_from_frequency_list(
@@ -412,13 +387,13 @@ def initialize_store_from_frequency_list_with_report(
     selected_unique_identity_keys = tuple(
         identity_key
         for selected in unique_selected_words
-        for identity_key in (candidate_identity_key_from_seed(selected),)
+        for identity_key in (_candidate_identity_key_from_seed(selected),)
         if identity_key
     )
     initial_active_identity_keys = tuple(
         identity_key
         for selected in admitted_words[:initial_active_count]
-        for identity_key in (candidate_identity_key_from_seed(selected),)
+        for identity_key in (_candidate_identity_key_from_seed(selected),)
         if identity_key
     )
     report = SetInitializationReport(
@@ -455,38 +430,19 @@ def run_en_ja_rulegen(
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
     jmdict_path: Path,
     config: RulegenConfig,
-) -> Sequence[VocabRule]:
+) -> Sequence[object]:
+    normalized_targets = tuple(str(target).strip() for target in targets if str(target).strip())
     return run_rules_with_adapter(
-        RulegenAdapterRequest(
+        _build_rulegen_adapter_request(
             pair="en-ja",
-            targets=tuple(str(target).strip() for target in targets if str(target).strip()),
-            language_pair=config.language_pair,
-            confidence_threshold=config.confidence_threshold,
-            max_definitions_per_target=config.max_definitions_per_target,
-            max_rules_per_target=config.max_rules_per_target,
-            semantic_demotion_scale=config.semantic_demotion_scale,
-            include_variants=config.include_variants,
-            allow_multiword_glosses=config.allow_multiword_glosses,
-            scoring=config.scoring,
-            gloss_decay=config.gloss_decay,
+            targets=normalized_targets,
+            rulegen_config=config,
             jmdict_path=jmdict_path,
+            translation_dict_path=None,
+            resolved_reverse_translation_dict_path=None,
             word_packages_by_target=word_packages_by_target,
-            enable_exact_gloss_demotions=config.enable_exact_gloss_demotions,
         )
     )
-
-
-def _safe_optional_float(value: object) -> Optional[float]:
-    if value is None:
-        return None
-    if isinstance(value, (float, int)):
-        return float(value)
-    if isinstance(value, (str, bytes, bytearray)):
-        try:
-            return float(value)
-        except ValueError:
-            return None
-    return None
 
 
 def _resolve_selected_word_package(selected: object) -> Optional[Mapping[str, object]]:
@@ -501,227 +457,12 @@ def _resolve_selected_word_package(selected: object) -> Optional[Mapping[str, ob
     )
 
 
-def _build_weight_preview_entry(selected: object) -> Mapping[str, object]:
-    base_weight = _safe_optional_float(getattr(selected, "base_weight", None))
-    pos_weight = _safe_optional_float(getattr(selected, "pos_weight", None))
-    admission_weight = _safe_optional_float(getattr(selected, "admission_weight", None))
-    return {
-        "candidate_identity_key": candidate_identity_key_from_seed(selected),
-        "lemma": str(getattr(selected, "lemma", "")).strip(),
-        "pos": getattr(selected, "pos", None),
-        "pos_bucket": str(getattr(selected, "pos_bucket", "")),
-        "base_weight": round(base_weight, 6) if base_weight is not None else None,
-        "pos_weight": round(pos_weight, 6) if pos_weight is not None else None,
-        "admission_weight": round(admission_weight, 6) if admission_weight is not None else None,
-    }
-
-
-def _normalize_item_id_filter(
-    active_item_ids: Optional[Sequence[str]],
-) -> Optional[set[str]]:
-    normalized = _normalize_item_id_sequence(active_item_ids)
-    if normalized is None:
-        return None
-    return set(normalized)
-
-
-def _normalize_item_id_sequence(
-    active_item_ids: Optional[Sequence[str]],
-) -> Optional[tuple[str, ...]]:
-    if active_item_ids is None:
-        return None
-    normalized: list[str] = []
-    seen: set[str] = set()
-    for item_id in active_item_ids:
-        candidate = str(item_id).strip()
-        if not candidate or candidate in seen:
-            continue
-        seen.add(candidate)
-        normalized.append(candidate)
-    return tuple(normalized)
-
-
-def _item_is_active_for_pair(item: SrsItem, pair: str) -> bool:
-    return item.language_pair == pair and bool(item.lemma) and srs_item_is_active(item)
-
-
-def _build_srs_serving_metadata(item: SrsItem, *, now) -> dict[str, object]:
-    next_due = parse_ts(item.next_due)
-    in_due = next_due is None or next_due <= now
-    payload: dict[str, object] = {
-        "schema_version": 1,
-        "serving_policy": "due_at_or_before_now",
-        "item_id": item.item_id,
-        "next_due": item.next_due,
-        "in_due": bool(in_due),
-        "scheduler_state": item.scheduler_state,
-        "scheduler_step": item.scheduler_step,
-        "stability": item.stability,
-        "difficulty": item.difficulty,
-        "last_review": item.last_review,
-        "last_seen": item.last_seen,
-        "exposures": item.exposures,
-        "review_count": len(item.history),
-    }
-    return {key: value for key, value in payload.items() if value is not None}
-
-
-def _annotate_rule_with_srs_serving_metadata(
-    rule: VocabRule,
-    *,
-    item: SrsItem,
-    now,
-) -> VocabRule:
-    metadata = rule.metadata or RuleMetadata()
-    rulegen_metadata = dict(metadata.rulegen or {})
-    rulegen_metadata["srs"] = _build_srs_serving_metadata(item, now=now)
-    return replace(rule, metadata=replace(metadata, rulegen=rulegen_metadata))
-
-
-def _dedupe_seed_words(selected_words: Sequence[object]) -> list[_SeedWordLike]:
-    selected_by_id: dict[str, _SeedWordLike] = {}
-    order_by_id: dict[str, int] = {}
-    for selected in selected_words:
-        seed = _as_seed_word_like(selected)
-        if seed is None:
-            continue
-        item_id = build_item_id(seed.language_pair, seed.lemma)
-        order_by_id.setdefault(item_id, len(order_by_id))
-        existing = selected_by_id.get(item_id)
-        if existing is None or _seed_choice_key(seed) > _seed_choice_key(existing):
-            selected_by_id[item_id] = seed
-    return [
-        selected_by_id[item_id]
-        for item_id, _order in sorted(order_by_id.items(), key=lambda item: item[1])
-    ]
-
-
-def _seed_choice_key(seed: object) -> tuple[float, float, float, float]:
-    rank = _safe_optional_float(getattr(seed, "core_rank", None))
-    rank_score = -rank if rank is not None else float("-inf")
-    return (
-        _resolve_seed_admission_suitability(seed),
-        _safe_optional_float(getattr(seed, "admission_weight", None)) or 0.0,
-        _safe_optional_float(getattr(seed, "base_weight", None)) or 0.0,
-        rank_score,
+def _candidate_identity_key_from_seed(seed: object) -> str:
+    identity_module = __import__(
+        "lexishift_core.srs.candidate_identity",
+        fromlist=["candidate_identity_key_from_seed"],
     )
-
-
-def _profile_entry_choice_key(entry: ProfileBootstrapScoredEntry) -> tuple[float, float, float]:
-    return (
-        float(entry.scored_candidate.breakdown.final_score),
-        float(entry.signal_pack.admission_suitability),
-        float(entry.traits.coverage_gain),
-    )
-
-
-def _resolve_seed_admission_suitability(seed: object) -> float:
-    value = _safe_optional_float(getattr(seed, "admission_suitability", None))
-    if value is not None:
-        return value
-    metadata = getattr(seed, "metadata", None)
-    if isinstance(metadata, Mapping):
-        value = _safe_optional_float(metadata.get("admission_suitability"))
-        if value is not None:
-            return value
-    return 1.0
-
-
-def _coerce_seed_words(selected_words: object) -> list[_SeedWordLike]:
-    if not isinstance(selected_words, Sequence) or isinstance(selected_words, (str, bytes)):
-        return []
-    coerced: list[_SeedWordLike] = []
-    for selected in selected_words:
-        seed = _as_seed_word_like(selected)
-        if seed is not None:
-            coerced.append(seed)
-    return coerced
-
-
-def _as_seed_word_like(value: object) -> _SeedWordLike | None:
-    if not hasattr(value, "lemma") or not hasattr(value, "language_pair"):
-        return None
-    return cast(_SeedWordLike, value)
-
-
-def _dedupe_profile_bootstrap_entries(
-    scored_entries: Sequence[ProfileBootstrapScoredEntry],
-) -> list[ProfileBootstrapScoredEntry]:
-    entry_by_id: dict[str, ProfileBootstrapScoredEntry] = {}
-    order_by_id: dict[str, int] = {}
-    for entry in scored_entries:
-        seed = getattr(entry, "seed", None)
-        seed_like = _as_seed_word_like(seed)
-        if seed_like is None:
-            continue
-        item_id = build_item_id(seed_like.language_pair, seed_like.lemma)
-        order_by_id.setdefault(item_id, len(order_by_id))
-        existing = entry_by_id.get(item_id)
-        if existing is None or _profile_entry_choice_key(entry) > _profile_entry_choice_key(
-            existing
-        ):
-            entry_by_id[item_id] = entry
-    return [
-        entry_by_id[item_id]
-        for item_id, _order in sorted(order_by_id.items(), key=lambda item: item[1])
-    ]
-
-
-def _seed_to_bootstrap_selector_candidates(seeds: Sequence[object]) -> list[SelectorCandidate]:
-    candidates: list[SelectorCandidate] = []
-    for seed in seeds:
-        admission_weight = (
-            _safe_optional_float(getattr(seed, "admission_weight", None))
-            or _safe_optional_float(getattr(seed, "base_weight", None))
-            or 1.0
-        )
-        candidates.append(
-            SelectorCandidate(
-                lemma=str(getattr(seed, "lemma", "") or "").strip(),
-                language_pair=str(getattr(seed, "language_pair", "") or "").strip(),
-                base_freq=admission_weight,
-                admission_suitability=_resolve_seed_admission_suitability(seed),
-                confidence=0.0,
-                pos=str(getattr(seed, "pos_bucket", "") or "").strip() or None,
-                metadata={
-                    "candidate_identity_key": candidate_identity_key_from_seed(seed),
-                    "base_weight": _safe_optional_float(getattr(seed, "base_weight", None)),
-                    "admission_weight": admission_weight,
-                    "pos_bucket": str(getattr(seed, "pos_bucket", "") or "").strip() or None,
-                },
-            )
-        )
-    return candidates
-
-
-def _build_frequency_bootstrap_selector_config(
-    *,
-    selection_policy: str,
-    selection_count: int,
-) -> SelectorConfig:
-    return SelectorConfig(
-        weights=SelectorWeights(
-            base_freq=1.0,
-            topic_bias=0.0,
-            scarcity_bonus=0.0,
-            user_pref=0.0,
-            confidence=0.0,
-            difficulty_target=0.0,
-        ),
-        selection_policy=selection_policy,
-        top_n=max(0, int(selection_count)),
-    )
-
-
-def _build_profile_bootstrap_selector_config(
-    *,
-    selection_policy: str,
-    selection_count: int,
-) -> SelectorConfig:
-    return SelectorConfig(
-        selection_policy=selection_policy,
-        top_n=max(0, int(selection_count)),
-    )
+    return identity_module.candidate_identity_key_from_seed(seed)
 
 
 def _resolve_selection_policy_override(value: object) -> str:
@@ -740,50 +481,6 @@ def _normalize_optional_int(value: object) -> Optional[int]:
         return int(str(value).strip())
     except (TypeError, ValueError):
         return None
-
-
-def _build_rulegen_adapter_request(
-    *,
-    pair: str,
-    targets: Sequence[str],
-    rulegen_config: RulegenConfig,
-    jmdict_path: Optional[Path],
-    translation_dict_path: Optional[Path],
-    resolved_reverse_translation_dict_path: Optional[Path],
-    source_frequency_db_path: Optional[Path] = None,
-    word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
-) -> RulegenAdapterRequest:
-    return RulegenAdapterRequest(
-        pair=pair,
-        targets=targets,
-        language_pair=rulegen_config.language_pair,
-        confidence_threshold=rulegen_config.confidence_threshold,
-        max_definitions_per_target=rulegen_config.max_definitions_per_target,
-        max_rules_per_target=rulegen_config.max_rules_per_target,
-        semantic_demotion_scale=rulegen_config.semantic_demotion_scale,
-        include_variants=rulegen_config.include_variants,
-        allow_multiword_glosses=rulegen_config.allow_multiword_glosses,
-        scoring=rulegen_config.scoring,
-        reverse_check=rulegen_config.reverse_check,
-        gloss_decay=rulegen_config.gloss_decay,
-        enable_exact_gloss_demotions=rulegen_config.enable_exact_gloss_demotions,
-        jmdict_path=jmdict_path,
-        translation_pack=build_translation_pack_ref(
-            pair,
-            translation_dict_path,
-            direction=FORWARD_PACK_DIRECTION,
-        ),
-        translation_dict_path=translation_dict_path,
-        reverse_translation_pack=build_translation_pack_ref(
-            pair,
-            resolved_reverse_translation_dict_path,
-            direction=REVERSE_PACK_DIRECTION,
-        ),
-        reverse_translation_dict_path=resolved_reverse_translation_dict_path,
-        enable_source_frequency_prior=rulegen_config.enable_source_frequency_prior,
-        source_frequency_db_path=source_frequency_db_path,
-        word_packages_by_target=word_packages_by_target,
-    )
 
 
 def run_rulegen_for_pair(

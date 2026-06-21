@@ -55,6 +55,10 @@ SRS_STORY_VIEW_MODEL_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/srs_story_view_model.js"
 )
 UI_MANAGER_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/ui_manager.js"
+UI_MANAGER_DOM_IDS_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/ui_manager_dom_ids.js"
+UI_MANAGER_PROFILE_BACKGROUND_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/ui_manager_profile_background.js"
+)
 SRS_TOPIC_SUPPORT_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/srs_topic_support.js"
 SETTINGS_BASE_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/base_methods.js"
 SETTINGS_LANGUAGE_JS = (
@@ -352,6 +356,14 @@ assert.equal(prefs.backgroundBackdropColor, "#123456");
         self.assertIn('"badge_srs_active_story"', story_view_model_js)
         self.assertLess(
             html.index("options/core/srs_story_view_model.js"),
+            html.index("options/core/ui_manager.js"),
+        )
+        self.assertLess(
+            html.index("options/core/ui_manager_dom_ids.js"),
+            html.index("options/core/ui_manager.js"),
+        )
+        self.assertLess(
+            html.index("options/core/ui_manager_profile_background.js"),
             html.index("options/core/ui_manager.js"),
         )
         self.assertIn('id="srs-story-start-heading"', html)
@@ -2215,6 +2227,8 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const viewModelPath = {json.dumps(str(SRS_STORY_VIEW_MODEL_JS))};
+const uiManagerDomIdsPath = {json.dumps(str(UI_MANAGER_DOM_IDS_JS))};
+const uiManagerProfileBackgroundPath = {json.dumps(str(UI_MANAGER_PROFILE_BACKGROUND_JS))};
 const uiManagerPath = {json.dumps(str(UI_MANAGER_JS))};
 const storyCard = {{ hidden: false, open: true }};
 const context = vm.createContext({{
@@ -2233,6 +2247,8 @@ const context = vm.createContext({{
 }});
 context.globalThis = context;
 vm.runInContext(fs.readFileSync(viewModelPath, "utf8"), context, {{ filename: viewModelPath }});
+vm.runInContext(fs.readFileSync(uiManagerDomIdsPath, "utf8"), context, {{ filename: uiManagerDomIdsPath }});
+vm.runInContext(fs.readFileSync(uiManagerProfileBackgroundPath, "utf8"), context, {{ filename: uiManagerProfileBackgroundPath }});
 vm.runInContext(
   `${{fs.readFileSync(uiManagerPath, "utf8")}}\nglobalThis.__UIManager = UIManager;`,
   context,
@@ -2300,6 +2316,8 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const viewModelPath = {json.dumps(str(SRS_STORY_VIEW_MODEL_JS))};
+const uiManagerDomIdsPath = {json.dumps(str(UI_MANAGER_DOM_IDS_JS))};
+const uiManagerProfileBackgroundPath = {json.dumps(str(UI_MANAGER_PROFILE_BACKGROUND_JS))};
 const uiManagerPath = {json.dumps(str(UI_MANAGER_JS))};
 const elements = new Map();
 function createElement(options) {{
@@ -2365,6 +2383,8 @@ const context = vm.createContext({{
 }});
 context.globalThis = context;
 vm.runInContext(fs.readFileSync(viewModelPath, "utf8"), context, {{ filename: viewModelPath }});
+vm.runInContext(fs.readFileSync(uiManagerDomIdsPath, "utf8"), context, {{ filename: uiManagerDomIdsPath }});
+vm.runInContext(fs.readFileSync(uiManagerProfileBackgroundPath, "utf8"), context, {{ filename: uiManagerProfileBackgroundPath }});
 vm.runInContext(
   `${{fs.readFileSync(uiManagerPath, "utf8")}}\nglobalThis.__UIManager = UIManager;`,
   context,
@@ -2408,6 +2428,8 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const presenterPath = {json.dumps(str(SRS_START_CARD_PRESENTER_JS))};
+const uiManagerDomIdsPath = {json.dumps(str(UI_MANAGER_DOM_IDS_JS))};
+const uiManagerProfileBackgroundPath = {json.dumps(str(UI_MANAGER_PROFILE_BACKGROUND_JS))};
 const uiManagerPath = {json.dumps(str(UI_MANAGER_JS))};
 const elements = new Map();
 function createElement() {{
@@ -2446,6 +2468,8 @@ const context = vm.createContext({{
 }});
 context.globalThis = context;
 vm.runInContext(fs.readFileSync(presenterPath, "utf8"), context, {{ filename: presenterPath }});
+vm.runInContext(fs.readFileSync(uiManagerDomIdsPath, "utf8"), context, {{ filename: uiManagerDomIdsPath }});
+vm.runInContext(fs.readFileSync(uiManagerProfileBackgroundPath, "utf8"), context, {{ filename: uiManagerProfileBackgroundPath }});
 vm.runInContext(
   `${{fs.readFileSync(uiManagerPath, "utf8")}}\nglobalThis.__UIManager = UIManager;`,
   context,

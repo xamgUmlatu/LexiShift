@@ -1,6 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const { copySelectOptions, DEFAULT_STORY_FLOW_PROFICIENCY, formatProficiencyValue, hasExplicitProficiencyValue, matchesStoryContext, normalizeInterestList, readStoryContext, readStoryFlowValues, setProficiencyInput, setSelectValue, syncTopicChips } = root.optionsSrsStoryFlowUtils;
+  const { buildPreviewPlanningState, copySelectOptions, DEFAULT_STORY_FLOW_PROFICIENCY, formatProficiencyValue, hasExplicitProficiencyValue, matchesStoryContext, normalizeInterestList, readStoryContext, readStoryFlowValues, setProficiencyInput, setSelectValue, syncTopicChips } = root.optionsSrsStoryFlowUtils;
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -118,83 +118,6 @@
       const source = modalSourceLanguageInput ? String(modalSourceLanguageInput.value || "").trim() : "en";
       const target = modalTargetLanguageInput ? String(modalTargetLanguageInput.value || "").trim() : "es";
       return `${source || "en"}-${target || "es"}`;
-    }
-
-    function normalizeProfileId(profileId, items) {
-      if (settingsManager && typeof settingsManager.normalizeSrsProfileId === "function") {
-        return settingsManager.normalizeSrsProfileId(
-          profileId || (typeof settingsManager.getSelectedSrsProfileId === "function"
-            ? settingsManager.getSelectedSrsProfileId(items)
-            : "default")
-        );
-      }
-      return String(profileId || "default").trim() || "default";
-    }
-
-    function parsePercentValue(value) {
-      const trimmed = String(value || "").trim();
-      if (!trimmed) {
-        return null;
-      }
-      const parsed = Number.parseFloat(trimmed);
-      if (!Number.isFinite(parsed)) {
-        return null;
-      }
-      return Math.min(100, Math.max(0, parsed)) / 100;
-    }
-
-    function buildPreviewPlanningState(values, items, pairKey) {
-      if (!settingsManager) {
-        return null;
-      }
-      const profileId = normalizeProfileId(values.profileId, items);
-      const storedProfile = settingsManager.getSrsProfile(items, pairKey, { profileId });
-      const storedSignals = settingsManager.getSrsProfileSignals(items, pairKey, {
-        profileId: storedProfile.profileId || profileId
-      });
-      const maxActiveRaw = parseInt(values.maxActive, 10);
-      const srsMaxActive = Number.isFinite(maxActiveRaw)
-        ? Math.max(1, maxActiveRaw)
-        : storedProfile.srsMaxActive;
-      const sizing = settingsManager.resolveSrsSetSizing(
-        {
-          srsMaxActive,
-          srsInitialActiveCount: values.initialActiveCount || storedProfile.srsInitialActiveCount
-        },
-        settingsManager.defaults
-      );
-      const effectiveProfile = {
-        ...storedProfile,
-        srsMaxActive,
-        srsBootstrapTopN: sizing.srsBootstrapTopN,
-        srsInitialActiveCount: sizing.srsInitialActiveCount
-      };
-      const effectiveProficiency = storedSignals.proficiency && typeof storedSignals.proficiency === "object"
-        ? { ...storedSignals.proficiency }
-        : {};
-      const proficiencyEstimate = parsePercentValue(values.proficiencyEstimate);
-      if (proficiencyEstimate === null) {
-        delete effectiveProficiency.estimated_value;
-      } else {
-        effectiveProficiency.estimated_value = Number(proficiencyEstimate.toFixed(2));
-      }
-      const effectiveSignals = {
-        ...storedSignals,
-        interests: normalizeInterestList(values.interests),
-        proficiency: effectiveProficiency
-      };
-      return {
-        profileId: storedProfile.profileId || profileId,
-        profile: effectiveProfile,
-        signals: effectiveSignals,
-        profileContext: settingsManager.composeSrsPlanContext(pairKey, effectiveProfile, effectiveSignals, {
-          profileId: storedProfile.profileId || profileId
-        }),
-        contextMeta: {
-          source: "story_setup_form",
-          pendingOverrides: ["story_setup"]
-        }
-      };
     }
 
     function updateModalTopicSupport() {
@@ -386,7 +309,7 @@
           ? await settingsManager.load()
           : null;
         const planningState = items
-          ? buildPreviewPlanningState(values, items, pairKey)
+          ? buildPreviewPlanningState(settingsManager, values, items, pairKey)
           : null;
         await srsActionsController.previewAdmission({
           pairKey,

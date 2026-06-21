@@ -15,81 +15,9 @@ class UIManager {
   }
 
   init() {
-    const ids = [
-      "options-main-content",
-      "enabled", "highlight-enabled", "highlight-color", "highlight-color-text",
-      "max-one-per-block", "allow-adjacent", "max-replacements-per-page",
-      "max-replacements-per-lemma-page", "debug-enabled", "debug-focus-word",
-      "srs-enabled", "source-language", "target-language", "srs-max-active",
-      "target-language-gear", "target-language-prefs-modal-backdrop",
-      "target-language-prefs-modal", "target-language-prefs-modal-ok", "target-language-modules-list",
-      "srs-profile-id", "srs-profile-refresh", "srs-profile-status",
-      "profile-bg-backdrop-color",
-      "profile-bg-opacity", "profile-bg-opacity-value",
-      "profile-bg-file", "profile-bg-remove",
-      "profile-bg-status", "profile-bg-preview-wrap", "profile-bg-preview",
-      "profile-bg-focal-marker", "profile-bg-position-reset",
-      "profile-card-theme-hue", "profile-card-theme-hue-value",
-      "profile-card-theme-saturation", "profile-card-theme-saturation-value",
-      "profile-card-theme-brightness", "profile-card-theme-brightness-value",
-      "profile-card-theme-transparency", "profile-card-theme-transparency-value",
-      "profile-card-theme-reset",
-      "srs-bootstrap-top-n", "srs-initial-active-count",
-      "srs-topic-interests", "srs-proficiency-estimate", "srs-challenge-target",
-      "srs-proficiency-estimate-value", "srs-proficiency-estimate-saved", "srs-proficiency-estimate-restore",
-      "srs-save-preferences", "srs-preferences-save-status",
-      "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
-      "srs-semantic-admission-status", "srs-semantic-admission-status-detail",
-      "srs-auto-refresh-min-feedback",
-      "srs-auto-refresh-min-good-easy", "srs-auto-refresh-repeat-min-good-easy",
-      "srs-auto-refresh-cooldown",
-      "srs-exposure-logging-enabled",
-      "srs-admission-preview", "srs-admission-preview-output",
-      "srs-initialize-set", "srs-rebalance-preview", "srs-rebalance-apply",
-      "srs-story-sampling-curtain",
-      "srs-refresh-set", "srs-runtime-diagnostics",
-      "srs-rulegen-sampled-preview",
-      "srs-story-pair-list",
-      "srs-story-current-card", "srs-story-current-pair", "srs-story-current-meta",
-      "srs-rulegen-output", "srs-delete-story", "helper-status",
-      "srs-story-start", "srs-story-flow-backdrop", "srs-story-flow",
-      "srs-story-flow-close", "srs-story-flow-source-language",
-      "srs-story-flow-target-language", "srs-story-flow-profile-id",
-      "srs-story-flow-proficiency-estimate", "srs-story-flow-topic-interests",
-      "srs-story-flow-proficiency-estimate-value",
-      "srs-story-flow-max-active", "srs-story-flow-initial-active-count", "srs-story-flow-sample",
-      "srs-story-flow-initialize", "srs-story-flow-preview-output",
-      "srs-story-flow-busy-backdrop", "srs-story-flow-busy-message",
-      "srs-story-flow-resource-check", "srs-story-flow-resource-message", "srs-story-flow-resource-list", "srs-story-flow-open-resource-settings", "srs-story-flow-retry-resources",
-      "helper-last-sync", "debug-helper-test",
-      "debug-semantic-pack-inventory-path", "debug-semantic-pack-id",
-      "debug-semantic-pack-default-data-root", "debug-semantic-pack-data-root",
-      "debug-semantic-pack-install", "debug-semantic-pack-install-output",
-      "debug-helper-test-output", "debug-open-data-dir",
-      "debug-open-data-dir-output", "ui-language", "rules", "save",
-      "status", "rules-file", "import-file", "export-file", "file-status",
-      "custom-ruleset-enabled",
-      "profile-rulesets-list", "profile-rulesets-status", "profile-rulesets-refresh",
-      "share-center-open-export", "share-center-open-import",
-      "share-center-export-backdrop", "share-center-export-modal", "share-center-export-close",
-      "share-center-import-backdrop", "share-center-import-modal", "share-center-import-close",
-      "share-center-export-mode-full", "share-center-export-mode-custom", "share-center-tree-panel",
-      "share-center-parent-profile", "share-center-parent-rulesets", "share-center-parent-srs",
-      "share-center-parent-appearance", "share-center-parent-module-histories",
-      "share-center-srs-pair-items", "share-center-srs-pair-status",
-      "share-center-target-profile-settings",
-      "share-center-target-appearance-theme",
-      "share-center-ruleset-items", "share-center-ruleset-status",
-      "share-center-module-items", "share-center-module-status",
-      "share-center-summary-target", "share-center-summary-groups",
-      "share-center-summary-output",
-      "share-center-generate", "share-center-export-status",
-      "share-center-import-file", "share-center-import-file-name", "share-center-import", "share-center-import-status",
-      "share-center-status",
-      "rules-updated", "rules-count", "share-code", "share-code-scope", "share-code-cjk",
-      "generate-code", "import-code", "copy-code", "open-desktop-app",
-      "open-bd-plugin"
-    ];
+    const ids = Array.isArray(globalThis.LexiShift && globalThis.LexiShift.optionsUiManagerDomIds)
+      ? globalThis.LexiShift.optionsUiManagerDomIds
+      : [];
 
     ids.forEach((id) => {
       const prop = id.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
@@ -507,124 +435,11 @@ class UIManager {
     this.updateSrsStorySummary();
   }
 
-  updateProfileBackgroundInputs(prefs) {
-    const source = prefs && typeof prefs === "object" ? prefs : {};
-    const hasAsset = Boolean(String(source.backgroundAssetId || "").trim());
-    const themePrefs = globalThis.LexiShift
-      && globalThis.LexiShift.profileUiThemePrefs
-      && typeof globalThis.LexiShift.profileUiThemePrefs === "object"
-      ? globalThis.LexiShift.profileUiThemePrefs
-      : {};
-    const resolveCardThemeLimits = typeof themePrefs.resolveCardThemeLimits === "function"
-      ? themePrefs.resolveCardThemeLimits
-      : () => ({
-          hueDeg: { min: -180, max: 180, step: 1, defaultValue: 0 },
-          saturationPercent: { min: 70, max: 140, step: 1, defaultValue: 100 },
-          brightnessPercent: { min: 80, max: 125, step: 1, defaultValue: 100 },
-          transparencyPercent: { min: 40, max: 100, step: 1, defaultValue: 100 }
-        });
-    const normalizeCardThemePrefs = typeof themePrefs.normalizeCardThemePrefs === "function"
-      ? themePrefs.normalizeCardThemePrefs
-      : () => ({
-          cardThemeHueDeg: 0,
-          cardThemeSaturationPercent: 100,
-          cardThemeBrightnessPercent: 100,
-          cardThemeTransparencyPercent: 100
-        });
-    const cardThemeLimits = resolveCardThemeLimits();
-    const normalizedCardTheme = normalizeCardThemePrefs(source, {
-      fallback: source
-    });
-    if (this.dom.profileBgBackdropColor) {
-      this.dom.profileBgBackdropColor.value = String(source.backgroundBackdropColor || "#fbf7f0");
-      this.dom.profileBgBackdropColor.disabled = false;
-    }
-    if (this.dom.profileBgOpacity) {
-      const opacity = Number.isFinite(Number(source.backgroundOpacity))
-        ? Number(source.backgroundOpacity)
-        : 0.18;
-      const percent = Math.round(Math.min(1, Math.max(0, opacity)) * 100);
-      this.dom.profileBgOpacity.value = String(percent);
-      this.dom.profileBgOpacity.disabled = false;
-    }
-    if (this.dom.profileBgOpacityValue) {
-      const opacityValue = this.dom.profileBgOpacity
-        ? Number(this.dom.profileBgOpacity.value || 18)
-        : 18;
-      this.dom.profileBgOpacityValue.textContent = `${Math.round(opacityValue)}%`;
-    }
-    if (this.dom.profileBgRemove) {
-      this.dom.profileBgRemove.disabled = !hasAsset;
-    }
-    if (this.dom.profileBgPositionReset) {
-      this.dom.profileBgPositionReset.disabled = false;
-    }
-    if (this.dom.profileCardThemeHue) {
-      const hue = Number.isFinite(Number(normalizedCardTheme.cardThemeHueDeg))
-        ? Number(normalizedCardTheme.cardThemeHueDeg)
-        : Number(cardThemeLimits.hueDeg.defaultValue);
-      this.dom.profileCardThemeHue.min = String(cardThemeLimits.hueDeg.min);
-      this.dom.profileCardThemeHue.max = String(cardThemeLimits.hueDeg.max);
-      this.dom.profileCardThemeHue.step = String(cardThemeLimits.hueDeg.step || 1);
-      this.dom.profileCardThemeHue.value = String(Math.round(hue));
-      this.dom.profileCardThemeHue.disabled = false;
-    }
-    if (this.dom.profileCardThemeHueValue) {
-      const hueValue = this.dom.profileCardThemeHue
-        ? Number(this.dom.profileCardThemeHue.value || 0)
-        : Number(cardThemeLimits.hueDeg.defaultValue);
-      this.dom.profileCardThemeHueValue.textContent = `${Math.round(hueValue)}°`;
-    }
-    if (this.dom.profileCardThemeSaturation) {
-      const saturation = Number.isFinite(Number(normalizedCardTheme.cardThemeSaturationPercent))
-        ? Number(normalizedCardTheme.cardThemeSaturationPercent)
-        : Number(cardThemeLimits.saturationPercent.defaultValue);
-      this.dom.profileCardThemeSaturation.min = String(cardThemeLimits.saturationPercent.min);
-      this.dom.profileCardThemeSaturation.max = String(cardThemeLimits.saturationPercent.max);
-      this.dom.profileCardThemeSaturation.step = String(cardThemeLimits.saturationPercent.step || 1);
-      this.dom.profileCardThemeSaturation.value = String(Math.round(saturation));
-      this.dom.profileCardThemeSaturation.disabled = false;
-    }
-    if (this.dom.profileCardThemeSaturationValue) {
-      const saturationValue = this.dom.profileCardThemeSaturation
-        ? Number(this.dom.profileCardThemeSaturation.value || 100)
-        : Number(cardThemeLimits.saturationPercent.defaultValue);
-      this.dom.profileCardThemeSaturationValue.textContent = `${Math.round(saturationValue)}%`;
-    }
-    if (this.dom.profileCardThemeBrightness) {
-      const brightness = Number.isFinite(Number(normalizedCardTheme.cardThemeBrightnessPercent))
-        ? Number(normalizedCardTheme.cardThemeBrightnessPercent)
-        : Number(cardThemeLimits.brightnessPercent.defaultValue);
-      this.dom.profileCardThemeBrightness.min = String(cardThemeLimits.brightnessPercent.min);
-      this.dom.profileCardThemeBrightness.max = String(cardThemeLimits.brightnessPercent.max);
-      this.dom.profileCardThemeBrightness.step = String(cardThemeLimits.brightnessPercent.step || 1);
-      this.dom.profileCardThemeBrightness.value = String(Math.round(brightness));
-      this.dom.profileCardThemeBrightness.disabled = false;
-    }
-    if (this.dom.profileCardThemeBrightnessValue) {
-      const brightnessValue = this.dom.profileCardThemeBrightness
-        ? Number(this.dom.profileCardThemeBrightness.value || 100)
-        : Number(cardThemeLimits.brightnessPercent.defaultValue);
-      this.dom.profileCardThemeBrightnessValue.textContent = `${Math.round(brightnessValue)}%`;
-    }
-    if (this.dom.profileCardThemeTransparency) {
-      const transparency = Number.isFinite(Number(normalizedCardTheme.cardThemeTransparencyPercent))
-        ? Number(normalizedCardTheme.cardThemeTransparencyPercent)
-        : Number(cardThemeLimits.transparencyPercent.defaultValue);
-      this.dom.profileCardThemeTransparency.min = String(cardThemeLimits.transparencyPercent.min);
-      this.dom.profileCardThemeTransparency.max = String(cardThemeLimits.transparencyPercent.max);
-      this.dom.profileCardThemeTransparency.step = String(cardThemeLimits.transparencyPercent.step || 1);
-      this.dom.profileCardThemeTransparency.value = String(Math.round(transparency));
-      this.dom.profileCardThemeTransparency.disabled = false;
-    }
-    if (this.dom.profileCardThemeTransparencyValue) {
-      const transparencyValue = this.dom.profileCardThemeTransparency
-        ? Number(this.dom.profileCardThemeTransparency.value || 100)
-        : Number(cardThemeLimits.transparencyPercent.defaultValue);
-      this.dom.profileCardThemeTransparencyValue.textContent = `${Math.round(transparencyValue)}%`;
-    }
-    if (this.dom.profileCardThemeReset) {
-      this.dom.profileCardThemeReset.disabled = false;
-    }
-  }
 }
+
+(() => {
+  const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  if (root.optionsUiManagerProfileBackgroundMethods) {
+    Object.assign(UIManager.prototype, root.optionsUiManagerProfileBackgroundMethods);
+  }
+})();
