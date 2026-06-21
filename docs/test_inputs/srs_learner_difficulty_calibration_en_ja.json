@@ -1,0 +1,2064 @@
+{
+  "schema_version": 1,
+  "calibration_id": "srs_learner_difficulty_calibration_en_ja_v1",
+  "language_pair": "en-ja",
+  "state": "seed_review_set",
+  "created_at": "2026-06-11",
+  "purpose": "Hand-seeded calibration set for separating learner difficulty, admission suitability, and presentation mode before changing en-ja SRS admission behavior.",
+  "difficulty_bands": {
+    "beginner": "Expected learner difficulty below 0.55.",
+    "intermediate": "Expected learner difficulty from 0.55 through below 0.80.",
+    "advanced": "Expected learner difficulty at or above 0.80."
+  },
+  "difficulty_target_scale": "expected_learner_difficulty is a reviewed continuous 0.00-1.00 learner-difficulty target, not a percent-through-language value and not a default-priority score. Values near 0 are first-session vocabulary; lower priority or topic-specific but easy words should stay low difficulty and be handled by separate priority/topic signals.",
+  "labels": [
+    {
+      "lemma": "一",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; useful, but should belong to a numeral/pattern lane rather than drift through normal vocab difficulty bands."
+    },
+    {
+      "lemma": "二",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; same beginner/pattern family as other one-digit numerals."
+    },
+    {
+      "lemma": "三",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; same beginner/pattern family as other one-digit numerals."
+    },
+    {
+      "lemma": "六",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; should not be treated as a materially harder standalone vocabulary item than 一 or 二."
+    },
+    {
+      "lemma": "十",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; useful but better handled by numeral pattern logic than ordinary vocabulary admission."
+    },
+    {
+      "lemma": "二十",
+      "expected_candidate_state": "suppressed_default",
+      "expected_presentation_mode": "suppress",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Transparent compound numeral; not useful as a standalone Vocabulary Practice card in the current vocab-first product."
+    },
+    {
+      "lemma": "七百",
+      "expected_candidate_state": "suppressed_default",
+      "expected_presentation_mode": "suppress",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Transparent compound numeral; too compositional and low-value to quiz as standalone default vocabulary."
+    },
+    {
+      "lemma": "三千",
+      "expected_candidate_state": "suppressed_default",
+      "expected_presentation_mode": "suppress",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Transparent compound numeral; too compositional and low-value to quiz as standalone default vocabulary."
+    },
+    {
+      "lemma": "第",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Prefix/ordinal marker; useful but not a default standalone vocabulary card."
+    },
+    {
+      "lemma": "的",
+      "expected_reading": "てき",
+      "expected_pos_contains": "接尾辞",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Suffix-like てき row; useful grammar/word-formation material but not normal standalone vocabulary admission. The まと noun row should remain distinct once SRS identity is reading/POS-aware."
+    },
+    {
+      "lemma": "的",
+      "expected_reading": "まと",
+      "expected_pos_contains": "名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Noun row for target/mark; distinct from suffix-like てき and eligible as ordinary vocabulary when identity is reading/POS-aware. Reviewed lower after focused sample review: the まと noun is not close to literary/rare wago rows such as 侘び or 猯.",
+      "expected_learner_difficulty": 0.4
+    },
+    {
+      "lemma": "御",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Prefix/honorific-like item; useful but not a default standalone vocabulary card."
+    },
+    {
+      "lemma": "さん",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Suffix-like honorific item; useful but not normal standalone vocabulary admission."
+    },
+    {
+      "lemma": "ね",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "particle_or_auxiliary",
+      "expected_difficulty_band": null,
+      "rationale": "Sentence-final particle; should be handled as grammar/register material, not ordinary vocabulary."
+    },
+    {
+      "lemma": "よ",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "particle_or_auxiliary",
+      "expected_difficulty_band": null,
+      "rationale": "Sentence-final particle; should be handled as grammar/register material, not ordinary vocabulary."
+    },
+    {
+      "lemma": "てる",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "particle_or_auxiliary",
+      "expected_difficulty_band": null,
+      "rationale": "Auxiliary-like form; should be handled by grammar-aware treatment, not default standalone vocab admission."
+    },
+    {
+      "lemma": "たい",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "particle_or_auxiliary",
+      "expected_difficulty_band": null,
+      "rationale": "Auxiliary-like desire form; useful grammar material but not a default standalone vocabulary card."
+    },
+    {
+      "lemma": "らしい",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "particle_or_auxiliary",
+      "expected_difficulty_band": null,
+      "rationale": "Auxiliary-like form in the BCCWJ row; needs grammar-aware treatment before default admission."
+    },
+    {
+      "lemma": "日本",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Core country/place name; too central to Japanese learning to treat as topic-only junk.",
+      "expected_learner_difficulty": 0.02
+    },
+    {
+      "lemma": "アメリカ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Core country/place name; useful enough as general learner vocabulary despite proper-noun POS.",
+      "expected_learner_difficulty": 0.1
+    },
+    {
+      "lemma": "中国",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Core country/place name; too important and frequent in real use to avoid as general vocabulary.",
+      "expected_learner_difficulty": 0.1
+    },
+    {
+      "lemma": "イラク",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Named place; valid vocabulary but lower default value than core geography, with potential topic/news lift.",
+      "expected_learner_difficulty": 0.5
+    },
+    {
+      "lemma": "自民",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Political organization shorthand; valid advanced vocab, and politics/news topic preference should pull it earlier.",
+      "expected_learner_difficulty": 0.7
+    },
+    {
+      "lemma": "国連",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Named organization; valid news/civics vocab, but lower default priority without topic interest.",
+      "expected_learner_difficulty": 0.55
+    },
+    {
+      "lemma": "北朝鮮",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Named place; valid news/geography vocab, but lower default priority than core geography.",
+      "expected_learner_difficulty": 0.65
+    },
+    {
+      "lemma": "フランス",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common country/place name; acceptable as general vocabulary, though lower priority than the most central country names.",
+      "expected_learner_difficulty": 0.34
+    },
+    {
+      "lemma": "学校",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone noun suitable for default vocabulary admission.",
+      "expected_learner_difficulty": 0.08
+    },
+    {
+      "lemma": "子供",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone noun suitable for default vocabulary admission.",
+      "expected_learner_difficulty": 0.08
+    },
+    {
+      "lemma": "食べる",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone verb suitable for default vocabulary admission.",
+      "expected_learner_difficulty": 0.08
+    },
+    {
+      "lemma": "見る",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone verb suitable for early default vocabulary admission.",
+      "expected_learner_difficulty": 0.04
+    },
+    {
+      "lemma": "行く",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Core motion verb; should remain beginner despite corpus/POS idiosyncrasies.",
+      "expected_learner_difficulty": 0.06
+    },
+    {
+      "lemma": "飲む",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Core eating/drinking verb family; should be learner-beginner material.",
+      "expected_learner_difficulty": 0.08
+    },
+    {
+      "lemma": "来る",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone verb suitable for early default vocabulary admission.",
+      "expected_learner_difficulty": 0.06
+    },
+    {
+      "lemma": "大きい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Core descriptive adjective; should be beginner learner material.",
+      "expected_learner_difficulty": 0.1
+    },
+    {
+      "lemma": "小さい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Core descriptive adjective; should be beginner learner material.",
+      "expected_learner_difficulty": 0.1
+    },
+    {
+      "lemma": "赤い",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Core color adjective; corpus frequency should not push it into a harder learner band.",
+      "expected_learner_difficulty": 0.12
+    },
+    {
+      "lemma": "青い",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Core color adjective; corpus frequency should not push it into a harder learner band.",
+      "expected_learner_difficulty": 0.12
+    },
+    {
+      "lemma": "水",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common concrete noun suitable for early default vocabulary admission.",
+      "expected_learner_difficulty": 0.05
+    },
+    {
+      "lemma": "火",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common concrete nature noun suitable for early default vocabulary admission.",
+      "expected_learner_difficulty": 0.14
+    },
+    {
+      "lemma": "山",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common concrete nature noun suitable for early default vocabulary admission.",
+      "expected_learner_difficulty": 0.16
+    },
+    {
+      "lemma": "川",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common concrete nature noun suitable for early default vocabulary admission.",
+      "expected_learner_difficulty": 0.16
+    },
+    {
+      "lemma": "猫",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common concrete animal noun; corpus domain frequency should not automatically make it intermediate learner material.",
+      "expected_learner_difficulty": 0.08
+    },
+    {
+      "lemma": "犬",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common concrete animal noun; corpus domain frequency should not automatically make it intermediate learner material.",
+      "expected_learner_difficulty": 0.08
+    },
+    {
+      "lemma": "鳥",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common concrete animal noun; corpus frequency should not automatically make it intermediate learner material.",
+      "expected_learner_difficulty": 0.14
+    },
+    {
+      "lemma": "魚",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common concrete animal/food noun; corpus frequency should not automatically make it intermediate learner material.",
+      "expected_learner_difficulty": 0.14
+    },
+    {
+      "lemma": "本",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common concrete noun suitable for early default vocabulary admission.",
+      "expected_learner_difficulty": 0.08
+    },
+    {
+      "lemma": "人",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone noun suitable for early default vocabulary admission.",
+      "expected_learner_difficulty": 0.08
+    },
+    {
+      "lemma": "国",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone noun suitable for early default vocabulary admission.",
+      "expected_learner_difficulty": 0.2
+    },
+    {
+      "lemma": "レタス",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Concrete katakana food word; rare corpus surface should not automatically make it advanced learner material.",
+      "expected_learner_difficulty": 0.34
+    },
+    {
+      "lemma": "パン",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common katakana food word; corpus frequency should not automatically make it intermediate learner material.",
+      "expected_learner_difficulty": 0.12
+    },
+    {
+      "lemma": "問題",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone noun useful early enough that corpus frequency alone should not force it into a harder band.",
+      "expected_learner_difficulty": 0.38
+    },
+    {
+      "lemma": "勉強",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone noun/suru concept suitable for default vocabulary admission.",
+      "expected_learner_difficulty": 0.3
+    },
+    {
+      "lemma": "海外",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common standalone noun suitable for high-beginner vocabulary.",
+      "expected_learner_difficulty": 0.4
+    },
+    {
+      "lemma": "特徴",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common abstract noun around early-intermediate difficulty.",
+      "expected_learner_difficulty": 0.5
+    },
+    {
+      "lemma": "権利",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Common abstract noun around intermediate difficulty.",
+      "expected_learner_difficulty": 0.56
+    },
+    {
+      "lemma": "憲法",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Domain-colored but valid standalone vocabulary around intermediate difficulty.",
+      "expected_learner_difficulty": 0.62
+    },
+    {
+      "lemma": "森林",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Concrete standalone noun suitable for high-beginner vocabulary.",
+      "expected_learner_difficulty": 0.4
+    },
+    {
+      "lemma": "避難",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Standalone noun/suru concept around intermediate difficulty.",
+      "expected_learner_difficulty": 0.58
+    },
+    {
+      "lemma": "首相",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Common news/civics noun; valid standalone vocabulary around early-intermediate difficulty.",
+      "expected_learner_difficulty": 0.5
+    },
+    {
+      "lemma": "過疎",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Less common abstract/social term around upper-intermediate to advanced difficulty.",
+      "expected_learner_difficulty": 0.74
+    },
+    {
+      "lemma": "絶妙",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Evaluative abstract term around intermediate difficulty, with advanced nuance in some contexts.",
+      "expected_learner_difficulty": 0.66
+    },
+    {
+      "lemma": "蒸す",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Concrete cooking verb; not beginner-core, but easier than rare literary/technical advanced words.",
+      "expected_learner_difficulty": 0.54
+    },
+    {
+      "lemma": "宿る",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "rationale": "Less common than core verbs, but still a normal verb that should stay below clearly harder rows such as 躊躇う, 侘び, and formal/technical advanced vocabulary.",
+      "expected_learner_difficulty": 0.5
+    },
+    {
+      "lemma": "彼岸",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Culturally specific noun near the upper-intermediate to advanced boundary.",
+      "expected_learner_difficulty": 0.78
+    },
+    {
+      "lemma": "思案",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Less common abstract noun/suru concept around upper-intermediate difficulty.",
+      "expected_learner_difficulty": 0.7
+    },
+    {
+      "lemma": "埋め立て",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "rationale": "Less common compound noun around upper-intermediate to advanced difficulty.",
+      "expected_learner_difficulty": 0.55
+    },
+    {
+      "lemma": "胸",
+      "expected_reading": "むね",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.2,
+      "rationale": "Common body-part noun; should be far easier than hesitation/literary/formal advanced anchors."
+    },
+    {
+      "lemma": "傘",
+      "expected_reading": "かさ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.2,
+      "rationale": "Common concrete daily-life noun; should remain in the beginner range despite corpus sparsity."
+    },
+    {
+      "lemma": "人民",
+      "expected_reading": "じんみん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.56,
+      "rationale": "Formal/social-political noun; valid vocabulary, but later than core person/people words and easier than 躊躇う."
+    },
+    {
+      "lemma": "一々",
+      "expected_reading": "いちいち",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "rationale": "Common adverbial vocabulary, but not beginner-core; useful as a midrange anchor below 躊躇う."
+    },
+    {
+      "lemma": "我が",
+      "expected_reading": "わが",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.51,
+      "rationale": "Register-colored attributive word; harder than ordinary beginner vocabulary but below 躊躇う."
+    },
+    {
+      "lemma": "管内",
+      "expected_reading": "かんない",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "rationale": "Domain-colored location/jurisdiction noun; should not be admitted too early, but is below literary/formal advanced anchors."
+    },
+    {
+      "lemma": "山中",
+      "expected_reading": "さんちゅう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "rationale": "Specific but transparent location noun; below 躊躇う and much below rare literary/formal vocabulary."
+    },
+    {
+      "lemma": "弾丸",
+      "expected_reading": "だんがん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "rationale": "Concrete but less everyday noun; harder than beginner concrete nouns, easier than 躊躇う."
+    },
+    {
+      "lemma": "躊躇う",
+      "expected_reading": "ためらう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.68,
+      "rationale": "Notably harder than the focused midrange review anchors, but easier than 侘び, 編纂, and 攪乱. Lowered after 漢字でGO qualitative review to leave more headroom for truly obscure upper-tail vocabulary."
+    },
+    {
+      "lemma": "侘び",
+      "expected_reading": "わび",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.8,
+      "rationale": "Culturally/literarily colored noun; harder than 躊躇う but below the rare upper-tail anchors. Nudged slightly lower after focused review while preserving it as a true advanced signal."
+    },
+    {
+      "lemma": "編纂",
+      "expected_reading": "へんさん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.8,
+      "rationale": "Formal suru noun; harder than 躊躇う and comparable to 攪乱, but below the extreme tail. Lowered after 漢字でGO qualitative review to leave more headroom for truly obscure upper-tail vocabulary."
+    },
+    {
+      "lemma": "何",
+      "expected_reading": "なに",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.03,
+      "rationale": "Core question word; should be among the easiest normal vocabulary despite multiple readings/forms."
+    },
+    {
+      "lemma": "今",
+      "expected_reading": "いま",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.03,
+      "rationale": "Core time word suitable for very early vocabulary."
+    },
+    {
+      "lemma": "今日",
+      "expected_reading": "きょう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.05,
+      "rationale": "Core day/time word suitable for early vocabulary."
+    },
+    {
+      "lemma": "明日",
+      "expected_reading": "あす",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.22,
+      "rationale": "Core day/time written form, but the あす reading is later than the most common beginner reading."
+    },
+    {
+      "lemma": "昨日",
+      "expected_reading": "きのう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "rationale": "Core day/time word suitable for early vocabulary."
+    },
+    {
+      "lemma": "朝",
+      "expected_reading": "あさ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "rationale": "Common daily-life noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "夜",
+      "expected_reading": "よる",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "rationale": "Common daily-life noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "家",
+      "expected_reading": "いえ",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.04,
+      "rationale": "Core concrete noun; should be very early normal vocabulary distinct from suffix-like 家 rows."
+    },
+    {
+      "lemma": "部屋",
+      "expected_reading": "へや",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "rationale": "Common concrete home word suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "駅",
+      "expected_reading": "えき",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "rationale": "Common travel/place noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "電車",
+      "expected_reading": "でんしゃ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.24,
+      "rationale": "Common transportation word; beginner but harder than single-kanji concrete nouns."
+    },
+    {
+      "lemma": "車",
+      "expected_reading": "くるま",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.14,
+      "rationale": "Core concrete noun; should remain normal vocabulary distinct from suffix-like 車 rows."
+    },
+    {
+      "lemma": "店",
+      "expected_reading": "みせ",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "rationale": "Common everyday noun; should remain normal vocabulary distinct from suffix-like 店 rows."
+    },
+    {
+      "lemma": "会社",
+      "expected_reading": "かいしゃ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.28,
+      "rationale": "Common social/work noun; early vocabulary even if not first-week concrete vocabulary."
+    },
+    {
+      "lemma": "先生",
+      "expected_reading": "せんせい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.12,
+      "rationale": "Core school/social noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "学生",
+      "expected_reading": "がくせい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "rationale": "Core school/social noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "友達",
+      "expected_reading": "ともだち",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "rationale": "Core relationship noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "母",
+      "expected_reading": "はは",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.03,
+      "rationale": "Core family noun suitable for very early vocabulary."
+    },
+    {
+      "lemma": "父",
+      "expected_reading": "ちち",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.03,
+      "rationale": "Core family noun suitable for very early vocabulary."
+    },
+    {
+      "lemma": "男",
+      "expected_reading": "おとこ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "rationale": "Common person noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "女",
+      "expected_reading": "おんな",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "rationale": "Common person noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "名前",
+      "expected_reading": "なまえ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.02,
+      "rationale": "Core introduction/social noun suitable for early vocabulary."
+    },
+    {
+      "lemma": "時間",
+      "expected_reading": "じかん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.06,
+      "rationale": "Core word for time; counter-capable POS should not suppress it from default vocabulary."
+    },
+    {
+      "lemma": "生活",
+      "expected_reading": "せいかつ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.34,
+      "rationale": "High-beginner everyday abstract/suru noun; useful bridge between concrete beginner and intermediate terms."
+    },
+    {
+      "lemma": "旅行",
+      "expected_reading": "りょこう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.4,
+      "rationale": "Common suru noun but typically after the earliest core words."
+    },
+    {
+      "lemma": "料理",
+      "expected_reading": "りょうり",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.34,
+      "rationale": "Common daily-life word; high beginner despite multiple related uses."
+    },
+    {
+      "lemma": "仕事",
+      "expected_reading": "しごと",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "rationale": "Common work/life noun useful before truly intermediate abstract vocabulary."
+    },
+    {
+      "lemma": "経験",
+      "expected_reading": "けいけん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "rationale": "Common but abstract suru noun around early-intermediate difficulty."
+    },
+    {
+      "lemma": "理由",
+      "expected_reading": "りゆう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.38,
+      "rationale": "Useful common abstract noun; high beginner or early intermediate."
+    },
+    {
+      "lemma": "方法",
+      "expected_reading": "ほうほう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.38,
+      "rationale": "Common everyday abstract noun; high beginner."
+    },
+    {
+      "lemma": "必要",
+      "expected_reading": "ひつよう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.36,
+      "rationale": "Core abstract/adjectival noun; high beginner, with priority separate from difficulty."
+    },
+    {
+      "lemma": "予定",
+      "expected_reading": "よてい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.4,
+      "rationale": "Common planning word suitable around the high-beginner range."
+    },
+    {
+      "lemma": "質問",
+      "expected_reading": "しつもん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.32,
+      "rationale": "Common classroom/conversation suru noun; high beginner."
+    },
+    {
+      "lemma": "意味",
+      "expected_reading": "いみ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "rationale": "Core language-learning noun suitable before most abstract intermediate words."
+    },
+    {
+      "lemma": "政治",
+      "expected_reading": "せいじ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "rationale": "Common topic/domain word; valid general vocabulary but not beginner-core."
+    },
+    {
+      "lemma": "経済",
+      "expected_reading": "けいざい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.54,
+      "rationale": "Common news/domain word; valid general vocabulary around early-intermediate difficulty."
+    },
+    {
+      "lemma": "環境",
+      "expected_reading": "かんきょう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.52,
+      "rationale": "Common abstract/domain noun around early-intermediate difficulty."
+    },
+    {
+      "lemma": "教育",
+      "expected_reading": "きょういく",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.52,
+      "rationale": "Common abstract/social noun around early-intermediate difficulty."
+    },
+    {
+      "lemma": "技術",
+      "expected_reading": "ぎじゅつ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "rationale": "Common but kanji-dense abstract noun around intermediate difficulty."
+    },
+    {
+      "lemma": "情報",
+      "expected_reading": "じょうほう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.36,
+      "rationale": "Very common abstract noun; high beginner to early intermediate, not intrinsically hard. Same-reading 漢字でGO overlap at Lv.1 supports keeping this at the low end of the current range."
+    },
+    {
+      "lemma": "研究",
+      "expected_reading": "けんきゅう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.36,
+      "rationale": "Common academic/suru noun around early-intermediate difficulty. Same-reading 漢字でGO overlap at Lv.1 supports lowering this substantially from the earlier upper-beginner anchor."
+    },
+    {
+      "lemma": "原因",
+      "expected_reading": "げんいん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "rationale": "Common abstract noun suitable around early-intermediate difficulty."
+    },
+    {
+      "lemma": "影響",
+      "expected_reading": "えいきょう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.46,
+      "rationale": "Common abstract suru noun; useful and frequent enough to stay on the low side of the early-intermediate range despite kanji/written-form burden."
+    },
+    {
+      "lemma": "改善",
+      "expected_reading": "かいぜん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.54,
+      "rationale": "Common policy/workplace suru noun around intermediate difficulty."
+    },
+    {
+      "lemma": "公開",
+      "expected_reading": "こうかい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.38,
+      "rationale": "Common public/media suru noun around intermediate difficulty."
+    },
+    {
+      "lemma": "減少",
+      "expected_reading": "げんしょう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "rationale": "Common abstract change noun around intermediate difficulty."
+    },
+    {
+      "lemma": "資源",
+      "expected_reading": "しげん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.62,
+      "rationale": "Domain-colored abstract noun around intermediate difficulty."
+    },
+    {
+      "lemma": "財政",
+      "expected_reading": "ざいせい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.64,
+      "rationale": "Policy/economics noun around mid-intermediate difficulty."
+    },
+    {
+      "lemma": "雇用",
+      "expected_reading": "こよう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "rationale": "Work/economics suru noun around intermediate difficulty."
+    },
+    {
+      "lemma": "格差",
+      "expected_reading": "かくさ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.66,
+      "rationale": "Social/policy abstract noun around mid-intermediate difficulty."
+    },
+    {
+      "lemma": "復興",
+      "expected_reading": "ふっこう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.66,
+      "rationale": "News/social suru noun around mid-intermediate difficulty."
+    },
+    {
+      "lemma": "承認",
+      "expected_reading": "しょうにん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.62,
+      "rationale": "Formal/workplace suru noun around intermediate difficulty."
+    },
+    {
+      "lemma": "批判",
+      "expected_reading": "ひはん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "rationale": "Common abstract/news suru noun around intermediate difficulty."
+    },
+    {
+      "lemma": "曖昧",
+      "expected_reading": "あいまい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.66,
+      "rationale": "Abstract evaluative term; intermediate difficulty, below rare technical/literary vocabulary."
+    },
+    {
+      "lemma": "矛盾",
+      "expected_reading": "むじゅん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "rationale": "Abstract logic/social term; intermediate difficulty, below rare technical/literary vocabulary. Same-reading 漢字でGO overlap at Lv.2 supports placing it at the lower end of the intermediate range."
+    },
+    {
+      "lemma": "抽象",
+      "expected_reading": "ちゅうしょう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "rationale": "Academic abstract noun around upper-intermediate difficulty."
+    },
+    {
+      "lemma": "普遍",
+      "expected_reading": "ふへん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.74,
+      "rationale": "Academic/philosophical abstract term around upper-intermediate to advanced difficulty."
+    },
+    {
+      "lemma": "仮説",
+      "expected_reading": "かせつ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.68,
+      "rationale": "Academic abstract noun around upper-intermediate difficulty."
+    },
+    {
+      "lemma": "倫理",
+      "expected_reading": "りんり",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "rationale": "Abstract academic/social term around upper-intermediate difficulty."
+    },
+    {
+      "lemma": "儀式",
+      "expected_reading": "ぎしき",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.68,
+      "rationale": "Cultural abstract noun around upper-intermediate difficulty."
+    },
+    {
+      "lemma": "脆弱",
+      "expected_reading": "ぜいじゃく",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.74,
+      "rationale": "Difficult formal adjective/noun, but below genuinely obscure upper-tail vocabulary. Lowered after 漢字でGO qualitative review to leave more headroom for rare hard-kanji and non-standard-reading items."
+    },
+    {
+      "lemma": "膨張",
+      "expected_reading": "ぼうちょう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.78,
+      "rationale": "Technical/abstract suru noun near the upper-intermediate to advanced boundary."
+    },
+    {
+      "lemma": "萎縮",
+      "expected_reading": "いしゅく",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.82,
+      "rationale": "Difficult technical/abstract suru noun suitable for advanced vocabulary."
+    },
+    {
+      "lemma": "攪乱",
+      "expected_reading": "かくらん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.84,
+      "rationale": "Difficult formal/technical suru noun; hard but below the extreme literary/obscure tail."
+    },
+    {
+      "lemma": "四",
+      "expected_reading": "よん",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; useful but better handled in a numeral/pattern lane than default vocabulary."
+    },
+    {
+      "lemma": "五",
+      "expected_reading": "ご",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; useful but better handled in a numeral/pattern lane than default vocabulary."
+    },
+    {
+      "lemma": "七",
+      "expected_reading": "なな",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; useful but better handled in a numeral/pattern lane than default vocabulary."
+    },
+    {
+      "lemma": "八",
+      "expected_reading": "はち",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; useful but better handled in a numeral/pattern lane than default vocabulary."
+    },
+    {
+      "lemma": "九",
+      "expected_reading": "きゅう",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple numeral; useful but better handled in a numeral/pattern lane than default vocabulary."
+    },
+    {
+      "lemma": "百",
+      "expected_reading": "ひゃく",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple scale numeral; useful but better handled through numeral patterns than standalone default vocabulary."
+    },
+    {
+      "lemma": "千",
+      "expected_reading": "せん",
+      "expected_candidate_state": "pattern_item",
+      "expected_presentation_mode": "pattern",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Simple scale numeral; useful but better handled through numeral patterns than standalone default vocabulary."
+    },
+    {
+      "lemma": "三十",
+      "expected_reading": "さんじゅう",
+      "expected_candidate_state": "suppressed_default",
+      "expected_presentation_mode": "suppress",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Transparent compound numeral; not useful as a standalone default vocabulary card."
+    },
+    {
+      "lemma": "五十",
+      "expected_reading": "ごじゅう",
+      "expected_candidate_state": "suppressed_default",
+      "expected_presentation_mode": "suppress",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Transparent compound numeral; not useful as a standalone default vocabulary card."
+    },
+    {
+      "lemma": "九百",
+      "expected_reading": "きゅうひゃく",
+      "expected_candidate_state": "suppressed_default",
+      "expected_presentation_mode": "suppress",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Transparent compound numeral; not useful as a standalone default vocabulary card."
+    },
+    {
+      "lemma": "八千",
+      "expected_reading": "はっせん",
+      "expected_candidate_state": "suppressed_default",
+      "expected_presentation_mode": "suppress",
+      "expected_problem_class": "numeral_or_counter",
+      "expected_difficulty_band": null,
+      "rationale": "Transparent compound numeral; not useful as a standalone default vocabulary card."
+    },
+    {
+      "lemma": "だけ",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "particle_or_auxiliary",
+      "expected_difficulty_band": null,
+      "rationale": "Particle-like item; useful grammar material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "って",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "particle_or_auxiliary",
+      "expected_difficulty_band": null,
+      "rationale": "Particle/quotative-like item; useful grammar material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "けれど",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "particle_or_auxiliary",
+      "expected_difficulty_band": null,
+      "rationale": "Conjunctive particle; useful grammar material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "くらい",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "particle_or_auxiliary",
+      "expected_difficulty_band": null,
+      "rationale": "Particle-like approximation item; useful grammar material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "者",
+      "expected_reading": "しゃ",
+      "expected_pos_contains": "接尾辞",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Suffix-like person marker; useful word-formation material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "化",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Suffix-like nominalizer/verbalizer; useful word-formation material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "達",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Plural suffix-like item; useful word-formation material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "韓国",
+      "expected_reading": "かんこく",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.32,
+      "rationale": "Common nearby country name; valid general vocabulary, but not as early as 日本/中国/アメリカ."
+    },
+    {
+      "lemma": "ドイツ",
+      "expected_reading": "どいつ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.34,
+      "rationale": "Common country name; valid general vocabulary below topic-only treatment."
+    },
+    {
+      "lemma": "イギリス",
+      "expected_reading": "いぎりす",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.34,
+      "rationale": "Common country name; valid general vocabulary below topic-only treatment."
+    },
+    {
+      "lemma": "米国",
+      "expected_reading": "べいこく",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.38,
+      "rationale": "Common news/register country name; somewhat harder than アメリカ but not intrinsically advanced."
+    },
+    {
+      "lemma": "ロシア",
+      "expected_reading": "ろしあ",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.42,
+      "rationale": "Valid country name; not especially hard, but lower default priority than core country vocabulary without geography/news interest."
+    },
+    {
+      "lemma": "インド",
+      "expected_reading": "いんど",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.42,
+      "rationale": "Valid country name; not especially hard, but lower default priority than core country vocabulary without geography/news interest."
+    },
+    {
+      "lemma": "ベトナム",
+      "expected_reading": "べとなむ",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.48,
+      "rationale": "Valid country name; moderately harder than the most common country names, with lower default priority without geography/news interest."
+    },
+    {
+      "lemma": "トヨタ",
+      "expected_reading": "とよた",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "rationale": "Company/name item; not intrinsically hard, but lower default priority without business/technology/news topic interest."
+    },
+    {
+      "lemma": "ソニー",
+      "expected_reading": "そにー",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.52,
+      "rationale": "Company/name item; not intrinsically hard, but lower default priority without technology/news topic interest."
+    },
+    {
+      "lemma": "ＮＨＫ",
+      "expected_reading": "えぬえいちけー",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_noun",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "rationale": "Organization/acronym item; useful in media/news topics but lower default priority than general vocabulary."
+    },
+    {
+      "lemma": "月",
+      "expected_reading": "つき",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.22,
+      "rationale": "Moon/month noun reading should be normal vocabulary; counter-capable POS alone should not make it a pattern item."
+    },
+    {
+      "lemma": "年",
+      "expected_reading": "とし",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.22,
+      "rationale": "Core year/age noun reading suitable for beginner vocabulary, distinct from counter readings."
+    },
+    {
+      "lemma": "円",
+      "expected_reading": "えん",
+      "expected_pos_contains": "名詞-普通名詞-一般",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "rationale": "Currency/circle noun is useful beginner vocabulary; counter-capable duplicate rows should not obscure the noun row."
+    },
+    {
+      "lemma": "方",
+      "expected_reading": "ほう",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.4,
+      "rationale": "Common direction/side/way noun reading; should be normal vocabulary distinct from suffix-like 方."
+    },
+    {
+      "lemma": "方",
+      "expected_reading": "かた",
+      "expected_pos_contains": "接尾辞",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Suffix-like way/person reading; useful grammar/word-formation material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "上",
+      "expected_reading": "うえ",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "rationale": "Core spatial noun reading suitable for beginner vocabulary, distinct from suffix/prefix rows."
+    },
+    {
+      "lemma": "上",
+      "expected_reading": "じょう",
+      "expected_pos_contains": "接尾辞",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Suffix-like reading; useful word-formation material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "生",
+      "expected_reading": "なま",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.46,
+      "rationale": "Ordinary but polysemous noun/adjectival reading; normal vocabulary around early-intermediate difficulty."
+    },
+    {
+      "lemma": "生",
+      "expected_reading": "せい",
+      "expected_pos_contains": "接尾辞",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Suffix-like reading; useful word-formation material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "金",
+      "expected_reading": "かね",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.26,
+      "rationale": "Common money noun reading suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "金",
+      "expected_reading": "きん",
+      "expected_pos_contains": "接尾辞",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Suffix-like reading in this row; should not be treated as the same normal vocabulary item as money/gold nouns."
+    },
+    {
+      "lemma": "空",
+      "expected_reading": "そら",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.24,
+      "rationale": "Common concrete nature noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "空",
+      "expected_reading": "くう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.62,
+      "rationale": "More abstract/Sino-Japanese reading; same lemma but harder than そら."
+    },
+    {
+      "lemma": "音",
+      "expected_reading": "おと",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.22,
+      "rationale": "Common concrete noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "音",
+      "expected_reading": "おん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.46,
+      "rationale": "Sino-Japanese reading as an independent row; normal vocabulary but harder than おと."
+    },
+    {
+      "lemma": "間",
+      "expected_reading": "あいだ",
+      "expected_pos_contains": "名詞-普通名詞",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "rationale": "Common spatial/temporal noun suitable for beginner vocabulary."
+    },
+    {
+      "lemma": "間",
+      "expected_reading": "かん",
+      "expected_pos_contains": "接尾辞",
+      "expected_candidate_state": "grammar_item",
+      "expected_presentation_mode": "grammar",
+      "expected_problem_class": "prefix_or_suffix",
+      "expected_difficulty_band": null,
+      "rationale": "Suffix-like interval reading; useful word-formation material but not default standalone vocabulary."
+    },
+    {
+      "lemma": "攪拌",
+      "expected_reading": "かくはん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.82,
+      "rationale": "Difficult formal/technical suru noun; harder than 攪乱 in the current seed evidence, but below the extreme tail. Lowered after 漢字でGO qualitative review to leave more headroom for truly obscure upper-tail vocabulary."
+    },
+    {
+      "lemma": "邂逅",
+      "expected_reading": "かいこう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.84,
+      "rationale": "Literary/formal suru noun; strong advanced anchor below the near-ceiling tail. Lowered after 漢字でGO qualitative review to leave more room for obscure non-standard readings and extreme hard-kanji rows."
+    },
+    {
+      "lemma": "蹂躙",
+      "expected_reading": "じゅうりん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.88,
+      "rationale": "Difficult formal/literary suru noun; strong advanced anchor below the near-ceiling tail."
+    },
+    {
+      "lemma": "逡巡",
+      "expected_reading": "しゅんじゅん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.88,
+      "rationale": "Difficult formal suru noun; advanced but not extreme tail."
+    },
+    {
+      "lemma": "齟齬",
+      "expected_reading": "そご",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.9,
+      "rationale": "Difficult formal suru noun with uncommon kanji; advanced tail but still useful."
+    },
+    {
+      "lemma": "詭弁",
+      "expected_reading": "きべん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.9,
+      "rationale": "Difficult formal noun; concept is learnable, but kanji/register place it in the advanced tail."
+    },
+    {
+      "lemma": "憤懣",
+      "expected_reading": "ふんまん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.9,
+      "rationale": "Difficult formal noun; advanced tail but below more opaque literary anchors."
+    },
+    {
+      "lemma": "嚆矢",
+      "expected_reading": "こうし",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.93,
+      "rationale": "Opaque literary/formal noun; stronger upper-tail anchor than 詭弁 or 憤懣."
+    },
+    {
+      "lemma": "韜晦",
+      "expected_reading": "とうかい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.93,
+      "rationale": "Opaque literary/formal suru noun; strong upper-tail anchor."
+    },
+    {
+      "lemma": "吝嗇",
+      "expected_reading": "りんしょく",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.94,
+      "rationale": "Rare, opaque formal adjective/noun with hard kanji; upper-tail anchor."
+    },
+    {
+      "lemma": "跋扈",
+      "expected_reading": "ばっこ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.94,
+      "rationale": "Rare, formal suru noun with hard kanji; upper-tail anchor."
+    },
+    {
+      "lemma": "箴言",
+      "expected_reading": "しんげん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.95,
+      "rationale": "Rare formal/literary noun; near-ceiling anchor but slightly cleaner than the most obscure hard-kanji words."
+    },
+    {
+      "lemma": "驀進",
+      "expected_reading": "ばくしん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.95,
+      "rationale": "Rare formal suru noun; near-ceiling anchor with uncommon kanji/register."
+    },
+    {
+      "lemma": "霹靂",
+      "expected_reading": "へきれき",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.96,
+      "rationale": "Very rare hard-kanji noun; clean near-ceiling anchor."
+    },
+    {
+      "lemma": "潺々",
+      "expected_reading": "せんせん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.97,
+      "rationale": "Very rare hard-kanji adverbial word; near-ceiling anchor for literary/nature description vocabulary."
+    },
+    {
+      "lemma": "猖獗",
+      "expected_reading": "しょうけつ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.97,
+      "rationale": "Very rare formal suru noun with hard kanji; near-ceiling anchor."
+    },
+    {
+      "lemma": "羈絆",
+      "expected_reading": "きはん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.97,
+      "rationale": "Very rare hard-kanji noun; near-ceiling anchor for literary/formal vocabulary."
+    },
+    {
+      "lemma": "雷霆",
+      "expected_reading": "らいてい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.98,
+      "rationale": "Extremely rare hard-kanji noun; near-ceiling anchor."
+    },
+    {
+      "lemma": "靉靆",
+      "expected_reading": "あいたい",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.98,
+      "rationale": "Extremely rare hard-kanji descriptive word; near-ceiling anchor."
+    },
+    {
+      "lemma": "饕餮",
+      "expected_reading": "とうてつ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.95,
+      "rationale": "Rare hard-kanji literary/cultural noun and still a strong upper-tail anchor, but not the absolute ceiling. Lowered after 漢字でGO qualitative review so the 1.00 end remains reserved for material that is difficult even relative to this class."
+    },
+    {
+      "lemma": "一揆",
+      "expected_reading": "いっき",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "rationale": "Specific historical/social term; components are simple, but the lexical item is not first-band beginner vocabulary and should not be pulled near 0.08 by low kanji-grade signals."
+    },
+    {
+      "lemma": "後年",
+      "expected_reading": "こうねん",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.56,
+      "rationale": "Transparent from components but formal and lower default utility than surrounding beginner words; should land around low-intermediate, not the first bands."
+    },
+    {
+      "lemma": "猯",
+      "expected_reading": "まみ",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.92,
+      "rationale": "Rare native-word row with obscure kanji and a non-standard reading; wago status should not grant beginner treatment when frequency is extremely low and the written form/reading pairing is obscure."
+    },
+    {
+      "lemma": "防止",
+      "expected_reading": "ぼうし",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.42,
+      "rationale": "Common and useful kango/sahen noun; kanji/JLPT signals should not over-raise common transparent compounds."
+    },
+    {
+      "lemma": "保証",
+      "expected_reading": "ほしょう",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "rationale": "Useful common kango/sahen noun; a bit harder than 防止 but should not be pushed deep into intermediate solely by character-level signals."
+    },
+    {
+      "lemma": "真理",
+      "expected_reading": "しんり",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.46,
+      "rationale": "Abstract but common enough and component-transparent; current score around 0.50 is tolerable but should trend easier, not harder."
+    },
+    {
+      "lemma": "凶悪",
+      "expected_reading": "きょうあく",
+      "expected_candidate_state": "normal_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.62,
+      "rationale": "Somewhat advanced adjective/noun but semantically transparent enough that scores in the mid-0.7s are likely too hard."
+    },
+    {
+      "lemma": "ザ",
+      "expected_reading": "ざ",
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_difficulty_band": null,
+      "rationale": "Katakana token is hard to interpret as a normal standalone vocabulary target; track for source-quality/candidate-state behavior, but do not use as a numeric difficulty anchor yet."
+    }
+  ]
+}

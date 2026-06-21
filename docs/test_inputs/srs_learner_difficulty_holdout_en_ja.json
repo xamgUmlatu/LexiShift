@@ -1,0 +1,1735 @@
+{
+  "created_from": "docs/test_outputs/srs_learner_difficulty_holdout_review_en_ja.md",
+  "difficulty_target_scale": "expected_learner_difficulty is a reviewed continuous 0.00-1.00 foreign-learner difficulty target, separate from topic priority and native acquisition age.",
+  "generated_at": "2026-06-18T22:54:22Z",
+  "holdout_id": "srs_learner_difficulty_holdout_en_ja_v1",
+  "labels": [
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.01,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "でる",
+      "lemma": "出る",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.02,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "つくる",
+      "lemma": "作る",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.02,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "おおい",
+      "lemma": "多い",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.02,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "たかい",
+      "lemma": "高い",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.03,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "とる",
+      "lemma": "取る",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.03,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きく",
+      "lemma": "聞く",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.03,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ちがう",
+      "lemma": "違う",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.04,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "てんき",
+      "lemma": "天気",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.04,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ほしい",
+      "lemma": "欲しい",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.05,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "あし",
+      "lemma": "足",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.05,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "みち",
+      "lemma": "道",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.06,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "じ",
+      "lemma": "字",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.06,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "つぎ",
+      "lemma": "次",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "よぶ",
+      "lemma": "呼ぶ",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ば",
+      "lemma": "場",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かんがえ",
+      "lemma": "考え",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "いくら",
+      "lemma": "幾ら",
+      "rationale": "Kanji form is less common than kana."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "うつくしい",
+      "lemma": "美しい",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きいろい",
+      "lemma": "黄色い",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.11,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "たてもの",
+      "lemma": "建物",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.12,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ねだん",
+      "lemma": "値段",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.12,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "けん",
+      "lemma": "県",
+      "rationale": "Core civic/geography word."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.15,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "よろこび",
+      "lemma": "喜び",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ふあん",
+      "lemma": "不安",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "けっこん",
+      "lemma": "結婚",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.17,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "こうちゃ",
+      "lemma": "紅茶",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しかし",
+      "lemma": "然し",
+      "rationale": "Kanji form is much less common than kana."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.2,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "たまごやき",
+      "lemma": "卵焼き",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.2,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "やぶる",
+      "lemma": "破る",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.2,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かみがた",
+      "lemma": "髪型",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.25,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ぼしゅう",
+      "lemma": "募集",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.25,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きのう",
+      "lemma": "機能",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.25,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ひょうじ",
+      "lemma": "表示",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.25,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きり",
+      "lemma": "霧",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.25,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "さわぎ",
+      "lemma": "騒ぎ",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.28,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "でんとう",
+      "lemma": "伝統",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.28,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "せんもん",
+      "lemma": "専門",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.28,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "こううん",
+      "lemma": "幸運",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.28,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きんとれ",
+      "lemma": "筋トレ",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きげん",
+      "lemma": "期限",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "けんとう",
+      "lemma": "検討",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しょうひ",
+      "lemma": "消費",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "あらい",
+      "lemma": "粗い",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かおる",
+      "lemma": "香る",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "こっせつ",
+      "lemma": "骨折",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "おにごっこ",
+      "lemma": "鬼ごっこ",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.32,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しゅ",
+      "lemma": "主",
+      "rationale": "Reading/use is less beginner than おも."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.33,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "たいせん",
+      "lemma": "対戦",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.33,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "さかん",
+      "lemma": "盛ん",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.34,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "およぶ",
+      "lemma": "及ぶ",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.34,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "せいび",
+      "lemma": "整備",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.35,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "じゃけしゃ",
+      "lemma": "ジャケ写",
+      "rationale": "Abbreviation/slang."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.35,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ぶつ",
+      "lemma": "仏",
+      "rationale": "Reading-specific; ほとけ would be easier."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.35,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しつぎょう",
+      "lemma": "失業",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.35,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "じっしゅう",
+      "lemma": "実習",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.35,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しんこく",
+      "lemma": "深刻",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.35,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しょうげき",
+      "lemma": "衝撃",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.36,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きょてん",
+      "lemma": "拠点",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.38,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "そうさ",
+      "lemma": "捜査",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.38,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ひげ",
+      "lemma": "髭",
+      "rationale": "Common noun; kanji is the main burden."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.4,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "さびざん",
+      "lemma": "サビ残",
+      "rationale": "Abbreviation/slang."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.4,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しゅえい",
+      "lemma": "守衛",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.4,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "けいかい",
+      "lemma": "警戒",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "つきる",
+      "lemma": "尽きる",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かいきゅう",
+      "lemma": "階級",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "さへん",
+      "lemma": "サ変",
+      "rationale": "Linguistic term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "すぽこん",
+      "lemma": "スポ根",
+      "rationale": "Cultural abbreviation."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "そくとう",
+      "lemma": "即答",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "またもや",
+      "lemma": "又もや",
+      "rationale": "Usually kana-heavy."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "そる",
+      "lemma": "反る",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "はまる",
+      "lemma": "嵌まる",
+      "rationale": "Kanji form is less common than kana."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "けいりん",
+      "lemma": "競輪",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "せっかい",
+      "lemma": "節介",
+      "rationale": "Usually learned as お節介."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "せき",
+      "lemma": "籍",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "そうさい",
+      "lemma": "総裁",
+      "rationale": "Politics/business register."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "りんせつ",
+      "lemma": "隣接",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "なれなれしい",
+      "lemma": "馴れ馴れしい",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "たま",
+      "lemma": "魂",
+      "rationale": "Reading is more literary than たましい."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.48,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きちょう",
+      "lemma": "基調",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.48,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かくじゅう",
+      "lemma": "拡充",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.48,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ふうど",
+      "lemma": "風土",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "せるが",
+      "lemma": "セル画",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "とがき",
+      "lemma": "ト書き",
+      "rationale": "Theater/script term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "じょうか",
+      "lemma": "城下",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しょうれい",
+      "lemma": "奨励",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "そろばん",
+      "lemma": "算盤",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "たえしのぐ",
+      "lemma": "耐え凌ぐ",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "じゃがん",
+      "lemma": "邪眼",
+      "rationale": "Genre/cultural term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ようご",
+      "lemma": "養護",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "だちん",
+      "lemma": "駄賃",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "くろしお",
+      "lemma": "黒潮",
+      "rationale": "Specific natural/cultural term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "じんぎ",
+      "lemma": "仁義",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "あだ",
+      "lemma": "仇",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "おごそか",
+      "lemma": "厳か",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "じゅんしょく",
+      "lemma": "殉職",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ほうぎん",
+      "lemma": "邦銀",
+      "rationale": "Business/news abbreviation."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "えさやり",
+      "lemma": "餌遣り",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かんいん",
+      "lemma": "館員",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "くじょ",
+      "lemma": "駆除",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "うつ",
+      "lemma": "鬱",
+      "rationale": "Common concept but hard written form."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ぶり",
+      "lemma": "鰤",
+      "rationale": "Common fish name, harder kanji."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "はながしら",
+      "lemma": "鼻頭",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "げばぼう",
+      "lemma": "ゲバ棒",
+      "rationale": "Historical/political slang."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "とろばこ",
+      "lemma": "トロ箱",
+      "rationale": "Specialized object term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "なきがら",
+      "lemma": "亡骸",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "い",
+      "lemma": "亥",
+      "rationale": "Zodiac/cultural term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きょうげき",
+      "lemma": "京劇",
+      "rationale": "Cultural term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "たがい",
+      "lemma": "他害",
+      "rationale": "Clinical/specialized register."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "いんかん",
+      "lemma": "印鑑",
+      "rationale": "Common daily-life word."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きとく",
+      "lemma": "危篤",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "としがみ",
+      "lemma": "歳神",
+      "rationale": "Cultural/religious term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "せいれん",
+      "lemma": "精錬",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かて",
+      "lemma": "糧",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ひるがえって",
+      "lemma": "翻って",
+      "rationale": "Formal written connector."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "おいまつ",
+      "lemma": "老松",
+      "rationale": "Literary/specific term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.65,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きょうらく",
+      "lemma": "享楽",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.65,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ほのめく",
+      "lemma": "仄めく",
+      "rationale": "Kanji form is harder than word."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.65,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しゅうじゅ",
+      "lemma": "収受",
+      "rationale": "Formal/legal register."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.65,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ちゅうのり",
+      "lemma": "宙乗り",
+      "rationale": "Stage/cultural term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.65,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "なへん",
+      "lemma": "那辺",
+      "rationale": "Formal/literary."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.65,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "のこぎり",
+      "lemma": "鋸",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.65,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "がろう",
+      "lemma": "餓狼",
+      "rationale": "Literary/genre term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.65,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "あんみつ",
+      "lemma": "餡蜜",
+      "rationale": "Food term; kanji form moderately harder."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ごじょう",
+      "lemma": "互譲",
+      "rationale": "Formal/abstract."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ささ",
+      "lemma": "些々",
+      "rationale": "Formal/literary."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "あたん",
+      "lemma": "亜炭",
+      "rationale": "Specialized."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "れきゆう",
+      "lemma": "歴遊",
+      "rationale": "Formal/rare."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "せんめつ",
+      "lemma": "殲滅",
+      "rationale": ""
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "こおり",
+      "lemma": "郡",
+      "rationale": "Historical reading; ぐん would be easier."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "けんしょう",
+      "lemma": "顕彰",
+      "rationale": "Formal register."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "とうらく",
+      "lemma": "騰落",
+      "rationale": "Financial/formal register."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "たんそう",
+      "lemma": "単装",
+      "rationale": "Technical/specialized."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "そうせん",
+      "lemma": "宋銭",
+      "rationale": "Historical term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かんもく",
+      "lemma": "完黙",
+      "rationale": "Specialized/slangy abbreviation."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しゅうろん",
+      "lemma": "宗論",
+      "rationale": "Specialized/historical."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ほうてん",
+      "lemma": "宝典",
+      "rationale": "Formal/rare."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しゅぐう",
+      "lemma": "殊遇",
+      "rationale": "Formal/rare."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しこうして",
+      "lemma": "而して",
+      "rationale": "Formal/literary connector."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ゆう",
+      "lemma": "邑",
+      "rationale": "Rare kanji word."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "いいだこ",
+      "lemma": "飯蛸",
+      "rationale": "Specific animal/food term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きょうする",
+      "lemma": "饗する",
+      "rationale": "Formal/literary."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ばぼう",
+      "lemma": "馬房",
+      "rationale": "Specialized."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "きしゃ",
+      "lemma": "騎射",
+      "rationale": "Historical/specialized."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "りゅうしゅう",
+      "lemma": "龍舟",
+      "rationale": "Specialized/cultural."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.78,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ひげくじら",
+      "lemma": "鬚鯨",
+      "rationale": "Specific animal term with rare written form."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.8,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "むべ",
+      "lemma": "宜",
+      "rationale": "Archaic/literary reading."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.8,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かんたん",
+      "lemma": "邯鄲",
+      "rationale": "Classical/place-derived term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.85,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しぎん",
+      "lemma": "歯齦",
+      "rationale": "Technical/medical."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.85,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "しう",
+      "lemma": "死有",
+      "rationale": "Buddhist/specialized."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.85,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "よくよく",
+      "lemma": "翼翼",
+      "rationale": "Rare/literary."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.85,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "すえる",
+      "lemma": "饐える",
+      "rationale": "Rare written form."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.85,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "うしょく",
+      "lemma": "齲蝕",
+      "rationale": "Technical/medical."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.88,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "せいあ",
+      "lemma": "井蛙",
+      "rationale": "Literary/classical."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.88,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "こうえん",
+      "lemma": "宏遠",
+      "rationale": "Rare/formal."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.9,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "こう",
+      "lemma": "亢",
+      "rationale": "Rare single-kanji item."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.9,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ふくいく",
+      "lemma": "馥郁",
+      "rationale": "Literary/high-register."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.92,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "うんい",
+      "lemma": "云為",
+      "rationale": "Literary/rare."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.92,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かんぼく",
+      "lemma": "翰墨",
+      "rationale": "Literary/scholarly."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.92,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ぎょうぼう",
+      "lemma": "翹望",
+      "rationale": "Rare/formal."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.92,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "らそつ",
+      "lemma": "邏卒",
+      "rationale": "Historical/rare."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.92,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "ひだるい",
+      "lemma": "饑い",
+      "rationale": "Rare written form/word."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.92,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "かんせい",
+      "lemma": "鼾声",
+      "rationale": "Rare written form."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.92,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "こまおくり",
+      "lemma": "齣送り",
+      "rationale": "Rare written form/technical."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.92,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "がんとう",
+      "lemma": "龕灯",
+      "rationale": "Rare object term."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.96,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "うごろもち",
+      "lemma": "鼹鼠",
+      "rationale": "Very rare word/reading."
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.97,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "expected_reading": "あがり",
+      "lemma": "殯",
+      "rationale": "Extremely rare/classical."
+    },
+    {
+      "expected_candidate_state": "suppressed_default",
+      "expected_difficulty_band": null,
+      "expected_presentation_mode": "suppress",
+      "expected_problem_class": "reviewed_omit",
+      "expected_reading": "つるむ",
+      "lemma": "交尾む",
+      "rationale": "Ateji/reading looks questionable as default vocab."
+    },
+    {
+      "expected_candidate_state": "suppressed_default",
+      "expected_difficulty_band": null,
+      "expected_presentation_mode": "suppress",
+      "expected_problem_class": "reviewed_omit",
+      "expected_reading": "ぬた",
+      "lemma": "饅",
+      "rationale": "Reading/lemma looks questionable."
+    },
+    {
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_difficulty_band": null,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "topic_or_entity_specific",
+      "expected_reading": "ではい",
+      "lemma": "デ杯",
+      "rationale": "Sports-specific abbreviation."
+    },
+    {
+      "expected_candidate_state": "review_required",
+      "expected_difficulty_band": null,
+      "expected_presentation_mode": "review",
+      "expected_problem_class": "review_required",
+      "expected_reading": "ちん",
+      "lemma": "亭",
+      "rationale": "Reading/treatment unclear; てい would be different."
+    },
+    {
+      "expected_candidate_state": "review_required",
+      "expected_difficulty_band": null,
+      "expected_presentation_mode": "review",
+      "expected_problem_class": "review_required",
+      "expected_reading": "じ",
+      "lemma": "耳",
+      "rationale": "Reading-specific; ordinary 耳/みみ would be beginner."
+    },
+    {
+      "expected_candidate_state": "review_required",
+      "expected_difficulty_band": null,
+      "expected_presentation_mode": "review",
+      "expected_problem_class": "review_required",
+      "expected_reading": "ろう",
+      "lemma": "郎",
+      "rationale": "Suffix/name element; not ideal standalone holdout vocab."
+    },
+    {
+      "expected_candidate_state": "review_required",
+      "expected_difficulty_band": null,
+      "expected_presentation_mode": "review",
+      "expected_problem_class": "review_required",
+      "expected_reading": "れい",
+      "lemma": "齢",
+      "rationale": "Standalone reading is less clean than 年齢; not ideal holdout vocab."
+    }
+  ],
+  "language_pair": "en-ja",
+  "purpose": "Fresh reviewed holdout set for detecting learner-difficulty overfitting; do not use as a sweep fitting target until explicitly promoted.",
+  "schema_version": 1,
+  "state": "fresh_holdout_reviewed"
+}

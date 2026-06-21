@@ -216,6 +216,120 @@ def default_jmdict_path(
     return language_packs_dir / "JMdict_e"
 
 
+def default_kanjidic2_path(
+    pair: str,
+    *,
+    language_packs_dir: Path,
+) -> Optional[Path]:
+    capability = resolve_pair_capability(pair)
+    if _target_language(capability.pair) != "ja":
+        return None
+    managed_artifact = resolve_installed_pack_artifact(language_packs_dir, "kanjidic2-ja")
+    if managed_artifact is not None:
+        return managed_artifact
+    managed_legacy_artifact = language_packs_dir / "kanjidic2-ja" / "kanjidic2.xml"
+    if managed_legacy_artifact.exists():
+        return managed_legacy_artifact
+    root_artifact = language_packs_dir / "kanjidic2.xml"
+    if root_artifact.exists():
+        return root_artifact
+    root_gzip_artifact = language_packs_dir / "kanjidic2.xml.gz"
+    if root_gzip_artifact.exists():
+        return root_gzip_artifact
+    return language_packs_dir / "kanjidic2-ja" / "kanjidic2.xml"
+
+
+def default_jmnedict_path(
+    pair: str,
+    *,
+    language_packs_dir: Path,
+) -> Optional[Path]:
+    capability = resolve_pair_capability(pair)
+    if _target_language(capability.pair) != "ja":
+        return None
+    managed_artifact = resolve_installed_pack_artifact(language_packs_dir, "jmnedict-ja")
+    if managed_artifact is not None:
+        return managed_artifact
+    managed_legacy_artifact = language_packs_dir / "jmnedict-ja" / "JMnedict.xml"
+    if managed_legacy_artifact.exists():
+        return managed_legacy_artifact
+    root_artifact = language_packs_dir / "JMnedict.xml"
+    if root_artifact.exists():
+        return root_artifact
+    root_gzip_artifact = language_packs_dir / "JMnedict.xml.gz"
+    if root_gzip_artifact.exists():
+        return root_gzip_artifact
+    return language_packs_dir / "jmnedict-ja" / "JMnedict.xml"
+
+
+def default_kanjivg_path(
+    pair: str,
+    *,
+    language_packs_dir: Path,
+) -> Optional[Path]:
+    capability = resolve_pair_capability(pair)
+    if _target_language(capability.pair) != "ja":
+        return None
+    managed_artifact = resolve_installed_pack_artifact(language_packs_dir, "kanjivg-ja")
+    if managed_artifact is not None:
+        return managed_artifact
+    for candidate in (
+        language_packs_dir / "kanjivg-ja" / "kanjivg-20250816.xml",
+        language_packs_dir / "kanjivg-ja" / "kanjivg.xml",
+        language_packs_dir / "kanjivg-ja" / "kanjivg.xml.gz",
+        language_packs_dir / "kanjivg-20250816.xml",
+        language_packs_dir / "kanjivg.xml",
+        language_packs_dir / "kanjivg.xml.gz",
+    ):
+        if candidate.exists():
+            return candidate
+    return language_packs_dir / "kanjivg-ja" / "kanjivg-20250816.xml"
+
+
+def default_jlpt_vocabulary_path(
+    pair: str,
+    *,
+    language_packs_dir: Path,
+) -> Optional[Path]:
+    capability = resolve_pair_capability(pair)
+    if _target_language(capability.pair) != "ja":
+        return None
+    managed_artifact = resolve_installed_pack_artifact(language_packs_dir, "jlpt-tanos-vocab-ja")
+    if managed_artifact is not None:
+        return managed_artifact
+    for candidate in (
+        language_packs_dir / "jlpt-tanos-vocab-ja" / "JLPT_vocab_ALL.csv",
+        language_packs_dir / "jlpt-tanos-vocab-ja" / "JLPT_vocab_ALL.json",
+        language_packs_dir / "JLPT_vocab_ALL.csv",
+        language_packs_dir / "JLPT_vocab_ALL.json",
+    ):
+        if candidate.exists():
+            return candidate
+    return language_packs_dir / "jlpt-tanos-vocab-ja" / "JLPT_vocab_ALL.csv"
+
+
+def default_japanese_lesson_vocabulary_path(
+    pair: str,
+    *,
+    language_packs_dir: Path,
+) -> Optional[Path]:
+    capability = resolve_pair_capability(pair)
+    if _target_language(capability.pair) != "ja":
+        return None
+    managed_artifact = resolve_installed_pack_artifact(language_packs_dir, "sbsjapanese1-ja")
+    if managed_artifact is not None:
+        return managed_artifact
+    for candidate in (
+        language_packs_dir / "sbsjapanese1-ja",
+        language_packs_dir / "sbsjapanese1-ja" / "EPUB",
+        language_packs_dir / "sbsjapanese1",
+        language_packs_dir / "sbsjapanese1" / "EPUB",
+    ):
+        if candidate.exists():
+            return candidate
+    return language_packs_dir / "sbsjapanese1-ja"
+
+
 def default_translation_dictionary_path(
     pair: str,
     *,

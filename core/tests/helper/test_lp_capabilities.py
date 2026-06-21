@@ -12,7 +12,10 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.helper.lp_capabilities import (  # noqa: E402
     default_frequency_db_path,
+    default_japanese_lesson_vocabulary_path,
     default_jmdict_path,
+    default_jlpt_vocabulary_path,
+    default_kanjivg_path,
     default_reverse_translation_dictionary_path,
     default_translation_dictionary_path,
     known_pairs,
@@ -186,6 +189,75 @@ class TestLpCapabilities(unittest.TestCase):
             resolved = default_jmdict_path("en-ja", language_packs_dir=language_packs_dir)
 
         self.assertEqual(resolved, language_packs_dir / "JMdict_e")
+
+    def test_en_ja_default_kanjivg_prefers_managed_installed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            artifact = language_packs_dir / "kanjivg-ja" / "kanjivg-20250816.xml"
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_text("<kanjivg/>", encoding="utf-8")
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="kanjivg-ja",
+                pack_kind="language",
+                provider="kanjivg",
+                local_kind="dir",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="kanjivg-20250816.xml.gz",
+                required_files=("kanjivg-20250816.xml",),
+            )
+
+            resolved = default_kanjivg_path("en-ja", language_packs_dir=language_packs_dir)
+
+        self.assertEqual(resolved, artifact)
+
+    def test_en_ja_default_jlpt_vocab_prefers_managed_installed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            artifact = language_packs_dir / "jlpt-tanos-vocab-ja" / "JLPT_vocab_ALL.csv"
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_text("Kanji,Reading,Level\n猫,ねこ,5\n", encoding="utf-8")
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="jlpt-tanos-vocab-ja",
+                pack_kind="language",
+                provider="tanos",
+                local_kind="file",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="JLPT_vocab_ALL.csv",
+            )
+
+            resolved = default_jlpt_vocabulary_path(
+                "en-ja",
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertEqual(resolved, artifact)
+
+    def test_en_ja_default_lesson_vocab_prefers_managed_installed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            artifact = language_packs_dir / "sbsjapanese1-ja"
+            (artifact / "EPUB").mkdir(parents=True, exist_ok=True)
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="sbsjapanese1-ja",
+                pack_kind="language",
+                provider="utsa_pressbooks",
+                local_kind="dir",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="sbsjapanese1.zip",
+            )
+
+            resolved = default_japanese_lesson_vocabulary_path(
+                "en-ja",
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertEqual(resolved, artifact)
 
     def test_en_de_default_reverse_dictionary_uses_english_headword_direction(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
