@@ -2,8 +2,8 @@
 
 Status: active LP onboarding runbook
 Role: Runbook / operational
-Last updated: 2026-06-10
-Last verified: 2026-06-10 en-ja advisory rulegen acceptance, SRS/runtime journey smoke, installed-resource journey smoke, topic-source/review/overlay diagnostics, and targeted SRS/extension/helper contract tests
+Last updated: 2026-06-30
+Last verified: 2026-06-10 en-ja advisory rulegen acceptance, SRS/runtime journey smoke, installed-resource journey smoke, topic-source/review/overlay diagnostics, and targeted SRS/extension/helper contract tests; 2026-06-30 learner-difficulty playbook routing link only
 Source-of-truth: operational onboarding checklist; current LP capability truth still lives in capability/resource code, canonical architecture docs, tests, and generated audits.
 
 Purpose:
@@ -20,6 +20,8 @@ Related:
 - For extension + helper focused rollout sequencing, see `docs/language_pairs/extension_lp_generalization_checklist.md`.
 - POS normalization implementation plan: `docs/rulegen/pos_normalization_workstream.md`.
 - Rulegen onboarding operating model: `docs/rulegen/lp_onboarding_operating_model.md`.
+- SRS learner-difficulty ranking onboarding:
+  `docs/srs/srs_learner_difficulty_lp_onboarding_playbook.md`.
 
 Routing note: this checklist is the cross-surface operational runbook. Use
 `docs/language_pairs/README.md` to choose the owning LP doc before changing

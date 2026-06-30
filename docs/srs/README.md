@@ -2,8 +2,8 @@
 
 Status: active SRS routing
 Role: Canonical current
-Last updated: 2026-06-02
-Last verified: 2026-06-02 Vocabulary Library page implementation route update plus doc-reference check
+Last updated: 2026-06-30
+Last verified: 2026-06-30 learner-difficulty LP onboarding playbook routing update; SRS runtime status not re-audited
 Purpose: route SRS cleanup work to the right current, mixed, planning, schema, or harness document without treating roadmap text as implementation truth
 Source-of-truth: SRS documentation routing only; implementation truth lives in SRS/helper/extension code, tests, generated SRS artifacts, and `docs/developer/feature_state_matrix.md`.
 
@@ -33,6 +33,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | Admitted-words dashboard and lifecycle UX policy | `docs/srs/srs_admitted_words_dashboard_plan.md` | Product/implementation contract and verification runbook for the admitted-words dashboard, including read-only listing/rule details, local controls, encounter-watch visibility, advanced-details boundary, and confirmed discard. | Claiming restore, mastery/release, or undo controls are shipped. |
 | Vocabulary Library, word info, and quick-definition popup | `docs/srs/srs_vocabulary_library_and_word_info_plan.md` | Mixed implementation contract for the shared helper word-info read model, dedicated Vocabulary Library surface, and built-in popup definition module. | Claiming cross-profile library enumeration, completed/mastered lifecycle UX, or a public third-party popup module API is implemented. |
 | Learner difficulty and admission target semantics | `docs/srs/srs_learner_difficulty_model_workplan.md` | Planning authority for separating corpus frequency, learner difficulty, admission suitability, and aim-here vs can-handle semantics. | Claiming the learner-difficulty overlay is implemented or default-on. |
+| Cross-LP learner-difficulty onboarding | `docs/srs/srs_learner_difficulty_lp_onboarding_playbook.md` | Reusable method for building future LP presentation-priority rankings from audited signals, calibration/holdout labels, qualitative samples, and typed correction layers. | Current runtime status claims or proof that a new LP is product-ready. |
 | Story-based Options SRS UX | `docs/srs/srs_story_based_options_flow_plan.md` | Target UX plan plus current implementation notes for presenting SRS journeys as story blocks and routing first-run initialization through a guided setup flow. | Claiming full multi-story enumeration or replacing the current feature-state ledger. |
 | Preference taxonomy lifecycle | `docs/srs/srs_preference_taxonomy_lifecycle.md` | Planning policy for adding topic/register preferences without damaging existing SRS progress. | Claiming a preference family is sourced, default-on, or broadly supported. |
 | en-es topic coverage pause state | `docs/srs/srs_topic_coverage_pause_state_en_es.md` | Current closeout snapshot for the paused topic-coverage slice, including overlay stack, readiness status, and resume criteria. | Treating topic coverage as comprehensive or default product copy. |

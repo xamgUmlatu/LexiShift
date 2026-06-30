@@ -2,8 +2,8 @@
 
 Status: active LP docs routing
 Role: Canonical current
-Last updated: 2026-05-17
-Last verified: 2026-05-17 SRS topic-signal LP generalization runbook routing update; routing only, LP capability/status claims not re-audited
+Last updated: 2026-06-30
+Last verified: 2026-06-30 learner-difficulty LP onboarding playbook routing update; routing only, LP capability/status claims not re-audited
 Purpose: route language-pair, resource, and onboarding claims without treating older checklist or roadmap snapshots as current implementation truth
 Source-of-truth: routing guide only; executable truth lives in LP capability/resource code, rulegen/SRS code, GUI pack registration, tests, generated audits, and `docs/developer/feature_state_matrix.md`.
 
@@ -20,6 +20,7 @@ owns which claim type and which docs are planning or historical context.
 | Rulegen LP mechanism stack | `../rulegen/rulegen_lp_support_guide.md` | Mechanism/status updates that touch rulegen behavior need the rulegen quality loop. |
 | Rulegen LP onboarding process | `../rulegen/lp_onboarding_operating_model.md` and `../rulegen/lp_onboarding_checklist_template.md` | These are the rulegen-specific golden path and reusable checklist. |
 | End-to-end LP onboarding checklist | `language_pair_setup_checklist.md` | Operational runbook for GUI, extension, helper, core rulegen, and SRS wiring. |
+| SRS learner-difficulty ranking onboarding | `../srs/srs_learner_difficulty_lp_onboarding_playbook.md` | Reusable presentation-priority method for future LP difficulty rankings; use after basic LP resources and identity fields are understood. |
 | Resource requirements and gaps | `lp_resource_requirements.md` | Mixed current-plus-target matrix; verify status-sensitive claims against code and audits. |
 | Resource inventory | `lp_data_inventory_matrix.md` | Mixed inventory matrix; use generated resource/POS audits for current local machine state. |
 | POS source and pipeline behavior | `pos_source_and_pipeline_reference.md` and `../rulegen/pos_normalization_workstream.md` | POS policy and raw-tag claims should stay tied to provider/profile code and probe artifacts. |

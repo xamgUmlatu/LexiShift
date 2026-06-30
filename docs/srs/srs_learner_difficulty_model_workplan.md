@@ -8,6 +8,8 @@ Purpose: define how LexiShift should separate corpus frequency, admission suitab
 Source-of-truth: design/workplan only. Current executable behavior lives in `core/lexishift_core/srs/`, tests, generated SRS artifacts, and installed helper resources.
 Related source-lane audit: `docs/language_pairs/en_ja_learner_signal_source_matrix.md`.
 Related acronym/code plan: `docs/srs/srs_en_ja_acronym_signal_plan.md`.
+Reusable cross-LP onboarding playbook:
+`docs/srs/srs_learner_difficulty_lp_onboarding_playbook.md`.
 
 ## Problem Statement
 
