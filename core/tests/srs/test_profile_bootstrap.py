@@ -2,13 +2,21 @@ from __future__ import annotations
 
 import os
 import sys
+import tempfile
 import unittest
 from types import SimpleNamespace
+from unittest import mock
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
+from lexishift_core.srs.learner_difficulty import (  # noqa: E402
+    CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV,
+    clear_corrected_learner_difficulty_cache,
+    resolve_corrected_en_ja_learner_difficulty_csv_path,
+    resolve_packaged_en_ja_learner_difficulty_manual_corrections_path,
+)
 from lexishift_core.srs.profile_bootstrap import (  # noqa: E402
     build_profile_bootstrap_signal_pack,
     extract_profile_bootstrap_candidate_traits,
@@ -119,17 +127,53 @@ class TestProfileBootstrapTraits(unittest.TestCase):
         self.assertEqual(traits.problem_class, "numeral_or_counter")
         self.assertAlmostEqual(traits.admission_suitability, 0.0, places=6)
 
-    def test_en_ja_learner_difficulty_overlay_corrects_beginner_staples(self) -> None:
-        traits = extract_profile_bootstrap_candidate_traits(
-            SimpleNamespace(
-                lemma="猫",
-                language_pair="en-ja",
-                pos="名詞-普通名詞-一般",
-                base_weight=0.39,
-                admission_weight=0.39,
-                metadata={},
+    def test_en_ja_corrected_ranking_uses_packaged_resource_by_default(self) -> None:
+        with mock.patch.dict(os.environ, {}, clear=True):
+            clear_corrected_learner_difficulty_cache()
+            traits = extract_profile_bootstrap_candidate_traits(
+                SimpleNamespace(
+                    lemma="つく",
+                    language_pair="en-ja",
+                    pos="名詞-普通名詞-一般",
+                    base_weight=0.99,
+                    admission_weight=0.99,
+                    metadata={},
+                    word_package={"reading": "ツク"},
+                )
             )
+            resolved_csv = resolve_corrected_en_ja_learner_difficulty_csv_path()
+            resolved_manual = resolve_packaged_en_ja_learner_difficulty_manual_corrections_path()
+            clear_corrected_learner_difficulty_cache()
+
+        self.assertIsNotNone(resolved_csv)
+        self.assertIsNotNone(resolved_manual)
+        self.assertAlmostEqual(traits.difficulty_estimate, 0.006081, places=6)
+        self.assertEqual(
+            traits.difficulty_proxy,
+            "learner_difficulty_v1:en_ja_corrected_ranking:exact_pair",
         )
+        self.assertEqual(traits.candidate_state, "suppressed_default")
+        self.assertEqual(traits.presentation_mode, "suppress")
+
+    def test_en_ja_learner_difficulty_overlay_remains_fallback_when_csv_unavailable(
+        self,
+    ) -> None:
+        with mock.patch.dict(
+            os.environ,
+            {CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV: "/tmp/missing-lexishift.csv"},
+        ):
+            clear_corrected_learner_difficulty_cache()
+            traits = extract_profile_bootstrap_candidate_traits(
+                SimpleNamespace(
+                    lemma="猫",
+                    language_pair="en-ja",
+                    pos="名詞-普通名詞-一般",
+                    base_weight=0.39,
+                    admission_weight=0.39,
+                    metadata={},
+                )
+            )
+            clear_corrected_learner_difficulty_cache()
 
         self.assertAlmostEqual(traits.difficulty_estimate, 0.20, places=6)
         self.assertEqual(
@@ -137,6 +181,128 @@ class TestProfileBootstrapTraits(unittest.TestCase):
             "learner_difficulty_v1:en_ja_exact_overlay",
         )
         self.assertIn("beginner_core_animal", traits.difficulty_sources)
+
+    def test_en_ja_corrected_ranking_csv_overrides_frequency_difficulty(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            csv_path = os.path.join(tmp, "corrected.csv")
+            with open(csv_path, "w", encoding="utf-8", newline="") as handle:
+                handle.write("rank,lemma,reading,score,band\n")
+                handle.write("1,行く,いく,0.004,0.00-0.05\n")
+            with mock.patch.dict(
+                os.environ,
+                {CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV: csv_path},
+            ):
+                clear_corrected_learner_difficulty_cache()
+                traits = extract_profile_bootstrap_candidate_traits(
+                    SimpleNamespace(
+                        lemma="行く",
+                        language_pair="en-ja",
+                        base_weight=0.40,
+                        admission_weight=0.40,
+                        metadata={},
+                        word_package={"reading": "イク"},
+                    )
+                )
+                clear_corrected_learner_difficulty_cache()
+
+        self.assertAlmostEqual(traits.difficulty_estimate, 0.004, places=6)
+        self.assertEqual(
+            traits.difficulty_proxy,
+            "learner_difficulty_v1:en_ja_corrected_ranking:exact_pair",
+        )
+        self.assertIn("en_ja_corrected_learner_difficulty_csv", traits.difficulty_sources)
+
+    def test_en_ja_corrected_ranking_avoids_reading_only_homophone_match(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            csv_path = os.path.join(tmp, "corrected.csv")
+            with open(csv_path, "w", encoding="utf-8", newline="") as handle:
+                handle.write("rank,lemma,reading,score,band\n")
+                handle.write("1,園,その,0.35,0.35-0.40\n")
+            with mock.patch.dict(
+                os.environ,
+                {CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV: csv_path},
+            ):
+                clear_corrected_learner_difficulty_cache()
+                traits = extract_profile_bootstrap_candidate_traits(
+                    SimpleNamespace(
+                        lemma="其の",
+                        language_pair="en-ja",
+                        base_weight=0.90,
+                        admission_weight=0.90,
+                        metadata={},
+                        word_package={"reading": "ソノ"},
+                    )
+                )
+                clear_corrected_learner_difficulty_cache()
+
+        self.assertAlmostEqual(traits.difficulty_estimate, 0.10, places=6)
+        self.assertEqual(traits.difficulty_proxy, "1_minus_base_weight")
+
+    def test_en_ja_corrected_ranking_excludes_standalone_srs_rows(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            csv_path = os.path.join(tmp, "corrected.csv")
+            with open(csv_path, "w", encoding="utf-8", newline="") as handle:
+                handle.write("rank,lemma,reading,score,band,correction_types,admission_override\n")
+                handle.write(
+                    "1,つく,つく,0.006,0.00-0.05,exclude_standalone_srs,exclude_standalone_srs\n"
+                )
+            with mock.patch.dict(
+                os.environ,
+                {CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV: csv_path},
+            ):
+                clear_corrected_learner_difficulty_cache()
+                traits = extract_profile_bootstrap_candidate_traits(
+                    SimpleNamespace(
+                        lemma="つく",
+                        language_pair="en-ja",
+                        base_weight=0.90,
+                        admission_weight=0.90,
+                        metadata={},
+                        word_package={"reading": "ツク"},
+                    )
+                )
+                clear_corrected_learner_difficulty_cache()
+
+        self.assertAlmostEqual(traits.difficulty_estimate, 0.006, places=6)
+        self.assertEqual(traits.candidate_state, "suppressed_default")
+        self.assertEqual(traits.presentation_mode, "suppress")
+        self.assertAlmostEqual(traits.admission_suitability, 0.0, places=6)
+        self.assertIn(
+            "corrected_ranking:exclude_standalone_srs",
+            traits.classification_reasons,
+        )
+
+    def test_en_ja_corrected_ranking_restricts_reviewed_variant_rows(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            csv_path = os.path.join(tmp, "corrected.csv")
+            with open(csv_path, "w", encoding="utf-8", newline="") as handle:
+                handle.write("rank,lemma,reading,score,band,correction_types,admission_override\n")
+                handle.write(
+                    '1,居る,おる,0.24,0.20-0.25,"score_floor,'
+                    'restricted_admission",variant_reading\n'
+                )
+            with mock.patch.dict(
+                os.environ,
+                {CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV: csv_path},
+            ):
+                clear_corrected_learner_difficulty_cache()
+                traits = extract_profile_bootstrap_candidate_traits(
+                    SimpleNamespace(
+                        lemma="居る",
+                        language_pair="en-ja",
+                        base_weight=0.70,
+                        admission_weight=0.70,
+                        metadata={},
+                        word_package={"reading": "オル"},
+                    )
+                )
+                clear_corrected_learner_difficulty_cache()
+
+        self.assertAlmostEqual(traits.difficulty_estimate, 0.24, places=6)
+        self.assertEqual(traits.candidate_state, "suppressed_default")
+        self.assertEqual(traits.presentation_mode, "suppress")
+        self.assertEqual(traits.problem_class, "variant_reading")
+        self.assertAlmostEqual(traits.admission_suitability, 0.0, places=6)
 
     def test_builds_signal_pack_from_traits_and_context(self) -> None:
         context = normalize_profile_bootstrap_context(

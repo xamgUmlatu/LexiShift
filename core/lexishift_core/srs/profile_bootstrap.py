@@ -16,12 +16,20 @@ from lexishift_core.srs.admission_features import (
 )
 from lexishift_core.srs.candidate_classification import (
     CANDIDATE_STATE_DEPRIORITIZED_VOCAB,
+    CANDIDATE_STATE_SUPPRESSED_DEFAULT,
     CANDIDATE_STATE_TOPIC_ONLY,
+    CLASSIFICATION_CONFIDENCE_HIGH,
+    CLASSIFICATION_CONFIDENCE_REVIEW,
     CandidateClassification,
+    PRESENTATION_MODE_SUPPRESS,
     classify_srs_candidate,
 )
 from lexishift_core.srs.candidate_identity import candidate_identity_key_from_seed
-from lexishift_core.srs.learner_difficulty import estimate_learner_difficulty
+from lexishift_core.srs.learner_difficulty import (
+    CorrectedLearnerDifficultyMatch,
+    estimate_learner_difficulty,
+    lookup_corrected_en_ja_learner_difficulty,
+)
 from lexishift_core.srs.profile_bootstrap_support import (
     build_active_topic_support_summary as _build_active_topic_support_summary,
     build_policy_summary as _build_policy_summary,
@@ -185,13 +193,30 @@ def extract_profile_bootstrap_candidate_traits(
         if isinstance(word_package, Mapping):
             _add_topic_hints(raw_topic_hints, topic_hint_origins, word_package.get(topic_key))
         _add_topic_hints(raw_topic_hints, topic_hint_origins, word_package_source.get(topic_key))
-    classification = _resolve_candidate_classification(seed, metadata=metadata)
+    reading = _first_present_value(
+        _mapping_value(word_package, "reading"),
+        _mapping_value(word_package, "lform_raw"),
+        metadata.get("lform_raw"),
+        word_package_source.get("lform_raw"),
+    )
+    reading_candidates = tuple(sorted(form for form in lexical_forms if form))
+    corrected_difficulty_match = lookup_corrected_en_ja_learner_difficulty(
+        lemma=str(getattr(seed, "lemma", "") or "").strip(),
+        reading=reading,
+        reading_candidates=reading_candidates,
+    )
+    classification = _apply_corrected_ranking_admission_overlay(
+        _resolve_candidate_classification(seed, metadata=metadata),
+        corrected_difficulty_match=corrected_difficulty_match,
+    )
     frequency_difficulty = clamp01(1.0 - source_commonness) or 0.0
     learner_difficulty = estimate_learner_difficulty(
         language_pair=str(
             getattr(seed, "language_pair", "") or metadata.get("language_pair") or ""
         ),
         lemma=str(getattr(seed, "lemma", "") or "").strip(),
+        reading=reading,
+        reading_candidates=reading_candidates,
         frequency_proxy=frequency_difficulty,
         candidate_state=classification.candidate_state,
         presentation_mode=classification.presentation_mode,
@@ -228,6 +253,19 @@ def _add_lexical_form(target: set[str], value: object) -> None:
     normalized = normalize_topic_token(value)
     if normalized:
         target.add(normalized)
+
+
+def _mapping_value(value: object, key: str) -> object:
+    if not isinstance(value, Mapping):
+        return None
+    return value.get(key)
+
+
+def _first_present_value(*values: object) -> object:
+    for value in values:
+        if str(value or "").strip():
+            return value
+    return None
 
 
 def _add_topic_hints(
@@ -311,6 +349,45 @@ def _resolve_candidate_classification(
         reasons=reasons,
         admission_suitability=suitability,
     )
+
+
+def _apply_corrected_ranking_admission_overlay(
+    classification: CandidateClassification,
+    *,
+    corrected_difficulty_match: CorrectedLearnerDifficultyMatch | None,
+) -> CandidateClassification:
+    if corrected_difficulty_match is None:
+        return classification
+    row = corrected_difficulty_match.row
+    correction_types = set(row.correction_types)
+    admission_override = str(row.admission_override or "").strip()
+    if "exclude_standalone_srs" in correction_types or (
+        admission_override == "exclude_standalone_srs"
+    ):
+        return CandidateClassification(
+            candidate_state=CANDIDATE_STATE_SUPPRESSED_DEFAULT,
+            presentation_mode=PRESENTATION_MODE_SUPPRESS,
+            problem_class=admission_override or "manual_exclude_standalone_srs",
+            confidence=CLASSIFICATION_CONFIDENCE_HIGH,
+            reasons=(
+                *classification.reasons,
+                "corrected_ranking:exclude_standalone_srs",
+            ),
+            admission_suitability=0.0,
+        )
+    if "restricted_admission" in correction_types:
+        return CandidateClassification(
+            candidate_state=CANDIDATE_STATE_SUPPRESSED_DEFAULT,
+            presentation_mode=PRESENTATION_MODE_SUPPRESS,
+            problem_class=admission_override or "manual_restricted_admission",
+            confidence=CLASSIFICATION_CONFIDENCE_REVIEW,
+            reasons=(
+                *classification.reasons,
+                f"corrected_ranking:restricted_admission:{admission_override or 'generic'}",
+            ),
+            admission_suitability=0.0,
+        )
+    return classification
 
 
 def _string_attr_or_metadata(

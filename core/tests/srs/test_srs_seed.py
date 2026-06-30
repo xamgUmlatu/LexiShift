@@ -21,6 +21,10 @@ from lexishift_core.srs.seed import (  # noqa: E402
     seed_to_selector_candidates,
     seed_frontier_cache_status,
 )
+from lexishift_core.srs.learner_difficulty import (  # noqa: E402
+    CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV,
+    clear_corrected_learner_difficulty_cache,
+)
 
 
 def _build_freq_db(path: Path) -> None:
@@ -70,6 +74,28 @@ def _build_freq_db_with_lform(path: Path) -> None:
             ("所", 1, 1000.0, "名詞-普通名詞-一般", "トコロ", "NOUN", "所"),
             ("所", 2, 900.0, "名詞-普通名詞-一般", "ショ", "NOUN", "所"),
             ("猫", 3, 800.0, "名詞-普通名詞-一般", "ネコ", "NOUN", "猫"),
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
+def _build_freq_db_with_surface_policy_rows(path: Path) -> None:
+    conn = sqlite3.connect(path)
+    conn.execute(
+        "CREATE TABLE frequency ("
+        "lemma TEXT, core_rank REAL, pmw REAL, pos TEXT, lform TEXT, wtype TEXT, sublemma TEXT)"
+    )
+    conn.executemany(
+        "INSERT INTO frequency (lemma, core_rank, pmw, pos, lform, wtype, sublemma)"
+        " VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [
+            ("明い", 1, 1000.0, "形容詞-一般", "アカイ", "ADJ", "明い"),
+            ("音", 2, 900.0, "名詞-普通名詞-一般", "オン", "NOUN", "音"),
+            ("何処", 3, 800.0, "名詞-普通名詞-一般", "ドコ", "NOUN", "何処"),
+            ("何処", 4, 700.0, "名詞-普通名詞-一般", "イズコ", "NOUN", "何処"),
+            ("此れ", 5, 600.0, "代名詞", "コレ", "PRON", "此れ"),
+            ("為", 6, 500.0, "名詞-普通名詞-副詞可能", "タメ", "NOUN", "為"),
         ],
     )
     conn.commit()
@@ -279,7 +305,7 @@ class TestSrsSeedStopwords(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             db_path = root / "freq.sqlite"
-            _build_freq_db(db_path)
+            _build_freq_db_with_lform(db_path)
             jmdict_path = root / "JMdict_e"
             jmdict_path.write_text(
                 (
@@ -371,6 +397,8 @@ class TestSrsSeedStopwords(unittest.TestCase):
             )
 
             self.assertEqual([item.lemma for item in selected], ["猫"])
+            self.assertEqual(selected[0].word_package["lform_raw"], "ネコ")
+            self.assertEqual(selected[0].word_package["reading"], "ねこ")
             signals = selected[0].metadata["learner_signals"]
             self.assertEqual(
                 signals["sources"],
@@ -386,6 +414,14 @@ class TestSrsSeedStopwords(unittest.TestCase):
                 ],
             )
             self.assertEqual(signals["jmdict_priority"]["priority_band"], "primary")
+            self.assertEqual(
+                signals["jmdict_priority"]["matched_pair"]["match_type"],
+                "exact",
+            )
+            self.assertEqual(
+                signals["jmdict_priority"]["matched_pair"]["safe_priority_score"],
+                1.0,
+            )
             self.assertEqual(signals["jmdict_lexical"]["sense_count"], 1)
             self.assertEqual(
                 signals["jmnedict_name"]["name_type_groups"],
@@ -398,6 +434,50 @@ class TestSrsSeedStopwords(unittest.TestCase):
             self.assertEqual(signals["lesson_vocabulary"]["earliest_lesson"], 1)
             self.assertEqual(signals["lesson_vocabulary"]["romanizations"], ["neko"])
             self.assertEqual(signals["lesson_vocabulary"]["glosses"], ["cat"])
+
+    def test_en_ja_seed_applies_exact_display_form_surface_policy(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            db_path = root / "freq.sqlite"
+            corrected_path = root / "corrected.csv"
+            _build_freq_db_with_surface_policy_rows(db_path)
+            corrected_path.write_text(
+                (
+                    "rank,lemma,reading,score,band,correction_types,display_form,"
+                    "admission_override\n"
+                    "1,明い,あかい,0.22,0.20-0.25,display_only,あかい,normal_vocab\n"
+                    '2,音,おん,0.35,0.35-0.40,"score_floor,restricted_admission",'
+                    "おん,compound_or_on_reading\n"
+                ),
+                encoding="utf-8",
+            )
+
+            with patch.dict(
+                os.environ,
+                {CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV: str(corrected_path)},
+            ):
+                clear_corrected_learner_difficulty_cache()
+                selected = build_seed_candidates(
+                    frequency_db=db_path,
+                    config=SeedSelectionConfig(
+                        language_pair="en-ja",
+                        top_n=None,
+                        require_jmdict=False,
+                        sort_by_admission_weight=False,
+                    ),
+                )
+                clear_corrected_learner_difficulty_cache()
+
+        lemmas = [item.lemma for item in selected]
+        self.assertEqual(lemmas, ["あかい", "音", "どこ", "何処", "これ", "ため"])
+
+        by_lemma = {item.lemma: item for item in selected}
+        self.assertEqual(by_lemma["あかい"].metadata["source_surface_original"], "明い")
+        self.assertEqual(by_lemma["あかい"].word_package["script_forms"]["kanji"], "明い")
+        self.assertEqual(by_lemma["あかい"].word_package["script_forms"]["kana"], "あかい")
+        self.assertEqual(by_lemma["あかい"].word_package["reading"], "あかい")
+        self.assertEqual(by_lemma["音"].word_package["reading"], "おん")
+        self.assertNotIn("おん", lemmas)
 
     def test_en_ja_seed_classification_applies_acronym_learner_signal(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -763,12 +843,13 @@ class TestSrsSeedStopwords(unittest.TestCase):
                 ),
             )
 
-            self.assertEqual([item.lemma for item in selected], ["所", "所"])
+            self.assertEqual([item.lemma for item in selected], ["ところ", "所"])
             self.assertNotEqual(selected[0].identity_key, selected[1].identity_key)
             first_package = selected[0].word_package
             self.assertIsNotNone(first_package)
-            self.assertEqual(first_package["surface"], "所")
+            self.assertEqual(first_package["surface"], "ところ")
             self.assertEqual(first_package["reading"], "ところ")
+            self.assertEqual(first_package["script_forms"]["kanji"], "所")
             self.assertEqual(first_package["script_forms"]["kana"], "ところ")
             self.assertEqual(first_package["script_forms"]["romaji"], "tokoro")
 

@@ -38,9 +38,28 @@ Tiny checklist for the sidecar methodology.
 - [x] Review and label the guarded constituent-transparency would-change set.
 - [x] Evaluate whether existing scalar fields separate accepted from held/blocked transparency rows.
 - [x] Test source-backed opacity gates over the reviewed transparency labels.
+- [x] Add effective JLPT exact matching from current JLPT rows plus safe JMdict same-reading normalization.
+- [x] Regenerate first-60 acceptance review against the effective-JLPT source-arbitration candidate.
+- [x] Audit remaining reference-backed JLPT exact gaps by safety category before considering more repairs.
+- [x] Add and audit an exact-protected same-surface family floor so lesson-surface evidence cannot raise effective-exact JLPT rows.
+- [x] Add and sweep a smooth exact-protected same-surface floor that can algebraically reproduce the hard floor.
+- [x] Probe base-family rescue, gairaigo source/origin ease, and domain/marked bucket caps as targeted overlays.
+- [x] Accept the base-family rescue overlay and regenerate the current first-60 acceptance review pack.
+- [x] Reject the simple gairaigo source/origin ease overlay for now because it over-lowered ordinary gairaigo without holdout gain.
+- [x] Retest the domain/marked bucket cap with stricter JMDict-only domain/marked gates.
+- [ ] Decide whether the strict JMDict-domain cap is promotable, and if so whether to use the best `0.86` cap or a gentler `0.90`/`0.94` cap.
 - [ ] Decide whether JMDict exact-pair validation should become a hard pre-scalar gate or review lane.
 - [ ] Use disagreement structure to decide whether to keep old, add bounded corrections, or add targeted labels.
 - [ ] Only after holdout evidence is clean, decide whether any winner should be promoted into runtime SRS ordering.
+
+Current domain-cap note: after accepting base-family rescue, the refreshed
+targeted bakeoff uses the accepted candidate as baseline. The broad domain cap
+still wins by a hair, but strict `jmdict_domain` is much cleaner: `c0.86_s1`
+changes `2,757` rows, changes zero first-60 rows, improves holdout balanced by
+`0.000545`, and has no positive numeric labeled regression in its top regression
+list. The tradeoff is qualitative: many obscure domain/marked rows are capped
+from the extreme tail to `0.86`, so this is tested-but-undecided rather than
+accepted.
 
 Latest note: the direct proficiency-ordering search improved the calibration
 selector score but did not generalize cleanly to holdout, so the current result
@@ -296,3 +315,16 @@ same-surface rare-reading candidates, while low-band domain/loanword and
 low-band common-kango buckets are too broad/noisy to promote as-is. The next
 modeling step should therefore choose one narrow family and review it directly,
 rather than sweeping a global correction over all kango, domain, or wago rows.
+
+The smooth exact-protected same-surface floor then converted the latest
+hard-floor cleanup into a continuous parameter family at
+`docs/test_outputs/srs_learner_difficulty_source_arbitration_same_surface_gradient_floor_refine_en_ja_latest.md`.
+The formula keeps the old exact-protected risk as the base gate and applies
+`low * base_risk + (high - low) * curve(severity)`, where severity is modulated
+by exact-reading commonness, hard/soft JMDict form evidence, and optional
+lesson-known rescue. With `low=0`, `curve=linear`, no commonness attenuation,
+and no rescue, it exactly reproduces the old hard floor. The best holdout
+setting is conservative (`high=0.42`, `square`, `commonness_cap=0.08`,
+`marked_boost=1.0`) and only improves holdout balanced from the current
+exact-protected neighborhood by about `0.000002`, so this is a cleaner knob and
+slightly better sidecar result, not decisive promotion evidence by itself.

@@ -227,12 +227,12 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.15,
+      "expected_learner_difficulty": 0.26,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "よろこび",
       "lemma": "喜び",
-      "rationale": ""
+      "rationale": "Nominal form is less core than the common verb/concept; local JLPT-neighborhood review placed it above early beginner nouns."
     },
     {
       "expected_candidate_state": "normal_vocab",
@@ -287,12 +287,12 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.2,
+      "expected_learner_difficulty": 0.28,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "やぶる",
       "lemma": "破る",
-      "rationale": ""
+      "rationale": "Common verb, but less first-pass pedagogical than early core action verbs; local JLPT-neighborhood review supported a late-beginner placement."
     },
     {
       "expected_candidate_state": "normal_vocab",
@@ -337,22 +337,22 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.25,
+      "expected_learner_difficulty": 0.32,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "きり",
       "lemma": "霧",
-      "rationale": ""
+      "rationale": "Concrete common noun, but less pedagogically central than early beginner vocabulary; local JLPT-neighborhood review supported low-0.30 placement."
     },
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.25,
+      "expected_learner_difficulty": 0.32,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "さわぎ",
       "lemma": "騒ぎ",
-      "rationale": ""
+      "rationale": "Nominal form is useful but less core than the underlying verb/concept; local JLPT-neighborhood review supported low-0.30 placement."
     },
     {
       "expected_candidate_state": "normal_vocab",
@@ -517,12 +517,12 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.35,
+      "expected_learner_difficulty": 0.55,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "じゃけしゃ",
       "lemma": "ジャケ写",
-      "rationale": "Abbreviation/slang."
+      "rationale": "Specific abbreviation/slang; likely beyond core JLPT-style learner vocabulary."
     },
     {
       "expected_candidate_state": "normal_vocab",
@@ -597,7 +597,7 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.38,
+      "expected_learner_difficulty": 0.34,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "ひげ",
@@ -606,13 +606,13 @@
     },
     {
       "expected_candidate_state": "normal_vocab",
-      "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.4,
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.64,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "さびざん",
       "lemma": "サビ残",
-      "rationale": "Abbreviation/slang."
+      "rationale": "Specific abbreviation/slang; likely beyond core JLPT-style learner vocabulary."
     },
     {
       "expected_candidate_state": "normal_vocab",
@@ -657,7 +657,7 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.45,
+      "expected_learner_difficulty": 0.54,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "さへん",
@@ -667,12 +667,12 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.45,
+      "expected_learner_difficulty": 0.55,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "すぽこん",
       "lemma": "スポ根",
-      "rationale": "Cultural abbreviation."
+      "rationale": "Specific cultural abbreviation; likely beyond core JLPT-style learner vocabulary."
     },
     {
       "expected_candidate_state": "normal_vocab",
@@ -817,17 +817,17 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.5,
+      "expected_learner_difficulty": 0.6,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "せるが",
       "lemma": "セル画",
-      "rationale": ""
+      "rationale": "Specific animation/media term; likely beyond core JLPT-style learner vocabulary."
     },
     {
       "expected_candidate_state": "normal_vocab",
-      "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.5,
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "とがき",
@@ -867,7 +867,7 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.5,
+      "expected_learner_difficulty": 0.55,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "たえしのぐ",
@@ -876,8 +876,8 @@
     },
     {
       "expected_candidate_state": "normal_vocab",
-      "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.5,
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "じゃがん",
@@ -906,13 +906,13 @@
     },
     {
       "expected_candidate_state": "normal_vocab",
-      "expected_difficulty_band": "beginner",
-      "expected_learner_difficulty": 0.5,
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.6,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "くろしお",
       "lemma": "黒潮",
-      "rationale": "Specific natural/cultural term."
+      "rationale": "Specific ocean-current/geography term; native school exposure exists, but L2 presentation priority should place it after broader literary/media words such as 亡骸 and 糧."
     },
     {
       "expected_candidate_state": "normal_vocab",
@@ -1017,7 +1017,7 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "intermediate",
-      "expected_learner_difficulty": 0.55,
+      "expected_learner_difficulty": 0.62,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "はながしら",
@@ -1027,7 +1027,7 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "intermediate",
-      "expected_learner_difficulty": 0.6,
+      "expected_learner_difficulty": 0.72,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "げばぼう",
@@ -1037,7 +1037,7 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "intermediate",
-      "expected_learner_difficulty": 0.6,
+      "expected_learner_difficulty": 0.66,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "とろばこ",
@@ -1047,12 +1047,12 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "intermediate",
-      "expected_learner_difficulty": 0.6,
+      "expected_learner_difficulty": 0.58,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "なきがら",
       "lemma": "亡骸",
-      "rationale": ""
+      "rationale": "Literary/grave-register noun, but encountered in fiction/media more broadly than specialized geography terms such as 黒潮."
     },
     {
       "expected_candidate_state": "normal_vocab",
@@ -1107,7 +1107,7 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "intermediate",
-      "expected_learner_difficulty": 0.6,
+      "expected_learner_difficulty": 0.7,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "としがみ",
@@ -1127,12 +1127,12 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "intermediate",
-      "expected_learner_difficulty": 0.6,
+      "expected_learner_difficulty": 0.56,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "かて",
       "lemma": "糧",
-      "rationale": ""
+      "rationale": "Somewhat literary noun, but common in figurative expressions such as 糧にする; slightly below rarer specialized/domain vocabulary."
     },
     {
       "expected_candidate_state": "normal_vocab",
@@ -1287,7 +1287,7 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "intermediate",
-      "expected_learner_difficulty": 0.7,
+      "expected_learner_difficulty": 0.82,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "こおり",
@@ -1377,7 +1377,7 @@
     {
       "expected_candidate_state": "normal_vocab",
       "expected_difficulty_band": "intermediate",
-      "expected_learner_difficulty": 0.75,
+      "expected_learner_difficulty": 0.8,
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_reading": "しこうして",

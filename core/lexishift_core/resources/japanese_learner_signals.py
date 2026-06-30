@@ -16,13 +16,13 @@ from lexishift_core.resources.japanese_script import contains_kanji
 from lexishift_core.resources.path_cache import load_or_compute_path_json_value
 
 
-JAPANESE_LEARNER_SIGNALS_VERSION = "japanese_learner_signals_v13"
-JMDICT_PRIORITY_INDEX_VERSION = "jmdict_priority_index_v1"
+JAPANESE_LEARNER_SIGNALS_VERSION = "japanese_learner_signals_v18"
+JMDICT_PRIORITY_INDEX_VERSION = "jmdict_priority_index_v4"
 JMDICT_LEXICAL_INDEX_VERSION = "jmdict_lexical_index_v6"
 KANJIDIC2_INDEX_VERSION = "kanjidic2_character_index_v3"
 JMNEDICT_NAME_INDEX_VERSION = "jmnedict_name_index_v1"
 KANJIVG_CHARACTER_INDEX_VERSION = "kanjivg_character_index_v2"
-JLPT_VOCABULARY_INDEX_VERSION = "jlpt_vocabulary_index_v5"
+JLPT_VOCABULARY_INDEX_VERSION = "jlpt_vocabulary_index_v7"
 JAPANESE_LESSON_VOCABULARY_INDEX_VERSION = "japanese_lesson_vocabulary_index_v2"
 JA_ACRONYM_SIGNAL_VERSION = "ja_acronym_signal_v1"
 
@@ -128,12 +128,73 @@ _ACRONYM_LETTER_READINGS = {
 
 
 @dataclass(frozen=True)
+class JmdictPriorityPairRecord:
+    surface: str = ""
+    reading: str = ""
+    surface_tags: tuple[str, ...] = ()
+    reading_tags: tuple[str, ...] = ()
+    entry_tags: tuple[str, ...] = ()
+    surface_info_values: tuple[str, ...] = ()
+    reading_info_values: tuple[str, ...] = ()
+    surface_reading_count: int = 0
+    direct_priority_score: float = 0.0
+    direct_priority_band: str = "none"
+    entry_priority_score: float = 0.0
+    entry_priority_band: str = "none"
+    safe_priority_score: float = 0.0
+    safe_priority_band: str = "none"
+    safe_priority_kind: str = "none"
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "surface": self.surface,
+            "reading": self.reading,
+            "surface_tags": list(self.surface_tags),
+            "reading_tags": list(self.reading_tags),
+            "entry_tags": list(self.entry_tags),
+            "surface_info_values": list(self.surface_info_values),
+            "reading_info_values": list(self.reading_info_values),
+            "surface_reading_count": int(self.surface_reading_count),
+            "direct_priority_score": round(float(self.direct_priority_score), 6),
+            "direct_priority_band": self.direct_priority_band,
+            "entry_priority_score": round(float(self.entry_priority_score), 6),
+            "entry_priority_band": self.entry_priority_band,
+            "safe_priority_score": round(float(self.safe_priority_score), 6),
+            "safe_priority_band": self.safe_priority_band,
+            "safe_priority_kind": self.safe_priority_kind,
+            "entry_priority_inherited_only": bool(
+                self.entry_priority_score > self.safe_priority_score
+            ),
+            "priority_leak_risk": bool(
+                self.entry_priority_score > self.safe_priority_score
+                and (
+                    self.safe_priority_kind
+                    in {
+                        "entry_inherited_only",
+                        "surface_only_multi_reading",
+                        "marked_form_not_safe",
+                    }
+                    or bool(self.surface_info_values)
+                    or bool(self.reading_info_values)
+                )
+            ),
+        }
+
+
+@dataclass(frozen=True)
 class JmdictPriorityRecord:
     direct_tags: tuple[str, ...] = ()
     entry_tags: tuple[str, ...] = ()
     priority_score: float = 0.0
     priority_band: str = "none"
     nf_min: int | None = None
+    direct_priority_score: float = 0.0
+    direct_priority_band: str = "none"
+    direct_nf_min: int | None = None
+    entry_priority_score: float = 0.0
+    entry_priority_band: str = "none"
+    entry_nf_min: int | None = None
+    pair_records: tuple[JmdictPriorityPairRecord, ...] = ()
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -142,6 +203,16 @@ class JmdictPriorityRecord:
             "priority_score": round(float(self.priority_score), 6),
             "priority_band": self.priority_band,
             "nf_min": self.nf_min,
+            "direct_priority_score": round(float(self.direct_priority_score), 6),
+            "direct_priority_band": self.direct_priority_band,
+            "direct_nf_min": self.direct_nf_min,
+            "entry_priority_score": round(float(self.entry_priority_score), 6),
+            "entry_priority_band": self.entry_priority_band,
+            "entry_nf_min": self.entry_nf_min,
+            "entry_priority_inherited": bool(
+                self.entry_priority_score > self.direct_priority_score
+            ),
+            "pair_records": [record.to_dict() for record in self.pair_records],
         }
 
 
@@ -282,6 +353,8 @@ class JlptVocabularyRecord:
     levels: tuple[int, ...] = ()
     source_count: int = 0
     entries: tuple[str, ...] = ()
+    normalized_entries: tuple[str, ...] = ()
+    guarded_normalized_entries: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, object]:
         easiest_level = max(self.levels) if self.levels else None
@@ -291,11 +364,19 @@ class JlptVocabularyRecord:
             "readings": list(self.readings),
             "levels": list(self.levels),
             "entries": list(self.entries),
+            "normalized_entries": list(self.normalized_entries),
+            "guarded_normalized_entries": list(self.guarded_normalized_entries),
             "easiest_level": easiest_level,
             "hardest_level": hardest_level,
             "source_count": int(self.source_count),
-            "difficulty_score": _jlpt_vocab_difficulty_score(easiest_level),
-            "beginner_core_score": _jlpt_vocab_beginner_core_score(easiest_level),
+            "difficulty_score": (
+                _jlpt_vocab_difficulty_score(easiest_level) if easiest_level is not None else None
+            ),
+            "beginner_core_score": (
+                _jlpt_vocab_beginner_core_score(easiest_level)
+                if easiest_level is not None
+                else None
+            ),
         }
 
 
@@ -349,25 +430,28 @@ def _load_jmdict_priority_index_uncached(path: Path) -> dict[str, JmdictPriority
     for _event, elem in context:
         if elem.tag != "entry":
             continue
-        kanji_entries = [
-            (_node_text(keb), _collect_texts(k_ele.findall("ke_pri")))
-            for k_ele in elem.findall("k_ele")
-            for keb in k_ele.findall("keb")
-        ]
-        reading_entries = [
-            (_node_text(reb), _collect_texts(r_ele.findall("re_pri")))
-            for r_ele in elem.findall("r_ele")
-            for reb in r_ele.findall("reb")
-        ]
+        kanji_entries = _jmdict_priority_kanji_entries(elem)
+        reading_entries = _jmdict_priority_reading_entries(elem)
         entry_tags = _unique_sorted(
-            tag for _term, tags in (*kanji_entries, *reading_entries) for tag in tags
+            tag for entry in (*kanji_entries, *reading_entries) for tag in entry["tags"]
         )
-        for term, direct_tags in (*kanji_entries, *reading_entries):
+        pair_records = _jmdict_priority_pair_records(
+            kanji_entries,
+            reading_entries,
+            entry_tags=entry_tags,
+        )
+        for entry in (*kanji_entries, *reading_entries):
+            term = str(entry.get("term") or "").strip()
             if not term:
                 continue
             record = _build_jmdict_priority_record(
-                direct_tags=direct_tags,
+                direct_tags=entry.get("tags", ()),
                 entry_tags=entry_tags,
+                pair_records=(
+                    record
+                    for record in pair_records
+                    if record.surface == term or record.reading == term
+                ),
             )
             existing = merged.get(term)
             merged[term] = _merge_jmdict_priority_records(existing, record)
@@ -581,23 +665,41 @@ def _load_kanjivg_character_index_uncached(path: Path) -> dict[str, KanjivgChara
         return {}
 
 
-def load_jlpt_vocabulary_index(path: Path) -> dict[str, JlptVocabularyRecord]:
+def load_jlpt_vocabulary_index(
+    path: Path,
+    *,
+    jmdict_path: Path | None = None,
+) -> dict[str, JlptVocabularyRecord]:
+    resolved_jmdict_path = _resolve_existing_path(jmdict_path) if jmdict_path else None
     return load_or_compute_path_json_value(
         path,
         namespace="japanese_learner_signals",
-        key={"kind": "jlpt_vocabulary", "version": JLPT_VOCABULARY_INDEX_VERSION},
-        compute=lambda: _load_jlpt_vocabulary_index_uncached(path),
+        key={
+            "kind": "jlpt_vocabulary",
+            "version": JLPT_VOCABULARY_INDEX_VERSION,
+            "jmdict_path": resolved_jmdict_path,
+            "jmdict_signature": _path_signature_for_cache_key(resolved_jmdict_path),
+        },
+        compute=lambda: _load_jlpt_vocabulary_index_uncached(
+            path,
+            jmdict_path=resolved_jmdict_path,
+        ),
         serialize=lambda value: {key: record.to_dict() for key, record in value.items()},
         deserialize=_deserialize_jlpt_vocabulary_index,
     )
 
 
-def _load_jlpt_vocabulary_index_uncached(path: Path) -> dict[str, JlptVocabularyRecord]:
+def _load_jlpt_vocabulary_index_uncached(
+    path: Path,
+    *,
+    jmdict_path: Path | None = None,
+) -> dict[str, JlptVocabularyRecord]:
     source_path = _resolve_existing_path(path)
     if source_path is None:
         return {}
     merged: dict[str, JlptVocabularyRecord] = {}
     candidate_files = _jlpt_vocabulary_candidate_files(source_path)
+    source_rows: list[tuple[str, str, int]] = []
     for candidate in candidate_files:
         rows = (
             _iter_jlpt_vocabulary_json_rows(candidate)
@@ -607,6 +709,10 @@ def _load_jlpt_vocabulary_index_uncached(path: Path) -> dict[str, JlptVocabulary
         for surface, reading, level in rows:
             if level is None:
                 continue
+            normalized_surface = _normalize_jlpt_surface(surface)
+            normalized_reading = _normalize_jlpt_reading(reading)
+            if normalized_surface and normalized_reading:
+                source_rows.append((normalized_surface, normalized_reading, int(level)))
             record = _build_jlpt_vocabulary_record(
                 surfaces=(surface,),
                 readings=(reading,),
@@ -614,10 +720,128 @@ def _load_jlpt_vocabulary_index_uncached(path: Path) -> dict[str, JlptVocabulary
                 source_count=1,
                 entries=(_jlpt_vocabulary_entry_key(surface, reading, level),),
             )
-            for term in _unique_sorted((surface, reading)):
+            for term in _unique_sorted((normalized_surface, normalized_reading)):
                 existing = merged.get(term)
                 merged[term] = _merge_jlpt_vocabulary_records(existing, record)
+    if source_rows and jmdict_path is not None and jmdict_path.is_file():
+        _merge_jlpt_jmdict_normalized_entries(
+            merged,
+            source_rows=source_rows,
+            jmdict_path=jmdict_path,
+        )
     return merged
+
+
+def _merge_jlpt_jmdict_normalized_entries(
+    merged: dict[str, JlptVocabularyRecord],
+    *,
+    source_rows: Sequence[tuple[str, str, int]],
+    jmdict_path: Path,
+) -> None:
+    pair_lookup, reading_lookup = _jmdict_same_reading_jlpt_normalization_lookup(jmdict_path)
+    for source_surface, source_reading, level in source_rows:
+        groups: list[tuple[tuple[str, str, bool], ...]] = []
+        direct_group = pair_lookup.get((source_surface, source_reading))
+        if direct_group:
+            groups.append(direct_group)
+        if source_surface == source_reading:
+            reading_group = reading_lookup.get(source_reading)
+            if reading_group and reading_group not in groups:
+                groups.append(reading_group)
+        for group in groups:
+            for surface, reading, guarded in group:
+                if reading != source_reading or surface == source_surface:
+                    continue
+                entry = _jlpt_vocabulary_entry_key(surface, reading, level)
+                normalized_entries = () if guarded else (entry,)
+                guarded_entries = (entry,) if guarded else ()
+                record = _build_jlpt_vocabulary_record(
+                    surfaces=(surface,),
+                    readings=(reading,),
+                    levels=(() if guarded else (level,)),
+                    source_count=0,
+                    normalized_entries=normalized_entries,
+                    guarded_normalized_entries=guarded_entries,
+                )
+                for term in _unique_sorted((surface, reading)):
+                    existing = merged.get(term)
+                    merged[term] = _merge_jlpt_vocabulary_records(existing, record)
+
+
+def _jmdict_same_reading_jlpt_normalization_lookup(
+    path: Path,
+) -> tuple[
+    dict[tuple[str, str], tuple[tuple[str, str, bool], ...]],
+    dict[str, tuple[tuple[str, str, bool], ...]],
+]:
+    pair_groups: dict[tuple[str, str], set[tuple[tuple[str, str, bool], ...]]] = {}
+    reading_groups: dict[str, set[tuple[tuple[str, str, bool], ...]]] = {}
+    try:
+        with _xml_text_stream(path) as source:
+            context = ElementTree.iterparse(source, events=("end",))
+            for _event, elem in context:
+                if elem.tag != "entry":
+                    continue
+                for group in _jmdict_same_reading_groups(elem):
+                    if len(group) < 2:
+                        continue
+                    normalized_group = tuple(sorted(group))
+                    readings = {reading for _surface, reading, _guarded in normalized_group}
+                    for reading in readings:
+                        reading_groups.setdefault(reading, set()).add(normalized_group)
+                    for surface, reading, _guarded in normalized_group:
+                        pair_groups.setdefault((surface, reading), set()).add(normalized_group)
+                elem.clear()
+    except (ElementTree.ParseError, OSError):
+        return {}, {}
+    unambiguous_pairs = {
+        pair: next(iter(groups)) for pair, groups in pair_groups.items() if len(groups) == 1
+    }
+    unambiguous_readings = {
+        reading: next(iter(groups))
+        for reading, groups in reading_groups.items()
+        if len(groups) == 1
+    }
+    return unambiguous_pairs, unambiguous_readings
+
+
+def _jmdict_same_reading_groups(
+    elem: ElementTree.Element,
+) -> tuple[tuple[tuple[str, str, bool], ...], ...]:
+    kanji_forms = [
+        (
+            _normalize_jlpt_surface(_node_text(k_ele.find("keb"))),
+            bool(_collect_texts(k_ele.findall("ke_inf"))),
+        )
+        for k_ele in elem.findall("k_ele")
+    ]
+    kanji_forms = [(surface, guarded) for surface, guarded in kanji_forms if surface]
+    groups: list[tuple[tuple[str, str, bool], ...]] = []
+    for r_ele in elem.findall("r_ele"):
+        reading = _normalize_jlpt_reading(_node_text(r_ele.find("reb")))
+        if not reading:
+            continue
+        reading_guarded = bool(_collect_texts(r_ele.findall("re_inf")))
+        restrictions = _unique_sorted(
+            _normalize_jlpt_surface(_node_text(node)) for node in r_ele.findall("re_restr")
+        )
+        no_kanji = bool(r_ele.findall("re_nokanji"))
+        if restrictions:
+            surfaces = [
+                (surface, guarded) for surface, guarded in kanji_forms if surface in restrictions
+            ]
+        elif kanji_forms and not no_kanji:
+            surfaces = kanji_forms
+        else:
+            surfaces = [(reading, False)]
+        group = tuple(
+            (surface, reading, bool(surface_guarded or reading_guarded))
+            for surface, surface_guarded in surfaces
+            if surface
+        )
+        if group:
+            groups.append(group)
+    return tuple(groups)
 
 
 def load_japanese_lesson_vocabulary_index(
@@ -697,10 +921,19 @@ def build_japanese_learner_signal_bundle(
     if script_signal:
         payload["japanese_script"] = script_signal
         sources.append("japanese_script")
+    jmdict_priority_record: JmdictPriorityRecord | None = None
     if jmdict_priority_index:
-        record = jmdict_priority_index.get(text)
-        if record is not None:
-            payload["jmdict_priority"] = record.to_dict()
+        jmdict_priority_record = jmdict_priority_index.get(text)
+        if jmdict_priority_record is not None:
+            priority_payload = jmdict_priority_record.to_dict()
+            matched_pair = _jmdict_priority_matched_pair_payload(
+                jmdict_priority_record,
+                surface=text,
+                reading=reading,
+            )
+            if matched_pair is not None:
+                priority_payload["matched_pair"] = matched_pair
+            payload["jmdict_priority"] = priority_payload
             sources.append("jmdict_priority")
     jmdict_lexical_record: JmdictLexicalRecord | None = None
     if jmdict_lexical_index:
@@ -748,7 +981,7 @@ def build_japanese_learner_signal_bundle(
         reading=reading,
         raw_pos=raw_pos,
         wtype=wtype,
-        jmdict_priority_record=(jmdict_priority_index.get(text) if jmdict_priority_index else None),
+        jmdict_priority_record=jmdict_priority_record,
         jmdict_lexical_record=jmdict_lexical_record,
         jmnedict_name_record=(jmnedict_name_index.get(text) if jmnedict_name_index else None),
         source_frequency_profile=source_frequency_profile,
@@ -760,6 +993,66 @@ def build_japanese_learner_signal_bundle(
         return {}
     payload["sources"] = sources
     return payload
+
+
+def _jmdict_priority_matched_pair_payload(
+    record: JmdictPriorityRecord,
+    *,
+    surface: object,
+    reading: object | None,
+) -> dict[str, object] | None:
+    surface_text = str(surface or "").strip()
+    reading_text = str(reading or "").strip()
+    if not surface_text or not reading_text:
+        return None
+    surface_key = _jmdict_pair_match_key(surface_text)
+    reading_key = _jmdict_pair_match_key(reading_text)
+    for pair_record in record.pair_records:
+        if (
+            _jmdict_pair_match_key(pair_record.surface) == surface_key
+            and _jmdict_pair_match_key(pair_record.reading) == reading_key
+        ):
+            payload = pair_record.to_dict()
+            payload["match_type"] = (
+                "exact"
+                if pair_record.surface == surface_text and pair_record.reading == reading_text
+                else "kana_normalized_exact"
+            )
+            if pair_record.reading != reading_text:
+                payload["requested_reading"] = reading_text
+            return payload
+    return {
+        "surface": surface_text,
+        "reading": reading_text,
+        "match_type": "missing_reading",
+        "surface_tags": [],
+        "reading_tags": [],
+        "entry_tags": list(record.entry_tags),
+        "surface_info_values": [],
+        "reading_info_values": [],
+        "surface_reading_count": 0,
+        "direct_priority_score": 0.0,
+        "direct_priority_band": "none",
+        "entry_priority_score": round(float(record.entry_priority_score), 6),
+        "entry_priority_band": record.entry_priority_band,
+        "safe_priority_score": 0.0,
+        "safe_priority_band": "none",
+        "safe_priority_kind": "missing_reading",
+        "entry_priority_inherited_only": bool(record.entry_priority_score > 0.0),
+        "priority_leak_risk": bool(record.entry_priority_score > 0.0),
+    }
+
+
+def _jmdict_pair_match_key(value: object) -> str:
+    normalized = unicodedata.normalize("NFKC", str(value or "")).strip()
+    return "".join(_katakana_char_to_hiragana(char) for char in normalized)
+
+
+def _katakana_char_to_hiragana(char: str) -> str:
+    codepoint = ord(char)
+    if 0x30A1 <= codepoint <= 0x30F6:
+        return chr(codepoint - 0x60)
+    return char
 
 
 def build_japanese_acronym_signal(
@@ -1219,6 +1512,8 @@ def _build_jlpt_vocabulary_record(
     levels: Iterable[int],
     source_count: int,
     entries: Iterable[str] = (),
+    normalized_entries: Iterable[str] = (),
+    guarded_normalized_entries: Iterable[str] = (),
 ) -> JlptVocabularyRecord:
     return JlptVocabularyRecord(
         surfaces=_unique_sorted(surfaces),
@@ -1226,6 +1521,12 @@ def _build_jlpt_vocabulary_record(
         levels=tuple(sorted({int(level) for level in levels if 1 <= int(level) <= 5})),
         source_count=max(0, int(source_count)),
         entries=tuple(sorted({str(entry) for entry in entries if str(entry)})),
+        normalized_entries=tuple(
+            sorted({str(entry) for entry in normalized_entries if str(entry)})
+        ),
+        guarded_normalized_entries=tuple(
+            sorted({str(entry) for entry in guarded_normalized_entries if str(entry)})
+        ),
     )
 
 
@@ -1241,6 +1542,11 @@ def _merge_jlpt_vocabulary_records(
         levels=(*existing.levels, *new_record.levels),
         source_count=existing.source_count + new_record.source_count,
         entries=(*existing.entries, *new_record.entries),
+        normalized_entries=(*existing.normalized_entries, *new_record.normalized_entries),
+        guarded_normalized_entries=(
+            *existing.guarded_normalized_entries,
+            *new_record.guarded_normalized_entries,
+        ),
     )
 
 
@@ -1262,27 +1568,108 @@ def _jlpt_vocabulary_match_payload(
         surface=surface_key,
         reading=reading_key,
     )
+    normalized_exact_levels = _jlpt_normalized_exact_levels(
+        (surface_record, reading_record),
+        surface=surface_key,
+        reading=reading_key,
+    )
+    guarded_normalized_exact_levels = _jlpt_guarded_normalized_exact_levels(
+        (surface_record, reading_record),
+        surface=surface_key,
+        reading=reading_key,
+    )
+    effective_exact_levels = tuple(sorted({*exact_levels, *normalized_exact_levels}))
     exact_easiest = max(exact_levels) if exact_levels else None
     exact_hardest = min(exact_levels) if exact_levels else None
+    normalized_exact_easiest = max(normalized_exact_levels) if normalized_exact_levels else None
+    normalized_exact_hardest = min(normalized_exact_levels) if normalized_exact_levels else None
+    guarded_normalized_exact_easiest = (
+        max(guarded_normalized_exact_levels) if guarded_normalized_exact_levels else None
+    )
+    guarded_normalized_exact_hardest = (
+        min(guarded_normalized_exact_levels) if guarded_normalized_exact_levels else None
+    )
+    effective_exact_easiest = max(effective_exact_levels) if effective_exact_levels else None
+    effective_exact_hardest = min(effective_exact_levels) if effective_exact_levels else None
     surface_match = surface_record is not None
-    reading_match = reading_record is not None or bool(exact_levels)
+    reading_match = (
+        reading_record is not None
+        or bool(exact_levels)
+        or bool(normalized_exact_levels)
+        or bool(guarded_normalized_exact_levels)
+    )
     exact_match = bool(exact_levels)
+    normalized_exact_match = bool(normalized_exact_levels)
+    guarded_normalized_exact_match = bool(guarded_normalized_exact_levels)
+    effective_exact_match = bool(effective_exact_levels)
     payload = record.to_dict()
     payload.update(
         {
-            "match_type": ("exact" if exact_match else "surface" if surface_match else "reading"),
+            "match_type": (
+                "exact"
+                if exact_match
+                else "normalized_exact"
+                if normalized_exact_match
+                else "guarded_normalized_exact"
+                if guarded_normalized_exact_match
+                else "surface"
+                if surface_match
+                else "reading"
+            ),
             "exact_match": exact_match,
+            "normalized_exact_match": normalized_exact_match,
+            "guarded_normalized_exact_match": guarded_normalized_exact_match,
+            "effective_exact_match": effective_exact_match,
             "surface_match": surface_match,
             "reading_match": reading_match,
             "exact_levels": list(exact_levels),
+            "normalized_exact_levels": list(normalized_exact_levels),
+            "guarded_normalized_exact_levels": list(guarded_normalized_exact_levels),
+            "effective_exact_levels": list(effective_exact_levels),
             "exact_easiest_level": exact_easiest,
             "exact_hardest_level": exact_hardest,
+            "normalized_exact_easiest_level": normalized_exact_easiest,
+            "normalized_exact_hardest_level": normalized_exact_hardest,
+            "guarded_normalized_exact_easiest_level": guarded_normalized_exact_easiest,
+            "guarded_normalized_exact_hardest_level": guarded_normalized_exact_hardest,
+            "effective_exact_easiest_level": effective_exact_easiest,
+            "effective_exact_hardest_level": effective_exact_hardest,
             "exact_difficulty_score": (
                 _jlpt_vocab_difficulty_score(exact_easiest) if exact_easiest is not None else None
             ),
             "exact_beginner_core_score": (
                 _jlpt_vocab_beginner_core_score(exact_easiest)
                 if exact_easiest is not None
+                else None
+            ),
+            "normalized_exact_difficulty_score": (
+                _jlpt_vocab_difficulty_score(normalized_exact_easiest)
+                if normalized_exact_easiest is not None
+                else None
+            ),
+            "normalized_exact_beginner_core_score": (
+                _jlpt_vocab_beginner_core_score(normalized_exact_easiest)
+                if normalized_exact_easiest is not None
+                else None
+            ),
+            "guarded_normalized_exact_difficulty_score": (
+                _jlpt_vocab_difficulty_score(guarded_normalized_exact_easiest)
+                if guarded_normalized_exact_easiest is not None
+                else None
+            ),
+            "guarded_normalized_exact_beginner_core_score": (
+                _jlpt_vocab_beginner_core_score(guarded_normalized_exact_easiest)
+                if guarded_normalized_exact_easiest is not None
+                else None
+            ),
+            "effective_exact_difficulty_score": (
+                _jlpt_vocab_difficulty_score(effective_exact_easiest)
+                if effective_exact_easiest is not None
+                else None
+            ),
+            "effective_exact_beginner_core_score": (
+                _jlpt_vocab_beginner_core_score(effective_exact_easiest)
+                if effective_exact_easiest is not None
                 else None
             ),
         }
@@ -1296,13 +1683,56 @@ def _jlpt_exact_levels(
     surface: str,
     reading: str,
 ) -> tuple[int, ...]:
+    return _jlpt_entry_levels(
+        records,
+        surface=surface,
+        reading=reading,
+        entry_attr="entries",
+    )
+
+
+def _jlpt_normalized_exact_levels(
+    records: Iterable[JlptVocabularyRecord | None],
+    *,
+    surface: str,
+    reading: str,
+) -> tuple[int, ...]:
+    return _jlpt_entry_levels(
+        records,
+        surface=surface,
+        reading=reading,
+        entry_attr="normalized_entries",
+    )
+
+
+def _jlpt_guarded_normalized_exact_levels(
+    records: Iterable[JlptVocabularyRecord | None],
+    *,
+    surface: str,
+    reading: str,
+) -> tuple[int, ...]:
+    return _jlpt_entry_levels(
+        records,
+        surface=surface,
+        reading=reading,
+        entry_attr="guarded_normalized_entries",
+    )
+
+
+def _jlpt_entry_levels(
+    records: Iterable[JlptVocabularyRecord | None],
+    *,
+    surface: str,
+    reading: str,
+    entry_attr: str,
+) -> tuple[int, ...]:
     if not surface or not reading:
         return ()
     levels: set[int] = set()
     for record in records:
         if record is None:
             continue
-        for entry in record.entries:
+        for entry in getattr(record, entry_attr, ()):
             entry_surface, entry_reading, level = _parse_jlpt_vocabulary_entry_key(entry)
             if entry_surface == surface and entry_reading == reading and level is not None:
                 levels.add(level)
@@ -2214,22 +2644,301 @@ def _kanjidic2_typed_values(
     return _unique_sorted(values)
 
 
+def _jmdict_priority_kanji_entries(
+    elem: ElementTree.Element,
+) -> tuple[dict[str, object], ...]:
+    entries: list[dict[str, object]] = []
+    for k_ele in elem.findall("k_ele"):
+        tags = _collect_texts(k_ele.findall("ke_pri"))
+        info_values = _collect_texts(k_ele.findall("ke_inf"))
+        for keb in k_ele.findall("keb"):
+            term = _node_text(keb)
+            if term:
+                entries.append(
+                    {
+                        "term": term,
+                        "tags": tags,
+                        "info_values": info_values,
+                    }
+                )
+    return tuple(entries)
+
+
+def _jmdict_priority_reading_entries(
+    elem: ElementTree.Element,
+) -> tuple[dict[str, object], ...]:
+    entries: list[dict[str, object]] = []
+    for r_ele in elem.findall("r_ele"):
+        tags = _collect_texts(r_ele.findall("re_pri"))
+        info_values = _collect_texts(r_ele.findall("re_inf"))
+        restrictions = _unique_sorted(_node_text(node) for node in r_ele.findall("re_restr"))
+        no_kanji = bool(r_ele.findall("re_nokanji"))
+        for reb in r_ele.findall("reb"):
+            term = _node_text(reb)
+            if term:
+                entries.append(
+                    {
+                        "term": term,
+                        "tags": tags,
+                        "info_values": info_values,
+                        "restrictions": restrictions,
+                        "no_kanji": no_kanji,
+                    }
+                )
+    return tuple(entries)
+
+
+def _jmdict_priority_pair_records(
+    kanji_entries: Sequence[Mapping[str, object]],
+    reading_entries: Sequence[Mapping[str, object]],
+    *,
+    entry_tags: Iterable[str],
+) -> tuple[JmdictPriorityPairRecord, ...]:
+    raw_pairs: list[dict[str, object]] = []
+    for reading_entry in reading_entries:
+        reading = str(reading_entry.get("term") or "").strip()
+        if not reading:
+            continue
+        compatible_surfaces = _jmdict_priority_compatible_surfaces(
+            kanji_entries,
+            reading_entry,
+            reading=reading,
+        )
+        for surface_entry in compatible_surfaces:
+            surface = str(surface_entry.get("term") or "").strip()
+            if not surface:
+                continue
+            raw_pairs.append(
+                {
+                    "surface": surface,
+                    "reading": reading,
+                    "surface_tags": tuple(surface_entry.get("tags", ()) or ()),
+                    "reading_tags": tuple(reading_entry.get("tags", ()) or ()),
+                    "surface_info_values": tuple(surface_entry.get("info_values", ()) or ()),
+                    "reading_info_values": tuple(reading_entry.get("info_values", ()) or ()),
+                }
+            )
+        raw_pairs.append(
+            {
+                "surface": reading,
+                "reading": reading,
+                "surface_tags": (),
+                "reading_tags": tuple(reading_entry.get("tags", ()) or ()),
+                "surface_info_values": (),
+                "reading_info_values": tuple(reading_entry.get("info_values", ()) or ()),
+            }
+        )
+    surface_readings: dict[str, set[str]] = {}
+    for raw_pair in raw_pairs:
+        surface_readings.setdefault(str(raw_pair["surface"]), set()).add(str(raw_pair["reading"]))
+    records = [
+        _build_jmdict_priority_pair_record(
+            surface=str(raw_pair["surface"]),
+            reading=str(raw_pair["reading"]),
+            surface_tags=raw_pair.get("surface_tags", ()),
+            reading_tags=raw_pair.get("reading_tags", ()),
+            entry_tags=entry_tags,
+            surface_info_values=raw_pair.get("surface_info_values", ()),
+            reading_info_values=raw_pair.get("reading_info_values", ()),
+            surface_reading_count=len(surface_readings.get(str(raw_pair["surface"]), ())),
+        )
+        for raw_pair in raw_pairs
+    ]
+    return _merge_jmdict_priority_pair_records(records)
+
+
+def _jmdict_priority_compatible_surfaces(
+    kanji_entries: Sequence[Mapping[str, object]],
+    reading_entry: Mapping[str, object],
+    *,
+    reading: str,
+) -> tuple[Mapping[str, object], ...]:
+    restrictions = {
+        str(value or "").strip()
+        for value in reading_entry.get("restrictions", ()) or ()
+        if str(value or "").strip()
+    }
+    if restrictions:
+        return tuple(
+            entry for entry in kanji_entries if str(entry.get("term") or "").strip() in restrictions
+        )
+    if kanji_entries and not bool(reading_entry.get("no_kanji")):
+        return tuple(kanji_entries)
+    return (
+        {
+            "term": reading,
+            "tags": (),
+            "info_values": (),
+        },
+    )
+
+
+def _build_jmdict_priority_pair_record(
+    *,
+    surface: str,
+    reading: str,
+    surface_tags: Iterable[str],
+    reading_tags: Iterable[str],
+    entry_tags: Iterable[str],
+    surface_info_values: Iterable[str],
+    reading_info_values: Iterable[str],
+    surface_reading_count: int,
+) -> JmdictPriorityPairRecord:
+    surface_direct_tags = _unique_sorted(surface_tags)
+    reading_direct_tags = _unique_sorted(reading_tags)
+    entry = _unique_sorted(entry_tags)
+    surface_info = _unique_sorted(surface_info_values)
+    reading_info = _unique_sorted(reading_info_values)
+    surface_score, _surface_band = _jmdict_priority_score(
+        surface_direct_tags,
+        nf_min=_min_nf_value(surface_direct_tags),
+    )
+    reading_score, _reading_band = _jmdict_priority_score(
+        reading_direct_tags,
+        nf_min=_min_nf_value(reading_direct_tags),
+    )
+    direct_tags = _unique_sorted((*surface_direct_tags, *reading_direct_tags))
+    direct_score, direct_band = _jmdict_priority_score(
+        direct_tags,
+        nf_min=_min_nf_value(direct_tags),
+    )
+    entry_score, entry_band = _jmdict_priority_score(entry, nf_min=_min_nf_value(entry))
+    safe_score, safe_band, safe_kind = _safe_jmdict_pair_priority(
+        surface_score=surface_score,
+        reading_score=reading_score,
+        direct_score=direct_score,
+        direct_band=direct_band,
+        surface_info_values=surface_info,
+        reading_info_values=reading_info,
+        surface_reading_count=surface_reading_count,
+    )
+    return JmdictPriorityPairRecord(
+        surface=surface,
+        reading=reading,
+        surface_tags=surface_direct_tags,
+        reading_tags=reading_direct_tags,
+        entry_tags=entry,
+        surface_info_values=surface_info,
+        reading_info_values=reading_info,
+        surface_reading_count=max(0, int(surface_reading_count)),
+        direct_priority_score=direct_score,
+        direct_priority_band=direct_band,
+        entry_priority_score=entry_score,
+        entry_priority_band=entry_band,
+        safe_priority_score=safe_score,
+        safe_priority_band=safe_band,
+        safe_priority_kind=safe_kind,
+    )
+
+
+def _safe_jmdict_pair_priority(
+    *,
+    surface_score: float,
+    reading_score: float,
+    direct_score: float,
+    direct_band: str,
+    surface_info_values: Sequence[str],
+    reading_info_values: Sequence[str],
+    surface_reading_count: int,
+) -> tuple[float, str, str]:
+    if surface_info_values or reading_info_values:
+        return 0.0, "none", "marked_form_not_safe"
+    if reading_score > 0.0:
+        return direct_score, direct_band, "reading_direct"
+    if surface_score > 0.0 and int(surface_reading_count) <= 1:
+        return surface_score, direct_band, "surface_single_reading"
+    if surface_score > 0.0:
+        return 0.0, "none", "surface_only_multi_reading"
+    return 0.0, "none", "entry_inherited_only"
+
+
+def _merge_jmdict_priority_pair_records(
+    records: Iterable[JmdictPriorityPairRecord],
+) -> tuple[JmdictPriorityPairRecord, ...]:
+    merged: dict[tuple[str, str], JmdictPriorityPairRecord] = {}
+    for record in records:
+        key = (record.surface, record.reading)
+        existing = merged.get(key)
+        if existing is None:
+            merged[key] = record
+            continue
+        merged[key] = _merge_jmdict_priority_pair_record(existing, record)
+    return tuple(merged[key] for key in sorted(merged))
+
+
+def _merge_jmdict_priority_pair_record(
+    existing: JmdictPriorityPairRecord,
+    record: JmdictPriorityPairRecord,
+) -> JmdictPriorityPairRecord:
+    combined = _build_jmdict_priority_pair_record(
+        surface=record.surface,
+        reading=record.reading,
+        surface_tags=(*existing.surface_tags, *record.surface_tags),
+        reading_tags=(*existing.reading_tags, *record.reading_tags),
+        entry_tags=(*existing.entry_tags, *record.entry_tags),
+        surface_info_values=(
+            *existing.surface_info_values,
+            *record.surface_info_values,
+        ),
+        reading_info_values=(
+            *existing.reading_info_values,
+            *record.reading_info_values,
+        ),
+        surface_reading_count=max(
+            existing.surface_reading_count,
+            record.surface_reading_count,
+        ),
+    )
+    safest = max(
+        (existing, record, combined),
+        key=lambda item: (
+            item.safe_priority_score,
+            item.direct_priority_score,
+            item.entry_priority_score,
+        ),
+    )
+    if safest is combined:
+        return combined
+    return _build_jmdict_priority_pair_record(
+        surface=record.surface,
+        reading=record.reading,
+        surface_tags=(*existing.surface_tags, *record.surface_tags),
+        reading_tags=(*existing.reading_tags, *record.reading_tags),
+        entry_tags=(*existing.entry_tags, *record.entry_tags),
+        surface_info_values=safest.surface_info_values,
+        reading_info_values=safest.reading_info_values,
+        surface_reading_count=safest.surface_reading_count,
+    )
+
+
 def _build_jmdict_priority_record(
     *,
     direct_tags: Iterable[str],
     entry_tags: Iterable[str],
+    pair_records: Iterable[JmdictPriorityPairRecord] = (),
 ) -> JmdictPriorityRecord:
     direct = _unique_sorted(direct_tags)
     entry = _unique_sorted(entry_tags)
     all_tags = _unique_sorted((*direct, *entry))
     nf_min = _min_nf_value(all_tags)
     score, band = _jmdict_priority_score(all_tags, nf_min=nf_min)
+    direct_nf_min = _min_nf_value(direct)
+    direct_score, direct_band = _jmdict_priority_score(direct, nf_min=direct_nf_min)
+    entry_nf_min = _min_nf_value(entry)
+    entry_score, entry_band = _jmdict_priority_score(entry, nf_min=entry_nf_min)
     return JmdictPriorityRecord(
         direct_tags=direct,
         entry_tags=entry,
         priority_score=score,
         priority_band=band,
         nf_min=nf_min,
+        direct_priority_score=direct_score,
+        direct_priority_band=direct_band,
+        direct_nf_min=direct_nf_min,
+        entry_priority_score=entry_score,
+        entry_priority_band=entry_band,
+        entry_nf_min=entry_nf_min,
+        pair_records=_merge_jmdict_priority_pair_records(pair_records),
     )
 
 
@@ -2242,6 +2951,7 @@ def _merge_jmdict_priority_records(
     return _build_jmdict_priority_record(
         direct_tags=(*existing.direct_tags, *new_record.direct_tags),
         entry_tags=(*existing.entry_tags, *new_record.entry_tags),
+        pair_records=(*existing.pair_records, *new_record.pair_records),
     )
 
 
@@ -2521,6 +3231,16 @@ def _node_text(node: ElementTree.Element | None) -> str:
     return str(node.text or "").strip()
 
 
+def _path_signature_for_cache_key(path: Path | None) -> tuple[int, int] | None:
+    if path is None:
+        return None
+    try:
+        stat = path.stat()
+    except OSError:
+        return None
+    return int(stat.st_size), int(stat.st_mtime_ns)
+
+
 def _safe_int(value: object) -> int | None:
     try:
         text = str(value or "").strip()
@@ -2575,8 +3295,54 @@ def _deserialize_jmdict_priority_index(payload: object) -> dict[str, JmdictPrior
             priority_score=float(raw_record.get("priority_score") or 0.0),
             priority_band=str(raw_record.get("priority_band") or "none"),
             nf_min=_safe_int(raw_record.get("nf_min")),
+            direct_priority_score=float(raw_record.get("direct_priority_score") or 0.0),
+            direct_priority_band=str(raw_record.get("direct_priority_band") or "none"),
+            direct_nf_min=_safe_int(raw_record.get("direct_nf_min")),
+            entry_priority_score=float(raw_record.get("entry_priority_score") or 0.0),
+            entry_priority_band=str(raw_record.get("entry_priority_band") or "none"),
+            entry_nf_min=_safe_int(raw_record.get("entry_nf_min")),
+            pair_records=_deserialize_jmdict_priority_pair_records(
+                raw_record.get("pair_records", ()) or ()
+            ),
         )
     return records
+
+
+def _deserialize_jmdict_priority_pair_records(
+    payload: object,
+) -> tuple[JmdictPriorityPairRecord, ...]:
+    if isinstance(payload, Mapping):
+        payload = payload.values()
+    if isinstance(payload, (str, bytes)) or not hasattr(payload, "__iter__"):
+        return ()
+    records: list[JmdictPriorityPairRecord] = []
+    for raw_record in payload:
+        if not isinstance(raw_record, Mapping):
+            continue
+        records.append(
+            JmdictPriorityPairRecord(
+                surface=str(raw_record.get("surface") or ""),
+                reading=str(raw_record.get("reading") or ""),
+                surface_tags=tuple(str(item) for item in raw_record.get("surface_tags", ()) or ()),
+                reading_tags=tuple(str(item) for item in raw_record.get("reading_tags", ()) or ()),
+                entry_tags=tuple(str(item) for item in raw_record.get("entry_tags", ()) or ()),
+                surface_info_values=tuple(
+                    str(item) for item in raw_record.get("surface_info_values", ()) or ()
+                ),
+                reading_info_values=tuple(
+                    str(item) for item in raw_record.get("reading_info_values", ()) or ()
+                ),
+                surface_reading_count=int(raw_record.get("surface_reading_count") or 0),
+                direct_priority_score=float(raw_record.get("direct_priority_score") or 0.0),
+                direct_priority_band=str(raw_record.get("direct_priority_band") or "none"),
+                entry_priority_score=float(raw_record.get("entry_priority_score") or 0.0),
+                entry_priority_band=str(raw_record.get("entry_priority_band") or "none"),
+                safe_priority_score=float(raw_record.get("safe_priority_score") or 0.0),
+                safe_priority_band=str(raw_record.get("safe_priority_band") or "none"),
+                safe_priority_kind=str(raw_record.get("safe_priority_kind") or "none"),
+            )
+        )
+    return _merge_jmdict_priority_pair_records(records)
 
 
 def _deserialize_jmdict_lexical_index(payload: object) -> dict[str, JmdictLexicalRecord]:
@@ -2743,6 +3509,12 @@ def _deserialize_jlpt_vocabulary_index(payload: object) -> dict[str, JlptVocabul
             levels=levels,
             source_count=int(raw_record.get("source_count") or 0),
             entries=tuple(str(item) for item in raw_record.get("entries", ()) or ()),
+            normalized_entries=tuple(
+                str(item) for item in raw_record.get("normalized_entries", ()) or ()
+            ),
+            guarded_normalized_entries=tuple(
+                str(item) for item in raw_record.get("guarded_normalized_entries", ()) or ()
+            ),
         )
     return records
 

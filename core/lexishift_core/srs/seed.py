@@ -7,7 +7,11 @@ from pathlib import Path
 import time
 from typing import Optional, Sequence
 
-from lexishift_core.lexicon.word_package import build_word_package
+from lexishift_core.lexicon.word_package import (
+    build_word_package,
+    normalize_reading,
+    resolve_language_tag_from_pair,
+)
 from lexishift_core.pos.normalization import normalize_pos
 from lexishift_core.resources.dict_loaders import load_jmdict_lemmas
 from lexishift_core.resources.japanese_script import contains_kanji
@@ -24,6 +28,9 @@ from lexishift_core.srs.candidate_classification import (
 from lexishift_core.srs.candidate_identity import (
     build_candidate_identity,
     candidate_identity_key_from_seed,
+)
+from lexishift_core.srs.learner_difficulty import (
+    lookup_corrected_en_ja_learner_difficulty,
 )
 from lexishift_core.srs.pos_overlay import (
     PosOverlayEntry,
@@ -135,6 +142,29 @@ _JA_BOOTSTRAP_ORTHOGRAPHIC_NORMALIZATION = {
     "為る": "する",
 }
 
+_JA_BOOTSTRAP_READING_SPECIFIC_SURFACE_NORMALIZATION = {
+    ("為", "ため"): "ため",
+    ("居る", "いる"): "いる",
+    ("有る", "ある"): "ある",
+    ("事", "こと"): "こと",
+    ("成る", "なる"): "なる",
+    ("様", "よう"): "よう",
+    ("猶", "なお"): "なお",
+    ("所", "ところ"): "ところ",
+    ("何時", "いつ"): "いつ",
+    ("頂く", "いただく"): "いただく",
+    ("貴方", "あなた"): "あなた",
+    ("彼の", "あの"): "あの",
+    ("彼れ", "あれ"): "あれ",
+    ("此の", "この"): "この",
+    ("其の", "その"): "その",
+    ("此れ", "これ"): "これ",
+    ("其れ", "それ"): "それ",
+    ("此処", "ここ"): "ここ",
+    ("其処", "そこ"): "そこ",
+    ("何処", "どこ"): "どこ",
+}
+
 
 def build_seed_candidates(
     *,
@@ -177,7 +207,8 @@ def build_seed_candidates(
             resolve_kanjivg_path(config)
         )
         jlpt_vocabulary_index = load_optional_jlpt_vocabulary_index(
-            resolve_jlpt_vocabulary_path(config)
+            resolve_jlpt_vocabulary_path(config),
+            jmdict_path=config.jmdict_path if config.require_jmdict else None,
         )
         lesson_vocabulary_index = load_optional_japanese_lesson_vocabulary_index(
             resolve_lesson_vocabulary_path(config)
@@ -334,10 +365,19 @@ def build_seed_candidates(
                     lemma=lemma,
                 ):
                     continue
+                normalized_reading = (
+                    normalize_reading(
+                        raw_lform,
+                        language_tag=resolve_language_tag_from_pair(config.language_pair),
+                    )
+                    if raw_lform
+                    else None
+                )
                 normalized_lemma, script_forms_override, bootstrap_metadata = (
                     _apply_bootstrap_surface_policy(
                         language_pair=config.language_pair,
                         lemma=lemma,
+                        reading=normalized_reading,
                     )
                 )
                 topic_metadata = _extract_seed_topic_metadata(
@@ -351,7 +391,7 @@ def build_seed_candidates(
                 learner_signal_metadata = extract_learner_signal_metadata(
                     language_pair=config.language_pair,
                     lemma=normalized_lemma,
-                    reading=raw_lform,
+                    reading=normalized_reading,
                     raw_pos=raw_pos,
                     wtype=raw_wtype,
                     source_frequency_profile=source_frequency_metadata.get(
@@ -767,14 +807,27 @@ def _apply_bootstrap_surface_policy(
     *,
     language_pair: str,
     lemma: str,
+    reading: object | None = None,
 ) -> tuple[str, Optional[dict[str, str]], dict[str, object]]:
     if _target_language_from_pair(language_pair) != "ja":
         return lemma, None, {}
     source_surface = str(lemma or "").strip()
-    normalized_surface = _JA_BOOTSTRAP_ORTHOGRAPHIC_NORMALIZATION.get(
-        source_surface,
-        source_surface,
+    normalized_reading = normalize_reading(
+        reading,
+        language_tag=resolve_language_tag_from_pair(language_pair),
     )
+    normalized_surface = _corrected_ranking_display_surface(
+        source_surface=source_surface,
+        normalized_reading=normalized_reading,
+    )
+    if normalized_surface is None:
+        normalized_surface = _JA_BOOTSTRAP_READING_SPECIFIC_SURFACE_NORMALIZATION.get(
+            (source_surface, normalized_reading),
+        )
+    if normalized_surface is None:
+        normalized_surface = _JA_BOOTSTRAP_ORTHOGRAPHIC_NORMALIZATION.get(source_surface)
+    if normalized_surface is None:
+        normalized_surface = source_surface
     if normalized_surface == source_surface:
         return normalized_surface, None, {}
     script_forms: Optional[dict[str, str]] = None
@@ -791,3 +844,26 @@ def _apply_bootstrap_surface_policy(
             ),
         },
     )
+
+
+def _corrected_ranking_display_surface(
+    *,
+    source_surface: str,
+    normalized_reading: str,
+) -> str | None:
+    corrected_match = lookup_corrected_en_ja_learner_difficulty(
+        lemma=source_surface,
+        reading=normalized_reading,
+    )
+    if corrected_match is None or corrected_match.match_mode != "exact_pair":
+        return None
+    row = corrected_match.row
+    if {
+        "exclude_standalone_srs",
+        "restricted_admission",
+    }.intersection(row.correction_types):
+        return None
+    display_form = str(row.display_form or "").strip()
+    if not display_form or display_form == source_surface:
+        return None
+    return display_form

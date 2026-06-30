@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "config_id": "srs_admission_preference_sample_configs_en_ja_v1",
+  "language_pair": "en-ja",
+  "purpose": "Review predefined SRS admission profiles using one learner proficiency value plus optional topic preferences.",
+  "defaults": {
+    "set_top_n": 10000,
+    "initial_active_count": 80,
+    "preview_count": 80,
+    "preview_sampling_mode": "reserved_topic_lane",
+    "preview_seed": 314159
+  },
+  "scenarios": [
+    {
+      "name": "neutral_beginner",
+      "description": "No topic preference, early beginner proficiency.",
+      "proficiency": 0.10
+    },
+    {
+      "name": "neutral_lower_intermediate",
+      "description": "No topic preference, lower-intermediate proficiency.",
+      "proficiency": 0.30
+    },
+    {
+      "name": "neutral_n1ish",
+      "description": "No topic preference, roughly upper-intermediate / N1-ish proficiency.",
+      "proficiency": 0.58
+    },
+    {
+      "name": "neutral_advanced",
+      "description": "No topic preference, advanced-tail proficiency.",
+      "proficiency": 0.82
+    },
+    {
+      "name": "finance_business_intermediate",
+      "description": "Finance/business preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "finance_business": 1.0
+      }
+    },
+    {
+      "name": "science_technology_intermediate",
+      "description": "Science/technology preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "science_technology": 1.0
+      }
+    },
+    {
+      "name": "medicine_health_intermediate",
+      "description": "Medicine/health preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "medicine_health": 1.0
+      }
+    },
+    {
+      "name": "sports_beginner",
+      "description": "Sports preference at low proficiency; should only admit ready topic items.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "sports_fitness": 1.0
+      }
+    },
+    {
+      "name": "games_intermediate",
+      "description": "Games preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "games": 1.0
+      }
+    },
+    {
+      "name": "arts_literature_advanced",
+      "description": "Arts/literature/humanities preference at advanced-tail proficiency.",
+      "proficiency": 0.72,
+      "topic_weights": {
+        "arts_literature_humanities": 1.0
+      }
+    },
+    {
+      "name": "mixed_business_tech",
+      "description": "Weighted mixed professional interests.",
+      "proficiency": 0.50,
+      "topic_weights": {
+        "science_technology": 0.8,
+        "finance_business": 0.6
+      }
+    },
+    {
+      "name": "food_cooking_beginner_sparse",
+      "description": "Food/cooking is source-ready in taxonomy but may be unsupported by the current product-shaped overlay.",
+      "proficiency": 0.20,
+      "topic_weights": {
+        "food_cooking": 1.0
+      }
+    },
+    {
+      "name": "anime_manga_sparse",
+      "description": "Anime/manga/pop-culture is intentionally sparse; should reveal fallback behavior.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "anime_manga_pop_culture": 1.0
+      }
+    }
+  ]
+}

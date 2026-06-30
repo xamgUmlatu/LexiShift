@@ -13,8 +13,12 @@ from lexishift_core.resources.japanese_learner_signals import JAPANESE_LEARNER_S
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.candidate_classification import CANDIDATE_CLASSIFICATION_VERSION
 from lexishift_core.srs.candidate_identity import CANDIDATE_IDENTITY_VERSION
+from lexishift_core.srs.learner_difficulty import (
+    LEARNER_DIFFICULTY_MODEL_VERSION,
+    resolve_corrected_en_ja_learner_difficulty_csv_path,
+)
 
-SEED_FRONTIER_CACHE_SCHEMA_VERSION = 1
+SEED_FRONTIER_CACHE_SCHEMA_VERSION = 2
 SEED_FRONTIER_CACHE_KIND = "srs_seed_frontier"
 SEED_FRONTIER_CACHE_LOCK_TIMEOUT_SECONDS = 120.0
 SEED_FRONTIER_CACHE_LOCK_POLL_SECONDS = 0.25
@@ -52,6 +56,7 @@ def seed_frontier_fingerprint(
         "word_package_version": WORD_PACKAGE_VERSION,
         "candidate_classification_version": CANDIDATE_CLASSIFICATION_VERSION,
         "candidate_identity_version": CANDIDATE_IDENTITY_VERSION,
+        "learner_difficulty_model_version": LEARNER_DIFFICULTY_MODEL_VERSION,
         "japanese_learner_signals_version": JAPANESE_LEARNER_SIGNALS_VERSION,
         "language_pair": language_pair,
         "frequency_db": path_fingerprint(frequency_db),
@@ -92,6 +97,9 @@ def seed_frontier_fingerprint(
         },
         "source_label": str(getattr(config, "source_label", "") or "").strip(),
         "pos_overlay": path_fingerprint(getattr(config, "pos_overlay_path", None)),
+        "corrected_learner_difficulty": path_fingerprint(
+            resolve_corrected_en_ja_learner_difficulty_csv_path()
+        ),
     }
     encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(encoded.encode("utf-8")).hexdigest()

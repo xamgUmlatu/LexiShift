@@ -564,8 +564,8 @@
       "expected_presentation_mode": "vocab",
       "expected_problem_class": "normal_vocab",
       "expected_difficulty_band": "beginner",
-      "rationale": "Less common than core verbs, but still a normal verb that should stay below clearly harder rows such as 躊躇う, 侘び, and formal/technical advanced vocabulary.",
-      "expected_learner_difficulty": 0.5
+      "rationale": "Normal verb with common literal and figurative use; below specialized/domain nouns such as 黒潮 and below rare literary/technical advanced vocabulary.",
+      "expected_learner_difficulty": 0.43
     },
     {
       "lemma": "彼岸",

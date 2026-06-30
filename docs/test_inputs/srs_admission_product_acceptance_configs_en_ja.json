@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "config_id": "srs_admission_product_acceptance_configs_en_ja_v1",
+  "language_pair": "en-ja",
+  "purpose": "Product-style SRS admission acceptance pass using one scalar learner proficiency plus representative topic preferences.",
+  "defaults": {
+    "set_top_n": 10000,
+    "initial_active_count": 80,
+    "preview_count": 80,
+    "preview_sampling_mode": "reserved_topic_lane",
+    "preview_seed": 314159
+  },
+  "scenarios": [
+    {
+      "name": "neutral_p00",
+      "description": "No topic preference, absolute beginner proficiency.",
+      "proficiency": 0.0
+    },
+    {
+      "name": "neutral_p10",
+      "description": "No topic preference, early beginner proficiency.",
+      "proficiency": 0.1
+    },
+    {
+      "name": "neutral_p20",
+      "description": "No topic preference, upper beginner proficiency.",
+      "proficiency": 0.2
+    },
+    {
+      "name": "neutral_p30",
+      "description": "No topic preference, lower-intermediate proficiency.",
+      "proficiency": 0.3
+    },
+    {
+      "name": "neutral_p40",
+      "description": "No topic preference, intermediate proficiency.",
+      "proficiency": 0.4
+    },
+    {
+      "name": "neutral_p50",
+      "description": "No topic preference, upper-intermediate proficiency.",
+      "proficiency": 0.5
+    },
+    {
+      "name": "neutral_p60",
+      "description": "No topic preference, N1-ish proficiency.",
+      "proficiency": 0.6
+    },
+    {
+      "name": "neutral_p70",
+      "description": "No topic preference, post-N1 / early advanced proficiency.",
+      "proficiency": 0.7
+    },
+    {
+      "name": "neutral_p80",
+      "description": "No topic preference, advanced-tail proficiency.",
+      "proficiency": 0.8
+    },
+    {
+      "name": "neutral_p90",
+      "description": "No topic preference, very advanced proficiency.",
+      "proficiency": 0.9
+    },
+    {
+      "name": "neutral_p100",
+      "description": "No topic preference, full-range / recondite-tail proficiency.",
+      "proficiency": 1.0
+    },
+    {
+      "name": "finance_business_p45",
+      "description": "Finance/business preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "finance_business": 1.0
+      }
+    },
+    {
+      "name": "science_technology_p45",
+      "description": "Science/technology preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "science_technology": 1.0
+      }
+    },
+    {
+      "name": "medicine_health_p45",
+      "description": "Medicine/health preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "medicine_health": 1.0
+      }
+    },
+    {
+      "name": "sports_fitness_p25",
+      "description": "Sports preference at low proficiency; topic items should still respect readiness.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "sports_fitness": 1.0
+      }
+    },
+    {
+      "name": "games_p45",
+      "description": "Games preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "games": 1.0
+      }
+    },
+    {
+      "name": "mixed_business_tech_p50",
+      "description": "Weighted mixed professional interests.",
+      "proficiency": 0.5,
+      "topic_weights": {
+        "science_technology": 0.8,
+        "finance_business": 0.6
+      }
+    },
+    {
+      "name": "arts_literature_p72",
+      "description": "Arts/literature/humanities preference at advanced proficiency; documents current overlay coverage.",
+      "proficiency": 0.72,
+      "topic_weights": {
+        "arts_literature_humanities": 1.0
+      }
+    },
+    {
+      "name": "food_cooking_p20",
+      "description": "Food/cooking preference at upper beginner proficiency; documents current overlay coverage.",
+      "proficiency": 0.2,
+      "topic_weights": {
+        "food_cooking": 1.0
+      }
+    },
+    {
+      "name": "anime_manga_p45",
+      "description": "Anime/manga/pop-culture preference at intermediate proficiency; documents current overlay coverage.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "anime_manga_pop_culture": 1.0
+      }
+    }
+  ]
+}

@@ -2610,7 +2610,13 @@ def difficulty_components(row: Mapping[str, object]) -> dict[str, float | None]:
     lesson_vocab = _mapping(signals.get("lesson_vocabulary"))
     acronym = _mapping(signals.get("ja_acronym"))
     tubelex = _mapping(signals.get("tubelex_frequency"))
+    jmdict_pair = _mapping(jmdict.get("matched_pair"))
     priority_score = _optional_float(jmdict.get("priority_score"))
+    direct_priority_score = _optional_float(jmdict.get("direct_priority_score"))
+    entry_priority_score = _optional_float(jmdict.get("entry_priority_score"))
+    pair_safe_priority_score = _optional_float(jmdict_pair.get("safe_priority_score"))
+    pair_direct_priority_score = _optional_float(jmdict_pair.get("direct_priority_score"))
+    pair_entry_priority_score = _optional_float(jmdict_pair.get("entry_priority_score"))
     lexical_non_vocab_score = _optional_float(jmdict_lexical.get("non_vocab_signal_score"))
     name_signal_score = _optional_float(jmnedict.get("name_signal_score"))
     grade_proxy = _optional_float(kanjidic2.get("kanji_grade_difficulty_proxy"))
@@ -2624,6 +2630,21 @@ def difficulty_components(row: Mapping[str, object]) -> dict[str, float | None]:
     jlpt_vocab_beginner_core = _optional_float(jlpt_vocab.get("beginner_core_score"))
     jlpt_vocab_exact_difficulty = _optional_float(jlpt_vocab.get("exact_difficulty_score"))
     jlpt_vocab_exact_beginner_core = _optional_float(jlpt_vocab.get("exact_beginner_core_score"))
+    jlpt_vocab_normalized_exact_difficulty = _optional_float(
+        jlpt_vocab.get("normalized_exact_difficulty_score")
+    )
+    jlpt_vocab_normalized_exact_beginner_core = _optional_float(
+        jlpt_vocab.get("normalized_exact_beginner_core_score")
+    )
+    jlpt_vocab_guarded_normalized_exact_difficulty = _optional_float(
+        jlpt_vocab.get("guarded_normalized_exact_difficulty_score")
+    )
+    jlpt_vocab_effective_exact_difficulty = _optional_float(
+        jlpt_vocab.get("effective_exact_difficulty_score")
+    )
+    jlpt_vocab_effective_exact_beginner_core = _optional_float(
+        jlpt_vocab.get("effective_exact_beginner_core_score")
+    )
     lesson_vocab_difficulty = _optional_float(lesson_vocab.get("difficulty_score"))
     lesson_vocab_beginner_core = _optional_float(lesson_vocab.get("beginner_core_score"))
     acronym_class = str(acronym.get("recommended_acronym_class") or "").strip()
@@ -2683,6 +2704,23 @@ def difficulty_components(row: Mapping[str, object]) -> dict[str, float | None]:
     jmnedict_name_type_groups = _lower_string_set(jmnedict.get("name_type_groups"))
     jmdict_priority_difficulty = (
         _clamp01(1.0 - priority_score) if priority_score is not None else None
+    )
+    jmdict_direct_priority_difficulty = (
+        _clamp01(1.0 - direct_priority_score) if direct_priority_score is not None else None
+    )
+    jmdict_entry_priority_difficulty = (
+        _clamp01(1.0 - entry_priority_score) if entry_priority_score is not None else None
+    )
+    jmdict_pair_safe_priority_difficulty = (
+        _clamp01(1.0 - pair_safe_priority_score) if pair_safe_priority_score is not None else None
+    )
+    jmdict_pair_direct_priority_difficulty = (
+        _clamp01(1.0 - pair_direct_priority_score)
+        if pair_direct_priority_score is not None
+        else None
+    )
+    jmdict_pair_entry_priority_difficulty = (
+        _clamp01(1.0 - pair_entry_priority_score) if pair_entry_priority_score is not None else None
     )
     pedagogical_core_ease = _max_component(
         jlpt_vocab_beginner_core,
@@ -2781,11 +2819,47 @@ def difficulty_components(row: Mapping[str, object]) -> dict[str, float | None]:
     )
     frequency_value_known = _binary_component(frequency_difficulty is not None, known=True)
     jmdict_priority_known = _binary_component(priority_score is not None, known=True)
+    jmdict_direct_priority_known = _binary_component(
+        direct_priority_score is not None,
+        known=bool(jmdict),
+    )
+    jmdict_pair_priority_known = _binary_component(
+        bool(jmdict_pair),
+        known=bool(jmdict),
+    )
+    jmdict_pair_priority_leak_risk = _binary_component(
+        bool(jmdict_pair.get("priority_leak_risk")),
+        known=bool(jmdict_pair),
+    )
+    jmdict_pair_missing_reading_risk = _binary_component(
+        str(jmdict_pair.get("match_type") or "") == "missing_reading",
+        known=bool(jmdict_pair),
+    )
+    jmdict_pair_marked_form_not_safe_risk = _binary_component(
+        str(jmdict_pair.get("safe_priority_kind") or "") == "marked_form_not_safe",
+        known=bool(jmdict_pair),
+    )
+    jmdict_pair_surface_only_multi_reading_risk = _binary_component(
+        str(jmdict_pair.get("safe_priority_kind") or "") == "surface_only_multi_reading",
+        known=bool(jmdict_pair),
+    )
     jmdict_lexical_known = _binary_component(bool(jmdict_lexical), known=True)
     jmnedict_name_known = _binary_component(bool(jmnedict), known=True)
     jlpt_vocab_known = _binary_component(jlpt_vocab_difficulty is not None, known=True)
     jlpt_vocab_exact_known = _binary_component(
         bool(jlpt_vocab.get("exact_match")),
+        known=bool(jlpt_vocab),
+    )
+    jlpt_vocab_normalized_exact_known = _binary_component(
+        bool(jlpt_vocab.get("normalized_exact_match")),
+        known=bool(jlpt_vocab),
+    )
+    jlpt_vocab_guarded_normalized_exact_known = _binary_component(
+        bool(jlpt_vocab.get("guarded_normalized_exact_match")),
+        known=bool(jlpt_vocab),
+    )
+    jlpt_vocab_effective_exact_known = _binary_component(
+        bool(jlpt_vocab.get("effective_exact_match")),
         known=bool(jlpt_vocab),
     )
     jlpt_vocab_surface_known = _binary_component(
@@ -3490,6 +3564,22 @@ def difficulty_components(row: Mapping[str, object]) -> dict[str, float | None]:
         "script_complexity": script_complexity,
         "jmdict_priority": jmdict_priority_difficulty,
         "jmdict_priority_known": jmdict_priority_known,
+        "jmdict_direct_priority": jmdict_direct_priority_difficulty,
+        "jmdict_direct_priority_known": jmdict_direct_priority_known,
+        "jmdict_entry_priority": jmdict_entry_priority_difficulty,
+        "jmdict_pair_safe_priority": jmdict_pair_safe_priority_difficulty,
+        "jmdict_pair_direct_priority": jmdict_pair_direct_priority_difficulty,
+        "jmdict_pair_entry_priority": jmdict_pair_entry_priority_difficulty,
+        "jmdict_pair_safe_commonness": pair_safe_priority_score,
+        "jmdict_pair_direct_commonness": pair_direct_priority_score,
+        "jmdict_pair_entry_commonness": pair_entry_priority_score,
+        "jmdict_pair_priority_known": jmdict_pair_priority_known,
+        "jmdict_pair_priority_leak_risk": jmdict_pair_priority_leak_risk,
+        "jmdict_pair_missing_reading_risk": jmdict_pair_missing_reading_risk,
+        "jmdict_pair_marked_form_not_safe_risk": jmdict_pair_marked_form_not_safe_risk,
+        "jmdict_pair_surface_only_multi_reading_risk": (
+            jmdict_pair_surface_only_multi_reading_risk
+        ),
         "jmdict_lexical_known": jmdict_lexical_known,
         "lexical_source_known": lexical_source_known,
         "jmdict_non_vocab_raw_class_score": lexical_non_vocab_score,
@@ -3517,6 +3607,16 @@ def difficulty_components(row: Mapping[str, object]) -> dict[str, float | None]:
         "jlpt_vocab_exact_difficulty": jlpt_vocab_exact_difficulty,
         "jlpt_vocab_exact_beginner_core": jlpt_vocab_exact_beginner_core,
         "jlpt_vocab_exact_known": jlpt_vocab_exact_known,
+        "jlpt_vocab_normalized_exact_difficulty": jlpt_vocab_normalized_exact_difficulty,
+        "jlpt_vocab_normalized_exact_beginner_core": (jlpt_vocab_normalized_exact_beginner_core),
+        "jlpt_vocab_normalized_exact_known": jlpt_vocab_normalized_exact_known,
+        "jlpt_vocab_guarded_normalized_exact_difficulty": (
+            jlpt_vocab_guarded_normalized_exact_difficulty
+        ),
+        "jlpt_vocab_guarded_normalized_exact_known": (jlpt_vocab_guarded_normalized_exact_known),
+        "jlpt_vocab_effective_exact_difficulty": jlpt_vocab_effective_exact_difficulty,
+        "jlpt_vocab_effective_exact_beginner_core": (jlpt_vocab_effective_exact_beginner_core),
+        "jlpt_vocab_effective_exact_known": jlpt_vocab_effective_exact_known,
         "jlpt_vocab_surface_known": jlpt_vocab_surface_known,
         "jlpt_vocab_reading_known": jlpt_vocab_reading_known,
         "lesson_vocab_difficulty": lesson_vocab_difficulty,

@@ -1,0 +1,1372 @@
+{
+  "schema_version": 2,
+  "language_pair": "en-ja",
+  "status": "sidecar_review_input",
+  "purpose": "Manual post-model corrections for exact surface+reading learner-difficulty rows where scalar difficulty, display form, and standalone SRS admission diverge.",
+  "policy": {
+    "score_fields": {
+      "min_score": "Raise the effective learner-difficulty score to at least this value.",
+      "score_override": "Replace the effective learner-difficulty score exactly. Prefer min_score unless a row is fully reviewed."
+    },
+    "correction_types": {
+      "display_only": "Score is fine, but the learner-facing spelling should be different.",
+      "score_override": "The correct beginner/admission row exists, but the model under-ranked it; set the effective score directly.",
+      "score_floor": "The row is valid vocabulary, but the model placed it too early.",
+      "restricted_admission": "The row is valid data, but should not be ordinary standalone SRS vocabulary.",
+      "exclude_standalone_srs": "Keep the row for audit/search/data completeness, but do not serve it as standalone new vocabulary."
+    },
+    "display_form": "Preferred learner-facing spelling when the lexical item is easy but the listed written form is not beginner-friendly.",
+    "admission_override": "Standalone SRS admission class. Topic stretching is derived from this class and correction_types, not hand-authored per row.",
+    "topic_stretch_derivation": "Topic preference may stretch normal_vocab rows. It should not override restricted_admission or exclude_standalone_srs rows."
+  },
+  "corrections": [
+    {
+      "surface": "いい",
+      "reading": "いい",
+      "status": "active",
+      "correction_types": ["score_override"],
+      "score_override": 0.005,
+      "admission_override": "normal_vocab",
+      "rationale": "This should be the beginner-facing row for 'good'; the model ranked 良い/よい first and left the kana row too late."
+    },
+    {
+      "surface": "ワイシャツ",
+      "reading": "わいしゃつ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.08,
+      "admission_override": "normal_vocab",
+      "rationale": "Easy and source-backed, but exact score rank 3 is jarring before core verbs/nouns. A small floor keeps it in the beginner band without first-page priority."
+    },
+    {
+      "surface": "つく",
+      "reading": "つく",
+      "status": "active",
+      "correction_types": ["exclude_standalone_srs"],
+      "admission_override": "exclude_standalone_srs",
+      "rationale": "The kana row is too semantically overloaded for standalone SRS; clearer kanji rows such as 着く/つく and 付く/つく should carry teachable meanings."
+    },
+    {
+      "surface": "居る",
+      "reading": "おる",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.24,
+      "admission_override": "variant_reading",
+      "rationale": "The いる reading is core; おる is a register/dialect/humble variant and should not be first-page ordinary vocabulary."
+    },
+    {
+      "surface": "居る",
+      "reading": "いる",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "いる",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is core beginner vocabulary, but early learner display should prefer kana over the kanji form."
+    },
+    {
+      "surface": "居",
+      "reading": "きょ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.35,
+      "admission_override": "compound_or_sino_morpheme",
+      "rationale": "Valid as an on-yomi morpheme in compounds such as 住居 and 同居, but not suitable as ordinary beginner standalone SRS vocabulary."
+    },
+    {
+      "surface": "入る",
+      "reading": "いる",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.24,
+      "admission_override": "variant_or_compound_reading",
+      "rationale": "入る/はいる is the core beginner standalone verb; 入る/いる is a valid but later variant or compound-like reading."
+    },
+    {
+      "surface": "何処",
+      "reading": "どこ",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "どこ",
+      "admission_override": "normal_vocab",
+      "rationale": "The lexical item is beginner-level, but early learner display should prefer kana."
+    },
+    {
+      "surface": "御飯",
+      "reading": "ごはん",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "ご飯",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is appropriate for the common word, but full 御飯 is too stiff for early learner-facing display."
+    },
+    {
+      "surface": "煩い",
+      "reading": "うるさい",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "うるさい",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is appropriate, but the kanji form is too heavy for early learner-facing display."
+    },
+    {
+      "surface": "伯父",
+      "reading": "おじ",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "おじ",
+      "admission_override": "normal_vocab",
+      "rationale": "The concept is early enough, but the specific 伯父 written distinction is not what early learner-facing display should foreground."
+    },
+    {
+      "surface": "家",
+      "reading": "うち",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "うち",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is appropriate for the common word, but this reading is cleaner as kana in early learner-facing display."
+    },
+    {
+      "surface": "成る",
+      "reading": "なる",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "なる",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is core beginner vocabulary, but early learner display should prefer kana over the kanji form."
+    },
+    {
+      "surface": "後",
+      "reading": "ご",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_affix_reading",
+      "rationale": "Common reading/morpheme, but awkward as standalone early SRS vocabulary."
+    },
+    {
+      "surface": "後",
+      "reading": "のち",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but more written/formal than 後/あと and should not sit in the same early beginner neighborhood."
+    },
+    {
+      "surface": "今日",
+      "reading": "こんにち",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.35,
+      "admission_override": "formal_or_written_reading",
+      "rationale": "今日/きょう is the beginner word; standalone 今日/こんにち is formal/written and should not behave like ordinary early SRS vocabulary."
+    },
+    {
+      "surface": "中",
+      "reading": "ちゅう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_suffix_reading",
+      "rationale": "中/なか is the beginner standalone row; 中/ちゅう is mostly useful as a compound or suffix reading and should not behave like ordinary early SRS vocabulary."
+    },
+    {
+      "surface": "行き",
+      "reading": "いき",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "derived_or_suffix_form",
+      "rationale": "行く/いく is the core beginner verb; 行き/いき is mainly a derived/stem or suffix-like row and should not be ordinary early standalone SRS vocabulary."
+    },
+    {
+      "surface": "取り",
+      "reading": "とり",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "derived_or_suffix_form",
+      "rationale": "取る/とる is the core verb; 取り/とり is mainly a stem or compound-forming row and should not be ordinary early standalone SRS vocabulary."
+    },
+    {
+      "surface": "上",
+      "reading": "じょう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_suffix_reading",
+      "rationale": "上/うえ is the beginner standalone row; 上/じょう is mainly useful as a compound or suffix-like reading."
+    },
+    {
+      "surface": "上",
+      "reading": "かみ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.30,
+      "admission_override": "formal_or_spatial_variant",
+      "rationale": "上/うえ is the beginner standalone row; 上/かみ is a later formal/spatial variant and should not be ordinary early SRS vocabulary."
+    },
+    {
+      "surface": "下",
+      "reading": "げ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_suffix_reading",
+      "rationale": "下/した is the beginner standalone row; 下/げ is mainly useful as a compound or suffix-like reading."
+    },
+    {
+      "surface": "夜",
+      "reading": "よ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.24,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary, but much later and more literary than beginner-core 夜/よる."
+    },
+    {
+      "surface": "塩",
+      "reading": "えん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "塩/しお is the beginner standalone row; 塩/えん is mainly useful as an on-yomi compound reading."
+    },
+    {
+      "surface": "魚",
+      "reading": "うお",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.30,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary, but later than the beginner standalone row 魚/さかな."
+    },
+    {
+      "surface": "体",
+      "reading": "てい",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.35,
+      "admission_override": "rare_or_technical_reading",
+      "rationale": "体/からだ is the core beginner row; 体/てい is a rare or technical reading and should not be ordinary early SRS vocabulary."
+    },
+    {
+      "surface": "暇",
+      "reading": "いとま",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.45,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid literary/formal vocabulary, but much later than the ordinary row 暇/ひま."
+    },
+    {
+      "surface": "明く",
+      "reading": "あく",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.35,
+      "admission_override": "rare_orthographic_variant",
+      "rationale": "A valid but uncommon written variant competing with easier あく rows; keep it out of ordinary early SRS admission."
+    },
+    {
+      "surface": "眼鏡",
+      "reading": "がんきょう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.35,
+      "admission_override": "rare_or_on_reading",
+      "rationale": "眼鏡/めがね is the ordinary row; 眼鏡/がんきょう is a rare/on-yomi reading and should not be ordinary early SRS vocabulary."
+    },
+    {
+      "surface": "丈夫",
+      "reading": "じょうふ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.35,
+      "admission_override": "rare_reading",
+      "rationale": "丈夫/じょうぶ is the ordinary row; 丈夫/じょうふ is a rare reading and should not be ordinary early SRS vocabulary."
+    },
+    {
+      "surface": "上手",
+      "reading": "うわて",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary, but later than the beginner row 上手/じょうず."
+    },
+    {
+      "surface": "下",
+      "reading": "しも",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary, but later and more formal/literary than beginner-core 下/した."
+    },
+    {
+      "surface": "入り口",
+      "reading": "いりくち",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "variant_reading",
+      "rationale": "入り口/いりぐち is the ordinary row; 入り口/いりくち is a weaker variant and should not be ordinary early SRS vocabulary."
+    },
+    {
+      "surface": "南",
+      "reading": "なん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_reading",
+      "rationale": "南/みなみ is the beginner standalone row; 南/なん is mainly useful as a compound reading."
+    },
+    {
+      "surface": "東",
+      "reading": "あずま",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.50,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid literary/regional vocabulary, but much later than the ordinary row 東/ひがし."
+    },
+    {
+      "surface": "君",
+      "reading": "くん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "suffix_or_title_reading",
+      "rationale": "君/きみ is the ordinary standalone row; 君/くん is primarily a suffix/title reading and should not be ordinary early standalone SRS vocabulary."
+    },
+    {
+      "surface": "米",
+      "reading": "べい",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.30,
+      "admission_override": "compound_or_country_reading",
+      "rationale": "米/こめ is the ordinary standalone row; 米/べい is mainly useful as a compound/country reading."
+    },
+    {
+      "surface": "間",
+      "reading": "かん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.30,
+      "admission_override": "compound_or_interval_reading",
+      "rationale": "間/あいだ is the ordinary standalone row; 間/かん is mainly useful as a compound or interval reading."
+    },
+    {
+      "surface": "所",
+      "reading": "ところ",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "ところ",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is early and common, but the standalone beginner-facing display should prefer kana."
+    },
+    {
+      "surface": "持ち",
+      "reading": "もち",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "derived_or_suffix_form",
+      "rationale": "持つ/もつ is the core beginner verb; 持ち/もち is a derived/stem or suffix-like row and should not be ordinary beginner standalone SRS vocabulary."
+    },
+    {
+      "surface": "道",
+      "reading": "どう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.24,
+      "admission_override": "compound_reading_only",
+      "rationale": "Common in compounds, but not a good standalone first-200 vocabulary row."
+    },
+    {
+      "surface": "前",
+      "reading": "ぜん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_affix_reading",
+      "rationale": "Plausible morpheme/reading, but awkward as standalone early SRS vocabulary."
+    },
+    {
+      "surface": "村",
+      "reading": "そん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.30,
+      "admission_override": "compound_or_administrative_reading",
+      "rationale": "村/むら is normal early vocabulary; そん is a compound/administrative reading."
+    },
+    {
+      "surface": "下",
+      "reading": "もと",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.24,
+      "admission_override": "variant_reading",
+      "rationale": "This reading is not first-page-normal compared with 下/した."
+    },
+    {
+      "surface": "余り",
+      "reading": "あまり",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "あまり",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common and easy, but the adverbial learner-facing form is usually kana, reinforced by the strongly kana-preferred あんまり."
+    },
+    {
+      "surface": "明日",
+      "reading": "あす",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed expected target is around 0.22; the model over-trusts raw JLPT exact support for this less common reading."
+    },
+    {
+      "surface": "葉書",
+      "reading": "はがき",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary and acceptable kanji display, but somewhat harder than its current early placement."
+    },
+    {
+      "surface": "鞄",
+      "reading": "かばん",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "かばん",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is early and useful, but learner-facing display should not foreground the difficult kanji form."
+    },
+    {
+      "surface": "眼鏡",
+      "reading": "めがね",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "めがね",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is appropriate, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "段々",
+      "reading": "だんだん",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "だんだん",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is easy, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "何時",
+      "reading": "いつ",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "いつ",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is easy and common, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "様",
+      "reading": "よう",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "よう",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common and useful, but early learner-facing display should prefer kana for this reading."
+    },
+    {
+      "surface": "筈",
+      "reading": "はず",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "はず",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common grammar-like vocabulary, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "殆ど",
+      "reading": "ほとんど",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "ほとんど",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "何の",
+      "reading": "どの",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "どの",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common and easy, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "中々",
+      "reading": "なかなか",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "なかなか",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "暫く",
+      "reading": "しばらく",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "しばらく",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "塵",
+      "reading": "ごみ",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "ごみ",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is useful, but early learner-facing display should prefer kana for this reading."
+    },
+    {
+      "surface": "偶に",
+      "reading": "たまに",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "たまに",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "今日は",
+      "reading": "こんにちは",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "こんにちは",
+      "admission_override": "normal_vocab",
+      "rationale": "The greeting is learner-facing as kana; full 今日 は analysis should not be foregrounded in early SRS display."
+    },
+    {
+      "surface": "凄い",
+      "reading": "すごい",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "すごい",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common and useful, but early learner-facing display should prefer kana."
+    },
+    {
+      "surface": "始め",
+      "reading": "はじめ",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "はじめ",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is easy, but standalone beginner-facing display is cleaner in kana."
+    },
+    {
+      "surface": "色々",
+      "reading": "いろいろ",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "いろいろ",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is common and easy, but early learner-facing display usually prefers kana."
+    },
+    {
+      "surface": "出掛ける",
+      "reading": "でかける",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "出かける",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is appropriate, but 出かける is the cleaner early learner-facing spelling than full 出掛ける."
+    },
+    {
+      "surface": "来たる",
+      "reading": "きたる",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.32,
+      "admission_override": "formal_or_written_variant",
+      "rationale": "Normalized-only JLPT row with weak core rank; too early for ordinary beginner presentation."
+    },
+    {
+      "surface": "奇麗",
+      "reading": "きれい",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "きれい",
+      "admission_override": "normal_vocab",
+      "rationale": "The word is easy, but early learner display should prefer kana/common spelling."
+    },
+    {
+      "surface": "真っ直ぐ",
+      "reading": "まっすぐ",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "まっすぐ",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is appropriate, but kana is the cleaner early learner-facing form."
+    },
+    {
+      "surface": "良い",
+      "reading": "よい",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.08,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid easy word/form, but いい/いい should be the first beginner-facing row; 良い/よい is better as a slightly later written/formal variant."
+    },
+    {
+      "surface": "身体",
+      "reading": "しんたい",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.15,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid common vocabulary, but too early beside core body-word rows; 体/からだ should carry the beginner standalone role."
+    },
+    {
+      "surface": "他",
+      "reading": "た",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.12,
+      "admission_override": "compound_or_formal_reading",
+      "rationale": "他/ほか is the normal early standalone row; 他/た is a Sino/formal or compound-like reading and should not be ordinary beginner standalone SRS vocabulary."
+    },
+    {
+      "surface": "姉",
+      "reading": "ねえ",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "variant_or_address_reading",
+      "rationale": "姉/あね is the ordinary standalone vocabulary row; 姉/ねえ is better treated as an address/variant reading and should not be ordinary standalone SRS vocabulary."
+    },
+    {
+      "surface": "長",
+      "reading": "おさ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.45,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid literary/older vocabulary, but far too early beside ordinary beginner family and classroom words."
+    },
+    {
+      "surface": "昨夜",
+      "reading": "さくや",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid written/formal reading, but later than the surrounding beginner time words and the more conversational 昨夜/ゆうべ row."
+    },
+    {
+      "surface": "弾く",
+      "reading": "はじく",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid verb, but later and less beginner-core than 弾く/ひく; the model placed it too close to early classroom vocabulary."
+    },
+    {
+      "surface": "戸",
+      "reading": "と",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary, but tougher for learners than the surrounding beginner rows and better treated as a later concrete noun/counter-like item."
+    },
+    {
+      "surface": "園",
+      "reading": "その",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone reading, but too early beside beginner nouns; it should appear later than ordinary garden/place vocabulary."
+    },
+    {
+      "surface": "字引き",
+      "reading": "じびき",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid but old-fashioned dictionary word; 辞書/じしょ should carry the early learner-facing role."
+    },
+    {
+      "surface": "都",
+      "reading": "と",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "administrative_or_on_reading",
+      "rationale": "Valid administrative/on-reading-like row, but should not be topic-stretched as ordinary standalone beginner vocabulary."
+    },
+    {
+      "surface": "易しい",
+      "reading": "やさしい",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "やさしい",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is acceptable, but the early learner-facing form is cleaner in kana for this common adjective."
+    },
+    {
+      "surface": "画",
+      "reading": "が",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "Valid kanji/on-reading row, but not ordinary beginner standalone vocabulary; route as compound or morpheme-like material."
+    },
+    {
+      "surface": "黄色",
+      "reading": "おうしょく",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "formal_or_on_reading",
+      "rationale": "黄色/きいろ is the ordinary early color word; 黄色/おうしょく is a formal/on-reading variant and should not be ordinary beginner standalone SRS vocabulary."
+    },
+    {
+      "surface": "園",
+      "reading": "えん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "園/その is the more standalone lexical reading; 園/えん is mainly compound/on-reading material and should not be ordinary beginner standalone SRS vocabulary."
+    },
+    {
+      "surface": "苑",
+      "reading": "えん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.4,
+      "admission_override": "rare_or_formal_reading",
+      "rationale": "The row is source-backed but rare/awkward as learner-facing standalone vocabulary, and normalized-only source support makes the early placement unreliable."
+    },
+    {
+      "surface": "伍",
+      "reading": "ご",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.45,
+      "admission_override": "rare_or_military_reading",
+      "rationale": "Valid but rare/specialized vocabulary; it should not appear with ordinary beginner-number or beginner-kanji rows."
+    },
+    {
+      "surface": "木",
+      "reading": "もく",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "木/き is the ordinary standalone row; 木/もく is mostly useful as an on-reading or compound component."
+    },
+    {
+      "surface": "水",
+      "reading": "すい",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.22,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "水/みず is the ordinary standalone row; 水/すい is mostly useful as an on-reading or compound component."
+    },
+    {
+      "surface": "古",
+      "reading": "いにしえ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.45,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid literary vocabulary, but far too early beside ordinary beginner rows; keep it as vocabulary while moving it to the reviewed literary neighborhood."
+    },
+    {
+      "surface": "音",
+      "reading": "おん",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_on_reading",
+      "rationale": "音/おと is the ordinary standalone row; 音/おん is mainly on-reading or compound-like material, so it should not be topic-stretched as normal standalone vocabulary."
+    },
+    {
+      "surface": "有る",
+      "reading": "ある",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "ある",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is appropriate, but the common early learner-facing spelling is kana."
+    },
+    {
+      "surface": "事",
+      "reading": "こと",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "こと",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is appropriate, but this grammar-like common word is cleaner as kana in early learner-facing display."
+    },
+    {
+      "surface": "頂く",
+      "reading": "いただく",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "いただく",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is acceptable, but early learner-facing display should prefer kana for this humble/common expression."
+    },
+    {
+      "surface": "温い",
+      "reading": "ぬるい",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "ぬるい",
+      "admission_override": "normal_vocab",
+      "rationale": "The placement is acceptable, but kana is the cleaner learner-facing display for this common adjective."
+    },
+    {
+      "surface": "尤も",
+      "reading": "もっとも",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "もっとも",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is acceptable, but this form is kana-preferred for early learner-facing presentation."
+    },
+    {
+      "surface": "大分",
+      "reading": "だいぶ",
+      "status": "active",
+      "correction_types": ["display_only"],
+      "display_form": "だいぶ",
+      "admission_override": "normal_vocab",
+      "rationale": "The score is acceptable, but kana avoids foregrounding an awkward written form for early learner-facing presentation."
+    },
+    {
+      "surface": "字",
+      "reading": "あざ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.35,
+      "admission_override": "rare_or_place_reading",
+      "rationale": "The surface has easier/commoner readings; this reading is not ordinary standalone learner vocabulary and should not inherit early priority."
+    },
+    {
+      "surface": "会",
+      "reading": "え",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.40,
+      "admission_override": "rare_or_bound_reading",
+      "rationale": "The row is valid but much less standalone-useful than common 会 readings and should not be topic-stretched as ordinary vocabulary."
+    },
+    {
+      "surface": "一言",
+      "reading": "いちげん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.40,
+      "admission_override": "variant_reading",
+      "rationale": "The ordinary learner-facing reading is 一言/ひとこと; this reading should not inherit that row's early usefulness."
+    },
+    {
+      "surface": "現場",
+      "reading": "げんじょう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.40,
+      "admission_override": "variant_reading",
+      "rationale": "The ordinary learner-facing reading is 現場/げんば; this variant should not be ordinary early standalone SRS vocabulary."
+    },
+    {
+      "surface": "仏",
+      "reading": "ぶつ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.45,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "仏/ほとけ is the more standalone learner row; 仏/ぶつ is mainly an on-reading or compound-like row."
+    },
+    {
+      "surface": "土産",
+      "reading": "どさん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.40,
+      "admission_override": "variant_or_compound_reading",
+      "rationale": "土産/みやげ is the ordinary learner-facing word; this reading should not inherit that ease."
+    },
+    {
+      "surface": "夜中",
+      "reading": "やちゅう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.40,
+      "admission_override": "rare_or_formal_reading",
+      "rationale": "夜中/よなか is the ordinary learner-facing word; this reading is later/formal enough to restrict."
+    },
+    {
+      "surface": "鼠",
+      "reading": "ねず",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.40,
+      "admission_override": "bound_or_variant_reading",
+      "rationale": "鼠/ねずみ is the ordinary standalone row; 鼠/ねず is mostly bound/variant-like and should not be ordinary standalone SRS vocabulary."
+    },
+    {
+      "surface": "根",
+      "reading": "こん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.45,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "根/ね is the ordinary standalone row; 根/こん is mainly useful as an on-reading or compound component."
+    },
+    {
+      "surface": "怒る",
+      "reading": "いかる",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but later and more written/literary than ordinary 怒る/おこる."
+    },
+    {
+      "surface": "大事",
+      "reading": "おおごと",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but should not inherit the early learner priority of 大事/だいじ."
+    },
+    {
+      "surface": "打つ",
+      "reading": "ぶつ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.30,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid word, but not as pedagogically central as the ordinary 打つ/うつ reading."
+    },
+    {
+      "surface": "音",
+      "reading": "ね",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.30,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but later and more literary/poetic than beginner-core 音/おと."
+    },
+    {
+      "surface": "僕",
+      "reading": "しもべ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but much later than the pronoun 僕/ぼく and should not inherit that ease."
+    },
+    {
+      "surface": "工場",
+      "reading": "こうば",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Useful enough to keep as normal vocabulary, but later than ordinary 工場/こうじょう and too early in the current ranking."
+    },
+    {
+      "surface": "認める",
+      "reading": "したためる",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.40,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but much later and more literary/specific than 認める/みとめる."
+    },
+    {
+      "surface": "国境",
+      "reading": "くにざかい",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.40,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but later than ordinary 国境/こっきょう and too early through same-surface inheritance."
+    },
+    {
+      "surface": "女子",
+      "reading": "おなご",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.40,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary, but archaic/regional compared with ordinary 女子/じょし and should not inherit its ease."
+    },
+    {
+      "surface": "敵",
+      "reading": "かたき",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but later and narrower than ordinary 敵/てき."
+    },
+    {
+      "surface": "文",
+      "reading": "ふみ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.40,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but literary/older compared with ordinary 文/ぶん."
+    },
+    {
+      "surface": "奴",
+      "reading": "やっこ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.45,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary, but later and culturally/sense-specific compared with more common 奴 rows."
+    },
+    {
+      "surface": "辺",
+      "reading": "ほとり",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.40,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid descriptive vocabulary, but later/literary enough that its current placement is too early."
+    },
+    {
+      "surface": "質",
+      "reading": "しち",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.45,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary in specific senses, but later and narrower than ordinary 質/しつ."
+    },
+    {
+      "surface": "癖",
+      "reading": "へき",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.45,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid reading, but later/technical or compound-like compared with ordinary 癖/くせ."
+    },
+    {
+      "surface": "包む",
+      "reading": "くるむ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.30,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid and useful vocabulary, but should not sit as early as easier same-surface or core wrapping verbs."
+    },
+    {
+      "surface": "床",
+      "reading": "とこ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but later than ordinary 床/ゆか."
+    },
+    {
+      "surface": "方々",
+      "reading": "ほうぼう",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Useful standalone vocabulary, but less central than 方々/かたがた and too early through same-surface inheritance."
+    },
+    {
+      "surface": "柄",
+      "reading": "え",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.40,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary for a handle/grip/stem, but later than ordinary 柄/がら and should not inherit its ease."
+    },
+    {
+      "surface": "流行",
+      "reading": "はやり",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but should sit later than the most beginner-friendly 流行 rows."
+    },
+    {
+      "surface": "金庫",
+      "reading": "かねぐら",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.40,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary, but older/rarer than ordinary 金庫/きんこ and should not inherit that ease."
+    },
+    {
+      "surface": "汚れる",
+      "reading": "けがれる",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid standalone vocabulary, but later and more moral/literary than ordinary 汚れる/よごれる."
+    },
+    {
+      "surface": "雷",
+      "reading": "いかずち",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.45,
+      "admission_override": "normal_vocab",
+      "rationale": "Valid vocabulary, but more literary/marked than ordinary 雷/かみなり and should be noticeably later."
+    },
+    {
+      "surface": "昼間",
+      "reading": "ちゅうかん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.35,
+      "admission_override": "variant_reading",
+      "rationale": "昼間/ひるま is the ordinary learner-facing row; 昼間/ちゅうかん should not inherit that early placement or topic-stretch as ordinary standalone vocabulary."
+    },
+    {
+      "surface": "火",
+      "reading": "か",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_on_reading",
+      "rationale": "火/ひ is the ordinary standalone learner row; 火/か is mainly useful as an on-reading or compound/calendar component such as 火事, 火山, and 火曜."
+    },
+    {
+      "surface": "西",
+      "reading": "せい",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_directional_reading",
+      "rationale": "西/にし is the ordinary standalone row; 西/せい has tiny direct standalone support and is mainly useful in compounds such as 西洋, 西暦, and 西部."
+    },
+    {
+      "surface": "東",
+      "reading": "とう",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_directional_reading",
+      "rationale": "東/ひがし is the ordinary standalone row; 東/とう is mainly useful as a compound reading in rows such as 東洋, 東西, and 東北."
+    },
+    {
+      "surface": "訳",
+      "reading": "やく",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_on_reading",
+      "rationale": "訳/わけ is the clearer standalone learner row; 訳/やく is more misleading as standalone SRS and is mainly useful through compounds such as 翻訳 and 通訳."
+    },
+    {
+      "surface": "北",
+      "reading": "ほく",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_directional_reading",
+      "rationale": "北/きた is the ordinary standalone row; 北/ほく is mainly useful as a compound direction reading such as 北部, 東北, and 北東."
+    },
+    {
+      "surface": "見",
+      "reading": "けん",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_on_reading",
+      "rationale": "見る/みる carries the standalone learner-facing meaning; 見/けん has tiny direct support and is mainly useful in compounds such as 発見, 意見, and 見物."
+    },
+    {
+      "surface": "朝",
+      "reading": "ちょう",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_on_reading",
+      "rationale": "朝/あさ is the ordinary standalone row; 朝/ちょう is mainly useful in compounds such as 朝食, 早朝, 朝廷, and 王朝."
+    },
+    {
+      "surface": "地",
+      "reading": "じ",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_on_reading",
+      "rationale": "地/じ is common in compounds such as 地震, 地面, 地獄, and 意地, but it is not a clean ordinary standalone beginner SRS row."
+    },
+    {
+      "surface": "徒",
+      "reading": "と",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_on_reading",
+      "rationale": "徒/と is mainly useful as a compound/on-reading component in words such as 生徒, 徒歩, 信徒, and 使徒 rather than ordinary standalone vocabulary."
+    },
+    {
+      "surface": "密",
+      "reading": "みつ",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_bound_reading",
+      "rationale": "密/みつ is source-backed but mostly compound or bound-adjectival material in words such as 秘密, 厳密, 精密, 親密, and 密度."
+    },
+    {
+      "surface": "印",
+      "reading": "いん",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "compound_or_on_reading",
+      "rationale": "印/しるし is the clearer standalone learner row; 印/いん is mostly useful in compounds such as 印象, 印刷, 消印, and 封印."
+    },
+    {
+      "surface": "半",
+      "reading": "はん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.10,
+      "admission_override": "compound_or_prefix_reading",
+      "rationale": "半/はん is useful, but its very early score is inflated by compound/prefix-like usage such as 半分, 半年, 後半, and 大半; route it as restricted admission instead of ordinary first-page standalone vocabulary."
+    },
+    {
+      "surface": "門",
+      "reading": "もん",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.13,
+      "admission_override": "normal_vocab",
+      "rationale": "門/もん is valid standalone vocabulary, but compound mass from words such as 専門, 部門, and 入門 makes the current placement too early."
+    },
+    {
+      "surface": "角",
+      "reading": "かく",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.14,
+      "admission_override": "normal_vocab",
+      "rationale": "角/かく is valid vocabulary, but the current score is too early because compound and technical/math uses inflate the row relative to cleaner beginner vocabulary."
+    },
+    {
+      "surface": "用",
+      "reading": "よう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.19,
+      "admission_override": "compound_or_function_noun",
+      "rationale": "用/よう is highly compound/function-heavy in words such as 利用, 使用, 用意, 作用, and 信用; it should not behave like ordinary standalone beginner vocabulary."
+    },
+    {
+      "surface": "必用",
+      "reading": "ひつよう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.45,
+      "admission_override": "orthographic_variant",
+      "rationale": "必要/ひつよう is the ordinary learner-facing word; 必用 is a source-backed but uncommon spelling variant and should not appear as ordinary early standalone SRS vocabulary."
+    },
+    {
+      "surface": "市",
+      "reading": "いち",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.35,
+      "admission_override": "normal_vocab",
+      "rationale": "市/いち is valid standalone vocabulary in the market/fair sense, but it is much later and narrower than 市/し and should not sit in the early 0.15 band."
+    },
+    {
+      "surface": "山",
+      "reading": "さん",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.40,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "山/やま is the ordinary standalone learner row; 山/さん is mainly useful as an on-reading or compound/name component and should not be ordinary standalone SRS vocabulary."
+    },
+    {
+      "surface": "高",
+      "reading": "こう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.40,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "高い/たかい is the ordinary learner-facing adjective; 高/こう is mainly useful as an on-reading or compound component and should not be ordinary standalone SRS vocabulary."
+    },
+    {
+      "surface": "けつまんこ",
+      "reading": "けつまんこ",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "sensitive_or_adult_vocab",
+      "rationale": "The difficulty score is already tail-level, but this vulgar/adult row should not be ordinary default standalone SRS vocabulary."
+    },
+    {
+      "surface": "吐く",
+      "reading": "つく",
+      "status": "review",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "variant_reading",
+      "rationale": "JLPT lists this exact pair, but product presentation likely wants this written form later. Needs reviewed target before active score correction."
+    },
+    {
+      "surface": "時々",
+      "reading": "じじ",
+      "status": "review",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "rare_reading",
+      "rationale": "Rare reading of common surface 時々/ときどき. Needs reviewed target before active score correction."
+    },
+    {
+      "surface": "何人",
+      "reading": "なにびと",
+      "status": "review",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "rare_or_literary_reading",
+      "rationale": "Rare/literary reading of common-looking surface. Needs reviewed target before active score correction."
+    },
+    {
+      "surface": "或いは",
+      "reading": "あるいは",
+      "status": "watch",
+      "correction_types": ["display_only"],
+      "display_form": "あるいは",
+      "admission_override": "normal_vocab",
+      "rationale": "Acceptable for now; kana-preferred and somewhat written/formal, but not clearly bad enough for score override."
+    },
+    {
+      "surface": "猶",
+      "reading": "なお",
+      "status": "watch",
+      "correction_types": ["display_only"],
+      "display_form": "なお",
+      "admission_override": "normal_vocab",
+      "rationale": "Addressed by the orthographic overlay candidate; keep in review unless final placement is still too early."
+    }
+  ]
+}

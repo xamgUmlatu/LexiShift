@@ -51,6 +51,26 @@ class TestCandidateClassification(unittest.TestCase):
         self.assertEqual(classification.problem_class, "particle_or_auxiliary")
         self.assertAlmostEqual(classification.admission_suitability, 0.02, places=6)
 
+    def test_classifies_exact_ja_function_surfaces_as_grammar_items(self) -> None:
+        for lemma in ("で", "が", "より", "そして", "及び"):
+            with self.subTest(lemma=lemma):
+                classification = classify_srs_candidate(
+                    language_pair="en-ja",
+                    lemma=lemma,
+                    raw_pos="名詞-普通名詞-一般",
+                )
+
+                self.assertEqual(classification.candidate_state, "grammar_item")
+                self.assertEqual(classification.presentation_mode, "grammar")
+                self.assertEqual(classification.problem_class, "particle_or_auxiliary")
+                self.assertEqual(classification.confidence, "high")
+                self.assertIn("ja_exact_function_item", classification.reasons)
+                self.assertAlmostEqual(
+                    classification.admission_suitability,
+                    0.02,
+                    places=6,
+                )
+
     def test_classifies_core_ja_country_names_as_normal_vocab(self) -> None:
         classification = classify_srs_candidate(
             language_pair="en-ja",

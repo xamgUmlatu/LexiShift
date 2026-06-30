@@ -93,6 +93,165 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertEqual(index["猫"].nf_min, 8)
         self.assertIn("ichi1", index["猫"].direct_tags)
         self.assertIn("news2", index["ねこ"].direct_tags)
+        bundle = build_japanese_learner_signal_bundle(
+            lemma="猫",
+            reading="ねこ",
+            jmdict_priority_index=index,
+        )
+        pair = bundle["jmdict_priority"]["matched_pair"]
+        self.assertEqual(pair["match_type"], "exact")
+        self.assertEqual(pair["safe_priority_score"], 1.0)
+        self.assertFalse(pair["priority_leak_risk"])
+
+    def test_jmdict_priority_pair_signal_blocks_sibling_reading_priority_leak(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            payload = (
+                "<JMdict>"
+                "<entry>"
+                "<k_ele><keb>而して</keb><ke_inf>rarely used kanji form</ke_inf></k_ele>"
+                "<k_ele><keb>然して</keb><ke_inf>rarely used kanji form</ke_inf></k_ele>"
+                "<r_ele><reb>そして</reb><re_pri>ichi1</re_pri></r_ele>"
+                "<r_ele><reb>しかして</reb></r_ele>"
+                "<sense><gloss xml:lang='eng'>and then</gloss></sense>"
+                "</entry>"
+                "<entry>"
+                "<k_ele><keb>誘う</keb><ke_pri>ichi1</ke_pri><ke_pri>news1</ke_pri></k_ele>"
+                "<r_ele><reb>さそう</reb><re_pri>ichi1</re_pri></r_ele>"
+                "<r_ele><reb>いざなう</reb></r_ele>"
+                "<sense><gloss xml:lang='eng'>invite</gloss></sense>"
+                "</entry>"
+                "</JMdict>"
+            )
+            path.write_text(payload, encoding="utf-8")
+
+            index = load_jmdict_priority_index(path)
+            inherited = build_japanese_learner_signal_bundle(
+                lemma="而して",
+                reading="しかして",
+                jmdict_priority_index=index,
+            )
+            missing_reading = build_japanese_learner_signal_bundle(
+                lemma="而して",
+                reading="しこうして",
+                jmdict_priority_index=index,
+            )
+            standard_reading = build_japanese_learner_signal_bundle(
+                lemma="誘う",
+                reading="さそう",
+                jmdict_priority_index=index,
+            )
+            alternate_reading = build_japanese_learner_signal_bundle(
+                lemma="誘う",
+                reading="いざなう",
+                jmdict_priority_index=index,
+            )
+
+        self.assertEqual(index["而して"].priority_score, 1.0)
+        self.assertEqual(index["而して"].direct_priority_score, 0.0)
+        self.assertEqual(index["而して"].entry_priority_score, 1.0)
+
+        inherited_pair = inherited["jmdict_priority"]["matched_pair"]
+        self.assertEqual(inherited_pair["match_type"], "exact")
+        self.assertEqual(inherited_pair["safe_priority_score"], 0.0)
+        self.assertEqual(inherited_pair["safe_priority_kind"], "marked_form_not_safe")
+        self.assertTrue(inherited_pair["entry_priority_inherited_only"])
+        self.assertTrue(inherited_pair["priority_leak_risk"])
+
+        missing_pair = missing_reading["jmdict_priority"]["matched_pair"]
+        self.assertEqual(missing_pair["match_type"], "missing_reading")
+        self.assertEqual(missing_pair["safe_priority_score"], 0.0)
+        self.assertTrue(missing_pair["priority_leak_risk"])
+
+        standard_pair = standard_reading["jmdict_priority"]["matched_pair"]
+        self.assertEqual(standard_pair["safe_priority_score"], 1.0)
+        self.assertEqual(standard_pair["safe_priority_kind"], "reading_direct")
+        self.assertFalse(standard_pair["priority_leak_risk"])
+
+        alternate_pair = alternate_reading["jmdict_priority"]["matched_pair"]
+        self.assertEqual(alternate_pair["safe_priority_score"], 0.0)
+        self.assertEqual(alternate_pair["safe_priority_kind"], "surface_only_multi_reading")
+        self.assertTrue(alternate_pair["priority_leak_risk"])
+
+    def test_jmdict_priority_pair_signal_matches_kana_headword_readings(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            payload = (
+                "<JMdict>"
+                "<entry>"
+                "<k_ele><keb>瑞典</keb><ke_inf>rarely used kanji form</ke_inf></k_ele>"
+                "<r_ele><reb>スウェーデン</reb><re_pri>spec1</re_pri></r_ele>"
+                "<sense><gloss xml:lang='eng'>Sweden</gloss></sense>"
+                "</entry>"
+                "</JMdict>"
+            )
+            path.write_text(payload, encoding="utf-8")
+
+            index = load_jmdict_priority_index(path)
+            kana_headword = build_japanese_learner_signal_bundle(
+                lemma="スウェーデン",
+                reading="すうぇーでん",
+                jmdict_priority_index=index,
+            )
+            rare_kanji = build_japanese_learner_signal_bundle(
+                lemma="瑞典",
+                reading="すうぇーでん",
+                jmdict_priority_index=index,
+            )
+
+        kana_pair = kana_headword["jmdict_priority"]["matched_pair"]
+        self.assertEqual(kana_pair["match_type"], "kana_normalized_exact")
+        self.assertEqual(kana_pair["surface"], "スウェーデン")
+        self.assertEqual(kana_pair["reading"], "スウェーデン")
+        self.assertEqual(kana_pair["requested_reading"], "すうぇーでん")
+        self.assertEqual(kana_pair["safe_priority_score"], 1.0)
+        self.assertEqual(kana_pair["safe_priority_kind"], "reading_direct")
+        self.assertFalse(kana_pair["priority_leak_risk"])
+
+        kanji_pair = rare_kanji["jmdict_priority"]["matched_pair"]
+        self.assertEqual(kanji_pair["match_type"], "kana_normalized_exact")
+        self.assertEqual(kanji_pair["safe_priority_score"], 0.0)
+        self.assertEqual(kanji_pair["safe_priority_kind"], "marked_form_not_safe")
+        self.assertTrue(kanji_pair["priority_leak_risk"])
+
+    def test_jmdict_priority_pair_merge_preserves_clean_kana_priority(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            payload = (
+                "<JMdict>"
+                "<entry>"
+                "<r_ele><reb>ブラシ</reb><re_pri>gai1</re_pri></r_ele>"
+                "<sense><gloss xml:lang='eng'>brush</gloss></sense>"
+                "</entry>"
+                "<entry>"
+                "<k_ele><keb>刷子</keb></k_ele>"
+                "<r_ele><reb>ブラシ</reb>"
+                "<re_inf>gikun (meaning as reading) or jukujikun "
+                "(special kanji reading)</re_inf></r_ele>"
+                "<sense><gloss xml:lang='eng'>brush</gloss></sense>"
+                "</entry>"
+                "</JMdict>"
+            )
+            path.write_text(payload, encoding="utf-8")
+
+            index = load_jmdict_priority_index(path)
+            bundle = build_japanese_learner_signal_bundle(
+                lemma="ブラシ",
+                reading="ぶらし",
+                jmdict_priority_index=index,
+            )
+
+        pair = bundle["jmdict_priority"]["matched_pair"]
+        self.assertEqual(pair["match_type"], "kana_normalized_exact")
+        self.assertEqual(pair["safe_priority_score"], 1.0)
+        self.assertEqual(pair["safe_priority_kind"], "reading_direct")
+        self.assertFalse(pair["priority_leak_risk"])
 
     def test_jmdict_lexical_loader_extracts_pos_misc_signal_groups(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -320,6 +479,98 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertIsNone(inherited["jlpt_vocabulary"]["exact_difficulty_score"])
         self.assertTrue(katakana_reading["jlpt_vocabulary"]["exact_match"])
         self.assertTrue(katakana_reading["jlpt_vocabulary"]["reading_match"])
+
+    def test_jlpt_vocabulary_loader_adds_safe_jmdict_same_reading_normalized_forms(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            jlpt_path = root / "JLPT_vocab_ALL.csv"
+            jlpt_path.write_text(
+                (
+                    "Kanji,Reading,Level\n"
+                    "好い,よい,1\n"
+                    "外国,がいこく,5\n"
+                    "やはり,やはり,4\n"
+                    "古い,ふるい,5\n"
+                ),
+                encoding="utf-8",
+            )
+            jmdict_path = root / "JMdict_e"
+            jmdict_path.write_text(
+                (
+                    "<JMdict>"
+                    "<entry>"
+                    "<k_ele><keb>良い</keb></k_ele>"
+                    "<k_ele><keb>好い</keb></k_ele>"
+                    "<r_ele><reb>よい</reb></r_ele>"
+                    "</entry>"
+                    "<entry>"
+                    "<k_ele><keb>外国</keb></k_ele>"
+                    "<r_ele><reb>がいこく</reb></r_ele>"
+                    "<r_ele><reb>とつくに</reb></r_ele>"
+                    "</entry>"
+                    "<entry>"
+                    "<k_ele><keb>矢張り</keb></k_ele>"
+                    "<k_ele><keb>矢張</keb></k_ele>"
+                    "<r_ele><reb>やはり</reb></r_ele>"
+                    "</entry>"
+                    "<entry>"
+                    "<k_ele><keb>古い</keb></k_ele>"
+                    "<k_ele><keb>旧い</keb><ke_inf>search-only kanji form</ke_inf></k_ele>"
+                    "<r_ele><reb>ふるい</reb></r_ele>"
+                    "</entry>"
+                    "</JMdict>"
+                ),
+                encoding="utf-8",
+            )
+
+            index = load_jlpt_vocabulary_index(jlpt_path, jmdict_path=jmdict_path)
+            normalized = build_japanese_learner_signal_bundle(
+                lemma="良い",
+                reading="よい",
+                jlpt_vocabulary_index=index,
+            )
+            kana_source_normalized = build_japanese_learner_signal_bundle(
+                lemma="矢張り",
+                reading="やはり",
+                jlpt_vocabulary_index=index,
+            )
+            rare_reading = build_japanese_learner_signal_bundle(
+                lemma="外国",
+                reading="とつくに",
+                jlpt_vocabulary_index=index,
+            )
+            guarded = build_japanese_learner_signal_bundle(
+                lemma="旧い",
+                reading="ふるい",
+                jlpt_vocabulary_index=index,
+            )
+
+        self.assertFalse(normalized["jlpt_vocabulary"]["exact_match"])
+        self.assertTrue(normalized["jlpt_vocabulary"]["normalized_exact_match"])
+        self.assertTrue(normalized["jlpt_vocabulary"]["effective_exact_match"])
+        self.assertEqual(normalized["jlpt_vocabulary"]["match_type"], "normalized_exact")
+        self.assertEqual(normalized["jlpt_vocabulary"]["effective_exact_easiest_level"], 1)
+        self.assertEqual(normalized["jlpt_vocabulary"]["effective_exact_difficulty_score"], 0.85)
+        self.assertIn("良い\tよい\t1", index["良い"].normalized_entries)
+
+        self.assertTrue(kana_source_normalized["jlpt_vocabulary"]["normalized_exact_match"])
+        self.assertEqual(
+            kana_source_normalized["jlpt_vocabulary"]["effective_exact_easiest_level"],
+            4,
+        )
+
+        self.assertTrue(rare_reading["jlpt_vocabulary"]["surface_match"])
+        self.assertFalse(rare_reading["jlpt_vocabulary"]["exact_match"])
+        self.assertFalse(rare_reading["jlpt_vocabulary"]["normalized_exact_match"])
+        self.assertFalse(rare_reading["jlpt_vocabulary"]["effective_exact_match"])
+
+        self.assertFalse(guarded["jlpt_vocabulary"]["normalized_exact_match"])
+        self.assertTrue(guarded["jlpt_vocabulary"]["guarded_normalized_exact_match"])
+        self.assertFalse(guarded["jlpt_vocabulary"]["effective_exact_match"])
+        self.assertIsNone(guarded["jlpt_vocabulary"]["difficulty_score"])
+        self.assertIsNone(guarded["jlpt_vocabulary"]["effective_exact_difficulty_score"])
 
     def test_lesson_vocabulary_loader_extracts_pressbooks_vocab_tables(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

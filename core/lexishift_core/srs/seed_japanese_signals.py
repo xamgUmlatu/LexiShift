@@ -46,10 +46,15 @@ def load_optional_kanjivg_character_index(path: Optional[Path]):
     return load_kanjivg_character_index(Path(path))
 
 
-def load_optional_jlpt_vocabulary_index(path: Optional[Path]):
+def load_optional_jlpt_vocabulary_index(
+    path: Optional[Path],
+    *,
+    jmdict_path: Optional[Path] = None,
+):
     if path is None or not Path(path).exists():
         return {}
-    return load_jlpt_vocabulary_index(Path(path))
+    resolved_jmdict_path = Path(jmdict_path) if jmdict_path is not None else None
+    return load_jlpt_vocabulary_index(Path(path), jmdict_path=resolved_jmdict_path)
 
 
 def load_optional_japanese_lesson_vocabulary_index(path: Optional[Path]):

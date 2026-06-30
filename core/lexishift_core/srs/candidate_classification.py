@@ -27,7 +27,7 @@ PROBLEM_CLASS_ACRONYM_OR_CODE = "acronym_or_code"
 CLASSIFICATION_CONFIDENCE_HIGH = "high"
 CLASSIFICATION_CONFIDENCE_REVIEW = "review"
 
-CANDIDATE_CLASSIFICATION_VERSION = "candidate_classification_v3"
+CANDIDATE_CLASSIFICATION_VERSION = "candidate_classification_v4"
 
 _CANDIDATE_STATES = frozenset(
     {
@@ -63,6 +63,7 @@ _JA_CORE_PROPER_NOUN_VOCAB = frozenset(
         "米国",
     }
 )
+_JA_EXACT_FUNCTION_ITEMS = frozenset({"で", "が", "より", "そして", "及び"})
 
 
 @dataclass(frozen=True)
@@ -124,6 +125,15 @@ def _classify_ja_candidate(
             confidence=CLASSIFICATION_CONFIDENCE_HIGH,
             reasons=("symbol_or_punctuation",),
             admission_suitability=0.0,
+        )
+    if text in _JA_EXACT_FUNCTION_ITEMS:
+        return CandidateClassification(
+            candidate_state=CANDIDATE_STATE_GRAMMAR_ITEM,
+            presentation_mode=PRESENTATION_MODE_GRAMMAR,
+            problem_class=PROBLEM_CLASS_PARTICLE_OR_AUXILIARY,
+            confidence=CLASSIFICATION_CONFIDENCE_HIGH,
+            reasons=("ja_exact_function_item",),
+            admission_suitability=0.02,
         )
     if _is_obvious_ja_number_expression(text):
         if not _is_simple_ja_number_expression(text):
