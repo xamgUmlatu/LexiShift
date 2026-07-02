@@ -1777,9 +1777,12 @@ Use this file when:
   due-only subset or every lifecycle-active store row; options refresh output
   now surfaces active budget, stale-unseen capacity pressure, selected lemmas,
   and preview-only browsing comparison diagnostics for manual SRS testing
-- Last verified: `2026-05-31` active-rotation release, inventory-scoped
-  capacity, helper refresh parking, product-loop regression, and reset
-  signal-queue cleanup tests extend
+- Last verified: `2026-07-03` pair-driven browsing-admission backend
+  simulation for `en-ja` and `en-es`, Unicode/en-ja browsing-signal core tests,
+  focused helper/native-host browsing ingest tests, and SRS quality harness
+  (`pass=22 warn=0 fail=0`). Earlier `2026-05-31` active-rotation release,
+  inventory-scoped capacity, helper refresh parking, product-loop regression,
+  and reset signal-queue cleanup tests extend
   lifecycle marker, inventory-scoped active-budget, automatic active-rotation
   release, stale-unseen capacity,
   manual refresh diagnostics,
@@ -1838,9 +1841,12 @@ Use this file when:
   - The extension packet builder currently captures replacement exposures only,
     not arbitrary page words. It sanitizes observations before queueing helper
     packets.
-  - The current simulation uses a helper-persisted synthetic packet to prove
-    capping, pruning, suppression, and monotonic `Off` / `Balanced` / `Strong`
-    browsing-share behavior without mutating SRS items.
+  - The current simulation accepts an explicit pair and uses helper-persisted
+    synthetic packets to prove capping, pruning, suppression, neutral/off
+    baseline preservation, and monotonic `Off` / `Balanced` / `Strong`
+    browsing-share behavior without mutating SRS items. The default fixture now
+    exercises `en-ja` Unicode target lemmas, with an `en-es` comparison artifact
+    retained for the older research lane.
   - Topic preference, browsing admission, review scheduling, and page
     replacement are documented as separate product decisions; known/learned
     words must not become permanent unlimited page replacements by default.
@@ -1873,6 +1879,8 @@ Use this file when:
   - `scripts/testing/srs_browsing_admission_backend_simulation.py`
   - `scripts/testing/srs_browsing_admission_research_en_es.py`
   - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
+  - `docs/test_outputs/srs_browsing_admission_backend_simulation_en_ja_latest.md`
+  - `docs/test_outputs/srs_browsing_admission_backend_simulation_en_es_latest.md`
   - `docs/test_outputs/srs_browsing_admission_research_en_es_latest.md`
   - `core/tests/srs/test_srs_admission_refresh.py`
   - `core/tests/srs/test_srs_active_rotation.py`
@@ -1887,6 +1895,7 @@ Use this file when:
   - `core/tests/helper/test_helper_browsing_admission.py`
   - `core/tests/helper/test_helper_engine.py`
   - `core/tests/helper/test_helper_rulegen.py`
+  - `core/tests/dev/test_srs_browsing_admission_backend_simulation.py`
   - `core/tests/dev/test_extension_srs_action_workflows.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_browsing_admission_signals.py`

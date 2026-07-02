@@ -3,40 +3,41 @@
   "status": "ok",
   "decision": "srs_browsing_admission_backend_simulation_ready",
   "generated_at": "2026-05-23T00:00:00Z",
-  "language_pair": "en-ja",
+  "language_pair": "en-es",
   "profile_id": "default",
   "fixture": {
-    "pair": "en-ja",
-    "fixture_family": "en-ja",
+    "pair": "en-es",
+    "fixture_family": "en-es",
     "signal_lemmas": [
-      "料理",
-      "野菜",
-      "病院",
-      "診断",
-      "銀行",
-      "金利",
-      "治療",
-      "犬",
-      "猫",
-      "旅行",
-      "会社",
-      "切捨て確認"
+      "hipoteca",
+      "préstamo",
+      "salud",
+      "diagnóstico",
+      "banco",
+      "interés",
+      "tratamiento",
+      "clínica",
+      "perro",
+      "gato",
+      "cocina",
+      "viaje",
+      "descartado_por_cap"
     ],
     "candidate_lemmas": [
-      "する",
-      "いる",
-      "言う",
-      "犬",
-      "猫",
-      "会社",
-      "料理",
-      "野菜",
-      "病院",
-      "診断",
-      "治療",
-      "旅行"
+      "casa",
+      "ser",
+      "banco",
+      "perro",
+      "gato",
+      "comida",
+      "hipoteca",
+      "préstamo",
+      "salud",
+      "diagnóstico",
+      "tratamiento",
+      "viaje"
     ],
-    "suppressed_lemma": "旅行"
+    "suppressed_lemma": "viaje"
   },
   "privacy": {
     "raw_text_stored": false,
@@ -62,28 +63,28 @@
     "private_payload_fields_ignored": 0
   },
   "ingest_result": {
-    "input_signal_count": 12,
+    "input_signal_count": 13,
     "accepted_signal_count": 12,
-    "dropped_signal_count": 0,
+    "dropped_signal_count": 1,
     "capped_signal_count": 2,
     "pruned_item_count": 5,
     "retained_item_count": 8
   },
   "suppression": {
     "active_suppressed_lemmas": {
-      "旅行": "suspended"
+      "viaje": "suspended"
     },
     "entry_count": 1,
     "runtime_srs_mutation": false
   },
   "aggregate_store": {
-    "pair": "en-ja",
+    "pair": "en-es",
     "profile_id": "default",
     "updated_at": "2026-05-23T00:00:00Z",
     "item_count": 8,
     "items": [
       {
-        "target_lemma": "料理",
+        "target_lemma": "hipoteca",
         "source_hit_count": 4.5,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
@@ -93,17 +94,7 @@
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
-        "target_lemma": "病院",
-        "source_hit_count": 0.0,
-        "target_hit_count": 4.0,
-        "replacement_exposure_count": 0.0,
-        "source_mapping_confidence": 0.0,
-        "raw_browsing": 4.0,
-        "browsing_signal": 0.5681,
-        "last_seen_at": "2026-05-23T00:00:00Z"
-      },
-      {
-        "target_lemma": "野菜",
+        "target_lemma": "préstamo",
         "source_hit_count": 4.0,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
@@ -113,7 +104,17 @@
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
-        "target_lemma": "診断",
+        "target_lemma": "salud",
+        "source_hit_count": 0.0,
+        "target_hit_count": 4.0,
+        "replacement_exposure_count": 0.0,
+        "source_mapping_confidence": 0.0,
+        "raw_browsing": 4.0,
+        "browsing_signal": 0.5681,
+        "last_seen_at": "2026-05-23T00:00:00Z"
+      },
+      {
+        "target_lemma": "diagnóstico",
         "source_hit_count": 3.0,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
@@ -123,7 +124,7 @@
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
-        "target_lemma": "治療",
+        "target_lemma": "tratamiento",
         "source_hit_count": 0.0,
         "target_hit_count": 2.0,
         "replacement_exposure_count": 0.0,
@@ -133,7 +134,7 @@
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
-        "target_lemma": "金利",
+        "target_lemma": "interés",
         "source_hit_count": 1.4,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
@@ -143,7 +144,7 @@
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
-        "target_lemma": "会社",
+        "target_lemma": "clínica",
         "source_hit_count": 0.0,
         "target_hit_count": 1.0,
         "replacement_exposure_count": 0.0,
@@ -153,7 +154,7 @@
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
-        "target_lemma": "切捨て確認",
+        "target_lemma": "cocina",
         "source_hit_count": 0.0,
         "target_hit_count": 1.0,
         "replacement_exposure_count": 0.0,
@@ -171,30 +172,30 @@
       "admission_budget": 6,
       "browsing_budget": 0,
       "general_budget": 6,
-      "signal_volume": 2.859537,
-      "volume_factor": 0.760636,
+      "signal_volume": 2.614886,
+      "volume_factor": 0.729489,
       "selected_lemmas": [
-        "する",
-        "いる",
-        "言う",
-        "犬",
-        "猫",
-        "会社"
+        "casa",
+        "ser",
+        "banco",
+        "perro",
+        "gato",
+        "comida"
       ],
       "neutral_selected_lemmas": [
-        "する",
-        "いる",
-        "言う",
-        "犬",
-        "猫",
-        "会社"
+        "casa",
+        "ser",
+        "banco",
+        "perro",
+        "gato",
+        "comida"
       ],
       "browsing_lane_count": 0,
-      "browsing_relevant_selected_count": 1,
+      "browsing_relevant_selected_count": 0,
       "browsing_driven_count": 0,
       "suppressed_count": 1,
       "browsing_lane_share": 0.0,
-      "browsing_relevant_share": 0.166667,
+      "browsing_relevant_share": 0.0,
       "browsing_driven_share": 0.0,
       "probability_semantics": {
         "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
@@ -204,7 +205,7 @@
       },
       "rows": [
         {
-          "lemma": "する",
+          "lemma": "casa",
           "neutral_rank": 1,
           "final_rank": 1,
           "neutral_score": 1.0,
@@ -220,7 +221,7 @@
           "approximate_selection_probability": 0.513809
         },
         {
-          "lemma": "いる",
+          "lemma": "ser",
           "neutral_rank": 2,
           "final_rank": 2,
           "neutral_score": 0.96,
@@ -236,7 +237,7 @@
           "approximate_selection_probability": 0.49958
         },
         {
-          "lemma": "言う",
+          "lemma": "banco",
           "neutral_rank": 3,
           "final_rank": 3,
           "neutral_score": 0.9,
@@ -252,7 +253,7 @@
           "approximate_selection_probability": 0.477452
         },
         {
-          "lemma": "犬",
+          "lemma": "perro",
           "neutral_rank": 4,
           "final_rank": 4,
           "neutral_score": 0.84,
@@ -268,7 +269,7 @@
           "approximate_selection_probability": 0.454345
         },
         {
-          "lemma": "猫",
+          "lemma": "gato",
           "neutral_rank": 5,
           "final_rank": 5,
           "neutral_score": 0.82,
@@ -284,12 +285,12 @@
           "approximate_selection_probability": 0.446418
         },
         {
-          "lemma": "会社",
+          "lemma": "comida",
           "neutral_rank": 6,
           "final_rank": 6,
           "neutral_score": 0.8,
           "final_score": 0.8,
-          "browsing_signal": 0.244651,
+          "browsing_signal": 0.0,
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
@@ -300,7 +301,7 @@
           "approximate_selection_probability": 0.438376
         },
         {
-          "lemma": "料理",
+          "lemma": "hipoteca",
           "neutral_rank": 7,
           "final_rank": 7,
           "neutral_score": 0.64,
@@ -316,7 +317,7 @@
           "approximate_selection_probability": 0.369687
         },
         {
-          "lemma": "野菜",
+          "lemma": "préstamo",
           "neutral_rank": 8,
           "final_rank": 8,
           "neutral_score": 0.62,
@@ -332,7 +333,7 @@
           "approximate_selection_probability": 0.36053
         },
         {
-          "lemma": "病院",
+          "lemma": "salud",
           "neutral_rank": 9,
           "final_rank": 9,
           "neutral_score": 0.6,
@@ -348,7 +349,7 @@
           "approximate_selection_probability": 0.35124
         },
         {
-          "lemma": "診断",
+          "lemma": "diagnóstico",
           "neutral_rank": 10,
           "final_rank": 10,
           "neutral_score": 0.58,
@@ -364,7 +365,7 @@
           "approximate_selection_probability": 0.341815
         },
         {
-          "lemma": "治療",
+          "lemma": "tratamiento",
           "neutral_rank": 11,
           "final_rank": 11,
           "neutral_score": 0.56,
@@ -380,7 +381,7 @@
           "approximate_selection_probability": 0.332253
         },
         {
-          "lemma": "旅行",
+          "lemma": "viaje",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
@@ -403,31 +404,31 @@
       "admission_budget": 6,
       "browsing_budget": 1,
       "general_budget": 5,
-      "signal_volume": 2.859537,
-      "volume_factor": 0.760636,
+      "signal_volume": 2.614886,
+      "volume_factor": 0.729489,
       "selected_lemmas": [
-        "会社",
-        "する",
-        "いる",
-        "言う",
-        "犬",
-        "猫"
+        "hipoteca",
+        "casa",
+        "ser",
+        "banco",
+        "perro",
+        "gato"
       ],
       "neutral_selected_lemmas": [
-        "する",
-        "いる",
-        "言う",
-        "犬",
-        "猫",
-        "会社"
+        "casa",
+        "ser",
+        "banco",
+        "perro",
+        "gato",
+        "comida"
       ],
       "browsing_lane_count": 1,
       "browsing_relevant_selected_count": 1,
-      "browsing_driven_count": 0,
+      "browsing_driven_count": 1,
       "suppressed_count": 1,
       "browsing_lane_share": 0.166667,
       "browsing_relevant_share": 0.166667,
-      "browsing_driven_share": 0.0,
+      "browsing_driven_share": 0.166667,
       "probability_semantics": {
         "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
         "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
@@ -436,7 +437,7 @@
       },
       "rows": [
         {
-          "lemma": "する",
+          "lemma": "casa",
           "neutral_rank": 1,
           "final_rank": 1,
           "neutral_score": 1.0,
@@ -452,7 +453,7 @@
           "approximate_selection_probability": 0.451716
         },
         {
-          "lemma": "いる",
+          "lemma": "ser",
           "neutral_rank": 2,
           "final_rank": 2,
           "neutral_score": 0.96,
@@ -468,7 +469,7 @@
           "approximate_selection_probability": 0.438376
         },
         {
-          "lemma": "言う",
+          "lemma": "banco",
           "neutral_rank": 3,
           "final_rank": 3,
           "neutral_score": 0.9,
@@ -484,25 +485,9 @@
           "approximate_selection_probability": 0.417756
         },
         {
-          "lemma": "会社",
-          "neutral_rank": 6,
-          "final_rank": 4,
-          "neutral_score": 0.8,
-          "final_score": 0.843058,
-          "browsing_signal": 0.244651,
-          "browsing_boost": 1.053823,
-          "selected": true,
-          "selected_lane": "browsing",
-          "neutral_selected": true,
-          "deterministic_selection_probability": 1.0,
-          "browsing_lane_probability": 0.18462,
-          "general_lane_probability": 0.381692,
-          "approximate_selection_probability": 0.495845
-        },
-        {
-          "lemma": "犬",
+          "lemma": "perro",
           "neutral_rank": 4,
-          "final_rank": 5,
+          "final_rank": 4,
           "neutral_score": 0.84,
           "final_score": 0.84,
           "browsing_signal": 0.0,
@@ -516,9 +501,9 @@
           "approximate_selection_probability": 0.396378
         },
         {
-          "lemma": "猫",
+          "lemma": "gato",
           "neutral_rank": 5,
-          "final_rank": 6,
+          "final_rank": 5,
           "neutral_score": 0.82,
           "final_score": 0.82,
           "browsing_signal": 0.0,
@@ -532,23 +517,39 @@
           "approximate_selection_probability": 0.38908
         },
         {
-          "lemma": "料理",
+          "lemma": "comida",
+          "neutral_rank": 6,
+          "final_rank": 6,
+          "neutral_score": 0.8,
+          "final_score": 0.8,
+          "browsing_signal": 0.0,
+          "browsing_boost": 1.0,
+          "selected": false,
+          "selected_lane": "not_selected",
+          "neutral_selected": true,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.381692,
+          "approximate_selection_probability": 0.381692
+        },
+        {
+          "lemma": "hipoteca",
           "neutral_rank": 7,
           "final_rank": 7,
           "neutral_score": 0.64,
           "final_score": 0.721547,
           "browsing_signal": 0.601701,
           "browsing_boost": 1.127417,
-          "selected": false,
-          "selected_lane": "not_selected",
+          "selected": true,
+          "selected_lane": "browsing",
           "neutral_selected": false,
-          "deterministic_selection_probability": 0.0,
-          "browsing_lane_probability": 0.160278,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.197064,
           "general_lane_probability": 0.319288,
-          "approximate_selection_probability": 0.428391
+          "approximate_selection_probability": 0.453431
         },
         {
-          "lemma": "野菜",
+          "lemma": "préstamo",
           "neutral_rank": 8,
           "final_rank": 8,
           "neutral_score": 0.62,
@@ -559,12 +560,12 @@
           "selected_lane": "not_selected",
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
-          "browsing_lane_probability": 0.153153,
+          "browsing_lane_probability": 0.188496,
           "general_lane_probability": 0.311057,
-          "approximate_selection_probability": 0.416571
+          "approximate_selection_probability": 0.440919
         },
         {
-          "lemma": "病院",
+          "lemma": "salud",
           "neutral_rank": 9,
           "final_rank": 9,
           "neutral_score": 0.6,
@@ -575,12 +576,12 @@
           "selected_lane": "not_selected",
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
-          "browsing_lane_probability": 0.148913,
+          "browsing_lane_probability": 0.183386,
           "general_lane_probability": 0.302726,
-          "approximate_selection_probability": 0.406559
+          "approximate_selection_probability": 0.430597
         },
         {
-          "lemma": "診断",
+          "lemma": "diagnóstico",
           "neutral_rank": 10,
           "final_rank": 10,
           "neutral_score": 0.58,
@@ -591,12 +592,12 @@
           "selected_lane": "not_selected",
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
-          "browsing_lane_probability": 0.139707,
+          "browsing_lane_probability": 0.172274,
           "general_lane_probability": 0.294295,
-          "approximate_selection_probability": 0.392887
+          "approximate_selection_probability": 0.415869
         },
         {
-          "lemma": "治療",
+          "lemma": "tratamiento",
           "neutral_rank": 11,
           "final_rank": 11,
           "neutral_score": 0.56,
@@ -607,12 +608,12 @@
           "selected_lane": "not_selected",
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
-          "browsing_lane_probability": 0.133468,
+          "browsing_lane_probability": 0.164724,
           "general_lane_probability": 0.285762,
-          "approximate_selection_probability": 0.381089
+          "approximate_selection_probability": 0.403413
         },
         {
-          "lemma": "旅行",
+          "lemma": "viaje",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
@@ -635,31 +636,31 @@
       "admission_budget": 6,
       "browsing_budget": 2,
       "general_budget": 4,
-      "signal_volume": 2.859537,
-      "volume_factor": 0.760636,
+      "signal_volume": 2.614886,
+      "volume_factor": 0.729489,
       "selected_lemmas": [
-        "会社",
-        "料理",
-        "する",
-        "いる",
-        "言う",
-        "犬"
+        "hipoteca",
+        "préstamo",
+        "casa",
+        "ser",
+        "banco",
+        "perro"
       ],
       "neutral_selected_lemmas": [
-        "する",
-        "いる",
-        "言う",
-        "犬",
-        "猫",
-        "会社"
+        "casa",
+        "ser",
+        "banco",
+        "perro",
+        "gato",
+        "comida"
       ],
       "browsing_lane_count": 2,
       "browsing_relevant_selected_count": 2,
-      "browsing_driven_count": 1,
+      "browsing_driven_count": 2,
       "suppressed_count": 1,
       "browsing_lane_share": 0.333333,
       "browsing_relevant_share": 0.333333,
-      "browsing_driven_share": 0.166667,
+      "browsing_driven_share": 0.333333,
       "probability_semantics": {
         "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
         "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
@@ -668,7 +669,7 @@
       },
       "rows": [
         {
-          "lemma": "する",
+          "lemma": "casa",
           "neutral_rank": 1,
           "final_rank": 1,
           "neutral_score": 1.0,
@@ -684,7 +685,7 @@
           "approximate_selection_probability": 0.381692
         },
         {
-          "lemma": "いる",
+          "lemma": "ser",
           "neutral_rank": 2,
           "final_rank": 2,
           "neutral_score": 0.96,
@@ -700,7 +701,7 @@
           "approximate_selection_probability": 0.369687
         },
         {
-          "lemma": "言う",
+          "lemma": "banco",
           "neutral_rank": 3,
           "final_rank": 3,
           "neutral_score": 0.9,
@@ -716,25 +717,9 @@
           "approximate_selection_probability": 0.35124
         },
         {
-          "lemma": "会社",
-          "neutral_rank": 6,
-          "final_rank": 4,
-          "neutral_score": 0.8,
-          "final_score": 0.888074,
-          "browsing_signal": 0.244651,
-          "browsing_boost": 1.110093,
-          "selected": true,
-          "selected_lane": "browsing",
-          "neutral_selected": true,
-          "deterministic_selection_probability": 1.0,
-          "browsing_lane_probability": 0.32753,
-          "general_lane_probability": 0.319288,
-          "approximate_selection_probability": 0.542242
-        },
-        {
-          "lemma": "犬",
+          "lemma": "perro",
           "neutral_rank": 4,
-          "final_rank": 5,
+          "final_rank": 4,
           "neutral_score": 0.84,
           "final_score": 0.84,
           "browsing_signal": 0.0,
@@ -748,9 +733,9 @@
           "approximate_selection_probability": 0.332253
         },
         {
-          "lemma": "猫",
+          "lemma": "gato",
           "neutral_rank": 5,
-          "final_rank": 6,
+          "final_rank": 5,
           "neutral_score": 0.82,
           "final_score": 0.82,
           "browsing_signal": 0.0,
@@ -764,9 +749,9 @@
           "approximate_selection_probability": 0.325802
         },
         {
-          "lemma": "料理",
+          "lemma": "hipoteca",
           "neutral_rank": 7,
-          "final_rank": 7,
+          "final_rank": 6,
           "neutral_score": 0.64,
           "final_score": 0.8068,
           "browsing_signal": 0.601701,
@@ -775,28 +760,44 @@
           "selected_lane": "browsing",
           "neutral_selected": false,
           "deterministic_selection_probability": 1.0,
-          "browsing_lane_probability": 0.302662,
+          "browsing_lane_probability": 0.362184,
           "general_lane_probability": 0.264859,
-          "approximate_selection_probability": 0.487358
+          "approximate_selection_probability": 0.531115
         },
         {
-          "lemma": "野菜",
+          "lemma": "comida",
+          "neutral_rank": 6,
+          "final_rank": 7,
+          "neutral_score": 0.8,
+          "final_score": 0.8,
+          "browsing_signal": 0.0,
+          "browsing_boost": 1.0,
+          "selected": false,
+          "selected_lane": "not_selected",
+          "neutral_selected": true,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.319288,
+          "approximate_selection_probability": 0.319288
+        },
+        {
+          "lemma": "préstamo",
           "neutral_rank": 8,
           "final_rank": 8,
           "neutral_score": 0.62,
           "final_score": 0.756332,
           "browsing_signal": 0.568061,
           "browsing_boost": 1.219891,
-          "selected": false,
-          "selected_lane": "not_selected",
+          "selected": true,
+          "selected_lane": "browsing",
           "neutral_selected": false,
-          "deterministic_selection_probability": 0.0,
-          "browsing_lane_probability": 0.286758,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.343987,
           "general_lane_probability": 0.257756,
-          "approximate_selection_probability": 0.470601
+          "approximate_selection_probability": 0.513078
         },
         {
-          "lemma": "病院",
+          "lemma": "salud",
           "neutral_rank": 9,
           "final_rank": 9,
           "neutral_score": 0.6,
@@ -807,12 +808,12 @@
           "selected_lane": "not_selected",
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
-          "browsing_lane_probability": 0.279939,
+          "browsing_lane_probability": 0.336154,
           "general_lane_probability": 0.250584,
-          "approximate_selection_probability": 0.460375
+          "approximate_selection_probability": 0.502503
         },
         {
-          "lemma": "診断",
+          "lemma": "diagnóstico",
           "neutral_rank": 10,
           "final_rank": 10,
           "neutral_score": 0.58,
@@ -823,12 +824,12 @@
           "selected_lane": "not_selected",
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
-          "browsing_lane_probability": 0.257068,
+          "browsing_lane_probability": 0.309747,
           "general_lane_probability": 0.243344,
-          "approximate_selection_probability": 0.437856
+          "approximate_selection_probability": 0.477716
         },
         {
-          "lemma": "治療",
+          "lemma": "tratamiento",
           "neutral_rank": 11,
           "final_rank": 11,
           "neutral_score": 0.56,
@@ -839,12 +840,12 @@
           "selected_lane": "not_selected",
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
-          "browsing_lane_probability": 0.24362,
+          "browsing_lane_probability": 0.294125,
           "general_lane_probability": 0.236033,
-          "approximate_selection_probability": 0.422151
+          "approximate_selection_probability": 0.460735
         },
         {
-          "lemma": "旅行",
+          "lemma": "viaje",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
@@ -864,6 +865,11 @@
     }
   },
   "findings": [
+    {
+      "severity": "info",
+      "finding": "packet_cap_applied",
+      "detail": "Signals beyond the per-packet cap were dropped."
+    },
     {
       "severity": "info",
       "finding": "per_signal_count_cap_applied",

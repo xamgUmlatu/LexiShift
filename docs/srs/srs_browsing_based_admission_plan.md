@@ -410,12 +410,18 @@ Current prototype evidence:
   code-backed audit for initial admission, refresh growth, rebalance,
   feedback/exposure caveats, and release/discard/suspend gaps.
 - `scripts/testing/srs_browsing_admission_backend_simulation.py` renders a
-  synthetic helper-persisted report without runtime SRS mutation.
+  pair-driven synthetic helper-persisted report without runtime SRS mutation;
+  the default fixture now exercises `en-ja` Unicode target lemmas, and `--pair
+  en-es` remains available for older comparison.
 - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
-  records the current fixture: helper ingest succeeds only with opt-in, packet
-  caps apply, stale/low-signal rows prune, suppressed lemmas receive zero
-  admission probability, and `Off < Balanced < Strong` browsing-lane share is
-  monotonic.
+  records the current default `en-ja` fixture: helper ingest succeeds only with
+  opt-in, packet caps apply, stale/low-signal rows prune, suppressed lemmas
+  receive zero admission probability, `Off` preserves neutral ordering, and
+  `Off < Balanced < Strong` browsing-lane share is monotonic.
+- Pair-specific fixtures are also rendered at
+  `docs/test_outputs/srs_browsing_admission_backend_simulation_en_ja_latest.md`
+  and
+  `docs/test_outputs/srs_browsing_admission_backend_simulation_en_es_latest.md`.
 
 ## Probability Model
 
@@ -1000,9 +1006,12 @@ Harness checks:
 
 - SRS quality harness for scheduling/admission boundaries;
 - changed-file workflow check;
-- offline page/text fixture probe via
+- pair-general backend simulation via
+  `scripts/testing/srs_browsing_admission_backend_simulation.py --pair ...`;
+- offline page/text extraction research probe via
   `scripts/testing/srs_browsing_admission_research_en_es.py`, including its
-  canonical helper/core probe section;
+  canonical helper/core probe section. This extraction probe is still
+  en-es/Latin-token specific and should not be treated as the en-ja extractor;
 - browser smoke for opt-in/off state and clear-data control when UI lands.
 
 ## Lifecycle Audit Result

@@ -224,6 +224,68 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
         self.assertGreater(strong["browsing_lane_count"], 0)
         self.assertEqual(store.to_dict(), before)
 
+    def test_unicode_en_ja_lemmas_ingest_and_simulate_without_pair_assumptions(self) -> None:
+        policy = BrowsingSignalIngestPolicy(
+            max_signals_per_packet=4,
+            max_count_per_signal=5.0,
+            max_items_per_store=10,
+            prune_signal_below=0.0,
+        )
+        store = BrowsingSignalStore(pair="en-ja", profile_id="default")
+        packet = BrowsingSignalPacket(
+            pair="en-ja",
+            profile_id="default",
+            signals=(
+                BrowsingSignalPacketEntry(
+                    target_lemma="料理",
+                    side=BROWSING_SIGNAL_SOURCE,
+                    count=8,
+                    source_mapping_confidence=0.75,
+                ),
+                BrowsingSignalPacketEntry(
+                    target_lemma="病院",
+                    side=BROWSING_SIGNAL_TARGET,
+                    count=4,
+                ),
+            ),
+        )
+
+        ingest = ingest_browsing_signal_packet(store, packet, policy=policy, now=NOW)
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="する", neutral_score=1.00),
+            BrowsingAdmissionCandidate(lemma="いる", neutral_score=0.96),
+            BrowsingAdmissionCandidate(
+                lemma="料理",
+                neutral_score=0.62,
+                readiness_multiplier=0.90,
+                explicit_preference_fit=0.60,
+                source_confidence=0.90,
+            ),
+            BrowsingAdmissionCandidate(
+                lemma="病院",
+                neutral_score=0.58,
+                readiness_multiplier=0.85,
+                explicit_preference_fit=0.40,
+                source_confidence=0.95,
+            ),
+        )
+
+        results = simulate_browsing_admission_presets(
+            candidates,
+            store=ingest.store,
+            admission_budget=3,
+            policy=policy,
+        )
+        off = results[BROWSING_STRENGTH_OFF].to_dict()
+        strong = results[BROWSING_STRENGTH_STRONG].to_dict()
+
+        self.assertEqual(ingest.store.pair, "en-ja")
+        self.assertIn("料理", ingest.store.items)
+        self.assertIn("病院", ingest.store.items)
+        self.assertEqual(off["selected_lemmas"], off["neutral_selected_lemmas"])
+        self.assertGreater(strong["browsing_lane_count"], off["browsing_lane_count"])
+        self.assertIn("料理", strong["selected_lemmas"])
+
     def test_probability_preview_reports_weighted_and_deterministic_shapes(self) -> None:
         policy = BrowsingSignalIngestPolicy()
         store = BrowsingSignalStore(

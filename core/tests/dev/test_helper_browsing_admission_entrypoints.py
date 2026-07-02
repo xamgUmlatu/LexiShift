@@ -14,6 +14,9 @@ from unittest.mock import patch
 CORE_ROOT = Path(__file__).resolve().parents[3] / "core"
 if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
+HELPER_ROOT = Path(__file__).resolve().parents[3] / "scripts" / "helper"
+if str(HELPER_ROOT) not in sys.path:
+    sys.path.insert(0, str(HELPER_ROOT))
 
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset  # noqa: E402
