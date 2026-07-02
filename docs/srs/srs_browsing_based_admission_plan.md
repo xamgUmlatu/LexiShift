@@ -434,6 +434,17 @@ Current prototype evidence:
   preserve neutral selection, implicit history creates a bounded browsing lane,
   conflict scenarios reserve some admission budget for browsing history, and
   explicitly blocked lemmas remain excluded.
+- `scripts/testing/srs_browsing_admission_signal_gradient_en_ja.py` renders a
+  count-gradient sidecar over the same en-ja profile-growth frontier. It varies
+  already-resolved target-lemma aggregate counts from weak to saturated so we
+  can see the thresholds where `Balanced` and `Strong` begin reserving browsing
+  slots.
+- `docs/test_outputs/srs_browsing_admission_signal_gradient_en_ja_latest.md`
+  records the current gradient result: all 36 scenarios pass; one target-side
+  food signal first affects `Strong` at count `1` and `Balanced` at count `4`;
+  four target-side food signals first affect `Strong` at count `0.25` and
+  `Balanced` at count `0.5`; replacement-exposure signals are weaker as
+  intended, first affecting `Balanced` at count `2`.
 
 ## Probability Model
 
@@ -1022,6 +1033,8 @@ Harness checks:
   `scripts/testing/srs_browsing_admission_backend_simulation.py --pair ...`;
 - en-ja profile-shaped implicit browsing sample pack via
   `scripts/testing/srs_browsing_admission_implicit_sample_pack_en_ja.py`;
+- en-ja count-gradient sensitivity pack via
+  `scripts/testing/srs_browsing_admission_signal_gradient_en_ja.py`;
 - offline page/text extraction research probe via
   `scripts/testing/srs_browsing_admission_research_en_es.py`, including its
   canonical helper/core probe section. This extraction probe is still
