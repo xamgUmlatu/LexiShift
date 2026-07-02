@@ -1777,9 +1777,10 @@ Use this file when:
   due-only subset or every lifecycle-active store row; options refresh output
   now surfaces active budget, stale-unseen capacity pressure, selected lemmas,
   and preview-only browsing comparison diagnostics for manual SRS testing
-- Last verified: `2026-07-03` pair-driven browsing-admission backend
-  simulation for `en-ja` and `en-es`, Unicode/en-ja browsing-signal core tests,
-  focused helper/native-host browsing ingest tests, and SRS quality harness
+- Last verified: `2026-07-03` backend plus implicit browsing admission packs
+  for `en-ja` and `en-es`; the en-ja implicit sample pack has `7` scenarios
+  passing, alongside Unicode/en-ja browsing-signal core tests, focused
+  helper/native-host browsing ingest tests, and SRS quality harness
   (`pass=22 warn=0 fail=0`). Earlier `2026-05-31` active-rotation release,
   inventory-scoped capacity, helper refresh parking, product-loop regression,
   and reset signal-queue cleanup tests extend
@@ -1847,6 +1848,11 @@ Use this file when:
     browsing-share behavior without mutating SRS items. The default fixture now
     exercises `en-ja` Unicode target lemmas, with an `en-es` comparison artifact
     retained for the older research lane.
+  - The en-ja implicit browsing sample pack now runs profile-shaped preview
+    scenarios over the real en-ja seed frontier: no-history neutral, explicit
+    topic only, implicit history only, agreeing explicit+implicit history,
+    conflicting explicit+implicit history, and blocked-lemma guards. It uses
+    already-resolved target lemma aggregates only and remains preview-only.
   - Topic preference, browsing admission, review scheduling, and page
     replacement are documented as separate product decisions; known/learned
     words must not become permanent unlimited page replacements by default.
@@ -1877,10 +1883,13 @@ Use this file when:
   - `apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js`
   - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
   - `scripts/testing/srs_browsing_admission_backend_simulation.py`
+  - `scripts/testing/srs_browsing_admission_implicit_sample_pack_en_ja.py`
   - `scripts/testing/srs_browsing_admission_research_en_es.py`
+  - `docs/test_inputs/srs_browsing_admission_implicit_configs_en_ja.json`
   - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
   - `docs/test_outputs/srs_browsing_admission_backend_simulation_en_ja_latest.md`
   - `docs/test_outputs/srs_browsing_admission_backend_simulation_en_es_latest.md`
+  - `docs/test_outputs/srs_browsing_admission_implicit_sample_pack_en_ja_latest.md`
   - `docs/test_outputs/srs_browsing_admission_research_en_es_latest.md`
   - `core/tests/srs/test_srs_admission_refresh.py`
   - `core/tests/srs/test_srs_active_rotation.py`
@@ -1899,6 +1908,7 @@ Use this file when:
   - `core/tests/dev/test_extension_srs_action_workflows.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_browsing_admission_signals.py`
+  - `core/tests/dev/test_srs_browsing_admission_implicit_sample_pack_en_ja.py`
   - `core/tests/dev/test_srs_browsing_admission_research_en_es.py`
 - Known gaps:
   - Broad live page-word capture remains unwired; only LexiShift replacement

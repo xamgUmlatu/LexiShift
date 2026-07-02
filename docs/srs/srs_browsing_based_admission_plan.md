@@ -422,6 +422,18 @@ Current prototype evidence:
   `docs/test_outputs/srs_browsing_admission_backend_simulation_en_ja_latest.md`
   and
   `docs/test_outputs/srs_browsing_admission_backend_simulation_en_es_latest.md`.
+- `scripts/testing/srs_browsing_admission_implicit_sample_pack_en_ja.py`
+  renders a product-profile-shaped en-ja sidecar for implicit personalization:
+  neutral/no-history, explicit topic only, implicit history only, agreeing
+  explicit+implicit signals, conflicting explicit+implicit signals, and
+  blocked-lemma guard scenarios. The fixture uses already-resolved target lemma
+  aggregates and `preview_browsing_admission_refresh`; it does not test live
+  page-text extraction or mutate production SRS state.
+- `docs/test_outputs/srs_browsing_admission_implicit_sample_pack_en_ja_latest.md`
+  records the current sample result: all seven scenarios pass, no-history rows
+  preserve neutral selection, implicit history creates a bounded browsing lane,
+  conflict scenarios reserve some admission budget for browsing history, and
+  explicitly blocked lemmas remain excluded.
 
 ## Probability Model
 
@@ -1008,6 +1020,8 @@ Harness checks:
 - changed-file workflow check;
 - pair-general backend simulation via
   `scripts/testing/srs_browsing_admission_backend_simulation.py --pair ...`;
+- en-ja profile-shaped implicit browsing sample pack via
+  `scripts/testing/srs_browsing_admission_implicit_sample_pack_en_ja.py`;
 - offline page/text extraction research probe via
   `scripts/testing/srs_browsing_admission_research_en_es.py`, including its
   canonical helper/core probe section. This extraction probe is still
