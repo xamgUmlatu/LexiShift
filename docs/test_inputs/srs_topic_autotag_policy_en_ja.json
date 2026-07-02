@@ -1,0 +1,483 @@
+{
+  "schema_version": 1,
+  "policy_id": "srs_topic_autotag_policy_en_ja_v1",
+  "language_pair": "en-ja",
+  "status": "research_sidecar",
+  "purpose": "Source-policy palette for sidecar en-ja SRS topic autotagging experiments. This file defines evidence sources and mappings; it does not promote topic labels into runtime admission.",
+  "source_posture": {
+    "jmdict_field_direct": {
+      "default_membership": 1.0,
+      "default_confidence": 0.92,
+      "review_posture": "high_precision_exact_item_identity",
+      "license_note": "JMDict/EDRDG dictionary files are CC BY-SA 4.0; runtime/product redistribution needs attribution and share-alike posture."
+    },
+    "jmdict_misc_review": {
+      "default_membership": 0.65,
+      "default_confidence": 0.65,
+      "review_posture": "review_only_register_or_pop_culture",
+      "license_note": "JMDict/EDRDG dictionary files are CC BY-SA 4.0."
+    },
+    "jmdict_gloss_keyword": {
+      "default_membership": 0.55,
+      "default_confidence": 0.55,
+      "review_posture": "candidate_generation_only",
+      "license_note": "Derived from short JMDict gloss metadata; use for review packets before promotion."
+    },
+    "english_wordnet_gloss_bridge": {
+      "default_membership": 0.6,
+      "default_confidence": 0.6,
+      "review_posture": "candidate_generation_only",
+      "license_note": "Uses installed English WordNet lexname files and JMDict English gloss intersections."
+    },
+    "jawikipedia_dump_category": {
+      "default_membership": 0.7,
+      "default_confidence": 0.66,
+      "review_posture": "offline_dump_category_candidate_generation",
+      "license_note": "Uses downloaded Japanese Wikipedia page/redirect/category SQL dumps. Wikimedia content and categories are reusable under Wikimedia license terms; treat derived topic evidence as review data before product promotion."
+    },
+    "kaikki_wiktionary_topic": {
+      "default_membership": 0.68,
+      "default_confidence": 0.66,
+      "review_posture": "offline_wiktionary_topic_candidate_generation",
+      "license_note": "Uses downloaded Kaikki/Wiktionary Japanese JSONL data. Wiktionary-derived data is Wikimedia-licensed; treat as review evidence before product promotion."
+    },
+    "wikidata_online": {
+      "default_membership": 0.75,
+      "default_confidence": 0.72,
+      "review_posture": "bounded_online_candidate_generation",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached."
+    },
+    "ndl_online": {
+      "default_membership": 0.72,
+      "default_confidence": 0.7,
+      "review_posture": "bounded_online_authority_candidate_generation",
+      "license_note": "Web NDL Authorities data is public/free to use with attribution guidance; online probes are build-time only and cached."
+    },
+    "jawikipedia_category_online": {
+      "default_membership": 0.62,
+      "default_confidence": 0.58,
+      "review_posture": "noisy_category_candidate_generation",
+      "license_note": "Wikipedia category text is Wikimedia-licensed; use as review evidence, not direct product truth."
+    }
+  },
+  "jmdict_misc_mappings": [
+    {
+      "source_label": "manga slang",
+      "target_family": "anime_manga_pop_culture",
+      "membership": 0.65,
+      "confidence": 0.65,
+      "policy": "review_only_pop_culture_register"
+    },
+    {
+      "source_label": "slang",
+      "target_family": "casual_slang_register",
+      "membership": 0.6,
+      "confidence": 0.62,
+      "policy": "review_only_register"
+    },
+    {
+      "source_label": "Internet slang",
+      "target_family": "casual_slang_register",
+      "membership": 0.62,
+      "confidence": 0.65,
+      "policy": "review_only_register"
+    },
+    {
+      "source_label": "colloquial",
+      "target_family": "casual_slang_register",
+      "membership": 0.55,
+      "confidence": 0.58,
+      "policy": "review_only_register"
+    },
+    {
+      "source_label": "formal or literary term",
+      "target_family": "formal_professional_register",
+      "membership": 0.55,
+      "confidence": 0.58,
+      "policy": "review_only_register"
+    }
+  ],
+  "jmdict_gloss_keyword_rules": [
+    {
+      "id": "food_cooking_gloss_core",
+      "target_family": "food_cooking",
+      "membership": 0.62,
+      "confidence": 0.62,
+      "include_any": [
+        "\\bfood\\b",
+        "\\bcooking\\b",
+        "\\bcuisine\\b",
+        "\\bdish\\b",
+        "\\bmeal\\b",
+        "\\bingredient\\b",
+        "\\brecipe\\b",
+        "\\bsauce\\b",
+        "\\bsoup\\b",
+        "\\bnoodle\\b",
+        "\\brice\\b",
+        "\\btea\\b",
+        "\\bbeer\\b",
+        "\\bwine\\b",
+        "\\bfish\\b",
+        "\\bmeat\\b",
+        "\\bvegetable\\b",
+        "\\bfruit\\b",
+        "\\bsweet\\b",
+        "\\bdessert\\b"
+      ],
+      "exclude_any": ["food chain", "food web", "food for thought"]
+    },
+    {
+      "id": "animals_gloss_core",
+      "target_family": "animals",
+      "membership": 0.62,
+      "confidence": 0.62,
+      "include_any": [
+        "\\banimal\\b",
+        "\\bmammal\\b",
+        "\\bbird\\b",
+        "\\bfish\\b",
+        "\\binsect\\b",
+        "\\breptile\\b",
+        "\\bamphibian\\b",
+        "\\bcrustacean\\b",
+        "\\bmollusc\\b",
+        "\\bmollusk\\b",
+        "\\bshellfish\\b",
+        "\\bwildlife\\b",
+        "\\bzoology\\b",
+        "\\bveterinary\\b"
+      ],
+      "exclude_any": ["fish cake", "fish paste", "fish sauce"]
+    },
+    {
+      "id": "plants_nature_gloss_core",
+      "target_family": "plants_nature",
+      "membership": 0.62,
+      "confidence": 0.62,
+      "include_any": [
+        "\\bplant\\b",
+        "\\btree\\b",
+        "\\bflower\\b",
+        "\\bgrass\\b",
+        "\\bherb\\b",
+        "\\bshrub\\b",
+        "\\bseed\\b",
+        "\\bleaf\\b",
+        "\\broot\\b",
+        "\\bfungus\\b",
+        "\\bmushroom\\b",
+        "\\balga\\b",
+        "\\bbotany\\b",
+        "\\bagriculture\\b",
+        "\\bgardening\\b",
+        "\\bhorticulture\\b"
+      ],
+      "exclude_any": ["root cause", "grass roots"]
+    },
+    {
+      "id": "anime_manga_pop_culture_gloss_core",
+      "target_family": "anime_manga_pop_culture",
+      "membership": 0.62,
+      "confidence": 0.6,
+      "include_any": [
+        "\\banime\\b",
+        "\\bmanga\\b",
+        "\\bcomic\\b",
+        "\\bcosplay\\b",
+        "\\botaku\\b",
+        "\\bidol\\b",
+        "\\bvoice actor\\b",
+        "\\bvoice actress\\b",
+        "\\bpop culture\\b",
+        "\\bfandom\\b"
+      ],
+      "exclude_any": []
+    },
+    {
+      "id": "games_gloss_core",
+      "target_family": "games",
+      "membership": 0.6,
+      "confidence": 0.58,
+      "include_any": [
+        "\\bgame\\b",
+        "\\bvideo game\\b",
+        "\\bboard game\\b",
+        "\\bcard game\\b",
+        "\\bshogi\\b",
+        "\\bmahjong\\b",
+        "\\bgo game\\b",
+        "\\bgo player\\b",
+        "\\bchess\\b",
+        "\\bgamer\\b"
+      ],
+      "exclude_any": ["game animal", "game meat"]
+    },
+    {
+      "id": "medicine_health_gloss_core",
+      "target_family": "medicine_health",
+      "membership": 0.58,
+      "confidence": 0.58,
+      "include_any": [
+        "\\bmedicine\\b",
+        "\\bmedical\\b",
+        "\\bdisease\\b",
+        "\\bsymptom\\b",
+        "\\bhealth\\b",
+        "\\banatomy\\b",
+        "\\bphysiology\\b",
+        "\\bpharmacology\\b",
+        "\\bsurgery\\b",
+        "\\bdental\\b",
+        "\\bpsychiatry\\b",
+        "\\bpathology\\b"
+      ],
+      "exclude_any": []
+    },
+    {
+      "id": "sports_fitness_gloss_core",
+      "target_family": "sports_fitness",
+      "membership": 0.58,
+      "confidence": 0.58,
+      "include_any": [
+        "\\bsport\\b",
+        "\\bbaseball\\b",
+        "\\bsoccer\\b",
+        "\\bfootball\\b",
+        "\\bsumo\\b",
+        "\\bmartial art\\b",
+        "\\bboxing\\b",
+        "\\bgolf\\b",
+        "\\btennis\\b",
+        "\\bskiing\\b",
+        "\\bfitness\\b",
+        "\\bathletic\\b"
+      ],
+      "exclude_any": []
+    },
+    {
+      "id": "travel_transport_gloss_core",
+      "target_family": "travel_places_transport",
+      "membership": 0.56,
+      "confidence": 0.55,
+      "include_any": [
+        "\\btravel\\b",
+        "\\btourism\\b",
+        "\\bhotel\\b",
+        "\\bairport\\b",
+        "\\brailway\\b",
+        "\\btrain\\b",
+        "\\bstation\\b",
+        "\\bvehicle\\b",
+        "\\baviation\\b",
+        "\\bgeography\\b"
+      ],
+      "exclude_any": []
+    }
+  ],
+  "wordnet_lexname_mappings": [
+    {"lexname_file": "noun.food.json", "target_family": "food_cooking", "membership": 0.68, "confidence": 0.65},
+    {"lexname_file": "noun.animal.json", "target_family": "animals", "membership": 0.68, "confidence": 0.65},
+    {"lexname_file": "noun.plant.json", "target_family": "plants_nature", "membership": 0.68, "confidence": 0.65},
+    {"lexname_file": "noun.artifact.json", "target_family": "hobbies_crafts", "membership": 0.45, "confidence": 0.42},
+    {"lexname_file": "noun.act.json", "target_family": "sports_fitness", "membership": 0.42, "confidence": 0.4}
+  ],
+  "kaikki_topic_mappings": [
+    {"source_label": "medicine", "target_family": "medicine_health", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "health", "target_family": "medicine_health", "membership": 0.74, "confidence": 0.68},
+    {"source_label": "anatomy", "target_family": "medicine_health", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "pharmacology", "target_family": "medicine_health", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "pathology", "target_family": "medicine_health", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "dentistry", "target_family": "medicine_health", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "economics", "target_family": "shopping_money", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "business", "target_family": "work_office", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "finance", "target_family": "shopping_money", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "sports", "target_family": "sports_fitness", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "baseball", "target_family": "sports_fitness", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "soccer", "target_family": "sports_fitness", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "sumo", "target_family": "sports_fitness", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "golf", "target_family": "sports_fitness", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "tennis", "target_family": "sports_fitness", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "games", "target_family": "games", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "video games", "target_family": "games", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "board games", "target_family": "games", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "card games", "target_family": "games", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "chess", "target_family": "games", "membership": 0.74, "confidence": 0.68},
+    {"source_label": "shogi", "target_family": "games", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "go", "target_family": "games", "membership": 0.74, "confidence": 0.66},
+    {"source_label": "mahjong", "target_family": "games", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "music", "target_family": "music_media_entertainment", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "film", "target_family": "music_media_entertainment", "membership": 0.74, "confidence": 0.68},
+    {"source_label": "television", "target_family": "music_media_entertainment", "membership": 0.74, "confidence": 0.68},
+    {"source_label": "media", "target_family": "music_media_entertainment", "membership": 0.7, "confidence": 0.64},
+    {"source_label": "law", "target_family": "law_politics_civics", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "politics", "target_family": "law_politics_civics", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "military", "target_family": "law_politics_civics", "membership": 0.62, "confidence": 0.62},
+    {"source_label": "sciences", "target_family": "science_math", "membership": 0.72, "confidence": 0.66},
+    {"source_label": "computing", "target_family": "computing_internet", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "internet", "target_family": "computing_internet", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "mathematics", "target_family": "science_math", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "chemistry", "target_family": "science_math", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "physics", "target_family": "science_math", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "astronomy", "target_family": "science_math", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "biology", "target_family": "science_math", "membership": 0.72, "confidence": 0.66},
+    {"source_label": "engineering", "target_family": "computing_internet", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "technology", "target_family": "computing_internet", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "travel", "target_family": "travel_places_transport", "membership": 0.72, "confidence": 0.66},
+    {"source_label": "transport", "target_family": "travel_places_transport", "membership": 0.72, "confidence": 0.66},
+    {"source_label": "railways", "target_family": "travel_places_transport", "membership": 0.74, "confidence": 0.68},
+    {"source_label": "aviation", "target_family": "travel_places_transport", "membership": 0.74, "confidence": 0.68},
+    {"source_label": "geography", "target_family": "travel_places_transport", "membership": 0.68, "confidence": 0.64},
+    {"source_label": "art", "target_family": "arts_literature_humanities", "membership": 0.72, "confidence": 0.66},
+    {"source_label": "literature", "target_family": "arts_literature_humanities", "membership": 0.72, "confidence": 0.66},
+    {"source_label": "philosophy", "target_family": "arts_literature_humanities", "membership": 0.72, "confidence": 0.66},
+    {"source_label": "religion", "target_family": "arts_literature_humanities", "membership": 0.68, "confidence": 0.64},
+    {"source_label": "history", "target_family": "arts_literature_humanities", "membership": 0.68, "confidence": 0.64},
+    {"source_label": "zoology", "target_family": "animals", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "animals", "target_family": "animals", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "entomology", "target_family": "animals", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "botany", "target_family": "plants_nature", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "plants", "target_family": "plants_nature", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "agriculture", "target_family": "plants_nature", "membership": 0.68, "confidence": 0.64},
+    {"source_label": "horticulture", "target_family": "plants_nature", "membership": 0.76, "confidence": 0.7},
+    {"source_label": "food", "target_family": "food_cooking", "membership": 0.8, "confidence": 0.74},
+    {"source_label": "cooking", "target_family": "food_cooking", "membership": 0.8, "confidence": 0.74},
+    {"source_label": "beverages", "target_family": "food_cooking", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "anime", "target_family": "anime_manga_pop_culture", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "manga", "target_family": "anime_manga_pop_culture", "membership": 0.78, "confidence": 0.72},
+    {"source_label": "comics", "target_family": "anime_manga_pop_culture", "membership": 0.72, "confidence": 0.66}
+  ],
+  "wikidata_roots": [
+    {"qid": "Q2095", "label": "food", "target_family": "food_cooking", "membership": 0.82, "confidence": 0.78},
+    {"qid": "Q729", "label": "animal", "target_family": "animals", "membership": 0.82, "confidence": 0.78},
+    {"qid": "Q5113", "label": "bird", "target_family": "animals", "membership": 0.8, "confidence": 0.76},
+    {"qid": "Q756", "label": "plant", "target_family": "plants_nature", "membership": 0.82, "confidence": 0.78},
+    {"qid": "Q506", "label": "flower", "target_family": "plants_nature", "membership": 0.78, "confidence": 0.74},
+    {"qid": "Q8092", "label": "tropical cyclone", "target_family": "plants_nature", "membership": 0.72, "confidence": 0.68},
+    {"qid": "Q7889", "label": "video game", "target_family": "games", "membership": 0.78, "confidence": 0.74},
+    {"qid": "Q131436", "label": "board game", "target_family": "games", "membership": 0.78, "confidence": 0.74},
+    {"qid": "Q142714", "label": "card game", "target_family": "games", "membership": 0.78, "confidence": 0.74},
+    {"qid": "Q1004", "label": "comics", "target_family": "anime_manga_pop_culture", "membership": 0.8, "confidence": 0.76},
+    {"qid": "Q8274", "label": "manga", "target_family": "anime_manga_pop_culture", "membership": 0.8, "confidence": 0.76},
+    {"qid": "Q1107", "label": "anime", "target_family": "anime_manga_pop_culture", "membership": 0.8, "confidence": 0.76},
+    {"qid": "Q7725634", "label": "literary work", "target_family": "arts_literature_humanities", "membership": 0.76, "confidence": 0.72},
+    {"qid": "Q93184", "label": "drawing", "target_family": "arts_literature_humanities", "membership": 0.74, "confidence": 0.7},
+    {"qid": "Q11424", "label": "film", "target_family": "music_media_entertainment", "membership": 0.78, "confidence": 0.74},
+    {"qid": "Q5398426", "label": "television series", "target_family": "music_media_entertainment", "membership": 0.76, "confidence": 0.72},
+    {"qid": "Q349", "label": "sport", "target_family": "sports_fitness", "membership": 0.78, "confidence": 0.74},
+    {"qid": "Q12136", "label": "disease", "target_family": "medicine_health", "membership": 0.76, "confidence": 0.72},
+    {"qid": "Q395", "label": "mathematics", "target_family": "science_math", "membership": 0.75, "confidence": 0.72},
+    {"qid": "Q11016", "label": "technology", "target_family": "computing_internet", "membership": 0.75, "confidence": 0.72},
+    {"qid": "Q7397", "label": "software", "target_family": "computing_internet", "membership": 0.76, "confidence": 0.72},
+    {"qid": "Q1248784", "label": "airport", "target_family": "travel_places_transport", "membership": 0.78, "confidence": 0.74},
+    {"qid": "Q55488", "label": "railway station", "target_family": "travel_places_transport", "membership": 0.78, "confidence": 0.74},
+    {"qid": "Q515", "label": "city", "target_family": "travel_places_transport", "membership": 0.74, "confidence": 0.7},
+    {"qid": "Q486972", "label": "human settlement", "target_family": "travel_places_transport", "membership": 0.7, "confidence": 0.66},
+    {"qid": "Q11692", "label": "share", "target_family": "shopping_money", "membership": 0.74, "confidence": 0.7},
+    {"qid": "Q8142", "label": "currency", "target_family": "shopping_money", "membership": 0.76, "confidence": 0.72},
+    {"qid": "Q57735705", "label": "legal person role", "target_family": "law_politics_civics", "membership": 0.72, "confidence": 0.68},
+    {"qid": "Q5159627", "label": "confection", "target_family": "food_cooking", "membership": 0.78, "confidence": 0.74}
+  ],
+  "wikidata_exact_label_list_collections": [
+    {
+      "id": "food_dishes_drinks",
+      "display_name": "Food, Dishes & Drinks",
+      "target_family": "food_cooking",
+      "source_label": "food_dish_drink",
+      "qids": ["Q2095", "Q746549", "Q40050", "Q5159627"],
+      "relation": "instance_or_subclass",
+      "membership": 0.82,
+      "confidence": 0.78
+    },
+    {
+      "id": "sports_named",
+      "display_name": "Named Sports",
+      "target_family": "sports_fitness",
+      "source_label": "sport",
+      "qids": ["Q349"],
+      "relation": "subclass_only",
+      "membership": 0.8,
+      "confidence": 0.76
+    },
+    {
+      "id": "games_named",
+      "display_name": "Named Games",
+      "target_family": "games",
+      "source_label": "game",
+      "qids": ["Q7889", "Q131436", "Q142714"],
+      "relation": "subclass_only",
+      "membership": 0.78,
+      "confidence": 0.74
+    },
+    {
+      "id": "computing_software_web",
+      "display_name": "Computing, Software & Web",
+      "target_family": "computing_internet",
+      "source_label": "computing_software_web",
+      "qids": ["Q7397", "Q166142", "Q40056", "Q9143", "Q35127"],
+      "relation": "subclass_only",
+      "membership": 0.78,
+      "confidence": 0.74
+    },
+    {
+      "id": "plants_flowers",
+      "display_name": "Plants & Flowers",
+      "target_family": "plants_nature",
+      "source_label": "plant_flower",
+      "qids": ["Q756", "Q506"],
+      "relation": "subclass_only",
+      "membership": 0.8,
+      "confidence": 0.76
+    },
+    {
+      "id": "animals_birds",
+      "display_name": "Animals & Birds",
+      "target_family": "animals",
+      "source_label": "animal_bird",
+      "qids": ["Q729", "Q5113"],
+      "relation": "subclass_only",
+      "membership": 0.78,
+      "confidence": 0.74
+    },
+    {
+      "id": "anime_manga_comics",
+      "display_name": "Anime, Manga & Comics",
+      "target_family": "anime_manga_pop_culture",
+      "source_label": "anime_manga_comics",
+      "qids": ["Q1107", "Q8274", "Q1004"],
+      "relation": "subclass_only",
+      "membership": 0.8,
+      "confidence": 0.76
+    },
+    {
+      "id": "music_instruments",
+      "display_name": "Musical Instruments",
+      "target_family": "music_media_entertainment",
+      "source_label": "musical_instrument",
+      "qids": ["Q34379"],
+      "relation": "subclass_only",
+      "membership": 0.78,
+      "confidence": 0.74
+    },
+    {
+      "id": "shopping_currency",
+      "display_name": "Currency & Money",
+      "target_family": "shopping_money",
+      "source_label": "currency_money",
+      "qids": ["Q8142"],
+      "relation": "instance_or_subclass",
+      "membership": 0.76,
+      "confidence": 0.72
+    }
+  ],
+  "japanese_text_keyword_rules": [
+    {"target_family": "food_cooking", "membership": 0.72, "confidence": 0.68, "include_any": ["料理", "食品", "食物", "飲食", "菓子", "酒", "茶", "魚介", "野菜", "果物"]},
+    {"target_family": "animals", "membership": 0.72, "confidence": 0.68, "include_any": ["動物", "哺乳", "鳥類", "魚類", "昆虫", "爬虫", "両生", "甲殻", "貝", "獣医"]},
+    {"target_family": "plants_nature", "membership": 0.72, "confidence": 0.68, "include_any": ["植物", "樹木", "花", "草", "菌類", "きのこ", "農業", "園芸", "自然"]},
+    {"target_family": "anime_manga_pop_culture", "membership": 0.72, "confidence": 0.68, "include_any": ["漫画", "アニメ", "声優", "アイドル", "コスプレ", "オタク", "ポップカルチャー"]},
+    {"target_family": "games", "membership": 0.7, "confidence": 0.65, "include_any": ["ゲーム", "ビデオゲーム", "将棋", "囲碁", "麻雀", "カードゲーム"]},
+    {"target_family": "medicine_health", "membership": 0.7, "confidence": 0.66, "include_any": ["医学", "医療", "病気", "疾患", "薬学", "解剖", "生理", "歯科", "手術", "精神医学"]},
+    {"target_family": "sports_fitness", "membership": 0.7, "confidence": 0.66, "include_any": ["スポーツ", "野球", "サッカー", "相撲", "武道", "格闘技", "ゴルフ", "テニス", "スキー"]},
+    {"target_family": "travel_places_transport", "membership": 0.66, "confidence": 0.62, "include_any": ["旅行", "観光", "交通", "鉄道", "航空", "地理", "ホテル", "駅", "空港"]}
+  ]
+}

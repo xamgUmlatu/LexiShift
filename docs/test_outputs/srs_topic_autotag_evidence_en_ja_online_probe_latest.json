@@ -1,0 +1,89 @@
+{
+  "candidate_summary": {
+    "candidate_states": {
+      "deprioritized_vocab": 3,
+      "normal_vocab": 497
+    },
+    "loaded_count": 500,
+    "score_max": 0.114195,
+    "score_min": 0.000225,
+    "top_n": 500
+  },
+  "decision": "srs_topic_autotag_evidence_ready",
+  "evidence_rows": [],
+  "findings": [
+    {
+      "code": "candidate_universe_loaded",
+      "level": "PASS",
+      "message": "Loaded 500 en-ja corrected difficulty candidates."
+    },
+    {
+      "code": "wikidata_sparql_failed",
+      "level": "WARN",
+      "message": "Wikidata SPARQL probe failed; trying API search fallback: HTTP Error 429: Aggressively rate-limiting to 1 req / min - this rule was created during active wdqs outage (797a132)"
+    },
+    {
+      "code": "wikidata_api_search_completed",
+      "level": "PASS",
+      "message": "Queried Wikidata wbsearchentities fallback for 10 exact labels."
+    },
+    {
+      "code": "ndl_online_completed",
+      "level": "PASS",
+      "message": "Queried Web NDL Authorities for 10 bounded labels."
+    },
+    {
+      "code": "jawikipedia_online_failed",
+      "level": "WARN",
+      "message": "ja.wikipedia probe failed: HTTP Error 429: Too Many Requests"
+    },
+    {
+      "code": "topic_evidence_empty",
+      "level": "WARN",
+      "message": "No topic evidence rows were generated for the selected sources."
+    }
+  ],
+  "generated_at": "2026-06-30T15:51:00+00:00",
+  "inputs": {
+    "candidates_csv": "core/lexishift_core/resources/srs/en_ja/learner_difficulty_corrected.csv",
+    "enable_network": true,
+    "jmdict": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/jmdict-ja-en/JMdict_e",
+    "max_sample_rows": 40,
+    "max_sample_rows_per_source": 80,
+    "online_chunk_size": 5,
+    "online_limit": 10,
+    "policy_json": "docs/test_inputs/srs_topic_autotag_policy_en_ja.json",
+    "sample_per_cell": 2,
+    "sources": [
+      "wikidata_online",
+      "ndl_online",
+      "jawikipedia_category_online"
+    ],
+    "taxonomy_json": "docs/test_inputs/srs_topic_preference_taxonomy_en_ja.json",
+    "top_n": 500,
+    "wordnet_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/english-wordnet-2025-json"
+  },
+  "language_pair": "en-ja",
+  "limitations": [
+    "This artifact compares source strategies; it does not decide product topic membership.",
+    "JMDict field evidence is high precision but sparse and still sense-polysemy-sensitive.",
+    "Gloss, WordNet, Wikipedia category, and NDL keyword evidence are candidate-generation signals until reviewed.",
+    "Wikidata/NDL/Wikipedia online adapters are intentionally bounded; full coverage should use cached/dump-based ingestion if promoted."
+  ],
+  "method": {
+    "candidate_universe": "packaged corrected en-ja learner difficulty rows, preserving score, band, candidate_state, and correction metadata",
+    "item_identity": "JMDict local evidence requires exact surface plus normalized reading when a written surface exists; kana-only dictionary entries match kana-only candidates by normalized reading",
+    "online_posture": "online adapters are bounded build-time probes and never runtime dependencies",
+    "promotion_posture": "research evidence only; rows are not runtime topic overlays until reviewed and exported by a separate promotion step"
+  },
+  "review_sample": [],
+  "sample_summary": {
+    "row_count": 0,
+    "source_counts": {},
+    "topic_counts": {}
+  },
+  "schema_version": 1,
+  "source_summary": {},
+  "status": "ok",
+  "topic_summary": {}
+}

@@ -67,19 +67,35 @@
       "proficiency": 1.0
     },
     {
-      "name": "finance_business_p45",
-      "description": "Finance/business preference at intermediate proficiency.",
+      "name": "shopping_money_p45",
+      "description": "Shopping/money preference at intermediate proficiency.",
       "proficiency": 0.45,
       "topic_weights": {
-        "finance_business": 1.0
+        "shopping_money": 1.0
       }
     },
     {
-      "name": "science_technology_p45",
-      "description": "Science/technology preference at intermediate proficiency.",
+      "name": "work_office_p45",
+      "description": "Work/office preference at intermediate proficiency.",
       "proficiency": 0.45,
       "topic_weights": {
-        "science_technology": 1.0
+        "work_office": 1.0
+      }
+    },
+    {
+      "name": "science_math_p45",
+      "description": "Science/math preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "science_math": 1.0
+      }
+    },
+    {
+      "name": "computing_internet_p45",
+      "description": "Computing/internet preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "computing_internet": 1.0
       }
     },
     {
@@ -107,12 +123,56 @@
       }
     },
     {
-      "name": "mixed_business_tech_p50",
-      "description": "Weighted mixed professional interests.",
+      "name": "anime_manga_p45",
+      "description": "Anime/manga/pop-culture preference at intermediate proficiency; documents current overlay coverage.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "anime_manga_pop_culture": 1.0
+      }
+    },
+    {
+      "name": "hobbies_crafts_p45",
+      "description": "Hobbies/crafts preference at intermediate proficiency; documents current overlay coverage.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "hobbies_crafts": 1.0
+      }
+    },
+    {
+      "name": "mixed_work_computing_p50",
+      "description": "Weighted mixed professional and computing interests.",
       "proficiency": 0.5,
       "topic_weights": {
-        "science_technology": 0.8,
-        "finance_business": 0.6
+        "computing_internet": 0.8,
+        "work_office": 0.6
+      }
+    },
+    {
+      "name": "mixed_food_travel_p35",
+      "description": "Weighted food/travel interests at lower-intermediate proficiency.",
+      "proficiency": 0.35,
+      "topic_weights": {
+        "food_cooking": 0.8,
+        "travel_places_transport": 0.6
+      }
+    },
+    {
+      "name": "mixed_science_medicine_p50",
+      "description": "Weighted science/medicine interests at upper-intermediate proficiency.",
+      "proficiency": 0.5,
+      "topic_weights": {
+        "science_math": 0.8,
+        "medicine_health": 0.6
+      }
+    },
+    {
+      "name": "mixed_anime_games_hobbies_p45",
+      "description": "Weighted entertainment, games, and hobbies interests at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "anime_manga_pop_culture": 0.7,
+        "games": 0.7,
+        "hobbies_crafts": 0.5
       }
     },
     {
@@ -132,11 +192,35 @@
       }
     },
     {
-      "name": "anime_manga_p45",
-      "description": "Anime/manga/pop-culture preference at intermediate proficiency; documents current overlay coverage.",
-      "proficiency": 0.45,
+      "name": "music_media_p35",
+      "description": "Music/media/entertainment preference at lower-intermediate proficiency.",
+      "proficiency": 0.35,
       "topic_weights": {
-        "anime_manga_pop_culture": 1.0
+        "music_media_entertainment": 1.0
+      }
+    },
+    {
+      "name": "law_politics_p60",
+      "description": "Law/politics/civics preference at N1-ish proficiency.",
+      "proficiency": 0.60,
+      "topic_weights": {
+        "law_politics_civics": 1.0
+      }
+    },
+    {
+      "name": "animals_p30",
+      "description": "Animals preference at lower-intermediate proficiency.",
+      "proficiency": 0.30,
+      "topic_weights": {
+        "animals": 1.0
+      }
+    },
+    {
+      "name": "plants_nature_p40",
+      "description": "Plants/nature preference at intermediate proficiency.",
+      "proficiency": 0.40,
+      "topic_weights": {
+        "plants_nature": 1.0
       }
     }
   ]

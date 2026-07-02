@@ -162,10 +162,7 @@ def preview_browsing_admission_refresh(
             "simulations": {},
         }
 
-    effective_candidates = _apply_lifecycle_filter(
-        _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos),
-        blocked_lemmas=blocked_lemmas,
-    )
+    allowed_candidates = _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos)
     growth_config = SrsGrowthConfig(
         selector_config=policy.selector_config,
         coverage_scalar=1.0,
@@ -177,7 +174,7 @@ def preview_browsing_admission_refresh(
         confidence_min=None,
     )
     growth_plan = plan_srs_growth(
-        effective_candidates,
+        allowed_candidates,
         store=store,
         settings=settings,
         config=growth_config,
@@ -401,8 +398,9 @@ def apply_admission_refresh(
         policy=policy,
         now=now,
     )
+    allowed_candidates = _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos)
     effective_candidates = _apply_lifecycle_filter(
-        _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos),
+        allowed_candidates,
         blocked_lemmas=blocked_lemmas,
     )
     if decision.admission_budget <= 0:
@@ -435,7 +433,7 @@ def apply_admission_refresh(
         confidence_min=None,
     )
     updated_store, growth_plan = grow_srs_store(
-        effective_candidates,
+        allowed_candidates,
         store=store,
         settings=settings,
         config=growth_config,

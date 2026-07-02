@@ -72,14 +72,6 @@ DEFAULT_MANUAL_CORRECTIONS_JSON = (
 )
 FIRST_REVIEW_COUNT = 100
 MANUAL_WATCHLIST: dict[tuple[str, str], str] = {
-    ("吐く", "つく"): (
-        "manual_override_candidate: JLPT lists exact pair, but product "
-        "presentation likely wants this written form later."
-    ),
-    ("時々", "じじ"): ("manual_override_candidate: rare reading of common surface 時々/ときどき."),
-    ("何人", "なにびと"): (
-        "manual_override_candidate: rare/literary reading of common-looking surface."
-    ),
     ("或いは", "あるいは"): "watch_only: acceptable unless final review finds it too early.",
     ("猶", "なお"): (
         "watch_only: should be handled by orthographic overlay; verify final placement."

@@ -9,6 +9,7 @@ from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput
 from lexishift_core.helper.use_cases.rule_availability import (
+    RuleAvailabilityReconciliation,
     reconcile_active_items_without_enabled_rules,
 )
 from lexishift_core.rulegen.tuning import resolve_rulegen_tuning
@@ -23,6 +24,7 @@ from lexishift_core.srs import (
     save_srs_inventory,
     save_srs_store,
     set_active_item_ids,
+    srs_item_is_active,
 )
 from lexishift_core.srs.admission_refresh import (
     AdmissionRefreshPolicy,
@@ -57,6 +59,9 @@ from lexishift_core.srs.set_strategy import (
 )
 from lexishift_core.srs.store_ops import build_item_id
 from lexishift_core.srs.time import now_utc
+
+
+MAX_RULE_AVAILABILITY_REFILL_ATTEMPTS = 3
 
 
 def refresh_srs_set(
@@ -280,11 +285,21 @@ def refresh_srs_set(
             else "inventory_backfilled"
         )
 
-    after_pair_count = count_items_for_pair_fn(updated_store, pair)
-    added_items = max(0, after_pair_count - before_pair_count)
     published_rulegen = None
+    rule_availability_refill_payload = {
+        "attempted": False,
+        "attempt_count": 0,
+        "max_attempts": MAX_RULE_AVAILABILITY_REFILL_ATTEMPTS,
+        "target_active_count": len(active_item_ids),
+        "active_count_after": len(active_item_ids),
+        "shortfall_count": 0,
+        "attempts": [],
+    }
     if refresh_result.applied or active_rotation_release.released_item_ids:
-        effective_rulegen_tuning = resolve_rulegen_tuning(pair)
+        rulegen_config = _rulegen_config_for_pair(pair)
+        target_active_count = len(active_item_ids)
+        rule_availability_reconciliations: list[RuleAvailabilityReconciliation] = []
+        refill_attempts: list[dict[str, object]] = []
         _updated_store, rulegen_output = run_rulegen_for_pair_fn(
             paths=paths,
             pair=pair,
@@ -293,29 +308,12 @@ def refresh_srs_set(
             settings=settings,
             jmdict_path=resolved_jmdict_path,
             translation_dict_path=resolved_translation_dict_path,
-            rulegen_config=RulegenConfig(
-                language_pair=pair,
-                confidence_threshold=effective_rulegen_tuning.confidence_threshold,
-                max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
-                max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
-                semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
-                enable_source_frequency_prior=(
-                    effective_rulegen_tuning.source_frequency_prior_enabled
-                ),
-                include_variants=effective_rulegen_tuning.include_variants,
-                allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
-                scoring=effective_rulegen_tuning.scoring,
-                reverse_check=effective_rulegen_tuning.reverse_check,
-                enable_exact_gloss_demotions=(
-                    effective_rulegen_tuning.enable_exact_gloss_demotions
-                ),
-            ),
+            rulegen_config=rulegen_config,
             active_item_ids=active_item_ids,
             semantic_context_targets=semantic_context_targets,
             initialize_if_empty=False,
             persist_store=False,
         )
-        rule_availability_reconciliation = None
         if config.persist_store and active_item_ids:
             (
                 updated_store,
@@ -329,10 +327,125 @@ def refresh_srs_set(
                 rules=rulegen_output.rules,
                 last_refreshed_at=inventory_updated_at,
             )
+            rule_availability_reconciliations.append(rule_availability_reconciliation)
             if rule_availability_reconciliation.changed:
                 active_item_ids = rule_availability_reconciliation.active_item_ids_after
                 save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
                 save_srs_inventory(inventory, inventory_path)
+            refill_attempt = 0
+            while (
+                refresh_result.applied
+                and len(active_item_ids) < target_active_count
+                and refill_attempt < MAX_RULE_AVAILABILITY_REFILL_ATTEMPTS
+            ):
+                missing_count = target_active_count - len(active_item_ids)
+                blocked_refill_lemmas = set(suppressed_lemmas.keys())
+                blocked_refill_lemmas.update(
+                    _active_lemmas_for_item_ids(
+                        updated_store,
+                        pair=pair,
+                        active_item_ids=active_item_ids,
+                    )
+                )
+                for reconciliation in rule_availability_reconciliations:
+                    blocked_refill_lemmas.update(
+                        str(lemma).strip()
+                        for lemma in reconciliation.discarded_lemmas
+                        if str(lemma).strip()
+                    )
+                refill_policy = replace(
+                    refresh_policy,
+                    active_item_ids=active_item_ids,
+                    max_new_items_override=missing_count,
+                    blocked_lemmas=blocked_refill_lemmas or None,
+                )
+                refill_store, refill_result = apply_admission_refresh(
+                    store=updated_store,
+                    settings=settings,
+                    pair=pair,
+                    candidates=selector_candidates,
+                    events=signal_events,
+                    policy=refill_policy,
+                )
+                refill_item_ids = tuple(
+                    item_id
+                    for item_id in _item_ids_for_lemmas(
+                        refill_store,
+                        pair=pair,
+                        lemmas=tuple(refill_result.selected_lemmas),
+                    )
+                    if item_id not in active_item_ids
+                )
+                refill_attempt += 1
+                refill_attempts.append(
+                    {
+                        "attempt": refill_attempt,
+                        "requested_count": missing_count,
+                        "admitted_count": int(refill_result.admitted_count),
+                        "added_item_ids": list(refill_item_ids),
+                        "added_lemmas": list(
+                            _active_lemmas_for_item_ids(
+                                refill_store,
+                                pair=pair,
+                                active_item_ids=refill_item_ids,
+                            )
+                        ),
+                        "blocked_lemmas": sorted(blocked_refill_lemmas),
+                        "reason_code": refill_result.decision.reason_code,
+                    }
+                )
+                if not refill_item_ids:
+                    break
+                updated_store = refill_store
+                save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
+                active_item_ids = merge_active_item_ids(active_item_ids, refill_item_ids)
+                inventory = set_active_item_ids(
+                    inventory,
+                    pair=pair,
+                    active_item_ids=active_item_ids,
+                    last_refreshed_at=inventory_updated_at,
+                )
+                save_srs_inventory(inventory, inventory_path)
+                _updated_store, rulegen_output = run_rulegen_for_pair_fn(
+                    paths=paths,
+                    pair=pair,
+                    profile_id=profile_id,
+                    store=updated_store,
+                    settings=settings,
+                    jmdict_path=resolved_jmdict_path,
+                    translation_dict_path=resolved_translation_dict_path,
+                    rulegen_config=rulegen_config,
+                    active_item_ids=active_item_ids,
+                    semantic_context_targets=semantic_context_targets,
+                    initialize_if_empty=False,
+                    persist_store=False,
+                )
+                (
+                    updated_store,
+                    inventory,
+                    rule_availability_reconciliation,
+                ) = reconcile_active_items_without_enabled_rules(
+                    store=updated_store,
+                    inventory=inventory,
+                    pair=pair,
+                    active_item_ids=active_item_ids,
+                    rules=rulegen_output.rules,
+                    last_refreshed_at=inventory_updated_at,
+                )
+                rule_availability_reconciliations.append(rule_availability_reconciliation)
+                if rule_availability_reconciliation.changed:
+                    active_item_ids = rule_availability_reconciliation.active_item_ids_after
+                    save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
+                    save_srs_inventory(inventory, inventory_path)
+            rule_availability_refill_payload = {
+                "attempted": bool(refill_attempts),
+                "attempt_count": len(refill_attempts),
+                "max_attempts": MAX_RULE_AVAILABILITY_REFILL_ATTEMPTS,
+                "target_active_count": target_active_count,
+                "active_count_after": len(active_item_ids),
+                "shortfall_count": max(0, target_active_count - len(active_item_ids)),
+                "attempts": refill_attempts,
+            }
         write_rulegen_outputs_fn(
             paths=paths,
             pair=pair,
@@ -363,13 +476,22 @@ def refresh_srs_set(
                 if getattr(rulegen_output, "semantic_inventory", None) is not None
                 else None
             ),
-            "rule_availability_reconciliation": (
-                rule_availability_reconciliation.to_dict()
-                if rule_availability_reconciliation is not None
-                else None
+            "rule_availability_reconciliation": _rule_availability_reconciliation_payload(
+                rule_availability_reconciliations
             ),
+            "rule_availability_refill": rule_availability_refill_payload,
         }
+    after_pair_count = count_items_for_pair_fn(updated_store, pair)
+    added_items = max(0, after_pair_count - before_pair_count)
     refresh_payload = admission_refresh_result_to_dict(refresh_result)
+    effective_selected_lemmas = _new_active_lemmas_after_refresh(
+        updated_store,
+        pair=pair,
+        active_item_ids_before=active_item_ids_for_refresh,
+        active_item_ids_after=active_item_ids,
+    )
+    refresh_payload["effective_selected_lemmas"] = list(effective_selected_lemmas)
+    refresh_payload["effective_admitted_count"] = len(effective_selected_lemmas)
     refresh_payload["active_rotation_release"] = active_rotation_release.to_dict()
     refresh_payload["selection_strategy_requested"] = strategy_requested
     refresh_payload["selection_strategy_effective"] = strategy_effective
@@ -378,13 +500,14 @@ def refresh_srs_set(
         refresh_payload["profile_growth"] = _profile_growth_payload(profile_growth_diagnostics)
         if _has_active_profile_signals(profile_growth_diagnostics):
             refresh_payload["selected_preferred_topic"] = _selected_preferred_topic_payload(
-                refresh_result.selected_lemmas,
+                effective_selected_lemmas,
                 selector_candidates,
             )
     refresh_payload["weight_terms"] = {
         "admission_weight": "Entry/growth score for adding words into S.",
         "serving_priority": "Due/scheduler-derived priority for selecting words already in S.",
     }
+    refresh_payload["rule_availability_refill"] = rule_availability_refill_payload
     return {
         "pair": pair,
         "profile_id": profile_id,
@@ -422,6 +545,111 @@ def refresh_srs_set(
         "persisted": bool(config.persist_store),
         "trigger": str(config.trigger or "manual"),
     }
+
+
+def _rulegen_config_for_pair(pair: str) -> RulegenConfig:
+    effective_rulegen_tuning = resolve_rulegen_tuning(pair)
+    return RulegenConfig(
+        language_pair=pair,
+        confidence_threshold=effective_rulegen_tuning.confidence_threshold,
+        max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
+        max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
+        semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
+        enable_source_frequency_prior=effective_rulegen_tuning.source_frequency_prior_enabled,
+        include_variants=effective_rulegen_tuning.include_variants,
+        allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
+        scoring=effective_rulegen_tuning.scoring,
+        reverse_check=effective_rulegen_tuning.reverse_check,
+        enable_exact_gloss_demotions=effective_rulegen_tuning.enable_exact_gloss_demotions,
+    )
+
+
+def _rule_availability_reconciliation_payload(
+    reconciliations: Sequence[RuleAvailabilityReconciliation],
+) -> dict[str, object] | None:
+    if not reconciliations:
+        return None
+    if len(reconciliations) == 1:
+        return reconciliations[0].to_dict()
+    discarded_lemmas: list[str] = []
+    discarded_item_ids: list[str] = []
+    for reconciliation in reconciliations:
+        discarded_lemmas.extend(reconciliation.discarded_lemmas)
+        discarded_item_ids.extend(reconciliation.discarded_item_ids)
+    return {
+        "reason": reconciliations[-1].reason,
+        "changed": any(reconciliation.changed for reconciliation in reconciliations),
+        "active_count_before": len(reconciliations[0].active_item_ids_before),
+        "active_count_after": len(reconciliations[-1].active_item_ids_after),
+        "discarded_count": len(discarded_item_ids),
+        "discarded_item_ids": discarded_item_ids,
+        "discarded_lemmas": discarded_lemmas,
+        "enabled_rule_lemma_count": len(reconciliations[-1].enabled_rule_lemmas),
+        "passes": [reconciliation.to_dict() for reconciliation in reconciliations],
+    }
+
+
+def _active_lemmas_for_item_ids(
+    store: SrsStore,
+    *,
+    pair: str,
+    active_item_ids: Sequence[str],
+) -> tuple[str, ...]:
+    items_by_id = {
+        str(item.item_id or "").strip(): item
+        for item in store.items
+        if item.language_pair == pair and str(item.item_id or "").strip()
+    }
+    lemmas: list[str] = []
+    seen: set[str] = set()
+    for item_id in active_item_ids:
+        item = items_by_id.get(str(item_id or "").strip())
+        if item is None or not srs_item_is_active(item):
+            continue
+        lemma = str(item.lemma or "").strip()
+        if not lemma or lemma in seen:
+            continue
+        seen.add(lemma)
+        lemmas.append(lemma)
+    return tuple(lemmas)
+
+
+def _item_ids_for_lemmas(
+    store: SrsStore,
+    *,
+    pair: str,
+    lemmas: Sequence[str],
+) -> tuple[str, ...]:
+    available_ids = {
+        str(item.item_id or "").strip()
+        for item in store.items
+        if item.language_pair == pair and srs_item_is_active(item)
+    }
+    item_ids: list[str] = []
+    seen: set[str] = set()
+    for lemma in lemmas:
+        item_id = build_item_id(pair, str(lemma or "").strip())
+        if not item_id or item_id in seen or item_id not in available_ids:
+            continue
+        seen.add(item_id)
+        item_ids.append(item_id)
+    return tuple(item_ids)
+
+
+def _new_active_lemmas_after_refresh(
+    store: SrsStore,
+    *,
+    pair: str,
+    active_item_ids_before: Sequence[str],
+    active_item_ids_after: Sequence[str],
+) -> tuple[str, ...]:
+    before = {str(item_id or "").strip() for item_id in active_item_ids_before}
+    new_item_ids = tuple(
+        str(item_id or "").strip()
+        for item_id in active_item_ids_after
+        if str(item_id or "").strip() and str(item_id or "").strip() not in before
+    )
+    return _active_lemmas_for_item_ids(store, pair=pair, active_item_ids=new_item_ids)
 
 
 def _resolve_refresh_strategy(value: object) -> str:

@@ -37,9 +37,13 @@
     const publishedRulegen = opts.publishedRulegen && typeof opts.publishedRulegen === "object"
       ? opts.publishedRulegen
       : null;
-    const selectedLemmas = Array.isArray(admission.selected_lemmas)
+    const rawSelectedLemmas = Array.isArray(admission.selected_lemmas)
       ? admission.selected_lemmas
       : [];
+    const effectiveSelectedLemmas = Array.isArray(admission.effective_selected_lemmas)
+      ? admission.effective_selected_lemmas
+      : [];
+    const selectedLemmas = effectiveSelectedLemmas.length ? effectiveSelectedLemmas : rawSelectedLemmas;
     const browsingPreview = result.browsing_admission_preview
       && typeof result.browsing_admission_preview === "object"
       ? result.browsing_admission_preview

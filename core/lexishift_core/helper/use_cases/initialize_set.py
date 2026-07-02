@@ -39,6 +39,8 @@ from lexishift_core.srs.source import SOURCE_INITIAL_SET
 from lexishift_core.srs.store_ops import build_item_id
 from lexishift_core.srs.time import now_utc
 
+MAX_RULE_AVAILABILITY_REFILL_ATTEMPTS = 3
+
 
 def initialize_srs_set(
     paths: HelperPaths,
@@ -227,6 +229,24 @@ def initialize_srs_set(
     save_srs_inventory(updated_inventory, inventory_path)
 
     effective_rulegen_tuning = resolve_rulegen_tuning(pair)
+    rulegen_config = RulegenConfig(
+        language_pair=pair,
+        confidence_threshold=effective_rulegen_tuning.confidence_threshold,
+        max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
+        max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
+        semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
+        enable_source_frequency_prior=effective_rulegen_tuning.source_frequency_prior_enabled,
+        include_variants=effective_rulegen_tuning.include_variants,
+        allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
+        scoring=effective_rulegen_tuning.scoring,
+        reverse_check=effective_rulegen_tuning.reverse_check,
+        enable_exact_gloss_demotions=(effective_rulegen_tuning.enable_exact_gloss_demotions),
+    )
+
+    target_active_count = len(active_item_ids)
+    rule_availability_reconciliations = []
+    refill_attempts: list[dict[str, object]] = []
+
     _updated_store, rulegen_output = run_rulegen_for_pair_fn(
         paths=paths,
         pair=pair,
@@ -235,24 +255,12 @@ def initialize_srs_set(
         settings=settings,
         jmdict_path=resolved_jmdict_path,
         translation_dict_path=resolved_translation_dict_path,
-        rulegen_config=RulegenConfig(
-            language_pair=pair,
-            confidence_threshold=effective_rulegen_tuning.confidence_threshold,
-            max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
-            max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
-            semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
-            enable_source_frequency_prior=effective_rulegen_tuning.source_frequency_prior_enabled,
-            include_variants=effective_rulegen_tuning.include_variants,
-            allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
-            scoring=effective_rulegen_tuning.scoring,
-            reverse_check=effective_rulegen_tuning.reverse_check,
-            enable_exact_gloss_demotions=(effective_rulegen_tuning.enable_exact_gloss_demotions),
-        ),
+        rulegen_config=rulegen_config,
         active_item_ids=active_item_ids,
-        semantic_context_targets=tuple(
-            str(lemma).strip()
-            for lemma in getattr(init_report, "initial_active_preview", ()) or ()
-            if str(lemma).strip()
+        semantic_context_targets=_active_lemmas_for_item_ids(
+            updated_store,
+            pair=pair,
+            active_item_ids=active_item_ids,
         ),
         initialize_if_empty=False,
         persist_store=False,
@@ -269,10 +277,122 @@ def initialize_srs_set(
         rules=rulegen_output.rules,
         last_initialized_at=inventory_updated_at,
     )
+    rule_availability_reconciliations.append(rule_availability_reconciliation)
     if rule_availability_reconciliation.changed:
         active_item_ids = rule_availability_reconciliation.active_item_ids_after
         save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
         save_srs_inventory(updated_inventory, inventory_path)
+    refill_attempt = 0
+    while (
+        len(active_item_ids) < target_active_count
+        and refill_attempt < MAX_RULE_AVAILABILITY_REFILL_ATTEMPTS
+    ):
+        missing_count = target_active_count - len(active_item_ids)
+        blocked_refill_lemmas = set(
+            _active_lemmas_for_item_ids(
+                updated_store,
+                pair=pair,
+                active_item_ids=active_item_ids,
+            )
+        )
+        for reconciliation in rule_availability_reconciliations:
+            blocked_refill_lemmas.update(str(lemma) for lemma in reconciliation.discarded_lemmas)
+        refill_store, refill_report = initialize_store_from_frequency_list_with_report_fn(
+            updated_store,
+            config=SetInitializationConfig(
+                frequency_db=resolved_set_source_db,
+                jmdict_path=resolved_jmdict_path,
+                top_n=sizing_policy.bootstrap_top_n_effective,
+                initial_active_count=missing_count,
+                language_pair=pair,
+                stopwords_path=stopwords_path,
+                require_jmdict=capability.requires_jmdict_for_seed,
+                source_label=frequency_source_label,
+                pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
+                seed_cache_dir=paths.srs_seed_frontier_cache_dir(),
+                strategy=str(config.strategy or "frequency_bootstrap"),
+                profile_context=config.profile_context,
+                blocked_lemmas=tuple(sorted(blocked_refill_lemmas)),
+            ),
+        )
+        refill_preview_lemmas = tuple(
+            str(lemma or "").strip()
+            for lemma in getattr(refill_report, "initial_active_preview", ()) or ()
+            if str(lemma or "").strip() and str(lemma or "").strip() not in blocked_refill_lemmas
+        )
+        refill_item_ids = tuple(
+            item_id
+            for item_id in _item_ids_for_lemmas(
+                refill_store,
+                pair=pair,
+                lemmas=refill_preview_lemmas,
+            )
+            if item_id not in active_item_ids
+        )
+        refill_attempt += 1
+        refill_attempts.append(
+            {
+                "attempt": refill_attempt,
+                "requested_count": missing_count,
+                "admitted_count": int(getattr(refill_report, "admitted_count", 0) or 0),
+                "added_item_ids": list(refill_item_ids),
+                "added_lemmas": list(
+                    _active_lemmas_for_item_ids(
+                        refill_store,
+                        pair=pair,
+                        active_item_ids=refill_item_ids,
+                    )
+                ),
+                "blocked_lemmas": sorted(blocked_refill_lemmas),
+            }
+        )
+        if not refill_item_ids:
+            break
+        updated_store = refill_store
+        save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
+        active_item_ids = merge_active_item_ids(active_item_ids, refill_item_ids)
+        updated_inventory = set_active_item_ids(
+            updated_inventory,
+            pair=pair,
+            active_item_ids=active_item_ids,
+            last_initialized_at=inventory_updated_at,
+        )
+        save_srs_inventory(updated_inventory, inventory_path)
+        _updated_store, rulegen_output = run_rulegen_for_pair_fn(
+            paths=paths,
+            pair=pair,
+            profile_id=profile_id,
+            store=updated_store,
+            settings=settings,
+            jmdict_path=resolved_jmdict_path,
+            translation_dict_path=resolved_translation_dict_path,
+            rulegen_config=rulegen_config,
+            active_item_ids=active_item_ids,
+            semantic_context_targets=_active_lemmas_for_item_ids(
+                updated_store,
+                pair=pair,
+                active_item_ids=active_item_ids,
+            ),
+            initialize_if_empty=False,
+            persist_store=False,
+        )
+        (
+            updated_store,
+            updated_inventory,
+            rule_availability_reconciliation,
+        ) = reconcile_active_items_without_enabled_rules(
+            store=updated_store,
+            inventory=updated_inventory,
+            pair=pair,
+            active_item_ids=active_item_ids,
+            rules=rulegen_output.rules,
+            last_initialized_at=inventory_updated_at,
+        )
+        rule_availability_reconciliations.append(rule_availability_reconciliation)
+        if rule_availability_reconciliation.changed:
+            active_item_ids = rule_availability_reconciliation.active_item_ids_after
+            save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
+            save_srs_inventory(updated_inventory, inventory_path)
     write_rulegen_outputs_fn(
         paths=paths,
         pair=pair,
@@ -340,7 +460,18 @@ def initialize_srs_set(
             ),
             "updated_at": inventory_updated_at,
         },
-        "rule_availability_reconciliation": rule_availability_reconciliation.to_dict(),
+        "rule_availability_reconciliation": _rule_availability_reconciliation_payload(
+            rule_availability_reconciliations
+        ),
+        "rule_availability_refill": {
+            "attempted": bool(refill_attempts),
+            "attempt_count": len(refill_attempts),
+            "max_attempts": MAX_RULE_AVAILABILITY_REFILL_ATTEMPTS,
+            "target_active_count": target_active_count,
+            "active_count_after": len(active_item_ids),
+            "shortfall_count": max(0, target_active_count - len(active_item_ids)),
+            "attempts": refill_attempts,
+        },
         "rulegen": {
             "published": True,
             "targets": rulegen_output.target_count,
@@ -359,4 +490,82 @@ def initialize_srs_set(
         "applied": True,
         "plan": plan_payload,
         "signal_summary": signal_summary,
+    }
+
+
+def _active_lemmas_for_item_ids(
+    store: SrsStore,
+    *,
+    pair: str,
+    active_item_ids: tuple[str, ...],
+) -> tuple[str, ...]:
+    items_by_id = {
+        str(item.item_id or "").strip(): item
+        for item in store.items
+        if item.language_pair == pair and str(item.item_id or "").strip()
+    }
+    lemmas: list[str] = []
+    seen: set[str] = set()
+    for item_id in active_item_ids:
+        item = items_by_id.get(str(item_id or "").strip())
+        if item is None or not srs_item_is_active(item):
+            continue
+        lemma = str(item.lemma or "").strip()
+        if not lemma or lemma in seen:
+            continue
+        seen.add(lemma)
+        lemmas.append(lemma)
+    return tuple(lemmas)
+
+
+def _item_ids_for_lemmas(
+    store: SrsStore,
+    *,
+    pair: str,
+    lemmas: tuple[str, ...],
+) -> tuple[str, ...]:
+    available_ids = {
+        item.item_id
+        for item in store.items
+        if item.language_pair == pair and srs_item_is_active(item)
+    }
+    item_ids: list[str] = []
+    seen: set[str] = set()
+    for lemma in lemmas:
+        item_id = build_item_id(pair, str(lemma or "").strip())
+        if not item_id or item_id in seen or item_id not in available_ids:
+            continue
+        seen.add(item_id)
+        item_ids.append(item_id)
+    return tuple(item_ids)
+
+
+def _rule_availability_reconciliation_payload(reconciliations: list[object]) -> dict[str, object]:
+    if not reconciliations:
+        return {
+            "reason": "no_enabled_rules",
+            "changed": False,
+            "active_count_before": 0,
+            "active_count_after": 0,
+            "discarded_count": 0,
+            "discarded_item_ids": [],
+            "discarded_lemmas": [],
+            "enabled_rule_lemma_count": 0,
+        }
+    first = reconciliations[0]
+    last = reconciliations[-1]
+    discarded_item_ids: list[str] = []
+    discarded_lemmas: list[str] = []
+    for reconciliation in reconciliations:
+        discarded_item_ids.extend(str(item_id) for item_id in reconciliation.discarded_item_ids)
+        discarded_lemmas.extend(str(lemma) for lemma in reconciliation.discarded_lemmas)
+    return {
+        "reason": str(getattr(first, "reason", "no_enabled_rules")),
+        "changed": bool(discarded_item_ids),
+        "active_count_before": len(getattr(first, "active_item_ids_before", ()) or ()),
+        "active_count_after": len(getattr(last, "active_item_ids_after", ()) or ()),
+        "discarded_count": len(discarded_item_ids),
+        "discarded_item_ids": discarded_item_ids,
+        "discarded_lemmas": discarded_lemmas,
+        "enabled_rule_lemma_count": len(getattr(last, "enabled_rule_lemmas", ()) or ()),
     }

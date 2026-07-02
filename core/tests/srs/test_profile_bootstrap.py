@@ -14,6 +14,7 @@ if PROJECT_ROOT not in sys.path:
 from lexishift_core.srs.learner_difficulty import (  # noqa: E402
     CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV,
     clear_corrected_learner_difficulty_cache,
+    lookup_corrected_en_ja_learner_difficulty,
     resolve_corrected_en_ja_learner_difficulty_csv_path,
     resolve_packaged_en_ja_learner_difficulty_manual_corrections_path,
 )
@@ -211,6 +212,61 @@ class TestProfileBootstrapTraits(unittest.TestCase):
             "learner_difficulty_v1:en_ja_corrected_ranking:exact_pair",
         )
         self.assertIn("en_ja_corrected_learner_difficulty_csv", traits.difficulty_sources)
+
+    def test_en_ja_corrected_ranking_matches_unique_display_form(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            csv_path = os.path.join(tmp, "corrected.csv")
+            with open(csv_path, "w", encoding="utf-8", newline="") as handle:
+                handle.write("rank,lemma,reading,score,band,correction_types,display_form\n")
+                handle.write("1,段々,だんだん,0.096,0.05-0.10,display_only,だんだん\n")
+            with mock.patch.dict(
+                os.environ,
+                {CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV: csv_path},
+            ):
+                clear_corrected_learner_difficulty_cache()
+                traits = extract_profile_bootstrap_candidate_traits(
+                    SimpleNamespace(
+                        lemma="だんだん",
+                        language_pair="en-ja",
+                        base_weight=0.31,
+                        admission_weight=0.31,
+                        metadata={},
+                    )
+                )
+                match = lookup_corrected_en_ja_learner_difficulty(lemma="だんだん")
+                clear_corrected_learner_difficulty_cache()
+
+        self.assertAlmostEqual(traits.difficulty_estimate, 0.096, places=6)
+        self.assertEqual(
+            traits.difficulty_proxy,
+            "learner_difficulty_v1:en_ja_corrected_ranking:exact_display_pair",
+        )
+        self.assertIsNotNone(match)
+        self.assertEqual(match.match_mode, "unique_display_form")
+
+    def test_en_ja_corrected_ranking_avoids_ambiguous_display_form_match(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            csv_path = os.path.join(tmp, "corrected.csv")
+            with open(csv_path, "w", encoding="utf-8", newline="") as handle:
+                handle.write("rank,lemma,reading,score,band,correction_types,display_form\n")
+                handle.write("1,仮名一,かな,0.10,0.10-0.15,display_only,かな\n")
+                handle.write("2,仮名二,かなに,0.60,0.60-0.65,display_only,かな\n")
+            with mock.patch.dict(
+                os.environ,
+                {CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV: csv_path},
+            ):
+                clear_corrected_learner_difficulty_cache()
+                ambiguous = lookup_corrected_en_ja_learner_difficulty(lemma="かな")
+                exact = lookup_corrected_en_ja_learner_difficulty(
+                    lemma="かな",
+                    reading="かなに",
+                )
+                clear_corrected_learner_difficulty_cache()
+
+        self.assertIsNone(ambiguous)
+        self.assertIsNotNone(exact)
+        self.assertEqual(exact.match_mode, "exact_display_pair")
+        self.assertAlmostEqual(exact.row.score, 0.60, places=6)
 
     def test_en_ja_corrected_ranking_avoids_reading_only_homophone_match(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

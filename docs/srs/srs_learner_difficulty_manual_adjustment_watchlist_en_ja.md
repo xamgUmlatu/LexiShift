@@ -161,14 +161,45 @@ The machine-readable source of truth for active/review/watch adjustments is
 | `山` | `さん` | Raise and route as compound/on-reading material. | `山/やま` is the ordinary standalone row; `山/さん` is mainly useful in compounds, names, or Sino-Japanese readings. |
 | `高` | `こう` | Raise and route as compound/on-reading material. | `高い/たかい` carries the ordinary learner-facing adjective; `高/こう` is mainly useful in compounds or bound readings. |
 | `けつまんこ` | `けつまんこ` | Route as sensitive/adult vocabulary. | The difficulty score is already tail-level, but it should not enter ordinary default standalone SRS admission. |
+| `吐く` | `つく` | Raise and route as a variant reading. | JLPT lists this exact pair, but product presentation wants the ordinary `つく` meanings carried by clearer written forms. |
+| `時々` | `じじ` | Raise and route as a rare reading. | `時々/ときどき` is the ordinary learner-facing row; `時々/じじ` should not inherit that beginner placement. |
+| `何人` | `なにびと` | Raise and route as a rare/literary reading. | `何人/なんにん` carries the ordinary count/person-question role; `何人/なにびと` is rare/literary. |
+| `家` | `や` | Raise and route as a rare/bound reading. | `家/いえ` and `家/うち` cover the ordinary learner-facing meanings; `家/や` has tiny exact standalone support. |
+| `間` | `あい` | Raise and route as a rare/literary reading. | `間/あいだ` is the ordinary learner-facing row; `間/あい` should not inherit early lesson support from the surface. |
+| `面` | `おも` | Raise and route as a marked/literary reading. | It is valid, but marked compared with ordinary face/surface vocabulary and should not be ordinary early standalone SRS. |
+| `何時` | `なんどき` | Raise and route as a marked written reading. | `何時/いつ` is the ordinary early row; `何時/なんどき` should not sit with beginner time words. |
+| `君` | `きんじ` | Raise and route as a rare reading. | `君/きみ` and `君/くん` are the learner-relevant rows; `君/きんじ` has tiny exact support. |
+| `海` | `あま` | Raise and route as a rare reading. | `海/うみ` is the ordinary standalone row; `海/あま` should not inherit early support from common sea vocabulary. |
+| `一時` | `いちどき` | Raise and route as a variant reading. | `一時/ひととき` and `一時/いっとき` are more plausible learner-facing readings; `一時/いちどき` is later/variant. |
+| `去年` | `こぞ` | Raise and route as an old/literary reading. | `去年/きょねん` is the ordinary beginner row; `去年/こぞ` is old/literary. |
+| `昨日` | `きそ` | Raise and route as a rare/literary reading. | `昨日/きのう` is the ordinary beginner row; `昨日/きそ` should not inherit that placement. |
+| `海` | `かい` | Raise and route as compound/on-reading material. | `海/うみ` is the ordinary standalone row; `海/かい` is mainly useful in compounds, names, or on-reading contexts. |
+| `悪口` | `あっこう` | Raise and route as a variant reading. | `悪口/わるぐち` is the ordinary learner-facing row; `悪口/あっこう` should not inherit that placement. |
+| `梅雨` | `ばいう` | Raise and route as a variant/on-reading form. | `梅雨/つゆ` is the ordinary learner-facing row; `梅雨/ばいう` is a later variant/on-reading form. |
+| `上` | `へ` | Raise and route as a rare/old reading. | `上/うえ` is the ordinary standalone row; `上/へ` should not inherit early support from common `上` rows. |
+| `傘` | `からかさ` | Raise and route as marked/specific vocabulary. | `傘/かさ` is the ordinary learner-facing row; `傘/からかさ` is marked/specific. |
+| `妹` | `いも` | Raise and route as a rare/literary reading. | `妹/いもうと` is the ordinary learner-facing row; `妹/いも` should not inherit beginner placement. |
+| `人気` | `ひとけ` | Move later within ordinary vocabulary. | It is valid standalone vocabulary, but should not sit near `人気/にんき` from same-surface inheritance. |
+| `氏` | `うじ` | Move later within ordinary vocabulary. | It is valid clan/lineage vocabulary, but narrower and later than the current same-surface-supported placement. |
+| `山中` | `やまなか` | Move later within ordinary vocabulary. | It is source-backed, but too specific and low-direct-support for early learner placement. |
+| `間` | `あわい` | Raise and route as literary/marked vocabulary. | `間/あいだ` is the ordinary learner-facing row; `間/あわい` should not inherit early lesson support from the surface. |
+| `遠` | `おち` | Raise and route as a rare/literary reading. | It has tiny exact support and should not appear as early ordinary standalone SRS vocabulary. |
+| `同じい` | `おなじい` | Raise and route as obsolete/nonstandard-looking vocabulary. | `同じ/おなじ` is the ordinary learner-facing form; `同じい/おなじい` should not inherit early adjective support. |
+| `大き` | `おおき` | Raise and route as a bound/stem form. | `大きい/おおきい` and `大きな/おおきな` are the ordinary learner-facing forms. |
+| `渓` | `けい` | Raise and route as compound/on-reading material. | It is mainly useful as kanji/on-reading or compound material rather than ordinary early standalone vocabulary. |
+| `闔` | `こう` | Raise and route as obscure kanji material. | It has tiny exact support and should not be ordinary standalone learner vocabulary. |
+| `旧る` | `ふる` | Raise and route as a rare written variant. | Ordinary `古い/ふるい` and `古びる/ふるびる` families should carry learner-facing roles. |
+| `曲` | `くせ` | Raise and route as an orthographic variant. | `癖/くせ` is the ordinary spelling for the learner-facing word. |
+| `共` | `むた` | Raise and route as archaic/literary vocabulary. | `共/とも` carries ordinary learner-facing roles. |
+| `己` | `つちのと` | Raise and route as specialized calendar material. | It is sexagenary-cycle material, not ordinary standalone vocabulary. |
+| `紫` | `し` | Raise and route as compound/on-reading material. | `紫/むらさき` is the ordinary learner-facing color row. |
+| `鯨` | `いさな` | Raise and route as literary vocabulary. | `鯨/くじら` is the ordinary learner-facing row. |
 
 ## Review Candidates
 
 | Surface | Reading | Current issue | Likely action | Why not model-driven now |
 | --- | --- | --- | --- | --- |
-| `吐く` | `つく` | JLPT source lists this exact pair, so the model treats it as source-backed. For product presentation, it still looks like a rare/awkward written form of a common reading. | Manually raise or mark for late written-form presentation after final ranking review. | Fixing it automatically would require overriding literal JLPT exact evidence, which risks harming truly valid JLPT rows. |
-| `時々` | `じじ` | Rare reading of a very common surface whose easier reading is `ときどき`. | Manually raise or route as rare-reading variant. | This is a same-surface rare-reading case, not the kana-preferred written-form problem solved by the orthographic overlay. |
-| `何人` | `なにびと` | Rare/literary reading of a common-looking surface. | Manually raise or route as rare-reading variant. | The model can see reading risk, but a general rule strong enough to fix this family can disturb ordinary same-surface learner rows. |
+| _none_ | _none_ | The previous review candidates have been promoted to active corrections. | Continue using the generated admission-veto candidate review pack for the next layer. | New rows should still be reviewed before activation because the mechanical flags include false positives such as useful ordinary readings. |
 
 ## Watch-Only Rows
 

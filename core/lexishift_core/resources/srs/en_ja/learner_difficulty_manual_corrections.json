@@ -1329,26 +1329,326 @@
     {
       "surface": "吐く",
       "reading": "つく",
-      "status": "review",
-      "correction_types": ["restricted_admission"],
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.55,
       "admission_override": "variant_reading",
-      "rationale": "JLPT lists this exact pair, but product presentation likely wants this written form later. Needs reviewed target before active score correction."
+      "rationale": "JLPT lists this exact pair, but product presentation wants the ordinary つく readings carried by clearer written forms; 吐く/つく should be later and restricted as a variant reading."
     },
     {
       "surface": "時々",
       "reading": "じじ",
-      "status": "review",
-      "correction_types": ["restricted_admission"],
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.62,
       "admission_override": "rare_reading",
-      "rationale": "Rare reading of common surface 時々/ときどき. Needs reviewed target before active score correction."
+      "rationale": "時々/ときどき is the ordinary learner-facing row; 時々/じじ is a rare reading of a common-looking surface and should not inherit beginner placement."
     },
     {
       "surface": "何人",
       "reading": "なにびと",
-      "status": "review",
-      "correction_types": ["restricted_admission"],
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.62,
       "admission_override": "rare_or_literary_reading",
-      "rationale": "Rare/literary reading of common-looking surface. Needs reviewed target before active score correction."
+      "rationale": "何人/なんにん carries the ordinary count/person-question role; 何人/なにびと is rare/literary and should not be ordinary early standalone SRS vocabulary."
+    },
+    {
+      "surface": "家",
+      "reading": "や",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.55,
+      "admission_override": "rare_or_bound_reading",
+      "rationale": "家/いえ and 家/うち cover the ordinary learner-facing meanings; 家/や has tiny exact support and is better treated as a restricted rare/bound reading."
+    },
+    {
+      "surface": "間",
+      "reading": "あい",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.50,
+      "admission_override": "rare_or_literary_reading",
+      "rationale": "間/あいだ is the ordinary learner-facing row; 間/あい is a rare/literary-looking reading and should not inherit early lesson support from the same written surface."
+    },
+    {
+      "surface": "面",
+      "reading": "おも",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.48,
+      "admission_override": "rare_or_literary_reading",
+      "rationale": "面/おも is valid but marked compared with ordinary face/surface vocabulary, and should not be ordinary early standalone SRS despite same-surface support."
+    },
+    {
+      "surface": "何時",
+      "reading": "なんどき",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.48,
+      "admission_override": "marked_written_reading",
+      "rationale": "何時/いつ is the ordinary early row; 何時/なんどき is a marked written/formal reading and should not sit with beginner time words."
+    },
+    {
+      "surface": "君",
+      "reading": "きんじ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.58,
+      "admission_override": "rare_reading",
+      "rationale": "君/きみ and 君/くん are the learner-relevant rows; 君/きんじ has tiny exact support and should be restricted as a rare reading."
+    },
+    {
+      "surface": "海",
+      "reading": "あま",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.58,
+      "admission_override": "rare_reading",
+      "rationale": "海/うみ is the ordinary standalone row; 海/あま is a rare reading and should not inherit early support from common sea vocabulary."
+    },
+    {
+      "surface": "一時",
+      "reading": "いちどき",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.45,
+      "admission_override": "variant_reading",
+      "rationale": "一時/ひととき and 一時/いっとき are more plausible learner-facing readings; 一時/いちどき should be later and restricted as a variant reading."
+    },
+    {
+      "surface": "去年",
+      "reading": "こぞ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.52,
+      "admission_override": "old_or_literary_reading",
+      "rationale": "去年/きょねん is the ordinary beginner row; 去年/こぞ is old/literary and should not inherit beginner placement."
+    },
+    {
+      "surface": "昨日",
+      "reading": "きそ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.58,
+      "admission_override": "rare_or_literary_reading",
+      "rationale": "昨日/きのう is the ordinary beginner row; 昨日/きそ is rare/literary and should not inherit beginner placement."
+    },
+    {
+      "surface": "海",
+      "reading": "かい",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.45,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "海/うみ is the ordinary standalone row; 海/かい is mainly useful as an on-reading or compound/name component and should not be ordinary early standalone SRS."
+    },
+    {
+      "surface": "悪口",
+      "reading": "あっこう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.48,
+      "admission_override": "variant_reading",
+      "rationale": "悪口/わるぐち is the ordinary learner-facing row; 悪口/あっこう is a variant reading and should not inherit that row's early placement."
+    },
+    {
+      "surface": "梅雨",
+      "reading": "ばいう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.45,
+      "admission_override": "variant_or_on_reading",
+      "rationale": "梅雨/つゆ is the ordinary learner-facing row; 梅雨/ばいう is a variant/on-reading form and should not be ordinary early standalone SRS."
+    },
+    {
+      "surface": "上",
+      "reading": "へ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.55,
+      "admission_override": "rare_or_old_reading",
+      "rationale": "上/うえ is the ordinary standalone row; 上/へ is rare/old and should not inherit early support from common 上 rows."
+    },
+    {
+      "surface": "傘",
+      "reading": "からかさ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.45,
+      "admission_override": "marked_or_specific_reading",
+      "rationale": "傘/かさ is the ordinary learner-facing row; 傘/からかさ is a marked/specific reading and should not be ordinary early standalone SRS."
+    },
+    {
+      "surface": "妹",
+      "reading": "いも",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.56,
+      "admission_override": "rare_or_literary_reading",
+      "rationale": "妹/いもうと is the ordinary learner-facing row; 妹/いも is rare/literary and should not inherit beginner placement."
+    },
+    {
+      "surface": "人気",
+      "reading": "ひとけ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.40,
+      "admission_override": "normal_vocab",
+      "rationale": "人気/にんき is the ordinary early learner row; 人気/ひとけ is valid standalone vocabulary but should sit later than the current same-surface-inherited placement."
+    },
+    {
+      "surface": "氏",
+      "reading": "うじ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.42,
+      "admission_override": "normal_vocab",
+      "rationale": "氏/うじ is valid clan/lineage vocabulary, but it is narrower and later than the current early placement produced by same-surface support."
+    },
+    {
+      "surface": "山中",
+      "reading": "やまなか",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.36,
+      "admission_override": "normal_vocab",
+      "rationale": "山中/やまなか is source-backed but too specific and low-direct-support for the current early placement."
+    },
+    {
+      "surface": "間",
+      "reading": "あわい",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.50,
+      "admission_override": "literary_or_marked_reading",
+      "rationale": "間/あいだ is the ordinary learner-facing row; 間/あわい is literary/marked and should not inherit early lesson support from the same surface."
+    },
+    {
+      "surface": "遠",
+      "reading": "おち",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.62,
+      "admission_override": "rare_or_literary_reading",
+      "rationale": "遠/おち is a rare/literary reading with tiny exact support and should not appear as early ordinary standalone SRS vocabulary."
+    },
+    {
+      "surface": "同じい",
+      "reading": "おなじい",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.62,
+      "admission_override": "obsolete_or_nonstandard_form",
+      "rationale": "同じ/おなじ is the ordinary learner-facing form; 同じい/おなじい is obsolete or nonstandard-looking and should not inherit early adjective support."
+    },
+    {
+      "surface": "大き",
+      "reading": "おおき",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.45,
+      "admission_override": "bound_or_stem_form",
+      "rationale": "大きい/おおきい and 大きな/おおきな are the ordinary learner-facing forms; 大き/おおき should not be ordinary early standalone SRS."
+    },
+    {
+      "surface": "渓",
+      "reading": "けい",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.55,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "渓/けい is mainly useful as kanji/on-reading or compound material rather than ordinary early standalone vocabulary."
+    },
+    {
+      "surface": "闔",
+      "reading": "こう",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.80,
+      "admission_override": "obscure_kanji_reading",
+      "rationale": "闔/こう is obscure kanji material with tiny exact support and should not be ordinary standalone learner vocabulary."
+    },
+    {
+      "surface": "旧る",
+      "reading": "ふる",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.65,
+      "admission_override": "rare_written_variant",
+      "rationale": "旧る/ふる is a rare written variant compared with ordinary 古い/ふるい and 古びる/ふるびる families; it should not be early standalone SRS."
+    },
+    {
+      "surface": "曲",
+      "reading": "くせ",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.58,
+      "admission_override": "orthographic_variant",
+      "rationale": "癖/くせ is the ordinary spelling for the learner-facing word; 曲/くせ is a rare/variant written form and should not inherit easier support."
+    },
+    {
+      "surface": "共",
+      "reading": "むた",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.65,
+      "admission_override": "archaic_or_literary_reading",
+      "rationale": "共/とも carries ordinary learner-facing roles; 共/むた is archaic/literary and should not be ordinary standalone SRS."
+    },
+    {
+      "surface": "己",
+      "reading": "つちのと",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.70,
+      "admission_override": "specialized_calendar_reading",
+      "rationale": "己/つちのと is specialized sexagenary-cycle material and should not be ranked like ordinary standalone vocabulary."
+    },
+    {
+      "surface": "紫",
+      "reading": "し",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.55,
+      "admission_override": "compound_or_on_reading",
+      "rationale": "紫/むらさき is the ordinary learner-facing color row; 紫/し is mainly on-reading or compound material."
+    },
+    {
+      "surface": "鯨",
+      "reading": "いさな",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.65,
+      "admission_override": "literary_reading",
+      "rationale": "鯨/くじら is the ordinary learner-facing row; 鯨/いさな is literary and should not inherit its surface familiarity."
+    },
+    {
+      "surface": "直",
+      "reading": "あたい",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.70,
+      "admission_override": "normal_vocab",
+      "rationale": "直/あたい is legitimate standalone vocabulary, but its old/formal flavor makes the mid-0.4 placement too early; keep it admissible with a later score floor."
+    },
+    {
+      "surface": "気",
+      "reading": "け",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.70,
+      "admission_override": "normal_vocab",
+      "rationale": "気/け is legitimate but field- or expression-specific enough that it should not appear with ordinary mid-level vocabulary; keep it admissible later."
+    },
+    {
+      "surface": "徒",
+      "reading": "あだ",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.72,
+      "admission_override": "normal_vocab",
+      "rationale": "徒/あだ is a real and somewhat useful literary word, but the current mid-0.4 placement is too early; keep it as high-difficulty admissible vocabulary."
     },
     {
       "surface": "或いは",

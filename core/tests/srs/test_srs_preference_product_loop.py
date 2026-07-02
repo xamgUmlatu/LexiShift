@@ -273,7 +273,7 @@ def _run_profile_growth_share_probe(
         root = Path(tmp)
         paths = build_helper_paths(root)
         pair = "en-es"
-        source_db = _create_frequency_db(paths.frequency_packs_dir / "freq-es-cde.sqlite")
+        source_db = _create_frequency_db(paths.frequency_packs_dir / "freq-es-spalex-v1.sqlite")
         translation_dict = paths.language_packs_dir / "wiktionary-es-en.sqlite"
         translation_dict.parent.mkdir(parents=True, exist_ok=True)
         translation_dict.write_text("{}\n", encoding="utf-8")
@@ -378,7 +378,7 @@ class TestSrsPreferenceProductLoop(unittest.TestCase):
             paths = build_helper_paths(root)
             pair = "en-es"
             profile_id = "animal-profile"
-            source_db = _create_frequency_db(paths.frequency_packs_dir / "freq-es-cde.sqlite")
+            source_db = _create_frequency_db(paths.frequency_packs_dir / "freq-es-spalex-v1.sqlite")
             translation_dict = paths.language_packs_dir / "wiktionary-es-en.sqlite"
             translation_dict.parent.mkdir(parents=True, exist_ok=True)
             translation_dict.write_text("{}\n", encoding="utf-8")

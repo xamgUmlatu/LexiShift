@@ -1,0 +1,1503 @@
+{
+  "candidate_summary": {
+    "covered_lemma_count": 2845,
+    "loaded_count": 73752,
+    "selected_by_band": {
+      "0.05-0.10": 2,
+      "0.10-0.15": 4,
+      "0.15-0.20": 5,
+      "0.20-0.25": 9,
+      "0.25-0.30": 2,
+      "0.30-0.35": 3,
+      "0.35-0.40": 4,
+      "0.40-0.45": 5,
+      "0.45-0.50": 6,
+      "0.50-0.55": 4,
+      "0.55-0.60": 5,
+      "0.60-0.65": 3,
+      "0.65-0.70": 3,
+      "0.70-0.75": 5,
+      "0.75-0.80": 4,
+      "0.80-0.85": 5,
+      "0.85-0.90": 5,
+      "0.90-0.95": 4,
+      "0.95-1.00": 2
+    },
+    "selected_candidate_sample": [
+      {
+        "band": "0.05-0.10",
+        "lemma": "乗る",
+        "rank": 107,
+        "reading": "のる",
+        "score": 0.050085
+      },
+      {
+        "band": "0.05-0.10",
+        "lemma": "着く",
+        "rank": 260,
+        "reading": "つく",
+        "score": 0.077373
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "詩",
+        "rank": 414,
+        "reading": "し",
+        "score": 0.102076
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "フリーター",
+        "rank": 576,
+        "reading": "ふりーたー",
+        "score": 0.124449
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "夫",
+        "rank": 727,
+        "reading": "おっと",
+        "score": 0.136737
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "台風",
+        "rank": 872,
+        "reading": "たいふう",
+        "score": 0.148941
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "込む",
+        "rank": 1017,
+        "reading": "こむ",
+        "score": 0.157655
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "頃",
+        "rank": 1157,
+        "reading": "ころ",
+        "score": 0.169237
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "メモ",
+        "rank": 1312,
+        "reading": "めも",
+        "score": 0.178446
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "ミス",
+        "rank": 1453,
+        "reading": "みす",
+        "score": 0.186582
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "明らか",
+        "rank": 1597,
+        "reading": "あきらか",
+        "score": 0.194887
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "御覧",
+        "rank": 1735,
+        "reading": "ごらん",
+        "score": 0.202352
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "抜く",
+        "rank": 1877,
+        "reading": "ぬく",
+        "score": 0.208369
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "数字",
+        "rank": 2031,
+        "reading": "すうじ",
+        "score": 0.214979
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "セール",
+        "rank": 2184,
+        "reading": "せーる",
+        "score": 0.220826
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "ズーム",
+        "rank": 2334,
+        "reading": "ずーむ",
+        "score": 0.227055
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "スケッチ",
+        "rank": 2487,
+        "reading": "すけっち",
+        "score": 0.23286
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "引っ張る",
+        "rank": 2626,
+        "reading": "ひっぱる",
+        "score": 0.238792
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "墓",
+        "rank": 2771,
+        "reading": "はか",
+        "score": 0.244343
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "サンクスギビング",
+        "rank": 2909,
+        "reading": "さんくすぎびんぐ",
+        "score": 0.249991
+      },
+      {
+        "band": "0.25-0.30",
+        "lemma": "犯人",
+        "rank": 2910,
+        "reading": "はんにん",
+        "score": 0.250015
+      },
+      {
+        "band": "0.25-0.30",
+        "lemma": "インスタント",
+        "rank": 3699,
+        "reading": "いんすたんと",
+        "score": 0.283246
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "エナメル",
+        "rank": 4493,
+        "reading": "えなめる",
+        "score": 0.306518
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "ビルディング",
+        "rank": 5267,
+        "reading": "びるでぃんぐ",
+        "score": 0.326446
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "浄化",
+        "rank": 6024,
+        "reading": "じょうか",
+        "score": 0.34669
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "遺族",
+        "rank": 6800,
+        "reading": "いぞく",
+        "score": 0.363568
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "夕日",
+        "rank": 7579,
+        "reading": "ゆうひ",
+        "score": 0.381754
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "本件",
+        "rank": 8366,
+        "reading": "ほんけん",
+        "score": 0.390585
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "内心",
+        "rank": 9161,
+        "reading": "ないしん",
+        "score": 0.398754
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "パッド",
+        "rank": 9944,
+        "reading": "ぱっど",
+        "score": 0.409636
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "気筒",
+        "rank": 10696,
+        "reading": "きとう",
+        "score": 0.419652
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "勝敗",
+        "rank": 11468,
+        "reading": "しょうはい",
+        "score": 0.429847
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "同月",
+        "rank": 12246,
+        "reading": "どうげつ",
+        "score": 0.439174
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "アフタヌーン",
+        "rank": 13017,
+        "reading": "あふたぬーん",
+        "score": 0.448058
+      },
+      {
+        "band": "0.45-0.50",
+        "lemma": "新橋",
+        "rank": 13833,
+        "reading": "しんばし",
+        "score": 0.457
+      },
+      {
+        "band": "0.45-0.50",
+        "lemma": "才",
+        "rank": 14639,
+        "reading": "さい",
+        "score": 0.465429
+      },
+      {
+        "band": "0.45-0.50",
+        "lemma": "客間",
+        "rank": 15473,
+        "reading": "きゃくま",
+        "score": 0.473915
+      },
+      {
+        "band": "0.45-0.50",
+        "lemma": "くり",
+        "rank": 16288,
+        "reading": "くり",
+        "score": 0.482379
+      },
+      {
+        "band": "0.45-0.50",
+        "lemma": "ちんぷんかんぷん",
+        "rank": 17114,
+        "reading": "ちんぷんかんぷん",
+        "score": 0.491373
+      },
+      {
+        "band": "0.45-0.50",
+        "lemma": "班長",
+        "rank": 17966,
+        "reading": "はんちょう",
+        "score": 0.499994
+      },
+      {
+        "band": "0.50-0.55",
+        "lemma": "入閣",
+        "rank": 17968,
+        "reading": "にゅうかく",
+        "score": 0.500005
+      },
+      {
+        "band": "0.50-0.55",
+        "lemma": "手早い",
+        "rank": 19352,
+        "reading": "てばやい",
+        "score": 0.513282
+      },
+      {
+        "band": "0.50-0.55",
+        "lemma": "浚う",
+        "rank": 20708,
+        "reading": "さらう",
+        "score": 0.526472
+      },
+      {
+        "band": "0.50-0.55",
+        "lemma": "薬理",
+        "rank": 22026,
+        "reading": "やくり",
+        "score": 0.539207
+      },
+      {
+        "band": "0.55-0.60",
+        "lemma": "半壊",
+        "rank": 23337,
+        "reading": "はんかい",
+        "score": 0.55164
+      },
+      {
+        "band": "0.55-0.60",
+        "lemma": "幕間",
+        "rank": 24659,
+        "reading": "まくあい",
+        "score": 0.562809
+      },
+      {
+        "band": "0.55-0.60",
+        "lemma": "蛮勇",
+        "rank": 25944,
+        "reading": "ばんゆう",
+        "score": 0.573648
+      },
+      {
+        "band": "0.55-0.60",
+        "lemma": "島民",
+        "rank": 27377,
+        "reading": "とうみん",
+        "score": 0.585835
+      },
+      {
+        "band": "0.55-0.60",
+        "lemma": "配付",
+        "rank": 28818,
+        "reading": "はいふ",
+        "score": 0.598081
+      },
+      {
+        "band": "0.60-0.65",
+        "lemma": "仏道",
+        "rank": 30197,
+        "reading": "ぶつどう",
+        "score": 0.613433
+      },
+      {
+        "band": "0.60-0.65",
+        "lemma": "十全",
+        "rank": 31558,
+        "reading": "じゅうぜん",
+        "score": 0.628881
+      },
+      {
+        "band": "0.60-0.65",
+        "lemma": "媒質",
+        "rank": 32963,
+        "reading": "ばいしつ",
+        "score": 0.644799
+      },
+      {
+        "band": "0.65-0.70",
+        "lemma": "累々",
+        "rank": 34352,
+        "reading": "るいるい",
+        "score": 0.660225
+      },
+      {
+        "band": "0.65-0.70",
+        "lemma": "吟ずる",
+        "rank": 35715,
+        "reading": "ぎんずる",
+        "score": 0.675072
+      },
+      {
+        "band": "0.65-0.70",
+        "lemma": "手慣れる",
+        "rank": 37091,
+        "reading": "てなれる",
+        "score": 0.688173
+      },
+      {
+        "band": "0.70-0.75",
+        "lemma": "移駐",
+        "rank": 38462,
+        "reading": "いちゅう",
+        "score": 0.701253
+      },
+      {
+        "band": "0.70-0.75",
+        "lemma": "飛び退く",
+        "rank": 39808,
+        "reading": "とびのく",
+        "score": 0.7139
+      },
+      {
+        "band": "0.70-0.75",
+        "lemma": "かっぽ",
+        "rank": 41153,
+        "reading": "かっぽ",
+        "score": 0.726323
+      },
+      {
+        "band": "0.70-0.75",
+        "lemma": "久寿",
+        "rank": 42507,
+        "reading": "きゅうじゅ",
+        "score": 0.738686
+      },
+      {
+        "band": "0.70-0.75",
+        "lemma": "コルベット",
+        "rank": 43835,
+        "reading": "こるべっと",
+        "score": 0.749997
+      },
+      {
+        "band": "0.75-0.80",
+        "lemma": "震わす",
+        "rank": 43836,
+        "reading": "ふるわす",
+        "score": 0.750005
+      },
+      {
+        "band": "0.75-0.80",
+        "lemma": "武断",
+        "rank": 45492,
+        "reading": "ぶだん",
+        "score": 0.763258
+      },
+      {
+        "band": "0.75-0.80",
+        "lemma": "窯変",
+        "rank": 47151,
+        "reading": "ようへん",
+        "score": 0.776284
+      },
+      {
+        "band": "0.75-0.80",
+        "lemma": "頬擦り",
+        "rank": 48761,
+        "reading": "ほおずり",
+        "score": 0.788673
+      },
+      {
+        "band": "0.80-0.85",
+        "lemma": "令旨",
+        "rank": 50322,
+        "reading": "りょうじ",
+        "score": 0.800482
+      },
+      {
+        "band": "0.80-0.85",
+        "lemma": "欲界",
+        "rank": 51848,
+        "reading": "よっかい",
+        "score": 0.811396
+      },
+      {
+        "band": "0.80-0.85",
+        "lemma": "閨秀",
+        "rank": 53405,
+        "reading": "けいしゅう",
+        "score": 0.821768
+      },
+      {
+        "band": "0.80-0.85",
+        "lemma": "大向こう",
+        "rank": 54971,
+        "reading": "おおむこう",
+        "score": 0.831975
+      },
+      {
+        "band": "0.80-0.85",
+        "lemma": "若白髪",
+        "rank": 56552,
+        "reading": "わかしらが",
+        "score": 0.842061
+      },
+      {
+        "band": "0.85-0.90",
+        "lemma": "蔓橋",
+        "rank": 58126,
+        "reading": "かずらばし",
+        "score": 0.851887
+      },
+      {
+        "band": "0.85-0.90",
+        "lemma": "引き写し",
+        "rank": 59697,
+        "reading": "ひきうつし",
+        "score": 0.86145
+      },
+      {
+        "band": "0.85-0.90",
+        "lemma": "筆画",
+        "rank": 61256,
+        "reading": "ひっかく",
+        "score": 0.872168
+      },
+      {
+        "band": "0.85-0.90",
+        "lemma": "裏芸",
+        "rank": 62805,
+        "reading": "うらげい",
+        "score": 0.882876
+      },
+      {
+        "band": "0.85-0.90",
+        "lemma": "練り切り",
+        "rank": 64380,
+        "reading": "ねりきり",
+        "score": 0.893391
+      },
+      {
+        "band": "0.90-0.95",
+        "lemma": "敦厚",
+        "rank": 65958,
+        "reading": "とんこう",
+        "score": 0.903615
+      },
+      {
+        "band": "0.90-0.95",
+        "lemma": "ラブバード",
+        "rank": 67565,
+        "reading": "らぶばーど",
+        "score": 0.914387
+      },
+      {
+        "band": "0.90-0.95",
+        "lemma": "笠雲",
+        "rank": 69092,
+        "reading": "かさぐも",
+        "score": 0.929404
+      },
+      {
+        "band": "0.90-0.95",
+        "lemma": "エミュレート",
+        "rank": 70647,
+        "reading": "えみゅれーと",
+        "score": 0.943575
+      },
+      {
+        "band": "0.95-1.00",
+        "lemma": "ヘモクロマトーシス",
+        "rank": 72209,
+        "reading": "へもくろまとーしす",
+        "score": 0.962927
+      },
+      {
+        "band": "0.95-1.00",
+        "lemma": "鼹鼠",
+        "rank": 73752,
+        "reading": "うごろもち",
+        "score": 1.0
+      }
+    ],
+    "selected_label_count": 80
+  },
+  "decision": "wikidata_claim_probe_has_topic_evidence",
+  "evidence_rows": [
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.40-0.45",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.76,
+      "core_rank": 23544.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 月刊アフタヌーン -> manga",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "アフタヌーン"
+        ],
+        "wikidata_depth": 2,
+        "wikidata_description": "日本の漫画月刊誌",
+        "wikidata_label": "月刊アフタヌーン",
+        "wikidata_path": [
+          "Q290043",
+          "Q15296520",
+          "Q8274"
+        ],
+        "wikidata_qid": "Q290043",
+        "wikidata_root_label": "manga",
+        "wikidata_root_qid": "Q8274",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "アフタヌーン",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "アフタヌーン",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.8,
+      "rank": 13017,
+      "reading": "あふたぬーん",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.448058,
+      "source": "wikidata_claim_probe",
+      "source_label": "manga",
+      "topic": "anime_manga_pop_culture",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 5551.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 詩 -> literary work",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "文学の一形式",
+        "wikidata_label": "詩",
+        "wikidata_path": [
+          "Q482",
+          "Q7725634"
+        ],
+        "wikidata_qid": "Q482",
+        "wikidata_root_label": "literary work",
+        "wikidata_root_qid": "Q7725634",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "詩",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "詩",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.76,
+      "rank": 414,
+      "reading": "し",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.102076,
+      "source": "wikidata_claim_probe",
+      "source_label": "literary work",
+      "topic": "arts_literature_humanities",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.7,
+      "core_rank": 11065.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: スケッチ -> drawing",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "スケッチ"
+        ],
+        "wikidata_depth": 1,
+        "wikidata_description": "人物や風景などを大まかに描写すること",
+        "wikidata_label": "スケッチ",
+        "wikidata_path": [
+          "Q5078274",
+          "Q93184"
+        ],
+        "wikidata_qid": "Q5078274",
+        "wikidata_root_label": "drawing",
+        "wikidata_root_qid": "Q93184",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "スケッチ",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "スケッチ",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.74,
+      "rank": 2487,
+      "reading": "すけっち",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.23286,
+      "source": "wikidata_claim_probe",
+      "source_label": "drawing",
+      "topic": "arts_literature_humanities",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.85-0.90",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.74,
+      "core_rank": 0.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 練り切り -> confection",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 2,
+        "wikidata_description": "和菓子の一種",
+        "wikidata_label": "練り切り",
+        "wikidata_path": [
+          "Q11608010",
+          "Q1063096",
+          "Q5159627"
+        ],
+        "wikidata_qid": "Q11608010",
+        "wikidata_root_label": "confection",
+        "wikidata_root_qid": "Q5159627",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "練り切り",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "練り切り",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.78,
+      "rank": 64380,
+      "reading": "ねりきり",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.893391,
+      "source": "wikidata_claim_probe",
+      "source_label": "confection",
+      "topic": "food_cooking",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.25-0.30",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.68,
+      "core_rank": 3162.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 犯罪者 -> legal person role",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "法律によって禁じられ刑罰が科される根拠となる事実・行為を行った人物",
+        "wikidata_label": "犯罪者",
+        "wikidata_path": [
+          "Q2159907",
+          "Q57735705"
+        ],
+        "wikidata_qid": "Q2159907",
+        "wikidata_root_label": "legal person role",
+        "wikidata_root_qid": "Q57735705",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "犯人",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "犯人",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.72,
+      "rank": 2910,
+      "reading": "はんにん",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.250015,
+      "source": "wikidata_claim_probe",
+      "source_label": "legal person role",
+      "topic": "law_politics_civics",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.68,
+      "core_rank": 3087.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 台風 -> tropical cyclone",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 2,
+        "wikidata_description": "北西太平洋および南シナ海で発生する強い熱帯低気圧",
+        "wikidata_label": "台風",
+        "wikidata_path": [
+          "Q140588",
+          "Q63100732",
+          "Q8092"
+        ],
+        "wikidata_qid": "Q140588",
+        "wikidata_root_label": "tropical cyclone",
+        "wikidata_root_qid": "Q8092",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "台風",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "台風",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.72,
+      "rank": 872,
+      "reading": "たいふう",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.148941,
+      "source": "wikidata_claim_probe",
+      "source_label": "tropical cyclone",
+      "topic": "plants_nature",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.45-0.50",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.78,
+      "core_rank": 0.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: クリ -> plant",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "くり",
+          "クリ"
+        ],
+        "wikidata_depth": 4,
+        "wikidata_description": "ブナ科クリ属の植物の総称",
+        "wikidata_label": "クリ",
+        "wikidata_path": [
+          "Q717827",
+          "Q129324",
+          "Q10884",
+          "Q757163",
+          "Q756"
+        ],
+        "wikidata_qid": "Q717827",
+        "wikidata_root_label": "plant",
+        "wikidata_root_qid": "Q756",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "くり",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "くり",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.82,
+      "rank": 16288,
+      "reading": "くり",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.482379,
+      "source": "wikidata_claim_probe",
+      "source_label": "plant",
+      "topic": "plants_nature",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.90-0.95",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 0.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: エミュレータ -> software",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "エミュレート",
+          "エミュレータ"
+        ],
+        "wikidata_depth": 2,
+        "wikidata_description": "software that enables one computer system (called the host) to behave like another computer system (called the guest)",
+        "wikidata_label": "エミュレータ",
+        "wikidata_path": [
+          "Q202871",
+          "Q114981191",
+          "Q7397"
+        ],
+        "wikidata_qid": "Q202871",
+        "wikidata_root_label": "software",
+        "wikidata_root_qid": "Q7397",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "エミュレート",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "エミュレート",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.76,
+      "rank": 70647,
+      "reading": "えみゅれーと",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.943575,
+      "source": "wikidata_claim_probe",
+      "source_label": "software",
+      "topic": "science_technology",
+      "topic_stretch_allowed": ""
+    }
+  ],
+  "findings": [
+    {
+      "code": "wikidata_claim_probe_completed",
+      "level": "PASS",
+      "message": "Checked 80 exact labels, found 32 exact entities, skipped 9 disambiguation pages, mapped 8, missed roots for 15. Reading identity gate: accepted_exact_source_reading=15, accepted_unique_surface_reading=17."
+    },
+    {
+      "code": "wikidata_claim_evidence_generated",
+      "level": "PASS",
+      "message": "Generated 8 Wikidata claim evidence rows."
+    }
+  ],
+  "generated_at": "2026-06-30T23:31:28+00:00",
+  "inputs": {
+    "cache_json": "docs/test_outputs/srs_topic_autotag_wikidata_claim_probe_cache_en_ja.json",
+    "candidates_csv": "core/lexishift_core/resources/srs/en_ja/learner_difficulty_corrected.csv",
+    "existing_overlay_json": "docs/test_outputs/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
+    "explicit_lemmas": [],
+    "include_covered": false,
+    "label_lookup": "jawikipedia_pageprops",
+    "max_depth": 4,
+    "max_entity_requests": 1800,
+    "max_labels": 80,
+    "offline_only": false,
+    "policy_json": "docs/test_inputs/srs_topic_autotag_policy_en_ja.json",
+    "top_n": 73752
+  },
+  "language_pair": "en-ja",
+  "limitations": [
+    "This probe samples exact labels only; it does not measure full Wikidata coverage.",
+    "Wikidata labels identify entities/concepts, not SRS sense suitability by themselves.",
+    "Claim ancestry can miss useful rows when Wikidata models a term through properties outside P31/P279/P171.",
+    "Rows generated here are mining evidence only; promotion requires source-specific guards and review."
+  ],
+  "method": {
+    "claim_properties": [
+      "P31",
+      "P279",
+      "P171"
+    ],
+    "identity_gate": "exact Japanese label/alias search plus existing single-reading or source-reading verification; ambiguous multi-reading surfaces are rejected",
+    "promotion_state": "evidence_only_not_product_overlay",
+    "query_shape": "Japanese Wikipedia pageprops title-to-QID lookup, then Wikidata Special:EntityData cached claim ancestry",
+    "source": "wikidata_claim_probe"
+  },
+  "review_sample": [
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.40-0.45",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.76,
+      "core_rank": 23544.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 月刊アフタヌーン -> manga",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "アフタヌーン"
+        ],
+        "wikidata_depth": 2,
+        "wikidata_description": "日本の漫画月刊誌",
+        "wikidata_label": "月刊アフタヌーン",
+        "wikidata_path": [
+          "Q290043",
+          "Q15296520",
+          "Q8274"
+        ],
+        "wikidata_qid": "Q290043",
+        "wikidata_root_label": "manga",
+        "wikidata_root_qid": "Q8274",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "アフタヌーン",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "アフタヌーン",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.8,
+      "rank": 13017,
+      "reading": "あふたぬーん",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.448058,
+      "source": "wikidata_claim_probe",
+      "source_label": "manga",
+      "topic": "anime_manga_pop_culture",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 5551.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 詩 -> literary work",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "文学の一形式",
+        "wikidata_label": "詩",
+        "wikidata_path": [
+          "Q482",
+          "Q7725634"
+        ],
+        "wikidata_qid": "Q482",
+        "wikidata_root_label": "literary work",
+        "wikidata_root_qid": "Q7725634",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "詩",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "詩",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.76,
+      "rank": 414,
+      "reading": "し",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.102076,
+      "source": "wikidata_claim_probe",
+      "source_label": "literary work",
+      "topic": "arts_literature_humanities",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.7,
+      "core_rank": 11065.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: スケッチ -> drawing",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "スケッチ"
+        ],
+        "wikidata_depth": 1,
+        "wikidata_description": "人物や風景などを大まかに描写すること",
+        "wikidata_label": "スケッチ",
+        "wikidata_path": [
+          "Q5078274",
+          "Q93184"
+        ],
+        "wikidata_qid": "Q5078274",
+        "wikidata_root_label": "drawing",
+        "wikidata_root_qid": "Q93184",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "スケッチ",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "スケッチ",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.74,
+      "rank": 2487,
+      "reading": "すけっち",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.23286,
+      "source": "wikidata_claim_probe",
+      "source_label": "drawing",
+      "topic": "arts_literature_humanities",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.85-0.90",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.74,
+      "core_rank": 0.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 練り切り -> confection",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 2,
+        "wikidata_description": "和菓子の一種",
+        "wikidata_label": "練り切り",
+        "wikidata_path": [
+          "Q11608010",
+          "Q1063096",
+          "Q5159627"
+        ],
+        "wikidata_qid": "Q11608010",
+        "wikidata_root_label": "confection",
+        "wikidata_root_qid": "Q5159627",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "練り切り",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "練り切り",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.78,
+      "rank": 64380,
+      "reading": "ねりきり",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.893391,
+      "source": "wikidata_claim_probe",
+      "source_label": "confection",
+      "topic": "food_cooking",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.25-0.30",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.68,
+      "core_rank": 3162.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 犯罪者 -> legal person role",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "法律によって禁じられ刑罰が科される根拠となる事実・行為を行った人物",
+        "wikidata_label": "犯罪者",
+        "wikidata_path": [
+          "Q2159907",
+          "Q57735705"
+        ],
+        "wikidata_qid": "Q2159907",
+        "wikidata_root_label": "legal person role",
+        "wikidata_root_qid": "Q57735705",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "犯人",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "犯人",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.72,
+      "rank": 2910,
+      "reading": "はんにん",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.250015,
+      "source": "wikidata_claim_probe",
+      "source_label": "legal person role",
+      "topic": "law_politics_civics",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.68,
+      "core_rank": 3087.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 台風 -> tropical cyclone",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 2,
+        "wikidata_description": "北西太平洋および南シナ海で発生する強い熱帯低気圧",
+        "wikidata_label": "台風",
+        "wikidata_path": [
+          "Q140588",
+          "Q63100732",
+          "Q8092"
+        ],
+        "wikidata_qid": "Q140588",
+        "wikidata_root_label": "tropical cyclone",
+        "wikidata_root_qid": "Q8092",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "台風",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "台風",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.72,
+      "rank": 872,
+      "reading": "たいふう",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.148941,
+      "source": "wikidata_claim_probe",
+      "source_label": "tropical cyclone",
+      "topic": "plants_nature",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.45-0.50",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.78,
+      "core_rank": 0.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: クリ -> plant",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "くり",
+          "クリ"
+        ],
+        "wikidata_depth": 4,
+        "wikidata_description": "ブナ科クリ属の植物の総称",
+        "wikidata_label": "クリ",
+        "wikidata_path": [
+          "Q717827",
+          "Q129324",
+          "Q10884",
+          "Q757163",
+          "Q756"
+        ],
+        "wikidata_qid": "Q717827",
+        "wikidata_root_label": "plant",
+        "wikidata_root_qid": "Q756",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "くり",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "くり",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.82,
+      "rank": 16288,
+      "reading": "くり",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.482379,
+      "source": "wikidata_claim_probe",
+      "source_label": "plant",
+      "topic": "plants_nature",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.90-0.95",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 0.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: エミュレータ -> software",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "エミュレート",
+          "エミュレータ"
+        ],
+        "wikidata_depth": 2,
+        "wikidata_description": "software that enables one computer system (called the host) to behave like another computer system (called the guest)",
+        "wikidata_label": "エミュレータ",
+        "wikidata_path": [
+          "Q202871",
+          "Q114981191",
+          "Q7397"
+        ],
+        "wikidata_qid": "Q202871",
+        "wikidata_root_label": "software",
+        "wikidata_root_qid": "Q7397",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "エミュレート",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "エミュレート",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.76,
+      "rank": 70647,
+      "reading": "えみゅれーと",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.943575,
+      "source": "wikidata_claim_probe",
+      "source_label": "software",
+      "topic": "science_technology",
+      "topic_stretch_allowed": ""
+    }
+  ],
+  "schema_version": 1,
+  "source_summary": {
+    "wikidata_claim_probe": {
+      "ambiguity_flag_count": 4,
+      "avg_confidence": 0.7225,
+      "avg_membership": 0.7625,
+      "lemma_count": 8,
+      "row_count": 8,
+      "topic_count": 6
+    }
+  },
+  "status": "ok",
+  "topic_summary": {
+    "anime_manga_pop_culture": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "arts_literature_humanities": {
+      "lemma_count": 2,
+      "row_count": 2
+    },
+    "food_cooking": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "law_politics_civics": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "plants_nature": {
+      "lemma_count": 2,
+      "row_count": 2
+    },
+    "science_technology": {
+      "lemma_count": 1,
+      "row_count": 1
+    }
+  },
+  "wikidata_summary": {
+    "entity_cache_hit": 1326,
+    "entity_cache_size": 570,
+    "pageprops_cache_hit": 160,
+    "pageprops_cache_size": 86,
+    "search_cache_size": 2
+  }
+}

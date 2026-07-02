@@ -104,6 +104,7 @@ class SetInitializationConfig:
     seed_cache_dir: Optional[Path] = None
     profile_topic_overlay: Optional[Mapping[str, object]] = None
     profile_topic_overlay_diagnostics: Mapping[str, object] = field(default_factory=dict)
+    blocked_lemmas: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -125,6 +126,7 @@ class SetInitializationReport:
     profile_bootstrap_diagnostics: Mapping[str, object] = field(default_factory=dict)
     selected_unique_identity_keys: Sequence[str] = ()
     initial_active_identity_keys: Sequence[str] = ()
+    blocked_lemmas: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -269,6 +271,7 @@ def initialize_store_from_frequency_list_with_report(
     )
     selected_words = _coerce_seed_words(selected_words)
     initial_active_count = max(0, int(config.initial_active_count))
+    blocked_lemmas = _normalize_blocked_lemmas(config.blocked_lemmas)
     selection_seed = _normalize_optional_int(config.selection_seed)
     selection_policy = _resolve_selection_policy_override(config.selection_policy_override)
     selection_strategy = STRATEGY_FREQUENCY_BOOTSTRAP
@@ -300,7 +303,11 @@ def initialize_store_from_frequency_list_with_report(
             profile_bootstrap_diagnostics["profile_topic_overlay"] = dict(
                 profile_topic_overlay_diagnostics
             )
-        unique_scored_entries = _dedupe_profile_bootstrap_entries(scored_entries)
+        unique_scored_entries = [
+            entry
+            for entry in _dedupe_profile_bootstrap_entries(scored_entries)
+            if not _seed_lemma_is_blocked(entry.seed, blocked_lemmas)
+        ]
         selected_candidates = select_scored_candidates(
             [entry.scored_candidate for entry in unique_scored_entries],
             config=_build_profile_bootstrap_selector_config(
@@ -328,7 +335,9 @@ def initialize_store_from_frequency_list_with_report(
             if entry.candidate.lemma in unique_entry_by_lemma
         ]
     else:
-        unique_selected_words = _dedupe_seed_words(selected_words)
+        unique_selected_words = [
+            seed for seed in _dedupe_seed_words(selected_words) if seed.lemma not in blocked_lemmas
+        ]
         selected_candidates = select_candidates(
             _seed_to_bootstrap_selector_candidates(unique_selected_words),
             config=_build_frequency_bootstrap_selector_config(
@@ -420,6 +429,7 @@ def initialize_store_from_frequency_list_with_report(
         profile_bootstrap_diagnostics=dict(profile_bootstrap_diagnostics),
         selected_unique_identity_keys=selected_unique_identity_keys,
         initial_active_identity_keys=initial_active_identity_keys,
+        blocked_lemmas=tuple(sorted(blocked_lemmas)),
     )
     return updated, report
 
@@ -455,6 +465,14 @@ def _resolve_selected_word_package(selected: object) -> Optional[Mapping[str, ob
         fallback_language_tag=resolve_language_tag_from_pair(language_pair),
         fallback_provider=source,
     )
+
+
+def _normalize_blocked_lemmas(values: Iterable[str]) -> frozenset[str]:
+    return frozenset(str(value or "").strip() for value in values if str(value or "").strip())
+
+
+def _seed_lemma_is_blocked(seed: object, blocked_lemmas: frozenset[str]) -> bool:
+    return str(getattr(seed, "lemma", "") or "").strip() in blocked_lemmas
 
 
 def _candidate_identity_key_from_seed(seed: object) -> str:

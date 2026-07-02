@@ -32,19 +32,35 @@
       "proficiency": 0.82
     },
     {
-      "name": "finance_business_intermediate",
-      "description": "Finance/business preference at intermediate proficiency.",
+      "name": "shopping_money_intermediate",
+      "description": "Shopping/money preference at intermediate proficiency.",
       "proficiency": 0.45,
       "topic_weights": {
-        "finance_business": 1.0
+        "shopping_money": 1.0
       }
     },
     {
-      "name": "science_technology_intermediate",
-      "description": "Science/technology preference at intermediate proficiency.",
+      "name": "work_office_intermediate",
+      "description": "Work/office preference at intermediate proficiency.",
       "proficiency": 0.45,
       "topic_weights": {
-        "science_technology": 1.0
+        "work_office": 1.0
+      }
+    },
+    {
+      "name": "science_math_intermediate",
+      "description": "Science/math preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "science_math": 1.0
+      }
+    },
+    {
+      "name": "computing_internet_intermediate",
+      "description": "Computing/internet preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "computing_internet": 1.0
       }
     },
     {
@@ -72,6 +88,14 @@
       }
     },
     {
+      "name": "hobbies_crafts_intermediate",
+      "description": "Hobbies/crafts preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "hobbies_crafts": 1.0
+      }
+    },
+    {
       "name": "arts_literature_advanced",
       "description": "Arts/literature/humanities preference at advanced-tail proficiency.",
       "proficiency": 0.72,
@@ -80,25 +104,43 @@
       }
     },
     {
-      "name": "mixed_business_tech",
-      "description": "Weighted mixed professional interests.",
+      "name": "mixed_work_computing",
+      "description": "Weighted mixed professional and computing interests.",
       "proficiency": 0.50,
       "topic_weights": {
-        "science_technology": 0.8,
-        "finance_business": 0.6
+        "computing_internet": 0.8,
+        "work_office": 0.6
       }
     },
     {
-      "name": "food_cooking_beginner_sparse",
-      "description": "Food/cooking is source-ready in taxonomy but may be unsupported by the current product-shaped overlay.",
+      "name": "mixed_food_travel",
+      "description": "Weighted food/travel interests at lower-intermediate proficiency.",
+      "proficiency": 0.35,
+      "topic_weights": {
+        "food_cooking": 0.8,
+        "travel_places_transport": 0.6
+      }
+    },
+    {
+      "name": "mixed_science_medicine",
+      "description": "Weighted science/medicine interests at upper-intermediate proficiency.",
+      "proficiency": 0.55,
+      "topic_weights": {
+        "science_math": 0.8,
+        "medicine_health": 0.6
+      }
+    },
+    {
+      "name": "food_cooking_beginner",
+      "description": "Food/cooking preference at upper beginner proficiency.",
       "proficiency": 0.20,
       "topic_weights": {
         "food_cooking": 1.0
       }
     },
     {
-      "name": "anime_manga_sparse",
-      "description": "Anime/manga/pop-culture is intentionally sparse; should reveal fallback behavior.",
+      "name": "anime_manga_intermediate",
+      "description": "Anime/manga/pop-culture preference at intermediate proficiency.",
       "proficiency": 0.45,
       "topic_weights": {
         "anime_manga_pop_culture": 1.0

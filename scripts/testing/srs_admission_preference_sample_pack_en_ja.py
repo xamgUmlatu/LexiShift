@@ -40,7 +40,10 @@ DEFAULT_PAIR = "en-ja"
 DEFAULT_CONFIG_JSON = (
     PROJECT_ROOT / "docs" / "test_inputs" / "srs_admission_preference_sample_configs_en_ja.json"
 )
-DEFAULT_OVERLAY_SOURCE_PATH = PROJECT_ROOT / "docs" / "test_outputs" / EN_JA_JMDICT_OVERLAY_FILENAME
+DEFAULT_PROMOTION_OVERLAY_SOURCE_FILENAME = "srs_topic_autotag_promotion_overlay_en_ja_latest.json"
+DEFAULT_OVERLAY_SOURCE_PATH = (
+    PROJECT_ROOT / "docs" / "test_outputs" / DEFAULT_PROMOTION_OVERLAY_SOURCE_FILENAME
+)
 DEFAULT_CORRECTED_RANKING_CSV = resolve_corrected_en_ja_learner_difficulty_csv_path() or (
     PROJECT_ROOT
     / "docs"

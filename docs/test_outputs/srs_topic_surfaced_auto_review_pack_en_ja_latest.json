@@ -1,0 +1,25 @@
+{
+  "decision": "surfaced_auto_topic_review_pack_ready",
+  "generated_at": "2026-07-02T19:05:05.041862+00:00",
+  "inputs": {
+    "dump_evidence_json": "docs/test_outputs/srs_topic_autotag_dump_source_bakeoff_en_ja_latest.json",
+    "overlay_generated_at": "2026-07-02T19:04:30+00:00",
+    "overlay_json": "docs/test_outputs/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
+    "sample_generated_at": "2026-07-02T18:55:14.824586+00:00",
+    "sample_json": "docs/test_outputs/srs_admission_product_acceptance_en_ja_latest.json"
+  },
+  "language_pair": "en-ja",
+  "method": {
+    "review_goal": "accept true topic rows into a product-owned or reviewed source; reject sense-contaminated rows",
+    "runtime_policy": "rows below membership 1.0 are review candidates only",
+    "scope": "auto topic rows that surfaced in user-setting admission samples"
+  },
+  "rows": [],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "counts_by_promotion_rule": {},
+    "counts_by_topic": {},
+    "row_count": 0
+  }
+}

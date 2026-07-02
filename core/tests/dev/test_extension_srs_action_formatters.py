@@ -93,7 +93,8 @@ const output = context.LexiShift.optionsSrsActionFormatters.buildRefreshResultOu
       share: 0.5,
       lemmas: ["perro"]
     }},
-    selected_lemmas: ["perro", "gato"],
+    selected_lemmas: ["perro", "descartado"],
+    effective_selected_lemmas: ["perro", "gato"],
     feedback_window: {{
       feedback_count: 12,
       retention_ratio: 0.83
@@ -115,6 +116,7 @@ assert.equal(output.includes("- capacity_budget: 20"), true);
 assert.equal(output.includes("- admission_budget: 2"), true);
 assert.equal(output.includes("- selected_preferred_topic_share: 0.5 (1/2)"), true);
 assert.equal(output.includes("- selected_lemmas: perro, gato"), true);
+assert.equal(output.includes("descartado"), false);
 assert.equal(output.includes("- browsing_preview_status: ok"), true);
 assert.equal(output.includes("- browsing_signal_matches: 2 / 5"), true);
 assert.equal(output.includes("- browsing_balanced_selected: perro, ave"), true);

@@ -25,6 +25,8 @@ Final ranking artifacts:
 - First-200 agent review: `docs/test_outputs/srs_learner_difficulty_first200_agent_review_en_ja_latest.md`
 - Early flagged review through score `0.20`: `docs/test_outputs/srs_learner_difficulty_early_flagged_review_en_ja_latest.md`
 - Product admission acceptance pack: `docs/test_outputs/srs_admission_product_acceptance_en_ja_latest.md`
+- Randomized product admission UX sample pack: `docs/test_outputs/srs_admission_random_ux_sample_pack_en_ja_latest.md`
+- Admission-veto candidate review pack: `docs/test_outputs/srs_admission_veto_candidate_review_en_ja_latest.md`
 - Product full-range sample pack: `docs/test_outputs/srs_learner_difficulty_product_full_range_sample_en_ja_latest.md`
 
 Latest final-ranking sidecar metrics:
@@ -36,8 +38,14 @@ Latest final-ranking sidecar metrics:
 | Pairwise accuracy | `0.844103` |
 | Bucket accuracy | `0.716157` |
 | Improved/regressed labels >=0.01 | `45 / 1` |
-| Manual correction rows | `152` |
-| Active/review/watch correction rows | `147 / 3 / 2` |
+| Manual correction rows | `182` |
+| Active/review/watch correction rows | `180 / 0 / 2` |
+
+The headline metric values above come from the last full matrix-backed final
+ranking export. The current packaged CSV has since received a narrow
+admission-veto manual cleanup; rerun the matrix-backed exporter when the
+component matrix artifacts are available again to refresh these aggregate
+metrics.
 
 First-100 review notes:
 
@@ -64,14 +72,37 @@ First-100 review notes:
   `市/いち`, `山/さん`, and `高/こう`, plus admission routing for the sampled
   vulgar/adult tail row. These are treated as manual/content-polish decisions,
   not as evidence for another model-shape search.
+- The admission-veto review pass promoted the previous review candidates
+  `吐く/つく`, `時々/じじ`, and `何人/なにびと` to active
+  score-floor/restricted-admission corrections. It also added active routing for
+  clear same-surface rare/variant rows such as `家/や`, `間/あい`,
+  `何時/なんどき`, `君/きんじ`, `海/あま`, `昨日/きそ`, `上/へ`,
+  `傘/からかさ`, and `妹/いも`.
+- A second narrow admission-veto pass moved only high-confidence rows from the
+  regenerated review queue: `人気/ひとけ`, `氏/うじ`, and `山中/やまなか`
+  were moved later within ordinary vocabulary, while rare/marked rows such as
+  `間/あわい`, `遠/おち`, `同じい/おなじい`, `渓/けい`, `闔/こう`,
+  `曲/くせ`, `共/むた`, `己/つちのと`, `紫/し`, and `鯨/いさな`
+  were routed away from ordinary standalone admission.
 - The scalar matrix is not a complete first-lesson curriculum by itself. In the
   final export, ultra-basic kana items such as `私/わたし`, `これ`, `それ`, and
   `彼/かれ` are absent while some kanji/literary variants are present. Runtime
   promotion should verify that seed/admission inventory supplies these basics
   through another lane before relying on the ranking alone.
-- Manual review rows such as `吐く/つく`, `時々/じじ`, and `何人/なにびと`
-  remain outside the first `100` and are tracked in the correction JSON as
-  review/admission-routing candidates rather than active score overrides.
+- Only two watch-only rows remain in the correction JSON: `或いは/あるいは` and
+  `猶/なお`. They are display/register watch rows, not active score overrides.
+- `profile_bootstrap_policy_v5` now treats the corrected learner-difficulty
+  score as the main scalar admission authority. Source commonness is only a
+  small tie-breaker, challenge fit is computed but unweighted in the default
+  one-slider profile path, and topic affinity/scarcity remain topic-UX helpers.
+- The refreshed randomized product admission UX sample pack passed with `31`
+  pass, `0` warn, and `0` fail findings across `30` scenarios and `90`
+  true-random preview draws. All `19` topic scenarios surfaced topic movers, no
+  sampled preview admitted a `restricted_admission` row, and neutral non-topic
+  previews had `0` rows more than `0.10` above the learner proficiency estimate.
+  Topic movers still stretch above proficiency when they match the requested
+  topic; this is the intended preference behavior rather than a scalar-ranking
+  correction issue.
 - The first-200 and early-flagged reviews found a compact but real polish queue.
   The largest reviewed score problems now have active sidecar corrections; the
   remaining early-band work is mostly display policy, admission routing, and

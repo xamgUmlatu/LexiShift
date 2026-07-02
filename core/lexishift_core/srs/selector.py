@@ -219,7 +219,9 @@ def select_scored_candidates(
     target = _resolve_selection_count(selection_count, fallback=config.top_n)
     if target <= 0 or not scored:
         return []
-    ranked = list(scored)
+    ranked = [entry for entry in scored if _candidate_is_selectable(entry)]
+    if not ranked:
+        return []
     if target >= len(ranked):
         return ranked
     if resolve_selection_policy(config) == SELECTION_POLICY_TOP_N:
@@ -309,6 +311,10 @@ def _candidate_topic_strength(entry: ScoredCandidate) -> float:
 
 def _candidate_key(entry: ScoredCandidate) -> tuple[str, str]:
     return (str(entry.candidate.language_pair or ""), str(entry.candidate.lemma or ""))
+
+
+def _candidate_is_selectable(entry: ScoredCandidate) -> bool:
+    return _candidate_suitability_multiplier(entry.candidate) > 0.0
 
 
 def _weighted_sample_scored_without_replacement(

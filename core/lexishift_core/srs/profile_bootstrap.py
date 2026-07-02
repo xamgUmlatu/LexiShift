@@ -49,8 +49,8 @@ from lexishift_core.srs.selector import (
     score_candidate,
 )
 
-PROFILE_BOOTSTRAP_POLICY_VERSION = "profile_bootstrap_policy_v4"
-PROFILE_BOOTSTRAP_SELECTOR_VERSION = "profile_bootstrap_v5"
+PROFILE_BOOTSTRAP_POLICY_VERSION = "profile_bootstrap_policy_v5"
+PROFILE_BOOTSTRAP_SELECTOR_VERSION = "profile_bootstrap_v6"
 PROFILE_TOPIC_DEPTH_VERSION = "profile_topic_depth_v1"
 
 PROFILE_TOPIC_DEPTH_BANDS: tuple[tuple[str, float, float], ...] = (
@@ -72,12 +72,12 @@ class ProfileBootstrapPolicy:
         default_factory=lambda: SelectorConfig(
             selection_policy=SELECTION_POLICY_RESERVED_TOPIC_LANE,
             weights=SelectorWeights(
-                base_freq=0.55,
-                topic_bias=0.15,
+                base_freq=0.05,
+                topic_bias=0.30,
                 scarcity_bonus=0.05,
-                user_pref=0.10,
+                user_pref=0.55,
                 confidence=0.0,
-                difficulty_target=0.10,
+                difficulty_target=0.0,
             ),
         )
     )

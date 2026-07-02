@@ -107,7 +107,9 @@ class CorrectedLearnerDifficultyMatch:
 @dataclass(frozen=True)
 class _CorrectedDifficultyIndex:
     by_pair: Mapping[tuple[str, str], CorrectedLearnerDifficultyRow]
+    by_display_pair: Mapping[tuple[str, str], CorrectedLearnerDifficultyRow]
     by_unique_lemma: Mapping[str, CorrectedLearnerDifficultyRow]
+    by_unique_display_form: Mapping[str, CorrectedLearnerDifficultyRow]
 
 
 def estimate_learner_difficulty(
@@ -183,9 +185,15 @@ def lookup_corrected_en_ja_learner_difficulty(
         row = index.by_pair.get((surface, candidate_reading))
         if row is not None:
             return CorrectedLearnerDifficultyMatch(row=row, match_mode="exact_pair")
+        row = index.by_display_pair.get((surface, candidate_reading))
+        if row is not None:
+            return CorrectedLearnerDifficultyMatch(row=row, match_mode="exact_display_pair")
     row = index.by_unique_lemma.get(surface)
     if row is not None:
         return CorrectedLearnerDifficultyMatch(row=row, match_mode="unique_lemma")
+    row = index.by_unique_display_form.get(surface)
+    if row is not None:
+        return CorrectedLearnerDifficultyMatch(row=row, match_mode="unique_display_form")
     return None
 
 
@@ -222,7 +230,9 @@ def _resolve_corrected_en_ja_csv_path(csv_path: object = None) -> Path | None:
 @lru_cache(maxsize=4)
 def _load_corrected_en_ja_index(path_text: str) -> _CorrectedDifficultyIndex:
     by_pair: dict[tuple[str, str], CorrectedLearnerDifficultyRow] = {}
+    by_display_pair: dict[tuple[str, str], CorrectedLearnerDifficultyRow] = {}
     by_lemma_rows: dict[str, list[CorrectedLearnerDifficultyRow]] = {}
+    by_display_form_rows: dict[str, list[CorrectedLearnerDifficultyRow]] = {}
     path = Path(path_text)
     with path.open(encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)
@@ -232,11 +242,22 @@ def _load_corrected_en_ja_index(path_text: str) -> _CorrectedDifficultyIndex:
                 continue
             if row.reading:
                 by_pair.setdefault((row.lemma, row.reading), row)
+                if row.display_form:
+                    by_display_pair.setdefault((row.display_form, row.reading), row)
             by_lemma_rows.setdefault(row.lemma, []).append(row)
+            if row.display_form:
+                by_display_form_rows.setdefault(row.display_form, []).append(row)
     by_unique_lemma = {lemma: rows[0] for lemma, rows in by_lemma_rows.items() if len(rows) == 1}
+    by_unique_display_form = {
+        display_form: rows[0]
+        for display_form, rows in by_display_form_rows.items()
+        if len(rows) == 1
+    }
     return _CorrectedDifficultyIndex(
         by_pair=by_pair,
+        by_display_pair=by_display_pair,
         by_unique_lemma=by_unique_lemma,
+        by_unique_display_form=by_unique_display_form,
     )
 
 

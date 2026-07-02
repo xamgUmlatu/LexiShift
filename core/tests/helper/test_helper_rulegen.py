@@ -91,6 +91,29 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertEqual(report.admitted_count, 3)
         self.assertEqual(report.inserted_count, 3)
 
+    def test_blocked_lemmas_are_not_selected_for_initial_admission(self) -> None:
+        selected = [
+            SimpleNamespace(lemma="alpha", language_pair="en-ja"),
+            SimpleNamespace(lemma="beta", language_pair="en-ja"),
+            SimpleNamespace(lemma="gamma", language_pair="en-ja"),
+        ]
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
+            store, report = initialize_store_from_frequency_list_with_report(
+                SrsStore(),
+                config=SetInitializationConfig(
+                    frequency_db=Path("/tmp/freq.sqlite"),
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    top_n=800,
+                    initial_active_count=2,
+                    language_pair="en-ja",
+                    blocked_lemmas=("alpha",),
+                ),
+            )
+
+        self.assertEqual([item.lemma for item in store.items], ["beta", "gamma"])
+        self.assertEqual(tuple(report.initial_active_preview), ("beta", "gamma"))
+        self.assertEqual(tuple(report.blocked_lemmas), ("alpha",))
+
     def test_same_surface_dedupe_prefers_admissible_reading_row(self) -> None:
         suffix_package = {
             "version": 1,
