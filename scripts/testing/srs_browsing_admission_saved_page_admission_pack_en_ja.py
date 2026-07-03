@@ -26,20 +26,9 @@ from lexishift_core.srs.admission_refresh import (  # noqa: E402
     AdmissionRefreshPolicy,
     preview_browsing_admission_refresh,
 )
-from lexishift_core.srs.browsing_admission import (  # noqa: E402
-    BrowsingSignalIngestPolicy,
-    BrowsingSignalPacket,
-    BrowsingSignalPacketEntry,
-    BrowsingSignalStore,
-    aggregate_target_key,
-    browsing_raw_value,
-    browsing_signal_value,
-    ingest_browsing_signal_packet,
-)
 from lexishift_core.srs.profile_bootstrap import DEFAULT_PROFILE_BOOTSTRAP_POLICY  # noqa: E402
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
 from lexishift_core.srs.set_strategy import STRATEGY_PROFILE_GROWTH  # noqa: E402
-from lexishift_core.srs.time import parse_ts  # noqa: E402
 from lexishift_core.srs.topic_overlay import (  # noqa: E402
     apply_profile_topic_overlay_to_seeds,
     resolve_preview_profile_topic_overlay,
@@ -66,19 +55,11 @@ from srs_browsing_admission_implicit_sample_pack_en_ja import (  # noqa: E402
     scenario_status,
     summarize_findings,
 )
-from srs_browsing_admission_saved_page_pack_en_ja import (  # noqa: E402
-    build_signal_entries,
+from srs_browsing_admission_saved_page_admission_aggregate import (  # noqa: E402
+    build_saved_page_aggregate,
 )
 from srs_browsing_admission_saved_page_support import (  # noqa: E402
     SavedPagePolicy,
-    build_jmdict_indexes,
-    collect_source_counts,
-    counter_preview,
-    document_summary,
-    load_saved_documents,
-    repo_path,
-    resolve_pair_data_paths,
-    ruby_preview,
 )
 
 
@@ -176,6 +157,7 @@ def build_report(
                     pair=resolved_pair,
                     base_seeds=base_seeds,
                     browsing_store=saved_page_aggregate["store"],
+                    hygiene=saved_page_aggregate["hygiene"],
                     scenario=scenario,
                     admission_budget=resolved_admission_budget,
                     max_active_items=resolved_max_active_items,
@@ -199,6 +181,15 @@ def build_report(
                 1 for row in scenario_reports if row.get("status") == "fail"
             ),
             "saved_page_signal_count": saved_page_aggregate["summary"]["signal_count"],
+            "saved_page_hygiene_accepted_signal_count": saved_page_aggregate["summary"][
+                "hygiene_accepted_signal_count"
+            ],
+            "saved_page_hygiene_retained_signal_count": saved_page_aggregate["summary"][
+                "hygiene_retained_signal_count"
+            ],
+            "saved_page_hygiene_rejected_signal_count": saved_page_aggregate["summary"][
+                "hygiene_rejected_signal_count"
+            ],
             "saved_page_store_item_count": saved_page_aggregate["summary"]["store_item_count"],
         }
     )
@@ -229,8 +220,8 @@ def build_report(
             "row_limit": resolved_row_limit,
         },
         "inputs": {
-            "config_json": repo_path(config_json),
-            "manifest_json": repo_path(manifest_json),
+            "config_json": str(config_json),
+            "manifest_json": str(manifest_json),
             "frequency_db": str(resolved_frequency_db),
             "jmdict": str(resolved_jmdict_path),
             "overlay_source_path": str(resolved_overlay_source_path)
@@ -248,139 +239,13 @@ def build_report(
     }
 
 
-def build_saved_page_aggregate(
-    *,
-    manifest_json: Path,
-    pair: str,
-    jmdict_path: Path,
-    frequency_db: Path | None,
-    policy: SavedPagePolicy,
-) -> dict[str, Any]:
-    manifest = load_json_mapping(manifest_json)
-    resolved_jmdict_path, resolved_frequency_db = resolve_pair_data_paths(
-        pair=pair,
-        jmdict_path=jmdict_path,
-        frequency_db=frequency_db,
-    )
-    documents = load_saved_documents(manifest)
-    source_counts = collect_source_counts(documents)
-    target_text = "\n".join(document.text for document in documents if document.side == "target")
-    source_index, target_index, exact_pairs, jmdict_summary = build_jmdict_indexes(
-        resolved_jmdict_path,
-        source_terms=set(source_counts),
-        target_text=target_text,
-        frequency_db=resolved_frequency_db,
-        policy=policy,
-    )
-    signals, signal_debug = build_signal_entries(
-        documents=documents,
-        source_counts=source_counts,
-        source_index=source_index,
-        target_index=target_index,
-        exact_pairs=exact_pairs,
-        policy=policy,
-    )
-    ingest_policy = BrowsingSignalIngestPolicy(
-        max_signals_per_packet=300,
-        max_count_per_signal=policy.max_count_per_signal,
-        max_items_per_store=1000,
-    )
-    packet = BrowsingSignalPacket(
-        pair=pair,
-        profile_id=SAVED_PAGE_PROFILE_ID,
-        captured_at=SAVED_PAGE_CAPTURED_AT,
-        signals=tuple(packet_entry_from_signal(signal) for signal in signals),
-    )
-    ingest_result = ingest_browsing_signal_packet(
-        BrowsingSignalStore(pair=pair, profile_id=SAVED_PAGE_PROFILE_ID),
-        packet,
-        policy=ingest_policy,
-        now=parse_ts(SAVED_PAGE_CAPTURED_AT),
-    )
-    store = ingest_result.store
-    return {
-        "store": store,
-        "summary": {
-            "signal_count": len(signals),
-            "store_item_count": len(store.items),
-            "source_term_count": len(source_counts),
-            "target_document_count": sum(1 for document in documents if document.side == "target"),
-            "source_document_count": sum(1 for document in documents if document.side == "source"),
-        },
-        "policy": policy.to_dict(),
-        "ingest_policy": ingest_policy.__dict__,
-        "ingest_result": ingest_result.to_dict(),
-        "inputs": {
-            "manifest_json": repo_path(manifest_json),
-            "jmdict_path": str(resolved_jmdict_path),
-            "frequency_db": str(resolved_frequency_db),
-            "documents": [document_summary(document) for document in documents],
-        },
-        "jmdict": jmdict_summary,
-        "extraction": {
-            "source_terms": counter_preview(source_counts),
-            "ruby_pair_count": sum(sum(document.ruby_pairs.values()) for document in documents),
-            "top_ruby_pairs": ruby_preview(documents),
-        },
-        "signals": {
-            "count": len(signals),
-            "top": signal_debug[:30],
-        },
-        "store_preview": store_preview(store, ingest_policy),
-    }
-
-
-def packet_entry_from_signal(signal: Mapping[str, object]) -> BrowsingSignalPacketEntry:
-    return BrowsingSignalPacketEntry(
-        target_lemma=str(signal.get("target_lemma") or signal.get("lemma") or "").strip(),
-        target_key=str(signal.get("target_key") or "").strip(),
-        target_reading=str(signal.get("target_reading") or signal.get("reading") or "").strip(),
-        side=str(signal.get("side") or "").strip(),
-        count=safe_float(signal.get("count")) or 1.0,
-        source_mapping_confidence=safe_float(signal.get("source_mapping_confidence")) or 1.0,
-        reading_confidence=safe_float(signal.get("reading_confidence")) or 1.0,
-        observation_source=str(signal.get("observation_source") or "").strip(),
-    )
-
-
-def store_preview(
-    store: BrowsingSignalStore,
-    policy: BrowsingSignalIngestPolicy,
-    *,
-    limit: int = 30,
-) -> list[dict[str, object]]:
-    rows = []
-    for aggregate in store.items.values():
-        rows.append(
-            {
-                "target_key": aggregate_target_key(aggregate),
-                "target_lemma": aggregate.target_lemma,
-                "target_reading": aggregate.target_reading,
-                "source_hit_count": round(float(aggregate.source_hit_count), 6),
-                "target_hit_count": round(float(aggregate.target_hit_count), 6),
-                "replacement_exposure_count": round(float(aggregate.replacement_exposure_count), 6),
-                "source_mapping_confidence": round(float(aggregate.source_mapping_confidence), 6),
-                "reading_confidence": round(float(aggregate.reading_confidence), 6),
-                "raw_value": round(browsing_raw_value(aggregate, policy=policy), 6),
-                "signal_value": round(browsing_signal_value(aggregate, policy=policy), 6),
-                "observation_sources": list(aggregate.observation_sources),
-            }
-        )
-    rows.sort(
-        key=lambda row: (
-            -(safe_float(row.get("raw_value")) or 0.0),
-            str(row.get("target_key") or ""),
-        )
-    )
-    return rows[:limit]
-
-
 def run_scenario(
     *,
     paths: object,
     pair: str,
     base_seeds: Sequence[object],
-    browsing_store: BrowsingSignalStore,
+    browsing_store: object,
+    hygiene: Mapping[str, object],
     scenario: Mapping[str, object],
     admission_budget: int,
     max_active_items: int,
@@ -428,10 +293,16 @@ def run_scenario(
         row_limit=row_limit,
     )
     compact_preview = compact_browsing_preview(preview, candidate_count=len(candidates))
+    hygiene_diagnostics = scenario_hygiene_diagnostics(
+        candidates=candidates,
+        preview=compact_preview,
+        hygiene=hygiene,
+    )
     scenario_findings = evaluate_scenario(
         scenario=scenario,
         preview=compact_preview,
         blocked_lemmas=blocked_lemmas,
+        hygiene_diagnostics=hygiene_diagnostics,
     )
     return {
         "name": str(scenario.get("name") or ""),
@@ -446,8 +317,62 @@ def run_scenario(
         "profile_growth": compact_profile_growth_payload(profile_diagnostics),
         "browsing_preview": compact_preview,
         "qualitative_delta": qualitative_delta(compact_preview),
+        "hygiene": hygiene_diagnostics,
         "findings": scenario_findings,
     }
+
+
+def scenario_hygiene_diagnostics(
+    *,
+    candidates: Sequence[object],
+    preview: Mapping[str, object],
+    hygiene: Mapping[str, object],
+) -> dict[str, object]:
+    rejected_keys = {
+        str(key or "").strip()
+        for key in hygiene.get("rejected_target_keys", [])
+        if str(key or "").strip()
+    }
+    retained_suspect_keys = {
+        str(key or "").strip()
+        for key in hygiene.get("retained_suspect_target_keys", [])
+        if str(key or "").strip()
+    }
+    candidate_keys = {candidate_key(candidate) for candidate in candidates}
+    simulations = dict(preview.get("simulations") or {})
+    strong_rows = [
+        row
+        for row in dict(simulations.get("strong") or {}).get("rows", [])
+        if isinstance(row, Mapping)
+    ]
+    strong_selected_keys = {
+        str(row.get("target_key") or row.get("lemma") or "").strip()
+        for row in strong_rows
+        if row.get("selected") and str(row.get("target_key") or row.get("lemma") or "").strip()
+    }
+    return {
+        "rejected_signal_count": len(rejected_keys),
+        "retained_suspect_signal_count": len(retained_suspect_keys),
+        "rejected_signal_candidate_match_count": len(rejected_keys & candidate_keys),
+        "retained_suspect_candidate_match_count": len(retained_suspect_keys & candidate_keys),
+        "selected_rejected_signal_count": len(rejected_keys & strong_selected_keys),
+        "selected_retained_suspect_signal_count": len(retained_suspect_keys & strong_selected_keys),
+        "rejected_signal_candidate_matches": sorted(rejected_keys & candidate_keys),
+        "retained_suspect_candidate_matches": sorted(retained_suspect_keys & candidate_keys),
+        "selected_rejected_signals": sorted(rejected_keys & strong_selected_keys),
+        "selected_retained_suspect_signals": sorted(retained_suspect_keys & strong_selected_keys),
+    }
+
+
+def candidate_key(candidate: object) -> str:
+    target_key = str(getattr(candidate, "target_key", "") or "").strip()
+    if target_key:
+        return target_key
+    lemma = str(getattr(candidate, "lemma", "") or "").strip()
+    reading = str(getattr(candidate, "target_reading", "") or "").strip()
+    if lemma and reading and lemma != reading:
+        return f"{lemma}|{reading}"
+    return lemma
 
 
 def evaluate_scenario(
@@ -455,6 +380,7 @@ def evaluate_scenario(
     scenario: Mapping[str, object],
     preview: Mapping[str, object],
     blocked_lemmas: set[str],
+    hygiene_diagnostics: Mapping[str, object] | None = None,
 ) -> list[dict[str, Any]]:
     findings = evaluate_preview_expectations(
         scenario=scenario,
@@ -496,6 +422,22 @@ def evaluate_scenario(
             pass_finding(
                 "EFFECTIVE_SIGNAL_FIELDS_PRESENT",
                 "Strong preview rows expose raw and effective browsing signal fields.",
+            )
+        )
+    hygiene_diagnostics = dict(hygiene_diagnostics or {})
+    selected_rejected_count = int(hygiene_diagnostics.get("selected_rejected_signal_count") or 0)
+    if selected_rejected_count:
+        findings.append(
+            fail_finding(
+                "HYGIENE_REJECTED_SIGNAL_SELECTED",
+                f"Hygiene-rejected saved-page signals were selected: {selected_rejected_count}.",
+            )
+        )
+    elif hygiene_diagnostics:
+        findings.append(
+            pass_finding(
+                "HYGIENE_REJECTED_SIGNALS_NOT_SELECTED",
+                "No hygiene-rejected saved-page signals were selected.",
             )
         )
     return findings
@@ -569,6 +511,8 @@ def render_markdown(report: Mapping[str, object]) -> str:
         f"- Scenario pass/warn/fail: `{summary.get('scenario_pass_count', 0)}` / "
         f"`{summary.get('scenario_warn_count', 0)}` / `{summary.get('scenario_fail_count', 0)}`",
         f"- Saved-page signals: `{aggregate_summary.get('signal_count', 0)}`",
+        f"- Retained after cheap hygiene: `{aggregate_summary.get('hygiene_retained_signal_count', 0)}`",
+        f"- Rejected by cheap hygiene: `{aggregate_summary.get('hygiene_rejected_signal_count', 0)}`",
         f"- Saved-page aggregate items: `{aggregate_summary.get('store_item_count', 0)}`",
         f"- Runtime scope: `{report.get('runtime_scope', '')}`",
         "",
@@ -580,11 +524,39 @@ def render_markdown(report: Mapping[str, object]) -> str:
             "profile-growth admission frontier, while remaining preview-only."
         ),
         "",
-        "## Saved-Page Aggregate",
+        "## Cheap Hygiene",
         "",
-        "| Target | Raw | Signal | Source | Target | Reading | Sources |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | --- |",
+        (
+            "This layer is intentionally narrower than the full admission quality gate. It "
+            "only rejects obvious non-standalone page-surface strings before temporary "
+            "aggregate ingest; normal candidate suitability still runs during admission."
+        ),
+        "",
+        "| Target | Reasons | Count | Source |",
+        "| --- | --- | ---: | --- |",
     ]
+    hygiene = dict(saved_page.get("hygiene") or {})
+    rejected_rows = [row for row in hygiene.get("rejected", []) if isinstance(row, Mapping)]
+    if rejected_rows:
+        for row in rejected_rows:
+            lines.append(
+                "| "
+                f"`{row.get('target_key', '')}` | "
+                f"`{', '.join(row.get('reasons') or [])}` | "
+                f"{row.get('count', '')} | "
+                f"`{row.get('observation_source', '')}` |"
+            )
+    else:
+        lines.append("|  |  | 0 |  |")
+    lines.extend(
+        [
+            "",
+            "## Saved-Page Aggregate",
+            "",
+            "| Target | Raw | Signal | Source | Target | Reading | Sources |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
     for row in saved_page.get("store_preview", [])[:16]:
         if not isinstance(row, Mapping):
             continue
@@ -615,6 +587,8 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"- Matching signals: `{preview.get('matching_signal_count', 0)}` / aggregate items `{preview.get('aggregate_item_count', 0)}`",
                 f"- Candidate pool: `{preview.get('candidate_pool_effective', 0)}`",
                 f"- Strong added vs off: `{', '.join(delta.get('strong_added_vs_off') or [])}`",
+                f"- Hygiene rejected candidate matches: `{dict(scenario.get('hygiene') or {}).get('rejected_signal_candidate_match_count', 0)}`",
+                f"- Hygiene rejected selected: `{dict(scenario.get('hygiene') or {}).get('selected_rejected_signal_count', 0)}`",
                 "",
                 "| Strength | Browsing lane | Driven | Signal volume | Selected |",
                 "| --- | ---: | ---: | ---: | --- |",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-03T02:36:08Z",
+  "generated_at": "2026-07-03T03:25:16Z",
   "pair": "en-ja",
   "runtime_scope": "preview_only_saved_page_browsing_admission",
   "method": {
@@ -16,12 +16,12 @@
     "row_limit": 60
   },
   "inputs": {
-    "config_json": "docs/test_inputs/srs_browsing_admission_saved_page_admission_configs_en_ja.json",
-    "manifest_json": "docs/test_inputs/srs_browsing_admission_saved_pages_en_ja.json",
+    "config_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/srs_browsing_admission_saved_page_admission_configs_en_ja.json",
+    "manifest_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/srs_browsing_admission_saved_pages_en_ja.json",
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-ja-bccwj/main.sqlite",
     "jmdict": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/jmdict-ja-en/JMdict_e",
     "overlay_source_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
-    "copied_overlay_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-saved-page-admission-enja-0u02hfm9/srs/topic_overlays/srs_jmdict_topic_overlay_en_ja_latest.json",
+    "copied_overlay_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-saved-page-admission-enja-kkkrpt8g/srs/topic_overlays/srs_jmdict_topic_overlay_en_ja_latest.json",
     "corrected_ranking_csv": "/Users/takeyayuki/Documents/projects/LexiShift/core/lexishift_core/resources/srs/en_ja/learner_difficulty_corrected.csv"
   },
   "summary": {
@@ -34,12 +34,19 @@
     "scenario_warn_count": 0,
     "scenario_fail_count": 0,
     "saved_page_signal_count": 130,
-    "saved_page_store_item_count": 129
+    "saved_page_hygiene_accepted_signal_count": 125,
+    "saved_page_hygiene_retained_signal_count": 125,
+    "saved_page_hygiene_rejected_signal_count": 5,
+    "saved_page_store_item_count": 124
   },
   "saved_page_aggregate": {
     "summary": {
       "signal_count": 130,
-      "store_item_count": 129,
+      "hygiene_accepted_signal_count": 125,
+      "hygiene_retained_signal_count": 125,
+      "hygiene_rejected_signal_count": 5,
+      "hygiene_retained_suspect_signal_count": 0,
+      "store_item_count": 124,
       "source_term_count": 4,
       "target_document_count": 1,
       "source_document_count": 1
@@ -66,12 +73,12 @@
       "replacement_exposure_weight": 0.35
     },
     "ingest_result": {
-      "input_signal_count": 130,
-      "accepted_signal_count": 130,
+      "input_signal_count": 125,
+      "accepted_signal_count": 125,
       "dropped_signal_count": 0,
       "capped_signal_count": 0,
       "pruned_item_count": 0,
-      "retained_item_count": 129
+      "retained_item_count": 124
     },
     "inputs": {
       "manifest_json": "docs/test_inputs/srs_browsing_admission_saved_pages_en_ja.json",
@@ -235,6 +242,8 @@
     },
     "signals": {
       "count": 130,
+      "retained_count": 125,
+      "rejected_count": 5,
       "top": [
         {
           "target_key": "ラビット",
@@ -762,6 +771,1406 @@
         }
       ]
     },
+    "hygiene": {
+      "policy": {
+        "version": "saved_page_admission_hygiene_v1",
+        "scope": "cheap_pre_aggregate_hygiene_only",
+        "full_admission_quality_gate_reused": false,
+        "notes": [
+          "The full candidate admission_suitability gate still runs during admission.",
+          "This layer only removes obvious non-standalone page-surface strings before aggregate ingest."
+        ]
+      },
+      "decisions": [
+        {
+          "status": "accepted",
+          "target_key": "ラビット",
+          "target_lemma": "ラビット",
+          "target_reading": "ラビット",
+          "reasons": [],
+          "side": "source",
+          "count": 1.0,
+          "observation_source": "source_mapping"
+        },
+        {
+          "status": "accepted",
+          "target_key": "兎|うさぎ",
+          "target_lemma": "兎",
+          "target_reading": "うさぎ",
+          "reasons": [],
+          "side": "source",
+          "count": 1.0,
+          "observation_source": "source_mapping"
+        },
+        {
+          "status": "accepted",
+          "target_key": "哺乳類|ほにゅうるい",
+          "target_lemma": "哺乳類",
+          "target_reading": "ほにゅうるい",
+          "reasons": [],
+          "side": "source",
+          "count": 1.0,
+          "observation_source": "source_mapping"
+        },
+        {
+          "status": "accepted",
+          "target_key": "獣類|じゅうるい",
+          "target_lemma": "獣類",
+          "target_reading": "じゅうるい",
+          "reasons": [],
+          "side": "source",
+          "count": 1.0,
+          "observation_source": "source_mapping"
+        },
+        {
+          "status": "accepted",
+          "target_key": "いらっしゃい",
+          "target_lemma": "いらっしゃい",
+          "target_reading": "いらっしゃい",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "がたがた|ガタガタ",
+          "target_lemma": "がたがた",
+          "target_reading": "ガタガタ",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ください",
+          "target_lemma": "ください",
+          "target_reading": "ください",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "それから",
+          "target_lemma": "それから",
+          "target_reading": "それから",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "クリーム",
+          "target_lemma": "クリーム",
+          "target_reading": "クリーム",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "二人|ふたり",
+          "target_lemma": "二人",
+          "target_reading": "ふたり",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "何か|なにか",
+          "target_lemma": "何か",
+          "target_reading": "なにか",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "料理店|りょうりてん",
+          "target_lemma": "料理店",
+          "target_reading": "りょうりてん",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "早く|はやく",
+          "target_lemma": "早く",
+          "target_reading": "はやく",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "注文|ちゅうもん",
+          "target_lemma": "注文",
+          "target_reading": "ちゅうもん",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "rejected",
+          "target_key": "注文の多い|ちゅうもんのおおい",
+          "target_lemma": "注文の多い",
+          "target_reading": "ちゅうもんのおおい",
+          "reasons": [
+            "title_like_modifier_phrase"
+          ],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "裏側|うらがわ",
+          "target_lemma": "裏側",
+          "target_reading": "うらがわ",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "香水|こうすい",
+          "target_lemma": "香水",
+          "target_reading": "こうすい",
+          "reasons": [],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "あんまり|あまり",
+          "target_lemma": "あんまり",
+          "target_reading": "あまり",
+          "reasons": [],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ざわざわ",
+          "target_lemma": "ざわざわ",
+          "target_reading": "ざわざわ",
+          "reasons": [],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "rejected",
+          "target_key": "じゃないか",
+          "target_lemma": "じゃないか",
+          "target_reading": "じゃないか",
+          "reasons": [
+            "particle_phrase_fragment"
+          ],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "rejected",
+          "target_key": "たいもん",
+          "target_lemma": "たいもん",
+          "target_reading": "たいもん",
+          "reasons": [
+            "colloquial_fragment"
+          ],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "rejected",
+          "target_key": "というのは",
+          "target_lemma": "というのは",
+          "target_reading": "というのは",
+          "reasons": [
+            "particle_phrase_fragment"
+          ],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "rejected",
+          "target_key": "ませんでした",
+          "target_lemma": "ませんでした",
+          "target_reading": "ませんでした",
+          "reasons": [
+            "polite_inflected_tail"
+          ],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "東京|とうきょう",
+          "target_lemma": "東京",
+          "target_reading": "とうきょう",
+          "reasons": [],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "立派|りっぱ",
+          "target_lemma": "立派",
+          "target_reading": "りっぱ",
+          "reasons": [],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "行き|いき",
+          "target_lemma": "行き",
+          "target_reading": "いき",
+          "reasons": [],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "西洋料理|せいようりょうり",
+          "target_lemma": "西洋料理",
+          "target_reading": "せいようりょうり",
+          "reasons": [],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "おかしい",
+          "target_lemma": "おかしい",
+          "target_reading": "おかしい",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "かさかさ|カサカサ",
+          "target_lemma": "かさかさ",
+          "target_reading": "カサカサ",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "たくさん",
+          "target_lemma": "たくさん",
+          "target_reading": "たくさん",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "でしょう",
+          "target_lemma": "でしょう",
+          "target_reading": "でしょう",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ところが",
+          "target_lemma": "ところが",
+          "target_reading": "ところが",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "のように",
+          "target_lemma": "のように",
+          "target_reading": "のように",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ファイル",
+          "target_lemma": "ファイル",
+          "target_reading": "ファイル",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "中には|なかには",
+          "target_lemma": "中には",
+          "target_reading": "なかには",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "二人とも|ふたりとも",
+          "target_lemma": "二人とも",
+          "target_reading": "ふたりとも",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "作成|さくせい",
+          "target_lemma": "作成",
+          "target_reading": "さくせい",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "塗り|ぬり",
+          "target_lemma": "塗り",
+          "target_reading": "ぬり",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "多く|おおく",
+          "target_lemma": "多く",
+          "target_reading": "おおく",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "大きな|おおきな",
+          "target_lemma": "大きな",
+          "target_reading": "おおきな",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "木の葉|このは",
+          "target_lemma": "木の葉",
+          "target_reading": "このは",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "泣き|なき",
+          "target_lemma": "泣き",
+          "target_reading": "なき",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "見る|みる",
+          "target_lemma": "見る",
+          "target_reading": "みる",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "開け|あけ",
+          "target_lemma": "開け",
+          "target_reading": "あけ",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "鳴り|なり",
+          "target_lemma": "鳴り",
+          "target_reading": "なり",
+          "reasons": [],
+          "side": "target",
+          "count": 3.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "あぶない",
+          "target_lemma": "あぶない",
+          "target_reading": "あぶない",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "いきなり",
+          "target_lemma": "いきなり",
+          "target_reading": "いきなり",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "いながら",
+          "target_lemma": "いながら",
+          "target_reading": "いながら",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "いろいろ",
+          "target_lemma": "いろいろ",
+          "target_reading": "いろいろ",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "えらいひと",
+          "target_lemma": "えらいひと",
+          "target_reading": "えらいひと",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "お客さま|おきゃくさま",
+          "target_lemma": "お客さま",
+          "target_reading": "おきゃくさま",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "お気の毒|おきのどく",
+          "target_lemma": "お気の毒",
+          "target_reading": "おきのどく",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "かぎ穴|かぎあな",
+          "target_lemma": "かぎ穴",
+          "target_reading": "かぎあな",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "くるくる",
+          "target_lemma": "くるくる",
+          "target_reading": "くるくる",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "けれども|けれど",
+          "target_lemma": "けれども",
+          "target_reading": "けれど",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "しながら",
+          "target_lemma": "しながら",
+          "target_reading": "しながら",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "しばらく",
+          "target_lemma": "しばらく",
+          "target_reading": "しばらく",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "すっかり",
+          "target_lemma": "すっかり",
+          "target_reading": "すっかり",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ずいぶん",
+          "target_lemma": "ずいぶん",
+          "target_reading": "ずいぶん",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ぜんたい",
+          "target_lemma": "ぜんたい",
+          "target_reading": "ぜんたい",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "たしかに",
+          "target_lemma": "たしかに",
+          "target_reading": "たしかに",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ちょっと",
+          "target_lemma": "ちょっと",
+          "target_reading": "ちょっと",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "とにかく",
+          "target_lemma": "とにかく",
+          "target_reading": "とにかく",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "どういう",
+          "target_lemma": "どういう",
+          "target_reading": "どういう",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "なかなか",
+          "target_lemma": "なかなか",
+          "target_reading": "なかなか",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "なるほど",
+          "target_lemma": "なるほど",
+          "target_reading": "なるほど",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ぶるぶる",
+          "target_lemma": "ぶるぶる",
+          "target_reading": "ぶるぶる",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "まちがえ",
+          "target_lemma": "まちがえ",
+          "target_reading": "まちがえ",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "カフスボタン",
+          "target_lemma": "カフスボタン",
+          "target_reading": "カフスボタン",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ナイフ",
+          "target_lemma": "ナイフ",
+          "target_reading": "ナイフ",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "ネクタイピン",
+          "target_lemma": "ネクタイピン",
+          "target_reading": "ネクタイピン",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "下さい|ください",
+          "target_lemma": "下さい",
+          "target_reading": "ください",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "仕方ない|しかたない",
+          "target_lemma": "仕方ない",
+          "target_reading": "しかたない",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "家|うち",
+          "target_lemma": "家",
+          "target_reading": "うち",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "横っ腹|よこっぱら",
+          "target_lemma": "横っ腹",
+          "target_reading": "よこっぱら",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "決して|けっして",
+          "target_lemma": "決して",
+          "target_reading": "けっして",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "疋|ひき",
+          "target_lemma": "疋",
+          "target_reading": "ひき",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "白熊|しろくま",
+          "target_lemma": "白熊",
+          "target_reading": "しろくま",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "財布|さいふ",
+          "target_lemma": "財布",
+          "target_reading": "さいふ",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "青空文庫|あおぞらぶんこ",
+          "target_lemma": "青空文庫",
+          "target_reading": "あおぞらぶんこ",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "靴|くつ",
+          "target_lemma": "靴",
+          "target_reading": "くつ",
+          "reasons": [],
+          "side": "target",
+          "count": 2.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "一分|いちぶ",
+          "target_lemma": "一分",
+          "target_reading": "いちぶ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "一軒|いっけん",
+          "target_lemma": "一軒",
+          "target_reading": "いっけん",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "偉|えら",
+          "target_lemma": "偉",
+          "target_reading": "えら",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "兎|うさぎ",
+          "target_lemma": "兎",
+          "target_reading": "うさぎ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "勘定|かんじょう",
+          "target_lemma": "勘定",
+          "target_reading": "かんじょう",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "匂|におい",
+          "target_lemma": "匂",
+          "target_reading": "におい",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "否|いな",
+          "target_lemma": "否",
+          "target_reading": "いな",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "周到|しゅうとう",
+          "target_lemma": "周到",
+          "target_reading": "しゅうとう",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "団子|だんご",
+          "target_lemma": "団子",
+          "target_reading": "だんご",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "壺|つぼ",
+          "target_lemma": "壺",
+          "target_reading": "つぼ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "外套|がいとう",
+          "target_lemma": "外套",
+          "target_reading": "がいとう",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "大歓迎|だいかんげい",
+          "target_lemma": "大歓迎",
+          "target_reading": "だいかんげい",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "山奥|やまおく",
+          "target_lemma": "山奥",
+          "target_reading": "やまおく",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "帽子|ぼうし",
+          "target_lemma": "帽子",
+          "target_reading": "ぼうし",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "廊下|ろうか",
+          "target_lemma": "廊下",
+          "target_reading": "ろうか",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "折角|せっかく",
+          "target_lemma": "折角",
+          "target_reading": "せっかく",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "支度|したく",
+          "target_lemma": "支度",
+          "target_reading": "したく",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "旦那|だんな",
+          "target_lemma": "旦那",
+          "target_reading": "だんな",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "昨日|きのう",
+          "target_lemma": "昨日",
+          "target_reading": "きのう",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "枝|えだ",
+          "target_lemma": "枝",
+          "target_reading": "えだ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "柄|え",
+          "target_lemma": "柄",
+          "target_reading": "え",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "沢山|たくさん",
+          "target_lemma": "沢山",
+          "target_reading": "たくさん",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "泡|あわ",
+          "target_lemma": "泡",
+          "target_reading": "あわ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "泥|どろ",
+          "target_lemma": "泥",
+          "target_reading": "どろ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "瀬戸|せと",
+          "target_lemma": "瀬戸",
+          "target_reading": "せと",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "煉瓦|れんが",
+          "target_lemma": "煉瓦",
+          "target_reading": "れんが",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "猟師|りょうし",
+          "target_lemma": "猟師",
+          "target_reading": "りょうし",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "獣|けもの",
+          "target_lemma": "獣",
+          "target_reading": "けもの",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "玄関|げんかん",
+          "target_lemma": "玄関",
+          "target_reading": "げんかん",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "瓶|びん",
+          "target_lemma": "瓶",
+          "target_reading": "びん",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "皿|さら",
+          "target_lemma": "皿",
+          "target_reading": "さら",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "眼鏡|めがね",
+          "target_lemma": "眼鏡",
+          "target_reading": "めがね",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "紙屑|かみくず",
+          "target_lemma": "紙屑",
+          "target_reading": "かみくず",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "紳士|しんし",
+          "target_lemma": "紳士",
+          "target_reading": "しんし",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "見舞|みまい",
+          "target_lemma": "見舞",
+          "target_reading": "みまい",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "途中|とちゅう",
+          "target_lemma": "途中",
+          "target_reading": "とちゅう",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "途方|とほう",
+          "target_lemma": "途方",
+          "target_reading": "とほう",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "遠慮|えんりょ",
+          "target_lemma": "遠慮",
+          "target_reading": "えんりょ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "酢|す",
+          "target_lemma": "酢",
+          "target_reading": "す",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "金気|かなけ",
+          "target_lemma": "金気",
+          "target_reading": "かなけ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "釘|くぎ",
+          "target_lemma": "釘",
+          "target_reading": "くぎ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "鉄砲|てっぽう",
+          "target_lemma": "鉄砲",
+          "target_reading": "てっぽう",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "錠|じょう",
+          "target_lemma": "錠",
+          "target_reading": "じょう",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "鍵|かぎ",
+          "target_lemma": "鍵",
+          "target_reading": "かぎ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "鍵穴|かぎあな",
+          "target_lemma": "鍵穴",
+          "target_reading": "かぎあな",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "風邪|かぜ",
+          "target_lemma": "風邪",
+          "target_reading": "かぜ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "馳走|ちそう",
+          "target_lemma": "馳走",
+          "target_reading": "ちそう",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "髪|かみ",
+          "target_lemma": "髪",
+          "target_reading": "かみ",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "accepted",
+          "target_key": "鹿|しか",
+          "target_lemma": "鹿",
+          "target_reading": "しか",
+          "reasons": [],
+          "side": "target",
+          "count": 1.0,
+          "observation_source": "target_surface"
+        }
+      ],
+      "rejected": [
+        {
+          "status": "rejected",
+          "target_key": "注文の多い|ちゅうもんのおおい",
+          "target_lemma": "注文の多い",
+          "target_reading": "ちゅうもんのおおい",
+          "reasons": [
+            "title_like_modifier_phrase"
+          ],
+          "side": "target",
+          "count": 5.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "rejected",
+          "target_key": "じゃないか",
+          "target_lemma": "じゃないか",
+          "target_reading": "じゃないか",
+          "reasons": [
+            "particle_phrase_fragment"
+          ],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "rejected",
+          "target_key": "たいもん",
+          "target_lemma": "たいもん",
+          "target_reading": "たいもん",
+          "reasons": [
+            "colloquial_fragment"
+          ],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "rejected",
+          "target_key": "というのは",
+          "target_lemma": "というのは",
+          "target_reading": "というのは",
+          "reasons": [
+            "particle_phrase_fragment"
+          ],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        },
+        {
+          "status": "rejected",
+          "target_key": "ませんでした",
+          "target_lemma": "ませんでした",
+          "target_reading": "ませんでした",
+          "reasons": [
+            "polite_inflected_tail"
+          ],
+          "side": "target",
+          "count": 4.0,
+          "observation_source": "target_surface"
+        }
+      ],
+      "retained_suspect": [],
+      "rejected_target_keys": [
+        "じゃないか",
+        "たいもん",
+        "というのは",
+        "ませんでした",
+        "注文の多い|ちゅうもんのおおい"
+      ],
+      "retained_suspect_target_keys": [],
+      "summary": {
+        "input_signal_count": 130,
+        "accepted_signal_count": 125,
+        "rejected_signal_count": 5,
+        "retained_suspect_signal_count": 0
+      }
+    },
     "store_preview": [
       {
         "target_key": "いらっしゃい",
@@ -899,21 +2308,6 @@
         ]
       },
       {
-        "target_key": "注文の多い|ちゅうもんのおおい",
-        "target_lemma": "注文の多い",
-        "target_reading": "ちゅうもんのおおい",
-        "source_hit_count": 0.0,
-        "target_hit_count": 5.0,
-        "replacement_exposure_count": 0.0,
-        "source_mapping_confidence": 0.0,
-        "reading_confidence": 1.0,
-        "raw_value": 5.0,
-        "signal_value": 0.632412,
-        "observation_sources": [
-          "target_surface"
-        ]
-      },
-      {
         "target_key": "裏側|うらがわ",
         "target_lemma": "裏側",
         "target_reading": "うらがわ",
@@ -947,66 +2341,6 @@
         "target_key": "ざわざわ",
         "target_lemma": "ざわざわ",
         "target_reading": "ざわざわ",
-        "source_hit_count": 0.0,
-        "target_hit_count": 4.0,
-        "replacement_exposure_count": 0.0,
-        "source_mapping_confidence": 0.0,
-        "reading_confidence": 1.0,
-        "raw_value": 4.0,
-        "signal_value": 0.568061,
-        "observation_sources": [
-          "target_surface"
-        ]
-      },
-      {
-        "target_key": "じゃないか",
-        "target_lemma": "じゃないか",
-        "target_reading": "じゃないか",
-        "source_hit_count": 0.0,
-        "target_hit_count": 4.0,
-        "replacement_exposure_count": 0.0,
-        "source_mapping_confidence": 0.0,
-        "reading_confidence": 1.0,
-        "raw_value": 4.0,
-        "signal_value": 0.568061,
-        "observation_sources": [
-          "target_surface"
-        ]
-      },
-      {
-        "target_key": "たいもん",
-        "target_lemma": "たいもん",
-        "target_reading": "たいもん",
-        "source_hit_count": 0.0,
-        "target_hit_count": 4.0,
-        "replacement_exposure_count": 0.0,
-        "source_mapping_confidence": 0.0,
-        "reading_confidence": 1.0,
-        "raw_value": 4.0,
-        "signal_value": 0.568061,
-        "observation_sources": [
-          "target_surface"
-        ]
-      },
-      {
-        "target_key": "というのは",
-        "target_lemma": "というのは",
-        "target_reading": "というのは",
-        "source_hit_count": 0.0,
-        "target_hit_count": 4.0,
-        "replacement_exposure_count": 0.0,
-        "source_mapping_confidence": 0.0,
-        "reading_confidence": 1.0,
-        "raw_value": 4.0,
-        "signal_value": 0.568061,
-        "observation_sources": [
-          "target_surface"
-        ]
-      },
-      {
-        "target_key": "ませんでした",
-        "target_lemma": "ませんでした",
-        "target_reading": "ませんでした",
         "source_hit_count": 0.0,
         "target_hit_count": 4.0,
         "replacement_exposure_count": 0.0,
@@ -1212,6 +2546,81 @@
         "observation_sources": [
           "target_surface"
         ]
+      },
+      {
+        "target_key": "中には|なかには",
+        "target_lemma": "中には",
+        "target_reading": "なかには",
+        "source_hit_count": 0.0,
+        "target_hit_count": 3.0,
+        "replacement_exposure_count": 0.0,
+        "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "raw_value": 3.0,
+        "signal_value": 0.489301,
+        "observation_sources": [
+          "target_surface"
+        ]
+      },
+      {
+        "target_key": "二人とも|ふたりとも",
+        "target_lemma": "二人とも",
+        "target_reading": "ふたりとも",
+        "source_hit_count": 0.0,
+        "target_hit_count": 3.0,
+        "replacement_exposure_count": 0.0,
+        "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "raw_value": 3.0,
+        "signal_value": 0.489301,
+        "observation_sources": [
+          "target_surface"
+        ]
+      },
+      {
+        "target_key": "作成|さくせい",
+        "target_lemma": "作成",
+        "target_reading": "さくせい",
+        "source_hit_count": 0.0,
+        "target_hit_count": 3.0,
+        "replacement_exposure_count": 0.0,
+        "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "raw_value": 3.0,
+        "signal_value": 0.489301,
+        "observation_sources": [
+          "target_surface"
+        ]
+      },
+      {
+        "target_key": "塗り|ぬり",
+        "target_lemma": "塗り",
+        "target_reading": "ぬり",
+        "source_hit_count": 0.0,
+        "target_hit_count": 3.0,
+        "replacement_exposure_count": 0.0,
+        "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "raw_value": 3.0,
+        "signal_value": 0.489301,
+        "observation_sources": [
+          "target_surface"
+        ]
+      },
+      {
+        "target_key": "多く|おおく",
+        "target_lemma": "多く",
+        "target_reading": "おおく",
+        "source_hit_count": 0.0,
+        "target_hit_count": 3.0,
+        "replacement_exposure_count": 0.0,
+        "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "raw_value": 3.0,
+        "signal_value": 0.489301,
+        "observation_sources": [
+          "target_surface"
+        ]
       }
     ]
   },
@@ -1255,7 +2664,7 @@
         "admission_budget": 8,
         "candidate_pool_effective": 10951,
         "candidate_pool_input": 10951,
-        "aggregate_item_count": 129,
+        "aggregate_item_count": 124,
         "matching_signal_count": 9,
         "blocked_by_lifecycle": 0,
         "blocked_lemmas": [],
@@ -8857,6 +10266,18 @@
           "センター"
         ]
       },
+      "hygiene": {
+        "rejected_signal_count": 5,
+        "retained_suspect_signal_count": 0,
+        "rejected_signal_candidate_match_count": 0,
+        "retained_suspect_candidate_match_count": 0,
+        "selected_rejected_signal_count": 0,
+        "selected_retained_suspect_signal_count": 0,
+        "rejected_signal_candidate_matches": [],
+        "retained_suspect_candidate_matches": [],
+        "selected_rejected_signals": [],
+        "selected_retained_suspect_signals": []
+      },
       "findings": [
         {
           "level": "PASS",
@@ -8882,6 +10303,11 @@
           "level": "PASS",
           "code": "EFFECTIVE_SIGNAL_FIELDS_PRESENT",
           "message": "Strong preview rows expose raw and effective browsing signal fields."
+        },
+        {
+          "level": "PASS",
+          "code": "HYGIENE_REJECTED_SIGNALS_NOT_SELECTED",
+          "message": "No hygiene-rejected saved-page signals were selected."
         }
       ]
     },
@@ -8917,7 +10343,7 @@
         "admission_budget": 8,
         "candidate_pool_effective": 10951,
         "candidate_pool_input": 10951,
-        "aggregate_item_count": 129,
+        "aggregate_item_count": 124,
         "matching_signal_count": 9,
         "blocked_by_lifecycle": 0,
         "blocked_lemmas": [],
@@ -16519,6 +17945,18 @@
           "レベル"
         ]
       },
+      "hygiene": {
+        "rejected_signal_count": 5,
+        "retained_suspect_signal_count": 0,
+        "rejected_signal_candidate_match_count": 0,
+        "retained_suspect_candidate_match_count": 0,
+        "selected_rejected_signal_count": 0,
+        "selected_retained_suspect_signal_count": 0,
+        "rejected_signal_candidate_matches": [],
+        "retained_suspect_candidate_matches": [],
+        "selected_rejected_signals": [],
+        "selected_retained_suspect_signals": []
+      },
       "findings": [
         {
           "level": "PASS",
@@ -16544,6 +17982,11 @@
           "level": "PASS",
           "code": "EFFECTIVE_SIGNAL_FIELDS_PRESENT",
           "message": "Strong preview rows expose raw and effective browsing signal fields."
+        },
+        {
+          "level": "PASS",
+          "code": "HYGIENE_REJECTED_SIGNALS_NOT_SELECTED",
+          "message": "No hygiene-rejected saved-page signals were selected."
         }
       ]
     },
@@ -16624,7 +18067,7 @@
         "admission_budget": 8,
         "candidate_pool_effective": 10951,
         "candidate_pool_input": 10951,
-        "aggregate_item_count": 129,
+        "aggregate_item_count": 124,
         "matching_signal_count": 9,
         "blocked_by_lifecycle": 0,
         "blocked_lemmas": [],
@@ -24226,6 +25669,18 @@
           "ビール"
         ]
       },
+      "hygiene": {
+        "rejected_signal_count": 5,
+        "retained_suspect_signal_count": 0,
+        "rejected_signal_candidate_match_count": 0,
+        "retained_suspect_candidate_match_count": 0,
+        "selected_rejected_signal_count": 0,
+        "selected_retained_suspect_signal_count": 0,
+        "rejected_signal_candidate_matches": [],
+        "retained_suspect_candidate_matches": [],
+        "selected_rejected_signals": [],
+        "selected_retained_suspect_signals": []
+      },
       "findings": [
         {
           "level": "PASS",
@@ -24251,6 +25706,11 @@
           "level": "PASS",
           "code": "EFFECTIVE_SIGNAL_FIELDS_PRESENT",
           "message": "Strong preview rows expose raw and effective browsing signal fields."
+        },
+        {
+          "level": "PASS",
+          "code": "HYGIENE_REJECTED_SIGNALS_NOT_SELECTED",
+          "message": "No hygiene-rejected saved-page signals were selected."
         }
       ]
     },
@@ -24331,7 +25791,7 @@
         "admission_budget": 8,
         "candidate_pool_effective": 10951,
         "candidate_pool_input": 10951,
-        "aggregate_item_count": 129,
+        "aggregate_item_count": 124,
         "matching_signal_count": 9,
         "blocked_by_lifecycle": 0,
         "blocked_lemmas": [],
@@ -31930,6 +33390,18 @@
           "虎"
         ]
       },
+      "hygiene": {
+        "rejected_signal_count": 5,
+        "retained_suspect_signal_count": 0,
+        "rejected_signal_candidate_match_count": 0,
+        "retained_suspect_candidate_match_count": 0,
+        "selected_rejected_signal_count": 0,
+        "selected_retained_suspect_signal_count": 0,
+        "rejected_signal_candidate_matches": [],
+        "retained_suspect_candidate_matches": [],
+        "selected_rejected_signals": [],
+        "selected_retained_suspect_signals": []
+      },
       "findings": [
         {
           "level": "PASS",
@@ -31955,6 +33427,11 @@
           "level": "PASS",
           "code": "EFFECTIVE_SIGNAL_FIELDS_PRESENT",
           "message": "Strong preview rows expose raw and effective browsing signal fields."
+        },
+        {
+          "level": "PASS",
+          "code": "HYGIENE_REJECTED_SIGNALS_NOT_SELECTED",
+          "message": "No hygiene-rejected saved-page signals were selected."
         }
       ]
     }

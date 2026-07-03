@@ -4,12 +4,26 @@
 - Scenarios: `4`
 - Scenario pass/warn/fail: `4` / `0` / `0`
 - Saved-page signals: `130`
-- Saved-page aggregate items: `129`
+- Retained after cheap hygiene: `125`
+- Rejected by cheap hygiene: `5`
+- Saved-page aggregate items: `124`
 - Runtime scope: `preview_only_saved_page_browsing_admission`
 
 ## Interpretation
 
 This pack starts after saved-page extraction has produced target-key browsing signals. It tests whether those signals materially affect a real en-ja profile-growth admission frontier, while remaining preview-only.
+
+## Cheap Hygiene
+
+This layer is intentionally narrower than the full admission quality gate. It only rejects obvious non-standalone page-surface strings before temporary aggregate ingest; normal candidate suitability still runs during admission.
+
+| Target | Reasons | Count | Source |
+| --- | --- | ---: | --- |
+| `注文の多い|ちゅうもんのおおい` | `title_like_modifier_phrase` | 5.0 | `target_surface` |
+| `じゃないか` | `particle_phrase_fragment` | 4.0 | `target_surface` |
+| `たいもん` | `colloquial_fragment` | 4.0 | `target_surface` |
+| `というのは` | `particle_phrase_fragment` | 4.0 | `target_surface` |
+| `ませんでした` | `polite_inflected_tail` | 4.0 | `target_surface` |
 
 ## Saved-Page Aggregate
 
@@ -24,13 +38,13 @@ This pack starts after saved-page extraction has produced target-key browsing si
 | `何か|なにか` | 5.0 | 0.632412 | 0.0 | 5.0 | 1.0 | `target_surface` |
 | `料理店|りょうりてん` | 5.0 | 0.632412 | 0.0 | 5.0 | 1.0 | `target_surface` |
 | `早く|はやく` | 5.0 | 0.632412 | 0.0 | 5.0 | 1.0 | `target_surface` |
-| `注文の多い|ちゅうもんのおおい` | 5.0 | 0.632412 | 0.0 | 5.0 | 1.0 | `target_surface` |
 | `裏側|うらがわ` | 5.0 | 0.632412 | 0.0 | 5.0 | 1.0 | `target_surface` |
 | `あんまり|あまり` | 4.0 | 0.568061 | 0.0 | 4.0 | 1.0 | `target_surface` |
 | `ざわざわ` | 4.0 | 0.568061 | 0.0 | 4.0 | 1.0 | `target_surface` |
-| `じゃないか` | 4.0 | 0.568061 | 0.0 | 4.0 | 1.0 | `target_surface` |
-| `たいもん` | 4.0 | 0.568061 | 0.0 | 4.0 | 1.0 | `target_surface` |
-| `というのは` | 4.0 | 0.568061 | 0.0 | 4.0 | 1.0 | `target_surface` |
+| `東京|とうきょう` | 4.0 | 0.568061 | 0.0 | 4.0 | 1.0 | `target_surface` |
+| `立派|りっぱ` | 4.0 | 0.568061 | 0.0 | 4.0 | 1.0 | `target_surface` |
+| `行き|いき` | 4.0 | 0.568061 | 0.0 | 4.0 | 1.0 | `target_surface` |
+| `西洋料理|せいようりょうり` | 4.0 | 0.568061 | 0.0 | 4.0 | 1.0 | `target_surface` |
 
 ## Scenarios
 
@@ -39,9 +53,11 @@ This pack starts after saved-page extraction has produced target-key browsing si
 - Status: `pass`
 - Proficiency: `0.35`
 - Topic weights: `{}`
-- Matching signals: `9` / aggregate items `129`
+- Matching signals: `9` / aggregate items `124`
 - Candidate pool: `10951`
 - Strong added vs off: `作成, クリーム, 注文, 立派`
+- Hygiene rejected candidate matches: `0`
+- Hygiene rejected selected: `0`
 
 | Strength | Browsing lane | Driven | Signal volume | Selected |
 | --- | ---: | ---: | ---: | --- |
@@ -70,15 +86,18 @@ Findings:
 - `PASS` `STRONG_BROWSING_LANE`: Strong preset realized browsing lane.
 - `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (9 >= 5).
 - `PASS` `EFFECTIVE_SIGNAL_FIELDS_PRESENT`: Strong preview rows expose raw and effective browsing signal fields.
+- `PASS` `HYGIENE_REJECTED_SIGNALS_NOT_SELECTED`: No hygiene-rejected saved-page signals were selected.
 
 ### neutral_p50_saved_pages
 
 - Status: `pass`
 - Proficiency: `0.5`
 - Topic weights: `{}`
-- Matching signals: `9` / aggregate items `129`
+- Matching signals: `9` / aggregate items `124`
 - Candidate pool: `10951`
 - Strong added vs off: `香水, 壺, 鉄砲, 団子`
+- Hygiene rejected candidate matches: `0`
+- Hygiene rejected selected: `0`
 
 | Strength | Browsing lane | Driven | Signal volume | Selected |
 | --- | ---: | ---: | ---: | --- |
@@ -107,15 +126,18 @@ Findings:
 - `PASS` `STRONG_BROWSING_LANE`: Strong preset realized browsing lane.
 - `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (9 >= 5).
 - `PASS` `EFFECTIVE_SIGNAL_FIELDS_PRESENT`: Strong preview rows expose raw and effective browsing signal fields.
+- `PASS` `HYGIENE_REJECTED_SIGNALS_NOT_SELECTED`: No hygiene-rejected saved-page signals were selected.
 
 ### food_p35_saved_pages
 
 - Status: `pass`
 - Proficiency: `0.35`
 - Topic weights: `{"food_cooking": 1.0}`
-- Matching signals: `9` / aggregate items `129`
+- Matching signals: `9` / aggregate items `124`
 - Candidate pool: `10951`
 - Strong added vs off: `作成, クリーム, 注文, 立派`
+- Hygiene rejected candidate matches: `0`
+- Hygiene rejected selected: `0`
 
 | Strength | Browsing lane | Driven | Signal volume | Selected |
 | --- | ---: | ---: | ---: | --- |
@@ -144,15 +166,18 @@ Findings:
 - `PASS` `STRONG_BROWSING_LANE`: Strong preset realized browsing lane.
 - `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (9 >= 5).
 - `PASS` `EFFECTIVE_SIGNAL_FIELDS_PRESENT`: Strong preview rows expose raw and effective browsing signal fields.
+- `PASS` `HYGIENE_REJECTED_SIGNALS_NOT_SELECTED`: No hygiene-rejected saved-page signals were selected.
 
 ### animals_p35_saved_pages
 
 - Status: `pass`
 - Proficiency: `0.35`
 - Topic weights: `{"animals": 1.0}`
-- Matching signals: `9` / aggregate items `129`
+- Matching signals: `9` / aggregate items `124`
 - Candidate pool: `10951`
 - Strong added vs off: `鹿, 作成, クリーム`
+- Hygiene rejected candidate matches: `0`
+- Hygiene rejected selected: `0`
 
 | Strength | Browsing lane | Driven | Signal volume | Selected |
 | --- | ---: | ---: | ---: | --- |
@@ -181,6 +206,7 @@ Findings:
 - `PASS` `STRONG_BROWSING_LANE`: Strong preset realized browsing lane.
 - `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (9 >= 5).
 - `PASS` `EFFECTIVE_SIGNAL_FIELDS_PRESENT`: Strong preview rows expose raw and effective browsing signal fields.
+- `PASS` `HYGIENE_REJECTED_SIGNALS_NOT_SELECTED`: No hygiene-rejected saved-page signals were selected.
 
 ## Findings
 

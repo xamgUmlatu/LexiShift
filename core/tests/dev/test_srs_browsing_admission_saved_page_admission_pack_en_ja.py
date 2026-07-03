@@ -17,10 +17,16 @@ from lexishift_core.srs.browsing_admission import (  # noqa: E402
     BrowsingSignalIngestPolicy,
     BrowsingSignalStore,
 )
-from srs_browsing_admission_saved_page_admission_pack_en_ja import (  # noqa: E402
-    evaluate_scenario,
+from srs_browsing_admission_saved_page_admission_hygiene import (  # noqa: E402
+    build_signal_hygiene,
+    classify_signal_hygiene,
+)
+from srs_browsing_admission_saved_page_admission_aggregate import (  # noqa: E402
     packet_entry_from_signal,
     store_preview,
+)
+from srs_browsing_admission_saved_page_admission_pack_en_ja import (  # noqa: E402
+    evaluate_scenario,
 )
 
 
@@ -89,6 +95,64 @@ class TestSrsBrowsingAdmissionSavedPageAdmissionPackEnJa(unittest.TestCase):
                 "message": (
                     "Saved-page aggregate matched too few real admission candidates (1 < 5)."
                 ),
+            },
+            findings,
+        )
+
+    def test_hygiene_rejects_only_obvious_non_standalone_page_surfaces(self) -> None:
+        rejected = [
+            classify_signal_hygiene({"target_lemma": "ませんでした"}),
+            classify_signal_hygiene({"target_lemma": "たいもん"}),
+            classify_signal_hygiene({"target_lemma": "というのは"}),
+            classify_signal_hygiene({"target_lemma": "注文の多い"}),
+        ]
+        accepted = [
+            classify_signal_hygiene({"target_lemma": "注文", "target_reading": "ちゅうもん"}),
+            classify_signal_hygiene({"target_lemma": "クリーム"}),
+            classify_signal_hygiene({"target_lemma": "兎", "target_reading": "うさぎ"}),
+        ]
+
+        self.assertTrue(all(row["status"] == "rejected" for row in rejected))
+        self.assertTrue(all(row["status"] == "accepted" for row in accepted))
+
+    def test_hygiene_summary_keeps_suspect_rows_out_of_reject_count(self) -> None:
+        hygiene = build_signal_hygiene(
+            [
+                {"target_lemma": "注文", "target_reading": "ちゅうもん"},
+                {"target_lemma": "ませんでした"},
+                {"target_lemma": "ながながしいもの"},
+            ]
+        )
+
+        self.assertEqual(hygiene["summary"]["input_signal_count"], 3)
+        self.assertEqual(hygiene["summary"]["accepted_signal_count"], 1)
+        self.assertEqual(hygiene["summary"]["rejected_signal_count"], 1)
+        self.assertEqual(hygiene["summary"]["retained_suspect_signal_count"], 1)
+        self.assertEqual(hygiene["rejected_target_keys"], ["ませんでした"])
+        self.assertEqual(hygiene["retained_suspect_target_keys"], ["ながながしいもの"])
+
+    def test_hygiene_selected_rejected_signal_fails_scenario(self) -> None:
+        findings = evaluate_scenario(
+            scenario={"expectations": {}},
+            preview={
+                "runtime_srs_mutation": False,
+                "applied_to_actual_admission": False,
+                "matching_signal_count": 0,
+                "simulations": {
+                    "off": {"browsing_lane_share": 0.0},
+                    "balanced": {"browsing_lane_share": 0.0},
+                    "strong": {"browsing_lane_share": 0.0, "browsing_lane_count": 0},
+                },
+            },
+            blocked_lemmas=set(),
+            hygiene_diagnostics={"selected_rejected_signal_count": 1},
+        )
+
+        self.assertIn(
+            {
+                "level": "FAIL",
+                "code": "HYGIENE_REJECTED_SIGNAL_SELECTED",
+                "message": "Hygiene-rejected saved-page signals were selected: 1.",
             },
             findings,
         )
