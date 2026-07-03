@@ -1,0 +1,191 @@
+from __future__ import annotations
+
+import json
+import subprocess
+import unittest
+from pathlib import Path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PAGE_MINING_JS = PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_page_mining.js"
+
+
+def _run_node(script: str) -> None:
+    result = subprocess.run(
+        ["node"],
+        input=script,
+        text=True,
+        capture_output=True,
+        cwd=PROJECT_ROOT,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise AssertionError(
+            "Node browsing page-mining test failed.\n"
+            f"STDOUT:\n{result.stdout}\n"
+            f"STDERR:\n{result.stderr}"
+        )
+
+
+class TestExtensionBrowsingPageMining(unittest.TestCase):
+    def test_builds_ruby_target_surface_signals_for_en_ja(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(PAGE_MINING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const mining = context.LexiShift.srsBrowsingPageMining;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+const rows = normalize(mining.buildRubyTargetSignals(
+  [
+    {{ surface: "発酵", reading: "はっこう" }},
+    {{ surface: "発酵", reading: "はっこう" }},
+    {{ surface: "未確認", reading: "not-kana" }},
+    {{ surface: "長すぎる長すぎる長すぎる長すぎる", reading: "ながすぎる" }}
+  ],
+  {{ srsPair: "en-ja" }},
+  {{ maxCountPerTarget: 5 }}
+));
+
+assert.deepEqual(rows, [
+  {{
+    language_pair: "en-ja",
+    lemma: "発酵",
+    target_key: "発酵|はっこう",
+    target_reading: "はっこう",
+    side: "target",
+    count: 2,
+    reading_confidence: 1,
+    source_mapping_confidence: 1,
+    observation_source: "target_surface"
+  }}
+]);
+assert.deepEqual(normalize(mining.buildRubyTargetSignals(
+  [{{ surface: "発酵", reading: "はっこう" }}],
+  {{ srsPair: "en-es" }},
+  {{}}
+)), []);
+"""
+        _run_node(script)
+
+    def test_extracts_ruby_pair_without_rt_or_rp_text(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(PAGE_MINING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+function text(value) {{
+  return {{ nodeType: 3, nodeValue: value }};
+}}
+function element(tagName, children, textContent) {{
+  return {{
+    nodeType: 1,
+    tagName,
+    childNodes: children || [],
+    textContent: textContent || "",
+    querySelectorAll(selector) {{
+      const matches = [];
+      function visit(node) {{
+        if (node.nodeType === 1 && String(node.tagName).toLowerCase() === selector) {{
+          matches.push(node);
+        }}
+        for (const child of Array.from(node.childNodes || [])) visit(child);
+      }}
+      visit(this);
+      return matches;
+    }}
+  }};
+}}
+
+const ruby = element("ruby", [
+  text("発"),
+  element("rt", [text("はっ")], "はっ"),
+  text("酵"),
+  element("rp", [text(")")], ")"),
+  element("rt", [text("こう")], "こう")
+]);
+const pair = context.LexiShift.srsBrowsingPageMining.extractRubyPair(ruby);
+assert.deepEqual(JSON.parse(JSON.stringify(pair)), {{ surface: "発酵", reading: "はっこう" }});
+"""
+        _run_node(script)
+
+    def test_miner_dedupes_seen_ruby_targets_until_reset(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(PAGE_MINING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const calls = [];
+const mining = context.LexiShift.srsBrowsingPageMining;
+const miner = mining.createMiner({{
+  getCurrentSettings: () => ({{
+    srsPair: "en-ja",
+    srsBrowsingAdmissionSignalsEnabled: true
+  }}),
+  includeInvisible: true,
+  browsingAdmissionSignals: {{
+    recordExposureBatch(signals, settings) {{
+      calls.push({{ signals: JSON.parse(JSON.stringify(signals)), settings }});
+      return Promise.resolve({{ status: "queued", accepted: signals.length }});
+    }}
+  }}
+}});
+const rootNode = {{
+  querySelectorAll(selector) {{
+    assert.equal(selector, "ruby");
+    return [
+      {{
+        nodeType: 1,
+        tagName: "ruby",
+        childNodes: [
+          {{ nodeType: 3, nodeValue: "発酵" }},
+          {{
+            nodeType: 1,
+            tagName: "rt",
+            textContent: "はっこう",
+            childNodes: [{{ nodeType: 3, nodeValue: "はっこう" }}]
+          }}
+        ],
+        querySelectorAll() {{
+          return [{{ textContent: "はっこう" }}];
+        }}
+      }}
+    ];
+  }}
+}};
+
+(async () => {{
+  assert.equal((await miner.mineDocument(rootNode, "first")).status, "queued");
+  assert.equal((await miner.mineDocument(rootNode, "second")).status, "empty");
+  miner.clearSeen();
+  assert.equal((await miner.mineDocument(rootNode, "third")).status, "queued");
+  assert.equal(calls.length, 2);
+  assert.equal(calls[0].signals[0].target_key, "発酵|はっこう");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+
+if __name__ == "__main__":
+    unittest.main()

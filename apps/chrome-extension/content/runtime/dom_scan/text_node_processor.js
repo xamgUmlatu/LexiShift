@@ -294,11 +294,10 @@
           if (pageBudgetState) {
             updatePageBudgetUsage(pageBudgetState, Array.isArray(result.budgetKeys) ? result.budgetKeys : []);
           }
-          if (srsMetrics
-            && currentSettings.srsExposureLoggingEnabled !== false
-            && result.details
-            && result.details.length
-          ) {
+          const shouldRecordLocalExposure = currentSettings.srsExposureLoggingEnabled !== false;
+          const shouldRecordBrowsingAdmission = currentSettings.srsBrowsingAdmissionSignalsEnabled === true
+            && browsingAdmissionSignals && typeof browsingAdmissionSignals.recordExposureBatch === "function";
+          if (srsMetrics && (shouldRecordLocalExposure || shouldRecordBrowsingAdmission) && result.details && result.details.length) {
             const exposures = result.details.map((detail) =>
               srsMetrics.buildExposure(
                 detail,
@@ -308,7 +307,7 @@
               )
             );
             srsMetrics.recordExposureBatch(exposures, {
-              browsingAdmissionSignals, log, settings: currentSettings
+              browsingAdmissionSignals, log, recordLocalExposureLog: shouldRecordLocalExposure, settings: currentSettings
             }).then((saved) => {
               if (currentSettings.debugEnabled && saved && saved.length) log(`Recorded ${saved.length} exposure(s).`);
             });

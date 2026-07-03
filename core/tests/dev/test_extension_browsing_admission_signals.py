@@ -10,6 +10,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 BROWSING_SIGNALS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js"
 )
+METRICS_JS = PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_metrics.js"
+SETTINGS_ROUTER_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/content/runtime/settings_change_router.js"
+)
 HELPER_CLIENT_JS = PROJECT_ROOT / "apps/chrome-extension/shared/helper/helper_client.js"
 MANIFEST_JSON = PROJECT_ROOT / "apps/chrome-extension/manifest.json"
 CONTENT_SCRIPT_JS = PROJECT_ROOT / "apps/chrome-extension/content_script.js"
@@ -215,18 +219,277 @@ const sender = context.LexiShift.srsBrowsingAdmissionSignals.createSender({{
 """
         _run_node(script)
 
+    def test_packet_builder_preserves_target_surface_side_and_count(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(BROWSING_SIGNALS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const signals = context.LexiShift.srsBrowsingAdmissionSignals;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+const pending = new Map();
+const accepted = signals.addExposureBatchToPending(
+  pending,
+  [
+    {{
+      language_pair: "en-ja",
+      lemma: "発酵",
+      target_key: "発酵|はっこう",
+      target_reading: "はっこう",
+      side: "target",
+      count: 4,
+      observation_source: "target_surface",
+      url: "https://example.invalid/private"
+    }}
+  ],
+  {{ srsProfileId: "alpha", srsPair: "en-ja" }},
+  {{ pageContextKey: "target-page-context", nowMs: () => 0 }}
+);
+const payloads = signals.buildPacketPayloads(pending, {{
+  nowIso: () => "2026-05-23T00:00:00.000Z"
+}});
+
+assert.equal(accepted, 4);
+assert.equal(payloads.length, 1);
+const row = normalize(payloads[0].signals[0]);
+assert.equal(row.target_key, "発酵|はっこう");
+assert.equal(row.target_lemma, "発酵");
+assert.equal(row.target_reading, "はっこう");
+assert.equal(row.side, "target");
+assert.equal(row.observation_source, "target_surface");
+assert.equal(row.count, 4);
+assert.equal(row.reading_confidence, 1);
+assert.equal(row.source_mapping_confidence, 1);
+assert.equal(JSON.stringify(payloads).includes("example.invalid"), false);
+"""
+        _run_node(script)
+
+    def test_sender_can_clear_pending_packets_before_flush(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(BROWSING_SIGNALS_JS))};
+const context = vm.createContext({{
+  console,
+  setTimeout,
+  clearTimeout
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const calls = [];
+const logs = [];
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+const sender = context.LexiShift.srsBrowsingAdmissionSignals.createSender({{
+  getHelperClient: () => ({{
+    ingestBrowsingAdmissionSignals(payload) {{
+      calls.push(payload);
+      return Promise.resolve({{ ok: true }});
+    }}
+  }}),
+  getCurrentSettings: () => ({{}}),
+  flushDelayMs: 100000,
+  log: (message) => logs.push(String(message)),
+  pageContextKey: "sender-page-context",
+  nowMs: () => 0,
+  nowIso: () => "2026-05-23T00:00:00.000Z"
+}});
+
+(async () => {{
+  const queued = await sender.recordExposureBatch(
+    [{{ language_pair: "en-es", lemma: "salud" }}],
+    {{
+      srsPair: "en-es",
+      srsProfileId: "default",
+      srsBrowsingAdmissionSignalsEnabled: true
+    }}
+  );
+  assert.equal(queued.status, "queued");
+  assert.equal(sender._pendingByScope.size, 1);
+  const cleared = sender.clearPending("test_scope_change");
+  assert.deepEqual(normalize(cleared), {{
+    status: "cleared",
+    reason: "test_scope_change",
+    scope_count: 1,
+    signal_count: 1
+  }});
+  assert.equal(sender._pendingByScope.size, 0);
+  assert.equal(logs.some((message) => message.includes("test_scope_change")), true);
+  const flushed = await sender.flush();
+  assert.equal(flushed.status, "empty");
+  assert.equal(calls.length, 0);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_metrics_can_queue_browsing_signals_without_local_exposure_log(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(METRICS_JS))};
+let storageSetCalls = 0;
+const storeCalls = [];
+const browsingCalls = [];
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  srsStore: {{
+    recordExposureBatch(payload) {{
+      storeCalls.push(payload);
+    }}
+  }}
+}};
+context.chrome = {{
+  runtime: {{ id: "test-extension" }},
+  storage: {{
+    local: {{
+      get(defaults, callback) {{
+        callback(defaults);
+      }},
+      set(_items, callback) {{
+        storageSetCalls += 1;
+        if (callback) callback();
+      }}
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+(async () => {{
+  const saved = await context.LexiShift.srsMetrics.recordExposureBatch(
+    [
+      {{
+        lemma: "salud",
+        replacement: "salud",
+        language_pair: "en-es"
+      }}
+    ],
+    {{
+      recordLocalExposureLog: false,
+      settings: {{
+        srsBrowsingAdmissionSignalsEnabled: true,
+        debugEnabled: true
+      }},
+      browsingAdmissionSignals: {{
+        recordExposureBatch(payload, settings) {{
+          browsingCalls.push({{ payload, settings }});
+          return Promise.resolve({{ status: "queued", accepted: payload.length }});
+        }}
+      }},
+      log: () => {{}}
+    }}
+  );
+  assert.deepEqual(normalize(saved), []);
+  assert.equal(storageSetCalls, 0);
+  assert.equal(storeCalls.length, 0);
+  assert.equal(browsingCalls.length, 1);
+  assert.equal(browsingCalls[0].payload.length, 1);
+  assert.equal(browsingCalls[0].payload[0].lemma, "salud");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_settings_router_clears_browsing_queue_on_toggle_and_scope_change(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(SETTINGS_ROUTER_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+let currentSettings = {{
+  debugEnabled: true,
+  srsBrowsingAdmissionSignalsEnabled: true,
+  srsPair: "en-ja",
+  srsProfileId: "alpha"
+}};
+const applied = [];
+const cleared = [];
+const logs = [];
+const router = context.LexiShift.contentSettingsChangeRouter.createRouter({{
+  getCurrentSettings: () => currentSettings,
+  setCurrentSettings: (next) => {{
+    currentSettings = {{ ...next }};
+  }},
+  browsingAdmissionSignals: {{
+    clearPending(reason) {{
+      cleared.push(reason);
+    }}
+  }},
+  applySettings: (next) => {{
+    applied.push({{ ...next }});
+  }},
+  log: (message) => logs.push(String(message))
+}});
+
+router.handleStorageChange(
+  {{
+    srsBrowsingAdmissionSignalsEnabled: {{ oldValue: true, newValue: false }}
+  }},
+  "local"
+);
+assert.equal(currentSettings.srsBrowsingAdmissionSignalsEnabled, false);
+assert.deepEqual(cleared, ["browsing_admission_setting_changed"]);
+assert.equal(logs.some((message) => message.includes("browsing-admission signals disabled")), true);
+
+router.handleStorageChange(
+  {{
+    srsPair: {{ oldValue: "en-ja", newValue: "en-de" }}
+  }},
+  "local"
+);
+assert.deepEqual(cleared, [
+  "browsing_admission_setting_changed",
+  "browsing_admission_scope_changed"
+]);
+assert.equal(applied.length, 1);
+assert.equal(applied[0].srsPair, "en-de");
+"""
+        _run_node(script)
+
     def test_manifest_and_content_script_wire_dev_only_signal_module(self) -> None:
         manifest = json.loads(MANIFEST_JSON.read_text(encoding="utf-8"))
         script_paths = manifest["content_scripts"][0]["js"]
         self.assertIn("shared/srs/srs_browsing_admission_signals.js", script_paths)
+        self.assertIn("shared/srs/srs_browsing_page_mining.js", script_paths)
         self.assertLess(
             script_paths.index("shared/srs/srs_browsing_admission_signals.js"),
+            script_paths.index("shared/srs/srs_browsing_page_mining.js"),
+        )
+        self.assertLess(
+            script_paths.index("shared/srs/srs_browsing_page_mining.js"),
             script_paths.index("content/runtime/dom_scan/text_node_processor.js"),
         )
 
         content_script = CONTENT_SCRIPT_JS.read_text(encoding="utf-8")
         self.assertIn("srsBrowsingAdmissionSignals.createSender", content_script)
         self.assertIn("browsingAdmissionSignals: browsingAdmissionSignalSender", content_script)
+        self.assertIn("srsBrowsingPageMining.createMiner", content_script)
+        settings_router = SETTINGS_ROUTER_JS.read_text(encoding="utf-8")
+        self.assertIn("srsBrowsingAdmissionSignalsEnabled", settings_router)
+        self.assertIn("clearPending", settings_router)
 
 
 if __name__ == "__main__":

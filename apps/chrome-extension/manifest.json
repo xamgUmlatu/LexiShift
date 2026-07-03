@@ -40,6 +40,7 @@
         "shared/srs/srs_gate.js",
         "shared/srs/srs_metrics.js",
         "shared/srs/srs_browsing_admission_signals.js",
+        "shared/srs/srs_browsing_page_mining.js",
         "content/processing/tokenizer.js",
         "content/processing/matcher.js",
         "content/processing/replacement_selection.js",

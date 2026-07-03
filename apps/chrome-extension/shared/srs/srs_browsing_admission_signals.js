@@ -1,7 +1,12 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
+  const SIDE_SOURCE = "source";
+  const SIDE_TARGET = "target";
   const SIDE_REPLACEMENT_EXPOSURE = "replacement_exposure";
+  const OBSERVATION_SOURCE_MAPPING = "source_mapping";
+  const OBSERVATION_TARGET_SURFACE = "target_surface";
+  const OBSERVATION_REPLACEMENT_EXPOSURE = "replacement_exposure";
   const DEFAULT_FLUSH_DELAY_MS = 2000;
   const DEFAULT_MAX_SCOPES = 8;
   const DEFAULT_MAX_SIGNALS_PER_PACKET = 50;
@@ -28,6 +33,11 @@
 
   function normalizeContextMetadata(value) {
     return String(value || "").trim();
+  }
+
+  function clamp01(value, fallback = 1) {
+    const parsed = Number(value);
+    return Math.max(0, Math.min(1, Number.isFinite(parsed) ? parsed : fallback));
   }
 
   function stableHash(value) {
@@ -125,13 +135,27 @@
     return Boolean(settings && settings.srsBrowsingAdmissionSignalsEnabled === true);
   }
 
+  function normalizeSide(value) {
+    const side = String(value || "").trim().toLowerCase();
+    return side === SIDE_SOURCE || side === SIDE_TARGET || side === SIDE_REPLACEMENT_EXPOSURE
+      ? side
+      : SIDE_REPLACEMENT_EXPOSURE;
+  }
+
+  function observationSourceForSide(explicit, side) {
+    const source = String(explicit || "").trim().toLowerCase();
+    if (source === OBSERVATION_SOURCE_MAPPING) return source;
+    if (source === OBSERVATION_TARGET_SURFACE) return source;
+    if (source === OBSERVATION_REPLACEMENT_EXPOSURE) return source;
+    if (side === SIDE_SOURCE) return OBSERVATION_SOURCE_MAPPING;
+    if (side === SIDE_TARGET) return OBSERVATION_TARGET_SURFACE;
+    return OBSERVATION_REPLACEMENT_EXPOSURE;
+  }
+
   function addExposureBatchToPending(pendingByScope, exposures, settings, options) {
     const opts = options && typeof options === "object" ? options : {};
     const maxScopes = Math.max(1, Number(opts.maxScopes || DEFAULT_MAX_SCOPES));
-    const maxCountPerSignal = Math.max(
-      1,
-      Number(opts.maxCountPerSignal || DEFAULT_MAX_COUNT_PER_SIGNAL)
-    );
+    const maxCountPerSignal = Math.max(1, Number(opts.maxCountPerSignal || DEFAULT_MAX_COUNT_PER_SIGNAL));
     const profileId = normalizeProfileId(settings && settings.srsProfileId);
     const fallbackPair = normalizePair(settings && settings.srsPair);
     let accepted = 0;
@@ -144,51 +168,46 @@
       if (!pair || pair === "all" || !lemma) {
         continue;
       }
+      const side = normalizeSide(exposure.side || exposure.observation_side || exposure.observationSide);
       const targetKey = targetKeyForExposure(lemma, exposure);
-      const targetReading = normalizeTargetMetadata(
-        exposure.target_reading || exposure.targetReading || exposure.reading || ""
-      );
-      const readingConfidence = Number(
-        exposure.reading_confidence ?? exposure.readingConfidence ?? 1
-      );
+      const targetReading = normalizeTargetMetadata(exposure.target_reading || exposure.targetReading || exposure.reading || "");
+      const readingConfidence = Number(exposure.reading_confidence ?? exposure.readingConfidence ?? 1);
+      const sourceMappingConfidence = Number(exposure.source_mapping_confidence ?? exposure.sourceMappingConfidence ?? 1);
+      const rawCount = Number(exposure.count ?? exposure.hit_count ?? exposure.hitCount ?? 1);
+      const increment = Math.min(maxCountPerSignal, Math.max(0, Number.isFinite(rawCount) ? rawCount : 1));
+      if (increment <= 0) {
+        continue;
+      }
       const contextKey = contextKeyForExposure(exposure, opts);
       const scopeKey = `${profileId}\t${pair}`;
       if (!pendingByScope.has(scopeKey)) {
         if (pendingByScope.size >= maxScopes) {
           continue;
         }
-        pendingByScope.set(scopeKey, {
-          pair,
-          profileId,
-          targets: new Map()
-        });
+        pendingByScope.set(scopeKey, { pair, profileId, targets: new Map() });
       }
       const scope = pendingByScope.get(scopeKey);
-      const pendingKey = `${targetKey}\t${contextKey}`;
+      const observationSource = observationSourceForSide(exposure.observation_source, side);
+      const pendingKey = `${side}\t${targetKey}\t${contextKey}`;
       const previous = scope.targets.get(pendingKey) || {
         target_key: targetKey,
         target_lemma: lemma,
         target_reading: targetReading,
         reading_confidence: Number.isFinite(readingConfidence) ? readingConfidence : 1,
+        source_mapping_confidence: Number.isFinite(sourceMappingConfidence) ? sourceMappingConfidence : 1,
+        side,
+        observation_source: observationSource,
         context_key: contextKey,
         count: 0
       };
-      previous.count = Math.min(maxCountPerSignal, Number(previous.count || 0) + 1);
+      previous.count = Math.min(maxCountPerSignal, Number(previous.count || 0) + increment);
       if (!previous.target_reading && targetReading) {
         previous.target_reading = targetReading;
       }
-      previous.reading_confidence = Math.max(
-        0,
-        Math.min(
-          1,
-          Math.max(
-            Number(previous.reading_confidence || 0),
-            Number.isFinite(readingConfidence) ? readingConfidence : 1
-          )
-        )
-      );
+      previous.reading_confidence = Math.max(clamp01(previous.reading_confidence, 0), clamp01(readingConfidence));
+      previous.source_mapping_confidence = Math.max(clamp01(previous.source_mapping_confidence, 0), clamp01(sourceMappingConfidence));
       scope.targets.set(pendingKey, previous);
-      accepted += 1;
+      accepted += increment;
     }
     return accepted;
   }
@@ -204,37 +223,31 @@
     );
     const payloads = [];
     for (const scope of pendingByScope.values()) {
-      const targetRows = scope.targets
-        ? Array.from(scope.targets.values())
-        : Array.from((scope.lemmas || new Map()).entries()).map(([lemma, count]) => ({
-            target_key: lemma,
-            target_lemma: lemma,
-            target_reading: "",
-            reading_confidence: 1,
-            count
-          }));
+      const targetRows = scope.targets ? Array.from(scope.targets.values()) : Array.from(
+        (scope.lemmas || new Map()).entries()
+      ).map(([lemma, count]) => ({
+        target_key: lemma, target_lemma: lemma, target_reading: "", reading_confidence: 1, count
+      }));
       const rows = targetRows
         .map((row) => {
           if (row && typeof row === "object") {
             return {
               target_key: normalizeTargetMetadata(row.target_key || row.targetKey || ""),
               target_lemma: normalizeLemma(row.target_lemma || row.lemma || ""),
-              target_reading: normalizeTargetMetadata(
-                row.target_reading || row.targetReading || ""
-              ),
+              target_reading: normalizeTargetMetadata(row.target_reading || row.targetReading || ""),
               reading_confidence: Number(row.reading_confidence ?? row.readingConfidence ?? 1),
+              source_mapping_confidence: Number(row.source_mapping_confidence ?? row.sourceMappingConfidence ?? 1),
+              side: normalizeSide(row.side),
+              observation_source: observationSourceForSide(row.observation_source, row.side),
               context_key: normalizeContextMetadata(row.context_key || row.contextKey || ""),
               count: Number(row.count || 0)
             };
           }
           const lemma = normalizeLemma(row);
           return {
-            target_key: lemma,
-            target_lemma: lemma,
-            target_reading: "",
-            reading_confidence: 1,
-            context_key: "",
-            count: 0
+            target_key: lemma, target_lemma: lemma, target_reading: "", reading_confidence: 1,
+            source_mapping_confidence: 1, side: SIDE_REPLACEMENT_EXPOSURE,
+            observation_source: OBSERVATION_REPLACEMENT_EXPOSURE, context_key: "", count: 0
           };
         })
         .filter((row) => row.target_lemma && row.count > 0)
@@ -257,13 +270,11 @@
           target_key: row.target_key || row.target_lemma,
           target_lemma: row.target_lemma,
           target_reading: row.target_reading,
-          side: SIDE_REPLACEMENT_EXPOSURE,
+          side: row.side,
           count: row.count,
-          reading_confidence: Number.isFinite(row.reading_confidence)
-            ? Math.max(0, Math.min(1, row.reading_confidence))
-            : 1,
-          observation_source: SIDE_REPLACEMENT_EXPOSURE,
-          source_mapping_confidence: 1.0,
+          reading_confidence: clamp01(row.reading_confidence),
+          observation_source: row.observation_source,
+          source_mapping_confidence: clamp01(row.source_mapping_confidence),
           context_key: row.context_key
         }))
       });
@@ -284,6 +295,19 @@
     const pendingByScope = new Map();
     let flushTimer = null;
     let flushPromise = null;
+
+    function summarizePending() {
+      let signalCount = 0;
+      for (const scope of pendingByScope.values()) {
+        if (scope && scope.targets && typeof scope.targets.size === "number") {
+          signalCount += scope.targets.size;
+        }
+      }
+      return {
+        scope_count: pendingByScope.size,
+        signal_count: signalCount
+      };
+    }
 
     function clearTimer() {
       if (flushTimer !== null && typeof globalThis.clearTimeout === "function") {
@@ -349,11 +373,30 @@
           });
         }
       }
+      const signalCount = payloads.reduce((sum, payload) => sum + payload.signals.length, 0);
+      log(`Sent ${signalCount} browsing-admission signal(s) in ${payloads.length} packet(s).`);
       return {
         status: "sent",
         packet_count: payloads.length,
-        signal_count: payloads.reduce((sum, payload) => sum + payload.signals.length, 0),
+        signal_count: signalCount,
         responses
+      };
+    }
+
+    function clearPending(reason) {
+      clearTimer();
+      const summary = summarizePending();
+      pendingByScope.clear();
+      if (summary.signal_count) {
+        log(
+          `Cleared ${summary.signal_count} queued browsing-admission signal(s) `
+            + `from ${summary.scope_count} scope(s): ${String(reason || "manual")}.`
+        );
+      }
+      return {
+        status: "cleared",
+        reason: String(reason || "manual"),
+        ...summary
       };
     }
 
@@ -376,6 +419,7 @@
     }
 
     return {
+      clearPending,
       flush,
       recordExposureBatch,
       _pendingByScope: pendingByScope
@@ -383,11 +427,15 @@
   }
 
   root.srsBrowsingAdmissionSignals = {
+    SIDE_SOURCE,
+    SIDE_TARGET,
     SIDE_REPLACEMENT_EXPOSURE,
     addExposureBatchToPending,
     buildPacketPayloads,
     contextKeyForExposure,
     createSender,
-    isEnabled
+    isEnabled,
+    normalizeSide,
+    observationSourceForSide
   };
 })();

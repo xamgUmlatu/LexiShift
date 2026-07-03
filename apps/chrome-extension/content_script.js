@@ -33,6 +33,8 @@
     && typeof root.contentApplySettingsPipeline.createPipeline === "function"
     && root.contentSettingsChangeRouter
     && typeof root.contentSettingsChangeRouter.createRouter === "function"
+    && root.srsBrowsingPageMining
+    && typeof root.srsBrowsingPageMining.createMiner === "function"
     && root.popupModulesRegistry
     && root.popupModuleHistoryStore
     && root.wordInfoApi
@@ -61,6 +63,7 @@
   const lemmatizer = root.lemmatizer;
   const srsMetrics = root.srsMetrics;
   const srsBrowsingAdmissionSignals = root.srsBrowsingAdmissionSignals;
+  const srsBrowsingPageMining = root.srsBrowsingPageMining;
   const HelperClient = root.helperClient;
   const helperFeedbackSyncModule = root.helperFeedbackSync;
   const helperTransport = root.helperTransportExtension;
@@ -219,6 +222,22 @@
           log
         })
       : null;
+  const browsingPageMiner = srsBrowsingPageMining.createMiner({
+    getCurrentSettings: () => currentSettings,
+    browsingAdmissionSignals: browsingAdmissionSignalSender,
+    log
+  });
+
+  function mineBrowsingPage(reason) {
+    if (!browsingPageMiner || typeof browsingPageMiner.mineDocument !== "function") {
+      return;
+    }
+    browsingPageMiner.mineDocument(document, reason).catch((error) => {
+      if (currentSettings.debugEnabled) {
+        log("Browsing page mining failed.", error);
+      }
+    });
+  }
 
   const helperRulesRuntime = helperRulesRuntimeFactory({
     getHelperClient: () => helperClient,
@@ -356,6 +375,7 @@
     onFeedback: (payload, focusWord) => {
       feedbackRuntime.handleFeedback(payload, focusWord);
     },
+    browsingAdmissionSignals: browsingAdmissionSignalSender,
     applySettings: (nextSettings) => {
       applySettings(nextSettings);
     }
@@ -379,14 +399,17 @@
     feedbackRuntime.ensureSync();
     const settings = await loadSettings();
     await applySettings(settings);
+    mineBrowsingPage("boot");
     domScanRuntime.observeChanges();
     window.addEventListener("load", () => {
       domScanRuntime.ensureObserver();
       domScanRuntime.rescanDocument("window load");
+      mineBrowsingPage("window load");
     });
     setTimeout(() => {
       domScanRuntime.ensureObserver();
       domScanRuntime.rescanDocument("post-load timeout");
+      mineBrowsingPage("post-load timeout");
     }, 1500);
     window.addEventListener("beforeunload", () => {
       if (
@@ -404,5 +427,16 @@
 
   chrome.storage.onChanged.addListener((changes, area) => {
     settingsChangeRouter.handleStorageChange(changes, area);
+    if (
+      area === "local"
+      && (
+        changes.srsBrowsingAdmissionSignalsEnabled
+        || changes.srsPair
+        || changes.srsProfileId
+      )
+    ) {
+      browsingPageMiner.clearSeen();
+      mineBrowsingPage("settings changed");
+    }
   });
 })();
