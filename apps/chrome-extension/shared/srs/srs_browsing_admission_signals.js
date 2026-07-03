@@ -6,6 +6,8 @@
   const DEFAULT_MAX_SCOPES = 8;
   const DEFAULT_MAX_SIGNALS_PER_PACKET = 50;
   const DEFAULT_MAX_COUNT_PER_SIGNAL = 5;
+  const DEFAULT_CONTEXT_BUCKET_MS = 5 * 60 * 1000;
+  let runtimePageContextToken = "";
 
   function normalizeProfileId(value) {
     const normalized = String(value || "").trim();
@@ -22,6 +24,81 @@
 
   function normalizeTargetMetadata(value) {
     return String(value || "").trim();
+  }
+
+  function normalizeContextMetadata(value) {
+    return String(value || "").trim();
+  }
+
+  function stableHash(value) {
+    const text = String(value || "");
+    let hash = 2166136261;
+    for (let index = 0; index < text.length; index += 1) {
+      hash ^= text.charCodeAt(index);
+      hash = Math.imul(hash, 16777619);
+    }
+    return (hash >>> 0).toString(36);
+  }
+
+  function randomToken() {
+    const cryptoApi = globalThis.crypto || globalThis.msCrypto;
+    if (cryptoApi && typeof cryptoApi.getRandomValues === "function") {
+      const buffer = new Uint32Array(2);
+      cryptoApi.getRandomValues(buffer);
+      return `${buffer[0].toString(36)}${buffer[1].toString(36)}`;
+    }
+    return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`;
+  }
+
+  function pageContextToken(options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const explicit = normalizeContextMetadata(
+      opts.page_context_key
+        || opts.pageContextKey
+        || opts.runtime_context_key
+        || opts.runtimeContextKey
+        || ""
+    );
+    if (explicit) {
+      return explicit;
+    }
+    if (typeof opts.getPageContextKey === "function") {
+      const fromCallback = normalizeContextMetadata(opts.getPageContextKey());
+      if (fromCallback) {
+        return fromCallback;
+      }
+    }
+    if (!runtimePageContextToken) {
+      runtimePageContextToken = randomToken();
+    }
+    return runtimePageContextToken;
+  }
+
+  function contextBucket(options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const bucketMs = Math.max(60000, Number(opts.contextBucketMs || DEFAULT_CONTEXT_BUCKET_MS));
+    const nowMs = typeof opts.nowMs === "function" ? Number(opts.nowMs()) : Date.now();
+    const safeNowMs = Number.isFinite(nowMs) ? nowMs : Date.now();
+    return Math.floor(safeNowMs / bucketMs);
+  }
+
+  function contextKeyForExposure(exposure, options) {
+    const explicitContext = normalizeContextMetadata(
+      exposure.context_key
+        || exposure.contextKey
+        || exposure.page_context_key
+        || exposure.pageContextKey
+        || exposure.session_key
+        || exposure.sessionKey
+        || exposure.document_id
+        || exposure.documentId
+        || ""
+    );
+    const bucket = contextBucket(options);
+    if (explicitContext) {
+      return `ctxh:${stableHash(explicitContext)}:t${bucket}`;
+    }
+    return `pageh:${stableHash(pageContextToken(options))}:t${bucket}`;
   }
 
   function targetKeyForExposure(lemma, exposure) {
@@ -74,6 +151,7 @@
       const readingConfidence = Number(
         exposure.reading_confidence ?? exposure.readingConfidence ?? 1
       );
+      const contextKey = contextKeyForExposure(exposure, opts);
       const scopeKey = `${profileId}\t${pair}`;
       if (!pendingByScope.has(scopeKey)) {
         if (pendingByScope.size >= maxScopes) {
@@ -86,11 +164,13 @@
         });
       }
       const scope = pendingByScope.get(scopeKey);
-      const previous = scope.targets.get(targetKey) || {
+      const pendingKey = `${targetKey}\t${contextKey}`;
+      const previous = scope.targets.get(pendingKey) || {
         target_key: targetKey,
         target_lemma: lemma,
         target_reading: targetReading,
         reading_confidence: Number.isFinite(readingConfidence) ? readingConfidence : 1,
+        context_key: contextKey,
         count: 0
       };
       previous.count = Math.min(maxCountPerSignal, Number(previous.count || 0) + 1);
@@ -107,7 +187,7 @@
           )
         )
       );
-      scope.targets.set(targetKey, previous);
+      scope.targets.set(pendingKey, previous);
       accepted += 1;
     }
     return accepted;
@@ -143,6 +223,7 @@
                 row.target_reading || row.targetReading || ""
               ),
               reading_confidence: Number(row.reading_confidence ?? row.readingConfidence ?? 1),
+              context_key: normalizeContextMetadata(row.context_key || row.contextKey || ""),
               count: Number(row.count || 0)
             };
           }
@@ -152,6 +233,7 @@
             target_lemma: lemma,
             target_reading: "",
             reading_confidence: 1,
+            context_key: "",
             count: 0
           };
         })
@@ -181,7 +263,8 @@
             ? Math.max(0, Math.min(1, row.reading_confidence))
             : 1,
           observation_source: SIDE_REPLACEMENT_EXPOSURE,
-          source_mapping_confidence: 1.0
+          source_mapping_confidence: 1.0,
+          context_key: row.context_key
         }))
       });
     }
@@ -303,6 +386,7 @@
     SIDE_REPLACEMENT_EXPOSURE,
     addExposureBatchToPending,
     buildPacketPayloads,
+    contextKeyForExposure,
     createSender,
     isEnabled
   };

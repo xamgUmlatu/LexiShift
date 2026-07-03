@@ -610,8 +610,11 @@ def render_markdown(report: Mapping[str, object]) -> str:
                     "",
                     "Strong browsing rows:",
                     "",
-                    "| Target | Raw | Effective | Quality | Specificity | Boost | Selected |",
-                    "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+                    (
+                        "| Target | Signal | Evidence | Ctx | Count | Salience | Quality | Specificity | "
+                        "Effective | Boost | Selected |"
+                    ),
+                    "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
                 ]
             )
             for row in rows[:10]:
@@ -619,9 +622,13 @@ def render_markdown(report: Mapping[str, object]) -> str:
                     "| "
                     f"`{row.get('target_key') or row.get('lemma') or ''}` | "
                     f"{row.get('browsing_signal', '')} | "
-                    f"{row.get('effective_browsing_signal', '')} | "
+                    f"{row.get('browsing_evidence', '')} | "
+                    f"{row.get('browsing_context_count', '')} | "
+                    f"{row.get('browsing_count_multiplier', '')} | "
+                    f"{row.get('browsing_salience_multiplier', '')} | "
                     f"{row.get('browsing_quality_multiplier', '')} | "
                     f"{row.get('browsing_specificity_multiplier', '')} | "
+                    f"{row.get('effective_browsing_signal', '')} | "
                     f"{row.get('browsing_boost', '')} | "
                     f"`{row.get('selected', '')}` |"
                 )

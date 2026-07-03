@@ -15,9 +15,10 @@ class BrowsingSignalIngestPolicy:
     version: str = "browsing_signal_aggregate_v1"
     max_signals_per_packet: int = 200
     max_count_per_signal: float = 5.0
+    max_contexts_per_item: int = 24
     max_items_per_store: int = 5000
     prune_signal_below: float = 0.01
-    half_life_days: float = 30.0
+    half_life_days: float = 14.0
     browsing_signal_cap: float = 16.0
     replacement_exposure_weight: float = 0.35
 
@@ -35,6 +36,26 @@ class BrowsingAdmissionStrength:
 
 
 @dataclass(frozen=True)
+class BrowsingSignalContextEvidence:
+    context_key: str
+    source_hit_count: float = 0.0
+    target_hit_count: float = 0.0
+    replacement_exposure_count: float = 0.0
+    last_seen_at: Optional[str] = None
+
+    def to_dict(self) -> dict[str, object]:
+        payload: dict[str, object] = {
+            "context_key": self.context_key,
+            "source_hit_count": round(float(self.source_hit_count), 6),
+            "target_hit_count": round(float(self.target_hit_count), 6),
+            "replacement_exposure_count": round(float(self.replacement_exposure_count), 6),
+        }
+        if self.last_seen_at:
+            payload["last_seen_at"] = self.last_seen_at
+        return payload
+
+
+@dataclass(frozen=True)
 class BrowsingSignalAggregate:
     target_lemma: str
     target_key: str = ""
@@ -45,6 +66,7 @@ class BrowsingSignalAggregate:
     source_mapping_confidence: float = 0.0
     reading_confidence: float = 1.0
     observation_sources: Sequence[str] = field(default_factory=tuple)
+    context_evidence: Sequence[BrowsingSignalContextEvidence] = field(default_factory=tuple)
     last_seen_at: Optional[str] = None
     decayed_at: Optional[str] = None
 
@@ -62,6 +84,10 @@ class BrowsingSignalAggregate:
             payload["target_reading"] = self.target_reading
         if self.observation_sources:
             payload["observation_sources"] = list(self.observation_sources)
+        if self.context_evidence:
+            payload["context_evidence"] = [
+                context.to_dict() for context in self.context_evidence if context.context_key
+            ]
         if self.last_seen_at:
             payload["last_seen_at"] = self.last_seen_at
         if self.decayed_at:
@@ -103,6 +129,7 @@ class BrowsingSignalPacketEntry:
     target_reading: str = ""
     reading_confidence: float = 1.0
     observation_source: str = ""
+    context_key: str = ""
 
 
 @dataclass(frozen=True)
@@ -158,8 +185,12 @@ class BrowsingAdmissionSimulationRow:
     neutral_score: float
     final_score: float
     browsing_signal: float
+    browsing_evidence: float
+    browsing_context_count: int
     effective_browsing_signal: float
     browsing_quality_multiplier: float
+    browsing_count_multiplier: float
+    browsing_salience_multiplier: float
     browsing_specificity_multiplier: float
     browsing_boost: float
     selected: bool
@@ -180,8 +211,12 @@ class BrowsingAdmissionSimulationRow:
             "neutral_score": round(self.neutral_score, 6),
             "final_score": round(self.final_score, 6),
             "browsing_signal": round(self.browsing_signal, 6),
+            "browsing_evidence": round(self.browsing_evidence, 6),
+            "browsing_context_count": int(self.browsing_context_count),
             "effective_browsing_signal": round(self.effective_browsing_signal, 6),
             "browsing_quality_multiplier": round(self.browsing_quality_multiplier, 6),
+            "browsing_count_multiplier": round(self.browsing_count_multiplier, 6),
+            "browsing_salience_multiplier": round(self.browsing_salience_multiplier, 6),
             "browsing_specificity_multiplier": round(self.browsing_specificity_multiplier, 6),
             "browsing_boost": round(self.browsing_boost, 6),
             "selected": self.selected,

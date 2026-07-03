@@ -14,8 +14,11 @@ if str(CORE_ROOT) not in sys.path:
 from lexishift_core.helper.engine import ingest_browsing_admission_signals  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.srs.browsing_admission import (  # noqa: E402
+    BrowsingSignalAggregate,
     BrowsingSignalIngestPolicy,
+    BrowsingSignalStore,
     load_browsing_signal_store,
+    save_browsing_signal_store,
 )
 
 
@@ -97,6 +100,43 @@ class TestHelperBrowsingAdmissionIngest(unittest.TestCase):
             self.assertEqual(result["reason"], "browsing_admission_not_opted_in")
             self.assertFalse(paths.srs_browsing_signal_store_path_for("default", "en-es").exists())
             self.assertFalse(paths.srs_store_path_for("default").exists())
+
+    def test_missing_opt_in_maintains_existing_store_without_srs_mutation(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            store_path = paths.srs_browsing_signal_store_path_for("default", "en-es")
+            save_browsing_signal_store(
+                BrowsingSignalStore(
+                    pair="en-es",
+                    profile_id="default",
+                    items={
+                        "hipoteca": BrowsingSignalAggregate(
+                            target_lemma="hipoteca",
+                            target_hit_count=6.0,
+                            last_seen_at="2026-05-09T00:00:00Z",
+                            decayed_at="2026-05-09T00:00:00Z",
+                        )
+                    },
+                    updated_at="2026-05-09T00:00:00Z",
+                ),
+                store_path,
+            )
+
+            result = ingest_browsing_admission_signals(
+                paths,
+                pair="en-es",
+                profile_id="default",
+                captured_at="2026-05-23T00:00:00Z",
+                opt_in=False,
+                signals=[{"target_lemma": "viaje", "side": "target", "count": 3}],
+            )
+
+            self.assertEqual(result["status"], "skipped")
+            self.assertFalse(result["runtime_srs_mutation"])
+            self.assertFalse(paths.srs_store_path_for("default").exists())
+            maintained = load_browsing_signal_store(store_path)
+            self.assertAlmostEqual(maintained.items["hipoteca"].target_hit_count, 3.0)
+            self.assertEqual(maintained.items["hipoteca"].decayed_at, "2026-05-23T00:00:00Z")
 
     def test_en_ja_ingest_preserves_target_key_reading_and_confidence(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -6,6 +6,15 @@ import math
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
 
+from lexishift_core.srs.browsing_context import (
+    aggregate_context_count as browsing_context_count,
+    aggregate_evidence_value as browsing_evidence_value,
+    aggregate_weighted_evidence_value as browsing_weighted_evidence_value,
+    context_evidence_from_dicts,
+    decay_context_evidence,
+    merge_context_evidence,
+    normalize_context_key,
+)
 from lexishift_core.srs.browsing_identity import (
     aggregate_reading_confidence,
     aggregate_target_key,
@@ -22,6 +31,7 @@ from lexishift_core.srs.browsing_models import (
     BrowsingAdmissionSimulationRow,
     BrowsingAdmissionStrength,
     BrowsingSignalAggregate,
+    BrowsingSignalContextEvidence,  # noqa: F401 - compatibility re-export.
     BrowsingSignalIngestPolicy,
     BrowsingSignalIngestResult,
     BrowsingSignalPacket,
@@ -47,6 +57,9 @@ BROWSING_SIGNAL_SIDES = frozenset(
 BROWSING_STRENGTH_OFF = "off"
 BROWSING_STRENGTH_BALANCED = "balanced"
 BROWSING_STRENGTH_STRONG = "strong"
+MIN_BROWSING_EVIDENCE_MASS = 3.0
+MIN_BROWSING_EVIDENCE_CONTEXTS = 2
+COMMONNESS_SALIENCE_EXTRA_MASS = 18.0
 
 
 def browsing_strength_presets() -> dict[str, BrowsingAdmissionStrength]:
@@ -62,6 +75,7 @@ def browsing_strength_presets() -> dict[str, BrowsingAdmissionStrength]:
             browsing_alpha=0.22,
             max_browsing_boost=1.35,
             browsing_budget_share=0.30,
+            min_browsing_signal=0.25,
             min_fractional_browsing_budget=0.50,
         ),
         BROWSING_STRENGTH_STRONG: BrowsingAdmissionStrength(
@@ -69,6 +83,7 @@ def browsing_strength_presets() -> dict[str, BrowsingAdmissionStrength]:
             browsing_alpha=0.45,
             max_browsing_boost=1.65,
             browsing_budget_share=0.55,
+            min_browsing_signal=0.25,
             min_fractional_browsing_budget=0.35,
         ),
     }
@@ -126,6 +141,11 @@ def browsing_signal_aggregate_from_dict(
         source_mapping_confidence=_clamp01(data.get("source_mapping_confidence")),
         reading_confidence=resolve_reading_confidence(data.get("reading_confidence")),
         observation_sources=normalize_observation_sources(data.get("observation_sources")),
+        context_evidence=context_evidence_from_dicts(
+            data.get("context_evidence") or data.get("contextEvidence") or data.get("contexts"),
+            safe_float_fn=_safe_float,
+            optional_str_fn=_optional_str,
+        ),
         last_seen_at=_optional_str(data.get("last_seen_at")),
         decayed_at=_optional_str(data.get("decayed_at")),
     )
@@ -148,6 +168,31 @@ def save_browsing_signal_store(store: BrowsingSignalStore, path: Path) -> None:
     path.write_text(
         json.dumps(store.to_dict(), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
+    )
+
+
+def maintain_browsing_signal_store(
+    store: BrowsingSignalStore,
+    *,
+    policy: Optional[BrowsingSignalIngestPolicy] = None,
+    now: Optional[datetime] = None,
+) -> BrowsingSignalStore:
+    policy = policy or BrowsingSignalIngestPolicy()
+    now = now or now_utc()
+    if not store.pair and not store.items:
+        return store
+    decayed_items = {
+        aggregate_target_key(item): _decay_aggregate(item, policy=policy, now=now)
+        for item in store.items.values()
+    }
+    retained = _prune_aggregates(decayed_items, policy=policy)
+    return BrowsingSignalStore(
+        pair=store.pair,
+        profile_id=store.profile_id,
+        items=retained,
+        version=store.version,
+        updated_at=format_ts(now),
+        policy_version=policy.version,
     )
 
 
@@ -219,10 +264,23 @@ def ingest_browsing_signal_packet(
             confidence = _clamp01(signal.source_mapping_confidence)
             source_count += capped_count * confidence
             mapping_confidence = max(mapping_confidence, confidence)
+            context_count = capped_count * confidence
         elif side == BROWSING_SIGNAL_TARGET:
             target_count += capped_count
+            context_count = capped_count
         elif side == BROWSING_SIGNAL_REPLACEMENT_EXPOSURE:
             replacement_count += capped_count
+            context_count = capped_count
+        else:
+            context_count = 0.0
+        context_evidence = merge_context_evidence(
+            current.context_evidence,
+            context_key=normalize_context_key(signal.context_key),
+            side=side,
+            count=context_count,
+            policy=policy,
+            now_text=now_text,
+        )
         decayed_items[target_key] = BrowsingSignalAggregate(
             target_lemma=lemma,
             target_key=target_key,
@@ -233,6 +291,7 @@ def ingest_browsing_signal_packet(
             source_mapping_confidence=mapping_confidence,
             reading_confidence=reading_confidence,
             observation_sources=observation_sources,
+            context_evidence=context_evidence,
             last_seen_at=now_text,
             decayed_at=now_text,
         )
@@ -282,7 +341,7 @@ def browsing_signal_value(
     policy: Optional[BrowsingSignalIngestPolicy] = None,
 ) -> float:
     policy = policy or BrowsingSignalIngestPolicy()
-    raw = browsing_raw_value(aggregate, policy=policy)
+    raw = browsing_weighted_evidence_value(aggregate, policy=policy)
     if raw <= 0.0:
         return 0.0
     return _clamp01(math.log1p(raw) / math.log1p(max(0.01, policy.browsing_signal_cap)))
@@ -320,8 +379,10 @@ def simulate_browsing_admission(
     strength: BrowsingAdmissionStrength,
     policy: Optional[BrowsingSignalIngestPolicy] = None,
     suppressed_lemmas: Optional[Mapping[str, str]] = None,
+    now: Optional[datetime] = None,
 ) -> BrowsingAdmissionSimulationResult:
     policy = policy or BrowsingSignalIngestPolicy()
+    store = maintain_browsing_signal_store(store, policy=policy, now=now)
     budget = max(0, int(admission_budget))
     suppressed = {
         str(lemma or "").strip(): str(reason or "").strip() or "suppressed"
@@ -350,11 +411,21 @@ def simulate_browsing_admission(
         target_key = candidate_target_key(candidate)
         aggregate = _aggregate_for_candidate(store, candidate)
         signal = browsing_signal_value(aggregate, policy=policy)
+        evidence = browsing_evidence_value(aggregate, policy=policy)
+        context_count = browsing_context_count(aggregate, policy=policy)
         quality_multiplier = browsing_quality_multiplier(candidate)
+        count_multiplier = browsing_count_multiplier(aggregate, policy=policy)
+        salience_multiplier = browsing_salience_multiplier(
+            aggregate,
+            candidate=candidate,
+            policy=policy,
+        )
         specificity_multiplier = browsing_specificity_multiplier(candidate)
         effective_signal = browsing_effective_signal_value(
             signal,
             quality_multiplier=quality_multiplier,
+            count_multiplier=count_multiplier,
+            salience_multiplier=salience_multiplier,
             specificity_multiplier=specificity_multiplier,
         )
         boost = browsing_boost_value(effective_signal, candidate=candidate, strength=strength)
@@ -369,8 +440,12 @@ def simulate_browsing_admission(
                 "neutral_rank": neutral_rank_by_key[target_key],
                 "neutral_score": float(candidate.neutral_score),
                 "browsing_signal": signal,
+                "browsing_evidence": evidence,
+                "browsing_context_count": context_count,
                 "effective_browsing_signal": effective_signal,
                 "browsing_quality_multiplier": quality_multiplier,
+                "browsing_count_multiplier": count_multiplier,
+                "browsing_salience_multiplier": salience_multiplier,
                 "browsing_specificity_multiplier": specificity_multiplier,
                 "browsing_boost": boost,
                 "final_score": final_score,
@@ -461,8 +536,14 @@ def simulate_browsing_admission(
             neutral_score=_safe_float(row.get("neutral_score")) or 0.0,
             final_score=_safe_float(row.get("final_score")) or 0.0,
             browsing_signal=_safe_float(row.get("browsing_signal")) or 0.0,
+            browsing_evidence=_safe_float(row.get("browsing_evidence")) or 0.0,
+            browsing_context_count=_safe_int(row.get("browsing_context_count")),
             effective_browsing_signal=_safe_float(row.get("effective_browsing_signal")) or 0.0,
             browsing_quality_multiplier=_safe_float(row.get("browsing_quality_multiplier")) or 0.0,
+            browsing_count_multiplier=_safe_float(row.get("browsing_count_multiplier")) or 0.0,
+            browsing_salience_multiplier=(
+                _safe_float(row.get("browsing_salience_multiplier")) or 0.0
+            ),
             browsing_specificity_multiplier=(
                 _safe_float(row.get("browsing_specificity_multiplier")) or 0.0
             ),
@@ -521,13 +602,51 @@ def browsing_effective_signal_value(
     signal_value: float,
     *,
     quality_multiplier: float = 1.0,
+    count_multiplier: float = 1.0,
+    salience_multiplier: float = 1.0,
     specificity_multiplier: float = 1.0,
 ) -> float:
     return _clamp01(
         _clamp01(signal_value)
         * _clamp01(quality_multiplier)
+        * _clamp01(count_multiplier)
+        * _clamp01(salience_multiplier)
         * max(0.0, min(1.25, float(specificity_multiplier))),
     )
+
+
+def browsing_count_multiplier(
+    aggregate: BrowsingSignalAggregate | None,
+    *,
+    policy: Optional[BrowsingSignalIngestPolicy] = None,
+) -> float:
+    evidence = browsing_evidence_value(aggregate, policy=policy)
+    if evidence < MIN_BROWSING_EVIDENCE_MASS:
+        return 0.0
+    if aggregate is not None and aggregate.context_evidence:
+        if browsing_context_count(aggregate, policy=policy) < MIN_BROWSING_EVIDENCE_CONTEXTS:
+            return 0.0
+    return 1.0
+
+
+def browsing_salience_multiplier(
+    aggregate: BrowsingSignalAggregate | None,
+    *,
+    candidate: Optional[BrowsingAdmissionCandidate] = None,
+    policy: Optional[BrowsingSignalIngestPolicy] = None,
+) -> float:
+    if aggregate is None:
+        return 1.0
+    evidence = browsing_evidence_value(aggregate, policy=policy)
+    if evidence <= 0.0 or candidate is None or not bool(candidate.lexical_commonness_known):
+        return 1.0
+    commonness = _clamp01(candidate.lexical_commonness)
+    if commonness <= 0.0:
+        return 1.0
+    required_mass = MIN_BROWSING_EVIDENCE_MASS + (
+        COMMONNESS_SALIENCE_EXTRA_MASS * commonness * commonness
+    )
+    return _clamp01(evidence / max(MIN_BROWSING_EVIDENCE_MASS, required_mass))
 
 
 def browsing_quality_multiplier(candidate: Optional[BrowsingAdmissionCandidate]) -> float:
@@ -552,6 +671,7 @@ def simulate_browsing_admission_presets(
     admission_budget: int,
     policy: Optional[BrowsingSignalIngestPolicy] = None,
     suppressed_lemmas: Optional[Mapping[str, str]] = None,
+    now: Optional[datetime] = None,
 ) -> dict[str, BrowsingAdmissionSimulationResult]:
     return {
         name: simulate_browsing_admission(
@@ -561,6 +681,7 @@ def simulate_browsing_admission_presets(
             strength=strength,
             policy=policy,
             suppressed_lemmas=suppressed_lemmas,
+            now=now,
         )
         for name, strength in browsing_strength_presets().items()
     }
@@ -589,6 +710,10 @@ def _decay_aggregate(
         source_mapping_confidence=aggregate.source_mapping_confidence,
         reading_confidence=aggregate_reading_confidence(aggregate),
         observation_sources=aggregate.observation_sources,
+        context_evidence=decay_context_evidence(
+            aggregate.context_evidence,
+            multiplier=multiplier,
+        ),
         last_seen_at=aggregate.last_seen_at,
         decayed_at=format_ts(now),
     )

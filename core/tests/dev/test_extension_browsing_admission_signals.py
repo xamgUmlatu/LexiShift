@@ -63,6 +63,7 @@ const accepted = signals.addExposureBatchToPending(
       language_pair: "en-es",
       lemma: "hipoteca",
       replacement: "hipoteca",
+      url: "https://example.invalid/private",
       raw_text: "raw text should not travel"
     }},
     {{ language_pair: "en-es", lemma: "salud" }},
@@ -70,7 +71,7 @@ const accepted = signals.addExposureBatchToPending(
     {{ language_pair: "", lemma: "" }}
   ],
   {{ srsProfileId: "alpha", srsPair: "en-es" }},
-  {{ maxCountPerSignal: 5 }}
+  {{ maxCountPerSignal: 5, pageContextKey: "test-page-context", nowMs: () => 0 }}
 );
 const payloads = signals.buildPacketPayloads(pending, {{
   nowIso: () => "2026-05-23T00:00:00.000Z"
@@ -81,7 +82,22 @@ assert.equal(payloads.length, 1);
 assert.equal(payloads[0].pair, "en-es");
 assert.equal(payloads[0].profile_id, "alpha");
 assert.equal(payloads[0].opt_in, true);
-assert.deepEqual(normalize(payloads[0].signals), [
+const rows = normalize(payloads[0].signals);
+assert.equal(rows[0].context_key.startsWith("pageh:"), true);
+assert.equal(rows[1].context_key.startsWith("pageh:"), true);
+assert.equal(rows[0].context_key, rows[1].context_key);
+const explicitContext = signals.contextKeyForExposure(
+  {{ document_id: "rabbit-summary-1", url: "https://example.invalid/private" }},
+  {{ nowMs: () => 0 }}
+);
+assert.equal(explicitContext.startsWith("ctxh:"), true);
+assert.equal(explicitContext.includes("rabbit-summary-1"), false);
+const comparableRows = rows.map((row) => {{
+  const copy = {{ ...row }};
+  delete copy.context_key;
+  return copy;
+}});
+assert.deepEqual(comparableRows, [
   {{
     target_key: "hipoteca",
     target_lemma: "hipoteca",
@@ -141,6 +157,8 @@ const sender = context.LexiShift.srsBrowsingAdmissionSignals.createSender({{
   getHelperClient: () => helperClient,
   getCurrentSettings: () => ({{}}),
   flushDelayMs: 100000,
+  pageContextKey: "sender-page-context",
+  nowMs: () => 0,
   nowIso: () => "2026-05-23T00:00:00.000Z"
 }});
 
@@ -170,7 +188,14 @@ const sender = context.LexiShift.srsBrowsingAdmissionSignals.createSender({{
   assert.equal(calls.length, 1);
   assert.equal(calls[0].type, "srs_browsing_signal_ingest");
   assert.equal(calls[0].payload.opt_in, true);
-  assert.deepEqual(normalize(calls[0].payload.signals), [
+  const rows = normalize(calls[0].payload.signals);
+  assert.equal(rows[0].context_key.startsWith("pageh:"), true);
+  const comparableRows = rows.map((row) => {{
+    const copy = {{ ...row }};
+    delete copy.context_key;
+    return copy;
+  }});
+  assert.deepEqual(comparableRows, [
     {{
       target_key: "salud",
       target_lemma: "salud",

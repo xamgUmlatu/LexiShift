@@ -194,6 +194,7 @@ def preview_browsing_admission_refresh(
         store=browsing_store,
         admission_budget=decision.admission_budget,
         policy=browsing_policy,
+        now=now,
     )
     return {
         "status": "ok",
@@ -758,11 +759,7 @@ def _safe_signal_float(value: object, *, default: float) -> float:
 
 
 def _count_unknown_pos(candidates: Sequence[SelectorCandidate]) -> int:
-    count = 0
-    for candidate in candidates:
-        if _is_unknown_candidate_pos(candidate):
-            count += 1
-    return count
+    return sum(1 for candidate in candidates if _is_unknown_candidate_pos(candidate))
 
 
 def _is_unknown_candidate_pos(candidate: SelectorCandidate) -> bool:

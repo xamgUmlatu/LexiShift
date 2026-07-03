@@ -9,6 +9,8 @@ from lexishift_core.srs.browsing_admission import (
     BrowsingSignalPacketEntry,
     BrowsingSignalStore,
     aggregate_target_key,
+    browsing_context_count,
+    browsing_evidence_value,
     browsing_raw_value,
     browsing_signal_value,
     ingest_browsing_signal_packet,
@@ -139,6 +141,7 @@ def packet_entry_from_signal(signal: Mapping[str, object]) -> BrowsingSignalPack
         source_mapping_confidence=safe_float(signal.get("source_mapping_confidence")) or 1.0,
         reading_confidence=safe_float(signal.get("reading_confidence")) or 1.0,
         observation_source=str(signal.get("observation_source") or "").strip(),
+        context_key=str(signal.get("context_key") or signal.get("document_id") or "").strip(),
     )
 
 
@@ -161,6 +164,8 @@ def store_preview(
                 "source_mapping_confidence": round(float(aggregate.source_mapping_confidence), 6),
                 "reading_confidence": round(float(aggregate.reading_confidence), 6),
                 "raw_value": round(browsing_raw_value(aggregate, policy=policy), 6),
+                "evidence_value": round(browsing_evidence_value(aggregate, policy=policy), 6),
+                "context_count": browsing_context_count(aggregate, policy=policy),
                 "signal_value": round(browsing_signal_value(aggregate, policy=policy), 6),
                 "observation_sources": list(aggregate.observation_sources),
             }

@@ -10,10 +10,13 @@ from lexishift_core.srs.browsing_admission import (
     BrowsingSignalPacketEntry,
     BrowsingSignalStore,
     aggregate_target_key,
+    browsing_context_count,
+    browsing_evidence_value,
     browsing_raw_value,
     browsing_signal_value,
     ingest_browsing_signal_packet,
     load_browsing_signal_store,
+    maintain_browsing_signal_store,
     save_browsing_signal_store,
 )
 from lexishift_core.srs.time import parse_ts
@@ -52,6 +55,15 @@ def ingest_browsing_admission_signals(
     policy = policy or BrowsingSignalIngestPolicy()
 
     if not opt_in:
+        maintained_store = None
+        if store_path.exists():
+            maintained_store = maintain_browsing_signal_store(
+                load_browsing_signal_store(store_path),
+                policy=policy,
+                now=now or parse_ts(captured_at),
+            )
+            if maintained_store.pair:
+                save_browsing_signal_store(maintained_store, store_path)
         return {
             "status": "skipped",
             "reason": "browsing_admission_not_opted_in",
@@ -60,10 +72,10 @@ def ingest_browsing_admission_signals(
             "runtime_srs_mutation": False,
             "privacy": _privacy_payload(private_field_count=0),
             "aggregate_store": _summarize_store(
-                load_browsing_signal_store(store_path),
+                maintained_store,
                 policy=policy,
             )
-            if store_path.exists()
+            if maintained_store is not None
             else _empty_store_summary(normalized_pair, normalized_profile_id),
         }
 
@@ -152,6 +164,17 @@ def _parse_signal_entries(
                 observation_source=str(
                     signal.get("observation_source") or signal.get("observationSource") or ""
                 ).strip(),
+                context_key=str(
+                    signal.get("context_key")
+                    or signal.get("contextKey")
+                    or signal.get("page_context_key")
+                    or signal.get("pageContextKey")
+                    or signal.get("session_key")
+                    or signal.get("sessionKey")
+                    or signal.get("document_id")
+                    or signal.get("documentId")
+                    or ""
+                ).strip(),
             )
         )
     return tuple(parsed), private_field_count
@@ -183,6 +206,8 @@ def _summarize_store(
                 "reading_confidence": round(float(aggregate.reading_confidence), 6),
                 "observation_sources": list(aggregate.observation_sources),
                 "raw_browsing": round(browsing_raw_value(aggregate, policy=policy), 6),
+                "browsing_evidence": round(browsing_evidence_value(aggregate, policy=policy), 6),
+                "browsing_context_count": browsing_context_count(aggregate, policy=policy),
                 "browsing_signal": round(browsing_signal_value(aggregate, policy=policy), 6),
                 "last_seen_at": aggregate.last_seen_at,
             }
@@ -226,6 +251,7 @@ def _policy_payload(policy: BrowsingSignalIngestPolicy) -> dict[str, object]:
         "version": policy.version,
         "max_signals_per_packet": policy.max_signals_per_packet,
         "max_count_per_signal": policy.max_count_per_signal,
+        "max_contexts_per_item": policy.max_contexts_per_item,
         "max_items_per_store": policy.max_items_per_store,
         "prune_signal_below": policy.prune_signal_below,
         "half_life_days": policy.half_life_days,

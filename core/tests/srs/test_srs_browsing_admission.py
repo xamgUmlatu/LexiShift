@@ -20,14 +20,17 @@ from lexishift_core.srs.browsing_admission import (  # noqa: E402
     BROWSING_STRENGTH_STRONG,
     BrowsingAdmissionCandidate,
     BrowsingSignalAggregate,
+    BrowsingSignalContextEvidence,
     BrowsingSignalIngestPolicy,
     BrowsingSignalPacket,
     BrowsingSignalPacketEntry,
     BrowsingSignalStore,
     build_browsing_target_key,
+    browsing_evidence_value,
     browsing_signal_value,
     browsing_strength_presets,
     ingest_browsing_signal_packet,
+    maintain_browsing_signal_store,
     simulate_browsing_admission_presets,
 )
 from lexishift_core.srs.admission_suppression import (  # noqa: E402
@@ -139,6 +142,43 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
         self.assertEqual(set(result.store.items), {"hipoteca", "salud"})
         self.assertNotIn("arcaico", result.store.items)
 
+    def test_maintenance_uses_fourteen_day_default_half_life_and_prunes(self) -> None:
+        policy = BrowsingSignalIngestPolicy(prune_signal_below=0.01)
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "濃い": BrowsingSignalAggregate(
+                    target_lemma="濃い",
+                    target_hit_count=6.0,
+                    context_evidence=(
+                        BrowsingSignalContextEvidence(
+                            context_key="page-a",
+                            target_hit_count=6.0,
+                            last_seen_at="2026-05-09T00:00:00Z",
+                        ),
+                    ),
+                    last_seen_at="2026-05-09T00:00:00Z",
+                    decayed_at="2026-05-09T00:00:00Z",
+                ),
+                "薄い": BrowsingSignalAggregate(
+                    target_lemma="薄い",
+                    target_hit_count=0.01,
+                    last_seen_at="2026-05-09T00:00:00Z",
+                    decayed_at="2026-05-09T00:00:00Z",
+                ),
+            },
+        )
+
+        maintained = maintain_browsing_signal_store(store, policy=policy, now=NOW)
+
+        self.assertEqual(policy.half_life_days, 14.0)
+        self.assertEqual(set(maintained.items), {"濃い"})
+        aggregate = maintained.items["濃い"]
+        self.assertAlmostEqual(aggregate.target_hit_count, 3.0)
+        self.assertAlmostEqual(aggregate.context_evidence[0].target_hit_count, 3.0)
+        self.assertEqual(aggregate.decayed_at, "2026-05-23T00:00:00Z")
+
     def test_strength_presets_increase_browsing_lane_without_mutating_store(self) -> None:
         policy = BrowsingSignalIngestPolicy()
         store = BrowsingSignalStore(
@@ -203,6 +243,7 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             store=store,
             admission_budget=6,
             policy=policy,
+            now=NOW,
         )
 
         off = results[BROWSING_STRENGTH_OFF].to_dict()
@@ -276,6 +317,7 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             store=ingest.store,
             admission_budget=3,
             policy=policy,
+            now=NOW,
         )
         off = results[BROWSING_STRENGTH_OFF].to_dict()
         strong = results[BROWSING_STRENGTH_STRONG].to_dict()
@@ -318,6 +360,7 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             candidates,
             store=store,
             admission_budget=2,
+            now=NOW,
         )
         rows = {
             row["target_key"]: row for row in results[BROWSING_STRENGTH_STRONG].to_dict()["rows"]
@@ -357,6 +400,7 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             candidates,
             store=store,
             admission_budget=2,
+            now=NOW,
         )
         strong = results[BROWSING_STRENGTH_STRONG].to_dict()
         rows = {row["target_key"]: row for row in strong["rows"]}
@@ -416,6 +460,7 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             store=store,
             admission_budget=10,
             policy=policy,
+            now=NOW,
         )
         strong_rows = {
             row["lemma"]: row for row in results[BROWSING_STRENGTH_STRONG].to_dict()["rows"]
@@ -466,6 +511,7 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             candidates,
             store=store,
             admission_budget=4,
+            now=NOW,
         )
         off = results[BROWSING_STRENGTH_OFF].to_dict()
         balanced = results[BROWSING_STRENGTH_BALANCED].to_dict()
@@ -499,14 +545,161 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             candidates,
             store=store,
             admission_budget=4,
+            now=NOW,
         )
         balanced = results[BROWSING_STRENGTH_BALANCED].to_dict()
+        rows = {row["lemma"]: row for row in balanced["rows"]}
 
         self.assertEqual(balanced["browsing_lane_count"], 0)
         self.assertEqual(
             balanced["selected_lemmas"],
             ["casa", "ser", "banco", "perro"],
         )
+        self.assertGreater(rows["hipoteca"]["browsing_signal"], 0.0)
+        self.assertEqual(rows["hipoteca"]["browsing_count_multiplier"], 0.0)
+        self.assertEqual(rows["hipoteca"]["effective_browsing_signal"], 0.0)
+
+    def test_browsing_evidence_count_gate_requires_repeated_hits(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "一回": BrowsingSignalAggregate(target_lemma="一回", target_hit_count=1.0),
+                "二回": BrowsingSignalAggregate(target_lemma="二回", target_hit_count=2.0),
+                "三回": BrowsingSignalAggregate(target_lemma="三回", target_hit_count=3.0),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="一回", neutral_score=0.80),
+            BrowsingAdmissionCandidate(lemma="二回", neutral_score=0.80),
+            BrowsingAdmissionCandidate(lemma="三回", neutral_score=0.80),
+        )
+
+        strong = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=3,
+            now=NOW,
+        )[BROWSING_STRENGTH_STRONG].to_dict()
+        rows = {row["lemma"]: row for row in strong["rows"]}
+
+        self.assertGreater(rows["一回"]["browsing_signal"], 0.0)
+        self.assertEqual(rows["一回"]["browsing_count_multiplier"], 0.0)
+        self.assertEqual(rows["一回"]["effective_browsing_signal"], 0.0)
+        self.assertEqual(rows["一回"]["browsing_lane_probability"], 0.0)
+        self.assertEqual(rows["二回"]["browsing_count_multiplier"], 0.0)
+        self.assertEqual(rows["二回"]["effective_browsing_signal"], 0.0)
+        self.assertEqual(rows["二回"]["browsing_lane_probability"], 0.0)
+        self.assertEqual(rows["三回"]["browsing_count_multiplier"], 1.0)
+        self.assertGreater(
+            rows["三回"]["effective_browsing_signal"],
+            rows["二回"]["effective_browsing_signal"],
+        )
+
+    def test_context_evidence_discounts_same_page_repetition(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "同頁": BrowsingSignalAggregate(
+                    target_lemma="同頁",
+                    target_hit_count=9.0,
+                    context_evidence=(
+                        BrowsingSignalContextEvidence(
+                            context_key="page-a",
+                            target_hit_count=9.0,
+                        ),
+                    ),
+                ),
+                "三頁": BrowsingSignalAggregate(
+                    target_lemma="三頁",
+                    target_hit_count=3.0,
+                    context_evidence=(
+                        BrowsingSignalContextEvidence(
+                            context_key="page-a",
+                            target_hit_count=1.0,
+                        ),
+                        BrowsingSignalContextEvidence(
+                            context_key="page-b",
+                            target_hit_count=1.0,
+                        ),
+                        BrowsingSignalContextEvidence(
+                            context_key="page-c",
+                            target_hit_count=1.0,
+                        ),
+                    ),
+                ),
+                "二頁": BrowsingSignalAggregate(
+                    target_lemma="二頁",
+                    target_hit_count=4.0,
+                    context_evidence=(
+                        BrowsingSignalContextEvidence(
+                            context_key="page-a",
+                            target_hit_count=2.0,
+                        ),
+                        BrowsingSignalContextEvidence(
+                            context_key="page-b",
+                            target_hit_count=2.0,
+                        ),
+                    ),
+                ),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="同頁", neutral_score=0.80),
+            BrowsingAdmissionCandidate(lemma="三頁", neutral_score=0.80),
+            BrowsingAdmissionCandidate(lemma="二頁", neutral_score=0.80),
+        )
+
+        strong = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=3,
+            now=NOW,
+        )[BROWSING_STRENGTH_STRONG].to_dict()
+        rows = {row["lemma"]: row for row in strong["rows"]}
+
+        self.assertEqual(rows["同頁"]["browsing_context_count"], 1)
+        self.assertLess(rows["同頁"]["browsing_evidence"], 3.5)
+        self.assertEqual(rows["同頁"]["browsing_count_multiplier"], 0.0)
+        self.assertEqual(rows["同頁"]["effective_browsing_signal"], 0.0)
+        self.assertEqual(rows["三頁"]["browsing_context_count"], 3)
+        self.assertEqual(rows["三頁"]["browsing_evidence"], 3.0)
+        self.assertEqual(rows["三頁"]["browsing_count_multiplier"], 1.0)
+        self.assertEqual(rows["二頁"]["browsing_context_count"], 2)
+        self.assertGreater(rows["二頁"]["browsing_evidence"], 3.0)
+        self.assertEqual(rows["二頁"]["browsing_count_multiplier"], 1.0)
+
+    def test_ingest_merges_privacy_safe_context_evidence(self) -> None:
+        policy = BrowsingSignalIngestPolicy(prune_signal_below=0.0)
+        store = BrowsingSignalStore(pair="en-ja", profile_id="default")
+        packet = BrowsingSignalPacket(
+            pair="en-ja",
+            profile_id="default",
+            signals=(
+                BrowsingSignalPacketEntry(
+                    target_lemma="兎",
+                    side=BROWSING_SIGNAL_TARGET,
+                    count=2,
+                    context_key="https://example.invalid/private/path",
+                ),
+                BrowsingSignalPacketEntry(
+                    target_lemma="兎",
+                    side=BROWSING_SIGNAL_TARGET,
+                    count=1,
+                    context_key="page-b",
+                ),
+            ),
+        )
+
+        result = ingest_browsing_signal_packet(store, packet, policy=policy, now=NOW)
+        aggregate = result.store.items["兎"]
+        serialized = json.dumps(result.store.to_dict(), ensure_ascii=False)
+
+        self.assertEqual(len(aggregate.context_evidence), 2)
+        self.assertGreaterEqual(browsing_evidence_value(aggregate, policy=policy), 2.0)
+        self.assertNotIn("example.invalid", serialized)
+        self.assertIn("ctx:v1:", serialized)
 
     def test_browsing_lane_uses_admission_suitability_as_quality_gate(self) -> None:
         store = BrowsingSignalStore(
@@ -536,6 +729,7 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             candidates,
             store=store,
             admission_budget=3,
+            now=NOW,
         )[BROWSING_STRENGTH_STRONG].to_dict()
         rows = {row["lemma"]: row for row in strong["rows"]}
 
@@ -580,6 +774,7 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             candidates,
             store=store,
             admission_budget=3,
+            now=NOW,
         )[BROWSING_STRENGTH_STRONG].to_dict()
         rows = {row["lemma"]: row for row in strong["rows"]}
 
@@ -594,6 +789,76 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
         )
         self.assertEqual(rows["ある"]["browsing_specificity_multiplier"], 0.65)
         self.assertEqual(rows["未知"]["browsing_specificity_multiplier"], 0.75)
+
+    def test_relative_salience_requires_more_local_evidence_for_common_words(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "ある": BrowsingSignalAggregate(target_lemma="ある", target_hit_count=3.0),
+                "料理店": BrowsingSignalAggregate(target_lemma="料理店", target_hit_count=3.0),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(
+                lemma="ある",
+                neutral_score=0.80,
+                lexical_commonness=1.0,
+                lexical_commonness_known=True,
+            ),
+            BrowsingAdmissionCandidate(
+                lemma="料理店",
+                neutral_score=0.80,
+                lexical_commonness=0.10,
+                lexical_commonness_known=True,
+            ),
+        )
+
+        strong = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=2,
+            now=NOW,
+        )[BROWSING_STRENGTH_STRONG].to_dict()
+        rows = {row["lemma"]: row for row in strong["rows"]}
+
+        self.assertEqual(rows["ある"]["browsing_count_multiplier"], 1.0)
+        self.assertEqual(rows["料理店"]["browsing_count_multiplier"], 1.0)
+        self.assertLess(
+            rows["ある"]["browsing_salience_multiplier"],
+            rows["料理店"]["browsing_salience_multiplier"],
+        )
+        self.assertLess(
+            rows["ある"]["effective_browsing_signal"],
+            rows["料理店"]["effective_browsing_signal"],
+        )
+
+    def test_common_words_regain_salience_with_enough_local_evidence(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={"ある": BrowsingSignalAggregate(target_lemma="ある", target_hit_count=25.0)},
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(
+                lemma="ある",
+                neutral_score=0.80,
+                lexical_commonness=1.0,
+                lexical_commonness_known=True,
+            ),
+        )
+
+        strong = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=1,
+            now=NOW,
+        )[BROWSING_STRENGTH_STRONG].to_dict()
+        row = strong["rows"][0]
+
+        self.assertEqual(row["browsing_count_multiplier"], 1.0)
+        self.assertEqual(row["browsing_salience_multiplier"], 1.0)
+        self.assertGreater(row["effective_browsing_signal"], 0.0)
 
     def test_suppressed_lemma_has_zero_admission_probability(self) -> None:
         store = BrowsingSignalStore(
@@ -613,6 +878,7 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             store=store,
             admission_budget=1,
             suppressed_lemmas={"viaje": SUPPRESSION_REASON_SUSPENDED},
+            now=NOW,
         )
         rows = {row["lemma"]: row for row in results[BROWSING_STRENGTH_STRONG].to_dict()["rows"]}
 
