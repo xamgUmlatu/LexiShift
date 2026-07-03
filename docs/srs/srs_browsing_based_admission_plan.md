@@ -1109,6 +1109,12 @@ Harness checks:
   store without live browser capture or SRS mutation. Its signal rows include
   frequency-rank and JMDict-priority diagnostics so mined noise can be reviewed
   before runtime capture is enabled;
+- en-ja saved-page admission preview pack via
+  `scripts/testing/srs_browsing_admission_saved_page_admission_pack_en_ja.py`.
+  This consumes the same saved-page aggregate, compares `off`, `balanced`, and
+  `strong` browsing admission presets against the real profile-growth candidate
+  frontier, and writes a JSON/Markdown review pack without mutating runtime SRS
+  state;
 - offline page/text extraction research probe via
   `scripts/testing/srs_browsing_admission_research_en_es.py`, including its
   canonical helper/core probe section. This extraction probe is still
