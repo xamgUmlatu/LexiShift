@@ -1,0 +1,493 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "generated_at": "2026-07-03T00:00:00Z",
+  "config_path": "docs/test_inputs/srs_browsing_admission_offline_page_mining_cases.json",
+  "scope": "offline_saved_page_extension_js_native_ingest",
+  "live_user_data_touched": false,
+  "case_count": 1,
+  "cases": [
+    {
+      "name": "en-ja_source_and_ruby_saved_pages_v1",
+      "status": "PASS",
+      "pair": "en-ja",
+      "profile_id": "offline_page_mining",
+      "documents": [
+        {
+          "document_id": "en_ja_fermentation_article_a",
+          "side": "source",
+          "path": "docs/test_inputs/srs_browsing_admission_offline_pages/en_ja_fermentation_article_a.html",
+          "sha256": "b2d005f783efe8b01f0b122fa1ee032fdd9a8102978d9cf8666889d91a897670",
+          "visible_text_char_count": 291,
+          "ruby_pair_count": 0
+        },
+        {
+          "document_id": "en_ja_fermentation_article_b",
+          "side": "source",
+          "path": "docs/test_inputs/srs_browsing_admission_offline_pages/en_ja_fermentation_article_b.html",
+          "sha256": "b28be740630986ca1f95ca0a04a33eac7cb5a6736037b538d09cc060b2744e0a",
+          "visible_text_char_count": 117,
+          "ruby_pair_count": 0
+        },
+        {
+          "document_id": "ja_fermentation_ruby_note",
+          "side": "target",
+          "path": "docs/test_inputs/srs_browsing_admission_offline_pages/ja_fermentation_ruby_note.html",
+          "sha256": "4e5f867aa22a4e539a3965d61ae6089459c5c5555529d0063d7dd759f4ee5015",
+          "visible_text_char_count": 46,
+          "ruby_pair_count": 3
+        }
+      ],
+      "extension_payload": {
+        "accepted_exposures": 8.0,
+        "packet_count": 1,
+        "signal_count": 5,
+        "source_signal_count": 3,
+        "target_signal_count": 2,
+        "target_keys": [
+          "発酵|はっこう",
+          "血圧|けつあつ",
+          "麹|こうじ"
+        ],
+        "context_key_prefixes": [
+          "pageh"
+        ],
+        "signals": [
+          {
+            "target_key": "発酵|はっこう",
+            "target_lemma": "発酵",
+            "target_reading": "はっこう",
+            "side": "source",
+            "observation_source": "source_mapping",
+            "count": 3,
+            "source_mapping_confidence": 0.58,
+            "context_key_prefix": "pageh"
+          },
+          {
+            "target_key": "発酵|はっこう",
+            "target_lemma": "発酵",
+            "target_reading": "はっこう",
+            "side": "target",
+            "observation_source": "target_surface",
+            "count": 2,
+            "source_mapping_confidence": 1,
+            "context_key_prefix": "pageh"
+          },
+          {
+            "target_key": "発酵|はっこう",
+            "target_lemma": "発酵",
+            "target_reading": "はっこう",
+            "side": "source",
+            "observation_source": "source_mapping",
+            "count": 1,
+            "source_mapping_confidence": 0.58,
+            "context_key_prefix": "pageh"
+          },
+          {
+            "target_key": "血圧|けつあつ",
+            "target_lemma": "血圧",
+            "target_reading": "けつあつ",
+            "side": "source",
+            "observation_source": "source_mapping",
+            "count": 1,
+            "source_mapping_confidence": 0.72,
+            "context_key_prefix": "pageh"
+          },
+          {
+            "target_key": "麹|こうじ",
+            "target_lemma": "麹",
+            "target_reading": "こうじ",
+            "side": "target",
+            "observation_source": "target_surface",
+            "count": 1,
+            "source_mapping_confidence": 1,
+            "context_key_prefix": "pageh"
+          }
+        ],
+        "documents": [
+          {
+            "document_id": "en_ja_fermentation_article_a",
+            "side": "source",
+            "sha256": "b2d005f783efe8b01f0b122fa1ee032fdd9a8102978d9cf8666889d91a897670",
+            "visible_text_char_count": 291,
+            "ruby_pair_count": 0,
+            "signal_count": 2,
+            "accepted_count": 4,
+            "signals": [
+              {
+                "target_key": "血圧|けつあつ",
+                "side": "source",
+                "observation_source": "source_mapping",
+                "count": 1,
+                "source_mapping_confidence": 0.72
+              },
+              {
+                "target_key": "発酵|はっこう",
+                "side": "source",
+                "observation_source": "source_mapping",
+                "count": 3,
+                "source_mapping_confidence": 0.58
+              }
+            ]
+          },
+          {
+            "document_id": "en_ja_fermentation_article_b",
+            "side": "source",
+            "sha256": "b28be740630986ca1f95ca0a04a33eac7cb5a6736037b538d09cc060b2744e0a",
+            "visible_text_char_count": 117,
+            "ruby_pair_count": 0,
+            "signal_count": 1,
+            "accepted_count": 1,
+            "signals": [
+              {
+                "target_key": "発酵|はっこう",
+                "side": "source",
+                "observation_source": "source_mapping",
+                "count": 1,
+                "source_mapping_confidence": 0.58
+              }
+            ]
+          },
+          {
+            "document_id": "ja_fermentation_ruby_note",
+            "side": "target",
+            "sha256": "4e5f867aa22a4e539a3965d61ae6089459c5c5555529d0063d7dd759f4ee5015",
+            "visible_text_char_count": 46,
+            "ruby_pair_count": 3,
+            "signal_count": 2,
+            "accepted_count": 3,
+            "signals": [
+              {
+                "target_key": "発酵|はっこう",
+                "side": "target",
+                "observation_source": "target_surface",
+                "count": 2,
+                "source_mapping_confidence": 1
+              },
+              {
+                "target_key": "麹|こうじ",
+                "side": "target",
+                "observation_source": "target_surface",
+                "count": 1,
+                "source_mapping_confidence": 1
+              }
+            ]
+          }
+        ]
+      },
+      "native_host_ingest": {
+        "response_count": 1,
+        "statuses": [
+          "ok"
+        ],
+        "runtime_srs_mutation_values": [
+          false
+        ],
+        "responses": [
+          {
+            "status": "ok",
+            "pair": "en-ja",
+            "profile_id": "offline_page_mining",
+            "runtime_srs_mutation": false,
+            "privacy": {
+              "raw_text_stored": false,
+              "url_stored": false,
+              "runtime_srs_mutation": false,
+              "private_payload_fields_ignored": 0
+            },
+            "policy": {
+              "version": "browsing_signal_aggregate_v1",
+              "max_signals_per_packet": 200,
+              "max_count_per_signal": 5.0,
+              "max_contexts_per_item": 24,
+              "max_items_per_store": 5000,
+              "prune_signal_below": 0.01,
+              "half_life_days": 14.0,
+              "browsing_signal_cap": 16.0,
+              "replacement_exposure_weight": 0.35
+            },
+            "ingest_result": {
+              "input_signal_count": 5,
+              "accepted_signal_count": 5,
+              "dropped_signal_count": 0,
+              "capped_signal_count": 0,
+              "pruned_item_count": 0,
+              "retained_item_count": 3
+            },
+            "aggregate_store": {
+              "pair": "en-ja",
+              "profile_id": "offline_page_mining",
+              "updated_at": "2026-05-23T00:00:00Z",
+              "item_count": 3,
+              "top_items": [
+                {
+                  "target_key": "発酵|はっこう",
+                  "target_lemma": "発酵",
+                  "target_reading": "はっこう",
+                  "source_hit_count": 2.32,
+                  "target_hit_count": 2.0,
+                  "replacement_exposure_count": 0.0,
+                  "source_mapping_confidence": 0.58,
+                  "reading_confidence": 1.0,
+                  "observation_sources": [
+                    "source_mapping",
+                    "target_surface"
+                  ],
+                  "raw_browsing": 4.32,
+                  "browsing_evidence": 3.699063,
+                  "browsing_context_count": 3,
+                  "browsing_signal": 0.546151,
+                  "last_seen_at": "2026-05-23T00:00:00Z"
+                },
+                {
+                  "target_key": "麹|こうじ",
+                  "target_lemma": "麹",
+                  "target_reading": "こうじ",
+                  "source_hit_count": 0.0,
+                  "target_hit_count": 1.0,
+                  "replacement_exposure_count": 0.0,
+                  "source_mapping_confidence": 0.0,
+                  "reading_confidence": 1.0,
+                  "observation_sources": [
+                    "target_surface"
+                  ],
+                  "raw_browsing": 1.0,
+                  "browsing_evidence": 1.0,
+                  "browsing_context_count": 1,
+                  "browsing_signal": 0.244651,
+                  "last_seen_at": "2026-05-23T00:00:00Z"
+                },
+                {
+                  "target_key": "血圧|けつあつ",
+                  "target_lemma": "血圧",
+                  "target_reading": "けつあつ",
+                  "source_hit_count": 0.72,
+                  "target_hit_count": 0.0,
+                  "replacement_exposure_count": 0.0,
+                  "source_mapping_confidence": 0.72,
+                  "reading_confidence": 1.0,
+                  "observation_sources": [
+                    "source_mapping"
+                  ],
+                  "raw_browsing": 0.72,
+                  "browsing_evidence": 0.782409,
+                  "browsing_context_count": 1,
+                  "browsing_signal": 0.203996,
+                  "last_seen_at": "2026-05-23T00:00:00Z"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "aggregate_store": {
+        "pair": "en-ja",
+        "profile_id": "offline_page_mining",
+        "updated_at": "2026-05-23T00:00:00Z",
+        "item_count": 3,
+        "items": [
+          {
+            "target_key": "発酵|はっこう",
+            "target_lemma": "発酵",
+            "target_reading": "はっこう",
+            "source_hit_count": 2.32,
+            "target_hit_count": 2.0,
+            "replacement_exposure_count": 0.0,
+            "reading_confidence": 1.0,
+            "observation_sources": [
+              "source_mapping",
+              "target_surface"
+            ],
+            "browsing_evidence": 3.699063,
+            "browsing_context_count": 3,
+            "browsing_signal": 0.546151,
+            "context_evidence": [
+              {
+                "context_key_prefix": "pageh",
+                "source_hit_count": 0.0,
+                "target_hit_count": 2.0,
+                "replacement_exposure_count": 0.0
+              },
+              {
+                "context_key_prefix": "pageh",
+                "source_hit_count": 1.74,
+                "target_hit_count": 0.0,
+                "replacement_exposure_count": 0.0
+              },
+              {
+                "context_key_prefix": "pageh",
+                "source_hit_count": 0.58,
+                "target_hit_count": 0.0,
+                "replacement_exposure_count": 0.0
+              }
+            ],
+            "last_seen_at": "2026-05-23T00:00:00Z",
+            "decayed_at": "2026-05-23T00:00:00Z"
+          },
+          {
+            "target_key": "血圧|けつあつ",
+            "target_lemma": "血圧",
+            "target_reading": "けつあつ",
+            "source_hit_count": 0.72,
+            "target_hit_count": 0.0,
+            "replacement_exposure_count": 0.0,
+            "reading_confidence": 1.0,
+            "observation_sources": [
+              "source_mapping"
+            ],
+            "browsing_evidence": 0.782409,
+            "browsing_context_count": 1,
+            "browsing_signal": 0.203996,
+            "context_evidence": [
+              {
+                "context_key_prefix": "pageh",
+                "source_hit_count": 0.72,
+                "target_hit_count": 0.0,
+                "replacement_exposure_count": 0.0
+              }
+            ],
+            "last_seen_at": "2026-05-23T00:00:00Z",
+            "decayed_at": "2026-05-23T00:00:00Z"
+          },
+          {
+            "target_key": "麹|こうじ",
+            "target_lemma": "麹",
+            "target_reading": "こうじ",
+            "source_hit_count": 0.0,
+            "target_hit_count": 1.0,
+            "replacement_exposure_count": 0.0,
+            "reading_confidence": 1.0,
+            "observation_sources": [
+              "target_surface"
+            ],
+            "browsing_evidence": 1.0,
+            "browsing_context_count": 1,
+            "browsing_signal": 0.244651,
+            "context_evidence": [
+              {
+                "context_key_prefix": "pageh",
+                "source_hit_count": 0.0,
+                "target_hit_count": 1.0,
+                "replacement_exposure_count": 0.0
+              }
+            ],
+            "last_seen_at": "2026-05-23T00:00:00Z",
+            "decayed_at": "2026-05-23T00:00:00Z"
+          }
+        ]
+      },
+      "checks": [
+        {
+          "name": "extension_payload_count",
+          "status": "pass",
+          "detail": "At least one extension packet was built from saved pages."
+        },
+        {
+          "name": "extension_signal_count",
+          "status": "pass",
+          "detail": "Saved pages produced the expected minimum signal volume."
+        },
+        {
+          "name": "source_mapping_signal_count",
+          "status": "pass",
+          "detail": "Source-language pages produced mapped target-language signals."
+        },
+        {
+          "name": "target_surface_signal_count",
+          "status": "pass",
+          "detail": "Target-language ruby pages produced reading-aware target signals."
+        },
+        {
+          "name": "native_host_ingest_succeeds_without_srs_mutation",
+          "status": "pass",
+          "detail": "Native-host route persists browsing aggregates without mutating runtime SRS."
+        },
+        {
+          "name": "required_payload_target:発酵|はっこう",
+          "status": "pass",
+          "detail": "Payload includes `発酵|はっこう`."
+        },
+        {
+          "name": "required_payload_target:血圧|けつあつ",
+          "status": "pass",
+          "detail": "Payload includes `血圧|けつあつ`."
+        },
+        {
+          "name": "required_payload_target:麹|こうじ",
+          "status": "pass",
+          "detail": "Payload includes `麹|こうじ`."
+        },
+        {
+          "name": "absent_payload_target:光|ひかり",
+          "status": "pass",
+          "detail": "Payload/store exclude broad or wrong-pair target `光|ひかり`."
+        },
+        {
+          "name": "absent_payload_target:軽い|かるい",
+          "status": "pass",
+          "detail": "Payload/store exclude broad or wrong-pair target `軽い|かるい`."
+        },
+        {
+          "name": "absent_payload_target:仕事|しごと",
+          "status": "pass",
+          "detail": "Payload/store exclude broad or wrong-pair target `仕事|しごと`."
+        },
+        {
+          "name": "absent_payload_target:fermentación",
+          "status": "pass",
+          "detail": "Payload/store exclude broad or wrong-pair target `fermentación`."
+        },
+        {
+          "name": "required_aggregate_target:発酵|はっこう",
+          "status": "pass",
+          "detail": "Aggregate store includes `発酵|はっこう`."
+        },
+        {
+          "name": "aggregate_source_hit_count_min:発酵|はっこう",
+          "status": "pass",
+          "detail": "`発酵|はっこう` has source_hit_count >= 2.3."
+        },
+        {
+          "name": "aggregate_target_hit_count_min:発酵|はっこう",
+          "status": "pass",
+          "detail": "`発酵|はっこう` has target_hit_count >= 2.0."
+        },
+        {
+          "name": "aggregate_observation_sources:発酵|はっこう",
+          "status": "pass",
+          "detail": "`発酵|はっこう` has observation sources ['source_mapping', 'target_surface']."
+        },
+        {
+          "name": "required_aggregate_target:血圧|けつあつ",
+          "status": "pass",
+          "detail": "Aggregate store includes `血圧|けつあつ`."
+        },
+        {
+          "name": "aggregate_source_hit_count_min:血圧|けつあつ",
+          "status": "pass",
+          "detail": "`血圧|けつあつ` has source_hit_count >= 0.7."
+        },
+        {
+          "name": "aggregate_observation_sources:血圧|けつあつ",
+          "status": "pass",
+          "detail": "`血圧|けつあつ` has observation sources ['source_mapping']."
+        },
+        {
+          "name": "private_string_absent:value_sha256_0558a31a2463",
+          "status": "pass",
+          "detail": "Raw page text and raw context identifiers are absent from extension packets."
+        },
+        {
+          "name": "private_string_absent:value_sha256_78f8a9c86e0f",
+          "status": "pass",
+          "detail": "Raw page text and raw context identifiers are absent from extension packets."
+        },
+        {
+          "name": "private_string_absent:value_sha256_c1fa2a3d0c55",
+          "status": "pass",
+          "detail": "Raw page text and raw context identifiers are absent from extension packets."
+        }
+      ]
+    }
+  ]
+}

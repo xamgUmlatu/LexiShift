@@ -164,6 +164,85 @@ assert.deepEqual(normalize(mining.buildSourceMappingIndex(
 """
         _run_node(script)
 
+    def test_collects_visible_source_text_without_hidden_or_extension_content(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
+const modulePath = {json.dumps(str(PAGE_MINING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+function text(value) {{
+  return {{ nodeType: 3, nodeValue: value }};
+}}
+function element(tagName, children, options) {{
+  const opts = options || {{}};
+  const node = {{
+    nodeType: 1,
+    tagName,
+    childNodes: [],
+    classList: {{
+      contains(name) {{
+        return Array.from(opts.classNames || []).includes(name);
+      }}
+    }},
+    closest(selector) {{
+      if (
+        selector.includes(".lexishift-replacement")
+        && Array.from(opts.classNames || []).includes("lexishift-replacement")
+      ) {{
+        return node;
+      }}
+      if (selector.includes("data-lexishift-scan-skip") && opts.scanSkip) {{
+        return node;
+      }}
+      return null;
+    }},
+    getClientRects() {{
+      return [{{ width: 1, height: 1 }}];
+    }}
+  }};
+  node.childNodes = Array.from(children || []);
+  for (const child of node.childNodes) {{
+    child.parentNode = node;
+    child.parentElement = node;
+  }}
+  return node;
+}}
+
+const rootNode = element("main", [
+  element("p", [text("Fermentation visible text.")]),
+  element("script", [text("hidden script fermentation")]),
+  element("span", [text("ignored replacement fermentation")], {{
+    classNames: ["lexishift-replacement"]
+  }}),
+  element("span", [text("ignored skip fermentation")], {{ scanSkip: true }}),
+  element("ruby", [
+    text("発酵"),
+    element("rt", [text("はっこう")]),
+    element("rp", [text(")")])
+  ])
+]);
+
+const collected = context.LexiShift.srsBrowsingSourceMining.collectVisibleSourceText(
+  rootNode,
+  {{ includeInvisible: true }}
+);
+assert.equal(collected.includes("Fermentation visible text."), true);
+assert.equal(collected.includes("hidden script"), false);
+assert.equal(collected.includes("ignored replacement"), false);
+assert.equal(collected.includes("ignored skip"), false);
+assert.equal(collected.includes("はっこう"), false);
+assert.equal(collected.includes("発酵"), true);
+"""
+        _run_node(script)
+
     def test_builds_ruby_target_surface_signals_for_en_ja(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
