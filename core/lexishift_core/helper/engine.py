@@ -42,6 +42,9 @@ from lexishift_core.helper.use_cases.auto_refresh_set import (
 from lexishift_core.helper.use_cases.browsing_admission import (
     ingest_browsing_admission_signals as _ingest_browsing_admission_signals_use_case,
 )
+from lexishift_core.helper.use_cases.browsing_source_index import (
+    build_srs_browsing_source_index as _build_srs_browsing_source_index_use_case,
+)
 from lexishift_core.srs import (
     SrsSettings,
     SrsStore,
@@ -807,6 +810,32 @@ def ingest_browsing_admission_signals(
         policy=policy,
         now=now,
         resolve_profile_id_fn=_resolve_profile_id,
+    )
+
+
+def build_srs_browsing_source_index(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    profile_id: str = "default",
+    top_n: int | None = None,
+    max_targets: int | None = None,
+    max_rules: int | None = None,
+) -> dict:
+    return _build_srs_browsing_source_index_use_case(
+        paths,
+        pair=pair,
+        profile_id=profile_id,
+        top_n=top_n,
+        max_targets=max_targets,
+        max_rules=max_rules,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        resolve_profile_id_fn=_resolve_profile_id,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        initialize_store_from_frequency_list_with_report_fn=initialize_store_from_frequency_list_with_report,
+        run_rulegen_for_pair_fn=run_rulegen_for_pair,
     )
 
 

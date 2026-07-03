@@ -60,6 +60,7 @@
         "content/runtime/dom_scan/text_node_processor.js",
         "content/runtime/dom_scan_runtime.js",
         "content/runtime/rules/helper_rules_runtime.js",
+        "content/runtime/rules/browsing_source_index_runtime.js",
         "content/runtime/rules/active_rules_runtime.js",
         "content/runtime/semantic/semantic_gate_summary.js",
         "content/runtime/semantic/semantic_request_context.js",

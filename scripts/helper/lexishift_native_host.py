@@ -66,7 +66,6 @@ def _inject_core_path() -> None:
 
 try:
     _inject_core_path()
-
     from lexishift_core.helper.engine import (
         SetAdmissionPreviewJobConfig,
         get_srs_runtime_diagnostics,
@@ -79,6 +78,7 @@ try:
         apply_srs_rebalance,
         apply_exposure,
         apply_feedback,
+        build_srs_browsing_source_index,
         get_srs_item_rule_details,
         ingest_browsing_admission_signals,
         initialize_srs_set,
@@ -129,11 +129,8 @@ except Exception as exc:  # noqa: BLE001
     _log_native_host_failure("startup_import", exc)
     raise
 
-
-PROTOCOL_VERSION = 1
-HELPER_VERSION = "0.1.0"
-OPEN_RESOURCE_SETTINGS_FLAG = "--open-resource-settings"
-RESOURCE_PAIR_FLAG = "--resource-pair"
+PROTOCOL_VERSION, HELPER_VERSION = 1, "0.1.0"
+OPEN_RESOURCE_SETTINGS_FLAG, RESOURCE_PAIR_FLAG = "--open-resource-settings", "--resource-pair"
 
 
 def _native_host_log_line(message: str) -> None:
@@ -146,10 +143,6 @@ def _native_host_log_line(message: str) -> None:
             handle.write(f"[{timestamp}] {message}\n")
     except OSError:
         return
-
-
-def _payload_pair(payload: dict) -> str:
-    return str(payload.get("pair", "") or "").strip()
 
 
 def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list[str], str]:
@@ -170,7 +163,7 @@ def _open_resource_settings(payload: dict) -> dict:
     request_started_at = utc_timestamp()
     request_start = time.perf_counter()
     session_id = str(payload.get("startup_session_id") or "").strip() or new_startup_session_id()
-    pair = _payload_pair(payload)
+    pair = str(payload.get("pair", "") or "").strip()
     _native_host_log_line(
         f"resource_settings_request_received session={session_id} pair={pair} source=native_host"
     )
@@ -266,12 +259,7 @@ def _write_message(payload: dict) -> None:
 
 
 def _error_response(request_id: str, message: str, code: str = "invalid_request") -> dict:
-    return {
-        "id": request_id,
-        "ok": False,
-        "data": None,
-        "error": {"code": code, "message": message},
-    }
+    return {"id": request_id, "ok": False, "data": None, "error": dict(code=code, message=message)}
 
 
 def _optional_int(payload: Dict[str, Any], key: str) -> Optional[int]:
@@ -508,6 +496,15 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             profile_id=profile_id or "default",
             captured_at=str(payload.get("captured_at", "")).strip() or None,
             opt_in=opt_in,
+        )
+    if msg_type == "srs_browsing_source_index":
+        return build_srs_browsing_source_index(
+            paths,
+            pair=str(payload.get("pair", "en-ja")).strip() or "en-ja",
+            profile_id=profile_id or "default",
+            top_n=_optional_int(payload, "top_n"),
+            max_targets=_optional_int(payload, "max_targets"),
+            max_rules=_optional_int(payload, "max_rules"),
         )
     if msg_type == "trigger_rulegen":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"

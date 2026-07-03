@@ -38,6 +38,15 @@
       return this.send("get_semantic_inventory", { pair, profile_id: profileId });
     }
 
+    getSrsBrowsingSourceIndex(pair, profileId, payload = {}, timeoutMs = SRS_REFRESH_TIMEOUT_MS) {
+      const options = payload && typeof payload === "object" ? payload : {};
+      return this.send(
+        "srs_browsing_source_index",
+        { ...options, pair, profile_id: profileId },
+        timeoutMs
+      );
+    }
+
     semanticAdmitBatch(payload, timeoutMs = DEFAULT_TIMEOUT_MS) {
       return this.send(
         "semantic_admit_batch",

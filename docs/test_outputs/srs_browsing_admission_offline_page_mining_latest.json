@@ -44,6 +44,17 @@
         "signal_count": 5,
         "source_signal_count": 3,
         "target_signal_count": 2,
+        "active_rule_replacements": [
+          "血圧"
+        ],
+        "source_mining_rule_replacements": [
+          "発酵",
+          "光",
+          "軽い",
+          "仕事",
+          "fermentación",
+          "発酵"
+        ],
         "target_keys": [
           "発酵|はっこう",
           "血圧|けつあつ",
@@ -1237,6 +1248,10 @@
         "signal_count": 0,
         "source_signal_count": 0,
         "target_signal_count": 0,
+        "active_rule_replacements": [
+          "fermentación"
+        ],
+        "source_mining_rule_replacements": [],
         "target_keys": [],
         "context_key_prefixes": [],
         "signals": [],

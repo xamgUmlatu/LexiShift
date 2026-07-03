@@ -27,6 +27,7 @@
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const helperRulesCache = new Map();
     const helperSemanticInventoryCache = new Map();
+    const helperBrowsingSourceIndexCache = new Map();
 
     function normalizeHelperMessage(error, fallbackText) {
       return helperErrorCopy.normalizeHelperErrorMessage(error, {
@@ -117,6 +118,28 @@
       return { inventory: response.data || null, error: null };
     }
 
+    async function fetchBrowsingSourceIndex(pair, profileId, options) {
+      const helperClient = getHelperClient();
+      if (!helperClient || typeof helperClient.getSrsBrowsingSourceIndex !== "function") {
+        return {
+          index: null,
+          error: normalizeHelperMessage(
+            { code: "helper_missing", message: "Helper client unavailable." },
+            "Failed to load helper browsing source index."
+          )
+        };
+      }
+      const response = await helperClient.getSrsBrowsingSourceIndex(pair, profileId, options || {});
+      if (!response || response.ok === false) {
+        const message = normalizeHelperMessage(
+          response && response.error,
+          "Failed to load helper browsing source index."
+        );
+        return { index: null, error: message };
+      }
+      return { index: response.data || null, error: null };
+    }
+
     async function requestSemanticAdmitBatch(payload, timeoutMs) {
       const helperClient = getHelperClient();
       if (!helperClient || typeof helperClient.semanticAdmitBatch !== "function") {
@@ -174,6 +197,18 @@
         if (cachedPersisted && typeof cachedPersisted === "object") {
           return cachedPersisted;
         }
+      }
+      return null;
+    }
+
+    async function loadCachedBrowsingSourceIndex(pair, profileId) {
+      const key = rulesCacheKey(pair, profileId);
+      if (!key) {
+        return null;
+      }
+      const cachedInMemory = helperBrowsingSourceIndexCache.get(key);
+      if (cachedInMemory && typeof cachedInMemory === "object") {
+        return cachedInMemory;
       }
       return null;
     }
@@ -272,6 +307,65 @@
       };
     }
 
+    async function resolveBrowsingSourceIndex(pair, profileId, options) {
+      const normalizedPair = String(pair || "").trim();
+      const normalizedProfileId = normalizeProfileId(profileId);
+      if (!normalizedPair) {
+        return { rules: [], source: "none", error: null };
+      }
+
+      let rules = [];
+      let sourceIndexError = null;
+      let source = "none";
+
+      try {
+        const helperFetch = await fetchBrowsingSourceIndex(
+          normalizedPair,
+          normalizedProfileId,
+          options,
+        );
+        const helperIndex = helperFetch && typeof helperFetch === "object"
+          ? helperFetch.index
+          : null;
+        sourceIndexError = helperFetch && typeof helperFetch === "object"
+          ? helperFetch.error
+          : null;
+        if (helperIndex && Array.isArray(helperIndex.rules)) {
+          rules = tagRulesWithOrigin(helperIndex.rules, ruleOriginSrs);
+          source = "helper";
+          helperBrowsingSourceIndexCache.set(rulesCacheKey(normalizedPair, normalizedProfileId), {
+            ...helperIndex,
+            rules: helperIndex.rules
+          });
+        } else {
+          const fallback = await loadCachedBrowsingSourceIndex(
+            normalizedPair,
+            normalizedProfileId,
+          );
+          if (fallback && Array.isArray(fallback.rules)) {
+            rules = tagRulesWithOrigin(fallback.rules, ruleOriginSrs);
+            source = "helper-cache";
+          }
+        }
+      } catch (error) {
+        sourceIndexError = normalizeThrownHelperMessage(
+          error,
+          "Failed to fetch helper browsing source index."
+        );
+        const fallback = await loadCachedBrowsingSourceIndex(normalizedPair, normalizedProfileId);
+        if (fallback && Array.isArray(fallback.rules)) {
+          rules = tagRulesWithOrigin(fallback.rules, ruleOriginSrs);
+          source = "helper-cache";
+        }
+      }
+
+      return {
+        rules,
+        source,
+        error: sourceIndexError
+      };
+    }
+
     async function semanticAdmitBatch(payload, timeoutMs) {
       try {
         return await requestSemanticAdmitBatch(payload, timeoutMs);
@@ -288,6 +382,7 @@
 
     return {
       resolveHelperRules,
+      resolveBrowsingSourceIndex,
       resolveSemanticInventory,
       semanticAdmitBatch
     };

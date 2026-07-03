@@ -19,6 +19,8 @@
     && typeof root.contentDomScanRuntime.createRuntime === "function"
     && root.contentHelperRulesRuntime
     && typeof root.contentHelperRulesRuntime.createRuntime === "function"
+    && root.contentBrowsingSourceIndexRuntime
+    && typeof root.contentBrowsingSourceIndexRuntime.createController === "function"
     && root.contentActiveRulesRuntime
     && typeof root.contentActiveRulesRuntime.createRuntime === "function"
     && root.contentSemanticGateRuntime
@@ -45,7 +47,6 @@
     console.warn("[LexiShift] Content modules not loaded.");
     return;
   }
-
   const { textHasToken } = root.tokenizer;
   const { buildTrie, normalizeRules } = root.matcher;
   const { buildReplacementFragment } = root.replacements;
@@ -76,7 +77,6 @@
   const wordInfoApi = root.wordInfoApi;
   const RULE_ORIGIN_SRS = "srs";
   const RULE_ORIGIN_RULESET = "ruleset";
-
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
   let currentTrie = null;
@@ -87,7 +87,6 @@
   if (wordInfoApi && typeof wordInfoApi.configure === "function") {
     wordInfoApi.configure({ helperClient });
   }
-
   function normalizeProfileId(value) {
     const normalized = String(value || "").trim();
     return normalized || "default";
@@ -98,7 +97,6 @@
       ? RULE_ORIGIN_SRS
       : RULE_ORIGIN_RULESET;
   }
-
   function isPopupModuleEnabled(moduleId, settings, targetLanguage) {
     const runtimeSettings = settings && typeof settings === "object" ? settings : currentSettings;
     const language = String(targetLanguage || runtimeSettings.targetLanguage || "").trim().toLowerCase();
@@ -115,7 +113,6 @@
   function getRuleOrigin(rule) {
     return normalizeRuleOrigin(rule && rule.metadata ? rule.metadata.lexishift_origin : "");
   }
-
   function tagRulesWithOrigin(rules, origin) {
     const taggedOrigin = normalizeRuleOrigin(origin);
     if (!Array.isArray(rules) || !rules.length) {
@@ -133,7 +130,6 @@
       };
     });
   }
-
   function persistRuntimeState(payload) {
     if (!isTopFrameWindow()) {
       return;
@@ -143,7 +139,6 @@
     }
     runtimeDiagnostics.saveLastState(payload).catch(() => {});
   }
-
   function clearRuntimeState() {
     if (!isTopFrameWindow()) {
       return;
@@ -153,14 +148,12 @@
     }
     runtimeDiagnostics.clearLastState().catch(() => {});
   }
-
   function log(...args) {
     if (!currentSettings.debugEnabled) {
       return;
     }
     console.log("[LexiShift]", ...args);
   }
-
   function getFrameInfo() {
     let frameType = "top";
     try {
@@ -182,7 +175,6 @@
       topHref
     };
   }
-
   function isTopFrameWindow() {
     try {
       return window.top === window;
@@ -190,12 +182,10 @@
       return false;
     }
   }
-
   function getFocusWord(settings) {
     const raw = settings && settings.debugFocusWord ? String(settings.debugFocusWord).trim() : "";
     return raw ? raw.toLowerCase() : "";
   }
-
   function getFocusInfo(text, focusWord) {
     if (!focusWord || !text) {
       return { substring: false, token: false, index: -1 };
@@ -207,8 +197,8 @@
     }
     return { substring: true, token: textHasToken(text, focusWord), index };
   }
-
   const helperRulesRuntimeFactory = root.contentHelperRulesRuntime.createRuntime;
+  const browsingSourceIndexRuntimeFactory = root.contentBrowsingSourceIndexRuntime.createController;
   const activeRulesRuntimeFactory = root.contentActiveRulesRuntime.createRuntime;
   const semanticGateRuntimeFactory = root.contentSemanticGateRuntime.createRuntime;
   const domScanRuntimeFactory = root.contentDomScanRuntime.createRuntime;
@@ -228,10 +218,10 @@
   const browsingPageMiner = srsBrowsingPageMining.createMiner({
     getCurrentSettings: () => currentSettings,
     getCurrentRules: () => currentActiveRules,
+    getSourceMiningRules: () => browsingSourceIndexRuntime.sourceRulesFor(currentActiveRules),
     browsingAdmissionSignals: browsingAdmissionSignalSender,
     log
   });
-
   function mineBrowsingPage(reason) {
     if (!browsingPageMiner || typeof browsingPageMiner.mineDocument !== "function") {
       return;
@@ -242,13 +232,17 @@
       }
     });
   }
-
   const helperRulesRuntime = helperRulesRuntimeFactory({
     getHelperClient: () => helperClient,
     helperCache,
     normalizeProfileId,
     tagRulesWithOrigin,
     ruleOriginSrs: RULE_ORIGIN_SRS
+  });
+  const browsingSourceIndexRuntime = browsingSourceIndexRuntimeFactory({
+    getCurrentSettings: () => currentSettings, getHelperClient: () => helperClient,
+    helperRulesRuntime, normalizeProfileId, clearSeen: () => browsingPageMiner.clearSeen(),
+    mineBrowsingPage, log
   });
   const activeRulesRuntime = activeRulesRuntimeFactory({
     normalizeRules,
@@ -382,8 +376,14 @@
     },
     browsingAdmissionSignals: browsingAdmissionSignalSender,
     applySettings: (nextSettings) => {
-      applySettings(nextSettings);
-    }
+      applySettings(nextSettings)
+        .then(() => browsingSourceIndexRuntime.refresh("settings changed"))
+        .catch((error) => currentSettings.debugEnabled
+          && log("Settings application failed before browsing source index refresh.", error));
+    },
+    onBrowsingSourceIndexRefresh: (_settings, reason) => (
+      browsingSourceIndexRuntime.refresh(reason || "settings changed")
+    )
   });
 
   async function applySettings(settings) {
@@ -404,6 +404,7 @@
     feedbackRuntime.ensureSync();
     const settings = await loadSettings();
     await applySettings(settings);
+    browsingSourceIndexRuntime.refresh("boot");
     mineBrowsingPage("boot");
     domScanRuntime.observeChanges();
     window.addEventListener("load", () => {

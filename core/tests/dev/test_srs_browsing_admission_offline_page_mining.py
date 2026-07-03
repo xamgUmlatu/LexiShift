@@ -35,6 +35,8 @@ class TestSrsBrowsingAdmissionOfflinePageMining(unittest.TestCase):
         self.assertIn("発酵|はっこう", extension["target_keys"])
         self.assertIn("血圧|けつあつ", extension["target_keys"])
         self.assertIn("麹|こうじ", extension["target_keys"])
+        self.assertNotIn("発酵", extension["active_rule_replacements"])
+        self.assertIn("発酵", extension["source_mining_rule_replacements"])
         self.assertNotIn("光|ひかり", extension["target_keys"])
         self.assertNotIn("軽い|かるい", extension["target_keys"])
         self.assertNotIn("仕事|しごと", extension["target_keys"])

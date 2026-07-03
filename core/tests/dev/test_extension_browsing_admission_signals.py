@@ -476,6 +476,7 @@ assert.equal(applied[0].srsPair, "en-de");
         self.assertIn("shared/srs/srs_browsing_source_morphology.js", script_paths)
         self.assertIn("shared/srs/srs_browsing_source_mining.js", script_paths)
         self.assertIn("shared/srs/srs_browsing_page_mining.js", script_paths)
+        self.assertIn("content/runtime/rules/browsing_source_index_runtime.js", script_paths)
         self.assertLess(
             script_paths.index("shared/srs/srs_browsing_admission_signals.js"),
             script_paths.index("shared/srs/srs_browsing_source_morphology.js"),
@@ -492,6 +493,14 @@ assert.equal(applied[0].srsPair, "en-de");
             script_paths.index("shared/srs/srs_browsing_page_mining.js"),
             script_paths.index("content/runtime/dom_scan/text_node_processor.js"),
         )
+        self.assertLess(
+            script_paths.index("content/runtime/rules/helper_rules_runtime.js"),
+            script_paths.index("content/runtime/rules/browsing_source_index_runtime.js"),
+        )
+        self.assertLess(
+            script_paths.index("content/runtime/rules/browsing_source_index_runtime.js"),
+            script_paths.index("content/runtime/rules/active_rules_runtime.js"),
+        )
 
         content_script = CONTENT_SCRIPT_JS.read_text(encoding="utf-8")
         self.assertIn("srsBrowsingAdmissionSignals.createSender", content_script)
@@ -499,10 +508,19 @@ assert.equal(applied[0].srsPair, "en-de");
         self.assertIn("root.srsBrowsingSourceMining", content_script)
         self.assertIn("srsBrowsingPageMining.createMiner", content_script)
         self.assertIn("getCurrentRules: () => currentActiveRules", content_script)
+        self.assertIn("getSourceMiningRules", content_script)
+        self.assertIn("contentBrowsingSourceIndexRuntime", content_script)
         self.assertIn("setActiveRules", content_script)
+        browsing_source_index_runtime = (
+            PROJECT_ROOT
+            / "apps/chrome-extension/content/runtime/rules/browsing_source_index_runtime.js"
+        ).read_text(encoding="utf-8")
+        self.assertIn("resolveBrowsingSourceIndex", browsing_source_index_runtime)
+        self.assertIn("sourceRulesFor", browsing_source_index_runtime)
         settings_router = SETTINGS_ROUTER_JS.read_text(encoding="utf-8")
         self.assertIn("srsBrowsingAdmissionSignalsEnabled", settings_router)
         self.assertIn("srsBrowsingSourceMiningOptions", settings_router)
+        self.assertIn("srsBrowsingSourceIndexOptions", settings_router)
         self.assertIn("clearPending", settings_router)
 
 

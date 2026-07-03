@@ -42,6 +42,9 @@
     const applySettings = typeof opts.applySettings === "function"
       ? opts.applySettings
       : (() => {});
+    const onBrowsingSourceIndexRefresh = typeof opts.onBrowsingSourceIndexRefresh === "function"
+      ? opts.onBrowsingSourceIndexRefresh
+      : (() => {});
     const browsingAdmissionSignals = opts.browsingAdmissionSignals
       && typeof opts.browsingAdmissionSignals === "object"
       ? opts.browsingAdmissionSignals
@@ -81,6 +84,7 @@
       "srsAutoRefreshCooldownMinutes",
       "srsBrowsingAdmissionSignalsEnabled",
       "srsBrowsingSourceMiningOptions",
+      "srsBrowsingSourceIndexOptions",
       "srsProfileContext"
     ];
 
@@ -265,6 +269,16 @@
       }
       if (needsRebuild) {
         applySettings(nextSettings);
+      }
+      if (
+        !needsRebuild
+        && (
+          changes.srsBrowsingAdmissionSignalsEnabled
+          || changes.srsBrowsingSourceMiningOptions
+          || changes.srsBrowsingSourceIndexOptions
+        )
+      ) {
+        onBrowsingSourceIndexRefresh(mergeSettings(nextSettings), "settings changed");
       }
     }
 

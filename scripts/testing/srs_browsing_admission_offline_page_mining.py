@@ -209,9 +209,12 @@ function mineCase(testCase) {{
     }};
     let rows = [];
     if (document.side === "source") {{
+      const sourceRules = []
+        .concat(Array.isArray(testCase.source_mining_rules) ? testCase.source_mining_rules : [])
+        .concat(Array.isArray(testCase.active_rules) ? testCase.active_rules : []);
       rows = pageMining.buildSourceMappingSignals(
         document.visible_text || "",
-        testCase.active_rules || [],
+        sourceRules,
         settings,
         options
       );
@@ -247,6 +250,14 @@ function mineCase(testCase) {{
     name: testCase.name,
     pair,
     profile_id: profileId,
+    active_rule_replacements: (Array.isArray(testCase.active_rules) ? testCase.active_rules : [])
+      .map((rule) => String(rule && rule.replacement || "").trim())
+      .filter(Boolean),
+    source_mining_rule_replacements: (
+      Array.isArray(testCase.source_mining_rules) ? testCase.source_mining_rules : []
+    )
+      .map((rule) => String(rule && rule.replacement || "").trim())
+      .filter(Boolean),
     accepted,
     source_signal_count: sourceSignalCount,
     target_signal_count: targetSignalCount,
@@ -385,6 +396,8 @@ def summarize_extension_case(case: Mapping[str, object]) -> dict[str, object]:
         "signal_count": len(signals),
         "source_signal_count": int(case.get("source_signal_count") or 0),
         "target_signal_count": int(case.get("target_signal_count") or 0),
+        "active_rule_replacements": _list(case.get("active_rule_replacements")),
+        "source_mining_rule_replacements": _list(case.get("source_mining_rule_replacements")),
         "target_keys": sorted({str(signal.get("target_key") or "") for signal in signals}),
         "context_key_prefixes": sorted(
             {str(signal.get("context_key") or "").split(":", 1)[0] for signal in signals}

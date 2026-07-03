@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "description": "Offline pre-runtime page-mining cases. Add future LPs by adding cases with pair, active_rules, documents, and expectations.",
+  "description": "Offline pre-runtime page-mining cases. Add future LPs by adding cases with pair, active_rules, optional source_mining_rules, documents, and expectations.",
   "cases": [
     {
       "name": "en-ja_source_and_ruby_saved_pages_v1",
@@ -41,27 +41,6 @@
       ],
       "active_rules": [
         {
-          "source_phrase": "fermentation",
-          "replacement": "発酵",
-          "metadata": {
-            "lexishift_origin": "srs",
-            "language_pair": "en-ja",
-            "word_package": {
-              "version": 1,
-              "language_tag": "ja",
-              "surface": "発酵",
-              "reading": "はっこう",
-              "script_forms": {
-                "kanji": "発酵",
-                "kana": "はっこう"
-              },
-              "source": {
-                "provider": "offline_fixture"
-              }
-            }
-          }
-        },
-        {
           "source_phrase": "blood pressure",
           "replacement": "血圧",
           "metadata": {
@@ -75,6 +54,29 @@
               "script_forms": {
                 "kanji": "血圧",
                 "kana": "けつあつ"
+              },
+              "source": {
+                "provider": "offline_fixture"
+              }
+            }
+          }
+        }
+      ],
+      "source_mining_rules": [
+        {
+          "source_phrase": "fermentation",
+          "replacement": "発酵",
+          "metadata": {
+            "lexishift_origin": "srs",
+            "language_pair": "en-ja",
+            "word_package": {
+              "version": 1,
+              "language_tag": "ja",
+              "surface": "発酵",
+              "reading": "はっこう",
+              "script_forms": {
+                "kanji": "発酵",
+                "kana": "はっこう"
               },
               "source": {
                 "provider": "offline_fixture"

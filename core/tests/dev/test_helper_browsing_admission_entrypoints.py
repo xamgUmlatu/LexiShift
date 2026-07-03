@@ -19,8 +19,12 @@ if str(HELPER_ROOT) not in sys.path:
     sys.path.insert(0, str(HELPER_ROOT))
 
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.helper.rulegen_outputs import RulegenOutput  # noqa: E402
+from lexishift_core.helper.use_cases.browsing_source_index import (  # noqa: E402
+    build_srs_browsing_source_index,
+)
 from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset  # noqa: E402
-from lexishift_core.replacement.core import VocabRule  # noqa: E402
+from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
 from lexishift_core.srs import SrsItem, SrsStore, save_srs_store  # noqa: E402
 from lexishift_core.srs.admission_suppression import (  # noqa: E402
     active_suppressed_lemmas,
@@ -71,6 +75,128 @@ def _load_module(name: str, path: Path):
 
 
 class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
+    def test_browsing_source_index_use_case_builds_compact_candidate_rules(self) -> None:
+        class FakeReport:
+            selected_unique_count = 2
+            admitted_count = 2
+            selected_preview = ("発酵", "血圧")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            frequency_db = Path(tmp) / "freq.sqlite"
+            jmdict_path = Path(tmp) / "JMdict_e"
+            frequency_db.write_text("", encoding="utf-8")
+            jmdict_path.write_text("", encoding="utf-8")
+            captured: dict[str, object] = {}
+
+            def fake_init(store, *, config):
+                captured["init_config"] = config
+                return (
+                    SrsStore(
+                        items=(
+                            SrsItem(
+                                item_id="en-ja:発酵",
+                                lemma="発酵",
+                                language_pair="en-ja",
+                                source_type="initial_set",
+                                word_package={
+                                    "version": 1,
+                                    "language_tag": "ja",
+                                    "surface": "発酵",
+                                    "reading": "はっこう",
+                                    "script_forms": {"kanji": "発酵", "kana": "はっこう"},
+                                },
+                            ),
+                            SrsItem(
+                                item_id="en-ja:血圧",
+                                lemma="血圧",
+                                language_pair="en-ja",
+                                source_type="initial_set",
+                                word_package={
+                                    "version": 1,
+                                    "language_tag": "ja",
+                                    "surface": "血圧",
+                                    "reading": "けつあつ",
+                                    "script_forms": {"kanji": "血圧", "kana": "けつあつ"},
+                                },
+                            ),
+                        )
+                    ),
+                    FakeReport(),
+                )
+
+            def fake_rulegen(**kwargs):
+                captured["rulegen"] = kwargs
+                rules = (
+                    VocabRule(
+                        source_phrase="fermentation",
+                        replacement="発酵",
+                        metadata=RuleMetadata(
+                            language_pair="en-ja",
+                            word_package={
+                                "version": 1,
+                                "language_tag": "ja",
+                                "surface": "発酵",
+                                "reading": "はっこう",
+                            },
+                        ),
+                    ),
+                    VocabRule(
+                        source_phrase="blood pressure",
+                        replacement="血圧",
+                        metadata=RuleMetadata(
+                            language_pair="en-ja",
+                            word_package={
+                                "version": 1,
+                                "language_tag": "ja",
+                                "surface": "血圧",
+                                "reading": "けつあつ",
+                            },
+                        ),
+                    ),
+                )
+                return kwargs["store"], RulegenOutput(rules=rules, snapshot={}, target_count=2)
+
+            payload = build_srs_browsing_source_index(
+                paths,
+                pair="en-ja",
+                profile_id="default",
+                top_n=12,
+                max_targets=2,
+                max_rules=5,
+                resolve_pair_set_top_n_fn=lambda **_kwargs: 2000,
+                resolve_pair_resources_fn=lambda *_args, **_kwargs: (
+                    jmdict_path,
+                    None,
+                    frequency_db,
+                ),
+                ensure_pair_requirements_fn=lambda **_kwargs: None,
+                resolve_profile_id_fn=lambda _paths, *, profile_id: profile_id or "default",
+                resolve_stopwords_path_fn=lambda *_args, **_kwargs: None,
+                initialize_store_from_frequency_list_with_report_fn=fake_init,
+                run_rulegen_for_pair_fn=fake_rulegen,
+            )
+
+            self.assertEqual(payload["status"], "ok")
+            self.assertEqual(payload["pair"], "en-ja")
+            self.assertEqual(payload["rule_count"], 2)
+            self.assertEqual(payload["target_count"], 2)
+            self.assertEqual(payload["frontier"]["top_n"], 12)
+            init_config = captured["init_config"]
+            self.assertEqual(init_config.initial_active_count, 2)
+            self.assertEqual(init_config.top_n, 12)
+            rulegen_kwargs = captured["rulegen"]
+            self.assertEqual(rulegen_kwargs["targets_override"], ("発酵", "血圧"))
+            self.assertEqual(rulegen_kwargs["active_item_ids"], ("en-ja:発酵", "en-ja:血圧"))
+            self.assertFalse(paths.srs_store_path_for("default").exists())
+            self.assertEqual(payload["rules"][0]["source_phrase"], "fermentation")
+            self.assertEqual(payload["rules"][0]["metadata"]["lexishift_origin"], "srs")
+            self.assertEqual(payload["rules"][0]["metadata"]["source_index"], "candidate_frontier")
+            self.assertEqual(
+                payload["rules"][0]["metadata"]["word_package"]["reading"],
+                "はっこう",
+            )
+
     def test_native_host_routes_srs_items_list(self) -> None:
         module = _load_module("lexishift_native_host_srs_items_list_test", NATIVE_HOST_SCRIPT)
 
@@ -235,6 +361,40 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
             )
             self.assertIn("hipoteca", store.items)
             self.assertFalse(paths.srs_store_path_for("default").exists())
+
+    def test_native_host_routes_browsing_source_index(self) -> None:
+        module = _load_module(
+            "lexishift_native_host_browsing_source_index_test", NATIVE_HOST_SCRIPT
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            with (
+                patch.object(module, "build_helper_paths", return_value=paths),
+                patch.object(
+                    module,
+                    "build_srs_browsing_source_index",
+                    return_value={"status": "ok", "rules": []},
+                ) as mocked,
+            ):
+                response = module._handle_request(
+                    "srs_browsing_source_index",
+                    {
+                        "pair": "en-ja",
+                        "profile_id": "default",
+                        "top_n": 10,
+                        "max_targets": 3,
+                        "max_rules": 4,
+                    },
+                )
+
+            self.assertEqual(response["status"], "ok")
+            mocked.assert_called_once()
+            self.assertEqual(mocked.call_args.kwargs["pair"], "en-ja")
+            self.assertEqual(mocked.call_args.kwargs["profile_id"], "default")
+            self.assertEqual(mocked.call_args.kwargs["top_n"], 10)
+            self.assertEqual(mocked.call_args.kwargs["max_targets"], 3)
+            self.assertEqual(mocked.call_args.kwargs["max_rules"], 4)
 
     def test_helper_cli_browsing_signal_ingest_requires_explicit_opt_in(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -169,6 +169,9 @@
     const getCurrentRules = typeof opts.getCurrentRules === "function"
       ? opts.getCurrentRules
       : (() => []);
+    const getSourceMiningRules = typeof opts.getSourceMiningRules === "function"
+      ? opts.getSourceMiningRules
+      : getCurrentRules;
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const seenSignalKeys = new Set();
 
@@ -196,7 +199,7 @@
       const sourceText = typeof sourceMining.collectVisibleSourceText === "function"
         ? sourceMining.collectVisibleSourceText(targetRoot, scanOptions)
         : "";
-      const rules = getCurrentRules();
+      const rules = getSourceMiningRules();
       const signals = buildRubyTargetSignals(pairs, settings, scanOptions)
         .concat(
           typeof sourceMining.buildSourceMappingSignals === "function"
