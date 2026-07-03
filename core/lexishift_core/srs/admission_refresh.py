@@ -678,6 +678,7 @@ def _browsing_candidate_from_scored(entry) -> BrowsingAdmissionCandidate:
         target_reading=target_reading,
         target_key=metadata.get("browsing_target_key") or metadata.get("target_key"),
     )
+    suitability = _safe_signal_float(entry.candidate.admission_suitability, default=1.0)
     return BrowsingAdmissionCandidate(
         lemma=entry.candidate.lemma,
         target_key=target_key,
@@ -686,6 +687,9 @@ def _browsing_candidate_from_scored(entry) -> BrowsingAdmissionCandidate:
         readiness_multiplier=_safe_signal_float(metadata.get("readiness_multiplier"), default=1.0),
         explicit_preference_fit=max(0.0, float(entry.candidate.topic_bias)),
         source_confidence=max(0.0, float(entry.candidate.confidence or 0.0)) or 1.0,
+        admission_suitability=max(0.0, min(1.0, suitability)),
+        lexical_commonness=max(0.0, float(entry.candidate.base_freq or 0.0)),
+        lexical_commonness_known=float(entry.candidate.base_freq or 0.0) > 0.0,
     )
 
 

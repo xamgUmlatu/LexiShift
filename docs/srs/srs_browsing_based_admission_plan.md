@@ -530,26 +530,50 @@ The curve is intentionally logarithmic in raw browsing count and linear only in
 the normalized browsing signal. A true exponential boost is deferred because it
 can become all-or-nothing quickly in a sticky SRS setting.
 
-Optional fit-aware extension:
+Implemented preview/simulation interpretation:
 
 ```text
+raw_browsing_i =
+  source_hit_count_i
+  + target_hit_count_i
+  + replacement_exposure_count_i * replacement_exposure_weight
+
+browsing_signal_i =
+  log1p(raw_browsing_i * reading_confidence_i)
+  / log1p(browsing_signal_cap)
+
+effective_browsing_signal_i =
+  browsing_signal_i
+  * admission_quality_multiplier_i
+  * bounded_specificity_multiplier_i
+
 browsing_boost_i =
   1
   + min(
       max_browsing_boost - 1,
       browsing_alpha
-      * browsing_signal_i
-      * proficiency_fit_i
-      * explicit_preference_fit_i
-      * source_mapping_confidence_i
+      * effective_browsing_signal_i
+      * readiness_multiplier_i
+      * source_confidence_i
+      * (1 + preference_alignment_weight * explicit_preference_fit_i)
     )
 ```
 
-The current research harness models the conservative base boost. Before runtime
-admission uses browsing, preview/simulation should compare the base formula
-against the fit-aware extension. The product goal is that browsing helps most
-when the word is repeatedly encountered, level-appropriate, source-supported,
-and aligned with explicit preferences.
+`admission_quality_multiplier_i` reuses the existing admission suitability
+signal. Browsing therefore cannot make a candidate with `exclude_standalone_srs`
+or effectively zero suitability occupy a browsing lane. This is deliberately an
+admission-side interpretation, not an aggregation-side deletion: the aggregate
+store still records observed evidence.
+
+`bounded_specificity_multiplier_i` uses global corpus/commonness evidence to
+reduce the interest value of ubiquitous words and slightly preserve contentful
+less-ubiquitous words. It is bounded so rare/no-frequency junk cannot dominate:
+known commonness maps into roughly `0.65..1.15`, while unknown commonness is
+treated conservatively at `0.75`.
+
+The product goal is that browsing helps most when the word is repeatedly
+encountered, level-appropriate, source-supported, admissible as an SRS item, and
+aligned with explicit preferences.
 
 Suggested strength presets:
 
@@ -563,7 +587,7 @@ Boost:
 
 ```text
 browsing_boost_i =
-  1 + min(max_browsing_boost - 1, browsing_alpha * browsing_signal_i)
+  1 + min(max_browsing_boost - 1, browsing_alpha * effective_browsing_signal_i * fit_i)
 ```
 
 Candidate score integration:
@@ -593,6 +617,7 @@ r_i = readiness multiplier for candidate i
 p_i = explicit preference affinity for candidate i
 q_i = source/mapping confidence for candidate i
 b_i = normalized browsing signal for candidate i
+e_i = effective browsing signal after admission quality and specificity
 ```
 
 Hard filters and budget are outside the browsing model:
@@ -1081,7 +1106,9 @@ Harness checks:
   the preferred pre-runtime harness: it consumes local downloaded page fixtures,
   maps English source terms and Japanese target surfaces/ruby pairs to
   reading-aware `target_key` signal rows, and verifies the helper aggregate
-  store without live browser capture or SRS mutation;
+  store without live browser capture or SRS mutation. Its signal rows include
+  frequency-rank and JMDict-priority diagnostics so mined noise can be reviewed
+  before runtime capture is enabled;
 - offline page/text extraction research probe via
   `scripts/testing/srs_browsing_admission_research_en_es.py`, including its
   canonical helper/core probe section. This extraction probe is still

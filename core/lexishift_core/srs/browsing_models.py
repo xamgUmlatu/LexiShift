@@ -143,6 +143,9 @@ class BrowsingAdmissionCandidate:
     readiness_multiplier: float = 1.0
     explicit_preference_fit: float = 0.0
     source_confidence: float = 1.0
+    admission_suitability: float = 1.0
+    lexical_commonness: float = 0.0
+    lexical_commonness_known: bool = False
 
 
 @dataclass(frozen=True)
@@ -155,6 +158,9 @@ class BrowsingAdmissionSimulationRow:
     neutral_score: float
     final_score: float
     browsing_signal: float
+    effective_browsing_signal: float
+    browsing_quality_multiplier: float
+    browsing_specificity_multiplier: float
     browsing_boost: float
     selected: bool
     selected_lane: str = "not_selected"
@@ -174,6 +180,9 @@ class BrowsingAdmissionSimulationRow:
             "neutral_score": round(self.neutral_score, 6),
             "final_score": round(self.final_score, 6),
             "browsing_signal": round(self.browsing_signal, 6),
+            "effective_browsing_signal": round(self.effective_browsing_signal, 6),
+            "browsing_quality_multiplier": round(self.browsing_quality_multiplier, 6),
+            "browsing_specificity_multiplier": round(self.browsing_specificity_multiplier, 6),
             "browsing_boost": round(self.browsing_boost, 6),
             "selected": self.selected,
             "selected_lane": self.selected_lane,

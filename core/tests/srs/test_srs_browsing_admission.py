@@ -309,6 +309,8 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
                 target_key="辛い|つらい",
                 target_reading="つらい",
                 neutral_score=0.58,
+                lexical_commonness=0.30,
+                lexical_commonness_known=True,
             ),
         )
 
@@ -346,6 +348,8 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
                 target_key="辛い|つらい",
                 target_reading="つらい",
                 neutral_score=0.58,
+                lexical_commonness=0.30,
+                lexical_commonness_known=True,
             ),
         )
 
@@ -503,6 +507,93 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             balanced["selected_lemmas"],
             ["casa", "ser", "banco", "perro"],
         )
+
+    def test_browsing_lane_uses_admission_suitability_as_quality_gate(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "たいもん": BrowsingSignalAggregate(
+                    target_lemma="たいもん",
+                    target_hit_count=80.0,
+                ),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="料理", neutral_score=1.00),
+            BrowsingAdmissionCandidate(lemma="注文", neutral_score=0.96),
+            BrowsingAdmissionCandidate(lemma="玄関", neutral_score=0.90),
+            BrowsingAdmissionCandidate(
+                lemma="たいもん",
+                neutral_score=0.0,
+                admission_suitability=0.0,
+                lexical_commonness=0.0,
+                lexical_commonness_known=False,
+            ),
+        )
+
+        strong = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=3,
+        )[BROWSING_STRENGTH_STRONG].to_dict()
+        rows = {row["lemma"]: row for row in strong["rows"]}
+
+        self.assertGreater(rows["たいもん"]["browsing_signal"], 0.0)
+        self.assertEqual(rows["たいもん"]["browsing_quality_multiplier"], 0.0)
+        self.assertEqual(rows["たいもん"]["effective_browsing_signal"], 0.0)
+        self.assertEqual(strong["browsing_lane_count"], 0)
+        self.assertNotIn("たいもん", strong["selected_lemmas"])
+
+    def test_browsing_specificity_dampens_hypercommon_page_hits(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "ある": BrowsingSignalAggregate(target_lemma="ある", target_hit_count=10.0),
+                "料理店": BrowsingSignalAggregate(target_lemma="料理店", target_hit_count=10.0),
+                "未知": BrowsingSignalAggregate(target_lemma="未知", target_hit_count=10.0),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(
+                lemma="ある",
+                neutral_score=0.80,
+                lexical_commonness=1.0,
+                lexical_commonness_known=True,
+            ),
+            BrowsingAdmissionCandidate(
+                lemma="料理店",
+                neutral_score=0.80,
+                lexical_commonness=0.10,
+                lexical_commonness_known=True,
+            ),
+            BrowsingAdmissionCandidate(
+                lemma="未知",
+                neutral_score=0.80,
+                lexical_commonness=0.0,
+                lexical_commonness_known=False,
+            ),
+        )
+
+        strong = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=3,
+        )[BROWSING_STRENGTH_STRONG].to_dict()
+        rows = {row["lemma"]: row for row in strong["rows"]}
+
+        self.assertEqual(rows["ある"]["browsing_signal"], rows["料理店"]["browsing_signal"])
+        self.assertLess(
+            rows["ある"]["effective_browsing_signal"],
+            rows["料理店"]["effective_browsing_signal"],
+        )
+        self.assertLess(
+            rows["未知"]["effective_browsing_signal"],
+            rows["料理店"]["effective_browsing_signal"],
+        )
+        self.assertEqual(rows["ある"]["browsing_specificity_multiplier"], 0.65)
+        self.assertEqual(rows["未知"]["browsing_specificity_multiplier"], 0.75)
 
     def test_suppressed_lemma_has_zero_admission_probability(self) -> None:
         store = BrowsingSignalStore(

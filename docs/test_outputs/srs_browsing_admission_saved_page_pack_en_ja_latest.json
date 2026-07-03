@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-03T01:07:24Z",
+  "generated_at": "2026-07-03T02:13:56Z",
   "status": "pass",
   "pair": "en-ja",
   "runtime_scope": "saved_page_to_browsing_aggregate",
@@ -197,6 +197,9 @@
         "confidence": 0.57735,
         "observation_source": "source_mapping",
         "evidence": "rabbit",
+        "frequency_rank": 26169,
+        "frequency_known": true,
+        "priority_rank": null,
         "glosses": [
           "rabbit"
         ]
@@ -210,6 +213,9 @@
         "confidence": 0.57735,
         "observation_source": "source_mapping",
         "evidence": "rabbit",
+        "frequency_rank": 11065,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "rabbit",
           "hare",
@@ -225,6 +231,9 @@
         "confidence": 0.57735,
         "observation_source": "source_mapping",
         "evidence": "mammal",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 2,
         "glosses": [
           "mammal",
           "mammalian"
@@ -239,6 +248,9 @@
         "confidence": 0.57735,
         "observation_source": "source_mapping",
         "evidence": "mammal",
+        "frequency_rank": 70792,
+        "frequency_known": true,
+        "priority_rank": null,
         "glosses": [
           "beasts",
           "mammals"
@@ -253,6 +265,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "二人",
+        "frequency_rank": 302,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "two persons",
           "two people",
@@ -268,6 +283,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "いらっしゃい",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 21,
         "glosses": [
           "come",
           "go",
@@ -283,6 +301,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "がたがた",
+        "frequency_rank": 16094,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "rattling",
           "clattering",
@@ -298,6 +319,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "ください",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
         "glosses": [
           "please (give me)",
           "please (do for me)"
@@ -312,6 +336,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "早く",
+        "frequency_rank": 12560,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "early",
           "soon",
@@ -327,6 +354,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "クリーム",
+        "frequency_rank": 2904,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "cream",
           "ice cream"
@@ -341,6 +371,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "それから",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
         "glosses": [
           "and then",
           "after that"
@@ -355,6 +388,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "何か",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
         "glosses": [
           "something",
           "some",
@@ -370,6 +406,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "料理店",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
         "glosses": [
           "restaurant"
         ]
@@ -383,6 +422,9 @@
         "confidence": 0.707107,
         "observation_source": "target_surface",
         "evidence": "注文",
+        "frequency_rank": 2664,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "order (for an item)",
           "request",
@@ -398,6 +440,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "注文の多い",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
         "glosses": [
           "demanding",
           "difficult",
@@ -413,6 +458,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "裏側",
+        "frequency_rank": 14690,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "the reverse (side)",
           "back (side)",
@@ -428,6 +476,9 @@
         "confidence": 0.707107,
         "observation_source": "target_surface",
         "evidence": "香水",
+        "frequency_rank": 9898,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "perfume",
           "scent"
@@ -442,6 +493,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "あんまり",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
         "glosses": [
           "remainder",
           "remnant",
@@ -457,6 +511,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "ざわざわ",
+        "frequency_rank": 23544,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "noisily (from many people talking)",
           "in a commotion",
@@ -472,6 +529,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "じゃないか",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 21,
         "glosses": [
           "isn't it?",
           "let's ...",
@@ -487,6 +547,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "たいもん",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
         "glosses": [
           "consonant (in the Siddham script)"
         ]
@@ -500,6 +563,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "というのは",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
         "glosses": [
           "because ...",
           "for ...",
@@ -515,6 +581,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "ませんでした",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
         "glosses": [
           "suffix used to negate a verb in the past tense"
         ]
@@ -528,6 +597,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "東京",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
         "glosses": [
           "Tokyo"
         ]
@@ -541,6 +613,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "立派",
+        "frequency_rank": 4083,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "splendid",
           "fine",
@@ -556,6 +631,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "行き",
+        "frequency_rank": 7282,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "the way there",
           "outbound leg",
@@ -571,6 +649,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "西洋料理",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
         "glosses": [
           "Western food",
           "Western cooking",
@@ -586,6 +667,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "おかしい",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
         "glosses": [
           "funny",
           "amusing",
@@ -601,6 +685,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "かさかさ",
+        "frequency_rank": 24414,
+        "frequency_known": true,
+        "priority_rank": 1,
         "glosses": [
           "dry and rough",
           "desiccated",
@@ -616,6 +703,9 @@
         "confidence": 1.0,
         "observation_source": "target_surface",
         "evidence": "たくさん",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
         "glosses": [
           "a lot",
           "lots",

@@ -350,7 +350,14 @@ def simulate_browsing_admission(
         target_key = candidate_target_key(candidate)
         aggregate = _aggregate_for_candidate(store, candidate)
         signal = browsing_signal_value(aggregate, policy=policy)
-        boost = browsing_boost_value(signal, candidate=candidate, strength=strength)
+        quality_multiplier = browsing_quality_multiplier(candidate)
+        specificity_multiplier = browsing_specificity_multiplier(candidate)
+        effective_signal = browsing_effective_signal_value(
+            signal,
+            quality_multiplier=quality_multiplier,
+            specificity_multiplier=specificity_multiplier,
+        )
+        boost = browsing_boost_value(effective_signal, candidate=candidate, strength=strength)
         suppressed_reason = _suppressed_reason_for_candidate(candidate, suppressed)
         final_score = 0.0 if suppressed_reason else float(candidate.neutral_score) * boost
         scored_rows.append(
@@ -362,6 +369,9 @@ def simulate_browsing_admission(
                 "neutral_rank": neutral_rank_by_key[target_key],
                 "neutral_score": float(candidate.neutral_score),
                 "browsing_signal": signal,
+                "effective_browsing_signal": effective_signal,
+                "browsing_quality_multiplier": quality_multiplier,
+                "browsing_specificity_multiplier": specificity_multiplier,
                 "browsing_boost": boost,
                 "final_score": final_score,
                 "suppressed_reason": suppressed_reason,
@@ -369,7 +379,9 @@ def simulate_browsing_admission(
         )
 
     active_rows = [row for row in scored_rows if not row.get("suppressed_reason")]
-    signal_volume = sum(_safe_float(row.get("browsing_signal")) or 0.0 for row in active_rows)
+    signal_volume = sum(
+        _safe_float(row.get("effective_browsing_signal")) or 0.0 for row in active_rows
+    )
     volume_factor = 0.0
     if signal_volume > 0.0 and strength.volume_tau > 0.0:
         volume_factor = 1.0 - math.exp(-signal_volume / strength.volume_tau)
@@ -380,7 +392,7 @@ def simulate_browsing_admission(
     browsing_pool = [
         row
         for row in active_rows
-        if (_safe_float(row.get("browsing_signal")) or 0.0)
+        if (_safe_float(row.get("effective_browsing_signal")) or 0.0)
         >= max(0.0, strength.min_browsing_signal)
     ]
     if (
@@ -449,6 +461,11 @@ def simulate_browsing_admission(
             neutral_score=_safe_float(row.get("neutral_score")) or 0.0,
             final_score=_safe_float(row.get("final_score")) or 0.0,
             browsing_signal=_safe_float(row.get("browsing_signal")) or 0.0,
+            effective_browsing_signal=_safe_float(row.get("effective_browsing_signal")) or 0.0,
+            browsing_quality_multiplier=_safe_float(row.get("browsing_quality_multiplier")) or 0.0,
+            browsing_specificity_multiplier=(
+                _safe_float(row.get("browsing_specificity_multiplier")) or 0.0
+            ),
             browsing_boost=_safe_float(row.get("browsing_boost")) or 0.0,
             selected=str(row["target_key"]) in selected_keys,
             selected_lane=lane_by_key.get(str(row["target_key"]), "not_selected"),
@@ -480,7 +497,7 @@ def simulate_browsing_admission(
     browsing_relevant_selected_count = sum(
         1
         for row in rows
-        if row.selected and row.browsing_signal >= max(0.0, strength.min_browsing_signal)
+        if row.selected and row.effective_browsing_signal >= max(0.0, strength.min_browsing_signal)
     )
     browsing_driven_count = sum(1 for row in rows if row.selected and not row.neutral_selected)
     return BrowsingAdmissionSimulationResult(
@@ -498,6 +515,34 @@ def simulate_browsing_admission(
         suppressed_count=len(suppressed),
         rows=tuple(rows),
     )
+
+
+def browsing_effective_signal_value(
+    signal_value: float,
+    *,
+    quality_multiplier: float = 1.0,
+    specificity_multiplier: float = 1.0,
+) -> float:
+    return _clamp01(
+        _clamp01(signal_value)
+        * _clamp01(quality_multiplier)
+        * max(0.0, min(1.25, float(specificity_multiplier))),
+    )
+
+
+def browsing_quality_multiplier(candidate: Optional[BrowsingAdmissionCandidate]) -> float:
+    if candidate is None:
+        return 1.0
+    return _clamp01(candidate.admission_suitability)
+
+
+def browsing_specificity_multiplier(candidate: Optional[BrowsingAdmissionCandidate]) -> float:
+    if candidate is None:
+        return 1.0
+    if not bool(candidate.lexical_commonness_known):
+        return 0.75
+    commonness = _clamp01(candidate.lexical_commonness)
+    return max(0.65, min(1.15, 1.15 - (0.50 * commonness)))
 
 
 def simulate_browsing_admission_presets(

@@ -400,6 +400,11 @@ def signal_debug_row(
         "confidence": round(float(confidence), 6),
         "observation_source": observation_source,
         "evidence": evidence,
+        "frequency_rank": (
+            None if candidate.frequency_rank >= 999999999.0 else int(candidate.frequency_rank)
+        ),
+        "frequency_known": candidate.frequency_rank < 999999999.0,
+        "priority_rank": None if candidate.priority_rank >= 999 else int(candidate.priority_rank),
         "glosses": list(candidate.glosses[:3]),
     }
 
@@ -513,8 +518,8 @@ def render_markdown(report: Mapping[str, object]) -> str:
     lines.append(f"- Source-mapping signals: `{signals.get('source_mapping_count')}`")
     lines.append(f"- Target-surface signals: `{signals.get('target_surface_count')}`")
     lines.extend(["", "### Top Signals", ""])
-    lines.append("| Target | Source | Count | Confidence | Evidence |")
-    lines.append("|---|---:|---:|---:|---|")
+    lines.append("| Target | Source | Count | Confidence | Freq. rank | Priority | Evidence |")
+    lines.append("|---|---:|---:|---:|---:|---:|---|")
     for row in signals.get("top", [])[:20] if isinstance(signals, Mapping) else []:
         if not isinstance(row, Mapping):
             continue
@@ -524,6 +529,8 @@ def render_markdown(report: Mapping[str, object]) -> str:
             f"`{row.get('observation_source')}` | "
             f"{row.get('count')} | "
             f"{row.get('confidence')} | "
+            f"{row.get('frequency_rank') if row.get('frequency_known') else ''} | "
+            f"{row.get('priority_rank') or ''} | "
             f"`{row.get('evidence')}` |"
         )
     lines.extend(["", "## Aggregate Store", ""])

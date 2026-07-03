@@ -18,28 +18,28 @@
 
 ### Top Signals
 
-| Target | Source | Count | Confidence | Evidence |
-|---|---:|---:|---:|---|
-| `ラビット` | `source_mapping` | 1 | 0.57735 | `rabbit` |
-| `兎|うさぎ` | `source_mapping` | 1 | 0.57735 | `rabbit` |
-| `哺乳類|ほにゅうるい` | `source_mapping` | 1 | 0.57735 | `mammal` |
-| `獣類|じゅうるい` | `source_mapping` | 1 | 0.57735 | `mammal` |
-| `二人|ふたり` | `target_surface` | 22 | 1.0 | `二人` |
-| `いらっしゃい` | `target_surface` | 11 | 1.0 | `いらっしゃい` |
-| `がたがた|ガタガタ` | `target_surface` | 9 | 1.0 | `がたがた` |
-| `ください` | `target_surface` | 9 | 1.0 | `ください` |
-| `早く|はやく` | `target_surface` | 9 | 1.0 | `早く` |
-| `クリーム` | `target_surface` | 8 | 1.0 | `クリーム` |
-| `それから` | `target_surface` | 6 | 1.0 | `それから` |
-| `何か|なにか` | `target_surface` | 6 | 1.0 | `何か` |
-| `料理店|りょうりてん` | `target_surface` | 6 | 1.0 | `料理店` |
-| `注文|ちゅうもん` | `target_surface` | 6 | 0.707107 | `注文` |
-| `注文の多い|ちゅうもんのおおい` | `target_surface` | 5 | 1.0 | `注文の多い` |
-| `裏側|うらがわ` | `target_surface` | 5 | 1.0 | `裏側` |
-| `香水|こうすい` | `target_surface` | 5 | 0.707107 | `香水` |
-| `あんまり|あまり` | `target_surface` | 4 | 1.0 | `あんまり` |
-| `ざわざわ` | `target_surface` | 4 | 1.0 | `ざわざわ` |
-| `じゃないか` | `target_surface` | 4 | 1.0 | `じゃないか` |
+| Target | Source | Count | Confidence | Freq. rank | Priority | Evidence |
+|---|---:|---:|---:|---:|---:|---|
+| `ラビット` | `source_mapping` | 1 | 0.57735 | 26169 |  | `rabbit` |
+| `兎|うさぎ` | `source_mapping` | 1 | 0.57735 | 11065 | 1 | `rabbit` |
+| `哺乳類|ほにゅうるい` | `source_mapping` | 1 | 0.57735 |  | 2 | `mammal` |
+| `獣類|じゅうるい` | `source_mapping` | 1 | 0.57735 | 70792 |  | `mammal` |
+| `二人|ふたり` | `target_surface` | 22 | 1.0 | 302 | 1 | `二人` |
+| `いらっしゃい` | `target_surface` | 11 | 1.0 |  | 21 | `いらっしゃい` |
+| `がたがた|ガタガタ` | `target_surface` | 9 | 1.0 | 16094 | 1 | `がたがた` |
+| `ください` | `target_surface` | 9 | 1.0 |  | 1 | `ください` |
+| `早く|はやく` | `target_surface` | 9 | 1.0 | 12560 | 1 | `早く` |
+| `クリーム` | `target_surface` | 8 | 1.0 | 2904 | 1 | `クリーム` |
+| `それから` | `target_surface` | 6 | 1.0 |  | 1 | `それから` |
+| `何か|なにか` | `target_surface` | 6 | 1.0 |  | 1 | `何か` |
+| `料理店|りょうりてん` | `target_surface` | 6 | 1.0 |  |  | `料理店` |
+| `注文|ちゅうもん` | `target_surface` | 6 | 0.707107 | 2664 | 1 | `注文` |
+| `注文の多い|ちゅうもんのおおい` | `target_surface` | 5 | 1.0 |  |  | `注文の多い` |
+| `裏側|うらがわ` | `target_surface` | 5 | 1.0 | 14690 | 1 | `裏側` |
+| `香水|こうすい` | `target_surface` | 5 | 0.707107 | 9898 | 1 | `香水` |
+| `あんまり|あまり` | `target_surface` | 4 | 1.0 |  | 1 | `あんまり` |
+| `ざわざわ` | `target_surface` | 4 | 1.0 | 23544 | 1 | `ざわざわ` |
+| `じゃないか` | `target_surface` | 4 | 1.0 |  | 21 | `じゃないか` |
 
 ## Aggregate Store
 
