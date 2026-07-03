@@ -6,6 +6,13 @@
       "name": "en-ja_source_and_ruby_saved_pages_v1",
       "pair": "en-ja",
       "profile_id": "offline_page_mining",
+      "source_mining_options": {
+        "sourceMorphologyEnabled": true,
+        "sourceSingleWordConfidence": 0.58,
+        "sourcePhraseConfidence": 0.72,
+        "sourceDerivationConfidenceMultiplier": 0.82,
+        "sourceInflectionConfidenceMultiplier": 0.92
+      },
       "documents": [
         {
           "document_id": "en_ja_fermentation_article_a",
@@ -239,7 +246,7 @@
         "required_aggregate_targets": [
           {
             "target_key": "発酵|はっこう",
-            "source_hit_count_min": 2.3,
+            "source_hit_count_min": 3.2,
             "target_hit_count_min": 2.0,
             "context_count_min": 3,
             "observation_sources": [

@@ -8,6 +8,9 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 PAGE_MINING_JS = PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_page_mining.js"
+SOURCE_MORPHOLOGY_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_source_morphology.js"
+)
 SOURCE_MINING_JS = PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_source_mining.js"
 
 
@@ -35,11 +38,17 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const sourceMorphologyModulePath = {json.dumps(str(SOURCE_MORPHOLOGY_JS))};
 const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
 const modulePath = {json.dumps(str(PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
 vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
@@ -103,17 +112,100 @@ assert.deepEqual(rows, [
 """
         _run_node(script)
 
+    def test_source_mapping_matches_morphology_variants_and_tunable_confidence(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const sourceMorphologyModulePath = {json.dumps(str(SOURCE_MORPHOLOGY_JS))};
+const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
+const modulePath = {json.dumps(str(PAGE_MINING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
+vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const mining = context.LexiShift.srsBrowsingSourceMining;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+function srsRule(source, replacement, reading) {{
+  return {{
+    source_phrase: source,
+    replacement,
+    enabled: true,
+    metadata: {{
+      lexishift_origin: "srs",
+      language_pair: "en-ja",
+      word_package: {{
+        version: 1,
+        language_tag: "ja",
+        surface: replacement,
+        reading,
+        script_forms: {{ kanji: replacement, kana: reading }},
+        source: {{ provider: "test" }}
+      }}
+    }}
+  }};
+}}
+
+const variantTerms = mining.sourceTermVariants("fermentation", {{
+  sourceSingleWordConfidence: 0.6,
+  sourceDerivationConfidenceMultiplier: 0.8
+}}).map((variant) => variant.term);
+assert.equal(variantTerms.includes("fermented"), true);
+assert.equal(variantTerms.includes("fermenting"), true);
+assert.equal(variantTerms.includes("ferments"), true);
+
+const rows = normalize(mining.buildSourceMappingSignals(
+  "Fermented vegetables are fermenting in jars; the starter ferments slowly.",
+  [srsRule("fermentation", "発酵", "はっこう")],
+  {{ srsPair: "en-ja" }},
+  {{
+    sourceSingleWordConfidence: 0.6,
+    sourceDerivationConfidenceMultiplier: 0.8,
+    maxSourceCountPerTarget: 5
+  }}
+));
+
+assert.deepEqual(rows, [
+  {{
+    language_pair: "en-ja",
+    lemma: "発酵",
+    target_key: "発酵|はっこう",
+    target_reading: "はっこう",
+    reading_confidence: 1,
+    side: "source",
+    count: 3,
+    observation_source: "source_mapping",
+    source_mapping_confidence: 0.48
+  }}
+]);
+"""
+        _run_node(script)
+
     def test_rejects_broad_or_ambiguous_source_mapping_terms(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const sourceMorphologyModulePath = {json.dumps(str(SOURCE_MORPHOLOGY_JS))};
 const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
 const modulePath = {json.dumps(str(PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
 vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
@@ -170,11 +262,17 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const sourceMorphologyModulePath = {json.dumps(str(SOURCE_MORPHOLOGY_JS))};
 const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
 const modulePath = {json.dumps(str(PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
 vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
@@ -249,11 +347,17 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const sourceMorphologyModulePath = {json.dumps(str(SOURCE_MORPHOLOGY_JS))};
 const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
 const modulePath = {json.dumps(str(PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
 vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
@@ -297,11 +401,17 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const sourceMorphologyModulePath = {json.dumps(str(SOURCE_MORPHOLOGY_JS))};
 const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
 const modulePath = {json.dumps(str(PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
 vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
@@ -346,11 +456,17 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const sourceMorphologyModulePath = {json.dumps(str(SOURCE_MORPHOLOGY_JS))};
 const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
 const modulePath = {json.dumps(str(PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
 vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 

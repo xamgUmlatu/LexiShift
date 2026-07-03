@@ -1,27 +1,31 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const sourceMorphology = root.srsBrowsingSourceMorphology || {};
+  const normalizeSourceTerm = sourceMorphology.normalizeSourceTerm;
+  const sourceTermTokens = sourceMorphology.sourceTermTokens;
+  const sourceTermVariants = sourceMorphology.sourceTermVariants;
+
+  if (
+    typeof normalizeSourceTerm !== "function"
+    || typeof sourceTermTokens !== "function"
+    || typeof sourceTermVariants !== "function"
+  ) {
+    console.warn("[LexiShift] Browsing source morphology module not loaded.");
+    return;
+  }
 
   const SIDE_SOURCE = "source";
   const OBSERVATION_SOURCE_MAPPING = "source_mapping";
   const DEFAULT_MAX_SOURCE_TEXT_CHARS = 60000;
   const DEFAULT_MAX_SOURCE_TERMS_PER_SCAN = 80;
   const DEFAULT_MAX_SOURCE_COUNT_PER_TARGET = 3;
-  const ENGLISH_LETTER_RE = /[a-z]/i;
+  const DEFAULT_SOURCE_SINGLE_WORD_CONFIDENCE = 0.58;
+  const DEFAULT_SOURCE_PHRASE_CONFIDENCE = 0.72;
+  const DEFAULT_SOURCE_FANOUT_PENALTY = 0.12;
+  const DEFAULT_SOURCE_MIN_CONFIDENCE = 0.35;
+  const DEFAULT_SOURCE_MAX_CONFIDENCE = 0.8;
   const SOURCE_TEXT_SKIP_TAGS = new Set([
     "script", "style", "noscript", "textarea", "select", "option", "template", "svg", "canvas"
-  ]);
-  const BROAD_SINGLE_SOURCE_TERMS = new Set([
-    "about", "after", "again", "also", "another", "around", "because", "before", "between",
-    "both", "case", "change", "come", "could", "different", "does", "doing", "during",
-    "each", "even", "every", "find", "first", "form", "from", "give", "going", "good",
-    "great", "group", "hand", "have", "high", "into", "issue", "kind", "large", "last",
-    "level", "light", "line", "long", "look", "made", "make", "many", "mean", "might",
-    "more", "most", "move", "much", "must", "name", "need", "next", "number", "only",
-    "open", "order", "other", "part", "place", "point", "power", "problem", "public",
-    "right", "same", "seem", "small", "some", "state", "still", "such", "system",
-    "take", "than", "that", "their", "then", "there", "these", "thing", "this", "time",
-    "turn", "used", "very", "want", "well", "were", "what", "when", "where", "which",
-    "while", "will", "with", "word", "work", "world", "would"
   ]);
 
   function sourceLanguageFromPair(pair) {
@@ -38,19 +42,11 @@
     return String(value || "").replace(/\s+/g, "").trim();
   }
 
-  function normalizeSourceTerm(value) {
-    return String(value || "")
-      .normalize("NFKC")
-      .replace(/[’‘]/g, "'")
-      .replace(/[\u2010-\u2015-]+/g, " ")
-      .replace(/[^0-9A-Za-z' ]+/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .toLowerCase();
-  }
-
-  function sourceTermTokens(term) {
-    return normalizeSourceTerm(term).split(" ").filter(Boolean);
+  function optionNumber(options, key, fallback, min, max) {
+    const opts = options && typeof options === "object" ? options : {};
+    const value = Number(opts[key]);
+    const safe = Number.isFinite(value) ? value : fallback;
+    return Math.max(min, Math.min(max, safe));
   }
 
   function isVisibleElement(element) {
@@ -224,29 +220,36 @@
     return Boolean(pair && pair !== "all" && rulePair === pair);
   }
 
-  function isSourceTermShapeAllowed(term) {
-    const tokens = sourceTermTokens(term);
-    if (!tokens.length || tokens.length > 6) {
-      return false;
-    }
-    if (!ENGLISH_LETTER_RE.test(term)) {
-      return false;
-    }
-    if (term.length < 4 || term.length > 64) {
-      return false;
-    }
-    if (tokens.length === 1) {
-      const [token] = tokens;
-      return token.length >= 4 && !BROAD_SINGLE_SOURCE_TERMS.has(token);
-    }
-    return tokens.some((token) => token.length >= 4 && !BROAD_SINGLE_SOURCE_TERMS.has(token));
-  }
-
-  function sourceMappingConfidence(term, fanout) {
+  function sourceMappingConfidence(term, fanout, options, variantMultiplier) {
+    const opts = options && typeof options === "object" ? options : {};
     const tokenCount = sourceTermTokens(term).length;
-    const base = tokenCount > 1 ? 0.72 : 0.58;
-    const fanoutPenalty = Math.max(0, Number(fanout || 1) - 1) * 0.12;
-    return Math.max(0.35, Math.min(0.8, base - fanoutPenalty));
+    const base = tokenCount > 1
+      ? optionNumber(opts, "sourcePhraseConfidence", DEFAULT_SOURCE_PHRASE_CONFIDENCE, 0, 1)
+      : optionNumber(
+          opts,
+          "sourceSingleWordConfidence",
+          DEFAULT_SOURCE_SINGLE_WORD_CONFIDENCE,
+          0,
+          1
+        );
+    const fanoutPenalty = Math.max(0, Number(fanout || 1) - 1)
+      * optionNumber(opts, "sourceFanoutPenalty", DEFAULT_SOURCE_FANOUT_PENALTY, 0, 1);
+    const minConfidence = optionNumber(
+      opts,
+      "sourceMinConfidence",
+      DEFAULT_SOURCE_MIN_CONFIDENCE,
+      0,
+      1
+    );
+    const maxConfidence = optionNumber(
+      opts,
+      "sourceMaxConfidence",
+      DEFAULT_SOURCE_MAX_CONFIDENCE,
+      minConfidence,
+      1
+    );
+    const multiplier = Math.max(0, Math.min(1, Number(variantMultiplier || 1)));
+    return Math.max(minConfidence, Math.min(maxConfidence, (base - fanoutPenalty) * multiplier));
   }
 
   function buildSourceMappingIndex(rules, settings, options) {
@@ -260,26 +263,31 @@
       if (!isSrsRuleForPair(rule, settings)) {
         continue;
       }
-      const term = normalizeSourceTerm(rule.source_phrase);
-      if (!isSourceTermShapeAllowed(term)) {
-        continue;
-      }
       const target = targetMetadataFromRule(rule);
       if (!target) {
         continue;
       }
-      if (!buckets.has(term)) {
-        buckets.set(term, new Map());
-      }
-      const targets = buckets.get(term);
-      if (!targets.has(target.targetKey)) {
-        targets.set(target.targetKey, {
-          language_pair: pair,
-          lemma: target.surface,
-          target_key: target.targetKey,
-          target_reading: target.reading,
-          reading_confidence: target.readingConfidence
-        });
+      for (const variant of sourceTermVariants(rule.source_phrase, opts)) {
+        if (!buckets.has(variant.term)) {
+          buckets.set(variant.term, new Map());
+        }
+        const targets = buckets.get(variant.term);
+        const current = targets.get(target.targetKey);
+        const previousMultiplier = Number(
+          current && current.source_variant_confidence_multiplier || 0
+        );
+        const nextMultiplier = Number(variant.source_variant_confidence_multiplier || 1);
+        if (!current || nextMultiplier > previousMultiplier) {
+          targets.set(target.targetKey, {
+            language_pair: pair,
+            lemma: target.surface,
+            target_key: target.targetKey,
+            target_reading: target.reading,
+            reading_confidence: target.readingConfidence,
+            source_variant_kind: variant.source_variant_kind,
+            source_variant_confidence_multiplier: nextMultiplier
+          });
+        }
       }
     }
     const maxSingleFanout = Math.max(1, Number(opts.maxSingleWordSourceFanout || 1));
@@ -293,12 +301,16 @@
         if (!fanout || fanout > maxFanout) {
           return null;
         }
+        const variantMultiplier = rows.reduce(
+          (best, row) => Math.max(best, Number(row.source_variant_confidence_multiplier || 1)),
+          0
+        );
         return {
           term,
           token_count: tokenCount,
           fanout,
           targets: rows,
-          source_mapping_confidence: sourceMappingConfidence(term, fanout)
+          source_mapping_confidence: sourceMappingConfidence(term, fanout, opts, variantMultiplier)
         };
       })
       .filter(Boolean)
@@ -350,9 +362,11 @@
       return [];
     }
     const signals = [];
+    const byTarget = new Map();
+    const targetOrder = [];
     const entries = buildSourceMappingIndex(rules, settings, opts);
     for (const entry of entries) {
-      if (signals.length >= maxTerms) {
+      if (targetOrder.length >= maxTerms) {
         break;
       }
       const count = countSourceTermOccurrences(normalizedText, entry.term, maxCount);
@@ -360,17 +374,47 @@
         continue;
       }
       for (const target of entry.targets) {
-        if (signals.length >= maxTerms) {
+        if (!byTarget.has(target.target_key) && targetOrder.length >= maxTerms) {
           break;
         }
-        signals.push({
-          ...target,
-          side: SIDE_SOURCE,
-          count,
-          observation_source: OBSERVATION_SOURCE_MAPPING,
-          source_mapping_confidence: entry.source_mapping_confidence
-        });
+        const current = byTarget.get(target.target_key);
+        if (!current) {
+          targetOrder.push(target.target_key);
+          byTarget.set(target.target_key, {
+            ...target,
+            side: SIDE_SOURCE,
+            count: 0,
+            weighted_confidence_sum: 0,
+            observation_source: OBSERVATION_SOURCE_MAPPING,
+            source_mapping_confidence: 0
+          });
+        }
+        const row = byTarget.get(target.target_key);
+        row.count += count;
+        row.weighted_confidence_sum += count * entry.source_mapping_confidence;
+        row.reading_confidence = Math.max(
+          Number(row.reading_confidence || 0),
+          Number(target.reading_confidence || 0)
+        );
       }
+    }
+    for (const targetKey of targetOrder) {
+      const row = byTarget.get(targetKey);
+      if (!row || row.count <= 0) {
+        continue;
+      }
+      const confidence = row.weighted_confidence_sum / row.count;
+      signals.push({
+        language_pair: row.language_pair,
+        lemma: row.lemma,
+        target_key: row.target_key,
+        target_reading: row.target_reading,
+        reading_confidence: row.reading_confidence,
+        side: row.side,
+        count: row.count,
+        observation_source: row.observation_source,
+        source_mapping_confidence: Math.max(0, Math.min(1, confidence))
+      });
     }
     return signals;
   }
@@ -381,6 +425,7 @@
     collectVisibleSourceText,
     countSourceTermOccurrences,
     normalizeSourceTerm,
-    sourceLanguageFromPair
+    sourceLanguageFromPair,
+    sourceTermVariants
   };
 })();

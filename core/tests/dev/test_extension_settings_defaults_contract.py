@@ -52,6 +52,11 @@ assert.equal(
   context.LexiShift.defaults.maxReplacementsPerLemmaPerPage,
   density.maxReplacementsPerLemmaPerPage
 );
+assert.equal(typeof context.LexiShift.defaults.srsBrowsingSourceMiningOptions, "object");
+assert.equal(
+  Object.keys(context.LexiShift.defaults.srsBrowsingSourceMiningOptions).length,
+  0
+);
 """
         _run_node(script)
 

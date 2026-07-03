@@ -80,6 +80,7 @@
       "srsAutoRefreshRepeatMinGoodEasy",
       "srsAutoRefreshCooldownMinutes",
       "srsBrowsingAdmissionSignalsEnabled",
+      "srsBrowsingSourceMiningOptions",
       "srsProfileContext"
     ];
 

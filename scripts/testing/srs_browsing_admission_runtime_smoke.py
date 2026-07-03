@@ -39,6 +39,9 @@ DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "srs_browsing_admission_runtime_smoke
 EXTENSION_SIGNAL_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js"
 )
+EXTENSION_SOURCE_MORPHOLOGY_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_source_morphology.js"
+)
 EXTENSION_SOURCE_MINING_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_source_mining.js"
 )
@@ -168,12 +171,18 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const signalModulePath = {json.dumps(str(EXTENSION_SIGNAL_JS))};
+const sourceMorphologyModulePath = {json.dumps(str(EXTENSION_SOURCE_MORPHOLOGY_JS))};
 const sourceMiningModulePath = {json.dumps(str(EXTENSION_SOURCE_MINING_JS))};
 const miningModulePath = {json.dumps(str(EXTENSION_PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
 vm.runInContext(fs.readFileSync(signalModulePath, "utf8"), context, {{ filename: signalModulePath }});
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
 vm.runInContext(fs.readFileSync(sourceMiningModulePath, "utf8"), context, {{ filename: sourceMiningModulePath }});
 vm.runInContext(fs.readFileSync(miningModulePath, "utf8"), context, {{ filename: miningModulePath }});
 

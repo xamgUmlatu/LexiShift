@@ -25,8 +25,8 @@
           "document_id": "en_ja_fermentation_article_b",
           "side": "source",
           "path": "docs/test_inputs/srs_browsing_admission_offline_pages/en_ja_fermentation_article_b.html",
-          "sha256": "b28be740630986ca1f95ca0a04a33eac7cb5a6736037b538d09cc060b2744e0a",
-          "visible_text_char_count": 117,
+          "sha256": "422f7d04fd8582cfd275d0716b3d513ee24b33cee920ea78c33cc87d6962482f",
+          "visible_text_char_count": 167,
           "ruby_pair_count": 0
         },
         {
@@ -39,7 +39,7 @@
         }
       ],
       "extension_payload": {
-        "accepted_exposures": 8.0,
+        "accepted_exposures": 10.0,
         "packet_count": 1,
         "signal_count": 5,
         "source_signal_count": 3,
@@ -67,20 +67,20 @@
             "target_key": "発酵|はっこう",
             "target_lemma": "発酵",
             "target_reading": "はっこう",
-            "side": "target",
-            "observation_source": "target_surface",
-            "count": 2,
-            "source_mapping_confidence": 1,
+            "side": "source",
+            "observation_source": "source_mapping",
+            "count": 3,
+            "source_mapping_confidence": 0.5103999999999999,
             "context_key_prefix": "pageh"
           },
           {
             "target_key": "発酵|はっこう",
             "target_lemma": "発酵",
             "target_reading": "はっこう",
-            "side": "source",
-            "observation_source": "source_mapping",
-            "count": 1,
-            "source_mapping_confidence": 0.58,
+            "side": "target",
+            "observation_source": "target_surface",
+            "count": 2,
+            "source_mapping_confidence": 1,
             "context_key_prefix": "pageh"
           },
           {
@@ -133,18 +133,18 @@
           {
             "document_id": "en_ja_fermentation_article_b",
             "side": "source",
-            "sha256": "b28be740630986ca1f95ca0a04a33eac7cb5a6736037b538d09cc060b2744e0a",
-            "visible_text_char_count": 117,
+            "sha256": "422f7d04fd8582cfd275d0716b3d513ee24b33cee920ea78c33cc87d6962482f",
+            "visible_text_char_count": 167,
             "ruby_pair_count": 0,
             "signal_count": 1,
-            "accepted_count": 1,
+            "accepted_count": 3,
             "signals": [
               {
                 "target_key": "発酵|はっこう",
                 "side": "source",
                 "observation_source": "source_mapping",
-                "count": 1,
-                "source_mapping_confidence": 0.58
+                "count": 3,
+                "source_mapping_confidence": 0.5103999999999999
               }
             ]
           },
@@ -224,7 +224,7 @@
                   "target_key": "発酵|はっこう",
                   "target_lemma": "発酵",
                   "target_reading": "はっこう",
-                  "source_hit_count": 2.32,
+                  "source_hit_count": 3.2712,
                   "target_hit_count": 2.0,
                   "replacement_exposure_count": 0.0,
                   "source_mapping_confidence": 0.58,
@@ -233,10 +233,10 @@
                     "source_mapping",
                     "target_surface"
                   ],
-                  "raw_browsing": 4.32,
-                  "browsing_evidence": 3.699063,
+                  "raw_browsing": 5.2712,
+                  "browsing_evidence": 4.37896,
                   "browsing_context_count": 3,
-                  "browsing_signal": 0.546151,
+                  "browsing_signal": 0.593847,
                   "last_seen_at": "2026-05-23T00:00:00Z"
                 },
                 {
@@ -290,7 +290,7 @@
             "target_key": "発酵|はっこう",
             "target_lemma": "発酵",
             "target_reading": "はっこう",
-            "source_hit_count": 2.32,
+            "source_hit_count": 3.2712,
             "target_hit_count": 2.0,
             "replacement_exposure_count": 0.0,
             "reading_confidence": 1.0,
@@ -298,9 +298,9 @@
               "source_mapping",
               "target_surface"
             ],
-            "browsing_evidence": 3.699063,
+            "browsing_evidence": 4.37896,
             "browsing_context_count": 3,
-            "browsing_signal": 0.546151,
+            "browsing_signal": 0.593847,
             "context_evidence": [
               {
                 "context_key_prefix": "pageh",
@@ -316,7 +316,7 @@
               },
               {
                 "context_key_prefix": "pageh",
-                "source_hit_count": 0.58,
+                "source_hit_count": 1.5312,
                 "target_hit_count": 0.0,
                 "replacement_exposure_count": 0.0
               }
@@ -382,8 +382,8 @@
           "admission_budget": 4,
           "browsing_budget": 0,
           "general_budget": 4,
-          "signal_volume": 0.41296,
-          "volume_factor": 0.186557,
+          "signal_volume": 0.531555,
+          "volume_factor": 0.23339,
           "selected_lemmas": [
             "する",
             "いる",
@@ -513,13 +513,13 @@
               "final_rank": 5,
               "neutral_score": 0.59,
               "final_score": 0.59,
-              "browsing_signal": 0.546151,
-              "browsing_evidence": 3.699063,
+              "browsing_signal": 0.593847,
+              "browsing_evidence": 4.37896,
               "browsing_context_count": 3,
-              "effective_browsing_signal": 0.41296,
+              "effective_browsing_signal": 0.531555,
               "browsing_quality_multiplier": 1.0,
               "browsing_count_multiplier": 1.0,
-              "browsing_salience_multiplier": 0.763764,
+              "browsing_salience_multiplier": 0.904146,
               "browsing_specificity_multiplier": 0.99,
               "browsing_boost": 1.0,
               "selected": false,
@@ -612,8 +612,8 @@
           "admission_budget": 4,
           "browsing_budget": 0,
           "general_budget": 4,
-          "signal_volume": 0.41296,
-          "volume_factor": 0.186557,
+          "signal_volume": 0.531555,
+          "volume_factor": 0.23339,
           "selected_lemmas": [
             "する",
             "いる",
@@ -742,16 +742,16 @@
               "neutral_rank": 5,
               "final_rank": 5,
               "neutral_score": 0.59,
-              "final_score": 0.638956,
-              "browsing_signal": 0.546151,
-              "browsing_evidence": 3.699063,
+              "final_score": 0.653015,
+              "browsing_signal": 0.593847,
+              "browsing_evidence": 4.37896,
               "browsing_context_count": 3,
-              "effective_browsing_signal": 0.41296,
+              "effective_browsing_signal": 0.531555,
               "browsing_quality_multiplier": 1.0,
               "browsing_count_multiplier": 1.0,
-              "browsing_salience_multiplier": 0.763764,
+              "browsing_salience_multiplier": 0.904146,
               "browsing_specificity_multiplier": 0.99,
-              "browsing_boost": 1.082976,
+              "browsing_boost": 1.106806,
               "selected": false,
               "selected_lane": "not_selected",
               "neutral_selected": false,
@@ -842,8 +842,8 @@
           "admission_budget": 4,
           "browsing_budget": 1,
           "general_budget": 3,
-          "signal_volume": 0.41296,
-          "volume_factor": 0.186557,
+          "signal_volume": 0.531555,
+          "volume_factor": 0.23339,
           "selected_lemmas": [
             "発酵",
             "する",
@@ -972,16 +972,16 @@
               "neutral_rank": 5,
               "final_rank": 5,
               "neutral_score": 0.59,
-              "final_score": 0.690137,
-              "browsing_signal": 0.546151,
-              "browsing_evidence": 3.699063,
+              "final_score": 0.718895,
+              "browsing_signal": 0.593847,
+              "browsing_evidence": 4.37896,
               "browsing_context_count": 3,
-              "effective_browsing_signal": 0.41296,
+              "effective_browsing_signal": 0.531555,
               "browsing_quality_multiplier": 1.0,
               "browsing_count_multiplier": 1.0,
-              "browsing_salience_multiplier": 0.763764,
+              "browsing_salience_multiplier": 0.904146,
               "browsing_specificity_multiplier": 0.99,
-              "browsing_boost": 1.169724,
+              "browsing_boost": 1.218466,
               "selected": true,
               "selected_lane": "browsing",
               "neutral_selected": false,
@@ -1137,7 +1137,7 @@
         {
           "name": "aggregate_source_hit_count_min:発酵|はっこう",
           "status": "pass",
-          "detail": "`発酵|はっこう` has source_hit_count >= 2.3."
+          "detail": "`発酵|はっこう` has source_hit_count >= 3.2."
         },
         {
           "name": "aggregate_target_hit_count_min:発酵|はっこう",

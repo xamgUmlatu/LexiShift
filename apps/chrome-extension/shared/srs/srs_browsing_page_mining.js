@@ -129,6 +129,14 @@
     }));
   }
 
+  function sourceMiningOptionsFromSettings(settings) {
+    const value = settings && (
+      settings.srsBrowsingSourceMiningOptions
+      || settings.srsBrowsingAdmissionSourceMiningOptions
+    );
+    return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+  }
+
   function isVisibleElement(element) {
     if (!element) {
       return false;
@@ -180,15 +188,19 @@
         return Promise.resolve({ status: "skipped", reason: "not_enabled" });
       }
       const targetRoot = rootNode || globalThis.document;
-      const pairs = collectRubyPairs(targetRoot, opts);
+      const scanOptions = {
+        ...opts,
+        ...sourceMiningOptionsFromSettings(settings)
+      };
+      const pairs = collectRubyPairs(targetRoot, scanOptions);
       const sourceText = typeof sourceMining.collectVisibleSourceText === "function"
-        ? sourceMining.collectVisibleSourceText(targetRoot, opts)
+        ? sourceMining.collectVisibleSourceText(targetRoot, scanOptions)
         : "";
       const rules = getCurrentRules();
-      const signals = buildRubyTargetSignals(pairs, settings, opts)
+      const signals = buildRubyTargetSignals(pairs, settings, scanOptions)
         .concat(
           typeof sourceMining.buildSourceMappingSignals === "function"
-            ? sourceMining.buildSourceMappingSignals(sourceText, rules, settings, opts)
+            ? sourceMining.buildSourceMappingSignals(sourceText, rules, settings, scanOptions)
             : []
         )
         .filter((signal) => {

@@ -45,6 +45,9 @@ DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "srs_browsing_admission_offline_page_
 EXTENSION_SIGNAL_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js"
 )
+EXTENSION_SOURCE_MORPHOLOGY_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_source_morphology.js"
+)
 EXTENSION_SOURCE_MINING_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_source_mining.js"
 )
@@ -155,6 +158,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const signalModulePath = {json.dumps(str(EXTENSION_SIGNAL_JS))};
+const sourceMorphologyModulePath = {json.dumps(str(EXTENSION_SOURCE_MORPHOLOGY_JS))};
 const sourceMiningModulePath = {json.dumps(str(EXTENSION_SOURCE_MINING_JS))};
 const miningModulePath = {json.dumps(str(EXTENSION_PAGE_MINING_JS))};
 const input = JSON.parse(fs.readFileSync(0, "utf8"));
@@ -162,6 +166,11 @@ const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
 vm.runInContext(fs.readFileSync(signalModulePath, "utf8"), context, {{ filename: signalModulePath }});
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
 vm.runInContext(fs.readFileSync(sourceMiningModulePath, "utf8"), context, {{ filename: sourceMiningModulePath }});
 vm.runInContext(fs.readFileSync(miningModulePath, "utf8"), context, {{ filename: miningModulePath }});
 
@@ -184,12 +193,18 @@ function mineCase(testCase) {{
   let targetSignalCount = 0;
 
   for (const document of Array.isArray(testCase.documents) ? testCase.documents : []) {{
+    const sourceMiningOptions = (
+      testCase.source_mining_options
+      && typeof testCase.source_mining_options === "object"
+      && !Array.isArray(testCase.source_mining_options)
+    ) ? testCase.source_mining_options : {{}};
     const options = {{
       nowMs: () => 0,
       maxCountPerSignal: 5,
       maxSignalsPerPacket: Number(testCase.max_signals_per_packet || 50),
       maxCountPerTarget: Number(testCase.max_count_per_target || 5),
       maxSourceCountPerTarget: Number(testCase.max_source_count_per_target || 3),
+      ...sourceMiningOptions,
       pageContextKey: document.page_context_key
     }};
     let rows = [];

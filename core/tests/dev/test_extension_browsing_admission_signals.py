@@ -473,10 +473,15 @@ assert.equal(applied[0].srsPair, "en-de");
         manifest = json.loads(MANIFEST_JSON.read_text(encoding="utf-8"))
         script_paths = manifest["content_scripts"][0]["js"]
         self.assertIn("shared/srs/srs_browsing_admission_signals.js", script_paths)
+        self.assertIn("shared/srs/srs_browsing_source_morphology.js", script_paths)
         self.assertIn("shared/srs/srs_browsing_source_mining.js", script_paths)
         self.assertIn("shared/srs/srs_browsing_page_mining.js", script_paths)
         self.assertLess(
             script_paths.index("shared/srs/srs_browsing_admission_signals.js"),
+            script_paths.index("shared/srs/srs_browsing_source_morphology.js"),
+        )
+        self.assertLess(
+            script_paths.index("shared/srs/srs_browsing_source_morphology.js"),
             script_paths.index("shared/srs/srs_browsing_source_mining.js"),
         )
         self.assertLess(
@@ -497,6 +502,7 @@ assert.equal(applied[0].srsPair, "en-de");
         self.assertIn("setActiveRules", content_script)
         settings_router = SETTINGS_ROUTER_JS.read_text(encoding="utf-8")
         self.assertIn("srsBrowsingAdmissionSignalsEnabled", settings_router)
+        self.assertIn("srsBrowsingSourceMiningOptions", settings_router)
         self.assertIn("clearPending", settings_router)
 
 

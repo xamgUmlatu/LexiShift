@@ -26,7 +26,7 @@
 - `pass` `absent_payload_target:仕事|しごと`: Payload/store exclude broad or wrong-pair target `仕事|しごと`.
 - `pass` `absent_payload_target:fermentación`: Payload/store exclude broad or wrong-pair target `fermentación`.
 - `pass` `required_aggregate_target:発酵|はっこう`: Aggregate store includes `発酵|はっこう`.
-- `pass` `aggregate_source_hit_count_min:発酵|はっこう`: `発酵|はっこう` has source_hit_count >= 2.3.
+- `pass` `aggregate_source_hit_count_min:発酵|はっこう`: `発酵|はっこう` has source_hit_count >= 3.2.
 - `pass` `aggregate_target_hit_count_min:発酵|はっこう`: `発酵|はっこう` has target_hit_count >= 2.0.
 - `pass` `aggregate_browsing_context_count_min:発酵|はっこう`: `発酵|はっこう` has browsing_context_count >= 3.
 - `pass` `aggregate_observation_sources:発酵|はっこう`: `発酵|はっこう` has observation sources ['source_mapping', 'target_surface'].
@@ -48,7 +48,7 @@
 | document | side | text chars | ruby pairs | sha256 |
 |---|---:|---:|---:|---|
 | `en_ja_fermentation_article_a` | `source` | 291 | 0 | `b2d005f783ef` |
-| `en_ja_fermentation_article_b` | `source` | 117 | 0 | `b28be7406309` |
+| `en_ja_fermentation_article_b` | `source` | 167 | 0 | `422f7d04fd85` |
 | `ja_fermentation_ruby_note` | `target` | 46 | 3 | `4e5f867aa22a` |
 
 ### Extension Signals
@@ -61,8 +61,8 @@
 | target | side | source | count | confidence | context |
 |---|---:|---:|---:|---:|---:|
 | `発酵|はっこう` | `source` | `source_mapping` | 3 | 0.58 | `pageh` |
+| `発酵|はっこう` | `source` | `source_mapping` | 3 | 0.5103999999999999 | `pageh` |
 | `発酵|はっこう` | `target` | `target_surface` | 2 | 1 | `pageh` |
-| `発酵|はっこう` | `source` | `source_mapping` | 1 | 0.58 | `pageh` |
 | `血圧|けつあつ` | `source` | `source_mapping` | 1 | 0.72 | `pageh` |
 | `麹|こうじ` | `target` | `target_surface` | 1 | 1 | `pageh` |
 
@@ -70,7 +70,7 @@
 
 | target | reading | source | target | contexts | evidence | signal | sources |
 |---|---:|---:|---:|---:|---:|---:|---|
-| `発酵` | `はっこう` | 2.32 | 2.0 | 3 | 3.699063 | 0.546151 | `source_mapping, target_surface` |
+| `発酵` | `はっこう` | 3.2712 | 2.0 | 3 | 4.37896 | 0.593847 | `source_mapping, target_surface` |
 | `血圧` | `けつあつ` | 0.72 | 0.0 | 1 | 0.782409 | 0.203996 | `source_mapping` |
 | `麹` | `こうじ` | 0.0 | 1.0 | 1 | 1.0 | 0.244651 | `target_surface` |
 
@@ -87,7 +87,7 @@
 | `いる` | `general` | True | 2 | 2 | 0.0 | 1.0 |
 | `言う` | `general` | True | 3 | 3 | 0.0 | 1.0 |
 | `犬` | `general` | True | 4 | 4 | 0.0 | 1.0 |
-| `発酵|はっこう` | `not_selected` | False | 5 | 5 | 0.41296 | 1.0 |
+| `発酵|はっこう` | `not_selected` | False | 5 | 5 | 0.531555 | 1.0 |
 | `血圧|けつあつ` | `not_selected` | False | 7 | 7 | 0.0 | 1.0 |
 | `麹|こうじ` | `not_selected` | False | 8 | 8 | 0.0 | 1.0 |
 
@@ -102,7 +102,7 @@
 | `いる` | `general` | True | 2 | 2 | 0.0 | 1.0 |
 | `言う` | `general` | True | 3 | 3 | 0.0 | 1.0 |
 | `犬` | `general` | True | 4 | 4 | 0.0 | 1.0 |
-| `発酵|はっこう` | `not_selected` | False | 5 | 5 | 0.41296 | 1.082976 |
+| `発酵|はっこう` | `not_selected` | False | 5 | 5 | 0.531555 | 1.106806 |
 | `血圧|けつあつ` | `not_selected` | False | 7 | 7 | 0.0 | 1.0 |
 | `麹|こうじ` | `not_selected` | False | 8 | 8 | 0.0 | 1.0 |
 
@@ -116,7 +116,7 @@
 | `する` | `general` | True | 1 | 1 | 0.0 | 1.0 |
 | `いる` | `general` | True | 2 | 2 | 0.0 | 1.0 |
 | `言う` | `general` | True | 3 | 3 | 0.0 | 1.0 |
-| `発酵|はっこう` | `browsing` | True | 5 | 5 | 0.41296 | 1.169724 |
+| `発酵|はっこう` | `browsing` | True | 5 | 5 | 0.531555 | 1.218466 |
 | `血圧|けつあつ` | `not_selected` | False | 7 | 7 | 0.0 | 1.0 |
 | `麹|こうじ` | `not_selected` | False | 8 | 8 | 0.0 | 1.0 |
 
