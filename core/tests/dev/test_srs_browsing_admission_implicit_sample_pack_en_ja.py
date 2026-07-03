@@ -32,22 +32,34 @@ class TestSrsBrowsingAdmissionImplicitSamplePackEnJa(unittest.TestCase):
             entries,
             [
                 {
+                    "target_key": "",
                     "target_lemma": "料理",
+                    "target_reading": "",
                     "side": "target",
                     "count": 4.0,
                     "source_mapping_confidence": None,
+                    "reading_confidence": 1.0,
+                    "observation_source": "",
                 },
                 {
+                    "target_key": "",
                     "target_lemma": "病院",
+                    "target_reading": "",
                     "side": "source",
                     "count": 2.0,
                     "source_mapping_confidence": 0.5,
+                    "reading_confidence": 1.0,
+                    "observation_source": "",
                 },
                 {
+                    "target_key": "",
                     "target_lemma": "野菜",
+                    "target_reading": "",
                     "side": "target",
                     "count": 1.0,
                     "source_mapping_confidence": None,
+                    "reading_confidence": 1.0,
+                    "observation_source": "",
                 },
             ],
         )
@@ -69,6 +81,27 @@ class TestSrsBrowsingAdmissionImplicitSamplePackEnJa(unittest.TestCase):
         self.assertEqual(aggregate.target_hit_count, 5.0)
         self.assertEqual(aggregate.source_hit_count, 3.0)
         self.assertEqual(aggregate.replacement_exposure_count, 2.0)
+
+    def test_browsing_store_uses_reading_aware_key_when_available(self) -> None:
+        store = build_browsing_store(
+            pair="en-ja",
+            scenario={
+                "signals": [
+                    {
+                        "target_lemma": "辛い",
+                        "target_reading": "つらい",
+                        "side": "target",
+                        "count": 4,
+                        "reading_confidence": 0.5,
+                    }
+                ]
+            },
+        )
+
+        aggregate = store.items["辛い|つらい"]
+        self.assertEqual(aggregate.target_lemma, "辛い")
+        self.assertEqual(aggregate.target_reading, "つらい")
+        self.assertAlmostEqual(aggregate.reading_confidence, 0.5)
 
     def test_expectation_checks_guard_preview_only_and_blocked_lemma_behavior(self) -> None:
         findings = evaluate_scenario(

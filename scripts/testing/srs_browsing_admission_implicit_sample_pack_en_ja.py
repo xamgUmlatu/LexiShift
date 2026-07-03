@@ -30,6 +30,14 @@ from lexishift_core.srs.browsing_admission import (  # noqa: E402
     BROWSING_SIGNAL_TARGET,
     BrowsingSignalAggregate,
     BrowsingSignalStore,
+    aggregate_target_key,
+    build_browsing_target_key,
+)
+from lexishift_core.srs.browsing_identity import (  # noqa: E402
+    BROWSING_OBSERVATION_REPLACEMENT_EXPOSURE,
+    BROWSING_OBSERVATION_SOURCE_MAPPING,
+    BROWSING_OBSERVATION_SOURCES,
+    BROWSING_OBSERVATION_TARGET_SURFACE,
 )
 from lexishift_core.srs.profile_bootstrap import DEFAULT_PROFILE_BOOTSTRAP_POLICY  # noqa: E402
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
@@ -295,13 +303,32 @@ def build_browsing_store(
         lemma = str(signal.get("target_lemma") or "").strip()
         if not lemma:
             continue
-        current = items.get(lemma) or BrowsingSignalAggregate(target_lemma=lemma)
+        target_reading = str(signal.get("target_reading") or "").strip()
+        target_key = build_browsing_target_key(
+            target_lemma=lemma,
+            target_reading=target_reading,
+            target_key=signal.get("target_key"),
+        )
+        current = items.get(target_key) or BrowsingSignalAggregate(
+            target_lemma=lemma,
+            target_key=target_key,
+            target_reading=target_reading,
+            reading_confidence=reading_confidence_from_value(signal.get("reading_confidence")),
+        )
         side = str(signal.get("side") or "").strip()
         count = safe_float(signal.get("count")) or 0.0
         confidence = safe_float(signal.get("source_mapping_confidence"))
+        reading_confidence = max(
+            reading_confidence_from_value(signal.get("reading_confidence")),
+            reading_confidence_from_value(current.reading_confidence),
+        )
+        observation_source = observation_source_for_signal(signal, side)
+        observation_sources = tuple(sorted(set(current.observation_sources) | {observation_source}))
         if side == BROWSING_SIGNAL_SOURCE:
-            items[lemma] = BrowsingSignalAggregate(
+            items[target_key] = BrowsingSignalAggregate(
                 target_lemma=lemma,
+                target_key=target_key,
+                target_reading=target_reading or current.target_reading,
                 source_hit_count=current.source_hit_count + count,
                 target_hit_count=current.target_hit_count,
                 replacement_exposure_count=current.replacement_exposure_count,
@@ -309,24 +336,38 @@ def build_browsing_store(
                     current.source_mapping_confidence,
                     confidence if confidence is not None else 1.0,
                 ),
+                reading_confidence=reading_confidence,
+                observation_sources=observation_sources,
             )
         elif side == BROWSING_SIGNAL_REPLACEMENT_EXPOSURE:
-            items[lemma] = BrowsingSignalAggregate(
+            items[target_key] = BrowsingSignalAggregate(
                 target_lemma=lemma,
+                target_key=target_key,
+                target_reading=target_reading or current.target_reading,
                 source_hit_count=current.source_hit_count,
                 target_hit_count=current.target_hit_count,
                 replacement_exposure_count=current.replacement_exposure_count + count,
                 source_mapping_confidence=current.source_mapping_confidence,
+                reading_confidence=reading_confidence,
+                observation_sources=observation_sources,
             )
         else:
-            items[lemma] = BrowsingSignalAggregate(
+            items[target_key] = BrowsingSignalAggregate(
                 target_lemma=lemma,
+                target_key=target_key,
+                target_reading=target_reading or current.target_reading,
                 source_hit_count=current.source_hit_count,
                 target_hit_count=current.target_hit_count + count,
                 replacement_exposure_count=current.replacement_exposure_count,
                 source_mapping_confidence=current.source_mapping_confidence,
+                reading_confidence=reading_confidence,
+                observation_sources=observation_sources,
             )
-    return BrowsingSignalStore(pair=pair, profile_id="implicit_sample_pack", items=items)
+    return BrowsingSignalStore(
+        pair=pair,
+        profile_id="implicit_sample_pack",
+        items={aggregate_target_key(item): item for item in items.values()},
+    )
 
 
 def normalize_signal_entries(value: object) -> list[dict[str, object]]:
@@ -339,6 +380,9 @@ def normalize_signal_entries(value: object) -> list[dict[str, object]]:
         lemma = str(entry.get("target_lemma") or entry.get("lemma") or "").strip()
         if not lemma:
             continue
+        target_reading = str(
+            entry.get("target_reading") or entry.get("targetReading") or entry.get("reading") or ""
+        ).strip()
         side = str(entry.get("side") or BROWSING_SIGNAL_TARGET).strip()
         if side not in {
             BROWSING_SIGNAL_SOURCE,
@@ -348,13 +392,39 @@ def normalize_signal_entries(value: object) -> list[dict[str, object]]:
             side = BROWSING_SIGNAL_TARGET
         rows.append(
             {
+                "target_key": str(entry.get("target_key") or entry.get("targetKey") or "").strip(),
                 "target_lemma": lemma,
+                "target_reading": target_reading,
                 "side": side,
                 "count": safe_float(entry.get("count")) or 1.0,
                 "source_mapping_confidence": safe_float(entry.get("source_mapping_confidence")),
+                "reading_confidence": reading_confidence_from_value(
+                    entry.get("reading_confidence")
+                ),
+                "observation_source": str(
+                    entry.get("observation_source") or entry.get("observationSource") or ""
+                ).strip(),
             }
         )
     return rows
+
+
+def reading_confidence_from_value(value: object) -> float:
+    parsed = safe_float(value)
+    if parsed is None:
+        return 1.0
+    return max(0.0, min(1.0, parsed))
+
+
+def observation_source_for_signal(signal: Mapping[str, object], side: str) -> str:
+    explicit = str(signal.get("observation_source") or "").strip().lower()
+    if explicit in BROWSING_OBSERVATION_SOURCES:
+        return explicit
+    if side == BROWSING_SIGNAL_SOURCE:
+        return BROWSING_OBSERVATION_SOURCE_MAPPING
+    if side == BROWSING_SIGNAL_REPLACEMENT_EXPOSURE:
+        return BROWSING_OBSERVATION_REPLACEMENT_EXPOSURE
+    return BROWSING_OBSERVATION_TARGET_SURFACE
 
 
 def compact_browsing_preview(

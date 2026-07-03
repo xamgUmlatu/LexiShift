@@ -84,81 +84,129 @@
     "item_count": 8,
     "items": [
       {
+        "target_key": "hipoteca",
         "target_lemma": "hipoteca",
+        "target_reading": "",
         "source_hit_count": 4.5,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.9,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "source_mapping"
+        ],
         "raw_browsing": 4.5,
         "browsing_signal": 0.6017,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "préstamo",
         "target_lemma": "préstamo",
+        "target_reading": "",
         "source_hit_count": 4.0,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.8,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "source_mapping"
+        ],
         "raw_browsing": 4.0,
         "browsing_signal": 0.5681,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "salud",
         "target_lemma": "salud",
+        "target_reading": "",
         "source_hit_count": 0.0,
         "target_hit_count": 4.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "target_surface"
+        ],
         "raw_browsing": 4.0,
         "browsing_signal": 0.5681,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "diagnóstico",
         "target_lemma": "diagnóstico",
+        "target_reading": "",
         "source_hit_count": 3.0,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.75,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "source_mapping"
+        ],
         "raw_browsing": 3.0,
         "browsing_signal": 0.4893,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "tratamiento",
         "target_lemma": "tratamiento",
+        "target_reading": "",
         "source_hit_count": 0.0,
         "target_hit_count": 2.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "target_surface"
+        ],
         "raw_browsing": 2.0,
         "browsing_signal": 0.3878,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "interés",
         "target_lemma": "interés",
+        "target_reading": "",
         "source_hit_count": 1.4,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.7,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "source_mapping"
+        ],
         "raw_browsing": 1.4,
         "browsing_signal": 0.309,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "clínica",
         "target_lemma": "clínica",
+        "target_reading": "",
         "source_hit_count": 0.0,
         "target_hit_count": 1.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "target_surface"
+        ],
         "raw_browsing": 1.0,
         "browsing_signal": 0.2447,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "cocina",
         "target_lemma": "cocina",
+        "target_reading": "",
         "source_hit_count": 0.0,
         "target_hit_count": 1.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "target_surface"
+        ],
         "raw_browsing": 1.0,
         "browsing_signal": 0.2447,
         "last_seen_at": "2026-05-23T00:00:00Z"
@@ -206,6 +254,7 @@
       "rows": [
         {
           "lemma": "casa",
+          "target_key": "casa",
           "neutral_rank": 1,
           "final_rank": 1,
           "neutral_score": 1.0,
@@ -222,6 +271,7 @@
         },
         {
           "lemma": "ser",
+          "target_key": "ser",
           "neutral_rank": 2,
           "final_rank": 2,
           "neutral_score": 0.96,
@@ -238,6 +288,7 @@
         },
         {
           "lemma": "banco",
+          "target_key": "banco",
           "neutral_rank": 3,
           "final_rank": 3,
           "neutral_score": 0.9,
@@ -254,6 +305,7 @@
         },
         {
           "lemma": "perro",
+          "target_key": "perro",
           "neutral_rank": 4,
           "final_rank": 4,
           "neutral_score": 0.84,
@@ -270,6 +322,7 @@
         },
         {
           "lemma": "gato",
+          "target_key": "gato",
           "neutral_rank": 5,
           "final_rank": 5,
           "neutral_score": 0.82,
@@ -286,6 +339,7 @@
         },
         {
           "lemma": "comida",
+          "target_key": "comida",
           "neutral_rank": 6,
           "final_rank": 6,
           "neutral_score": 0.8,
@@ -302,6 +356,7 @@
         },
         {
           "lemma": "hipoteca",
+          "target_key": "hipoteca",
           "neutral_rank": 7,
           "final_rank": 7,
           "neutral_score": 0.64,
@@ -318,6 +373,7 @@
         },
         {
           "lemma": "préstamo",
+          "target_key": "préstamo",
           "neutral_rank": 8,
           "final_rank": 8,
           "neutral_score": 0.62,
@@ -334,6 +390,7 @@
         },
         {
           "lemma": "salud",
+          "target_key": "salud",
           "neutral_rank": 9,
           "final_rank": 9,
           "neutral_score": 0.6,
@@ -350,6 +407,7 @@
         },
         {
           "lemma": "diagnóstico",
+          "target_key": "diagnóstico",
           "neutral_rank": 10,
           "final_rank": 10,
           "neutral_score": 0.58,
@@ -366,6 +424,7 @@
         },
         {
           "lemma": "tratamiento",
+          "target_key": "tratamiento",
           "neutral_rank": 11,
           "final_rank": 11,
           "neutral_score": 0.56,
@@ -382,6 +441,7 @@
         },
         {
           "lemma": "viaje",
+          "target_key": "viaje",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
@@ -438,6 +498,7 @@
       "rows": [
         {
           "lemma": "casa",
+          "target_key": "casa",
           "neutral_rank": 1,
           "final_rank": 1,
           "neutral_score": 1.0,
@@ -454,6 +515,7 @@
         },
         {
           "lemma": "ser",
+          "target_key": "ser",
           "neutral_rank": 2,
           "final_rank": 2,
           "neutral_score": 0.96,
@@ -470,6 +532,7 @@
         },
         {
           "lemma": "banco",
+          "target_key": "banco",
           "neutral_rank": 3,
           "final_rank": 3,
           "neutral_score": 0.9,
@@ -486,6 +549,7 @@
         },
         {
           "lemma": "perro",
+          "target_key": "perro",
           "neutral_rank": 4,
           "final_rank": 4,
           "neutral_score": 0.84,
@@ -502,6 +566,7 @@
         },
         {
           "lemma": "gato",
+          "target_key": "gato",
           "neutral_rank": 5,
           "final_rank": 5,
           "neutral_score": 0.82,
@@ -518,6 +583,7 @@
         },
         {
           "lemma": "comida",
+          "target_key": "comida",
           "neutral_rank": 6,
           "final_rank": 6,
           "neutral_score": 0.8,
@@ -534,6 +600,7 @@
         },
         {
           "lemma": "hipoteca",
+          "target_key": "hipoteca",
           "neutral_rank": 7,
           "final_rank": 7,
           "neutral_score": 0.64,
@@ -550,6 +617,7 @@
         },
         {
           "lemma": "préstamo",
+          "target_key": "préstamo",
           "neutral_rank": 8,
           "final_rank": 8,
           "neutral_score": 0.62,
@@ -566,6 +634,7 @@
         },
         {
           "lemma": "salud",
+          "target_key": "salud",
           "neutral_rank": 9,
           "final_rank": 9,
           "neutral_score": 0.6,
@@ -582,6 +651,7 @@
         },
         {
           "lemma": "diagnóstico",
+          "target_key": "diagnóstico",
           "neutral_rank": 10,
           "final_rank": 10,
           "neutral_score": 0.58,
@@ -598,6 +668,7 @@
         },
         {
           "lemma": "tratamiento",
+          "target_key": "tratamiento",
           "neutral_rank": 11,
           "final_rank": 11,
           "neutral_score": 0.56,
@@ -614,6 +685,7 @@
         },
         {
           "lemma": "viaje",
+          "target_key": "viaje",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
@@ -670,6 +742,7 @@
       "rows": [
         {
           "lemma": "casa",
+          "target_key": "casa",
           "neutral_rank": 1,
           "final_rank": 1,
           "neutral_score": 1.0,
@@ -686,6 +759,7 @@
         },
         {
           "lemma": "ser",
+          "target_key": "ser",
           "neutral_rank": 2,
           "final_rank": 2,
           "neutral_score": 0.96,
@@ -702,6 +776,7 @@
         },
         {
           "lemma": "banco",
+          "target_key": "banco",
           "neutral_rank": 3,
           "final_rank": 3,
           "neutral_score": 0.9,
@@ -718,6 +793,7 @@
         },
         {
           "lemma": "perro",
+          "target_key": "perro",
           "neutral_rank": 4,
           "final_rank": 4,
           "neutral_score": 0.84,
@@ -734,6 +810,7 @@
         },
         {
           "lemma": "gato",
+          "target_key": "gato",
           "neutral_rank": 5,
           "final_rank": 5,
           "neutral_score": 0.82,
@@ -750,6 +827,7 @@
         },
         {
           "lemma": "hipoteca",
+          "target_key": "hipoteca",
           "neutral_rank": 7,
           "final_rank": 6,
           "neutral_score": 0.64,
@@ -766,6 +844,7 @@
         },
         {
           "lemma": "comida",
+          "target_key": "comida",
           "neutral_rank": 6,
           "final_rank": 7,
           "neutral_score": 0.8,
@@ -782,6 +861,7 @@
         },
         {
           "lemma": "préstamo",
+          "target_key": "préstamo",
           "neutral_rank": 8,
           "final_rank": 8,
           "neutral_score": 0.62,
@@ -798,6 +878,7 @@
         },
         {
           "lemma": "salud",
+          "target_key": "salud",
           "neutral_rank": 9,
           "final_rank": 9,
           "neutral_score": 0.6,
@@ -814,6 +895,7 @@
         },
         {
           "lemma": "diagnóstico",
+          "target_key": "diagnóstico",
           "neutral_rank": 10,
           "final_rank": 10,
           "neutral_score": 0.58,
@@ -830,6 +912,7 @@
         },
         {
           "lemma": "tratamiento",
+          "target_key": "tratamiento",
           "neutral_rank": 11,
           "final_rank": 11,
           "neutral_score": 0.56,
@@ -846,6 +929,7 @@
         },
         {
           "lemma": "viaje",
+          "target_key": "viaje",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,

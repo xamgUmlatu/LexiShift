@@ -54,6 +54,7 @@ const accepted = signals.addExposureBatchToPending(
     {{
       language_pair: "en-es",
       lemma: "Hipoteca",
+      target_key: "hipoteca",
       url: "https://example.invalid/private",
       source_phrase: "mortgage",
       original: "mortgage"
@@ -82,15 +83,23 @@ assert.equal(payloads[0].profile_id, "alpha");
 assert.equal(payloads[0].opt_in, true);
 assert.deepEqual(normalize(payloads[0].signals), [
   {{
+    target_key: "hipoteca",
     target_lemma: "hipoteca",
+    target_reading: "",
     side: "replacement_exposure",
     count: 2,
+    reading_confidence: 1,
+    observation_source: "replacement_exposure",
     source_mapping_confidence: 1
   }},
   {{
+    target_key: "salud",
     target_lemma: "salud",
+    target_reading: "",
     side: "replacement_exposure",
     count: 1,
+    reading_confidence: 1,
+    observation_source: "replacement_exposure",
     source_mapping_confidence: 1
   }}
 ]);
@@ -163,9 +172,13 @@ const sender = context.LexiShift.srsBrowsingAdmissionSignals.createSender({{
   assert.equal(calls[0].payload.opt_in, true);
   assert.deepEqual(normalize(calls[0].payload.signals), [
     {{
+      target_key: "salud",
       target_lemma: "salud",
+      target_reading: "",
       side: "replacement_exposure",
       count: 1,
+      reading_confidence: 1,
+      observation_source: "replacement_exposure",
       source_mapping_confidence: 1
     }}
   ]);

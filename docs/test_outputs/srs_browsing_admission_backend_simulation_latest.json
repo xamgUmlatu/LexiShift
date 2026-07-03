@@ -83,81 +83,129 @@
     "item_count": 8,
     "items": [
       {
+        "target_key": "料理",
         "target_lemma": "料理",
+        "target_reading": "",
         "source_hit_count": 4.5,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.9,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "source_mapping"
+        ],
         "raw_browsing": 4.5,
         "browsing_signal": 0.6017,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "病院",
         "target_lemma": "病院",
+        "target_reading": "",
         "source_hit_count": 0.0,
         "target_hit_count": 4.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "target_surface"
+        ],
         "raw_browsing": 4.0,
         "browsing_signal": 0.5681,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "野菜",
         "target_lemma": "野菜",
+        "target_reading": "",
         "source_hit_count": 4.0,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.8,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "source_mapping"
+        ],
         "raw_browsing": 4.0,
         "browsing_signal": 0.5681,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "診断",
         "target_lemma": "診断",
+        "target_reading": "",
         "source_hit_count": 3.0,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.75,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "source_mapping"
+        ],
         "raw_browsing": 3.0,
         "browsing_signal": 0.4893,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "治療",
         "target_lemma": "治療",
+        "target_reading": "",
         "source_hit_count": 0.0,
         "target_hit_count": 2.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "target_surface"
+        ],
         "raw_browsing": 2.0,
         "browsing_signal": 0.3878,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "金利",
         "target_lemma": "金利",
+        "target_reading": "",
         "source_hit_count": 1.4,
         "target_hit_count": 0.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.7,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "source_mapping"
+        ],
         "raw_browsing": 1.4,
         "browsing_signal": 0.309,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "会社",
         "target_lemma": "会社",
+        "target_reading": "",
         "source_hit_count": 0.0,
         "target_hit_count": 1.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "target_surface"
+        ],
         "raw_browsing": 1.0,
         "browsing_signal": 0.2447,
         "last_seen_at": "2026-05-23T00:00:00Z"
       },
       {
+        "target_key": "切捨て確認",
         "target_lemma": "切捨て確認",
+        "target_reading": "",
         "source_hit_count": 0.0,
         "target_hit_count": 1.0,
         "replacement_exposure_count": 0.0,
         "source_mapping_confidence": 0.0,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "target_surface"
+        ],
         "raw_browsing": 1.0,
         "browsing_signal": 0.2447,
         "last_seen_at": "2026-05-23T00:00:00Z"
@@ -205,6 +253,7 @@
       "rows": [
         {
           "lemma": "する",
+          "target_key": "する",
           "neutral_rank": 1,
           "final_rank": 1,
           "neutral_score": 1.0,
@@ -221,6 +270,7 @@
         },
         {
           "lemma": "いる",
+          "target_key": "いる",
           "neutral_rank": 2,
           "final_rank": 2,
           "neutral_score": 0.96,
@@ -237,6 +287,7 @@
         },
         {
           "lemma": "言う",
+          "target_key": "言う",
           "neutral_rank": 3,
           "final_rank": 3,
           "neutral_score": 0.9,
@@ -253,6 +304,7 @@
         },
         {
           "lemma": "犬",
+          "target_key": "犬",
           "neutral_rank": 4,
           "final_rank": 4,
           "neutral_score": 0.84,
@@ -269,6 +321,7 @@
         },
         {
           "lemma": "猫",
+          "target_key": "猫",
           "neutral_rank": 5,
           "final_rank": 5,
           "neutral_score": 0.82,
@@ -285,6 +338,7 @@
         },
         {
           "lemma": "会社",
+          "target_key": "会社",
           "neutral_rank": 6,
           "final_rank": 6,
           "neutral_score": 0.8,
@@ -301,6 +355,7 @@
         },
         {
           "lemma": "料理",
+          "target_key": "料理",
           "neutral_rank": 7,
           "final_rank": 7,
           "neutral_score": 0.64,
@@ -317,6 +372,7 @@
         },
         {
           "lemma": "野菜",
+          "target_key": "野菜",
           "neutral_rank": 8,
           "final_rank": 8,
           "neutral_score": 0.62,
@@ -333,6 +389,7 @@
         },
         {
           "lemma": "病院",
+          "target_key": "病院",
           "neutral_rank": 9,
           "final_rank": 9,
           "neutral_score": 0.6,
@@ -349,6 +406,7 @@
         },
         {
           "lemma": "診断",
+          "target_key": "診断",
           "neutral_rank": 10,
           "final_rank": 10,
           "neutral_score": 0.58,
@@ -365,6 +423,7 @@
         },
         {
           "lemma": "治療",
+          "target_key": "治療",
           "neutral_rank": 11,
           "final_rank": 11,
           "neutral_score": 0.56,
@@ -381,6 +440,7 @@
         },
         {
           "lemma": "旅行",
+          "target_key": "旅行",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
@@ -437,6 +497,7 @@
       "rows": [
         {
           "lemma": "する",
+          "target_key": "する",
           "neutral_rank": 1,
           "final_rank": 1,
           "neutral_score": 1.0,
@@ -453,6 +514,7 @@
         },
         {
           "lemma": "いる",
+          "target_key": "いる",
           "neutral_rank": 2,
           "final_rank": 2,
           "neutral_score": 0.96,
@@ -469,6 +531,7 @@
         },
         {
           "lemma": "言う",
+          "target_key": "言う",
           "neutral_rank": 3,
           "final_rank": 3,
           "neutral_score": 0.9,
@@ -485,6 +548,7 @@
         },
         {
           "lemma": "会社",
+          "target_key": "会社",
           "neutral_rank": 6,
           "final_rank": 4,
           "neutral_score": 0.8,
@@ -501,6 +565,7 @@
         },
         {
           "lemma": "犬",
+          "target_key": "犬",
           "neutral_rank": 4,
           "final_rank": 5,
           "neutral_score": 0.84,
@@ -517,6 +582,7 @@
         },
         {
           "lemma": "猫",
+          "target_key": "猫",
           "neutral_rank": 5,
           "final_rank": 6,
           "neutral_score": 0.82,
@@ -533,6 +599,7 @@
         },
         {
           "lemma": "料理",
+          "target_key": "料理",
           "neutral_rank": 7,
           "final_rank": 7,
           "neutral_score": 0.64,
@@ -549,6 +616,7 @@
         },
         {
           "lemma": "野菜",
+          "target_key": "野菜",
           "neutral_rank": 8,
           "final_rank": 8,
           "neutral_score": 0.62,
@@ -565,6 +633,7 @@
         },
         {
           "lemma": "病院",
+          "target_key": "病院",
           "neutral_rank": 9,
           "final_rank": 9,
           "neutral_score": 0.6,
@@ -581,6 +650,7 @@
         },
         {
           "lemma": "診断",
+          "target_key": "診断",
           "neutral_rank": 10,
           "final_rank": 10,
           "neutral_score": 0.58,
@@ -597,6 +667,7 @@
         },
         {
           "lemma": "治療",
+          "target_key": "治療",
           "neutral_rank": 11,
           "final_rank": 11,
           "neutral_score": 0.56,
@@ -613,6 +684,7 @@
         },
         {
           "lemma": "旅行",
+          "target_key": "旅行",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
@@ -669,6 +741,7 @@
       "rows": [
         {
           "lemma": "する",
+          "target_key": "する",
           "neutral_rank": 1,
           "final_rank": 1,
           "neutral_score": 1.0,
@@ -685,6 +758,7 @@
         },
         {
           "lemma": "いる",
+          "target_key": "いる",
           "neutral_rank": 2,
           "final_rank": 2,
           "neutral_score": 0.96,
@@ -701,6 +775,7 @@
         },
         {
           "lemma": "言う",
+          "target_key": "言う",
           "neutral_rank": 3,
           "final_rank": 3,
           "neutral_score": 0.9,
@@ -717,6 +792,7 @@
         },
         {
           "lemma": "会社",
+          "target_key": "会社",
           "neutral_rank": 6,
           "final_rank": 4,
           "neutral_score": 0.8,
@@ -733,6 +809,7 @@
         },
         {
           "lemma": "犬",
+          "target_key": "犬",
           "neutral_rank": 4,
           "final_rank": 5,
           "neutral_score": 0.84,
@@ -749,6 +826,7 @@
         },
         {
           "lemma": "猫",
+          "target_key": "猫",
           "neutral_rank": 5,
           "final_rank": 6,
           "neutral_score": 0.82,
@@ -765,6 +843,7 @@
         },
         {
           "lemma": "料理",
+          "target_key": "料理",
           "neutral_rank": 7,
           "final_rank": 7,
           "neutral_score": 0.64,
@@ -781,6 +860,7 @@
         },
         {
           "lemma": "野菜",
+          "target_key": "野菜",
           "neutral_rank": 8,
           "final_rank": 8,
           "neutral_score": 0.62,
@@ -797,6 +877,7 @@
         },
         {
           "lemma": "病院",
+          "target_key": "病院",
           "neutral_rank": 9,
           "final_rank": 9,
           "neutral_score": 0.6,
@@ -813,6 +894,7 @@
         },
         {
           "lemma": "診断",
+          "target_key": "診断",
           "neutral_rank": 10,
           "final_rank": 10,
           "neutral_score": 0.58,
@@ -829,6 +911,7 @@
         },
         {
           "lemma": "治療",
+          "target_key": "治療",
           "neutral_rank": 11,
           "final_rank": 11,
           "neutral_score": 0.56,
@@ -845,6 +928,7 @@
         },
         {
           "lemma": "旅行",
+          "target_key": "旅行",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,

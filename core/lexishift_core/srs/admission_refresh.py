@@ -12,6 +12,7 @@ from lexishift_core.srs.browsing_admission import (
     BrowsingAdmissionSimulationResult,
     BrowsingSignalIngestPolicy,
     BrowsingSignalStore,
+    build_browsing_target_key,
     simulate_browsing_admission_presets,
 )
 from lexishift_core.srs.growth import SrsGrowthConfig, grow_srs_store, plan_srs_growth
@@ -671,13 +672,38 @@ def _count_blocked_by_lifecycle(
 
 def _browsing_candidate_from_scored(entry) -> BrowsingAdmissionCandidate:
     metadata = entry.candidate.metadata if isinstance(entry.candidate.metadata, Mapping) else {}
+    target_reading = _candidate_target_reading(metadata)
+    target_key = build_browsing_target_key(
+        target_lemma=entry.candidate.lemma,
+        target_reading=target_reading,
+        target_key=metadata.get("browsing_target_key") or metadata.get("target_key"),
+    )
     return BrowsingAdmissionCandidate(
         lemma=entry.candidate.lemma,
+        target_key=target_key,
+        target_reading=target_reading,
         neutral_score=max(0.0, float(entry.breakdown.final_score)),
         readiness_multiplier=_safe_signal_float(metadata.get("readiness_multiplier"), default=1.0),
         explicit_preference_fit=max(0.0, float(entry.candidate.topic_bias)),
         source_confidence=max(0.0, float(entry.candidate.confidence or 0.0)) or 1.0,
     )
+
+
+def _candidate_target_reading(metadata: Mapping[str, object]) -> str:
+    explicit = str(
+        metadata.get("target_reading") or metadata.get("reading") or metadata.get("lform_raw") or ""
+    ).strip()
+    if explicit:
+        return explicit
+    word_package = metadata.get("word_package")
+    if isinstance(word_package, Mapping):
+        return str(
+            word_package.get("reading")
+            or word_package.get("lform_raw")
+            or word_package.get("surface")
+            or ""
+        ).strip()
+    return ""
 
 
 def _simulation_preview(

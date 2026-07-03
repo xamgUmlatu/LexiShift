@@ -24,6 +24,7 @@ from lexishift_core.srs.browsing_admission import (  # noqa: E402
     BrowsingSignalPacket,
     BrowsingSignalPacketEntry,
     BrowsingSignalStore,
+    build_browsing_target_key,
     browsing_signal_value,
     browsing_strength_presets,
     ingest_browsing_signal_packet,
@@ -285,6 +286,101 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
         self.assertEqual(off["selected_lemmas"], off["neutral_selected_lemmas"])
         self.assertGreater(strong["browsing_lane_count"], off["browsing_lane_count"])
         self.assertIn("料理", strong["selected_lemmas"])
+
+    def test_en_ja_target_key_prevents_wrong_reading_boost(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "辛い|からい": BrowsingSignalAggregate(
+                    target_lemma="辛い",
+                    target_key="辛い|からい",
+                    target_reading="からい",
+                    target_hit_count=80.0,
+                    reading_confidence=1.0,
+                ),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="ある", neutral_score=1.00),
+            BrowsingAdmissionCandidate(lemma="こと", neutral_score=0.96),
+            BrowsingAdmissionCandidate(
+                lemma="辛い",
+                target_key="辛い|つらい",
+                target_reading="つらい",
+                neutral_score=0.58,
+            ),
+        )
+
+        results = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=2,
+        )
+        rows = {
+            row["target_key"]: row for row in results[BROWSING_STRENGTH_STRONG].to_dict()["rows"]
+        }
+
+        self.assertEqual(rows["辛い|つらい"]["browsing_signal"], 0.0)
+        self.assertNotIn("辛い", results[BROWSING_STRENGTH_STRONG].to_dict()["selected_lemmas"])
+
+    def test_en_ja_exact_reading_key_can_boost_matching_candidate(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "辛い|つらい": BrowsingSignalAggregate(
+                    target_lemma="辛い",
+                    target_key="辛い|つらい",
+                    target_reading="つらい",
+                    target_hit_count=80.0,
+                    reading_confidence=1.0,
+                ),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="ある", neutral_score=1.00),
+            BrowsingAdmissionCandidate(lemma="こと", neutral_score=0.96),
+            BrowsingAdmissionCandidate(
+                lemma="辛い",
+                target_key="辛い|つらい",
+                target_reading="つらい",
+                neutral_score=0.58,
+            ),
+        )
+
+        results = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=2,
+        )
+        strong = results[BROWSING_STRENGTH_STRONG].to_dict()
+        rows = {row["target_key"]: row for row in strong["rows"]}
+
+        self.assertGreater(rows["辛い|つらい"]["browsing_signal"], 0.0)
+        self.assertIn("辛い", strong["selected_lemmas"])
+
+    def test_reading_confidence_dampens_vague_target_surface_observation(self) -> None:
+        exact = BrowsingSignalAggregate(
+            target_lemma="辛い",
+            target_key="辛い|つらい",
+            target_reading="つらい",
+            target_hit_count=8.0,
+            reading_confidence=1.0,
+        )
+        vague = BrowsingSignalAggregate(
+            target_lemma="辛い",
+            target_key="辛い|つらい",
+            target_reading="つらい",
+            target_hit_count=8.0,
+            reading_confidence=0.25,
+        )
+
+        self.assertEqual(
+            build_browsing_target_key(target_lemma="辛い", target_reading="つらい"),
+            "辛い|つらい",
+        )
+        self.assertLess(browsing_signal_value(vague), browsing_signal_value(exact))
 
     def test_probability_preview_reports_weighted_and_deterministic_shapes(self) -> None:
         policy = BrowsingSignalIngestPolicy()

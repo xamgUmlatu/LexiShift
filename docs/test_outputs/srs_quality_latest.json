@@ -621,6 +621,7 @@
               "rows": [
                 {
                   "lemma": "jaabo",
+                  "target_key": "jaabo",
                   "neutral_rank": 1,
                   "final_rank": 1,
                   "neutral_score": 0.014098,
@@ -633,10 +634,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.296571,
-                  "approximate_selection_probability": 0.296571
+                  "approximate_selection_probability": 0.296571,
+                  "target_reading": "jaabo"
                 },
                 {
                   "lemma": "jaabp",
+                  "target_key": "jaabp",
                   "neutral_rank": 2,
                   "final_rank": 2,
                   "neutral_score": 0.013963,
@@ -649,10 +652,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.294204,
-                  "approximate_selection_probability": 0.294204
+                  "approximate_selection_probability": 0.294204,
+                  "target_reading": "jaabp"
                 },
                 {
                   "lemma": "jaabq",
+                  "target_key": "jaabq",
                   "neutral_rank": 3,
                   "final_rank": 3,
                   "neutral_score": 0.013824,
@@ -665,10 +670,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.291748,
-                  "approximate_selection_probability": 0.291748
+                  "approximate_selection_probability": 0.291748,
+                  "target_reading": "jaabq"
                 },
                 {
                   "lemma": "jaabr",
+                  "target_key": "jaabr",
                   "neutral_rank": 4,
                   "final_rank": 4,
                   "neutral_score": 0.01368,
@@ -681,10 +688,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.289198,
-                  "approximate_selection_probability": 0.289198
+                  "approximate_selection_probability": 0.289198,
+                  "target_reading": "jaabr"
                 },
                 {
                   "lemma": "jaabs",
+                  "target_key": "jaabs",
                   "neutral_rank": 5,
                   "final_rank": 5,
                   "neutral_score": 0.013531,
@@ -697,10 +706,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.286545,
-                  "approximate_selection_probability": 0.286545
+                  "approximate_selection_probability": 0.286545,
+                  "target_reading": "jaabs"
                 },
                 {
                   "lemma": "jaabt",
+                  "target_key": "jaabt",
                   "neutral_rank": 6,
                   "final_rank": 6,
                   "neutral_score": 0.013376,
@@ -713,10 +724,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.283781,
-                  "approximate_selection_probability": 0.283781
+                  "approximate_selection_probability": 0.283781,
+                  "target_reading": "jaabt"
                 },
                 {
                   "lemma": "jaabu",
+                  "target_key": "jaabu",
                   "neutral_rank": 7,
                   "final_rank": 7,
                   "neutral_score": 0.013215,
@@ -729,10 +742,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.280897,
-                  "approximate_selection_probability": 0.280897
+                  "approximate_selection_probability": 0.280897,
+                  "target_reading": "jaabu"
                 },
                 {
                   "lemma": "jaabv",
+                  "target_key": "jaabv",
                   "neutral_rank": 8,
                   "final_rank": 8,
                   "neutral_score": 0.013047,
@@ -745,10 +760,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.277884,
-                  "approximate_selection_probability": 0.277884
+                  "approximate_selection_probability": 0.277884,
+                  "target_reading": "jaabv"
                 },
                 {
                   "lemma": "jaabw",
+                  "target_key": "jaabw",
                   "neutral_rank": 9,
                   "final_rank": 9,
                   "neutral_score": 0.012872,
@@ -761,10 +778,12 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.274729,
-                  "approximate_selection_probability": 0.274729
+                  "approximate_selection_probability": 0.274729,
+                  "target_reading": "jaabw"
                 },
                 {
                   "lemma": "jaabx",
+                  "target_key": "jaabx",
                   "neutral_rank": 10,
                   "final_rank": 10,
                   "neutral_score": 0.01269,
@@ -777,7 +796,8 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.271418,
-                  "approximate_selection_probability": 0.271418
+                  "approximate_selection_probability": 0.271418,
+                  "target_reading": "jaabx"
                 }
               ],
               "row_count": 30,
@@ -826,6 +846,7 @@
               "rows": [
                 {
                   "lemma": "jaabw",
+                  "target_key": "jaabw",
                   "neutral_rank": 9,
                   "final_rank": 1,
                   "neutral_score": 0.012872,
@@ -838,10 +859,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.395929,
                   "general_lane_probability": 0.245016,
-                  "approximate_selection_probability": 0.543936
+                  "approximate_selection_probability": 0.543936,
+                  "target_reading": "jaabw"
                 },
                 {
                   "lemma": "jaabo",
+                  "target_key": "jaabo",
                   "neutral_rank": 1,
                   "final_rank": 3,
                   "neutral_score": 0.014098,
@@ -854,10 +877,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.264948,
-                  "approximate_selection_probability": 0.264948
+                  "approximate_selection_probability": 0.264948,
+                  "target_reading": "jaabo"
                 },
                 {
                   "lemma": "jaabp",
+                  "target_key": "jaabp",
                   "neutral_rank": 2,
                   "final_rank": 4,
                   "neutral_score": 0.013963,
@@ -870,10 +895,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.262785,
-                  "approximate_selection_probability": 0.262785
+                  "approximate_selection_probability": 0.262785,
+                  "target_reading": "jaabp"
                 },
                 {
                   "lemma": "jaabq",
+                  "target_key": "jaabq",
                   "neutral_rank": 3,
                   "final_rank": 5,
                   "neutral_score": 0.013824,
@@ -886,10 +913,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.260541,
-                  "approximate_selection_probability": 0.260541
+                  "approximate_selection_probability": 0.260541,
+                  "target_reading": "jaabq"
                 },
                 {
                   "lemma": "jaabr",
+                  "target_key": "jaabr",
                   "neutral_rank": 4,
                   "final_rank": 6,
                   "neutral_score": 0.01368,
@@ -902,10 +931,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.258211,
-                  "approximate_selection_probability": 0.258211
+                  "approximate_selection_probability": 0.258211,
+                  "target_reading": "jaabr"
                 },
                 {
                   "lemma": "jaabs",
+                  "target_key": "jaabs",
                   "neutral_rank": 5,
                   "final_rank": 7,
                   "neutral_score": 0.013531,
@@ -918,10 +949,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.255789,
-                  "approximate_selection_probability": 0.255789
+                  "approximate_selection_probability": 0.255789,
+                  "target_reading": "jaabs"
                 },
                 {
                   "lemma": "jaabt",
+                  "target_key": "jaabt",
                   "neutral_rank": 6,
                   "final_rank": 8,
                   "neutral_score": 0.013376,
@@ -934,10 +967,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.253267,
-                  "approximate_selection_probability": 0.253267
+                  "approximate_selection_probability": 0.253267,
+                  "target_reading": "jaabt"
                 },
                 {
                   "lemma": "jaabu",
+                  "target_key": "jaabu",
                   "neutral_rank": 7,
                   "final_rank": 9,
                   "neutral_score": 0.013215,
@@ -950,10 +985,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.250637,
-                  "approximate_selection_probability": 0.250637
+                  "approximate_selection_probability": 0.250637,
+                  "target_reading": "jaabu"
                 },
                 {
                   "lemma": "jaabx",
+                  "target_key": "jaabx",
                   "neutral_rank": 10,
                   "final_rank": 2,
                   "neutral_score": 0.01269,
@@ -966,10 +1003,12 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.391,
                   "general_lane_probability": 0.242001,
-                  "approximate_selection_probability": 0.538378
+                  "approximate_selection_probability": 0.538378,
+                  "target_reading": "jaabx"
                 },
                 {
                   "lemma": "jaabv",
+                  "target_key": "jaabv",
                   "neutral_rank": 8,
                   "final_rank": 10,
                   "neutral_score": 0.013047,
@@ -982,7 +1021,8 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.24789,
-                  "approximate_selection_probability": 0.24789
+                  "approximate_selection_probability": 0.24789,
+                  "target_reading": "jaabv"
                 }
               ],
               "row_count": 30,
@@ -1031,6 +1071,7 @@
               "rows": [
                 {
                   "lemma": "jaabw",
+                  "target_key": "jaabw",
                   "neutral_rank": 9,
                   "final_rank": 1,
                   "neutral_score": 0.012872,
@@ -1043,10 +1084,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.635382,
                   "general_lane_probability": 0.214085,
-                  "approximate_selection_probability": 0.713441
+                  "approximate_selection_probability": 0.713441,
+                  "target_reading": "jaabw"
                 },
                 {
                   "lemma": "jaabx",
+                  "target_key": "jaabx",
                   "neutral_rank": 10,
                   "final_rank": 2,
                   "neutral_score": 0.01269,
@@ -1059,10 +1102,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.62883,
                   "general_lane_probability": 0.211397,
-                  "approximate_selection_probability": 0.707294
+                  "approximate_selection_probability": 0.707294,
+                  "target_reading": "jaabx"
                 },
                 {
                   "lemma": "jaabo",
+                  "target_key": "jaabo",
                   "neutral_rank": 1,
                   "final_rank": 3,
                   "neutral_score": 0.014098,
@@ -1075,10 +1120,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.231904,
-                  "approximate_selection_probability": 0.231904
+                  "approximate_selection_probability": 0.231904,
+                  "target_reading": "jaabo"
                 },
                 {
                   "lemma": "jaabp",
+                  "target_key": "jaabp",
                   "neutral_rank": 2,
                   "final_rank": 4,
                   "neutral_score": 0.013963,
@@ -1091,10 +1138,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.229967,
-                  "approximate_selection_probability": 0.229967
+                  "approximate_selection_probability": 0.229967,
+                  "target_reading": "jaabp"
                 },
                 {
                   "lemma": "jaabq",
+                  "target_key": "jaabq",
                   "neutral_rank": 3,
                   "final_rank": 5,
                   "neutral_score": 0.013824,
@@ -1107,10 +1156,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.227958,
-                  "approximate_selection_probability": 0.227958
+                  "approximate_selection_probability": 0.227958,
+                  "target_reading": "jaabq"
                 },
                 {
                   "lemma": "jaabr",
+                  "target_key": "jaabr",
                   "neutral_rank": 4,
                   "final_rank": 6,
                   "neutral_score": 0.01368,
@@ -1123,10 +1174,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.225874,
-                  "approximate_selection_probability": 0.225874
+                  "approximate_selection_probability": 0.225874,
+                  "target_reading": "jaabr"
                 },
                 {
                   "lemma": "jaabs",
+                  "target_key": "jaabs",
                   "neutral_rank": 5,
                   "final_rank": 7,
                   "neutral_score": 0.013531,
@@ -1139,10 +1192,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.223708,
-                  "approximate_selection_probability": 0.223708
+                  "approximate_selection_probability": 0.223708,
+                  "target_reading": "jaabs"
                 },
                 {
                   "lemma": "jaabt",
+                  "target_key": "jaabt",
                   "neutral_rank": 6,
                   "final_rank": 8,
                   "neutral_score": 0.013376,
@@ -1155,10 +1210,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.221454,
-                  "approximate_selection_probability": 0.221454
+                  "approximate_selection_probability": 0.221454,
+                  "target_reading": "jaabt"
                 },
                 {
                   "lemma": "jaabu",
+                  "target_key": "jaabu",
                   "neutral_rank": 7,
                   "final_rank": 9,
                   "neutral_score": 0.013215,
@@ -1171,10 +1228,12 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.219104,
-                  "approximate_selection_probability": 0.219104
+                  "approximate_selection_probability": 0.219104,
+                  "target_reading": "jaabu"
                 },
                 {
                   "lemma": "jaabv",
+                  "target_key": "jaabv",
                   "neutral_rank": 8,
                   "final_rank": 10,
                   "neutral_score": 0.013047,
@@ -1187,7 +1246,8 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.216651,
-                  "approximate_selection_probability": 0.216651
+                  "approximate_selection_probability": 0.216651,
+                  "target_reading": "jaabv"
                 }
               ],
               "row_count": 30,
@@ -2461,6 +2521,7 @@
               "rows": [
                 {
                   "lemma": "deabo",
+                  "target_key": "deabo",
                   "neutral_rank": 1,
                   "final_rank": 1,
                   "neutral_score": 0.04028,
@@ -2473,10 +2534,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.296571,
-                  "approximate_selection_probability": 0.296571
+                  "approximate_selection_probability": 0.296571,
+                  "target_reading": "deabo"
                 },
                 {
                   "lemma": "deabp",
+                  "target_key": "deabp",
                   "neutral_rank": 2,
                   "final_rank": 2,
                   "neutral_score": 0.039895,
@@ -2489,10 +2552,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.294204,
-                  "approximate_selection_probability": 0.294204
+                  "approximate_selection_probability": 0.294204,
+                  "target_reading": "deabp"
                 },
                 {
                   "lemma": "deabq",
+                  "target_key": "deabq",
                   "neutral_rank": 3,
                   "final_rank": 3,
                   "neutral_score": 0.039497,
@@ -2505,10 +2570,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.291748,
-                  "approximate_selection_probability": 0.291748
+                  "approximate_selection_probability": 0.291748,
+                  "target_reading": "deabq"
                 },
                 {
                   "lemma": "deabr",
+                  "target_key": "deabr",
                   "neutral_rank": 4,
                   "final_rank": 4,
                   "neutral_score": 0.039086,
@@ -2521,10 +2588,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.289198,
-                  "approximate_selection_probability": 0.289198
+                  "approximate_selection_probability": 0.289198,
+                  "target_reading": "deabr"
                 },
                 {
                   "lemma": "deabs",
+                  "target_key": "deabs",
                   "neutral_rank": 5,
                   "final_rank": 5,
                   "neutral_score": 0.038659,
@@ -2537,10 +2606,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.286545,
-                  "approximate_selection_probability": 0.286545
+                  "approximate_selection_probability": 0.286545,
+                  "target_reading": "deabs"
                 },
                 {
                   "lemma": "deabt",
+                  "target_key": "deabt",
                   "neutral_rank": 6,
                   "final_rank": 6,
                   "neutral_score": 0.038217,
@@ -2553,10 +2624,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.283781,
-                  "approximate_selection_probability": 0.283781
+                  "approximate_selection_probability": 0.283781,
+                  "target_reading": "deabt"
                 },
                 {
                   "lemma": "deabu",
+                  "target_key": "deabu",
                   "neutral_rank": 7,
                   "final_rank": 7,
                   "neutral_score": 0.037756,
@@ -2569,10 +2642,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.280897,
-                  "approximate_selection_probability": 0.280897
+                  "approximate_selection_probability": 0.280897,
+                  "target_reading": "deabu"
                 },
                 {
                   "lemma": "deabv",
+                  "target_key": "deabv",
                   "neutral_rank": 8,
                   "final_rank": 8,
                   "neutral_score": 0.037278,
@@ -2585,10 +2660,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.277884,
-                  "approximate_selection_probability": 0.277884
+                  "approximate_selection_probability": 0.277884,
+                  "target_reading": "deabv"
                 },
                 {
                   "lemma": "deabw",
+                  "target_key": "deabw",
                   "neutral_rank": 9,
                   "final_rank": 9,
                   "neutral_score": 0.036778,
@@ -2601,10 +2678,12 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.274729,
-                  "approximate_selection_probability": 0.274729
+                  "approximate_selection_probability": 0.274729,
+                  "target_reading": "deabw"
                 },
                 {
                   "lemma": "deabx",
+                  "target_key": "deabx",
                   "neutral_rank": 10,
                   "final_rank": 10,
                   "neutral_score": 0.036257,
@@ -2617,7 +2696,8 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.271418,
-                  "approximate_selection_probability": 0.271418
+                  "approximate_selection_probability": 0.271418,
+                  "target_reading": "deabx"
                 }
               ],
               "row_count": 30,
@@ -2666,6 +2746,7 @@
               "rows": [
                 {
                   "lemma": "deabw",
+                  "target_key": "deabw",
                   "neutral_rank": 9,
                   "final_rank": 1,
                   "neutral_score": 0.036778,
@@ -2678,10 +2759,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.395929,
                   "general_lane_probability": 0.245016,
-                  "approximate_selection_probability": 0.543936
+                  "approximate_selection_probability": 0.543936,
+                  "target_reading": "deabw"
                 },
                 {
                   "lemma": "deabo",
+                  "target_key": "deabo",
                   "neutral_rank": 1,
                   "final_rank": 3,
                   "neutral_score": 0.04028,
@@ -2694,10 +2777,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.264948,
-                  "approximate_selection_probability": 0.264948
+                  "approximate_selection_probability": 0.264948,
+                  "target_reading": "deabo"
                 },
                 {
                   "lemma": "deabp",
+                  "target_key": "deabp",
                   "neutral_rank": 2,
                   "final_rank": 4,
                   "neutral_score": 0.039895,
@@ -2710,10 +2795,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.262785,
-                  "approximate_selection_probability": 0.262785
+                  "approximate_selection_probability": 0.262785,
+                  "target_reading": "deabp"
                 },
                 {
                   "lemma": "deabq",
+                  "target_key": "deabq",
                   "neutral_rank": 3,
                   "final_rank": 5,
                   "neutral_score": 0.039497,
@@ -2726,10 +2813,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.260541,
-                  "approximate_selection_probability": 0.260541
+                  "approximate_selection_probability": 0.260541,
+                  "target_reading": "deabq"
                 },
                 {
                   "lemma": "deabr",
+                  "target_key": "deabr",
                   "neutral_rank": 4,
                   "final_rank": 6,
                   "neutral_score": 0.039086,
@@ -2742,10 +2831,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.258211,
-                  "approximate_selection_probability": 0.258211
+                  "approximate_selection_probability": 0.258211,
+                  "target_reading": "deabr"
                 },
                 {
                   "lemma": "deabs",
+                  "target_key": "deabs",
                   "neutral_rank": 5,
                   "final_rank": 7,
                   "neutral_score": 0.038659,
@@ -2758,10 +2849,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.255789,
-                  "approximate_selection_probability": 0.255789
+                  "approximate_selection_probability": 0.255789,
+                  "target_reading": "deabs"
                 },
                 {
                   "lemma": "deabt",
+                  "target_key": "deabt",
                   "neutral_rank": 6,
                   "final_rank": 8,
                   "neutral_score": 0.038217,
@@ -2774,10 +2867,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.253267,
-                  "approximate_selection_probability": 0.253267
+                  "approximate_selection_probability": 0.253267,
+                  "target_reading": "deabt"
                 },
                 {
                   "lemma": "deabu",
+                  "target_key": "deabu",
                   "neutral_rank": 7,
                   "final_rank": 9,
                   "neutral_score": 0.037756,
@@ -2790,10 +2885,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.250637,
-                  "approximate_selection_probability": 0.250637
+                  "approximate_selection_probability": 0.250637,
+                  "target_reading": "deabu"
                 },
                 {
                   "lemma": "deabx",
+                  "target_key": "deabx",
                   "neutral_rank": 10,
                   "final_rank": 2,
                   "neutral_score": 0.036257,
@@ -2806,10 +2903,12 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.391,
                   "general_lane_probability": 0.242001,
-                  "approximate_selection_probability": 0.538378
+                  "approximate_selection_probability": 0.538378,
+                  "target_reading": "deabx"
                 },
                 {
                   "lemma": "deabv",
+                  "target_key": "deabv",
                   "neutral_rank": 8,
                   "final_rank": 10,
                   "neutral_score": 0.037278,
@@ -2822,7 +2921,8 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.24789,
-                  "approximate_selection_probability": 0.24789
+                  "approximate_selection_probability": 0.24789,
+                  "target_reading": "deabv"
                 }
               ],
               "row_count": 30,
@@ -2871,6 +2971,7 @@
               "rows": [
                 {
                   "lemma": "deabw",
+                  "target_key": "deabw",
                   "neutral_rank": 9,
                   "final_rank": 1,
                   "neutral_score": 0.036778,
@@ -2883,10 +2984,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.635382,
                   "general_lane_probability": 0.214085,
-                  "approximate_selection_probability": 0.713441
+                  "approximate_selection_probability": 0.713441,
+                  "target_reading": "deabw"
                 },
                 {
                   "lemma": "deabx",
+                  "target_key": "deabx",
                   "neutral_rank": 10,
                   "final_rank": 2,
                   "neutral_score": 0.036257,
@@ -2899,10 +3002,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.62883,
                   "general_lane_probability": 0.211397,
-                  "approximate_selection_probability": 0.707294
+                  "approximate_selection_probability": 0.707294,
+                  "target_reading": "deabx"
                 },
                 {
                   "lemma": "deabo",
+                  "target_key": "deabo",
                   "neutral_rank": 1,
                   "final_rank": 3,
                   "neutral_score": 0.04028,
@@ -2915,10 +3020,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.231904,
-                  "approximate_selection_probability": 0.231904
+                  "approximate_selection_probability": 0.231904,
+                  "target_reading": "deabo"
                 },
                 {
                   "lemma": "deabp",
+                  "target_key": "deabp",
                   "neutral_rank": 2,
                   "final_rank": 4,
                   "neutral_score": 0.039895,
@@ -2931,10 +3038,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.229967,
-                  "approximate_selection_probability": 0.229967
+                  "approximate_selection_probability": 0.229967,
+                  "target_reading": "deabp"
                 },
                 {
                   "lemma": "deabq",
+                  "target_key": "deabq",
                   "neutral_rank": 3,
                   "final_rank": 5,
                   "neutral_score": 0.039497,
@@ -2947,10 +3056,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.227958,
-                  "approximate_selection_probability": 0.227958
+                  "approximate_selection_probability": 0.227958,
+                  "target_reading": "deabq"
                 },
                 {
                   "lemma": "deabr",
+                  "target_key": "deabr",
                   "neutral_rank": 4,
                   "final_rank": 6,
                   "neutral_score": 0.039086,
@@ -2963,10 +3074,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.225874,
-                  "approximate_selection_probability": 0.225874
+                  "approximate_selection_probability": 0.225874,
+                  "target_reading": "deabr"
                 },
                 {
                   "lemma": "deabs",
+                  "target_key": "deabs",
                   "neutral_rank": 5,
                   "final_rank": 7,
                   "neutral_score": 0.038659,
@@ -2979,10 +3092,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.223708,
-                  "approximate_selection_probability": 0.223708
+                  "approximate_selection_probability": 0.223708,
+                  "target_reading": "deabs"
                 },
                 {
                   "lemma": "deabt",
+                  "target_key": "deabt",
                   "neutral_rank": 6,
                   "final_rank": 8,
                   "neutral_score": 0.038217,
@@ -2995,10 +3110,12 @@
                   "deterministic_selection_probability": 1.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.221454,
-                  "approximate_selection_probability": 0.221454
+                  "approximate_selection_probability": 0.221454,
+                  "target_reading": "deabt"
                 },
                 {
                   "lemma": "deabu",
+                  "target_key": "deabu",
                   "neutral_rank": 7,
                   "final_rank": 9,
                   "neutral_score": 0.037756,
@@ -3011,10 +3128,12 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.219104,
-                  "approximate_selection_probability": 0.219104
+                  "approximate_selection_probability": 0.219104,
+                  "target_reading": "deabu"
                 },
                 {
                   "lemma": "deabv",
+                  "target_key": "deabv",
                   "neutral_rank": 8,
                   "final_rank": 10,
                   "neutral_score": 0.037278,
@@ -3027,7 +3146,8 @@
                   "deterministic_selection_probability": 0.0,
                   "browsing_lane_probability": 0.0,
                   "general_lane_probability": 0.216651,
-                  "approximate_selection_probability": 0.216651
+                  "approximate_selection_probability": 0.216651,
+                  "target_reading": "deabv"
                 }
               ],
               "row_count": 30,

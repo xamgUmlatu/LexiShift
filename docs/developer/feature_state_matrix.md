@@ -1755,13 +1755,16 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-31` active-rotation release now parks
-  mature review words out of full active inventories before refresh capacity is
+- Last documented checkpoint: `2026-07-03` reading-aware browsing aggregates
+  now use a target-key structure carrying lemma, optional reading, confidence,
+  and observation-source metadata while preserving the opt-in, preview-only
+  behavior. Earlier `2026-05-31` active-rotation release now parks mature
+  review words out of full active inventories before refresh capacity is
   calculated, and reset treats the helper signal queue as story-scoped
-  lifecycle state; pair reset removes that pair's
-  feedback/exposure events and all-story reset removes the queue file. This
-  extends the `2026-05-27` SRS lifecycle, active-budget, stale-unseen capacity,
-  and manual refresh diagnostics update:
+  lifecycle state; pair reset removes that pair's feedback/exposure events and
+  all-story reset removes the queue file. This extends the `2026-05-27` SRS
+  lifecycle, active-budget, stale-unseen capacity, and manual refresh
+  diagnostics update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
@@ -1837,9 +1840,10 @@ Use this file when:
   - The preview uses fractional small-budget realization so `Balanced` can show
     one browsing lane when signal pressure is meaningful, while actual persisted
     admission remains neutral.
-  - The helper ingest path requires explicit opt-in and stores bounded target
-    lemma aggregates only; URLs, raw page text, HTML, and context text are
-    ignored.
+  - The helper ingest path requires explicit opt-in and stores bounded target-key
+    aggregates only. Aggregates can carry `target_lemma`, `target_reading`,
+    per-channel counts, observation-source metadata, and reading confidence, but
+    URLs, raw page text, HTML, and context text are ignored.
   - The extension packet builder currently captures replacement exposures only,
     not arbitrary page words. It sanitizes observations before queueing helper
     packets.

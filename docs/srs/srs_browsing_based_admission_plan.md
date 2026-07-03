@@ -446,6 +446,41 @@ Current prototype evidence:
   `Balanced` at count `0.5`; replacement-exposure signals are weaker as
   intended, first affecting `Balanced` at count `2`.
 
+## Aggregate Shape
+
+Browsing aggregates are keyed by target identity, not by raw page text. The
+current persisted shape is:
+
+```json
+{
+  "target_key": "辛い|つらい",
+  "target_lemma": "辛い",
+  "target_reading": "つらい",
+  "source_hit_count": 0.0,
+  "target_hit_count": 4.0,
+  "replacement_exposure_count": 0.0,
+  "source_mapping_confidence": 1.0,
+  "reading_confidence": 0.6,
+  "observation_sources": ["target_surface"],
+  "last_seen_at": "2026-05-23T00:00:00Z",
+  "decayed_at": "2026-05-23T00:00:00Z"
+}
+```
+
+Notes:
+
+- `target_key` is the admission join key. For en-ja, the preferred semantic key
+  is `surface|reading` when reading is known, such as `辛い|つらい`. LPs that do
+  not need reading disambiguation can use the lemma as the key.
+- `target_lemma` and `target_reading` are metadata/debug fields, not the primary
+  join contract.
+- Replacement exposure is exact when LexiShift already knows the admitted target
+  item. Source-language observations are dictionary-mapped and confidence
+  weighted. Target-language surface observations can use a most-common-reading
+  heuristic, but should set `reading_confidence < 1.0` when reading is inferred.
+- Legacy lemma-only stores remain readable. If no `target_key` exists, the
+  loader falls back to `target_lemma`.
+
 ## Probability Model
 
 Browsing should create a smooth, saturating, bounded boost.
@@ -454,10 +489,16 @@ For candidate `i`:
 
 ```text
 raw_browsing_i =
-  source_hit_count_i * source_mapping_confidence_i
-  + target_hit_count_i
-  + replacement_exposure_count_i * replacement_exposure_weight
+  reading_confidence_i
+  * (
+      source_hit_count_i
+      + target_hit_count_i
+      + replacement_exposure_count_i * replacement_exposure_weight
+    )
 ```
+
+`source_hit_count` is already weighted by `source_mapping_confidence` during
+ingest; the confidence value is retained for audit/debug output.
 
 Normalize with a saturating function:
 

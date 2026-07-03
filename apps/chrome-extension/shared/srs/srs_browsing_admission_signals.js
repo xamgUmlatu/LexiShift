@@ -20,6 +20,30 @@
     return String(value || "").trim().toLowerCase();
   }
 
+  function normalizeTargetMetadata(value) {
+    return String(value || "").trim();
+  }
+
+  function targetKeyForExposure(lemma, exposure) {
+    const explicitKey = normalizeTargetMetadata(
+      exposure.target_key
+        || exposure.targetKey
+        || exposure.browsing_target_key
+        || exposure.browsingTargetKey
+        || ""
+    );
+    if (explicitKey) {
+      return explicitKey;
+    }
+    const reading = normalizeTargetMetadata(
+      exposure.target_reading || exposure.targetReading || exposure.reading || ""
+    );
+    if (lemma && reading && reading !== lemma) {
+      return `${lemma}|${reading}`;
+    }
+    return lemma;
+  }
+
   function isEnabled(settings) {
     return Boolean(settings && settings.srsBrowsingAdmissionSignalsEnabled === true);
   }
@@ -43,6 +67,13 @@
       if (!pair || pair === "all" || !lemma) {
         continue;
       }
+      const targetKey = targetKeyForExposure(lemma, exposure);
+      const targetReading = normalizeTargetMetadata(
+        exposure.target_reading || exposure.targetReading || exposure.reading || ""
+      );
+      const readingConfidence = Number(
+        exposure.reading_confidence ?? exposure.readingConfidence ?? 1
+      );
       const scopeKey = `${profileId}\t${pair}`;
       if (!pendingByScope.has(scopeKey)) {
         if (pendingByScope.size >= maxScopes) {
@@ -51,12 +82,32 @@
         pendingByScope.set(scopeKey, {
           pair,
           profileId,
-          lemmas: new Map()
+          targets: new Map()
         });
       }
       const scope = pendingByScope.get(scopeKey);
-      const previous = Number(scope.lemmas.get(lemma) || 0);
-      scope.lemmas.set(lemma, Math.min(maxCountPerSignal, previous + 1));
+      const previous = scope.targets.get(targetKey) || {
+        target_key: targetKey,
+        target_lemma: lemma,
+        target_reading: targetReading,
+        reading_confidence: Number.isFinite(readingConfidence) ? readingConfidence : 1,
+        count: 0
+      };
+      previous.count = Math.min(maxCountPerSignal, Number(previous.count || 0) + 1);
+      if (!previous.target_reading && targetReading) {
+        previous.target_reading = targetReading;
+      }
+      previous.reading_confidence = Math.max(
+        0,
+        Math.min(
+          1,
+          Math.max(
+            Number(previous.reading_confidence || 0),
+            Number.isFinite(readingConfidence) ? readingConfidence : 1
+          )
+        )
+      );
+      scope.targets.set(targetKey, previous);
       accepted += 1;
     }
     return accepted;
@@ -73,14 +124,43 @@
     );
     const payloads = [];
     for (const scope of pendingByScope.values()) {
-      const rows = Array.from(scope.lemmas.entries())
-        .map(([lemma, count]) => ({ lemma, count: Number(count || 0) }))
-        .filter((row) => row.lemma && row.count > 0)
+      const targetRows = scope.targets
+        ? Array.from(scope.targets.values())
+        : Array.from((scope.lemmas || new Map()).entries()).map(([lemma, count]) => ({
+            target_key: lemma,
+            target_lemma: lemma,
+            target_reading: "",
+            reading_confidence: 1,
+            count
+          }));
+      const rows = targetRows
+        .map((row) => {
+          if (row && typeof row === "object") {
+            return {
+              target_key: normalizeTargetMetadata(row.target_key || row.targetKey || ""),
+              target_lemma: normalizeLemma(row.target_lemma || row.lemma || ""),
+              target_reading: normalizeTargetMetadata(
+                row.target_reading || row.targetReading || ""
+              ),
+              reading_confidence: Number(row.reading_confidence ?? row.readingConfidence ?? 1),
+              count: Number(row.count || 0)
+            };
+          }
+          const lemma = normalizeLemma(row);
+          return {
+            target_key: lemma,
+            target_lemma: lemma,
+            target_reading: "",
+            reading_confidence: 1,
+            count: 0
+          };
+        })
+        .filter((row) => row.target_lemma && row.count > 0)
         .sort((left, right) => {
           if (right.count !== left.count) {
             return right.count - left.count;
           }
-          return left.lemma.localeCompare(right.lemma);
+          return left.target_key.localeCompare(right.target_key);
         })
         .slice(0, maxSignalsPerPacket);
       if (!rows.length) {
@@ -92,9 +172,15 @@
         captured_at: nowIso(),
         opt_in: true,
         signals: rows.map((row) => ({
-          target_lemma: row.lemma,
+          target_key: row.target_key || row.target_lemma,
+          target_lemma: row.target_lemma,
+          target_reading: row.target_reading,
           side: SIDE_REPLACEMENT_EXPOSURE,
           count: row.count,
+          reading_confidence: Number.isFinite(row.reading_confidence)
+            ? Math.max(0, Math.min(1, row.reading_confidence))
+            : 1,
+          observation_source: SIDE_REPLACEMENT_EXPOSURE,
           source_mapping_confidence: 1.0
         }))
       });

@@ -22,6 +22,7 @@ from lexishift_core.srs.browsing_admission import (  # noqa: E402
     BrowsingSignalAggregate,
     BrowsingSignalIngestPolicy,
     BrowsingSignalStore,
+    aggregate_target_key,
     browsing_raw_value,
     browsing_signal_value,
     load_browsing_signal_store,
@@ -386,7 +387,9 @@ def summarize_store(
     for aggregate in store.items.values():
         rows.append(
             {
+                "target_key": aggregate_target_key(aggregate),
                 "target_lemma": aggregate.target_lemma,
+                "target_reading": aggregate.target_reading,
                 "source_hit_count": round(aggregate.source_hit_count, 4),
                 "target_hit_count": round(aggregate.target_hit_count, 4),
                 "replacement_exposure_count": round(
@@ -397,12 +400,14 @@ def summarize_store(
                     aggregate.source_mapping_confidence,
                     4,
                 ),
+                "reading_confidence": round(aggregate.reading_confidence, 4),
+                "observation_sources": list(aggregate.observation_sources),
                 "raw_browsing": round(browsing_raw_value(aggregate, policy=policy), 4),
                 "browsing_signal": round(browsing_signal_value(aggregate, policy=policy), 4),
                 "last_seen_at": aggregate.last_seen_at,
             }
         )
-    rows.sort(key=lambda row: (-float(row["browsing_signal"]), str(row["target_lemma"])))
+    rows.sort(key=lambda row: (-float(row["browsing_signal"]), str(row["target_key"])))
     return {
         "pair": store.pair,
         "profile_id": store.profile_id,
@@ -528,16 +533,19 @@ def render_markdown(report: Mapping[str, object]) -> str:
             "",
             "## Aggregate Store Preview",
             "",
-            "| Lemma | Signal | Raw | Source | Target | Confidence |",
-            "| --- | ---: | ---: | ---: | ---: | ---: |",
+            "| Target Key | Lemma | Signal | Raw | Source | Target | Source Conf. | Reading Conf. | Sources |",
+            "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
         ]
     )
     for row in _rows(aggregate.get("items")):
+        sources = ", ".join(str(item) for item in row.get("observation_sources", []) or [])
         lines.append(
-            f"| `{row.get('target_lemma', '')}` | {row.get('browsing_signal', '')} | "
+            f"| `{row.get('target_key', '')}` | `{row.get('target_lemma', '')}` | "
+            f"{row.get('browsing_signal', '')} | "
             f"{row.get('raw_browsing', '')} | {row.get('source_hit_count', '')} | "
             f"{row.get('target_hit_count', '')} | "
-            f"{row.get('source_mapping_confidence', '')} |"
+            f"{row.get('source_mapping_confidence', '')} | "
+            f"{row.get('reading_confidence', '')} | {sources} |"
         )
 
     lines.extend(

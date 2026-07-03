@@ -9,6 +9,7 @@ from lexishift_core.srs.browsing_admission import (
     BrowsingSignalPacket,
     BrowsingSignalPacketEntry,
     BrowsingSignalStore,
+    aggregate_target_key,
     browsing_raw_value,
     browsing_signal_value,
     ingest_browsing_signal_packet,
@@ -112,6 +113,7 @@ def _parse_signal_entries(
                     side="",
                     count=0.0,
                     source_mapping_confidence=0.0,
+                    reading_confidence=0.0,
                 )
             )
             continue
@@ -124,13 +126,32 @@ def _parse_signal_entries(
                     or signal.get("targetLemma")
                     or ""
                 ).strip(),
+                target_key=str(signal.get("target_key") or signal.get("targetKey") or "").strip(),
+                target_reading=str(
+                    signal.get("target_reading")
+                    or signal.get("targetReading")
+                    or signal.get("reading")
+                    or ""
+                ).strip(),
                 side=str(signal.get("side") or signal.get("signal_side") or "").strip(),
                 count=_safe_float(signal.get("count"), default=1.0),
                 source_mapping_confidence=_safe_float(
-                    signal.get("source_mapping_confidence")
-                    or signal.get("sourceMappingConfidence"),
+                    _first_present(
+                        signal.get("source_mapping_confidence"),
+                        signal.get("sourceMappingConfidence"),
+                    ),
                     default=1.0,
                 ),
+                reading_confidence=_safe_float(
+                    _first_present(
+                        signal.get("reading_confidence"),
+                        signal.get("readingConfidence"),
+                    ),
+                    default=1.0,
+                ),
+                observation_source=str(
+                    signal.get("observation_source") or signal.get("observationSource") or ""
+                ).strip(),
             )
         )
     return tuple(parsed), private_field_count
@@ -146,7 +167,9 @@ def _summarize_store(
     for aggregate in store.items.values():
         rows.append(
             {
+                "target_key": aggregate_target_key(aggregate),
                 "target_lemma": aggregate.target_lemma,
+                "target_reading": aggregate.target_reading,
                 "source_hit_count": round(float(aggregate.source_hit_count), 6),
                 "target_hit_count": round(float(aggregate.target_hit_count), 6),
                 "replacement_exposure_count": round(
@@ -157,6 +180,8 @@ def _summarize_store(
                     float(aggregate.source_mapping_confidence),
                     6,
                 ),
+                "reading_confidence": round(float(aggregate.reading_confidence), 6),
+                "observation_sources": list(aggregate.observation_sources),
                 "raw_browsing": round(browsing_raw_value(aggregate, policy=policy), 6),
                 "browsing_signal": round(browsing_signal_value(aggregate, policy=policy), 6),
                 "last_seen_at": aggregate.last_seen_at,
@@ -165,7 +190,7 @@ def _summarize_store(
     rows.sort(
         key=lambda row: (
             -_safe_float(row.get("browsing_signal"), default=0.0),
-            str(row.get("target_lemma") or ""),
+            str(row.get("target_key") or row.get("target_lemma") or ""),
         )
     )
     return {
@@ -218,3 +243,10 @@ def _safe_float(value: object, *, default: float) -> float:
         return float(str(value or "").strip())
     except (TypeError, ValueError):
         return default
+
+
+def _first_present(*values: object) -> object:
+    for value in values:
+        if value is not None and str(value).strip() != "":
+            return value
+    return None

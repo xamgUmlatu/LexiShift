@@ -30,16 +30,16 @@
 
 ## Aggregate Store Preview
 
-| Lemma | Signal | Raw | Source | Target | Confidence |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| `hipoteca` | 0.6017 | 4.5 | 4.5 | 0.0 | 0.9 |
-| `préstamo` | 0.5681 | 4.0 | 4.0 | 0.0 | 0.8 |
-| `salud` | 0.5681 | 4.0 | 0.0 | 4.0 | 0.0 |
-| `diagnóstico` | 0.4893 | 3.0 | 3.0 | 0.0 | 0.75 |
-| `tratamiento` | 0.3878 | 2.0 | 0.0 | 2.0 | 0.0 |
-| `interés` | 0.309 | 1.4 | 1.4 | 0.0 | 0.7 |
-| `clínica` | 0.2447 | 1.0 | 0.0 | 1.0 | 0.0 |
-| `cocina` | 0.2447 | 1.0 | 0.0 | 1.0 | 0.0 |
+| Target Key | Lemma | Signal | Raw | Source | Target | Source Conf. | Reading Conf. | Sources |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| `hipoteca` | `hipoteca` | 0.6017 | 4.5 | 4.5 | 0.0 | 0.9 | 1.0 | source_mapping |
+| `préstamo` | `préstamo` | 0.5681 | 4.0 | 4.0 | 0.0 | 0.8 | 1.0 | source_mapping |
+| `salud` | `salud` | 0.5681 | 4.0 | 0.0 | 4.0 | 0.0 | 1.0 | target_surface |
+| `diagnóstico` | `diagnóstico` | 0.4893 | 3.0 | 3.0 | 0.0 | 0.75 | 1.0 | source_mapping |
+| `tratamiento` | `tratamiento` | 0.3878 | 2.0 | 0.0 | 2.0 | 0.0 | 1.0 | target_surface |
+| `interés` | `interés` | 0.309 | 1.4 | 1.4 | 0.0 | 0.7 | 1.0 | source_mapping |
+| `clínica` | `clínica` | 0.2447 | 1.0 | 0.0 | 1.0 | 0.0 | 1.0 | target_surface |
+| `cocina` | `cocina` | 0.2447 | 1.0 | 0.0 | 1.0 | 0.0 | 1.0 | target_surface |
 
 ## Strength Simulation
 
