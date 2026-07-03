@@ -8,6 +8,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 PAGE_MINING_JS = PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_page_mining.js"
+SOURCE_MINING_JS = PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_source_mining.js"
 
 
 def _run_node(script: str) -> None:
@@ -28,16 +29,153 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionBrowsingPageMining(unittest.TestCase):
+    def test_builds_conservative_source_mapping_signals_from_active_srs_rules(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
+const modulePath = {json.dumps(str(PAGE_MINING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const mining = context.LexiShift.srsBrowsingSourceMining;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+function srsRule(source, replacement, reading) {{
+  return {{
+    source_phrase: source,
+    replacement,
+    enabled: true,
+    metadata: {{
+      lexishift_origin: "srs",
+      language_pair: "en-ja",
+      word_package: {{
+        version: 1,
+        language_tag: "ja",
+        surface: replacement,
+        reading,
+        script_forms: {{ kanji: replacement, kana: reading }},
+        source: {{ provider: "test" }}
+      }}
+    }}
+  }};
+}}
+const rows = normalize(mining.buildSourceMappingSignals(
+  "Fermentation drives this article. Blood pressure appears once. fermentation is repeated.",
+  [
+    srsRule("fermentation", "発酵", "はっこう"),
+    srsRule("blood pressure", "血圧", "けつあつ"),
+    {{ ...srsRule("fermentation", "発酵", "はっこう"), metadata: {{ lexishift_origin: "ruleset", language_pair: "en-ja" }} }},
+    {{ ...srsRule("fermentation", "fermentación", ""), metadata: {{ lexishift_origin: "srs", language_pair: "en-es" }} }}
+  ],
+  {{ srsPair: "en-ja" }},
+  {{ maxSourceCountPerTarget: 3 }}
+));
+
+assert.deepEqual(rows, [
+  {{
+    language_pair: "en-ja",
+    lemma: "血圧",
+    target_key: "血圧|けつあつ",
+    target_reading: "けつあつ",
+    reading_confidence: 1,
+    side: "source",
+    count: 1,
+    observation_source: "source_mapping",
+    source_mapping_confidence: 0.72
+  }},
+  {{
+    language_pair: "en-ja",
+    lemma: "発酵",
+    target_key: "発酵|はっこう",
+    target_reading: "はっこう",
+    reading_confidence: 1,
+    side: "source",
+    count: 2,
+    observation_source: "source_mapping",
+    source_mapping_confidence: 0.58
+  }}
+]);
+"""
+        _run_node(script)
+
+    def test_rejects_broad_or_ambiguous_source_mapping_terms(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
+const modulePath = {json.dumps(str(PAGE_MINING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const mining = context.LexiShift.srsBrowsingSourceMining;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+function srsRule(source, replacement, reading) {{
+  return {{
+    source_phrase: source,
+    replacement,
+    enabled: true,
+    metadata: {{
+      lexishift_origin: "srs",
+      language_pair: "en-ja",
+      word_package: {{
+        version: 1,
+        language_tag: "ja",
+        surface: replacement,
+        reading,
+        script_forms: {{ kanji: replacement, kana: reading }},
+        source: {{ provider: "test" }}
+      }}
+    }}
+  }};
+}}
+const rows = normalize(mining.buildSourceMappingSignals(
+  "Light work can run a set of systems.",
+  [
+    srsRule("light", "光", "ひかり"),
+    srsRule("light", "軽い", "かるい"),
+    srsRule("work", "仕事", "しごと"),
+    srsRule("run", "走る", "はしる"),
+    srsRule("set", "組", "くみ")
+  ],
+  {{ srsPair: "en-ja" }},
+  {{}}
+));
+
+assert.deepEqual(rows, []);
+assert.deepEqual(normalize(mining.buildSourceMappingIndex(
+  [
+    srsRule("light", "光", "ひかり"),
+    srsRule("light", "軽い", "かるい"),
+    srsRule("work", "仕事", "しごと")
+  ],
+  {{ srsPair: "en-ja" }},
+  {{}}
+)), []);
+"""
+        _run_node(script)
+
     def test_builds_ruby_target_surface_signals_for_en_ja(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
 const modulePath = {json.dumps(str(PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const mining = context.LexiShift.srsBrowsingPageMining;
@@ -80,10 +218,12 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
 const modulePath = {json.dumps(str(PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 function text(value) {{
@@ -127,10 +267,12 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
 const modulePath = {json.dumps(str(PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const calls = [];

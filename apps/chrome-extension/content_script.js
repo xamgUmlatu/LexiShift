@@ -35,6 +35,8 @@
     && typeof root.contentSettingsChangeRouter.createRouter === "function"
     && root.srsBrowsingPageMining
     && typeof root.srsBrowsingPageMining.createMiner === "function"
+    && root.srsBrowsingSourceMining
+    && typeof root.srsBrowsingSourceMining.buildSourceMappingSignals === "function"
     && root.popupModulesRegistry
     && root.popupModuleHistoryStore
     && root.wordInfoApi
@@ -78,6 +80,7 @@
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
   let currentTrie = null;
+  let currentActiveRules = [];
   let applyingChanges = false;
   let applyToken = 0;
   let helperClient = HelperClient && helperTransport ? new HelperClient(helperTransport) : null;
@@ -224,6 +227,7 @@
       : null;
   const browsingPageMiner = srsBrowsingPageMining.createMiner({
     getCurrentSettings: () => currentSettings,
+    getCurrentRules: () => currentActiveRules,
     browsingAdmissionSignals: browsingAdmissionSignalSender,
     log
   });
@@ -345,6 +349,7 @@
         ? nextSettings
         : currentSettings;
     },
+    setActiveRules: (rules) => { currentActiveRules = Array.isArray(rules) ? rules.slice() : []; },
     resetProcessedNodes: () => {
       processedNodes = new WeakMap();
     },

@@ -39,6 +39,9 @@ DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "srs_browsing_admission_runtime_smoke
 EXTENSION_SIGNAL_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js"
 )
+EXTENSION_SOURCE_MINING_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_source_mining.js"
+)
 EXTENSION_PAGE_MINING_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_browsing_page_mining.js"
 )
@@ -165,11 +168,13 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const signalModulePath = {json.dumps(str(EXTENSION_SIGNAL_JS))};
+const sourceMiningModulePath = {json.dumps(str(EXTENSION_SOURCE_MINING_JS))};
 const miningModulePath = {json.dumps(str(EXTENSION_PAGE_MINING_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
 vm.runInContext(fs.readFileSync(signalModulePath, "utf8"), context, {{ filename: signalModulePath }});
+vm.runInContext(fs.readFileSync(sourceMiningModulePath, "utf8"), context, {{ filename: sourceMiningModulePath }});
 vm.runInContext(fs.readFileSync(miningModulePath, "utf8"), context, {{ filename: miningModulePath }});
 
 const signals = context.LexiShift.srsBrowsingAdmissionSignals;
@@ -217,11 +222,60 @@ const rubySignals = pageMining.buildRubyTargetSignals(
   settings,
   {{ maxCountPerTarget: 5 }}
 );
-const accepted = signals.addExposureBatchToPending(
+function srsRule(source, replacement, reading) {{
+  return {{
+    source_phrase: source,
+    replacement,
+    enabled: true,
+    metadata: {{
+      lexishift_origin: "srs",
+      language_pair: pair,
+      word_package: {{
+        version: 1,
+        language_tag: "ja",
+        surface: replacement,
+        reading,
+        script_forms: {{ kanji: replacement, kana: reading }},
+        source: {{ provider: "runtime_smoke" }}
+      }}
+    }}
+  }};
+}}
+const sourceRules = [
+  srsRule("fermentation", "発酵", "はっこう"),
+  srsRule("light", "光", "ひかり"),
+  srsRule("light", "軽い", "かるい"),
+  srsRule("work", "仕事", "しごと")
+];
+const sourceSignalsA = pageMining.buildSourceMappingSignals(
+  "Fermentation appears in this source page. fermentation fermentation.",
+  sourceRules,
+  settings,
+  {{ maxSourceCountPerTarget: 3 }}
+);
+const sourceSignalsB = pageMining.buildSourceMappingSignals(
+  "A second page discusses fermentation without exposing the Japanese target.",
+  sourceRules,
+  settings,
+  {{ maxSourceCountPerTarget: 3 }}
+);
+let accepted = signals.addExposureBatchToPending(
   pending,
   exposures.concat(rubySignals),
   settings,
   options
+);
+accepted += signals.addExposureBatchToPending(
+  pending,
+  sourceSignalsA,
+  settings,
+  {{ ...options, pageContextKey: "runtime-smoke-source-page-a" }}
+);
+accepted += signals.addExposureBatchToPending(
+  pending,
+  sourceSignalsB,
+  settings,
+  {{ ...options, pageContextKey: "runtime-smoke-source-page-b" }}
 );
 const payloads = signals.buildPacketPayloads(pending, {{
   nowIso: () => "2026-05-23T00:00:00.000Z",
@@ -236,6 +290,7 @@ console.log(JSON.stringify({{
   payloads,
   private_strings_absent: true,
   ruby_signal_count: rubySignals.length,
+  source_signal_count: sourceSignalsA.length + sourceSignalsB.length,
   signal_count: payloads.reduce((sum, payload) => sum + payload.signals.length, 0),
   context_keys: payloads.flatMap((payload) => payload.signals.map((row) => row.context_key))
 }}));
@@ -314,6 +369,16 @@ def build_candidates(pair: str) -> tuple[BrowsingAdmissionCandidate, ...]:
                 explicit_preference_fit=0.50,
                 source_confidence=0.90,
                 lexical_commonness=0.85,
+                lexical_commonness_known=True,
+            ),
+            BrowsingAdmissionCandidate(
+                lemma="発酵",
+                target_reading="はっこう",
+                neutral_score=0.59,
+                readiness_multiplier=0.90,
+                explicit_preference_fit=0.72,
+                source_confidence=0.86,
+                lexical_commonness=0.32,
                 lexical_commonness_known=True,
             ),
             BrowsingAdmissionCandidate(
@@ -399,6 +464,7 @@ def summarize_extension_result(result: Mapping[str, object]) -> dict[str, object
         "packet_count": len(payloads),
         "signal_count": len(signals),
         "ruby_signal_count": int(result.get("ruby_signal_count") or 0),
+        "source_signal_count": int(result.get("source_signal_count") or 0),
         "private_strings_absent": bool(result.get("private_strings_absent")),
         "context_key_prefixes": sorted(
             {str(signal.get("context_key") or "").split(":", 1)[0] for signal in signals}
@@ -524,6 +590,18 @@ def build_checks(
             "Ruby page mining emits reading-aware target-surface evidence.",
         ),
         _check(
+            "source_mapping_survives_ingest",
+            before_rows.get("発酵|はっこう", {}).get("source_hit_count", 0) >= 2.3
+            and "source_mapping"
+            in before_rows.get("発酵|はっこう", {}).get(
+                "observation_sources",
+                [],
+            )
+            and "光|ひかり" not in before_rows
+            and "軽い|かるい" not in before_rows,
+            "Conservative source-language mining emits mapped evidence and rejects ambiguous source terms.",
+        ),
+        _check(
             "single_context_high_count_is_not_enough",
             strong_rows.get("会社", {}).get("browsing_count_multiplier") == 0,
             "A high count from one context is gated out before admission boost.",
@@ -569,6 +647,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
             f"- Packet count: `{extension.get('packet_count')}`",
             f"- Signal count: `{extension.get('signal_count')}`",
             f"- Ruby signal count: `{extension.get('ruby_signal_count')}`",
+            f"- Source signal count: `{extension.get('source_signal_count')}`",
             f"- Context key prefixes: `{', '.join(map(str, extension.get('context_key_prefixes', [])))}`",
             f"- Private strings absent: `{extension.get('private_strings_absent')}`",
             "",

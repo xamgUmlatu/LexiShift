@@ -7,10 +7,11 @@
   "scope": "isolated_extension_payload_native_host_helper_admission_smoke",
   "live_user_data_touched": false,
   "extension_payload": {
-    "accepted_exposures": 21,
+    "accepted_exposures": 25,
     "packet_count": 1,
-    "signal_count": 6,
+    "signal_count": 8,
     "ruby_signal_count": 1,
+    "source_signal_count": 2,
     "private_strings_absent": true,
     "context_key_prefixes": [
       "ctxh",
@@ -48,6 +49,15 @@
         "target_key": "発酵|はっこう",
         "target_lemma": "発酵",
         "target_reading": "はっこう",
+        "side": "source",
+        "observation_source": "source_mapping",
+        "count": 3,
+        "context_key_prefix": "pageh"
+      },
+      {
+        "target_key": "発酵|はっこう",
+        "target_lemma": "発酵",
+        "target_reading": "はっこう",
         "side": "target",
         "observation_source": "target_surface",
         "count": 2,
@@ -70,6 +80,15 @@
         "observation_source": "replacement_exposure",
         "count": 2,
         "context_key_prefix": "ctxh"
+      },
+      {
+        "target_key": "発酵|はっこう",
+        "target_lemma": "発酵",
+        "target_reading": "はっこう",
+        "side": "source",
+        "observation_source": "source_mapping",
+        "count": 1,
+        "context_key_prefix": "pageh"
       }
     ]
   },
@@ -105,8 +124,8 @@
           "replacement_exposure_weight": 0.35
         },
         "ingest_result": {
-          "input_signal_count": 6,
-          "accepted_signal_count": 6,
+          "input_signal_count": 8,
+          "accepted_signal_count": 8,
           "dropped_signal_count": 0,
           "capped_signal_count": 0,
           "pruned_item_count": 0,
@@ -118,6 +137,25 @@
           "updated_at": "2026-05-23T00:00:00Z",
           "item_count": 4,
           "top_items": [
+            {
+              "target_key": "発酵|はっこう",
+              "target_lemma": "発酵",
+              "target_reading": "はっこう",
+              "source_hit_count": 2.32,
+              "target_hit_count": 2.0,
+              "replacement_exposure_count": 0.0,
+              "source_mapping_confidence": 0.58,
+              "reading_confidence": 1.0,
+              "observation_sources": [
+                "source_mapping",
+                "target_surface"
+              ],
+              "raw_browsing": 4.32,
+              "browsing_evidence": 3.699063,
+              "browsing_context_count": 3,
+              "browsing_signal": 0.546151,
+              "last_seen_at": "2026-05-23T00:00:00Z"
+            },
             {
               "target_key": "料理",
               "target_lemma": "料理",
@@ -134,24 +172,6 @@
               "browsing_evidence": 5.169925,
               "browsing_context_count": 2,
               "browsing_signal": 0.482068,
-              "last_seen_at": "2026-05-23T00:00:00Z"
-            },
-            {
-              "target_key": "発酵|はっこう",
-              "target_lemma": "発酵",
-              "target_reading": "はっこう",
-              "source_hit_count": 0.0,
-              "target_hit_count": 2.0,
-              "replacement_exposure_count": 0.0,
-              "source_mapping_confidence": 0.0,
-              "reading_confidence": 1.0,
-              "observation_sources": [
-                "target_surface"
-              ],
-              "raw_browsing": 2.0,
-              "browsing_evidence": 1.584963,
-              "browsing_context_count": 1,
-              "browsing_signal": 0.335206,
               "last_seen_at": "2026-05-23T00:00:00Z"
             },
             {
@@ -261,21 +281,34 @@
         "target_key": "発酵|はっこう",
         "target_lemma": "発酵",
         "target_reading": "はっこう",
-        "source_hit_count": 0.0,
+        "source_hit_count": 2.32,
         "target_hit_count": 2.0,
         "replacement_exposure_count": 0.0,
         "reading_confidence": 1.0,
         "observation_sources": [
+          "source_mapping",
           "target_surface"
         ],
-        "browsing_evidence": 1.584963,
-        "browsing_context_count": 1,
-        "browsing_signal": 0.335206,
+        "browsing_evidence": 3.699063,
+        "browsing_context_count": 3,
+        "browsing_signal": 0.546151,
         "context_evidence": [
           {
             "context_key_prefix": "pageh",
             "source_hit_count": 0.0,
             "target_hit_count": 2.0,
+            "replacement_exposure_count": 0.0
+          },
+          {
+            "context_key_prefix": "pageh",
+            "source_hit_count": 1.74,
+            "target_hit_count": 0.0,
+            "replacement_exposure_count": 0.0
+          },
+          {
+            "context_key_prefix": "pageh",
+            "source_hit_count": 0.58,
+            "target_hit_count": 0.0,
             "replacement_exposure_count": 0.0
           }
         ],
@@ -386,21 +419,34 @@
           "target_key": "発酵|はっこう",
           "target_lemma": "発酵",
           "target_reading": "はっこう",
-          "source_hit_count": 0.0,
+          "source_hit_count": 1.16,
           "target_hit_count": 1.0,
           "replacement_exposure_count": 0.0,
           "reading_confidence": 1.0,
           "observation_sources": [
+            "source_mapping",
             "target_surface"
           ],
-          "browsing_evidence": 1.0,
-          "browsing_context_count": 1,
-          "browsing_signal": 0.244651,
+          "browsing_evidence": 2.270409,
+          "browsing_context_count": 3,
+          "browsing_signal": 0.418223,
           "context_evidence": [
             {
               "context_key_prefix": "pageh",
               "source_hit_count": 0.0,
               "target_hit_count": 1.0,
+              "replacement_exposure_count": 0.0
+            },
+            {
+              "context_key_prefix": "pageh",
+              "source_hit_count": 0.87,
+              "target_hit_count": 0.0,
+              "replacement_exposure_count": 0.0
+            },
+            {
+              "context_key_prefix": "pageh",
+              "source_hit_count": 0.29,
+              "target_hit_count": 0.0,
               "replacement_exposure_count": 0.0
             }
           ],
@@ -448,8 +494,8 @@
       "admission_budget": 4,
       "browsing_budget": 0,
       "general_budget": 4,
-      "signal_volume": 0.466849,
-      "volume_factor": 0.208183,
+      "signal_volume": 0.879809,
+      "volume_factor": 0.355902,
       "selected_lemmas": [
         "する",
         "いる",
@@ -497,8 +543,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.478719,
-          "approximate_selection_probability": 0.478719
+          "general_lane_probability": 0.448081,
+          "approximate_selection_probability": 0.448081
         },
         {
           "lemma": "いる",
@@ -521,8 +567,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.464956,
-          "approximate_selection_probability": 0.464956
+          "general_lane_probability": 0.434802,
+          "approximate_selection_probability": 0.434802
         },
         {
           "lemma": "言う",
@@ -545,8 +591,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.443629,
-          "approximate_selection_probability": 0.443629
+          "general_lane_probability": 0.414283,
+          "approximate_selection_probability": 0.414283
         },
         {
           "lemma": "犬",
@@ -569,8 +615,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.421451,
-          "approximate_selection_probability": 0.421451
+          "general_lane_probability": 0.393019,
+          "approximate_selection_probability": 0.393019
         },
         {
           "lemma": "料理",
@@ -593,8 +639,8 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.340938,
-          "approximate_selection_probability": 0.340938
+          "general_lane_probability": 0.316403,
+          "approximate_selection_probability": 0.316403
         },
         {
           "lemma": "会社",
@@ -617,8 +663,8 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.332295,
-          "approximate_selection_probability": 0.332295
+          "general_lane_probability": 0.308228,
+          "approximate_selection_probability": 0.308228
         },
         {
           "lemma": "辛い",
@@ -641,15 +687,40 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.323538,
-          "approximate_selection_probability": 0.323538,
+          "general_lane_probability": 0.299956,
+          "approximate_selection_probability": 0.299956,
           "target_reading": "つらい"
+        },
+        {
+          "lemma": "発酵",
+          "target_key": "発酵|はっこう",
+          "neutral_rank": 8,
+          "final_rank": 8,
+          "neutral_score": 0.59,
+          "final_score": 0.59,
+          "browsing_signal": 0.546151,
+          "browsing_evidence": 3.699063,
+          "browsing_context_count": 3,
+          "effective_browsing_signal": 0.41296,
+          "browsing_quality_multiplier": 1.0,
+          "browsing_count_multiplier": 1.0,
+          "browsing_salience_multiplier": 0.763764,
+          "browsing_specificity_multiplier": 0.99,
+          "browsing_boost": 1.0,
+          "selected": false,
+          "selected_lane": "not_selected",
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.295783,
+          "approximate_selection_probability": 0.295783,
+          "target_reading": "はっこう"
         },
         {
           "lemma": "旅行",
           "target_key": "旅行",
-          "neutral_rank": 8,
-          "final_rank": 8,
+          "neutral_rank": 9,
+          "final_rank": 9,
           "neutral_score": 0.58,
           "final_score": 0.58,
           "browsing_signal": 0.0,
@@ -666,8 +737,8 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.314667,
-          "approximate_selection_probability": 0.314667
+          "general_lane_probability": 0.291585,
+          "approximate_selection_probability": 0.291585
         }
       ]
     },
@@ -676,8 +747,8 @@
       "admission_budget": 4,
       "browsing_budget": 0,
       "general_budget": 4,
-      "signal_volume": 0.466849,
-      "volume_factor": 0.208183,
+      "signal_volume": 0.879809,
+      "volume_factor": 0.355902,
       "selected_lemmas": [
         "する",
         "いる",
@@ -725,8 +796,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.478719,
-          "approximate_selection_probability": 0.478719
+          "general_lane_probability": 0.448081,
+          "approximate_selection_probability": 0.448081
         },
         {
           "lemma": "いる",
@@ -749,8 +820,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.464956,
-          "approximate_selection_probability": 0.464956
+          "general_lane_probability": 0.434802,
+          "approximate_selection_probability": 0.434802
         },
         {
           "lemma": "言う",
@@ -773,8 +844,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.443629,
-          "approximate_selection_probability": 0.443629
+          "general_lane_probability": 0.414283,
+          "approximate_selection_probability": 0.414283
         },
         {
           "lemma": "犬",
@@ -797,8 +868,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.421451,
-          "approximate_selection_probability": 0.421451
+          "general_lane_probability": 0.393019,
+          "approximate_selection_probability": 0.393019
         },
         {
           "lemma": "料理",
@@ -821,14 +892,39 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.340938,
-          "approximate_selection_probability": 0.340938
+          "general_lane_probability": 0.316403,
+          "approximate_selection_probability": 0.316403
+        },
+        {
+          "lemma": "発酵",
+          "target_key": "発酵|はっこう",
+          "neutral_rank": 8,
+          "final_rank": 6,
+          "neutral_score": 0.59,
+          "final_score": 0.638956,
+          "browsing_signal": 0.546151,
+          "browsing_evidence": 3.699063,
+          "browsing_context_count": 3,
+          "effective_browsing_signal": 0.41296,
+          "browsing_quality_multiplier": 1.0,
+          "browsing_count_multiplier": 1.0,
+          "browsing_salience_multiplier": 0.763764,
+          "browsing_specificity_multiplier": 0.99,
+          "browsing_boost": 1.082976,
+          "selected": false,
+          "selected_lane": "not_selected",
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.295783,
+          "approximate_selection_probability": 0.295783,
+          "target_reading": "はっこう"
         },
         {
           "lemma": "会社",
           "target_key": "会社",
           "neutral_rank": 6,
-          "final_rank": 6,
+          "final_rank": 7,
           "neutral_score": 0.62,
           "final_score": 0.62,
           "browsing_signal": 0.317636,
@@ -845,14 +941,14 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.332295,
-          "approximate_selection_probability": 0.332295
+          "general_lane_probability": 0.308228,
+          "approximate_selection_probability": 0.308228
         },
         {
           "lemma": "辛い",
           "target_key": "辛い|つらい",
           "neutral_rank": 7,
-          "final_rank": 7,
+          "final_rank": 8,
           "neutral_score": 0.6,
           "final_score": 0.6,
           "browsing_signal": 0.229992,
@@ -869,15 +965,15 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.323538,
-          "approximate_selection_probability": 0.323538,
+          "general_lane_probability": 0.299956,
+          "approximate_selection_probability": 0.299956,
           "target_reading": "つらい"
         },
         {
           "lemma": "旅行",
           "target_key": "旅行",
-          "neutral_rank": 8,
-          "final_rank": 8,
+          "neutral_rank": 9,
+          "final_rank": 9,
           "neutral_score": 0.58,
           "final_score": 0.58,
           "browsing_signal": 0.0,
@@ -894,8 +990,8 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.314667,
-          "approximate_selection_probability": 0.314667
+          "general_lane_probability": 0.291585,
+          "approximate_selection_probability": 0.291585
         }
       ]
     },
@@ -904,8 +1000,8 @@
       "admission_budget": 4,
       "browsing_budget": 1,
       "general_budget": 3,
-      "signal_volume": 0.466849,
-      "volume_factor": 0.208183,
+      "signal_volume": 0.879809,
+      "volume_factor": 0.355902,
       "selected_lemmas": [
         "料理",
         "する",
@@ -953,8 +1049,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.386515,
-          "approximate_selection_probability": 0.386515
+          "general_lane_probability": 0.359666,
+          "approximate_selection_probability": 0.359666
         },
         {
           "lemma": "いる",
@@ -977,8 +1073,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.374407,
-          "approximate_selection_probability": 0.374407
+          "general_lane_probability": 0.348146,
+          "approximate_selection_probability": 0.348146
         },
         {
           "lemma": "言う",
@@ -1001,8 +1097,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 1.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.355796,
-          "approximate_selection_probability": 0.355796
+          "general_lane_probability": 0.330476,
+          "approximate_selection_probability": 0.330476
         },
         {
           "lemma": "犬",
@@ -1025,8 +1121,8 @@
           "neutral_selected": true,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.336631,
-          "approximate_selection_probability": 0.336631
+          "general_lane_probability": 0.312328,
+          "approximate_selection_probability": 0.312328
         },
         {
           "lemma": "料理",
@@ -1048,15 +1144,40 @@
           "selected_lane": "browsing",
           "neutral_selected": false,
           "deterministic_selection_probability": 1.0,
-          "browsing_lane_probability": 0.632121,
-          "general_lane_probability": 0.268533,
-          "approximate_selection_probability": 0.730908
+          "browsing_lane_probability": 0.409986,
+          "general_lane_probability": 0.248204,
+          "approximate_selection_probability": 0.55643
+        },
+        {
+          "lemma": "発酵",
+          "target_key": "発酵|はっこう",
+          "neutral_rank": 8,
+          "final_rank": 6,
+          "neutral_score": 0.59,
+          "final_score": 0.690137,
+          "browsing_signal": 0.546151,
+          "browsing_evidence": 3.699063,
+          "browsing_context_count": 3,
+          "effective_browsing_signal": 0.41296,
+          "browsing_quality_multiplier": 1.0,
+          "browsing_count_multiplier": 1.0,
+          "browsing_salience_multiplier": 0.763764,
+          "browsing_specificity_multiplier": 0.99,
+          "browsing_boost": 1.169724,
+          "selected": false,
+          "selected_lane": "not_selected",
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.37649,
+          "general_lane_probability": 0.231259,
+          "approximate_selection_probability": 0.520682,
+          "target_reading": "はっこう"
         },
         {
           "lemma": "会社",
           "target_key": "会社",
           "neutral_rank": 6,
-          "final_rank": 6,
+          "final_rank": 7,
           "neutral_score": 0.62,
           "final_score": 0.62,
           "browsing_signal": 0.317636,
@@ -1073,14 +1194,14 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.26135,
-          "approximate_selection_probability": 0.26135
+          "general_lane_probability": 0.241471,
+          "approximate_selection_probability": 0.241471
         },
         {
           "lemma": "辛い",
           "target_key": "辛い|つらい",
           "neutral_rank": 7,
-          "final_rank": 7,
+          "final_rank": 8,
           "neutral_score": 0.6,
           "final_score": 0.6,
           "browsing_signal": 0.229992,
@@ -1097,15 +1218,15 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.254097,
-          "approximate_selection_probability": 0.254097,
+          "general_lane_probability": 0.234678,
+          "approximate_selection_probability": 0.234678,
           "target_reading": "つらい"
         },
         {
           "lemma": "旅行",
           "target_key": "旅行",
-          "neutral_rank": 8,
-          "final_rank": 8,
+          "neutral_rank": 9,
+          "final_rank": 9,
           "neutral_score": 0.58,
           "final_score": 0.58,
           "browsing_signal": 0.0,
@@ -1122,8 +1243,8 @@
           "neutral_selected": false,
           "deterministic_selection_probability": 0.0,
           "browsing_lane_probability": 0.0,
-          "general_lane_probability": 0.246772,
-          "approximate_selection_probability": 0.246772
+          "general_lane_probability": 0.227825,
+          "approximate_selection_probability": 0.227825
         }
       ]
     }
@@ -1148,6 +1269,11 @@
       "name": "ruby_target_surface_survives_ingest",
       "status": "pass",
       "detail": "Ruby page mining emits reading-aware target-surface evidence."
+    },
+    {
+      "name": "source_mapping_survives_ingest",
+      "status": "pass",
+      "detail": "Conservative source-language mining emits mapped evidence and rejects ambiguous source terms."
     },
     {
       "name": "single_context_high_count_is_not_enough",

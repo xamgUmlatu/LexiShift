@@ -1,5 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const sourceMining = root.srsBrowsingSourceMining || {};
 
   const SIDE_TARGET = "target";
   const OBSERVATION_TARGET_SURFACE = "target_surface";
@@ -157,11 +158,14 @@
       && typeof opts.browsingAdmissionSignals === "object"
       ? opts.browsingAdmissionSignals
       : null;
+    const getCurrentRules = typeof opts.getCurrentRules === "function"
+      ? opts.getCurrentRules
+      : (() => []);
     const log = typeof opts.log === "function" ? opts.log : (() => {});
-    const seenTargetKeys = new Set();
+    const seenSignalKeys = new Set();
 
     function clearSeen() {
-      seenTargetKeys.clear();
+      seenSignalKeys.clear();
     }
 
     function mineDocument(rootNode, reason) {
@@ -175,20 +179,31 @@
       ) {
         return Promise.resolve({ status: "skipped", reason: "not_enabled" });
       }
-      const pairs = collectRubyPairs(rootNode || globalThis.document, opts);
+      const targetRoot = rootNode || globalThis.document;
+      const pairs = collectRubyPairs(targetRoot, opts);
+      const sourceText = typeof sourceMining.collectVisibleSourceText === "function"
+        ? sourceMining.collectVisibleSourceText(targetRoot, opts)
+        : "";
+      const rules = getCurrentRules();
       const signals = buildRubyTargetSignals(pairs, settings, opts)
+        .concat(
+          typeof sourceMining.buildSourceMappingSignals === "function"
+            ? sourceMining.buildSourceMappingSignals(sourceText, rules, settings, opts)
+            : []
+        )
         .filter((signal) => {
-          if (seenTargetKeys.has(signal.target_key)) {
+          const seenKey = `${signal.side || ""}|${signal.target_key || ""}`;
+          if (seenSignalKeys.has(seenKey)) {
             return false;
           }
-          seenTargetKeys.add(signal.target_key);
+          seenSignalKeys.add(seenKey);
           return true;
         });
       if (!signals.length) {
         return Promise.resolve({ status: "empty", accepted: 0 });
       }
       if (settings.debugEnabled) {
-        log(`Queued ${signals.length} ruby browsing-admission target(s): ${String(reason || "scan")}.`);
+        log(`Queued ${signals.length} browsing-admission page signal(s): ${String(reason || "scan")}.`);
       }
       return browsingAdmissionSignals.recordExposureBatch(signals, settings);
     }
@@ -200,11 +215,16 @@
   }
 
   root.srsBrowsingPageMining = {
+    buildSourceMappingIndex: sourceMining.buildSourceMappingIndex,
+    buildSourceMappingSignals: sourceMining.buildSourceMappingSignals,
     buildRubyTargetSignals,
+    collectVisibleSourceText: sourceMining.collectVisibleSourceText,
     collectRubyPairs,
+    countSourceTermOccurrences: sourceMining.countSourceTermOccurrences,
     createMiner,
     extractRubyPair,
     isValidRubyPair,
+    sourceLanguageFromPair: sourceMining.sourceLanguageFromPair,
     targetLanguageFromPair
   };
 })();
