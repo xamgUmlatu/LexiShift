@@ -20,9 +20,10 @@ class TestSrsBrowsingAdmissionOfflinePageMining(unittest.TestCase):
 
         self.assertEqual(report["status"], "PASS")
         self.assertFalse(report["live_user_data_touched"])
-        self.assertEqual(report["case_count"], 1)
+        self.assertEqual(report["case_count"], 2)
 
-        case = report["cases"][0]
+        cases = {case["name"]: case for case in report["cases"]}
+        case = cases["en-ja_source_and_ruby_saved_pages_v1"]
         self.assertEqual(case["name"], "en-ja_source_and_ruby_saved_pages_v1")
         self.assertEqual(case["status"], "PASS")
         self.assertTrue(all(check["status"] == "pass" for check in case["checks"]))
@@ -45,6 +46,20 @@ class TestSrsBrowsingAdmissionOfflinePageMining(unittest.TestCase):
         self.assertIn("source_mapping", rows["発酵|はっこう"]["observation_sources"])
         self.assertIn("target_surface", rows["発酵|はっこう"]["observation_sources"])
         self.assertGreaterEqual(rows["血圧|けつあつ"]["source_hit_count"], 0.7)
+
+        strong_rows = {
+            row["target_key"]: row for row in case["admission_simulations"]["strong"]["rows"]
+        }
+        self.assertTrue(strong_rows["発酵|はっこう"]["selected"])
+        self.assertEqual(strong_rows["発酵|はっこう"]["selected_lane"], "browsing")
+        self.assertGreaterEqual(strong_rows["発酵|はっこう"]["effective_browsing_signal"], 0.25)
+
+        unsupported = cases["en-es_source_saved_page_currently_unsupported_v1"]
+        self.assertEqual(unsupported["status"], "PASS")
+        self.assertEqual(unsupported["extension_payload"]["packet_count"], 0)
+        self.assertEqual(unsupported["extension_payload"]["signal_count"], 0)
+        self.assertEqual(unsupported["native_host_ingest"]["response_count"], 0)
+        self.assertEqual(unsupported["aggregate_store"]["item_count"], 0)
 
         report_text = json.dumps(report, ensure_ascii=False)
         self.assertNotIn("Fermentation changes sugars", report_text)

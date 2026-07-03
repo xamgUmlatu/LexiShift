@@ -3,12 +3,10 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
-from html.parser import HTMLParser
 import hashlib
 import importlib.util
 import json
 from pathlib import Path
-import re
 import subprocess
 import sys
 import tempfile
@@ -26,12 +24,16 @@ if str(HELPER_ROOT) not in sys.path:
 
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.srs.browsing_admission import (  # noqa: E402
+    BrowsingAdmissionCandidate,
     BrowsingSignalIngestPolicy,
     browsing_context_count,
     browsing_evidence_value,
     browsing_signal_value,
     load_browsing_signal_store,
+    simulate_browsing_admission_presets,
 )
+from srs_browsing_admission_offline_page_mining_html import SavedPageTextExtractor  # noqa: E402
+from srs_browsing_admission_offline_page_mining_render import render_markdown  # noqa: E402
 
 
 DEFAULT_CONFIG = (
@@ -51,111 +53,6 @@ EXTENSION_PAGE_MINING_JS = (
 )
 NATIVE_HOST_SCRIPT = PROJECT_ROOT / "scripts/helper/lexishift_native_host.py"
 FIXED_CAPTURED_AT = datetime(2026, 5, 23, tzinfo=timezone.utc)
-
-
-class SavedPageTextExtractor(HTMLParser):
-    SKIP_TAGS = {
-        "script",
-        "style",
-        "noscript",
-        "textarea",
-        "select",
-        "option",
-        "template",
-        "svg",
-        "canvas",
-    }
-
-    def __init__(self) -> None:
-        super().__init__(convert_charrefs=True)
-        self._stack: list[tuple[str, bool]] = []
-        self._skip_depth = 0
-        self._ruby_depth = 0
-        self._rt_depth = 0
-        self._rp_depth = 0
-        self._ruby_surface: list[str] = []
-        self._ruby_reading: list[str] = []
-        self._visible_parts: list[str] = []
-        self.ruby_pairs: list[dict[str, str]] = []
-
-    @property
-    def visible_text(self) -> str:
-        return _collapse_spaces(" ".join(self._visible_parts))
-
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        normalized_tag = tag.lower()
-        attrs_map = {key.lower(): value or "" for key, value in attrs}
-        starts_skip = self._skip_depth > 0 or self._starts_skip(normalized_tag, attrs_map)
-        self._stack.append((normalized_tag, starts_skip))
-        if starts_skip:
-            self._skip_depth += 1
-            return
-        if normalized_tag == "ruby":
-            self._ruby_depth += 1
-            if self._ruby_depth == 1:
-                self._ruby_surface = []
-                self._ruby_reading = []
-        elif self._ruby_depth and normalized_tag == "rt":
-            self._rt_depth += 1
-        elif self._ruby_depth and normalized_tag == "rp":
-            self._rp_depth += 1
-
-    def handle_endtag(self, tag: str) -> None:
-        normalized_tag = tag.lower()
-        stack_tag, started_skip = self._pop_stack(normalized_tag)
-        _ = stack_tag
-        if started_skip:
-            self._skip_depth = max(0, self._skip_depth - 1)
-            return
-        if self._ruby_depth and normalized_tag == "rt":
-            self._rt_depth = max(0, self._rt_depth - 1)
-        elif self._ruby_depth and normalized_tag == "rp":
-            self._rp_depth = max(0, self._rp_depth - 1)
-        elif normalized_tag == "ruby" and self._ruby_depth:
-            if self._ruby_depth == 1:
-                pair = _normalize_ruby_pair(
-                    "".join(self._ruby_surface),
-                    "".join(self._ruby_reading),
-                )
-                if pair:
-                    self.ruby_pairs.append(pair)
-                self._ruby_surface = []
-                self._ruby_reading = []
-            self._ruby_depth = max(0, self._ruby_depth - 1)
-
-    def handle_data(self, data: str) -> None:
-        if self._skip_depth:
-            return
-        text = str(data or "")
-        if not text.strip():
-            return
-        if self._ruby_depth:
-            if self._rt_depth:
-                self._ruby_reading.append(text)
-                return
-            if self._rp_depth:
-                return
-            self._ruby_surface.append(text)
-        self._visible_parts.append(text)
-
-    def _starts_skip(self, tag: str, attrs: Mapping[str, str]) -> bool:
-        if tag in self.SKIP_TAGS:
-            return True
-        if attrs.get("data-lexishift-scan-skip", "").strip().lower() == "true":
-            return True
-        class_names = {part.strip() for part in attrs.get("class", "").split()}
-        return bool({"lexishift-replacement", "lexishift-popup"} & class_names)
-
-    def _pop_stack(self, tag: str) -> tuple[str, bool]:
-        if not self._stack:
-            return tag, False
-        if self._stack[-1][0] == tag:
-            return self._stack.pop()
-        for index in range(len(self._stack) - 1, -1, -1):
-            if self._stack[index][0] == tag:
-                _, started_skip = self._stack.pop(index)
-                return tag, started_skip
-        return tag, False
 
 
 def _parse_args() -> argparse.Namespace:
@@ -393,12 +290,14 @@ def build_case_report(
 
     extension_summary = summarize_extension_case(extension_case)
     store_summary = summarize_store(persisted, policy=policy)
+    admission_simulations = build_admission_simulations(case, persisted, policy=policy)
     checks = build_case_checks(
         case=case,
         extension_case=extension_case,
         extension_summary=extension_summary,
         ingest_responses=ingest_responses,
         store_summary=store_summary,
+        admission_simulations=admission_simulations,
         srs_store_exists=srs_store_exists,
     )
     return {
@@ -410,8 +309,54 @@ def build_case_report(
         "extension_payload": extension_summary,
         "native_host_ingest": summarize_native_ingest(ingest_responses),
         "aggregate_store": store_summary,
+        "admission_simulations": admission_simulations,
         "checks": checks,
     }
+
+
+def build_admission_simulations(
+    case: Mapping[str, object],
+    store,
+    *,
+    policy: BrowsingSignalIngestPolicy,
+) -> dict[str, object]:
+    admission = _as_mapping(case.get("admission"))
+    candidates = tuple(
+        candidate
+        for row in _list_of_mappings(admission.get("candidates"))
+        if (candidate := _candidate_from_mapping(row)) is not None
+    )
+    if not candidates:
+        return {}
+    budget = max(1, int(float(admission.get("admission_budget") or 4)))
+    return {
+        name: result.to_dict()
+        for name, result in simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=budget,
+            policy=policy,
+            now=FIXED_CAPTURED_AT,
+        ).items()
+    }
+
+
+def _candidate_from_mapping(row: Mapping[str, object]) -> BrowsingAdmissionCandidate | None:
+    lemma = str(row.get("lemma") or "").strip()
+    if not lemma:
+        return None
+    return BrowsingAdmissionCandidate(
+        lemma=lemma,
+        target_key=str(row.get("target_key") or "").strip(),
+        target_reading=str(row.get("target_reading") or "").strip(),
+        neutral_score=float(row.get("neutral_score") or 0),
+        readiness_multiplier=float(row.get("readiness_multiplier") or 1),
+        explicit_preference_fit=float(row.get("explicit_preference_fit") or 0),
+        source_confidence=float(row.get("source_confidence") or 1),
+        admission_suitability=float(row.get("admission_suitability") or 1),
+        lexical_commonness=float(row.get("lexical_commonness") or 0),
+        lexical_commonness_known=bool(row.get("lexical_commonness_known")),
+    )
 
 
 def summarize_extension_case(case: Mapping[str, object]) -> dict[str, object]:
@@ -522,6 +467,7 @@ def build_case_checks(
     extension_summary: Mapping[str, object],
     ingest_responses: list[Mapping[str, object]],
     store_summary: Mapping[str, object],
+    admission_simulations: Mapping[str, object],
     srs_store_exists: bool,
 ) -> list[dict[str, object]]:
     expectations = _as_mapping(case.get("expectations"))
@@ -531,34 +477,41 @@ def build_case_checks(
     checks = [
         _check(
             "extension_payload_count",
-            int(extension_summary.get("packet_count") or 0)
-            >= int(expectations.get("min_packet_count") or 1),
-            "At least one extension packet was built from saved pages.",
+            _count_in_expected_range(extension_summary, expectations, "packet_count"),
+            "Extension packet count is inside the expected range.",
         ),
         _check(
             "extension_signal_count",
-            int(extension_summary.get("signal_count") or 0)
-            >= int(expectations.get("min_signal_count") or 1),
-            "Saved pages produced the expected minimum signal volume.",
+            _count_in_expected_range(extension_summary, expectations, "signal_count"),
+            "Extension signal count is inside the expected range.",
         ),
         _check(
             "source_mapping_signal_count",
-            int(extension_summary.get("source_signal_count") or 0)
-            >= int(expectations.get("min_source_mapping_signals") or 0),
-            "Source-language pages produced mapped target-language signals.",
+            _count_in_expected_range(
+                extension_summary,
+                expectations,
+                "source_signal_count",
+                expectation_name="source_mapping_signals",
+            ),
+            "Source-language signal count is inside the expected range.",
         ),
         _check(
             "target_surface_signal_count",
-            int(extension_summary.get("target_signal_count") or 0)
-            >= int(expectations.get("min_target_surface_signals") or 0),
-            "Target-language ruby pages produced reading-aware target signals.",
+            _count_in_expected_range(
+                extension_summary,
+                expectations,
+                "target_signal_count",
+                expectation_name="target_surface_signals",
+            ),
+            "Target-language signal count is inside the expected range.",
         ),
         _check(
             "native_host_ingest_succeeds_without_srs_mutation",
-            bool(ingest_responses)
-            and all(response.get("status") == "ok" for response in ingest_responses)
-            and all(response.get("runtime_srs_mutation") is False for response in ingest_responses)
-            and not srs_store_exists,
+            _native_ingest_matches_expectation(
+                ingest_responses,
+                expectations=expectations,
+                srs_store_exists=srs_store_exists,
+            ),
             "Native-host route persists browsing aggregates without mutating runtime SRS.",
         ),
     ]
@@ -582,6 +535,7 @@ def build_case_checks(
         target = str(required.get("target_key") or "")
         row = store_rows.get(target, {})
         checks.extend(_aggregate_checks(target, required, row))
+    checks.extend(_admission_checks(expectations, admission_simulations))
     for private_string in _list(expectations.get("private_strings_absent")):
         needle = str(private_string)
         checks.append(
@@ -589,6 +543,119 @@ def build_case_checks(
                 f"private_string_absent:{_safe_check_name(needle)}",
                 needle not in serialized_payloads,
                 "Raw page text and raw context identifiers are absent from extension packets.",
+            )
+        )
+    return checks
+
+
+def _count_in_expected_range(
+    summary: Mapping[str, object],
+    expectations: Mapping[str, object],
+    field: str,
+    *,
+    expectation_name: str | None = None,
+) -> bool:
+    name = expectation_name or field
+    actual = int(summary.get(field) or 0)
+    min_key = f"min_{name}"
+    max_key = f"max_{name}"
+    minimum = (
+        int(expectations[min_key])
+        if min_key in expectations
+        else (1 if field == "packet_count" else 0)
+    )
+    maximum = int(expectations[max_key]) if max_key in expectations else None
+    return actual >= minimum and (maximum is None or actual <= maximum)
+
+
+def _native_ingest_matches_expectation(
+    responses: list[Mapping[str, object]],
+    *,
+    expectations: Mapping[str, object],
+    srs_store_exists: bool,
+) -> bool:
+    require_ingest = bool(expectations.get("require_native_ingest", True))
+    if not responses:
+        return not require_ingest and not srs_store_exists
+    return (
+        all(response.get("status") == "ok" for response in responses)
+        and all(response.get("runtime_srs_mutation") is False for response in responses)
+        and not srs_store_exists
+    )
+
+
+def _admission_checks(
+    expectations: Mapping[str, object],
+    simulations: Mapping[str, object],
+) -> list[dict[str, object]]:
+    admission_expectations = _as_mapping(expectations.get("admission"))
+    if not admission_expectations:
+        return []
+    strength = str(admission_expectations.get("strength") or "strong")
+    simulation = _as_mapping(simulations.get(strength))
+    rows = {
+        str(row.get("target_key") or row.get("lemma") or ""): row
+        for row in _list_of_mappings(simulation.get("rows"))
+    }
+    checks = [
+        _check(
+            f"admission_simulation_exists:{strength}",
+            bool(simulation),
+            f"Admission simulation includes `{strength}` strength.",
+        )
+    ]
+    if "browsing_driven_count_min" in admission_expectations:
+        checks.append(
+            _check(
+                f"admission_browsing_driven_count_min:{strength}",
+                int(simulation.get("browsing_driven_count") or 0)
+                >= int(admission_expectations.get("browsing_driven_count_min") or 0),
+                f"`{strength}` has enough browsing-driven selections.",
+            )
+        )
+    for expected_row in _list_of_mappings(admission_expectations.get("required_rows")):
+        target = str(expected_row.get("target_key") or "")
+        row = rows.get(target, {})
+        checks.extend(_admission_row_checks(strength, target, expected_row, row))
+    return checks
+
+
+def _admission_row_checks(
+    strength: str,
+    target: str,
+    expected: Mapping[str, object],
+    row: Mapping[str, object],
+) -> list[dict[str, object]]:
+    checks = [
+        _check(
+            f"admission_row_exists:{strength}:{target}",
+            bool(row),
+            f"`{strength}` admission rows include `{target}`.",
+        )
+    ]
+    if "selected" in expected:
+        checks.append(
+            _check(
+                f"admission_selected:{strength}:{target}",
+                bool(row.get("selected")) is bool(expected.get("selected")),
+                f"`{target}` selected state matches expectation.",
+            )
+        )
+    if expected.get("selected_lane"):
+        checks.append(
+            _check(
+                f"admission_lane:{strength}:{target}",
+                str(row.get("selected_lane") or "") == str(expected.get("selected_lane")),
+                f"`{target}` selected lane is `{expected.get('selected_lane')}`.",
+            )
+        )
+    if "effective_browsing_signal_min" in expected:
+        checks.append(
+            _check(
+                f"admission_effective_signal_min:{strength}:{target}",
+                float(row.get("effective_browsing_signal") or 0)
+                >= float(expected.get("effective_browsing_signal_min") or 0),
+                f"`{target}` has enough effective browsing signal.",
             )
         )
     return checks
@@ -614,13 +681,18 @@ def _aggregate_checks(
     )
     for field in numeric_fields:
         min_key = f"{field}_min"
-        if min_key not in required:
+        if min_key not in required and not (
+            field == "browsing_context_count" and "context_count_min" in required
+        ):
             continue
+        expected_min = required.get(min_key)
+        if field == "browsing_context_count" and "context_count_min" in required:
+            expected_min = required.get("context_count_min")
         checks.append(
             _check(
                 f"aggregate_{field}_min:{target}",
-                float(row.get(field) or 0) >= float(required.get(min_key) or 0),
-                f"`{target}` has {field} >= {required.get(min_key)}.",
+                float(row.get(field) or 0) >= float(expected_min or 0),
+                f"`{target}` has {field} >= {expected_min}.",
             )
         )
     expected_sources = {str(item) for item in _list(required.get("observation_sources"))}
@@ -634,97 +706,6 @@ def _aggregate_checks(
             )
         )
     return checks
-
-
-def render_markdown(report: Mapping[str, object]) -> str:
-    lines = [
-        "# SRS Browsing Admission Offline Page Mining",
-        "",
-        f"- Status: `{report.get('status', '')}`",
-        f"- Scope: `{report.get('scope', '')}`",
-        f"- Config: `{report.get('config_path', '')}`",
-        f"- Live user data touched: `{report.get('live_user_data_touched')}`",
-        "",
-    ]
-    for case in _list_of_mappings(report.get("cases")):
-        lines.extend(render_case_markdown(case))
-    return "\n".join(lines)
-
-
-def render_case_markdown(case: Mapping[str, object]) -> list[str]:
-    lines = [
-        f"## {case.get('name')}",
-        "",
-        f"- Status: `{case.get('status')}`",
-        f"- Pair: `{case.get('pair')}`",
-        f"- Profile: `{case.get('profile_id')}`",
-        "",
-        "### Checks",
-        "",
-    ]
-    for check in _list_of_mappings(case.get("checks")):
-        lines.append(f"- `{check.get('status')}` `{check.get('name')}`: {check.get('detail')}")
-    lines.extend(["", "### Documents", ""])
-    lines.extend(
-        [
-            "| document | side | text chars | ruby pairs | sha256 |",
-            "|---|---:|---:|---:|---|",
-        ]
-    )
-    for document in _list_of_mappings(case.get("documents")):
-        lines.append(
-            "| "
-            f"`{document.get('document_id')}` | "
-            f"`{document.get('side')}` | "
-            f"{document.get('visible_text_char_count')} | "
-            f"{document.get('ruby_pair_count')} | "
-            f"`{str(document.get('sha256') or '')[:12]}` |"
-        )
-    lines.extend(["", "### Extension Signals", ""])
-    extension = _as_mapping(case.get("extension_payload"))
-    lines.extend(
-        [
-            f"- Packet count: `{extension.get('packet_count')}`",
-            f"- Signal count: `{extension.get('signal_count')}`",
-            f"- Source signal count: `{extension.get('source_signal_count')}`",
-            f"- Target signal count: `{extension.get('target_signal_count')}`",
-            "",
-            "| target | side | source | count | confidence | context |",
-            "|---|---:|---:|---:|---:|---:|",
-        ]
-    )
-    for row in _list_of_mappings(extension.get("signals")):
-        lines.append(
-            "| "
-            f"`{row.get('target_key')}` | "
-            f"`{row.get('side')}` | "
-            f"`{row.get('observation_source')}` | "
-            f"{row.get('count')} | "
-            f"{row.get('source_mapping_confidence')} | "
-            f"`{row.get('context_key_prefix')}` |"
-        )
-    lines.extend(["", "### Aggregate Store", ""])
-    lines.extend(
-        [
-            "| target | reading | source | target | contexts | evidence | signal | sources |",
-            "|---|---:|---:|---:|---:|---:|---:|---|",
-        ]
-    )
-    store = _as_mapping(case.get("aggregate_store"))
-    for row in _list_of_mappings(store.get("items")):
-        lines.append(
-            "| "
-            f"`{row.get('target_lemma')}` | "
-            f"`{row.get('target_reading') or ''}` | "
-            f"{row.get('source_hit_count')} | "
-            f"{row.get('target_hit_count')} | "
-            f"{row.get('browsing_context_count')} | "
-            f"{row.get('browsing_evidence')} | "
-            f"{row.get('browsing_signal')} | "
-            f"`{', '.join(map(str, row.get('observation_sources') or []))}` |"
-        )
-    lines.append("")
-    return lines
 
 
 def load_native_host_module():
@@ -751,18 +732,6 @@ def _load_json(path: Path) -> Mapping[str, object]:
     if not isinstance(payload, Mapping):
         raise ValueError(f"{path} must contain a JSON object.")
     return payload
-
-
-def _normalize_ruby_pair(surface: str, reading: str) -> dict[str, str] | None:
-    clean_surface = re.sub(r"\s+", "", surface or "").strip()
-    clean_reading = re.sub(r"\s+", "", reading or "").strip()
-    if not clean_surface or not clean_reading:
-        return None
-    return {"surface": clean_surface, "reading": clean_reading}
-
-
-def _collapse_spaces(value: str) -> str:
-    return re.sub(r"\s+", " ", str(value or "")).strip()
 
 
 def _check(name: str, condition: bool, detail: str) -> dict[str, object]:

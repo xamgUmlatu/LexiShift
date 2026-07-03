@@ -155,6 +155,71 @@
           }
         }
       ],
+      "admission": {
+        "admission_budget": 4,
+        "candidates": [
+          {
+            "lemma": "する",
+            "neutral_score": 1.0,
+            "lexical_commonness": 1.0,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "いる",
+            "neutral_score": 0.96,
+            "lexical_commonness": 1.0,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "言う",
+            "neutral_score": 0.9,
+            "lexical_commonness": 0.96,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "犬",
+            "neutral_score": 0.84,
+            "lexical_commonness": 0.7,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "発酵",
+            "target_reading": "はっこう",
+            "neutral_score": 0.59,
+            "readiness_multiplier": 0.9,
+            "explicit_preference_fit": 0.72,
+            "source_confidence": 0.86,
+            "lexical_commonness": 0.32,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "血圧",
+            "target_reading": "けつあつ",
+            "neutral_score": 0.54,
+            "readiness_multiplier": 0.88,
+            "explicit_preference_fit": 0.65,
+            "source_confidence": 0.84,
+            "lexical_commonness": 0.34,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "麹",
+            "target_reading": "こうじ",
+            "neutral_score": 0.5,
+            "readiness_multiplier": 0.82,
+            "explicit_preference_fit": 0.7,
+            "source_confidence": 0.82,
+            "lexical_commonness": 0.24,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "旅行",
+            "neutral_score": 0.58,
+            "lexical_commonness": 0.55,
+            "lexical_commonness_known": true
+          }
+        ]
+      },
       "expectations": {
         "min_packet_count": 1,
         "min_signal_count": 5,
@@ -190,10 +255,61 @@
             ]
           }
         ],
+        "admission": {
+          "strength": "strong",
+          "browsing_driven_count_min": 1,
+          "required_rows": [
+            {
+              "target_key": "発酵|はっこう",
+              "selected": true,
+              "selected_lane": "browsing",
+              "effective_browsing_signal_min": 0.25
+            }
+          ]
+        },
         "private_strings_absent": [
           "Fermentation changes sugars",
           "window.hiddenTopic",
           "offline-source-a"
+        ]
+      }
+    },
+    {
+      "name": "en-es_source_saved_page_currently_unsupported_v1",
+      "pair": "en-es",
+      "profile_id": "offline_page_mining",
+      "documents": [
+        {
+          "document_id": "en_es_fermentation_article_a",
+          "side": "source",
+          "format": "html",
+          "path": "docs/test_inputs/srs_browsing_admission_offline_pages/en_ja_fermentation_article_a.html",
+          "encoding": "utf-8",
+          "page_context_key": "offline-en-es-source-a"
+        }
+      ],
+      "active_rules": [
+        {
+          "source_phrase": "fermentation",
+          "replacement": "fermentación",
+          "metadata": {
+            "lexishift_origin": "srs",
+            "language_pair": "en-es"
+          }
+        }
+      ],
+      "expectations": {
+        "min_packet_count": 0,
+        "max_packet_count": 0,
+        "min_signal_count": 0,
+        "max_signal_count": 0,
+        "min_source_mapping_signals": 0,
+        "max_source_mapping_signals": 0,
+        "min_target_surface_signals": 0,
+        "max_target_surface_signals": 0,
+        "require_native_ingest": false,
+        "absent_payload_targets": [
+          "fermentación"
         ]
       }
     }
