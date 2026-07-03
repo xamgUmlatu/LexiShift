@@ -7,9 +7,10 @@
   "scope": "isolated_extension_payload_native_host_helper_admission_smoke",
   "live_user_data_touched": false,
   "extension_payload": {
-    "accepted_exposures": 19,
+    "accepted_exposures": 21,
     "packet_count": 1,
-    "signal_count": 5,
+    "signal_count": 6,
+    "ruby_signal_count": 1,
     "private_strings_absent": true,
     "context_key_prefixes": [
       "ctxh",
@@ -20,6 +21,8 @@
         "target_key": "会社",
         "target_lemma": "会社",
         "target_reading": "",
+        "side": "replacement_exposure",
+        "observation_source": "replacement_exposure",
         "count": 5,
         "context_key_prefix": "pageh"
       },
@@ -27,6 +30,8 @@
         "target_key": "料理",
         "target_lemma": "料理",
         "target_reading": "",
+        "side": "replacement_exposure",
+        "observation_source": "replacement_exposure",
         "count": 5,
         "context_key_prefix": "ctxh"
       },
@@ -34,13 +39,26 @@
         "target_key": "料理",
         "target_lemma": "料理",
         "target_reading": "",
+        "side": "replacement_exposure",
+        "observation_source": "replacement_exposure",
         "count": 5,
         "context_key_prefix": "ctxh"
+      },
+      {
+        "target_key": "発酵|はっこう",
+        "target_lemma": "発酵",
+        "target_reading": "はっこう",
+        "side": "target",
+        "observation_source": "target_surface",
+        "count": 2,
+        "context_key_prefix": "pageh"
       },
       {
         "target_key": "辛い|つらい",
         "target_lemma": "辛い",
         "target_reading": "つらい",
+        "side": "replacement_exposure",
+        "observation_source": "replacement_exposure",
         "count": 2,
         "context_key_prefix": "ctxh"
       },
@@ -48,6 +66,8 @@
         "target_key": "辛い|つらい",
         "target_lemma": "辛い",
         "target_reading": "つらい",
+        "side": "replacement_exposure",
+        "observation_source": "replacement_exposure",
         "count": 2,
         "context_key_prefix": "ctxh"
       }
@@ -85,18 +105,18 @@
           "replacement_exposure_weight": 0.35
         },
         "ingest_result": {
-          "input_signal_count": 5,
-          "accepted_signal_count": 5,
+          "input_signal_count": 6,
+          "accepted_signal_count": 6,
           "dropped_signal_count": 0,
           "capped_signal_count": 0,
           "pruned_item_count": 0,
-          "retained_item_count": 3
+          "retained_item_count": 4
         },
         "aggregate_store": {
           "pair": "en-ja",
           "profile_id": "runtime_smoke_profile",
           "updated_at": "2026-05-23T00:00:00Z",
-          "item_count": 3,
+          "item_count": 4,
           "top_items": [
             {
               "target_key": "料理",
@@ -114,6 +134,24 @@
               "browsing_evidence": 5.169925,
               "browsing_context_count": 2,
               "browsing_signal": 0.482068,
+              "last_seen_at": "2026-05-23T00:00:00Z"
+            },
+            {
+              "target_key": "発酵|はっこう",
+              "target_lemma": "発酵",
+              "target_reading": "はっこう",
+              "source_hit_count": 0.0,
+              "target_hit_count": 2.0,
+              "replacement_exposure_count": 0.0,
+              "source_mapping_confidence": 0.0,
+              "reading_confidence": 1.0,
+              "observation_sources": [
+                "target_surface"
+              ],
+              "raw_browsing": 2.0,
+              "browsing_evidence": 1.584963,
+              "browsing_context_count": 1,
+              "browsing_signal": 0.335206,
               "last_seen_at": "2026-05-23T00:00:00Z"
             },
             {
@@ -161,7 +199,7 @@
     "pair": "en-ja",
     "profile_id": "runtime_smoke_profile",
     "updated_at": "2026-05-23T00:00:00Z",
-    "item_count": 3,
+    "item_count": 4,
     "items": [
       {
         "target_key": "会社",
@@ -171,12 +209,17 @@
         "target_hit_count": 0.0,
         "replacement_exposure_count": 5.0,
         "reading_confidence": 1.0,
+        "observation_sources": [
+          "replacement_exposure"
+        ],
         "browsing_evidence": 2.584963,
         "browsing_context_count": 1,
         "browsing_signal": 0.317636,
         "context_evidence": [
           {
             "context_key_prefix": "pageh",
+            "source_hit_count": 0.0,
+            "target_hit_count": 0.0,
             "replacement_exposure_count": 5.0
           }
         ],
@@ -191,17 +234,49 @@
         "target_hit_count": 0.0,
         "replacement_exposure_count": 10.0,
         "reading_confidence": 1.0,
+        "observation_sources": [
+          "replacement_exposure"
+        ],
         "browsing_evidence": 5.169925,
         "browsing_context_count": 2,
         "browsing_signal": 0.482068,
         "context_evidence": [
           {
             "context_key_prefix": "ctxh",
+            "source_hit_count": 0.0,
+            "target_hit_count": 0.0,
             "replacement_exposure_count": 5.0
           },
           {
             "context_key_prefix": "ctxh",
+            "source_hit_count": 0.0,
+            "target_hit_count": 0.0,
             "replacement_exposure_count": 5.0
+          }
+        ],
+        "last_seen_at": "2026-05-23T00:00:00Z",
+        "decayed_at": "2026-05-23T00:00:00Z"
+      },
+      {
+        "target_key": "発酵|はっこう",
+        "target_lemma": "発酵",
+        "target_reading": "はっこう",
+        "source_hit_count": 0.0,
+        "target_hit_count": 2.0,
+        "replacement_exposure_count": 0.0,
+        "reading_confidence": 1.0,
+        "observation_sources": [
+          "target_surface"
+        ],
+        "browsing_evidence": 1.584963,
+        "browsing_context_count": 1,
+        "browsing_signal": 0.335206,
+        "context_evidence": [
+          {
+            "context_key_prefix": "pageh",
+            "source_hit_count": 0.0,
+            "target_hit_count": 2.0,
+            "replacement_exposure_count": 0.0
           }
         ],
         "last_seen_at": "2026-05-23T00:00:00Z",
@@ -215,16 +290,23 @@
         "target_hit_count": 0.0,
         "replacement_exposure_count": 4.0,
         "reading_confidence": 0.6,
+        "observation_sources": [
+          "replacement_exposure"
+        ],
         "browsing_evidence": 1.901955,
         "browsing_context_count": 2,
         "browsing_signal": 0.229992,
         "context_evidence": [
           {
             "context_key_prefix": "ctxh",
+            "source_hit_count": 0.0,
+            "target_hit_count": 0.0,
             "replacement_exposure_count": 2.0
           },
           {
             "context_key_prefix": "ctxh",
+            "source_hit_count": 0.0,
+            "target_hit_count": 0.0,
             "replacement_exposure_count": 2.0
           }
         ],
@@ -242,7 +324,7 @@
       "pair": "en-ja",
       "profile_id": "runtime_smoke_profile",
       "updated_at": "2026-06-06T00:00:00Z",
-      "item_count": 3,
+      "item_count": 4,
       "items": [
         {
           "target_key": "会社",
@@ -252,12 +334,17 @@
           "target_hit_count": 0.0,
           "replacement_exposure_count": 2.5,
           "reading_confidence": 1.0,
+          "observation_sources": [
+            "replacement_exposure"
+          ],
           "browsing_evidence": 1.807355,
           "browsing_context_count": 1,
           "browsing_signal": 0.227824,
           "context_evidence": [
             {
               "context_key_prefix": "pageh",
+              "source_hit_count": 0.0,
+              "target_hit_count": 0.0,
               "replacement_exposure_count": 2.5
             }
           ],
@@ -272,17 +359,49 @@
           "target_hit_count": 0.0,
           "replacement_exposure_count": 5.0,
           "reading_confidence": 1.0,
+          "observation_sources": [
+            "replacement_exposure"
+          ],
           "browsing_evidence": 3.61471,
           "browsing_context_count": 2,
           "browsing_signal": 0.365143,
           "context_evidence": [
             {
               "context_key_prefix": "ctxh",
+              "source_hit_count": 0.0,
+              "target_hit_count": 0.0,
               "replacement_exposure_count": 2.5
             },
             {
               "context_key_prefix": "ctxh",
+              "source_hit_count": 0.0,
+              "target_hit_count": 0.0,
               "replacement_exposure_count": 2.5
+            }
+          ],
+          "last_seen_at": "2026-05-23T00:00:00Z",
+          "decayed_at": "2026-06-06T00:00:00Z"
+        },
+        {
+          "target_key": "発酵|はっこう",
+          "target_lemma": "発酵",
+          "target_reading": "はっこう",
+          "source_hit_count": 0.0,
+          "target_hit_count": 1.0,
+          "replacement_exposure_count": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "browsing_evidence": 1.0,
+          "browsing_context_count": 1,
+          "browsing_signal": 0.244651,
+          "context_evidence": [
+            {
+              "context_key_prefix": "pageh",
+              "source_hit_count": 0.0,
+              "target_hit_count": 1.0,
+              "replacement_exposure_count": 0.0
             }
           ],
           "last_seen_at": "2026-05-23T00:00:00Z",
@@ -296,16 +415,23 @@
           "target_hit_count": 0.0,
           "replacement_exposure_count": 2.0,
           "reading_confidence": 0.6,
+          "observation_sources": [
+            "replacement_exposure"
+          ],
           "browsing_evidence": 1.2,
           "browsing_context_count": 2,
           "browsing_signal": 0.147682,
           "context_evidence": [
             {
               "context_key_prefix": "ctxh",
+              "source_hit_count": 0.0,
+              "target_hit_count": 0.0,
               "replacement_exposure_count": 1.0
             },
             {
               "context_key_prefix": "ctxh",
+              "source_hit_count": 0.0,
+              "target_hit_count": 0.0,
               "replacement_exposure_count": 1.0
             }
           ],
@@ -1017,6 +1143,11 @@
       "name": "multi_context_signal_survives_ingest",
       "status": "pass",
       "detail": "Repeated exposures across separate contexts become per-target context evidence."
+    },
+    {
+      "name": "ruby_target_surface_survives_ingest",
+      "status": "pass",
+      "detail": "Ruby page mining emits reading-aware target-surface evidence."
     },
     {
       "name": "single_context_high_count_is_not_enough",

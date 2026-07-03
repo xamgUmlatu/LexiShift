@@ -11,25 +11,37 @@
 - `pass` `extension_payload_is_privacy_safe`: Extension packet has only hashed/bucketed context keys and no raw private strings.
 - `pass` `native_host_ingest_succeeds_without_srs_mutation`: Native-host route persists only the browsing aggregate store.
 - `pass` `multi_context_signal_survives_ingest`: Repeated exposures across separate contexts become per-target context evidence.
+- `pass` `ruby_target_surface_survives_ingest`: Ruby page mining emits reading-aware target-surface evidence.
 - `pass` `single_context_high_count_is_not_enough`: A high count from one context is gated out before admission boost.
 - `pass` `strong_preset_can_move_context_supported_interest`: Context-supported browsing interest can enter through the browsing lane.
 - `pass` `opt_out_maintains_existing_store`: An opt-out packet decays existing aggregate state without adding new evidence.
 
 ## Extension Payload
 
-- Accepted exposures: `19`
+- Accepted exposures: `21`
 - Packet count: `1`
-- Signal count: `5`
+- Signal count: `6`
+- Ruby signal count: `1`
 - Context key prefixes: `ctxh, pageh`
 - Private strings absent: `True`
 
+| target | side | source | count | context |
+|---|---:|---:|---:|---:|
+| `会社` | `replacement_exposure` | `replacement_exposure` | 5 | `pageh` |
+| `料理` | `replacement_exposure` | `replacement_exposure` | 5 | `ctxh` |
+| `料理` | `replacement_exposure` | `replacement_exposure` | 5 | `ctxh` |
+| `発酵|はっこう` | `target` | `target_surface` | 2 | `pageh` |
+| `辛い|つらい` | `replacement_exposure` | `replacement_exposure` | 2 | `ctxh` |
+| `辛い|つらい` | `replacement_exposure` | `replacement_exposure` | 2 | `ctxh` |
+
 ## Aggregate Before Maintenance
 
-| target | reading | repl_count | contexts | evidence | signal |
-|---|---:|---:|---:|---:|---:|
-| `会社` | `` | 5.0 | 1 | 2.584963 | 0.317636 |
-| `料理` | `` | 10.0 | 2 | 5.169925 | 0.482068 |
-| `辛い` | `つらい` | 4.0 | 2 | 1.901955 | 0.229992 |
+| target | reading | source | target | repl | contexts | evidence | signal | sources |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| `会社` | `` | 0.0 | 0.0 | 5.0 | 1 | 2.584963 | 0.317636 | `replacement_exposure` |
+| `料理` | `` | 0.0 | 0.0 | 10.0 | 2 | 5.169925 | 0.482068 | `replacement_exposure` |
+| `発酵` | `はっこう` | 0.0 | 2.0 | 0.0 | 1 | 1.584963 | 0.335206 | `target_surface` |
+| `辛い` | `つらい` | 0.0 | 0.0 | 4.0 | 2 | 1.901955 | 0.229992 | `replacement_exposure` |
 
 ## Strong Admission Rows
 
@@ -50,4 +62,4 @@
 - Response status: `skipped`
 - Reason: `browsing_admission_not_opted_in`
 - Runtime SRS mutation: `False`
-- Aggregate items after: `3`
+- Aggregate items after: `4`
