@@ -1076,6 +1076,12 @@ Harness checks:
   `scripts/testing/srs_browsing_admission_implicit_sample_pack_en_ja.py`;
 - en-ja count-gradient sensitivity pack via
   `scripts/testing/srs_browsing_admission_signal_gradient_en_ja.py`;
+- en-ja saved-page extraction and helper aggregation pack via
+  `scripts/testing/srs_browsing_admission_saved_page_pack_en_ja.py`. This is
+  the preferred pre-runtime harness: it consumes local downloaded page fixtures,
+  maps English source terms and Japanese target surfaces/ruby pairs to
+  reading-aware `target_key` signal rows, and verifies the helper aggregate
+  store without live browser capture or SRS mutation;
 - offline page/text extraction research probe via
   `scripts/testing/srs_browsing_admission_research_en_es.py`, including its
   canonical helper/core probe section. This extraction probe is still

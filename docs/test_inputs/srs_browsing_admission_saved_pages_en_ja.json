@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "pair": "en-ja",
+  "description": "Saved-page fixtures for browsing-to-aggregate admission testing. The fixture files are local downloaded inputs; generated artifacts must store hashes and aggregate signals, not raw page text.",
+  "documents": [
+    {
+      "document_id": "en_rabbit_wikipedia_summary",
+      "side": "source",
+      "format": "json",
+      "path": "docs/test_inputs/srs_browsing_admission_saved_pages_en_ja/en_rabbit_wikipedia_summary.json",
+      "encoding": "utf-8",
+      "source_url": "https://en.wikipedia.org/api/rest_v1/page/summary/Rabbit",
+      "license_note": "Wikipedia REST summary content; CC BY-SA/GFDL terms apply upstream.",
+      "text_fields": [
+        "title",
+        "description"
+      ]
+    },
+    {
+      "document_id": "ja_chuumon_no_ooi_ryouriten_aozora",
+      "side": "target",
+      "format": "html",
+      "path": "docs/test_inputs/srs_browsing_admission_saved_pages_en_ja/ja_chuumon_no_ooi_ryouriten_aozora.html",
+      "encoding": "shift_jis",
+      "source_url": "https://www.aozora.gr.jp/cards/000081/files/43754_17659.html",
+      "license_note": "Aozora Bunko page for Miyazawa Kenji's public-domain text.",
+      "uses_ruby": true
+    }
+  ],
+  "expectations": {
+    "min_source_mapping_signals": 1,
+    "min_target_surface_signals": 5,
+    "required_observation_sources": [
+      "source_mapping",
+      "target_surface"
+    ]
+  }
+}
