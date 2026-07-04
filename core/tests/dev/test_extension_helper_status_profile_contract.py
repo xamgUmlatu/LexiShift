@@ -149,10 +149,15 @@ const client = new HelperClient({{
 
 (async () => {{
   await client.listSrsItems("en-es", "default");
+  await client.listSrsItems("en-ja", "suisui", {{ compact: true }});
   assert.equal(JSON.stringify(calls), JSON.stringify([
     {{
       type: "srs_items_list",
       payload: {{ pair: "en-es", profile_id: "default" }}
+    }},
+    {{
+      type: "srs_items_list",
+      payload: {{ pair: "en-ja", profile_id: "suisui", compact: true }}
     }}
   ]));
 }})().catch((error) => {{
@@ -758,7 +763,14 @@ const vm = require("node:vm");
 
 const translateResolverPath = {json.dumps(str(TRANSLATE_RESOLVER_JS))};
 const pageInitPath = {json.dumps(str(PAGE_INIT_JS))};
-const context = vm.createContext({{ console }});
+const scheduledTasks = [];
+const context = vm.createContext({{
+  console,
+  setTimeout(callback) {{
+    scheduledTasks.push(callback);
+    return scheduledTasks.length;
+  }}
+}});
 context.globalThis = context;
 context.LexiShift = {{}};
 vm.runInContext(fs.readFileSync(translateResolverPath, "utf8"), context, {{ filename: translateResolverPath }});
@@ -767,6 +779,7 @@ vm.runInContext(fs.readFileSync(pageInitPath, "utf8"), context, {{ filename: pag
 const createController = context.LexiShift.optionsPageInit.createController;
 let refreshedProfileId = null;
 const calls = [];
+const srsBrowsingAdmissionSignalsInput = {{ checked: false }};
 const controller = createController({{
   settingsManager: {{
     defaults: {{
@@ -792,6 +805,7 @@ const controller = createController({{
         rulesUpdatedAt: "",
         rulesFileName: "",
         customRulesetEnabled: true,
+        srsBrowsingAdmissionSignalsEnabled: true,
         srsSelectedProfileId: "suisui"
       }};
     }},
@@ -804,7 +818,8 @@ const controller = createController({{
     getProfileUiPrefs(_items, options) {{
       return {{
         profileId: options.profileId,
-        backgroundBackdropColor: "#4455aa"
+        backgroundBackdropColor: "#4455aa",
+        backgroundAssetId: "asset-1"
       }};
     }},
     async publishProfileLanguagePrefs() {{}}
@@ -824,10 +839,23 @@ const controller = createController({{
     return "en-es";
   }},
   applyProfileBackgroundFromPrefs: async (uiPrefs, options) => {{
-    calls.push(["theme", uiPrefs.profileId, uiPrefs.backgroundBackdropColor, options.eagerBackdrop]);
+    calls.push([
+      "theme",
+      uiPrefs.profileId,
+      uiPrefs.backgroundBackdropColor,
+      options.eagerBackdrop,
+      options.skipImageAsset
+    ]);
   }},
-  loadSrsProfileForPair: async (_items, pairKey) => {{
-    calls.push(["profile", pairKey]);
+  loadSrsProfileForPair: async (_items, pairKey, options) => {{
+    calls.push([
+      "profile",
+      pairKey,
+      options && options.visualOnly === true,
+      options && options.skipHelperProfiles === true,
+      options && options.backgroundSync === true,
+      options && options.skipPageImageAsset === true
+    ]);
   }},
   updateRulesSourceUI: () => {{}},
   updateRulesMeta: () => {{}},
@@ -853,17 +881,30 @@ const controller = createController({{
     languageSelect: {{ value: "" }},
     rulesInput: {{ value: "" }},
     fileStatus: {{ textContent: "" }},
-    customRulesetEnabledInput: {{ checked: false }}
+    customRulesetEnabledInput: {{ checked: false }},
+    srsBrowsingAdmissionSignalsInput
   }}
 }});
 
 (async () => {{
   await controller.load();
+  assert.equal(refreshedProfileId, null);
+  assert.equal(srsBrowsingAdmissionSignalsInput.checked, true);
+  assert.deepEqual(calls, [
+    ["theme", "suisui", "#4455aa", true, true],
+    ["i18n"],
+    ["profile", "en-es", true, true, false, false]
+  ]);
+  while (scheduledTasks.length) {{
+    await scheduledTasks.shift()();
+  }}
   assert.equal(refreshedProfileId, "suisui");
   assert.deepEqual(calls, [
-    ["theme", "suisui", "#4455aa", true],
+    ["theme", "suisui", "#4455aa", true, true],
     ["i18n"],
-    ["profile", "en-es"],
+    ["profile", "en-es", true, true, false, false],
+    ["theme", "suisui", "#4455aa", true, undefined],
+    ["profile", "en-es", false, false, true, true],
     ["helper", "suisui"]
   ]);
 }})().catch((error) => {{

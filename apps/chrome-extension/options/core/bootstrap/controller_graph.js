@@ -179,7 +179,9 @@
         ? shareCenterController.syncForProfile(optionsArg)
         : Promise.resolve()),
       clearProfileCache: () => srsProfileSelectorController.clearCache(),
-      syncProfileBackgroundForPrefs: (uiPrefs) => profileBackgroundController.syncForLoadedPrefs(uiPrefs),
+      syncProfileBackgroundForPrefs: (uiPrefs, optionsArg) => (
+        profileBackgroundController.syncForLoadedPrefs(uiPrefs, optionsArg)
+      ),
       setProfileStatusLocalized: (key, substitutions, fallback) => {
         profileStatusController.setLocalized(key, substitutions, fallback);
       },

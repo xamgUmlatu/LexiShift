@@ -418,7 +418,12 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         return get_srs_runtime_diagnostics(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "srs_items_list":
         pair = str(payload.get("pair", "en-ja"))
-        return list_srs_items(paths, pair=pair, profile_id=profile_id or "default")
+        return list_srs_items(
+            paths,
+            pair=pair,
+            profile_id=profile_id or "default",
+            compact=_optional_bool(payload, "compact") is True,
+        )
     if msg_type in {"srs_seed_cache_status", "srs_seed_cache_prepare"}:
         return handle_srs_seed_cache_request(paths, msg_type, payload)
     if msg_type == "srs_item_rule_details":

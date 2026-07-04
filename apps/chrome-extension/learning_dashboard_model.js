@@ -172,17 +172,29 @@
     return normalized || "-";
   }
 
-  function listPracticePairs(items, profileId) {
+  function listPracticePairs(items, profileId, options) {
+    const opts = isObject(options) ? options : {};
     const profiles = isObject(items && items.srsProfiles) ? items.srsProfiles : {};
     const profile = isObject(profiles[normalizeText(profileId)]) ? profiles[normalizeText(profileId)] : {};
     const byPair = isObject(profile.srsByPair) ? profile.srsByPair : {};
-    return Object.keys(byPair)
+    const pairs = Object.keys(byPair)
       .filter((pair) => normalizeText(pair) && isObject(byPair[pair]) && byPair[pair].srsEnabled === true)
       .sort((left, right) => pairDisplayLabel(left).localeCompare(pairDisplayLabel(right)))
       .map((pair) => ({
         pair,
         label: pairDisplayLabel(pair)
       }));
+    if (pairs.length) {
+      return pairs;
+    }
+    const fallbackPair = normalizeText(opts.fallbackPair);
+    if (!fallbackPair) {
+      return pairs;
+    }
+    return [{
+      pair: fallbackPair,
+      label: pairDisplayLabel(fallbackPair)
+    }];
   }
 
   root.learningDashboardModel = {

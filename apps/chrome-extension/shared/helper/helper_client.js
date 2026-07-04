@@ -67,8 +67,13 @@
       return this.send("srs_diagnostics", { pair, profile_id: profileId });
     }
 
-    listSrsItems(pair, profileId) {
-      return this.send("srs_items_list", { pair, profile_id: profileId });
+    listSrsItems(pair, profileId, options) {
+      const opts = options && typeof options === "object" ? options : {};
+      const payload = { pair, profile_id: profileId };
+      if (opts.compact === true) {
+        payload.compact = true;
+      }
+      return this.send("srs_items_list", payload);
     }
 
     getSrsItemRuleDetails(pair, profileId, lemma, limit) {

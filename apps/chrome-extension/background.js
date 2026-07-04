@@ -1,6 +1,8 @@
 (() => {
   const HOST_NAME = "com.lexishift.helper";
   const BRIDGE_KIND = "lexishift_helper_request_v1";
+  const pendingNativeRequests = new Map();
+  let nativePort = null;
 
   function normalizeTimeoutMs(timeoutMs) {
     const parsed = Number(timeoutMs);
@@ -50,7 +52,103 @@
     };
   }
 
-  function sendNativeMessage(type, payload = {}, timeoutMs = 4000) {
+  function nativePortDisconnectError() {
+    const detail = chrome && chrome.runtime && chrome.runtime.lastError
+      ? chrome.runtime.lastError.message
+      : "Native host has exited.";
+    return classifyNativeMessagingError(detail || "Native host has exited.", "native_host_exited");
+  }
+
+  function rejectPendingNativeRequests(error) {
+    pendingNativeRequests.forEach((entry) => {
+      clearTimeout(entry.timer);
+      entry.resolve({ ok: false, error });
+    });
+    pendingNativeRequests.clear();
+  }
+
+  function resetNativePort(error) {
+    nativePort = null;
+    if (error) {
+      rejectPendingNativeRequests(error);
+    }
+  }
+
+  function ensureNativePort() {
+    if (!chrome || !chrome.runtime || typeof chrome.runtime.connectNative !== "function") {
+      return null;
+    }
+    if (nativePort) {
+      return nativePort;
+    }
+    try {
+      const port = chrome.runtime.connectNative(HOST_NAME);
+      if (!port || typeof port.postMessage !== "function") {
+        return null;
+      }
+      nativePort = port;
+      if (port.onMessage && typeof port.onMessage.addListener === "function") {
+        port.onMessage.addListener((response) => {
+          const requestId = String(response && response.id || "");
+          const entry = pendingNativeRequests.get(requestId);
+          if (!entry) {
+            return;
+          }
+          pendingNativeRequests.delete(requestId);
+          clearTimeout(entry.timer);
+          entry.resolve(response || { ok: false, error: { code: "empty_response", message: "No response." } });
+        });
+      }
+      if (port.onDisconnect && typeof port.onDisconnect.addListener === "function") {
+        port.onDisconnect.addListener(() => {
+          resetNativePort(nativePortDisconnectError());
+        });
+      }
+      return nativePort;
+    } catch (_error) {
+      resetNativePort(null);
+      return null;
+    }
+  }
+
+  function sendNativeMessageViaPort(type, payload = {}, timeoutMs = 4000) {
+    return new Promise((resolve) => {
+      const port = ensureNativePort();
+      if (!port) {
+        resolve({ useOneShotFallback: true });
+        return;
+      }
+      const requestType = String(type || "").trim();
+      if (!requestType) {
+        resolve(makeInvalidRequest("Missing helper request type."));
+        return;
+      }
+      const request = {
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        type: requestType,
+        version: 1,
+        payload: payload && typeof payload === "object" ? payload : {}
+      };
+      const timer = setTimeout(() => {
+        if (!pendingNativeRequests.has(request.id)) {
+          return;
+        }
+        pendingNativeRequests.delete(request.id);
+        resolve({ ok: false, error: { code: "timeout", message: "Helper request timed out." } });
+      }, normalizeTimeoutMs(timeoutMs));
+      pendingNativeRequests.set(request.id, { resolve, timer });
+      try {
+        port.postMessage(request);
+      } catch (_error) {
+        pendingNativeRequests.delete(request.id);
+        clearTimeout(timer);
+        resetNativePort(null);
+        resolve({ useOneShotFallback: true });
+      }
+    });
+  }
+
+  function sendNativeMessageOneShot(type, payload = {}, timeoutMs = 4000) {
     return new Promise((resolve) => {
       if (!chrome || !chrome.runtime || typeof chrome.runtime.sendNativeMessage !== "function") {
         resolve({ ok: false, error: { code: "native_unavailable", message: "Native messaging not available." } });
@@ -110,6 +208,14 @@
         });
       }
     });
+  }
+
+  async function sendNativeMessage(type, payload = {}, timeoutMs = 4000) {
+    const portResponse = await sendNativeMessageViaPort(type, payload, timeoutMs);
+    if (portResponse && portResponse.useOneShotFallback === true) {
+      return sendNativeMessageOneShot(type, payload, timeoutMs);
+    }
+    return portResponse;
   }
 
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {

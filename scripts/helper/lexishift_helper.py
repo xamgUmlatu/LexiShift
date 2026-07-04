@@ -170,7 +170,12 @@ def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
 
 def cmd_srs_items_list(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    payload = list_srs_items(paths, pair=args.pair, profile_id=args.profile_id or "default")
+    payload = list_srs_items(
+        paths,
+        pair=args.pair,
+        profile_id=args.profile_id or "default",
+        compact=args.compact,
+    )
     _print_json(payload)
     return 0
 
@@ -477,6 +482,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     srs_items_list.add_argument("--pair", default="en-ja")
     srs_items_list.add_argument("--profile-id", help="Profile id (default: default)")
+    srs_items_list.add_argument(
+        "--compact",
+        action="store_true",
+        help="Omit heavy per-row advanced word-package payloads for fast dashboard loads.",
+    )
     srs_items_list.set_defaults(func=cmd_srs_items_list)
 
     seed_cache_status = sub.add_parser(

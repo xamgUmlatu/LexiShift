@@ -41,6 +41,93 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionOptionsSrsBridgeContract(unittest.TestCase):
+    def test_background_bridge_reuses_persistent_native_port(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const backgroundPath = {json.dumps(str(BACKGROUND_JS))};
+let bridgeListener = null;
+let portMessageListener = null;
+let portDisconnectListener = null;
+let connectCount = 0;
+let oneShotCount = 0;
+const nativeRequests = [];
+
+const backgroundChrome = {{
+  runtime: {{
+    lastError: null,
+    connectNative(host) {{
+      connectCount += 1;
+      return {{
+        postMessage(request) {{
+          nativeRequests.push({{ host, request }});
+          setTimeout(() => {{
+            portMessageListener({{ id: request.id, ok: true, data: {{ type: request.type }} }});
+          }}, 0);
+        }},
+        onMessage: {{
+          addListener(fn) {{
+            portMessageListener = fn;
+          }}
+        }},
+        onDisconnect: {{
+          addListener(fn) {{
+            portDisconnectListener = fn;
+          }}
+        }}
+      }};
+    }},
+    sendNativeMessage() {{
+      oneShotCount += 1;
+      throw new Error("one-shot fallback should not be used when a native port is available");
+    }},
+    onMessage: {{
+      addListener(fn) {{
+        bridgeListener = fn;
+      }}
+    }}
+  }}
+}};
+const backgroundContext = vm.createContext({{
+  console,
+  chrome: backgroundChrome,
+  setTimeout,
+  clearTimeout,
+  Date,
+  Math
+}});
+backgroundContext.globalThis = backgroundContext;
+vm.runInContext(fs.readFileSync(backgroundPath, "utf8"), backgroundContext, {{ filename: backgroundPath }});
+
+async function send(requestType) {{
+  return await new Promise((resolve) => {{
+    const keepAlive = bridgeListener(
+      {{ kind: "lexishift_helper_request_v1", requestType, payload: {{}}, timeoutMs: 1000 }},
+      null,
+      resolve
+    );
+    assert.equal(keepAlive, true);
+  }});
+}}
+
+(async () => {{
+  const first = await send("hello");
+  const second = await send("srs_items_list");
+  assert.equal(first.data.type, "hello");
+  assert.equal(second.data.type, "srs_items_list");
+  assert.equal(connectCount, 1);
+  assert.equal(oneShotCount, 0);
+  assert.equal(nativeRequests.length, 2);
+  assert.equal(typeof portDisconnectListener, "function");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_options_srs_actions_route_through_background_native_bridge(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

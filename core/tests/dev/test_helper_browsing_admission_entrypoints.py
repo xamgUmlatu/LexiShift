@@ -418,12 +418,14 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
                     {
                         "pair": "en-es",
                         "profile_id": "default",
+                        "compact": True,
                     },
                 )
 
             self.assertEqual(response["status"], "ok")
             self.assertEqual(response["summary"]["total"], 1)
             self.assertEqual(response["items"][0]["lemma"], "perro")
+            self.assertNotIn("word_package", response["items"][0]["advanced"])
 
     def test_native_host_routes_srs_item_rule_details(self) -> None:
         module = _load_module("lexishift_native_host_srs_rule_details_test", NATIVE_HOST_SCRIPT)

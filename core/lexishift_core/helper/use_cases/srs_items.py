@@ -33,6 +33,7 @@ def list_srs_items(
     pair: str,
     profile_id: str = "default",
     now: datetime | None = None,
+    compact: bool = False,
     resolve_profile_id_fn: Callable[..., str],
 ) -> dict[str, object]:
     normalized_pair = str(pair or "").strip()
@@ -77,6 +78,7 @@ def list_srs_items(
             active_item_ids=active_item_id_set,
             rules_by_lemma=rules_by_lemma,
             now=anchor,
+            compact=compact,
         )
         for item in scoped_items
     ]
@@ -164,6 +166,7 @@ def _item_payload(
     active_item_ids: set[str],
     rules_by_lemma: Mapping[str, Mapping[str, object]],
     now: datetime,
+    compact: bool,
 ) -> dict[str, object]:
     lifecycle_state = normalize_srs_lifecycle_state(item.lifecycle_state)
     active = lifecycle_state == SRS_LIFECYCLE_ACTIVE and item.item_id in active_item_ids
@@ -194,6 +197,20 @@ def _item_payload(
         now=now,
     )
 
+    advanced = {
+        "lifecycle_state": lifecycle_state,
+        "lifecycle_reason": item.lifecycle_reason,
+        "lifecycle_updated_at": item.lifecycle_updated_at,
+        "scheduler_state": item.scheduler_state,
+        "scheduler_step": item.scheduler_step,
+        "stability": item.stability,
+        "difficulty": item.difficulty,
+        "confidence": item.confidence,
+        "history": [{"ts": entry.ts, "rating": entry.rating} for entry in item.history[-5:]],
+    }
+    if not compact:
+        advanced["word_package"] = word_package
+
     return {
         "item_id": item.item_id,
         "lemma": item.lemma,
@@ -218,6 +235,7 @@ def _item_payload(
         "source_type": item.source_type,
         "source_label": source_label,
         "pos": word_package.get("pos_canonical") or word_package.get("pos") or "",
+        "has_word_package": bool(word_package),
         "rule_summary": rule_summary,
         "encounter_state": _encounter_state(
             active=active,
@@ -226,18 +244,7 @@ def _item_payload(
             rule_summary=rule_summary,
             admitted_age_days=admitted_age_days,
         ),
-        "advanced": {
-            "lifecycle_state": lifecycle_state,
-            "lifecycle_reason": item.lifecycle_reason,
-            "lifecycle_updated_at": item.lifecycle_updated_at,
-            "scheduler_state": item.scheduler_state,
-            "scheduler_step": item.scheduler_step,
-            "stability": item.stability,
-            "difficulty": item.difficulty,
-            "confidence": item.confidence,
-            "word_package": word_package,
-            "history": [{"ts": entry.ts, "rating": entry.rating} for entry in item.history[-5:]],
-        },
+        "advanced": advanced,
     }
 
 
@@ -521,7 +528,9 @@ def _summary(items: list[dict[str, object]], *, inventory_active_count: int) -> 
             if encounter_state.get("needs_attention") is True:
                 summary["encounter_watch"] += 1
         advanced = item.get("advanced")
-        if isinstance(advanced, Mapping) and advanced.get("word_package"):
+        if item.get("has_word_package") is True or (
+            isinstance(advanced, Mapping) and advanced.get("word_package")
+        ):
             summary["with_word_package"] += 1
     return summary
 

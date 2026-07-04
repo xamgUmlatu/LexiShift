@@ -70,6 +70,16 @@
         ? elements.srsBrowsingAdmissionSignalsInput.checked === true
         : false;
       return settingsManager.save({ srsBrowsingAdmissionSignalsEnabled: enabled })
+        .then(() => {
+          if (!elements.srsBrowsingAdmissionSignalsInput || typeof settingsManager.load !== "function") {
+            return null;
+          }
+          return settingsManager.load().then((items) => {
+            elements.srsBrowsingAdmissionSignalsInput.checked =
+              items && items.srsBrowsingAdmissionSignalsEnabled === true;
+            return items;
+          });
+        })
         .then(() => setStatus(translate("status_srs_saved", null, "Practice settings saved."), ui.COLORS.SUCCESS));
     };
     const applyTargetLanguagePrefsLocalization = typeof opts.applyTargetLanguagePrefsLocalization === "function"

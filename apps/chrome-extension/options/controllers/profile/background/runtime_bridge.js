@@ -65,8 +65,10 @@
           y: Math.min(100, Math.max(0, Number.isFinite(Number(y)) ? Number(y) : 50))
         });
 
-    async function refreshProfileBackgroundPreview(uiPrefs) {
+    async function refreshProfileBackgroundPreview(uiPrefs, options) {
       const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
+      const localOptions = options && typeof options === "object" ? options : {};
+      const skipAssetLoad = localOptions.skipAssetLoad === true;
       const assetId = String(prefs.backgroundAssetId || "").trim();
       const position = normalizeProfileBackgroundPosition(
         prefs.backgroundPositionX,
@@ -84,6 +86,9 @@
         );
         return;
       }
+      if (skipAssetLoad) {
+        return;
+      }
       if (!profileMediaStore || typeof profileMediaStore.getAsset !== "function") {
         previewManager.clearPreview();
         setProfileBgStatus("Background preview unavailable: media store missing.");
@@ -94,7 +99,7 @@
         if (!record || !(record.blob instanceof Blob)) {
           previewManager.clearPreview();
           setProfileBgStatus("Background asset not found. Upload again for this profile.");
-          return;
+          return null;
         }
         previewManager.setPreviewFromBlob(record.blob);
         if (typeof previewManager.setPreviewPosition === "function") {
@@ -103,10 +108,12 @@
         const type = String(record.mime_type || record.blob.type || "image/*");
         const size = Number(record.byte_size || record.blob.size || 0);
         setProfileBgStatus(`Asset: ${type}, ${formatBytes(size)}.`);
+        return record;
       } catch (err) {
         previewManager.clearPreview();
         const msg = err && err.message ? err.message : "Failed to load background preview.";
         setProfileBgStatus(msg);
+        return null;
       }
     }
 
@@ -115,6 +122,7 @@
       cardThemeManager.applyCardThemeFromPrefs(prefs);
       const localOptions = options && typeof options === "object" ? options : {};
       const eagerBackdrop = localOptions.eagerBackdrop === true;
+      const skipImageAsset = localOptions.skipImageAsset === true;
       const assetId = String(prefs.backgroundAssetId || "").trim();
       const backdropColor = normalizeProfileBackgroundBackdropColor(prefs.backgroundBackdropColor);
       const position = normalizeProfileBackgroundPosition(
@@ -126,8 +134,11 @@
         pageBackgroundManager.applyBackdropOnly(backdropColor);
         return;
       }
-      if (eagerBackdrop) {
+      if (eagerBackdrop || skipImageAsset) {
         pageBackgroundManager.applyBackdropOnly(backdropColor);
+      }
+      if (skipImageAsset) {
+        return;
       }
       if (preferredBlob) {
         pageBackgroundManager.applyBackgroundFromBlob(
@@ -222,9 +233,12 @@
       await settingsManager.publishProfileUiPrefs(uiPrefs, { profileId });
     }
 
-    async function syncForLoadedPrefs(uiPrefs) {
+    async function syncForLoadedPrefs(uiPrefs, options) {
       clearFileInput();
       const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
+      const localOptions = options && typeof options === "object" ? options : {};
+      const skipPageImageAsset = localOptions.skipImageAsset === true
+        || localOptions.skipPageImageAsset === true;
       updateProfileBgOpacityLabel((prefs.backgroundOpacity || defaultOpacity) * 100);
       if (typeof previewManager.setPreviewPosition === "function") {
         const position = normalizeProfileBackgroundPosition(
@@ -239,8 +253,17 @@
         brightnessPercent: prefs.cardThemeBrightnessPercent,
         transparencyPercent: prefs.cardThemeTransparencyPercent
       });
-      await refreshProfileBackgroundPreview(prefs);
-      await applyOptionsPageBackgroundFromPrefs(prefs);
+      const previewRecord = await refreshProfileBackgroundPreview(prefs, {
+        skipAssetLoad: localOptions.skipPreviewAsset === true || localOptions.skipImageAsset === true
+      });
+      const preferredBlob = localOptions.preferredBlob instanceof Blob
+        ? localOptions.preferredBlob
+        : (previewRecord && previewRecord.blob instanceof Blob ? previewRecord.blob : null);
+      await applyOptionsPageBackgroundFromPrefs(prefs, {
+        ...localOptions,
+        skipImageAsset: skipPageImageAsset,
+        preferredBlob
+      });
     }
 
     return {

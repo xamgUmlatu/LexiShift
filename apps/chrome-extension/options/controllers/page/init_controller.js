@@ -61,11 +61,67 @@
     const fileStatus = elements.fileStatus || null;
     const customRulesetEnabledInput = elements.customRulesetEnabledInput || null;
 
+    function queueBackgroundOptionsTask(task) {
+      if (typeof task !== "function") {
+        return;
+      }
+      const run = () => {
+        try {
+          Promise.resolve(task()).catch((_err) => {});
+        } catch (_err) {}
+      };
+      if (typeof globalThis.requestIdleCallback === "function") {
+        globalThis.requestIdleCallback(run, { timeout: 1_500 });
+        return;
+      }
+      if (typeof globalThis.setTimeout === "function") {
+        globalThis.setTimeout(run, 0);
+        return;
+      }
+      Promise.resolve().then(run).catch((_err) => {});
+    }
+
+    function queuePostPaintOptionsTask(task) {
+      if (typeof task !== "function") {
+        return;
+      }
+      const run = () => {
+        try {
+          Promise.resolve(task()).catch((_err) => {});
+        } catch (_err) {}
+      };
+      const afterPaint = () => {
+        if (typeof globalThis.setTimeout === "function") {
+          globalThis.setTimeout(run, 0);
+          return;
+        }
+        Promise.resolve().then(run).catch((_err) => {});
+      };
+      if (typeof globalThis.requestAnimationFrame === "function") {
+        globalThis.requestAnimationFrame(afterPaint);
+        return;
+      }
+      afterPaint();
+    }
+
     function queueInitialProfileThemeSync(uiPrefs) {
       try {
-        Promise.resolve(applyProfileBackgroundFromPrefs(uiPrefs, { eagerBackdrop: true }))
+        Promise.resolve(applyProfileBackgroundFromPrefs(uiPrefs, {
+          eagerBackdrop: true,
+          skipImageAsset: true
+        }))
           .catch((_err) => {});
       } catch (_err) {}
+    }
+
+    function queueInitialProfileImageSync(uiPrefs) {
+      const prefs = uiPrefs && typeof uiPrefs === "object" ? uiPrefs : {};
+      if (!String(prefs.backgroundAssetId || "").trim()) {
+        return;
+      }
+      queuePostPaintOptionsTask(() => applyProfileBackgroundFromPrefs(prefs, {
+        eagerBackdrop: true
+      }));
     }
 
     async function load() {
@@ -75,8 +131,10 @@
       setSrsProfileStatusLocalized("hint_profile_loading", null, "Loading profiles…");
       const items = await settingsManager.load();
       const selectedProfileId = settingsManager.getSelectedSrsProfileId(items);
+      let initialUiPrefs = null;
       if (typeof settingsManager.getProfileUiPrefs === "function") {
-        queueInitialProfileThemeSync(settingsManager.getProfileUiPrefs(items, { profileId: selectedProfileId }));
+        initialUiPrefs = settingsManager.getProfileUiPrefs(items, { profileId: selectedProfileId });
+        queueInitialProfileThemeSync(initialUiPrefs);
       }
       if (enabledInput) {
         enabledInput.checked = items.enabled;
@@ -115,7 +173,19 @@
       const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId: selectedProfileId });
       const pairKey = applyLanguagePrefsToInputs(languagePrefs);
       await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedProfileId });
-      await loadSrsProfileForPair(items, pairKey);
+      const initialProfileState = await loadSrsProfileForPair(items, pairKey, {
+        visualOnly: true,
+        skipHelperProfiles: true
+      });
+      queueInitialProfileImageSync(
+        initialProfileState && initialProfileState.uiPrefs
+          ? initialProfileState.uiPrefs
+          : initialUiPrefs
+      );
+      queueBackgroundOptionsTask(() => loadSrsProfileForPair(items, pairKey, {
+        backgroundSync: true,
+        skipPageImageAsset: true
+      }));
       if (srsRulegenOutput) {
         srsRulegenOutput.textContent = "";
       }
@@ -127,7 +197,7 @@
       }
       setHelperStatus("", "");
       if (helperActionsController && typeof helperActionsController.refreshStatus === "function") {
-        await helperActionsController.refreshStatus(selectedProfileId);
+        queueBackgroundOptionsTask(() => helperActionsController.refreshStatus(selectedProfileId));
       }
       settingsManager.currentRules = items.rules || [];
       if (customRulesetEnabledInput) {

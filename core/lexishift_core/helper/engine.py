@@ -399,12 +399,14 @@ def list_srs_items(
     pair: str,
     profile_id: str = "default",
     now: datetime | None = None,
+    compact: bool = False,
 ) -> dict:
     return _list_srs_items_use_case(
         paths,
         pair=pair,
         profile_id=profile_id,
         now=now,
+        compact=compact,
         resolve_profile_id_fn=_resolve_profile_id,
     )
 

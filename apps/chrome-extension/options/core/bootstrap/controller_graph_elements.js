@@ -194,7 +194,8 @@
         languageSelect: dom.languageSelect,
         rulesInput: dom.rulesInput,
         fileStatus: dom.fileStatus,
-        customRulesetEnabledInput: dom.customRulesetEnabledInput
+        customRulesetEnabledInput: dom.customRulesetEnabledInput,
+        srsBrowsingAdmissionSignalsInput: dom.srsBrowsingAdmissionSignalsInput
       },
       eventWiring: {
         saveButton: dom.saveButton,

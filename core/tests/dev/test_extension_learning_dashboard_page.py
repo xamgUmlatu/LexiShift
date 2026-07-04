@@ -104,6 +104,15 @@ assert.deepEqual(normalize(model.listPracticePairs({{
   {{ pair: "en-es", label: "English -> Español" }},
   {{ pair: "en-ja", label: "English -> 日本語" }}
 ]);
+assert.deepEqual(normalize(model.listPracticePairs({{
+  srsProfiles: {{
+    suisui: {{
+      srsByPair: {{}}
+    }}
+  }}
+}}, "suisui", {{ fallbackPair: "en-ja" }})), [
+  {{ pair: "en-ja", label: "English -> 日本語" }}
+]);
 assert.equal(model.resolveGlossPreview({{
   glosses: [
     {{ text: "dog" }},

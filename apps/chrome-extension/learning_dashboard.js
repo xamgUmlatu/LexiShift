@@ -10,7 +10,8 @@
     throw new Error("[LexiShift][Vocabulary Library] Missing dashboard dependencies.");
   }
 
-  const MEANING_PREVIEW_LIMIT = 25;
+  const MEANING_PREVIEW_INITIAL_LIMIT = 8;
+  const MEANING_PREVIEW_CONCURRENCY = 2;
   const RULE_DETAILS_LIMIT = 50;
 
   function createLearningDashboardController(options) {
@@ -130,10 +131,16 @@
 
     function resolveScope(items) {
       const params = new URLSearchParams(globalThis.location ? globalThis.location.search : "");
-      profileId = params.get("profileId") || settingsManager.getSelectedSrsProfileId(items);
-      const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
-      const fallbackPair = params.get("pair") || languagePrefs.srsPair || items.srsPair || "en-en";
-      availablePairs = model.listPracticePairs(items, profileId);
+      const requestedProfileId = params.get("profileId");
+      const selectedProfileId = settingsManager.getSelectedSrsProfileId(items);
+      profileId = requestedProfileId || selectedProfileId;
+      let languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
+      let fallbackPair = params.get("pair") || languagePrefs.srsPair || items.srsPair || "en-en";
+      let configuredPairs = model.listPracticePairs(items, profileId);
+      const canUseFallbackPair = Boolean(fallbackPair);
+      availablePairs = configuredPairs.length
+        ? configuredPairs
+        : (canUseFallbackPair ? model.listPracticePairs(items, profileId, { fallbackPair }) : configuredPairs);
       pair = resolveInitialPair(fallbackPair);
       renderPairSelect();
       updateScopeLabel();
@@ -153,7 +160,7 @@
       elements.refreshButton.disabled = true;
       setStatus(t("learning_dashboard_status_refreshing", null, "Loading learning words..."));
       try {
-        const result = await helperManager.listSrsItems(pair, { profileId });
+        const result = await helperManager.listSrsItems(pair, { profileId, compact: true });
         latestData = {
           ...(result && typeof result === "object" ? result : {}),
           dashboard_refreshed_at: new Date().toISOString()
@@ -253,13 +260,34 @@
     }
 
     function loadMeaningPreviews(items, token) {
-      items.slice(0, MEANING_PREVIEW_LIMIT).forEach((item) => {
-        ensureWordInfo(item).then(() => {
+      const queue = items.slice(0, MEANING_PREVIEW_INITIAL_LIMIT);
+      if (!queue.length) {
+        return;
+      }
+      scheduleDeferred(() => loadMeaningPreviewBatch(queue, token));
+    }
+
+    async function loadMeaningPreviewBatch(items, token) {
+      let index = 0;
+      async function worker() {
+        while (token === renderToken && index < items.length) {
+          const item = items[index];
+          index += 1;
+          await ensureWordInfo(item);
           if (token === renderToken) {
             table.updateMeaningCell(item);
           }
-        });
-      });
+        }
+      }
+      await Promise.all(Array.from({ length: MEANING_PREVIEW_CONCURRENCY }, worker));
+    }
+
+    function scheduleDeferred(callback) {
+      if (typeof globalThis.requestIdleCallback === "function") {
+        globalThis.requestIdleCallback(callback, { timeout: 500 });
+        return;
+      }
+      globalThis.setTimeout(callback, 100);
     }
 
     async function ensureWordInfo(item) {

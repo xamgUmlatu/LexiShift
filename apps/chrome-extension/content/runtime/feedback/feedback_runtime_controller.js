@@ -74,7 +74,7 @@
       const profileContext = current.srsProfileContext && typeof current.srsProfileContext === "object"
         ? current.srsProfileContext
         : { pair, profile_id: profileId };
-      return {
+      const payload = {
         pair,
         profile_id: profileId,
         strategy: "profile_growth",
@@ -103,6 +103,11 @@
         profile_context: profileContext,
         trigger: "auto_feedback_threshold"
       };
+      const setTopN = Number.parseInt(current.srsBootstrapTopN, 10);
+      if (Number.isFinite(setTopN)) {
+        payload.set_top_n = Math.max(200, setTopN);
+      }
+      return payload;
     }
 
     async function maybeAutoRefreshAfterFeedbackFlush(meta) {

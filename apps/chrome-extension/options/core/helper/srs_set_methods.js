@@ -177,7 +177,9 @@
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
       const opts = options && typeof options === "object" ? options : {};
       const profileId = this.normalizeProfileId(opts.profileId);
-      const response = await client.listSrsItems(pair, profileId);
+      const response = await client.listSrsItems(pair, profileId, {
+        compact: opts.compact === true
+      });
       if (!response || response.ok === false) {
         throw new Error(
           this.normalizeHelperErrorMessage(

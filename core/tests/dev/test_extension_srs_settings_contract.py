@@ -42,6 +42,9 @@ ADMISSION_PREVIEW_FORMATTER_JS = (
 CONTROLLER_GRAPH_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/bootstrap/controller_graph.js"
 )
+CONTROLLER_GRAPH_ELEMENTS_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/bootstrap/controller_graph_elements.js"
+)
 SRS_BINDINGS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/page/events/srs_bindings.js"
 )
@@ -1260,6 +1263,29 @@ const graph = context.LexiShift.optionsControllerGraph.createControllerGraph({{
 assert.equal(typeof graph.pageInitController.load, "function");
 assert.equal(typeof graph.eventWiringController.bind, "function");
 assert.ok(calls.indexOf("optionsControllerAdapters") < calls.indexOf("optionsSrsStoryFlow"));
+"""
+        _run_node(script)
+
+    def test_controller_graph_elements_routes_browsing_admission_toggle_to_page_init(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(CONTROLLER_GRAPH_ELEMENTS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const toggle = {{ id: "srs-browsing-admission-signals-enabled" }};
+const graphElements = context.LexiShift.optionsControllerGraphElements.buildElements({{
+  srsBrowsingAdmissionSignalsInput: toggle
+}});
+
+assert.equal(graphElements.pageInit.srsBrowsingAdmissionSignalsInput, toggle);
+assert.equal(graphElements.eventWiring.srsBrowsingAdmissionSignalsInput, toggle);
+assert.equal(graphElements.srsProfileRuntime.srsBrowsingAdmissionSignalsInput, toggle);
 """
         _run_node(script)
 
@@ -2673,6 +2699,99 @@ const controller = createController({{
   assert.equal(publishProfileUiPrefsCalls, 0);
   assert.equal(statusOutput.textContent, "Not yet available");
   assert.match(detailOutput.textContent, /no ready coverage yet/i);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_controller_can_skip_page_background_image_during_helper_sync(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const semanticStatusPath = {json.dumps(str(SEMANTIC_STATUS_JS))};
+const profileValuesPath = {json.dumps(str(PROFILE_RUNTIME_VALUES_JS))};
+const autoRefreshSettingsPath = {json.dumps(str(AUTO_REFRESH_SETTINGS_JS))};
+const modulePath = {json.dumps(str(PROFILE_RUNTIME_CONTROLLER_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(semanticStatusPath, "utf8"), context, {{ filename: semanticStatusPath }});
+vm.runInContext(fs.readFileSync(profileValuesPath, "utf8"), context, {{ filename: profileValuesPath }});
+vm.runInContext(fs.readFileSync(autoRefreshSettingsPath, "utf8"), context, {{ filename: autoRefreshSettingsPath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const backgroundOptions = [];
+const controller = context.LexiShift.optionsSrsProfileRuntime.createController({{
+  settingsManager: {{
+    defaults: {{
+      sourceLanguage: "en",
+      targetLanguage: "es",
+      srsMaxActive: 40,
+      srsInitialActiveCount: 40,
+      srsHighlightColor: "#2F74D0"
+    }},
+    getSrsProfile() {{
+      return {{
+        srsEnabled: true,
+        srsMaxActive: 40,
+        srsInitialActiveCount: 40,
+        srsSoundEnabled: true,
+        srsHighlightColor: "#2F74D0"
+      }};
+    }},
+    getSrsProfileSignals() {{
+      return {{}};
+    }},
+    getProfileUiPrefs() {{
+      return {{ backgroundAssetId: "asset-1" }};
+    }},
+    async publishSrsRuntimeProfile() {{
+      return {{}};
+    }}
+  }},
+  helperManager: {{
+    async getSrsRuntimeDiagnostics() {{
+      return {{ helper: {{ semantic_runtime_capability: "ready" }} }};
+    }}
+  }},
+  ui: {{
+    updateSrsInputs() {{}},
+    updateProfileBackgroundInputs() {{}}
+  }},
+  syncSelectedProfile: async (items) => ({{ items, profileId: "default" }}),
+  syncProfileRulesetsForProfile: async () => {{}},
+  syncShareCenterForProfile: async () => {{}},
+  syncProfileBackgroundForPrefs: async (_uiPrefs, options) => {{
+    backgroundOptions.push(options);
+  }},
+  log: () => {{}},
+  elements: {{
+    sourceLanguageInput: {{ value: "en" }},
+    targetLanguageInput: {{ value: "es" }},
+    srsEnabledInput: {{ checked: false }},
+    srsSemanticAdmissionStatusOutput: {{ textContent: "" }},
+    srsSemanticAdmissionStatusDetailOutput: {{ textContent: "" }}
+  }}
+}});
+
+(async () => {{
+  await controller.loadSrsProfileForPair({{}}, "en-es", {{ skipPageImageAsset: true }});
+  assert.equal(
+    JSON.stringify(backgroundOptions),
+    JSON.stringify([{{ skipPageImageAsset: true }}])
+  );
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

@@ -110,5 +110,10 @@ const app = controllerGraphFactory({
   dom
 });
 
-app.eventWiringController.bind();
-app.pageInitController.load();
+Promise.resolve(app.pageInitController.load())
+  .catch((err) => {
+    console.error("[LexiShift][Options] Page initialization failed.", err);
+  })
+  .finally(() => {
+    app.eventWiringController.bind();
+  });

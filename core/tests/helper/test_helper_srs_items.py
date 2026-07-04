@@ -359,6 +359,53 @@ class TestHelperSrsItems(unittest.TestCase):
             self.assertFalse(by_lemma["mesa"]["encounter_state"]["without_enabled_rules"])
             self.assertEqual(by_lemma["planta"]["advanced"]["lifecycle_reason"], "user_blocked")
 
+    def test_list_srs_items_compact_omits_heavy_word_package_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            word_package = _word_package("perro")
+            word_package["source_frequency_profile"] = {"known_columns_sample": ["rank"] * 50}
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-es:perro",
+                            lemma="perro",
+                            language_pair="en-es",
+                            source_type="initial_set",
+                            word_package=word_package,
+                        ),
+                    ),
+                    version=2,
+                ),
+                paths.srs_store_path_for("default"),
+            )
+            save_srs_inventory(
+                SrsInventory(
+                    pairs={
+                        "en-es": SrsPairInventory(
+                            active_item_ids=("en-es:perro",),
+                        ),
+                    }
+                ),
+                paths.srs_inventory_path_for("default"),
+            )
+
+            result = list_srs_items(
+                paths,
+                pair="en-es",
+                profile_id="default",
+                now=NOW,
+                compact=True,
+            )
+
+            self.assertEqual(result["summary"]["with_word_package"], 1)
+            item = result["items"][0]
+            self.assertEqual(item["display"], "perro")
+            self.assertEqual(item["reading"], "perro")
+            self.assertEqual(item["pos"], "noun")
+            self.assertTrue(item["has_word_package"])
+            self.assertNotIn("word_package", item["advanced"])
+
     def test_missing_store_returns_empty_dashboard_payload(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
