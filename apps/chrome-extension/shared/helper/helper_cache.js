@@ -4,6 +4,7 @@
   const RULESET_KEY = "helperRulesetCache";
   const SNAPSHOT_KEY = "helperSnapshotCache";
   const SEMANTIC_INVENTORY_KEY = "helperSemanticInventoryCache";
+  const BROWSING_SOURCE_INDEX_KEY = "helperBrowsingSourceIndexCache";
   const DEFAULT_PROFILE_ID = "default";
 
   function normalizeProfileId(value) {
@@ -85,6 +86,21 @@
     return cache[key] ? cache[key].data : null;
   }
 
+  async function saveBrowsingSourceIndex(pair, sourceIndex, options) {
+    const key = scopedKey(pair, options);
+    if (!key || key.endsWith("::")) return;
+    const cache = await readKey(BROWSING_SOURCE_INDEX_KEY);
+    cache[key] = { saved_at: new Date().toISOString(), data: sourceIndex };
+    await writeKey(BROWSING_SOURCE_INDEX_KEY, cache);
+  }
+
+  async function loadBrowsingSourceIndex(pair, options) {
+    const key = scopedKey(pair, options);
+    if (!key || key.endsWith("::")) return null;
+    const cache = await readKey(BROWSING_SOURCE_INDEX_KEY);
+    return cache[key] ? cache[key].data : null;
+  }
+
   async function deleteRuleset(pair, options) {
     const key = scopedKey(pair, options);
     if (!key || key.endsWith("::")) return;
@@ -112,11 +128,21 @@
     await writeKey(SEMANTIC_INVENTORY_KEY, cache);
   }
 
+  async function deleteBrowsingSourceIndex(pair, options) {
+    const key = scopedKey(pair, options);
+    if (!key || key.endsWith("::")) return;
+    const cache = await readKey(BROWSING_SOURCE_INDEX_KEY);
+    if (!(key in cache)) return;
+    delete cache[key];
+    await writeKey(BROWSING_SOURCE_INDEX_KEY, cache);
+  }
+
   async function clearPair(pair, options) {
     await Promise.all([
       deleteRuleset(pair, options),
       deleteSnapshot(pair, options),
-      deleteSemanticInventory(pair, options)
+      deleteSemanticInventory(pair, options),
+      deleteBrowsingSourceIndex(pair, options)
     ]);
   }
 
@@ -127,9 +153,12 @@
     loadSnapshot,
     saveSemanticInventory,
     loadSemanticInventory,
+    saveBrowsingSourceIndex,
+    loadBrowsingSourceIndex,
     deleteRuleset,
     deleteSnapshot,
     deleteSemanticInventory,
+    deleteBrowsingSourceIndex,
     clearPair
   };
 })();

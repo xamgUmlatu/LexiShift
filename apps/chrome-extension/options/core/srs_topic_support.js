@@ -3,12 +3,24 @@
 
   const SUPPORTED_TOPICS_BY_PAIR = {
     "en-ja": new Set([
+      "animals",
+      "anime_manga_pop_culture",
+      "arts_literature_humanities",
+      "computing_internet",
       "finance_business",
+      "food_cooking",
       "games",
+      "hobbies_crafts",
       "law_politics_civics",
       "medicine_health",
+      "music_media_entertainment",
+      "plants_nature",
+      "science_math",
       "science_technology",
-      "sports_fitness"
+      "shopping_money",
+      "sports_fitness",
+      "travel_places_transport",
+      "work_office"
     ]),
     "en-de": new Set([
       "arts_literature_humanities",

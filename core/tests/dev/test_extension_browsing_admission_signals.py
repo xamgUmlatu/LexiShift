@@ -15,6 +15,12 @@ SETTINGS_ROUTER_JS = (
     PROJECT_ROOT / "apps/chrome-extension/content/runtime/settings_change_router.js"
 )
 HELPER_CLIENT_JS = PROJECT_ROOT / "apps/chrome-extension/shared/helper/helper_client.js"
+BROWSING_SOURCE_INDEX_RUNTIME_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/content/runtime/rules/browsing_source_index_runtime.js"
+)
+BROWSING_MUTATION_MINING_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/content/runtime/srs/browsing_mutation_mining.js"
+)
 MANIFEST_JSON = PROJECT_ROOT / "apps/chrome-extension/manifest.json"
 CONTENT_SCRIPT_JS = PROJECT_ROOT / "apps/chrome-extension/content_script.js"
 
@@ -126,7 +132,55 @@ assert.deepEqual(comparableRows, [
 const serialized = JSON.stringify(payloads);
 assert.equal(serialized.includes("example.invalid"), false);
 assert.equal(serialized.includes("mortgage"), false);
-assert.equal(serialized.includes("raw text"), false);
+        assert.equal(serialized.includes("raw text"), false);
+"""
+        _run_node(script)
+
+    def test_packet_builder_uses_word_package_reading_for_japanese_exposures(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(BROWSING_SIGNALS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const signals = context.LexiShift.srsBrowsingAdmissionSignals;
+const pending = new Map();
+signals.addExposureBatchToPending(
+  pending,
+  [
+    {{
+      language_pair: "en-ja",
+      lemma: "会社",
+      replacement: "会社",
+      word_package: {{
+        surface: "会社",
+        reading: "かいしゃ"
+      }}
+    }}
+  ],
+  {{ srsProfileId: "suisui", srsPair: "en-ja" }},
+  {{ pageContextKey: "ja-reading-exposure", nowMs: () => 0 }}
+);
+const payloads = signals.buildPacketPayloads(pending, {{
+  nowIso: () => "2026-05-23T00:00:00.000Z"
+}});
+const row = JSON.parse(JSON.stringify(payloads[0].signals[0]));
+delete row.context_key;
+assert.deepEqual(row, {{
+  target_key: "会社|かいしゃ",
+  target_lemma: "会社",
+  target_reading: "かいしゃ",
+  side: "replacement_exposure",
+  count: 1,
+  reading_confidence: 1,
+  observation_source: "replacement_exposure",
+  source_mapping_confidence: 1
+}});
 """
         _run_node(script)
 
@@ -476,7 +530,9 @@ assert.equal(applied[0].srsPair, "en-de");
         self.assertIn("shared/srs/srs_browsing_source_morphology.js", script_paths)
         self.assertIn("shared/srs/srs_browsing_source_mining.js", script_paths)
         self.assertIn("shared/srs/srs_browsing_page_mining.js", script_paths)
+        self.assertIn("shared/helper/helper_source_index_cache.js", script_paths)
         self.assertIn("content/runtime/rules/browsing_source_index_runtime.js", script_paths)
+        self.assertIn("content/runtime/srs/browsing_mutation_mining.js", script_paths)
         self.assertLess(
             script_paths.index("shared/srs/srs_browsing_admission_signals.js"),
             script_paths.index("shared/srs/srs_browsing_source_morphology.js"),
@@ -494,12 +550,20 @@ assert.equal(applied[0].srsPair, "en-de");
             script_paths.index("content/runtime/dom_scan/text_node_processor.js"),
         )
         self.assertLess(
+            script_paths.index("shared/helper/helper_source_index_cache.js"),
+            script_paths.index("content/runtime/rules/helper_rules_runtime.js"),
+        )
+        self.assertLess(
             script_paths.index("content/runtime/rules/helper_rules_runtime.js"),
             script_paths.index("content/runtime/rules/browsing_source_index_runtime.js"),
         )
         self.assertLess(
             script_paths.index("content/runtime/rules/browsing_source_index_runtime.js"),
             script_paths.index("content/runtime/rules/active_rules_runtime.js"),
+        )
+        self.assertLess(
+            script_paths.index("content/runtime/srs/browsing_mutation_mining.js"),
+            script_paths.index("content_script.js"),
         )
 
         content_script = CONTENT_SCRIPT_JS.read_text(encoding="utf-8")
@@ -509,19 +573,221 @@ assert.equal(applied[0].srsPair, "en-de");
         self.assertIn("srsBrowsingPageMining.createMiner", content_script)
         self.assertIn("getCurrentRules: () => currentActiveRules", content_script)
         self.assertIn("getSourceMiningRules", content_script)
+        self.assertIn("contentBrowsingMutationMiningRuntime", content_script)
+        self.assertIn("browsingMutationMiningRuntime.observeChanges", content_script)
+        self.assertIn(
+            "shouldMine: () => !browsingSourceIndexRuntime.isRefreshPending()", content_script
+        )
+        self.assertIn(
+            "afterRefresh: (reason) => browsingMutationMiningRuntime.flushPending(reason)",
+            content_script,
+        )
         self.assertIn("contentBrowsingSourceIndexRuntime", content_script)
         self.assertIn("setActiveRules", content_script)
+        self.assertIn('await browsingSourceIndexRuntime.refresh("boot");', content_script)
+        self.assertNotIn(
+            'browsingMutationMiningRuntime.mineDocument(document, "boot");', content_script
+        )
         browsing_source_index_runtime = (
             PROJECT_ROOT
             / "apps/chrome-extension/content/runtime/rules/browsing_source_index_runtime.js"
         ).read_text(encoding="utf-8")
         self.assertIn("resolveBrowsingSourceIndex", browsing_source_index_runtime)
+        self.assertIn("isRefreshPending", browsing_source_index_runtime)
         self.assertIn("sourceRulesFor", browsing_source_index_runtime)
         settings_router = SETTINGS_ROUTER_JS.read_text(encoding="utf-8")
         self.assertIn("srsBrowsingAdmissionSignalsEnabled", settings_router)
         self.assertIn("srsBrowsingSourceMiningOptions", settings_router)
         self.assertIn("srsBrowsingSourceIndexOptions", settings_router)
         self.assertIn("clearPending", settings_router)
+
+    def test_browsing_mutation_mining_observes_added_nodes(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(BROWSING_MUTATION_MINING_JS))};
+const calls = [];
+let observerCallback = null;
+let disconnected = false;
+const body = {{ id: "body" }};
+const parent = {{ id: "parent" }};
+const textNode = {{ nodeType: 3, id: "text", parentElement: parent }};
+const elementNode = {{
+  nodeType: 1,
+  id: "element",
+  querySelectorAll() {{
+    return [];
+  }}
+}};
+const context = vm.createContext({{
+  console,
+  Node: {{ TEXT_NODE: 3, ELEMENT_NODE: 1 }},
+  document: {{ body }},
+  MutationObserver: class {{
+    constructor(callback) {{
+      observerCallback = callback;
+    }}
+    observe(target, options) {{
+      calls.push(["observe", target.id, options.childList, options.subtree, options.characterData]);
+    }}
+    disconnect() {{
+      disconnected = true;
+      calls.push(["disconnect"]);
+    }}
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const runtime = context.LexiShift.contentBrowsingMutationMiningRuntime.createController({{
+  getCurrentSettings: () => ({{ srsBrowsingMutationMiningMaxRoots: 3 }}),
+  mineBrowsingNode(node, reason) {{
+    calls.push(["mine", node.id, reason]);
+  }}
+}});
+
+runtime.observeChanges();
+assert.equal(typeof observerCallback, "function");
+observerCallback([{{
+  type: "childList",
+  addedNodes: [textNode, elementNode]
+}}, {{
+  type: "characterData",
+  target: textNode
+}}]);
+runtime.disconnect();
+
+assert.equal(disconnected, true);
+assert.deepEqual(calls, [
+  ["observe", "body", true, true, true],
+  ["mine", "parent", "dom mutation"],
+  ["mine", "element", "dom mutation"],
+  ["disconnect"]
+]);
+"""
+        _run_node(script)
+
+    def test_browsing_mutation_mining_skips_while_source_index_refresh_pending(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(BROWSING_MUTATION_MINING_JS))};
+const context = vm.createContext({{ console, document: {{}} }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+let shouldMine = false;
+let mineCalls = 0;
+const calls = [];
+const elementNode = {{ nodeType: 1, id: "element", querySelectorAll() {{ return []; }} }};
+const runtime = context.LexiShift.contentBrowsingMutationMiningRuntime.createController({{
+  getCurrentSettings: () => ({{ debugEnabled: true }}),
+  shouldMine: () => shouldMine,
+  mineBrowsingNode(node, reason) {{
+    calls.push(["mine", node.id, reason]);
+  }},
+  browsingPageMiner: {{
+    mineDocument() {{
+      mineCalls += 1;
+      return Promise.resolve({{ status: "ok" }});
+    }}
+  }}
+}});
+
+runtime.mineDocument({{ id: "document" }}, "pending");
+runtime.mineMutationRoots([{{ type: "childList", addedNodes: [elementNode] }}], "dom mutation");
+runtime.flushPending("still pending");
+assert.equal(mineCalls, 0);
+assert.deepEqual(calls, []);
+shouldMine = true;
+runtime.mineDocument({{ id: "document" }}, "ready");
+runtime.flushPending("source index ready");
+runtime.flushPending("source index ready");
+assert.equal(mineCalls, 1);
+assert.deepEqual(calls, [["mine", "element", "source index ready"]]);
+"""
+        _run_node(script)
+
+    def test_browsing_source_index_controller_requires_srs_enabled(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(BROWSING_SOURCE_INDEX_RUNTIME_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createController = context.LexiShift.contentBrowsingSourceIndexRuntime.createController;
+let currentSettings = {{
+  srsEnabled: false,
+  srsBrowsingAdmissionSignalsEnabled: true,
+  srsPair: "en-ja",
+  srsProfileId: "default"
+}};
+let resolveCalls = 0;
+let mineCalls = 0;
+let afterRefreshCalls = 0;
+let pendingAtMine = null;
+let topFrame = true;
+let controller = null;
+controller = createController({{
+  getCurrentSettings() {{
+    return currentSettings;
+  }},
+  getHelperClient() {{
+    return {{}};
+  }},
+  helperRulesRuntime: {{
+    async resolveBrowsingSourceIndex() {{
+      resolveCalls += 1;
+      return {{ rules: [{{ source_phrase: "fermentation", replacement: "発酵" }}], source: "helper" }};
+    }}
+  }},
+  isTopFrameWindow() {{
+    return topFrame;
+  }},
+  mineBrowsingPage() {{
+    mineCalls += 1;
+    pendingAtMine = controller.isRefreshPending();
+  }},
+  afterRefresh() {{
+    afterRefreshCalls += 1;
+  }}
+}});
+
+(async () => {{
+  await controller.refresh("disabled");
+  assert.equal(resolveCalls, 0);
+  assert.equal(controller.sourceRulesFor([]).length, 0);
+
+  currentSettings = {{ ...currentSettings, srsEnabled: true }};
+  topFrame = false;
+  await controller.refresh("iframe");
+  assert.equal(resolveCalls, 0);
+  assert.equal(controller.sourceRulesFor([]).length, 0);
+
+  topFrame = true;
+  await controller.refresh("enabled");
+  assert.equal(resolveCalls, 1);
+  assert.equal(mineCalls, 1);
+  assert.equal(pendingAtMine, false);
+  assert.equal(afterRefreshCalls, 3);
+  assert.equal(controller.sourceRulesFor([]).length, 1);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
 
 
 if __name__ == "__main__":

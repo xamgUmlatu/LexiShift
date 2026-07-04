@@ -242,6 +242,12 @@
   "topic_srs_finance_business": {
     "message": "Finance & business"
   },
+  "topic_srs_shopping_money": {
+    "message": "Shopping & money"
+  },
+  "topic_srs_work_office": {
+    "message": "Work & office"
+  },
   "topic_srs_sports_fitness": {
     "message": "Sports & fitness"
   },
@@ -257,6 +263,12 @@
   "topic_srs_science_technology": {
     "message": "Science & technology"
   },
+  "topic_srs_science_math": {
+    "message": "Science & math"
+  },
+  "topic_srs_computing_internet": {
+    "message": "Computing & internet"
+  },
   "topic_srs_arts_literature_humanities": {
     "message": "Arts & literature"
   },
@@ -271,6 +283,12 @@
   },
   "topic_srs_travel_places_transport": {
     "message": "Travel & transport"
+  },
+  "topic_srs_anime_manga_pop_culture": {
+    "message": "Anime, manga & pop culture"
+  },
+  "topic_srs_hobbies_crafts": {
+    "message": "Hobbies & crafts"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Advanced tags"
@@ -383,6 +401,12 @@
   "toggle_srs_sound": {
     "message": "Play feedback sound"
   },
+  "toggle_srs_browsing_admission": {
+    "message": "Use browsing activity for vocabulary practice"
+  },
+  "hint_srs_browsing_admission": {
+    "message": "Applies to all vocabulary practice. Supported language pairs can save page vocabulary trends locally and use them when choosing future words."
+  },
   "label_helper_status": {
     "message": "Helper status"
   },
@@ -454,6 +478,66 @@
   },
   "button_srs_admission_preview": {
     "message": "Sample 10 preference-matched words…"
+  },
+  "status_srs_admission_preview_running": {
+    "message": "Sampling possible next words ($1)…"
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "Word sample failed."
+  },
+  "status_srs_admission_preview_header": {
+    "message": "Next-word sample: $1 shown / $2 possible words for $3."
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "Preview unavailable for the selected strategy."
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "No admission sample is available for $1."
+  },
+  "note_srs_admission_preview_sample_only": {
+    "message": "Sample only. No words were added."
+  },
+  "label_srs_admission_preview_sampled_words": {
+    "message": "Sampled words:"
+  },
+  "label_srs_admission_preview_sample_details": {
+    "message": "Sample details:"
+  },
+  "label_srs_admission_preview_effective_profile_context": {
+    "message": "Effective profile context:"
+  },
+  "label_srs_admission_preview_topic_overlay": {
+    "message": "Topic overlay:"
+  },
+  "label_srs_admission_preview_neutral_topic_support": {
+    "message": "Neutral frontier topic support:"
+  },
+  "label_srs_admission_preview_plan_notes": {
+    "message": "Plan notes:"
+  },
+  "label_srs_admission_preview_advanced_details": {
+    "message": "Advanced details"
+  },
+  "summary_srs_admission_preview_selected_topics": {
+    "message": "Selected topics: $1."
+  },
+  "summary_srs_admission_preview_sampled_topic_words": {
+    "message": "$1 sampled topic words."
+  },
+  "summary_srs_admission_preview_matched_candidates": {
+    "message": "$1 matched candidates in the preview frontier."
+  },
+  "summary_srs_admission_preview_no_topic_candidates": {
+    "message": "No matching candidates for those topics in this preview window."
+  },
+  "summary_srs_admission_preview_overlay_status": {
+    "message": "Overlay status: $1."
+  },
+  "summary_srs_admission_preview_no_topic_priorities": {
+    "message": "No topic priorities reached the helper for this sample."
+  },
+  "summary_srs_admission_preview_showing": {
+    "message": "Showing $1 of $2 possible words for $3."
   },
   "button_srs_initialize": {
     "message": "Start practice"

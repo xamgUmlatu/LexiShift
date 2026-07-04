@@ -4376,6 +4376,10 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
                 brain_row["signals"]["topic_affinity_source"],
                 "topic_hint:medicine_health",
             )
+            self.assertIn("profile_score", brain_row)
+            self.assertNotIn("candidate_traits", brain_row)
+            self.assertNotIn("admission_candidate_features", brain_row)
+            self.assertNotIn("utility_signals", brain_row)
             overlay = preview["profile_bootstrap"]["profile_topic_overlay"]
             self.assertEqual(overlay["status"], "active")
             self.assertEqual(overlay["reason"], "overlay_artifact_ready")

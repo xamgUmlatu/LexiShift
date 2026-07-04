@@ -52,6 +52,7 @@
     const maxReplacementsPerLemmaPageInput = elements.maxReplacementsPerLemmaPageInput || null;
     const debugEnabledInput = elements.debugEnabledInput || null;
     const debugFocusInput = elements.debugFocusInput || null;
+    const srsBrowsingAdmissionSignalsInput = elements.srsBrowsingAdmissionSignalsInput || null;
     const srsRulegenOutput = elements.srsRulegenOutput || null;
     const debugHelperTestOutput = elements.debugHelperTestOutput || null;
     const debugOpenDataDirOutput = elements.debugOpenDataDirOutput || null;
@@ -102,6 +103,9 @@
       debugEnabledInput.checked = items.debugEnabled === true;
       debugFocusInput.value = items.debugFocusWord || "";
       debugFocusInput.disabled = !debugEnabledInput.checked;
+      if (srsBrowsingAdmissionSignalsInput) {
+        srsBrowsingAdmissionSignalsInput.checked = items.srsBrowsingAdmissionSignalsEnabled === true;
+      }
       if (languageSelect) {
         languageSelect.value = items.uiLanguage || "system";
       }

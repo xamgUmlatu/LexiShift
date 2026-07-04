@@ -48,6 +48,12 @@ SRS_BINDINGS_JS = (
 OPTIONS_HTML = PROJECT_ROOT / "apps/chrome-extension/options.html"
 OPTIONS_CSS = PROJECT_ROOT / "apps/chrome-extension/options.css"
 TOPIC_TAXONOMY_JSON = PROJECT_ROOT / "docs/test_inputs/srs_topic_preference_taxonomy_en_es.json"
+EN_JA_TOPIC_TAXONOMY_JSON = (
+    PROJECT_ROOT / "docs/test_inputs/srs_topic_preference_taxonomy_en_ja.json"
+)
+EN_JA_PRODUCT_SAFE_TOPIC_OVERLAY_JSON = (
+    PROJECT_ROOT / "docs/test_outputs/srs_topic_autotag_promotion_overlay_en_ja_latest.json"
+)
 SRS_START_CARD_PRESENTER_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/srs_start_card_presenter.js"
 )
@@ -167,6 +173,9 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const supportPath = {json.dumps(str(SRS_TOPIC_SUPPORT_JS))};
+const enJaTaxonomyPath = {json.dumps(str(EN_JA_TOPIC_TAXONOMY_JSON))};
+const enJaOverlayPath = {json.dumps(str(EN_JA_PRODUCT_SAFE_TOPIC_OVERLAY_JSON))};
+const localeRoot = {json.dumps(str(PROJECT_ROOT / "apps/chrome-extension/_locales"))};
 const context = vm.createContext({{
   console,
   chrome: {{
@@ -182,17 +191,59 @@ vm.runInContext(fs.readFileSync(supportPath, "utf8"), context, {{ filename: supp
 
 const support = context.LexiShift.optionsSrsTopicSupport;
 const expectedSupported = [
+  "animals",
+  "anime_manga_pop_culture",
+  "arts_literature_humanities",
+  "computing_internet",
   "finance_business",
+  "food_cooking",
   "games",
+  "hobbies_crafts",
   "law_politics_civics",
   "medicine_health",
+  "music_media_entertainment",
+  "plants_nature",
+  "science_math",
   "science_technology",
-  "sports_fitness"
+  "shopping_money",
+  "sports_fitness",
+  "travel_places_transport",
+  "work_office"
 ];
 assert.deepEqual(Array.from(support.supportedTopicsForPair("en-ja")).sort(), expectedSupported);
+const supportedEnJa = support.supportedTopicsForPair("en-ja");
+const enJaTaxonomy = JSON.parse(fs.readFileSync(enJaTaxonomyPath, "utf8"));
+const enJaTaxonomyTopics = enJaTaxonomy.families
+  .filter((entry) => entry.axis === "topic")
+  .map((entry) => entry.id)
+  .sort();
+assert.deepEqual(enJaTaxonomyTopics, expectedSupported);
+const enJaOverlay = JSON.parse(fs.readFileSync(enJaOverlayPath, "utf8"));
+const enJaOverlayTopics = Object.keys(
+  enJaOverlay.summary.runtime_effective_counts_by_topic || {{}}
+).sort();
+for (const topic of enJaOverlayTopics) {{
+  assert.equal(
+    supportedEnJa.has(topic),
+    true,
+    `en-ja overlay topic ${{topic}} must be supported by the options UI`
+  );
+}}
+for (const locale of ["de", "en", "ja", "zh"]) {{
+  const messages = JSON.parse(fs.readFileSync(`${{localeRoot}}/${{locale}}/messages.json`, "utf8"));
+  for (const topic of expectedSupported) {{
+    const key = `topic_srs_${{topic}}`;
+    assert.equal(
+      Boolean(messages[key] && messages[key].message),
+      true,
+      `${{locale}} locale must expose user-facing copy for ${{topic}}`
+    );
+  }}
+}}
 assert.equal(support.isTopicSupported("en-ja", "medicine_health"), true);
-assert.equal(support.isTopicSupported("en-ja", "animals"), false);
-assert.equal(support.isTopicSupported("en-ja", "food_cooking"), false);
+assert.equal(support.isTopicSupported("en-ja", "animals"), true);
+assert.equal(support.isTopicSupported("en-ja", "food_cooking"), true);
+assert.equal(support.isTopicSupported("en-ja", "computing_internet"), true);
 assert.equal(support.isTopicSupported("en-es", "animals"), true);
 
 function button(topic) {{
@@ -213,11 +264,15 @@ function button(topic) {{
   }};
 }}
 const enabled = button("medicine_health");
-const disabled = button("animals");
-support.applyTopicChipSupport([enabled, disabled], "en-ja");
+const animal = button("animals");
+const disabled = button("unknown_topic");
+support.applyTopicChipSupport([enabled, animal, disabled], "en-ja");
 assert.equal(enabled.disabled, false);
 assert.equal(enabled.attrs["aria-disabled"], "false");
 assert.equal(enabled.attrs.title, undefined);
+assert.equal(animal.disabled, false);
+assert.equal(animal.attrs["aria-disabled"], "false");
+assert.equal(animal.attrs.title, undefined);
 assert.equal(disabled.disabled, true);
 assert.equal(disabled.attrs["aria-disabled"], "true");
 assert.equal(disabled.classList.values.has("is-unsupported"), true);

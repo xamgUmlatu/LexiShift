@@ -821,6 +821,8 @@ def build_srs_browsing_source_index(
     top_n: int | None = None,
     max_targets: int | None = None,
     max_rules: int | None = None,
+    allow_generate: bool = True,
+    force_refresh: bool = False,
 ) -> dict:
     return _build_srs_browsing_source_index_use_case(
         paths,
@@ -829,6 +831,8 @@ def build_srs_browsing_source_index(
         top_n=top_n,
         max_targets=max_targets,
         max_rules=max_rules,
+        allow_generate=allow_generate,
+        force_refresh=force_refresh,
         resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
         resolve_pair_resources_fn=_resolve_pair_resources,
         ensure_pair_requirements_fn=_ensure_pair_requirements,

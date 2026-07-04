@@ -105,6 +105,7 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
                                     "surface": "発酵",
                                     "reading": "はっこう",
                                     "script_forms": {"kanji": "発酵", "kana": "はっこう"},
+                                    "source": {"source_frequency_profile": "x" * 1000},
                                 },
                             ),
                             SrsItem(
@@ -138,7 +139,15 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
                                 "language_tag": "ja",
                                 "surface": "発酵",
                                 "reading": "はっこう",
+                                "script_forms": {
+                                    "kanji": "発酵",
+                                    "kana": "はっこう",
+                                    "romaji": "hakkou",
+                                },
+                                "source": {"source_frequency_profile": "x" * 1000},
                             },
+                            pos={"source": {"raw": "noun", "matched_rule": "x" * 1000}},
+                            semantic_admission={"competition_set_id": "x" * 1000},
                         ),
                     ),
                     VocabRule(
@@ -192,10 +201,124 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
             self.assertEqual(payload["rules"][0]["source_phrase"], "fermentation")
             self.assertEqual(payload["rules"][0]["metadata"]["lexishift_origin"], "srs")
             self.assertEqual(payload["rules"][0]["metadata"]["source_index"], "candidate_frontier")
+            self.assertNotIn("semantic_admission", payload["rules"][0]["metadata"])
+            self.assertNotIn("pos", payload["rules"][0]["metadata"])
+            self.assertNotIn(
+                "source",
+                payload["rules"][0]["metadata"]["word_package"],
+            )
             self.assertEqual(
                 payload["rules"][0]["metadata"]["word_package"]["reading"],
                 "はっこう",
             )
+            self.assertEqual(
+                payload["rules"][0]["metadata"]["word_package"]["script_forms"]["romaji"],
+                "hakkou",
+            )
+            self.assertLess(len(json.dumps(payload["rules"][0])), 500)
+            self.assertEqual(payload["source_index_cache"]["source"], "generated")
+
+            def fail_init(*_args, **_kwargs):
+                raise AssertionError("cached source index should not rebuild frontier")
+
+            def fail_rulegen(**_kwargs):
+                raise AssertionError("cached source index should not rerun rulegen")
+
+            def fail_requirements(**_kwargs):
+                raise AssertionError("stale cache should not validate missing resources")
+
+            cached_payload = build_srs_browsing_source_index(
+                paths,
+                pair="en-ja",
+                profile_id="default",
+                top_n=12,
+                max_targets=2,
+                max_rules=5,
+                resolve_pair_set_top_n_fn=lambda **_kwargs: 2000,
+                resolve_pair_resources_fn=lambda *_args, **_kwargs: (
+                    jmdict_path,
+                    None,
+                    frequency_db,
+                ),
+                ensure_pair_requirements_fn=lambda **_kwargs: None,
+                resolve_profile_id_fn=lambda _paths, *, profile_id: profile_id or "default",
+                resolve_stopwords_path_fn=lambda *_args, **_kwargs: None,
+                initialize_store_from_frequency_list_with_report_fn=fail_init,
+                run_rulegen_for_pair_fn=fail_rulegen,
+            )
+            self.assertEqual(cached_payload["status"], "ok")
+            self.assertEqual(cached_payload["source_index_cache"]["source"], "helper-cache")
+            self.assertEqual(cached_payload["rules"][0]["source_phrase"], "fermentation")
+
+            jmdict_path.unlink()
+            stale_payload = build_srs_browsing_source_index(
+                paths,
+                pair="en-ja",
+                profile_id="default",
+                top_n=12,
+                max_targets=2,
+                max_rules=5,
+                resolve_pair_set_top_n_fn=lambda **_kwargs: 2000,
+                resolve_pair_resources_fn=lambda *_args, **_kwargs: (
+                    jmdict_path,
+                    None,
+                    frequency_db,
+                ),
+                ensure_pair_requirements_fn=fail_requirements,
+                resolve_profile_id_fn=lambda _paths, *, profile_id: profile_id or "default",
+                resolve_stopwords_path_fn=lambda *_args, **_kwargs: None,
+                initialize_store_from_frequency_list_with_report_fn=fail_init,
+                run_rulegen_for_pair_fn=fail_rulegen,
+            )
+            self.assertEqual(stale_payload["status"], "ok")
+            self.assertEqual(stale_payload["source_index_cache"]["source"], "helper-cache-stale")
+            self.assertEqual(stale_payload["resource_status"], "missing_required_resources")
+            self.assertEqual(stale_payload["missing_inputs"][0]["type"], "jmdict_path")
+            self.assertEqual(stale_payload["rules"][0]["source_phrase"], "fermentation")
+
+    def test_browsing_source_index_reports_missing_resources_without_generation(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            frequency_db = Path(tmp) / "missing-freq.sqlite"
+            jmdict_path = Path(tmp) / "missing-JMdict_e"
+
+            def fail_requirements(**_kwargs):
+                raise AssertionError("missing-resource preflight should not validate later")
+
+            def fail_init(*_args, **_kwargs):
+                raise AssertionError("missing resources should not initialize frontier")
+
+            def fail_rulegen(**_kwargs):
+                raise AssertionError("missing resources should not run rulegen")
+
+            payload = build_srs_browsing_source_index(
+                paths,
+                pair="en-ja",
+                profile_id="default",
+                top_n=12,
+                max_targets=2,
+                max_rules=5,
+                resolve_pair_set_top_n_fn=lambda **_kwargs: 2000,
+                resolve_pair_resources_fn=lambda *_args, **_kwargs: (
+                    jmdict_path,
+                    None,
+                    frequency_db,
+                ),
+                ensure_pair_requirements_fn=fail_requirements,
+                resolve_profile_id_fn=lambda _paths, *, profile_id: profile_id or "default",
+                resolve_stopwords_path_fn=lambda *_args, **_kwargs: None,
+                initialize_store_from_frequency_list_with_report_fn=fail_init,
+                run_rulegen_for_pair_fn=fail_rulegen,
+            )
+
+            self.assertEqual(payload["status"], "not_ready")
+            self.assertEqual(payload["reason"], "missing_required_resources")
+            self.assertEqual(payload["rule_count"], 0)
+            self.assertEqual(
+                {item["type"] for item in payload["missing_inputs"]},
+                {"jmdict_path", "set_source_db"},
+            )
+            self.assertEqual(payload["source_index_cache"]["source"], "miss")
 
     def test_native_host_routes_srs_items_list(self) -> None:
         module = _load_module("lexishift_native_host_srs_items_list_test", NATIVE_HOST_SCRIPT)
@@ -385,6 +508,8 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
                         "top_n": 10,
                         "max_targets": 3,
                         "max_rules": 4,
+                        "allow_generate": False,
+                        "force_refresh": True,
                     },
                 )
 
@@ -395,6 +520,30 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
             self.assertEqual(mocked.call_args.kwargs["top_n"], 10)
             self.assertEqual(mocked.call_args.kwargs["max_targets"], 3)
             self.assertEqual(mocked.call_args.kwargs["max_rules"], 4)
+            self.assertIs(mocked.call_args.kwargs["allow_generate"], False)
+            self.assertIs(mocked.call_args.kwargs["force_refresh"], True)
+
+    def test_native_host_browsing_source_index_reports_missing_resources(self) -> None:
+        module = _load_module(
+            "lexishift_native_host_browsing_source_index_missing_test",
+            NATIVE_HOST_SCRIPT,
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            with patch.object(module, "build_helper_paths", return_value=paths):
+                response = module._handle_request(
+                    "srs_browsing_source_index",
+                    {"pair": "en-ja", "profile_id": "default"},
+                )
+
+            self.assertEqual(response["status"], "not_ready")
+            self.assertEqual(response["reason"], "missing_required_resources")
+            self.assertEqual(response["rule_count"], 0)
+            self.assertEqual(
+                {item["type"] for item in response["missing_inputs"]},
+                {"jmdict_path", "set_source_db"},
+            )
 
     def test_helper_cli_browsing_signal_ingest_requires_explicit_opt_in(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

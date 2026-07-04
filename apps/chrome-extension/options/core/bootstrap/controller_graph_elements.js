@@ -163,6 +163,7 @@
         srsAutoRefreshRepeatMinGoodEasyInput: dom.srsAutoRefreshRepeatMinGoodEasyInput,
         srsAutoRefreshCooldownInput: dom.srsAutoRefreshCooldownInput,
         srsExposureLoggingInput: dom.srsExposureLoggingInput,
+        srsBrowsingAdmissionSignalsInput: dom.srsBrowsingAdmissionSignalsInput,
         srsProfileIdInput: dom.srsProfileIdInput,
         srsProfileRefreshButton: dom.srsProfileRefreshButton
       },
@@ -242,6 +243,7 @@
         srsAutoRefreshRepeatMinGoodEasyInput: dom.srsAutoRefreshRepeatMinGoodEasyInput,
         srsAutoRefreshCooldownInput: dom.srsAutoRefreshCooldownInput,
         srsExposureLoggingInput: dom.srsExposureLoggingInput,
+        srsBrowsingAdmissionSignalsInput: dom.srsBrowsingAdmissionSignalsInput,
         srsAdmissionPreviewButton: dom.srsAdmissionPreviewButton,
         srsInitializeSetButton: dom.srsInitializeSetButton,
         srsRebalancePreviewButton: dom.srsRebalancePreviewButton,
@@ -257,6 +259,7 @@
         debugOpenDataDirButton: dom.debugOpenDataDirButton,
         debugEnabledInput: dom.debugEnabledInput,
         debugFocusInput: dom.debugFocusInput,
+        srsBrowsingAdmissionSignalsInput: dom.srsBrowsingAdmissionSignalsInput,
         enabledInput: dom.enabledInput,
         languageSelect: dom.languageSelect,
         sourceLanguageInput: dom.sourceLanguageInput,

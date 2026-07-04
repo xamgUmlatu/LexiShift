@@ -16,6 +16,9 @@
     const saveSrsSettings = typeof opts.saveSrsSettings === "function"
       ? opts.saveSrsSettings
       : (() => Promise.resolve());
+    const saveSrsBrowsingAdmissionSignalsSetting = typeof opts.saveSrsBrowsingAdmissionSignalsSetting === "function"
+      ? opts.saveSrsBrowsingAdmissionSignalsSetting
+      : (() => Promise.resolve());
     const saveSrsProfileId = typeof opts.saveSrsProfileId === "function"
       ? opts.saveSrsProfileId
       : (() => Promise.resolve());
@@ -48,6 +51,7 @@
     const srsAutoRefreshRepeatMinGoodEasyInput = elements.srsAutoRefreshRepeatMinGoodEasyInput || null;
     const srsAutoRefreshCooldownInput = elements.srsAutoRefreshCooldownInput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
+    const srsBrowsingAdmissionSignalsInput = elements.srsBrowsingAdmissionSignalsInput || null;
     const srsAdmissionPreviewButton = elements.srsAdmissionPreviewButton || null;
     const srsInitializeSetButton = elements.srsInitializeSetButton || null;
     const srsRebalancePreviewButton = elements.srsRebalancePreviewButton || null;
@@ -307,6 +311,10 @@
     bindSrsSettingsChange(srsAutoRefreshRepeatMinGoodEasyInput);
     bindSrsSettingsChange(srsAutoRefreshCooldownInput);
     bindSrsSettingsChange(srsExposureLoggingInput);
+    bindAsyncListener(srsBrowsingAdmissionSignalsInput, "change", () => saveSrsBrowsingAdmissionSignalsSetting(), {
+      fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save practice settings."),
+      logMessage: "SRS browsing admission setting save failed."
+    });
     bindAsyncListener(srsSavePreferencesButton, "click", () =>
       Promise.resolve(saveSrsSettings()).then(() => {
         updateProficiencyDisplay(false);

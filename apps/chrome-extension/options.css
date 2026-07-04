@@ -1153,6 +1153,21 @@ header p {
   color: #3f382f;
 }
 
+.srs-browsing-admission-toggle {
+  margin-top: 12px;
+}
+
+.srs-toggle-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.srs-toggle-copy .hint {
+  font-weight: 500;
+  line-height: 1.35;
+}
+
 .srs-auto-refresh-settings,
 .srs-technical-status {
   margin-top: 2px;

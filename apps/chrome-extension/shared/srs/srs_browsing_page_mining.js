@@ -137,6 +137,42 @@
     return value && typeof value === "object" && !Array.isArray(value) ? value : {};
   }
 
+  function compactText(value, limit) {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    const maxLength = Math.max(40, Number(limit || 220));
+    return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+  }
+
+  function describeRoot(rootNode) {
+    if (!rootNode) {
+      return "document";
+    }
+    if (rootNode === globalThis.document) {
+      return "document";
+    }
+    if (rootNode.nodeType === 3) {
+      return "text";
+    }
+    const tag = String(rootNode.tagName || rootNode.nodeName || "").trim().toLowerCase();
+    if (!tag) {
+      return "node";
+    }
+    const id = rootNode.id ? `#${String(rootNode.id).trim()}` : "";
+    const classes = rootNode.classList && rootNode.classList.length
+      ? `.${Array.from(rootNode.classList).slice(0, 3).join(".")}`
+      : "";
+    return `${tag}${id}${classes}`;
+  }
+
+  function summarizeSignals(signals) {
+    return (Array.isArray(signals) ? signals : []).slice(0, 16).map((signal) => ({
+      target: signal.target_key || signal.lemma || "",
+      side: signal.side || "",
+      count: signal.count || 0,
+      confidence: signal.source_mapping_confidence
+    }));
+  }
+
   function isVisibleElement(element) {
     if (!element) {
       return false;
@@ -200,13 +236,13 @@
         ? sourceMining.collectVisibleSourceText(targetRoot, scanOptions)
         : "";
       const rules = getSourceMiningRules();
-      const signals = buildRubyTargetSignals(pairs, settings, scanOptions)
+      const rawSignals = buildRubyTargetSignals(pairs, settings, scanOptions)
         .concat(
           typeof sourceMining.buildSourceMappingSignals === "function"
             ? sourceMining.buildSourceMappingSignals(sourceText, rules, settings, scanOptions)
             : []
-        )
-        .filter((signal) => {
+        );
+      const signals = rawSignals.filter((signal) => {
           const seenKey = `${signal.side || ""}|${signal.target_key || ""}`;
           if (seenSignalKeys.has(seenKey)) {
             return false;
@@ -214,6 +250,20 @@
           seenSignalKeys.add(seenKey);
           return true;
         });
+      if (settings.debugEnabled) {
+        log("Browsing mining scan:", {
+          reason: String(reason || "scan"),
+          root: describeRoot(targetRoot),
+          sourceChars: sourceText.length,
+          sourcePreview: compactText(sourceText),
+          sourceRuleCount: Array.isArray(rules) ? rules.length : 0,
+          rubyPairCount: pairs.length,
+          rawSignalCount: rawSignals.length,
+          rawSourceTargets: summarizeSignals(rawSignals.filter((signal) => signal.side === "source")),
+          queuedSignalCount: signals.length,
+          queuedTargets: summarizeSignals(signals)
+        });
+      }
       if (!signals.length) {
         return Promise.resolve({ status: "empty", accepted: 0 });
       }

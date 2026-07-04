@@ -8,6 +8,9 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 HELPER_ERROR_COPY_JS = PROJECT_ROOT / "apps/chrome-extension/shared/helper/helper_error_copy.js"
+HELPER_SOURCE_INDEX_CACHE_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/shared/helper/helper_source_index_cache.js"
+)
 HELPER_RULES_RUNTIME_JS = (
     PROJECT_ROOT / "apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js"
 )
@@ -52,6 +55,11 @@ const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
 vm.runInContext(fs.readFileSync(helperErrorCopyPath, "utf8"), context, {{ filename: helperErrorCopyPath }});
+vm.runInContext(
+  fs.readFileSync({json.dumps(str(HELPER_SOURCE_INDEX_CACHE_JS))}, "utf8"),
+  context,
+  {{ filename: {json.dumps(str(HELPER_SOURCE_INDEX_CACHE_JS))} }}
+);
 vm.runInContext(fs.readFileSync(runtimePath, "utf8"), context, {{ filename: runtimePath }});
 
 const createRuntime = context.LexiShift.contentHelperRulesRuntime.createRuntime;
@@ -95,6 +103,234 @@ const runtime = createRuntime({{
 
   const batch = await runtime.semanticAdmitBatch({{}}, 1000);
   assert.equal(batch.error, "Could not communicate with the helper.");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_helper_rules_runtime_reuses_persisted_browsing_source_index_cache(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const helperErrorCopyPath = {json.dumps(str(HELPER_ERROR_COPY_JS))};
+const runtimePath = {json.dumps(str(HELPER_RULES_RUNTIME_JS))};
+const context = vm.createContext({{ console, Date, JSON, Map, Number, Object, Array, String }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(helperErrorCopyPath, "utf8"), context, {{ filename: helperErrorCopyPath }});
+vm.runInContext(
+  fs.readFileSync({json.dumps(str(HELPER_SOURCE_INDEX_CACHE_JS))}, "utf8"),
+  context,
+  {{ filename: {json.dumps(str(HELPER_SOURCE_INDEX_CACHE_JS))} }}
+);
+vm.runInContext(fs.readFileSync(runtimePath, "utf8"), context, {{ filename: runtimePath }});
+
+const createRuntime = context.LexiShift.contentHelperRulesRuntime.createRuntime;
+let helperCalls = 0;
+let helperPayload = null;
+let persisted = null;
+const sourceRule = {{
+  source_phrase: "fermentation",
+  replacement: "発酵",
+  metadata: {{
+    word_package: {{
+      surface: "発酵",
+      reading: "はっこう"
+    }}
+  }}
+}};
+
+const firstRuntime = createRuntime({{
+  getHelperClient() {{
+    return {{
+      async getSrsBrowsingSourceIndex(pair, profileId, payload) {{
+        helperCalls += 1;
+        assert.equal(pair, "en-ja");
+        assert.equal(profileId, "default");
+        helperPayload = payload;
+        return {{
+          ok: true,
+          data: {{
+            schema_version: 1,
+            rules: [sourceRule]
+          }}
+        }};
+      }}
+    }};
+  }},
+  helperCache: {{
+    async saveBrowsingSourceIndex(pair, index, options) {{
+      persisted = {{ pair, index, options }};
+    }},
+    async loadBrowsingSourceIndex() {{
+      return null;
+    }}
+  }},
+  tagRulesWithOrigin(rules, origin) {{
+    return rules.map((rule) => ({{ ...rule, origin }}));
+  }}
+}});
+
+(async () => {{
+  const first = await firstRuntime.resolveBrowsingSourceIndex(
+    "en-ja",
+    "default",
+    {{ sourceIndexCacheTtlMs: 60000, max_targets: 1 }}
+  );
+  assert.equal(first.source, "helper");
+  assert.equal(helperCalls, 1);
+  assert.equal(JSON.stringify(helperPayload), JSON.stringify({{ max_targets: 1 }}));
+  assert.equal(first.rules[0].origin, "srs");
+  assert.equal(persisted.pair, "en-ja");
+  assert.equal(JSON.stringify(persisted.options), JSON.stringify({{ profileId: "default" }}));
+  assert.equal(persisted.index._cache.options_key, JSON.stringify({{ max_targets: 1 }}));
+  assert.equal(typeof persisted.index._cache.cached_at_ms, "number");
+
+  const cachedRuntime = createRuntime({{
+    getHelperClient() {{
+      return {{
+        async getSrsBrowsingSourceIndex() {{
+          helperCalls += 1;
+          throw new Error("cache was not used");
+        }}
+      }};
+    }},
+    helperCache: {{
+      async loadBrowsingSourceIndex(pair, options) {{
+        assert.equal(pair, "en-ja");
+        assert.equal(JSON.stringify(options), JSON.stringify({{ profileId: "default" }}));
+        return persisted.index;
+      }}
+    }},
+    tagRulesWithOrigin(rules, origin) {{
+      return rules.map((rule) => ({{ ...rule, origin }}));
+    }}
+  }});
+
+  const cached = await cachedRuntime.resolveBrowsingSourceIndex(
+    "en-ja",
+    "default",
+    {{ max_targets: 1, sourceIndexCacheTtlMs: 60000 }}
+  );
+  assert.equal(cached.source, "helper-cache");
+  assert.equal(cached.rules.length, 1);
+  assert.equal(cached.rules[0].source_phrase, "fermentation");
+  assert.equal(cached.rules[0].origin, "srs");
+  assert.equal(helperCalls, 1);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_helper_rules_runtime_does_not_cache_not_ready_source_index(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const helperErrorCopyPath = {json.dumps(str(HELPER_ERROR_COPY_JS))};
+const sourceIndexCachePath = {json.dumps(str(HELPER_SOURCE_INDEX_CACHE_JS))};
+const runtimePath = {json.dumps(str(HELPER_RULES_RUNTIME_JS))};
+const context = vm.createContext({{ console, Date, JSON, Map, Number, Object, Array, String }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(helperErrorCopyPath, "utf8"), context, {{ filename: helperErrorCopyPath }});
+vm.runInContext(fs.readFileSync(sourceIndexCachePath, "utf8"), context, {{ filename: sourceIndexCachePath }});
+vm.runInContext(fs.readFileSync(runtimePath, "utf8"), context, {{ filename: runtimePath }});
+
+const runtime = context.LexiShift.contentHelperRulesRuntime.createRuntime({{
+  getHelperClient() {{
+    return {{
+      async getSrsBrowsingSourceIndex() {{
+        return {{
+          ok: true,
+          data: {{
+            status: "not_ready",
+            reason: "missing_required_resources",
+            rules: [],
+            missing_inputs: [{{ type: "jmdict_path", path: "/missing/JMdict_e" }}]
+          }}
+        }};
+      }}
+    }};
+  }},
+  helperCache: {{
+    async loadBrowsingSourceIndex() {{
+      return null;
+    }},
+    async saveBrowsingSourceIndex() {{
+      throw new Error("not_ready source index should not be cached");
+    }}
+  }}
+}});
+
+(async () => {{
+  const result = await runtime.resolveBrowsingSourceIndex("en-ja", "default", {{}});
+  assert.equal(result.source, "none");
+  assert.equal(result.rules.length, 0);
+  assert.equal(result.error, "missing_required_resources");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_helper_rules_runtime_ignores_empty_browsing_source_index_cache(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const helperErrorCopyPath = {json.dumps(str(HELPER_ERROR_COPY_JS))};
+const sourceIndexCachePath = {json.dumps(str(HELPER_SOURCE_INDEX_CACHE_JS))};
+const runtimePath = {json.dumps(str(HELPER_RULES_RUNTIME_JS))};
+const context = vm.createContext({{ console, Date, JSON, Map, Number, Object, Array, String }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(helperErrorCopyPath, "utf8"), context, {{ filename: helperErrorCopyPath }});
+vm.runInContext(fs.readFileSync(sourceIndexCachePath, "utf8"), context, {{ filename: sourceIndexCachePath }});
+vm.runInContext(fs.readFileSync(runtimePath, "utf8"), context, {{ filename: runtimePath }});
+
+const runtime = context.LexiShift.contentHelperRulesRuntime.createRuntime({{
+  getHelperClient() {{
+    return {{
+      async getSrsBrowsingSourceIndex() {{
+        return {{
+          ok: true,
+          data: {{
+            status: "ok",
+            rules: [{{
+              source_phrase: "research",
+              replacement: "研究",
+              metadata: {{
+                word_package: {{ surface: "研究", reading: "けんきゅう" }}
+              }}
+            }}]
+          }}
+        }};
+      }}
+    }};
+  }},
+  helperCache: {{
+    async loadBrowsingSourceIndex() {{
+      return {{ rules: [], _cache: {{ options_key: "{{}}", cached_at_ms: Date.now() }} }};
+    }},
+    async saveBrowsingSourceIndex() {{}}
+  }}
+}});
+
+(async () => {{
+  const result = await runtime.resolveBrowsingSourceIndex("en-ja", "default", {{}});
+  assert.equal(result.source, "helper");
+  assert.equal(result.rules.length, 1);
+  assert.equal(result.rules[0].source_phrase, "research");
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

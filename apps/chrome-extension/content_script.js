@@ -35,6 +35,8 @@
     && typeof root.contentApplySettingsPipeline.createPipeline === "function"
     && root.contentSettingsChangeRouter
     && typeof root.contentSettingsChangeRouter.createRouter === "function"
+    && root.contentBrowsingMutationMiningRuntime
+    && typeof root.contentBrowsingMutationMiningRuntime.createController === "function"
     && root.srsBrowsingPageMining
     && typeof root.srsBrowsingPageMining.createMiner === "function"
     && root.srsBrowsingSourceMining
@@ -75,12 +77,10 @@
   const popupModuleHistoryStore = root.popupModuleHistoryStore;
   const popupModulesRegistry = root.popupModulesRegistry;
   const wordInfoApi = root.wordInfoApi;
-  const RULE_ORIGIN_SRS = "srs";
-  const RULE_ORIGIN_RULESET = "ruleset";
+  const RULE_ORIGIN_SRS = "srs", RULE_ORIGIN_RULESET = "ruleset";
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
-  let currentTrie = null;
-  let currentActiveRules = [];
+  let currentTrie = null, currentActiveRules = [];
   let applyingChanges = false;
   let applyToken = 0;
   let helperClient = HelperClient && helperTransport ? new HelperClient(helperTransport) : null;
@@ -91,7 +91,6 @@
     const normalized = String(value || "").trim();
     return normalized || "default";
   }
-
   function normalizeRuleOrigin(origin) {
     return String(origin || "").toLowerCase() === RULE_ORIGIN_SRS
       ? RULE_ORIGIN_SRS
@@ -109,7 +108,6 @@
       language
     );
   }
-
   function getRuleOrigin(rule) {
     return normalizeRuleOrigin(rule && rule.metadata ? rule.metadata.lexishift_origin : "");
   }
@@ -207,6 +205,7 @@
   const applyRuntimeActionsFactory = root.contentApplyRuntimeActions.createRunner;
   const applySettingsPipelineFactory = root.contentApplySettingsPipeline.createPipeline;
   const settingsChangeRouterFactory = root.contentSettingsChangeRouter.createRouter;
+  const browsingMutationMiningRuntimeFactory = root.contentBrowsingMutationMiningRuntime.createController;
   const browsingAdmissionSignalSender = srsBrowsingAdmissionSignals
     && typeof srsBrowsingAdmissionSignals.createSender === "function"
       ? srsBrowsingAdmissionSignals.createSender({
@@ -222,16 +221,12 @@
     browsingAdmissionSignals: browsingAdmissionSignalSender,
     log
   });
-  function mineBrowsingPage(reason) {
-    if (!browsingPageMiner || typeof browsingPageMiner.mineDocument !== "function") {
-      return;
-    }
-    browsingPageMiner.mineDocument(document, reason).catch((error) => {
-      if (currentSettings.debugEnabled) {
-        log("Browsing page mining failed.", error);
-      }
-    });
-  }
+  const browsingMutationMiningRuntime = browsingMutationMiningRuntimeFactory({
+    getCurrentSettings: () => currentSettings,
+    browsingPageMiner,
+    shouldMine: () => !browsingSourceIndexRuntime.isRefreshPending(),
+    log
+  });
   const helperRulesRuntime = helperRulesRuntimeFactory({
     getHelperClient: () => helperClient,
     helperCache,
@@ -242,7 +237,9 @@
   const browsingSourceIndexRuntime = browsingSourceIndexRuntimeFactory({
     getCurrentSettings: () => currentSettings, getHelperClient: () => helperClient,
     helperRulesRuntime, normalizeProfileId, clearSeen: () => browsingPageMiner.clearSeen(),
-    mineBrowsingPage, log
+    mineBrowsingPage: (reason) => browsingMutationMiningRuntime.mineDocument(document, reason),
+    afterRefresh: (reason) => browsingMutationMiningRuntime.flushPending(reason),
+    isTopFrameWindow, log
   });
   const activeRulesRuntime = activeRulesRuntimeFactory({
     normalizeRules,
@@ -404,18 +401,18 @@
     feedbackRuntime.ensureSync();
     const settings = await loadSettings();
     await applySettings(settings);
-    browsingSourceIndexRuntime.refresh("boot");
-    mineBrowsingPage("boot");
+    browsingMutationMiningRuntime.observeChanges();
     domScanRuntime.observeChanges();
     window.addEventListener("load", () => {
+      browsingMutationMiningRuntime.ensureObserver();
       domScanRuntime.ensureObserver();
       domScanRuntime.rescanDocument("window load");
-      mineBrowsingPage("window load");
+      browsingMutationMiningRuntime.mineDocument(document, "window load");
     });
     setTimeout(() => {
       domScanRuntime.ensureObserver();
       domScanRuntime.rescanDocument("post-load timeout");
-      mineBrowsingPage("post-load timeout");
+      browsingMutationMiningRuntime.mineDocument(document, "post-load timeout");
     }, 1500);
     window.addEventListener("beforeunload", () => {
       if (
@@ -424,9 +421,11 @@
       ) {
         browsingAdmissionSignalSender.flush().catch(() => {});
       }
+      browsingMutationMiningRuntime.disconnect();
       feedbackRuntime.stop();
       domScanRuntime.disconnect();
     });
+    await browsingSourceIndexRuntime.refresh("boot");
   }
 
   boot();
@@ -442,7 +441,7 @@
       )
     ) {
       browsingPageMiner.clearSeen();
-      mineBrowsingPage("settings changed");
+      browsingMutationMiningRuntime.mineDocument(document, "settings changed");
     }
   });
 })();

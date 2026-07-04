@@ -118,7 +118,7 @@
         trigger,
         profile_context: profileContext
       }, sizing);
-      const response = await client.previewSrsAdmission(payload, 30000);
+      const response = await client.previewSrsAdmission(payload, 60000);
       if (!response || response.ok === false) {
         throw new Error(
           this.normalizeHelperErrorMessage(

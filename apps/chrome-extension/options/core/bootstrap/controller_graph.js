@@ -277,6 +277,7 @@
 
     const eventWiringController = requireControllerFactory("optionsEventWiring")({
       t,
+      settingsManager,
       setStatus: uiBridge.setStatus,
       log: logOptions,
       i18n,

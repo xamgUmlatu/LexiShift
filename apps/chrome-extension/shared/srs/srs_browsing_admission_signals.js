@@ -1,6 +1,5 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-
   const SIDE_SOURCE = "source";
   const SIDE_TARGET = "target";
   const SIDE_REPLACEMENT_EXPOSURE = "replacement_exposure";
@@ -18,7 +17,6 @@
     const normalized = String(value || "").trim();
     return normalized || "default";
   }
-
   function normalizePair(value) {
     return String(value || "").trim().toLowerCase();
   }
@@ -26,7 +24,6 @@
   function normalizeLemma(value) {
     return String(value || "").trim().toLowerCase();
   }
-
   function normalizeTargetMetadata(value) {
     return String(value || "").trim();
   }
@@ -34,12 +31,15 @@
   function normalizeContextMetadata(value) {
     return String(value || "").trim();
   }
+  function wordPackageForExposure(exposure) {
+    const wordPackage = exposure && exposure.word_package;
+    return wordPackage && typeof wordPackage === "object" ? wordPackage : null;
+  }
 
   function clamp01(value, fallback = 1) {
     const parsed = Number(value);
     return Math.max(0, Math.min(1, Number.isFinite(parsed) ? parsed : fallback));
   }
-
   function stableHash(value) {
     const text = String(value || "");
     let hash = 2166136261;
@@ -59,7 +59,6 @@
     }
     return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`;
   }
-
   function pageContextToken(options) {
     const opts = options && typeof options === "object" ? options : {};
     const explicit = normalizeContextMetadata(
@@ -83,7 +82,6 @@
     }
     return runtimePageContextToken;
   }
-
   function contextBucket(options) {
     const opts = options && typeof options === "object" ? options : {};
     const bucketMs = Math.max(60000, Number(opts.contextBucketMs || DEFAULT_CONTEXT_BUCKET_MS));
@@ -91,7 +89,6 @@
     const safeNowMs = Number.isFinite(nowMs) ? nowMs : Date.now();
     return Math.floor(safeNowMs / bucketMs);
   }
-
   function contextKeyForExposure(exposure, options) {
     const explicitContext = normalizeContextMetadata(
       exposure.context_key
@@ -110,7 +107,6 @@
     }
     return `pageh:${stableHash(pageContextToken(options))}:t${bucket}`;
   }
-
   function targetKeyForExposure(lemma, exposure) {
     const explicitKey = normalizeTargetMetadata(
       exposure.target_key
@@ -122,26 +118,28 @@
     if (explicitKey) {
       return explicitKey;
     }
+    const wordPackage = wordPackageForExposure(exposure);
     const reading = normalizeTargetMetadata(
-      exposure.target_reading || exposure.targetReading || exposure.reading || ""
+      exposure.target_reading
+        || exposure.targetReading
+        || exposure.reading
+        || (wordPackage && (wordPackage.reading || wordPackage.kana || wordPackage.lform_raw))
+        || ""
     );
     if (lemma && reading && reading !== lemma) {
       return `${lemma}|${reading}`;
     }
     return lemma;
   }
-
   function isEnabled(settings) {
     return Boolean(settings && settings.srsBrowsingAdmissionSignalsEnabled === true);
   }
-
   function normalizeSide(value) {
     const side = String(value || "").trim().toLowerCase();
     return side === SIDE_SOURCE || side === SIDE_TARGET || side === SIDE_REPLACEMENT_EXPOSURE
       ? side
       : SIDE_REPLACEMENT_EXPOSURE;
   }
-
   function observationSourceForSide(explicit, side) {
     const source = String(explicit || "").trim().toLowerCase();
     if (source === OBSERVATION_SOURCE_MAPPING) return source;
@@ -151,7 +149,6 @@
     if (side === SIDE_TARGET) return OBSERVATION_TARGET_SURFACE;
     return OBSERVATION_REPLACEMENT_EXPOSURE;
   }
-
   function addExposureBatchToPending(pendingByScope, exposures, settings, options) {
     const opts = options && typeof options === "object" ? options : {};
     const maxScopes = Math.max(1, Number(opts.maxScopes || DEFAULT_MAX_SCOPES));
@@ -164,13 +161,24 @@
         continue;
       }
       const pair = normalizePair(exposure.language_pair || fallbackPair);
-      const lemma = normalizeLemma(exposure.lemma || exposure.replacement);
+      const wordPackage = wordPackageForExposure(exposure);
+      const lemma = normalizeLemma(
+        (wordPackage && (wordPackage.surface || wordPackage.lemma))
+          || exposure.lemma
+          || exposure.replacement
+      );
       if (!pair || pair === "all" || !lemma) {
         continue;
       }
       const side = normalizeSide(exposure.side || exposure.observation_side || exposure.observationSide);
       const targetKey = targetKeyForExposure(lemma, exposure);
-      const targetReading = normalizeTargetMetadata(exposure.target_reading || exposure.targetReading || exposure.reading || "");
+      const targetReading = normalizeTargetMetadata(
+        exposure.target_reading
+          || exposure.targetReading
+          || exposure.reading
+          || (wordPackage && (wordPackage.reading || wordPackage.kana || wordPackage.lform_raw))
+          || ""
+      );
       const readingConfidence = Number(exposure.reading_confidence ?? exposure.readingConfidence ?? 1);
       const sourceMappingConfidence = Number(exposure.source_mapping_confidence ?? exposure.sourceMappingConfidence ?? 1);
       const rawCount = Number(exposure.count ?? exposure.hit_count ?? exposure.hitCount ?? 1);
@@ -211,7 +219,6 @@
     }
     return accepted;
   }
-
   function buildPacketPayloads(pendingByScope, options) {
     const opts = options && typeof options === "object" ? options : {};
     const nowIso = typeof opts.nowIso === "function"
@@ -281,7 +288,6 @@
     }
     return payloads;
   }
-
   function createSender(options) {
     const opts = options && typeof options === "object" ? options : {};
     const getHelperClient = typeof opts.getHelperClient === "function"
@@ -425,7 +431,6 @@
       _pendingByScope: pendingByScope
     };
   }
-
   root.srsBrowsingAdmissionSignals = {
     SIDE_SOURCE,
     SIDE_TARGET,

@@ -239,6 +239,12 @@
   "topic_srs_finance_business": {
     "message": "金融・ビジネス"
   },
+  "topic_srs_shopping_money": {
+    "message": "買い物・お金"
+  },
+  "topic_srs_work_office": {
+    "message": "仕事・オフィス"
+  },
   "topic_srs_sports_fitness": {
     "message": "スポーツ・フィットネス"
   },
@@ -254,6 +260,12 @@
   "topic_srs_science_technology": {
     "message": "科学・技術"
   },
+  "topic_srs_science_math": {
+    "message": "科学・数学"
+  },
+  "topic_srs_computing_internet": {
+    "message": "コンピューター・インターネット"
+  },
   "topic_srs_arts_literature_humanities": {
     "message": "芸術・文学"
   },
@@ -268,6 +280,12 @@
   },
   "topic_srs_travel_places_transport": {
     "message": "旅行・交通"
+  },
+  "topic_srs_anime_manga_pop_culture": {
+    "message": "アニメ・漫画・ポップカルチャー"
+  },
+  "topic_srs_hobbies_crafts": {
+    "message": "趣味・手芸"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高度なタグ"
@@ -380,6 +398,12 @@
   "toggle_srs_sound": {
     "message": "フィードバック音を再生"
   },
+  "toggle_srs_browsing_admission": {
+    "message": "閲覧内容を語彙練習に反映する"
+  },
+  "hint_srs_browsing_admission": {
+    "message": "すべての語彙練習に適用されます。対応している言語ペアで、閲覧ページ内の語彙傾向を端末内に保存し、次に出す単語の候補調整に使います。"
+  },
   "label_helper_status": {
     "message": "ヘルパー状態"
   },
@@ -451,6 +475,66 @@
   },
   "button_srs_admission_preview": {
     "message": "好みに合う10語をサンプル…"
+  },
+  "status_srs_admission_preview_running": {
+    "message": "次に出せる単語をサンプル中（$1）…"
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "単語サンプルに失敗しました。"
+  },
+  "status_srs_admission_preview_header": {
+    "message": "次候補のサンプル: $3 で $2語中 $1語を表示。"
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "選択中の方式ではプレビューできません。"
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "$1 で表示できる追加候補サンプルがありません。"
+  },
+  "note_srs_admission_preview_sample_only": {
+    "message": "サンプルのみです。単語は追加されていません。"
+  },
+  "label_srs_admission_preview_sampled_words": {
+    "message": "サンプル語:"
+  },
+  "label_srs_admission_preview_sample_details": {
+    "message": "サンプル詳細:"
+  },
+  "label_srs_admission_preview_effective_profile_context": {
+    "message": "有効なプロフィール条件:"
+  },
+  "label_srs_admission_preview_topic_overlay": {
+    "message": "トピック補助データ:"
+  },
+  "label_srs_admission_preview_neutral_topic_support": {
+    "message": "中立候補内のトピック対応:"
+  },
+  "label_srs_admission_preview_plan_notes": {
+    "message": "計画メモ:"
+  },
+  "label_srs_admission_preview_advanced_details": {
+    "message": "詳細情報"
+  },
+  "summary_srs_admission_preview_selected_topics": {
+    "message": "選択トピック: $1。"
+  },
+  "summary_srs_admission_preview_sampled_topic_words": {
+    "message": "トピック一致のサンプル語: $1語。"
+  },
+  "summary_srs_admission_preview_matched_candidates": {
+    "message": "プレビュー候補内で一致した候補: $1件。"
+  },
+  "summary_srs_admission_preview_no_topic_candidates": {
+    "message": "このプレビュー範囲では選択トピックに一致する候補がありません。"
+  },
+  "summary_srs_admission_preview_overlay_status": {
+    "message": "補助データの状態: $1。"
+  },
+  "summary_srs_admission_preview_no_topic_priorities": {
+    "message": "このサンプルではトピック優先度がヘルパーに届いていません。"
+  },
+  "summary_srs_admission_preview_showing": {
+    "message": "$3 で $2語中 $1語を表示しています。"
   },
   "button_srs_initialize": {
     "message": "練習を開始"

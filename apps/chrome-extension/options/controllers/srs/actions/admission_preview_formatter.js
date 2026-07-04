@@ -1,20 +1,5 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const TOPIC_LABEL_KEYS = {
-    arts_literature_humanities: "topic_srs_arts_literature_humanities",
-    animals: "topic_srs_animals",
-    finance_business: "topic_srs_finance_business",
-    food_cooking: "topic_srs_food_cooking",
-    games: "topic_srs_games",
-    general: "topic_srs_general",
-    law_politics_civics: "topic_srs_law_politics_civics",
-    medicine_health: "topic_srs_medicine_health",
-    music_media_entertainment: "topic_srs_music_media_entertainment",
-    plants_nature: "topic_srs_plants_nature",
-    science_technology: "topic_srs_science_technology",
-    sports_fitness: "topic_srs_sports_fitness",
-    travel_places_transport: "topic_srs_travel_places_transport"
-  };
 
   function escapeHtml(value) {
     return String(value ?? "")
@@ -117,9 +102,8 @@
   function formatTopicLabel(topic, translate) {
     const normalized = String(topic || "general").trim() || "general";
     const fallback = normalized.replace(/_/g, " ");
-    const key = TOPIC_LABEL_KEYS[normalized];
-    if (key && typeof translate === "function") {
-      return translate(key, null, fallback);
+    if (typeof translate === "function") {
+      return translate(`topic_srs_${normalized}`, null, fallback);
     }
     return fallback;
   }
@@ -168,17 +152,17 @@
     const overlayStatus = String(profileTopicOverlay.application_status || profileTopicOverlay.status || "").trim();
     const parts = [];
     if (selectedLabels.length) {
-      parts.push(`Selected topics: ${selectedLabels.join(", ")}.`);
-      parts.push(`${sampledTopicWords} sampled topic ${sampledTopicWords === 1 ? "word" : "words"}.`);
+      parts.push(translate("summary_srs_admission_preview_selected_topics", [selectedLabels.join(", ")], `Selected topics: ${selectedLabels.join(", ")}.`));
+      parts.push(translate("summary_srs_admission_preview_sampled_topic_words", [sampledTopicWords], `${sampledTopicWords} sampled topic ${sampledTopicWords === 1 ? "word" : "words"}.`));
       if (candidateCount > 0) {
-        parts.push(`${candidateCount} matched candidates in the preview frontier.`);
+        parts.push(translate("summary_srs_admission_preview_matched_candidates", [candidateCount], `${candidateCount} matched candidates in the preview frontier.`));
       } else if (Number.isFinite(appliedSeedCount) && appliedSeedCount === 0) {
-        parts.push("No matching candidates for those topics in this preview window.");
+        parts.push(translate("summary_srs_admission_preview_no_topic_candidates", null, "No matching candidates for those topics in this preview window."));
       } else if (overlayStatus) {
-        parts.push(`Overlay status: ${overlayStatus}.`);
+        parts.push(translate("summary_srs_admission_preview_overlay_status", [overlayStatus], `Overlay status: ${overlayStatus}.`));
       }
     } else {
-      parts.push("No topic priorities reached the helper for this sample.");
+      parts.push(translate("summary_srs_admission_preview_no_topic_priorities", null, "No topic priorities reached the helper for this sample."));
     }
     return `<p class="srs-admission-preview-topic-summary">${escapeHtml(parts.join(" "))}</p>`;
   }
@@ -190,6 +174,18 @@
     const profileId = String(opts.profileId || "default");
     const plan = opts.plan && typeof opts.plan === "object" ? opts.plan : {};
     const preview = opts.preview && typeof opts.preview === "object" ? opts.preview : {};
+    const bootstrapTopN = Number.isFinite(Number(opts.bootstrapTopN))
+      ? Number(opts.bootstrapTopN)
+      : (
+          Number.isFinite(Number(preview.preview_bootstrap_top_n_default))
+            ? Number(preview.preview_bootstrap_top_n_default)
+            : (preview.selected_unique_count ?? "n/a")
+        );
+    const bootstrapTopNDetail = `${bootstrapTopN}${
+      opts.previewFrontierCapApplied || preview.preview_frontier_cap_applied
+        ? " (preview cap)"
+        : ""
+    }`;
     const requestProfileContextMeta = (
       opts.requestProfileContextMeta && typeof opts.requestProfileContextMeta === "object"
     )
@@ -251,7 +247,7 @@
     ];
     if (plan.can_execute && admittedWords.length) {
       lines.push("");
-      lines.push("Sampled words:");
+      lines.push(translate("label_srs_admission_preview_sampled_words", null, "Sampled words:"));
       admittedWords.forEach((entry) => {
         const lemma = String(entry && entry.lemma ? entry.lemma : "").trim();
         if (!lemma) {
@@ -289,13 +285,13 @@
       });
     }
     lines.push("");
-    lines.push("Sample details:");
+    lines.push(translate("label_srs_admission_preview_sample_details", null, "Sample details:"));
     lines.push(
       `- profile_id: ${profileId}`,
       `- strategy_requested: ${plan.strategy_requested || "n/a"}`,
       `- strategy_effective: ${plan.strategy_effective || "n/a"}`,
       `- execution_mode: ${plan.execution_mode || "n/a"}`,
-      `- bootstrap_top_n: ${preview.selected_unique_count ?? "n/a"}`,
+      `- bootstrap_top_n: ${bootstrapTopNDetail}`,
       `- initial_active_count: ${preview.admitted_count ?? "n/a"}`,
       `- sample_count_requested: ${preview.sample_count_requested ?? "n/a"}`,
       `- sample_count_effective: ${preview.sample_count_effective ?? admittedWords.length}`,
@@ -306,7 +302,7 @@
       `- missing_signals: ${missingSignals.length ? missingSignals.join(", ") : "none"}`
     );
     lines.push("");
-    lines.push("Effective profile context:");
+    lines.push(translate("label_srs_admission_preview_effective_profile_context", null, "Effective profile context:"));
     lines.push(`- context_source: ${requestProfileContextMeta.source || "saved_profile"}`);
     lines.push(
       `- pending_form_overrides: ${
@@ -327,7 +323,7 @@
     lines.push(`- signal_sources: ${formatSignalSourcesSummary(signalSources)}`);
     if (profileTopicOverlay.status || profileTopicOverlay.application_status) {
       lines.push("");
-      lines.push("Topic overlay:");
+      lines.push(translate("label_srs_admission_preview_topic_overlay", null, "Topic overlay:"));
       lines.push(`- status: ${profileTopicOverlay.status || "unknown"}`);
       lines.push(`- application_status: ${profileTopicOverlay.application_status || "n/a"}`);
       lines.push(`- scope: ${profileTopicOverlay.runtime_scope || "admission_preview_only"}`);
@@ -341,7 +337,7 @@
     }
     if (activeTopicSupportEntries.length) {
       lines.push("");
-      lines.push("Neutral frontier topic support:");
+      lines.push(translate("label_srs_admission_preview_neutral_topic_support", null, "Neutral frontier topic support:"));
       activeTopicSupportEntries
         .slice(0, 8)
         .map((entry) => formatTopicSupportLine(entry))
@@ -359,7 +355,7 @@
       );
       if (notes.length) {
         lines.push("");
-        lines.push("Plan notes:");
+        lines.push(translate("label_srs_admission_preview_plan_notes", null, "Plan notes:"));
         notes.forEach((note) => lines.push(`- ${note}`));
       }
       return lines.join("\n");
@@ -375,7 +371,7 @@
       );
       if (notes.length) {
         lines.push("");
-        lines.push("Plan notes:");
+        lines.push(translate("label_srs_admission_preview_plan_notes", null, "Plan notes:"));
         notes.forEach((note) => lines.push(`- ${note}`));
       }
       return lines.join("\n");
@@ -393,13 +389,13 @@
     const advancedText = buildAdmissionPreviewOutput(options);
     const shownCount = preview.sample_count_effective ?? admittedWords.length;
     const possibleCount = preview.admitted_count ?? 0;
-    const summary = `Showing ${shownCount} of ${possibleCount} possible words for ${srsPair}.`;
+    const summary = translate("summary_srs_admission_preview_showing", [shownCount, possibleCount, srsPair], `Showing ${shownCount} of ${possibleCount} possible words for ${srsPair}.`);
     const bodyHtml = plan.can_execute && admittedWords.length
       ? buildSimpleWordsHtml(admittedWords, { translate })
       : `<p class="srs-admission-preview-empty">${escapeHtml(
           plan.can_execute
-            ? `No admission sample is available for ${srsPair}.`
-            : "Preview unavailable for the selected strategy."
+            ? translate("status_srs_admission_preview_empty", [srsPair], `No admission sample is available for ${srsPair}.`)
+            : translate("status_srs_admission_preview_plan_only", null, "Preview unavailable for the selected strategy.")
         )}</p>`;
     const profileBootstrap = preview.profile_bootstrap && typeof preview.profile_bootstrap === "object"
       ? preview.profile_bootstrap
@@ -424,12 +420,12 @@
     });
     const html = [
       '<div class="srs-admission-preview-view">',
-      '<p class="srs-admission-preview-note">Sample only. No words were added.</p>',
+      `<p class="srs-admission-preview-note">${escapeHtml(translate("note_srs_admission_preview_sample_only", null, "Sample only. No words were added."))}</p>`,
       `<p class="srs-admission-preview-summary">${escapeHtml(summary)}</p>`,
       topicSummaryHtml,
       bodyHtml,
       '<details class="srs-admission-preview-advanced">',
-      '<summary>Advanced details</summary>',
+      `<summary>${escapeHtml(translate("label_srs_admission_preview_advanced_details", null, "Advanced details"))}</summary>`,
       `<pre>${escapeHtml(advancedText)}</pre>`,
       "</details>",
       "</div>"

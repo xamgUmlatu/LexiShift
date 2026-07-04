@@ -69,6 +69,7 @@
       srsAutoRefreshRepeatMinGoodEasyInput: source.srsAutoRefreshRepeatMinGoodEasy || null,
       srsAutoRefreshCooldownInput: source.srsAutoRefreshCooldown || null,
       srsExposureLoggingInput: source.srsExposureLoggingEnabled || null,
+      srsBrowsingAdmissionSignalsInput: source.srsBrowsingAdmissionSignalsEnabled || null,
       srsAdmissionPreviewButton: source.srsAdmissionPreview || null,
       srsAdmissionPreviewOutput: source.srsAdmissionPreviewOutput || null,
       srsInitializeSetButton: source.srsInitializeSet || null,

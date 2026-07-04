@@ -110,6 +110,8 @@
           translate,
           srsPair,
           profileId: previewPayload.profile_id || profileId,
+          bootstrapTopN: previewPayload.bootstrap_top_n,
+          previewFrontierCapApplied: previewPayload.preview_frontier_cap_applied,
           plan: previewPayload.plan || {},
           preview: previewPayload.preview || {},
           requestProfileContextMeta: planningState.contextMeta

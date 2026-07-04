@@ -203,7 +203,7 @@ const profileContext = {{
   assert.deepEqual(bridgeMessages.map((message) => message.timeoutMs), [
     30000,
     15000,
-    30000,
+    60000,
     30000,
     4000
   ]);

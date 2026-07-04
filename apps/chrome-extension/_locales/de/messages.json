@@ -239,6 +239,12 @@
   "topic_srs_finance_business": {
     "message": "Finanzen & Geschäft"
   },
+  "topic_srs_shopping_money": {
+    "message": "Einkaufen & Geld"
+  },
+  "topic_srs_work_office": {
+    "message": "Arbeit & Büro"
+  },
   "topic_srs_sports_fitness": {
     "message": "Sport & Fitness"
   },
@@ -254,6 +260,12 @@
   "topic_srs_science_technology": {
     "message": "Wissenschaft & Technik"
   },
+  "topic_srs_science_math": {
+    "message": "Wissenschaft & Mathematik"
+  },
+  "topic_srs_computing_internet": {
+    "message": "Computer & Internet"
+  },
   "topic_srs_arts_literature_humanities": {
     "message": "Kunst & Literatur"
   },
@@ -268,6 +280,12 @@
   },
   "topic_srs_travel_places_transport": {
     "message": "Reisen & Verkehr"
+  },
+  "topic_srs_anime_manga_pop_culture": {
+    "message": "Anime, Manga & Popkultur"
+  },
+  "topic_srs_hobbies_crafts": {
+    "message": "Hobbys & Handwerk"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Erweiterte Tags"
@@ -380,6 +398,12 @@
   "toggle_srs_sound": {
     "message": "Feedback-Sound abspielen"
   },
+  "toggle_srs_browsing_admission": {
+    "message": "Browserverlauf für die Vokabelübung verwenden"
+  },
+  "hint_srs_browsing_admission": {
+    "message": "Gilt für alle Vokabelübungen. Unterstützte Sprachpaare können Worttrends von besuchten Seiten lokal speichern und bei der Auswahl künftiger Wörter verwenden."
+  },
   "label_helper_status": {
     "message": "Helper-Status"
   },
@@ -451,6 +475,66 @@
   },
   "button_srs_admission_preview": {
     "message": "10 passende Wörter testen…"
+  },
+  "status_srs_admission_preview_running": {
+    "message": "Mögliche nächste Wörter werden getestet ($1)…"
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "Wortstichprobe fehlgeschlagen."
+  },
+  "status_srs_admission_preview_header": {
+    "message": "Nächste-Wörter-Stichprobe: $1 von $2 möglichen Wörtern für $3."
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "Vorschau für die ausgewählte Strategie nicht verfügbar."
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "Für $1 ist keine Aufnahmestichprobe verfügbar."
+  },
+  "note_srs_admission_preview_sample_only": {
+    "message": "Nur Stichprobe. Es wurden keine Wörter hinzugefügt."
+  },
+  "label_srs_admission_preview_sampled_words": {
+    "message": "Stichprobenwörter:"
+  },
+  "label_srs_admission_preview_sample_details": {
+    "message": "Stichprobendetails:"
+  },
+  "label_srs_admission_preview_effective_profile_context": {
+    "message": "Aktiver Profilkontext:"
+  },
+  "label_srs_admission_preview_topic_overlay": {
+    "message": "Themen-Overlay:"
+  },
+  "label_srs_admission_preview_neutral_topic_support": {
+    "message": "Themenabdeckung im neutralen Kandidatenfeld:"
+  },
+  "label_srs_admission_preview_plan_notes": {
+    "message": "Planhinweise:"
+  },
+  "label_srs_admission_preview_advanced_details": {
+    "message": "Erweiterte Details"
+  },
+  "summary_srs_admission_preview_selected_topics": {
+    "message": "Ausgewählte Themen: $1."
+  },
+  "summary_srs_admission_preview_sampled_topic_words": {
+    "message": "$1 thematisch passende Stichprobenwörter."
+  },
+  "summary_srs_admission_preview_matched_candidates": {
+    "message": "$1 passende Kandidaten im Vorschaufenster."
+  },
+  "summary_srs_admission_preview_no_topic_candidates": {
+    "message": "Keine passenden Kandidaten für diese Themen in diesem Vorschaufenster."
+  },
+  "summary_srs_admission_preview_overlay_status": {
+    "message": "Overlay-Status: $1."
+  },
+  "summary_srs_admission_preview_no_topic_priorities": {
+    "message": "Keine Themenprioritäten erreichten den Helper für diese Stichprobe."
+  },
+  "summary_srs_admission_preview_showing": {
+    "message": "$1 von $2 möglichen Wörtern für $3 werden angezeigt."
   },
   "button_srs_initialize": {
     "message": "Training starten"

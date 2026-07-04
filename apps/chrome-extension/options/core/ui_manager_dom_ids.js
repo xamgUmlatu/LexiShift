@@ -30,6 +30,7 @@
   "srs-auto-refresh-min-good-easy", "srs-auto-refresh-repeat-min-good-easy",
   "srs-auto-refresh-cooldown",
   "srs-exposure-logging-enabled",
+  "srs-browsing-admission-signals-enabled",
   "srs-admission-preview", "srs-admission-preview-output",
   "srs-initialize-set", "srs-rebalance-preview", "srs-rebalance-apply",
   "srs-story-sampling-curtain",

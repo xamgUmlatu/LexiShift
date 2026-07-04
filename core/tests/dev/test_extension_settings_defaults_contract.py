@@ -57,6 +57,11 @@ assert.equal(
   Object.keys(context.LexiShift.defaults.srsBrowsingSourceMiningOptions).length,
   0
 );
+assert.equal(typeof context.LexiShift.defaults.srsBrowsingSourceIndexOptions, "object");
+assert.equal(
+  Object.keys(context.LexiShift.defaults.srsBrowsingSourceIndexOptions).length,
+  0
+);
 """
         _run_node(script)
 

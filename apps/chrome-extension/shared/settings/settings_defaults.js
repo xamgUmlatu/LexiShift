@@ -74,6 +74,7 @@
     srsAutoRefreshCooldownMinutes: 90,
     srsBrowsingAdmissionSignalsEnabled: false,
     srsBrowsingSourceMiningOptions: {},
+    srsBrowsingSourceIndexOptions: {},
     srsSemanticAdmissionEnabled: true,
     srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
     profileBackgroundEnabled: false,

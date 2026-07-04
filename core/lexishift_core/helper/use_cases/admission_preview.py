@@ -27,6 +27,40 @@ PREVIEW_SAMPLING_MODE_RANKED = "ranked"
 PREVIEW_SAMPLING_MODE_RESERVED_TOPIC_LANE = "reserved_topic_lane"
 PREVIEW_SAMPLING_MODE_WEIGHTED = "weighted_without_replacement"
 
+ADMISSION_PREVIEW_BEGINNER_BOOTSTRAP_TOP_N = 2000
+ADMISSION_PREVIEW_DEFAULT_BOOTSTRAP_TOP_N = 2000
+ADMISSION_PREVIEW_ADVANCED_BOOTSTRAP_TOP_N = 5000
+ADMISSION_PREVIEW_BEGINNER_PROFICIENCY_MAX = 0.35
+ADMISSION_PREVIEW_ADVANCED_PROFICIENCY_MIN = 0.70
+
+_PREVIEW_WORD_FIELD_KEYS = (
+    "lemma",
+    "candidate_identity_key",
+    "pos",
+    "pos_bucket",
+    "pos_canonical",
+    "pos_raw",
+    "pos_source_profile",
+    "pos_matched_rule",
+    "base_rank",
+    "reranked_rank",
+    "rank_delta",
+    "base_weight",
+    "admission_weight",
+    "profile_score",
+    "selection_mass",
+    "pos_weight",
+    "has_coverage_support",
+    "active_profile_drivers",
+    "penalties",
+    "explanation",
+)
+
+_PREVIEW_WORD_DIAGNOSTIC_KEYS = (
+    "signals",
+    "weighted_components",
+)
+
 
 def _build_frequency_resource_payload(
     paths: HelperPaths,
@@ -137,6 +171,17 @@ def preview_srs_admission(
         initial_active_count=resolved_initial_active_count,
         max_active_items_hint=config.max_active_items_hint,
     )
+    preview_bootstrap_top_n, preview_frontier_cap_applied = (
+        _resolve_admission_preview_bootstrap_top_n(
+            bootstrap_top_n=sizing_policy.bootstrap_top_n_effective,
+            profile_context=config.profile_context,
+        )
+    )
+    preview_policy_notes = list(sizing_policy.notes)
+    if preview_frontier_cap_applied:
+        preview_policy_notes.append(
+            "admission preview used a bounded bootstrap frontier for responsive sampling."
+        )
     stopwords_path = resolve_stopwords_path_fn(paths, pair=pair)
     signal_summary = summarize_signal_events(
         paths.srs_signal_queue_path_for(profile_id),
@@ -153,7 +198,7 @@ def preview_srs_admission(
         pair=pair,
         strategy=config.strategy,
         objective=config.objective,
-        set_top_n=sizing_policy.bootstrap_top_n_effective,
+        set_top_n=preview_bootstrap_top_n,
         initial_active_count=sizing_policy.initial_active_count_effective,
         max_active_items_hint=sizing_policy.max_active_items_hint or 0,
         replace_pair=False,
@@ -161,7 +206,7 @@ def preview_srs_admission(
         existing_items_for_pair=existing_items_for_pair,
         profile_context=config.profile_context,
         signal_summary=signal_summary,
-        policy_notes=sizing_policy.notes,
+        policy_notes=tuple(preview_policy_notes),
     )
 
     preview_count_requested = max(1, int(config.preview_count or 5))
@@ -179,6 +224,10 @@ def preview_srs_admission(
         "updated_count": 0,
         "selection_strategy": str(config.strategy or "frequency_bootstrap"),
         "selector_version": None,
+        "preview_frontier_cap_applied": bool(preview_frontier_cap_applied),
+        "preview_bootstrap_top_n_default": (
+            preview_bootstrap_top_n if preview_frontier_cap_applied else None
+        ),
         "selected_preview": [],
         "initial_active_preview": [],
         "admission_weight_profile": {},
@@ -191,8 +240,12 @@ def preview_srs_admission(
         return {
             "pair": pair,
             "profile_id": profile_id,
-            "set_top_n": sizing_policy.bootstrap_top_n_effective,
-            "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
+            "set_top_n": preview_bootstrap_top_n,
+            "bootstrap_top_n": preview_bootstrap_top_n,
+            "preview_frontier_cap_applied": preview_frontier_cap_applied,
+            "preview_bootstrap_top_n_default": (
+                preview_bootstrap_top_n if preview_frontier_cap_applied else None
+            ),
             "initial_active_count": sizing_policy.initial_active_count_effective,
             "max_active_items_hint": sizing_policy.max_active_items_hint,
             "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
@@ -210,7 +263,7 @@ def preview_srs_admission(
         config=SetInitializationConfig(
             frequency_db=resolved_set_source_db,
             jmdict_path=resolved_jmdict_path,
-            top_n=sizing_policy.bootstrap_top_n_effective,
+            top_n=preview_bootstrap_top_n,
             initial_active_count=sizing_policy.initial_active_count_effective,
             language_pair=pair,
             stopwords_path=stopwords_path,
@@ -231,12 +284,20 @@ def preview_srs_admission(
     preview_payload = _build_preview_payload(
         init_report=init_report,
         preview_count_requested=preview_count_requested,
+        preview_frontier_cap_applied=preview_frontier_cap_applied,
+        preview_bootstrap_top_n_default=(
+            preview_bootstrap_top_n if preview_frontier_cap_applied else None
+        ),
     )
     return {
         "pair": pair,
         "profile_id": profile_id,
-        "set_top_n": sizing_policy.bootstrap_top_n_effective,
-        "bootstrap_top_n": sizing_policy.bootstrap_top_n_effective,
+        "set_top_n": preview_bootstrap_top_n,
+        "bootstrap_top_n": preview_bootstrap_top_n,
+        "preview_frontier_cap_applied": preview_frontier_cap_applied,
+        "preview_bootstrap_top_n_default": (
+            preview_bootstrap_top_n if preview_frontier_cap_applied else None
+        ),
         "initial_active_count": sizing_policy.initial_active_count_effective,
         "max_active_items_hint": sizing_policy.max_active_items_hint,
         "pair_policy": pair_policy_to_dict(resolve_srs_pair_policy(pair)),
@@ -250,10 +311,33 @@ def preview_srs_admission(
     }
 
 
+def _resolve_admission_preview_bootstrap_top_n(
+    *,
+    bootstrap_top_n: int | None,
+    profile_context: Mapping[str, object] | None,
+) -> tuple[int | None, bool]:
+    if bootstrap_top_n is not None:
+        return bootstrap_top_n, False
+    context = profile_context or {}
+    raw_proficiency = None
+    for key in ("proficiency_estimate", "proficiency"):
+        if key in context:
+            raw_proficiency = context.get(key)
+            break
+    proficiency = _safe_optional_float(raw_proficiency)
+    if proficiency is not None and proficiency <= ADMISSION_PREVIEW_BEGINNER_PROFICIENCY_MAX:
+        return ADMISSION_PREVIEW_BEGINNER_BOOTSTRAP_TOP_N, True
+    if proficiency is not None and proficiency >= ADMISSION_PREVIEW_ADVANCED_PROFICIENCY_MIN:
+        return ADMISSION_PREVIEW_ADVANCED_BOOTSTRAP_TOP_N, True
+    return ADMISSION_PREVIEW_DEFAULT_BOOTSTRAP_TOP_N, True
+
+
 def _build_preview_payload(
     *,
     init_report: SetInitializationReport,
     preview_count_requested: int,
+    preview_frontier_cap_applied: bool = False,
+    preview_bootstrap_top_n_default: int | None = None,
 ) -> dict[str, object]:
     raw_profile_bootstrap = dict(getattr(init_report, "profile_bootstrap_diagnostics", {}) or {})
     ranking_preview_raw = raw_profile_bootstrap.get("ranking_preview")
@@ -323,6 +407,8 @@ def _build_preview_payload(
         "selection_strategy": str(init_report.selection_strategy or "frequency_bootstrap"),
         "selection_seed": selection_seed,
         "selector_version": init_report.selector_version,
+        "preview_frontier_cap_applied": bool(preview_frontier_cap_applied),
+        "preview_bootstrap_top_n_default": preview_bootstrap_top_n_default,
         "selected_preview": list((getattr(init_report, "selected_preview", ()) or ())[:10]),
         "initial_active_preview": planned_active_lemmas,
         "admission_weight_profile": dict(
@@ -371,8 +457,21 @@ def _build_planned_active_words(
             word_payload["candidate_identity_key"] = identity_key
         if "explanation" not in word_payload:
             word_payload["explanation"] = "Selected for the initial active bootstrap preview."
-        planned_active_words.append(word_payload)
+        planned_active_words.append(_compact_planned_active_word_payload(word_payload))
     return planned_active_words
+
+
+def _compact_planned_active_word_payload(
+    word_payload: Mapping[str, object],
+) -> dict[str, object]:
+    compact: dict[str, object] = {
+        key: word_payload[key] for key in _PREVIEW_WORD_FIELD_KEYS if key in word_payload
+    }
+    for key in _PREVIEW_WORD_DIAGNOSTIC_KEYS:
+        value = word_payload.get(key)
+        if isinstance(value, Mapping):
+            compact[key] = dict(value)
+    return compact
 
 
 def _sample_planned_active_words(
@@ -448,6 +547,13 @@ def _safe_positive_float(value: object) -> float | None:
     if parsed <= 0.0:
         return None
     return max(0.001, parsed)
+
+
+def _safe_optional_float(value: object) -> float | None:
+    try:
+        return float(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
 
 
 def _normalize_preview_seed(value: object) -> int | None:
