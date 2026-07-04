@@ -577,6 +577,8 @@ def _load_cached_source_index(
     rules = payload.get("rules")
     if not isinstance(rules, list):
         return None
+    if not rules:
+        return None
     cached = dict(payload)
     metadata = dict(cached.get("source_index_cache") or {})
     metadata.update(

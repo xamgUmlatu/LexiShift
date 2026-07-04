@@ -21,6 +21,7 @@ if str(HELPER_ROOT) not in sys.path:
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.helper.rulegen_outputs import RulegenOutput  # noqa: E402
 from lexishift_core.helper.use_cases.browsing_source_index import (  # noqa: E402
+    SOURCE_INDEX_CACHE_SCHEMA_VERSION,
     build_srs_browsing_source_index,
 )
 from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset  # noqa: E402
@@ -319,6 +320,78 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
                 {"jmdict_path", "set_source_db"},
             )
             self.assertEqual(payload["source_index_cache"]["source"], "miss")
+
+    def test_browsing_source_index_ignores_empty_cache_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            frequency_db = Path(tmp) / "freq.sqlite"
+            jmdict_path = Path(tmp) / "JMdict_e"
+            frequency_db.write_text("", encoding="utf-8")
+            jmdict_path.write_text("", encoding="utf-8")
+
+            def fail_requirements(**_kwargs):
+                raise AssertionError("cache-miss preflight should not validate requirements")
+
+            def fail_init(*_args, **_kwargs):
+                raise AssertionError("allow_generate=false should not initialize frontier")
+
+            def fail_rulegen(**_kwargs):
+                raise AssertionError("allow_generate=false should not run rulegen")
+
+            common_kwargs = {
+                "paths": paths,
+                "pair": "en-ja",
+                "profile_id": "default",
+                "top_n": 12,
+                "max_targets": 2,
+                "max_rules": 5,
+                "allow_generate": False,
+                "resolve_pair_set_top_n_fn": lambda **_kwargs: 2000,
+                "resolve_pair_resources_fn": lambda *_args, **_kwargs: (
+                    jmdict_path,
+                    None,
+                    frequency_db,
+                ),
+                "ensure_pair_requirements_fn": fail_requirements,
+                "resolve_profile_id_fn": lambda _paths, *, profile_id: profile_id or "default",
+                "resolve_stopwords_path_fn": lambda *_args, **_kwargs: None,
+                "initialize_store_from_frequency_list_with_report_fn": fail_init,
+                "run_rulegen_for_pair_fn": fail_rulegen,
+            }
+            miss = build_srs_browsing_source_index(**common_kwargs)
+            self.assertEqual(miss["status"], "not_ready")
+            self.assertEqual(miss["reason"], "source_index_cache_miss")
+            self.assertEqual(miss["source_index_cache"]["source"], "miss")
+
+            cache_path = Path(str(miss["source_index_cache"]["cache_path"]))
+            cache_key = str(miss["source_index_cache"]["cache_key"])
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            cache_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": SOURCE_INDEX_CACHE_SCHEMA_VERSION,
+                        "cache_key": cache_key,
+                        "saved_at": "2026-07-04T00:00:00Z",
+                        "payload": {
+                            "status": "ok",
+                            "pair": "en-ja",
+                            "profile_id": "default",
+                            "rules": [],
+                            "rule_count": 0,
+                            "target_count": 0,
+                            "source_index_cache": {"source": "generated"},
+                        },
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            second = build_srs_browsing_source_index(**common_kwargs)
+
+            self.assertEqual(second["status"], "not_ready")
+            self.assertEqual(second["reason"], "source_index_cache_miss")
+            self.assertEqual(second["source_index_cache"]["source"], "miss")
 
     def test_native_host_routes_srs_items_list(self) -> None:
         module = _load_module("lexishift_native_host_srs_items_list_test", NATIVE_HOST_SCRIPT)

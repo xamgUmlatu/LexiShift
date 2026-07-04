@@ -329,6 +329,55 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
         self.assertGreater(strong["browsing_lane_count"], off["browsing_lane_count"])
         self.assertIn("料理", strong["selected_lemmas"])
 
+    def test_en_ja_source_and_target_signals_coalesce_on_reading_key(self) -> None:
+        policy = BrowsingSignalIngestPolicy(
+            max_signals_per_packet=4,
+            max_count_per_signal=5.0,
+            max_items_per_store=10,
+            prune_signal_below=0.0,
+        )
+        store = BrowsingSignalStore(pair="en-ja", profile_id="default")
+        packet = BrowsingSignalPacket(
+            pair="en-ja",
+            profile_id="default",
+            signals=(
+                BrowsingSignalPacketEntry(
+                    target_lemma="発酵",
+                    target_key="発酵|はっこう",
+                    target_reading="はっこう",
+                    side=BROWSING_SIGNAL_TARGET,
+                    count=2,
+                    reading_confidence=1.0,
+                    observation_source="target_surface",
+                ),
+                BrowsingSignalPacketEntry(
+                    target_lemma="発酵",
+                    target_key="発酵|はっこう",
+                    target_reading="はっこう",
+                    side=BROWSING_SIGNAL_SOURCE,
+                    count=3,
+                    source_mapping_confidence=0.5,
+                    reading_confidence=1.0,
+                    observation_source="source_mapping",
+                ),
+            ),
+        )
+
+        result = ingest_browsing_signal_packet(store, packet, policy=policy, now=NOW)
+
+        self.assertEqual(set(result.store.items), {"発酵|はっこう"})
+        aggregate = result.store.items["発酵|はっこう"]
+        self.assertEqual(aggregate.target_lemma, "発酵")
+        self.assertEqual(aggregate.target_key, "発酵|はっこう")
+        self.assertEqual(aggregate.target_reading, "はっこう")
+        self.assertEqual(aggregate.target_hit_count, 2.0)
+        self.assertEqual(aggregate.source_hit_count, 1.5)
+        self.assertEqual(aggregate.reading_confidence, 1.0)
+        self.assertEqual(
+            set(aggregate.observation_sources),
+            {"source_mapping", "target_surface"},
+        )
+
     def test_en_ja_target_key_prevents_wrong_reading_boost(self) -> None:
         store = BrowsingSignalStore(
             pair="en-ja",
@@ -407,6 +456,48 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
 
         self.assertGreater(rows["辛い|つらい"]["browsing_signal"], 0.0)
         self.assertIn("辛い", strong["selected_lemmas"])
+
+    def test_en_ja_exact_reading_aggregate_wins_over_legacy_bare_key(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "会社": BrowsingSignalAggregate(
+                    target_lemma="会社",
+                    replacement_exposure_count=80.0,
+                    reading_confidence=0.45,
+                ),
+                "会社|かいしゃ": BrowsingSignalAggregate(
+                    target_lemma="会社",
+                    target_key="会社|かいしゃ",
+                    target_reading="かいしゃ",
+                    source_hit_count=3.0,
+                    source_mapping_confidence=0.72,
+                    reading_confidence=1.0,
+                ),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(
+                lemma="会社",
+                target_key="会社|かいしゃ",
+                target_reading="かいしゃ",
+                neutral_score=0.80,
+            ),
+        )
+
+        strong = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=1,
+            now=NOW,
+        )[BROWSING_STRENGTH_STRONG].to_dict()
+        row = strong["rows"][0]
+
+        self.assertEqual(row["target_key"], "会社|かいしゃ")
+        self.assertEqual(row["target_reading"], "かいしゃ")
+        self.assertEqual(row["browsing_evidence"], 3.0)
+        self.assertGreater(row["browsing_signal"], 0.0)
 
     def test_reading_confidence_dampens_vague_target_surface_observation(self) -> None:
         exact = BrowsingSignalAggregate(

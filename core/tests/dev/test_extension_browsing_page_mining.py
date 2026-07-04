@@ -395,6 +395,134 @@ assert.deepEqual(normalize(mining.buildRubyTargetSignals(
 """
         _run_node(script)
 
+    def test_miner_queues_source_and_ruby_signals_on_same_reading_key(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const sourceMorphologyModulePath = {json.dumps(str(SOURCE_MORPHOLOGY_JS))};
+const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
+const modulePath = {json.dumps(str(PAGE_MINING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
+vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const mining = context.LexiShift.srsBrowsingPageMining;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+function text(value) {{
+  return {{ nodeType: 3, nodeValue: value }};
+}}
+function element(tagName, children, options) {{
+  const opts = options || {{}};
+  const node = {{
+    nodeType: 1,
+    tagName,
+    id: opts.id || "",
+    childNodes: [],
+    classList: {{
+      length: 0,
+      contains() {{ return false; }}
+    }},
+    closest() {{ return null; }},
+    getClientRects() {{
+      return [{{ width: 1, height: 1 }}];
+    }},
+    querySelectorAll(selector) {{
+      const matches = [];
+      function visit(candidate) {{
+        if (
+          candidate
+          && candidate.nodeType === 1
+          && String(candidate.tagName || "").toLowerCase() === selector
+        ) {{
+          matches.push(candidate);
+        }}
+        for (const child of Array.from(candidate.childNodes || [])) visit(child);
+      }}
+      visit(node);
+      return matches;
+    }}
+  }};
+  node.childNodes = Array.from(children || []);
+  for (const child of node.childNodes) {{
+    child.parentNode = node;
+    child.parentElement = node;
+  }}
+  node.textContent = opts.textContent || node.childNodes.map((child) => child.textContent || child.nodeValue || "").join("");
+  return node;
+}}
+function srsRule(source, replacement, reading) {{
+  return {{
+    source_phrase: source,
+    replacement,
+    enabled: true,
+    metadata: {{
+      lexishift_origin: "srs",
+      language_pair: "en-ja",
+      word_package: {{
+        version: 1,
+        language_tag: "ja",
+        surface: replacement,
+        reading,
+        script_forms: {{ kanji: replacement, kana: reading }}
+      }}
+    }}
+  }};
+}}
+
+const rt = element("rt", [text("はっこう")], {{ textContent: "はっこう" }});
+const ruby = element("ruby", [text("発酵"), rt]);
+const rootNode = element("main", [
+  text("Fermentation appears in the source page. "),
+  ruby,
+  text(" is also present with ruby.")
+]);
+const calls = [];
+const miner = mining.createMiner({{
+  includeInvisible: true,
+  getCurrentSettings: () => ({{
+    srsPair: "en-ja",
+    srsBrowsingAdmissionSignalsEnabled: true
+  }}),
+  getSourceMiningRules: () => [srsRule("fermentation", "発酵", "はっこう")],
+  browsingAdmissionSignals: {{
+    recordExposureBatch(signals, settings) {{
+      calls.push({{ signals: normalize(signals), settings }});
+      return Promise.resolve({{ status: "queued", accepted: signals.length }});
+    }}
+  }}
+}});
+
+(async () => {{
+  const result = await miner.mineDocument(rootNode, "unit-test");
+  assert.equal(result.status, "queued");
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].signals.length, 2);
+  const target = calls[0].signals.find((signal) => signal.side === "target");
+  const source = calls[0].signals.find((signal) => signal.side === "source");
+  assert.equal(target.target_key, "発酵|はっこう");
+  assert.equal(source.target_key, "発酵|はっこう");
+  assert.equal(target.target_reading, "はっこう");
+  assert.equal(source.target_reading, "はっこう");
+  assert.equal(target.lemma, "発酵");
+  assert.equal(source.lemma, "発酵");
+  assert.equal(target.observation_source, "target_surface");
+  assert.equal(source.observation_source, "source_mapping");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_extracts_ruby_pair_without_rt_or_rp_text(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
