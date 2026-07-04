@@ -11,7 +11,7 @@
   }
 
   const MEANING_PREVIEW_INITIAL_LIMIT = 8;
-  const MEANING_PREVIEW_CONCURRENCY = 2;
+  const MEANING_PREVIEW_CONCURRENCY = 1;
   const RULE_DETAILS_LIMIT = 50;
   const WORD_INFO_TIMEOUT_MS = 15000;
 
@@ -277,6 +277,7 @@
           await ensureWordInfo(item);
           if (token === renderToken) {
             table.updateMeaningCell(item);
+            await nextPaint();
           }
         }
       }
@@ -289,6 +290,16 @@
         return;
       }
       globalThis.setTimeout(callback, 100);
+    }
+
+    function nextPaint() {
+      return new Promise((resolve) => {
+        if (typeof globalThis.requestAnimationFrame === "function") {
+          globalThis.requestAnimationFrame(() => globalThis.setTimeout(resolve, 0));
+          return;
+        }
+        globalThis.setTimeout(resolve, 0);
+      });
     }
 
     async function ensureWordInfo(item) {
@@ -332,18 +343,18 @@
 
     function meaningPreviewText(item) {
       const entry = wordInfoByKey.get(model.itemKey(item));
+      const fallback = model.sourcePhraseSummary(item);
       if (!entry) {
-        return t("learning_dashboard_definition_loading", null, "Loading definition...");
+        return fallback || t("learning_dashboard_definition_loading", null, "Loading definition...");
       }
       if (entry.status === "loading") {
-        return t("learning_dashboard_definition_loading", null, "Loading definition...");
+        return fallback || t("learning_dashboard_definition_loading", null, "Loading definition...");
       }
       if (entry.status === "error") {
-        return model.sourcePhraseSummary(item)
-          || t("learning_dashboard_definition_unavailable", null, "Definition unavailable.");
+        return fallback || t("learning_dashboard_definition_unavailable", null, "Definition unavailable.");
       }
       return model.resolveGlossPreview(entry.result)
-        || model.sourcePhraseSummary(item)
+        || fallback
         || t("learning_dashboard_definition_unavailable", null, "Definition unavailable.");
     }
 
