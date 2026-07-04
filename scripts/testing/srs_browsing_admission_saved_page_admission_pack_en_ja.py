@@ -90,6 +90,10 @@ SAVED_PAGE_PROFILE_ID = "saved_page_admission_pack"
 SAVED_PAGE_CAPTURED_AT = "2026-07-03T00:00:00Z"
 
 
+def saved_page_preview_now() -> datetime:
+    return datetime.fromisoformat(SAVED_PAGE_CAPTURED_AT.replace("Z", "+00:00"))
+
+
 def now_iso_utc() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
@@ -121,6 +125,7 @@ def build_report(
         [row for row in config.get("scenarios", []) if isinstance(row, Mapping)],
         scenario_filter=scenario_filter,
     )
+    preview_now = saved_page_preview_now()
     resolved_frequency_db, resolved_jmdict_path = resolve_live_resources(
         pair=resolved_pair,
         frequency_db=frequency_db,
@@ -162,6 +167,7 @@ def build_report(
                     admission_budget=resolved_admission_budget,
                     max_active_items=resolved_max_active_items,
                     row_limit=resolved_row_limit,
+                    preview_now=preview_now,
                 )
                 for scenario in selected_scenarios
             ]
@@ -218,6 +224,7 @@ def build_report(
             "admission_budget": resolved_admission_budget,
             "max_active_items": resolved_max_active_items,
             "row_limit": resolved_row_limit,
+            "preview_now": preview_now.isoformat().replace("+00:00", "Z"),
         },
         "inputs": {
             "config_json": str(config_json),
@@ -250,6 +257,7 @@ def run_scenario(
     admission_budget: int,
     max_active_items: int,
     row_limit: int,
+    preview_now: datetime,
 ) -> dict[str, Any]:
     profile_context = build_profile_context(scenario)
     overlay_payload, overlay_diagnostics = resolve_preview_profile_topic_overlay(
@@ -291,6 +299,7 @@ def run_scenario(
         browsing_store=browsing_store,
         policy=policy,
         row_limit=row_limit,
+        now=preview_now,
     )
     compact_preview = compact_browsing_preview(preview, candidate_count=len(candidates))
     hygiene_diagnostics = scenario_hygiene_diagnostics(

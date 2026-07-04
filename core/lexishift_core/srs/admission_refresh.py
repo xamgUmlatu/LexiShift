@@ -187,7 +187,9 @@ def preview_browsing_admission_refresh(
         _browsing_candidate_from_scored(entry) for entry in growth_plan.scored
     )
     matching_signal_count = sum(
-        1 for candidate in simulation_candidates if candidate.lemma in browsing_store.items
+        1
+        for candidate in simulation_candidates
+        if _browsing_store_has_candidate_signal(candidate, browsing_store)
     )
     simulations = simulate_browsing_admission_presets(
         simulation_candidates,
@@ -692,6 +694,13 @@ def _browsing_candidate_from_scored(entry) -> BrowsingAdmissionCandidate:
         lexical_commonness=max(0.0, float(entry.candidate.base_freq or 0.0)),
         lexical_commonness_known=float(entry.candidate.base_freq or 0.0) > 0.0,
     )
+
+
+def _browsing_store_has_candidate_signal(
+    candidate: BrowsingAdmissionCandidate,
+    store: BrowsingSignalStore,
+) -> bool:
+    return candidate.target_key in store.items or candidate.lemma in store.items
 
 
 def _candidate_target_reading(metadata: Mapping[str, object]) -> str:

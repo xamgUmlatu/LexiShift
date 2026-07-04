@@ -53,38 +53,38 @@ This layer is intentionally narrower than the full admission quality gate. It on
 - Status: `pass`
 - Proficiency: `0.35`
 - Topic weights: `{}`
-- Matching signals: `9` / aggregate items `124`
+- Matching signals: `53` / aggregate items `124`
 - Candidate pool: `10951`
-- Strong added vs off: `クリーム, 立派`
+- Strong added vs off: `クリーム, 立派, 注文`
 - Hygiene rejected candidate matches: `0`
 - Hygiene rejected selected: `0`
 
 | Strength | Browsing lane | Driven | Signal volume | Selected |
 | --- | ---: | ---: | ---: | --- |
-| `off` | 0 | 0 | 2.281747 | 無い, 出来る, 良く, 彼女, 矢張り, 共, 規定, センター |
-| `balanced` | 1 | 1 | 2.281746 | クリーム, 無い, 出来る, 良く, 彼女, 矢張り, 共, 規定 |
-| `strong` | 2 | 2 | 2.281746 | クリーム, 立派, 無い, 出来る, 良く, 彼女, 矢張り, 共 |
+| `off` | 0 | 0 | 3.199282 | 無い, 出来る, 良く, 彼女, 矢張り, 共, 規定, センター |
+| `balanced` | 1 | 1 | 3.199282 | クリーム, 無い, 出来る, 良く, 彼女, 矢張り, 共, 規定 |
+| `strong` | 3 | 3 | 3.199282 | クリーム, 立派, 注文, 無い, 出来る, 良く, 彼女, 矢張り |
 
 Strong browsing rows:
 
 | Target | Signal | Evidence | Ctx | Count | Salience | Quality | Specificity | Effective | Boost | Selected |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| `クリーム|くりーむ` | 0.629384 | 4.94873 | 0 | 1.0 | 0.983016 | 1.0 | 0.981913 | 0.607504 | 1.091478 | `True` |
-| `立派|りっぱ` | 0.565154 | 3.958984 | 0 | 1.0 | 0.785745 | 1.0 | 0.981737 | 0.435957 | 1.056117 | `True` |
-| `注文|ちゅうもん` | 0.530817 | 3.499282 | 0 | 1.0 | 0.687702 | 1.0 | 0.979691 | 0.357631 | 1.054817 | `False` |
-| `作成|さくせい` | 0.486576 | 2.969238 | 0 | 0.0 | 0.453002 | 1.0 | 0.927808 | 0.0 | 1.0 | `False` |
-| `旦那|だんな` | 0.242836 | 0.989746 | 0 | 0.0 | 0.183675 | 1.0 | 0.96786 | 0.0 | 1.0 | `False` |
-| `鍵|かぎ` | 0.242836 | 0.989746 | 0 | 0.0 | 0.196381 | 1.0 | 0.981678 | 0.0 | 1.0 | `False` |
-| `折角|せっかく` | 0.242836 | 0.989746 | 0 | 0.0 | 0.202567 | 1.0 | 0.988152 | 0.0 | 1.0 | `False` |
-| `酢|す` | 0.242836 | 0.989746 | 0 | 0.0 | 0.20627 | 1.0 | 0.991961 | 0.0 | 1.0 | `False` |
-| `瓶|びん` | 0.242836 | 0.989746 | 0 | 0.0 | 0.218011 | 1.0 | 1.003756 | 0.0 | 1.0 | `False` |
-| `否|いな` | 0.242836 | 0.989746 | 0 | 0.0 | 0.219311 | 1.0 | 1.005039 | 0.0 | 1.0 | `False` |
+| `クリーム|くりーむ` | 0.632412 | 5.0 | 0 | 1.0 | 0.9932 | 1.0 | 0.981913 | 0.616752 | 1.09287 | `True` |
+| `立派|りっぱ` | 0.568061 | 4.0 | 0 | 1.0 | 0.793886 | 1.0 | 0.981737 | 0.442739 | 1.05699 | `True` |
+| `注文|ちゅうもん` | 0.53365 | 3.535535 | 0 | 1.0 | 0.694827 | 1.0 | 0.979691 | 0.363264 | 1.05568 | `True` |
+| `作成|さくせい` | 0.489301 | 3.0 | 0 | 1.0 | 0.457695 | 1.0 | 0.927808 | 0.207783 | 1.041304 | `False` |
+| `旦那|だんな` | 0.244651 | 1.0 | 0 | 0.0 | 0.185577 | 1.0 | 0.96786 | 0.0 | 1.0 | `False` |
+| `ファイル|ふぁいる` | 0.489301 | 3.0 | 0 | 1.0 | 0.504643 | 1.0 | 0.947763 | 0.234024 | 1.040761 | `False` |
+| `鍵|かぎ` | 0.244651 | 1.0 | 0 | 0.0 | 0.198415 | 1.0 | 0.981678 | 0.0 | 1.0 | `False` |
+| `折角|せっかく` | 0.244651 | 1.0 | 0 | 0.0 | 0.204665 | 1.0 | 0.988152 | 0.0 | 1.0 | `False` |
+| `酢|す` | 0.244651 | 1.0 | 0 | 0.0 | 0.208407 | 1.0 | 0.991961 | 0.0 | 1.0 | `False` |
+| `瓶|びん` | 0.244651 | 1.0 | 0 | 0.0 | 0.22027 | 1.0 | 1.003756 | 0.0 | 1.0 | `False` |
 
 Findings:
 - `PASS` `MONOTONIC_STRENGTH`: Browsing lane share is monotonic.
 - `PASS` `PREVIEW_ONLY`: Browsing preview did not mutate SRS.
 - `PASS` `STRONG_BROWSING_LANE`: Strong preset realized browsing lane.
-- `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (9 >= 5).
+- `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (53 >= 5).
 - `PASS` `EFFECTIVE_SIGNAL_FIELDS_PRESENT`: Strong preview rows expose raw and effective browsing signal fields.
 - `PASS` `HYGIENE_REJECTED_SIGNALS_NOT_SELECTED`: No hygiene-rejected saved-page signals were selected.
 
@@ -93,38 +93,38 @@ Findings:
 - Status: `pass`
 - Proficiency: `0.5`
 - Topic weights: `{}`
-- Matching signals: `9` / aggregate items `124`
+- Matching signals: `53` / aggregate items `124`
 - Candidate pool: `10951`
-- Strong added vs off: `香水, 立派`
+- Strong added vs off: `香水, 立派, 注文`
 - Hygiene rejected candidate matches: `0`
 - Hygiene rejected selected: `0`
 
 | Strength | Browsing lane | Driven | Signal volume | Selected |
 | --- | ---: | ---: | ---: | --- |
-| `off` | 0 | 0 | 2.281742 | 御座る, 旨い, 我々, なお, 当該, 積り, 成す, レベル |
-| `balanced` | 1 | 1 | 2.281742 | 香水, 御座る, 旨い, 我々, なお, 当該, 積り, 成す |
-| `strong` | 2 | 2 | 2.281742 | 香水, 立派, 御座る, 旨い, 我々, なお, 当該, 積り |
+| `off` | 0 | 0 | 3.199282 | 御座る, 旨い, 我々, なお, 当該, 積り, 成す, レベル |
+| `balanced` | 1 | 1 | 3.199282 | 香水, 御座る, 旨い, 我々, なお, 当該, 積り, 成す |
+| `strong` | 3 | 3 | 3.199282 | 香水, 立派, 注文, 御座る, 旨い, 我々, なお, 当該 |
 
 Strong browsing rows:
 
 | Target | Signal | Evidence | Ctx | Count | Salience | Quality | Specificity | Effective | Boost | Selected |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| `香水|こうすい` | 0.530817 | 3.499277 | 0 | 1.0 | 0.971166 | 1.0 | 1.058472 | 0.545654 | 1.044948 | `True` |
-| `立派|りっぱ` | 0.565153 | 3.958979 | 0 | 1.0 | 0.785744 | 1.0 | 0.981737 | 0.435956 | 1.032266 | `True` |
-| `壺|つぼ` | 0.242836 | 0.989745 | 0 | 0.0 | 0.23682 | 1.0 | 1.022018 | 0.0 | 1.0 | `False` |
-| `鉄砲|てっぽう` | 0.242836 | 0.989745 | 0 | 0.0 | 0.256276 | 1.0 | 1.040581 | 0.0 | 1.0 | `False` |
-| `団子|だんご` | 0.242836 | 0.989745 | 0 | 0.0 | 0.256495 | 1.0 | 1.04079 | 0.0 | 1.0 | `False` |
-| `紳士|しんし` | 0.242836 | 0.989745 | 0 | 0.0 | 0.256495 | 1.0 | 1.04079 | 0.0 | 1.0 | `False` |
-| `煉瓦|れんが` | 0.242836 | 0.989745 | 0 | 0.0 | 0.258146 | 1.0 | 1.042371 | 0.0 | 1.0 | `False` |
-| `鹿|しか` | 0.242836 | 0.989745 | 0 | 0.0 | 0.26461 | 1.0 | 1.048594 | 0.0 | 1.0 | `False` |
-| `くるくる` | 0.385341 | 1.979489 | 0 | 0.0 | 0.557045 | 1.0 | 1.062318 | 0.0 | 1.0 | `False` |
-| `錠|じょう` | 0.242836 | 0.989745 | 0 | 0.0 | 0.283998 | 1.0 | 1.067923 | 0.0 | 1.0 | `False` |
+| `香水|こうすい` | 0.53365 | 3.535535 | 0 | 1.0 | 0.981229 | 1.0 | 1.058472 | 0.55425 | 1.045656 | `True` |
+| `立派|りっぱ` | 0.568061 | 4.0 | 0 | 1.0 | 0.793886 | 1.0 | 0.981737 | 0.442739 | 1.032769 | `True` |
+| `注文|ちゅうもん` | 0.53365 | 3.535535 | 0 | 1.0 | 0.694827 | 1.0 | 0.979691 | 0.363264 | 1.026168 | `True` |
+| `壺|つぼ` | 0.244651 | 1.0 | 0 | 0.0 | 0.239274 | 1.0 | 1.022018 | 0.0 | 1.0 | `False` |
+| `鉄砲|てっぽう` | 0.244651 | 1.0 | 0 | 0.0 | 0.258931 | 1.0 | 1.040581 | 0.0 | 1.0 | `False` |
+| `団子|だんご` | 0.244651 | 1.0 | 0 | 0.0 | 0.259153 | 1.0 | 1.04079 | 0.0 | 1.0 | `False` |
+| `紳士|しんし` | 0.244651 | 1.0 | 0 | 0.0 | 0.259153 | 1.0 | 1.04079 | 0.0 | 1.0 | `False` |
+| `煉瓦|れんが` | 0.244651 | 1.0 | 0 | 0.0 | 0.260821 | 1.0 | 1.042371 | 0.0 | 1.0 | `False` |
+| `鹿|しか` | 0.244651 | 1.0 | 0 | 0.0 | 0.267352 | 1.0 | 1.048594 | 0.0 | 1.0 | `False` |
+| `くるくる` | 0.387762 | 2.0 | 0 | 0.0 | 0.562817 | 1.0 | 1.062318 | 0.0 | 1.0 | `False` |
 
 Findings:
 - `PASS` `MONOTONIC_STRENGTH`: Browsing lane share is monotonic.
 - `PASS` `PREVIEW_ONLY`: Browsing preview did not mutate SRS.
 - `PASS` `STRONG_BROWSING_LANE`: Strong preset realized browsing lane.
-- `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (9 >= 5).
+- `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (53 >= 5).
 - `PASS` `EFFECTIVE_SIGNAL_FIELDS_PRESENT`: Strong preview rows expose raw and effective browsing signal fields.
 - `PASS` `HYGIENE_REJECTED_SIGNALS_NOT_SELECTED`: No hygiene-rejected saved-page signals were selected.
 
@@ -133,38 +133,38 @@ Findings:
 - Status: `pass`
 - Proficiency: `0.35`
 - Topic weights: `{"food_cooking": 1.0}`
-- Matching signals: `9` / aggregate items `124`
+- Matching signals: `53` / aggregate items `124`
 - Candidate pool: `10951`
-- Strong added vs off: `クリーム, 立派`
+- Strong added vs off: `クリーム, 立派, 注文`
 - Hygiene rejected candidate matches: `0`
 - Hygiene rejected selected: `0`
 
 | Strength | Browsing lane | Driven | Signal volume | Selected |
 | --- | ---: | ---: | ---: | --- |
-| `off` | 0 | 0 | 2.281738 | 酒, 味, 茶, パン, 焼く, 肉, コーヒー, ビール |
-| `balanced` | 1 | 1 | 2.281737 | クリーム, 酒, 味, 茶, パン, 焼く, 肉, コーヒー |
-| `strong` | 2 | 2 | 2.281737 | クリーム, 立派, 酒, 味, 茶, パン, 焼く, 肉 |
+| `off` | 0 | 0 | 3.199282 | 酒, 味, 茶, パン, 焼く, 肉, コーヒー, ビール |
+| `balanced` | 1 | 1 | 3.199282 | クリーム, 酒, 味, 茶, パン, 焼く, 肉, コーヒー |
+| `strong` | 3 | 3 | 3.199282 | クリーム, 立派, 注文, 酒, 味, 茶, パン, 焼く |
 
 Strong browsing rows:
 
 | Target | Signal | Evidence | Ctx | Count | Salience | Quality | Specificity | Effective | Boost | Selected |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| `クリーム|くりーむ` | 0.629383 | 4.948717 | 0 | 1.0 | 0.983013 | 1.0 | 0.981913 | 0.607501 | 1.091477 | `True` |
-| `立派|りっぱ` | 0.565153 | 3.958974 | 0 | 1.0 | 0.785743 | 1.0 | 0.981737 | 0.435955 | 1.056117 | `True` |
-| `注文|ちゅうもん` | 0.530816 | 3.499272 | 0 | 1.0 | 0.687701 | 1.0 | 0.979691 | 0.357629 | 1.054817 | `False` |
-| `作成|さくせい` | 0.486575 | 2.96923 | 0 | 0.0 | 0.453001 | 1.0 | 0.927808 | 0.0 | 1.0 | `False` |
-| `旦那|だんな` | 0.242836 | 0.989743 | 0 | 0.0 | 0.183674 | 1.0 | 0.96786 | 0.0 | 1.0 | `False` |
-| `鍵|かぎ` | 0.242836 | 0.989743 | 0 | 0.0 | 0.19638 | 1.0 | 0.981678 | 0.0 | 1.0 | `False` |
-| `折角|せっかく` | 0.242836 | 0.989743 | 0 | 0.0 | 0.202566 | 1.0 | 0.988152 | 0.0 | 1.0 | `False` |
-| `酢|す` | 0.242836 | 0.989743 | 0 | 0.0 | 0.206269 | 1.0 | 0.991961 | 0.0 | 1.0 | `False` |
-| `瓶|びん` | 0.242836 | 0.989743 | 0 | 0.0 | 0.21801 | 1.0 | 1.003756 | 0.0 | 1.0 | `False` |
-| `否|いな` | 0.242836 | 0.989743 | 0 | 0.0 | 0.21931 | 1.0 | 1.005039 | 0.0 | 1.0 | `False` |
+| `クリーム|くりーむ` | 0.632412 | 5.0 | 0 | 1.0 | 0.9932 | 1.0 | 0.981913 | 0.616752 | 1.09287 | `True` |
+| `立派|りっぱ` | 0.568061 | 4.0 | 0 | 1.0 | 0.793886 | 1.0 | 0.981737 | 0.442739 | 1.05699 | `True` |
+| `注文|ちゅうもん` | 0.53365 | 3.535535 | 0 | 1.0 | 0.694827 | 1.0 | 0.979691 | 0.363264 | 1.05568 | `True` |
+| `作成|さくせい` | 0.489301 | 3.0 | 0 | 1.0 | 0.457695 | 1.0 | 0.927808 | 0.207783 | 1.041304 | `False` |
+| `旦那|だんな` | 0.244651 | 1.0 | 0 | 0.0 | 0.185577 | 1.0 | 0.96786 | 0.0 | 1.0 | `False` |
+| `ファイル|ふぁいる` | 0.489301 | 3.0 | 0 | 1.0 | 0.504643 | 1.0 | 0.947763 | 0.234024 | 1.040761 | `False` |
+| `鍵|かぎ` | 0.244651 | 1.0 | 0 | 0.0 | 0.198415 | 1.0 | 0.981678 | 0.0 | 1.0 | `False` |
+| `折角|せっかく` | 0.244651 | 1.0 | 0 | 0.0 | 0.204665 | 1.0 | 0.988152 | 0.0 | 1.0 | `False` |
+| `酢|す` | 0.244651 | 1.0 | 0 | 0.0 | 0.208407 | 1.0 | 0.991961 | 0.0 | 1.0 | `False` |
+| `瓶|びん` | 0.244651 | 1.0 | 0 | 0.0 | 0.22027 | 1.0 | 1.003756 | 0.0 | 1.0 | `False` |
 
 Findings:
 - `PASS` `MONOTONIC_STRENGTH`: Browsing lane share is monotonic.
 - `PASS` `PREVIEW_ONLY`: Browsing preview did not mutate SRS.
 - `PASS` `STRONG_BROWSING_LANE`: Strong preset realized browsing lane.
-- `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (9 >= 5).
+- `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (53 >= 5).
 - `PASS` `EFFECTIVE_SIGNAL_FIELDS_PRESENT`: Strong preview rows expose raw and effective browsing signal fields.
 - `PASS` `HYGIENE_REJECTED_SIGNALS_NOT_SELECTED`: No hygiene-rejected saved-page signals were selected.
 
@@ -173,38 +173,38 @@ Findings:
 - Status: `pass`
 - Proficiency: `0.35`
 - Topic weights: `{"animals": 1.0}`
-- Matching signals: `9` / aggregate items `124`
+- Matching signals: `53` / aggregate items `124`
 - Candidate pool: `10951`
-- Strong added vs off: `クリーム, 立派`
+- Strong added vs off: `クリーム, 立派, 注文`
 - Hygiene rejected candidate matches: `0`
 - Hygiene rejected selected: `0`
 
 | Strength | Browsing lane | Driven | Signal volume | Selected |
 | --- | ---: | ---: | ---: | --- |
-| `off` | 0 | 0 | 2.281733 | 馬, 犬, 虫, 牛, 猿, 熊, 虎, 兎 |
-| `balanced` | 1 | 1 | 2.281732 | クリーム, 馬, 犬, 虫, 牛, 猿, 熊, 虎 |
-| `strong` | 2 | 2 | 2.281732 | クリーム, 立派, 馬, 犬, 虫, 牛, 猿, 熊 |
+| `off` | 0 | 0 | 3.199282 | 馬, 犬, 虫, 牛, 猿, 熊, 虎, 兎 |
+| `balanced` | 1 | 1 | 3.199282 | クリーム, 馬, 犬, 虫, 牛, 猿, 熊, 虎 |
+| `strong` | 3 | 3 | 3.199282 | クリーム, 立派, 注文, 馬, 犬, 虫, 牛, 猿 |
 
 Strong browsing rows:
 
 | Target | Signal | Evidence | Ctx | Count | Salience | Quality | Specificity | Effective | Boost | Selected |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| `クリーム|くりーむ` | 0.629382 | 4.948709 | 0 | 1.0 | 0.983012 | 1.0 | 0.981913 | 0.6075 | 1.091477 | `True` |
-| `立派|りっぱ` | 0.565152 | 3.958968 | 0 | 1.0 | 0.785742 | 1.0 | 0.981737 | 0.435954 | 1.056117 | `True` |
-| `兎|うさぎ` | 0.331943 | 1.561169 | 0 | 0.0 | 0.375086 | 1.0 | 1.022952 | 0.0 | 1.0 | `False` |
-| `鹿|しか` | 0.242836 | 0.989742 | 0 | 0.0 | 0.264609 | 1.0 | 1.048594 | 0.0 | 1.0 | `False` |
-| `注文|ちゅうもん` | 0.530816 | 3.499267 | 0 | 1.0 | 0.6877 | 1.0 | 0.979691 | 0.357628 | 1.054817 | `False` |
-| `作成|さくせい` | 0.486575 | 2.969226 | 0 | 0.0 | 0.453 | 1.0 | 0.927808 | 0.0 | 1.0 | `False` |
-| `旦那|だんな` | 0.242836 | 0.989742 | 0 | 0.0 | 0.183674 | 1.0 | 0.96786 | 0.0 | 1.0 | `False` |
-| `鍵|かぎ` | 0.242836 | 0.989742 | 0 | 0.0 | 0.19638 | 1.0 | 0.981678 | 0.0 | 1.0 | `False` |
-| `折角|せっかく` | 0.242836 | 0.989742 | 0 | 0.0 | 0.202566 | 1.0 | 0.988152 | 0.0 | 1.0 | `False` |
-| `酢|す` | 0.242836 | 0.989742 | 0 | 0.0 | 0.206269 | 1.0 | 0.991961 | 0.0 | 1.0 | `False` |
+| `クリーム|くりーむ` | 0.632412 | 5.0 | 0 | 1.0 | 0.9932 | 1.0 | 0.981913 | 0.616752 | 1.09287 | `True` |
+| `立派|りっぱ` | 0.568061 | 4.0 | 0 | 1.0 | 0.793886 | 1.0 | 0.981737 | 0.442739 | 1.05699 | `True` |
+| `注文|ちゅうもん` | 0.53365 | 3.535535 | 0 | 1.0 | 0.694827 | 1.0 | 0.979691 | 0.363264 | 1.05568 | `True` |
+| `兎|うさぎ` | 0.334165 | 1.57735 | 0 | 0.0 | 0.378974 | 1.0 | 1.022952 | 0.0 | 1.0 | `False` |
+| `鹿|しか` | 0.244651 | 1.0 | 0 | 0.0 | 0.267352 | 1.0 | 1.048594 | 0.0 | 1.0 | `False` |
+| `作成|さくせい` | 0.489301 | 3.0 | 0 | 1.0 | 0.457695 | 1.0 | 0.927808 | 0.207783 | 1.041304 | `False` |
+| `旦那|だんな` | 0.244651 | 1.0 | 0 | 0.0 | 0.185577 | 1.0 | 0.96786 | 0.0 | 1.0 | `False` |
+| `ファイル|ふぁいる` | 0.489301 | 3.0 | 0 | 1.0 | 0.504643 | 1.0 | 0.947763 | 0.234024 | 1.040761 | `False` |
+| `鍵|かぎ` | 0.244651 | 1.0 | 0 | 0.0 | 0.198415 | 1.0 | 0.981678 | 0.0 | 1.0 | `False` |
+| `折角|せっかく` | 0.244651 | 1.0 | 0 | 0.0 | 0.204665 | 1.0 | 0.988152 | 0.0 | 1.0 | `False` |
 
 Findings:
 - `PASS` `MONOTONIC_STRENGTH`: Browsing lane share is monotonic.
 - `PASS` `PREVIEW_ONLY`: Browsing preview did not mutate SRS.
 - `PASS` `STRONG_BROWSING_LANE`: Strong preset realized browsing lane.
-- `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (9 >= 5).
+- `PASS` `MIN_MATCHING_SIGNAL_COUNT`: Saved-page aggregate matched enough real admission candidates (53 >= 5).
 - `PASS` `EFFECTIVE_SIGNAL_FIELDS_PRESENT`: Strong preview rows expose raw and effective browsing signal fields.
 - `PASS` `HYGIENE_REJECTED_SIGNALS_NOT_SELECTED`: No hygiene-rejected saved-page signals were selected.
 

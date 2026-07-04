@@ -26,11 +26,22 @@ from srs_browsing_admission_saved_page_admission_aggregate import (  # noqa: E40
     store_preview,
 )
 from srs_browsing_admission_saved_page_admission_pack_en_ja import (  # noqa: E402
+    SAVED_PAGE_CAPTURED_AT,
     evaluate_scenario,
+    saved_page_preview_now,
 )
 
 
 class TestSrsBrowsingAdmissionSavedPageAdmissionPackEnJa(unittest.TestCase):
+    def test_saved_page_preview_now_uses_fixture_capture_time(self) -> None:
+        preview_now = saved_page_preview_now()
+
+        self.assertEqual(
+            preview_now.isoformat().replace("+00:00", "Z"),
+            SAVED_PAGE_CAPTURED_AT,
+        )
+        self.assertIsNotNone(preview_now.tzinfo)
+
     def test_expectation_checks_min_matching_count_and_effective_signal_fields(self) -> None:
         findings = evaluate_scenario(
             scenario={

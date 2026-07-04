@@ -546,6 +546,54 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
             preview["simulations"]["strong"]["selected_lemmas"],
         )
 
+    def test_browsing_refresh_preview_counts_reading_aware_signal_matches(self) -> None:
+        store = SrsStore(items=tuple(), version=1)
+        settings = SrsSettings(max_active_items=10, max_new_items_per_day=1)
+        events = [
+            SrsSignalEvent(
+                event_type="feedback",
+                pair="en-ja",
+                lemma=f"lemma{index}",
+                source_type="extension",
+                rating="good",
+            )
+            for index in range(10)
+        ]
+        candidates = [
+            SelectorCandidate(
+                lemma="発酵",
+                language_pair="en-ja",
+                base_freq=0.50,
+                confidence=0.90,
+                metadata={"target_reading": "はっこう"},
+            ),
+        ]
+        browsing_store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "発酵|はっこう": BrowsingSignalAggregate(
+                    target_lemma="発酵",
+                    target_key="発酵|はっこう",
+                    target_reading="はっこう",
+                    target_hit_count=3.0,
+                ),
+            },
+        )
+
+        preview = preview_browsing_admission_refresh(
+            store=store,
+            settings=settings,
+            pair="en-ja",
+            candidates=candidates,
+            events=events,
+            browsing_store=browsing_store,
+            policy=AdmissionRefreshPolicy(feedback_window_size=100),
+            now=datetime(2026, 5, 23, tzinfo=timezone.utc),
+        )
+
+        self.assertEqual(preview["matching_signal_count"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()
