@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from functools import lru_cache
 from pathlib import Path
 from typing import Callable, Mapping, Sequence
 from urllib.parse import quote
@@ -390,7 +391,7 @@ def _resolve_jmdict_glosses(
             "provider_status": "missing_jmdict",
             "missing_resources": [{"type": "jmdict", "reason": "missing", "pack_id": "jmdict"}],
         }
-    glosses_by_headword = load_jmdict_glosses_ordered(resolved_path)
+    glosses_by_headword = _load_cached_jmdict_glosses_ordered(resolved_path)
     records: list[TranslationGlossRecord] = []
     lookup_set = {_normalize_lemma(candidate) for candidate in lookup_candidates}
     for headword, glosses in glosses_by_headword.items():
@@ -405,6 +406,25 @@ def _resolve_jmdict_glosses(
             source_kind="installed_jmdict",
         ),
         {"provider_status": "ok", "missing_resources": []},
+    )
+
+
+@lru_cache(maxsize=4)
+def _load_jmdict_glosses_ordered_cached(
+    path_value: str,
+    mtime_ns: int,
+    size: int,
+) -> Mapping[str, list[str]]:
+    del mtime_ns, size
+    return load_jmdict_glosses_ordered(Path(path_value))
+
+
+def _load_cached_jmdict_glosses_ordered(path: Path) -> Mapping[str, list[str]]:
+    stat = path.stat()
+    return _load_jmdict_glosses_ordered_cached(
+        str(path),
+        int(stat.st_mtime_ns),
+        int(stat.st_size),
     )
 
 

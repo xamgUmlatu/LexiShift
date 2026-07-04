@@ -13,6 +13,7 @@
   const MEANING_PREVIEW_INITIAL_LIMIT = 8;
   const MEANING_PREVIEW_CONCURRENCY = 2;
   const RULE_DETAILS_LIMIT = 50;
+  const WORD_INFO_TIMEOUT_MS = 15000;
 
   function createLearningDashboardController(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -300,7 +301,7 @@
         return existing.result;
       }
       const promise = helperManager.lookupWordInfo(model.createWordInfoRequest({ item, pair, profileId }), {
-        timeoutMs: 4000
+        timeoutMs: WORD_INFO_TIMEOUT_MS
       }).then((result) => {
         wordInfoByKey.set(key, { status: "ready", result });
         return result;
@@ -338,9 +339,11 @@
         return t("learning_dashboard_definition_loading", null, "Loading definition...");
       }
       if (entry.status === "error") {
-        return t("learning_dashboard_definition_unavailable", null, "Definition unavailable.");
+        return model.sourcePhraseSummary(item)
+          || t("learning_dashboard_definition_unavailable", null, "Definition unavailable.");
       }
       return model.resolveGlossPreview(entry.result)
+        || model.sourcePhraseSummary(item)
         || t("learning_dashboard_definition_unavailable", null, "Definition unavailable.");
     }
 

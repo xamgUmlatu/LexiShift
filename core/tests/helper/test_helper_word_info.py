@@ -8,11 +8,13 @@ import tempfile
 import unittest
 from pathlib import Path
 from typing import Iterable
+from unittest.mock import patch
 
 CORE_ROOT = Path(__file__).resolve().parents[2]
 if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
+from lexishift_core.helper.use_cases import word_info as word_info_module  # noqa: E402
 from lexishift_core.helper.engine import lookup_word_info  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset  # noqa: E402
@@ -337,6 +339,42 @@ class TestHelperWordInfo(unittest.TestCase):
 
             leaked = [text for text in _all_strings(result) if str(Path(tmp)) in text]
             self.assertEqual(leaked, [])
+
+    def test_jmdict_word_info_reuses_process_cache(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            jmdict_path = paths.language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+            jmdict_path.parent.mkdir(parents=True, exist_ok=True)
+            jmdict_path.write_text("<JMdict />", encoding="utf-8")
+            word_info_module._load_jmdict_glosses_ordered_cached.cache_clear()
+            calls: list[Path] = []
+
+            def fake_loader(path: Path) -> dict[str, list[str]]:
+                calls.append(path)
+                return {
+                    "会社": ["company"],
+                    "どう": ["how"],
+                }
+
+            with patch.object(word_info_module, "load_jmdict_glosses_ordered", fake_loader):
+                first = lookup_word_info(
+                    paths,
+                    pair="en-ja",
+                    profile_id="default",
+                    lemma="会社",
+                    display="会社",
+                )
+                second = lookup_word_info(
+                    paths,
+                    pair="en-ja",
+                    profile_id="default",
+                    lemma="どう",
+                    display="どう",
+                )
+
+            self.assertEqual([gloss["text"] for gloss in first["glosses"]], ["company"])
+            self.assertEqual([gloss["text"] for gloss in second["glosses"]], ["how"])
+            self.assertEqual(calls, [jmdict_path])
 
 
 if __name__ == "__main__":
