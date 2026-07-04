@@ -112,6 +112,104 @@ assert.deepEqual(rows, [
 """
         _run_node(script)
 
+    def test_source_mapping_supports_other_english_source_pairs(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const sourceMorphologyModulePath = {json.dumps(str(SOURCE_MORPHOLOGY_JS))};
+const sourceModulePath = {json.dumps(str(SOURCE_MINING_JS))};
+const modulePath = {json.dumps(str(PAGE_MINING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(sourceMorphologyModulePath, "utf8"),
+  context,
+  {{ filename: sourceMorphologyModulePath }}
+);
+vm.runInContext(fs.readFileSync(sourceModulePath, "utf8"), context, {{ filename: sourceModulePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const mining = context.LexiShift.srsBrowsingSourceMining;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+function srsRule(pair, languageTag, source, replacement) {{
+  return {{
+    source_phrase: source,
+    replacement,
+    enabled: true,
+    metadata: {{
+      lexishift_origin: "srs",
+      language_pair: pair,
+      word_package: {{
+        version: 1,
+        language_tag: languageTag,
+        surface: replacement,
+        script_forms: {{ surface: replacement }},
+        source: {{ provider: "test" }}
+      }}
+    }}
+  }};
+}}
+
+assert.equal(mining.supportsSourceMappingMining("en-es"), true);
+assert.equal(mining.supportsSourceMappingMining("en-de"), true);
+assert.equal(mining.supportsSourceMappingMining("ja-en"), false);
+
+assert.deepEqual(normalize(mining.buildSourceMappingSignals(
+  "Fermentation appears twice; fermentation matters.",
+  [
+    srsRule("en-es", "es", "fermentation", "fermentación"),
+    srsRule("en-de", "de", "fermentation", "Fermentation")
+  ],
+  {{ srsPair: "en-es" }},
+  {{ maxSourceCountPerTarget: 3 }}
+)), [
+  {{
+    language_pair: "en-es",
+    lemma: "fermentación",
+    target_key: "fermentación",
+    target_reading: "",
+    reading_confidence: 0.45,
+    side: "source",
+    count: 2,
+    observation_source: "source_mapping",
+    source_mapping_confidence: 0.58
+  }}
+]);
+
+assert.deepEqual(normalize(mining.buildSourceMappingSignals(
+  "Companies appear in this source page.",
+  [
+    srsRule("en-es", "es", "company", "empresa"),
+    srsRule("en-de", "de", "company", "Firma")
+  ],
+  {{ srsPair: "en-de" }},
+  {{ maxSourceCountPerTarget: 3 }}
+)), [
+  {{
+    language_pair: "en-de",
+    lemma: "Firma",
+    target_key: "Firma",
+    target_reading: "",
+    reading_confidence: 0.45,
+    side: "source",
+    count: 1,
+    observation_source: "source_mapping",
+    source_mapping_confidence: 0.5336
+  }}
+]);
+
+assert.deepEqual(normalize(mining.buildSourceMappingSignals(
+  "会社 appears here.",
+  [srsRule("ja-en", "en", "会社", "company")],
+  {{ srsPair: "ja-en" }},
+  {{}}
+)), []);
+"""
+        _run_node(script)
+
     def test_source_mapping_matches_morphology_variants_and_tunable_confidence(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

@@ -213,7 +213,20 @@ const expectedSupported = [
   "travel_places_transport",
   "work_office"
 ];
+const expectedSupportedEnEs = [
+  "animals",
+  "arts_literature_humanities",
+  "finance_business",
+  "food_cooking",
+  "games",
+  "law_politics_civics",
+  "medicine_health",
+  "music_media_entertainment",
+  "science_technology",
+  "sports_fitness"
+];
 assert.deepEqual(Array.from(support.supportedTopicsForPair("en-ja")).sort(), expectedSupported);
+assert.deepEqual(Array.from(support.supportedTopicsForPair("en-es")).sort(), expectedSupportedEnEs);
 const supportedEnJa = support.supportedTopicsForPair("en-ja");
 const enJaTaxonomy = JSON.parse(fs.readFileSync(enJaTaxonomyPath, "utf8"));
 const enJaTaxonomyTopics = enJaTaxonomy.families
@@ -248,6 +261,7 @@ assert.equal(support.isTopicSupported("en-ja", "animals"), true);
 assert.equal(support.isTopicSupported("en-ja", "food_cooking"), true);
 assert.equal(support.isTopicSupported("en-ja", "computing_internet"), true);
 assert.equal(support.isTopicSupported("en-es", "animals"), true);
+assert.equal(support.isTopicSupported("en-es", "computing_internet"), false);
 
 function button(topic) {{
   const attrs = {{ "data-srs-topic-interest": topic }};

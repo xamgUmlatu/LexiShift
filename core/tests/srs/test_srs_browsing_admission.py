@@ -266,6 +266,58 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
         self.assertGreater(strong["browsing_lane_count"], 0)
         self.assertEqual(store.to_dict(), before)
 
+    def test_browsing_admission_matches_casefolded_latin_target_keys(self) -> None:
+        policy = BrowsingSignalIngestPolicy()
+        store = BrowsingSignalStore(
+            pair="en-de",
+            profile_id="default",
+            items={
+                "küche": BrowsingSignalAggregate(
+                    target_lemma="küche",
+                    target_key="küche",
+                    replacement_exposure_count=10.0,
+                    context_evidence=(
+                        BrowsingSignalContextEvidence(
+                            context_key="ctxh:a",
+                            replacement_exposure_count=5.0,
+                        ),
+                        BrowsingSignalContextEvidence(
+                            context_key="ctxh:b",
+                            replacement_exposure_count=5.0,
+                        ),
+                    ),
+                    last_seen_at="2026-05-23T00:00:00Z",
+                    decayed_at="2026-05-23T00:00:00Z",
+                )
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="Haus", neutral_score=1.00),
+            BrowsingAdmissionCandidate(lemma="sein", neutral_score=0.96),
+            BrowsingAdmissionCandidate(lemma="sagen", neutral_score=0.90),
+            BrowsingAdmissionCandidate(
+                lemma="Küche",
+                neutral_score=0.64,
+                readiness_multiplier=0.92,
+                explicit_preference_fit=0.70,
+                source_confidence=0.90,
+                lexical_commonness=0.35,
+                lexical_commonness_known=True,
+            ),
+        )
+
+        strong = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=3,
+            policy=policy,
+            now=NOW,
+        )[BROWSING_STRENGTH_STRONG].to_dict()
+        rows = {row["target_key"]: row for row in strong["rows"]}
+
+        self.assertGreater(rows["Küche"]["browsing_signal"], 0.0)
+        self.assertGreater(rows["Küche"]["final_score"], rows["Küche"]["neutral_score"])
+
     def test_unicode_en_ja_lemmas_ingest_and_simulate_without_pair_assumptions(self) -> None:
         policy = BrowsingSignalIngestPolicy(
             max_signals_per_packet=4,

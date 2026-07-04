@@ -754,11 +754,22 @@ def _aggregate_for_candidate(
     candidate: BrowsingAdmissionCandidate,
 ) -> BrowsingSignalAggregate | None:
     target_key = candidate_target_key(candidate)
-    if target_key in store.items:
-        return store.items[target_key]
-    if candidate.lemma in store.items:
-        return store.items[candidate.lemma]
+    for key in _candidate_browsing_lookup_keys(target_key, candidate.lemma):
+        if key in store.items:
+            return store.items[key]
     return None
+
+
+def _candidate_browsing_lookup_keys(*values: object) -> tuple[str, ...]:
+    keys: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        text = str(value or "").strip()
+        for key in (text, text.casefold()):
+            if key and key not in seen:
+                keys.append(key)
+                seen.add(key)
+    return tuple(keys)
 
 
 def _suppressed_reason_for_candidate(

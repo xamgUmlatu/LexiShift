@@ -700,7 +700,21 @@ def _browsing_store_has_candidate_signal(
     candidate: BrowsingAdmissionCandidate,
     store: BrowsingSignalStore,
 ) -> bool:
-    return candidate.target_key in store.items or candidate.lemma in store.items
+    return any(
+        key in store.items for key in _browsing_lookup_keys(candidate.target_key, candidate.lemma)
+    )
+
+
+def _browsing_lookup_keys(*values: object) -> tuple[str, ...]:
+    keys: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        text = str(value or "").strip()
+        for key in (text, text.casefold()):
+            if key and key not in seen:
+                keys.append(key)
+                seen.add(key)
+    return tuple(keys)
 
 
 def _candidate_target_reading(metadata: Mapping[str, object]) -> str:

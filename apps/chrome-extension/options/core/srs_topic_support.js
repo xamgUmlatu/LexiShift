@@ -22,6 +22,18 @@
       "travel_places_transport",
       "work_office"
     ]),
+    "en-es": new Set([
+      "animals",
+      "arts_literature_humanities",
+      "finance_business",
+      "food_cooking",
+      "games",
+      "law_politics_civics",
+      "medicine_health",
+      "music_media_entertainment",
+      "science_technology",
+      "sports_fitness"
+    ]),
     "en-de": new Set([
       "arts_literature_humanities",
       "finance_business",

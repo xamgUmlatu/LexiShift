@@ -51,6 +51,26 @@ class TestSrsBrowsingAdmissionRuntimeSmoke(unittest.TestCase):
             before_rows["料理"]["replacement_exposure_count"],
         )
 
+    def test_english_source_lp_runtime_smokes_pass(self) -> None:
+        for pair in ("en-es", "en-de"):
+            with self.subTest(pair=pair):
+                report = build_report(pair=pair, admission_budget=4)
+
+                self.assertEqual(report["status"], "PASS")
+                self.assertFalse(report["live_user_data_touched"])
+                self.assertTrue(all(check["status"] == "pass" for check in report["checks"]))
+                self.assertEqual(report["native_host_ingest"]["statuses"], ["ok"])
+                self.assertEqual(
+                    report["native_host_ingest"]["runtime_srs_mutation_values"],
+                    [False],
+                )
+
+                extension = report["extension_payload"]
+                self.assertTrue(extension["private_strings_absent"])
+                self.assertEqual(extension["ruby_signal_count"], 0)
+                self.assertGreaterEqual(extension["source_signal_count"], 2)
+                self.assertIn("pageh", extension["context_key_prefixes"])
+
 
 if __name__ == "__main__":
     unittest.main()

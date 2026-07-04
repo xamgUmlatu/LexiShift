@@ -38,6 +38,14 @@
     return parts.length === 2 ? parts[1] : "";
   }
 
+  function supportsSourceMappingMining(pair) {
+    const normalized = String(pair || "").trim().toLowerCase();
+    if (!normalized || normalized === "all") {
+      return false;
+    }
+    return sourceLanguageFromPair(normalized) === "en";
+  }
+
   function normalizeTargetText(value) {
     return String(value || "").replace(/\s+/g, "").trim();
   }
@@ -255,7 +263,7 @@
   function buildSourceMappingIndex(rules, settings, options) {
     const opts = options && typeof options === "object" ? options : {};
     const pair = String(settings && settings.srsPair || "").trim().toLowerCase();
-    if (!pair || pair === "all" || sourceLanguageFromPair(pair) !== "en" || targetLanguageFromPair(pair) !== "ja") {
+    if (!supportsSourceMappingMining(pair)) {
       return [];
     }
     const buckets = new Map();
@@ -349,7 +357,7 @@
   function buildSourceMappingSignals(sourceText, rules, settings, options) {
     const opts = options && typeof options === "object" ? options : {};
     const pair = String(settings && settings.srsPair || "").trim().toLowerCase();
-    if (!pair || pair === "all" || sourceLanguageFromPair(pair) !== "en" || targetLanguageFromPair(pair) !== "ja") {
+    if (!supportsSourceMappingMining(pair)) {
       return [];
     }
     const maxTerms = Math.max(1, Number(opts.maxSourceTermsPerScan || DEFAULT_MAX_SOURCE_TERMS_PER_SCAN));
@@ -426,6 +434,7 @@
     countSourceTermOccurrences,
     normalizeSourceTerm,
     sourceLanguageFromPair,
+    supportsSourceMappingMining,
     sourceTermVariants
   };
 })();
