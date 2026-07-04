@@ -89,6 +89,14 @@ def _run_rulegen_job_use_case(*args, **kwargs):
     return rulegen_job_module.run_rulegen_job(*args, **kwargs)
 
 
+def _build_runtime_ruleset_payload(*args, **kwargs):
+    runtime_ruleset_module = __import__(
+        "lexishift_core.helper.runtime_ruleset",
+        fromlist=["build_runtime_ruleset_payload"],
+    )
+    return runtime_ruleset_module.build_runtime_ruleset_payload(*args, **kwargs)
+
+
 def _preview_srs_admission_use_case(*args, **kwargs):
     preview_module = __import__(
         "lexishift_core.helper.use_cases.admission_preview",
@@ -370,7 +378,8 @@ def load_ruleset(paths: HelperPaths, *, pair: str, profile_id: str = "default") 
     ruleset_path = paths.ruleset_path(pair, profile_id=profile_id)
     if not ruleset_path.exists():
         raise FileNotFoundError(ruleset_path)
-    return json.loads(ruleset_path.read_text(encoding="utf-8"))
+    payload = json.loads(ruleset_path.read_text(encoding="utf-8"))
+    return _build_runtime_ruleset_payload(payload, pair=pair)
 
 
 def load_semantic_inventory(paths: HelperPaths, *, pair: str, profile_id: str = "default") -> dict:
