@@ -31,6 +31,83 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionScanSkipContract(unittest.TestCase):
+    def test_feedback_popup_placement_flips_and_bounds_tall_module_stacks(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(FEEDBACK_POPUP_CONTROLLER_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const place = context.LexiShift.uiFeedbackPopupController.computePopupPlacement;
+assert.equal(typeof place, "function");
+
+const below = place({{
+  targetRect: {{ top: 200, bottom: 220, left: 300, right: 340, width: 40, height: 20 }},
+  popupWidth: 240,
+  popupHeight: 180,
+  viewportWidth: 800,
+  viewportHeight: 600,
+  anchorPoint: {{ clientX: 320, clientY: 210 }}
+}});
+assert.equal(below.vertical, "below");
+assert.equal(below.horizontal, "right");
+assert.equal(below.top, 228);
+assert.equal(below.left, 328);
+assert.equal(below.maxHeight, 180);
+
+const above = place({{
+  targetRect: {{ top: 520, bottom: 540, left: 300, right: 340, width: 40, height: 20 }},
+  popupWidth: 240,
+  popupHeight: 180,
+  viewportWidth: 800,
+  viewportHeight: 600,
+  anchorPoint: {{ clientX: 320, clientY: 530 }}
+}});
+assert.equal(above.vertical, "above");
+assert.equal(above.top, 332);
+
+const tall = place({{
+  targetRect: {{ top: 280, bottom: 300, left: 300, right: 340, width: 40, height: 20 }},
+  popupWidth: 240,
+  popupHeight: 900,
+  viewportWidth: 800,
+  viewportHeight: 600,
+  anchorPoint: {{ clientX: 320, clientY: 290 }}
+}});
+assert.equal(tall.vertical, "below");
+assert.equal(tall.top, 308);
+assert.equal(tall.maxHeight, 284);
+assert.ok(tall.top >= 300 + 8);
+
+const leftFlip = place({{
+  targetRect: {{ top: 200, bottom: 220, left: 740, right: 780, width: 40, height: 20 }},
+  popupWidth: 220,
+  popupHeight: 180,
+  viewportWidth: 800,
+  viewportHeight: 600,
+  anchorPoint: {{ clientX: 760, clientY: 210 }}
+}});
+assert.equal(leftFlip.horizontal, "left");
+assert.equal(leftFlip.left, 532);
+
+const narrow = place({{
+  targetRect: {{ top: 200, bottom: 220, left: 180, right: 220, width: 40, height: 20 }},
+  popupWidth: 1000,
+  popupHeight: 180,
+  viewportWidth: 400,
+  viewportHeight: 600,
+  anchorPoint: {{ clientX: 200, clientY: 210 }}
+}});
+assert.equal(narrow.left, 8);
+assert.ok(narrow.maxHeight <= 584);
+"""
+        _run_node(script)
+
     def test_dom_scan_filter_skips_shared_lexishift_scan_skip_marker(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
