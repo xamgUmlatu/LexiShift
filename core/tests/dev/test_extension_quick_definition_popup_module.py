@@ -172,6 +172,16 @@ const moduleNode = context.LexiShift.uiQuickDefinitionModule.build(
           status: "ok",
           display: "perro",
           pos: {{ label: "noun" }},
+          senses: [
+            {{
+              glosses: [{{ text: "dog" }}, {{ text: "domestic dog" }}],
+              details: ["dog (the species Canis familiaris)"],
+              labels: ["common"],
+              examples: [{{ text: "perro callejero", translation: "stray dog" }}]
+            }},
+            {{ glosses: [{{ text: "hound" }}], details: ["hunting dog"] }},
+            {{ glosses: [{{ text: "canine" }}, {{ text: "male dog" }}] }}
+          ],
           glosses: [
             {{
               text: "dog",
@@ -224,6 +234,9 @@ assert.match(collectText(moduleNode), /Loading definition/);
   assert.match(rendered, /perro/);
   assert.match(rendered, /noun/);
   assert.doesNotMatch(rendered, /Matches:/);
+  assert.ok(findByTag(moduleNode, "ol"));
+  assert.match(rendered, /dog · domestic dog/);
+  assert.match(rendered, /common/);
   assert.match(rendered, /dog/);
   assert.match(rendered, /Canis familiaris/);
   assert.match(rendered, /perro callejero \\/ stray dog/);
@@ -236,6 +249,24 @@ assert.match(collectText(moduleNode), /Loading definition/);
   assert.match(rendered, /Wiktionary/);
   const anchor = findByTag(moduleNode, "a");
   assert.equal(anchor.href, "https://en.wiktionary.org/wiki/perro#Spanish");
+
+  const fallbackTarget = document.createElement("span");
+  fallbackTarget.textContent = "Hund";
+  fallbackTarget.dataset = {{ languagePair: "en-de", replacement: "Hund" }};
+  const fallbackNode = context.LexiShift.uiQuickDefinitionModule.build(
+    fallbackTarget,
+    () => {{}},
+    {{
+      wordInfoApi: {{
+        async lookup() {{
+          return {{ status: "ok", display: "Hund", glosses: [{{ text: "dog" }}] }};
+        }}
+      }}
+    }}
+  );
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.ok(findByTag(fallbackNode, "ul"));
+  assert.match(collectText(fallbackNode), /dog/);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

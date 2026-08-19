@@ -10,7 +10,9 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.resources.dict_loaders import load_jmdict_glosses_and_script_forms  # noqa: E402
+from lexishift_core.resources.dict_loaders import (  # noqa: E402
+    load_jmdict_glosses_and_script_forms,
+)
 from lexishift_core.resources.japanese_learner_signals import (  # noqa: E402
     build_japanese_learner_signal_bundle,
     load_japanese_lesson_vocabulary_index,
@@ -20,6 +22,9 @@ from lexishift_core.resources.japanese_learner_signals import (  # noqa: E402
     load_jlpt_vocabulary_index,
     load_kanjidic2_character_index,
     load_kanjivg_character_index,
+)
+from lexishift_core.resources.jmdict_definition_lookup import (  # noqa: E402
+    load_jmdict_definition_records_for_terms,
 )
 from lexishift_core.resources.japanese_script import kana_to_romaji  # noqa: E402
 from lexishift_core.rulegen.pairs.en_ja import (  # noqa: E402
@@ -71,6 +76,49 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertEqual(forms["猫"]["kana"], "ねこ")
         self.assertEqual(forms["猫"]["romaji"], "neko")
         self.assertEqual(forms["ねこ"]["kanji"], "猫")
+
+    def test_targeted_jmdict_definition_lookup_preserves_source_order_and_entities(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "JMdict_e"
+            path.write_text(
+                """<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE JMdict [
+<!ELEMENT JMdict (entry*)>
+<!ELEMENT entry (k_ele*, r_ele*, sense*)>
+<!ELEMENT k_ele (keb)>
+<!ELEMENT keb (#PCDATA)>
+<!ELEMENT r_ele (reb)>
+<!ELEMENT reb (#PCDATA)>
+<!ELEMENT sense (pos*, gloss*)>
+<!ELEMENT pos (#PCDATA)>
+<!ELEMENT gloss (#PCDATA)>
+<!ENTITY n "resolved noun label">
+]>
+<JMdict>
+<entry>
+  <k_ele><keb>斎</keb></k_ele>
+  <r_ele><reb>とき</reb></r_ele>
+  <sense><pos>&n;</pos><gloss>ritual meal</gloss></sense>
+</entry>
+<entry>
+  <k_ele><keb>時</keb></k_ele>
+  <r_ele><reb>とき</reb></r_ele>
+  <sense><pos>&n;</pos><gloss>time</gloss><gloss>hour</gloss></sense>
+</entry>
+</JMdict>
+""",
+                encoding="utf-8",
+            )
+
+            entries, glosses = load_jmdict_definition_records_for_terms(
+                path,
+                ("時", "とき"),
+            )
+
+        self.assertEqual(list(glosses), ["とき", "時"])
+        self.assertEqual(glosses["とき"], ["ritual meal", "time", "hour"])
+        self.assertEqual(glosses["時"], ["time", "hour"])
+        self.assertEqual(entries["時"][0].senses[0].pos_values, ("resolved noun label",))
 
     def test_jmdict_priority_loader_extracts_form_priority_tags(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

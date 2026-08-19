@@ -323,10 +323,21 @@
       .lexishift-definition-body{display:flex;flex-direction:column;gap:5px;}
       .lexishift-definition-status{font-size:11px;line-height:1.35;
         color:var(--lexishift-module-line, rgba(247,244,239,0.88));}
-      .lexishift-definition-glosses{display:flex;flex-direction:column;gap:6px;}
-      .lexishift-definition-gloss-item{display:flex;flex-direction:column;gap:2px;}
+      .lexishift-definition-senses,.lexishift-definition-glosses{margin:0;padding-left:18px;}
+      .lexishift-definition-sense,.lexishift-definition-gloss-item{padding-left:2px;}
+      .lexishift-definition-sense + .lexishift-definition-sense,
+      .lexishift-definition-gloss-item + .lexishift-definition-gloss-item{margin-top:6px;}
+      .lexishift-definition-sense::marker,.lexishift-definition-gloss-item::marker{
+        color:var(--lexishift-module-label, rgba(247,244,239,0.68));font-size:10px;font-weight:800;}
+      .lexishift-definition-sense-glosses{font-size:12px;line-height:1.4;font-weight:650;
+        color:var(--lexishift-module-text, #f7f4ef);}
       .lexishift-definition-gloss{font-size:12px;line-height:1.35;font-weight:650;
         color:var(--lexishift-module-text, #f7f4ef);}
+      .lexishift-definition-labels{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px;}
+      .lexishift-definition-label{padding:1px 5px;border-radius:999px;
+        background:var(--lexishift-module-quote-border, rgba(247,244,239,0.14));
+        color:var(--lexishift-module-label, rgba(247,244,239,0.78));
+        font-size:9px;line-height:1.35;font-weight:700;}
       .lexishift-definition-detail,.lexishift-definition-example{font-size:11px;line-height:1.35;
         color:var(--lexishift-module-line, rgba(247,244,239,0.86));}
       .lexishift-definition-example{font-style:italic;}

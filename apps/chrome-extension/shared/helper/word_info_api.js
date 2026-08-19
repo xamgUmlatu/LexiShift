@@ -59,6 +59,7 @@
         message
       },
       glosses: [],
+      senses: [],
       source_phrases: [],
       srs: { present: false },
       external_links: []

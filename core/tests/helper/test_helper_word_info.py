@@ -190,6 +190,43 @@ def _word_package(surface: str, *, provider: str = "freq-es-cde") -> dict[str, o
     }
 
 
+def _write_jmdict_sense_sample(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        """
+<JMdict>
+  <entry>
+    <k_ele><keb>斎</keb></k_ele>
+    <r_ele><reb>とき</reb></r_ele>
+    <sense>
+      <pos>noun</pos>
+      <gloss>meals exchanged by parishioners and priests</gloss>
+    </sense>
+  </entry>
+  <entry>
+    <k_ele><keb>時</keb></k_ele>
+    <r_ele><reb>とき</reb></r_ele>
+    <sense>
+      <pos>noun</pos>
+      <s_inf>primary time sense</s_inf>
+      <gloss>time</gloss>
+      <gloss>hour</gloss>
+      <gloss>moment</gloss>
+    </sense>
+    <sense>
+      <stagk>時</stagk>
+      <pos>noun</pos>
+      <pos>adverb</pos>
+      <gloss>occasion</gloss>
+      <gloss>case</gloss>
+    </sense>
+  </entry>
+</JMdict>
+""".strip(),
+        encoding="utf-8",
+    )
+
+
 def _all_strings(value: object) -> Iterable[str]:
     if isinstance(value, str):
         yield value
@@ -303,6 +340,14 @@ class TestHelperWordInfo(unittest.TestCase):
             )
             self.assertEqual(result["glosses"][1]["text"], "hound")
             self.assertEqual(result["glosses"][1]["details"], ["dog used for hunting (animal)"])
+            self.assertEqual(
+                [[gloss["text"] for gloss in sense["glosses"]] for sense in result["senses"]],
+                [["dog"], ["hound"]],
+            )
+            self.assertEqual(
+                result["senses"][0]["examples"],
+                [{"text": "perro callejero", "translation": "stray dog"}],
+            )
             self.assertNotIn(
                 "restricted insult",
                 [gloss["text"] for gloss in result["glosses"]],
@@ -346,17 +391,26 @@ class TestHelperWordInfo(unittest.TestCase):
             jmdict_path = paths.language_packs_dir / "jmdict-ja-en" / "JMdict_e"
             jmdict_path.parent.mkdir(parents=True, exist_ok=True)
             jmdict_path.write_text("<JMdict />", encoding="utf-8")
-            word_info_module._load_jmdict_glosses_ordered_cached.cache_clear()
-            calls: list[Path] = []
+            word_info_module._load_jmdict_definition_data_cached.cache_clear()
+            calls: list[tuple[Path, tuple[str, ...]]] = []
 
-            def fake_loader(path: Path) -> dict[str, list[str]]:
-                calls.append(path)
-                return {
-                    "会社": ["company"],
-                    "どう": ["how"],
-                }
+            def fake_loader(
+                path: Path,
+                lookup_candidates: tuple[str, ...],
+            ) -> tuple[dict[str, list[object]], dict[str, list[str]]]:
+                calls.append((path, lookup_candidates))
+                return (
+                    {},
+                    {
+                        "会社": ["company"],
+                    },
+                )
 
-            with patch.object(word_info_module, "load_jmdict_glosses_ordered", fake_loader):
+            with patch.object(
+                word_info_module,
+                "load_jmdict_definition_records_for_terms",
+                fake_loader,
+            ):
                 first = lookup_word_info(
                     paths,
                     pair="en-ja",
@@ -368,13 +422,61 @@ class TestHelperWordInfo(unittest.TestCase):
                     paths,
                     pair="en-ja",
                     profile_id="default",
-                    lemma="どう",
-                    display="どう",
+                    lemma="会社",
+                    display="会社",
                 )
 
             self.assertEqual([gloss["text"] for gloss in first["glosses"]], ["company"])
-            self.assertEqual([gloss["text"] for gloss in second["glosses"]], ["how"])
-            self.assertEqual(calls, [jmdict_path])
+            self.assertEqual([gloss["text"] for gloss in second["glosses"]], ["company"])
+            self.assertEqual(calls, [(jmdict_path, ("会社",))])
+
+    def test_jmdict_word_info_adds_sense_groups_without_changing_flat_glosses(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            jmdict_path = paths.language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+            _write_jmdict_sense_sample(jmdict_path)
+            word_info_module._load_jmdict_definition_data_cached.cache_clear()
+
+            result = lookup_word_info(
+                paths,
+                pair="en-ja",
+                profile_id="default",
+                lemma="時",
+                display="時",
+                word_package={
+                    "version": 1,
+                    "language_tag": "ja",
+                    "surface": "時",
+                    "reading": "とき",
+                    "script_forms": {"kanji": "時", "kana": "とき"},
+                    "pos": "noun",
+                    "pos_canonical": "noun",
+                },
+            )
+
+        self.assertEqual(
+            [gloss["text"] for gloss in result["glosses"]],
+            [
+                "meals exchanged by parishioners and priests",
+                "time",
+                "hour",
+                "moment",
+                "occasion",
+            ],
+        )
+        self.assertEqual(
+            [[gloss["text"] for gloss in sense["glosses"]] for sense in result["senses"]],
+            [
+                ["meals exchanged by parishioners and priests"],
+                ["time", "hour", "moment"],
+                ["occasion", "case"],
+            ],
+        )
+        self.assertEqual(result["senses"][1]["details"], ["primary time sense"])
+        self.assertEqual(
+            result["senses"][2]["restrictions"],
+            {"written_forms": ["時"], "readings": []},
+        )
 
 
 if __name__ == "__main__":

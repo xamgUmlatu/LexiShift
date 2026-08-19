@@ -2,6 +2,7 @@
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
   const GLOSS_LIMIT = 5;
+  const SENSE_LIMIT = 5;
   const DETAIL_LIMIT = 2;
   const EXAMPLE_LIMIT = 1;
   const LINK_LIMIT = 2;
@@ -167,6 +168,91 @@
     return glosses;
   }
 
+  function resolveSenses(result) {
+    const senses = [];
+    for (const value of Array.isArray(result && result.senses) ? result.senses : []) {
+      const raw = value && typeof value === "object" ? value : {};
+      const glosses = dedupeTexts(raw.glosses);
+      if (!glosses.length) {
+        continue;
+      }
+      senses.push({
+        glosses,
+        details: normalizeTextList(raw.details || raw.notes, DETAIL_LIMIT),
+        labels: normalizeTextList(raw.labels || raw.tags, 4),
+        examples: normalizeExamples(raw.examples)
+      });
+      if (senses.length >= SENSE_LIMIT) {
+        break;
+      }
+    }
+    return senses;
+  }
+
+  function appendExamples(parent, examples) {
+    for (const example of examples || []) {
+      const exampleText = [example.text, example.translation]
+        .map(normalizeText)
+        .filter(Boolean)
+        .join(" / ");
+      if (exampleText) {
+        appendText(parent, "lexishift-definition-example", exampleText);
+      }
+    }
+  }
+
+  function appendLabels(parent, labels) {
+    if (!labels || !labels.length) {
+      return;
+    }
+    const labelRow = document.createElement("div");
+    labelRow.className = "lexishift-definition-labels";
+    for (const label of labels) {
+      const labelNode = document.createElement("span");
+      labelNode.className = "lexishift-definition-label";
+      labelNode.textContent = label;
+      labelRow.appendChild(labelNode);
+    }
+    parent.appendChild(labelRow);
+  }
+
+  function renderSenses(parent, senses) {
+    const list = document.createElement("ol");
+    list.className = "lexishift-definition-senses";
+    for (const sense of senses) {
+      const item = document.createElement("li");
+      item.className = "lexishift-definition-sense";
+      appendText(
+        item,
+        "lexishift-definition-sense-glosses",
+        sense.glosses.join(" · ")
+      );
+      appendLabels(item, sense.labels);
+      for (const detail of sense.details || []) {
+        appendText(item, "lexishift-definition-detail", detail);
+      }
+      appendExamples(item, sense.examples);
+      list.appendChild(item);
+    }
+    parent.appendChild(list);
+  }
+
+  function renderFlatGlosses(parent, glosses) {
+    const list = document.createElement("ul");
+    list.className = "lexishift-definition-glosses";
+    for (const gloss of glosses) {
+      const item = document.createElement("li");
+      item.className = "lexishift-definition-gloss-item";
+      appendText(item, "lexishift-definition-gloss", gloss.text);
+      for (const detail of gloss.details || []) {
+        appendText(item, "lexishift-definition-detail", detail);
+      }
+      appendExamples(item, gloss.examples);
+      list.appendChild(item);
+    }
+    parent.appendChild(list);
+  }
+
   function resolvePosLabel(result) {
     const pos = result && result.pos && typeof result.pos === "object" ? result.pos : {};
     return normalizeText(pos.label || pos.canonical);
@@ -261,29 +347,12 @@
       pos.textContent = posLabel;
       pos.style.display = posLabel ? "" : "none";
 
+      const senses = resolveSenses(result);
       const glosses = resolveGlosses(result);
-      if (glosses.length) {
-        const list = document.createElement("div");
-        list.className = "lexishift-definition-glosses";
-        for (const gloss of glosses) {
-          const item = document.createElement("div");
-          item.className = "lexishift-definition-gloss-item";
-          appendText(item, "lexishift-definition-gloss", gloss.text);
-          for (const detail of gloss.details || []) {
-            appendText(item, "lexishift-definition-detail", detail);
-          }
-          for (const example of gloss.examples || []) {
-            const exampleText = [example.text, example.translation]
-              .map(normalizeText)
-              .filter(Boolean)
-              .join(" / ");
-            if (exampleText) {
-              appendText(item, "lexishift-definition-example", exampleText);
-            }
-          }
-          list.appendChild(item);
-        }
-        body.appendChild(list);
+      if (senses.length) {
+        renderSenses(body, senses);
+      } else if (glosses.length) {
+        renderFlatGlosses(body, glosses);
       } else {
         appendText(
           body,

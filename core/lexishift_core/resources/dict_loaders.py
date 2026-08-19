@@ -12,6 +12,7 @@ from lexishift_core.resources.japanese_script import (
     kana_to_romaji,
 )
 from lexishift_core.resources.dict_gloss_metadata import build_auxiliary_gloss_metadata
+from lexishift_core.resources.jmdict_records import JmdictSenseRecord
 from lexishift_core.resources.dict_sqlite_support import (
     load_auxiliary_sqlite_gloss_base_forms as _load_auxiliary_sqlite_gloss_base_forms,
     load_auxiliary_sqlite_gloss_records_ordered as _load_auxiliary_sqlite_gloss_records_ordered,
@@ -32,6 +33,7 @@ class JmdictEntryRecord:
     kana_forms: tuple[str, ...]
     glosses: tuple[str, ...]
     pos_values: tuple[str, ...] = ()
+    senses: tuple[JmdictSenseRecord, ...] = ()
 
 
 @dataclass(frozen=True)
