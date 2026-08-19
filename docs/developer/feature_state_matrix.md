@@ -2089,7 +2089,11 @@ Use this file when:
   word-info API, selected-profile Vocabulary Library page with active-pair
   selection, and built-in `quick-definition` popup module; cross-profile library enumeration and completed/
   mastered lifecycle UX remain planned.
-- Last documented checkpoint: `2026-06-02` selected-profile Vocabulary Library
+- Last documented checkpoint: `2026-08-20` Japanese definition lookup now uses
+  the clicked replacement's exact surface/reading identity when available,
+  honors JMdict reading and sense restrictions, keeps SRS attachment and the
+  extension lookup cache reading-aware, and reports stable local dictionary and
+  match metadata for future source selection. `2026-06-02` selected-profile Vocabulary Library
   page with active-pair selection and selected-profile theme application extends the source-resolution and enriched popup checkpoint:
   helper/core can read a profile/pair/lemma
   word-info payload, native host exposes `word_info_lookup`, the extension
@@ -2102,7 +2106,10 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-06-02` dedicated Vocabulary Library page pair-selector/theme-loading tests plus
+- Last verified: `2026-08-20` focused word-info, JMdict parsing, extension cache,
+  and quick-definition tests passed (`48` tests); a read-only lookup against the
+  installed `suisui` data returned `時/とき` without the unrelated `斎/とき`
+  ritual-meal sense and separately resolved `時/じ`. Earlier `2026-06-02` dedicated Vocabulary Library page pair-selector/theme-loading tests plus
   focused helper word-info tests, native-host route tests, helper-client/API
   contract tests, quick-definition popup render and registry tests, extension
   structure tests, JS syntax checks, and Python compile checks
@@ -2117,6 +2124,11 @@ Use this file when:
   - Compact gloss selection prefers unrestricted senses and the first dictionary
     POS group; restricted usage senses such as slang/vulgar/obsolete/derogatory
     entries are fallback-only when no unrestricted sense is available.
+  - When a Japanese word package supplies a usable reading, JMdict lookup
+    isolates an exact surface/reading entry match when available and applies
+    `re_restr`, `re_nokanji`, `stagk`, and `stagr` restrictions before presentation. The
+    clicked package remains authoritative, so an SRS item for another reading
+    is not attached to the response.
   - Installed local lexical resources are the canonical gloss source. For
     `en-es`, the route resolves Spanish-to-English translation/gloss packs
     through existing pair-resource capability/default-pack logic rather than
@@ -2124,8 +2136,12 @@ Use this file when:
     pack roots are recognized so local `wiktionary-es-en` installs keep the
     intended Wiktionary-first priority over FreeDict fallback.
   - The extension API wrapper normalizes camelCase/snake_case request fields,
-    caches successful lookups for the current JS runtime session, and delegates
-    native messaging to `HelperClient.lookupWordInfo`.
+    caches successful lookups for the current JS runtime session using word
+    package identity including surface and reading, and delegates native
+    messaging to `HelperClient.lookupWordInfo`.
+  - Successful payloads expose local dictionary `pack_id`, `provider`, and
+    `source_kind`, plus the matched surface/reading and match quality; no local
+    resource path is exposed.
   - The content singleton is configured with the current helper client.
     `quick-definition` receives the shared `LexiShift.wordInfoApi` capability
     through the popup descriptor context and does not call native messaging or
@@ -2159,6 +2175,9 @@ Use this file when:
   - `docs/srs/srs_vocabulary_library_and_word_info_plan.md`
   - `docs/architecture/popup_modules_pattern.md`
   - `core/lexishift_core/helper/use_cases/word_info.py`
+  - `core/lexishift_core/helper/use_cases/word_info_dictionary.py`
+  - `core/lexishift_core/helper/use_cases/word_info_identity.py`
+  - `core/lexishift_core/helper/use_cases/word_info_jmdict.py`
   - `core/lexishift_core/helper/engine.py`
   - `scripts/helper/lexishift_native_host.py`
   - `apps/chrome-extension/shared/helper/helper_client.js`
@@ -2190,9 +2209,9 @@ Use this file when:
   - Batch lookup for a page of library rows is not implemented.
   - The normalized public popup module API remains target architecture; the
     current module uses the existing internal popup descriptor/context pattern.
-  - JMDict and future-pair provider behavior has a generic path but only
-    `en-es` translation-pack lookup has focused production-style coverage in
-    this slice.
+  - Per-language-pair dictionary source selection and fallback policy are not
+    yet implemented; the route still uses the pair capability's resolved local
+    source.
 
 ## Vocabulary Practice Options UX
 

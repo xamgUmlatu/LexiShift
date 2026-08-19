@@ -13,6 +13,13 @@ class JmdictGlossRecord:
 
 
 @dataclass(frozen=True)
+class JmdictReadingRecord:
+    text: str
+    kanji_restrictions: tuple[str, ...] = ()
+    no_kanji: bool = False
+
+
+@dataclass(frozen=True)
 class JmdictSenseRecord:
     glosses: tuple[JmdictGlossRecord, ...]
     kanji_restrictions: tuple[str, ...] = ()

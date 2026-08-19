@@ -190,6 +190,19 @@ def _word_package(surface: str, *, provider: str = "freq-es-cde") -> dict[str, o
     }
 
 
+def _japanese_word_package(surface: str, reading: str) -> dict[str, object]:
+    return {
+        "version": 1,
+        "language_tag": "ja",
+        "surface": surface,
+        "reading": reading,
+        "script_forms": {"kanji": surface, "kana": reading},
+        "source": {"provider": "jmdict"},
+        "pos": "noun",
+        "pos_canonical": "noun",
+    }
+
+
 def _write_jmdict_sense_sample(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -205,8 +218,10 @@ def _write_jmdict_sense_sample(path: Path) -> None:
   </entry>
   <entry>
     <k_ele><keb>時</keb></k_ele>
-    <r_ele><reb>とき</reb></r_ele>
+    <r_ele><reb>とき</reb><re_restr>時</re_restr></r_ele>
+    <r_ele><reb>じ</reb><re_restr>時</re_restr></r_ele>
     <sense>
+      <stagr>とき</stagr>
       <pos>noun</pos>
       <s_inf>primary time sense</s_inf>
       <gloss>time</gloss>
@@ -215,10 +230,24 @@ def _write_jmdict_sense_sample(path: Path) -> None:
     </sense>
     <sense>
       <stagk>時</stagk>
+      <stagr>とき</stagr>
       <pos>noun</pos>
       <pos>adverb</pos>
       <gloss>occasion</gloss>
       <gloss>case</gloss>
+    </sense>
+    <sense>
+      <stagr>じ</stagr>
+      <pos>noun</pos>
+      <gloss>clock hour</gloss>
+      <gloss>o'clock</gloss>
+    </sense>
+  </entry>
+  <entry>
+    <r_ele><reb>ブラシ</reb><re_nokanji /></r_ele>
+    <sense>
+      <pos>noun</pos>
+      <gloss>brush</gloss>
     </sense>
   </entry>
 </JMdict>
@@ -298,6 +327,10 @@ class TestHelperWordInfo(unittest.TestCase):
                 ["dog", "hound"],
             )
             self.assertEqual(result["glosses"][0]["source_kind"], "installed_translation_pack")
+            self.assertEqual(result["dictionary"]["pack_id"], "wiktionary_es_en")
+            self.assertEqual(result["dictionary"]["provider"], "wiktionary")
+            self.assertEqual(result["dictionary_match"]["surface"], "perro")
+            self.assertEqual(result["dictionary_match"]["quality"], "exact_surface")
             self.assertEqual(result["source_phrases"], ["dog", "hound"])
             self.assertEqual(result["rule_summary"]["rule_count"], 2)
             self.assertTrue(result["srs"]["present"])
@@ -430,7 +463,7 @@ class TestHelperWordInfo(unittest.TestCase):
             self.assertEqual([gloss["text"] for gloss in second["glosses"]], ["company"])
             self.assertEqual(calls, [(jmdict_path, ("会社",))])
 
-    def test_jmdict_word_info_adds_sense_groups_without_changing_flat_glosses(self) -> None:
+    def test_jmdict_word_info_matches_exact_surface_and_reading(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
             jmdict_path = paths.language_packs_dir / "jmdict-ja-en" / "JMdict_e"
@@ -443,40 +476,128 @@ class TestHelperWordInfo(unittest.TestCase):
                 profile_id="default",
                 lemma="時",
                 display="時",
-                word_package={
-                    "version": 1,
-                    "language_tag": "ja",
-                    "surface": "時",
-                    "reading": "とき",
-                    "script_forms": {"kanji": "時", "kana": "とき"},
-                    "pos": "noun",
-                    "pos_canonical": "noun",
-                },
+                word_package=_japanese_word_package("時", "とき"),
             )
 
         self.assertEqual(
             [gloss["text"] for gloss in result["glosses"]],
-            [
-                "meals exchanged by parishioners and priests",
-                "time",
-                "hour",
-                "moment",
-                "occasion",
-            ],
+            ["time", "hour", "moment", "occasion", "case"],
         )
         self.assertEqual(
             [[gloss["text"] for gloss in sense["glosses"]] for sense in result["senses"]],
             [
-                ["meals exchanged by parishioners and priests"],
                 ["time", "hour", "moment"],
                 ["occasion", "case"],
             ],
         )
-        self.assertEqual(result["senses"][1]["details"], ["primary time sense"])
+        self.assertEqual(result["senses"][0]["details"], ["primary time sense"])
         self.assertEqual(
-            result["senses"][2]["restrictions"],
-            {"written_forms": ["時"], "readings": []},
+            result["senses"][1]["restrictions"],
+            {"written_forms": ["時"], "readings": ["とき"]},
         )
+        self.assertEqual(result["dictionary"]["pack_id"], "jmdict-ja-en")
+        self.assertEqual(result["dictionary"]["provider"], "edrdg")
+        self.assertEqual(
+            result["dictionary_match"],
+            {
+                "surface": "時",
+                "reading": "とき",
+                "quality": "exact_surface_reading",
+            },
+        )
+
+    def test_jmdict_word_info_keeps_same_surface_readings_separate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            jmdict_path = paths.language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+            _write_jmdict_sense_sample(jmdict_path)
+            word_info_module._load_jmdict_definition_data_cached.cache_clear()
+
+            result = lookup_word_info(
+                paths,
+                pair="en-ja",
+                profile_id="default",
+                lemma="時",
+                display="時",
+                word_package=_japanese_word_package("時", "じ"),
+            )
+
+        self.assertEqual(
+            [gloss["text"] for gloss in result["glosses"]],
+            ["clock hour", "o'clock"],
+        )
+        self.assertEqual(
+            [[gloss["text"] for gloss in sense["glosses"]] for sense in result["senses"]],
+            [["clock hour", "o'clock"]],
+        )
+        self.assertEqual(result["dictionary_match"]["reading"], "じ")
+
+    def test_request_word_package_does_not_attach_different_reading_srs_item(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            jmdict_path = paths.language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+            _write_jmdict_sense_sample(jmdict_path)
+            word_info_module._load_jmdict_definition_data_cached.cache_clear()
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:時:toki",
+                            lemma="時",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                            admitted_at=format_ts(NOW),
+                            next_due=None,
+                            exposures=4,
+                            word_package=_japanese_word_package("時", "とき"),
+                        ),
+                    ),
+                    version=2,
+                ),
+                paths.srs_store_path_for("default"),
+            )
+
+            result = lookup_word_info(
+                paths,
+                pair="en-ja",
+                profile_id="default",
+                lemma="時",
+                display="時",
+                word_package=_japanese_word_package("時", "じ"),
+            )
+
+        self.assertEqual(result["word_package"]["reading"], "じ")
+        self.assertEqual(result["srs"], {"present": False})
+        self.assertEqual(
+            [gloss["text"] for gloss in result["glosses"]],
+            ["clock hour", "o'clock"],
+        )
+
+    def test_jmdict_word_info_matches_katakana_headword_to_normalized_reading(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            jmdict_path = paths.language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+            _write_jmdict_sense_sample(jmdict_path)
+            word_info_module._load_jmdict_definition_data_cached.cache_clear()
+
+            result = lookup_word_info(
+                paths,
+                pair="en-ja",
+                profile_id="default",
+                lemma="ブラシ",
+                display="ブラシ",
+                word_package={
+                    "version": 1,
+                    "language_tag": "ja",
+                    "surface": "ブラシ",
+                    "reading": "ぶらし",
+                    "script_forms": {"kana": "ブラシ"},
+                    "source": {"provider": "jmdict"},
+                },
+            )
+
+        self.assertEqual([gloss["text"] for gloss in result["glosses"]], ["brush"])
+        self.assertEqual(result["dictionary_match"]["quality"], "exact_surface_reading")
 
 
 if __name__ == "__main__":

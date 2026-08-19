@@ -12,9 +12,26 @@ from lexishift_core.helper.lp_capabilities import (
 )
 from lexishift_core.helper.pair_resources import resolve_pair_translation_packs
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.use_cases.word_info_dictionary import (
+    dictionary_metadata_for_path,
+    jmdict_gloss_records_for_candidates,
+    matched_headword,
+    records_for_candidates,
+    translation_dictionary_match,
+    translation_dictionary_metadata,
+)
+from lexishift_core.helper.use_cases.word_info_identity import (
+    find_srs_item,
+    lookup_japanese_reading,
+)
 from lexishift_core.helper.use_cases.word_info_senses import (
     build_jmdict_sense_payloads,
     build_translation_sense_payloads,
+)
+from lexishift_core.helper.use_cases.word_info_jmdict import (
+    jmdict_entries_for_candidates,
+    jmdict_gloss_records,
+    select_jmdict_definition_entries,
 )
 from lexishift_core.lexicon.word_package import normalize_word_package
 from lexishift_core.persistence.storage import load_vocab_dataset
@@ -26,7 +43,7 @@ from lexishift_core.resources.dict_loaders import (
 from lexishift_core.resources.jmdict_definition_lookup import (
     load_jmdict_definition_records_for_terms,
 )
-from lexishift_core.srs import load_srs_store, normalize_srs_lifecycle_state
+from lexishift_core.srs import normalize_srs_lifecycle_state
 
 
 GLOSS_LIMIT = 5
@@ -73,11 +90,12 @@ def lookup_word_info(
         fallback_language_tag=target_language,
         fallback_provider="request",
     )
-    srs_item = _find_srs_item(
+    srs_item = find_srs_item(
         paths,
         profile_id=normalized_profile_id,
         pair=normalized_pair,
         normalized_lemma=normalized_lemma,
+        request_word_package=request_word_package,
     )
     srs_word_package = _normalize_package(
         getattr(srs_item, "word_package", None),
@@ -85,7 +103,7 @@ def lookup_word_info(
         fallback_language_tag=target_language,
         fallback_provider=getattr(srs_item, "source_type", "") if srs_item is not None else "",
     )
-    primary_word_package = srs_word_package or request_word_package or {}
+    primary_word_package = request_word_package or srs_word_package or {}
     resolved_display = _first_text(
         display,
         primary_word_package.get("surface") if isinstance(primary_word_package, Mapping) else "",
@@ -96,6 +114,12 @@ def lookup_word_info(
         display=resolved_display,
         request_word_package=request_word_package,
         srs_word_package=srs_word_package,
+    )
+    lookup_surface = _first_text(primary_word_package.get("surface"), lemma, resolved_display)
+    lookup_reading = lookup_japanese_reading(
+        primary_word_package,
+        target_language=target_language,
+        surface=lookup_surface,
     )
     rule_summary = _rule_summary(
         paths,
@@ -110,6 +134,8 @@ def lookup_word_info(
         source_language=source_language,
         target_language=target_language,
         lookup_candidates=lookup_candidates,
+        lookup_surface=lookup_surface,
+        lookup_reading=lookup_reading,
         translation_dict_path=translation_dict_path,
         jmdict_path=jmdict_path,
     )
@@ -137,6 +163,8 @@ def lookup_word_info(
         "pos": _pos_payload(primary_word_package, gloss_payload),
         "glosses": gloss_payload,
         "senses": sense_payload,
+        "dictionary": gloss_diagnostics.get("dictionary"),
+        "dictionary_match": gloss_diagnostics.get("dictionary_match"),
         "source_phrases": rule_summary["source_phrases"],
         "rule_summary": {
             "rule_count": rule_summary["rule_count"],
@@ -212,25 +240,6 @@ def _safe_payload_value(value: object) -> object:
 def _is_local_resource_key(key: str) -> bool:
     normalized = str(key or "").strip().lower()
     return "path" in normalized or normalized.endswith("_dir") or normalized == "dir"
-
-
-def _find_srs_item(
-    paths: HelperPaths,
-    *,
-    profile_id: str,
-    pair: str,
-    normalized_lemma: str,
-) -> object | None:
-    store_path = paths.srs_store_path_for(profile_id)
-    if not store_path.exists():
-        return None
-    store = load_srs_store(store_path)
-    for item in store.items:
-        if item.language_pair != pair:
-            continue
-        if _normalize_lemma(item.lemma) == normalized_lemma:
-            return item
-    return None
 
 
 def _lookup_candidates(
@@ -318,6 +327,8 @@ def _resolve_glosses(
     source_language: str,
     target_language: str,
     lookup_candidates: Sequence[str],
+    lookup_surface: str,
+    lookup_reading: str,
     translation_dict_path: Path | None,
     jmdict_path: Path | None,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
@@ -328,6 +339,8 @@ def _resolve_glosses(
             pair=pair,
             source_language=source_language,
             lookup_candidates=lookup_candidates,
+            lookup_surface=lookup_surface,
+            lookup_reading=lookup_reading,
             jmdict_path=jmdict_path,
         )
     if capability.requires_translation_dictionary_for_rulegen:
@@ -336,6 +349,7 @@ def _resolve_glosses(
             pair=pair,
             source_language=source_language,
             lookup_candidates=lookup_candidates,
+            lookup_surface=lookup_surface,
             translation_dict_path=translation_dict_path,
         )
     return (
@@ -354,6 +368,7 @@ def _resolve_translation_glosses(
     pair: str,
     source_language: str,
     lookup_candidates: Sequence[str],
+    lookup_surface: str,
     translation_dict_path: Path | None,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
     resolved_pack, _reverse_pack = resolve_pair_translation_packs(
@@ -381,7 +396,8 @@ def _resolve_translation_glosses(
         target_lang=source_language,
         headwords=lookup_candidates,
     )
-    records = _records_for_candidates(records_by_headword, lookup_candidates)
+    records = records_for_candidates(records_by_headword, lookup_candidates)
+    resolved_headword = matched_headword(records_by_headword, lookup_candidates)
     payload_options = {
         "language": source_language,
         "source": resolved_pack.pack_id,
@@ -397,7 +413,15 @@ def _resolve_translation_glosses(
             example_limit=EXAMPLE_LIMIT,
             label_limit=LABEL_LIMIT,
         ),
-        {"provider_status": "ok", "missing_resources": []},
+        {
+            "provider_status": "ok",
+            "missing_resources": [],
+            "dictionary": translation_dictionary_metadata(resolved_pack),
+            "dictionary_match": translation_dictionary_match(
+                resolved_headword,
+                lookup_surface=lookup_surface,
+            ),
+        },
     )
 
 
@@ -407,6 +431,8 @@ def _resolve_jmdict_glosses(
     pair: str,
     source_language: str,
     lookup_candidates: Sequence[str],
+    lookup_surface: str,
+    lookup_reading: str,
     jmdict_path: Path | None,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
     resolved_path = jmdict_path or default_jmdict_path(
@@ -425,12 +451,15 @@ def _resolve_jmdict_glosses(
         resolved_path,
         lookup_candidates,
     )
-    records: list[TranslationGlossRecord] = []
-    lookup_set = {_normalize_lemma(candidate) for candidate in lookup_candidates}
-    for headword, glosses in glosses_by_headword.items():
-        if _normalize_lemma(headword) not in lookup_set:
-            continue
-        records.extend(TranslationGlossRecord(translation=gloss, pos_raw="") for gloss in glosses)
+    entries = jmdict_entries_for_candidates(entries_by_headword, lookup_candidates)
+    selection = select_jmdict_definition_entries(
+        entries,
+        surface=lookup_surface,
+        reading=lookup_reading,
+    )
+    records = jmdict_gloss_records(selection.entries)
+    if not records:
+        records = jmdict_gloss_records_for_candidates(glosses_by_headword, lookup_candidates)
     return (
         _gloss_payloads(
             records,
@@ -439,7 +468,7 @@ def _resolve_jmdict_glosses(
             source_kind="installed_jmdict",
         ),
         build_jmdict_sense_payloads(
-            _jmdict_entries_for_candidates(entries_by_headword, lookup_candidates),
+            selection.entries,
             language=source_language or "en",
             source="jmdict",
             source_kind="installed_jmdict",
@@ -447,7 +476,21 @@ def _resolve_jmdict_glosses(
             detail_limit=DETAIL_LIMIT,
             label_limit=LABEL_LIMIT,
         ),
-        {"provider_status": "ok", "missing_resources": []},
+        {
+            "provider_status": "ok",
+            "missing_resources": [],
+            "dictionary": dictionary_metadata_for_path(
+                resolved_path,
+                fallback_pack_id="jmdict-ja-en",
+                fallback_provider="edrdg",
+                source_kind="installed_jmdict",
+            ),
+            "dictionary_match": {
+                "surface": selection.matched_surface,
+                "reading": selection.matched_reading,
+                "quality": selection.match_quality,
+            },
+        },
     )
 
 
@@ -488,38 +531,6 @@ def _load_cached_jmdict_definition_data(
             )
         ),
     )
-
-
-def _records_for_candidates(
-    records_by_headword: Mapping[str, Sequence[TranslationGlossRecord]],
-    lookup_candidates: Sequence[str],
-) -> list[TranslationGlossRecord]:
-    lookup_set = {_normalize_lemma(candidate) for candidate in lookup_candidates}
-    records: list[TranslationGlossRecord] = []
-    for headword, entries in records_by_headword.items():
-        if _normalize_lemma(headword) not in lookup_set:
-            continue
-        records.extend(entries)
-    return records
-
-
-def _jmdict_entries_for_candidates(
-    entries_by_headword: Mapping[str, Sequence[JmdictEntryRecord]],
-    lookup_candidates: Sequence[str],
-) -> list[JmdictEntryRecord]:
-    lookup_set = {_normalize_lemma(candidate) for candidate in lookup_candidates}
-    entries: list[JmdictEntryRecord] = []
-    seen: set[int] = set()
-    for headword, candidates in entries_by_headword.items():
-        if _normalize_lemma(headword) not in lookup_set:
-            continue
-        for entry in candidates:
-            identity = id(entry)
-            if identity in seen:
-                continue
-            seen.add(identity)
-            entries.append(entry)
-    return entries
 
 
 def _gloss_payloads(

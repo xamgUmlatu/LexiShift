@@ -10,7 +10,11 @@ from lexishift_core.resources.dict_loaders import (
     JmdictEntryRecord,
     XML_LANG_KEY,
 )
-from lexishift_core.resources.jmdict_records import JmdictGlossRecord, JmdictSenseRecord
+from lexishift_core.resources.jmdict_records import (
+    JmdictGlossRecord,
+    JmdictReadingRecord,
+    JmdictSenseRecord,
+)
 
 
 def load_jmdict_definition_records_for_terms(
@@ -53,6 +57,7 @@ def load_jmdict_definition_records_for_terms(
             kana_forms=tuple(kana_forms),
             glosses=tuple(glosses),
             pos_values=tuple(_unique_texts(elem.findall("sense/pos"))),
+            reading_records=tuple(_collect_reading_records(elem)),
             senses=tuple(senses),
         )
         for term in matching_terms:
@@ -92,6 +97,22 @@ def _matching_entry_elements(
     except ElementTree.ParseError:
         return []
     return list(root.findall("entry"))
+
+
+def _collect_reading_records(elem: ElementTree.Element) -> list[JmdictReadingRecord]:
+    records: list[JmdictReadingRecord] = []
+    for reading in elem.findall("r_ele"):
+        text = _first_node_text(reading.find("reb"))
+        if not text:
+            continue
+        records.append(
+            JmdictReadingRecord(
+                text=text,
+                kanji_restrictions=tuple(_unique_texts(reading.findall("re_restr"))),
+                no_kanji=reading.find("re_nokanji") is not None,
+            )
+        )
+    return records
 
 
 def _matching_entry_spans(
@@ -173,6 +194,10 @@ def _unique_texts(nodes: Iterable[ElementTree.Element]) -> list[str]:
         if text and text not in values:
             values.append(text)
     return values
+
+
+def _first_node_text(node: ElementTree.Element | None) -> str:
+    return (node.text or "").strip() if node is not None else ""
 
 
 def _normalize_term(value: object) -> str:

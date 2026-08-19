@@ -87,9 +87,13 @@ class TestJapaneseScriptForms(unittest.TestCase):
 <!ELEMENT entry (k_ele*, r_ele*, sense*)>
 <!ELEMENT k_ele (keb)>
 <!ELEMENT keb (#PCDATA)>
-<!ELEMENT r_ele (reb)>
+<!ELEMENT r_ele (reb, re_restr*, re_nokanji?)>
 <!ELEMENT reb (#PCDATA)>
-<!ELEMENT sense (pos*, gloss*)>
+<!ELEMENT re_restr (#PCDATA)>
+<!ELEMENT re_nokanji EMPTY>
+<!ELEMENT sense (stagk*, stagr*, pos*, gloss*)>
+<!ELEMENT stagk (#PCDATA)>
+<!ELEMENT stagr (#PCDATA)>
 <!ELEMENT pos (#PCDATA)>
 <!ELEMENT gloss (#PCDATA)>
 <!ENTITY n "resolved noun label">
@@ -102,8 +106,8 @@ class TestJapaneseScriptForms(unittest.TestCase):
 </entry>
 <entry>
   <k_ele><keb>時</keb></k_ele>
-  <r_ele><reb>とき</reb></r_ele>
-  <sense><pos>&n;</pos><gloss>time</gloss><gloss>hour</gloss></sense>
+  <r_ele><reb>とき</reb><re_restr>時</re_restr></r_ele>
+  <sense><stagk>時</stagk><stagr>とき</stagr><pos>&n;</pos><gloss>time</gloss><gloss>hour</gloss></sense>
 </entry>
 </JMdict>
 """,
@@ -119,6 +123,9 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertEqual(glosses["とき"], ["ritual meal", "time", "hour"])
         self.assertEqual(glosses["時"], ["time", "hour"])
         self.assertEqual(entries["時"][0].senses[0].pos_values, ("resolved noun label",))
+        self.assertEqual(entries["時"][0].reading_records[0].text, "とき")
+        self.assertEqual(entries["時"][0].reading_records[0].kanji_restrictions, ("時",))
+        self.assertFalse(entries["時"][0].reading_records[0].no_kanji)
 
     def test_jmdict_priority_loader_extracts_form_priority_tags(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
