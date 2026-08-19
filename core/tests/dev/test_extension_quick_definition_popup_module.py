@@ -247,6 +247,7 @@ assert.match(collectText(moduleNode), /Loading definition/);
   assert.match(rendered, /male dog/);
   assert.doesNotMatch(rendered, /sixth gloss should not render/);
   assert.match(rendered, /Wiktionary/);
+  assert.match(rendered, /Wiktionary ↗/);
   const anchor = findByTag(moduleNode, "a");
   assert.equal(anchor.href, "https://en.wiktionary.org/wiki/perro#Spanish");
 

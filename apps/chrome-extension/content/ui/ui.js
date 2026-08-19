@@ -342,8 +342,9 @@
         color:var(--lexishift-module-line, rgba(247,244,239,0.86));}
       .lexishift-definition-example{font-style:italic;}
       .lexishift-definition-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:1px;}
-      .lexishift-definition-link{font-size:11px;line-height:1.3;font-weight:700;color:inherit;
-        text-decoration:underline;text-underline-offset:2px;}
+      .lexishift-definition-link{display:inline-flex;align-items:center;padding:3px 7px;border:1px solid rgba(247,244,239,0.2);border-radius:4px;
+        background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(0,0,0,0.035));box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(0,0,0,0.13);font-size:11px;line-height:1.3;font-weight:700;color:inherit;text-decoration:none;}
+      .lexishift-definition-link:hover{border-color:rgba(247,244,239,0.32);background:linear-gradient(180deg,rgba(255,255,255,0.075),rgba(0,0,0,0.025));}.lexishift-definition-link:focus-visible{outline:2px solid currentColor;outline-offset:2px;}
       .lexishift-feedback-bar{display:flex;gap:6px;align-items:center;padding:6px 8px;
         flex:0 0 auto;border-radius:999px;background:rgba(28,26,23,0.9);box-shadow:0 10px 24px rgba(0,0,0,0.18);}
       .lexishift-feedback-option{width:22px;height:22px;border-radius:999px;border:0;cursor:pointer;

@@ -293,7 +293,7 @@
       anchor.href = url;
       anchor.target = "_blank";
       anchor.rel = "noopener noreferrer";
-      anchor.textContent = label;
+      anchor.textContent = `${label} ↗`;
       row.appendChild(anchor);
     });
     if (row.childNodes.length) {
