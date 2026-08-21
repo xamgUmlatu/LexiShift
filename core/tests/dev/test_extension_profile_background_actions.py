@@ -114,8 +114,7 @@ const bridge = context.LexiShift.optionsProfileBackgroundRuntimeBridge.createBri
     ["previewBlob", true],
     ["previewPosition", 25, 75],
     ["status", "Asset: image/png, 5 B."],
-    ["cardTheme"],
-    ["backdrop", "#4455aa"]
+    ["cardTheme"]
   ]);
 }})().catch((error) => {{
   console.error(error);

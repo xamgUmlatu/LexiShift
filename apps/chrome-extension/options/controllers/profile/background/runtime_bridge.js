@@ -123,6 +123,7 @@
       const localOptions = options && typeof options === "object" ? options : {};
       const eagerBackdrop = localOptions.eagerBackdrop === true;
       const skipImageAsset = localOptions.skipImageAsset === true;
+      const skipPageImageAsset = localOptions.skipPageImageAsset === true;
       const assetId = String(prefs.backgroundAssetId || "").trim();
       const backdropColor = normalizeProfileBackgroundBackdropColor(prefs.backgroundBackdropColor);
       const position = normalizeProfileBackgroundPosition(
@@ -132,6 +133,9 @@
       const preferredBlob = localOptions.preferredBlob instanceof Blob ? localOptions.preferredBlob : null;
       if (!assetId) {
         pageBackgroundManager.applyBackdropOnly(backdropColor);
+        return;
+      }
+      if (skipPageImageAsset) {
         return;
       }
       if (eagerBackdrop || skipImageAsset) {
