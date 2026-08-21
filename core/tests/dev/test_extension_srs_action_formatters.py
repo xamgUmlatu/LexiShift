@@ -489,6 +489,20 @@ const diagnosticsText = formatters.buildRuntimeDiagnosticsOutput({{
       semantic_decision_policy_id: "en_es_sentence_veto_v3",
       semantic_inventory_error: "",
       helper_rules_error: "",
+      replacement_budget_scope: "frame_document",
+      replacement_budget_active: true,
+      replacement_budget_max_total: 20,
+      replacement_budget_max_per_sentence: 2,
+      replacement_budget_max_per_lemma: 1,
+      replacement_budget_used_total: 18,
+      replacement_budget_tracked_sentence_count: 12,
+      replacement_budget_tracked_lemma_count: 15,
+      replacement_budget_page_exhausted: false,
+      replacement_budget_sentence_cap_reached_count: 4,
+      replacement_budget_lemma_cap_reached_count: 7,
+      replacement_budget_rejected_page: 0,
+      replacement_budget_rejected_sentence: 3,
+      replacement_budget_rejected_lemma: 8,
       frame_type: "top"
     }}
   }}
@@ -515,6 +529,13 @@ assert.match(diagnosticsText, /semantic_ready_rule_count: 4/);
 assert.match(diagnosticsText, /semantic_matches_ready: 4/);
 assert.match(diagnosticsText, /semantic_policy_soft_affordances: 1/);
 assert.match(diagnosticsText, /semantic_fallback_soft_affordances: 1/);
+assert.match(diagnosticsText, /replacement_budget_scope: frame_document/);
+assert.match(diagnosticsText, /replacement_budget_max_total: 20/);
+assert.match(diagnosticsText, /replacement_budget_used_total: 18/);
+assert.match(diagnosticsText, /replacement_budget_tracked_sentence_count: 12/);
+assert.match(diagnosticsText, /replacement_budget_tracked_lemma_count: 15/);
+assert.match(diagnosticsText, /replacement_budget_rejected_sentence: 3/);
+assert.match(diagnosticsText, /replacement_budget_rejected_lemma: 8/);
 assert.match(
   diagnosticsText,
   /semantic_fallback_reason_counts: \\{{"decision_service_error":1,"semantic_status_pending":1\\}}/
