@@ -54,6 +54,11 @@ docs/.bundle/
 docs/vendor/bundle/
 docs/test_outputs/landing_visual_mocks/
 
+# Keep only reviewed Chrome Web Store deliverables; local captures and crop
+# intermediates are reproducible working files.
+/release-assets/chrome-web-store/screenshots/source/
+/release-assets/chrome-web-store/screenshots/working/
+
 # Ignore local test vocabulary exports (prevent leaking personal word lists)
 TestVocabPool.json
 local_test_*.json
