@@ -2087,9 +2087,18 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified` for the shared read-only
   word-info API, selected-profile Vocabulary Library page with active-pair
-  selection, and built-in `quick-definition` popup module; cross-profile library enumeration and completed/
-  mastered lifecycle UX remain planned.
-- Last documented checkpoint: `2026-08-20` Japanese definition lookup now uses
+  selection, built-in `quick-definition` popup module, and per-language-pair
+  selection of locally imported Yomitan format-3 popup dictionaries;
+  cross-profile library enumeration and completed/mastered lifecycle UX remain
+  planned.
+- Last documented checkpoint: `2026-08-22` the helper now imports user-supplied
+  Yomitan format-3 term dictionaries into local SQLite indexes, lets one
+  installed dictionary serve multiple language pairs, and selects a primary
+  popup dictionary independently for each pair. Configured dictionaries are
+  tried before the pair's built-in lookup source, with exact surface/reading
+  identity preserved for Japanese lookup. The helper-first acquisition UI
+  explains the local-only/licensing boundary and guides users to compatible
+  sources before ZIP import. `2026-08-20` Japanese definition lookup now uses
   the clicked replacement's exact surface/reading identity when available,
   honors JMdict reading and sense restrictions, keeps SRS attachment and the
   extension lookup cache reading-aware, and reports stable local dictionary and
@@ -2106,7 +2115,13 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-20` focused word-info, JMdict parsing, extension cache,
+- Last verified: `2026-08-22` a real user-supplied Daijirin Fourth Edition
+  image-free archive imported `334,750` terms in an isolated helper root;
+  repeat import reused the same pack, cancellation left no partial install,
+  and reading-aware lookups separately resolved `時/とき` and `時/じ` for both
+  `en-ja` and `ja-ja`. Focused lookup/settings tests, the full repository safety
+  check, and packaged macOS GUI validation passed. `2026-08-20` focused
+  word-info, JMdict parsing, extension cache,
   and quick-definition tests passed (`48` tests); a read-only lookup against the
   installed `suisui` data returned `時/とき` without the unrelated `斎/とき`
   ritual-meal sense and separately resolved `時/じ`. Earlier `2026-06-02` dedicated Vocabulary Library page pair-selector/theme-loading tests plus
@@ -2142,6 +2157,16 @@ Use this file when:
   - Successful payloads expose local dictionary `pack_id`, `provider`, and
     `source_kind`, plus the matched surface/reading and match quality; no local
     resource path is exposed.
+  - The helper can securely import a user-supplied Yomitan format-3 term
+    dictionary ZIP into an app-local SQLite index. Import runs off the GUI
+    thread, reports progress, supports cancellation, rejects unsafe or
+    oversized archives, and does not copy the source ZIP into the repository or
+    upload dictionary data.
+  - Popup-dictionary assignment is global per language pair rather than per
+    profile. One installed dictionary may be assigned to multiple pairs. The
+    settings contract already stores an ordered pack-id tuple and runtime lookup
+    tries configured packs in order, but the current GUI exposes one primary
+    dictionary per pair followed by the built-in source.
   - The content singleton is configured with the current helper client.
     `quick-definition` receives the shared `LexiShift.wordInfoApi` capability
     through the popup descriptor context and does not call native messaging or
@@ -2178,6 +2203,9 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/word_info_dictionary.py`
   - `core/lexishift_core/helper/use_cases/word_info_identity.py`
   - `core/lexishift_core/helper/use_cases/word_info_jmdict.py`
+  - `core/lexishift_core/helper/lookup_dictionary_settings.py`
+  - `core/lexishift_core/helper/yomitan_lookup_dictionaries.py`
+  - `core/lexishift_core/helper/yomitan_dictionary_rendering.py`
   - `core/lexishift_core/helper/engine.py`
   - `scripts/helper/lexishift_native_host.py`
   - `apps/chrome-extension/shared/helper/helper_client.js`
@@ -2196,7 +2224,11 @@ Use this file when:
   - `apps/chrome-extension/learning_dashboard_table.js`
   - `apps/chrome-extension/learning_dashboard_theme.js`
   - `apps/chrome-extension/learning_dashboard.js`
+  - `apps/gui/src/settings_lookup_dictionaries_mixin.py`
+  - `apps/gui/src/lookup_dictionary_import.py`
+  - `apps/gui/tests/test_lookup_dictionary_settings.py`
   - `core/tests/helper/test_helper_word_info.py`
+  - `core/tests/helper/test_yomitan_lookup_dictionaries.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_helper_status_profile_contract.py`
   - `core/tests/dev/test_extension_quick_definition_popup_module.py`
@@ -2209,9 +2241,14 @@ Use this file when:
   - Batch lookup for a page of library rows is not implemented.
   - The normalized public popup module API remains target architecture; the
     current module uses the existing internal popup descriptor/context pattern.
-  - Per-language-pair dictionary source selection and fallback policy are not
-    yet implemented; the route still uses the pair capability's resolved local
-    source.
+  - The GUI does not yet expose multiple configured dictionaries or ordering
+    controls, even though the persisted/runtime contract supports ordered
+    fallback packs.
+  - Yomitan media files are not imported. Structured-content image nodes use a
+    safe textual fallback, so the verified image-free Daijirin archive works
+    without claiming general image-dictionary support.
+  - Acquisition guidance currently opens a community-maintained source
+    directory; it is not yet a curated in-app catalogue or automatic downloader.
 
 ## Vocabulary Practice Options UX
 
