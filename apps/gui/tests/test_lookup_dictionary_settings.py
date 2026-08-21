@@ -70,7 +70,12 @@ def test_language_pack_panel_exposes_lookup_dictionary_tab() -> None:
             "do not affect replacements" in label.text() for label in panel.findChildren(QLabel)
         )
         assert any(label.text() == "Installed dictionaries" for label in panel.findChildren(QLabel))
-        assert any(label.text() == "Add a dictionary" for label in panel.findChildren(QLabel))
+        assert any(label.text() == "Get a dictionary" for label in panel.findChildren(QLabel))
+        assert any("Start here" in label.text() for label in panel.findChildren(QLabel))
+        assert panel._lookup_dictionary_find_button.text() == "Get dictionaries..."
+        assert panel._lookup_dictionary_find_button.objectName() == "settingsPrimaryButton"
+        assert panel._lookup_dictionary_import_button.text() == "Import downloaded ZIP..."
+        assert panel._lookup_dictionary_import_button.objectName() != "settingsPrimaryButton"
 
 
 def test_lookup_dictionary_selection_is_saved_per_language_pair() -> None:
@@ -113,6 +118,9 @@ def test_lookup_dictionary_selection_is_saved_per_language_pair() -> None:
         used_by = panel._lookup_dictionary_table.item(0, 2).text()
         assert "en-ja" in used_by
         assert "ja-ja" in used_by
+        actions = panel._lookup_dictionary_table.cellWidget(0, 4)
+        assert actions is not None
+        assert panel._lookup_dictionary_table.columnWidth(4) >= actions.sizeHint().width()
         assert source.exists()
 
 

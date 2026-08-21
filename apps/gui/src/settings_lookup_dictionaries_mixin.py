@@ -117,6 +117,40 @@ class LanguagePackPanelLookupDictionariesMixin:
         description.setWordWrap(True)
         layout.addWidget(description)
 
+        add_title = QLabel(t("language_packs.lookup_dictionaries.add_title"), tab)
+        add_title.setProperty("resourceSectionTitle", True)
+        layout.addWidget(add_title)
+        add_description = QLabel(
+            t("language_packs.lookup_dictionaries.add_description"),
+            tab,
+        )
+        add_description.setProperty("resourceDescription", True)
+        add_description.setWordWrap(True)
+        layout.addWidget(add_description)
+
+        action_row = QHBoxLayout()
+        self._lookup_dictionary_find_button = QPushButton(
+            t("language_packs.lookup_dictionaries.find_compatible"),
+            tab,
+        )
+        self._lookup_dictionary_find_button.setObjectName("settingsPrimaryButton")
+        self._lookup_dictionary_find_button.clicked.connect(
+            self._show_compatible_lookup_dictionaries
+        )
+        action_row.addWidget(self._lookup_dictionary_find_button)
+        self._lookup_dictionary_import_button = QPushButton(
+            t("language_packs.lookup_dictionaries.import_downloaded_zip"),
+            tab,
+        )
+        self._lookup_dictionary_import_button.clicked.connect(self._select_lookup_dictionary_zip)
+        action_row.addWidget(self._lookup_dictionary_import_button)
+        action_row.addStretch(1)
+        layout.addLayout(action_row)
+
+        self._lookup_dictionary_status = QLabel("", tab)
+        self._lookup_dictionary_status.setWordWrap(True)
+        layout.addWidget(self._lookup_dictionary_status)
+
         assignment_title = QLabel(
             t("language_packs.lookup_dictionaries.assignment_title"),
             tab,
@@ -192,7 +226,9 @@ class LanguagePackPanelLookupDictionariesMixin:
         header_view.setSectionResizeMode(1, QHeaderView.ResizeToContents)
         header_view.setSectionResizeMode(2, QHeaderView.Stretch)
         header_view.setSectionResizeMode(3, QHeaderView.ResizeToContents)
-        header_view.setSectionResizeMode(4, QHeaderView.ResizeToContents)
+        # QHeaderView does not include cell-widget size hints when calculating
+        # ResizeToContents, so the actions column is sized explicitly below.
+        header_view.setSectionResizeMode(4, QHeaderView.Fixed)
         self._lookup_dictionary_table.setMinimumHeight(190)
         layout.addWidget(self._lookup_dictionary_table, 1)
 
@@ -203,40 +239,6 @@ class LanguagePackPanelLookupDictionariesMixin:
         self._lookup_dictionary_empty.setProperty("resourceDescription", True)
         self._lookup_dictionary_empty.setWordWrap(True)
         layout.addWidget(self._lookup_dictionary_empty)
-
-        add_title = QLabel(t("language_packs.lookup_dictionaries.add_title"), tab)
-        add_title.setProperty("resourceSectionTitle", True)
-        layout.addWidget(add_title)
-        add_description = QLabel(
-            t("language_packs.lookup_dictionaries.add_description"),
-            tab,
-        )
-        add_description.setProperty("resourceDescription", True)
-        add_description.setWordWrap(True)
-        layout.addWidget(add_description)
-
-        action_row = QHBoxLayout()
-        self._lookup_dictionary_import_button = QPushButton(
-            t("language_packs.lookup_dictionaries.import_zip"),
-            tab,
-        )
-        self._lookup_dictionary_import_button.setObjectName("settingsPrimaryButton")
-        self._lookup_dictionary_import_button.clicked.connect(self._select_lookup_dictionary_zip)
-        action_row.addWidget(self._lookup_dictionary_import_button)
-        self._lookup_dictionary_find_button = QPushButton(
-            t("language_packs.lookup_dictionaries.find_compatible"),
-            tab,
-        )
-        self._lookup_dictionary_find_button.clicked.connect(
-            self._show_compatible_lookup_dictionaries
-        )
-        action_row.addWidget(self._lookup_dictionary_find_button)
-        action_row.addStretch(1)
-        layout.addLayout(action_row)
-
-        self._lookup_dictionary_status = QLabel("", tab)
-        self._lookup_dictionary_status.setWordWrap(True)
-        layout.addWidget(self._lookup_dictionary_status)
 
         self._lookup_dictionary_pair_combo.currentIndexChanged.connect(
             self._refresh_lookup_dictionary_choices
@@ -461,6 +463,7 @@ class LanguagePackPanelLookupDictionariesMixin:
         table.setRowCount(len(dictionaries))
         self._lookup_dictionary_empty.setVisible(not dictionaries)
         table.setVisible(bool(dictionaries))
+        actions_width = table.horizontalHeaderItem(4).sizeHint().width() + 18
         for row, dictionary in enumerate(dictionaries):
             name = dictionary.title
             if dictionary.revision:
@@ -500,6 +503,9 @@ class LanguagePackPanelLookupDictionariesMixin:
                 t("language_packs.lookup_dictionaries.show_files"),
                 actions,
             )
+            show_button.setMinimumWidth(
+                show_button.fontMetrics().horizontalAdvance(show_button.text()) + 28
+            )
             show_button.clicked.connect(
                 lambda checked=False, pack_id=dictionary.pack_id: (
                     self._show_lookup_dictionary_files(pack_id)
@@ -510,6 +516,9 @@ class LanguagePackPanelLookupDictionariesMixin:
                 t("language_packs.lookup_dictionaries.remove"),
                 actions,
             )
+            remove_button.setMinimumWidth(
+                remove_button.fontMetrics().horizontalAdvance(remove_button.text()) + 28
+            )
             remove_button.clicked.connect(
                 lambda checked=False, pack_id=dictionary.pack_id: self._remove_lookup_dictionary(
                     pack_id
@@ -517,23 +526,47 @@ class LanguagePackPanelLookupDictionariesMixin:
             )
             action_layout.addWidget(remove_button)
             table.setCellWidget(row, 4, actions)
+            actions_width = max(actions_width, actions.sizeHint().width() + 8)
+        if dictionaries:
+            table.setColumnWidth(4, actions_width)
 
     def _show_lookup_dictionary_files(self, pack_id: str) -> None:
         reveal_path(str(Path(self._lookup_dictionary_dir) / pack_id))
 
     def _show_compatible_lookup_dictionaries(self) -> None:
+        pair = self._current_lookup_dictionary_pair()
+        pair_label = _lookup_pair_label(pair)
+        target_language = _lookup_language_label(_lookup_pair_target_language(pair))
         dialog = QMessageBox(self)
         dialog.setIcon(QMessageBox.Information)
         dialog.setWindowTitle(t("language_packs.lookup_dictionaries.find_compatible_title"))
-        dialog.setText(t("language_packs.lookup_dictionaries.find_compatible_summary"))
-        dialog.setInformativeText(t("language_packs.lookup_dictionaries.find_compatible_details"))
+        dialog.setText(
+            t(
+                "language_packs.lookup_dictionaries.find_compatible_summary",
+                pair=pair_label,
+            )
+        )
+        dialog.setInformativeText(
+            t(
+                "language_packs.lookup_dictionaries.find_compatible_details",
+                target_language=target_language,
+            )
+        )
+        dialog.setDetailedText(
+            t(
+                "language_packs.lookup_dictionaries.find_compatible_technical_details",
+                pair=pair,
+                target_language=target_language,
+                directory_url=_COMPATIBLE_DICTIONARY_DIRECTORY_URL,
+            )
+        )
         directory_button = dialog.addButton(
             t("language_packs.lookup_dictionaries.open_community_directory"),
-            QMessageBox.ButtonRole.ActionRole,
+            QMessageBox.ButtonRole.AcceptRole,
         )
         import_button = dialog.addButton(
-            t("language_packs.lookup_dictionaries.import_zip"),
-            QMessageBox.ButtonRole.AcceptRole,
+            t("language_packs.lookup_dictionaries.import_downloaded_zip"),
+            QMessageBox.ButtonRole.ActionRole,
         )
         dialog.addButton(QMessageBox.Close)
         prepare_message_box(dialog)
