@@ -60,8 +60,9 @@ def _write_yomitan_zip(path: Path) -> None:
 def test_compatible_lookup_dictionary_directory_url_is_target_aware() -> None:
     japanese_url = _compatible_lookup_dictionary_directory_url("en-ja")
 
-    assert japanese_url.startswith("https://github.com/MarvNC/yomitan-dictionaries#:~:text=")
-    assert "%E7%84%A1%E3%81%97" in japanese_url
+    assert japanese_url == (
+        "https://github.com/MarvNC/yomitan-dictionaries#daijirin-fourth-edition"
+    )
     assert _compatible_lookup_dictionary_directory_url("ja-ja") == japanese_url
     assert _compatible_lookup_dictionary_directory_url("en-de") == (
         "https://github.com/MarvNC/yomitan-dictionaries"

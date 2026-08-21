@@ -40,10 +40,7 @@ from utils_paths import reveal_path
 
 
 _COMPATIBLE_DICTIONARY_DIRECTORY_URL = "https://github.com/MarvNC/yomitan-dictionaries"
-_JAPANESE_DICTIONARY_DIRECTORY_TEXT_FRAGMENT = (
-    "#:~:text=%E7%AC%AC%E5%9B%9B%E7%89%88%E3%80%80%E7%94%BB%E5%83%8F-,"
-    "%E7%84%A1%E3%81%97,-Converted%20by%20Malte"
-)
+_JAPANESE_DICTIONARY_DIRECTORY_SECTION = "#daijirin-fourth-edition"
 
 _LOOKUP_LANGUAGE_LABEL_KEYS = {
     "de": "languages.german",
@@ -76,7 +73,7 @@ def _lookup_pair_target_language(pair: str) -> str:
 
 def _compatible_lookup_dictionary_directory_url(pair: str) -> str:
     if _lookup_pair_target_language(pair) == "ja":
-        return _COMPATIBLE_DICTIONARY_DIRECTORY_URL + _JAPANESE_DICTIONARY_DIRECTORY_TEXT_FRAGMENT
+        return _COMPATIBLE_DICTIONARY_DIRECTORY_URL + _JAPANESE_DICTIONARY_DIRECTORY_SECTION
     return _COMPATIBLE_DICTIONARY_DIRECTORY_URL
 
 

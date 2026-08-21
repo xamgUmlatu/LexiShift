@@ -2102,9 +2102,10 @@ Use this file when:
   sources before ZIP import. Opening the community source directory now starts
   a short-lived, pair-aware Downloads check; the extension gives contextual
   guidance on that directory without linking directly to a commercial archive,
-  Japanese-target pairs use a non-authoritative text fragment to bring the
-  current image-free Daijirin row into view while other pairs retain the
-  directory root,
+  Japanese-target pairs use the directory's stable Daijirin section anchor while
+  other pairs retain the directory root, and the Japanese guidance card can
+  re-locate and briefly highlight that section without opening its external
+  download link,
   and the desktop offers import only after validating a recent ZIP's Yomitan
   format, index metadata, term bank, and declared headword language.
   `2026-08-20` Japanese definition lookup now uses
@@ -2188,8 +2189,9 @@ Use this file when:
     explains the return-to-LexiShift flow in an isolated content-script card. It
     neither points to the Daijirin MediaFire archive nor initiates or observes
     browser downloads, and the manifest still has no `downloads` permission.
-    The extension matcher intentionally ignores URL fragments, so a changed or
-    unsupported text highlight falls back to the same recognized directory page.
+    An exact, stable Daijirin heading fragment opts into Japanese recommendation
+    details and a resilient locate/highlight action; any other fragment falls
+    back to the generic directory guidance.
   - Popup-dictionary assignment is global per language pair rather than per
     profile. One installed dictionary may be assigned to multiple pairs. The
     settings contract already stores an ordered pack-id tuple and runtime lookup

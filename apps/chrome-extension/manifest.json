@@ -84,6 +84,7 @@
         "content/ui/popup_helpers.js",
         "content/ui/ui.js",
         "content/ui/utils.js",
+        "content/ui/manual_source_dictionary_guidance.js",
         "content/ui/manual_source_prompt.js",
         "content_script.js"
       ],

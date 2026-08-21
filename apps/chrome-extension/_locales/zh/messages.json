@@ -1739,6 +1739,21 @@
   "dictionary_source_prompt_after_download": {
     "message": "下载可用的 ZIP 后请返回 LexiShift。桌面应用会验证该文件并提供本地导入选项。"
   },
+  "dictionary_source_prompt_recommended": {
+    "message": "日语推荐：$1"
+  },
+  "dictionary_source_prompt_format": {
+    "message": "格式：$1"
+  },
+  "dictionary_source_prompt_show_entry": {
+    "message": "显示推荐条目"
+  },
+  "dictionary_source_prompt_entry_found": {
+    "message": "已突出显示推荐条目。请使用此页面上的下载链接，完成后返回 LexiShift。"
+  },
+  "dictionary_source_prompt_entry_missing": {
+    "message": "页面已发生变化，无法找到推荐条目。请在此页面中搜索“$1”。"
+  },
   "manual_source_prompt_body": {
     "message": "此页面托管 $2 所需的 $1。请先查看提供方条款，然后下载所需源文件。"
   },
