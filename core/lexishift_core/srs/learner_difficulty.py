@@ -12,11 +12,24 @@ from lexishift_core.srs.admission_features import clamp01, safe_optional_float
 
 LEARNER_DIFFICULTY_MODEL_VERSION = "learner_difficulty_v1"
 CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV = "LEXISHIFT_EN_JA_LEARNER_DIFFICULTY_CSV"
+CORRECTED_EN_ES_LEARNER_DIFFICULTY_CSV_ENV = "LEXISHIFT_EN_ES_LEARNER_DIFFICULTY_CSV"
+CORRECTED_EN_DE_LEARNER_DIFFICULTY_CSV_ENV = "LEXISHIFT_EN_DE_LEARNER_DIFFICULTY_CSV"
 _PACKAGED_RESOURCE_ROOT = Path(__file__).resolve().parents[1] / "resources" / "srs" / "en_ja"
 PACKAGED_EN_JA_LEARNER_DIFFICULTY_CSV = _PACKAGED_RESOURCE_ROOT / "learner_difficulty_corrected.csv"
 PACKAGED_EN_JA_LEARNER_DIFFICULTY_MANUAL_CORRECTIONS_JSON = (
     _PACKAGED_RESOURCE_ROOT / "learner_difficulty_manual_corrections.json"
 )
+_PACKAGED_SRS_RESOURCE_ROOT = Path(__file__).resolve().parents[1] / "resources" / "srs"
+CORRECTED_LEARNER_DIFFICULTY_CSV_ENV_BY_PAIR = {
+    "en-ja": CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV,
+    "en-es": CORRECTED_EN_ES_LEARNER_DIFFICULTY_CSV_ENV,
+    "en-de": CORRECTED_EN_DE_LEARNER_DIFFICULTY_CSV_ENV,
+}
+PACKAGED_LEARNER_DIFFICULTY_CSV_BY_PAIR = {
+    "en-ja": PACKAGED_EN_JA_LEARNER_DIFFICULTY_CSV,
+    "en-es": _PACKAGED_SRS_RESOURCE_ROOT / "en_es" / "learner_difficulty_corrected.csv",
+    "en-de": _PACKAGED_SRS_RESOURCE_ROOT / "en_de" / "learner_difficulty_corrected.csv",
+}
 
 _EN_JA_EXACT_LEARNER_DIFFICULTY: Mapping[str, tuple[float, str]] = {
     "する": (0.005, "beginner_core_verb"),
@@ -63,6 +76,19 @@ _EN_JA_EXACT_LEARNER_DIFFICULTY: Mapping[str, tuple[float, str]] = {
     "魚": (0.30, "beginner_core_animal"),
     "パン": (0.30, "beginner_core_food"),
     "レタス": (0.30, "beginner_core_food"),
+}
+
+_EN_JA_EXACT_READING_LEARNER_DIFFICULTY: Mapping[tuple[str, str], tuple[float, str]] = {
+    ("月", "がつ"): (0.18, "common_calendar_reading"),
+    ("月", "げつ"): (0.28, "common_calendar_reading"),
+    ("月", "つき"): (0.20, "common_noun_reading"),
+    ("週", "しゅう"): (0.22, "common_calendar_reading"),
+    ("秒", "びょう"): (0.24, "common_measure_reading"),
+    ("度", "ど"): (0.30, "common_measure_reading"),
+    ("度", "たび"): (0.36, "common_wago_reading"),
+    ("袋", "ふくろ"): (0.26, "common_noun_reading"),
+    ("版", "はん"): (0.36, "common_publication_reading"),
+    ("種", "しゅ"): (0.45, "common_bound_sino_reading"),
 }
 
 
@@ -127,26 +153,44 @@ def estimate_learner_difficulty(
     base = clamp01(safe_optional_float(frequency_proxy)) or 0.0
     pair = str(language_pair or "").strip().lower()
     surface = str(lemma or "").strip()
-    if pair == "en-ja":
-        corrected = lookup_corrected_en_ja_learner_difficulty(
-            lemma=surface,
-            reading=reading,
-            reading_candidates=reading_candidates,
+    corrected = lookup_corrected_learner_difficulty(
+        language_pair=pair,
+        lemma=surface,
+        reading=reading,
+        reading_candidates=reading_candidates,
+    )
+    if corrected is not None:
+        pair_source = pair.replace("-", "_")
+        return LearnerDifficultyEstimate(
+            value=clamp01(corrected.row.score) or 0.0,
+            proxy=(
+                f"{LEARNER_DIFFICULTY_MODEL_VERSION}:"
+                f"{pair_source}_corrected_ranking:{corrected.match_mode}"
+            ),
+            sources=(
+                "frequency_proxy",
+                f"{pair_source}_corrected_learner_difficulty_csv",
+                corrected.match_mode,
+            ),
+            frequency_proxy=base,
         )
-        if corrected is not None:
-            return LearnerDifficultyEstimate(
-                value=clamp01(corrected.row.score) or 0.0,
-                proxy=(
-                    f"{LEARNER_DIFFICULTY_MODEL_VERSION}:"
-                    f"en_ja_corrected_ranking:{corrected.match_mode}"
-                ),
-                sources=(
-                    "frequency_proxy",
-                    "en_ja_corrected_learner_difficulty_csv",
-                    corrected.match_mode,
-                ),
-                frequency_proxy=base,
+    if pair == "en-ja":
+        for candidate_reading in _normalized_reading_candidates(
+            pair,
+            reading,
+            *(reading_candidates or ()),
+        ):
+            exact_reading = _EN_JA_EXACT_READING_LEARNER_DIFFICULTY.get(
+                (surface, candidate_reading)
             )
+            if exact_reading is not None:
+                value, source = exact_reading
+                return LearnerDifficultyEstimate(
+                    value=clamp01(value) or 0.0,
+                    proxy=f"{LEARNER_DIFFICULTY_MODEL_VERSION}:en_ja_reading_exact_overlay",
+                    sources=("frequency_proxy", source),
+                    frequency_proxy=base,
+                )
         exact = _EN_JA_EXACT_LEARNER_DIFFICULTY.get(surface)
         if exact is not None:
             value, source = exact
@@ -171,14 +215,33 @@ def lookup_corrected_en_ja_learner_difficulty(
     reading_candidates: Sequence[object] | None = None,
     csv_path: object = None,
 ) -> CorrectedLearnerDifficultyMatch | None:
-    path = _resolve_corrected_en_ja_csv_path(csv_path)
+    return lookup_corrected_learner_difficulty(
+        language_pair="en-ja",
+        lemma=lemma,
+        reading=reading,
+        reading_candidates=reading_candidates,
+        csv_path=csv_path,
+    )
+
+
+def lookup_corrected_learner_difficulty(
+    *,
+    language_pair: object,
+    lemma: object,
+    reading: object = None,
+    reading_candidates: Sequence[object] | None = None,
+    csv_path: object = None,
+) -> CorrectedLearnerDifficultyMatch | None:
+    pair = _normalize_pair(language_pair)
+    path = _resolve_corrected_csv_path(pair, csv_path)
     if path is None:
         return None
     surface = str(lemma or "").strip()
     if not surface:
         return None
-    index = _load_corrected_en_ja_index(str(path))
+    index = _load_corrected_index(pair, str(path))
     for candidate_reading in _normalized_reading_candidates(
+        pair,
         reading,
         *(reading_candidates or ()),
     ):
@@ -198,13 +261,21 @@ def lookup_corrected_en_ja_learner_difficulty(
 
 
 def clear_corrected_learner_difficulty_cache() -> None:
-    _load_corrected_en_ja_index.cache_clear()
+    _load_corrected_index.cache_clear()
 
 
 def resolve_corrected_en_ja_learner_difficulty_csv_path(
     csv_path: object = None,
 ) -> Path | None:
-    return _resolve_corrected_en_ja_csv_path(csv_path)
+    return _resolve_corrected_csv_path("en-ja", csv_path)
+
+
+def resolve_corrected_learner_difficulty_csv_path(
+    *,
+    language_pair: object,
+    csv_path: object = None,
+) -> Path | None:
+    return _resolve_corrected_csv_path(_normalize_pair(language_pair), csv_path)
 
 
 def resolve_packaged_en_ja_learner_difficulty_manual_corrections_path() -> Path | None:
@@ -215,11 +286,18 @@ def resolve_packaged_en_ja_learner_difficulty_manual_corrections_path() -> Path 
 
 
 def _resolve_corrected_en_ja_csv_path(csv_path: object = None) -> Path | None:
+    return _resolve_corrected_csv_path("en-ja", csv_path)
+
+
+def _resolve_corrected_csv_path(pair: str, csv_path: object = None) -> Path | None:
     raw_path = str(csv_path or "").strip()
     if not raw_path:
-        raw_path = os.environ.get(CORRECTED_EN_JA_LEARNER_DIFFICULTY_CSV_ENV, "").strip()
+        env_name = CORRECTED_LEARNER_DIFFICULTY_CSV_ENV_BY_PAIR.get(pair, "")
+        raw_path = os.environ.get(env_name, "").strip() if env_name else ""
     if not raw_path:
-        path = PACKAGED_EN_JA_LEARNER_DIFFICULTY_CSV
+        path = PACKAGED_LEARNER_DIFFICULTY_CSV_BY_PAIR.get(pair)
+        if path is None:
+            return None
     else:
         path = Path(raw_path).expanduser()
     if not path.exists() or not path.is_file():
@@ -228,7 +306,7 @@ def _resolve_corrected_en_ja_csv_path(csv_path: object = None) -> Path | None:
 
 
 @lru_cache(maxsize=4)
-def _load_corrected_en_ja_index(path_text: str) -> _CorrectedDifficultyIndex:
+def _load_corrected_index(pair: str, path_text: str) -> _CorrectedDifficultyIndex:
     by_pair: dict[tuple[str, str], CorrectedLearnerDifficultyRow] = {}
     by_display_pair: dict[tuple[str, str], CorrectedLearnerDifficultyRow] = {}
     by_lemma_rows: dict[str, list[CorrectedLearnerDifficultyRow]] = {}
@@ -237,7 +315,7 @@ def _load_corrected_en_ja_index(path_text: str) -> _CorrectedDifficultyIndex:
     with path.open(encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)
         for raw_row in reader:
-            row = _parse_corrected_en_ja_row(raw_row)
+            row = _parse_corrected_row(raw_row, pair=pair)
             if row is None:
                 continue
             if row.reading:
@@ -261,11 +339,13 @@ def _load_corrected_en_ja_index(path_text: str) -> _CorrectedDifficultyIndex:
     )
 
 
-def _parse_corrected_en_ja_row(
+def _parse_corrected_row(
     row: Mapping[str, object],
+    *,
+    pair: str,
 ) -> CorrectedLearnerDifficultyRow | None:
     lemma = str(row.get("lemma") or "").strip()
-    reading = normalize_reading(row.get("reading"), language_tag="ja")
+    reading = _normalize_corrected_reading(row.get("reading"), pair=pair)
     score = clamp01(safe_optional_float(row.get("score")))
     if not lemma or score is None:
         return None
@@ -288,18 +368,28 @@ def _parse_corrected_en_ja_row(
     )
 
 
-def _normalized_reading_candidates(*values: object) -> tuple[str, ...]:
+def _normalized_reading_candidates(pair: str, *values: object) -> tuple[str, ...]:
     candidates: list[str] = []
     seen: set[str] = set()
     for value in values:
         if value is None:
             continue
-        normalized = normalize_reading(value, language_tag="ja")
+        normalized = _normalize_corrected_reading(value, pair=pair)
         if not normalized or normalized in seen:
             continue
         candidates.append(normalized)
         seen.add(normalized)
     return tuple(candidates)
+
+
+def _normalize_corrected_reading(value: object, *, pair: str) -> str:
+    if pair == "en-ja":
+        return normalize_reading(value, language_tag="ja")
+    return str(value or "").strip().lower()
+
+
+def _normalize_pair(value: object) -> str:
+    return str(value or "").strip().lower()
 
 
 def _int_or_none(value: object) -> int | None:

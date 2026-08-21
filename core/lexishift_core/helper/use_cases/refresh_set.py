@@ -46,7 +46,8 @@ from lexishift_core.srs.pos_overlay import (
 )
 from lexishift_core.srs.profile_bootstrap import (
     DEFAULT_PROFILE_BOOTSTRAP_POLICY,
-    score_seed_words_for_profile,
+    FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY,
+    score_seed_words_for_frontier_gaussian_hybrid_profile,
 )
 from lexishift_core.srs.seed import SeedSelectionConfig, SeedWord, seed_to_selector_candidates
 from lexishift_core.srs.selector import SelectorCandidate, SelectorConfig
@@ -664,18 +665,26 @@ def _profile_growth_selector_candidates(
     *,
     profile_context: Optional[Mapping[str, object]],
 ) -> tuple[list[SelectorCandidate], Mapping[str, object]]:
-    scored_entries, diagnostics = score_seed_words_for_profile(
+    selection_count = min(
+        len(seeds),
+        max(AdmissionRefreshPolicy().selector_config.top_n, 200),
+    )
+    frontier_entries, diagnostics = score_seed_words_for_frontier_gaussian_hybrid_profile(
         seeds,
         profile_context=profile_context,
+        selection_count=selection_count,
         preview_limit=10,
+        policy=FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY,
     )
     candidates: list[SelectorCandidate] = []
-    for entry in scored_entries:
+    for entry in frontier_entries:
         base_candidates = seed_to_selector_candidates([cast(SeedWord, entry.seed)])
         if not base_candidates:
             continue
         base_candidate = base_candidates[0]
-        profile_candidate = entry.scored_candidate.candidate
+        profile_candidate = entry.source_entry.scored_candidate.candidate
+        lane_name = str(entry.selected_lane or "")
+        lane_score = max(0.0, float(entry.lane_scores.get(lane_name, 0.0)))
         base_metadata = (
             dict(base_candidate.metadata) if isinstance(base_candidate.metadata, Mapping) else {}
         )
@@ -688,18 +697,27 @@ def _profile_growth_selector_candidates(
             **base_metadata,
             **profile_metadata,
             "selection_strategy": STRATEGY_PROFILE_GROWTH,
+            "profile_growth_policy": FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY.version,
+            "profile_growth_lane": lane_name,
             "profile_growth_score": round(
-                float(entry.scored_candidate.breakdown.final_score),
+                lane_score,
                 6,
             ),
             "profile_growth_weighted_components": {
-                key: round(float(value), 6)
-                for key, value in entry.scored_candidate.breakdown.components.items()
+                "frontier_lane_score": round(lane_score, 6),
+                "topic_affinity": round(float(entry.signal_pack.preference_affinity), 6),
+                "admission_suitability": round(
+                    float(entry.signal_pack.admission_suitability),
+                    6,
+                ),
             },
         }
         candidates.append(
             replace(
                 profile_candidate,
+                base_freq=lane_score,
+                topic_bias=float(entry.signal_pack.preference_affinity),
+                user_pref=lane_score,
                 confidence=base_candidate.confidence,
                 source_type=base_candidate.source_type,
                 metadata=metadata,

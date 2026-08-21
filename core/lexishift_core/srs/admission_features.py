@@ -8,6 +8,10 @@ ADMISSION_PROFILE_FEATURES_VERSION = "admission_profile_features_v1"
 ADMISSION_CANDIDATE_FEATURES_VERSION = "admission_candidate_features_v1"
 ADMISSION_UTILITY_SIGNALS_VERSION = "admission_utility_signals_v1"
 TOPIC_FAMILY_NORMALIZATION_VERSION = "topic_family_v1"
+ADMISSION_CANDIDATE_FEATURES_METADATA_KEY = "admission_candidate_features"
+ADMISSION_CANDIDATE_FEATURES_PRECOMPUTE_VERSION_KEY = (
+    "admission_candidate_features_profile_policy_version"
+)
 
 _TOPIC_CANONICAL_ALIASES = {
     "animal": "animals",
@@ -149,6 +153,53 @@ class AdmissionCandidateFeatures:
                 key: list(values) for key, values in self.topic_hint_origins.items()
             },
         }
+
+
+def admission_candidate_features_from_mapping(
+    value: object,
+) -> Optional[AdmissionCandidateFeatures]:
+    if not isinstance(value, Mapping):
+        return None
+    if str(value.get("version") or "").strip() != ADMISSION_CANDIDATE_FEATURES_VERSION:
+        return None
+    topic_hint_origins: dict[str, tuple[str, ...]] = {}
+    origins = value.get("topic_hint_origins")
+    if isinstance(origins, Mapping):
+        for key, raw_values in origins.items():
+            normalized_key = str(key or "").strip()
+            if not normalized_key:
+                continue
+            topic_hint_origins[normalized_key] = tuple(normalize_string_list(raw_values))
+    learner_signals = value.get("learner_signals")
+    coverage_gain = safe_optional_float(value.get("coverage_gain"))
+    if coverage_gain is None:
+        coverage_gain = safe_optional_float(value.get("base_freq"))
+    admission_suitability = safe_optional_float(value.get("admission_suitability"))
+    admission_suitability_clamped = clamp01(admission_suitability)
+    return AdmissionCandidateFeatures(
+        candidate_identity_key=str(value.get("candidate_identity_key") or "").strip(),
+        lemma=str(value.get("lemma") or "").strip(),
+        lexical_commonness=clamp01(safe_optional_float(value.get("lexical_commonness"))) or 0.0,
+        coverage_gain=clamp01(coverage_gain) or 0.0,
+        difficulty_estimate=clamp01(safe_optional_float(value.get("difficulty_estimate"))) or 0.0,
+        difficulty_proxy=str(value.get("difficulty_proxy") or "").strip(),
+        difficulty_sources=tuple(normalize_string_list(value.get("difficulty_sources"))),
+        candidate_state=str(value.get("candidate_state") or "normal_vocab").strip()
+        or "normal_vocab",
+        presentation_mode=str(value.get("presentation_mode") or "vocab").strip() or "vocab",
+        problem_class=str(value.get("problem_class") or "normal_vocab").strip() or "normal_vocab",
+        classification_confidence=str(value.get("classification_confidence") or "review").strip()
+        or "review",
+        classification_reasons=tuple(normalize_string_list(value.get("classification_reasons"))),
+        admission_suitability=(
+            admission_suitability_clamped if admission_suitability_clamped is not None else 1.0
+        ),
+        lexical_forms=tuple(normalize_string_list(value.get("lexical_forms"))),
+        learner_signals=learner_signals if isinstance(learner_signals, Mapping) else {},
+        raw_topic_hints=tuple(normalize_string_list(value.get("raw_topic_hints"))),
+        topic_hints=tuple(normalize_string_list(value.get("topic_hints"))),
+        topic_hint_origins=topic_hint_origins,
+    )
 
 
 @dataclass(frozen=True)

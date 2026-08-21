@@ -51,6 +51,23 @@ class TestSrsQualityHarness(unittest.TestCase):
             sorted(phase_3["refresh_delta"]["added_lemmas"]),
         )
 
+    def test_build_report_supports_en_es_bootstrap_scenario(self) -> None:
+        report = build_report(pairs=("en-es",), include_feedback=False)
+
+        self.assertEqual(report["summary"]["fail_count"], 0)
+        self.assertEqual(report["summary"]["warn_count"], 0)
+        self.assertEqual(report["supported_pairs"], ["en-es"])
+        self.assertEqual(report["unsupported_pairs"], [])
+        scenario = report["pair_bootstrap_scenarios"][0]
+        self.assertEqual(scenario["pair"], "en-es")
+        self.assertEqual(scenario["runtime_due_active_count"], scenario["due_count"])
+        self.assertTrue(
+            any(
+                item.get("code") == "SRS_BROWSING_PREVIEW_SIGNAL_VISIBLE"
+                for item in scenario["findings"]
+            )
+        )
+
     def test_prepare_report_for_publication_normalizes_transient_fields(self) -> None:
         temp_root = Path(tempfile.gettempdir())
         temp_store_path = (

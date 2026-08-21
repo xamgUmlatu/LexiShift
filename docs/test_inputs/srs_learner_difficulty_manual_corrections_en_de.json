@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "language_pair": "en-de",
+  "status": "sidecar_review_input",
+  "purpose": "Manual post-model corrections for reviewed en-de learner-difficulty rows where the current automatic model admits suspicious standalone SRS vocabulary.",
+  "policy": {
+    "score_fields": {
+      "min_score": "Raise the effective learner-difficulty score to at least this value.",
+      "score_override": "Replace the effective learner-difficulty score exactly. Prefer min_score unless a reviewed row needs exact placement."
+    },
+    "correction_types": {
+      "score_override": "The row has a reviewed target and the model placed it too late or otherwise needs exact placement.",
+      "score_floor": "The row is valid vocabulary, but the model placed it too early.",
+      "restricted_admission": "The row is valid data, but should not be ordinary standalone SRS vocabulary.",
+      "exclude_standalone_srs": "Keep the row for audit/search/data completeness, but do not serve it as standalone new vocabulary."
+    },
+    "admission_override": "Standalone SRS admission class. Topic stretching should not override restricted_admission or exclude_standalone_srs rows."
+  },
+  "corrections": [
+    {
+      "lemma": "ander",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "fragment_or_nonlemma_form",
+      "rationale": "Reviewed restricted label and tight signal-probe hit: learner-source evidence exists, but the row has no POS, no translations, and behaves like a fragment rather than standalone SRS vocabulary."
+    },
+    {
+      "lemma": "beach",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "foreign_or_name_like_untranslated_row",
+      "rationale": "Reviewed restricted label: noun-shaped English/foreign row with no translation support; keep out of ordinary standalone en-de SRS admission."
+    },
+    {
+      "lemma": "beverly",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "proper_name_or_untranslated_row",
+      "rationale": "Reviewed restricted label: proper-name-like untranslated row; keep out of ordinary standalone en-de SRS admission."
+    },
+    {
+      "lemma": "franzen",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "unsupported_mixed_pos_or_name_like_row",
+      "rationale": "Reviewed restricted label and signal-probe hit: mixed noun/verb morphology with no translations or semantic support; not safe as ordinary standalone SRS vocabulary."
+    },
+    {
+      "lemma": "fussen",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "unsupported_variant_or_nonlemma_form",
+      "rationale": "Tight signal-probe hit: learner-source evidence exists, but the row has no POS, no translations, and no semantic support; review-safe restriction until source cleanup can distinguish a supported standalone item."
+    },
+    {
+      "lemma": "jed",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "fragment_or_nonlemma_form",
+      "rationale": "Tight signal-probe hit: learner-source evidence exists, but the row has no POS, no translations, and behaves like a stem/fragment rather than standalone SRS vocabulary."
+    },
+    {
+      "lemma": "king",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "foreign_or_name_like_untranslated_row",
+      "rationale": "Reviewed restricted label and signal-probe hit: short noun-shaped foreign/name-like row with no translation support; keep out of ordinary standalone en-de SRS admission."
+    },
+    {
+      "lemma": "mio",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "abbreviation_or_fragment",
+      "rationale": "Tight signal-probe hit: learner-source evidence exists, but the row has no POS, no translations, and is abbreviation/fragment-like rather than ordinary standalone vocabulary."
+    },
+    {
+      "lemma": "spassen",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "unsupported_variant_or_nonlemma_form",
+      "rationale": "Tight signal-probe hit: learner-source evidence exists, but the row has no POS, no translations, and no semantic support; review-safe restriction until source cleanup can distinguish a supported standalone item."
+    },
+    {
+      "lemma": "zuminde",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "fragment_or_nonlemma_form",
+      "rationale": "Reviewed restricted label and tight signal-probe hit: learner-source evidence exists, but the row has no POS, no translations, and behaves like a fragment rather than standalone SRS vocabulary."
+    },
+    {
+      "lemma": "zweiteilen",
+      "status": "active",
+      "correction_types": ["restricted_admission"],
+      "admission_override": "unsupported_no_semantic_support",
+      "rationale": "Tight signal-probe hit: learner-source evidence exists, but the row has no POS, no translations, and no semantic support in the current palette; restrict until it has source-backed standalone meaning."
+    }
+  ]
+}

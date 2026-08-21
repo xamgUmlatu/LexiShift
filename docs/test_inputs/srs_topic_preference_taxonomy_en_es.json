@@ -41,6 +41,30 @@
       "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
+      "id": "shopping_money",
+      "display_name": "Shopping & Money",
+      "product_priority": "p0",
+      "readiness_state": "p0_enrichment",
+      "data_strategy": "reviewed_overlay_then_source_enrichment",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "parent_family": "finance_business",
+      "mvp_picker_visibility": "strict_mvp_visible"
+    },
+    {
+      "id": "work_office",
+      "display_name": "Work & Office",
+      "product_priority": "p0",
+      "readiness_state": "p0_enrichment",
+      "data_strategy": "reviewed_overlay_then_source_enrichment",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "parent_family": "finance_business",
+      "mvp_picker_visibility": "strict_mvp_visible"
+    },
+    {
       "id": "sports_fitness",
       "display_name": "Sports & Fitness",
       "product_priority": "p0",
@@ -96,15 +120,39 @@
       "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
+      "id": "science_math",
+      "display_name": "Science & Math",
+      "product_priority": "p0",
+      "readiness_state": "p0_enrichment",
+      "data_strategy": "reviewed_overlay_then_source_enrichment",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "parent_family": "science_technology",
+      "mvp_picker_visibility": "strict_mvp_visible"
+    },
+    {
+      "id": "computing_internet",
+      "display_name": "Computing & Internet",
+      "product_priority": "p0",
+      "readiness_state": "p0_enrichment",
+      "data_strategy": "reviewed_overlay_then_source_enrichment",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "parent_family": "science_technology",
+      "mvp_picker_visibility": "strict_mvp_visible"
+    },
+    {
       "id": "travel_places_transport",
       "display_name": "Travel, Places & Transport",
       "product_priority": "p0",
-      "readiness_state": "partial",
+      "readiness_state": "p0_enrichment",
       "data_strategy": "geography_transport_labels_then_travel_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
       "pair_scope": "all_supported_pairs",
-      "mvp_picker_visibility": "future_beta_hidden"
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "arts_literature_humanities",
@@ -137,7 +185,7 @@
       "axis": "topic",
       "ux_group": "interests_style",
       "pair_scope": "all_supported_pairs",
-      "mvp_picker_visibility": "future_beta_hidden"
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "food_cooking",
@@ -170,7 +218,7 @@
       "axis": "topic",
       "ux_group": "interests_style",
       "pair_scope": "all_supported_pairs",
-      "mvp_picker_visibility": "hidden_source_required"
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "casual_slang_register",

@@ -8,8 +8,16 @@ DEFAULT_DATA_ROOT = Path.home() / "Library/Application Support/LexiShift/LexiShi
 DEFAULT_TAXONOMY = (
     PROJECT_ROOT / "docs" / "test_inputs" / "srs_topic_preference_taxonomy_en_es.json"
 )
-DEFAULT_CURRENT_FREQUENCY_DB = DEFAULT_DATA_ROOT / "frequency_packs" / "freq-es-cde.sqlite"
-DEFAULT_KAIKKI_FORWARD_DB = DEFAULT_DATA_ROOT / "language_packs" / "wiktionary-es-en.sqlite"
+DEFAULT_CURRENT_FREQUENCY_DB = DEFAULT_DATA_ROOT / "frequency_packs" / "freq-es-cde" / "main.sqlite"
+DEFAULT_KAIKKI_FORWARD_DB = (
+    DEFAULT_DATA_ROOT / "language_packs" / "wiktionary-es-en" / "main.sqlite"
+)
+DEFAULT_DIFFICULTY_RANKING_CSV = (
+    PROJECT_ROOT
+    / "docs"
+    / "test_outputs"
+    / "srs_learner_difficulty_final_ranking_corrected_en_es_latest.csv"
+)
 DEFAULT_JSON_OUT = (
     PROJECT_ROOT / "docs" / "test_outputs" / "srs_topic_family_depth_audit_en_es_latest.json"
 )

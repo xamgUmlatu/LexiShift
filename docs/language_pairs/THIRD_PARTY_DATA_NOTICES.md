@@ -30,6 +30,30 @@ It is not legal advice, and it does not by itself approve bundled or hosted redi
 | wiktionary-es-en | Wiktionary (ES→EN) | Kaikki | CC BY-SA / GFDL Wiktionary terms | auto-download | expected-not-verified | https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz | https://kaikki.org/dictionary/rawdata.html | Not recorded |
 | wordnet-en | WordNet | Princeton | CC BY 4.0 | auto-download | verified-from-upstream | https://en-word.net/static/english-wordnet-2025-json.zip | https://creativecommons.org/licenses/by/4.0/ | Not recorded |
 
+## Learner-Difficulty Diagnostic Sources
+
+These sources are used by sidecar learner-difficulty diagnostics. They are not
+currently production runtime packs and do not by themselves approve bundled or
+hosted redistribution of converted artifacts.
+
+| Source ID | Name | Source | License | Distribution mode | Status | Source URL | License URL | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| en-es-wiktionary-spanish1000 | Wiktionary Spanish1000 subtitle frequency list | Wiktionary contributors | Wiktionary CC BY-SA / GFDL terms | diagnostic-sidecar | expected-not-verified | https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Spanish1000 | https://en.wiktionary.org/wiki/Wiktionary:Copyrights | Parsed into `srs_learner_difficulty_learner_source_audit_en_es_latest` as weak subtitle-core evidence for en-es learner-difficulty experiments. |
+| en-es-espanjapeli-mit-words | Espanjapeli Spanish word data | lsspkk/espanjapeli | MIT | diagnostic-sidecar | expected-not-verified | https://github.com/lsspkk/espanjapeli | https://github.com/lsspkk/espanjapeli/blob/main/LICENSE | Parsed into `srs_learner_difficulty_learner_source_audit_en_es_latest` as weak beginner/core evidence. |
+| en-es-openlingo-mit-a1-spanish | OpenLingo A1 Spanish lesson vocabulary | pretzelai/openlingo | MIT | diagnostic-sidecar | expected-not-verified | https://github.com/pretzelai/openlingo | https://github.com/pretzelai/openlingo/blob/main/LICENSE | Parsed into `srs_learner_difficulty_learner_source_audit_en_es_latest` as tiny A1 lesson-presence evidence. |
+| en-es-openlingo-mit-spanish-dictionary | OpenLingo Spanish dictionary | pretzelai/openlingo | MIT | diagnostic-sidecar | expected-not-verified | https://github.com/pretzelai/openlingo/blob/main/words/spanish.json | https://github.com/pretzelai/openlingo/blob/main/LICENSE | Parsed into `srs_learner_difficulty_learner_source_audit_en_es_latest` as broad CEFR-like learner dictionary evidence for en-es formula experiments. Not an official CEFR/DELE specification. |
+| en-es-lexcomspal2 | LexComSpaL2 Spanish L2 lexical-complexity corpus | Jasper Degraeuwe / Ghent University | ODC Attribution License v1.0 | diagnostic-sidecar | verified-from-upstream | https://zenodo.org/records/20156148 | https://github.com/JasperD-UGent/LexComSpaL2/blob/main/LICENSE | Parsed by `srs_learner_difficulty_formula_probe_en_es.py` as optional token-level Spanish L2 learner-complexity evidence. Not a production runtime pack. |
+
+## SRS Topic Diagnostic Sources
+
+These sources are used by sidecar SRS topic diagnostics and reviewed topic-overlay
+generation. They are not production runtime network dependencies.
+
+| Source ID | Name | Source | License | Distribution mode | Status | Source URL | License URL | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| en-es-wikidata-natural-taxonomy-topics | Wikidata natural-taxonomy topic labels | Wikidata | CC0 | diagnostic-sidecar | expected-not-verified | https://query.wikidata.org/sparql | https://www.wikidata.org/wiki/Wikidata:Licensing | Parsed by `srs_wikidata_natural_taxonomy_candidates_en_es.py` and promoted by `srs_wikidata_natural_taxonomy_topic_overlay_en_es.py` as a conservative build-time animals/plants overlay. No runtime Wikidata dependency. |
+| en-es-wikidata-science-topics | Wikidata structured science topic labels | Wikidata | CC0 | diagnostic-sidecar | expected-not-verified | https://query.wikidata.org/sparql | https://www.wikidata.org/wiki/Wikidata:Licensing | Parsed by `srs_wikidata_science_topic_overlay_en_es.py` as a conservative build-time en-es topic overlay for chemical elements and unit-shaped measurement labels. No runtime Wikidata dependency. |
+
 ## Frequency Packs
 
 | Pack ID | Name | Source | License | Distribution mode | Status | Source URL | License URL | Notes |

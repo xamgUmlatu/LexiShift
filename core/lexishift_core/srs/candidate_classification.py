@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import re
 from typing import Mapping, Sequence
 
 CANDIDATE_STATE_NORMAL_VOCAB = "normal_vocab"
@@ -27,7 +28,7 @@ PROBLEM_CLASS_ACRONYM_OR_CODE = "acronym_or_code"
 CLASSIFICATION_CONFIDENCE_HIGH = "high"
 CLASSIFICATION_CONFIDENCE_REVIEW = "review"
 
-CANDIDATE_CLASSIFICATION_VERSION = "candidate_classification_v4"
+CANDIDATE_CLASSIFICATION_VERSION = "candidate_classification_v5"
 
 _CANDIDATE_STATES = frozenset(
     {
@@ -64,6 +65,61 @@ _JA_CORE_PROPER_NOUN_VOCAB = frozenset(
     }
 )
 _JA_EXACT_FUNCTION_ITEMS = frozenset({"で", "が", "より", "そして", "及び"})
+_DE_EXACT_GRAMMAR_ITEMS = frozenset(
+    {
+        "am",
+        "ans",
+        "aufs",
+        "beim",
+        "durchs",
+        "fürs",
+        "im",
+        "ins",
+        "ums",
+        "unterm",
+        "vom",
+        "vors",
+        "zum",
+        "zur",
+    }
+)
+_DE_BOUND_STANDALONE_FRAGMENTS = frozenset({"dar"})
+_DE_ABBREVIATION_POS_HEADS = frozenset({"ABK", "ABBR", "ABBREV"})
+_DE_GRAMMAR_POS_HEADS = frozenset(
+    {
+        "ART",
+        "APPO",
+        "APPR",
+        "APPRART",
+        "APZR",
+        "KON",
+        "KOKOM",
+        "KOUI",
+        "KOUS",
+        "PTK",
+        "PTKA",
+        "PTKANT",
+        "PTKNEG",
+        "PTKVZ",
+        "PTKZU",
+        "PAV",
+        "PDS",
+        "PDAT",
+        "PIAT",
+        "PIDAT",
+        "PIS",
+        "PPER",
+        "PPOSAT",
+        "PPOSS",
+        "PRELAT",
+        "PRELS",
+        "PRF",
+        "PRO",
+        "PWAT",
+        "PWAV",
+        "PWS",
+    }
+)
 
 
 @dataclass(frozen=True)
@@ -97,6 +153,8 @@ def classify_srs_candidate(
     apply_learner_signal_recommendations: bool = True,
 ) -> CandidateClassification:
     target_language = _target_language_from_pair(language_pair)
+    if target_language == "de":
+        return _classify_de_candidate(lemma=lemma, raw_pos=raw_pos)
     if target_language != "ja":
         return _normal_vocab("no_lp_specific_classifier")
     classification = _classify_ja_candidate(lemma=lemma, raw_pos=raw_pos)
@@ -197,6 +255,64 @@ def _classify_ja_candidate(
             confidence=CLASSIFICATION_CONFIDENCE_REVIEW,
             reasons=("ja_proper_noun_deprioritized",),
             admission_suitability=0.25,
+        )
+    return _normal_vocab("no_obvious_non_vocab_signal")
+
+
+def _classify_de_candidate(
+    *,
+    lemma: object,
+    raw_pos: object | None,
+) -> CandidateClassification:
+    text = str(lemma or "").strip()
+    raw_pos_text = str(raw_pos or "").strip()
+    analyses = _de_pos_analyses(raw_pos_text)
+    pos_heads = {analysis[0] for analysis in analyses if analysis}
+
+    if _is_symbol_like_lemma(text):
+        return CandidateClassification(
+            candidate_state=CANDIDATE_STATE_SUPPRESSED_DEFAULT,
+            presentation_mode=PRESENTATION_MODE_SUPPRESS,
+            problem_class=PROBLEM_CLASS_SYMBOL_OR_PUNCTUATION,
+            confidence=CLASSIFICATION_CONFIDENCE_HIGH,
+            reasons=("symbol_or_punctuation",),
+            admission_suitability=0.0,
+        )
+    if text.casefold() in _DE_EXACT_GRAMMAR_ITEMS:
+        return CandidateClassification(
+            candidate_state=CANDIDATE_STATE_GRAMMAR_ITEM,
+            presentation_mode=PRESENTATION_MODE_GRAMMAR,
+            problem_class=PROBLEM_CLASS_PARTICLE_OR_AUXILIARY,
+            confidence=CLASSIFICATION_CONFIDENCE_HIGH,
+            reasons=("de_exact_grammar_item",),
+            admission_suitability=0.08,
+        )
+    if text.casefold() in _DE_BOUND_STANDALONE_FRAGMENTS:
+        return CandidateClassification(
+            candidate_state=CANDIDATE_STATE_GRAMMAR_ITEM,
+            presentation_mode=PRESENTATION_MODE_GRAMMAR,
+            problem_class=PROBLEM_CLASS_PREFIX_OR_SUFFIX,
+            confidence=CLASSIFICATION_CONFIDENCE_HIGH,
+            reasons=("de_bound_standalone_fragment",),
+            admission_suitability=0.03,
+        )
+    if pos_heads & _DE_ABBREVIATION_POS_HEADS:
+        return CandidateClassification(
+            candidate_state=CANDIDATE_STATE_DEPRIORITIZED_VOCAB,
+            presentation_mode=PRESENTATION_MODE_VOCAB,
+            problem_class=PROBLEM_CLASS_ACRONYM_OR_CODE,
+            confidence=CLASSIFICATION_CONFIDENCE_HIGH,
+            reasons=("de_pos_abbreviation_or_code",),
+            admission_suitability=0.2,
+        )
+    if pos_heads and pos_heads <= _DE_GRAMMAR_POS_HEADS:
+        return CandidateClassification(
+            candidate_state=CANDIDATE_STATE_GRAMMAR_ITEM,
+            presentation_mode=PRESENTATION_MODE_GRAMMAR,
+            problem_class=PROBLEM_CLASS_PARTICLE_OR_AUXILIARY,
+            confidence=CLASSIFICATION_CONFIDENCE_HIGH,
+            reasons=("de_function_pos_only",),
+            admission_suitability=0.08,
         )
     return _normal_vocab("no_obvious_non_vocab_signal")
 
@@ -314,6 +430,17 @@ def _is_symbol_like_lemma(value: str) -> bool:
     if not text:
         return True
     return all(not char.isalnum() for char in text)
+
+
+def _de_pos_analyses(raw_pos: str) -> tuple[tuple[str, ...], ...]:
+    analyses: list[tuple[str, ...]] = []
+    for raw_analysis in str(raw_pos or "").split("|"):
+        tokens = tuple(
+            token for token in re.split(r"[:+_\-\s]+", raw_analysis.strip().upper()) if token
+        )
+        if tokens:
+            analyses.append(tokens)
+    return tuple(analyses)
 
 
 def _target_language_from_pair(pair: str) -> str:

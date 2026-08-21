@@ -373,6 +373,7 @@ def build_seed_candidates() -> list[SimpleNamespace]:
 def seed_browsing_preview_store(paths: HelperPaths, *, pair: str, profile_id: str) -> None:
     prefix_by_pair = {
         "en-ja": "ja",
+        "en-es": "es",
         "en-de": "de",
     }
     prefix = prefix_by_pair.get(pair)
@@ -786,6 +787,22 @@ def build_pair_resources(paths: HelperPaths, *, pair: str) -> None:
         )
         write_translation_dictionary_sqlite_fixture(
             paths.language_packs_dir / "freedict-de-en.sqlite",
+            entries=[
+                (target, source, "noun") for target, source in zip(targets, sources, strict=True)
+            ],
+            metadata_source="synthetic_srs_quality",
+        )
+        return
+    if pair == "en-es":
+        targets = _build_tokens("es", 70)
+        sources = _build_tokens("eng", 70)
+        _write_frequency_db(
+            path=paths.frequency_packs_dir / "freq-es-spalex-v1.sqlite",
+            lemmas=targets,
+            pos="NOUN",
+        )
+        write_translation_dictionary_sqlite_fixture(
+            paths.language_packs_dir / "wiktionary-es-en.sqlite",
             entries=[
                 (target, source, "noun") for target, source in zip(targets, sources, strict=True)
             ],

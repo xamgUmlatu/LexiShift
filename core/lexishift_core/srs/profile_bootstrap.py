@@ -1,12 +1,18 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import hashlib
+import json
+import math
 from typing import Mapping, MutableMapping, Optional, Sequence
 
 from lexishift_core.srs.admission_features import (
+    ADMISSION_CANDIDATE_FEATURES_METADATA_KEY,
+    ADMISSION_CANDIDATE_FEATURES_PRECOMPUTE_VERSION_KEY,
     AdmissionCandidateFeatures,
     AdmissionProfileFeatures,
     AdmissionUtilitySignals,
+    admission_candidate_features_from_mapping,
     clamp01,
     mapping_or_empty,
     normalize_admission_profile_features,
@@ -28,13 +34,15 @@ from lexishift_core.srs.candidate_identity import candidate_identity_key_from_se
 from lexishift_core.srs.learner_difficulty import (
     CorrectedLearnerDifficultyMatch,
     estimate_learner_difficulty,
-    lookup_corrected_en_ja_learner_difficulty,
+    lookup_corrected_learner_difficulty,
 )
 from lexishift_core.srs.profile_bootstrap_support import (
+    FrontierGaussianFit,
     build_active_topic_support_summary as _build_active_topic_support_summary,
     build_policy_summary as _build_policy_summary,
     build_preview_entry as _build_preview_entry,
     compute_challenge_fit as _compute_challenge_fit,
+    compute_frontier_gaussian_fit as _compute_frontier_gaussian_fit,
     compute_proficiency_fit as _compute_proficiency_fit,
     compute_readiness_gate as _compute_readiness_gate,
     compute_scarcity_bonus as _compute_scarcity_bonus,
@@ -50,8 +58,26 @@ from lexishift_core.srs.selector import (
 )
 
 PROFILE_BOOTSTRAP_POLICY_VERSION = "profile_bootstrap_policy_v5"
+PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_POLICY_VERSION = "profile_bootstrap_frontier_gaussian_policy_v1"
+PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_POLICY_VERSION = (
+    "profile_bootstrap_frontier_gaussian_hybrid_policy_v2"
+)
+PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SOFT_TOPIC_POLICY_VERSION = (
+    "profile_bootstrap_frontier_gaussian_hybrid_soft_topic_policy_v3"
+)
+PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_SELECTION_POLICY = "frontier_gaussian_lanes"
+PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SELECTION_POLICY = "frontier_gaussian_hybrid_lanes"
 PROFILE_BOOTSTRAP_SELECTOR_VERSION = "profile_bootstrap_v6"
 PROFILE_TOPIC_DEPTH_VERSION = "profile_topic_depth_v1"
+PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE_MAX_SIZE = 25000
+CORE_LANE = "core"
+FRONTIER_LANE = "frontier"
+TRAIL_LANE = "trail"
+TOPIC_LANE = "topic"
+
+_PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE: dict[
+    tuple[str, str, str], ProfileBootstrapCandidateTraits
+] = {}
 
 PROFILE_TOPIC_DEPTH_BANDS: tuple[tuple[str, float, float], ...] = (
     ("0.00-0.20", 0.0, 0.2),
@@ -108,6 +134,29 @@ class ProfileBootstrapPolicy:
     scarcity_bonus_mass_smoothing: float = 0.5
     scarcity_bonus_mass_exponent: float = 0.5
     scarcity_bonus_max_extra: float = 0.45
+    frontier_target_offset: float = 0.0
+    frontier_sigma_low_beginner: float = 0.18
+    frontier_sigma_low_advanced: float = 0.07
+    frontier_sigma_high_beginner: float = 0.14
+    frontier_sigma_high_advanced: float = 0.12
+    frontier_topic_lower_widen: float = 0.40
+    frontier_topic_upper_widen: float = 0.45
+    trail_center: float = 0.12
+    trail_sigma: float = 0.07
+    trail_minimum_difficulty: float = 0.20
+    trail_floor_width: float = 0.06
+    frontier_lane_share: float = 0.72
+    trail_lane_share: float = 0.18
+    topic_lane_share: float = 0.10
+    hybrid_beginner_core_threshold: float = 0.16
+    hybrid_beginner_core_lane_share: float = 0.40
+    hybrid_trail_lane_share: float = 0.18
+    hybrid_topic_min_share: float = 0.25
+    hybrid_topic_max_share: float = 0.45
+    hybrid_topic_depth_saturation: float = 6.0
+    hybrid_topic_min_lane_score: float = 0.08
+    hybrid_topic_lower_margin: float = 0.20
+    hybrid_topic_lower_penalty_sigma: Optional[float] = None
 
 
 NormalizedProfileBootstrapContext = AdmissionProfileFeatures
@@ -116,6 +165,16 @@ ProfileBootstrapSignalPack = AdmissionUtilitySignals
 
 
 DEFAULT_PROFILE_BOOTSTRAP_POLICY = ProfileBootstrapPolicy()
+FRONTIER_GAUSSIAN_PROFILE_BOOTSTRAP_POLICY = ProfileBootstrapPolicy(
+    version=PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_POLICY_VERSION,
+)
+FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY = ProfileBootstrapPolicy(
+    version=PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_POLICY_VERSION,
+)
+FRONTIER_GAUSSIAN_HYBRID_SOFT_TOPIC_PROFILE_BOOTSTRAP_POLICY = ProfileBootstrapPolicy(
+    version=PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SOFT_TOPIC_POLICY_VERSION,
+    hybrid_topic_lower_penalty_sigma=0.03,
+)
 
 
 @dataclass(frozen=True)
@@ -125,6 +184,30 @@ class ProfileBootstrapScoredEntry:
     traits: ProfileBootstrapCandidateTraits
     signal_pack: ProfileBootstrapSignalPack
     scored_candidate: ScoredCandidate
+
+
+@dataclass(frozen=True)
+class ProfileBootstrapFrontierLaneEntry:
+    source_entry: ProfileBootstrapScoredEntry
+    frontier_fit: FrontierGaussianFit
+    lane_scores: Mapping[str, float]
+    selected_lane: Optional[str] = None
+
+    @property
+    def base_index(self) -> int:
+        return self.source_entry.base_index
+
+    @property
+    def seed(self) -> object:
+        return self.source_entry.seed
+
+    @property
+    def traits(self) -> ProfileBootstrapCandidateTraits:
+        return self.source_entry.traits
+
+    @property
+    def signal_pack(self) -> ProfileBootstrapSignalPack:
+        return self.source_entry.signal_pack
 
 
 def normalize_profile_bootstrap_context(
@@ -154,6 +237,17 @@ def extract_profile_bootstrap_candidate_traits(
     *,
     policy: ProfileBootstrapPolicy = DEFAULT_PROFILE_BOOTSTRAP_POLICY,
 ) -> ProfileBootstrapCandidateTraits:
+    metadata = mapping_or_empty(getattr(seed, "metadata", None))
+    precomputed = _precomputed_candidate_traits(seed, metadata=metadata, policy=policy)
+    if precomputed is not None:
+        return precomputed
+    cache_key = _candidate_traits_cache_key(seed, metadata=metadata, policy=policy)
+    if cache_key is not None:
+        cached = _PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE.get(cache_key)
+        if cached is not None:
+            _PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE.pop(cache_key, None)
+            _PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE[cache_key] = cached
+            return cached
     source_commonness_value = safe_optional_float(getattr(seed, "base_weight", None))
     if source_commonness_value is None:
         source_commonness_value = safe_optional_float(getattr(seed, "admission_weight", None))
@@ -171,7 +265,6 @@ def extract_profile_bootstrap_candidate_traits(
         for script_form in mapping_or_empty(word_package.get("script_forms")).values():
             _add_lexical_form(lexical_forms, script_form)
 
-    metadata = mapping_or_empty(getattr(seed, "metadata", None))
     word_package_source = (
         mapping_or_empty(word_package.get("source")) if isinstance(word_package, Mapping) else {}
     )
@@ -200,7 +293,9 @@ def extract_profile_bootstrap_candidate_traits(
         word_package_source.get("lform_raw"),
     )
     reading_candidates = tuple(sorted(form for form in lexical_forms if form))
-    corrected_difficulty_match = lookup_corrected_en_ja_learner_difficulty(
+    language_pair = str(getattr(seed, "language_pair", "") or metadata.get("language_pair") or "")
+    corrected_difficulty_match = lookup_corrected_learner_difficulty(
+        language_pair=language_pair,
         lemma=str(getattr(seed, "lemma", "") or "").strip(),
         reading=reading,
         reading_candidates=reading_candidates,
@@ -211,9 +306,7 @@ def extract_profile_bootstrap_candidate_traits(
     )
     frequency_difficulty = clamp01(1.0 - source_commonness) or 0.0
     learner_difficulty = estimate_learner_difficulty(
-        language_pair=str(
-            getattr(seed, "language_pair", "") or metadata.get("language_pair") or ""
-        ),
+        language_pair=language_pair,
         lemma=str(getattr(seed, "lemma", "") or "").strip(),
         reading=reading,
         reading_candidates=reading_candidates,
@@ -223,7 +316,7 @@ def extract_profile_bootstrap_candidate_traits(
         problem_class=classification.problem_class,
     )
 
-    return ProfileBootstrapCandidateTraits(
+    traits = ProfileBootstrapCandidateTraits(
         candidate_identity_key=candidate_identity_key_from_seed(seed),
         lemma=str(getattr(seed, "lemma", "") or "").strip(),
         lexical_commonness=source_commonness,
@@ -247,6 +340,190 @@ def extract_profile_bootstrap_candidate_traits(
             if key
         },
     )
+    if cache_key is not None:
+        _remember_candidate_traits(cache_key, traits)
+    return traits
+
+
+def attach_precomputed_profile_bootstrap_candidate_traits(
+    seeds: Sequence[object],
+    *,
+    policy: ProfileBootstrapPolicy = DEFAULT_PROFILE_BOOTSTRAP_POLICY,
+) -> int:
+    attached_count = 0
+    for seed in seeds:
+        metadata = getattr(seed, "metadata", None)
+        if not isinstance(metadata, MutableMapping):
+            continue
+        if _precomputed_candidate_traits(seed, metadata=metadata, policy=policy) is not None:
+            continue
+        traits = extract_profile_bootstrap_candidate_traits(seed, policy=policy)
+        metadata[ADMISSION_CANDIDATE_FEATURES_METADATA_KEY] = traits.to_dict()
+        metadata[ADMISSION_CANDIDATE_FEATURES_PRECOMPUTE_VERSION_KEY] = policy.version
+        attached_count += 1
+    return attached_count
+
+
+def _precomputed_candidate_traits(
+    seed: object,
+    *,
+    metadata: Mapping[str, object],
+    policy: ProfileBootstrapPolicy,
+) -> ProfileBootstrapCandidateTraits | None:
+    if (
+        str(metadata.get(ADMISSION_CANDIDATE_FEATURES_PRECOMPUTE_VERSION_KEY) or "").strip()
+        != policy.version
+    ):
+        return None
+    traits = admission_candidate_features_from_mapping(
+        metadata.get(ADMISSION_CANDIDATE_FEATURES_METADATA_KEY)
+    )
+    if traits is None:
+        return None
+    seed_lemma = str(getattr(seed, "lemma", "") or "").strip()
+    if seed_lemma and traits.lemma and traits.lemma != seed_lemma:
+        return None
+    seed_identity = candidate_identity_key_from_seed(seed)
+    if (
+        seed_identity
+        and traits.candidate_identity_key
+        and traits.candidate_identity_key != seed_identity
+    ):
+        return None
+    return traits
+
+
+def _candidate_traits_cache_key(
+    seed: object,
+    *,
+    metadata: Mapping[str, object],
+    policy: ProfileBootstrapPolicy,
+) -> tuple[str, str, str] | None:
+    identity_key = candidate_identity_key_from_seed(seed)
+    if not identity_key:
+        return None
+    payload = {
+        "policy_version": policy.version,
+        "identity_key": identity_key,
+        "language_pair": str(
+            getattr(seed, "language_pair", "") or metadata.get("language_pair") or ""
+        ).strip(),
+        "lemma": str(getattr(seed, "lemma", "") or metadata.get("lemma") or "").strip(),
+        "base_weight": safe_optional_float(getattr(seed, "base_weight", None)),
+        "admission_weight": safe_optional_float(getattr(seed, "admission_weight", None)),
+        "candidate_state": _string_attr_or_metadata(
+            seed,
+            metadata,
+            attr="candidate_state",
+            fallback="normal_vocab",
+        ),
+        "presentation_mode": _string_attr_or_metadata(
+            seed,
+            metadata,
+            attr="presentation_mode",
+            fallback="vocab",
+        ),
+        "problem_class": _string_attr_or_metadata(
+            seed,
+            metadata,
+            attr="problem_class",
+            fallback="normal_vocab",
+        ),
+        "classification_confidence": _string_attr_or_metadata(
+            seed,
+            metadata,
+            attr="classification_confidence",
+            fallback="review",
+        ),
+        "classification_reasons": _sequence_attr_or_metadata(
+            seed,
+            metadata,
+            attr="classification_reasons",
+            fallback=(),
+        ),
+        "admission_suitability": safe_optional_float(getattr(seed, "admission_suitability", None)),
+        "word_package": _word_package_trait_fingerprint_payload(
+            getattr(seed, "word_package", None)
+        ),
+        "metadata": _metadata_trait_fingerprint_payload(metadata, policy=policy),
+    }
+    encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str)
+    digest = hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+    return (policy.version, identity_key, digest)
+
+
+def _word_package_trait_fingerprint_payload(value: object) -> object:
+    if not isinstance(value, Mapping):
+        return None
+    source = mapping_or_empty(value.get("source"))
+    return {
+        "surface": value.get("surface"),
+        "reading": value.get("reading"),
+        "sublemma": value.get("sublemma"),
+        "lform_raw": value.get("lform_raw"),
+        "script_forms": value.get("script_forms"),
+        "source": {
+            "learner_signals": source.get("learner_signals"),
+            "source_surface_original": source.get("source_surface_original"),
+            "surface_normalized_from": source.get("surface_normalized_from"),
+            "sublemma": source.get("sublemma"),
+            "lform_raw": source.get("lform_raw"),
+        },
+        "topics": {
+            topic_key: value.get(topic_key)
+            for topic_key in (
+                "sense_topics",
+                "topics",
+                "topic",
+                "profile_topics",
+            )
+        },
+    }
+
+
+def _metadata_trait_fingerprint_payload(
+    metadata: Mapping[str, object],
+    *,
+    policy: ProfileBootstrapPolicy,
+) -> dict[str, object]:
+    keys = {
+        "learner_signals",
+        "source_surface_original",
+        "surface_normalized_from",
+        "sublemma",
+        "lform_raw",
+        "pos_raw",
+        "pos",
+        "candidate_identity_key",
+        "candidate_identity",
+        "profile_topic_overlay",
+        "candidate_state",
+        "presentation_mode",
+        "problem_class",
+        "classification_confidence",
+        "classification_reasons",
+        "admission_suitability",
+        *tuple(policy.topic_metadata_keys),
+    }
+    return {key: metadata.get(key) for key in sorted(keys) if key in metadata}
+
+
+def _remember_candidate_traits(
+    key: tuple[str, str, str],
+    traits: ProfileBootstrapCandidateTraits,
+) -> None:
+    if len(_PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE) >= (
+        PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE_MAX_SIZE
+    ):
+        _PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE.pop(
+            next(iter(_PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE)),
+            None,
+        )
+    _PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE[key] = traits
+
+
+def clear_profile_bootstrap_candidate_trait_cache() -> None:
+    _PROFILE_BOOTSTRAP_CANDIDATE_TRAIT_CACHE.clear()
 
 
 def _add_lexical_form(target: set[str], value: object) -> None:
@@ -656,6 +933,556 @@ def score_seed_words_for_profile(
     }
 
 
+def score_seed_words_for_frontier_gaussian_profile(
+    seeds: Sequence[object],
+    *,
+    profile_context: Optional[Mapping[str, object]],
+    policy: ProfileBootstrapPolicy = FRONTIER_GAUSSIAN_PROFILE_BOOTSTRAP_POLICY,
+    selection_count: Optional[int] = 20,
+    preview_limit: Optional[int] = 20,
+) -> tuple[list[ProfileBootstrapFrontierLaneEntry], dict[str, object]]:
+    scored_entries, base_diagnostics = score_seed_words_for_profile(
+        seeds,
+        profile_context=profile_context,
+        policy=policy,
+        preview_limit=preview_limit,
+    )
+    lane_entries = [
+        _build_frontier_gaussian_lane_entry(entry, policy=policy) for entry in scored_entries
+    ]
+    selected_entries, lane_diagnostics = select_frontier_gaussian_lane_entries(
+        lane_entries,
+        selection_count=selection_count,
+        policy=policy,
+    )
+    if preview_limit is None:
+        preview_entries = selected_entries
+    else:
+        preview_entries = selected_entries[: max(0, int(preview_limit))]
+    return selected_entries, {
+        "selector_version": PROFILE_BOOTSTRAP_SELECTOR_VERSION,
+        "selector_policy_version": policy.version,
+        "selection_policy": PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_SELECTION_POLICY,
+        "profile_context": base_diagnostics.get("profile_context", {}),
+        "admission_profile": base_diagnostics.get("admission_profile", {}),
+        "policy": base_diagnostics.get("policy", _build_policy_summary(policy)),
+        "active_topic_support": base_diagnostics.get("active_topic_support", {}),
+        "topic_depth_by_level": base_diagnostics.get("topic_depth_by_level", {}),
+        "base_profile_bootstrap": {
+            "selection_policy": base_diagnostics.get("selection_policy"),
+            "selection_weights": _mapping_to_dict(base_diagnostics.get("selection_weights")),
+            "ranking_preview": _sequence_to_list(base_diagnostics.get("ranking_preview")),
+        },
+        **lane_diagnostics,
+        "ranking_preview": [
+            _build_frontier_gaussian_preview_entry(
+                lane_entry=entry,
+                reranked_rank=index + 1,
+            )
+            for index, entry in enumerate(preview_entries)
+        ],
+    }
+
+
+def score_seed_words_for_frontier_gaussian_hybrid_profile(
+    seeds: Sequence[object],
+    *,
+    profile_context: Optional[Mapping[str, object]],
+    policy: ProfileBootstrapPolicy = FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY,
+    selection_count: Optional[int] = 20,
+    preview_limit: Optional[int] = 20,
+) -> tuple[list[ProfileBootstrapFrontierLaneEntry], dict[str, object]]:
+    scored_entries, base_diagnostics = score_seed_words_for_profile(
+        seeds,
+        profile_context=profile_context,
+        policy=policy,
+        preview_limit=preview_limit,
+    )
+    lane_entries = [
+        _build_frontier_gaussian_lane_entry(entry, policy=policy) for entry in scored_entries
+    ]
+    selected_entries, lane_diagnostics = select_frontier_gaussian_hybrid_lane_entries(
+        lane_entries,
+        selection_count=selection_count,
+        policy=policy,
+    )
+    if preview_limit is None:
+        preview_entries = selected_entries
+    else:
+        preview_entries = selected_entries[: max(0, int(preview_limit))]
+    return selected_entries, {
+        "selector_version": PROFILE_BOOTSTRAP_SELECTOR_VERSION,
+        "selector_policy_version": policy.version,
+        "selection_policy": PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SELECTION_POLICY,
+        "profile_context": base_diagnostics.get("profile_context", {}),
+        "admission_profile": base_diagnostics.get("admission_profile", {}),
+        "policy": base_diagnostics.get("policy", _build_policy_summary(policy)),
+        "active_topic_support": base_diagnostics.get("active_topic_support", {}),
+        "topic_depth_by_level": base_diagnostics.get("topic_depth_by_level", {}),
+        "base_profile_bootstrap": {
+            "selection_policy": base_diagnostics.get("selection_policy"),
+            "selection_weights": _mapping_to_dict(base_diagnostics.get("selection_weights")),
+            "ranking_preview": _sequence_to_list(base_diagnostics.get("ranking_preview")),
+        },
+        **lane_diagnostics,
+        "ranking_preview": [
+            _build_frontier_gaussian_preview_entry(
+                lane_entry=entry,
+                reranked_rank=index + 1,
+            )
+            for index, entry in enumerate(preview_entries)
+        ],
+    }
+
+
+def select_frontier_gaussian_lane_entries(
+    lane_entries: Sequence[ProfileBootstrapFrontierLaneEntry],
+    *,
+    selection_count: Optional[int],
+    policy: ProfileBootstrapPolicy,
+) -> tuple[list[ProfileBootstrapFrontierLaneEntry], dict[str, object]]:
+    target = 0 if selection_count is None else max(0, int(selection_count))
+    selectable_entries = [
+        entry for entry in lane_entries if float(entry.signal_pack.admission_suitability) > 0.0
+    ]
+    lane_targets = _resolve_frontier_lane_targets(target, policy=policy)
+    selected: list[ProfileBootstrapFrontierLaneEntry] = []
+    selected_keys: set[str] = set()
+    filled_counts = {FRONTIER_LANE: 0, TRAIL_LANE: 0, TOPIC_LANE: 0}
+    initial_lane_order = (TOPIC_LANE, TRAIL_LANE, FRONTIER_LANE)
+
+    for lane_name in initial_lane_order:
+        lane_target = lane_targets.get(lane_name, 0)
+        if lane_target <= 0:
+            continue
+        for entry in _rank_frontier_lane_entries(selectable_entries, lane_name):
+            if filled_counts[lane_name] >= lane_target:
+                break
+            if _frontier_lane_score(entry, lane_name) <= 0.0:
+                break
+            identity_key = _frontier_lane_identity_key(entry)
+            if identity_key in selected_keys:
+                continue
+            selected.append(_with_selected_frontier_lane(entry, lane_name))
+            selected_keys.add(identity_key)
+            filled_counts[lane_name] += 1
+
+    spill_count = max(0, target - len(selected))
+    for lane_name in (FRONTIER_LANE, TOPIC_LANE, TRAIL_LANE):
+        if len(selected) >= target:
+            break
+        for entry in _rank_frontier_lane_entries(selectable_entries, lane_name):
+            if len(selected) >= target:
+                break
+            if _frontier_lane_score(entry, lane_name) <= 0.0:
+                break
+            identity_key = _frontier_lane_identity_key(entry)
+            if identity_key in selected_keys:
+                continue
+            selected.append(_with_selected_frontier_lane(entry, lane_name))
+            selected_keys.add(identity_key)
+            filled_counts[lane_name] += 1
+
+    return selected[:target], {
+        "lane_targets": lane_targets,
+        "filled_lane_counts": filled_counts,
+        "requested_selection_count": target,
+        "selectable_candidate_count": len(selectable_entries),
+        "selected_candidate_count": min(len(selected), target),
+        "spill_count": spill_count,
+        "lane_fill_order": list(initial_lane_order),
+        "spill_order": [FRONTIER_LANE, TOPIC_LANE, TRAIL_LANE],
+    }
+
+
+def select_frontier_gaussian_hybrid_lane_entries(
+    lane_entries: Sequence[ProfileBootstrapFrontierLaneEntry],
+    *,
+    selection_count: Optional[int],
+    policy: ProfileBootstrapPolicy,
+) -> tuple[list[ProfileBootstrapFrontierLaneEntry], dict[str, object]]:
+    target = 0 if selection_count is None else max(0, int(selection_count))
+    selectable_entries = [
+        entry for entry in lane_entries if float(entry.signal_pack.admission_suitability) > 0.0
+    ]
+    topic_depth = _hybrid_topic_depth(selectable_entries, policy=policy)
+    lane_targets = _resolve_frontier_hybrid_lane_targets(
+        selectable_entries,
+        selection_count=target,
+        policy=policy,
+        topic_depth=topic_depth,
+    )
+    selected: list[ProfileBootstrapFrontierLaneEntry] = []
+    selected_keys: set[str] = set()
+    filled_counts = {CORE_LANE: 0, FRONTIER_LANE: 0, TRAIL_LANE: 0, TOPIC_LANE: 0}
+    initial_lane_order = (CORE_LANE, TOPIC_LANE, TRAIL_LANE, FRONTIER_LANE)
+
+    for lane_name in initial_lane_order:
+        lane_target = lane_targets.get(lane_name, 0)
+        if lane_target <= 0:
+            continue
+        for entry in _rank_frontier_hybrid_lane_entries(
+            selectable_entries,
+            lane_name,
+            policy=policy,
+        ):
+            if filled_counts[lane_name] >= lane_target:
+                break
+            lane_score = _hybrid_lane_score(
+                entry,
+                lane_name,
+                policy=policy,
+            )
+            if lane_score < _hybrid_lane_minimum_score(lane_name, policy=policy):
+                break
+            identity_key = _frontier_lane_identity_key(entry)
+            if identity_key in selected_keys:
+                continue
+            selected.append(
+                _with_selected_frontier_lane(
+                    entry,
+                    lane_name,
+                    lane_score_override=lane_score,
+                )
+            )
+            selected_keys.add(identity_key)
+            filled_counts[lane_name] += 1
+
+    spill_count = max(0, target - len(selected))
+    for lane_name in (FRONTIER_LANE, TOPIC_LANE, TRAIL_LANE, CORE_LANE):
+        if len(selected) >= target:
+            break
+        for entry in _rank_frontier_hybrid_lane_entries(
+            selectable_entries,
+            lane_name,
+            policy=policy,
+        ):
+            if len(selected) >= target:
+                break
+            lane_score = _hybrid_lane_score(
+                entry,
+                lane_name,
+                policy=policy,
+            )
+            if lane_score < _hybrid_lane_minimum_score(lane_name, policy=policy):
+                break
+            identity_key = _frontier_lane_identity_key(entry)
+            if identity_key in selected_keys:
+                continue
+            selected.append(
+                _with_selected_frontier_lane(
+                    entry,
+                    lane_name,
+                    lane_score_override=lane_score,
+                )
+            )
+            selected_keys.add(identity_key)
+            filled_counts[lane_name] += 1
+
+    return selected[:target], {
+        "lane_targets": lane_targets,
+        "filled_lane_counts": filled_counts,
+        "requested_selection_count": target,
+        "selectable_candidate_count": len(selectable_entries),
+        "selected_candidate_count": min(len(selected), target),
+        "spill_count": spill_count,
+        "lane_fill_order": list(initial_lane_order),
+        "spill_order": [FRONTIER_LANE, TOPIC_LANE, TRAIL_LANE, CORE_LANE],
+        "hybrid_topic_depth": topic_depth,
+    }
+
+
+def _build_frontier_gaussian_lane_entry(
+    entry: ProfileBootstrapScoredEntry,
+    *,
+    policy: ProfileBootstrapPolicy,
+) -> ProfileBootstrapFrontierLaneEntry:
+    frontier_fit = _compute_frontier_gaussian_fit(
+        entry.signal_pack.difficulty_estimate,
+        entry.signal_pack.readiness_center,
+        topic_affinity=entry.signal_pack.preference_affinity,
+        policy=policy,
+    )
+    suitability = max(0.0, float(entry.signal_pack.admission_suitability))
+    commonness_tie = max(0.0, min(1.0, float(entry.traits.lexical_commonness)))
+    topic_affinity = max(0.0, min(1.0, float(entry.signal_pack.preference_affinity)))
+    lane_scores = {
+        CORE_LANE: max(0.0, float(entry.scored_candidate.breakdown.final_score)),
+        FRONTIER_LANE: frontier_fit.frontier_fit * suitability,
+        TRAIL_LANE: frontier_fit.trail_fit * (0.75 + (0.25 * commonness_tie)) * suitability,
+        TOPIC_LANE: frontier_fit.topic_fit * topic_affinity * suitability,
+    }
+    return ProfileBootstrapFrontierLaneEntry(
+        source_entry=entry,
+        frontier_fit=frontier_fit,
+        lane_scores=lane_scores,
+    )
+
+
+def _resolve_frontier_lane_targets(
+    selection_count: int,
+    *,
+    policy: ProfileBootstrapPolicy,
+) -> dict[str, int]:
+    target = max(0, int(selection_count))
+    shares = {
+        FRONTIER_LANE: max(0.0, float(policy.frontier_lane_share)),
+        TRAIL_LANE: max(0.0, float(policy.trail_lane_share)),
+        TOPIC_LANE: max(0.0, float(policy.topic_lane_share)),
+    }
+    share_total = sum(shares.values())
+    if target <= 0:
+        return {lane: 0 for lane in shares}
+    if share_total <= 0.0:
+        return {FRONTIER_LANE: target, TRAIL_LANE: 0, TOPIC_LANE: 0}
+    raw_targets = {lane: (target * share / share_total) for lane, share in shares.items()}
+    lane_targets = {lane: int(raw_value) for lane, raw_value in raw_targets.items()}
+    remainder = target - sum(lane_targets.values())
+    priority = {
+        FRONTIER_LANE: 0,
+        TRAIL_LANE: 1,
+        TOPIC_LANE: 2,
+    }
+    fractional_order = sorted(
+        raw_targets,
+        key=lambda lane: (-(raw_targets[lane] - int(raw_targets[lane])), priority[lane]),
+    )
+    for lane in fractional_order[:remainder]:
+        lane_targets[lane] += 1
+    return lane_targets
+
+
+def _resolve_frontier_hybrid_lane_targets(
+    lane_entries: Sequence[ProfileBootstrapFrontierLaneEntry],
+    *,
+    selection_count: int,
+    policy: ProfileBootstrapPolicy,
+    topic_depth: Mapping[str, object],
+) -> dict[str, int]:
+    target = max(0, int(selection_count))
+    if target <= 0:
+        return {CORE_LANE: 0, FRONTIER_LANE: 0, TRAIL_LANE: 0, TOPIC_LANE: 0}
+    proficiency = _frontier_lane_profile_proficiency(lane_entries)
+    if proficiency is None:
+        return {CORE_LANE: target, FRONTIER_LANE: 0, TRAIL_LANE: 0, TOPIC_LANE: 0}
+    core_target = 0
+    if proficiency <= float(policy.hybrid_beginner_core_threshold):
+        core_target = round(target * max(0.0, float(policy.hybrid_beginner_core_lane_share)))
+    topic_target = 0
+    eligible_topic_count = int(str(topic_depth.get("eligible_candidate_count") or 0))
+    topic_mass = max(0.0, float(str(topic_depth.get("eligible_mass") or 0.0)))
+    if eligible_topic_count > 0 and topic_mass > 0.0:
+        saturation = max(1e-6, float(policy.hybrid_topic_depth_saturation))
+        depth_ratio = topic_mass / (topic_mass + saturation)
+        min_share = max(0.0, min(1.0, float(policy.hybrid_topic_min_share)))
+        max_share = max(min_share, min(1.0, float(policy.hybrid_topic_max_share)))
+        topic_share = min_share + ((max_share - min_share) * depth_ratio)
+        topic_target = min(eligible_topic_count, round(target * topic_share))
+    trail_target = round(target * max(0.0, float(policy.hybrid_trail_lane_share)))
+    fixed_total = core_target + topic_target + trail_target
+    if fixed_total > target:
+        overflow = fixed_total - target
+        trail_reduction = min(trail_target, overflow)
+        trail_target -= trail_reduction
+        overflow -= trail_reduction
+        if overflow:
+            topic_reduction = min(topic_target, overflow)
+            topic_target -= topic_reduction
+            overflow -= topic_reduction
+        if overflow:
+            core_target = max(0, core_target - overflow)
+    frontier_target = max(0, target - core_target - topic_target - trail_target)
+    return {
+        CORE_LANE: core_target,
+        FRONTIER_LANE: frontier_target,
+        TRAIL_LANE: trail_target,
+        TOPIC_LANE: topic_target,
+    }
+
+
+def _hybrid_topic_depth(
+    lane_entries: Sequence[ProfileBootstrapFrontierLaneEntry],
+    *,
+    policy: ProfileBootstrapPolicy,
+) -> dict[str, object]:
+    minimum_score = _hybrid_lane_minimum_score(TOPIC_LANE, policy=policy)
+    eligible_scores = [
+        _hybrid_lane_score(entry, TOPIC_LANE, policy=policy)
+        for entry in lane_entries
+        if _hybrid_lane_score(entry, TOPIC_LANE, policy=policy) >= minimum_score
+    ]
+    all_topic_scores = [
+        _hybrid_lane_score(entry, TOPIC_LANE, policy=policy)
+        for entry in lane_entries
+        if _hybrid_lane_score(entry, TOPIC_LANE, policy=policy) > 0.0
+    ]
+    return {
+        "eligible_candidate_count": len(eligible_scores),
+        "eligible_mass": round(sum(eligible_scores), 6),
+        "candidate_count": len(all_topic_scores),
+        "mass": round(sum(all_topic_scores), 6),
+        "minimum_lane_score": round(minimum_score, 6),
+    }
+
+
+def _hybrid_lane_minimum_score(
+    lane_name: str,
+    *,
+    policy: ProfileBootstrapPolicy,
+) -> float:
+    if lane_name == TOPIC_LANE:
+        return max(0.0, float(policy.hybrid_topic_min_lane_score))
+    return 0.0
+
+
+def _hybrid_lane_score(
+    lane_entry: ProfileBootstrapFrontierLaneEntry,
+    lane_name: str,
+    *,
+    policy: ProfileBootstrapPolicy,
+) -> float:
+    score = _frontier_lane_score(lane_entry, lane_name)
+    if lane_name == TOPIC_LANE:
+        proficiency = lane_entry.frontier_fit.proficiency
+        if proficiency is not None:
+            minimum_difficulty = max(
+                0.0,
+                float(proficiency) - max(0.0, float(policy.hybrid_topic_lower_margin)),
+            )
+            lower_gap = minimum_difficulty - float(lane_entry.frontier_fit.difficulty)
+            if lower_gap > 0.0:
+                sigma = policy.hybrid_topic_lower_penalty_sigma
+                if sigma is None or float(sigma) <= 0.0:
+                    return 0.0
+                score *= math.exp(-((lower_gap / float(sigma)) ** 2))
+    return score
+
+
+def _rank_frontier_hybrid_lane_entries(
+    lane_entries: Sequence[ProfileBootstrapFrontierLaneEntry],
+    lane_name: str,
+    *,
+    policy: ProfileBootstrapPolicy,
+) -> list[ProfileBootstrapFrontierLaneEntry]:
+    return sorted(
+        lane_entries,
+        key=lambda entry: (
+            -_hybrid_lane_score(entry, lane_name, policy=policy),
+            -float(entry.traits.lexical_commonness),
+            entry.base_index,
+            entry.traits.lemma,
+        ),
+    )
+
+
+def _frontier_lane_profile_proficiency(
+    lane_entries: Sequence[ProfileBootstrapFrontierLaneEntry],
+) -> float | None:
+    for entry in lane_entries:
+        proficiency = entry.frontier_fit.proficiency
+        if proficiency is not None:
+            return float(proficiency)
+    return None
+
+
+def _rank_frontier_lane_entries(
+    lane_entries: Sequence[ProfileBootstrapFrontierLaneEntry],
+    lane_name: str,
+) -> list[ProfileBootstrapFrontierLaneEntry]:
+    return sorted(
+        lane_entries,
+        key=lambda entry: (
+            -_frontier_lane_score(entry, lane_name),
+            -float(entry.traits.lexical_commonness),
+            entry.base_index,
+        ),
+    )
+
+
+def _frontier_lane_score(
+    lane_entry: ProfileBootstrapFrontierLaneEntry,
+    lane_name: str,
+) -> float:
+    return max(0.0, float(lane_entry.lane_scores.get(lane_name, 0.0)))
+
+
+def _with_selected_frontier_lane(
+    lane_entry: ProfileBootstrapFrontierLaneEntry,
+    lane_name: str,
+    *,
+    lane_score_override: Optional[float] = None,
+) -> ProfileBootstrapFrontierLaneEntry:
+    lane_scores = lane_entry.lane_scores
+    if lane_score_override is not None:
+        lane_scores = {**dict(lane_entry.lane_scores), lane_name: lane_score_override}
+    return ProfileBootstrapFrontierLaneEntry(
+        source_entry=lane_entry.source_entry,
+        frontier_fit=lane_entry.frontier_fit,
+        lane_scores=lane_scores,
+        selected_lane=lane_name,
+    )
+
+
+def _frontier_lane_identity_key(lane_entry: ProfileBootstrapFrontierLaneEntry) -> str:
+    lemma = str(lane_entry.traits.lemma or "").strip()
+    pair = str(getattr(lane_entry.seed, "language_pair", "") or "").strip()
+    if lemma and pair:
+        return f"{pair}:{lemma}"
+    identity_key = str(lane_entry.traits.candidate_identity_key or "").strip()
+    if identity_key:
+        return identity_key
+    return f"{lane_entry.base_index}:{lemma}"
+
+
+def _build_frontier_gaussian_preview_entry(
+    *,
+    lane_entry: ProfileBootstrapFrontierLaneEntry,
+    reranked_rank: int,
+) -> dict[str, object]:
+    base_rank = lane_entry.base_index + 1
+    selected_lane = str(lane_entry.selected_lane or "")
+    selected_lane_score = _frontier_lane_score(lane_entry, selected_lane) if selected_lane else None
+    preview = _build_preview_entry(
+        reranked_rank=reranked_rank,
+        seed=lane_entry.seed,
+        traits=lane_entry.traits,
+        signal_pack=lane_entry.signal_pack,
+        scored_candidate=lane_entry.source_entry.scored_candidate,
+        base_rank=base_rank,
+        policy=DEFAULT_PROFILE_BOOTSTRAP_POLICY,
+    )
+    preview.update(
+        {
+            "selected_lane": lane_entry.selected_lane,
+            "difficulty_estimate": round(
+                float(lane_entry.signal_pack.difficulty_estimate),
+                6,
+            ),
+            "lexical_commonness": round(float(lane_entry.traits.lexical_commonness), 6),
+            "topic_affinity": round(float(lane_entry.signal_pack.preference_affinity), 6),
+            "admission_suitability": round(
+                float(lane_entry.signal_pack.admission_suitability),
+                6,
+            ),
+            "profile_score": round(
+                float(selected_lane_score)
+                if selected_lane_score is not None
+                else float(lane_entry.source_entry.scored_candidate.breakdown.final_score),
+                6,
+            ),
+            "current_profile_score": round(
+                float(lane_entry.source_entry.scored_candidate.breakdown.final_score),
+                6,
+            ),
+            "lane_scores": {
+                key: round(float(value), 6) for key, value in sorted(lane_entry.lane_scores.items())
+            },
+            "frontier_gaussian": lane_entry.frontier_fit.to_dict(),
+        }
+    )
+    return preview
+
+
 def _build_topic_depth_by_level(
     ranked_entries: Sequence[ProfileBootstrapScoredEntry],
     context: NormalizedProfileBootstrapContext,
@@ -825,6 +1652,16 @@ def _safe_float(value: object) -> float | None:
         return float(str(value).strip())
     except (TypeError, ValueError):
         return None
+
+
+def _mapping_to_dict(value: object) -> dict[object, object]:
+    return dict(value) if isinstance(value, Mapping) else {}
+
+
+def _sequence_to_list(value: object) -> list[object]:
+    if isinstance(value, (str, bytes)) or not isinstance(value, Sequence):
+        return []
+    return list(value)
 
 
 def _topic_depth_band_index(difficulty: float) -> int:

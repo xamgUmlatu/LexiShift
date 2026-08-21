@@ -134,17 +134,29 @@ class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
             for family in taxonomy["families"]
             if family["mvp_picker_visibility"] == "strict_mvp_visible"
         ]
-        self.assertIn("animals", visible_ids)
-        self.assertIn("food_cooking", visible_ids)
-        self.assertNotIn("plants_nature", visible_ids)
-        self.assertEqual(
-            family_by_id["plants_nature"]["mvp_picker_visibility"],
-            "future_beta_hidden",
-        )
-        self.assertEqual(
-            family_by_id["travel_places_transport"]["mvp_picker_visibility"],
-            "future_beta_hidden",
-        )
+        for promoted_family in (
+            "animals",
+            "food_cooking",
+            "plants_nature",
+            "shopping_money",
+            "work_office",
+            "science_math",
+            "computing_internet",
+            "travel_places_transport",
+            "hobbies_crafts",
+        ):
+            self.assertIn(promoted_family, visible_ids)
+            self.assertEqual(
+                family_by_id[promoted_family]["mvp_picker_visibility"],
+                "strict_mvp_visible",
+            )
+        for hidden_family in (
+            "anime_manga_pop_culture",
+            "sat_toefl_exam_prep",
+            "casual_slang_register",
+            "formal_professional_register",
+        ):
+            self.assertNotIn(hidden_family, visible_ids)
         mapped_pairs = {
             (row["source_label"], row["target_family"])
             for row in taxonomy["source_label_mappings"]

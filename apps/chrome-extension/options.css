@@ -781,11 +781,6 @@ header p {
   color: #1d3f2d;
 }
 
-.srs-topic-interest-chip.is-unsupported {
-  opacity: 0.48;
-  cursor: not-allowed;
-}
-
 .srs-topic-interest-picker .hint {
   margin: 8px 0 0;
 }

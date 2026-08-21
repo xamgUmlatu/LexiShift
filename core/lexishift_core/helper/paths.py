@@ -142,6 +142,11 @@ class HelperPaths:
         directory.mkdir(parents=True, exist_ok=True)
         return directory
 
+    def srs_admission_candidate_index_cache_dir(self) -> Path:
+        directory = self.srs_dir / "cache" / "admission_candidates"
+        directory.mkdir(parents=True, exist_ok=True)
+        return directory
+
     def snapshot_path(self, pair: str, profile_id: str | None = None) -> Path:
         safe_pair = pair.replace("/", "-").replace(":", "-")
         return self.profile_srs_dir(profile_id) / f"srs_rulegen_snapshot_{safe_pair}.json"

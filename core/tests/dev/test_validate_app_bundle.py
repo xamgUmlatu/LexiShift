@@ -13,6 +13,24 @@ if str(SCRIPT_DIR) not in sys.path:
 from validate_app_bundle import _validate_dist  # noqa: E402
 
 
+REQUIRED_SRS_RESOURCE_FILES = (
+    "en_ja/learner_difficulty_corrected.csv",
+    "en_ja/learner_difficulty_manual_corrections.json",
+    "en_ja/topic_overlays/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
+    "en_es/learner_difficulty_corrected.csv",
+    "en_es/topic_overlays/srs_topic_reviewed_overlay_merged_en_es_latest.json",
+    "en_de/learner_difficulty_corrected.csv",
+    "en_de/topic_overlays/srs_topic_reviewed_overlay_merged_en_de_latest.json",
+)
+
+
+def _write_required_srs_resources(core_root: Path) -> None:
+    for relative in REQUIRED_SRS_RESOURCE_FILES:
+        path = core_root / "resources" / "srs" / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("fixture\n", encoding="utf-8")
+
+
 class TestValidateAppBundle(unittest.TestCase):
     def test_validate_windows_dist_passes_for_main_and_helper_layout(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -20,9 +38,8 @@ class TestValidateAppBundle(unittest.TestCase):
             main_root = dist / "LexiShift"
             helper_root = dist / "LexiShiftHelper"
             host_root = dist / "LexiShiftNativeHost"
-            (main_root / "resources" / "helper" / "lexishift_core").mkdir(
-                parents=True, exist_ok=True
-            )
+            _write_required_srs_resources(main_root / "resources" / "helper" / "lexishift_core")
+            _write_required_srs_resources(host_root / "lexishift_core")
             (main_root / "resources" / "i18n").mkdir(parents=True, exist_ok=True)
             (main_root / "resources" / "themes").mkdir(parents=True, exist_ok=True)
             (main_root / "resources" / "sample_images").mkdir(parents=True, exist_ok=True)
@@ -57,9 +74,8 @@ class TestValidateAppBundle(unittest.TestCase):
             collected_main_internal = collected_main / "_internal" / "resources"
             collected_helper_internal = collected_helper / "_internal" / "resources"
 
-            (collected_main_internal / "helper" / "lexishift_core").mkdir(
-                parents=True, exist_ok=True
-            )
+            _write_required_srs_resources(collected_main_internal / "helper" / "lexishift_core")
+            _write_required_srs_resources(collected_host / "_internal" / "lexishift_core")
             (collected_main_internal / "i18n").mkdir(parents=True, exist_ok=True)
             (collected_main_internal / "themes").mkdir(parents=True, exist_ok=True)
             (collected_main_internal / "sample_images").mkdir(parents=True, exist_ok=True)
@@ -95,7 +111,8 @@ class TestValidateAppBundle(unittest.TestCase):
             host_root = dist / "LexiShiftNativeHost"
             main_internal = main_root / "_internal" / "resources"
             helper_internal = helper_root / "_internal" / "resources"
-            (main_internal / "helper" / "lexishift_core").mkdir(parents=True, exist_ok=True)
+            _write_required_srs_resources(main_internal / "helper" / "lexishift_core")
+            _write_required_srs_resources(host_root / "_internal" / "lexishift_core")
             (main_internal / "i18n").mkdir(parents=True, exist_ok=True)
             (main_internal / "themes").mkdir(parents=True, exist_ok=True)
             (main_internal / "sample_images").mkdir(parents=True, exist_ok=True)

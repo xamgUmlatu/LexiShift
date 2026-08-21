@@ -25,14 +25,21 @@
     "en-es": new Set([
       "animals",
       "arts_literature_humanities",
+      "computing_internet",
       "finance_business",
       "food_cooking",
       "games",
+      "hobbies_crafts",
       "law_politics_civics",
       "medicine_health",
       "music_media_entertainment",
+      "plants_nature",
+      "science_math",
       "science_technology",
-      "sports_fitness"
+      "shopping_money",
+      "sports_fitness",
+      "travel_places_transport",
+      "work_office"
     ]),
     "en-de": new Set([
       "arts_literature_humanities",
@@ -55,14 +62,18 @@
     return SUPPORTED_TOPICS_BY_PAIR[normalizePairKey(pairKey)] || null;
   }
 
-  function translateMessage(key, substitutions, fallback) {
-    if (globalThis.chrome && chrome.i18n && typeof chrome.i18n.getMessage === "function") {
-      const message = chrome.i18n.getMessage(key, substitutions);
-      if (message) {
-        return message;
-      }
-    }
-    return String(fallback || "");
+  function normalizeTopicList(value) {
+    const source = Array.isArray(value) ? value : String(value || "").split(",");
+    const seen = new Set();
+    return source
+      .map((entry) => String(entry || "").trim())
+      .filter((entry) => {
+        if (!entry || seen.has(entry)) {
+          return false;
+        }
+        seen.add(entry);
+        return true;
+      });
   }
 
   function isTopicSupported(pairKey, topic) {
@@ -71,6 +82,15 @@
       return true;
     }
     return supportedTopics.has(String(topic || "").trim());
+  }
+
+  function filterTopicsForPair(pairKey, topics) {
+    const normalized = normalizeTopicList(topics);
+    const supportedTopics = supportedTopicsForPair(pairKey);
+    if (!supportedTopics) {
+      return normalized;
+    }
+    return normalized.filter((topic) => supportedTopics.has(topic));
   }
 
   function applyTopicChipSupport(buttons, pairKey) {
@@ -87,26 +107,20 @@
       ).trim();
       const supported = Boolean(!supportedTopics || supportedTopics.has(topic));
       button.disabled = !supported;
-      button.classList.toggle("is-unsupported", !supported);
-      button.setAttribute("aria-disabled", supported ? "false" : "true");
-      if (supported) {
+      button.hidden = !supported;
+      if (button.classList && typeof button.classList.toggle === "function") {
+        button.classList.toggle("is-unsupported", false);
+      }
+      if (typeof button.removeAttribute === "function") {
+        button.removeAttribute("aria-disabled");
         button.removeAttribute("title");
-      } else {
-        const pair = normalizePairKey(pairKey);
-        button.setAttribute(
-          "title",
-          translateMessage(
-            "tooltip_srs_topic_not_covered",
-            [pair],
-            `Not covered for ${pair} yet`
-          )
-        );
       }
     });
   }
 
   root.optionsSrsTopicSupport = {
     applyTopicChipSupport,
+    filterTopicsForPair,
     isTopicSupported,
     supportedTopicsForPair
   };

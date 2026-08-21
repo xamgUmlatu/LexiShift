@@ -311,7 +311,12 @@ if sys.platform == "win32":
         [os.path.join(repo_root, "scripts", "helper", "lexishift_native_host.py")],
         pathex=common_pathex + [os.path.join(repo_root, "scripts", "helper")],
         binaries=[],
-        datas=[],
+        datas=[
+            (
+                os.path.join(repo_root, "core", "lexishift_core", "resources"),
+                os.path.join("lexishift_core", "resources"),
+            )
+        ],
         hiddenimports=LEXISHIFT_CORE_HIDDEN_IMPORTS,
         hookspath=[],
         runtime_hooks=[],

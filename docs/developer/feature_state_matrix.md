@@ -1085,8 +1085,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-06-08` Learning Languages now exposes semantic/veto reference-pack status and a pair-level install/copy path for the current `en-es` reference pack while keeping `en-de` semantic reference coverage explicitly pending.
-- Last verified: `2026-06-08` targeted semantic-pack install, source-stack, and GUI learning-pair setup tests; `2026-05-15` Lane 5 L5-E semantic inventory exception containment validation with focused semantic gate/runtime tests; `2026-05-16` routing-only evidence sync for semantic-shadow review queue path; `2026-06-06` route-only evidence sync from getting-started page to guide page
+- Last documented checkpoint: `2026-08-08` browser, Options profile publication, and runtime diagnostics now share the helper's fail-closed `abstain_on_unavailable` default, while the active-rule resolver prevents stale stored legacy values from weakening the derived runtime posture. Profile language mirror changes now rebuild source, target, automatic-pair mode, and pair together in already-open tabs. `2026-07-26` browser semantic context added locale-aware sentence/word segmentation and unified committed replacement budgets.
+- Last verified: `2026-08-08` the full extension contract suite passed (`167` tests), including fail-closed semantic fallback, explicit legacy compatibility, atomic language-mirror hot reload, semantic-context, tricky-HTML, unified-budget, committed-counting, Options, and replacement-selection coverage; the synthetic SRS quality harness passed (`pass=29 warn=0 fail=0`) across `en-ja`, `en-es`, and `en-de`.
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -1122,8 +1122,9 @@ Use this file when:
     - semantic admission activates only when the current enabled SRS rules have nonzero `status=ready` coverage and semantic inventory resolves cleanly
     - eligible matches are counted, but only `status=ready` eligible matches are batched to helper `semantic_admit_batch`
     - fallback decisions now roll up reason-code counts such as `semantic_status_pending`, `semantic_inventory_unavailable`, and `decision_service_error` into runtime diagnostics without changing replacement behavior
-    - ready semantic helper requests use bounded block/sentence-window DOM context when inline markup splits the visible sentence across text nodes, with scan-local context-buffer reuse for small complete blocks, same-context helper-call coalescing, pair/profile inventory-resolution reuse across serial admissions, explicit `fit_scope=per_match` batching across different context strings, and two-phase semantic preflight for budgeted scans so TF-IDF-style scoring keeps one-match semantics while native helper calls are reduced; the default semantic scan node batch is now `96` with no helper flush delay, based on the live Castle first-visible/throughput tuning; replacement edits remain scoped to the original text node and final page-budget enforcement remains ordered
-    - non-ready eligible matches still resolve locally through the shipped internal legacy fallback posture
+    - ready semantic helper requests use bounded block/sentence-window DOM context when inline markup splits the visible sentence across text nodes; sentence clipping prefers locale-aware `Intl.Segmenter` sentence/word boundaries and retains a deterministic Unicode-aware fallback, while explicit `<br>` and DOM/CSS block transitions remain context boundaries and headings remain isolated containers
+    - semantic context keeps scan-local context-buffer reuse for small complete blocks, same-context helper-call coalescing, pair/profile inventory-resolution reuse across serial admissions, explicit `fit_scope=per_match` batching across different context strings, and two-phase semantic preflight for budgeted scans so TF-IDF-style scoring keeps one-match semantics while native helper calls are reduced; the default semantic scan node batch is now `96` with no helper flush delay, based on the live Castle first-visible/throughput tuning; replacement edits remain scoped to the original text node, sentence identity is shared across inline-node splits when reconstruction succeeds, and ordered rendering applies the unified page/sentence/lemma budget only after semantic admission
+    - non-ready eligible matches resolve locally through the shipped fail-closed fallback posture
     - runtime replaces only `replace` decisions and keeps the original otherwise
   - `en-es` now has a narrow publication PoC:
     - if real sibling senses for the same trigger are present either in the active emitted ruleset or in the broader initialize/refresh semantic-context pool, `metadata.semantic_admission.status` can be promoted to `ready` for the active rules without widening the visible SRS ruleset
@@ -1507,6 +1508,7 @@ Use this file when:
   - `apps/chrome-extension/content/processing/replacements.js`
   - `apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js`
   - `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/semantic_context_support.js`
   - `apps/chrome-extension/content/runtime/dom_scan/semantic_context.js`
   - `apps/chrome-extension/content/runtime/dom_scan/semantic_node_scheduler.js`
   - `apps/chrome-extension/content/runtime/dom_scan/semantic_performance_metrics.js`
@@ -1642,14 +1644,19 @@ Use this file when:
 
 - Status:
   - `frequency_bootstrap`: `implemented`, `default-on`, `verified`
-  - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
+  - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `guided Options setup`
   - `profile_growth`: `implemented`, `default-on` for refresh, `verified`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-07-03` `profile_bootstrap_policy_v5` now treats corrected learner difficulty as the main scalar admission authority: source commonness is a small tie-breaker, challenge fit remains computed but unweighted in the default one-slider profile path, proficiency/readiness fit is dominant, and topic affinity plus bounded scarcity remain topic-UX helpers. `2026-06-11` seed-frontier cache lifecycle now includes explicit status/prepare APIs, single-flight locking, stale-cache cleanup, native-host/CLI entrypoints, and desktop resource-flow background warmup after relevant pack download/link/import. Full-frontier SRS bootstrap/admission now omits `bootstrap_top_n` by default and helper-driven initialize, preview, refresh, rebalance, and rulegen-job flows cache source-normalized seed rows under `srs/cache/seed_frontiers/` without caching profile scores. `2026-06-02` Options admission preview remains read-only but now returns a seed-controlled sampled subset from the planned active pool instead of the deterministic prefix, so repeated user-facing samples can vary while advanced diagnostics retain the full planned pool and seed. `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes with expected-vs-observed reserved-lane topic counts. Refresh payloads now report realized preferred-topic share for selected new admissions, and the preference product-loop test derives expected post-feedback topic share from topic strength, the capped topic lane, and remaining eligible topic capacity, including sparse medicine/technology cases. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met, and extension retry-only feedback flushes do not run the refresh check. The en-es topic taxonomy now records `mvp_picker_visibility`, the options-page topic chips exactly mirror `strict_mvp_visible`, and the dev admission lab surfaces beta/hidden/register visibility metadata without removing diagnostic scenarios.
-- Last verified: `2026-07-03` en-ja product admission artifacts (`srs_admission_product_acceptance_en_ja_latest`: `PASS`, `srs_admission_random_ux_sample_pack_en_ja_latest`: `PASS`) show all `19` topic scenarios with movers, zero sampled `restricted_admission` rows, zero neutral non-topic rows more than `0.10` above proficiency, and surfaced-auto topic review `row_count=0`; focused profile-bootstrap/selector tests passed and SRS quality harness passed (`pass=22 warn=0 fail=0`). Earlier `2026-07-02` coverage included en-ja explicit admission artifacts (`srs_admission_preference_sample_pack_en_ja_latest`: `PASS`, `srs_admission_topic_proficiency_grid_en_ja_latest`: `WARN` with only sparse-topic no-mover warnings), hard admission-suitability selector tests, focused initial-bootstrap and refresh no-rule refill tests, and SRS quality harness. Earlier `2026-06-11` coverage included focused seed-cache lifecycle/use-case tests (`21 passed`) plus syntax/style checks for the helper/native-host/GUI cache-prep entrypoints, focused SRS/helper/options contract test set (`177 passed`), en-ja learner-difficulty audit regeneration (`72,758` deduped unique lemmas), local installed en-ja seed-cache timing probe (`10.379s` first full-frontier seed build, `2.497s` repeat cache hit, same `78,316` raw normalized seed rows), and local installed en-ja profile-bootstrap timing probe (`17.201s` first initialization, `8.326s` repeat cached initialization, same `72,758` selected unique count). Earlier `2026-06-02` coverage included focused helper admission-preview tests covering weighted and reserved-topic seeded preview sampling, plus state and changed-file gates. Earlier `2026-05-27` coverage included focused profile-growth refresh/helper/native-host/options tests, preference-shaped product-loop tests with derived strong/weaker/sparse post-feedback topic-share assertions, automatic refresh policy/state tests, extension feedback-sync auto-refresh contract tests, content-runtime/background bridge auto-refresh contract tests, options SRS bridge contract tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, strict-MVP options topic-picker contract tests, taxonomy visibility validation, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last documented checkpoint: `2026-07-12` profile-bootstrap admission now uses the deterministic hard frontier-Gaussian hybrid lane selector (`profile_bootstrap_frontier_gaussian_hybrid_policy_v2`) for helper initialization, admission preview, and profile-growth refresh candidate formation. The base `profile_bootstrap_policy_v5` utility model remains the signal/core-score source and no-proficiency fallback. Offline comparison keeps the first frontier prototype and soft-topic v3 diagnostic available; hard v2 is preferred because it preserved topic visibility while keeping severe below-target leakage at zero in the 22-scenario en-ja comparison pack. `2026-07-03` `profile_bootstrap_policy_v5` made corrected learner difficulty the main scalar admission authority: source commonness is a small tie-breaker, challenge fit remains computed but unweighted in the default one-slider profile path, proficiency/readiness fit is dominant, and topic affinity plus bounded scarcity remain topic-UX helpers. `2026-06-11` seed-frontier cache lifecycle now includes explicit status/prepare APIs, single-flight locking, stale-cache cleanup, native-host/CLI entrypoints, and desktop resource-flow background warmup after relevant pack download/link/import. Full-frontier SRS bootstrap/admission now omits `bootstrap_top_n` by default and helper-driven initialize, preview, refresh, rebalance, and rulegen-job flows cache source-normalized seed rows under `srs/cache/seed_frontiers/` without caching profile scores. `2026-06-02` Options admission preview remains read-only but now returns a seed-controlled sampled subset from the planned active pool instead of the deterministic prefix, so repeated user-facing samples can vary while advanced diagnostics retain the full planned pool and seed. `2026-05-27` refresh admission defaults to `profile_growth`, preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. Refresh payloads now report realized preferred-topic share for selected new admissions, and automatic post-feedback refresh triggers `profile_growth` only after helper-persisted feedback thresholds are met.
+- Last verified: `2026-07-12` frontier-Gaussian comparison artifact refreshed for en-ja (`current/frontier v1/hard hybrid v2/soft hybrid v3`), focused profile-bootstrap/product-loop/helper preview tests passed, Ruff passed for touched SRS admission modules, doc-reference check passed, and SRS quality harness passed across en-ja/en-es/en-de (`pass=29 warn=0 fail=0`). Earlier `2026-07-03` en-ja product admission artifacts (`srs_admission_product_acceptance_en_ja_latest`: `PASS`, `srs_admission_random_ux_sample_pack_en_ja_latest`: `PASS`) show all `19` topic scenarios with movers, zero sampled `restricted_admission` rows, zero neutral non-topic rows more than `0.10` above proficiency, and surfaced-auto topic review `row_count=0`; focused profile-bootstrap/selector tests passed and SRS quality harness passed (`pass=22 warn=0 fail=0`). Earlier `2026-07-02` coverage included en-ja explicit admission artifacts (`srs_admission_preference_sample_pack_en_ja_latest`: `PASS`, `srs_admission_topic_proficiency_grid_en_ja_latest`: `WARN` with only sparse-topic no-mover warnings), hard admission-suitability selector tests, focused initial-bootstrap and refresh no-rule refill tests, and SRS quality harness. Earlier `2026-06-11` coverage included focused seed-cache lifecycle/use-case tests (`21 passed`) plus syntax/style checks for the helper/native-host/GUI cache-prep entrypoints, focused SRS/helper/options contract test set (`177 passed`), en-ja learner-difficulty audit regeneration (`72,758` deduped unique lemmas), local installed en-ja seed-cache timing probe (`10.379s` first full-frontier seed build, `2.497s` repeat cache hit, same `78,316` raw normalized seed rows), and local installed en-ja profile-bootstrap timing probe (`17.201s` first initialization, `8.326s` repeat cached initialization, same `72,758` selected unique count).
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
-  - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, a proficiency readiness multiplier, corrected-difficulty-first utility weights, and capped reserved topic-lane selection over the frequency seed frontier before initial active selection.
+  - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, corrected-difficulty-first utility weights, and the hard hybrid frontier-lane selector over the frequency seed frontier before initial active selection.
+  - `profile_bootstrap` final selection now uses deterministic frontier,
+    trail, topic, and beginner-core lanes from hard hybrid v2. Profiles without
+    a proficiency estimate fall back to the base core profile score so topic
+    preferences still work before the user chooses or earns a proficiency
+    frontier.
   - Actual selector admission now treats `admission_suitability=0.0` as hard
     ineligible while leaving those rows visible in ranking diagnostics. Low
     nonzero suitability remains a soft multiplier.
@@ -1682,9 +1689,9 @@ Use this file when:
     topic count/status from lane cap plus source capacity. Full-pool weighted
     sampling remains too diffuse as a direct topic-preference policy.
   - `profile_growth` is executable for refresh/growth admission into `S`; it
-    transforms the seed frontier through profile-aware scoring, applies the
-    capped reserved topic-lane selector where relevant, and then uses the
-    existing refresh admission gates before persistence/publication. When
+    forms its refresh candidate pool with the same hard hybrid frontier lanes,
+    then uses the existing refresh admission gates before
+    persistence/publication. When
     profile-growth diagnostics are active, refresh output includes
     `selected_preferred_topic` with selected count, preferred-topic count,
     realized share, and preferred-topic lemmas.
@@ -2089,7 +2096,10 @@ Use this file when:
   word-info API, selected-profile Vocabulary Library page with active-pair
   selection, and built-in `quick-definition` popup module; cross-profile library enumeration and completed/
   mastered lifecycle UX remain planned.
-- Last documented checkpoint: `2026-08-20` Japanese definition lookup now uses
+- Last documented checkpoint: `2026-08-20` the desktop Resource settings now
+  support local import of user-supplied Yomitan format-3 term dictionaries and
+  per-language-pair popup-source selection, with the selected local source tried
+  first and the existing built-in provider retained as fallback. Japanese definition lookup now uses
   the clicked replacement's exact surface/reading identity when available,
   honors JMdict reading and sense restrictions, keeps SRS attachment and the
   extension lookup cache reading-aware, and reports stable local dictionary and
@@ -2106,8 +2116,10 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-20` focused word-info, JMdict parsing, extension cache,
-  and quick-definition tests passed (`48` tests); a read-only lookup against the
+- Last verified: `2026-08-20` focused word-info/JMdict, Yomitan import and
+  lookup, GUI resource-settings/i18n, extension cache/popup, pack provenance,
+  and packaging contract suites passed (`108` tests, `7` subtests); the strict
+  Windows parity audit passed (`pass=9 warn=0 fail=0`). A read-only lookup against the
   installed `suisui` data returned `時/とき` without the unrelated `斎/とき`
   ritual-meal sense and separately resolved `時/じ`. Earlier `2026-06-02` dedicated Vocabulary Library page pair-selector/theme-loading tests plus
   focused helper word-info tests, native-host route tests, helper-client/API
@@ -2129,6 +2141,27 @@ Use this file when:
     `re_restr`, `re_nokanji`, `stagk`, and `stagr` restrictions before presentation. The
     clicked package remains authoritative, so an SRS item for another reading
     is not attached to the response.
+  - JMdict sense-info prose is preserved verbatim in the helper payload. The
+    popup derives `《written form》 description` rows only for the narrow shape
+    where every semicolon-separated clause exactly says that a written form from
+    the same JMdict entry "signifies" a description; all other notes remain
+    unchanged.
+  - Users can import a Yomitan format-3 dictionary ZIP in the desktop Resource
+    settings. LexiShift never supplies or uploads that data, leaves the original
+    ZIP unchanged, and stores a managed local SQLite lookup index with manifest
+    and provenance sidecars. Glossary JSON is retained in the index, while the
+    current popup renderer uses a safe text projection rather than dictionary
+    HTML, remote media, or custom styles.
+  - Dictionary selection is persisted per language pair and affects only the
+    read-only word-info/dictionary-popup route. It does not participate in
+    replacements, rule generation, admission, scheduling, or SRS publication.
+    A selected imported dictionary is tried first; a miss or unavailable pack
+    falls through to the pair's existing built-in lookup source. Popup requests
+    bypass the session word-info cache so a newly selected source is visible on
+    the next lookup.
+  - Imported Japanese term lookup prefers exact written-form plus reading,
+    then exact written form, then exact normalized kana reading. The popup shows
+    the imported dictionary title and preserves multiline definition text.
   - Installed local lexical resources are the canonical gloss source. For
     `en-es`, the route resolves Spanish-to-English translation/gloss packs
     through existing pair-resource capability/default-pack logic rather than
@@ -2178,12 +2211,17 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/word_info_dictionary.py`
   - `core/lexishift_core/helper/use_cases/word_info_identity.py`
   - `core/lexishift_core/helper/use_cases/word_info_jmdict.py`
+  - `core/lexishift_core/helper/use_cases/word_info_senses.py`
+  - `core/lexishift_core/helper/lookup_dictionary_settings.py`
+  - `core/lexishift_core/helper/yomitan_lookup_dictionaries.py`
   - `core/lexishift_core/helper/engine.py`
   - `scripts/helper/lexishift_native_host.py`
   - `apps/chrome-extension/shared/helper/helper_client.js`
   - `apps/chrome-extension/shared/helper/word_info_api.js`
   - `apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js`
   - `apps/chrome-extension/content/ui/ui.js`
+  - `apps/gui/src/settings_lookup_dictionaries_mixin.py`
+  - `apps/gui/src/lookup_dictionary_import.py`
   - `apps/chrome-extension/shared/srs/popup_modules_registry.js`
   - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
   - `apps/chrome-extension/content_script.js`
@@ -2197,9 +2235,12 @@ Use this file when:
   - `apps/chrome-extension/learning_dashboard_theme.js`
   - `apps/chrome-extension/learning_dashboard.js`
   - `core/tests/helper/test_helper_word_info.py`
+  - `core/tests/helper/test_yomitan_lookup_dictionaries.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_helper_status_profile_contract.py`
   - `core/tests/dev/test_extension_quick_definition_popup_module.py`
+  - `core/tests/dev/test_extension_word_info_api_contract.py`
+  - `apps/gui/tests/test_lookup_dictionary_settings.py`
   - `core/tests/dev/test_extension_learning_dashboard_page.py`
   - `core/tests/architecture/test_extension_structure.py`
 - Known gaps:
@@ -2209,19 +2250,27 @@ Use this file when:
   - Batch lookup for a page of library rows is not implemented.
   - The normalized public popup module API remains target architecture; the
     current module uses the existing internal popup descriptor/context pattern.
-  - Per-language-pair dictionary source selection and fallback policy are not
-    yet implemented; the route still uses the pair capability's resolved local
-    source.
+  - The Resource settings currently expose one selected imported dictionary per
+    language pair plus implicit built-in fallback; an ordered multi-dictionary
+    stack UI is not implemented.
+  - The first importer intentionally supports Yomitan format-3 term banks only.
+    Frequency, pitch-accent, kanji, and other bank types are not lookup sources,
+    and rich structured-content styling/media is not rendered yet.
 
 ## Vocabulary Practice Options UX
 
-- Status: `implemented`, `default-on`, `verified` for the selected-story shell,
-  direct Vocabulary Library entry, sampling curtain, switch styling, proficiency slider presentation,
-  lazy status output, guided new-story initialization modal, and helper-backed
-  missing-language-data setup recovery, delete-story state cleanup, and
-  existing-GUI resource-settings deep-link activation; full multi-story
-  enumeration remains `planned`
-- Last documented checkpoint: `2026-06-02` Options now links directly to the
+- Status: `implemented`, `default-on`, `verified` for the current beta LP setup
+  flow, selected-story shell, direct Vocabulary Library entry, sampling
+  curtain, switch styling, proficiency slider presentation, lazy status output,
+  guided new-story initialization modal, helper-backed missing-language-data
+  setup recovery, delete-story state cleanup, and existing-GUI
+  resource-settings deep-link activation; full multi-story enumeration remains
+  `planned`
+- Last documented checkpoint: `2026-07-15` current beta LP setup flows are
+  accepted as complete for the tested scope after the en-ja creation flow was
+  retested with hard frontier-Gaussian hybrid admission, fast indexed preview,
+  localized setup copy, topic picker filtering, persisted browsing-admission
+  toggle state, and early Options theme/backdrop loading. `2026-06-02` Options now links directly to the
   dedicated Vocabulary Library instead of embedding the admitted-words
   dashboard, the dedicated page lets the selected profile switch among active
   language pairs while applying the same selected-profile background/card-theme
@@ -2339,7 +2388,12 @@ Use this file when:
   path; the page-background manager also skips duplicate backdrop/image/position
   DOM writes so late background sync does not repaint the same already-applied
   visual state.
-- Last verified: `2026-06-02` focused Vocabulary Library pair-selector/theme-loading/direct-link/implicit-feedback-auto-refresh tests plus
+- Last verified: `2026-07-15` manual en-ja Options creation-flow smoke passed
+  after the hard hybrid admission promotion and setup-flow polish; observed
+  setup samples were notably better and the LP setup flow is accepted for the
+  current beta scope. Earlier `2026-07-12` SRS quality harness passed
+  (`pass=29 warn=0 fail=0`) and focused profile-bootstrap/helper preview tests
+  passed for the active admission selector. Earlier `2026-06-02` focused Vocabulary Library pair-selector/theme-loading/direct-link/implicit-feedback-auto-refresh tests plus
   resource-plan/manual-frequency-policy/native-app-launch checks now extend the
   setup-flow profile inheritance, clean-topic setup opening, sanitized preview
   diagnostics, preview-renderer update, and focused
@@ -2353,7 +2407,7 @@ Use this file when:
   clean setup topic defaults,
   non-activating setup sampling, learner-facing sample preview cards with
   locally toggled advanced diagnostics and no printed local source paths,
-	  Vocabulary Practice theme-token CSS contract,
+  Vocabulary Practice theme-token CSS contract,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
   lazy rulegen status output, hidden SRS enable backing control, removed
@@ -2480,7 +2534,7 @@ Use this file when:
     feedback remains off/reserved, so none of those three flags are exposed as
     learner-facing toggles.
   - The collapsed active-practice `Advanced` section exposes new-word timing
-	    thresholds as same-level controls, followed by `Delete Vocabulary Practice`. The
+    thresholds as same-level controls, followed by `Delete Vocabulary Practice`. The
     delete action uses the existing helper reset route but is presented and
     confirmed as deleting only the selected profile/language-pair story. On
     helper reset success, Options removes the selected pair's persisted SRS
@@ -2494,7 +2548,8 @@ Use this file when:
     is available.
   - The guided new-story modal uses the same underlying Options controls and
     helper workflows as the existing page path; it does not introduce a second
-    SRS initialization implementation.
+    SRS initialization implementation. The current beta LP setup flow is
+    considered complete for the present tested scope.
   - Modal sampling is non-mutating with respect to SRS admission and persists
     visible preference settings before calling the existing admission preview.
   - Modal initialization enables SRS for the selected story, persists visible
@@ -2505,6 +2560,8 @@ Use this file when:
     admission actually consumes browsing aggregates.
 - Evidence:
   - `docs/srs/srs_story_based_options_flow_plan.md`
+  - `docs/test_outputs/srs_admission_frontier_gaussian_config_compare_en_ja_latest.md`
+  - `docs/test_outputs/srs_quality_summary_latest.md`
   - `apps/chrome-extension/options.html`
   - `apps/chrome-extension/options.css`
   - `apps/chrome-extension/options/controllers/srs/story_flow_controller.js`
@@ -2567,10 +2624,22 @@ Use this file when:
 ## Due-Aware SRS Serving
 
 - Status: `implemented`, `default-on when capable`, `verified`
-- Last documented checkpoint: `2026-06-07` standard page replacement density restored to permissive defaults for en-es-style browsing density
-- Last verified: `2026-06-07` settings-default contract, DOM scan runtime contract,
-  replacement-selection contract, SRS resource-budget audit, SRS quality
-  harness, and changed-scope state audit
+- Last documented checkpoint: `2026-08-09` the ambiguous
+  `maxOnePerTextBlock` control moved under Advanced as explicitly labeled
+  legacy text-node compatibility, while learner-facing one-per-unit guidance
+  now routes to `maxReplacementsPerSentence = 1`; existing stored values remain
+  honored without automatic migration. `2026-08-08` replacement-budget diagnostics now
+  expose aggregate configured limits, committed usage, exhaustion, and
+  page/sentence/lemma rejection counts with explicit `frame_document` scope.
+  Density settings are explicitly global, and non-rendered subtrees no longer
+  consume replacement capacity; visibility-related attribute changes trigger a
+  targeted rescan when content is revealed.
+- Last verified: `2026-08-09` the full extension contract suite passed (`170`
+  tests), including the legacy-control placement/copy contract, aggregate budget
+  rejection accounting, frame-document diagnostics, non-rendered subtree
+  filtering, visibility-mutation rescans, sentence context, committed-counting,
+  Options, and replacement selection. `2026-08-08` the synthetic SRS quality
+  harness passed (`pass=29 warn=0 fail=0`) across `en-ja`, `en-es`, and `en-de`.
 - Default behavior:
   - Scheduler code builds a due queue from `next_due`.
   - Helper rulegen annotates matching SRS rules with `metadata.rulegen.srs`
@@ -2582,8 +2651,21 @@ Use this file when:
     lower-stability due SRS items over mature or future-due SRS rows inside the
     limited replacement slots.
   - Standard extension page-density defaults are explicit and permissive:
-    `maxReplacementsPerPage = 0`, `maxReplacementsPerLemmaPerPage = 0`,
-    `allowAdjacentReplacements = true`, and `maxOnePerTextBlock = false`.
+    `maxReplacementsPerPage = 0`, `maxReplacementsPerSentence = 0`,
+    `maxReplacementsPerLemmaPerPage = 0`, `allowAdjacentReplacements = true`,
+    and `maxOnePerTextBlock = false`.
+  - A nonzero per-sentence cap uses locale-aware sentence segmentation and
+    reconstructed inline DOM context where available. If reconstruction is
+    unavailable, a text-node-local key provides a conservative fallback.
+  - Page-total, per-sentence, and per-lemma constraints are evaluated together
+    after semantic admission. Semantic abstentions do not consume capacity, and
+    budget usage is committed only after the replacement fragment is attached.
+  - Page-total state is per frame document; the top page and each embedded frame
+    have independent budgets. The settings themselves remain global.
+  - Runtime diagnostics persist aggregate budget counts only, without lemma or
+    sentence identifiers.
+  - Non-rendered text under hidden/template/display/visibility boundaries is
+    excluded from replacement scanning and therefore cannot consume capacity.
   - Metadata-free cached helper rules remain active as a legacy compatibility fallback until regenerated.
 - Evidence:
   - `docs/developer/productization_lane5_runtime_seam_inventory.md`
@@ -2593,10 +2675,18 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/refresh_set.py`
   - `core/lexishift_core/helper/rulegen.py`
   - `apps/chrome-extension/shared/srs/srs_gate.js`
+  - `apps/chrome-extension/content/processing/replacement_selection.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/semantic_context.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/node_filters.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js`
+  - `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
   - `scripts/testing/srs_quality_harness.py`
   - `core/tests/helper/test_helper_rulegen.py`
   - `core/tests/dev/test_extension_settings_defaults_contract.py`
   - `core/tests/dev/test_extension_replacements_contract.py`
+  - `core/tests/dev/test_extension_dom_scan_runtime_contract.py`
+  - `core/tests/dev/test_extension_scan_skip_contract.py`
+  - `core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py`
   - `core/tests/dev/test_extension_srs_runtime_gate_contract.py`
   - `core/tests/dev/test_srs_quality_harness.py`
   - `docs/test_outputs/srs_quality_latest.json`
@@ -2605,8 +2695,11 @@ Use this file when:
   - Legacy metadata-free cached helper rules are intentionally permissive until the helper ruleset is regenerated.
   - Browser/native E2E coverage for automatic feedback-triggered refresh remains
     open beyond helper policy/state tests.
-  - `0` remains available as an explicit unlimited override for page and
-    per-lemma replacement caps.
+  - `0` remains available as an explicit unlimited override for page,
+    per-sentence, and per-lemma replacement caps.
+  - Sentence grouping is best effort: malformed or punctuation-free content,
+    shadow DOM boundaries, and oversized/truncated containers can produce
+    conservative text-node-local grouping or split a visible sentence.
   - No durable mastered/released flag is fully implemented yet.
   - Synthetic harness coverage remains pair-limited.
 

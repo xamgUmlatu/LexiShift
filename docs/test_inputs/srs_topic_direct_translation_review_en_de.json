@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "review_id": "srs_topic_direct_translation_review_en_de_v1",
+  "language_pair": "en-de",
+  "status": "ok",
+  "purpose": "Manual product review decisions for direct source-to-German topic expansion candidates. Rows not listed here are accepted from the strong direct-translation candidate artifact.",
+  "acceptance_policy": {
+    "candidate_source": "docs/test_outputs/srs_topic_direct_translation_overlay_en_de_strong_latest.json",
+    "default_for_unlisted_rows": "accept",
+    "accepted_membership": 1.0,
+    "accepted_confidence_label": "strong",
+    "review_note": "Secondary senses are allowed when the German topic sense is normal enough and useful enough. Reject rows target wrong-topic drift, overly broad component splits, obscure/marked senses, and bad standalone SRS topic candidates."
+  },
+  "reject_decisions": [
+    {
+      "topic": "animals",
+      "lemma": "bücherwurm",
+      "decision": "reject_too_obscure_or_metaphoric_topic_sense",
+      "reason": "Bookworm is primarily a person metaphor in ordinary use; animal/insect sense is not a good animal-topic SRS candidate."
+    },
+    {
+      "topic": "finance_business",
+      "lemma": "züchten",
+      "decision": "reject_wrong_topic",
+      "reason": "Plant/animal cultivation is not a safe finance/business candidate without an agriculture/business topic."
+    },
+    {
+      "topic": "finance_business",
+      "lemma": "anbauen",
+      "decision": "reject_wrong_topic",
+      "reason": "Agricultural cultivation is not a safe finance/business candidate."
+    },
+    {
+      "topic": "food_cooking",
+      "lemma": "lieblich",
+      "decision": "reject_secondary_or_obscure_sense",
+      "reason": "Wine/food descriptive sense is too narrow for a food-cooking topic candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "aktie",
+      "decision": "reject_wrong_topic",
+      "reason": "This belongs, if anywhere, under finance/business rather than law/politics/civics."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "verbindung",
+      "decision": "reject_wrong_topic",
+      "reason": "Generic connection/link sense is not a safe law/politics/civics candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "stern",
+      "decision": "reject_wrong_topic",
+      "reason": "Political/heraldic category evidence is too indirect for a standalone topic candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "gelb",
+      "decision": "reject_wrong_topic",
+      "reason": "Color-to-politics association is too indirect."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "kreuz",
+      "decision": "reject_wrong_topic",
+      "reason": "Symbol/heraldic association is too indirect for this topic."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "krone",
+      "decision": "reject_wrong_topic",
+      "reason": "Political symbolism sense is not a good standalone civics candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "wachsend",
+      "decision": "reject_wrong_topic",
+      "reason": "General adjective; politics category evidence is accidental/indirect."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "löwe",
+      "decision": "reject_wrong_topic",
+      "reason": "Heraldic/political-symbol evidence is too indirect."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "batterie",
+      "decision": "reject_wrong_topic",
+      "reason": "Military/government category path is not a safe civics topic candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "rose",
+      "decision": "reject_wrong_topic",
+      "reason": "Political-symbol evidence is too indirect."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "silber",
+      "decision": "reject_wrong_topic",
+      "reason": "Heraldic/political-symbol evidence is too indirect."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "metall",
+      "decision": "reject_wrong_topic",
+      "reason": "Heraldic/political-symbol evidence is too indirect."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "adler",
+      "decision": "reject_wrong_topic",
+      "reason": "Heraldic/political-symbol evidence is too indirect."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "kamerad",
+      "decision": "reject_wrong_topic",
+      "reason": "Political comrade sense is not safe enough for automatic topic promotion."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "reiter",
+      "decision": "reject_wrong_topic",
+      "reason": "Military/political evidence is too indirect for this standalone candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "gefecht",
+      "decision": "reject_wrong_topic",
+      "reason": "Battle/war vocabulary should not be promoted under law/politics/civics without a military topic."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "schwert",
+      "decision": "reject_wrong_topic",
+      "reason": "Weapon/heraldic evidence is not a safe law/politics/civics topic candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "feuer",
+      "decision": "reject_wrong_topic",
+      "reason": "Symbol/weapon category evidence is too indirect."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "heer",
+      "decision": "reject_wrong_topic",
+      "reason": "Military vocabulary is not currently a product topic under law/politics/civics."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "brigade",
+      "decision": "reject_wrong_topic",
+      "reason": "Military vocabulary is not currently a product topic under law/politics/civics."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "falke",
+      "decision": "reject_wrong_topic",
+      "reason": "Heraldic/political-symbol evidence is too indirect."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "wappen",
+      "decision": "reject_wrong_topic",
+      "reason": "Heraldry is adjacent to civics but too narrow for this promotion pass."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "ring",
+      "decision": "reject_wrong_topic",
+      "reason": "Crime/political organization sense is too indirect for a generic standalone word."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "degen",
+      "decision": "reject_wrong_topic",
+      "reason": "Weapon/military evidence is not a safe law/politics/civics candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "feldzug",
+      "decision": "reject_wrong_topic",
+      "reason": "Military campaign sense is not a current topic target."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "mörser",
+      "decision": "reject_wrong_topic",
+      "reason": "Weapon sense is not a law/politics/civics topic candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "patrone",
+      "decision": "reject_wrong_topic",
+      "reason": "Ammunition sense is not a law/politics/civics topic candidate."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "korps",
+      "decision": "reject_wrong_topic",
+      "reason": "Military organization vocabulary is not currently a target topic."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "gefreiter",
+      "decision": "reject_wrong_topic",
+      "reason": "Military rank vocabulary is not currently a target topic."
+    },
+    {
+      "topic": "law_politics_civics",
+      "lemma": "kartusche",
+      "decision": "reject_wrong_topic",
+      "reason": "Ammunition/weapon evidence is not a law/politics/civics candidate."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "sprache",
+      "decision": "reject_wrong_topic",
+      "reason": "Translation drift from tongue/language; German lemma is language, not body/health."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "anlage",
+      "decision": "reject_wrong_topic",
+      "reason": "Too broad and not a safe medicine/health candidate."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "einstellung",
+      "decision": "reject_wrong_topic",
+      "reason": "Generic setting/attitude sense is not a medicine/health candidate."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "stellung",
+      "decision": "reject_wrong_topic",
+      "reason": "Generic position/posture sense is not safe enough for medicine/health promotion."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "seele",
+      "decision": "reject_wrong_topic",
+      "reason": "Soul/psyche sense is too broad for this medicine/health pass."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "blatt",
+      "decision": "reject_wrong_topic",
+      "reason": "Organ/leaf sense drift is not a safe health candidate."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "sympathisch",
+      "decision": "reject_wrong_topic",
+      "reason": "Anatomical sympathetic-system relation is too indirect for this adjective."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "atlas",
+      "decision": "reject_secondary_or_obscure_sense",
+      "reason": "Anatomical vertebra sense is too specialized for this promotion pass."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "fall",
+      "decision": "reject_wrong_topic",
+      "reason": "Medical case sense is too generic and likely not useful as a topic-tagged SRS item."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "schwanz",
+      "decision": "reject_bad_product_topic_candidate",
+      "reason": "Colloquial/vulgar body sense is not a product-safe health topic candidate when formal anatomy terms exist."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "büste",
+      "decision": "reject_wrong_topic",
+      "reason": "Bust/sculpture/body-form sense is not a health candidate."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "rüssel",
+      "decision": "reject_wrong_topic",
+      "reason": "Animal trunk/proboscis is not a medicine/health topic candidate."
+    },
+    {
+      "topic": "medicine_health",
+      "lemma": "loch",
+      "decision": "reject_wrong_topic",
+      "reason": "Generic hole/eye drift is not a health candidate."
+    },
+    {
+      "topic": "music_media_entertainment",
+      "lemma": "schwarz",
+      "decision": "reject_wrong_topic",
+      "reason": "Black-note/music association is too indirect for the generic adjective."
+    },
+    {
+      "topic": "music_media_entertainment",
+      "lemma": "weise",
+      "decision": "reject_translation_component_drift",
+      "reason": "Generated from splitting Art und Weise; music tune sense is not the direct intended candidate."
+    },
+    {
+      "topic": "music_media_entertainment",
+      "lemma": "gebunden",
+      "decision": "reject_secondary_or_obscure_sense",
+      "reason": "Music binding/legato-like evidence is too indirect for the generic adjective."
+    },
+    {
+      "topic": "music_media_entertainment",
+      "lemma": "organ",
+      "decision": "reject_secondary_or_obscure_sense",
+      "reason": "Newspaper organ sense is too indirect for media topic promotion."
+    },
+    {
+      "topic": "music_media_entertainment",
+      "lemma": "balken",
+      "decision": "reject_secondary_or_obscure_sense",
+      "reason": "Music notation beam sense is too specialized for this pass."
+    },
+    {
+      "topic": "sports_fitness",
+      "lemma": "unterstützung",
+      "decision": "reject_wrong_topic",
+      "reason": "Spanish asistencia drift; German Unterstützung is support, not a normal sports assist term."
+    },
+    {
+      "topic": "sports_fitness",
+      "lemma": "jagen",
+      "decision": "reject_wrong_topic",
+      "reason": "Hunting/game relation is outside current sports/fitness topic scope."
+    },
+    {
+      "topic": "sports_fitness",
+      "lemma": "hebel",
+      "decision": "reject_secondary_or_obscure_sense",
+      "reason": "Sports/grappling lever sense is too narrow for this generic noun."
+    },
+    {
+      "topic": "travel_places_transport",
+      "lemma": "laden",
+      "decision": "reject_wrong_topic",
+      "reason": "Store/shop sense is not a travel/place/transport candidate."
+    },
+    {
+      "topic": "travel_places_transport",
+      "lemma": "führer",
+      "decision": "reject_bad_product_topic_candidate",
+      "reason": "Guide/driver sense is possible, but standalone lemma has problematic associations and is not needed for topic coverage."
+    }
+  ]
+}

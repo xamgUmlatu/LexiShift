@@ -54,6 +54,9 @@ TOPIC_TAXONOMY_JSON = PROJECT_ROOT / "docs/test_inputs/srs_topic_preference_taxo
 EN_JA_TOPIC_TAXONOMY_JSON = (
     PROJECT_ROOT / "docs/test_inputs/srs_topic_preference_taxonomy_en_ja.json"
 )
+TOPIC_PAIR_SUPPORT_MATRIX_JSON = (
+    PROJECT_ROOT / "docs/test_inputs/srs_topic_pair_support_matrix.json"
+)
 EN_JA_PRODUCT_SAFE_TOPIC_OVERLAY_JSON = (
     PROJECT_ROOT / "docs/test_outputs/srs_topic_autotag_promotion_overlay_en_ja_latest.json"
 )
@@ -111,8 +114,11 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         actual_topic_ids = re.findall(r'data-srs-topic-interest="([^"]+)"', html)
 
         self.assertEqual(actual_topic_ids, expected_topic_ids)
-        self.assertNotIn("plants_nature", actual_topic_ids)
-        self.assertNotIn("travel_places_transport", actual_topic_ids)
+        self.assertIn("plants_nature", actual_topic_ids)
+        self.assertIn("travel_places_transport", actual_topic_ids)
+        self.assertNotIn("anime_manga_pop_culture", actual_topic_ids)
+        self.assertNotIn("sat_toefl_exam_prep", actual_topic_ids)
+        self.assertNotIn("formal_professional_register", actual_topic_ids)
 
     def test_admission_preview_topic_tags_use_options_locale_messages(self) -> None:
         script = f"""
@@ -177,6 +183,7 @@ const vm = require("node:vm");
 
 const supportPath = {json.dumps(str(SRS_TOPIC_SUPPORT_JS))};
 const enJaTaxonomyPath = {json.dumps(str(EN_JA_TOPIC_TAXONOMY_JSON))};
+const pairMatrixPath = {json.dumps(str(TOPIC_PAIR_SUPPORT_MATRIX_JSON))};
 const enJaOverlayPath = {json.dumps(str(EN_JA_PRODUCT_SAFE_TOPIC_OVERLAY_JSON))};
 const localeRoot = {json.dumps(str(PROJECT_ROOT / "apps/chrome-extension/_locales"))};
 const context = vm.createContext({{
@@ -193,40 +200,13 @@ context.globalThis = context;
 vm.runInContext(fs.readFileSync(supportPath, "utf8"), context, {{ filename: supportPath }});
 
 const support = context.LexiShift.optionsSrsTopicSupport;
-const expectedSupported = [
-  "animals",
-  "anime_manga_pop_culture",
-  "arts_literature_humanities",
-  "computing_internet",
-  "finance_business",
-  "food_cooking",
-  "games",
-  "hobbies_crafts",
-  "law_politics_civics",
-  "medicine_health",
-  "music_media_entertainment",
-  "plants_nature",
-  "science_math",
-  "science_technology",
-  "shopping_money",
-  "sports_fitness",
-  "travel_places_transport",
-  "work_office"
-];
-const expectedSupportedEnEs = [
-  "animals",
-  "arts_literature_humanities",
-  "finance_business",
-  "food_cooking",
-  "games",
-  "law_politics_civics",
-  "medicine_health",
-  "music_media_entertainment",
-  "science_technology",
-  "sports_fitness"
-];
+const pairMatrix = JSON.parse(fs.readFileSync(pairMatrixPath, "utf8"));
+const expectedSupported = pairMatrix.pairs["en-ja"].picker_supported_topics.slice().sort();
+const expectedSupportedEnEs = pairMatrix.pairs["en-es"].picker_supported_topics.slice().sort();
+const expectedSupportedEnDe = pairMatrix.pairs["en-de"].picker_supported_topics.slice().sort();
 assert.deepEqual(Array.from(support.supportedTopicsForPair("en-ja")).sort(), expectedSupported);
 assert.deepEqual(Array.from(support.supportedTopicsForPair("en-es")).sort(), expectedSupportedEnEs);
+assert.deepEqual(Array.from(support.supportedTopicsForPair("en-de")).sort(), expectedSupportedEnDe);
 const supportedEnJa = support.supportedTopicsForPair("en-ja");
 const enJaTaxonomy = JSON.parse(fs.readFileSync(enJaTaxonomyPath, "utf8"));
 const enJaTaxonomyTopics = enJaTaxonomy.families
@@ -261,12 +241,15 @@ assert.equal(support.isTopicSupported("en-ja", "animals"), true);
 assert.equal(support.isTopicSupported("en-ja", "food_cooking"), true);
 assert.equal(support.isTopicSupported("en-ja", "computing_internet"), true);
 assert.equal(support.isTopicSupported("en-es", "animals"), true);
-assert.equal(support.isTopicSupported("en-es", "computing_internet"), false);
+assert.equal(support.isTopicSupported("en-es", "computing_internet"), true);
+assert.equal(support.isTopicSupported("en-de", "travel_places_transport"), true);
+assert.equal(support.isTopicSupported("en-de", "animals"), false);
 
 function button(topic) {{
   const attrs = {{ "data-srs-topic-interest": topic }};
   return {{
     disabled: false,
+    hidden: false,
     classList: {{
       values: new Set(),
       toggle(name, enabled) {{
@@ -285,15 +268,22 @@ const animal = button("animals");
 const disabled = button("unknown_topic");
 support.applyTopicChipSupport([enabled, animal, disabled], "en-ja");
 assert.equal(enabled.disabled, false);
-assert.equal(enabled.attrs["aria-disabled"], "false");
+assert.equal(enabled.hidden, false);
+assert.equal(enabled.attrs["aria-disabled"], undefined);
 assert.equal(enabled.attrs.title, undefined);
 assert.equal(animal.disabled, false);
-assert.equal(animal.attrs["aria-disabled"], "false");
+assert.equal(animal.hidden, false);
+assert.equal(animal.attrs["aria-disabled"], undefined);
 assert.equal(animal.attrs.title, undefined);
 assert.equal(disabled.disabled, true);
-assert.equal(disabled.attrs["aria-disabled"], "true");
-assert.equal(disabled.classList.values.has("is-unsupported"), true);
-assert.equal(disabled.attrs.title, "tooltip_srs_topic_not_covered:en-ja");
+assert.equal(disabled.hidden, true);
+assert.equal(disabled.attrs["aria-disabled"], undefined);
+assert.equal(disabled.classList.values.has("is-unsupported"), false);
+assert.equal(disabled.attrs.title, undefined);
+assert.deepEqual(
+  support.filterTopicsForPair("en-de", ["animals", "travel_places_transport", "animals"]),
+  ["travel_places_transport"]
+);
 """
         _run_node(script)
 
@@ -756,6 +746,7 @@ const modulePath = {json.dumps(str(STORY_FLOW_CONTROLLER_JS))};
 const resourcePath = {json.dumps(str(STORY_FLOW_RESOURCE_CHECK_JS))};
 const busyOverlayPath = {json.dumps(str(STORY_FLOW_BUSY_OVERLAY_JS))};
 const initializerPath = {json.dumps(str(STORY_FLOW_INITIALIZER_JS))};
+const supportPath = {json.dumps(str(SRS_TOPIC_SUPPORT_JS))};
 const utilsPath = {json.dumps(str(STORY_FLOW_UTILS_JS))};
 
 function createClassList() {{
@@ -789,12 +780,16 @@ function createSelect(value, optionValues) {{
     value: value || "",
     options: [],
     disabled: false,
+    listeners: {{}},
     appendChild(option) {{
       this.options.push(option);
       if (!this.value) {{
         this.value = option.value;
       }}
       return option;
+    }},
+    addEventListener(eventName, handler) {{
+      this.listeners[eventName] = handler;
     }}
   }};
   Object.defineProperty(select, "innerHTML", {{
@@ -865,11 +860,14 @@ vm.runInContext(fs.readFileSync(utilsPath, "utf8"), context, {{ filename: utilsP
 vm.runInContext(fs.readFileSync(resourcePath, "utf8"), context, {{ filename: resourcePath }});
 vm.runInContext(fs.readFileSync(busyOverlayPath, "utf8"), context, {{ filename: busyOverlayPath }});
 vm.runInContext(fs.readFileSync(initializerPath, "utf8"), context, {{ filename: initializerPath }});
+vm.runInContext(fs.readFileSync(supportPath, "utf8"), context, {{ filename: supportPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const calls = [];
+const normalize = (value) => JSON.parse(JSON.stringify(value));
 const mainTopicAnimals = createButton({{ "data-srs-topic-interest": "animals" }});
 const modalTopicAnimals = createButton({{ "data-srs-story-topic-interest": "animals" }});
+const modalTopicTravel = createButton({{ "data-srs-story-topic-interest": "travel_places_transport" }});
 const mainSamplingCurtain = {{ open: false }};
 const mainAdmissionPreviewOutput = {{ textContent: "sample output" }};
 const backdrop = {{
@@ -898,7 +896,7 @@ const elements = {{
   modalProficiencyEstimateInput: createInput("70"),
   modalProficiencyEstimateValueOutput: {{ textContent: "" }},
   modalTopicInterestsInput: createInput("animals"),
-  modalTopicInterestChipButtons: [modalTopicAnimals],
+  modalTopicInterestChipButtons: [modalTopicAnimals, modalTopicTravel],
   modalMaxActiveInput: createInput("30"),
   modalInitialActiveCountInput: createInput("40"),
   sampleButton: createButton(),
@@ -944,6 +942,7 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
 }});
 
 (async () => {{
+  controller.bind();
   controller.open();
   assert.equal(elements.modalProficiencyEstimateInput.value, "0");
   assert.equal(elements.modalProficiencyEstimateInput.dataset.srsHasValue, "true");
@@ -976,9 +975,17 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
 	  calls.length = 0;
 	  await controller.previewAdmission();
 	  assert.deepEqual(calls, ["previewAdmission:en-es:default", "status:Sample updated."]);
-	  assert.equal(elements.mainSrsEnabledInput.checked, false);
-	  assert.equal(mainSamplingCurtain.open, false);
-	  assert.equal(elements.previewOutput.innerHTML, "<strong>sample output</strong>");
+		  assert.equal(elements.mainSrsEnabledInput.checked, false);
+		  assert.equal(mainSamplingCurtain.open, false);
+		  assert.equal(elements.previewOutput.innerHTML, "<strong>sample output</strong>");
+
+  elements.modalTargetLanguageInput.value = "de";
+  elements.modalTopicInterestsInput.value = "animals, travel_places_transport";
+  elements.modalTargetLanguageInput.listeners.change();
+  assert.equal(modalTopicAnimals.hidden, true);
+  assert.equal(modalTopicTravel.hidden, false);
+  assert.equal(elements.modalTopicInterestsInput.value, "travel_places_transport");
+  assert.deepEqual(normalize(controller.readVisibleValues().interests), ["travel_places_transport"]);
 
   calls.length = 0;
   await controller.initializeStory();

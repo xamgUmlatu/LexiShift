@@ -1,0 +1,464 @@
+{
+  "schema_version": 1,
+  "lexicon_id": "srs_topic_manual_semantic_lexicon_en_es_v1",
+  "language_pair": "en-es",
+  "status": "seed",
+  "purpose": "Product-owned closed-set semantic lists for obvious en-es SRS topic tagging. Lists are intentionally conservative and exact-matched to the Spanish candidate corpus.",
+  "collections": [
+    {
+      "id": "arts_literature_humanities_core",
+      "display_name": "Arts, Literature & Humanities Core",
+      "target_family": "arts_literature_humanities",
+      "facet_id": "arts_literature_humanities",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of art, literature, theater, philosophy, religion, and humanities vocabulary.",
+      "entries": [
+        "arte", "artista", "artístico", "pintura", "pintor", "escultura", "escultor", "museo",
+        "galería", "lienzo", "dibujo", "dibujar", "ilustración", "poesía", "poema", "poeta",
+        "verso", "prosa", "novela", "cuento", "relato", "ensayo", "literatura", "literario",
+        "lector", "lectura", "escribir", "escritura", "escritor", "autora", "autor", "obra",
+        "teatro", "drama", "comedia", "tragedia", "escena", "escenario", "personaje",
+        "protagonista", "narrador", "argumento", "capítulo", "página", "libro", "biblioteca",
+        "editorial", "publicación", "filosofía", "filósofo", "historia", "histórico", "cultura",
+        "cultural", "mito", "mitología", "religión", "religioso", "templo", "iglesia", "dios",
+        "diosa", "santo", "rito", "ritual", "símbolo", "simbólico", "metáfora", "concepto",
+        "idea", "belleza", "estética", "clásico", "moderna", "moderno", "barroco", "romántico",
+        "realismo", "ficción", "fantasía", "leyenda", "fábula", "épica", "canto", "canción",
+        "género", "estilo"
+      ]
+    },
+    {
+      "id": "plants_nature_core",
+      "display_name": "Plants & Nature Core",
+      "target_family": "plants_nature",
+      "facet_id": "plants_nature",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of plants, crops, landscape, weather, seasons, and nature vocabulary.",
+      "entries": [
+        "árbol", "planta", "flor", "hoja", "raíz", "rama", "tronco", "bosque", "selva",
+        "jardín", "hierba", "pasto", "arbusto", "semilla", "fruto", "fruta", "montaña",
+        "río", "lago", "mar", "playa", "valle", "campo", "naturaleza", "natural", "paisaje",
+        "tierra", "suelo", "piedra", "roca", "arena", "viento", "lluvia", "nieve", "nube",
+        "sol", "luna", "estrella", "cielo", "clima", "primavera", "verano", "otoño", "invierno",
+        "rosa", "jazmín", "clavel", "girasol", "orquídea", "pino", "roble", "sauce", "palmera",
+        "encina", "haya", "abeto", "cactus", "bambú", "maíz", "trigo", "cebada", "arroz",
+        "tomate", "patata", "cebolla", "ajo", "zanahoria", "lechuga", "calabaza", "manzana",
+        "pera", "plátano", "limón", "naranja", "uva", "vid", "parra", "hongo", "seta", "musgo",
+        "helecho"
+      ]
+    },
+    {
+      "id": "hobbies_crafts_core",
+      "display_name": "Hobbies & Crafts Core",
+      "target_family": "hobbies_crafts",
+      "facet_id": "hobbies_crafts",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of hobbies, crafts, creative practice, collecting, and leisure activities.",
+      "entries": [
+        "afición", "pasatiempo", "ocio", "coleccionar", "colección", "fotografía", "foto",
+        "cámara", "dibujo", "pintura", "pintar", "acuarela", "bordado", "bordar", "costura",
+        "coser", "tejido", "tejer", "lana", "hilo", "aguja", "artesanía", "manualidad",
+        "cerámica", "barro", "arcilla", "escultura", "madera", "carpintería", "jardinería",
+        "jardín", "plantar", "pesca", "pescar", "campamento", "excursión", "ciclismo",
+        "bicicleta", "guitarra", "piano", "música", "cantar", "baile", "bailar", "danza",
+        "ajedrez", "lectura", "leer", "escritura", "escribir", "cocina", "cocinar",
+        "repostería", "cine", "teatro", "viajar", "viaje", "paseo", "caminar", "yoga",
+        "meditación", "maqueta", "diario", "cómic", "juego", "rompecabezas", "crucigrama"
+      ]
+    },
+    {
+      "id": "hobbies_crafts_tools_performance_collecting",
+      "display_name": "Hobbies & Crafts Tools, Performance & Collecting",
+      "target_family": "hobbies_crafts",
+      "facet_id": "hobbies_crafts",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of craft tools, materials, making verbs, music/performance, collecting, tabletop, model, and leisure-equipment vocabulary.",
+      "entries": [
+        "dibujar", "colorear", "pincel", "lienzo", "lápiz", "pluma",
+        "tinta", "taller", "herramienta", "fabricar", "construir", "pegar",
+        "tijera", "cosido", "ganchillo", "telar", "molde", "barniz",
+        "tallar", "carpintero", "maceta", "semilla", "regar", "acampar",
+        "brújula", "mapa", "violín", "flauta", "batería", "acordeón",
+        "partitura", "melodía", "coro", "ensayo", "escenario", "actor",
+        "actriz", "grabar", "grabación", "editar", "edición", "álbum",
+        "sello", "moneda", "miniatura", "modelo", "tablero", "ficha",
+        "baraja", "consola"
+      ]
+    },
+    {
+      "id": "anime_manga_pop_culture_core",
+      "display_name": "Anime, Manga & Pop Culture Core",
+      "target_family": "anime_manga_pop_culture",
+      "facet_id": "anime_manga_pop_culture",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of anime, manga, comics, fandom, genre, media, and pop-culture vocabulary.",
+      "entries": [
+        "anime", "manga", "cómic", "historieta", "caricatura", "personaje", "héroe", "heroína",
+        "villano", "protagonista", "episodio", "serie", "temporada", "capítulo", "escena",
+        "doblaje", "subtítulo", "animación", "animador", "ilustración", "ilustrador", "dibujo",
+        "dibujante", "viñeta", "disfraz", "convención", "festival", "figura", "figurita",
+        "póster", "cartel", "mercancía", "juego", "consola", "fantasía", "ciencia", "ficción",
+        "robot", "monstruo", "zombi", "vampiro", "aventura", "romance", "comedia", "terror",
+        "misterio", "acción", "drama", "popular", "cultura", "viral", "celebridad", "estrella",
+        "fama", "famoso", "película", "cine", "televisión", "música", "pop", "banda", "cantante",
+        "canción", "concierto"
+      ]
+    },
+    {
+      "id": "computing_internet_core",
+      "display_name": "Computing & Internet Core",
+      "target_family": "computing_internet",
+      "facet_id": "computing_internet",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of common computing, internet, device, software, account, and online communication vocabulary.",
+      "entries": [
+        "computadora", "ordenador", "usuario", "contraseña", "correo", "navegador",
+        "aplicación", "programa", "código", "servidor", "pantalla", "teclado", "ratón",
+        "descargar", "instalar", "actualizar", "copiar", "pegar", "algoritmo", "móvil",
+        "portátil", "teléfono", "mensaje", "página", "enlace", "carpeta", "red", "guardar",
+        "buscar", "publicar", "compartir", "digital", "electrónico", "tecnología",
+        "tecnológico", "terminal", "dispositivo", "sistema", "memoria", "procesador",
+        "formato", "clave", "sesión", "conexión", "conectar", "desconectar", "virtual",
+        "impresora", "imprimir", "interfaz"
+      ]
+    },
+    {
+      "id": "computing_internet_accounts_devices",
+      "display_name": "Computing & Internet Accounts & Devices",
+      "target_family": "computing_internet",
+      "facet_id": "computing_internet",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of accounts, online interaction, device hardware, UI controls, and digital safety vocabulary.",
+      "entries": [
+        "cuenta", "perfil", "acceso", "permiso", "seguridad", "identidad", "virus",
+        "cámara", "nube", "línea", "icono", "cursor", "plataforma", "celular",
+        "tableta", "escáner", "señal", "batería", "cargador", "micrófono", "altavoz",
+        "vídeo", "publicación", "comentario", "foro", "suscripción", "notificación",
+        "búsqueda", "canal", "contacto", "lista", "imagen", "foto", "transmisión",
+        "menú", "opción", "botón", "ventana", "dirección", "enviar", "recibir",
+        "monitor", "descarga", "instalación", "configurar", "programador",
+        "programación", "dato", "cable", "buscador"
+      ]
+    },
+    {
+      "id": "computing_internet_developer_data_networks",
+      "display_name": "Computing & Internet Developer, Data & Networks",
+      "target_family": "computing_internet",
+      "facet_id": "computing_internet",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of developer, data, networking, storage, security, and system vocabulary.",
+      "entries": [
+        "consola", "comando", "ejecutar", "ejecución", "versión", "biblioteca",
+        "paquete", "módulo", "función", "variable", "parámetro", "clase", "objeto",
+        "método", "lenguaje", "compilar", "compilador", "depurar", "depurador",
+        "prueba", "error", "fallo", "desarrollar", "puerto", "dominio", "protocolo",
+        "tráfico", "ruta", "petición", "solicitud", "cliente", "núcleo", "disco",
+        "unidad", "fichero", "copia", "respaldo", "recuperar", "restaurar",
+        "cifrado", "autenticar", "bloquear", "bloqueo", "protegido", "protección",
+        "registro", "índice", "tabla", "columna", "campo", "consulta", "base",
+        "modelo", "diseño", "velocidad", "carga", "ancho", "fibra", "inalámbrico",
+        "antena", "satélite", "latencia", "automático"
+      ]
+    },
+    {
+      "id": "computing_internet_ui_content_actions",
+      "display_name": "Computing & Internet UI, Content & Actions",
+      "target_family": "computing_internet",
+      "facet_id": "computing_internet",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.86,
+      "source_note": "Product-owned manually curated seed of broader UI, content, editing, and online action vocabulary. These are useful topic signals but more polysemous than core technical terms.",
+      "entries": [
+        "grupo", "desarrollo", "social", "público", "banda", "texto", "resolución",
+        "crear", "entrada", "edición", "sitio", "selección", "salida", "documento",
+        "directo", "privado", "eliminar", "cerrar", "subir", "bajar", "editor",
+        "artificial", "grabación", "grabar", "etiqueta", "ordenar", "seleccionar",
+        "borrar", "filtro", "formulario", "filtrar", "abrir", "auricular"
+      ]
+    },
+    {
+      "id": "finance_business_core",
+      "display_name": "Finance & Business Core",
+      "target_family": "finance_business",
+      "facet_id": "finance_business",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of business, commerce, banking, investment, income, budget, tax, debt, payment, client, supplier, and product/service vocabulary.",
+      "entries": [
+        "empresa", "negocio", "comercio", "comercial", "mercado", "economía",
+        "económico", "financiero", "banco", "cuenta", "factura", "contrato",
+        "garantía", "inversión", "invertir", "inversor", "beneficio",
+        "pérdida", "ganancia", "ingreso", "renta", "salario", "sueldo",
+        "presupuesto", "impuesto", "deuda", "préstamo", "hipoteca",
+        "financiación", "fondo", "tasa", "tarifa", "cuota", "moneda",
+        "pagar", "pago", "precio", "coste", "costo", "descuento", "comisión",
+        "cliente", "proveedor", "consumidor", "producto", "servicio",
+        "mercancía", "venta", "compra", "vendedor"
+      ]
+    },
+    {
+      "id": "shopping_money_core",
+      "display_name": "Shopping & Money Core",
+      "target_family": "shopping_money",
+      "facet_id": "shopping_money",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of everyday shopping, payment, banking, price, and personal money vocabulary.",
+      "entries": [
+        "dinero", "precio", "pagar", "pago", "comprar", "compra", "vendedor",
+        "comprador", "vender", "venta", "tienda", "comercio", "mercado",
+        "supermercado", "caja", "tarjeta", "efectivo", "moneda", "billete",
+        "banco", "cuenta", "cajero", "factura", "descuento", "oferta", "caro",
+        "barato", "coste", "costo", "dólar", "euro", "yen", "cambio", "préstamo",
+        "deuda", "crédito", "ahorro", "ahorrar", "gastar", "gasto", "alquiler",
+        "impuesto", "propina", "presupuesto", "saldo", "cobrar", "depósito",
+        "cheque", "cartera", "tarifa"
+      ]
+    },
+    {
+      "id": "shopping_money_finance_income",
+      "display_name": "Shopping & Money Finance & Income",
+      "target_family": "shopping_money",
+      "facet_id": "shopping_money",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of finance, income, investment, borrowing, budgeting, and macro-money vocabulary.",
+      "entries": [
+        "capital", "riqueza", "sueldo", "salario", "cuota", "interés", "economía",
+        "económico", "financiero", "beneficio", "pérdida", "ganancia", "ingreso",
+        "ingresar", "inversión", "invertir", "inversor", "negociar", "negocio",
+        "contrato", "garantía", "patrimonio", "renta", "tasa", "financiar",
+        "financiación", "fondo", "divisa", "tesoro", "contabilidad", "inflación",
+        "déficit", "superávit", "hipoteca", "hipotecario"
+      ]
+    },
+    {
+      "id": "shopping_money_markets_accounting_broad",
+      "display_name": "Shopping & Money Markets & Accounting Broad",
+      "target_family": "shopping_money",
+      "facet_id": "shopping_money",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.86,
+      "source_note": "Product-owned manually curated seed of broader market, accounting, and commerce terms. These are useful topic signals but more polysemous than everyday payment vocabulary.",
+      "entries": [
+        "comisión", "bolsa", "acción", "activo", "pasivo", "cargo", "seguro",
+        "producto", "consumo", "consumidor", "mercancía", "importe", "balance",
+        "contable", "consumir"
+      ]
+    },
+    {
+      "id": "shopping_money_retail_customer_service",
+      "display_name": "Shopping & Money Retail & Customer Service",
+      "target_family": "shopping_money",
+      "facet_id": "shopping_money",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of retail, customer service, returns, subscriptions, storefront, and order vocabulary.",
+      "entries": [
+        "cliente", "clienta", "dependiente", "dependienta", "devolución",
+        "devolver", "reembolso", "liquidación", "promoción", "cupón",
+        "gratuito", "gratis", "cobro", "abonado", "abonar", "suscripción",
+        "suscribir", "cancelar", "cancelación", "renovar", "renovación",
+        "vencimiento", "plazo", "deudor", "acreedor", "almacén", "local",
+        "escaparate", "mostrador", "cesta", "pedido", "envío", "entregar",
+        "repartidor", "paquetería", "paquete"
+      ]
+    },
+    {
+      "id": "shopping_money_trade_logistics_broad",
+      "display_name": "Shopping & Money Trade & Logistics Broad",
+      "target_family": "shopping_money",
+      "facet_id": "shopping_money",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.86,
+      "source_note": "Product-owned manually curated seed of broader trade, supply, import/export, inventory, and commerce vocabulary. These are honest shopping-money signals but may also belong to business, logistics, or travel/customs topics.",
+      "entries": [
+        "remesa", "proveedor", "proveedora", "suministro", "suministrar",
+        "inventario", "lote", "mayorista", "minorista", "importación",
+        "exportación", "aduana", "arancel", "catálogo"
+      ]
+    },
+    {
+      "id": "work_office_core",
+      "display_name": "Work & Office Core",
+      "target_family": "work_office",
+      "facet_id": "work_office",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of office, workplace roles, meetings, documents, schedules, employment, and work communication vocabulary.",
+      "entries": [
+        "oficina", "trabajo", "trabajar", "trabajador", "trabajadora", "jefe",
+        "jefa", "director", "directora", "secretario", "secretaria", "gerente",
+        "compañero", "compañera", "colega", "reunión", "agenda", "horario",
+        "correo", "documento", "informe", "proyecto", "tarea", "puesto",
+        "contrato", "empresa", "departamento", "cliente", "entrevista",
+        "salario", "sueldo", "currículum", "personal", "equipo", "organización",
+        "planificar", "presentar", "presentación", "carpeta", "ordenador",
+        "computadora", "teléfono", "mensaje", "escritorio", "gestionar",
+        "revisar", "redactar", "firmar", "firma", "plazo"
+      ]
+    },
+    {
+      "id": "work_office_admin_workflow",
+      "display_name": "Work & Office Admin & Workflow",
+      "target_family": "work_office",
+      "facet_id": "work_office",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of administrative workflow, approvals, requests, records, workplace communication, office tools, and HR process vocabulary.",
+      "entries": [
+        "gestión", "entregar", "responsable", "aprobar", "aprobación",
+        "solicitud", "solicitar", "propuesta", "presupuesto", "trámite",
+        "tramitar", "expediente", "registro", "registrar", "laboral",
+        "profesional", "cargo", "cobrar", "cobro", "negociar", "negocio",
+        "recurso", "preparar", "preparado", "preparación", "comunicación",
+        "comunicar", "llamada", "llamar", "contestar", "respuesta",
+        "responder", "consultar", "consulta", "coordinar", "coordinación",
+        "organizar", "ordenar", "papel", "nota", "impresora", "pantalla",
+        "teclado", "empleo", "emplear", "contratar", "contratación",
+        "vacante", "ascenso", "despido"
+      ]
+    },
+    {
+      "id": "science_math_core",
+      "display_name": "Science & Math Core",
+      "target_family": "science_math",
+      "facet_id": "science_math",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of math, geometry, measurement, scientific method, and basic science vocabulary.",
+      "entries": [
+        "matemática", "número", "calcular", "cálculo", "suma", "sumar",
+        "resta", "restar", "multiplicar", "dividir", "división", "ecuación",
+        "fórmula", "porcentaje", "fracción", "decimal", "geometría",
+        "álgebra", "estadística", "probabilidad", "gráfico", "variable",
+        "medida", "medir", "longitud", "altura", "anchura", "peso",
+        "volumen", "área", "círculo", "cuadrado", "triángulo", "ángulo",
+        "línea", "punto", "curva", "ciencia", "científico", "física",
+        "químico", "biología", "laboratorio", "experimento", "teoría",
+        "hipótesis", "prueba", "resultado", "analizar", "análisis"
+      ]
+    },
+    {
+      "id": "science_math_lab_physical_science",
+      "display_name": "Science & Math Lab & Physical Science",
+      "target_family": "science_math",
+      "facet_id": "science_math",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of lab science, physical quantities, chemistry, biology, astronomy, and quantitative reasoning vocabulary.",
+      "entries": [
+        "observación", "observar", "energía", "fuerza", "masa", "velocidad",
+        "temperatura", "presión", "molécula", "elemento", "reacción",
+        "oxígeno", "carbono", "hidrógeno", "calcio", "cloro", "azufre",
+        "metal", "líquido", "gas", "sólido", "unidad", "proporción",
+        "estimar", "promedio", "constante", "dimensión", "intensidad",
+        "resistencia", "gravedad", "electricidad", "magnético", "electrón",
+        "núcleo", "célula", "especie", "evolución", "genética", "bacteria",
+        "planeta", "lunar", "órbita", "astronomía", "composición",
+        "compuesto", "solución", "mezcla", "partícula", "radiación",
+        "frecuencia"
+      ]
+    },
+    {
+      "id": "formal_professional_register_admin_legal",
+      "display_name": "Formal & Professional Register Admin & Legal",
+      "target_family": "formal_professional_register",
+      "facet_id": "formal_professional_register",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.94,
+      "source_note": "Product-owned manually curated seed of formal, professional, administrative, legal-document, official-correspondence, and elevated-register vocabulary. This is a register/style overlay, not a concrete subject topic.",
+      "entries": [
+        "asimismo", "proporcionar", "requerir", "requisito", "efectuar",
+        "establecer", "determinar", "indicar", "señalar", "solicitar",
+        "solicitud", "autorización", "aprobación", "normativa", "disposición",
+        "pertinente", "respectivo", "conforme", "posterior", "previo",
+        "finalidad", "entidad", "organismo", "institución", "funcionario",
+        "jurídico", "laboral", "vigente", "expediente", "trámite",
+        "resolución", "certificar", "certificado", "acreditar", "garantizar",
+        "suscribir", "notificar", "notificación", "declarar", "declaración",
+        "comparecer", "remitir", "adjuntar", "adjunto", "conceder",
+        "otorgar", "denegar", "proceder", "estipular", "derivar", "constar",
+        "constancia", "cumplimiento", "validez", "conformidad", "procedente",
+        "improcedente", "instancia", "alegar", "alegación", "destinatario",
+        "remitente"
+      ]
+    },
+    {
+      "id": "travel_places_transport_core",
+      "display_name": "Travel, Places & Transport Core",
+      "target_family": "travel_places_transport",
+      "facet_id": "travel_places_transport",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of travel, place, lodging, navigation, and transport vocabulary.",
+      "entries": [
+        "viaje", "viajar", "viajero", "turista", "turismo", "excursión", "ruta", "mapa", "guía",
+        "pasaporte", "visado", "visa", "equipaje", "maleta", "mochila", "billete", "boleto",
+        "reserva", "hotel", "albergue", "alojamiento", "habitación", "aeropuerto", "avión",
+        "vuelo", "tren", "estación", "autobús", "metro", "tranvía", "taxi", "coche",
+        "automóvil", "bicicleta", "barco", "puerto", "carretera", "calle", "camino",
+        "autopista", "puente", "túnel", "frontera", "país", "ciudad", "pueblo", "capital",
+        "barrio", "plaza", "parque", "playa", "montaña", "lago", "río", "museo", "restaurante",
+        "destino", "extranjero", "nacional", "llegada", "salida", "embarque", "aduana",
+        "parada", "transporte", "tráfico", "conductor", "pasajero", "caminar", "paseo",
+        "itinerario", "hospedaje", "hostal", "posada", "terminal", "andén", "vagón",
+        "locomotora", "aerolínea", "marítimo", "náutico", "embarcación", "buque",
+        "trayecto", "recorrido", "pasaje", "desembarque", "transbordo", "vehículo",
+        "provincia", "región", "territorio", "continente", "isla", "archipiélago",
+        "península", "costa", "litoral", "bahía", "golfo", "desierto", "cordillera",
+        "valle", "sierra", "municipio", "comarca", "localidad"
+      ]
+    },
+    {
+      "id": "food_cooking_core",
+      "display_name": "Food & Cooking Core",
+      "target_family": "food_cooking",
+      "facet_id": "food_cooking",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of common foods, drinks, cooking tools, meals, and preparation vocabulary.",
+      "entries": [
+        "comida", "comer", "cocina", "cocinar", "receta", "plato", "ingrediente", "desayuno",
+        "almuerzo", "cena", "merienda", "restaurante", "menú", "pan", "arroz", "pasta", "sopa",
+        "ensalada", "carne", "pescado", "pollo", "huevo", "leche", "queso", "mantequilla",
+        "aceite", "sal", "azúcar", "pimienta", "ajo", "cebolla", "tomate", "patata", "papa",
+        "zanahoria", "lechuga", "fruta", "manzana", "plátano", "naranja", "limón", "uva",
+        "pera", "fresa", "verdura", "legumbre", "lenteja", "frijol", "garbanzo", "maíz",
+        "trigo", "harina", "postre", "chocolate", "café", "cerveza", "vino", "agua", "bebida",
+        "jugo", "zumo", "salsa", "freír", "hervir", "asar", "hornear", "sartén", "horno",
+        "cuchillo", "tenedor", "cuchara", "vaso", "taza"
+      ]
+    }
+  ]
+}

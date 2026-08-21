@@ -150,7 +150,7 @@ class TestHelperSrsItems(unittest.TestCase):
             )
             self.assertEqual(
                 init_payload["bootstrap_diagnostics"]["initial_active_preview"],
-                ["falcon", "reptile", "thesis"],
+                ["reptile", "thesis", "falcon"],
             )
 
             dashboard = list_srs_items(paths, pair="en-en", profile_id="default", now=NOW)

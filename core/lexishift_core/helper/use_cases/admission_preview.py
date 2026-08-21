@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from pathlib import Path
 import random
 from typing import Callable, Mapping, Optional, Sequence
@@ -8,11 +9,17 @@ from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import SetInitializationConfig, SetInitializationReport
+from lexishift_core.helper.use_cases.admission_candidate_index import (
+    try_preview_from_admission_candidate_index,
+)
 from lexishift_core.srs import SrsStore
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.pos_overlay import (
     pos_overlay_resource_payload,
     resolve_pair_pos_overlay,
+)
+from lexishift_core.srs.profile_bootstrap import (
+    PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SELECTION_POLICY,
 )
 from lexishift_core.srs.selector import (
     SELECTION_POLICY_RESERVED_TOPIC_LANE,
@@ -258,29 +265,58 @@ def preview_srs_admission(
             "preview": preview_payload,
         }
 
-    _preview_store, init_report = initialize_store_from_frequency_list_with_report_fn(
-        store,
-        config=SetInitializationConfig(
-            frequency_db=resolved_set_source_db,
-            jmdict_path=resolved_jmdict_path,
-            top_n=preview_bootstrap_top_n,
-            initial_active_count=sizing_policy.initial_active_count_effective,
-            language_pair=pair,
-            stopwords_path=stopwords_path,
-            require_jmdict=capability.requires_jmdict_for_seed,
-            source_label=frequency_source_label,
-            pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
-            seed_cache_dir=paths.srs_seed_frontier_cache_dir(),
-            strategy=str(config.strategy or "frequency_bootstrap"),
-            profile_context=config.profile_context,
-            selection_seed=getattr(config, "preview_seed", None),
-            selection_policy_override=_resolve_preview_selection_policy(
-                getattr(config, "preview_sampling_mode", None)
-            ),
-            profile_topic_overlay=profile_topic_overlay,
-            profile_topic_overlay_diagnostics=profile_topic_overlay_diagnostics,
+    init_config = SetInitializationConfig(
+        frequency_db=resolved_set_source_db,
+        jmdict_path=resolved_jmdict_path,
+        top_n=preview_bootstrap_top_n,
+        initial_active_count=sizing_policy.initial_active_count_effective,
+        language_pair=pair,
+        stopwords_path=stopwords_path,
+        require_jmdict=capability.requires_jmdict_for_seed,
+        source_label=frequency_source_label,
+        pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
+        seed_cache_dir=paths.srs_seed_frontier_cache_dir(),
+        strategy=str(config.strategy or "frequency_bootstrap"),
+        profile_context=config.profile_context,
+        selection_seed=getattr(config, "preview_seed", None),
+        selection_policy_override=_resolve_preview_selection_policy(
+            getattr(config, "preview_sampling_mode", None)
         ),
+        profile_topic_overlay=profile_topic_overlay,
+        profile_topic_overlay_diagnostics=profile_topic_overlay_diagnostics,
     )
+    candidate_index_error: dict[str, object] | None = None
+    indexed_preview: tuple[SrsStore, SetInitializationReport, Mapping[str, object]] | None = None
+    if execution_mode == "profile_bootstrap":
+        try:
+            indexed_preview = try_preview_from_admission_candidate_index(
+                store,
+                config=init_config,
+                profile_topic_overlay=profile_topic_overlay,
+                profile_topic_overlay_diagnostics=profile_topic_overlay_diagnostics,
+                index_cache_dir=paths.srs_admission_candidate_index_cache_dir(),
+            )
+        except Exception as exc:  # pragma: no cover - defensive runtime fallback
+            candidate_index_error = {
+                "status": "fallback_error",
+                "error": str(exc),
+                "error_type": type(exc).__name__,
+            }
+    if indexed_preview is not None:
+        _preview_store, init_report, _index_diagnostics = indexed_preview
+    else:
+        _preview_store, init_report = initialize_store_from_frequency_list_with_report_fn(
+            store,
+            config=init_config,
+        )
+        if candidate_index_error and init_report.selection_strategy == "profile_bootstrap":
+            init_report = replace(
+                init_report,
+                profile_bootstrap_diagnostics={
+                    **dict(init_report.profile_bootstrap_diagnostics or {}),
+                    "compiled_candidate_index": candidate_index_error,
+                },
+            )
     preview_payload = _build_preview_payload(
         init_report=init_report,
         preview_count_requested=preview_count_requested,
@@ -318,18 +354,29 @@ def _resolve_admission_preview_bootstrap_top_n(
 ) -> tuple[int | None, bool]:
     if bootstrap_top_n is not None:
         return bootstrap_top_n, False
-    context = profile_context or {}
-    raw_proficiency = None
-    for key in ("proficiency_estimate", "proficiency"):
-        if key in context:
-            raw_proficiency = context.get(key)
-            break
-    proficiency = _safe_optional_float(raw_proficiency)
+    proficiency = _resolve_profile_context_proficiency(profile_context)
     if proficiency is not None and proficiency <= ADMISSION_PREVIEW_BEGINNER_PROFICIENCY_MAX:
         return ADMISSION_PREVIEW_BEGINNER_BOOTSTRAP_TOP_N, True
     if proficiency is not None and proficiency >= ADMISSION_PREVIEW_ADVANCED_PROFICIENCY_MIN:
         return ADMISSION_PREVIEW_ADVANCED_BOOTSTRAP_TOP_N, True
     return ADMISSION_PREVIEW_DEFAULT_BOOTSTRAP_TOP_N, True
+
+
+def _resolve_profile_context_proficiency(
+    profile_context: Mapping[str, object] | None,
+) -> float | None:
+    context = profile_context or {}
+    direct = _safe_optional_float(context.get("proficiency_estimate"))
+    if direct is not None:
+        return direct
+
+    raw_proficiency = context.get("proficiency")
+    if isinstance(raw_proficiency, Mapping):
+        for key in ("estimated_value", "self_reported_level"):
+            parsed = _safe_optional_float(raw_proficiency.get(key))
+            if parsed is not None:
+                return parsed
+    return _safe_optional_float(raw_proficiency)
 
 
 def _build_preview_payload(
@@ -340,8 +387,10 @@ def _build_preview_payload(
     preview_bootstrap_top_n_default: int | None = None,
 ) -> dict[str, object]:
     raw_profile_bootstrap = dict(getattr(init_report, "profile_bootstrap_diagnostics", {}) or {})
-    ranking_preview_raw = raw_profile_bootstrap.get("ranking_preview")
-    ranking_preview = list(ranking_preview_raw) if isinstance(ranking_preview_raw, list) else []
+    ranking_preview = _diagnostic_preview_rows(
+        raw_profile_bootstrap.get("ranking_preview"),
+        raw_profile_bootstrap.get("initial_active_diagnostic_preview"),
+    )
     ranking_by_lemma: dict[str, dict[str, object]] = {}
     ranking_by_identity: dict[str, dict[str, object]] = {}
     for entry in ranking_preview:
@@ -424,7 +473,33 @@ def _build_helper_preview_profile_bootstrap_payload(
 ) -> dict[str, object]:
     payload = dict(profile_bootstrap_diagnostics or {})
     payload.pop("ranking_preview", None)
+    payload.pop("initial_active_diagnostic_preview", None)
     return payload
+
+
+def _diagnostic_preview_rows(*values: object) -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    seen_identity_keys: set[str] = set()
+    seen_lemmas: set[str] = set()
+    for value in values:
+        if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
+            continue
+        for entry in value:
+            if not isinstance(entry, Mapping):
+                continue
+            identity_key = str(entry.get("candidate_identity_key") or "").strip()
+            lemma = str(entry.get("lemma", "")).strip()
+            if identity_key:
+                if identity_key in seen_identity_keys:
+                    continue
+                seen_identity_keys.add(identity_key)
+            elif lemma:
+                if lemma in seen_lemmas:
+                    continue
+            if lemma:
+                seen_lemmas.add(lemma)
+            rows.append(dict(entry))
+    return rows
 
 
 def _build_planned_active_words(
@@ -522,6 +597,7 @@ def _should_sample_preview_pool(*, sampling_mode: str, selection_seed: int | Non
         PREVIEW_SAMPLING_MODE_WEIGHTED,
         SELECTION_POLICY_RESERVED_TOPIC_LANE,
         SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT,
+        PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SELECTION_POLICY,
     }
 
 

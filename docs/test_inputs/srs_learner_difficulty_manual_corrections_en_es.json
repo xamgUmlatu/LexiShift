@@ -1,0 +1,517 @@
+{
+  "schema_version": 1,
+  "language_pair": "en-es",
+  "status": "sidecar_review_input",
+  "purpose": "Manual post-model corrections for reviewed en-es learner-difficulty rows where the current automatic model visibly misorders early SRS vocabulary.",
+  "policy": {
+    "score_fields": {
+      "min_score": "Raise the effective learner-difficulty score to at least this value.",
+      "score_override": "Replace the effective learner-difficulty score exactly. Prefer min_score unless a reviewed row is too late or needs an exact placement."
+    },
+    "correction_types": {
+      "score_override": "The row has a reviewed target and the model placed it too late or otherwise needs exact placement.",
+      "score_floor": "The row is valid vocabulary, but the model placed it too early.",
+      "restricted_admission": "The row is valid data, but should not be ordinary standalone SRS vocabulary.",
+      "exclude_standalone_srs": "Keep the row for audit/search/data completeness, but do not serve it as standalone new vocabulary."
+    },
+    "admission_override": "Standalone SRS admission class. Topic stretching should not override restricted_admission or exclude_standalone_srs rows."
+  },
+  "corrections": [
+    {
+      "lemma": "que",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.07,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed as ultra-common but grammar-heavy; rank 1 is too early for ordinary vocabulary ordering."
+    },
+    {
+      "lemma": "parte",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.24,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed as common but polysemous core vocabulary; raw frequency/cognate ease placed it far too early."
+    },
+    {
+      "lemma": "vez",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.2,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed core noun with phrase-heavy usage; model placed it too early."
+    },
+    {
+      "lemma": "tiempo",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.16,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed core time noun; frequency overpromoted it slightly."
+    },
+    {
+      "lemma": "vida",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.12,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed beginner noun; small floor keeps it out of the ultra-first-page cluster."
+    },
+    {
+      "lemma": "del",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.12,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed as a core contraction/function form but not first-page ordinary vocabulary."
+    },
+    {
+      "lemma": "país",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.16,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common country noun; model placed it too early."
+    },
+    {
+      "lemma": "las",
+      "status": "active",
+      "correction_types": ["score_override"],
+      "score_override": 0.05,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed core feminine plural article/pronoun form; exact override restores intended beginner placement."
+    },
+    {
+      "lemma": "señor",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common address/person noun; model placed it too early."
+    },
+    {
+      "lemma": "después",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.16,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common temporal adverb; should remain beginner, but not as early as raw frequency placed it."
+    },
+    {
+      "lemma": "por",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed very common preposition with several hard senses; raw frequency placed it too early."
+    },
+    {
+      "lemma": "así",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common discourse/adverbial word; should not be in the ultra-beginner cluster."
+    },
+    {
+      "lemma": "hoy",
+      "status": "active",
+      "correction_types": ["score_override"],
+      "score_override": 0.05,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed core 'today' adverb; model placed it slightly too late."
+    },
+    {
+      "lemma": "una",
+      "status": "active",
+      "correction_types": ["score_override"],
+      "score_override": 0.04,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed core article/number form; exact override restores intended early placement."
+    },
+    {
+      "lemma": "forma",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common concrete/abstract noun; model placed it too early."
+    },
+    {
+      "lemma": "mayor",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.28,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common adjective/noun with several abstract senses; model placed it too early."
+    },
+    {
+      "lemma": "donde",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed function/adverbial word; small floor keeps it aligned with the grammar-heavy beginner band."
+    },
+    {
+      "lemma": "bien",
+      "status": "active",
+      "correction_types": ["score_override"],
+      "score_override": 0.08,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed core adverb/adjective-family word; model placed it slightly too late."
+    },
+    {
+      "lemma": "par",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.34,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed useful but polysemous noun/adjective; raw frequency placed it too early."
+    },
+    {
+      "lemma": "estado",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.26,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common abstract noun with several senses; model placed it too early."
+    },
+    {
+      "lemma": "español",
+      "status": "active",
+      "correction_types": ["score_override"],
+      "score_override": 0.08,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed core language/nationality adjective and easy cognate; model placed it too late."
+    },
+    {
+      "lemma": "similar",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.24,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed normal cognate adjective; small floor aligns it with the reviewed core/intermediate boundary."
+    },
+    {
+      "lemma": "hotel",
+      "status": "active",
+      "correction_types": ["score_override"],
+      "score_override": 0.12,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common travel noun and easy cognate; model placed it too late."
+    },
+    {
+      "lemma": "son",
+      "status": "active",
+      "correction_types": ["score_override", "restricted_admission"],
+      "score_override": 0.12,
+      "admission_override": "inflected_or_nonlemma_form",
+      "rationale": "Reviewed as likely inflected ser form and not ideal standalone lemma; keep available but restrict ordinary standalone admission."
+    },
+    {
+      "lemma": "comisión",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.32,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common-ish institutional cognate, not beginner core; model placed it too early."
+    },
+    {
+      "lemma": "poder",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.08,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed core modal verb/noun row; model placed it unrealistically close to the absolute first lesson."
+    },
+    {
+      "lemma": "momento",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.1,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common noun; should remain early but not in the ultra-first-page cluster."
+    },
+    {
+      "lemma": "agua",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.08,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed beginner noun; small floor keeps it aligned with other concrete beginner nouns instead of the absolute first rows."
+    },
+    {
+      "lemma": "mundo",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.1,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common content noun; model placed it too early for ordinary vocabulary ordering."
+    },
+    {
+      "lemma": "número",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.08,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common content noun; should be early but not before the clearest first-lesson core."
+    },
+    {
+      "lemma": "centro",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.12,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common location/abstract noun; frequency and cognate ease placed it too early."
+    },
+    {
+      "lemma": "cabeza",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.1,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common body-part noun; should be beginner, but not in the absolute earliest rows."
+    },
+    {
+      "lemma": "familia",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.1,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common family noun; model placed it slightly too early relative to surrounding beginner content words."
+    },
+    {
+      "lemma": "ciudad",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.1,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common place noun; model placed it slightly too early relative to comparable beginner nouns."
+    },
+    {
+      "lemma": "cierto",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.14,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but semantically flexible adjective/discourse word; model placed it too early relative to clearer beginner vocabulary."
+    },
+    {
+      "lemma": "real",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.16,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed easy cognate but semantically flexible/false-friend-adjacent adjective; model placed it too early relative to cleaner first-100 beginner vocabulary."
+    },
+    {
+      "lemma": "próximo",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed useful adjective/adverbial concept, but less first-page pedagogical than surrounding concrete/core beginner words; model placed it too early."
+    },
+    {
+      "lemma": "muy",
+      "status": "active",
+      "correction_types": ["score_override"],
+      "score_override": 0.06,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed ultra-core intensifier; model placed it too late, and missing translations should not keep it out of the earliest beginner band."
+    },
+    {
+      "lemma": "plan",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed useful cognate noun, but less first-page pedagogical than surrounding concrete/core beginner words; model placed it too early."
+    },
+    {
+      "lemma": "final",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed easy cognate but broad abstract/adjectival noun; model placed it too early relative to cleaner beginner vocabulary."
+    },
+    {
+      "lemma": "banco",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but polysemous noun with bank/bench senses; model placed it too early relative to cleaner beginner vocabulary."
+    },
+    {
+      "lemma": "paso",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.2,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed useful but polysemous noun; model placed it too early relative to cleaner beginner-core words."
+    },
+    {
+      "lemma": "planta",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.2,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed useful but polysemous plant/factory/floor noun; model placed it too early relative to cleaner beginner-core words."
+    },
+    {
+      "lemma": "pueblo",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.2,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed useful but sense-loaded town/people noun; model placed it too early relative to cleaner beginner-core words."
+    },
+    {
+      "lemma": "presidente",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common institutional cognate; useful but less beginner-core than surrounding concrete vocabulary."
+    },
+    {
+      "lemma": "capital",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but polysemous cognate noun/adjective; model placed it too early relative to cleaner beginner vocabulary."
+    },
+    {
+      "lemma": "línea",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed useful but polysemous line/dialogue/service noun; model placed it too early relative to cleaner beginner vocabulary."
+    },
+    {
+      "lemma": "razón",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common abstract noun; model placed it too early relative to more concrete beginner-core words."
+    },
+    {
+      "lemma": "cuenta",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.24,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but highly polysemous noun with count/account/bill senses; model placed it too early."
+    },
+    {
+      "lemma": "dirección",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but polysemous direction/address/management cognate; model placed it too early relative to cleaner beginner vocabulary."
+    },
+    {
+      "lemma": "orden",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.24,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but highly polysemous order/command/request noun; model placed it too early relative to cleaner beginner vocabulary."
+    },
+    {
+      "lemma": "fin",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but abstract end/purpose noun; model placed it too early relative to cleaner beginner vocabulary."
+    },
+    {
+      "lemma": "punto",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.24,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but highly polysemous point/place/score/punctuation noun; model placed it too early relative to cleaner beginner vocabulary."
+    },
+    {
+      "lemma": "gusto",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.22,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but polysemous taste/pleasure noun tied to idiomatic learner usage; model placed it too early relative to cleaner beginner vocabulary."
+    },
+    {
+      "lemma": "media",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.26,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed isolated lemma as ambiguous and sense-loaded across half/average/stocking/media-like readings; model placed it too early for standalone SRS."
+    },
+    {
+      "lemma": "medio",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.26,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed isolated lemma as ambiguous and sense-loaded across half/middle/means/medium readings; model placed it too early for standalone SRS."
+    },
+    {
+      "lemma": "deber",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.26,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common but grammar-heavy/modal obligation word with noun/verb senses; model placed it too early for standalone beginner vocabulary."
+    },
+    {
+      "lemma": "placer",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.3,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed standalone lemma as abstract/marked compared with local beginner neighbors; model placed it too early."
+    },
+    {
+      "lemma": "papa",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.3,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed unaccented standalone lemma as ambiguous between pope/potato and less clean for beginner SRS than surrounding vocabulary."
+    },
+    {
+      "lemma": "ene",
+      "status": "active",
+      "correction_types": ["score_floor", "restricted_admission"],
+      "min_score": 0.5,
+      "admission_override": "nonstandard_standalone_lemma",
+      "rationale": "Reviewed as a poor standalone SRS item; lexical-letter/colloquial quantity use should not be ordinary early learner vocabulary."
+    },
+    {
+      "lemma": "celebración",
+      "status": "active",
+      "correction_types": ["score_floor"],
+      "min_score": 0.3,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed transparent but less core abstract/event noun; model placed it slightly too early relative to cleaner first-500 beginner vocabulary."
+    },
+    {
+      "lemma": "actor",
+      "status": "active",
+      "correction_types": ["score_override"],
+      "score_override": 0.18,
+      "admission_override": "normal_vocab",
+      "rationale": "Reviewed common easy cognate noun; model placed it slightly too late."
+    }
+  ]
+}

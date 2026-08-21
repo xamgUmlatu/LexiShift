@@ -28,13 +28,14 @@ from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.profile_bootstrap import (
-    score_seed_words_for_profile,
+    DEFAULT_PROFILE_BOOTSTRAP_POLICY,
+    FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY,
+    score_seed_words_for_frontier_gaussian_hybrid_profile,
 )
 from lexishift_core.srs.selector import (
     SELECTION_POLICY_TOP_N,
     SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT,
     select_candidates,
-    select_scored_candidates,
 )
 from lexishift_core.srs.set_strategy import (
     STRATEGY_FREQUENCY_BOOTSTRAP,
@@ -48,10 +49,8 @@ from lexishift_core.helper.rulegen_bootstrap_selection import (
     SeedWordLike as _SeedWordLike,
     as_seed_word_like as _as_seed_word_like,
     build_frequency_bootstrap_selector_config as _build_frequency_bootstrap_selector_config,
-    build_profile_bootstrap_selector_config as _build_profile_bootstrap_selector_config,
     build_weight_preview_entry as _build_weight_preview_entry,
     coerce_seed_words as _coerce_seed_words,
-    dedupe_profile_bootstrap_entries as _dedupe_profile_bootstrap_entries,
     dedupe_seed_words as _dedupe_seed_words,
     safe_optional_float as _safe_optional_float,
     seed_to_bootstrap_selector_candidates as _seed_to_bootstrap_selector_candidates,
@@ -281,59 +280,57 @@ def initialize_store_from_frequency_list_with_report(
     admitted_words: list[_SeedWordLike]
 
     if config.strategy == STRATEGY_PROFILE_BOOTSTRAP:
-        scored_entries, profile_bootstrap_diagnostics = score_seed_words_for_profile(
-            selected_words,
-            profile_context=config.profile_context,
-            preview_limit=min(len(selected_words), PROFILE_BOOTSTRAP_DIAGNOSTIC_PREVIEW_LIMIT),
-        )
-        selection_strategy = STRATEGY_PROFILE_BOOTSTRAP
-        selector_version = str(profile_bootstrap_diagnostics.get("selector_version") or "").strip()
-        selection_policy = _resolve_selection_policy_override(
-            (
-                config.selection_policy_override
-                if config.selection_policy_override is not None
-                else profile_bootstrap_diagnostics.get("selection_policy")
+        profile_candidate_words = [
+            seed for seed in selected_words if not _seed_lemma_is_blocked(seed, blocked_lemmas)
+        ]
+        frontier_entries, profile_bootstrap_diagnostics = (
+            score_seed_words_for_frontier_gaussian_hybrid_profile(
+                profile_candidate_words,
+                profile_context=config.profile_context,
+                selection_count=initial_active_count,
+                preview_limit=min(
+                    len(profile_candidate_words),
+                    PROFILE_BOOTSTRAP_DIAGNOSTIC_PREVIEW_LIMIT,
+                ),
+                policy=FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY,
             )
         )
+        selection_policy = str(profile_bootstrap_diagnostics.get("selection_policy") or "").strip()
+        selection_strategy = STRATEGY_PROFILE_BOOTSTRAP
+        selector_version = str(profile_bootstrap_diagnostics.get("selector_version") or "").strip()
         profile_bootstrap_diagnostics = {
             **dict(profile_bootstrap_diagnostics),
             "selection_policy": selection_policy,
+            "base_profile_bootstrap_policy": DEFAULT_PROFILE_BOOTSTRAP_POLICY.version,
+            "active_profile_bootstrap_policy": (
+                FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY.version
+            ),
         }
         if profile_topic_overlay_diagnostics:
             profile_bootstrap_diagnostics["profile_topic_overlay"] = dict(
                 profile_topic_overlay_diagnostics
             )
-        unique_scored_entries = [
-            entry
-            for entry in _dedupe_profile_bootstrap_entries(scored_entries)
-            if not _seed_lemma_is_blocked(entry.seed, blocked_lemmas)
-        ]
-        selected_candidates = select_scored_candidates(
-            [entry.scored_candidate for entry in unique_scored_entries],
-            config=_build_profile_bootstrap_selector_config(
-                selection_policy=selection_policy,
-                selection_count=initial_active_count,
-            ),
-            selection_count=initial_active_count,
-            seed=selection_seed,
-        )
-        unique_entry_seeds = [
-            (entry, seed)
-            for entry in unique_scored_entries
+        unique_selected_words = _dedupe_seed_words(profile_candidate_words)
+        admitted_words = [
+            seed
+            for entry in frontier_entries
             for seed in (_as_seed_word_like(entry.seed),)
             if seed is not None
         ]
-        unique_selected_words = [seed for _entry, seed in unique_entry_seeds]
-        unique_entry_by_lemma = {
-            str(seed.lemma).strip(): seed
-            for _entry, seed in unique_entry_seeds
-            if str(seed.lemma).strip()
+        ranking_preview = profile_bootstrap_diagnostics.get("ranking_preview")
+        profile_bootstrap_diagnostics = {
+            **dict(profile_bootstrap_diagnostics),
+            "initial_active_diagnostic_preview": tuple(
+                dict(entry)
+                for entry in (
+                    ranking_preview
+                    if isinstance(ranking_preview, Sequence)
+                    and not isinstance(ranking_preview, (str, bytes))
+                    else ()
+                )
+                if isinstance(entry, Mapping)
+            ),
         }
-        admitted_words = [
-            unique_entry_by_lemma[entry.candidate.lemma]
-            for entry in selected_candidates
-            if entry.candidate.lemma in unique_entry_by_lemma
-        ]
     else:
         unique_selected_words = [
             seed for seed in _dedupe_seed_words(selected_words) if seed.lemma not in blocked_lemmas

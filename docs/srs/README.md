@@ -2,8 +2,8 @@
 
 Status: active SRS routing
 Role: Canonical current
-Last updated: 2026-06-30
-Last verified: 2026-06-30 learner-difficulty LP onboarding playbook routing update; SRS runtime status not re-audited
+Last updated: 2026-07-15
+Last verified: 2026-07-15 current beta LP setup flow accepted after manual en-ja creation-flow smoke; 2026-07-12 hard frontier-Gaussian hybrid admission promoted for profile-bootstrap/profile-growth paths; SRS quality harness pass=29 warn=0 fail=0
 Purpose: route SRS cleanup work to the right current, mixed, planning, schema, or harness document without treating roadmap text as implementation truth
 Source-of-truth: SRS documentation routing only; implementation truth lives in SRS/helper/extension code, tests, generated SRS artifacts, and `docs/developer/feature_state_matrix.md`.
 
@@ -39,7 +39,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | en-ja topic autotagging sidecar | `docs/srs/srs_topic_autotagging_sidecar_en_ja.md` | Research workflow for comparing source-backed en-ja topic autotag evidence, review samples, online/local source adapters, and product-safe candidate overlay exports. | Claiming topic coverage is default-on, comprehensive, or consumed by runtime admission without explicit overlay selection. |
 | en-es topic coverage pause state | `docs/srs/srs_topic_coverage_pause_state_en_es.md` | Current closeout snapshot for the paused topic-coverage slice, including overlay stack, readiness status, and resume criteria. | Treating topic coverage as comprehensive or default product copy. |
 | Browsing-based admission | `docs/srs/srs_browsing_based_admission_plan.md` | Planning workstream for opt-in, local-only browsing word signals that can influence future admission within SRS budget/lifecycle gates. | Claiming passive browsing changes scheduling, review state, or current default behavior. |
-| Selector, personalization, and required data | `docs/srs/srs_selector_technical.md`, `docs/srs/srs_interest_tailored_admission_algorithm.md`, `docs/srs/srs_interest_tailored_data_acquisition_plan.md`, `docs/srs/srs_topic_signal_lp_generalization_runbook.md`, `docs/srs/srs_curriculum_notes.md` | Planning/WIP surfaces for future ranking, data acquisition, personalization, and reusable topic-signal onboarding lessons. | Current product or runtime behavior claims. |
+| Selector, personalization, and required data | `docs/srs/srs_selector_technical.md`, `docs/srs/srs_interest_tailored_admission_algorithm.md`, `docs/srs/srs_admission_frontier_gaussian_plan.md`, `docs/srs/srs_interest_tailored_data_acquisition_plan.md`, `docs/srs/srs_topic_signal_lp_generalization_runbook.md`, `docs/srs/srs_curriculum_notes.md` | Mixed current-plus-planning surfaces for selector shape, profile-bootstrap frontier admission, future data acquisition, personalization, and reusable topic-signal onboarding lessons. | Default-on or verification claims without `feature_state_matrix.md` and tests. |
 | SRS journey and synthetic quality harness work | `docs/srs/srs_journey_harness_workstream.md`, `scripts/testing/srs_quality_harness.py` | Harness planning plus executable quality-harness entrypoints. | Broad LP coverage claims beyond the harness-supported scenarios. |
 
 ## Supersession Decision
@@ -73,6 +73,10 @@ Current disposition:
   dashboard decision, mostly read-only listing/rule-detail behavior,
   encounter-watch visibility, confirmed discard policy, and deferred
   restore/mastery lifecycle work.
+- `srs_admission_frontier_gaussian_plan.md` records the implemented
+  hard-hybrid profile-bootstrap frontier selector plus remaining proficiency
+  creep/open-decision work. Use `feature_state_matrix.md` and tests for
+  default-on evidence.
 - `srs_vocabulary_library_and_word_info_plan.md` records the implemented shared
   word-info read model, dedicated selected-profile Vocabulary Library page with
   active-pair selection, and
@@ -80,8 +84,9 @@ Current disposition:
 - `srs_story_based_options_flow_plan.md` records the target Options-page SRS UX
   and current beta implementation notes: existing profile/pair journeys should
   appear as compact story blocks, the Vocabulary Library opens as a dedicated
-  page, sampling opens as a curtain, and first-run initialization uses a guided flow that persists
-  visible settings before sample/initialize.
+  page, sampling opens as a curtain, first-run initialization uses a guided flow
+  that persists visible settings before sample/initialize, and the current beta
+  LP setup flow is accepted for the tested scope.
 - `srs_browsing_based_admission_plan.md` is a planning workstream only; it
   records the intended opt-in word-signal design and the boundary that passive
   browsing must not mutate review scheduling.
@@ -96,9 +101,11 @@ update changes the owning docs:
 - no-strategy helper bootstrap execution remains `frequency_bootstrap`;
 - options initialize and admission preview explicitly request
   `profile_bootstrap`, which applies implemented profile-aware scoring and
-  diagnostics over the frequency seed frontier;
+  diagnostics plus the hard frontier-Gaussian hybrid lane selector over the
+  frequency seed frontier;
 - `profile_growth` is executable for refresh/growth admission into `S` and for
-  rebalance preview/apply;
+  rebalance preview/apply; refresh candidate formation now uses the same hard
+  hybrid frontier policy before lifecycle/capacity gates;
 - due-aware serving is implemented through helper rulegen SRS due metadata plus
   extension runtime gating when regenerated helper rules carry that metadata;
 - helper publication still uses the broader active/admitted inventory rather

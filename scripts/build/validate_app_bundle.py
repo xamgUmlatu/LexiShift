@@ -15,6 +15,15 @@ HOST_WINDOWS_EXE = "lexishift_native_host.exe"
 MAIN_WINDOWS_DIR = "LexiShift"
 HELPER_WINDOWS_DIR = "LexiShiftHelper"
 HOST_WINDOWS_DIR = "LexiShiftNativeHost"
+REQUIRED_SRS_RESOURCE_FILES = (
+    "en_ja/learner_difficulty_corrected.csv",
+    "en_ja/learner_difficulty_manual_corrections.json",
+    "en_ja/topic_overlays/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
+    "en_es/learner_difficulty_corrected.csv",
+    "en_es/topic_overlays/srs_topic_reviewed_overlay_merged_en_es_latest.json",
+    "en_de/learner_difficulty_corrected.csv",
+    "en_de/topic_overlays/srs_topic_reviewed_overlay_merged_en_de_latest.json",
+)
 
 
 def _fail(msg: str) -> None:
@@ -24,6 +33,16 @@ def _fail(msg: str) -> None:
 def _check_path(path: Path, label: str, errors: list[str]) -> None:
     if not path.exists():
         errors.append(f"Missing {label}: {path}")
+
+
+def _check_srs_resource_files(core_root: Path, label: str, errors: list[str]) -> None:
+    _check_path(core_root, label, errors)
+    for relative in REQUIRED_SRS_RESOURCE_FILES:
+        _check_path(
+            core_root / "resources" / "srs" / relative,
+            f"{label} SRS resource {relative}",
+            errors,
+        )
 
 
 def _load_info_plist(info_path: Path) -> dict:
@@ -67,7 +86,11 @@ def _validate_macos_main_app(app_path: Path) -> list[str]:
     _check_path(resource_root / "themes", "themes resources", errors)
     _check_path(resource_root / "sample_images", "sample images", errors)
     _check_path(resource_root / "helper" / "lexishift_native_host.py", "native host", errors)
-    _check_path(resource_root / "helper" / "lexishift_core", "lexishift_core helper", errors)
+    _check_srs_resource_files(
+        resource_root / "helper" / "lexishift_core",
+        "lexishift_core helper",
+        errors,
+    )
     _check_path(resource_root / "helper" / "helper_daemon.py", "helper daemon", errors)
     return errors
 
@@ -171,7 +194,7 @@ def _validate_windows_main_exe(exe_path: Path) -> list[str]:
         "native host",
         errors,
     )
-    _check_path(
+    _check_srs_resource_files(
         contents_root / "resources" / "helper" / "lexishift_core",
         "lexishift_core helper",
         errors,
@@ -197,7 +220,14 @@ def _validate_windows_helper_exe(exe_path: Path) -> list[str]:
 
 def _validate_windows_host_exe(exe_path: Path) -> list[str]:
     errors: list[str] = []
+    root = exe_path.parent
+    contents_root = root / "_internal" if (root / "_internal").exists() else root
     _check_path(exe_path, "Native host executable", errors)
+    _check_srs_resource_files(
+        contents_root / "lexishift_core",
+        "native host lexishift_core",
+        errors,
+    )
     return errors
 
 

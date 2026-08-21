@@ -81,8 +81,17 @@
     const currentActiveProfileId = () => (mainProfileIdInput
       ? String(mainProfileIdInput.value || "default").trim() || "default"
       : "default");
+    function filterInterestsForPair(interests, pairKey) {
+      if (topicSupport && typeof topicSupport.filterTopicsForPair === "function") {
+        return topicSupport.filterTopicsForPair(pairKey, interests);
+      }
+      return normalizeInterestList(interests);
+    }
+
     const readVisibleValues = () => {
       const values = readStoryFlowValues(elements);
+      const pairKey = `${values.sourceLanguage || "en"}-${values.targetLanguage || "es"}`;
+      values.interests = filterInterestsForPair(values.interests, pairKey);
       values.profileId = currentActiveProfileId();
       setSelectValue(modalProfileIdInput, values.profileId, values.profileId);
       return values;
@@ -121,9 +130,14 @@
     }
 
     function updateModalTopicSupport() {
+      const pairKey = currentPair();
       if (topicSupport && typeof topicSupport.applyTopicChipSupport === "function") {
-        topicSupport.applyTopicChipSupport(modalTopicInterestChipButtons, currentPair());
+        topicSupport.applyTopicChipSupport(modalTopicInterestChipButtons, pairKey);
       }
+      setModalInterests(filterInterestsForPair(
+        modalTopicInterestsInput ? modalTopicInterestsInput.value : "",
+        pairKey
+      ));
     }
 
     const resourceCheck = root.optionsSrsStoryFlowResourceCheck.createController({
@@ -177,7 +191,7 @@
     }
 
     function setModalInterests(interests) {
-      const normalized = normalizeInterestList(interests);
+      const normalized = filterInterestsForPair(interests, currentPair());
       if (modalTopicInterestsInput) {
         modalTopicInterestsInput.value = normalized.join(", ");
       }
@@ -349,6 +363,9 @@
     }
 
     function toggleModalTopic(button) {
+      if (!button || button.disabled === true || button.hidden === true) {
+        return;
+      }
       const topic = String(button.getAttribute("data-srs-story-topic-interest") || "").trim();
       if (!topic) {
         return;

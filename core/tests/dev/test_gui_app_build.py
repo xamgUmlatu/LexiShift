@@ -40,6 +40,8 @@ class TestGuiAppBuild(unittest.TestCase):
         self.assertIn('"lexishift_core.helper.yomitan_lookup_dictionaries"', spec_text)
         self.assertIn('"lexishift_core.srs.seed"', spec_text)
         self.assertIn('"lexishift_core.srs.topic_overlay"', spec_text)
+        self.assertIn('os.path.join(repo_root, "core", "lexishift_core", "resources")', spec_text)
+        self.assertIn('os.path.join("lexishift_core", "resources")', spec_text)
         self.assertNotIn('hiddenimports=["lexishift_core"]', spec_text)
 
     def test_pyinstaller_spec_excludes_optional_heavy_packages(self) -> None:

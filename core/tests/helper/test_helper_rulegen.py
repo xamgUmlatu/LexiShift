@@ -297,7 +297,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertIn("verb", report.admission_weight_profile)
         self.assertEqual(report.initial_active_weight_preview[0]["lemma"], "alpha")
 
-    def test_profile_bootstrap_uses_reserved_topic_lane_by_default(self) -> None:
+    def test_profile_bootstrap_uses_frontier_gaussian_hybrid_by_default(self) -> None:
         selected = [
             SimpleNamespace(
                 lemma="animal-a",
@@ -334,11 +334,11 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                 ),
             )
 
-        self.assertEqual(report.selection_policy, "reserved_topic_lane")
+        self.assertEqual(report.selection_policy, "frontier_gaussian_hybrid_lanes")
         self.assertEqual(len(store.items), 4)
         self.assertEqual(
             tuple(report.initial_active_preview),
-            ("animal-a", "animal-b", "general-a", "general-b"),
+            ("animal-a", "animal-b", "animal-c", "general-a"),
         )
 
     def test_initialization_persists_selected_word_package(self) -> None:

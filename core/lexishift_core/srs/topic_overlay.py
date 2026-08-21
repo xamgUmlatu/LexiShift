@@ -9,6 +9,8 @@ from pathlib import Path
 from typing import Mapping, Sequence
 
 from lexishift_core.srs.admission_features import (
+    ADMISSION_CANDIDATE_FEATURES_METADATA_KEY,
+    ADMISSION_CANDIDATE_FEATURES_PRECOMPUTE_VERSION_KEY,
     canonicalize_topic_token,
     mapping_or_empty,
     normalize_admission_profile_features,
@@ -21,13 +23,24 @@ PROFILE_TOPIC_OVERLAY_PAIR = "en-es"
 ANIMALS_PLANTS_OVERLAY_PAIR = PROFILE_TOPIC_OVERLAY_PAIR
 ANIMALS_PLANTS_OVERLAY_FILENAME = "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json"
 ANIMALS_PLANTS_OVERLAY_TOPICS = frozenset({"animals", "plants_nature"})
+EN_ES_REVIEWED_OVERLAY_FILENAME = "srs_topic_reviewed_overlay_merged_en_es_latest.json"
+EN_DE_REVIEWED_OVERLAY_FILENAME = "srs_topic_reviewed_overlay_merged_en_de_latest.json"
+EN_DE_MANUAL_SEMANTIC_OVERLAY_FILENAME = "srs_topic_manual_semantic_lexicon_en_de_latest.json"
 EN_JA_JMDICT_OVERLAY_FILENAME = "srs_jmdict_topic_overlay_en_ja_latest.json"
 EN_JA_PRODUCT_SAFE_OVERLAY_FILENAME = "srs_topic_autotag_promotion_overlay_en_ja_latest.json"
 DEFAULT_TOPIC_OVERLAY_FILENAMES_BY_PAIR = {
-    ANIMALS_PLANTS_OVERLAY_PAIR: (ANIMALS_PLANTS_OVERLAY_FILENAME,),
+    ANIMALS_PLANTS_OVERLAY_PAIR: (
+        EN_ES_REVIEWED_OVERLAY_FILENAME,
+        ANIMALS_PLANTS_OVERLAY_FILENAME,
+    ),
+    "en-de": (EN_DE_REVIEWED_OVERLAY_FILENAME, EN_DE_MANUAL_SEMANTIC_OVERLAY_FILENAME),
     "en-ja": (EN_JA_PRODUCT_SAFE_OVERLAY_FILENAME, EN_JA_JMDICT_OVERLAY_FILENAME),
 }
 PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP = 1.0
+_PACKAGED_SRS_RESOURCE_ROOT = Path(__file__).resolve().parents[1] / "resources" / "srs"
+_EXPLICIT_OVERRIDE_PRECEDENCE_VALUES = frozenset(
+    {"override", "explicit_override", "runtime_override", "user_override", "local_override"}
+)
 
 
 def resolve_preview_profile_topic_overlay(
@@ -58,11 +71,24 @@ def resolve_preview_profile_topic_overlay(
 
     unusable_candidates: list[dict[str, object]] = []
     supported_topic_set: set[str] = set()
-    for overlay_path in existing_candidate_paths:
+    loaded_candidates: list[tuple[int, int, Path, Mapping[str, object]]] = []
+    for index, overlay_path in enumerate(existing_candidate_paths):
         payload, error_diagnostics = _load_overlay_payload(overlay_path)
         if payload is None:
             unusable_candidates.append(error_diagnostics)
             continue
+        loaded_candidates.append(
+            (
+                _overlay_candidate_priority(overlay_path, payload, paths=paths, pair=resolved_pair),
+                index,
+                overlay_path,
+                payload,
+            )
+        )
+
+    for _priority, _index, overlay_path, payload in sorted(
+        loaded_candidates, key=lambda item: (item[0], item[1])
+    ):
         overlay_id = str(payload.get("overlay_id") or "").strip()
         if str(payload.get("status") or "").strip() != "ok":
             unusable_candidates.append(
@@ -299,7 +325,18 @@ def _candidate_overlay_paths(paths: object, *, pair: str) -> tuple[Path, ...]:
     data_root = getattr(paths, "data_root", None)
     explicit_filenames = DEFAULT_TOPIC_OVERLAY_FILENAMES_BY_PAIR.get(pair, ())
     candidates: list[Path] = []
-    for root in (Path(srs_dir) if srs_dir else None, Path(data_root) if data_root else None):
+    local_roots = tuple(
+        root
+        for root in (Path(srs_dir) if srs_dir else None, Path(data_root) if data_root else None)
+        if root is not None
+    )
+    for root in local_roots:
+        override_dir = root / "topic_overlays" / "overrides"
+        candidates.extend(override_dir / filename for filename in explicit_filenames)
+        candidates.extend(sorted(override_dir.glob("*.json")))
+    packaged_overlay_dir = _PACKAGED_SRS_RESOURCE_ROOT / pair.replace("-", "_") / "topic_overlays"
+    candidates.extend(packaged_overlay_dir / filename for filename in explicit_filenames)
+    for root in local_roots:
         if root is None:
             continue
         overlay_dir = root / "topic_overlays"
@@ -317,6 +354,69 @@ def _candidate_overlay_paths(paths: object, *, pair: str) -> tuple[Path, ...]:
             seen.add(key)
             unique.append(path)
     return tuple(unique)
+
+
+def _overlay_candidate_priority(
+    path: Path,
+    payload: Mapping[str, object],
+    *,
+    paths: object,
+    pair: str,
+) -> int:
+    if _is_explicit_runtime_overlay_override(path, payload, paths=paths):
+        return 0
+    if _is_local_overlay_path(path, paths=paths):
+        return 10
+    if _is_packaged_overlay_path(path, pair=pair):
+        return 20
+    return 30
+
+
+def _is_explicit_runtime_overlay_override(
+    path: Path,
+    payload: Mapping[str, object],
+    *,
+    paths: object,
+) -> bool:
+    if _path_has_segment(path, "overrides") and _is_local_overlay_path(path, paths=paths):
+        return True
+    overlay_policy = mapping_or_empty(payload.get("overlay_policy"))
+    values = (
+        payload.get("runtime_precedence"),
+        payload.get("precedence"),
+        overlay_policy.get("runtime_precedence"),
+        overlay_policy.get("precedence"),
+    )
+    if any(
+        str(value or "").strip().lower() in _EXPLICIT_OVERRIDE_PRECEDENCE_VALUES for value in values
+    ):
+        return True
+    return payload.get("runtime_override") is True or overlay_policy.get("runtime_override") is True
+
+
+def _is_packaged_overlay_path(path: Path, *, pair: str) -> bool:
+    packaged_dir = _PACKAGED_SRS_RESOURCE_ROOT / pair.replace("-", "_") / "topic_overlays"
+    return _is_relative_to(path, packaged_dir)
+
+
+def _is_local_overlay_path(path: Path, *, paths: object) -> bool:
+    roots = (
+        getattr(paths, "srs_dir", None),
+        getattr(paths, "data_root", None),
+    )
+    return any(root is not None and _is_relative_to(path, Path(root)) for root in roots)
+
+
+def _is_relative_to(path: Path, root: Path) -> bool:
+    try:
+        path.resolve().relative_to(root.resolve())
+        return True
+    except (OSError, ValueError):
+        return False
+
+
+def _path_has_segment(path: Path, segment: str) -> bool:
+    return segment in path.parts
 
 
 def _load_overlay_payload(path: Path) -> tuple[Mapping[str, object] | None, dict[str, object]]:
@@ -388,6 +488,8 @@ def _seed_with_profile_topic_overlay(
         "rows": overlay_payload,
         "min_membership": PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP,
     }
+    metadata.pop(ADMISSION_CANDIDATE_FEATURES_METADATA_KEY, None)
+    metadata.pop(ADMISSION_CANDIDATE_FEATURES_PRECOMPUTE_VERSION_KEY, None)
     if is_dataclass(seed):
         return replace(cast(Any, seed), metadata=metadata), tuple(applied_topics)
     if hasattr(seed, "__dict__"):
