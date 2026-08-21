@@ -397,6 +397,117 @@ assert.equal(prefs.backgroundBackdropColor, "#123456");
 """
         _run_node(script)
 
+    def test_missing_profile_ui_prefs_fall_back_to_visible_theme_state(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const basePath = {json.dumps(str(SETTINGS_BASE_JS))};
+const uiPrefsPath = {json.dumps(str(SETTINGS_UI_PREFS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  profileUiThemePrefs: {{
+    resolveCardThemeDefaults() {{
+      return {{
+        hueDeg: 0,
+        saturationPercent: 100,
+        brightnessPercent: 100,
+        transparencyPercent: 100
+      }};
+    }},
+    normalizeCardThemePrefs(raw, options) {{
+      const fallback = options && options.fallback ? options.fallback : {{}};
+      const defaults = options && options.defaults ? options.defaults : {{}};
+      return {{
+        cardThemeHueDeg: raw.cardThemeHueDeg ?? fallback.cardThemeHueDeg ?? defaults.cardThemeHueDeg ?? 0,
+        cardThemeSaturationPercent:
+          raw.cardThemeSaturationPercent
+          ?? fallback.cardThemeSaturationPercent
+          ?? defaults.cardThemeSaturationPercent
+          ?? 100,
+        cardThemeBrightnessPercent:
+          raw.cardThemeBrightnessPercent
+          ?? fallback.cardThemeBrightnessPercent
+          ?? defaults.cardThemeBrightnessPercent
+          ?? 100,
+        cardThemeTransparencyPercent:
+          raw.cardThemeTransparencyPercent
+          ?? fallback.cardThemeTransparencyPercent
+          ?? defaults.cardThemeTransparencyPercent
+          ?? 100
+      }};
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(basePath, "utf8"), context, {{ filename: basePath }});
+vm.runInContext(fs.readFileSync(uiPrefsPath, "utf8"), context, {{ filename: uiPrefsPath }});
+
+function SettingsManager() {{
+  this.DEFAULT_PROFILE_ID = "default";
+  this.defaults = {{
+    srsPair: "en-en",
+    profileBackgroundOpacity: 0.18,
+    profileBackgroundBackdropColor: "#fbf7f0",
+    profileBackgroundPositionX: 50,
+    profileBackgroundPositionY: 50,
+    profileCardThemeHueDeg: 0,
+    profileCardThemeSaturationPercent: 100,
+    profileCardThemeBrightnessPercent: 100,
+    profileCardThemeTransparencyPercent: 100
+  }};
+}}
+context.LexiShift.optionsSettingsInstallBaseMethods(SettingsManager);
+context.LexiShift.optionsSettingsInstallUiPrefsMethods(SettingsManager);
+
+const manager = new SettingsManager();
+const items = {{
+  optionsSelectedProfileId: "suisui",
+  srsSelectedProfileId: "suisui",
+  profileBackgroundAssetId: "suisui:profile_background:visible",
+  profileBackgroundOpacity: 0.31,
+  profileBackgroundBackdropColor: "#225588",
+  profileBackgroundPositionX: 64,
+  profileBackgroundPositionY: 36,
+  profileCardThemeHueDeg: 214,
+  profileCardThemeSaturationPercent: 72,
+  profileCardThemeBrightnessPercent: 88,
+  profileCardThemeTransparencyPercent: 61,
+  srsProfiles: {{
+    suisui: {{
+      languagePrefs: {{ sourceLanguage: "en", targetLanguage: "de" }},
+      srsByPair: {{ "en-de": {{ srsEnabled: true }} }}
+    }},
+    explicit: {{
+      uiPrefs: {{
+        cardThemeHueDeg: 41,
+        backgroundBackdropColor: "#aa5500"
+      }}
+    }}
+  }}
+}};
+
+const prefs = manager.getProfileUiPrefs(items, {{ profileId: "suisui" }});
+assert.equal(prefs.profileId, "suisui");
+assert.equal(prefs.backgroundAssetId, "suisui:profile_background:visible");
+assert.equal(prefs.backgroundEnabled, true);
+assert.equal(prefs.backgroundOpacity, 0.31);
+assert.equal(prefs.backgroundBackdropColor, "#225588");
+assert.equal(prefs.backgroundPositionX, 64);
+assert.equal(prefs.backgroundPositionY, 36);
+assert.equal(prefs.cardThemeHueDeg, 214);
+assert.equal(prefs.cardThemeSaturationPercent, 72);
+assert.equal(prefs.cardThemeBrightnessPercent, 88);
+assert.equal(prefs.cardThemeTransparencyPercent, 61);
+
+const explicitPrefs = manager.getProfileUiPrefs(items, {{ profileId: "explicit" }});
+assert.equal(explicitPrefs.cardThemeHueDeg, 41);
+assert.equal(explicitPrefs.backgroundBackdropColor, "#aa5500");
+assert.equal(explicitPrefs.cardThemeSaturationPercent, 72);
+"""
+        _run_node(script)
+
     def test_srs_maintenance_and_challenge_controls_are_collapsed(self) -> None:
         html = OPTIONS_HTML.read_text(encoding="utf-8")
         css = OPTIONS_CSS.read_text(encoding="utf-8")

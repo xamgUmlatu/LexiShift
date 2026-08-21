@@ -40,6 +40,47 @@
     };
   }
 
+  function resolveTopLevelUiPrefsFallback(settingsManager, items, fallback) {
+    const source = settingsManager && typeof settingsManager._isObject === "function"
+      && settingsManager._isObject(items)
+      ? items
+      : {};
+    const base = fallback && typeof fallback === "object" && !Array.isArray(fallback)
+      ? fallback
+      : {};
+    const hasOwn = (key) => Object.prototype.hasOwnProperty.call(source, key);
+    return {
+      ...base,
+      backgroundAssetId: hasOwn("profileBackgroundAssetId")
+        ? source.profileBackgroundAssetId
+        : base.backgroundAssetId,
+      backgroundOpacity: hasOwn("profileBackgroundOpacity")
+        ? source.profileBackgroundOpacity
+        : base.backgroundOpacity,
+      backgroundBackdropColor: hasOwn("profileBackgroundBackdropColor")
+        ? source.profileBackgroundBackdropColor
+        : base.backgroundBackdropColor,
+      backgroundPositionX: hasOwn("profileBackgroundPositionX")
+        ? source.profileBackgroundPositionX
+        : base.backgroundPositionX,
+      backgroundPositionY: hasOwn("profileBackgroundPositionY")
+        ? source.profileBackgroundPositionY
+        : base.backgroundPositionY,
+      cardThemeHueDeg: hasOwn("profileCardThemeHueDeg")
+        ? source.profileCardThemeHueDeg
+        : base.cardThemeHueDeg,
+      cardThemeSaturationPercent: hasOwn("profileCardThemeSaturationPercent")
+        ? source.profileCardThemeSaturationPercent
+        : base.cardThemeSaturationPercent,
+      cardThemeBrightnessPercent: hasOwn("profileCardThemeBrightnessPercent")
+        ? source.profileCardThemeBrightnessPercent
+        : base.cardThemeBrightnessPercent,
+      cardThemeTransparencyPercent: hasOwn("profileCardThemeTransparencyPercent")
+        ? source.profileCardThemeTransparencyPercent
+        : base.cardThemeTransparencyPercent
+    };
+  }
+
   function installUiPrefsMethods(SettingsManager) {
     if (!SettingsManager || !SettingsManager.prototype) {
       return;
@@ -101,7 +142,7 @@
         opts.profileId !== undefined ? opts.profileId : this.getSelectedUiProfileId(items)
       );
       const profileEntry = this._getProfileEntry(items, profileId);
-      const normalized = this._normalizeProfileUiPrefs(profileEntry.uiPrefs, {
+      const defaultFallback = {
         backgroundEnabled: false,
         backgroundAssetId: "",
         backgroundOpacity: this.defaults.profileBackgroundOpacity || 0.18,
@@ -112,7 +153,9 @@
         cardThemeSaturationPercent: themeDefaults.cardThemeSaturationPercent,
         cardThemeBrightnessPercent: themeDefaults.cardThemeBrightnessPercent,
         cardThemeTransparencyPercent: themeDefaults.cardThemeTransparencyPercent
-      });
+      };
+      const fallback = resolveTopLevelUiPrefsFallback(this, items, defaultFallback);
+      const normalized = this._normalizeProfileUiPrefs(profileEntry.uiPrefs, fallback);
       return {
         profileId,
         ...normalized
