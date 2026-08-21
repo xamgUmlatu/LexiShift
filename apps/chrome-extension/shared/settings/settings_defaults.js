@@ -78,7 +78,7 @@
     srsBrowsingSourceMiningOptions: {},
     srsBrowsingSourceIndexOptions: {},
     srsSemanticAdmissionEnabled: true,
-    srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
+    srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
     profileBackgroundEnabled: false,
     profileBackgroundAssetId: "",
     profileBackgroundOpacity: 0.18,

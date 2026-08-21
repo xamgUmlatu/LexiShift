@@ -158,7 +158,7 @@
       const focusWord = String(state.focusWord || "");
       const focusRulesCount = Number(state.focusRulesCount || 0);
       const semanticAdmissionEnabled = state.semanticAdmissionEnabled === true;
-      const semanticFallbackPolicy = String(state.semanticFallbackPolicy || "legacy_on_unavailable");
+      const semanticFallbackPolicy = String(state.semanticFallbackPolicy || "abstain_on_unavailable");
       const semanticRuntimeCapability = String(state.semanticRuntimeCapability || "unavailable");
       const semanticRuntimeReasonCode = String(state.semanticRuntimeReasonCode || "no_semantic_rules");
       const semanticPointerRuleCount = Number.isFinite(Number(state.semanticPointerRuleCount))

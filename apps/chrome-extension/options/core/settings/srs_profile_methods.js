@@ -1,6 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
+  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "abstain_on_unavailable";
   const SEMANTIC_FALLBACK_POLICIES = new Set([
     "legacy_on_unavailable",
     "abstain_on_unavailable",

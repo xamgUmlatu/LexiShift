@@ -82,6 +82,10 @@ assert.equal(
   Object.keys(context.LexiShift.defaults.srsBrowsingSourceIndexOptions).length,
   0
 );
+assert.equal(
+  context.LexiShift.defaults.srsSemanticAdmissionFallbackPolicy,
+  "abstain_on_unavailable"
+);
 """
         _run_node(script)
 

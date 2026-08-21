@@ -1,6 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "legacy_on_unavailable";
+  const DEFAULT_SEMANTIC_FALLBACK_POLICY = "abstain_on_unavailable";
   const createPlanningStateResolver = root.optionsSrsPlanningState
     && typeof root.optionsSrsPlanningState.createResolver === "function"
     ? root.optionsSrsPlanningState.createResolver

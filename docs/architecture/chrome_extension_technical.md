@@ -275,6 +275,7 @@ SRS settings (extension)
   - `srsProfiles.<profile_id>.srsSignalsByPair.<pair>` stores planner/profile-context signals.
   - `srsProfiles.<profile_id>.uiPrefs` stores profile UI preferences (`backgroundAssetId`, `backgroundEnabled`, `backgroundOpacity`, `backgroundBackdropColor`).
 - `srsProfileId` (string): runtime mirror key consumed by content script and feedback sync.
+- `srsSemanticAdmissionFallbackPolicy` (string): derived fail-closed runtime mirror (`abstain_on_unavailable`); the lower-level gate still recognizes explicit legacy compatibility input, but normal defaults and profile publication do not select it.
 - `targetDisplayScript` (string): runtime mirror for selected target display script (`kanji` | `kana` | `romaji` for Japanese target UI).
 - `profileBackgroundEnabled` (bool): runtime background toggle for selected profile.
 - `profileBackgroundAssetId` (string): selected profile background asset id (IndexedDB reference).

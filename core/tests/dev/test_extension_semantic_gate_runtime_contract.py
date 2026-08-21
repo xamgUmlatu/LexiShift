@@ -1033,7 +1033,7 @@ const readyMatch = {{
 """
         _run_node(script)
 
-    def test_gate_uses_legacy_fallback_by_default_when_inventory_is_unavailable(self) -> None:
+    def test_gate_fails_closed_by_default_when_inventory_is_unavailable(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -1123,18 +1123,18 @@ const readyMatch = {{
 
   assert.equal(result.summary.eligible, 1);
   assert.equal(result.summary.ready, 1);
-  assert.equal(result.summary.fallbackReplaces, 1);
-  assert.equal(result.summary.fallbackAbstains, 0);
+  assert.equal(result.summary.fallbackReplaces, 0);
+  assert.equal(result.summary.fallbackAbstains, 1);
   assert.deepEqual(
     JSON.parse(JSON.stringify(result.summary.fallbackReasonCounts)),
     {{ semantic_inventory_unavailable: 1 }}
   );
   assert.equal(result.summary.inventorySource, "helper");
   assert.equal(result.summary.inventoryError, "Helper offline.");
-  assert.equal(result.matches.includes(readyMatch), true);
+  assert.equal(result.matches.includes(readyMatch), false);
 
   const readyDecision = result.decisionMap.get(readyMatch);
-  assert.equal(readyDecision.decision, "replace");
+  assert.equal(readyDecision.decision, "abstain");
   assert.equal(readyDecision.decision_source, "fallback_policy");
   assert.deepEqual(
     JSON.parse(JSON.stringify(readyDecision.reason_codes)),
@@ -1147,7 +1147,7 @@ const readyMatch = {{
 """
         _run_node(script)
 
-    def test_gate_uses_legacy_fallback_by_default_when_helper_semantic_batch_throws(self) -> None:
+    def test_gate_fails_closed_by_default_when_helper_semantic_batch_throws(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -1233,8 +1233,8 @@ const readyMatch = {{
   assert.equal(calls.filter((entry) => entry.kind === "batch").length, 1);
   assert.equal(result.summary.eligible, 1);
   assert.equal(result.summary.ready, 1);
-  assert.equal(result.summary.fallbackReplaces, 1);
-  assert.equal(result.summary.fallbackAbstains, 0);
+  assert.equal(result.summary.fallbackReplaces, 0);
+  assert.equal(result.summary.fallbackAbstains, 1);
   assert.equal(result.summary.helperError, "semantic route crashed");
   assert.equal(result.summary.helperBatchCalls, 1);
   assert.equal(result.summary.helperRequestCount, 1);
@@ -1243,10 +1243,10 @@ const readyMatch = {{
     JSON.parse(JSON.stringify(result.summary.fallbackReasonCounts)),
     {{ decision_service_error: 1 }}
   );
-  assert.equal(result.matches.includes(readyMatch), true);
+  assert.equal(result.matches.includes(readyMatch), false);
 
   const decision = result.decisionMap.get(readyMatch);
-  assert.equal(decision.decision, "replace");
+  assert.equal(decision.decision, "abstain");
   assert.equal(decision.decision_source, "fallback_policy");
   assert.deepEqual(
     JSON.parse(JSON.stringify(decision.reason_codes)),
@@ -1259,7 +1259,7 @@ const readyMatch = {{
 """
         _run_node(script)
 
-    def test_gate_uses_legacy_fallback_by_default_when_inventory_resolution_throws(self) -> None:
+    def test_gate_fails_closed_by_default_when_inventory_resolution_throws(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -1335,17 +1335,17 @@ const readyMatch = {{
   assert.equal(calls.some((entry) => entry.kind === "batch"), false);
   assert.equal(result.summary.eligible, 1);
   assert.equal(result.summary.ready, 1);
-  assert.equal(result.summary.fallbackReplaces, 1);
-  assert.equal(result.summary.fallbackAbstains, 0);
+  assert.equal(result.summary.fallbackReplaces, 0);
+  assert.equal(result.summary.fallbackAbstains, 1);
   assert.equal(result.summary.inventoryError, "inventory route crashed");
   assert.deepEqual(
     JSON.parse(JSON.stringify(result.summary.fallbackReasonCounts)),
     {{ semantic_inventory_unavailable: 1 }}
   );
-  assert.equal(result.matches.includes(readyMatch), true);
+  assert.equal(result.matches.includes(readyMatch), false);
 
   const decision = result.decisionMap.get(readyMatch);
-  assert.equal(decision.decision, "replace");
+  assert.equal(decision.decision, "abstain");
   assert.equal(decision.decision_source, "fallback_policy");
   assert.deepEqual(
     JSON.parse(JSON.stringify(decision.reason_codes)),

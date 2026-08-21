@@ -1366,7 +1366,7 @@ const controller = createController({{
       srsInitialActiveCount: 40,
       srsHighlightColor: "#2F74D0",
       srsSemanticAdmissionEnabled: true,
-      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
+      srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
       srsFeedbackSrsEnabled: true,
       srsFeedbackRulesEnabled: false,
       srsExposureLoggingEnabled: true
@@ -1428,7 +1428,7 @@ const controller = createController({{
   assert.equal(captured.profileSave.profile.srsBootstrapTopN, null);
   assert.equal(captured.profileSave.profile.srsInitialActiveCount, 33);
   assert.equal(captured.profileSave.profile.srsSemanticAdmissionEnabled, true);
-  assert.equal(captured.profileSave.profile.srsSemanticAdmissionFallbackPolicy, "legacy_on_unavailable");
+  assert.equal(captured.profileSave.profile.srsSemanticAdmissionFallbackPolicy, "abstain_on_unavailable");
   assert.equal(captured.profileSave.profile.srsFeedbackSrsEnabled, true);
   assert.equal(captured.profileSave.profile.srsFeedbackRulesEnabled, false);
   assert.equal(captured.profileSave.profile.srsAutoRefreshEnabled, true);
@@ -1498,7 +1498,7 @@ const controller = createController({{
       srsInitialActiveCount: 40,
       srsHighlightColor: "#2F74D0",
       srsSemanticAdmissionEnabled: true,
-      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
+      srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
       srsFeedbackSrsEnabled: true,
       srsFeedbackRulesEnabled: false,
       srsExposureLoggingEnabled: true
@@ -2658,7 +2658,7 @@ const controller = createController({{
         srsSoundEnabled: true,
         srsHighlightColor: "#2F74D0",
         srsSemanticAdmissionEnabled: true,
-        srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
+        srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
         srsFeedbackSrsEnabled: true,
         srsFeedbackRulesEnabled: false,
         srsExposureLoggingEnabled: true

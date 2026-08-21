@@ -244,6 +244,7 @@ const runtime = createRuntime({{
       srsEnabled: true,
       srsPair: "en-es",
       srsProfileId: "default",
+      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
       profileRules: [],
       rules: []
     }},
@@ -256,7 +257,7 @@ const runtime = createRuntime({{
   assert.equal(resolution.semanticPointerRuleCount, 2);
   assert.equal(resolution.semanticReadyRuleCount, 1);
   assert.equal(resolution.semanticAdmissionEnabled, true);
-  assert.equal(resolution.semanticFallbackPolicy, "legacy_on_unavailable");
+  assert.equal(resolution.semanticFallbackPolicy, "abstain_on_unavailable");
   assert.equal(resolution.semanticInventoryLoaded, true);
   assert.equal(resolution.semanticInventorySource, "helper");
   assert.equal(Number.isFinite(Number(resolution.timings.activeRulesResolveMs)), true);
