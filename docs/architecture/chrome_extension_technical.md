@@ -139,6 +139,7 @@ Module layout
   - Owns feedback entry persistence and helper feedback-sync queue integration.
 - `apps/chrome-extension/content/runtime/settings_change_router.js`
   - Routes `chrome.storage.onChanged` keys to targeted runtime actions (rebuild/highlight/debug/feedback updates).
+  - Rebuilds source language, target language, automatic-pair mode, and the pair mirror together so profile language changes take effect in already-open tabs.
 - `apps/chrome-extension/content/ui/ui.js`
   - Composition layer for highlight styles, click-to-toggle behavior, and cleanup.
   - Delegates feedback popup behavior to `content/ui/feedback_popup_controller.js`.

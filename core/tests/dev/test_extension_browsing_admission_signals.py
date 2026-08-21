@@ -476,6 +476,9 @@ vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modul
 let currentSettings = {{
   debugEnabled: true,
   srsBrowsingAdmissionSignalsEnabled: true,
+  sourceLanguage: "en",
+  targetLanguage: "ja",
+  srsPairAuto: true,
   srsPair: "en-ja",
   srsProfileId: "alpha"
 }};
@@ -520,6 +523,30 @@ assert.deepEqual(cleared, [
 ]);
 assert.equal(applied.length, 1);
 assert.equal(applied[0].srsPair, "en-de");
+
+router.handleStorageChange(
+  {{
+    maxReplacementsPerSentence: {{ oldValue: 0, newValue: 2 }}
+  }},
+  "local"
+);
+assert.equal(applied.length, 2);
+assert.equal(applied[1].maxReplacementsPerSentence, 2);
+
+router.handleStorageChange(
+  {{
+    sourceLanguage: {{ oldValue: "en", newValue: "de" }},
+    targetLanguage: {{ oldValue: "ja", newValue: "en" }},
+    srsPairAuto: {{ oldValue: true, newValue: false }},
+    srsPair: {{ oldValue: "en-de", newValue: "de-en" }}
+  }},
+  "local"
+);
+assert.equal(applied.length, 3);
+assert.equal(applied[2].sourceLanguage, "de");
+assert.equal(applied[2].targetLanguage, "en");
+assert.equal(applied[2].srsPairAuto, false);
+assert.equal(applied[2].srsPair, "de-en");
 """
         _run_node(script)
 
