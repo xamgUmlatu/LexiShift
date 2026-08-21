@@ -15,6 +15,9 @@ if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
 from lexishift_core.helper.use_cases import word_info as word_info_module  # noqa: E402
+from lexishift_core.helper.use_cases.word_info_senses import (  # noqa: E402
+    _jmdict_structured_notes,
+)
 from lexishift_core.helper.engine import lookup_word_info  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset  # noqa: E402
@@ -218,12 +221,14 @@ def _write_jmdict_sense_sample(path: Path) -> None:
   </entry>
   <entry>
     <k_ele><keb>時</keb></k_ele>
+    <k_ele><keb>刻</keb></k_ele>
+    <k_ele><keb>秋</keb></k_ele>
     <r_ele><reb>とき</reb><re_restr>時</re_restr></r_ele>
     <r_ele><reb>じ</reb><re_restr>時</re_restr></r_ele>
     <sense>
       <stagr>とき</stagr>
       <pos>noun</pos>
-      <s_inf>primary time sense</s_inf>
+      <s_inf>刻 signifies a time of day; 秋 signifies an important time</s_inf>
       <gloss>time</gloss>
       <gloss>hour</gloss>
       <gloss>moment</gloss>
@@ -271,6 +276,38 @@ def _all_strings(value: object) -> Iterable[str]:
 
 
 class TestHelperWordInfo(unittest.TestCase):
+    def test_jmdict_structures_only_exact_notes_for_known_written_forms(self) -> None:
+        source_text = "刻 signifies a time of day; 秋 signifies an important time"
+        self.assertEqual(
+            _jmdict_structured_notes(
+                (source_text,),
+                entry_written_forms=("時", "刻", "秋"),
+            ),
+            [
+                {
+                    "kind": "orthography_variants",
+                    "source_text": source_text,
+                    "items": [
+                        {"written_form": "刻", "text": "a time of day"},
+                        {"written_form": "秋", "text": "an important time"},
+                    ],
+                }
+            ],
+        )
+        for note, written_forms in (
+            (source_text, ("時", "刻")),
+            ("刻 signifies a time of day; also used poetically", ("時", "刻")),
+            ("刻 signifies a time of day", ("時", "刻")),
+        ):
+            with self.subTest(note=note, written_forms=written_forms):
+                self.assertEqual(
+                    _jmdict_structured_notes(
+                        (note,),
+                        entry_written_forms=written_forms,
+                    ),
+                    [],
+                )
+
     def test_lookup_word_info_merges_srs_rules_and_translation_glosses(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
@@ -490,7 +527,23 @@ class TestHelperWordInfo(unittest.TestCase):
                 ["occasion", "case"],
             ],
         )
-        self.assertEqual(result["senses"][0]["details"], ["primary time sense"])
+        self.assertEqual(
+            result["senses"][0]["details"],
+            ["刻 signifies a time of day; 秋 signifies an important time"],
+        )
+        self.assertEqual(
+            result["senses"][0]["structured_notes"],
+            [
+                {
+                    "kind": "orthography_variants",
+                    "source_text": "刻 signifies a time of day; 秋 signifies an important time",
+                    "items": [
+                        {"written_form": "刻", "text": "a time of day"},
+                        {"written_form": "秋", "text": "an important time"},
+                    ],
+                }
+            ],
+        )
         self.assertEqual(
             result["senses"][1]["restrictions"],
             {"written_forms": ["時"], "readings": ["とき"]},

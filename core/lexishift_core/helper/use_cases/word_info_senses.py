@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Mapping, Sequence
 
 from lexishift_core.resources.dict_loaders import (
@@ -7,6 +8,11 @@ from lexishift_core.resources.dict_loaders import (
     TranslationGlossRecord,
 )
 from lexishift_core.resources.jmdict_records import JmdictSenseRecord
+
+
+_JMDICT_ORTHOGRAPHY_NOTE_CLAUSE = re.compile(
+    r"(?P<written_form>[^\s;]+) signifies (?P<description>[^;]+)"
+)
 
 
 def build_translation_sense_payloads(
@@ -64,6 +70,7 @@ def build_jmdict_sense_payloads(
             seen.add(signature)
             payload = _jmdict_sense_payload(
                 sense,
+                entry_written_forms=entry.kanji_forms,
                 language=language,
                 source=source,
                 source_kind=source_kind,
@@ -163,6 +170,7 @@ def _jmdict_sense_signature(sense: JmdictSenseRecord) -> tuple[object, ...]:
 def _jmdict_sense_payload(
     sense: JmdictSenseRecord,
     *,
+    entry_written_forms: Sequence[str],
     language: str,
     source: str,
     source_kind: str,
@@ -202,6 +210,12 @@ def _jmdict_sense_payload(
         payload["pos"] = list(sense.pos_values)
     if sense.info_values:
         payload["details"] = list(sense.info_values)[:detail_limit]
+        structured_notes = _jmdict_structured_notes(
+            sense.info_values[:detail_limit],
+            entry_written_forms=entry_written_forms,
+        )
+        if structured_notes:
+            payload["structured_notes"] = structured_notes
     if labels:
         payload["labels"] = labels[:label_limit]
     if sense.kanji_restrictions or sense.reading_restrictions:
@@ -214,6 +228,50 @@ def _jmdict_sense_payload(
     if sense.antonyms:
         payload["antonyms"] = list(sense.antonyms)
     return payload
+
+
+def _jmdict_structured_notes(
+    info_values: Sequence[str],
+    *,
+    entry_written_forms: Sequence[str],
+) -> list[dict[str, object]]:
+    known_forms = {str(value or "").strip() for value in entry_written_forms}
+    known_forms.discard("")
+    if not known_forms:
+        return []
+    structured: list[dict[str, object]] = []
+    for value in info_values:
+        source_text = str(value or "").strip()
+        normalized_text = " ".join(source_text.split())
+        clauses = [clause.strip() for clause in normalized_text.split(";")]
+        if len(clauses) < 2 or any(not clause for clause in clauses):
+            continue
+        items: list[dict[str, str]] = []
+        for clause in clauses:
+            match = _JMDICT_ORTHOGRAPHY_NOTE_CLAUSE.fullmatch(clause)
+            if match is None:
+                items = []
+                break
+            written_form = match.group("written_form").strip()
+            description = match.group("description").strip()
+            if written_form not in known_forms or not description:
+                items = []
+                break
+            items.append(
+                {
+                    "written_form": written_form,
+                    "text": _truncate_text(description),
+                }
+            )
+        if items:
+            structured.append(
+                {
+                    "kind": "orthography_variants",
+                    "source_text": source_text,
+                    "items": items,
+                }
+            )
+    return structured
 
 
 def _record_metadata(record: TranslationGlossRecord) -> Mapping[str, object]:

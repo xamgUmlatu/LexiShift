@@ -91,6 +91,8 @@ class HelperPaths:
     srs_signal_queue_path: Path
     language_packs_dir: Path
     frequency_packs_dir: Path
+    lookup_dictionary_packs_dir: Path
+    lookup_dictionary_settings_path: Path
 
     def normalize_profile_id(self, profile_id: str | None) -> str:
         return _sanitize_profile_id(profile_id or DEFAULT_PROFILE_ID)
@@ -165,6 +167,8 @@ def build_helper_paths(root: Path | None = None) -> HelperPaths:
     default_profile_dir.mkdir(parents=True, exist_ok=True)
     language_packs_dir = data_root / "language_packs"
     frequency_packs_dir = data_root / "frequency_packs"
+    lookup_dictionary_packs_dir = data_root / "lookup_dictionaries"
+    lookup_dictionary_packs_dir.mkdir(parents=True, exist_ok=True)
     _ensure_default_stopwords(srs_dir)
     return HelperPaths(
         data_root=data_root,
@@ -176,6 +180,8 @@ def build_helper_paths(root: Path | None = None) -> HelperPaths:
         srs_signal_queue_path=default_profile_dir / "srs_signal_queue.json",
         language_packs_dir=language_packs_dir,
         frequency_packs_dir=frequency_packs_dir,
+        lookup_dictionary_packs_dir=lookup_dictionary_packs_dir,
+        lookup_dictionary_settings_path=lookup_dictionary_packs_dir / "settings.json",
     )
 
 

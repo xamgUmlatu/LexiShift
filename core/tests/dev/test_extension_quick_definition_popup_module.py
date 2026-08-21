@@ -10,6 +10,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 QUICK_DEFINITION_MODULE_JS = (
     PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js"
 )
+QUICK_DEFINITION_STRUCTURED_CONTENT_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/content/ui/popup_modules/quick_definition_structured_content.js"
+)
 POPUP_MODULES_REGISTRY_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/popup_modules_registry.js"
 )
@@ -41,6 +45,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const modulePath = {json.dumps(str(QUICK_DEFINITION_MODULE_JS))};
+const structuredContentPath = {json.dumps(str(QUICK_DEFINITION_STRUCTURED_CONTENT_JS))};
 
 class FakeElement {{
   constructor(tagName) {{
@@ -114,6 +119,22 @@ function findByTag(node, tagName) {{
   return null;
 }}
 
+function findByAttribute(node, name, value) {{
+  if (!node) {{
+    return null;
+  }}
+  if (node.attributes && node.attributes[name] === value) {{
+    return node;
+  }}
+  for (const child of node.children || []) {{
+    const found = findByAttribute(child, name, value);
+    if (found) {{
+      return found;
+    }}
+  }}
+  return null;
+}}
+
 const messages = {{
   popup_definition_loading: "Loading definition...",
   popup_definition_unavailable: "No definition available.",
@@ -139,6 +160,11 @@ const context = vm.createContext({{
 }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(structuredContentPath, "utf8"),
+  context,
+  {{ filename: structuredContentPath }}
+);
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const calls = [];
@@ -172,10 +198,27 @@ const moduleNode = context.LexiShift.uiQuickDefinitionModule.build(
           status: "ok",
           display: "perro",
           pos: {{ label: "noun" }},
+          dictionary: {{
+            provider: "yomitan",
+            title: "User-owned Spanish Dictionary"
+          }},
           senses: [
             {{
               glosses: [{{ text: "dog" }}, {{ text: "domestic dog" }}],
-              details: ["dog (the species Canis familiaris)"],
+              details: [
+                "dog (the species Canis familiaris)",
+                "犬 signifies a domestic dog; 狗 signifies a dog in older writing"
+              ],
+              structured_notes: [
+                {{
+                  kind: "orthography_variants",
+                  source_text: "犬 signifies a domestic dog; 狗 signifies a dog in older writing",
+                  items: [
+                    {{ written_form: "犬", text: "a domestic dog" }},
+                    {{ written_form: "狗", text: "a dog in older writing" }}
+                  ]
+                }}
+              ],
               labels: ["common"],
               examples: [{{ text: "perro callejero", translation: "stray dog" }}]
             }},
@@ -228,17 +271,21 @@ assert.match(collectText(moduleNode), /Loading definition/);
         source: {{ provider: "test" }}
       }}
     }},
-    options: {{ timeoutMs: 4000 }}
+    options: {{ timeoutMs: 4000, bypassCache: true }}
   }}));
   const rendered = collectText(moduleNode);
   assert.match(rendered, /perro/);
   assert.match(rendered, /noun/);
+  assert.match(rendered, /User-owned Spanish Dictionary/);
   assert.doesNotMatch(rendered, /Matches:/);
   assert.ok(findByTag(moduleNode, "ol"));
   assert.match(rendered, /dog · domestic dog/);
   assert.match(rendered, /common/);
   assert.match(rendered, /dog/);
   assert.match(rendered, /Canis familiaris/);
+  assert.match(rendered, /《犬》 a domestic dog/);
+  assert.match(rendered, /《狗》 a dog in older writing/);
+  assert.doesNotMatch(rendered, /犬 signifies/);
   assert.match(rendered, /perro callejero \\/ stray dog/);
   assert.match(rendered, /hound/);
   assert.match(rendered, /hunting dog/);
@@ -268,6 +315,67 @@ assert.match(collectText(moduleNode), /Loading definition/);
   await new Promise((resolve) => setImmediate(resolve));
   assert.ok(findByTag(fallbackNode, "ul"));
   assert.match(collectText(fallbackNode), /dog/);
+
+  const structuredTarget = document.createElement("span");
+  structuredTarget.textContent = "時";
+  structuredTarget.dataset = {{ languagePair: "en-ja", replacement: "時" }};
+  const structuredNode = context.LexiShift.uiQuickDefinitionModule.build(
+    structuredTarget,
+    () => {{}},
+    {{
+      wordInfoApi: {{
+        async lookup() {{
+          return {{
+            status: "ok",
+            display: "時",
+            dictionary: {{ title: "Local Japanese Dictionary" }},
+            senses: [{{
+              glosses: [{{ text: "fallback text should not be duplicated" }}],
+              structured_content: [
+                {{
+                  type: "element",
+                  tag: "div",
+                  role: "sense",
+                  children: [
+                    {{
+                      type: "element",
+                      tag: "span",
+                      role: "sense-number",
+                      children: [{{ type: "text", text: "①" }}]
+                    }},
+                    {{
+                      type: "element",
+                      tag: "span",
+                      role: "definition",
+                      children: [{{ type: "text", text: "ある時点。" }}]
+                    }},
+                    {{
+                      type: "element",
+                      tag: "div",
+                      role: "subsense",
+                      children: [
+                        {{ type: "image-fallback", text: "一" }},
+                        {{ type: "text", text: "時刻。" }}
+                      ]
+                    }}
+                  ]
+                }}
+              ]
+            }}],
+            external_links: []
+          }};
+        }}
+      }}
+    }}
+  );
+  await new Promise((resolve) => setImmediate(resolve));
+  const structuredText = collectText(structuredNode);
+  assert.match(structuredText, /①/);
+  assert.match(structuredText, /ある時点/);
+  assert.match(structuredText, /時刻/);
+  assert.doesNotMatch(structuredText, /fallback text should not be duplicated/);
+  assert.ok(findByAttribute(structuredNode, "data-yomitan-role", "sense"));
+  assert.ok(findByAttribute(structuredNode, "data-yomitan-role", "subsense"));
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

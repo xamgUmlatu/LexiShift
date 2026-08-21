@@ -321,6 +321,8 @@
         font-size:10px;line-height:1.2;font-weight:700;text-transform:uppercase;}
       .lexishift-definition-pos:empty{display:none;}
       .lexishift-definition-body{display:flex;flex-direction:column;gap:5px;}
+      .lexishift-definition-source{margin-top:-2px;font-size:9px;line-height:1.3;font-weight:700;
+        letter-spacing:0.035em;color:var(--lexishift-module-label, rgba(247,244,239,0.68));}
       .lexishift-definition-status{font-size:11px;line-height:1.35;
         color:var(--lexishift-module-line, rgba(247,244,239,0.88));}
       .lexishift-definition-senses,.lexishift-definition-glosses{margin:0;padding-left:18px;}
@@ -330,9 +332,15 @@
       .lexishift-definition-sense::marker,.lexishift-definition-gloss-item::marker{
         color:var(--lexishift-module-label, rgba(247,244,239,0.68));font-size:10px;font-weight:800;}
       .lexishift-definition-sense-glosses{font-size:12px;line-height:1.4;font-weight:650;
+        color:var(--lexishift-module-text, #f7f4ef);white-space:pre-line;}
+      .lexishift-definition-orthography-note{display:flex;align-items:baseline;gap:5px;
+        margin-top:2px;font-size:11px;line-height:1.4;
+        color:var(--lexishift-module-line, rgba(247,244,239,0.9));}
+      .lexishift-definition-orthography-form{flex:0 0 auto;font-weight:750;
         color:var(--lexishift-module-text, #f7f4ef);}
+      .lexishift-definition-orthography-text{min-width:0;}
       .lexishift-definition-gloss{font-size:12px;line-height:1.35;font-weight:650;
-        color:var(--lexishift-module-text, #f7f4ef);}
+        color:var(--lexishift-module-text, #f7f4ef);white-space:pre-line;}
       .lexishift-definition-labels{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px;}
       .lexishift-definition-label{padding:1px 5px;border-radius:999px;
         background:var(--lexishift-module-quote-border, rgba(247,244,239,0.14));
@@ -341,6 +349,40 @@
       .lexishift-definition-detail,.lexishift-definition-example{font-size:11px;line-height:1.35;
         color:var(--lexishift-module-line, rgba(247,244,239,0.86));}
       .lexishift-definition-example{font-style:italic;}
+      .lexishift-definition-structured-senses{display:flex;flex-direction:column;gap:7px;}
+      .lexishift-definition-structured-sense + .lexishift-definition-structured-sense{
+        padding-top:6px;border-top:1px solid var(--lexishift-module-quote-border, rgba(247,244,239,0.16));}
+      .lexishift-definition-structured{max-height:270px;overflow-y:auto;overscroll-behavior:contain;
+        padding-right:3px;font-size:11px;line-height:1.5;color:var(--lexishift-module-line, rgba(247,244,239,0.92));}
+      .lexishift-yomitan-element{box-sizing:border-box;}
+      .lexishift-yomitan-element.lexishift-yomitan-role-headword{margin-bottom:5px;font-size:12px;font-weight:750;
+        color:var(--lexishift-module-text, #f7f4ef);}
+      .lexishift-yomitan-role-major-section + .lexishift-yomitan-role-major-section{
+        margin-top:7px;padding-top:6px;border-top:1px solid var(--lexishift-module-quote-border, rgba(247,244,239,0.16));}
+      .lexishift-yomitan-role-sense{margin-top:5px;}
+      .lexishift-yomitan-role-sense-number,.lexishift-yomitan-role-subsense-number{
+        display:inline-block;min-width:1.45em;margin-right:3px;font-weight:800;
+        color:var(--lexishift-module-text, #f7f4ef);}
+      .lexishift-yomitan-role-subsense{margin:3px 0 0 12px;}
+      .lexishift-yomitan-role-definition{color:var(--lexishift-module-text, #f7f4ef);}
+      .lexishift-yomitan-role-part-of-speech-group{display:inline-block;margin:0 4px 2px 0;
+        color:var(--lexishift-module-label, rgba(247,244,239,0.75));font-size:10px;font-weight:700;}
+      .lexishift-yomitan-role-example{margin:2px 0 0 10px;color:var(--lexishift-module-label, rgba(247,244,239,0.78));
+        font-size:10px;font-style:italic;}
+      .lexishift-yomitan-role-note{margin:3px 0 0 10px;color:var(--lexishift-module-label, rgba(247,244,239,0.82));}
+      .lexishift-yomitan-role-reference,.lexishift-yomitan-reference-link{
+        color:var(--lexishift-module-label, rgba(247,244,239,0.8));}
+      .lexishift-yomitan-reference-link{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;}
+      .lexishift-yomitan-role-source{color:var(--lexishift-module-label, rgba(247,244,239,0.68));font-size:9px;}
+      .lexishift-yomitan-role-reading-list,.lexishift-yomitan-role-related-terms{margin:3px 0;padding-left:17px;}
+      .lexishift-yomitan-style-bold{font-weight:800;}
+      .lexishift-yomitan-style-italic{font-style:italic;}
+      .lexishift-yomitan-style-super{font-size:0.72em;vertical-align:super;}
+      .lexishift-yomitan-style-sub{font-size:0.72em;vertical-align:sub;}
+      .lexishift-yomitan-style-underline{text-decoration:underline;}
+      .lexishift-yomitan-image-fallback{display:inline-block;margin:0 2px;font-weight:800;
+        color:var(--lexishift-module-text, #f7f4ef);}
+      .lexishift-definition-structured-truncated{text-align:center;color:var(--lexishift-module-label, rgba(247,244,239,0.68));}
       .lexishift-definition-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:1px;}
       .lexishift-definition-link{display:inline-flex;align-items:center;padding:3px 7px;border:1px solid rgba(247,244,239,0.2);border-radius:4px;
         background:linear-gradient(180deg,rgba(255,255,255,0.055),rgba(0,0,0,0.035));box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),0 1px 0 rgba(0,0,0,0.13);font-size:11px;line-height:1.3;font-weight:700;color:inherit;text-decoration:none;}

@@ -103,7 +103,8 @@
         return defaultErrorResponse("invalid_request", "Missing pair or lemma.");
       }
       const key = cacheKey(payload);
-      if (cache.has(key)) {
+      const bypassCache = lookupOptions && lookupOptions.bypassCache === true;
+      if (!bypassCache && cache.has(key)) {
         return cache.get(key);
       }
       if (!helperClient || typeof helperClient.lookupWordInfo !== "function") {

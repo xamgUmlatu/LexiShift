@@ -219,6 +219,7 @@ class TestExtensionStructure(unittest.TestCase):
             "content/runtime/feedback/feedback_runtime_controller.js",
             "content/runtime/settings_change_router.js",
             "content/ui/popup_modules/module_registry.js",
+            "content/ui/popup_modules/quick_definition_structured_content.js",
             "content/ui/popup_modules/quick_definition_module.js",
             "content/ui/popup_modules/japanese_script_module.js",
             "content/ui/feedback_popup_controller.js",

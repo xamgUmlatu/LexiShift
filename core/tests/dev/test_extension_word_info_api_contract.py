@@ -69,6 +69,53 @@ const api = context.LexiShift.wordInfoApi.create({{
             text=True,
         )
 
+    def test_bypass_cache_refreshes_dictionary_lookup_and_replaces_cached_value(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const apiPath = {json.dumps(str(WORD_INFO_API_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(apiPath, "utf8"), context, {{ filename: apiPath }});
+
+let selectedDictionary = "JMdict";
+let calls = 0;
+const api = context.LexiShift.wordInfoApi.create({{
+  helperClient: {{
+    async lookupWordInfo() {{
+      calls += 1;
+      return {{ ok: true, data: {{ dictionary: selectedDictionary }} }};
+    }}
+  }}
+}});
+
+(async () => {{
+  const request = {{ languagePair: "en-ja", replacement: "時" }};
+  assert.equal((await api.lookup(request)).dictionary, "JMdict");
+  selectedDictionary = "Local dictionary";
+  assert.equal((await api.lookup(request)).dictionary, "JMdict");
+  assert.equal(
+    (await api.lookup(request, {{ bypassCache: true }})).dictionary,
+    "Local dictionary"
+  );
+  assert.equal((await api.lookup(request)).dictionary, "Local dictionary");
+  assert.equal(calls, 2);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        subprocess.run(
+            ["node", "-e", script],
+            cwd=PROJECT_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

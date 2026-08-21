@@ -10,6 +10,10 @@ from lexishift_core.helper.lp_capabilities import (
     normalize_pair_key,
     resolve_pair_capability,
 )
+from lexishift_core.helper.lookup_dictionary_settings import (
+    load_lookup_dictionary_settings,
+    lookup_dictionary_pack_ids_for_pair,
+)
 from lexishift_core.helper.pair_resources import resolve_pair_translation_packs
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.use_cases.word_info_dictionary import (
@@ -43,7 +47,9 @@ from lexishift_core.resources.dict_loaders import (
 from lexishift_core.resources.jmdict_definition_lookup import (
     load_jmdict_definition_records_for_terms,
 )
+from lexishift_core.resources.installed_packs import resolve_installed_pack_artifact
 from lexishift_core.srs import normalize_srs_lifecycle_state
+from lexishift_core.helper.yomitan_lookup_dictionaries import lookup_yomitan_dictionary
 
 
 GLOSS_LIMIT = 5
@@ -332,6 +338,15 @@ def _resolve_glosses(
     translation_dict_path: Path | None,
     jmdict_path: Path | None,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
+    configured_lookup = _resolve_configured_lookup_dictionary(
+        paths,
+        pair=pair,
+        lookup_candidates=lookup_candidates,
+        lookup_surface=lookup_surface,
+        lookup_reading=lookup_reading,
+    )
+    if configured_lookup is not None:
+        return configured_lookup
     capability = resolve_pair_capability(pair)
     if capability.requires_jmdict_for_rulegen or capability.requires_jmdict_for_seed:
         return _resolve_jmdict_glosses(
@@ -360,6 +375,46 @@ def _resolve_glosses(
             "missing_resources": [{"type": "word_info_provider", "reason": "pair_lacks_provider"}],
         },
     )
+
+
+def _resolve_configured_lookup_dictionary(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lookup_candidates: Sequence[str],
+    lookup_surface: str,
+    lookup_reading: str,
+) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]] | None:
+    settings = load_lookup_dictionary_settings(paths.lookup_dictionary_settings_path)
+    pack_ids = lookup_dictionary_pack_ids_for_pair(settings, pair)
+    for pack_id in pack_ids:
+        artifact_path = resolve_installed_pack_artifact(
+            paths.lookup_dictionary_packs_dir,
+            pack_id,
+        )
+        if artifact_path is None:
+            continue
+        result = lookup_yomitan_dictionary(
+            artifact_path,
+            lookup_candidates=lookup_candidates,
+            surface=lookup_surface,
+            reading=lookup_reading,
+            sense_limit=SENSE_LIMIT,
+            gloss_limit=GLOSS_LIMIT,
+        )
+        if result is None:
+            continue
+        return (
+            list(result.glosses),
+            list(result.senses),
+            {
+                "provider_status": "ok",
+                "missing_resources": [],
+                "dictionary": result.dictionary,
+                "dictionary_match": result.dictionary_match,
+            },
+        )
+    return None
 
 
 def _resolve_translation_glosses(

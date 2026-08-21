@@ -7,6 +7,13 @@
   const EXAMPLE_LIMIT = 1;
   const LINK_LIMIT = 2;
   const LOOKUP_TIMEOUT_MS = 4000;
+  const structuredContent = root.uiQuickDefinitionStructuredContent || {};
+  const appendStructuredContent = typeof structuredContent.appendContent === "function"
+    ? structuredContent.appendContent : (() => {});
+  const normalizeStructuredContent = typeof structuredContent.normalizeContent === "function"
+    ? structuredContent.normalizeContent : (() => []);
+  const normalizeStructuredNotes = typeof structuredContent.normalizeNotes === "function"
+    ? structuredContent.normalizeNotes : (() => []);
 
   function t(key, substitutions, fallback) {
     try {
@@ -26,6 +33,10 @@
 
   function normalizeText(value) {
     return String(value || "").trim();
+  }
+
+  function comparableText(value) {
+    return normalizeText(value).replace(/\s+/g, " ").toLowerCase();
   }
 
   function normalizePair(value) {
@@ -176,9 +187,17 @@
       if (!glosses.length) {
         continue;
       }
+      const structuredNotes = normalizeStructuredNotes(raw.structured_notes);
+      const structuredSourceTexts = new Set(
+        structuredNotes.map((note) => comparableText(note.sourceText))
+      );
       senses.push({
         glosses,
-        details: normalizeTextList(raw.details || raw.notes, DETAIL_LIMIT),
+        structuredContent: normalizeStructuredContent(raw.structured_content),
+        structuredContentTruncated: raw.structured_content_truncated === true,
+        details: normalizeTextList(raw.details || raw.notes, DETAIL_LIMIT)
+          .filter((detail) => !structuredSourceTexts.has(comparableText(detail))),
+        structuredNotes,
         labels: normalizeTextList(raw.labels || raw.tags, 4),
         examples: normalizeExamples(raw.examples)
       });
@@ -217,6 +236,35 @@
   }
 
   function renderSenses(parent, senses) {
+    if (senses.some((sense) => sense.structuredContent.length)) {
+      const container = document.createElement("div");
+      container.className = "lexishift-definition-structured-senses";
+      for (const sense of senses) {
+        const item = document.createElement("div");
+        item.className = "lexishift-definition-structured-sense";
+        if (sense.structuredContent.length) {
+          appendStructuredContent(
+            item,
+            sense.structuredContent,
+            sense.structuredContentTruncated
+          );
+        } else {
+          appendText(
+            item,
+            "lexishift-definition-sense-glosses",
+            sense.glosses.join(" · ")
+          );
+        }
+        appendLabels(item, sense.labels);
+        for (const detail of sense.details || []) {
+          appendText(item, "lexishift-definition-detail", detail);
+        }
+        appendExamples(item, sense.examples);
+        container.appendChild(item);
+      }
+      parent.appendChild(container);
+      return;
+    }
     const list = document.createElement("ol");
     list.className = "lexishift-definition-senses";
     for (const sense of senses) {
@@ -227,6 +275,21 @@
         "lexishift-definition-sense-glosses",
         sense.glosses.join(" · ")
       );
+      for (const note of sense.structuredNotes || []) {
+        for (const noteItem of note.items || []) {
+          const row = document.createElement("div");
+          row.className = "lexishift-definition-orthography-note";
+          const writtenForm = document.createElement("span");
+          writtenForm.className = "lexishift-definition-orthography-form";
+          writtenForm.textContent = `《${noteItem.writtenForm}》`;
+          const text = document.createElement("span");
+          text.className = "lexishift-definition-orthography-text";
+          text.textContent = noteItem.text;
+          row.appendChild(writtenForm);
+          row.appendChild(text);
+          item.appendChild(row);
+        }
+      }
       appendLabels(item, sense.labels);
       for (const detail of sense.details || []) {
         appendText(item, "lexishift-definition-detail", detail);
@@ -262,6 +325,13 @@
     return normalizeText(result && result.display)
       || normalizeText(payload.displayReplacement)
       || normalizeText(payload.replacement);
+  }
+
+  function resolveDictionaryTitle(result) {
+    const dictionary = result && result.dictionary && typeof result.dictionary === "object"
+      ? result.dictionary
+      : {};
+    return normalizeText(dictionary.title);
   }
 
   function hasMissingDefinitionData(result) {
@@ -347,6 +417,11 @@
       pos.textContent = posLabel;
       pos.style.display = posLabel ? "" : "none";
 
+      const dictionaryTitle = resolveDictionaryTitle(result);
+      if (dictionaryTitle) {
+        appendText(body, "lexishift-definition-source", dictionaryTitle);
+      }
+
       const senses = resolveSenses(result);
       const glosses = resolveGlosses(result);
       if (senses.length) {
@@ -386,7 +461,7 @@
             sourcePhrase: payload.sourcePhrase,
             wordPackage: payload.wordPackage || undefined
           },
-          { timeoutMs: LOOKUP_TIMEOUT_MS }
+          { timeoutMs: LOOKUP_TIMEOUT_MS, bypassCache: true }
         );
         if (!result || result.status === "error") {
           renderUnavailable(translate("popup_definition_unavailable", null, "No definition available."));
