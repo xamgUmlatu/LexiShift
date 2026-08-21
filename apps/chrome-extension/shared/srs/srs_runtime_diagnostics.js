@@ -177,6 +177,56 @@
       semantic_context_cache_bypasses: Number.isFinite(Number(state.semantic_context_cache_bypasses))
         ? Number(state.semantic_context_cache_bypasses)
         : 0,
+      replacement_budget_scope: state.replacement_budget_scope
+        ? String(state.replacement_budget_scope)
+        : "frame_document",
+      replacement_budget_active: state.replacement_budget_active === true,
+      replacement_budget_max_total: Number.isFinite(Number(state.replacement_budget_max_total))
+        ? Number(state.replacement_budget_max_total)
+        : 0,
+      replacement_budget_max_per_sentence: Number.isFinite(
+        Number(state.replacement_budget_max_per_sentence)
+      )
+        ? Number(state.replacement_budget_max_per_sentence)
+        : 0,
+      replacement_budget_max_per_lemma: Number.isFinite(Number(state.replacement_budget_max_per_lemma))
+        ? Number(state.replacement_budget_max_per_lemma)
+        : 0,
+      replacement_budget_used_total: Number.isFinite(Number(state.replacement_budget_used_total))
+        ? Number(state.replacement_budget_used_total)
+        : 0,
+      replacement_budget_tracked_sentence_count: Number.isFinite(
+        Number(state.replacement_budget_tracked_sentence_count)
+      )
+        ? Number(state.replacement_budget_tracked_sentence_count)
+        : 0,
+      replacement_budget_tracked_lemma_count: Number.isFinite(
+        Number(state.replacement_budget_tracked_lemma_count)
+      )
+        ? Number(state.replacement_budget_tracked_lemma_count)
+        : 0,
+      replacement_budget_page_exhausted: state.replacement_budget_page_exhausted === true,
+      replacement_budget_sentence_cap_reached_count: Number.isFinite(
+        Number(state.replacement_budget_sentence_cap_reached_count)
+      )
+        ? Number(state.replacement_budget_sentence_cap_reached_count)
+        : 0,
+      replacement_budget_lemma_cap_reached_count: Number.isFinite(
+        Number(state.replacement_budget_lemma_cap_reached_count)
+      )
+        ? Number(state.replacement_budget_lemma_cap_reached_count)
+        : 0,
+      replacement_budget_rejected_page: Number.isFinite(Number(state.replacement_budget_rejected_page))
+        ? Number(state.replacement_budget_rejected_page)
+        : 0,
+      replacement_budget_rejected_sentence: Number.isFinite(
+        Number(state.replacement_budget_rejected_sentence)
+      )
+        ? Number(state.replacement_budget_rejected_sentence)
+        : 0,
+      replacement_budget_rejected_lemma: Number.isFinite(Number(state.replacement_budget_rejected_lemma))
+        ? Number(state.replacement_budget_rejected_lemma)
+        : 0,
       apply_total_ms: normalizeTiming(state.apply_total_ms),
       active_rules_resolve_ms: normalizeTiming(state.active_rules_resolve_ms),
       helper_rules_resolve_ms: normalizeTiming(state.helper_rules_resolve_ms),
