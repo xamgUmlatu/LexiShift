@@ -2091,14 +2091,20 @@ Use this file when:
   selection of locally imported Yomitan format-3 popup dictionaries;
   cross-profile library enumeration and completed/mastered lifecycle UX remain
   planned.
-- Last documented checkpoint: `2026-08-22` the helper now imports user-supplied
-  Yomitan format-3 term dictionaries into local SQLite indexes, lets one
+- Last documented checkpoint: `2026-08-22` contextual dictionary acquisition
+  now complements the helper's user-supplied Yomitan format-3 import path. The
+  helper indexes term dictionaries into local SQLite, lets one
   installed dictionary serve multiple language pairs, and selects a primary
   popup dictionary independently for each pair. Configured dictionaries are
   tried before the pair's built-in lookup source, with exact surface/reading
   identity preserved for Japanese lookup. The helper-first acquisition UI
   explains the local-only/licensing boundary and guides users to compatible
-  sources before ZIP import. `2026-08-20` Japanese definition lookup now uses
+  sources before ZIP import. Opening the community source directory now starts
+  a short-lived, pair-aware Downloads check; the extension gives contextual
+  guidance on that directory without linking directly to a commercial archive,
+  and the desktop offers import only after validating a recent ZIP's Yomitan
+  format, index metadata, term bank, and declared headword language.
+  `2026-08-20` Japanese definition lookup now uses
   the clicked replacement's exact surface/reading identity when available,
   honors JMdict reading and sense restrictions, keeps SRS attachment and the
   extension lookup cache reading-aware, and reports stable local dictionary and
@@ -2115,12 +2121,18 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-22` a real user-supplied Daijirin Fourth Edition
-  image-free archive imported `334,750` terms in an isolated helper root;
+- Last verified: `2026-08-22` contextual source-page guidance and validated
+  recent-download detection passed `66` focused helper, GUI, extension,
+  activation, syntax, and locale-catalog contracts. The refactored acquisition
+  modules also passed the changed-file repository gate, and rebuilt macOS app
+  bundles validated and installed successfully. A real user-supplied Daijirin Fourth Edition
+  image-free archive also imported `334,750` terms in an isolated helper root;
   repeat import reused the same pack, cancellation left no partial install,
   and reading-aware lookups separately resolved `時/とき` and `時/じ` for both
   `en-ja` and `ja-ja`. Focused lookup/settings tests, the full repository safety
-  check, and packaged macOS GUI validation passed. `2026-08-20` focused
+  check, and packaged macOS GUI validation passed. The acquisition follow-up
+  adds neither a Chrome downloads permission nor a direct MediaFire URL.
+  `2026-08-20` focused
   word-info, JMdict parsing, extension cache,
   and quick-definition tests passed (`48` tests); a read-only lookup against the
   installed `suisui` data returned `時/とき` without the unrelated `斎/とき`
@@ -2162,6 +2174,17 @@ Use this file when:
     thread, reports progress, supports cancellation, rejects unsafe or
     oversized archives, and does not copy the source ZIP into the repository or
     upload dictionary data.
+  - Dictionary acquisition remains explicit and user-driven. After the desktop
+    opens the community directory, it checks only recent top-level ZIP files in
+    the Downloads folder for up to seven days. It does not trust filenames or
+    inspect historical downloads: a candidate must pass the same bounded
+    archive-path, format-3 index, term-bank, and target-headword-language checks
+    before a separate import action appears, and import still requires the
+    existing source-rights confirmation.
+  - The extension recognizes the community directory by exact hostname/path and
+    explains the return-to-LexiShift flow in an isolated content-script card. It
+    neither points to the Daijirin MediaFire archive nor initiates or observes
+    browser downloads, and the manifest still has no `downloads` permission.
   - Popup-dictionary assignment is global per language pair rather than per
     profile. One installed dictionary may be assigned to multiple pairs. The
     settings contract already stores an ordered pack-id tuple and runtime lookup
@@ -2204,6 +2227,7 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/word_info_identity.py`
   - `core/lexishift_core/helper/use_cases/word_info_jmdict.py`
   - `core/lexishift_core/helper/lookup_dictionary_settings.py`
+  - `core/lexishift_core/helper/yomitan_dictionary_inspection.py`
   - `core/lexishift_core/helper/yomitan_lookup_dictionaries.py`
   - `core/lexishift_core/helper/yomitan_dictionary_rendering.py`
   - `core/lexishift_core/helper/engine.py`
@@ -2211,6 +2235,7 @@ Use this file when:
   - `apps/chrome-extension/shared/helper/helper_client.js`
   - `apps/chrome-extension/shared/helper/word_info_api.js`
   - `apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js`
+  - `apps/chrome-extension/content/ui/manual_source_prompt.js`
   - `apps/chrome-extension/content/ui/ui.js`
   - `apps/chrome-extension/shared/srs/popup_modules_registry.js`
   - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
@@ -2225,6 +2250,8 @@ Use this file when:
   - `apps/chrome-extension/learning_dashboard_theme.js`
   - `apps/chrome-extension/learning_dashboard.js`
   - `apps/gui/src/settings_lookup_dictionaries_mixin.py`
+  - `apps/gui/src/settings_lookup_dictionary_acquisition_mixin.py`
+  - `apps/gui/src/lookup_dictionary_acquisition.py`
   - `apps/gui/src/lookup_dictionary_import.py`
   - `apps/gui/tests/test_lookup_dictionary_settings.py`
   - `core/tests/helper/test_helper_word_info.py`
@@ -2248,7 +2275,8 @@ Use this file when:
     safe textual fallback, so the verified image-free Daijirin archive works
     without claiming general image-dictionary support.
   - Acquisition guidance currently opens a community-maintained source
-    directory; it is not yet a curated in-app catalogue or automatic downloader.
+    directory and can validate a recently downloaded compatible ZIP; it is not
+    yet a curated in-app catalogue or automatic downloader.
 
 ## Vocabulary Practice Options UX
 

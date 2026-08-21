@@ -5,7 +5,20 @@
 
   const ENTRIES = Object.freeze([
     Object.freeze({
+      packId: "lookup-dictionary-directory",
+      mode: "dictionary-directory",
+      name: "Yomitan popup dictionaries",
+      source: "community-maintained directory",
+      pageMatches: [
+        Object.freeze({
+          hostname: "github.com",
+          pathname: "/MarvNC/yomitan-dictionaries"
+        })
+      ]
+    }),
+    Object.freeze({
       packId: "freq-ja-bccwj",
+      mode: "manual-download",
       pair: "en-ja",
       name: "BCCWJ Japanese Frequency (SUW)",
       source: "NINJAL",
@@ -236,11 +249,18 @@ button[data-variant="primary"]:focus-visible {
     header.className = "header";
     const title = document.createElement("h2");
     title.className = "title";
-    title.textContent = t(
-      "manual_source_prompt_title",
-      [],
-      "LexiShift data source"
-    );
+    const isDictionaryDirectory = entry.mode === "dictionary-directory";
+    title.textContent = isDictionaryDirectory
+      ? t(
+        "dictionary_source_prompt_title",
+        [],
+        "LexiShift popup dictionaries"
+      )
+      : t(
+        "manual_source_prompt_title",
+        [],
+        "LexiShift data source"
+      );
     const closeButton = createButton(
       t("manual_source_prompt_dismiss", [], "Dismiss"),
       "secondary"
@@ -253,6 +273,24 @@ button[data-variant="primary"]:focus-visible {
 
     const body = document.createElement("p");
     body.className = "body";
+    if (isDictionaryDirectory) {
+      body.textContent = t(
+        "dictionary_source_prompt_body",
+        [],
+        "LexiShift can import compatible Yomitan format-3 term dictionary ZIPs from this community-maintained directory. Review each dictionary's license or terms before obtaining it."
+      );
+      const after = document.createElement("p");
+      after.className = "after";
+      after.textContent = t(
+        "dictionary_source_prompt_after_download",
+        [],
+        "After downloading an eligible ZIP, return to LexiShift. The desktop app will validate it and offer to import it locally."
+      );
+      card.append(header, body, after);
+      shadow.append(style, card);
+      document.body.append(host);
+      return true;
+    }
     body.textContent = t(
       "manual_source_prompt_body",
       [entry.name, entry.pair],

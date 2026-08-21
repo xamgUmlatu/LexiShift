@@ -31,7 +31,9 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionManualSourcePromptContract(unittest.TestCase):
-    def test_prompt_registry_matches_bccwj_terms_page_without_downloads_permission(self) -> None:
+    def test_prompt_registry_matches_approved_source_pages_without_downloads_permission(
+        self,
+    ) -> None:
         manifest = json.loads(MANIFEST_JSON.read_text(encoding="utf-8"))
         scripts = manifest["content_scripts"][0]["js"]
 
@@ -41,6 +43,7 @@ class TestExtensionManualSourcePromptContract(unittest.TestCase):
             scripts.index("content_script.js"),
         )
         self.assertNotIn("downloads", manifest.get("permissions", []))
+        self.assertNotIn("mediafire.com", PROMPT_JS.read_text(encoding="utf-8").lower())
 
         script = f"""
 const assert = require("node:assert/strict");
@@ -55,8 +58,15 @@ vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modul
 
 const prompt = context.LexiShift.manualSourcePrompt;
 assert.ok(prompt);
+const dictionaryEntry = prompt.findEntryForUrl(
+  "https://github.com/MarvNC/yomitan-dictionaries#daijirin-fourth-edition"
+);
+assert.equal(dictionaryEntry.packId, "lookup-dictionary-directory");
+assert.equal(dictionaryEntry.mode, "dictionary-directory");
+assert.equal(dictionaryEntry.downloadUrl, undefined);
 const entry = prompt.findEntryForUrl("https://clrd.ninjal.ac.jp/bccwj/en/freq-list.html#freq-list");
 assert.equal(entry.packId, "freq-ja-bccwj");
+assert.equal(entry.mode, "manual-download");
 assert.equal(entry.pair, "en-ja");
 assert.equal(entry.expectedFilename, "BCCWJ_frequencylist_suw_ver1_0.zip");
 assert.equal(
@@ -73,6 +83,9 @@ assert.equal(prompt.findEntryForUrl("https://en.wikipedia.org/wiki/BCCWJ"), null
 
     def test_prompt_i18n_keys_exist_in_all_locale_catalogs(self) -> None:
         required_keys = {
+            "dictionary_source_prompt_title",
+            "dictionary_source_prompt_body",
+            "dictionary_source_prompt_after_download",
             "manual_source_prompt_title",
             "manual_source_prompt_body",
             "manual_source_prompt_file",

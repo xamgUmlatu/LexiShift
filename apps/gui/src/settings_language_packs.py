@@ -223,6 +223,8 @@ class LanguagePackPanel(
     def _on_application_state_changed(self, state) -> None:
         if state == Qt.ApplicationState.ApplicationActive:
             self._refresh_pair_resource_setup_panel()
+            if hasattr(self, "_refresh_lookup_dictionary_download_candidate"):
+                self._refresh_lookup_dictionary_download_candidate()
 
     def _set_pack_source_overrides(
         self,

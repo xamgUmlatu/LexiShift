@@ -33,6 +33,9 @@ from lexishift_core.helper.yomitan_lookup_dictionaries import (
 )
 from localized_message_box import localized_question, prepare_message_box
 from lookup_dictionary_import import YomitanDictionaryImportThread
+from settings_lookup_dictionary_acquisition_mixin import (
+    LanguagePackPanelLookupDictionaryAcquisitionMixin,
+)
 from utils_paths import reveal_path
 
 
@@ -80,9 +83,10 @@ def _format_lookup_dictionary_size(size_bytes: int) -> str:
     return f"{size} B"
 
 
-class LanguagePackPanelLookupDictionariesMixin:
+class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionaryAcquisitionMixin):
     def _initialize_lookup_dictionaries(self) -> None:
         self._lookup_dictionary_threads: list[YomitanDictionaryImportThread] = []
+        self._lookup_dictionary_download_candidate = None
         self._lookup_dictionary_settings_path = Path(self._lookup_dictionary_dir) / "settings.json"
         self._lookup_dictionary_settings = load_lookup_dictionary_settings(
             self._lookup_dictionary_settings_path
@@ -138,6 +142,15 @@ class LanguagePackPanelLookupDictionariesMixin:
             self._show_compatible_lookup_dictionaries
         )
         action_row.addWidget(self._lookup_dictionary_find_button)
+        self._lookup_dictionary_detected_import_button = QPushButton(
+            t("language_packs.lookup_dictionaries.import_detected_zip"),
+            tab,
+        )
+        self._lookup_dictionary_detected_import_button.clicked.connect(
+            self._import_detected_lookup_dictionary_zip
+        )
+        self._lookup_dictionary_detected_import_button.setVisible(False)
+        action_row.addWidget(self._lookup_dictionary_detected_import_button)
         self._lookup_dictionary_import_button = QPushButton(
             t("language_packs.lookup_dictionaries.import_downloaded_zip"),
             tab,
@@ -249,6 +262,7 @@ class LanguagePackPanelLookupDictionariesMixin:
         self._refresh_lookup_dictionary_pair_choices()
         self._refresh_lookup_dictionary_choices()
         self._refresh_installed_lookup_dictionary_library()
+        self._refresh_lookup_dictionary_download_candidate()
         return tab
 
     def _refresh_learning_pair_cards(self) -> None:
@@ -572,6 +586,7 @@ class LanguagePackPanelLookupDictionariesMixin:
         prepare_message_box(dialog)
         dialog.exec()
         if dialog.clickedButton() == directory_button:
+            self._begin_lookup_dictionary_acquisition(pair)
             webbrowser.open(_COMPATIBLE_DICTIONARY_DIRECTORY_URL)
             self._lookup_dictionary_status.setText(
                 t("language_packs.lookup_dictionaries.community_directory_opened")
@@ -593,6 +608,14 @@ class LanguagePackPanelLookupDictionariesMixin:
         )
         if not source_path:
             return
+        self._confirm_and_start_lookup_dictionary_import(Path(source_path))
+
+    def _confirm_and_start_lookup_dictionary_import(
+        self,
+        source_path: Path,
+        *,
+        pair: str = "",
+    ) -> None:
         reply = localized_question(
             self,
             t("language_packs.lookup_dictionaries.rights_title"),
@@ -604,9 +627,11 @@ class LanguagePackPanelLookupDictionariesMixin:
             return
         if hasattr(self, "_remember_manual_source_import_dir"):
             self._remember_manual_source_import_dir(source_path)
-        pair = self._current_lookup_dictionary_pair()
+        selected_pair = normalize_pair_key(pair, default="") or (
+            self._current_lookup_dictionary_pair()
+        )
         thread = YomitanDictionaryImportThread(
-            pair=pair,
+            pair=selected_pair,
             source_path=source_path,
             dictionaries_dir=self._lookup_dictionary_dir,
             parent=self,
@@ -644,6 +669,7 @@ class LanguagePackPanelLookupDictionariesMixin:
                 self._lookup_dictionary_settings,
                 self._lookup_dictionary_settings_path,
             )
+        self._clear_lookup_dictionary_acquisition()
         self._refresh_lookup_dictionary_pair_choices(preferred_pair=pair)
         self._refresh_lookup_dictionary_choices()
         self._refresh_installed_lookup_dictionary_library()
@@ -678,6 +704,7 @@ class LanguagePackPanelLookupDictionariesMixin:
     def _set_lookup_dictionary_import_active(self, active: bool) -> None:
         self._lookup_dictionary_import_button.setEnabled(not active)
         self._lookup_dictionary_find_button.setEnabled(not active)
+        self._lookup_dictionary_detected_import_button.setEnabled(not active)
         self._lookup_dictionary_pair_combo.setEnabled(not active)
         self._lookup_dictionary_combo.setEnabled(not active)
         self._lookup_dictionary_table.setEnabled(not active)

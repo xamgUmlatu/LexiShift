@@ -1739,6 +1739,15 @@
   "manual_source_prompt_title": {
     "message": "LexiShift data source"
   },
+  "dictionary_source_prompt_title": {
+    "message": "LexiShift popup dictionaries"
+  },
+  "dictionary_source_prompt_body": {
+    "message": "LexiShift can import compatible Yomitan format-3 term dictionary ZIPs from this community-maintained directory. Review each dictionary's license or terms before obtaining it."
+  },
+  "dictionary_source_prompt_after_download": {
+    "message": "After downloading an eligible ZIP, return to LexiShift. The desktop app will validate it and offer to import it locally."
+  },
   "manual_source_prompt_body": {
     "message": "This page hosts $1 for $2. Review the provider terms, then download the required source file."
   },

@@ -76,6 +76,57 @@ def test_language_pack_panel_exposes_lookup_dictionary_tab() -> None:
         assert panel._lookup_dictionary_find_button.objectName() == "settingsPrimaryButton"
         assert panel._lookup_dictionary_import_button.text() == "Import downloaded ZIP..."
         assert panel._lookup_dictionary_import_button.objectName() != "settingsPrimaryButton"
+        assert panel._lookup_dictionary_detected_import_button.isHidden()
+
+
+def test_lookup_dictionary_acquisition_detects_and_validates_recent_download(
+    monkeypatch,
+) -> None:
+    _app()
+    set_locale("en")
+    QSettings().remove("resources/lookup_dictionary_acquisition_started_epoch")
+    QSettings().remove("resources/lookup_dictionary_acquisition_pair")
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        dictionaries_dir = root / "lookup_dictionaries"
+        downloads_dir = root / "Downloads"
+        downloads_dir.mkdir()
+        with patch(
+            "settings_language_packs._lookup_dictionary_pack_dir",
+            return_value=str(dictionaries_dir),
+        ):
+            panel = LanguagePackPanel(focused_pair="en-ja", pack_source_overrides={})
+        monkeypatch.setattr(
+            panel,
+            "_lookup_dictionary_download_search_dirs",
+            lambda: (downloads_dir,),
+        )
+        panel._begin_lookup_dictionary_acquisition("en-ja")
+
+        unrelated = downloads_dir / "unrelated.zip"
+        with zipfile.ZipFile(unrelated, "w") as archive:
+            archive.writestr("notes.txt", "not a dictionary")
+        source = downloads_dir / "大辞林　第四版　画像無し (1).zip"
+        _write_yomitan_zip(source)
+        panel._refresh_lookup_dictionary_download_candidate()
+
+        candidate = panel._lookup_dictionary_download_candidate
+        assert candidate is not None
+        assert candidate.path == source
+        assert candidate.title == "Local Japanese Dictionary"
+        assert not panel._lookup_dictionary_detected_import_button.isHidden()
+        assert "Local Japanese Dictionary" in panel._lookup_dictionary_status.text()
+
+        selected: list[tuple[Path, str]] = []
+        monkeypatch.setattr(
+            panel,
+            "_confirm_and_start_lookup_dictionary_import",
+            lambda path, *, pair="": selected.append((path, pair)),
+        )
+        panel._lookup_dictionary_detected_import_button.click()
+
+        assert selected == [(source, "en-ja")]
+        panel._clear_lookup_dictionary_acquisition()
 
 
 def test_lookup_dictionary_selection_is_saved_per_language_pair() -> None:

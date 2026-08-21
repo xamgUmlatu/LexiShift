@@ -1730,6 +1730,15 @@
   "manual_source_prompt_title": {
     "message": "LexiShift 数据源"
   },
+  "dictionary_source_prompt_title": {
+    "message": "LexiShift 弹窗词典"
+  },
+  "dictionary_source_prompt_body": {
+    "message": "LexiShift 可以从这个由社区维护的目录中导入兼容的 Yomitan 格式 3 术语词典 ZIP。获取前请查看每本词典的许可证或使用条款。"
+  },
+  "dictionary_source_prompt_after_download": {
+    "message": "下载可用的 ZIP 后请返回 LexiShift。桌面应用会验证该文件并提供本地导入选项。"
+  },
   "manual_source_prompt_body": {
     "message": "此页面托管 $2 所需的 $1。请先查看提供方条款，然后下载所需源文件。"
   },

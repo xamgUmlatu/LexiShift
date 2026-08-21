@@ -1730,6 +1730,15 @@
   "manual_source_prompt_title": {
     "message": "LexiShift-Datenquelle"
   },
+  "dictionary_source_prompt_title": {
+    "message": "LexiShift-Popup-Wörterbücher"
+  },
+  "dictionary_source_prompt_body": {
+    "message": "LexiShift kann kompatible Yomitan-Termwörterbücher im Format 3 aus diesem von der Community gepflegten Verzeichnis importieren. Prüfen Sie vor dem Bezug die Lizenz oder Nutzungsbedingungen des jeweiligen Wörterbuchs."
+  },
+  "dictionary_source_prompt_after_download": {
+    "message": "Kehren Sie nach dem Herunterladen einer zulässigen ZIP-Datei zu LexiShift zurück. Die Desktop-App prüft sie und bietet den lokalen Import an."
+  },
   "manual_source_prompt_body": {
     "message": "Diese Seite hostet $1 für $2. Prüfen Sie die Nutzungsbedingungen des Anbieters und laden Sie dann die benötigte Quelldatei herunter."
   },

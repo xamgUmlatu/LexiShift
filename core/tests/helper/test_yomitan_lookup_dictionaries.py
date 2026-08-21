@@ -33,6 +33,9 @@ from lexishift_core.helper.yomitan_lookup_dictionaries import (  # noqa: E402
     lookup_yomitan_dictionary,
     remove_installed_lookup_dictionary,
 )
+from lexishift_core.helper.yomitan_dictionary_inspection import (  # noqa: E402
+    inspect_yomitan_dictionary_zip,
+)
 
 
 def _write_yomitan_zip(
@@ -92,6 +95,28 @@ def _write_yomitan_zip(
 
 
 class TestYomitanLookupDictionaries(unittest.TestCase):
+    def test_archive_inspection_validates_supported_term_dictionary_without_importing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "大辞林　第四版　画像無し (1).zip"
+            _write_yomitan_zip(source)
+
+            info = inspect_yomitan_dictionary_zip(source)
+
+            self.assertEqual(info.path, source)
+            self.assertEqual(info.title, "User-owned Japanese Dictionary")
+            self.assertEqual(info.revision, "2026.1")
+            self.assertEqual(info.format, 3)
+            self.assertEqual(info.source_language, "ja")
+            self.assertEqual(info.target_language, "ja")
+            self.assertFalse((root / "lookup_dictionaries").exists())
+
+            unrelated = root / "unrelated.zip"
+            with zipfile.ZipFile(unrelated, "w") as archive:
+                archive.writestr("notes.txt", "not a dictionary")
+            with self.assertRaisesRegex(YomitanDictionaryImportError, "missing index.json"):
+                inspect_yomitan_dictionary_zip(unrelated)
+
     def test_word_info_uses_selected_local_dictionary_then_falls_back_to_jmdict(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
