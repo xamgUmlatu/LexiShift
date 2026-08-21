@@ -42,6 +42,9 @@
         focusDetailLogs: 0,
         focusDetailLimit,
         focusDetailTruncated: false,
+        replacementBudgetRejectedPage: 0,
+        replacementBudgetRejectedSentence: 0,
+        replacementBudgetRejectedLemma: 0,
         ...createSemanticCounterDefaults()
       };
     }

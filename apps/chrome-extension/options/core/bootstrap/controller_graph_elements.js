@@ -175,6 +175,7 @@
         maxOnePerBlockInput: dom.maxOnePerBlockInput,
         allowAdjacentInput: dom.allowAdjacentInput,
         maxReplacementsPerPageInput: dom.maxReplacementsPerPageInput,
+        maxReplacementsPerSentenceInput: dom.maxReplacementsPerSentenceInput,
         maxReplacementsPerLemmaPageInput: dom.maxReplacementsPerLemmaPageInput
       },
       pageInit: {
@@ -185,6 +186,7 @@
         maxOnePerBlockInput: dom.maxOnePerBlockInput,
         allowAdjacentInput: dom.allowAdjacentInput,
         maxReplacementsPerPageInput: dom.maxReplacementsPerPageInput,
+        maxReplacementsPerSentenceInput: dom.maxReplacementsPerSentenceInput,
         maxReplacementsPerLemmaPageInput: dom.maxReplacementsPerLemmaPageInput,
         debugEnabledInput: dom.debugEnabledInput,
         debugFocusInput: dom.debugFocusInput,
@@ -209,6 +211,7 @@
         maxOnePerBlockInput: dom.maxOnePerBlockInput,
         allowAdjacentInput: dom.allowAdjacentInput,
         maxReplacementsPerPageInput: dom.maxReplacementsPerPageInput,
+        maxReplacementsPerSentenceInput: dom.maxReplacementsPerSentenceInput,
         maxReplacementsPerLemmaPageInput: dom.maxReplacementsPerLemmaPageInput,
         srsEnabledInput: dom.srsEnabledInput,
         srsProfileIdInput: dom.srsProfileIdInput,

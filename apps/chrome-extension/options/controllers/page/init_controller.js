@@ -49,6 +49,7 @@
     const maxOnePerBlockInput = elements.maxOnePerBlockInput || null;
     const allowAdjacentInput = elements.allowAdjacentInput || null;
     const maxReplacementsPerPageInput = elements.maxReplacementsPerPageInput || null;
+    const maxReplacementsPerSentenceInput = elements.maxReplacementsPerSentenceInput || null;
     const maxReplacementsPerLemmaPageInput = elements.maxReplacementsPerLemmaPageInput || null;
     const debugEnabledInput = elements.debugEnabledInput || null;
     const debugFocusInput = elements.debugFocusInput || null;
@@ -151,6 +152,12 @@
           ? Math.max(0, Number(items.maxReplacementsPerPage))
           : (settingsManager.defaults.maxReplacementsPerPage || 0);
         maxReplacementsPerPageInput.value = String(maxPerPage);
+      }
+      if (maxReplacementsPerSentenceInput) {
+        const maxPerSentence = Number.isFinite(Number(items.maxReplacementsPerSentence))
+          ? Math.max(0, Number(items.maxReplacementsPerSentence))
+          : (settingsManager.defaults.maxReplacementsPerSentence || 0);
+        maxReplacementsPerSentenceInput.value = String(maxPerSentence);
       }
       if (maxReplacementsPerLemmaPageInput) {
         const maxPerLemma = Number.isFinite(Number(items.maxReplacementsPerLemmaPerPage))

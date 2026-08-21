@@ -88,6 +88,8 @@
       ? opts.updatePageBudgetUsage
       : ((_state, _replacements) => {});
     const semanticContextCaches = new WeakMap();
+    const sentenceFallbackNodeIds = new WeakMap();
+    let nextSentenceFallbackNodeId = 1;
 
     function getSemanticContextCache(counter) {
       if (!counter || typeof counter !== "object") return null;
@@ -100,6 +102,29 @@
         counter.semanticContextCacheStats = cache.stats;
       }
       return cache;
+    }
+
+    function getSentenceFallbackKey(node) {
+      if (!node || (typeof node !== "object" && typeof node !== "function")) {
+        return "";
+      }
+      if (!sentenceFallbackNodeIds.has(node)) {
+        sentenceFallbackNodeIds.set(node, nextSentenceFallbackNodeId);
+        nextSentenceFallbackNodeId += 1;
+      }
+      return `text-node:${sentenceFallbackNodeIds.get(node)}`;
+    }
+
+    function mergeBudgetRejections(counter, value) {
+      if (!counter || !value || typeof value !== "object") {
+        return;
+      }
+      counter.replacementBudgetRejectedPage = Number(counter.replacementBudgetRejectedPage || 0)
+        + Number(value.page || 0);
+      counter.replacementBudgetRejectedSentence = Number(counter.replacementBudgetRejectedSentence || 0)
+        + Number(value.sentence || 0);
+      counter.replacementBudgetRejectedLemma = Number(counter.replacementBudgetRejectedLemma || 0)
+        + Number(value.lemma || 0);
     }
 
     function targetLanguageFromPair(pair) {
@@ -237,7 +262,11 @@
       const originResolver = (rule) => {
         return String(rule && rule.metadata ? rule.metadata.lexishift_origin : "");
       };
-      const semanticContextResolver = semanticGateRuntime
+      const needsSentenceContext = Boolean(
+        pageBudgetState
+        && Number(pageBudgetState.maxPerSentence || 0) > 0
+      );
+      const semanticContextResolver = semanticGateRuntime || needsSentenceContext
         ? createSemanticContextResolver(node, {
             nodeFilters,
             cache: getSemanticContextCache(counter)
@@ -249,6 +278,9 @@
       }
       if (runOptions.semanticResultOverride) {
         replacementOptions.semanticResultOverride = runOptions.semanticResultOverride;
+      }
+      if (needsSentenceContext) {
+        replacementOptions.sentenceFallbackKey = getSentenceFallbackKey(node);
       }
       const result = await buildReplacementFragment(
         node.nodeValue,
@@ -268,6 +300,9 @@
       }
       if (semanticDryRun) {
         return result;
+      }
+      if (trackCounters && result && result.budgetRejections) {
+        mergeBudgetRejections(counter, result.budgetRejections);
       }
       if (result && result.fragment) {
         const parent = node.parentNode;
@@ -292,7 +327,10 @@
           }
           parent.replaceChild(result.fragment, node);
           if (pageBudgetState) {
-            updatePageBudgetUsage(pageBudgetState, Array.isArray(result.budgetKeys) ? result.budgetKeys : []);
+            const budgetEntries = Array.isArray(result.budgetEntries)
+              ? result.budgetEntries
+              : (Array.isArray(result.budgetKeys) ? result.budgetKeys : []);
+            updatePageBudgetUsage(pageBudgetState, budgetEntries);
           }
           const shouldRecordLocalExposure = currentSettings.srsExposureLoggingEnabled !== false;
           const shouldRecordBrowsingAdmission = currentSettings.srsBrowsingAdmissionSignalsEnabled === true

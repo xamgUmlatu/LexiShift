@@ -401,13 +401,8 @@
               </div>
               <h4 data-i18n="section_replacement_behavior">Page Replacement Density</h4>
               <p class="hint" data-i18n="hint_replacement_behavior_scope">
-                Applies after SRS and manual rules are merged for page display.
+                These global settings apply after vocabulary practice and manual rules are merged. Page limits apply independently to the top page and each embedded frame.
               </p>
-              <label class="toggle">
-                <input id="max-one-per-block" type="checkbox" />
-                <span data-i18n="toggle_max_one">Replace max 1 word per text block</span>
-              </label>
-              <p class="hint" data-i18n="hint_max_one">Limits each text node to a single replacement.</p>
               <label class="toggle">
                 <input id="allow-adjacent" type="checkbox" />
                 <span data-i18n="toggle_allow_adjacent">Allow replacing adjacent words</span>
@@ -420,15 +415,32 @@
                 <input id="max-replacements-per-page" type="number" min="0" max="2000" step="1" />
               </div>
               <p class="hint" data-i18n="hint_max_replacements_page">
-                Standard default is 20. Use 0 only for unlimited replacement.
+                Standard default is 0 (unlimited).
+              </p>
+              <div class="field-row">
+                <label for="max-replacements-per-sentence" data-i18n="label_max_replacements_sentence">Max replacements per sentence</label>
+                <input id="max-replacements-per-sentence" type="number" min="0" max="100" step="1" />
+              </div>
+              <p class="hint" data-i18n="hint_max_replacements_sentence">
+                Standard default is 0 (unlimited). Multi-word phrases count as one replacement.
               </p>
               <div class="field-row">
                 <label for="max-replacements-per-lemma-page" data-i18n="label_max_replacements_lemma_page">Max per word per page</label>
                 <input id="max-replacements-per-lemma-page" type="number" min="0" max="200" step="1" />
               </div>
               <p class="hint" data-i18n="hint_max_replacements_lemma_page">
-                Standard default is 2. Prevents one word from dominating the page.
+                Standard default is 0 (unlimited). Prevents one word from dominating the page.
               </p>
+              <details class="advanced">
+                <summary data-i18n="summary_legacy_replacement_compatibility">Legacy replacement compatibility</summary>
+                <label class="toggle">
+                  <input id="max-one-per-block" type="checkbox" />
+                  <span data-i18n="toggle_max_one">Legacy: limit each text node to 1 replacement</span>
+                </label>
+                <p class="hint" data-i18n="hint_max_one">
+                  Kept for existing configurations. For learner-facing density, set Max replacements per sentence to 1.
+                </p>
+              </details>
             </section>
             <section class="group-subcard">
               <h3 data-i18n="section_rules_source">Rules Source</h3>

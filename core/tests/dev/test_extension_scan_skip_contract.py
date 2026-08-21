@@ -108,6 +108,70 @@ assert.ok(narrow.maxHeight <= 584);
 """
         _run_node(script)
 
+    def test_dom_scan_filter_skips_nested_non_rendered_subtrees(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(NODE_FILTERS_JS))};
+const context = vm.createContext({{
+  console,
+  getComputedStyle(element) {{
+    return element.computedStyle || {{
+      display: "block",
+      visibility: "visible",
+      contentVisibility: "visible"
+    }};
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+function element(tagName, options = {{}}) {{
+  return {{
+    tagName,
+    hidden: options.hidden === true,
+    computedStyle: {{
+      display: options.display || "block",
+      visibility: options.visibility || "visible",
+      contentVisibility: options.contentVisibility || "visible"
+    }},
+    parentElement: options.parentElement || null
+  }};
+}}
+
+function text(parentElement) {{
+  return {{ parentElement }};
+}}
+
+const filters = context.LexiShift.contentDomScanNodeFilters.createNodeFilters();
+const visibleRoot = element("DIV");
+const visibleParent = element("SPAN", {{ parentElement: visibleRoot }});
+assert.equal(filters.isExcluded(text(visibleParent)), false);
+
+const hiddenRoot = element("SECTION", {{ hidden: true }});
+const hiddenChild = element("SPAN", {{ parentElement: hiddenRoot }});
+assert.equal(filters.isExcluded(text(hiddenChild)), true);
+
+const displayNoneRoot = element("DIV", {{ display: "none" }});
+const displayNoneChild = element("SPAN", {{ parentElement: displayNoneRoot }});
+assert.equal(filters.isExcluded(text(displayNoneChild)), true);
+
+const contentHiddenRoot = element("DIV", {{ contentVisibility: "hidden" }});
+const contentHiddenChild = element("SPAN", {{ parentElement: contentHiddenRoot }});
+assert.equal(filters.isExcluded(text(contentHiddenChild)), true);
+
+const visibilityHiddenParent = element("SPAN", {{ visibility: "hidden" }});
+assert.equal(filters.isExcluded(text(visibilityHiddenParent)), true);
+
+const templateRoot = element("TEMPLATE");
+const templateChild = element("SPAN", {{ parentElement: templateRoot }});
+assert.equal(filters.isExcluded(text(templateChild)), true);
+"""
+        _run_node(script)
+
     def test_dom_scan_filter_skips_shared_lexishift_scan_skip_marker(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

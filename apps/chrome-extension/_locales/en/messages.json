@@ -57,13 +57,16 @@
     "message": "Page Replacement Density"
   },
   "hint_replacement_behavior_scope": {
-    "message": "Applies after vocabulary practice and manual rules are merged for page display."
+    "message": "These global settings apply after vocabulary practice and manual rules are merged. Page limits apply independently to the top page and each embedded frame."
+  },
+  "summary_legacy_replacement_compatibility": {
+    "message": "Legacy replacement compatibility"
   },
   "toggle_max_one": {
-    "message": "Replace max 1 word per text block"
+    "message": "Legacy: limit each text node to 1 replacement"
   },
   "hint_max_one": {
-    "message": "Limits each text node to a single replacement."
+    "message": "Kept for existing configurations. For learner-facing density, set Max replacements per sentence to 1."
   },
   "toggle_allow_adjacent": {
     "message": "Allow replacing adjacent words"
@@ -75,13 +78,19 @@
     "message": "Max replacements per page"
   },
   "hint_max_replacements_page": {
-    "message": "Standard default is 20. Use 0 only for unlimited replacement."
+    "message": "Standard default is 0 (unlimited)."
+  },
+  "label_max_replacements_sentence": {
+    "message": "Max replacements per sentence"
+  },
+  "hint_max_replacements_sentence": {
+    "message": "Standard default is 0 (unlimited). Multi-word phrases count as one replacement."
   },
   "label_max_replacements_lemma_page": {
     "message": "Max per word per page"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "Standard default is 2. Prevents one word from dominating the page."
+    "message": "Standard default is 0 (unlimited). Prevents one word from dominating the page."
   },
   "section_srs": {
     "message": "Vocabulary Practice"

@@ -12,6 +12,7 @@
       maxOnePerBlockInput: source.maxOnePerBlock || null,
       allowAdjacentInput: source.allowAdjacent || null,
       maxReplacementsPerPageInput: source.maxReplacementsPerPage || null,
+      maxReplacementsPerSentenceInput: source.maxReplacementsPerSentence || null,
       maxReplacementsPerLemmaPageInput: source.maxReplacementsPerLemmaPage || null,
       debugEnabledInput: source.debugEnabled || null,
       debugFocusInput: source.debugFocusWord || null,

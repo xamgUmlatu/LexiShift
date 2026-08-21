@@ -57,13 +57,16 @@
     "message": "Ersetzungsdichte auf der Seite"
   },
   "hint_replacement_behavior_scope": {
-    "message": "Gilt, nachdem Wortschatztraining und manuelle Regeln für die Seitenanzeige zusammengeführt wurden."
+    "message": "Diese globalen Einstellungen gelten, nachdem Wortschatztraining und manuelle Regeln zusammengeführt wurden. Seitenlimits werden unabhängig auf die Hauptseite und jeden eingebetteten Frame angewendet."
+  },
+  "summary_legacy_replacement_compatibility": {
+    "message": "Kompatibilität für ältere Ersetzungseinstellungen"
   },
   "toggle_max_one": {
-    "message": "Max. 1 Wort pro Textblock ersetzen"
+    "message": "Veraltet: höchstens 1 Ersetzung pro Textknoten"
   },
   "hint_max_one": {
-    "message": "Begrenzt jeden Textknoten auf eine Ersetzung."
+    "message": "Für bestehende Konfigurationen beibehalten. Für eine leserorientierte Begrenzung setzen Sie „Maximale Ersetzungen pro Satz“ auf 1."
   },
   "toggle_allow_adjacent": {
     "message": "Benachbarte Wörter ersetzen erlauben"
@@ -75,13 +78,19 @@
     "message": "Max. Ersetzungen pro Seite"
   },
   "hint_max_replacements_page": {
-    "message": "Der Standardwert ist 20. Verwende 0 nur für unbegrenzte Ersetzungen."
+    "message": "Der Standardwert ist 0 (unbegrenzt)."
+  },
+  "label_max_replacements_sentence": {
+    "message": "Max. Ersetzungen pro Satz"
+  },
+  "hint_max_replacements_sentence": {
+    "message": "Der Standardwert ist 0 (unbegrenzt). Mehrwortphrasen zählen als eine Ersetzung."
   },
   "label_max_replacements_lemma_page": {
     "message": "Max. pro Wort pro Seite"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "Der Standardwert ist 2. Verhindert, dass ein Wort die Seite dominiert."
+    "message": "Der Standardwert ist 0 (unbegrenzt). Verhindert, dass ein Wort die Seite dominiert."
   },
   "section_srs": {
     "message": "Wortschatztraining"

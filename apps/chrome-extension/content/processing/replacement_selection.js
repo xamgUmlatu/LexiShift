@@ -4,6 +4,52 @@
   const SRS_MATURE_STABILITY_DAYS = 14;
   const SRS_LONG_STABILITY_DAYS = 28;
 
+  function buildTokenOffsets(tokens) {
+    const offsets = [];
+    let cursor = 0;
+    for (const token of tokens || []) {
+      offsets.push(cursor);
+      cursor += String(token && token.text || "").length;
+    }
+    return offsets;
+  }
+
+  function assignSentenceKeys(
+    matches,
+    tokens,
+    wordPositions,
+    semanticContextResolver,
+    fallbackKey
+  ) {
+    const list = Array.isArray(matches) ? matches : [];
+    const normalizedFallback = String(fallbackKey || "").trim();
+    if (!list.length) return list;
+    const tokenOffsets = buildTokenOffsets(tokens);
+    for (const match of list) {
+      const startTokenIdx = Number(wordPositions[match.startWordIndex]);
+      const endTokenIdx = Number(wordPositions[match.endWordIndex]);
+      const matchStart = Number.isFinite(startTokenIdx)
+        ? Number(tokenOffsets[startTokenIdx] || 0)
+        : 0;
+      const endToken = tokens[endTokenIdx] && typeof tokens[endTokenIdx] === "object"
+        ? tokens[endTokenIdx]
+        : { text: "" };
+      const matchEnd = Number.isFinite(endTokenIdx)
+        ? Number(tokenOffsets[endTokenIdx] || matchStart) + String(endToken.text || "").length
+        : matchStart;
+      let resolved = null;
+      if (typeof semanticContextResolver === "function" && matchEnd > matchStart) {
+        try {
+          resolved = semanticContextResolver({ match, matchStart, matchEnd });
+        } catch (_error) {
+          resolved = null;
+        }
+      }
+      match.sentenceKey = String(resolved && resolved.sentenceKey || normalizedFallback).trim();
+    }
+    return list;
+  }
+
   function getBudgetLemmaKey(match) {
     if (!match || !match.rule) {
       return "";
@@ -16,6 +62,17 @@
       return 0;
     }
     return Number(budget.usedByLemma[key] || 0);
+  }
+
+  function getBudgetSentenceKey(match) {
+    return String(match && match.sentenceKey || "").trim();
+  }
+
+  function getBudgetUsageForSentence(budget, key) {
+    if (!budget || !budget.usedBySentence || !key) {
+      return 0;
+    }
+    return Number(budget.usedBySentence[key] || 0);
   }
 
   function hash32(value) {
@@ -196,13 +253,23 @@
     });
   }
 
-  function applyPageBudget(matches, budget, selectionSeed, settings) {
+  function recordBudgetRejection(diagnostics, reason, count = 1) {
+    if (!diagnostics || !reason || count <= 0) {
+      return;
+    }
+    diagnostics[reason] = Number(diagnostics[reason] || 0) + count;
+  }
+
+  function applyReplacementBudget(matches, budget, selectionSeed, settings, diagnostics) {
     if (!budget || !matches.length) {
       return matches;
     }
     const maxTotal = Number.isFinite(Number(budget.maxTotal)) ? Math.max(0, Number(budget.maxTotal)) : 0;
     const maxPerLemma = Number.isFinite(Number(budget.maxPerLemma)) ? Math.max(0, Number(budget.maxPerLemma)) : 0;
-    if (maxTotal <= 0 && maxPerLemma <= 0) {
+    const maxPerSentence = Number.isFinite(Number(budget.maxPerSentence))
+      ? Math.max(0, Number(budget.maxPerSentence))
+      : 0;
+    if (maxTotal <= 0 && maxPerLemma <= 0 && maxPerSentence <= 0) {
       return matches;
     }
     const ranked = rankMatchesForReplacementLoad(
@@ -212,19 +279,37 @@
     );
     const bounded = [];
     const localByLemma = Object.create(null);
+    const localBySentence = Object.create(null);
     let usedTotal = Number.isFinite(Number(budget.usedTotal)) ? Number(budget.usedTotal) : 0;
 
-    for (const match of ranked) {
+    for (let index = 0; index < ranked.length; index += 1) {
+      const match = ranked[index];
       if (maxTotal > 0 && usedTotal >= maxTotal) {
+        recordBudgetRejection(diagnostics, "page", ranked.length - index);
         break;
       }
       const key = getBudgetLemmaKey(match);
       if (maxPerLemma > 0 && key) {
         const used = getBudgetUsageForLemma(budget, key) + Number(localByLemma[key] || 0);
         if (used >= maxPerLemma) {
+          recordBudgetRejection(diagnostics, "lemma");
           continue;
         }
+      }
+      const sentenceKey = getBudgetSentenceKey(match);
+      if (maxPerSentence > 0 && sentenceKey) {
+        const used = getBudgetUsageForSentence(budget, sentenceKey)
+          + Number(localBySentence[sentenceKey] || 0);
+        if (used >= maxPerSentence) {
+          recordBudgetRejection(diagnostics, "sentence");
+          continue;
+        }
+      }
+      if (maxPerLemma > 0 && key) {
         localByLemma[key] = Number(localByLemma[key] || 0) + 1;
+      }
+      if (maxPerSentence > 0 && sentenceKey) {
+        localBySentence[sentenceKey] = Number(localBySentence[sentenceKey] || 0) + 1;
       }
       bounded.push(match);
       usedTotal += 1;
@@ -293,7 +378,7 @@
     return sortMatchesByStart(chosen);
   }
 
-  function filterMatches(matches, settings, gapOk, budget, selectionSeed) {
+  function filterMatches(matches, settings, gapOk, budget, selectionSeed, budgetDiagnostics) {
     if (!matches.length) {
       return matches;
     }
@@ -304,12 +389,14 @@
     if (settings.allowAdjacentReplacements === false) {
       filtered = chooseNonAdjacentMatches(filtered, gapOk, selectionSeed, settings);
     }
-    return applyPageBudget(filtered, budget, selectionSeed, settings);
+    return applyReplacementBudget(filtered, budget, selectionSeed, settings, budgetDiagnostics);
   }
 
   root.replacementSelection = {
+    assignSentenceKeys,
     createSelectionSeed,
     getReplacementLoadTier,
+    applyReplacementBudget,
     filterMatches
   };
 })();

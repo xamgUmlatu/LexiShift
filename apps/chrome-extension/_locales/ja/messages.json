@@ -57,13 +57,16 @@
     "message": "ページ内の置換密度"
   },
   "hint_replacement_behavior_scope": {
-    "message": "語彙練習と手動ルールを統合した後のページ表示に適用されます。"
+    "message": "これらの全体設定は、語彙練習と手動ルールを統合した後に適用されます。ページ上限はトップページと各埋め込みフレームに個別に適用されます。"
+  },
+  "summary_legacy_replacement_compatibility": {
+    "message": "従来の置換設定との互換性"
   },
   "toggle_max_one": {
-    "message": "テキストブロックごとに最大1語を置換"
+    "message": "従来設定: 各テキストノードの置換を1件に制限"
   },
   "hint_max_one": {
-    "message": "各テキストノードにつき1回だけ置換します。"
+    "message": "既存設定との互換性のために残されています。学習者向けの密度制限には「1文あたりの最大置換数」を1に設定してください。"
   },
   "toggle_allow_adjacent": {
     "message": "隣接する語の置換を許可"
@@ -75,13 +78,19 @@
     "message": "ページあたりの最大置換数"
   },
   "hint_max_replacements_page": {
-    "message": "標準の既定値は 20 です。無制限にする場合のみ 0 を使用します。"
+    "message": "標準の既定値は 0（無制限）です。"
+  },
+  "label_max_replacements_sentence": {
+    "message": "1文あたりの最大置換数"
+  },
+  "hint_max_replacements_sentence": {
+    "message": "標準の既定値は 0（無制限）です。複数語のフレーズも1回の置換として数えます。"
   },
   "label_max_replacements_lemma_page": {
     "message": "1語あたりの最大置換数（ページ）"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "標準の既定値は 2 です。1語だけがページ内で多発するのを防ぎます。"
+    "message": "標準の既定値は 0（無制限）です。1語だけがページ内で多発するのを防ぎます。"
   },
   "section_srs": {
     "message": "語彙練習"

@@ -1,18 +1,34 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const support = root.contentDomScanSemanticContextSupport || {};
-  const clipContext = typeof support.clipContext === "function" ? support.clipContext : null;
+  const clipContext = support.clipContext;
+  const createContextCache = support.createContextCache;
+  const normalizeCache = support.normalizeContextCache;
   const MAX_WORDS = 48;
   const MAX_CHARS = 1200;
   const MAX_TEXT_NODES = 80;
   const MAX_ANCESTOR_DEPTH = 8;
   const MAX_CACHE_CHARS = MAX_CHARS * 4;
   const SIDE_NODE_BUDGET = Math.floor((MAX_TEXT_NODES - 1) / 2);
+  const FLOW_BREAK = "\u2029";
   const LEXISHIFT_SCAN_SKIP_ATTR = "data-lexishift-scan-skip";
-  const CONTAINER_TAGS = new Set(["P", "LI", "TD", "TH", "BLOCKQUOTE", "FIGCAPTION", "CAPTION", "DD", "DT", "PRE"]);
+  const CONTAINER_TAGS = new Set([
+    "P", "LI", "TD", "TH", "BLOCKQUOTE", "FIGCAPTION", "CAPTION", "DD", "DT", "PRE",
+    "H1", "H2", "H3", "H4", "H5", "H6", "ADDRESS", "SUMMARY", "BUTTON", "LEGEND"
+  ]);
   const FALLBACK_CONTAINER_TAGS = new Set(["ARTICLE", "SECTION", "MAIN", "DIV"]);
+  const FLOW_BREAK_TAGS = new Set([
+    "BR", "HR", "P", "LI", "TR", "TD", "TH", "BLOCKQUOTE", "FIGCAPTION", "CAPTION",
+    "DD", "DT", "PRE", "H1", "H2", "H3", "H4", "H5", "H6", "ADDRESS", "SUMMARY",
+    "ARTICLE", "SECTION", "MAIN", "DIV", "ASIDE", "HEADER", "FOOTER", "NAV"
+  ]);
+  const BLOCK_DISPLAY_VALUES = new Set([
+    "block", "flow-root", "flex", "grid", "list-item", "table", "table-row", "table-cell"
+  ]);
   const SKIP_TAGS = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE"]);
-  const WORD_RE = /[A-Za-z0-9]+(?:'[A-Za-z0-9]+)*/g;
+  const WORD_RE = /[\p{L}\p{M}\p{N}]+(?:['’][\p{L}\p{M}\p{N}]+)*/gu;
+  const containerIds = new WeakMap();
+  let nextContainerId = 1;
 
   function countWords(text) {
     const matches = String(text || "").match(WORD_RE);
@@ -37,6 +53,17 @@
     return node.parentNode && isElementNode(node.parentNode) ? node.parentNode : null;
   }
 
+  function getContainerId(container) {
+    if (!container || (typeof container !== "object" && typeof container !== "function")) {
+      return "";
+    }
+    if (!containerIds.has(container)) {
+      containerIds.set(container, nextContainerId);
+      nextContainerId += 1;
+    }
+    return String(containerIds.get(container));
+  }
+
   function normalizeFilters(value) {
     const filters = value && typeof value === "object" ? value : {};
     return {
@@ -44,33 +71,6 @@
       isExcluded: typeof filters.isExcluded === "function" ? filters.isExcluded : (() => false),
       isLexiShiftNode: typeof filters.isLexiShiftNode === "function" ? filters.isLexiShiftNode : (() => false)
     };
-  }
-
-  function createContextCache() {
-    return {
-      records: new WeakMap(),
-      stats: {
-        containerBuilds: 0,
-        recordReuses: 0,
-        usableReuses: 0,
-        bypasses: 0
-      }
-    };
-  }
-
-  function normalizeCache(value, rawNodeFilters) {
-    if (!value || typeof value !== "object" || !(value.records instanceof WeakMap)) {
-      return null;
-    }
-    const policy = rawNodeFilters || null;
-    if (!Object.prototype.hasOwnProperty.call(value, "nodeFilters")) {
-      value.nodeFilters = policy;
-    }
-    if (value.nodeFilters !== policy) {
-      if (value.stats && typeof value.stats === "object") value.stats.bypasses += 1;
-      return null;
-    }
-    return value;
   }
 
   function hasClassName(element, className) {
@@ -124,6 +124,81 @@
     if (SKIP_TAGS.has(getElementTag(element))) return true;
     if (element.isContentEditable === true || isElementHidden(element)) return true;
     return elementMatchesLexiShiftReplacement(element, stopElement);
+  }
+
+  function isFlowBreakElement(element) {
+    if (!element || !isElementNode(element)) return false;
+    if (FLOW_BREAK_TAGS.has(getElementTag(element))) return true;
+    if (!globalThis.getComputedStyle || typeof globalThis.getComputedStyle !== "function") {
+      return false;
+    }
+    let style = null;
+    try {
+      style = globalThis.getComputedStyle(element);
+    } catch (_error) {
+      style = null;
+    }
+    return Boolean(style && BLOCK_DISPLAY_VALUES.has(String(style.display || "").trim().toLowerCase()));
+  }
+
+  function getChildNodes(node) {
+    return Array.isArray(node && node.childNodes)
+      ? node.childNodes
+      : Array.from(node && node.childNodes || []);
+  }
+
+  function getNextDomNode(node, stopElement) {
+    if (!node) return null;
+    const children = getChildNodes(node);
+    if (children.length) return children[0];
+    let cursor = node;
+    while (cursor && cursor !== stopElement) {
+      const parent = cursor.parentNode || getParentElement(cursor);
+      if (!parent) return null;
+      const siblings = getChildNodes(parent);
+      const index = siblings.indexOf(cursor);
+      if (index >= 0 && index + 1 < siblings.length) return siblings[index + 1];
+      cursor = parent;
+    }
+    return null;
+  }
+
+  function resolveFlowOwner(textNode, container) {
+    let element = getParentElement(textNode);
+    while (element && element !== container) {
+      if (isFlowBreakElement(element)) return element;
+      element = getParentElement(element);
+    }
+    return container;
+  }
+
+  function hasFlowBreakBetween(previousNode, currentNode, container) {
+    if (!previousNode || !currentNode || previousNode === currentNode) return false;
+    if (resolveFlowOwner(previousNode, container) !== resolveFlowOwner(currentNode, container)) {
+      return true;
+    }
+    let cursor = getNextDomNode(previousNode, container);
+    let visited = 0;
+    while (cursor && cursor !== currentNode && visited < MAX_TEXT_NODES * 8) {
+      if (isElementNode(cursor) && isFlowBreakElement(cursor) && !isElementHidden(cursor)) {
+        return true;
+      }
+      cursor = getNextDomNode(cursor, container);
+      visited += 1;
+    }
+    return false;
+  }
+
+  function appendContextNode(buffer, node, previousNode, container) {
+    const value = String(node && node.nodeValue || "");
+    if (!value) return { text: buffer, start: -1 };
+    let text = buffer;
+    if (previousNode && hasFlowBreakBetween(previousNode, node, container)) {
+      text += FLOW_BREAK;
+    }
+    const start = text.length;
+    text += value;
+    return { text, start };
   }
 
   function isUsableTextNode(candidate, container, filters) {
@@ -285,12 +360,14 @@
     }
     const nodeStarts = new WeakMap();
     let text = "";
+    let previousNode = null;
     for (const node of collected.nodes) {
-      const value = String(node && node.nodeValue || "");
-      if (!value) continue;
-      if (text.length + value.length > MAX_CACHE_CHARS) return null;
-      nodeStarts.set(node, text.length);
-      text += value;
+      const appended = appendContextNode(text, node, previousNode, container);
+      if (appended.start < 0) continue;
+      if (appended.text.length > MAX_CACHE_CHARS) return null;
+      nodeStarts.set(node, appended.start);
+      text = appended.text;
+      previousNode = node;
     }
     return text ? { text, nodeStarts } : null;
   }
@@ -327,20 +404,26 @@
     const contextNodes = collectContextNodes(container, textNode, filters);
     let text = "";
     let textNodeStart = -1;
+    let previousNode = null;
     for (const candidate of contextNodes) {
       if (!isUsableTextNode(candidate, container, filters) && candidate !== textNode) continue;
       if (text.length >= MAX_CHARS && textNodeStart >= 0) break;
       let value = String(candidate.nodeValue || "");
       if (!value) continue;
-      if (text.length + value.length > MAX_CHARS && textNodeStart >= 0) {
-        value = value.slice(0, MAX_CHARS - text.length);
+      const separator = previousNode && hasFlowBreakBetween(previousNode, candidate, container)
+        ? FLOW_BREAK
+        : "";
+      if (text.length + separator.length + value.length > MAX_CHARS && textNodeStart >= 0) {
+        value = value.slice(0, Math.max(0, MAX_CHARS - text.length - separator.length));
       }
+      text += separator;
       if (candidate === textNode) textNodeStart = text.length;
       text += value;
+      previousNode = candidate;
       if (textNodeStart >= 0 && countWords(text) >= MAX_WORDS * 2) break;
     }
     if (textNodeStart < 0) return null;
-    return { text, textNodeStart };
+    return { text, textNodeStart, container };
   }
 
   function buildResolverBuffer(textNode, filters, cache) {
@@ -353,7 +436,8 @@
         if (cache && cache.stats && typeof cache.stats === "object") cache.stats.usableReuses += 1;
         return {
           text: cached.text,
-          textNodeStart: Number(cachedStart)
+          textNodeStart: Number(cachedStart),
+          container
         };
       }
     }
@@ -365,6 +449,15 @@
     const opts = options && typeof options === "object" ? options : {};
     const filters = normalizeFilters(opts.nodeFilters);
     const sharedCache = normalizeCache(opts.cache, opts.nodeFilters);
+    const locale = String(
+      opts.locale
+      || (
+        globalThis.document
+        && globalThis.document.documentElement
+        && globalThis.document.documentElement.lang
+      )
+      || ""
+    ).trim();
     let cachedBuffer = undefined;
     return (request) => {
       if (!request || typeof request !== "object") return null;
@@ -380,7 +473,16 @@
       const contextStart = cachedBuffer.textNodeStart + localStart;
       const contextEnd = cachedBuffer.textNodeStart + localEnd;
       if (!clipContext) return null;
-      return clipContext(cachedBuffer.text, contextStart, contextEnd);
+      const resolved = clipContext(cachedBuffer.text, contextStart, contextEnd, { locale });
+      if (!resolved) return null;
+      const containerId = getContainerId(cachedBuffer.container);
+      const sentenceIndex = Number.isFinite(Number(resolved.sentenceIndex))
+        ? Math.max(0, Number(resolved.sentenceIndex))
+        : 0;
+      return {
+        ...resolved,
+        sentenceKey: containerId ? `container:${containerId}:sentence:${sentenceIndex}` : ""
+      };
     };
   }
 

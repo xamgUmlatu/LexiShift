@@ -44,8 +44,12 @@
       }
       if (concurrent && pageBudgetState && budgetedSemanticPreflight) {
         const preflightOptions = { semanticPreflightBudget: {
-          maxTotal: pageBudgetState.maxTotal, maxPerLemma: pageBudgetState.maxPerLemma,
-          usedTotal: pageBudgetState.usedTotal, usedByLemma: { ...(pageBudgetState.usedByLemma || {}) }
+          maxTotal: pageBudgetState.maxTotal,
+          maxPerLemma: pageBudgetState.maxPerLemma,
+          maxPerSentence: pageBudgetState.maxPerSentence,
+          usedTotal: pageBudgetState.usedTotal,
+          usedByLemma: { ...(pageBudgetState.usedByLemma || {}) },
+          usedBySentence: { ...(pageBudgetState.usedBySentence || {}) }
         } };
         const preflightResults = await Promise.all(
           batch.map((node) => textNodeProcessor.preflightSemanticTextNode(node, opts.counter, preflightOptions))

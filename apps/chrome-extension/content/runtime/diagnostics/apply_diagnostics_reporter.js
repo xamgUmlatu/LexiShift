@@ -117,6 +117,26 @@
       };
     }
 
+    function buildReplacementBudgetMetrics(scanSummary) {
+      const summary = scanSummary && typeof scanSummary === "object" ? scanSummary : {};
+      return {
+        scope: String(summary.replacementBudgetScope || "frame_document"),
+        active: summary.replacementBudgetActive === true,
+        maxTotal: Number(summary.replacementBudgetMaxTotal || 0),
+        maxPerSentence: Number(summary.replacementBudgetMaxPerSentence || 0),
+        maxPerLemma: Number(summary.replacementBudgetMaxPerLemma || 0),
+        usedTotal: Number(summary.replacementBudgetUsedTotal || 0),
+        trackedSentenceCount: Number(summary.replacementBudgetTrackedSentenceCount || 0),
+        trackedLemmaCount: Number(summary.replacementBudgetTrackedLemmaCount || 0),
+        pageExhausted: summary.replacementBudgetPageExhausted === true,
+        sentenceCapReachedCount: Number(summary.replacementBudgetSentenceCapReachedCount || 0),
+        lemmaCapReachedCount: Number(summary.replacementBudgetLemmaCapReachedCount || 0),
+        rejectedPage: Number(summary.replacementBudgetRejectedPage || 0),
+        rejectedSentence: Number(summary.replacementBudgetRejectedSentence || 0),
+        rejectedLemma: Number(summary.replacementBudgetRejectedLemma || 0)
+      };
+    }
+
     function report(context) {
       const state = context && typeof context === "object" ? context : {};
       const currentSettings = state.currentSettings && typeof state.currentSettings === "object"
@@ -170,6 +190,7 @@
         : null;
       const semanticDecisionMetrics = buildSemanticDecisionMetrics(scanSummary);
       const semanticPerformanceMetrics = buildSemanticPerformanceMetrics(scanSummary);
+      const replacementBudgetMetrics = buildReplacementBudgetMetrics(scanSummary);
       const semanticFallbackReasonCounts = scanSummary
         ? normalizeCountMap(scanSummary.semanticFallbackReasonCounts)
         : {};
@@ -188,6 +209,7 @@
           maxOnePerTextBlock: currentSettings.maxOnePerTextBlock,
           allowAdjacentReplacements: currentSettings.allowAdjacentReplacements,
           maxReplacementsPerPage: currentSettings.maxReplacementsPerPage,
+          maxReplacementsPerSentence: currentSettings.maxReplacementsPerSentence,
           maxReplacementsPerLemmaPerPage: currentSettings.maxReplacementsPerLemmaPerPage,
           rulesSource,
           rulesLocalEnabled: originCounts[ruleOriginRuleset],
@@ -263,6 +285,9 @@
           pointerRuleCount: semanticPointerRuleCount,
           readyRuleCount: semanticReadyRuleCount
         });
+      }
+      if (currentSettings.debugEnabled) {
+        log("Replacement budget summary:", replacementBudgetMetrics);
       }
       if (
         currentSettings.debugEnabled
@@ -377,6 +402,20 @@
           semantic_context_cache_record_reuses: semanticPerformanceMetrics.contextCacheRecordReuses,
           semantic_context_cache_usable_reuses: semanticPerformanceMetrics.contextCacheUsableReuses,
           semantic_context_cache_bypasses: semanticPerformanceMetrics.contextCacheBypasses,
+          replacement_budget_scope: replacementBudgetMetrics.scope,
+          replacement_budget_active: replacementBudgetMetrics.active,
+          replacement_budget_max_total: replacementBudgetMetrics.maxTotal,
+          replacement_budget_max_per_sentence: replacementBudgetMetrics.maxPerSentence,
+          replacement_budget_max_per_lemma: replacementBudgetMetrics.maxPerLemma,
+          replacement_budget_used_total: replacementBudgetMetrics.usedTotal,
+          replacement_budget_tracked_sentence_count: replacementBudgetMetrics.trackedSentenceCount,
+          replacement_budget_tracked_lemma_count: replacementBudgetMetrics.trackedLemmaCount,
+          replacement_budget_page_exhausted: replacementBudgetMetrics.pageExhausted,
+          replacement_budget_sentence_cap_reached_count: replacementBudgetMetrics.sentenceCapReachedCount,
+          replacement_budget_lemma_cap_reached_count: replacementBudgetMetrics.lemmaCapReachedCount,
+          replacement_budget_rejected_page: replacementBudgetMetrics.rejectedPage,
+          replacement_budget_rejected_sentence: replacementBudgetMetrics.rejectedSentence,
+          replacement_budget_rejected_lemma: replacementBudgetMetrics.rejectedLemma,
           apply_total_ms: applyTotalMs,
           active_rules_resolve_ms: activeRulesResolveMs,
           helper_rules_resolve_ms: helperRulesResolveMs,

@@ -27,6 +27,7 @@
     const maxOnePerBlockInput = elements.maxOnePerBlockInput || null;
     const allowAdjacentInput = elements.allowAdjacentInput || null;
     const maxReplacementsPerPageInput = elements.maxReplacementsPerPageInput || null;
+    const maxReplacementsPerSentenceInput = elements.maxReplacementsPerSentenceInput || null;
     const maxReplacementsPerLemmaPageInput = elements.maxReplacementsPerLemmaPageInput || null;
     const debugEnabledInput = elements.debugEnabledInput || null;
     const debugFocusInput = elements.debugFocusInput || null;
@@ -78,6 +79,9 @@
     }
     if (maxReplacementsPerPageInput) {
       maxReplacementsPerPageInput.addEventListener("change", saveReplacementSettings);
+    }
+    if (maxReplacementsPerSentenceInput) {
+      maxReplacementsPerSentenceInput.addEventListener("change", saveReplacementSettings);
     }
     if (maxReplacementsPerLemmaPageInput) {
       maxReplacementsPerLemmaPageInput.addEventListener("change", saveReplacementSettings);

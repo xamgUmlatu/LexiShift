@@ -57,13 +57,16 @@
     "message": "页面替换密度"
   },
   "hint_replacement_behavior_scope": {
-    "message": "在词汇练习和手动规则合并后，应用于页面显示。"
+    "message": "这些全局设置会在词汇练习与手动规则合并后应用。页面限制会分别应用于顶层页面和每个嵌入式框架。"
+  },
+  "summary_legacy_replacement_compatibility": {
+    "message": "旧版替换设置兼容性"
   },
   "toggle_max_one": {
-    "message": "每个文本块最多替换 1 个词"
+    "message": "旧版设置：每个文本节点最多替换 1 处"
   },
   "hint_max_one": {
-    "message": "限制每个文本节点只进行一次替换。"
+    "message": "为兼容现有配置而保留。若要按阅读体验限制密度，请将“每句最大替换数”设为 1。"
   },
   "toggle_allow_adjacent": {
     "message": "允许替换相邻词"
@@ -75,13 +78,19 @@
     "message": "每页最大替换数"
   },
   "hint_max_replacements_page": {
-    "message": "标准默认值为 20。仅在需要无限替换时使用 0。"
+    "message": "标准默认值为 0（不限制）。"
+  },
+  "label_max_replacements_sentence": {
+    "message": "每句最大替换数"
+  },
+  "hint_max_replacements_sentence": {
+    "message": "标准默认值为 0（不限制）。多词短语计为一次替换。"
   },
   "label_max_replacements_lemma_page": {
     "message": "每个词每页上限"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "标准默认值为 2。防止单个词在页面中过度出现。"
+    "message": "标准默认值为 0（不限制）。防止单个词在页面中过度出现。"
   },
   "section_srs": {
     "message": "词汇练习"

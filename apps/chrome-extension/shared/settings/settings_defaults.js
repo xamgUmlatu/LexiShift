@@ -17,7 +17,8 @@
       maxOnePerTextBlock: false,
       allowAdjacentReplacements: true,
       maxReplacementsPerPage: 0,
-      maxReplacementsPerLemmaPerPage: 0
+      maxReplacementsPerLemmaPerPage: 0,
+      maxReplacementsPerSentence: 0
     })
   });
   const standardReplacementDensity = replacementDensityDefaults.standard;
@@ -36,6 +37,7 @@
     allowAdjacentReplacements: standardReplacementDensity.allowAdjacentReplacements,
     maxReplacementsPerPage: standardReplacementDensity.maxReplacementsPerPage,
     maxReplacementsPerLemmaPerPage: standardReplacementDensity.maxReplacementsPerLemmaPerPage,
+    maxReplacementsPerSentence: standardReplacementDensity.maxReplacementsPerSentence,
     debugEnabled: false,
     debugFocusWord: "",
     debugSemanticDecisionOverride: "",

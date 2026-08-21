@@ -58,6 +58,7 @@
       "maxOnePerTextBlock",
       "allowAdjacentReplacements",
       "maxReplacementsPerPage",
+      "maxReplacementsPerSentence",
       "maxReplacementsPerLemmaPerPage",
       "srsEnabled",
       "srsPair",

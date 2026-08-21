@@ -23,6 +23,7 @@
     const maxOnePerBlockInput = elements.maxOnePerBlockInput || null;
     const allowAdjacentInput = elements.allowAdjacentInput || null;
     const maxReplacementsPerPageInput = elements.maxReplacementsPerPageInput || null;
+    const maxReplacementsPerSentenceInput = elements.maxReplacementsPerSentenceInput || null;
     const maxReplacementsPerLemmaPageInput = elements.maxReplacementsPerLemmaPageInput || null;
 
     function saveDisplaySettings() {
@@ -47,17 +48,26 @@
       const maxPerPageRaw = maxReplacementsPerPageInput
         ? parseInt(maxReplacementsPerPageInput.value, 10)
         : settingsManager.defaults.maxReplacementsPerPage;
+      const maxPerSentenceRaw = maxReplacementsPerSentenceInput
+        ? parseInt(maxReplacementsPerSentenceInput.value, 10)
+        : settingsManager.defaults.maxReplacementsPerSentence;
       const maxPerLemmaRaw = maxReplacementsPerLemmaPageInput
         ? parseInt(maxReplacementsPerLemmaPageInput.value, 10)
         : settingsManager.defaults.maxReplacementsPerLemmaPerPage;
       const maxReplacementsPerPage = Number.isFinite(maxPerPageRaw)
         ? Math.max(0, maxPerPageRaw)
         : (settingsManager.defaults.maxReplacementsPerPage || 0);
+      const maxReplacementsPerSentence = Number.isFinite(maxPerSentenceRaw)
+        ? Math.max(0, maxPerSentenceRaw)
+        : (settingsManager.defaults.maxReplacementsPerSentence || 0);
       const maxReplacementsPerLemmaPerPage = Number.isFinite(maxPerLemmaRaw)
         ? Math.max(0, maxPerLemmaRaw)
         : (settingsManager.defaults.maxReplacementsPerLemmaPerPage || 0);
       if (maxReplacementsPerPageInput) {
         maxReplacementsPerPageInput.value = String(maxReplacementsPerPage);
+      }
+      if (maxReplacementsPerSentenceInput) {
+        maxReplacementsPerSentenceInput.value = String(maxReplacementsPerSentence);
       }
       if (maxReplacementsPerLemmaPageInput) {
         maxReplacementsPerLemmaPageInput.value = String(maxReplacementsPerLemmaPerPage);
@@ -66,6 +76,7 @@
         maxOnePerTextBlock,
         allowAdjacentReplacements,
         maxReplacementsPerPage,
+        maxReplacementsPerSentence,
         maxReplacementsPerLemmaPerPage
       }, () => {
         setStatus(translate("status_replacement_saved", null, "Replacement settings saved."), colors.SUCCESS);
