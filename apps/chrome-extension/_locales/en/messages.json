@@ -567,7 +567,7 @@
     "message": "Run sampled rulegen (5)…"
   },
   "button_srs_delete_story": {
-    "message": "Delete Vocabulary Practice"
+    "message": "Delete this Vocabulary Practice"
   },
   "heading_srs_words_dashboard": {
     "message": "Learning words"
@@ -795,10 +795,10 @@
     "message": "Last"
   },
   "confirm_srs_reset_1": {
-    "message": "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone."
+    "message": "Delete this Vocabulary Practice for the current profile and language pair? This cannot be undone."
   },
   "confirm_srs_reset_2": {
-    "message": "Really delete this practice's learning words, review history, and discard data?"
+    "message": "Really delete this Vocabulary Practice's learning words, review history, and discard data?"
   },
   "status_srs_sampling": {
     "message": "Sampling…"
@@ -897,13 +897,13 @@
     "message": "Fix:"
   },
   "status_srs_resetting": {
-    "message": "Deleting Vocabulary Practice…"
+    "message": "Deleting this Vocabulary Practice…"
   },
   "status_srs_reset_success": {
-    "message": "Vocabulary Practice deleted."
+    "message": "This Vocabulary Practice was deleted."
   },
   "status_srs_reset_failed": {
-    "message": "Vocabulary Practice deletion failed."
+    "message": "This Vocabulary Practice deletion failed."
   },
   "status_srs_reset_outdated": {
     "message": "Delete failed: helper command not found. Restart helper?"

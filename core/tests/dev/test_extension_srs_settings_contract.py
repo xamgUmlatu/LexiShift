@@ -2474,6 +2474,59 @@ const ui = new context.__UIManager();
 	ui.updateSrsInputs({{ srsEnabled: true }}, {{}});
 	assert.equal(storyCard.hidden, false);
 	assert.equal(storyCard.open, false);
+	"""
+        _run_node(script)
+
+    def test_srs_story_card_collapse_after_delete_closes_nested_details(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const viewModelPath = {json.dumps(str(SRS_STORY_VIEW_MODEL_JS))};
+const uiManagerDomIdsPath = {json.dumps(str(UI_MANAGER_DOM_IDS_JS))};
+const uiManagerProfileBackgroundPath = {json.dumps(str(UI_MANAGER_PROFILE_BACKGROUND_JS))};
+const uiManagerPath = {json.dumps(str(UI_MANAGER_JS))};
+const nestedDetails = [
+  {{ open: true }},
+  {{ open: true }}
+];
+const storyCard = {{
+  hidden: false,
+  open: true,
+  querySelectorAll(selector) {{
+    return selector === "details" ? nestedDetails : [];
+  }}
+}};
+const context = vm.createContext({{
+  console,
+  document: {{
+    getElementById(id) {{
+      return id === "srs-story-current-card" ? storyCard : null;
+    }},
+    querySelectorAll() {{
+      return [];
+    }}
+  }},
+  setTimeout(callback) {{
+    callback();
+  }}
+}});
+context.globalThis = context;
+vm.runInContext(fs.readFileSync(viewModelPath, "utf8"), context, {{ filename: viewModelPath }});
+vm.runInContext(fs.readFileSync(uiManagerDomIdsPath, "utf8"), context, {{ filename: uiManagerDomIdsPath }});
+vm.runInContext(fs.readFileSync(uiManagerProfileBackgroundPath, "utf8"), context, {{ filename: uiManagerProfileBackgroundPath }});
+vm.runInContext(
+  `${{fs.readFileSync(uiManagerPath, "utf8")}}\nglobalThis.__UIManager = UIManager;`,
+  context,
+  {{ filename: uiManagerPath }}
+);
+
+const ui = new context.__UIManager();
+ui.collapseSrsStoryCardsAfterDelete();
+
+assert.equal(storyCard.open, false);
+assert.deepEqual(nestedDetails.map((details) => details.open), [false, false]);
 """
         _run_node(script)
 

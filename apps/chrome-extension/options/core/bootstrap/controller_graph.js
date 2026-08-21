@@ -220,6 +220,11 @@
       refreshSemanticAdmissionStatus: (pairKey, profileId) => (
         srsProfileRuntimeController.refreshSemanticAdmissionStatus(pairKey, profileId)
       ),
+      collapseSrsStoryCardsAfterDelete: () => (
+        ui && typeof ui.collapseSrsStoryCardsAfterDelete === "function"
+          ? ui.collapseSrsStoryCardsAfterDelete()
+          : undefined
+      ),
       log: logOptions,
       confirm: (message) => globalThis.confirm(message),
       colors: ui.COLORS,

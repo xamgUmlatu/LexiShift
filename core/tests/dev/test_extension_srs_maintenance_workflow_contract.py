@@ -409,6 +409,7 @@ const statuses = [];
 const confirmMessages = [];
 const helperCalls = [];
 let loadCount = 0;
+let collapseCount = 0;
 const responses = [false, true, false, true, true];
 
 const workflows = createMaintenanceWorkflows({{
@@ -444,6 +445,9 @@ const workflows = createMaintenanceWorkflows({{
   }},
   output,
   resetButton,
+  collapseSrsStoryCardsAfterDelete: () => {{
+    collapseCount += 1;
+  }},
   setOutputText: (text) => {{
     output.textContent = text;
   }}
@@ -454,11 +458,13 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(loadCount, 0);
   assert.equal(helperCalls.length, 0);
   assert.equal(resetButton.disabled, false);
+  assert.equal(collapseCount, 0);
 
   await workflows.resetSrsData();
   assert.equal(loadCount, 0);
   assert.equal(helperCalls.length, 0);
   assert.equal(resetButton.disabled, false);
+  assert.equal(collapseCount, 0);
 
   await workflows.resetSrsData();
   assert.equal(loadCount, 1);
@@ -466,9 +472,10 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(helperCalls[0].pair, "en-ja");
   assert.equal(helperCalls[0].options.profileId, "travel");
   assert.equal(resetButton.disabled, false);
+  assert.equal(collapseCount, 0);
   assert.equal(
     statuses[0].message,
-    "Deleting Vocabulary Practice…"
+    "Deleting this Vocabulary Practice…"
   );
   assert.equal(
     statuses[1].message,
@@ -477,11 +484,11 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(statuses[1].color, "#b42318");
   assert.equal(output.textContent, "stale output");
   assert.deepEqual(confirmMessages, [
-    "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone.",
-    "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone.",
-    "Really delete this practice's learning words, review history, and discard data?",
-    "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone.",
-    "Really delete this practice's learning words, review history, and discard data?"
+    "Delete this Vocabulary Practice for the current profile and language pair? This cannot be undone.",
+    "Delete this Vocabulary Practice for the current profile and language pair? This cannot be undone.",
+    "Really delete this Vocabulary Practice's learning words, review history, and discard data?",
+    "Delete this Vocabulary Practice for the current profile and language pair? This cannot be undone.",
+    "Really delete this Vocabulary Practice's learning words, review history, and discard data?"
   ]);
 }})().catch((error) => {{
   console.error(error);
@@ -523,6 +530,7 @@ const publishCalls = [];
 const reloadCalls = [];
 const normalize = (value) => JSON.parse(JSON.stringify(value));
 let loadCount = 0;
+let collapseCount = 0;
 
 const workflows = createMaintenanceWorkflows({{
   settingsManager: {{
@@ -565,6 +573,9 @@ const workflows = createMaintenanceWorkflows({{
   }},
   loadSrsProfileForPair: async (items, pair, options) => {{
     reloadCalls.push({{ items, pair, options }});
+  }},
+  collapseSrsStoryCardsAfterDelete: () => {{
+    collapseCount += 1;
   }}
 }});
 
@@ -594,9 +605,10 @@ const workflows = createMaintenanceWorkflows({{
       options: {{ profileId: "suisui", forceHelperRefresh: true }}
     }}
   ]);
-  assert.equal(statuses[0].message, "Deleting Vocabulary Practice…");
-  assert.equal(statuses[1].message, "Vocabulary Practice deleted.");
+  assert.equal(statuses[0].message, "Deleting this Vocabulary Practice…");
+  assert.equal(statuses[1].message, "This Vocabulary Practice was deleted.");
   assert.equal(statuses[1].color, "#3c5a2a");
+  assert.equal(collapseCount, 1);
   assert.equal(output.textContent, "");
 }})().catch((error) => {{
   console.error(error);

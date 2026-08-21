@@ -206,7 +206,8 @@
           buildSampledRulegenSamplingLines,
           buildSampledRulegenHeader,
           buildSampledRulegenEmptyOutput,
-          buildSampledRulegenTargetsOutput
+          buildSampledRulegenTargetsOutput,
+          collapseSrsStoryCardsAfterDelete: opts.collapseSrsStoryCardsAfterDelete
         })
       : {
           previewAdmission: async () => {},

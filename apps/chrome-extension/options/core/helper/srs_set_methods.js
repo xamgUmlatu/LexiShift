@@ -365,7 +365,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_reset_failed",
-            "Vocabulary Practice deletion failed."
+            "This Vocabulary Practice deletion failed."
           )
         );
       }

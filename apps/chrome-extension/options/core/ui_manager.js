@@ -182,6 +182,8 @@ class UIManager {
     if (storyCard.shouldShow !== true && "open" in card) card.open = false;
   }
 
+  collapseSrsStoryCardsAfterDelete() { this.srsStoryViewModel().collapseStoryCard(this.dom.srsStoryCurrentCard); }
+
   updateSrsStoryPairList(entriesArg) {
     const root = this.dom.srsStoryPairList;
     if (!root) {

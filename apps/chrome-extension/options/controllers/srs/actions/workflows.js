@@ -201,7 +201,10 @@
             : (_options) => "",
           buildSampledRulegenTargetsOutput: typeof opts.buildSampledRulegenTargetsOutput === "function"
             ? opts.buildSampledRulegenTargetsOutput
-            : (_options) => ""
+            : (_options) => "",
+          collapseSrsStoryCardsAfterDelete: typeof opts.collapseSrsStoryCardsAfterDelete === "function"
+            ? opts.collapseSrsStoryCardsAfterDelete
+            : null
         })
       : {
           initializeSet: async () => {},

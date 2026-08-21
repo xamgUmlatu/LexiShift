@@ -16,6 +16,23 @@
     };
   }
 
+  function collapseStoryCard(card) {
+    if (!card) {
+      return;
+    }
+    if ("open" in card) {
+      card.open = false;
+    }
+    if (typeof card.querySelectorAll !== "function") {
+      return;
+    }
+    card.querySelectorAll("details").forEach((details) => {
+      if ("open" in details) {
+        details.open = false;
+      }
+    });
+  }
+
   function switchableStoryCards(options) {
     const opts = options && typeof options === "object" ? options : {};
     const currentPairKey = normalizePairKey(opts.currentPairKey);
@@ -46,6 +63,7 @@
   }
 
   root.optionsSrsStoryViewModel = {
+    collapseStoryCard,
     currentStoryCard,
     normalizePairKey,
     switchableStoryCards

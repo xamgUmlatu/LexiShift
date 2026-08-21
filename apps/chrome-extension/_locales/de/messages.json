@@ -564,7 +564,7 @@
     "message": "Stichproben-Regelgen (5)…"
   },
   "button_srs_delete_story": {
-    "message": "Wortschatztraining löschen"
+    "message": "Dieses Wortschatztraining löschen"
   },
   "heading_srs_words_dashboard": {
     "message": "Lernwörter"
@@ -795,7 +795,7 @@
     "message": "Dieses Wortschatztraining für das aktuelle Profil und Sprachpaar löschen? Dies kann nicht rückgängig gemacht werden."
   },
   "confirm_srs_reset_2": {
-    "message": "Wirklich die Lernwörter, den Wiederholungsverlauf und die Verwerfungsdaten dieses Trainings löschen?"
+    "message": "Wirklich die Lernwörter, den Wiederholungsverlauf und die Verwerfungsdaten dieses Wortschatztrainings löschen?"
   },
   "status_srs_sampling": {
     "message": "Stichprobe läuft…"
@@ -894,13 +894,13 @@
     "message": "Lösung:"
   },
   "status_srs_resetting": {
-    "message": "Wortschatztraining wird gelöscht…"
+    "message": "Dieses Wortschatztraining wird gelöscht…"
   },
   "status_srs_reset_success": {
-    "message": "Wortschatztraining gelöscht."
+    "message": "Dieses Wortschatztraining wurde gelöscht."
   },
   "status_srs_reset_failed": {
-    "message": "Wortschatztraining konnte nicht gelöscht werden."
+    "message": "Dieses Wortschatztraining konnte nicht gelöscht werden."
   },
   "status_srs_reset_outdated": {
     "message": "Löschen fehlgeschlagen: Helper-Befehl nicht gefunden. Helper neu starten?"

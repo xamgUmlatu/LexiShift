@@ -385,7 +385,7 @@
       logMessage: "Semantic pack install failed."
     });
     bindAsyncListener(srsResetButton, "click", () => srsActionsController.resetSrsData(), {
-      fallbackMessage: () => translate("status_srs_reset_failed", null, "Vocabulary Practice deletion failed."),
+      fallbackMessage: () => translate("status_srs_reset_failed", null, "This Vocabulary Practice deletion failed."),
       logMessage: "[DeleteStory] Failed:"
     });
     if (debugHelperTestButton) {

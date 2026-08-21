@@ -564,7 +564,7 @@
     "message": "サンプル5件でルール生成…"
   },
   "button_srs_delete_story": {
-    "message": "語彙練習を削除"
+    "message": "この語彙練習を削除"
   },
   "heading_srs_words_dashboard": {
     "message": "学習中の語"
@@ -792,10 +792,10 @@
     "message": "最後"
   },
   "confirm_srs_reset_1": {
-    "message": "現在のプロフィールと言語ペアの語彙練習を削除しますか？この操作は元に戻せません。"
+    "message": "現在のプロフィールで、この言語ペアの語彙練習を削除しますか？この操作は元に戻せません。"
   },
   "confirm_srs_reset_2": {
-    "message": "この練習の学習語、復習履歴、破棄データを本当に削除しますか？"
+    "message": "この語彙練習の学習語、復習履歴、破棄データをすべて削除します。よろしいですか？"
   },
   "status_srs_sampling": {
     "message": "サンプリング中…"
@@ -894,13 +894,13 @@
     "message": "対処:"
   },
   "status_srs_resetting": {
-    "message": "語彙練習を削除中…"
+    "message": "この語彙練習を削除中…"
   },
   "status_srs_reset_success": {
-    "message": "語彙練習を削除しました。"
+    "message": "この語彙練習を削除しました。"
   },
   "status_srs_reset_failed": {
-    "message": "語彙練習の削除に失敗しました。"
+    "message": "この語彙練習の削除に失敗しました。"
   },
   "status_srs_reset_outdated": {
     "message": "削除に失敗しました: Helperコマンドが見つかりません。Helperを再起動しますか？"

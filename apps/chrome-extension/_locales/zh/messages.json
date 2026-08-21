@@ -564,7 +564,7 @@
     "message": "运行采样规则生成（5）…"
   },
   "button_srs_delete_story": {
-    "message": "删除词汇练习"
+    "message": "删除此词汇练习"
   },
   "heading_srs_words_dashboard": {
     "message": "学习词"
@@ -792,10 +792,10 @@
     "message": "末页"
   },
   "confirm_srs_reset_1": {
-    "message": "删除当前配置档和语言对的词汇练习？此操作无法撤销。"
+    "message": "删除当前配置档中此语言对的词汇练习？此操作无法撤销。"
   },
   "confirm_srs_reset_2": {
-    "message": "真的要删除这个练习的学习词、复习历史和丢弃数据吗？"
+    "message": "真的要删除此词汇练习的学习词、复习历史和丢弃数据吗？"
   },
   "status_srs_sampling": {
     "message": "正在抽样…"
@@ -894,13 +894,13 @@
     "message": "修复："
   },
   "status_srs_resetting": {
-    "message": "正在删除词汇练习…"
+    "message": "正在删除此词汇练习…"
   },
   "status_srs_reset_success": {
-    "message": "词汇练习已删除。"
+    "message": "此词汇练习已删除。"
   },
   "status_srs_reset_failed": {
-    "message": "词汇练习删除失败。"
+    "message": "此词汇练习删除失败。"
   },
   "status_srs_reset_outdated": {
     "message": "删除失败：找不到 Helper 命令。要重启 Helper 吗？"
