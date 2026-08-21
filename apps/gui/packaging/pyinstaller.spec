@@ -190,6 +190,8 @@ LEXISHIFT_HELPER_USE_CASE_HIDDEN_IMPORTS = [
 LEXISHIFT_CORE_HIDDEN_IMPORTS = [
     *LEXISHIFT_HELPER_USE_CASE_HIDDEN_IMPORTS,
     "lexishift_core.frequency.sqlite_store",
+    "lexishift_core.helper.lookup_dictionary_settings",
+    "lexishift_core.helper.yomitan_lookup_dictionaries",
     "lexishift_core.rulegen.semantic_publication",
     "lexishift_core.srs.seed",
     "lexishift_core.srs.topic_overlay",

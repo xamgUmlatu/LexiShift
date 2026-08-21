@@ -56,9 +56,11 @@ from settings_language_packs_support import (
     has_pos_overlay_table as _has_pos_overlay_table,
     is_pack_download_disabled,
     language_pack_dir as _language_pack_dir,
+    lookup_dictionary_pack_dir as _lookup_dictionary_pack_dir,
     pack_download_disabled_tooltip,
     pos_overlay_pack_dir as _pos_overlay_pack_dir,
 )
+from settings_lookup_dictionaries_mixin import LanguagePackPanelLookupDictionariesMixin
 from theme_manager import resolve_current_theme
 
 _FREQUENCY_SOURCE_IMPORT_BUILD_MODES = frozenset(
@@ -72,6 +74,7 @@ _MANUAL_SOURCE_IMPORT_DIR_SETTINGS_KEY = "resources/manual_source_import_dir"
 
 class LanguagePackPanel(
     LanguagePackPanelLayoutMixin,
+    LanguagePackPanelLookupDictionariesMixin,
     LanguagePackPanelPathMixin,
     LanguagePackPanelPairSetupMixin,
     LanguagePackPanelStateMixin,
@@ -94,6 +97,8 @@ class LanguagePackPanel(
         self._embedding_pack_dir = _embedding_pack_dir()
         self._frequency_pack_dir = _frequency_pack_dir()
         self._pos_overlay_pack_dir = _pos_overlay_pack_dir()
+        self._lookup_dictionary_dir = _lookup_dictionary_pack_dir()
+        self._initialize_lookup_dictionaries()
         self._uses_dynamic_pack_source_overrides = pack_source_overrides is None
         self._pack_source_overrides = (
             load_pack_source_overrides(refresh_remote=False)
@@ -202,6 +207,10 @@ class LanguagePackPanel(
         self._resource_tabs.addTab(
             self._build_learning_languages_tab(),
             t("language_packs.learning_pairs.tab_title"),
+        )
+        self._resource_tabs.addTab(
+            self._build_lookup_dictionaries_tab(),
+            t("language_packs.lookup_dictionaries.tab_title"),
         )
         app = QApplication.instance()
         if app is not None:

@@ -124,6 +124,8 @@ class LanguagePackPanelStateMixin:
 
     def cancel_downloads(self) -> None:
         self._closing = True
+        if hasattr(self, "_cancel_lookup_dictionary_imports"):
+            self._cancel_lookup_dictionary_imports()
         for thread in list(self._language_pack_threads):
             if thread.isRunning():
                 thread.requestInterruption()

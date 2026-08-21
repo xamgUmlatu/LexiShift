@@ -303,3 +303,12 @@ def pos_overlay_pack_dir() -> str:
     path = Path(base) / "pos_packs"
     path.mkdir(parents=True, exist_ok=True)
     return str(path)
+
+
+def lookup_dictionary_pack_dir() -> str:
+    base = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
+    if not base:
+        base = str(Path.home() / ".lexishift")
+    path = Path(base) / "lookup_dictionaries"
+    path.mkdir(parents=True, exist_ok=True)
+    return str(path)

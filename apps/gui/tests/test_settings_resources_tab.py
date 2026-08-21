@@ -784,15 +784,16 @@ def test_settings_app_tab_no_longer_contains_language_pack_panel() -> None:
     assert not matches
 
 
-def test_resources_tab_only_shows_learning_language_subview() -> None:
+def test_resources_tab_shows_learning_languages_and_lookup_dictionaries() -> None:
     _app()
     set_locale("en")
     dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
     panel = dialog.language_pack_panel
     tabs = panel._resource_tabs
 
-    assert tabs.count() == 1
+    assert tabs.count() == 2
     assert tabs.tabText(0) == t("language_packs.learning_pairs.tab_title")
+    assert tabs.tabText(1) == t("language_packs.lookup_dictionaries.tab_title")
 
 
 def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:

@@ -36,6 +36,8 @@ class TestGuiAppBuild(unittest.TestCase):
         self.assertIn('"lexishift_core.helper.use_cases.rulegen_job"', spec_text)
         self.assertIn('"lexishift_core.helper.use_cases.runtime_diagnostics"', spec_text)
         self.assertIn('"lexishift_core.helper.use_cases.semantic_admission"', spec_text)
+        self.assertIn('"lexishift_core.helper.lookup_dictionary_settings"', spec_text)
+        self.assertIn('"lexishift_core.helper.yomitan_lookup_dictionaries"', spec_text)
         self.assertIn('"lexishift_core.srs.seed"', spec_text)
         self.assertIn('"lexishift_core.srs.topic_overlay"', spec_text)
         self.assertNotIn('hiddenimports=["lexishift_core"]', spec_text)
