@@ -291,9 +291,15 @@ def _seed_word(lemma: str, rank: float) -> SeedWord:
 def _stub_run_rulegen_for_pair(captured: dict[str, object]):
     def _run_rulegen_for_pair(*, store, pair, active_item_ids, **_kwargs):
         captured["active_item_ids"] = tuple(active_item_ids)
-        rules = (
-            VocabRule(source_phrase="alpha source", replacement="alpha"),
-            VocabRule(source_phrase="beta source", replacement="beta"),
+        active_lemmas = tuple(
+            str(item.lemma or "").strip()
+            for item in store.items
+            if item.language_pair == pair and item.item_id in set(active_item_ids or ())
+        )
+        rules = tuple(
+            VocabRule(source_phrase=f"{lemma} source", replacement=lemma)
+            for lemma in active_lemmas
+            if lemma
         )
         return store, RulegenOutput(
             rules=rules,
@@ -301,12 +307,17 @@ def _stub_run_rulegen_for_pair(captured: dict[str, object]):
                 "version": 1,
                 "pair": pair,
                 "targets": [
-                    {"lemma": "alpha", "sources": ["alpha source"]},
-                    {"lemma": "beta", "sources": ["beta source"]},
+                    {"lemma": lemma, "sources": [f"{lemma} source"]}
+                    for lemma in active_lemmas
+                    if lemma
                 ],
-                "stats": {"target_count": 2, "rule_count": 2, "source_count": 2},
+                "stats": {
+                    "target_count": len(active_lemmas),
+                    "rule_count": len(rules),
+                    "source_count": len(rules),
+                },
             },
-            target_count=2,
+            target_count=len(active_lemmas),
             semantic_inventory={
                 "schema_version": 1,
                 "pair": pair,
