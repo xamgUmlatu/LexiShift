@@ -21,6 +21,9 @@ from lexishift_core.helper.yomitan_lookup_dictionaries import (
     import_yomitan_dictionary_zip,
 )
 from settings_language_packs import LanguagePackPanel
+from settings_lookup_dictionaries_mixin import (
+    _compatible_lookup_dictionary_directory_url,
+)
 
 
 def _app() -> QApplication:
@@ -52,6 +55,17 @@ def _write_yomitan_zip(path: Path) -> None:
                 ensure_ascii=False,
             ),
         )
+
+
+def test_compatible_lookup_dictionary_directory_url_is_target_aware() -> None:
+    japanese_url = _compatible_lookup_dictionary_directory_url("en-ja")
+
+    assert japanese_url.startswith("https://github.com/MarvNC/yomitan-dictionaries#:~:text=")
+    assert "%E7%84%A1%E3%81%97" in japanese_url
+    assert _compatible_lookup_dictionary_directory_url("ja-ja") == japanese_url
+    assert _compatible_lookup_dictionary_directory_url("en-de") == (
+        "https://github.com/MarvNC/yomitan-dictionaries"
+    )
 
 
 def test_language_pack_panel_exposes_lookup_dictionary_tab() -> None:

@@ -59,7 +59,9 @@ vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modul
 const prompt = context.LexiShift.manualSourcePrompt;
 assert.ok(prompt);
 const dictionaryEntry = prompt.findEntryForUrl(
-  "https://github.com/MarvNC/yomitan-dictionaries#daijirin-fourth-edition"
+  "https://github.com/MarvNC/yomitan-dictionaries"
+  + "#:~:text=%E7%AC%AC%E5%9B%9B%E7%89%88%E3%80%80%E7%94%BB%E5%83%8F-,"
+  + "%E7%84%A1%E3%81%97,-Converted%20by%20Malte"
 );
 assert.equal(dictionaryEntry.packId, "lookup-dictionary-directory");
 assert.equal(dictionaryEntry.mode, "dictionary-directory");

@@ -40,6 +40,10 @@ from utils_paths import reveal_path
 
 
 _COMPATIBLE_DICTIONARY_DIRECTORY_URL = "https://github.com/MarvNC/yomitan-dictionaries"
+_JAPANESE_DICTIONARY_DIRECTORY_TEXT_FRAGMENT = (
+    "#:~:text=%E7%AC%AC%E5%9B%9B%E7%89%88%E3%80%80%E7%94%BB%E5%83%8F-,"
+    "%E7%84%A1%E3%81%97,-Converted%20by%20Malte"
+)
 
 _LOOKUP_LANGUAGE_LABEL_KEYS = {
     "de": "languages.german",
@@ -68,6 +72,12 @@ def _lookup_pair_label(pair: str) -> str:
 def _lookup_pair_target_language(pair: str) -> str:
     _source, separator, target = normalize_pair_key(pair, default="").partition("-")
     return target if separator else ""
+
+
+def _compatible_lookup_dictionary_directory_url(pair: str) -> str:
+    if _lookup_pair_target_language(pair) == "ja":
+        return _COMPATIBLE_DICTIONARY_DIRECTORY_URL + _JAPANESE_DICTIONARY_DIRECTORY_TEXT_FRAGMENT
+    return _COMPATIBLE_DICTIONARY_DIRECTORY_URL
 
 
 def _format_lookup_dictionary_size(size_bytes: int) -> str:
@@ -551,6 +561,7 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         pair = self._current_lookup_dictionary_pair()
         pair_label = _lookup_pair_label(pair)
         target_language = _lookup_language_label(_lookup_pair_target_language(pair))
+        directory_url = _compatible_lookup_dictionary_directory_url(pair)
         dialog = QMessageBox(self)
         dialog.setIcon(QMessageBox.Information)
         dialog.setWindowTitle(t("language_packs.lookup_dictionaries.find_compatible_title"))
@@ -571,7 +582,7 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
                 "language_packs.lookup_dictionaries.find_compatible_technical_details",
                 pair=pair,
                 target_language=target_language,
-                directory_url=_COMPATIBLE_DICTIONARY_DIRECTORY_URL,
+                directory_url=directory_url,
             )
         )
         directory_button = dialog.addButton(
@@ -587,7 +598,7 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         dialog.exec()
         if dialog.clickedButton() == directory_button:
             self._begin_lookup_dictionary_acquisition(pair)
-            webbrowser.open(_COMPATIBLE_DICTIONARY_DIRECTORY_URL)
+            webbrowser.open(directory_url)
             self._lookup_dictionary_status.setText(
                 t("language_packs.lookup_dictionaries.community_directory_opened")
             )
