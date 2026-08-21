@@ -172,7 +172,7 @@ def _optional_positive_int(value: object) -> Optional[int]:
     if value is None:
         return None
     try:
-        parsed = int(value)
+        parsed = int(str(value))
     except (TypeError, ValueError, OverflowError):
         return None
     return max(1, parsed)

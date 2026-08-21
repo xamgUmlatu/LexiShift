@@ -129,7 +129,7 @@ def _optional_int(value: object) -> int | None:
     if value is None or str(value).strip() == "":
         return None
     try:
-        return int(value)
+        return int(str(value))
     except (TypeError, ValueError):
         return None
 
@@ -138,6 +138,6 @@ def _optional_float(value: object) -> float | None:
     if value is None or str(value).strip() == "":
         return None
     try:
-        return float(value)
+        return float(str(value))
     except (TypeError, ValueError):
         return None

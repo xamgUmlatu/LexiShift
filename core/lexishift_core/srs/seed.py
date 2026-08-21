@@ -5,7 +5,7 @@ from functools import lru_cache
 import json
 from pathlib import Path
 import time
-from typing import Optional, Sequence
+from typing import Optional, Sequence, cast
 
 from lexishift_core.lexicon.word_package import (
     build_word_package,
@@ -182,7 +182,7 @@ def build_seed_candidates(
             seed_factory=SeedWord,
         )
         if cached is not None:
-            return list(cached)
+            return list(cast(Sequence[SeedWord], cached))
     lock_path: Path | None = None
     if cache_path is not None:
         lock_path = _acquire_seed_frontier_cache_lock(cache_path)
@@ -193,7 +193,7 @@ def build_seed_candidates(
         )
         if cached is not None:
             _release_seed_frontier_cache_lock(lock_path)
-            return list(cached)
+            return list(cast(Sequence[SeedWord], cached))
 
     try:
         jmdict_lemmas = _load_jmdict_lemmas(config.jmdict_path) if config.require_jmdict else None

@@ -10,7 +10,7 @@ import re
 import shutil
 import sqlite3
 import tempfile
-from typing import Callable, Mapping, Sequence
+from typing import Callable, Mapping, Sequence, cast
 import zipfile
 import zlib
 
@@ -118,7 +118,7 @@ def import_yomitan_dictionary_zip(
             raise YomitanDictionaryImportError(
                 "Yomitan dictionary ZIP does not contain any term_bank_*.json files."
             )
-        pack_id = _pack_id_for_archive(metadata["title"], archive_sha256)
+        pack_id = _pack_id_for_archive(str(metadata["title"]), archive_sha256)
         existing = _existing_import_result(target_base, pack_id, archive_sha256)
         if existing is not None:
             return existing
@@ -214,7 +214,7 @@ def import_yomitan_dictionary_zip(
                 pack_id=pack_id,
                 pack_kind="lookup_dictionary",
                 provider="yomitan",
-                source_name=metadata["title"],
+                source_name=str(metadata["title"]),
                 source_url="user-supplied://local",
                 license_status="not_redistributable",
                 build_mode="yomitan_zip_to_sqlite",
@@ -228,7 +228,7 @@ def import_yomitan_dictionary_zip(
                 artifact_path=artifact_path,
                 source_filename=source.name,
                 sqlite_filename=artifact_path.name,
-                source_version=metadata["revision"],
+                source_version=str(metadata["revision"]),
                 raw_artifact_sha256=archive_sha256,
                 artifact_metrics={
                     "term_count": term_count,
@@ -403,7 +403,7 @@ def lookup_yomitan_dictionary(
         structured_content = [
             node
             for item in definitions
-            for node in item.get("structured_content", [])
+            for node in cast(Sequence[object], item.get("structured_content", []))
             if isinstance(node, Mapping)
         ]
         if structured_content:
@@ -766,7 +766,7 @@ def _first_text(*values: object) -> str:
 
 def _safe_int(value: object, *, default: int) -> int:
     try:
-        return int(value)
+        return int(str(value))
     except (TypeError, ValueError):
         return default
 

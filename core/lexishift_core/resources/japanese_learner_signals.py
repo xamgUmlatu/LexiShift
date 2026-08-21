@@ -9,7 +9,7 @@ import math
 from pathlib import Path
 import re
 import unicodedata
-from typing import Iterable, Mapping, Sequence
+from typing import Iterable, Mapping, Sequence, cast
 from xml.etree import ElementTree
 
 from lexishift_core.resources.japanese_script import contains_kanji
@@ -433,7 +433,9 @@ def _load_jmdict_priority_index_uncached(path: Path) -> dict[str, JmdictPriority
         kanji_entries = _jmdict_priority_kanji_entries(elem)
         reading_entries = _jmdict_priority_reading_entries(elem)
         entry_tags = _unique_sorted(
-            tag for entry in (*kanji_entries, *reading_entries) for tag in entry["tags"]
+            tag
+            for entry in (*kanji_entries, *reading_entries)
+            for tag in _tuple_from_iterable_value(entry.get("tags", ()))
         )
         pair_records = _jmdict_priority_pair_records(
             kanji_entries,
@@ -445,7 +447,7 @@ def _load_jmdict_priority_index_uncached(path: Path) -> dict[str, JmdictPriority
             if not term:
                 continue
             record = _build_jmdict_priority_record(
-                direct_tags=entry.get("tags", ()),
+                direct_tags=_tuple_from_iterable_value(entry.get("tags", ())),
                 entry_tags=entry_tags,
                 pair_records=(
                     record
@@ -951,14 +953,14 @@ def build_japanese_learner_signal_bundle(
             payload["jlpt_vocabulary"] = jlpt_payload
             sources.append("jlpt_vocabulary")
     if lesson_vocabulary_index:
-        record = lesson_vocabulary_index.get(text)
-        if record is not None:
-            payload["lesson_vocabulary"] = record.to_dict()
+        lesson_record = lesson_vocabulary_index.get(text)
+        if lesson_record is not None:
+            payload["lesson_vocabulary"] = lesson_record.to_dict()
             sources.append("lesson_vocabulary")
     if jmnedict_name_index:
-        record = jmnedict_name_index.get(text)
-        if record is not None:
-            payload["jmnedict_name"] = record.to_dict()
+        name_record = jmnedict_name_index.get(text)
+        if name_record is not None:
+            payload["jmnedict_name"] = name_record.to_dict()
             sources.append("jmnedict_name")
     if kanjidic2_character_index and contains_kanji(text):
         kanji_payload = _build_kanjidic2_aggregate(
@@ -2708,24 +2710,30 @@ def _jmdict_priority_pair_records(
             surface = str(surface_entry.get("term") or "").strip()
             if not surface:
                 continue
+            surface_tags = _tuple_from_iterable_value(surface_entry.get("tags", ()))
+            reading_tags = _tuple_from_iterable_value(reading_entry.get("tags", ()))
+            surface_info_values = _tuple_from_iterable_value(surface_entry.get("info_values", ()))
+            reading_info_values = _tuple_from_iterable_value(reading_entry.get("info_values", ()))
             raw_pairs.append(
                 {
                     "surface": surface,
                     "reading": reading,
-                    "surface_tags": tuple(surface_entry.get("tags", ()) or ()),
-                    "reading_tags": tuple(reading_entry.get("tags", ()) or ()),
-                    "surface_info_values": tuple(surface_entry.get("info_values", ()) or ()),
-                    "reading_info_values": tuple(reading_entry.get("info_values", ()) or ()),
+                    "surface_tags": surface_tags,
+                    "reading_tags": reading_tags,
+                    "surface_info_values": surface_info_values,
+                    "reading_info_values": reading_info_values,
                 }
             )
+        reading_tags = _tuple_from_iterable_value(reading_entry.get("tags", ()))
+        reading_info_values = _tuple_from_iterable_value(reading_entry.get("info_values", ()))
         raw_pairs.append(
             {
                 "surface": reading,
                 "reading": reading,
                 "surface_tags": (),
-                "reading_tags": tuple(reading_entry.get("tags", ()) or ()),
+                "reading_tags": reading_tags,
                 "surface_info_values": (),
-                "reading_info_values": tuple(reading_entry.get("info_values", ()) or ()),
+                "reading_info_values": reading_info_values,
             }
         )
     surface_readings: dict[str, set[str]] = {}
@@ -2735,11 +2743,11 @@ def _jmdict_priority_pair_records(
         _build_jmdict_priority_pair_record(
             surface=str(raw_pair["surface"]),
             reading=str(raw_pair["reading"]),
-            surface_tags=raw_pair.get("surface_tags", ()),
-            reading_tags=raw_pair.get("reading_tags", ()),
+            surface_tags=_tuple_from_iterable_value(raw_pair.get("surface_tags", ())),
+            reading_tags=_tuple_from_iterable_value(raw_pair.get("reading_tags", ())),
             entry_tags=entry_tags,
-            surface_info_values=raw_pair.get("surface_info_values", ()),
-            reading_info_values=raw_pair.get("reading_info_values", ()),
+            surface_info_values=_tuple_from_iterable_value(raw_pair.get("surface_info_values", ())),
+            reading_info_values=_tuple_from_iterable_value(raw_pair.get("reading_info_values", ())),
             surface_reading_count=len(surface_readings.get(str(raw_pair["surface"]), ())),
         )
         for raw_pair in raw_pairs
@@ -2755,7 +2763,7 @@ def _jmdict_priority_compatible_surfaces(
 ) -> tuple[Mapping[str, object], ...]:
     restrictions = {
         str(value or "").strip()
-        for value in reading_entry.get("restrictions", ()) or ()
+        for value in _tuple_from_iterable_value(reading_entry.get("restrictions", ()))
         if str(value or "").strip()
     }
     if restrictions:
@@ -3225,6 +3233,12 @@ def _unique_sorted(values: Iterable[object]) -> tuple[str, ...]:
     return tuple(sorted({str(value or "").strip() for value in values if str(value or "").strip()}))
 
 
+def _tuple_from_iterable_value(value: object) -> tuple[str, ...]:
+    if value is None or isinstance(value, (str, bytes)) or not hasattr(value, "__iter__"):
+        return ()
+    return tuple(str(item) for item in cast(Iterable[object], value))
+
+
 def _node_text(node: ElementTree.Element | None) -> str:
     if node is None:
         return ""
@@ -3316,7 +3330,7 @@ def _deserialize_jmdict_priority_pair_records(
     if isinstance(payload, (str, bytes)) or not hasattr(payload, "__iter__"):
         return ()
     records: list[JmdictPriorityPairRecord] = []
-    for raw_record in payload:
+    for raw_record in cast(Iterable[object], payload):
         if not isinstance(raw_record, Mapping):
             continue
         records.append(

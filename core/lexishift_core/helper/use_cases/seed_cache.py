@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
+from typing import Optional, cast
 
 from lexishift_core.helper.lp_capabilities import (
     default_japanese_lesson_vocabulary_path,
@@ -81,8 +81,8 @@ def get_srs_seed_frontier_cache_status(
         {
             **resource_payload,
             **seed_frontier_cache_status(
-                frequency_db=Path(resource_payload["frequency_db"]),
-                config=resource_payload["config"],
+                frequency_db=Path(str(resource_payload["frequency_db"])),
+                config=cast(SeedSelectionConfig, resource_payload["config"]),
             ),
         }
     )
@@ -108,8 +108,8 @@ def prepare_srs_seed_frontier_cache(
         {
             **resource_payload,
             **prepare_seed_frontier_cache(
-                frequency_db=Path(resource_payload["frequency_db"]),
-                config=resource_payload["config"],
+                frequency_db=Path(str(resource_payload["frequency_db"])),
+                config=cast(SeedSelectionConfig, resource_payload["config"]),
                 cleanup=cleanup,
             ),
         }

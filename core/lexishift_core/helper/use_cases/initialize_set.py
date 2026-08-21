@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Sequence
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
@@ -13,6 +13,7 @@ from lexishift_core.helper.rulegen import (
     SetInitializationReport,
 )
 from lexishift_core.helper.use_cases.rule_availability import (
+    RuleAvailabilityReconciliation,
     reconcile_active_items_without_enabled_rules,
 )
 from lexishift_core.rulegen.tuning import resolve_rulegen_tuning
@@ -540,7 +541,9 @@ def _item_ids_for_lemmas(
     return tuple(item_ids)
 
 
-def _rule_availability_reconciliation_payload(reconciliations: list[object]) -> dict[str, object]:
+def _rule_availability_reconciliation_payload(
+    reconciliations: Sequence[RuleAvailabilityReconciliation],
+) -> dict[str, object]:
     if not reconciliations:
         return {
             "reason": "no_enabled_rules",

@@ -141,7 +141,7 @@ def seed_frontier_cache_status(
             header = read_seed_frontier_cache_header(cache_path)
             if valid_seed_frontier_cache_header(header):
                 payload["status"] = "ready"
-                payload["seed_count"] = int(header.get("seed_count") or 0)
+                payload["seed_count"] = int(str(header.get("seed_count") or 0))
             else:
                 payload["status"] = "error"
                 payload["error"] = "invalid_cache_header"

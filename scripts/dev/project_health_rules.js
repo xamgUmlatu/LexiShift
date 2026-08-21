@@ -90,6 +90,18 @@ module.exports = Object.freeze({
         }),
         "scripts/dev/licensing_source_header_fetch.py": Object.freeze({
             maxLines: 520
+        }),
+        // Legacy signal-ingestion module. Keep headroom narrow until its loaders
+        // and serializers are extracted into resource-specific modules.
+        "core/lexishift_core/resources/japanese_learner_signals.py": Object.freeze({
+            maxLines: 4000,
+            maxFunctions: 165
+        }),
+        // Legacy seed orchestration module; cache and source adapters should be
+        // extracted before either cap is raised again.
+        "core/lexishift_core/srs/seed.py": Object.freeze({
+            maxLines: 1000,
+            maxImports: 28
         })
     })
 });

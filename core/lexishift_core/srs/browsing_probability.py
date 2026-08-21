@@ -60,6 +60,6 @@ def _safe_float(value: object) -> float | None:
     try:
         if value is None:
             return None
-        return float(value)
+        return float(str(value))
     except (TypeError, ValueError):
         return None

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional, Sequence
+from typing import Iterable, Optional, Sequence, cast
 
 from lexishift_core.resources.japanese_learner_signals import (
     JAPANESE_LEARNER_SIGNALS_VERSION,
@@ -204,9 +204,15 @@ def extract_learner_signal_metadata(
             "learner_signal_version": JAPANESE_LEARNER_SIGNALS_VERSION,
             "learner_signal_sources": [],
         }
+    raw_sources = learner_signals.get("sources", ())
+    learner_signal_sources = (
+        list(cast(Iterable[object], raw_sources))
+        if hasattr(raw_sources, "__iter__") and not isinstance(raw_sources, (str, bytes))
+        else []
+    )
     return {
         "learner_signal_version": learner_signals.get("version"),
-        "learner_signal_sources": list(learner_signals.get("sources", ()) or ()),
+        "learner_signal_sources": learner_signal_sources,
         "learner_signals": learner_signals,
     }
 

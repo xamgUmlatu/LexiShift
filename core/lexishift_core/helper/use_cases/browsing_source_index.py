@@ -177,6 +177,17 @@ def build_srs_browsing_source_index(
             cache_key=cache_key,
             cache_source="miss",
         )
+    if resolved_set_source_db is None:
+        return _not_ready_payload(
+            pair=normalized_pair,
+            profile_id=normalized_profile_id,
+            reason="missing_required_resources",
+            missing_inputs=({"type": "frequency_db", "path": "", "reason": "not_resolved"},),
+            resources=resources,
+            cache_path=cache_path,
+            cache_key=cache_key,
+            cache_source="miss",
+        )
 
     frequency_pack = resolve_pair_frequency_pack(
         paths,
@@ -485,7 +496,7 @@ def _rule_metadata(rule: Mapping[str, object] | object) -> dict[str, object]:
         value = rule.get("metadata")
     else:
         value = getattr(rule, "metadata", None)
-    if is_dataclass(value):
+    if is_dataclass(value) and not isinstance(value, type):
         return {key: item for key, item in asdict(value).items() if item is not None}
     return dict(value) if isinstance(value, Mapping) else {}
 
@@ -501,7 +512,7 @@ def _word_package_key(metadata: Mapping[str, object]) -> str:
 
 def _effective_positive_int(value: object, *, fallback: int) -> int:
     try:
-        parsed = int(value) if value is not None else int(fallback)
+        parsed = int(str(value)) if value is not None else int(fallback)
     except (TypeError, ValueError):
         parsed = int(fallback)
     return max(1, parsed)

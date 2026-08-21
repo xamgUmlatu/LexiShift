@@ -197,7 +197,7 @@ def _item_payload(
         now=now,
     )
 
-    advanced = {
+    advanced: dict[str, object] = {
         "lifecycle_state": lifecycle_state,
         "lifecycle_reason": item.lifecycle_reason,
         "lifecycle_updated_at": item.lifecycle_updated_at,

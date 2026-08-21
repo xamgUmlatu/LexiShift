@@ -134,7 +134,7 @@ def _pack_id_values(value: object) -> tuple[str, ...]:
 
 def _safe_version(value: object) -> int:
     try:
-        parsed = int(value)
+        parsed = int(str(value))
     except (TypeError, ValueError):
         return LOOKUP_DICTIONARY_SETTINGS_VERSION
     return parsed if parsed > 0 else LOOKUP_DICTIONARY_SETTINGS_VERSION

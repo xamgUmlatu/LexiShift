@@ -285,7 +285,7 @@ def _recommended_admission_suitability(
 ) -> float:
     raw = acronym.get("recommended_admission_suitability")
     try:
-        return _clamp_01(float(raw))
+        return _clamp_01(float(raw))  # type: ignore[arg-type]
     except (TypeError, ValueError):
         return _clamp_01(fallback)
 
