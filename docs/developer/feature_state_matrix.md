@@ -2088,16 +2088,21 @@ Use this file when:
 - Status: `implemented`, `default-on`, `verified` for the shared read-only
   word-info API, selected-profile Vocabulary Library page with active-pair
   selection, built-in `quick-definition` popup module, and per-language-pair
-  selection of locally imported Yomitan format-3 popup dictionaries;
+  ordered per-language-pair selection of locally imported Yomitan format-3
+  popup dictionaries;
   cross-profile library enumeration and completed/mastered lifecycle UX remain
   planned.
 - Last documented checkpoint: `2026-08-22` contextual dictionary acquisition
   now complements the helper's user-supplied Yomitan format-3 import path. The
   helper indexes term dictionaries into local SQLite, lets one
-  installed dictionary serve multiple language pairs, and selects a primary
-  popup dictionary independently for each pair. Configured dictionaries are
-  tried before the pair's built-in lookup source, with exact surface/reading
-  identity preserved for Japanese lookup. The helper-first acquisition UI
+  installed dictionary serve multiple language pairs, and configures an ordered
+  popup-dictionary stack independently for each pair. The desktop can add,
+  remove, and move imported dictionaries without uninstalling them, keeps the
+  built-in source fixed last when the pair has one, and explicitly reports pairs
+  with no built-in popup provider. New imports are placed first without replacing
+  the existing stack. Configured dictionaries are tried in order before the
+  pair's built-in lookup source, with exact surface/reading identity preserved
+  for Japanese lookup. The helper-first acquisition UI
   explains the local-only/licensing boundary and guides users to compatible
   sources before ZIP import. Opening the community source directory now starts
   a short-lived, pair-aware Downloads check; the extension gives contextual
@@ -2125,7 +2130,12 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-22` contextual source-page guidance and validated
+- Last verified: `2026-08-22` ordered lookup-stack controls, first-match runtime
+  ordering, per-pair persistence, import-at-top behavior, built-in provider
+  status, non-destructive pair removal, restart persistence, GUI localization,
+  and packaging contracts passed `68` focused tests. The changed-file repository
+  gate also passed after the stack controller was separated from acquisition and
+  library management. `2026-08-22` contextual source-page guidance and validated
   recent-download detection passed `66` focused helper, GUI, extension,
   activation, syntax, and locale-catalog contracts. The refactored acquisition
   modules also passed the changed-file repository gate, and rebuilt macOS app
@@ -2194,9 +2204,10 @@ Use this file when:
     back to the generic directory guidance.
   - Popup-dictionary assignment is global per language pair rather than per
     profile. One installed dictionary may be assigned to multiple pairs. The
-    settings contract already stores an ordered pack-id tuple and runtime lookup
-    tries configured packs in order, but the current GUI exposes one primary
-    dictionary per pair followed by the built-in source.
+    GUI, settings contract, and runtime share an ordered pack-id tuple: new or
+    imported dictionaries are placed first, the learner can move or unassign
+    them without deleting local data, runtime returns the first matching entry,
+    and the built-in source remains fixed last when the pair supports one.
   - The content singleton is configured with the current helper client.
     `quick-definition` receives the shared `LexiShift.wordInfoApi` capability
     through the popup descriptor context and does not call native messaging or
@@ -2257,6 +2268,7 @@ Use this file when:
   - `apps/chrome-extension/learning_dashboard_theme.js`
   - `apps/chrome-extension/learning_dashboard.js`
   - `apps/gui/src/settings_lookup_dictionaries_mixin.py`
+  - `apps/gui/src/settings_lookup_dictionary_stack_mixin.py`
   - `apps/gui/src/settings_lookup_dictionary_acquisition_mixin.py`
   - `apps/gui/src/lookup_dictionary_acquisition.py`
   - `apps/gui/src/lookup_dictionary_import.py`
@@ -2275,9 +2287,10 @@ Use this file when:
   - Batch lookup for a page of library rows is not implemented.
   - The normalized public popup module API remains target architecture; the
     current module uses the existing internal popup descriptor/context pattern.
-  - The GUI does not yet expose multiple configured dictionaries or ordering
-    controls, even though the persisted/runtime contract supports ordered
-    fallback packs.
+  - The ordered lookup stack uses first-match fallback semantics; it does not
+    merge definitions from multiple dictionaries.
+  - `ja-ja`, `en-en`, `de-de`, and `es-es` currently have no built-in popup
+    provider, so they require an assigned imported dictionary for local results.
   - Yomitan media files are not imported. Structured-content image nodes use a
     safe textual fallback, so the verified image-free Daijirin archive works
     without claiming general image-dictionary support.

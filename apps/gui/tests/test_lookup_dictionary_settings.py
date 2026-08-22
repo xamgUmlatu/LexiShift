@@ -24,6 +24,7 @@ from settings_language_packs import LanguagePackPanel
 from settings_lookup_dictionaries_mixin import (
     _compatible_lookup_dictionary_directory_url,
 )
+from settings_lookup_dictionary_stack_mixin import _lookup_pair_builtin_source
 
 
 def _app() -> QApplication:
@@ -33,13 +34,17 @@ def _app() -> QApplication:
     return app
 
 
-def _write_yomitan_zip(path: Path) -> None:
+def _write_yomitan_zip(
+    path: Path,
+    *,
+    title: str = "Local Japanese Dictionary",
+) -> None:
     with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         archive.writestr(
             "index.json",
             json.dumps(
                 {
-                    "title": "Local Japanese Dictionary",
+                    "title": title,
                     "revision": "2026.1",
                     "format": 3,
                     "sourceLanguage": "ja",
@@ -57,6 +62,14 @@ def _write_yomitan_zip(path: Path) -> None:
         )
 
 
+def _add_dictionary_to_current_pair(panel: LanguagePackPanel, pack_id: str) -> None:
+    index = panel._lookup_dictionary_add_combo.findData(pack_id)
+    assert index > 0
+    panel._lookup_dictionary_add_combo.setCurrentIndex(index)
+    assert panel._lookup_dictionary_add_button.isEnabled()
+    panel._lookup_dictionary_add_button.click()
+
+
 def test_compatible_lookup_dictionary_directory_url_is_target_aware() -> None:
     japanese_url = _compatible_lookup_dictionary_directory_url("en-ja")
 
@@ -67,6 +80,14 @@ def test_compatible_lookup_dictionary_directory_url_is_target_aware() -> None:
     assert _compatible_lookup_dictionary_directory_url("en-de") == (
         "https://github.com/MarvNC/yomitan-dictionaries"
     )
+
+
+def test_builtin_lookup_source_support_is_reported_per_pair() -> None:
+    assert _lookup_pair_builtin_source("en-ja") == "jmdict"
+    assert _lookup_pair_builtin_source("en-es") == "translation"
+    assert _lookup_pair_builtin_source("en-de") == "translation"
+    assert _lookup_pair_builtin_source("ja-ja") == ""
+    assert _lookup_pair_builtin_source("es-es") == ""
 
 
 def test_language_pack_panel_exposes_lookup_dictionary_tab() -> None:
@@ -144,7 +165,7 @@ def test_lookup_dictionary_acquisition_detects_and_validates_recent_download(
         panel._clear_lookup_dictionary_acquisition()
 
 
-def test_lookup_dictionary_selection_is_saved_per_language_pair() -> None:
+def test_lookup_dictionary_stack_is_saved_per_language_pair() -> None:
     _app()
     set_locale("en")
     QSettings().remove("resources/learning_pairs")
@@ -165,20 +186,25 @@ def test_lookup_dictionary_selection_is_saved_per_language_pair() -> None:
 
         assert panel._lookup_dictionary_pair_combo.findData("ja-ja") >= 0
         assert panel._lookup_dictionary_pair_combo.findData("en-de") == -1
-        index = panel._lookup_dictionary_combo.findData(imported.dictionary.pack_id)
-        assert index > 0
-        panel._lookup_dictionary_combo.setCurrentIndex(index)
+        assert panel._lookup_dictionary_order_table.rowCount() == 1
+        assert "JMdict" in panel._lookup_dictionary_order_table.item(0, 1).text()
+        _add_dictionary_to_current_pair(panel, imported.dictionary.pack_id)
 
         ja_ja_index = panel._lookup_dictionary_pair_combo.findData("ja-ja")
         panel._lookup_dictionary_pair_combo.setCurrentIndex(ja_ja_index)
-        dictionary_index = panel._lookup_dictionary_combo.findData(imported.dictionary.pack_id)
-        assert dictionary_index > 0
-        panel._lookup_dictionary_combo.setCurrentIndex(dictionary_index)
+        assert "No built-in source" in panel._lookup_dictionary_order_table.item(0, 1).text()
+        _add_dictionary_to_current_pair(panel, imported.dictionary.pack_id)
 
         saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
         assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (imported.dictionary.pack_id,)
         assert lookup_dictionary_pack_ids_for_pair(saved, "ja-ja") == (imported.dictionary.pack_id,)
         assert lookup_dictionary_pack_ids_for_pair(saved, "en-de") == ()
+        assert panel._lookup_dictionary_order_table.rowCount() == 2
+        assert "Local Japanese Dictionary" in (
+            panel._lookup_dictionary_order_table.item(0, 1).text()
+        )
+        assert "No built-in source" in panel._lookup_dictionary_order_table.item(1, 1).text()
+        assert "no built-in popup source" in panel._lookup_dictionary_fallback.text()
         assert panel._lookup_dictionary_table.rowCount() == 1
         assert "Japanese" in panel._lookup_dictionary_table.item(0, 1).text()
         used_by = panel._lookup_dictionary_table.item(0, 2).text()
@@ -213,8 +239,7 @@ def test_lookup_dictionary_global_remove_names_affected_pairs() -> None:
         for pair in ("en-ja", "ja-ja"):
             pair_index = panel._lookup_dictionary_pair_combo.findData(pair)
             panel._lookup_dictionary_pair_combo.setCurrentIndex(pair_index)
-            dictionary_index = panel._lookup_dictionary_combo.findData(pack_id)
-            panel._lookup_dictionary_combo.setCurrentIndex(dictionary_index)
+            _add_dictionary_to_current_pair(panel, pack_id)
 
         messages: list[str] = []
 
@@ -231,9 +256,102 @@ def test_lookup_dictionary_global_remove_names_affected_pairs() -> None:
         assert messages
         assert "en-ja" in messages[0]
         assert "ja-ja" in messages[0]
-        assert "return to the built-in lookup source" in messages[0]
+        assert "remaining lookup order" in messages[0]
         saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
         assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == ()
         assert lookup_dictionary_pack_ids_for_pair(saved, "ja-ja") == ()
         assert panel.findChild(QTableWidget, "lookupDictionaryLibrary").rowCount() == 0
         assert source.exists()
+
+
+def test_lookup_dictionary_stack_adds_first_reorders_and_removes_without_uninstalling() -> None:
+    _app()
+    set_locale("en")
+    QSettings().remove("resources/learning_pairs")
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        dictionaries_dir = root / "lookup_dictionaries"
+        first_source = root / "first.zip"
+        second_source = root / "second.zip"
+        _write_yomitan_zip(first_source, title="First Dictionary")
+        _write_yomitan_zip(second_source, title="Second Dictionary")
+        first = import_yomitan_dictionary_zip(
+            first_source,
+            dictionaries_dir=dictionaries_dir,
+        )
+        second = import_yomitan_dictionary_zip(
+            second_source,
+            dictionaries_dir=dictionaries_dir,
+        )
+        with patch(
+            "settings_language_packs._lookup_dictionary_pack_dir",
+            return_value=str(dictionaries_dir),
+        ):
+            panel = LanguagePackPanel(focused_pair="en-ja", pack_source_overrides={})
+
+        _add_dictionary_to_current_pair(panel, first.dictionary.pack_id)
+        _add_dictionary_to_current_pair(panel, second.dictionary.pack_id)
+        saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
+        assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (
+            second.dictionary.pack_id,
+            first.dictionary.pack_id,
+        )
+        assert "Second Dictionary" in panel._lookup_dictionary_order_table.item(0, 1).text()
+        assert "First Dictionary" in panel._lookup_dictionary_order_table.item(1, 1).text()
+        assert "JMdict" in panel._lookup_dictionary_order_table.item(2, 1).text()
+
+        panel._move_lookup_dictionary_in_stack(second.dictionary.pack_id, 1)
+        saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
+        assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (
+            first.dictionary.pack_id,
+            second.dictionary.pack_id,
+        )
+
+        panel._remove_lookup_dictionary_from_stack(first.dictionary.pack_id)
+        saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
+        assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (second.dictionary.pack_id,)
+        assert first.artifact_path.exists()
+        assert panel._lookup_dictionary_add_combo.findData(first.dictionary.pack_id) > 0
+
+        with patch(
+            "settings_language_packs._lookup_dictionary_pack_dir",
+            return_value=str(dictionaries_dir),
+        ):
+            reopened = LanguagePackPanel(focused_pair="en-ja", pack_source_overrides={})
+        assert "Second Dictionary" in reopened._lookup_dictionary_order_table.item(0, 1).text()
+        assert "JMdict" in reopened._lookup_dictionary_order_table.item(1, 1).text()
+
+
+def test_completed_import_is_added_first_without_replacing_existing_stack() -> None:
+    _app()
+    set_locale("en")
+    QSettings().remove("resources/learning_pairs")
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        dictionaries_dir = root / "lookup_dictionaries"
+        first_source = root / "first.zip"
+        second_source = root / "second.zip"
+        _write_yomitan_zip(first_source, title="Existing Dictionary")
+        _write_yomitan_zip(second_source, title="New Dictionary")
+        first = import_yomitan_dictionary_zip(
+            first_source,
+            dictionaries_dir=dictionaries_dir,
+        )
+        second = import_yomitan_dictionary_zip(
+            second_source,
+            dictionaries_dir=dictionaries_dir,
+        )
+        with patch(
+            "settings_language_packs._lookup_dictionary_pack_dir",
+            return_value=str(dictionaries_dir),
+        ):
+            panel = LanguagePackPanel(focused_pair="en-ja", pack_source_overrides={})
+
+        _add_dictionary_to_current_pair(panel, first.dictionary.pack_id)
+        panel._on_lookup_dictionary_import_completed("en-ja", second)
+
+        saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
+        assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (
+            second.dictionary.pack_id,
+            first.dictionary.pack_id,
+        )
