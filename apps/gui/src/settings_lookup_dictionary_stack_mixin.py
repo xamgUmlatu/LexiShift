@@ -103,7 +103,9 @@ class LanguagePackPanelLookupDictionaryStackMixin(
                     if dictionary.source_language
                     else t("language_packs.lookup_dictionaries.unknown_language")
                 )
-            table.setItem(index, 1, QTableWidgetItem(name))
+            name_item = QTableWidgetItem(name)
+            name_item.setToolTip(name)
+            table.setItem(index, 1, name_item)
             table.setItem(index, 2, QTableWidgetItem(headwords))
             actions_width = max(
                 actions_width,
