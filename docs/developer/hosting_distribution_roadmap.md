@@ -151,10 +151,11 @@ Known branch-level blocker:
   `576 MB`. That is adequate evidence that the installer path works, but it is
   not broad-beta trust evidence; signing/notarization and app-size review stay
   open release tasks.
-- `npm --prefix scripts run check` currently fails at `mypy` before reaching
-  later checks. The same `409` mypy errors in `46` files are present on the
-  raw app-code baseline before the Pages/distribution merge, so this is
-  inherited app-branch type debt, not a website/distribution regression.
+- On the 2026-08-27 beta integration checkpoint, `npm --prefix scripts run
+  check` passes all `838` unit tests (`4` skipped) and then fails at `mypy` with
+  `10` errors in three existing rulegen/semantic scoring files. This remains
+  inherited type debt rather than a dictionary/SRS integration regression, but
+  it still prevents the full repository gate from completing normally.
 - `npm --prefix scripts run check:changed:report` is not a useful green gate
   for this integration branch against `origin/main` because the app-code
   baseline differs by thousands of files. Use slice-local validation until the

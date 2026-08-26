@@ -2,8 +2,8 @@
 
 Status: Active backlog
 Role: Planning / WIP
-Last updated: 2026-08-26
-Last verified: 2026-08-26 dictionary/beta infrastructure follow-up capture; older backlog content not globally re-audited
+Last updated: 2026-08-27
+Last verified: 2026-08-27 dictionary/SRS beta integration checkpoint; older backlog content not globally re-audited
 Purpose: consolidated product and architecture backlog retained after root README cleanup
 Source-of-truth: backlog planning only; current implementation truth lives in source code, tests, and `docs/developer/feature_state_matrix.md`.
 
@@ -100,8 +100,8 @@ Acceptance criteria:
 
 Captured on 2026-08-26 after implementing local Yomitan dictionary import,
 per-language-pair ordered lookup stacks, acquisition guidance, and packaged GUI
-validation. These tasks should resume after the current workstream rather than
-expanding the in-flight dictionary branch further.
+validation. The dictionary branch was integrated with the SRS beta checkpoint
+on 2026-08-27; the remaining tasks can now resume from the combined beta branch.
 
 ### Highest-priority infrastructure
 
@@ -198,8 +198,9 @@ Acceptance criteria:
 Implementation TODO:
 - Detect missing, incompatible, or corrupt installed dictionary artifacts and
   offer a clear reimport/repair path.
-- Show which dictionary supplied the displayed definition, using the existing
-  provider/pack metadata without exposing local filesystem paths.
+- Preserve the compact dictionary title already shown with displayed
+  definitions, and add clearer source/health details where recovery requires
+  them without exposing local filesystem paths.
 - Consider exporting/importing dictionary-stack assignments while explicitly
   excluding dictionary contents.
 
@@ -208,22 +209,25 @@ Acceptance criteria:
 - Users can recover without manually editing settings or managed data folders.
 - Definition-source identification remains compact and learner-friendly.
 
-### Integration checkpoint
+### Completed integration checkpoint
 
-#### INTEGRATION-01: Merge the dictionary work into the beta line while fresh
+#### INTEGRATION-01: Merge the dictionary work into the beta line while fresh — completed 2026-08-27
 
-Implementation TODO:
-- Merge or rebase the coherent dictionary commits onto the active beta line
-  before several more major feature branches accumulate.
-- Run the combined changed-file/repository gates and validated packaged build.
-- Perform a real-extension smoke covering import, per-pair ordering, first-match
-  fallback, and displayed source identity.
+Completed work:
+- Merged the coherent dictionary history into `codex/beta-integration` with the
+  SRS beta checkpoint as the other parent.
+- Passed the combined focused dictionary/word-info/extension suite, changed-file
+  gate, feature-state audit, SRS quality harness, and validated packaged build.
+- Preserved prior real-extension testing of import, per-pair ordering,
+  first-match fallback, and displayed source identity; final release-candidate
+  smoke remains part of the CWS upload checklist.
 
-Acceptance criteria:
+Recorded outcome:
 - Dictionary, popup, sentence-density, and beta-release work coexist on one
   tested integration branch.
-- Any merge conflicts are resolved from current product intent rather than
-  deferred until the code has drifted.
+- The single feature-state merge conflict was resolved from current product
+  intent, and the missing cited SRS evidence artifact was regenerated and
+  committed.
 
 ### Deliberately deferred dictionary expansion
 
