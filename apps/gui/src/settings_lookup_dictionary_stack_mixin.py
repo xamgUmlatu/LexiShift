@@ -85,7 +85,8 @@ class LanguagePackPanelLookupDictionaryStackMixin(
                 actions.hide()
                 actions.deleteLater()
         table.clearContents()
-        table.setRowCount(len(pack_ids) + 1)
+        builtin_source = _lookup_pair_builtin_source(pair)
+        table.setRowCount(len(pack_ids) + (1 if builtin_source else 0))
         actions_width = table.horizontalHeaderItem(3).sizeHint().width() + 18
         for index, pack_id in enumerate(pack_ids):
             dictionary = dictionaries.get(pack_id)
@@ -119,11 +120,19 @@ class LanguagePackPanelLookupDictionaryStackMixin(
                 ),
             )
 
-        self._set_lookup_dictionary_builtin_row(
-            table,
-            row=len(pack_ids),
-            pair=pair,
+        if builtin_source:
+            self._set_lookup_dictionary_builtin_row(
+                table,
+                row=len(pack_ids),
+                pair=pair,
+                builtin_source=builtin_source,
+            )
+        fallback_key = (
+            "language_packs.lookup_dictionaries.fallback_detail"
+            if builtin_source
+            else "language_packs.lookup_dictionaries.no_fallback_detail"
         )
+        self._lookup_dictionary_fallback.setText(t(fallback_key))
         table.setColumnWidth(3, actions_width)
         self._refresh_lookup_dictionary_add_choices()
 
@@ -139,8 +148,19 @@ class LanguagePackPanelLookupDictionaryStackMixin(
         action_layout = QHBoxLayout(actions)
         action_layout.setContentsMargins(2, 2, 2, 2)
         action_layout.setSpacing(4)
-        up_button = QPushButton(t("language_packs.lookup_dictionaries.move_up"), actions)
-        up_button.setVisible(row > 0)
+        can_move_up = row > 0
+        up_button = QPushButton("↑", actions)
+        up_button.setAccessibleName(t("language_packs.lookup_dictionaries.move_up"))
+        up_button.setProperty("resourceTableAction", True)
+        up_button.setFixedWidth(34)
+        up_button.setEnabled(can_move_up)
+        up_button.setToolTip(
+            t(
+                "language_packs.lookup_dictionaries.move_up_tooltip"
+                if can_move_up
+                else "language_packs.lookup_dictionaries.move_up_unavailable"
+            )
+        )
         up_button.clicked.connect(
             lambda checked=False, value=pack_id: self._move_lookup_dictionary_in_stack(
                 value,
@@ -148,11 +168,24 @@ class LanguagePackPanelLookupDictionaryStackMixin(
             )
         )
         action_layout.addWidget(up_button)
-        down_button = QPushButton(
-            t("language_packs.lookup_dictionaries.move_down"),
-            actions,
+        can_move_down = row < pack_count - 1
+        down_button = QPushButton("↓", actions)
+        down_button.setAccessibleName(t("language_packs.lookup_dictionaries.move_down"))
+        down_button.setProperty("resourceTableAction", True)
+        down_button.setFixedWidth(34)
+        down_button.setEnabled(can_move_down)
+        down_unavailable_key = (
+            "language_packs.lookup_dictionaries.move_down_unavailable_builtin"
+            if _lookup_pair_builtin_source(self._current_lookup_dictionary_pair())
+            else "language_packs.lookup_dictionaries.move_down_unavailable"
         )
-        down_button.setVisible(row < pack_count - 1)
+        down_button.setToolTip(
+            t(
+                "language_packs.lookup_dictionaries.move_down_tooltip"
+                if can_move_down
+                else down_unavailable_key
+            )
+        )
         down_button.clicked.connect(
             lambda checked=False, value=pack_id: self._move_lookup_dictionary_in_stack(
                 value,
@@ -164,45 +197,46 @@ class LanguagePackPanelLookupDictionaryStackMixin(
             t("language_packs.lookup_dictionaries.remove_from_pair"),
             actions,
         )
+        remove_button.setProperty("resourceTableAction", True)
+        remove_width = max(
+            remove_button.sizeHint().width(),
+            remove_button.fontMetrics().horizontalAdvance(remove_button.text()) + 40,
+        )
+        remove_button.setMinimumWidth(remove_width)
         remove_button.clicked.connect(
             lambda checked=False, value=pack_id: self._remove_lookup_dictionary_from_stack(value)
         )
         action_layout.addWidget(remove_button)
+        actions_minimum_width = 34 * 2 + remove_width + action_layout.spacing() * 2 + 8
+        actions.setMinimumWidth(actions_minimum_width)
         table.setCellWidget(row, 3, actions)
-        return actions.sizeHint().width() + 8
+        return actions_minimum_width + 8
 
-    def _set_lookup_dictionary_builtin_row(self, table, *, row: int, pair: str) -> None:
-        builtin_source = _lookup_pair_builtin_source(pair)
+    def _set_lookup_dictionary_builtin_row(
+        self,
+        table,
+        *,
+        row: int,
+        pair: str,
+        builtin_source: str,
+    ) -> None:
         table.setItem(
             row,
             0,
-            QTableWidgetItem(t("language_packs.lookup_dictionaries.order_last")),
+            QTableWidgetItem(str(row + 1)),
         )
         if builtin_source == "jmdict":
             builtin_label = t("language_packs.lookup_dictionaries.builtin_jmdict")
-        elif builtin_source == "translation":
-            builtin_label = t("language_packs.lookup_dictionaries.builtin_language_data")
         else:
-            builtin_label = t(
-                "language_packs.lookup_dictionaries.no_builtin_source",
-                pair=_stack_lookup_pair_label(pair),
-            )
+            builtin_label = t("language_packs.lookup_dictionaries.builtin_language_data")
         table.setItem(row, 1, QTableWidgetItem(builtin_label))
         target_language = _stack_lookup_pair_target_language(pair)
         table.setItem(
             row,
             2,
-            QTableWidgetItem(
-                _stack_lookup_language_label(target_language) if builtin_source else "—"
-            ),
+            QTableWidgetItem(_stack_lookup_language_label(target_language)),
         )
         table.setItem(row, 3, QTableWidgetItem("—"))
-        fallback_key = (
-            "language_packs.lookup_dictionaries.fallback_detail"
-            if builtin_source
-            else "language_packs.lookup_dictionaries.no_fallback_detail"
-        )
-        self._lookup_dictionary_fallback.setText(t(fallback_key))
 
     def _refresh_lookup_dictionary_add_choices(self) -> None:
         combo = getattr(self, "_lookup_dictionary_add_combo", None)

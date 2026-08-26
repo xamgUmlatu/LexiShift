@@ -74,11 +74,15 @@ def _stack_action_button(
     panel: LanguagePackPanel,
     *,
     row: int,
-    text: str,
+    label: str,
 ) -> QPushButton:
     actions = panel._lookup_dictionary_order_table.cellWidget(row, 3)
     assert actions is not None
-    return next(button for button in actions.findChildren(QPushButton) if button.text() == text)
+    return next(
+        button
+        for button in actions.findChildren(QPushButton)
+        if button.text() == label or button.accessibleName() == label
+    )
 
 
 def test_compatible_lookup_dictionary_directory_url_is_target_aware() -> None:
@@ -198,26 +202,40 @@ def test_lookup_dictionary_stack_is_saved_per_language_pair() -> None:
         assert panel._lookup_dictionary_pair_combo.findData("ja-ja") >= 0
         assert panel._lookup_dictionary_pair_combo.findData("en-de") == -1
         assert panel._lookup_dictionary_order_table.rowCount() == 1
+        assert panel._lookup_dictionary_order_table.item(0, 0).text() == "1"
         assert "JMdict" in panel._lookup_dictionary_order_table.item(0, 1).text()
+        assert "fixed" in panel._lookup_dictionary_order_table.item(0, 1).text()
         _add_dictionary_to_current_pair(panel, imported.dictionary.pack_id)
-        assert _stack_action_button(panel, row=0, text="Up").isHidden()
-        assert _stack_action_button(panel, row=0, text="Down").isHidden()
-        assert not _stack_action_button(panel, row=0, text="Remove from pair").isHidden()
+        move_up = _stack_action_button(panel, row=0, label="Up")
+        move_down = _stack_action_button(panel, row=0, label="Down")
+        assert move_up.text() == "↑"
+        assert move_down.text() == "↓"
+        assert not move_up.isEnabled()
+        assert not move_down.isEnabled()
+        assert "first imported source" in move_up.toolTip()
+        assert "built-in source remains fixed" in move_down.toolTip()
+        remove_from_pair = _stack_action_button(panel, row=0, label="Remove from pair...")
+        assert remove_from_pair.property("resourceTableAction")
+        assert remove_from_pair.minimumWidth() >= remove_from_pair.sizeHint().width()
+        assert panel._lookup_dictionary_order_table.columnWidth(3) > (
+            remove_from_pair.minimumWidth() + 68
+        )
+        assert panel._lookup_dictionary_order_table.item(1, 0).text() == "2"
 
         ja_ja_index = panel._lookup_dictionary_pair_combo.findData("ja-ja")
         panel._lookup_dictionary_pair_combo.setCurrentIndex(ja_ja_index)
-        assert "No built-in source" in panel._lookup_dictionary_order_table.item(0, 1).text()
+        assert panel._lookup_dictionary_order_table.rowCount() == 0
+        assert "no built-in popup source" in panel._lookup_dictionary_fallback.text()
         _add_dictionary_to_current_pair(panel, imported.dictionary.pack_id)
 
         saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
         assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (imported.dictionary.pack_id,)
         assert lookup_dictionary_pack_ids_for_pair(saved, "ja-ja") == (imported.dictionary.pack_id,)
         assert lookup_dictionary_pack_ids_for_pair(saved, "en-de") == ()
-        assert panel._lookup_dictionary_order_table.rowCount() == 2
+        assert panel._lookup_dictionary_order_table.rowCount() == 1
         assert "Local Japanese Dictionary" in (
             panel._lookup_dictionary_order_table.item(0, 1).text()
         )
-        assert "No built-in source" in panel._lookup_dictionary_order_table.item(1, 1).text()
         assert "no built-in popup source" in panel._lookup_dictionary_fallback.text()
         assert panel._lookup_dictionary_table.rowCount() == 1
         assert "Japanese" in panel._lookup_dictionary_table.item(0, 1).text()
@@ -314,9 +332,9 @@ def test_lookup_dictionary_stack_adds_first_reorders_and_removes_without_uninsta
         assert "First Dictionary" in panel._lookup_dictionary_order_table.item(1, 1).text()
         assert "JMdict" in panel._lookup_dictionary_order_table.item(2, 1).text()
 
-        assert _stack_action_button(panel, row=0, text="Up").isHidden()
-        move_second_down = _stack_action_button(panel, row=0, text="Down")
-        assert not move_second_down.isHidden()
+        assert not _stack_action_button(panel, row=0, label="Up").isEnabled()
+        move_second_down = _stack_action_button(panel, row=0, label="Down")
+        assert move_second_down.isEnabled()
         move_second_down.click()
         saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
         assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (

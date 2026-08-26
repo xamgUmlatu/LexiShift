@@ -2092,10 +2092,12 @@ Use this file when:
   popup dictionaries;
   cross-profile library enumeration and completed/mastered lifecycle UX remain
   planned.
-- Last documented checkpoint: `2026-08-26` lookup-stack actions now hide
-  impossible boundary moves instead of presenting inert controls, and removing
-  a dictionary from one language pair requires confirmation that the installed
-  local dictionary will remain available. `2026-08-22` contextual dictionary acquisition
+- Last documented checkpoint: `2026-08-26` lookup-stack rows now use consistent
+  numeric ordering, label real built-in sources as fixed, omit the former fake
+  last row when a pair has no built-in source, and keep compact up/down controls
+  visible with explicit disabled explanations. Pair unassignment uses a shorter
+  localized action that is sized to fit and requires confirmation that the
+  installed local dictionary will remain available. `2026-08-22` contextual dictionary acquisition
   now complements the helper's user-supplied Yomitan format-3 import path. The
   helper indexes term dictionaries into local SQLite, lets one
   installed dictionary serve multiple language pairs, and configures an ordered
@@ -2133,9 +2135,10 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-26` the focused lookup GUI/helper suite passed `19`
-  tests covering actionable move-button wiring, hidden impossible moves,
-  cancelled and confirmed pair unassignment, retained imported files, and the
+- Last verified: `2026-08-26` the focused lookup GUI/helper suite passed `24`
+  tests covering actionable move-button wiring, visible disabled boundary
+  controls and explanations, consistent built-in numbering, no-source row
+  omission, action sizing, cancelled and confirmed pair unassignment, retained imported files, and the
   existing import/lookup contracts. `2026-08-22` ordered lookup-stack controls, first-match runtime
   ordering, per-pair persistence, import-at-top behavior, built-in provider
   status, non-destructive pair removal, restart persistence, GUI localization,
