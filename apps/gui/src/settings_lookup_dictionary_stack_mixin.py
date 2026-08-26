@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from PySide6.QtWidgets import (
     QHBoxLayout,
+    QMessageBox,
     QPushButton,
     QTableWidgetItem,
     QWidget,
@@ -17,6 +18,7 @@ from lexishift_core.helper.lookup_dictionary_settings import (
     save_lookup_dictionary_settings,
     with_lookup_dictionary_pack_ids,
 )
+from localized_message_box import localized_question
 from settings_lookup_dictionary_acquisition_mixin import (
     LanguagePackPanelLookupDictionaryAcquisitionMixin,
 )
@@ -138,7 +140,7 @@ class LanguagePackPanelLookupDictionaryStackMixin(
         action_layout.setContentsMargins(2, 2, 2, 2)
         action_layout.setSpacing(4)
         up_button = QPushButton(t("language_packs.lookup_dictionaries.move_up"), actions)
-        up_button.setEnabled(row > 0)
+        up_button.setVisible(row > 0)
         up_button.clicked.connect(
             lambda checked=False, value=pack_id: self._move_lookup_dictionary_in_stack(
                 value,
@@ -150,7 +152,7 @@ class LanguagePackPanelLookupDictionaryStackMixin(
             t("language_packs.lookup_dictionaries.move_down"),
             actions,
         )
-        down_button.setEnabled(row < pack_count - 1)
+        down_button.setVisible(row < pack_count - 1)
         down_button.clicked.connect(
             lambda checked=False, value=pack_id: self._move_lookup_dictionary_in_stack(
                 value,
@@ -349,6 +351,20 @@ class LanguagePackPanelLookupDictionaryStackMixin(
             None,
         )
         title = dictionary.title if dictionary is not None else pack_id
+        pair_label = _stack_lookup_pair_label(self._current_lookup_dictionary_pair())
+        reply = localized_question(
+            self,
+            t("language_packs.lookup_dictionaries.remove_from_pair_title"),
+            t(
+                "language_packs.lookup_dictionaries.remove_from_pair_message",
+                title=title,
+                pair=pair_label,
+            ),
+            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.Cancel,
+        )
+        if reply != QMessageBox.Yes:
+            return
         self._save_lookup_dictionary_stack(
             tuple(value for value in current if value != pack_id),
             status_key="language_packs.lookup_dictionaries.removed_from_pair",

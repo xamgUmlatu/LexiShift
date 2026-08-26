@@ -10,7 +10,7 @@ import zipfile
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import QSettings
-from PySide6.QtWidgets import QApplication, QLabel, QMessageBox, QTableWidget
+from PySide6.QtWidgets import QApplication, QLabel, QMessageBox, QPushButton, QTableWidget
 
 from i18n import set_locale
 from lexishift_core.helper.lookup_dictionary_settings import (
@@ -68,6 +68,17 @@ def _add_dictionary_to_current_pair(panel: LanguagePackPanel, pack_id: str) -> N
     panel._lookup_dictionary_add_combo.setCurrentIndex(index)
     assert panel._lookup_dictionary_add_button.isEnabled()
     panel._lookup_dictionary_add_button.click()
+
+
+def _stack_action_button(
+    panel: LanguagePackPanel,
+    *,
+    row: int,
+    text: str,
+) -> QPushButton:
+    actions = panel._lookup_dictionary_order_table.cellWidget(row, 3)
+    assert actions is not None
+    return next(button for button in actions.findChildren(QPushButton) if button.text() == text)
 
 
 def test_compatible_lookup_dictionary_directory_url_is_target_aware() -> None:
@@ -189,6 +200,9 @@ def test_lookup_dictionary_stack_is_saved_per_language_pair() -> None:
         assert panel._lookup_dictionary_order_table.rowCount() == 1
         assert "JMdict" in panel._lookup_dictionary_order_table.item(0, 1).text()
         _add_dictionary_to_current_pair(panel, imported.dictionary.pack_id)
+        assert _stack_action_button(panel, row=0, text="Up").isHidden()
+        assert _stack_action_button(panel, row=0, text="Down").isHidden()
+        assert not _stack_action_button(panel, row=0, text="Remove from pair").isHidden()
 
         ja_ja_index = panel._lookup_dictionary_pair_combo.findData("ja-ja")
         panel._lookup_dictionary_pair_combo.setCurrentIndex(ja_ja_index)
@@ -300,14 +314,41 @@ def test_lookup_dictionary_stack_adds_first_reorders_and_removes_without_uninsta
         assert "First Dictionary" in panel._lookup_dictionary_order_table.item(1, 1).text()
         assert "JMdict" in panel._lookup_dictionary_order_table.item(2, 1).text()
 
-        panel._move_lookup_dictionary_in_stack(second.dictionary.pack_id, 1)
+        assert _stack_action_button(panel, row=0, text="Up").isHidden()
+        move_second_down = _stack_action_button(panel, row=0, text="Down")
+        assert not move_second_down.isHidden()
+        move_second_down.click()
         saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
         assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (
             first.dictionary.pack_id,
             second.dictionary.pack_id,
         )
 
-        panel._remove_lookup_dictionary_from_stack(first.dictionary.pack_id)
+        messages: list[str] = []
+
+        def reject_remove(_parent, _title, message, *_args):
+            messages.append(message)
+            return QMessageBox.Cancel
+
+        with patch(
+            "settings_lookup_dictionary_stack_mixin.localized_question",
+            side_effect=reject_remove,
+        ):
+            panel._remove_lookup_dictionary_from_stack(first.dictionary.pack_id)
+        saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
+        assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (
+            first.dictionary.pack_id,
+            second.dictionary.pack_id,
+        )
+        assert messages
+        assert "will not be deleted" in messages[0]
+        assert "en-ja" in messages[0]
+
+        with patch(
+            "settings_lookup_dictionary_stack_mixin.localized_question",
+            return_value=QMessageBox.Yes,
+        ):
+            panel._remove_lookup_dictionary_from_stack(first.dictionary.pack_id)
         saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
         assert lookup_dictionary_pack_ids_for_pair(saved, "en-ja") == (second.dictionary.pack_id,)
         assert first.artifact_path.exists()
