@@ -2,10 +2,36 @@
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const PROMPT_ID = "lexishift-manual-source-prompt";
   const DISMISS_PREFIX = "lexishift.manualSourcePrompt.dismissed.";
+  const dictionaryGuidance = root.manualSourceDictionaryGuidance || {};
+  const dictionaryEntries = Array.isArray(dictionaryGuidance.entries)
+    ? dictionaryGuidance.entries
+    : [];
+  const findRecommendedEntryElement =
+    typeof dictionaryGuidance.findRecommendedEntryElement === "function"
+      ? dictionaryGuidance.findRecommendedEntryElement
+      : () => null;
+  const focusRecommendedEntry =
+    typeof dictionaryGuidance.focusRecommendedEntry === "function"
+      ? dictionaryGuidance.focusRecommendedEntry
+      : () => false;
 
   const ENTRIES = Object.freeze([
+    ...dictionaryEntries,
+    Object.freeze({
+      packId: "lookup-dictionary-directory",
+      mode: "dictionary-directory",
+      name: "Yomitan popup dictionaries",
+      source: "community-maintained directory",
+      pageMatches: [
+        Object.freeze({
+          hostname: "github.com",
+          pathname: "/MarvNC/yomitan-dictionaries"
+        })
+      ]
+    }),
     Object.freeze({
       packId: "freq-ja-bccwj",
+      mode: "manual-download",
       pair: "en-ja",
       name: "BCCWJ Japanese Frequency (SUW)",
       source: "NINJAL",
@@ -43,9 +69,11 @@
     }
     const hostname = String(matcher.hostname || "").trim().toLowerCase();
     const pathname = normalizePathname(matcher.pathname);
+    const hash = String(matcher.hash || "").trim();
     return (
       url.hostname.toLowerCase() === hostname
       && normalizePathname(url.pathname) === pathname
+      && (!hash || url.hash === hash)
     );
   }
 
@@ -176,12 +204,14 @@
 }
 .body,
 .file,
+.format,
 .after {
   margin: 8px 0 0;
   font-size: 12px;
   line-height: 1.45;
 }
 .file,
+.format,
 .after {
   color: #5d5146;
 }
@@ -236,11 +266,18 @@ button[data-variant="primary"]:focus-visible {
     header.className = "header";
     const title = document.createElement("h2");
     title.className = "title";
-    title.textContent = t(
-      "manual_source_prompt_title",
-      [],
-      "LexiShift data source"
-    );
+    const isDictionaryDirectory = entry.mode === "dictionary-directory";
+    title.textContent = isDictionaryDirectory
+      ? t(
+        "dictionary_source_prompt_title",
+        [],
+        "LexiShift popup dictionaries"
+      )
+      : t(
+        "manual_source_prompt_title",
+        [],
+        "LexiShift data source"
+      );
     const closeButton = createButton(
       t("manual_source_prompt_dismiss", [], "Dismiss"),
       "secondary"
@@ -253,6 +290,67 @@ button[data-variant="primary"]:focus-visible {
 
     const body = document.createElement("p");
     body.className = "body";
+    if (isDictionaryDirectory) {
+      body.textContent = t(
+        "dictionary_source_prompt_body",
+        [],
+        "LexiShift can import compatible Yomitan format-3 term dictionary ZIPs from this community-maintained directory. Review each dictionary's license or terms before obtaining it."
+      );
+      const after = document.createElement("p");
+      after.className = "after";
+      after.textContent = t(
+        "dictionary_source_prompt_after_download",
+        [],
+        "After downloading an eligible ZIP, return to LexiShift. The desktop app will validate it and offer to import it locally."
+      );
+      if (entry.recommendedName) {
+        const recommendation = document.createElement("p");
+        recommendation.className = "file";
+        recommendation.textContent = t(
+          "dictionary_source_prompt_recommended",
+          [entry.recommendedName],
+          "Recommended for Japanese: $1"
+        );
+        const format = document.createElement("p");
+        format.className = "format";
+        format.textContent = t(
+          "dictionary_source_prompt_format",
+          [entry.recommendedFormat],
+          "Format: $1"
+        );
+        const actions = document.createElement("div");
+        actions.className = "actions";
+        const locateButton = createButton(
+          t(
+            "dictionary_source_prompt_show_entry",
+            [],
+            "Show recommended entry"
+          ),
+          "primary"
+        );
+        locateButton.addEventListener("click", () => {
+          const found = focusRecommendedEntry(entry);
+          after.textContent = found
+            ? t(
+              "dictionary_source_prompt_entry_found",
+              [],
+              "Recommended entry highlighted. Use its download link on this page, then return to LexiShift."
+            )
+            : t(
+              "dictionary_source_prompt_entry_missing",
+              [entry.recommendedName],
+              "The page changed and the recommended entry could not be found. Search this page for $1."
+            );
+        });
+        actions.append(locateButton);
+        card.append(header, body, recommendation, format, actions, after);
+      } else {
+        card.append(header, body, after);
+      }
+      shadow.append(style, card);
+      document.body.append(host);
+      return true;
+    }
     body.textContent = t(
       "manual_source_prompt_body",
       [entry.name, entry.pair],
@@ -316,6 +414,8 @@ button[data-variant="primary"]:focus-visible {
   root.manualSourcePrompt = {
     entries: ENTRIES,
     findEntryForUrl,
+    findRecommendedEntryElement,
+    focusRecommendedEntry,
     renderManualSourcePrompt,
     init
   };

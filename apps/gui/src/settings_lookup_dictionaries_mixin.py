@@ -33,10 +33,14 @@ from lexishift_core.helper.yomitan_lookup_dictionaries import (
 )
 from localized_message_box import localized_question, prepare_message_box
 from lookup_dictionary_import import YomitanDictionaryImportThread
+from settings_lookup_dictionary_stack_mixin import (
+    LanguagePackPanelLookupDictionaryStackMixin,
+)
 from utils_paths import reveal_path
 
 
 _COMPATIBLE_DICTIONARY_DIRECTORY_URL = "https://github.com/MarvNC/yomitan-dictionaries"
+_JAPANESE_DICTIONARY_DIRECTORY_SECTION = "#daijirin-fourth-edition"
 
 _LOOKUP_LANGUAGE_LABEL_KEYS = {
     "de": "languages.german",
@@ -67,6 +71,12 @@ def _lookup_pair_target_language(pair: str) -> str:
     return target if separator else ""
 
 
+def _compatible_lookup_dictionary_directory_url(pair: str) -> str:
+    if _lookup_pair_target_language(pair) == "ja":
+        return _COMPATIBLE_DICTIONARY_DIRECTORY_URL + _JAPANESE_DICTIONARY_DIRECTORY_SECTION
+    return _COMPATIBLE_DICTIONARY_DIRECTORY_URL
+
+
 def _format_lookup_dictionary_size(size_bytes: int) -> str:
     size = max(0, int(size_bytes))
     units = ("B", "KB", "MB", "GB")
@@ -80,9 +90,10 @@ def _format_lookup_dictionary_size(size_bytes: int) -> str:
     return f"{size} B"
 
 
-class LanguagePackPanelLookupDictionariesMixin:
+class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionaryStackMixin):
     def _initialize_lookup_dictionaries(self) -> None:
         self._lookup_dictionary_threads: list[YomitanDictionaryImportThread] = []
+        self._lookup_dictionary_download_candidate = None
         self._lookup_dictionary_settings_path = Path(self._lookup_dictionary_dir) / "settings.json"
         self._lookup_dictionary_settings = load_lookup_dictionary_settings(
             self._lookup_dictionary_settings_path
@@ -117,6 +128,49 @@ class LanguagePackPanelLookupDictionariesMixin:
         description.setWordWrap(True)
         layout.addWidget(description)
 
+        add_title = QLabel(t("language_packs.lookup_dictionaries.add_title"), tab)
+        add_title.setProperty("resourceSectionTitle", True)
+        layout.addWidget(add_title)
+        add_description = QLabel(
+            t("language_packs.lookup_dictionaries.add_description"),
+            tab,
+        )
+        add_description.setProperty("resourceDescription", True)
+        add_description.setWordWrap(True)
+        layout.addWidget(add_description)
+
+        action_row = QHBoxLayout()
+        self._lookup_dictionary_find_button = QPushButton(
+            t("language_packs.lookup_dictionaries.find_compatible"),
+            tab,
+        )
+        self._lookup_dictionary_find_button.setObjectName("settingsPrimaryButton")
+        self._lookup_dictionary_find_button.clicked.connect(
+            self._show_compatible_lookup_dictionaries
+        )
+        action_row.addWidget(self._lookup_dictionary_find_button)
+        self._lookup_dictionary_detected_import_button = QPushButton(
+            t("language_packs.lookup_dictionaries.import_detected_zip"),
+            tab,
+        )
+        self._lookup_dictionary_detected_import_button.clicked.connect(
+            self._import_detected_lookup_dictionary_zip
+        )
+        self._lookup_dictionary_detected_import_button.setVisible(False)
+        action_row.addWidget(self._lookup_dictionary_detected_import_button)
+        self._lookup_dictionary_import_button = QPushButton(
+            t("language_packs.lookup_dictionaries.import_downloaded_zip"),
+            tab,
+        )
+        self._lookup_dictionary_import_button.clicked.connect(self._select_lookup_dictionary_zip)
+        action_row.addWidget(self._lookup_dictionary_import_button)
+        action_row.addStretch(1)
+        layout.addLayout(action_row)
+
+        self._lookup_dictionary_status = QLabel("", tab)
+        self._lookup_dictionary_status.setWordWrap(True)
+        layout.addWidget(self._lookup_dictionary_status)
+
         assignment_title = QLabel(
             t("language_packs.lookup_dictionaries.assignment_title"),
             tab,
@@ -130,12 +184,50 @@ class LanguagePackPanelLookupDictionariesMixin:
         pair_row.addWidget(self._lookup_dictionary_pair_combo, 1)
         layout.addLayout(pair_row)
 
+        order_description = QLabel(
+            t("language_packs.lookup_dictionaries.lookup_order_description"),
+            tab,
+        )
+        order_description.setProperty("resourceDescription", True)
+        order_description.setWordWrap(True)
+        layout.addWidget(order_description)
+
+        self._lookup_dictionary_order_table = QTableWidget(tab)
+        self._lookup_dictionary_order_table.setObjectName("lookupDictionaryOrder")
+        self._lookup_dictionary_order_table.setColumnCount(4)
+        self._lookup_dictionary_order_table.setHorizontalHeaderLabels(
+            [
+                t("language_packs.lookup_dictionaries.headers.order"),
+                t("language_packs.lookup_dictionaries.headers.dictionary"),
+                t("language_packs.lookup_dictionaries.headers.headwords"),
+                t("language_packs.lookup_dictionaries.headers.actions"),
+            ]
+        )
+        self._lookup_dictionary_order_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self._lookup_dictionary_order_table.setSelectionMode(QAbstractItemView.NoSelection)
+        self._lookup_dictionary_order_table.setAlternatingRowColors(True)
+        self._lookup_dictionary_order_table.verticalHeader().setVisible(False)
+        self._lookup_dictionary_order_table.verticalHeader().setDefaultSectionSize(48)
+        order_header = self._lookup_dictionary_order_table.horizontalHeader()
+        order_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        order_header.setSectionResizeMode(1, QHeaderView.Stretch)
+        order_header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
+        order_header.setSectionResizeMode(3, QHeaderView.Fixed)
+        self._lookup_dictionary_order_table.setMinimumHeight(190)
+        layout.addWidget(self._lookup_dictionary_order_table)
+
         dictionary_row = QHBoxLayout()
         dictionary_row.addWidget(
-            QLabel(t("language_packs.lookup_dictionaries.active_dictionary"), tab)
+            QLabel(t("language_packs.lookup_dictionaries.add_installed_dictionary"), tab)
         )
-        self._lookup_dictionary_combo = QComboBox(tab)
-        dictionary_row.addWidget(self._lookup_dictionary_combo, 1)
+        self._lookup_dictionary_add_combo = QComboBox(tab)
+        dictionary_row.addWidget(self._lookup_dictionary_add_combo, 1)
+        self._lookup_dictionary_add_button = QPushButton(
+            t("language_packs.lookup_dictionaries.add_to_lookup_order"),
+            tab,
+        )
+        self._lookup_dictionary_add_button.clicked.connect(self._add_lookup_dictionary_to_stack)
+        dictionary_row.addWidget(self._lookup_dictionary_add_button)
         layout.addLayout(dictionary_row)
 
         self._lookup_dictionary_detail = QLabel("", tab)
@@ -192,7 +284,9 @@ class LanguagePackPanelLookupDictionariesMixin:
         header_view.setSectionResizeMode(1, QHeaderView.ResizeToContents)
         header_view.setSectionResizeMode(2, QHeaderView.Stretch)
         header_view.setSectionResizeMode(3, QHeaderView.ResizeToContents)
-        header_view.setSectionResizeMode(4, QHeaderView.ResizeToContents)
+        # QHeaderView does not include cell-widget size hints when calculating
+        # ResizeToContents, so the actions column is sized explicitly below.
+        header_view.setSectionResizeMode(4, QHeaderView.Fixed)
         self._lookup_dictionary_table.setMinimumHeight(190)
         layout.addWidget(self._lookup_dictionary_table, 1)
 
@@ -204,49 +298,16 @@ class LanguagePackPanelLookupDictionariesMixin:
         self._lookup_dictionary_empty.setWordWrap(True)
         layout.addWidget(self._lookup_dictionary_empty)
 
-        add_title = QLabel(t("language_packs.lookup_dictionaries.add_title"), tab)
-        add_title.setProperty("resourceSectionTitle", True)
-        layout.addWidget(add_title)
-        add_description = QLabel(
-            t("language_packs.lookup_dictionaries.add_description"),
-            tab,
-        )
-        add_description.setProperty("resourceDescription", True)
-        add_description.setWordWrap(True)
-        layout.addWidget(add_description)
-
-        action_row = QHBoxLayout()
-        self._lookup_dictionary_import_button = QPushButton(
-            t("language_packs.lookup_dictionaries.import_zip"),
-            tab,
-        )
-        self._lookup_dictionary_import_button.setObjectName("settingsPrimaryButton")
-        self._lookup_dictionary_import_button.clicked.connect(self._select_lookup_dictionary_zip)
-        action_row.addWidget(self._lookup_dictionary_import_button)
-        self._lookup_dictionary_find_button = QPushButton(
-            t("language_packs.lookup_dictionaries.find_compatible"),
-            tab,
-        )
-        self._lookup_dictionary_find_button.clicked.connect(
-            self._show_compatible_lookup_dictionaries
-        )
-        action_row.addWidget(self._lookup_dictionary_find_button)
-        action_row.addStretch(1)
-        layout.addLayout(action_row)
-
-        self._lookup_dictionary_status = QLabel("", tab)
-        self._lookup_dictionary_status.setWordWrap(True)
-        layout.addWidget(self._lookup_dictionary_status)
-
         self._lookup_dictionary_pair_combo.currentIndexChanged.connect(
-            self._refresh_lookup_dictionary_choices
+            self._refresh_lookup_dictionary_stack
         )
-        self._lookup_dictionary_combo.currentIndexChanged.connect(
-            self._persist_lookup_dictionary_choice
+        self._lookup_dictionary_add_combo.currentIndexChanged.connect(
+            self._refresh_lookup_dictionary_add_detail
         )
         self._refresh_lookup_dictionary_pair_choices()
-        self._refresh_lookup_dictionary_choices()
+        self._refresh_lookup_dictionary_stack()
         self._refresh_installed_lookup_dictionary_library()
+        self._refresh_lookup_dictionary_download_candidate()
         return tab
 
     def _refresh_learning_pair_cards(self) -> None:
@@ -318,98 +379,6 @@ class LanguagePackPanelLookupDictionariesMixin:
     def _installed_lookup_dictionaries(self):
         return list_installed_lookup_dictionaries(Path(self._lookup_dictionary_dir))
 
-    def _refresh_lookup_dictionary_choices(self) -> None:
-        combo = getattr(self, "_lookup_dictionary_combo", None)
-        if combo is None:
-            return
-        pair = self._current_lookup_dictionary_pair()
-        selected_ids = lookup_dictionary_pack_ids_for_pair(
-            self._lookup_dictionary_settings,
-            pair,
-        )
-        selected_id = selected_ids[0] if selected_ids else ""
-        dictionaries = self._installed_lookup_dictionaries()
-        self._updating_lookup_dictionary_controls = True
-        try:
-            combo.clear()
-            combo.addItem(
-                t("language_packs.lookup_dictionaries.default_dictionary"),
-                "",
-            )
-            selected_index = 0
-            for dictionary in dictionaries:
-                label = dictionary.title
-                if dictionary.revision:
-                    label = f"{label} — {dictionary.revision}"
-                combo.addItem(label, dictionary.pack_id)
-                if dictionary.pack_id == selected_id:
-                    selected_index = combo.count() - 1
-            combo.setCurrentIndex(selected_index)
-        finally:
-            self._updating_lookup_dictionary_controls = False
-        self._refresh_lookup_dictionary_detail()
-
-    def _refresh_lookup_dictionary_detail(self) -> None:
-        combo = getattr(self, "_lookup_dictionary_combo", None)
-        if combo is None:
-            return
-        pack_id = str(combo.currentData() or "").strip()
-        dictionary = next(
-            (item for item in self._installed_lookup_dictionaries() if item.pack_id == pack_id),
-            None,
-        )
-        if dictionary is None:
-            self._lookup_dictionary_detail.setText(
-                t("language_packs.lookup_dictionaries.default_detail")
-            )
-            self._lookup_dictionary_compatibility.clear()
-            return
-        self._lookup_dictionary_detail.setText(
-            t(
-                "language_packs.lookup_dictionaries.dictionary_detail",
-                title=dictionary.title,
-                revision=dictionary.revision or "—",
-                terms=dictionary.term_count,
-                filename=dictionary.source_filename or "—",
-            )
-        )
-        pair_language = _lookup_pair_target_language(self._current_lookup_dictionary_pair())
-        dictionary_language = dictionary.source_language
-        if dictionary_language and pair_language and dictionary_language != pair_language:
-            self._lookup_dictionary_compatibility.setText(
-                t(
-                    "language_packs.lookup_dictionaries.compatibility_warning",
-                    dictionary_language=_lookup_language_label(dictionary_language),
-                    pair_language=_lookup_language_label(pair_language),
-                )
-            )
-        elif not dictionary_language:
-            self._lookup_dictionary_compatibility.setText(
-                t("language_packs.lookup_dictionaries.compatibility_unknown")
-            )
-        else:
-            self._lookup_dictionary_compatibility.clear()
-
-    def _persist_lookup_dictionary_choice(self) -> None:
-        if getattr(self, "_updating_lookup_dictionary_controls", False):
-            return
-        pair = self._current_lookup_dictionary_pair()
-        pack_id = str(self._lookup_dictionary_combo.currentData() or "").strip()
-        self._lookup_dictionary_settings = with_lookup_dictionary_pack_ids(
-            self._lookup_dictionary_settings,
-            pair=pair,
-            pack_ids=(pack_id,) if pack_id else (),
-        )
-        save_lookup_dictionary_settings(
-            self._lookup_dictionary_settings,
-            self._lookup_dictionary_settings_path,
-        )
-        self._refresh_lookup_dictionary_detail()
-        self._lookup_dictionary_status.setText(
-            t("language_packs.lookup_dictionaries.selection_saved")
-        )
-        self._refresh_installed_lookup_dictionary_library()
-
     def _lookup_dictionary_used_by_pairs(self, pack_id: str) -> tuple[str, ...]:
         return tuple(
             pair
@@ -461,6 +430,7 @@ class LanguagePackPanelLookupDictionariesMixin:
         table.setRowCount(len(dictionaries))
         self._lookup_dictionary_empty.setVisible(not dictionaries)
         table.setVisible(bool(dictionaries))
+        actions_width = table.horizontalHeaderItem(4).sizeHint().width() + 18
         for row, dictionary in enumerate(dictionaries):
             name = dictionary.title
             if dictionary.revision:
@@ -500,6 +470,9 @@ class LanguagePackPanelLookupDictionariesMixin:
                 t("language_packs.lookup_dictionaries.show_files"),
                 actions,
             )
+            show_button.setMinimumWidth(
+                show_button.fontMetrics().horizontalAdvance(show_button.text()) + 28
+            )
             show_button.clicked.connect(
                 lambda checked=False, pack_id=dictionary.pack_id: (
                     self._show_lookup_dictionary_files(pack_id)
@@ -510,6 +483,9 @@ class LanguagePackPanelLookupDictionariesMixin:
                 t("language_packs.lookup_dictionaries.remove"),
                 actions,
             )
+            remove_button.setMinimumWidth(
+                remove_button.fontMetrics().horizontalAdvance(remove_button.text()) + 28
+            )
             remove_button.clicked.connect(
                 lambda checked=False, pack_id=dictionary.pack_id: self._remove_lookup_dictionary(
                     pack_id
@@ -517,29 +493,55 @@ class LanguagePackPanelLookupDictionariesMixin:
             )
             action_layout.addWidget(remove_button)
             table.setCellWidget(row, 4, actions)
+            actions_width = max(actions_width, actions.sizeHint().width() + 8)
+        if dictionaries:
+            table.setColumnWidth(4, actions_width)
 
     def _show_lookup_dictionary_files(self, pack_id: str) -> None:
         reveal_path(str(Path(self._lookup_dictionary_dir) / pack_id))
 
     def _show_compatible_lookup_dictionaries(self) -> None:
+        pair = self._current_lookup_dictionary_pair()
+        pair_label = _lookup_pair_label(pair)
+        target_language = _lookup_language_label(_lookup_pair_target_language(pair))
+        directory_url = _compatible_lookup_dictionary_directory_url(pair)
         dialog = QMessageBox(self)
         dialog.setIcon(QMessageBox.Information)
         dialog.setWindowTitle(t("language_packs.lookup_dictionaries.find_compatible_title"))
-        dialog.setText(t("language_packs.lookup_dictionaries.find_compatible_summary"))
-        dialog.setInformativeText(t("language_packs.lookup_dictionaries.find_compatible_details"))
+        dialog.setText(
+            t(
+                "language_packs.lookup_dictionaries.find_compatible_summary",
+                pair=pair_label,
+            )
+        )
+        dialog.setInformativeText(
+            t(
+                "language_packs.lookup_dictionaries.find_compatible_details",
+                target_language=target_language,
+            )
+        )
+        dialog.setDetailedText(
+            t(
+                "language_packs.lookup_dictionaries.find_compatible_technical_details",
+                pair=pair,
+                target_language=target_language,
+                directory_url=directory_url,
+            )
+        )
         directory_button = dialog.addButton(
             t("language_packs.lookup_dictionaries.open_community_directory"),
-            QMessageBox.ButtonRole.ActionRole,
+            QMessageBox.ButtonRole.AcceptRole,
         )
         import_button = dialog.addButton(
-            t("language_packs.lookup_dictionaries.import_zip"),
-            QMessageBox.ButtonRole.AcceptRole,
+            t("language_packs.lookup_dictionaries.import_downloaded_zip"),
+            QMessageBox.ButtonRole.ActionRole,
         )
         dialog.addButton(QMessageBox.Close)
         prepare_message_box(dialog)
         dialog.exec()
         if dialog.clickedButton() == directory_button:
-            webbrowser.open(_COMPATIBLE_DICTIONARY_DIRECTORY_URL)
+            self._begin_lookup_dictionary_acquisition(pair)
+            webbrowser.open(directory_url)
             self._lookup_dictionary_status.setText(
                 t("language_packs.lookup_dictionaries.community_directory_opened")
             )
@@ -560,6 +562,14 @@ class LanguagePackPanelLookupDictionariesMixin:
         )
         if not source_path:
             return
+        self._confirm_and_start_lookup_dictionary_import(Path(source_path))
+
+    def _confirm_and_start_lookup_dictionary_import(
+        self,
+        source_path: Path,
+        *,
+        pair: str = "",
+    ) -> None:
         reply = localized_question(
             self,
             t("language_packs.lookup_dictionaries.rights_title"),
@@ -571,9 +581,11 @@ class LanguagePackPanelLookupDictionariesMixin:
             return
         if hasattr(self, "_remember_manual_source_import_dir"):
             self._remember_manual_source_import_dir(source_path)
-        pair = self._current_lookup_dictionary_pair()
+        selected_pair = normalize_pair_key(pair, default="") or (
+            self._current_lookup_dictionary_pair()
+        )
         thread = YomitanDictionaryImportThread(
-            pair=pair,
+            pair=selected_pair,
             source_path=source_path,
             dictionaries_dir=self._lookup_dictionary_dir,
             parent=self,
@@ -602,17 +614,22 @@ class LanguagePackPanelLookupDictionariesMixin:
         pack_id = str(getattr(dictionary, "pack_id", "") or "").strip()
         title = str(getattr(dictionary, "title", "") or pack_id).strip()
         if pack_id:
+            current = lookup_dictionary_pack_ids_for_pair(
+                self._lookup_dictionary_settings,
+                pair,
+            )
             self._lookup_dictionary_settings = with_lookup_dictionary_pack_ids(
                 self._lookup_dictionary_settings,
                 pair=pair,
-                pack_ids=(pack_id,),
+                pack_ids=(pack_id, *(value for value in current if value != pack_id)),
             )
             save_lookup_dictionary_settings(
                 self._lookup_dictionary_settings,
                 self._lookup_dictionary_settings_path,
             )
+        self._clear_lookup_dictionary_acquisition()
         self._refresh_lookup_dictionary_pair_choices(preferred_pair=pair)
-        self._refresh_lookup_dictionary_choices()
+        self._refresh_lookup_dictionary_stack()
         self._refresh_installed_lookup_dictionary_library()
         self._lookup_dictionary_status.setText(
             t("language_packs.lookup_dictionaries.imported", title=title)
@@ -645,11 +662,14 @@ class LanguagePackPanelLookupDictionariesMixin:
     def _set_lookup_dictionary_import_active(self, active: bool) -> None:
         self._lookup_dictionary_import_button.setEnabled(not active)
         self._lookup_dictionary_find_button.setEnabled(not active)
+        self._lookup_dictionary_detected_import_button.setEnabled(not active)
         self._lookup_dictionary_pair_combo.setEnabled(not active)
-        self._lookup_dictionary_combo.setEnabled(not active)
+        self._lookup_dictionary_add_combo.setEnabled(not active)
+        self._lookup_dictionary_add_button.setEnabled(False)
+        self._lookup_dictionary_order_table.setEnabled(not active)
         self._lookup_dictionary_table.setEnabled(not active)
         if not active:
-            self._refresh_lookup_dictionary_detail()
+            self._refresh_lookup_dictionary_add_detail()
 
     def _remove_lookup_dictionary(self, pack_id: str) -> None:
         dictionary = next(
@@ -690,7 +710,7 @@ class LanguagePackPanelLookupDictionariesMixin:
         )
         current_pair = self._current_lookup_dictionary_pair()
         self._refresh_lookup_dictionary_pair_choices(preferred_pair=current_pair)
-        self._refresh_lookup_dictionary_choices()
+        self._refresh_lookup_dictionary_stack()
         self._refresh_installed_lookup_dictionary_library()
         self._lookup_dictionary_status.setText(
             t("language_packs.lookup_dictionaries.removed", title=dictionary.title)

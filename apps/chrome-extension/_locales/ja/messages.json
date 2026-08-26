@@ -1730,6 +1730,30 @@
   "manual_source_prompt_title": {
     "message": "LexiShift データソース"
   },
+  "dictionary_source_prompt_title": {
+    "message": "LexiShift ポップアップ辞書"
+  },
+  "dictionary_source_prompt_body": {
+    "message": "このコミュニティ管理の一覧から、対応する Yomitan 形式3の単語辞書 ZIP を LexiShift にインポートできます。入手前に各辞書のライセンスや利用条件を確認してください。"
+  },
+  "dictionary_source_prompt_after_download": {
+    "message": "使用可能な ZIP をダウンロードしたら LexiShift に戻ってください。デスクトップアプリがファイルを検証し、ローカルインポートを案内します。"
+  },
+  "dictionary_source_prompt_recommended": {
+    "message": "日本語向けのおすすめ: $1"
+  },
+  "dictionary_source_prompt_format": {
+    "message": "形式: $1"
+  },
+  "dictionary_source_prompt_show_entry": {
+    "message": "おすすめの項目を表示"
+  },
+  "dictionary_source_prompt_entry_found": {
+    "message": "おすすめの項目を強調表示しました。このページのダウンロードリンクを使用し、完了後に LexiShift に戻ってください。"
+  },
+  "dictionary_source_prompt_entry_missing": {
+    "message": "ページが変更されたため、おすすめの項目を見つけられませんでした。このページで「$1」を検索してください。"
+  },
   "manual_source_prompt_body": {
     "message": "このページには $2 用の $1 があります。提供元の利用条件を確認してから、必要なソースファイルをダウンロードしてください。"
   },

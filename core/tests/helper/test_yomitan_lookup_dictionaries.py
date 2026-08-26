@@ -33,6 +33,9 @@ from lexishift_core.helper.yomitan_lookup_dictionaries import (  # noqa: E402
     lookup_yomitan_dictionary,
     remove_installed_lookup_dictionary,
 )
+from lexishift_core.helper.yomitan_dictionary_inspection import (  # noqa: E402
+    inspect_yomitan_dictionary_zip,
+)
 
 
 def _write_yomitan_zip(
@@ -41,9 +44,10 @@ def _write_yomitan_zip(
     format_number: int = 3,
     extra_members: dict[str, str] | None = None,
     terms: list[object] | None = None,
+    title: str = "User-owned Japanese Dictionary",
 ) -> None:
     index = {
-        "title": "User-owned Japanese Dictionary",
+        "title": title,
         "revision": "2026.1",
         "format": format_number,
         "author": "Local user",
@@ -92,6 +96,28 @@ def _write_yomitan_zip(
 
 
 class TestYomitanLookupDictionaries(unittest.TestCase):
+    def test_archive_inspection_validates_supported_term_dictionary_without_importing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "大辞林　第四版　画像無し (1).zip"
+            _write_yomitan_zip(source)
+
+            info = inspect_yomitan_dictionary_zip(source)
+
+            self.assertEqual(info.path, source)
+            self.assertEqual(info.title, "User-owned Japanese Dictionary")
+            self.assertEqual(info.revision, "2026.1")
+            self.assertEqual(info.format, 3)
+            self.assertEqual(info.source_language, "ja")
+            self.assertEqual(info.target_language, "ja")
+            self.assertFalse((root / "lookup_dictionaries").exists())
+
+            unrelated = root / "unrelated.zip"
+            with zipfile.ZipFile(unrelated, "w") as archive:
+                archive.writestr("notes.txt", "not a dictionary")
+            with self.assertRaisesRegex(YomitanDictionaryImportError, "missing index.json"):
+                inspect_yomitan_dictionary_zip(unrelated)
+
     def test_word_info_uses_selected_local_dictionary_then_falls_back_to_jmdict(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
@@ -164,6 +190,67 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
                 [gloss["text"] for gloss in fallback_result["glosses"]],
                 ["company"],
             )
+
+    def test_word_info_uses_first_matching_dictionary_in_configured_order(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            first_source = Path(tmp) / "first.zip"
+            second_source = Path(tmp) / "second.zip"
+            _write_yomitan_zip(
+                first_source,
+                title="First Dictionary",
+                terms=[["時", "とき", "", "n", 1, ["first definition"], 1, ""]],
+            )
+            _write_yomitan_zip(
+                second_source,
+                title="Second Dictionary",
+                terms=[["時", "とき", "", "n", 1, ["second definition"], 1, ""]],
+            )
+            first = import_yomitan_dictionary_zip(
+                first_source,
+                dictionaries_dir=paths.lookup_dictionary_packs_dir,
+            )
+            second = import_yomitan_dictionary_zip(
+                second_source,
+                dictionaries_dir=paths.lookup_dictionary_packs_dir,
+            )
+
+            def lookup() -> dict[str, object]:
+                return lookup_word_info(
+                    paths,
+                    pair="en-ja",
+                    profile_id="default",
+                    lemma="時",
+                    display="時",
+                    word_package={
+                        "version": 1,
+                        "language_tag": "ja",
+                        "surface": "時",
+                        "reading": "とき",
+                        "script_forms": {"kanji": "時", "kana": "とき"},
+                        "source": {"provider": "test"},
+                    },
+                )
+
+            settings = with_lookup_dictionary_pack_ids(
+                LookupDictionarySettings(),
+                pair="en-ja",
+                pack_ids=(first.dictionary.pack_id, second.dictionary.pack_id),
+            )
+            save_lookup_dictionary_settings(settings, paths.lookup_dictionary_settings_path)
+            first_result = lookup()
+            self.assertEqual(first_result["dictionary"]["title"], "First Dictionary")
+            self.assertEqual(first_result["glosses"][0]["text"], "first definition")
+
+            reordered = with_lookup_dictionary_pack_ids(
+                settings,
+                pair="en-ja",
+                pack_ids=(second.dictionary.pack_id, first.dictionary.pack_id),
+            )
+            save_lookup_dictionary_settings(reordered, paths.lookup_dictionary_settings_path)
+            second_result = lookup()
+            self.assertEqual(second_result["dictionary"]["title"], "Second Dictionary")
+            self.assertEqual(second_result["glosses"][0]["text"], "second definition")
 
     def test_import_preserves_source_and_supports_reading_aware_lookup(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

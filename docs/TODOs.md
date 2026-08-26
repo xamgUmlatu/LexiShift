@@ -2,8 +2,8 @@
 
 Status: Active backlog
 Role: Planning / WIP
-Last updated: 2026-03-26
-Last verified: 2026-05-14 metadata-only Lane 1 normalization; backlog content not re-audited
+Last updated: 2026-08-26
+Last verified: 2026-08-26 dictionary/beta infrastructure follow-up capture; older backlog content not globally re-audited
 Purpose: consolidated product and architecture backlog retained after root README cleanup
 Source-of-truth: backlog planning only; current implementation truth lives in source code, tests, and `docs/developer/feature_state_matrix.md`.
 
@@ -95,6 +95,146 @@ Acceptance criteria:
 - Interactive SRS controls fail fast with actionable error text while helper is down.
 - Feedback generated during helper downtime is retained and eventually synced after recovery.
 - Service worker wake/idle cycles do not lose queued feedback.
+
+## Post-Current-Workstream Beta Infrastructure And Dictionary Follow-Ups
+
+Captured on 2026-08-26 after implementing local Yomitan dictionary import,
+per-language-pair ordered lookup stacks, acquisition guidance, and packaged GUI
+validation. These tasks should resume after the current workstream rather than
+expanding the in-flight dictionary branch further.
+
+### Highest-priority infrastructure
+
+#### INFRA-01: Make the Python development and hook environment reproducible
+
+Problem:
+- Repository launchers currently fall through to the first available `python3`
+  when no repository virtual environment is present.
+- A verified dictionary change hit a false-negative pre-push failure because
+  Homebrew Python 3.14 did not have the project's `fsrs` dependency, while the
+  focused suite and packaged build passed under the supported Python 3.10
+  environment.
+
+Implementation TODO:
+- Declare and document the supported Python version or version range.
+- Provide one repository bootstrap/sync command for a local `.venv`.
+- Make `scripts/dev/run_python.js` and installed hooks use that environment.
+- Fail early with an actionable interpreter/dependency message instead of
+  producing a large unrelated import-error cascade.
+
+Acceptance criteria:
+- A fresh contributor setup can create the supported environment with one
+  documented command.
+- `npm --prefix scripts run check` and the pre-push hook select the same Python
+  environment.
+- A normal verified push does not require `--no-verify` because of interpreter
+  drift.
+
+#### INFRA-02: Finish packaged GUI startup diagnosis and remove blocking work
+
+Owning plan:
+- `docs/developer/packaged_gui_startup_performance_plan.md`
+
+Problem:
+- Recent packaged resource-settings launches recorded approximately 224 and
+  487 seconds inside `MainWindow` construction, far outside the existing cold
+  launch targets. The responsible initialization step has not yet been isolated.
+
+Implementation TODO:
+- Add fine-grained startup checkpoints around `MainWindow` construction and
+  resource-panel initialization.
+- Render a usable window before scanning or loading large installed-resource
+  inventories.
+- Move proven expensive metadata/index work off the GUI thread and cache safe
+  inventory results where appropriate.
+- Add a packaged startup budget check using repeatable warm/cold samples.
+
+Acceptance criteria:
+- The responsible blocking operation is identified with checkpoint evidence.
+- Resource Settings meets the targets in the owning startup-performance plan,
+  or a current-machine exception is explicitly documented.
+- Large installed dictionaries do not make the application appear dead.
+
+#### INFRA-03: Add one-command macOS build, install, verify, and relaunch
+
+Problem:
+- The current manual PyInstaller, quit, `ditto`, comparison, and relaunch flow
+  is error-prone; macOS can retain the previous application process during a
+  bundle replacement.
+
+Implementation TODO:
+- Add a supported script/package command that validates the build, terminates
+  only the installed LexiShift process, waits for exit, installs the bundle,
+  verifies important bundle artifacts, and optionally relaunches to a requested
+  settings view.
+- Keep `/Applications/LexiShift.app` replacement separate from Application
+  Support so user data is preserved.
+
+Acceptance criteria:
+- One documented command produces and launches the same bundle that passed
+  validation.
+- The command detects a stale running process and reports each lifecycle step.
+- Verification does not rely on recursive directory comparison that follows
+  framework symlink loops.
+
+### Dictionary resilience and maintainability
+
+#### DICT-01: Add a redistributable large-dictionary performance fixture
+
+Implementation TODO:
+- Generate a synthetic Yomitan format-3 archive large enough to exercise
+  multi-bank import, indexing, repeat import, lookup, and cancellation costs.
+- Add bounded import/lookup performance reporting without committing commercial
+  dictionary data or using local Daijirin files as CI inputs.
+
+Acceptance criteria:
+- CI or a documented local quality command can detect major importer/indexing
+  regressions using only redistributable generated data.
+- Correctness coverage remains separate from machine-sensitive performance
+  thresholds.
+
+#### DICT-02: Add dictionary health, recovery, and source visibility
+
+Implementation TODO:
+- Detect missing, incompatible, or corrupt installed dictionary artifacts and
+  offer a clear reimport/repair path.
+- Show which dictionary supplied the displayed definition, using the existing
+  provider/pack metadata without exposing local filesystem paths.
+- Consider exporting/importing dictionary-stack assignments while explicitly
+  excluding dictionary contents.
+
+Acceptance criteria:
+- A broken configured dictionary does not silently look healthy.
+- Users can recover without manually editing settings or managed data folders.
+- Definition-source identification remains compact and learner-friendly.
+
+### Integration checkpoint
+
+#### INTEGRATION-01: Merge the dictionary work into the beta line while fresh
+
+Implementation TODO:
+- Merge or rebase the coherent dictionary commits onto the active beta line
+  before several more major feature branches accumulate.
+- Run the combined changed-file/repository gates and validated packaged build.
+- Perform a real-extension smoke covering import, per-pair ordering, first-match
+  fallback, and displayed source identity.
+
+Acceptance criteria:
+- Dictionary, popup, sentence-density, and beta-release work coexist on one
+  tested integration branch.
+- Any merge conflicts are resolved from current product intent rather than
+  deferred until the code has drifted.
+
+### Deliberately deferred dictionary expansion
+
+Do not treat the following as beta blockers unless testing reveals a concrete
+need:
+- merging definitions from multiple dictionaries instead of first-match
+  fallback;
+- Yomitan image/media import;
+- per-profile dictionary stacks instead of the current global-per-pair model;
+- a full curated in-app dictionary catalogue or automatic commercial-data
+  download flow.
 
 ## Backlog Migrated From README
 

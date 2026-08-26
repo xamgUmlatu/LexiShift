@@ -1739,6 +1739,30 @@
   "manual_source_prompt_title": {
     "message": "LexiShift data source"
   },
+  "dictionary_source_prompt_title": {
+    "message": "LexiShift popup dictionaries"
+  },
+  "dictionary_source_prompt_body": {
+    "message": "LexiShift can import compatible Yomitan format-3 term dictionary ZIPs from this community-maintained directory. Review each dictionary's license or terms before obtaining it."
+  },
+  "dictionary_source_prompt_after_download": {
+    "message": "After downloading an eligible ZIP, return to LexiShift. The desktop app will validate it and offer to import it locally."
+  },
+  "dictionary_source_prompt_recommended": {
+    "message": "Recommended for Japanese: $1"
+  },
+  "dictionary_source_prompt_format": {
+    "message": "Format: $1"
+  },
+  "dictionary_source_prompt_show_entry": {
+    "message": "Show recommended entry"
+  },
+  "dictionary_source_prompt_entry_found": {
+    "message": "Recommended entry highlighted. Use its download link on this page, then return to LexiShift."
+  },
+  "dictionary_source_prompt_entry_missing": {
+    "message": "The page changed and the recommended entry could not be found. Search this page for $1."
+  },
   "manual_source_prompt_body": {
     "message": "This page hosts $1 for $2. Review the provider terms, then download the required source file."
   },

@@ -1730,6 +1730,30 @@
   "manual_source_prompt_title": {
     "message": "LexiShift-Datenquelle"
   },
+  "dictionary_source_prompt_title": {
+    "message": "LexiShift-Popup-Wörterbücher"
+  },
+  "dictionary_source_prompt_body": {
+    "message": "LexiShift kann kompatible Yomitan-Termwörterbücher im Format 3 aus diesem von der Community gepflegten Verzeichnis importieren. Prüfen Sie vor dem Bezug die Lizenz oder Nutzungsbedingungen des jeweiligen Wörterbuchs."
+  },
+  "dictionary_source_prompt_after_download": {
+    "message": "Kehren Sie nach dem Herunterladen einer zulässigen ZIP-Datei zu LexiShift zurück. Die Desktop-App prüft sie und bietet den lokalen Import an."
+  },
+  "dictionary_source_prompt_recommended": {
+    "message": "Empfehlung für Japanisch: $1"
+  },
+  "dictionary_source_prompt_format": {
+    "message": "Format: $1"
+  },
+  "dictionary_source_prompt_show_entry": {
+    "message": "Empfohlenen Eintrag anzeigen"
+  },
+  "dictionary_source_prompt_entry_found": {
+    "message": "Der empfohlene Eintrag wurde hervorgehoben. Verwenden Sie dessen Download-Link auf dieser Seite und kehren Sie danach zu LexiShift zurück."
+  },
+  "dictionary_source_prompt_entry_missing": {
+    "message": "Die Seite wurde geändert und der empfohlene Eintrag wurde nicht gefunden. Suchen Sie auf dieser Seite nach $1."
+  },
   "manual_source_prompt_body": {
     "message": "Diese Seite hostet $1 für $2. Prüfen Sie die Nutzungsbedingungen des Anbieters und laden Sie dann die benötigte Quelldatei herunter."
   },
