@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 SCRIPT_DIR = REPO_ROOT / "scripts" / "build"
@@ -13,6 +14,9 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from gui_app import _cleanup_windows_collect_duplicates  # noqa: E402
 from gui_app import _build_command  # noqa: E402
+from gui_app import _install_macos_app  # noqa: E402
+from gui_app import _list_macos_installed_processes  # noqa: E402
+from gui_app import _terminate_macos_installed_processes  # noqa: E402
 from gui_app import _terminate_windows_dist_processes  # noqa: E402
 
 
@@ -148,6 +152,63 @@ class TestGuiAppBuild(unittest.TestCase):
                 _terminate_windows_dist_processes(str(dist))
 
         self.assertEqual(terminated, [101])
+
+    def test_install_macos_app_replaces_only_the_target_bundle(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            source = root / "dist" / "LexiShift.app"
+            install_dir = root / "Applications"
+            target = install_dir / "LexiShift.app"
+            application_support = root / "Application Support" / "LexiShift"
+            source.mkdir(parents=True)
+            target.mkdir(parents=True)
+            application_support.mkdir(parents=True)
+            (source / "version.txt").write_text("new", encoding="utf-8")
+            (target / "version.txt").write_text("old", encoding="utf-8")
+            (application_support / "settings.json").write_text("{}", encoding="utf-8")
+
+            installed = _install_macos_app(source, install_dir)
+
+            self.assertEqual(installed, target)
+            self.assertEqual((target / "version.txt").read_text(encoding="utf-8"), "new")
+            self.assertEqual(
+                (application_support / "settings.json").read_text(encoding="utf-8"), "{}"
+            )
+            self.assertEqual(list(install_dir.glob(".*.lexishift-*-*")), [])
+
+    def test_list_macos_installed_processes_matches_only_installed_bundle_executables(
+        self,
+    ) -> None:
+        output = "\n".join(
+            (
+                "101 /Applications/LexiShift.app/Contents/MacOS/LexiShift --open-resource-settings",
+                "202 /Applications/LexiShift Helper.app/Contents/MacOS/LexiShiftHelper",
+                "303 /tmp/LexiShift.app/Contents/MacOS/LexiShift",
+                "404 python scripts/helper/lexishift_native_host.py",
+            )
+        )
+        with (
+            mock.patch("gui_app.platform.system", return_value="Darwin"),
+            mock.patch(
+                "gui_app.subprocess.run",
+                return_value=mock.Mock(returncode=0, stdout=output),
+            ),
+        ):
+            processes = _list_macos_installed_processes(Path("/Applications"))
+
+        self.assertEqual([pid for pid, _command in processes], [101, 202])
+
+    def test_terminate_macos_installed_processes_waits_for_clean_exit(self) -> None:
+        with (
+            mock.patch(
+                "gui_app._list_macos_installed_processes",
+                side_effect=[[(101, "/Applications/LexiShift.app/Contents/MacOS/LexiShift")], []],
+            ),
+            mock.patch("gui_app.os.kill") as kill,
+        ):
+            _terminate_macos_installed_processes(Path("/Applications"), timeout_seconds=1.0)
+
+        kill.assert_called_once_with(101, 15)
 
 
 if __name__ == "__main__":

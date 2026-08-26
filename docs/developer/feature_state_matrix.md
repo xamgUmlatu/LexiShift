@@ -739,8 +739,8 @@ Use this file when:
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-04-19` Ruff fallback resolution + explicit unavailable reporting for workflow style checks
-- Last verified: `2026-04-19` targeted dev-workflow unit tests + wrapper-driven `check:style` report + `check:changed:local`; `2026-05-15` Lane 3 L3-F packaging/platform parity truth pass, Windows parity audit, parity summary render, focused workflow/build/parity tests, doc-reference check, state check, and diff hygiene
+- Last documented checkpoint: `2026-08-27` Python-backed workflows now require the supported Python 3.10 line and have one-command repository environment setup/checks; macOS GUI packaging now has a safe build/validate/install/verify/relaunch command
+- Last verified: `2026-08-27` real Python 3.10.16 build-environment bootstrap, `838` passing repository tests (`4` skipped), focused launcher/GUI install-lifecycle/build-workflow tests, strict Windows parity (`9` pass), state/doc checks, and a validated packaged build containing the newly declared `simplemma` dependency; the full check then reached the separately tracked `8` existing mypy errors in two `en-es` compiled-scoring files
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
@@ -755,7 +755,9 @@ Use this file when:
   - `npm --prefix scripts run build:report` is the full build contract and now verifies expected BetterDiscord / GUI artifacts in the report payload.
   - Hosted macOS `build:report` keeps the full GUI bundle validation path; hosted Windows `build:report` now uses the full GUI build plus artifact verification, while the strict Windows parity audit remains the dedicated Windows-specific validation gate.
   - Hosted CI now runs both the full macOS `build:report` path and the explicit Ubuntu `build:ci:report` partial path.
-  - Python-backed npm workflow commands now resolve their interpreter through `scripts/dev/run_python.js` so `check` / `build` / audit entrypoints remain usable on Windows hosts.
+  - Python-backed npm workflow commands resolve their interpreter through `scripts/dev/run_python.js` so `check` / `build` / audit entrypoints remain usable on Windows hosts. The launcher now accepts only Python 3.10, prefers the repository `.venv`, an active virtualenv, or an explicit interpreter, and permits system fallback automatically only in hosted CI.
+  - `npm --prefix scripts run setup:python` creates/synchronizes the repository Python 3.10 development environment from exact direct dependency pins, including the previously implicit `simplemma` runtime/build dependency; `setup:python:build` adds GUI packaging dependencies, and matching read-only check commands verify package presence and pinned versions for either dependency tier.
+  - `.python-version` declares the repository's current preferred Python 3.10.16 patch while the launcher remains compatible with other 3.10 patch releases.
   - `npm --prefix scripts run build:ci` / `build:ci:report` keep the same build workflow on unsupported hosts while recording explicit GUI-validation skips.
   - `npm --prefix scripts run check:style` is the standalone repo-wide style loop.
   - `npm --prefix scripts run check:style:report` and `check:style:summary` publish the current repo-wide Ruff style state as JSON and Markdown artifacts.
@@ -767,7 +769,9 @@ Use this file when:
   - Hosted Ubuntu repo-safety now uses `npm --prefix scripts run check:report:ci`, which skips the redundant Windows parity audit; dedicated Windows parity/build jobs remain responsible for that surface.
   - Hosted repo-safety still renders the latest rulegen benchmark/gate/triage summaries, but the known-red rulegen artifact no longer blocks the generic repo-safety job.
   - `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push`; the pre-push hook mirrors `npm --prefix scripts run check`.
+  - The feature-state pre-commit hook now uses the same Python launcher instead of bypassing environment selection with a bare `python3` command.
   - `pre-commit` now runs repo-wide Ruff lint and Ruff format before commit, while `pre-push` keeps the full repo-safety gate.
+  - On macOS, `npm --prefix scripts run build:gui:install:relaunch` builds and validates both app bundles, stops only executables running from the target install directory, stages replacements before swapping them into place, validates the installed copies, and relaunches the main app without modifying Application Support.
 - Evidence:
   - `scripts/dev/feature_state_audit.py`
   - `scripts/dev/dev_workflow_check.py`
@@ -781,11 +785,17 @@ Use this file when:
   - `scripts/dev/project_health_rules.js`
   - `scripts/dev/ci_report_gate.py`
   - `scripts/dev/run_python.js`
+  - `scripts/dev/python_environment.js`
+  - `scripts/dev/bootstrap_python_env.js`
+  - `.python-version`
   - `apps/betterdiscord-plugin/build_plugin.js`
   - `.pre-commit-config.yaml`
   - `.github/workflows/ci.yml`
   - `requirements-build.txt`
   - `scripts/package.json`
+  - `scripts/build/gui_app.py`
+  - `core/tests/dev/test_python_environment_launcher.py`
+  - `core/tests/dev/test_gui_app_build.py`
   - `docs/test_outputs/dev_workflow/feature_state_audit_latest.json`
   - `docs/test_outputs/dev_workflow/doc_references_latest.json`
   - `docs/test_outputs/dev_workflow/check_latest.json`

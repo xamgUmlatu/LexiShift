@@ -2,8 +2,8 @@
 
 Status: active script map
 Role: Runbook / operational
-Last updated: 2026-05-16
-Last verified: 2026-05-16 profile backup script generalization, unreferenced-script routing, project-structure odd-artifact cleanup, and generated-output unnecessary audit routing
+Last updated: 2026-08-27
+Last verified: 2026-08-27 Python environment bootstrap and macOS build/install workflow verification
 Purpose: route contributors to the current workflow entrypoints first, then to specialty build/data/testing tools
 Source-of-truth: script routing guide; operational behavior is defined by the scripts themselves and `package.json`; by-change-type validation routing lives in `../docs/developer/productization_lane4_validation_gate_inventory.md`.
 
@@ -21,6 +21,7 @@ Scripts are grouped by workflow type so build/release and data tooling stay sepa
 
 Use the package-script workflow surfaces first when they exist:
 
+- Python environment: `npm --prefix scripts run setup:python` (add `:build` for GUI packaging)
 - Repo safety: `npm --prefix scripts run check`
 - Branch-scope safety: `npm --prefix scripts run check:changed`
 - Canonical doc integrity: `npm --prefix scripts run check:docs`
@@ -93,6 +94,12 @@ you need to choose the smallest honest bundle for a specific change type.
 - Cross-platform Python launcher for npm workflow scripts:
   `dev/run_python.js`
   - Keeps `npm --prefix scripts run check` / `build` / quality wrappers usable on Windows where `python3` may not exist by name
+  - Requires Python 3.10 and prefers the repository `.venv`, an active virtualenv, or an explicit interpreter instead of silently accepting an unrelated local Python
+- Python environment bootstrap:
+  `dev/bootstrap_python_env.js` plus `dev/python_environment.js`
+  - `setup:python` creates/synchronizes the Python 3.10 development environment
+  - `setup:python:build` adds the maintained GUI packaging dependencies
+  - matching `*:check` commands verify the environment without mutating it
 - Repo-wide style check (Ruff lint + format check, optional strict mode via `--strict` / `check:style:strict`):
   `dev/dev_workflow_style_check.py`
   - JSON artifact via `npm --prefix scripts run check:style:report`
@@ -114,6 +121,7 @@ you need to choose the smallest honest bundle for a specific change type.
   `dev/windows_parity_summary.py`
   - Used by `npm --prefix scripts run check:windows:parity:summary` and Windows CI summaries
 - Build app bundle: `build/gui_app.py`
+  - On macOS, `npm --prefix scripts run build:gui:install:relaunch` provides the validated build/install/verify/relaunch lifecycle while preserving user data
 - Build installers: `build/installer.py`
 - Convert embeddings: `data/convert_embeddings.py`
 - Convert FreeDict TEI to SQLite: `data/convert_freedict_tei_to_sqlite.py`

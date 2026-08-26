@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 4 validation-gate routing review against `scripts/package.json`, workflow docs, and staged-scope safety
+Last updated: 2026-08-27
+Last verified: 2026-08-27 Python 3.10 bootstrap/launcher and macOS build-install workflow tests
 Purpose: current setup, validation, and day-to-day development entrypoints for contributors
 Source-of-truth: workflow runbook; operational behavior is defined by `scripts/package.json`, `AGENTS.md`, `productization_lane4_validation_gate_inventory.md`, and the scripts under `scripts/dev/` and `scripts/testing/`.
 
@@ -14,7 +14,7 @@ For change-type-specific validation bundles, use
 
 ## Prerequisites
 
-- Python 3.10+
+- Python 3.10.x (the repository and hosted CI currently use Python 3.10.16/3.10)
 - Node.js 20+
 - Chrome (for extension runtime tests)
 - BetterDiscord (optional, for plugin runtime tests)
@@ -22,17 +22,37 @@ For change-type-specific validation bundles, use
 ## First-Time Setup
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements-dev.txt
+npm --prefix scripts run setup:python
 npm --prefix scripts run hooks:install
 ```
 
-GUI packaging / hosted macOS build-validation deps:
+The setup command creates or synchronizes `.venv`, verifies Python 3.10, and
+installs `requirements-dev.txt`. Repository npm workflows automatically prefer
+that environment, so activation is optional. To activate it for direct Python
+commands on macOS/Linux:
 
 ```bash
-pip install -r requirements-build.txt
+source .venv/bin/activate
 ```
+
+GUI packaging / hosted macOS build-validation dependencies:
+
+```bash
+npm --prefix scripts run setup:python:build
+```
+
+Read-only environment checks:
+
+```bash
+npm --prefix scripts run setup:python:check
+npm --prefix scripts run setup:python:build:check
+```
+
+The repository declares Python `3.10.16` in `.python-version`; any Python 3.10
+patch release is accepted by the workflow launcher. Outside hosted CI, npm
+workflows require the repository `.venv`, an active Python 3.10 virtualenv, or
+an explicit `LEXISHIFT_PYTHON` path rather than silently selecting an unrelated
+system Python.
 
 Installed pre-commit hooks currently cover:
 - whitespace / EOF / YAML / TOML hygiene
@@ -169,6 +189,17 @@ Failed build commands now keep stdout/stderr tail lines and missing-artifact det
 
 This is the full build contract. Hosted macOS and Windows CI use the same
 entrypoint.
+
+On macOS, build, validate, safely replace the installed app bundles, verify the
+installed copies, and relaunch the main app with:
+
+```bash
+npm --prefix scripts run build:gui:install:relaunch
+```
+
+The install lifecycle stops only executables running from the selected install
+directory, leaves Application Support/user data untouched, and aborts before
+replacement if those processes do not exit cleanly.
 
 CI-safe build report:
 

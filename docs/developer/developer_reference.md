@@ -94,10 +94,14 @@ Keep this handbook focused on the minimum entrypoints needed to resume work quic
 Create environment:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements-dev.txt
+npm --prefix scripts run setup:python
 npm --prefix scripts run hooks:install
+```
+
+Add GUI packaging dependencies when needed:
+
+```bash
+npm --prefix scripts run setup:python:build
 ```
 
 Default local safety loop:

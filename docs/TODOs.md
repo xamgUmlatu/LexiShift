@@ -3,7 +3,7 @@
 Status: Active backlog
 Role: Planning / WIP
 Last updated: 2026-08-27
-Last verified: 2026-08-27 dictionary/SRS beta integration checkpoint; older backlog content not globally re-audited
+Last verified: 2026-08-27 beta integration plus Python/build-install health tooling pass; older backlog content not globally re-audited
 Purpose: consolidated product and architecture backlog retained after root README cleanup
 Source-of-truth: backlog planning only; current implementation truth lives in source code, tests, and `docs/developer/feature_state_matrix.md`.
 
@@ -105,7 +105,7 @@ on 2026-08-27; the remaining tasks can now resume from the combined beta branch.
 
 ### Highest-priority infrastructure
 
-#### INFRA-01: Make the Python development and hook environment reproducible
+#### INFRA-01: Make the Python development and hook environment reproducible — completed 2026-08-27
 
 Problem:
 - Repository launchers currently fall through to the first available `python3`
@@ -115,20 +115,23 @@ Problem:
   focused suite and packaged build passed under the supported Python 3.10
   environment.
 
-Implementation TODO:
-- Declare and document the supported Python version or version range.
-- Provide one repository bootstrap/sync command for a local `.venv`.
-- Make `scripts/dev/run_python.js` and installed hooks use that environment.
-- Fail early with an actionable interpreter/dependency message instead of
-  producing a large unrelated import-error cascade.
+Completed work:
+- Declared Python 3.10.16 as the preferred repository patch and Python 3.10.x
+  as the supported workflow line, matching hosted CI.
+- Added one-command development/build `.venv` setup and read-only checks with
+  exact direct dependency pins.
+- Made Python-backed npm workflows and the feature-state hook use the same
+  version-gated launcher instead of silently selecting an unrelated system
+  interpreter.
+- Verified a real clean build-environment bootstrap and full packaged build.
 
 Acceptance criteria:
-- A fresh contributor setup can create the supported environment with one
+- A fresh contributor setup creates the supported environment with one
   documented command.
 - `npm --prefix scripts run check` and the pre-push hook select the same Python
   environment.
-- A normal verified push does not require `--no-verify` because of interpreter
-  drift.
+- Interpreter drift no longer requires `--no-verify`; the separate existing
+  mypy debt remains tracked below.
 
 #### INFRA-02: Finish packaged GUI startup diagnosis and remove blocking work
 
@@ -155,20 +158,22 @@ Acceptance criteria:
   or a current-machine exception is explicitly documented.
 - Large installed dictionaries do not make the application appear dead.
 
-#### INFRA-03: Add one-command macOS build, install, verify, and relaunch
+#### INFRA-03: Add one-command macOS build, install, verify, and relaunch — implemented 2026-08-27; live install smoke pending
 
 Problem:
 - The current manual PyInstaller, quit, `ditto`, comparison, and relaunch flow
   is error-prone; macOS can retain the previous application process during a
   bundle replacement.
 
-Implementation TODO:
-- Add a supported script/package command that validates the build, terminates
-  only the installed LexiShift process, waits for exit, installs the bundle,
-  verifies important bundle artifacts, and optionally relaunches to a requested
-  settings view.
-- Keep `/Applications/LexiShift.app` replacement separate from Application
-  Support so user data is preserved.
+Implemented work:
+- Added supported package commands that build and validate both bundles, stop
+  only executables running from the selected install directory, wait for clean
+  exit, stage replacements, validate the installed copies, and optionally
+  relaunch the main app.
+- Kept app-bundle replacement separate from Application Support so user data is
+  not part of the install operation.
+- Added focused process-targeting, replacement, user-data preservation, and
+  workflow-contract tests; the pinned-environment packaged build passes.
 
 Acceptance criteria:
 - One documented command produces and launches the same bundle that passed
@@ -176,6 +181,28 @@ Acceptance criteria:
 - The command detects a stale running process and reports each lifecycle step.
 - Verification does not rely on recursive directory comparison that follows
   framework symlink loops.
+
+Remaining verification:
+- Run the new install/relaunch command once against `/Applications` and confirm
+  the live app opens with existing Application Support and dictionary data.
+
+#### INFRA-04: Restore a fully green repository typecheck gate
+
+Problem:
+- The pinned, supported environment now removes interpreter/tool-version drift,
+  but the full repository check still has 8 existing mypy errors in two
+  `en-es` compiled-scoring files.
+
+Implementation TODO:
+- Resolve the typing errors without changing runtime scoring behavior.
+- Because scoring modules are touched, run the required rulegen benchmark,
+  quality gate, triage extraction, and focused tests even if the edits appear
+  annotation-only.
+
+Acceptance criteria:
+- `npm --prefix scripts run check` completes normally in the bootstrapped
+  environment.
+- Ordinary pre-push operation no longer needs a deliberate type-debt exception.
 
 ### Dictionary resilience and maintainability
 

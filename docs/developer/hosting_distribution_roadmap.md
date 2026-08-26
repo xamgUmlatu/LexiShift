@@ -153,7 +153,7 @@ Known branch-level blocker:
   open release tasks.
 - On the 2026-08-27 beta integration checkpoint, `npm --prefix scripts run
   check` passes all `838` unit tests (`4` skipped) and then fails at `mypy` with
-  `10` errors in three existing rulegen/semantic scoring files. This remains
+  `8` errors in two existing `en-es` compiled-scoring files. This remains
   inherited type debt rather than a dictionary/SRS integration regression, but
   it still prevents the full repository gate from completing normally.
 - `npm --prefix scripts run check:changed:report` is not a useful green gate
