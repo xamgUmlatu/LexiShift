@@ -33,6 +33,9 @@ from lexishift_core.helper.yomitan_lookup_dictionaries import (  # noqa: E402
     lookup_yomitan_dictionary,
     remove_installed_lookup_dictionary,
 )
+from lexishift_core.helper.yomitan_dictionary_health import (  # noqa: E402
+    inspect_installed_lookup_dictionary_health,
+)
 from lexishift_core.helper.yomitan_dictionary_inspection import (  # noqa: E402
     inspect_yomitan_dictionary_zip,
 )
@@ -96,6 +99,101 @@ def _write_yomitan_zip(
 
 
 class TestYomitanLookupDictionaries(unittest.TestCase):
+    def test_health_inspection_reports_healthy_without_scanning_dictionary_rows(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "dictionary.zip"
+            _write_yomitan_zip(source)
+            imported = import_yomitan_dictionary_zip(
+                source,
+                dictionaries_dir=root / "dictionaries",
+            )
+
+            health = inspect_installed_lookup_dictionary_health(root / "dictionaries")
+
+            self.assertEqual(len(health), 1)
+            self.assertTrue(health[0].healthy)
+            self.assertEqual(health[0].dictionary.pack_id, imported.dictionary.pack_id)
+            self.assertGreater(health[0].disk_usage_bytes, 0)
+
+    def test_health_inspection_reports_corrupt_and_missing_managed_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "dictionary.zip"
+            dictionaries_dir = root / "dictionaries"
+            _write_yomitan_zip(source)
+            imported = import_yomitan_dictionary_zip(
+                source,
+                dictionaries_dir=dictionaries_dir,
+            )
+            imported.manifest_path.write_text("{not-json", encoding="utf-8")
+
+            health = inspect_installed_lookup_dictionary_health(dictionaries_dir)
+
+            self.assertEqual(health[0].status, "corrupt")
+            self.assertEqual(health[0].reason, "manifest_invalid")
+            self.assertEqual(list_installed_lookup_dictionaries(dictionaries_dir), ())
+
+            imported.manifest_path.unlink()
+            health = inspect_installed_lookup_dictionary_health(dictionaries_dir)
+            self.assertEqual(health[0].status, "missing")
+            self.assertEqual(health[0].reason, "manifest_missing")
+
+    def test_reimport_of_same_zip_repairs_corrupt_sqlite_atomically(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "dictionary.zip"
+            dictionaries_dir = root / "dictionaries"
+            _write_yomitan_zip(source)
+            imported = import_yomitan_dictionary_zip(
+                source,
+                dictionaries_dir=dictionaries_dir,
+            )
+            imported.artifact_path.write_bytes(b"not a sqlite database")
+            self.assertEqual(
+                inspect_installed_lookup_dictionary_health(dictionaries_dir)[0].status,
+                "corrupt",
+            )
+
+            repaired = import_yomitan_dictionary_zip(
+                source,
+                dictionaries_dir=dictionaries_dir,
+                expected_pack_id=imported.dictionary.pack_id,
+            )
+
+            self.assertEqual(repaired.dictionary.pack_id, imported.dictionary.pack_id)
+            self.assertTrue(inspect_installed_lookup_dictionary_health(dictionaries_dir)[0].healthy)
+            result = lookup_yomitan_dictionary(
+                repaired.artifact_path,
+                lookup_candidates=("時",),
+                surface="時",
+                reading="とき",
+                sense_limit=4,
+                gloss_limit=8,
+            )
+            self.assertIsNotNone(result)
+
+    def test_repair_expectation_rejects_a_different_dictionary_before_install(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "dictionary.zip"
+            _write_yomitan_zip(source, title="Different Dictionary")
+
+            with self.assertRaisesRegex(
+                YomitanDictionaryImportError,
+                "not the same dictionary copy",
+            ):
+                import_yomitan_dictionary_zip(
+                    source,
+                    dictionaries_dir=root / "dictionaries",
+                    expected_pack_id="yomitan-expected-deadbeef0000",
+                )
+
+            self.assertEqual(
+                inspect_installed_lookup_dictionary_health(root / "dictionaries"),
+                (),
+            )
+
     def test_archive_inspection_validates_supported_term_dictionary_without_importing(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 import webbrowser
 
+from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QComboBox,
@@ -27,12 +28,18 @@ from lexishift_core.helper.lookup_dictionary_settings import (
     with_lookup_dictionary_pack_ids,
     without_lookup_dictionary_pack,
 )
+from lexishift_core.helper.yomitan_dictionary_health import (
+    InstalledLookupDictionaryHealth,
+)
 from lexishift_core.helper.yomitan_lookup_dictionaries import (
     list_installed_lookup_dictionaries,
     remove_installed_lookup_dictionary,
 )
 from localized_message_box import localized_question, prepare_message_box
 from lookup_dictionary_import import YomitanDictionaryImportThread
+from settings_lookup_dictionary_health_mixin import (
+    LanguagePackPanelLookupDictionaryHealthMixin,
+)
 from settings_lookup_dictionary_stack_mixin import (
     LanguagePackPanelLookupDictionaryStackMixin,
 )
@@ -90,7 +97,10 @@ def _format_lookup_dictionary_size(size_bytes: int) -> str:
     return f"{size} B"
 
 
-class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionaryStackMixin):
+class LanguagePackPanelLookupDictionariesMixin(
+    LanguagePackPanelLookupDictionaryHealthMixin,
+    LanguagePackPanelLookupDictionaryStackMixin,
+):
     def _initialize_lookup_dictionaries(self) -> None:
         self._lookup_dictionary_threads: list[YomitanDictionaryImportThread] = []
         self._lookup_dictionary_download_candidate = None
@@ -99,6 +109,11 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
             self._lookup_dictionary_settings_path
         )
         self._updating_lookup_dictionary_controls = False
+        self._lookup_dictionary_health_records: (
+            tuple[InstalledLookupDictionaryHealth, ...] | None
+        ) = None
+        self._lookup_dictionary_health_request_token = 0
+        self._lookup_dictionary_health_pending = False
 
     def _build_lookup_dictionaries_tab(self) -> QWidget:
         tab = QWidget(self)
@@ -248,12 +263,23 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         self._lookup_dictionary_fallback.setWordWrap(True)
         layout.addWidget(self._lookup_dictionary_fallback)
 
+        library_header = QHBoxLayout()
         library_title = QLabel(
             t("language_packs.lookup_dictionaries.library_title"),
             tab,
         )
         library_title.setProperty("resourceSectionTitle", True)
-        layout.addWidget(library_title)
+        library_header.addWidget(library_title)
+        library_header.addStretch(1)
+        self._lookup_dictionary_health_button = QPushButton(
+            t("language_packs.lookup_dictionaries.check_health"),
+            tab,
+        )
+        self._lookup_dictionary_health_button.clicked.connect(
+            self._start_lookup_dictionary_health_check
+        )
+        library_header.addWidget(self._lookup_dictionary_health_button)
+        layout.addLayout(library_header)
         library_description = QLabel(
             t("language_packs.lookup_dictionaries.library_description"),
             tab,
@@ -264,13 +290,14 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
 
         self._lookup_dictionary_table = QTableWidget(tab)
         self._lookup_dictionary_table.setObjectName("lookupDictionaryLibrary")
-        self._lookup_dictionary_table.setColumnCount(5)
+        self._lookup_dictionary_table.setColumnCount(6)
         self._lookup_dictionary_table.setHorizontalHeaderLabels(
             [
                 t("language_packs.lookup_dictionaries.headers.dictionary"),
                 t("language_packs.lookup_dictionaries.headers.languages"),
                 t("language_packs.lookup_dictionaries.headers.used_by"),
                 t("language_packs.lookup_dictionaries.headers.size"),
+                t("language_packs.lookup_dictionaries.headers.health"),
                 t("language_packs.lookup_dictionaries.headers.actions"),
             ]
         )
@@ -284,9 +311,10 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         header_view.setSectionResizeMode(1, QHeaderView.ResizeToContents)
         header_view.setSectionResizeMode(2, QHeaderView.Stretch)
         header_view.setSectionResizeMode(3, QHeaderView.ResizeToContents)
+        header_view.setSectionResizeMode(4, QHeaderView.ResizeToContents)
         # QHeaderView does not include cell-widget size hints when calculating
         # ResizeToContents, so the actions column is sized explicitly below.
-        header_view.setSectionResizeMode(4, QHeaderView.Fixed)
+        header_view.setSectionResizeMode(5, QHeaderView.Fixed)
         self._lookup_dictionary_table.setMinimumHeight(190)
         layout.addWidget(self._lookup_dictionary_table, 1)
 
@@ -308,6 +336,7 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         self._refresh_lookup_dictionary_stack()
         self._refresh_installed_lookup_dictionary_library()
         self._refresh_lookup_dictionary_download_candidate()
+        QTimer.singleShot(0, self._start_lookup_dictionary_health_check)
         return tab
 
     def _refresh_learning_pair_cards(self) -> None:
@@ -377,6 +406,12 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         )
 
     def _installed_lookup_dictionaries(self):
+        if self._lookup_dictionary_health_records is not None:
+            return tuple(
+                record.dictionary
+                for record in self._lookup_dictionary_health_records
+                if record.healthy
+            )
         return list_installed_lookup_dictionaries(Path(self._lookup_dictionary_dir))
 
     def _lookup_dictionary_used_by_pairs(self, pack_id: str) -> tuple[str, ...]:
@@ -390,7 +425,7 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         pack_root = Path(self._lookup_dictionary_dir) / pack_id
         total = 0
         try:
-            for path in pack_root.rglob("*"):
+            for path in pack_root.iterdir():
                 if path.is_file():
                     total += path.stat().st_size
         except OSError:
@@ -418,20 +453,21 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         table = getattr(self, "_lookup_dictionary_table", None)
         if table is None:
             return
-        dictionaries = self._installed_lookup_dictionaries()
+        records = self._lookup_dictionary_library_records()
         for row in range(table.rowCount()):
-            actions = table.cellWidget(row, 4)
+            actions = table.cellWidget(row, 5)
             if actions is not None:
-                table.removeCellWidget(row, 4)
+                table.removeCellWidget(row, 5)
                 actions.hide()
                 actions.deleteLater()
         table.clearContents()
         table.setRowCount(0)
-        table.setRowCount(len(dictionaries))
-        self._lookup_dictionary_empty.setVisible(not dictionaries)
-        table.setVisible(bool(dictionaries))
-        actions_width = table.horizontalHeaderItem(4).sizeHint().width() + 18
-        for row, dictionary in enumerate(dictionaries):
+        table.setRowCount(len(records))
+        self._lookup_dictionary_empty.setVisible(not records)
+        table.setVisible(bool(records))
+        actions_width = table.horizontalHeaderItem(5).sizeHint().width() + 18
+        for row, record in enumerate(records):
+            dictionary = record.dictionary
             name = dictionary.title
             if dictionary.revision:
                 name = f"{name}\n{dictionary.revision}"
@@ -455,17 +491,30 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
             table.setItem(
                 row,
                 3,
-                QTableWidgetItem(
-                    _format_lookup_dictionary_size(
-                        self._lookup_dictionary_disk_usage(dictionary.pack_id)
-                    )
-                ),
+                QTableWidgetItem(_format_lookup_dictionary_size(record.disk_usage_bytes)),
             )
+            health_item = QTableWidgetItem(self._lookup_dictionary_health_label(record.status))
+            health_item.setToolTip(self._lookup_dictionary_health_tooltip(record.status))
+            table.setItem(row, 4, health_item)
 
             actions = QWidget(table)
             action_layout = QHBoxLayout(actions)
             action_layout.setContentsMargins(2, 2, 2, 2)
             action_layout.setSpacing(4)
+            if record.status not in {"healthy", "checking"}:
+                repair_button = QPushButton(
+                    t("language_packs.lookup_dictionaries.reimport"),
+                    actions,
+                )
+                repair_button.setMinimumWidth(
+                    repair_button.fontMetrics().horizontalAdvance(repair_button.text()) + 28
+                )
+                repair_button.clicked.connect(
+                    lambda checked=False, pack_id=dictionary.pack_id, title=(dictionary.title): (
+                        self._select_lookup_dictionary_repair_zip(pack_id, title)
+                    )
+                )
+                action_layout.addWidget(repair_button)
             show_button = QPushButton(
                 t("language_packs.lookup_dictionaries.show_files"),
                 actions,
@@ -492,10 +541,10 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
                 )
             )
             action_layout.addWidget(remove_button)
-            table.setCellWidget(row, 4, actions)
+            table.setCellWidget(row, 5, actions)
             actions_width = max(actions_width, actions.sizeHint().width() + 8)
-        if dictionaries:
-            table.setColumnWidth(4, actions_width)
+        if records:
+            table.setColumnWidth(5, actions_width)
 
     def _show_lookup_dictionary_files(self, pack_id: str) -> None:
         reveal_path(str(Path(self._lookup_dictionary_dir) / pack_id))
@@ -569,11 +618,17 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         source_path: Path,
         *,
         pair: str = "",
+        expected_pack_id: str = "",
     ) -> None:
+        confirmation_title_key = "rights_title"
+        confirmation_message_key = "rights_message"
+        if expected_pack_id:
+            confirmation_title_key = "repair_title"
+            confirmation_message_key = "repair_message"
         reply = localized_question(
             self,
-            t("language_packs.lookup_dictionaries.rights_title"),
-            t("language_packs.lookup_dictionaries.rights_message"),
+            t(f"language_packs.lookup_dictionaries.{confirmation_title_key}"),
+            t(f"language_packs.lookup_dictionaries.{confirmation_message_key}"),
             QMessageBox.Yes | QMessageBox.Cancel,
             QMessageBox.Cancel,
         )
@@ -588,6 +643,7 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
             pair=selected_pair,
             source_path=source_path,
             dictionaries_dir=self._lookup_dictionary_dir,
+            expected_pack_id=expected_pack_id,
             parent=self,
         )
         thread.progress.connect(self._on_lookup_dictionary_import_progress)
@@ -609,11 +665,16 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
             )
         )
 
-    def _on_lookup_dictionary_import_completed(self, pair: str, result: object) -> None:
+    def _on_lookup_dictionary_import_completed(
+        self,
+        pair: str,
+        result: object,
+        repaired_pack_id: str = "",
+    ) -> None:
         dictionary = getattr(result, "dictionary", None)
         pack_id = str(getattr(dictionary, "pack_id", "") or "").strip()
         title = str(getattr(dictionary, "title", "") or pack_id).strip()
-        if pack_id:
+        if pack_id and not repaired_pack_id:
             current = lookup_dictionary_pack_ids_for_pair(
                 self._lookup_dictionary_settings,
                 pair,
@@ -628,12 +689,15 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
                 self._lookup_dictionary_settings_path,
             )
         self._clear_lookup_dictionary_acquisition()
+        self._lookup_dictionary_health_records = None
         self._refresh_lookup_dictionary_pair_choices(preferred_pair=pair)
         self._refresh_lookup_dictionary_stack()
         self._refresh_installed_lookup_dictionary_library()
+        status_key = "repaired" if repaired_pack_id else "imported"
         self._lookup_dictionary_status.setText(
-            t("language_packs.lookup_dictionaries.imported", title=title)
+            t(f"language_packs.lookup_dictionaries.{status_key}", title=title)
         )
+        self._start_lookup_dictionary_health_check()
 
     def _on_lookup_dictionary_import_failed(self, _pair: str, message: str) -> None:
         self._lookup_dictionary_status.setText(
@@ -666,6 +730,9 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         self._lookup_dictionary_pair_combo.setEnabled(not active)
         self._lookup_dictionary_add_combo.setEnabled(not active)
         self._lookup_dictionary_add_button.setEnabled(False)
+        self._lookup_dictionary_health_button.setEnabled(
+            not active and not self._lookup_dictionary_health_pending
+        )
         self._lookup_dictionary_order_table.setEnabled(not active)
         self._lookup_dictionary_table.setEnabled(not active)
         if not active:
@@ -676,6 +743,15 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
             (item for item in self._installed_lookup_dictionaries() if item.pack_id == pack_id),
             None,
         )
+        if dictionary is None and self._lookup_dictionary_health_records is not None:
+            dictionary = next(
+                (
+                    record.dictionary
+                    for record in self._lookup_dictionary_health_records
+                    if record.dictionary.pack_id == pack_id
+                ),
+                None,
+            )
         if dictionary is None:
             return
         used_by = self._lookup_dictionary_used_by_pairs(pack_id)
@@ -700,6 +776,7 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         if reply != QMessageBox.Yes:
             return
         remove_installed_lookup_dictionary(Path(self._lookup_dictionary_dir), pack_id)
+        self._lookup_dictionary_health_records = None
         self._lookup_dictionary_settings = without_lookup_dictionary_pack(
             self._lookup_dictionary_settings,
             pack_id,
@@ -715,6 +792,7 @@ class LanguagePackPanelLookupDictionariesMixin(LanguagePackPanelLookupDictionary
         self._lookup_dictionary_status.setText(
             t("language_packs.lookup_dictionaries.removed", title=dictionary.title)
         )
+        self._start_lookup_dictionary_health_check()
 
     def _cancel_lookup_dictionary_imports(self) -> None:
         threads = list(getattr(self, "_lookup_dictionary_threads", []))

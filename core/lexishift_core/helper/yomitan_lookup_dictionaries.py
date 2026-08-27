@@ -87,6 +87,7 @@ def import_yomitan_dictionary_zip(
     dictionaries_dir: Path,
     progress: Callable[[int, int], None] | None = None,
     should_cancel: Callable[[], bool] | None = None,
+    expected_pack_id: str | None = None,
 ) -> YomitanDictionaryImportResult:
     source = Path(archive_path)
     if not source.exists() or not source.is_file():
@@ -119,7 +120,18 @@ def import_yomitan_dictionary_zip(
                 "Yomitan dictionary ZIP does not contain any term_bank_*.json files."
             )
         pack_id = _pack_id_for_archive(str(metadata["title"]), archive_sha256)
-        existing = _existing_import_result(target_base, pack_id, archive_sha256)
+        from lexishift_core.helper.yomitan_dictionary_health import existing_import_result
+
+        normalized_expected_pack_id = str(expected_pack_id or "").strip()
+        if normalized_expected_pack_id and pack_id != normalized_expected_pack_id:
+            raise YomitanDictionaryImportError(
+                "The selected ZIP is not the same dictionary copy as the installed item."
+            )
+        existing = existing_import_result(
+            dictionaries_dir=target_base,
+            pack_id=pack_id,
+            archive_sha256=archive_sha256,
+        )
         if existing is not None:
             return existing
 
@@ -237,13 +249,30 @@ def import_yomitan_dictionary_zip(
             )
             target_root = installed_pack_root(target_base, pack_id)
             if target_root.exists():
-                shutil.rmtree(temp_base)
-                existing = _existing_import_result(target_base, pack_id, archive_sha256)
-                if existing is not None:
-                    return existing
-                raise YomitanDictionaryImportError(
-                    f"Lookup dictionary destination already exists: {pack_id}"
+                existing = existing_import_result(
+                    dictionaries_dir=target_base,
+                    pack_id=pack_id,
+                    archive_sha256=archive_sha256,
                 )
+                if existing is not None:
+                    shutil.rmtree(temp_base)
+                    return existing
+                from lexishift_core.helper.yomitan_dictionary_health import (
+                    replace_unhealthy_installed_dictionary,
+                )
+
+                repaired = replace_unhealthy_installed_dictionary(
+                    dictionaries_dir=target_base,
+                    pack_id=pack_id,
+                    staged_result=YomitanDictionaryImportResult(
+                        dictionary=_installed_dictionary_from_metadata(dictionary_metadata),
+                        artifact_path=artifact_path,
+                        manifest_path=manifest_path,
+                        provenance_path=provenance_path,
+                    ),
+                )
+                shutil.rmtree(temp_base, ignore_errors=True)
+                return repaired
             os.replace(temp_pack_root, target_root)
             try:
                 temp_base.rmdir()
@@ -276,7 +305,11 @@ def list_installed_lookup_dictionaries(
         if not isinstance(payload, Mapping):
             continue
         pack_id = str(payload.get("pack_id") or metadata_path.parent.name).strip()
-        if resolve_installed_pack_artifact(base, pack_id) is None:
+        try:
+            artifact_path = resolve_installed_pack_artifact(base, pack_id)
+        except (OSError, TypeError, ValueError, json.JSONDecodeError):
+            continue
+        if artifact_path is None:
             continue
         dictionaries.append(_installed_dictionary_from_metadata(payload))
     return tuple(dictionaries)
@@ -686,30 +719,6 @@ def _pack_id_for_archive(title: str, archive_sha256: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", str(title or "").casefold()).strip("-")
     slug = (slug or "dictionary")[:48].rstrip("-")
     return f"yomitan-{slug}-{archive_sha256[:12]}"
-
-
-def _existing_import_result(
-    dictionaries_dir: Path,
-    pack_id: str,
-    archive_sha256: str,
-) -> YomitanDictionaryImportResult | None:
-    root = installed_pack_root(dictionaries_dir, pack_id)
-    metadata_path = root / LOOKUP_DICTIONARY_METADATA_FILENAME
-    artifact_path = resolve_installed_pack_artifact(dictionaries_dir, pack_id)
-    if artifact_path is None or not metadata_path.exists():
-        return None
-    try:
-        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return None
-    if not isinstance(metadata, Mapping) or metadata.get("archive_sha256") != archive_sha256:
-        return None
-    return YomitanDictionaryImportResult(
-        dictionary=_installed_dictionary_from_metadata(metadata),
-        artifact_path=artifact_path,
-        manifest_path=root / "manifest.json",
-        provenance_path=root / "provenance.json",
-    )
 
 
 def _installed_dictionary_from_metadata(

@@ -225,7 +225,7 @@ Acceptance criteria:
 
 ### Dictionary resilience and maintainability
 
-#### DICT-01: Add a redistributable large-dictionary performance fixture
+#### DICT-01: Add a redistributable large-dictionary performance fixture — completed 2026-08-27
 
 Implementation TODO:
 - Generate a synthetic Yomitan format-3 archive large enough to exercise
@@ -233,13 +233,16 @@ Implementation TODO:
 - Add bounded import/lookup performance reporting without committing commercial
   dictionary data or using local Daijirin files as CI inputs.
 
-Acceptance criteria:
-- CI or a documented local quality command can detect major importer/indexing
-  regressions using only redistributable generated data.
-- Correctness coverage remains separate from machine-sensitive performance
-  thresholds.
+Completed work:
+- Added a deterministic Yomitan format-3 generator and local quality command
+  covering multi-bank import/indexing, exact repeat import, lookup latency,
+  cancellation, and partial-install cleanup.
+- Kept correctness failures unconditional while making machine-sensitive timing
+  budgets explicit opt-ins for stable local or CI runners.
+- Documented the command and retained-artifact option in
+  `docs/developer/yomitan_dictionary_performance.md`.
 
-#### DICT-02: Add dictionary health, recovery, and source visibility
+#### DICT-02: Add dictionary health, recovery, and source visibility — completed 2026-08-27
 
 Implementation TODO:
 - Detect missing, incompatible, or corrupt installed dictionary artifacts and
@@ -250,10 +253,20 @@ Implementation TODO:
 - Consider exporting/importing dictionary-stack assignments while explicitly
   excluding dictionary contents.
 
-Acceptance criteria:
-- A broken configured dictionary does not silently look healthy.
-- Users can recover without manually editing settings or managed data folders.
-- Definition-source identification remains compact and learner-friendly.
+Completed work:
+- Added bounded metadata, manifest, path, schema, and SQLite readability probes.
+  Settings starts them only after the panel renders, on a daemon worker; normal
+  popup lookup and app startup do not hash archives, walk dictionary trees, or
+  run database integrity scans.
+- Added learner-facing Healthy, Needs repair, and Incompatible states without
+  showing managed filesystem paths. Broken configured dictionaries are removed
+  from the usable stack after the check and continue to fall through safely.
+- Added a confirmed Reimport flow that requires the same original ZIP, rebuilds
+  and validates a staged local copy, atomically replaces managed files, keeps
+  all language-pair assignments, and never changes the user's source ZIP.
+- Kept compact popup source-title behavior unchanged. Export/import of stack
+  assignments remains a separate backup/portability UX decision; dictionary
+  contents would remain excluded if that workflow is added.
 
 ### Completed integration checkpoint
 

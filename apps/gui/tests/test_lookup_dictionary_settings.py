@@ -17,6 +17,9 @@ from lexishift_core.helper.lookup_dictionary_settings import (
     load_lookup_dictionary_settings,
     lookup_dictionary_pack_ids_for_pair,
 )
+from lexishift_core.helper.yomitan_dictionary_health import (
+    inspect_installed_lookup_dictionary_health,
+)
 from lexishift_core.helper.yomitan_lookup_dictionaries import (
     import_yomitan_dictionary_zip,
 )
@@ -242,10 +245,54 @@ def test_lookup_dictionary_stack_is_saved_per_language_pair() -> None:
         used_by = panel._lookup_dictionary_table.item(0, 2).text()
         assert "en-ja" in used_by
         assert "ja-ja" in used_by
-        actions = panel._lookup_dictionary_table.cellWidget(0, 4)
+        actions = panel._lookup_dictionary_table.cellWidget(0, 5)
         assert actions is not None
-        assert panel._lookup_dictionary_table.columnWidth(4) >= actions.sizeHint().width()
+        assert panel._lookup_dictionary_table.columnWidth(5) >= actions.sizeHint().width()
         assert source.exists()
+
+
+def test_lookup_dictionary_health_is_displayed_and_corruption_offers_reimport() -> None:
+    _app()
+    set_locale("en")
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        dictionaries_dir = root / "lookup_dictionaries"
+        source = root / "dictionary.zip"
+        _write_yomitan_zip(source)
+        imported = import_yomitan_dictionary_zip(
+            source,
+            dictionaries_dir=dictionaries_dir,
+        )
+        with patch(
+            "settings_language_packs._lookup_dictionary_pack_dir",
+            return_value=str(dictionaries_dir),
+        ):
+            panel = LanguagePackPanel(focused_pair="en-ja", pack_source_overrides={})
+        _add_dictionary_to_current_pair(panel, imported.dictionary.pack_id)
+
+        token = panel._lookup_dictionary_health_request_token
+        panel._accept_lookup_dictionary_health(
+            str(dictionaries_dir),
+            token,
+            inspect_installed_lookup_dictionary_health(dictionaries_dir),
+            "",
+        )
+        assert panel._lookup_dictionary_table.item(0, 4).text() == "Healthy"
+        assert "SQLite index" in panel._lookup_dictionary_table.item(0, 4).toolTip()
+
+        imported.artifact_path.write_bytes(b"not a database")
+        panel._accept_lookup_dictionary_health(
+            str(dictionaries_dir),
+            token,
+            inspect_installed_lookup_dictionary_health(dictionaries_dir),
+            "",
+        )
+
+        assert panel._lookup_dictionary_table.item(0, 4).text() == "Needs repair"
+        actions = panel._lookup_dictionary_table.cellWidget(0, 5)
+        assert actions is not None
+        assert any(button.text() == "Reimport..." for button in actions.findChildren(QPushButton))
+        assert "Unavailable dictionary" in panel._lookup_dictionary_order_table.item(0, 1).text()
 
 
 def test_lookup_dictionary_global_remove_names_affected_pairs() -> None:

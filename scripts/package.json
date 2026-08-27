@@ -108,6 +108,7 @@
     "quality:srs:journey:en-es:installed:summary": "node dev/run_python.js testing/srs_journey_summary.py --journey-json ../docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json --markdown-out ../docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.md",
     "quality:srs:journey:en-es:installed:html": "node dev/run_python.js testing/srs_journey_html.py --journey-json ../docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json --html-out ../docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.html",
     "quality:pack-sources:audit": "node dev/run_python.js testing/pack_source_url_audit.py",
+    "quality:dictionary:yomitan": "node dev/run_python.js testing/yomitan_dictionary_performance.py",
     "build:bd": "node ../apps/betterdiscord-plugin/build_plugin.js",
     "watch:bd": "node ../apps/betterdiscord-plugin/watch_plugin.js",
     "sync:bd": "node ../apps/betterdiscord-plugin/sync_plugin.js",

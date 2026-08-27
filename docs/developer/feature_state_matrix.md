@@ -2126,7 +2126,16 @@ Use this file when:
   ordered selection of locally imported Yomitan format-3 popup dictionaries;
   cross-profile library enumeration and completed/mastered lifecycle UX remain
   planned.
-- Last documented checkpoint: `2026-08-26` lookup-stack rows now use consistent
+- Last documented checkpoint: `2026-08-27` imported dictionary health now runs
+  after Resource Settings renders on a background worker. The bounded probe
+  checks managed metadata, manifest/path safety, required SQLite schema, and a
+  single readable term row without hashing the source archive or scanning the
+  dictionary. Settings reports healthy, repairable, and incompatible copies;
+  exact-ZIP reimport rebuilds and validates a staged copy before replacing the
+  managed files while preserving pair assignments. A redistributable generated
+  200,000-term Yomitan quality command now measures multi-bank import, repeat
+  import, lookup, and cancellation with correctness and optional runner timing
+  budgets kept separate. `2026-08-26` lookup-stack rows now use consistent
   numeric ordering, label real built-in sources as fixed, omit the former fake
   last row when a pair has no built-in source, and keep compact up/down controls
   visible with explicit disabled explanations. Pair unassignment uses a shorter
@@ -2169,7 +2178,10 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-26` the focused lookup GUI/helper suite passed `24`
+- Last verified: `2026-08-27` focused core and GUI coverage passed for healthy,
+  missing, corrupt, and repaired dictionaries; exact-copy enforcement; retained
+  assignments; and the generated performance fixture/report contracts.
+  `2026-08-26` the focused lookup GUI/helper suite passed `24`
   tests covering actionable move-button wiring, visible disabled boundary
   controls and explanations, consistent built-in numbering, no-source row
   omission, action sizing, cancelled and confirmed pair unassignment, retained imported files, and the
@@ -2252,6 +2264,13 @@ Use this file when:
     thread, reports progress, supports cancellation, rejects unsafe or
     oversized archives, and does not copy the source ZIP into the repository or
     upload dictionary data.
+  - Resource Settings checks installed dictionary health only after the panel
+    renders and off the GUI thread. The probe reads known sidecars and performs
+    bounded SQLite schema/readability queries; it does not hash the source ZIP,
+    recursively scan the managed directory, run `PRAGMA integrity_check`, or
+    add work to normal popup lookup. Reimport repair accepts only the exact ZIP
+    that derives the existing pack ID, validates a staged rebuild, and preserves
+    every language-pair assignment.
   - Dictionary acquisition remains explicit and user-driven. After the desktop
     opens the community directory, it checks only recent top-level ZIP files in
     the Downloads folder for up to seven days. It does not trust filenames or
@@ -2311,6 +2330,7 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/word_info_senses.py`
   - `core/lexishift_core/helper/lookup_dictionary_settings.py`
   - `core/lexishift_core/helper/yomitan_dictionary_inspection.py`
+  - `core/lexishift_core/helper/yomitan_dictionary_health.py`
   - `core/lexishift_core/helper/yomitan_lookup_dictionaries.py`
   - `core/lexishift_core/helper/yomitan_dictionary_rendering.py`
   - `core/lexishift_core/helper/engine.py`
@@ -2321,6 +2341,8 @@ Use this file when:
   - `apps/chrome-extension/content/ui/manual_source_prompt.js`
   - `apps/chrome-extension/content/ui/ui.js`
   - `apps/gui/src/settings_lookup_dictionaries_mixin.py`
+  - `apps/gui/src/settings_lookup_dictionary_health_mixin.py`
+  - `apps/gui/src/lookup_dictionary_health.py`
   - `apps/gui/src/lookup_dictionary_import.py`
   - `apps/chrome-extension/shared/srs/popup_modules_registry.js`
   - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
@@ -2342,6 +2364,9 @@ Use this file when:
   - `apps/gui/tests/test_lookup_dictionary_settings.py`
   - `core/tests/helper/test_helper_word_info.py`
   - `core/tests/helper/test_yomitan_lookup_dictionaries.py`
+  - `scripts/testing/yomitan_dictionary_performance.py`
+  - `core/tests/dev/test_yomitan_dictionary_performance.py`
+  - `docs/developer/yomitan_dictionary_performance.md`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_helper_status_profile_contract.py`
   - `core/tests/dev/test_extension_quick_definition_popup_module.py`
