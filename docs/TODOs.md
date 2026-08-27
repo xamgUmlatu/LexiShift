@@ -3,7 +3,7 @@
 Status: Active backlog
 Role: Planning / WIP
 Last updated: 2026-08-27
-Last verified: 2026-08-27 beta integration plus Python/build-install health tooling pass; older backlog content not globally re-audited
+Last verified: 2026-08-27 beta integration, Python/build-install health tooling, and full typecheck-gate restoration; older backlog content not globally re-audited
 Purpose: consolidated product and architecture backlog retained after root README cleanup
 Source-of-truth: backlog planning only; current implementation truth lives in source code, tests, and `docs/developer/feature_state_matrix.md`.
 
@@ -186,23 +186,26 @@ Remaining verification:
 - Run the new install/relaunch command once against `/Applications` and confirm
   the live app opens with existing Application Support and dictionary data.
 
-#### INFRA-04: Restore a fully green repository typecheck gate
+#### INFRA-04: Restore a fully green repository typecheck gate — completed 2026-08-27
 
 Problem:
-- The pinned, supported environment now removes interpreter/tool-version drift,
-  but the full repository check still has 8 existing mypy errors in two
-  `en-es` compiled-scoring files.
+- The pinned, supported environment removed interpreter/tool-version drift and
+  exposed 8 mypy errors at NumPy `.tolist()` boundaries in two `en-es`
+  compiled-scoring files.
 
-Implementation TODO:
-- Resolve the typing errors without changing runtime scoring behavior.
-- Because scoring modules are touched, run the required rulegen benchmark,
-  quality gate, triage extraction, and focused tests even if the edits appear
-  annotation-only.
+Completed work:
+- Added explicit, runtime-neutral narrowing for arrays whose one-dimensional
+  shapes and scalar dtypes were already established by construction.
+- Ran the required `en-es` benchmark, quality gate, triage extraction, and
+  focused scoring tests. Benchmark metrics remained at the known baseline; the
+  separately tracked rulegen quality-floor policy remains red.
+- Verified the full repository safety gate, including all 838 tests, mypy over
+  188 source files, strict style, Windows parity, docs, and LP conformance.
 
 Acceptance criteria:
 - `npm --prefix scripts run check` completes normally in the bootstrapped
   environment.
-- Ordinary pre-push operation no longer needs a deliberate type-debt exception.
+- Ordinary pre-push operation no longer needs a type-debt exception.
 
 ### Dictionary resilience and maintainability
 

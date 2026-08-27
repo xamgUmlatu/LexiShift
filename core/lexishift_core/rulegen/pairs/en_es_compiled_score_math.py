@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import os
-from typing import TYPE_CHECKING, Mapping, Optional, Sequence
+from typing import TYPE_CHECKING, Mapping, Optional, Sequence, cast
 
 import numpy as np
 
@@ -386,7 +386,7 @@ def _resolve_vectorized_pos_match_matrix(
         Optional[tuple[tuple[str, str], ...]],
         list[int],
     ] = {}
-    for index in enabled_indices.tolist():
+    for index in cast(list[int], enabled_indices.tolist()):
         grouped_indices_by_compatibility.setdefault(
             config_matrix.compatibility_keys[index],
             [],

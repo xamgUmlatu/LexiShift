@@ -739,8 +739,8 @@ Use this file when:
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-08-27` Python-backed workflows now require the supported Python 3.10 line and have one-command repository environment setup/checks; macOS GUI packaging now has a safe build/validate/install/verify/relaunch command
-- Last verified: `2026-08-27` real Python 3.10.16 build-environment bootstrap, `838` passing repository tests (`4` skipped), focused launcher/GUI install-lifecycle/build-workflow tests, strict Windows parity (`9` pass), state/doc checks, and a validated packaged build containing the newly declared `simplemma` dependency; the full check then reached the separately tracked `8` existing mypy errors in two `en-es` compiled-scoring files
+- Last documented checkpoint: `2026-08-27` Python-backed workflows now require the supported Python 3.10 line and have one-command repository environment setup/checks; macOS GUI packaging now has a safe build/validate/install/verify/relaunch command; NumPy boundary typing in `en-es` compiled scoring is explicit enough for the pinned mypy gate
+- Last verified: `2026-08-27` real Python 3.10.16 build-environment bootstrap, validated packaged build containing the newly declared `simplemma` dependency, focused launcher/GUI install-lifecycle/build-workflow tests, focused `en-es` compiled-scoring tests (`53` pass, `1` skipped), required `en-es` benchmark/gate/triage loop, and a fully green repository check with `838` tests (`4` skipped), mypy over `188` source files, strict style, Windows parity (`9` pass), state/doc checks, and LP profile/conformance checks
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
@@ -794,6 +794,8 @@ Use this file when:
   - `requirements-build.txt`
   - `scripts/package.json`
   - `scripts/build/gui_app.py`
+  - `core/lexishift_core/rulegen/pairs/en_es_compiled_score_math.py`
+  - `core/lexishift_core/rulegen/pairs/en_es_compiled_scoring.py`
   - `core/tests/dev/test_python_environment_launcher.py`
   - `core/tests/dev/test_gui_app_build.py`
   - `docs/test_outputs/dev_workflow/feature_state_audit_latest.json`
