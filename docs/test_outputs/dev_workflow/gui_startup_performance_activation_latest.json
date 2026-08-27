@@ -1,34 +1,314 @@
 {
-  "generated_at": "2026-06-01T02:34:42.558467+00:00",
+  "generated_at": "2026-08-27T03:06:05.633962+00:00",
   "app": "/Applications/LexiShift.app",
-  "pair": "en-es",
+  "pair": "en-ja",
   "launch_mode": "activation",
-  "repetitions": 1,
+  "ready_marker": "settings_dialog.shown",
+  "repetitions": 3,
   "summary": {
-    "ok_count": 1,
+    "ok_count": 3,
     "timeout_count": 0,
-    "min_ms": 196.5,
-    "median_ms": 196.5,
-    "max_ms": 196.5,
+    "min_ms": 107.9,
+    "median_ms": 254.4,
+    "p95_ms": 743.3,
+    "max_ms": 797.6,
     "pre_entry": null,
     "process_entry_to_window": null
+  },
+  "budget": {
+    "max_median_ms": 500.0,
+    "max_p95_ms": 1000.0,
+    "passed": true,
+    "failures": []
   },
   "runs": [
     {
       "index": 1,
       "status": "ok",
-      "session_id": "76d489998504421a8a66133cac589384",
-      "requested_at": "2026-06-01T02:34:42.361600+00:00",
+      "session_id": "3e012cd0c5c84d1183f5eee563dd77a8",
+      "requested_at": "2026-08-27T03:06:04.467762+00:00",
       "launch_mode": "activation",
-      "pair": "en-es",
+      "pair": "en-ja",
+      "ready_marker": "settings_dialog.shown",
       "command": [],
       "process_pid": null,
+      "app_pid": 15650,
+      "cleanup_status": "not_requested",
       "activated": true,
-      "observed_elapsed_ms": 196.5,
+      "observed_elapsed_ms": 797.6,
       "startup_total_ms": null,
       "since_request_ms": null,
       "pre_entry_ms": null,
-      "matched_line": "[startup] activation received activation_session=76d489998504421a8a66133cac589384 resource_pair=en-es (+9541.2 ms, total 45172.0 ms) session=bdcad79c851141d4b7f631586d300a33 pid=98018 ppid=1 argv_mode=resource_settings source=startup_measure_open ts=2026-06-01T02:34:42.475034+00:00 launch_mode=open resource_pair=en-es since_request_ms=46368.4"
+      "checkpoint_count": 29,
+      "checkpoints": [
+        {
+          "label": "activation received",
+          "delta_ms": 1320.4,
+          "total_ms": 1716.0,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.open_requested",
+          "delta_ms": 0.8,
+          "total_ms": 1716.8,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.construction_begin",
+          "delta_ms": 0.2,
+          "total_ms": 1717.0,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.qdialog_initialized",
+          "delta_ms": 0.2,
+          "total_ms": 1717.1,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.preferences_loaded",
+          "delta_ms": 0.7,
+          "total_ms": 1717.8,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.construction_begin",
+          "delta_ms": 0.1,
+          "total_ms": 1717.9,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.theme_paths_ready",
+          "delta_ms": 0.6,
+          "total_ms": 1718.6,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.lookup_dictionaries_initialized",
+          "delta_ms": 0.2,
+          "total_ms": 1718.7,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.pack_catalog_loaded",
+          "delta_ms": 0.3,
+          "total_ms": 1719.0,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.base_tables_ready",
+          "delta_ms": 3.3,
+          "total_ms": 1722.3,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.language_packs_populated",
+          "delta_ms": 7.3,
+          "total_ms": 1729.6,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.frequency_packs_populated",
+          "delta_ms": 5.5,
+          "total_ms": 1735.1,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.embedding_packs_populated",
+          "delta_ms": 1.8,
+          "total_ms": 1736.9,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.cross_embedding_packs_populated",
+          "delta_ms": 1.8,
+          "total_ms": 1738.6,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.learning_languages_tab_built",
+          "delta_ms": 0.9,
+          "total_ms": 1739.5,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.lookup_dictionaries_tab_built",
+          "delta_ms": 6.7,
+          "total_ms": 1746.3,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.pair_style_applied",
+          "delta_ms": 8.6,
+          "total_ms": 1754.8,
+          "since_request_ms": null
+        },
+        {
+          "label": "language_pack_panel.construction_complete",
+          "delta_ms": 26.1,
+          "total_ms": 1780.9,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.language_pack_panel_constructed",
+          "delta_ms": 0.2,
+          "total_ms": 1781.2,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.app_tab_constructed",
+          "delta_ms": 2.8,
+          "total_ms": 1783.9,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.resources_tab_constructed",
+          "delta_ms": 134.5,
+          "total_ms": 1918.5,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.appearance_tab_constructed",
+          "delta_ms": 4.0,
+          "total_ms": 1922.5,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.dataset_tab_constructed",
+          "delta_ms": 7.6,
+          "total_ms": 1930.1,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.integrations_tab_constructed",
+          "delta_ms": 23.2,
+          "total_ms": 1953.2,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.values_applied",
+          "delta_ms": 79.4,
+          "total_ms": 2032.6,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.helper_status_refreshed",
+          "delta_ms": 0.8,
+          "total_ms": 2033.5,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.construction_complete",
+          "delta_ms": 323.4,
+          "total_ms": 2356.9,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.exec_begin",
+          "delta_ms": 4.5,
+          "total_ms": 2361.4,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.shown",
+          "delta_ms": 42.2,
+          "total_ms": 2403.6,
+          "since_request_ms": null
+        }
+      ],
+      "matched_line": "[startup] settings_dialog.shown activation_session=3e012cd0c5c84d1183f5eee563dd77a8 (+42.2 ms, total 2403.6 ms) session=direct-15650-1787799962806775000 pid=15650 ppid=1 argv_mode=normal source=direct ts=2026-08-27T03:06:05.210315+00:00"
+    },
+    {
+      "index": 2,
+      "status": "ok",
+      "session_id": "68afb5b0ef0b43da80765fdbf10dccce",
+      "requested_at": "2026-08-27T03:06:05.267288+00:00",
+      "launch_mode": "activation",
+      "pair": "en-ja",
+      "ready_marker": "settings_dialog.shown",
+      "command": [],
+      "process_pid": null,
+      "app_pid": 15650,
+      "cleanup_status": "not_requested",
+      "activated": true,
+      "observed_elapsed_ms": 254.4,
+      "startup_total_ms": null,
+      "since_request_ms": null,
+      "pre_entry_ms": null,
+      "checkpoint_count": 4,
+      "checkpoints": [
+        {
+          "label": "activation received",
+          "delta_ms": 120.0,
+          "total_ms": 2523.6,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.open_requested",
+          "delta_ms": 34.0,
+          "total_ms": 2557.6,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.reused",
+          "delta_ms": 47.0,
+          "total_ms": 2604.6,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.shown",
+          "delta_ms": 0.3,
+          "total_ms": 2604.8,
+          "since_request_ms": null
+        }
+      ],
+      "matched_line": "[startup] settings_dialog.shown activation_session=68afb5b0ef0b43da80765fdbf10dccce (+0.3 ms, total 2604.8 ms) session=direct-15650-1787799962806775000 pid=15650 ppid=1 argv_mode=normal source=direct ts=2026-08-27T03:06:05.411557+00:00"
+    },
+    {
+      "index": 3,
+      "status": "ok",
+      "session_id": "6a1ef0ee33a646f491c8cd4fd78256d2",
+      "requested_at": "2026-08-27T03:06:05.523416+00:00",
+      "launch_mode": "activation",
+      "pair": "en-ja",
+      "ready_marker": "settings_dialog.shown",
+      "command": [],
+      "process_pid": null,
+      "app_pid": 15650,
+      "cleanup_status": "not_requested",
+      "activated": true,
+      "observed_elapsed_ms": 107.9,
+      "startup_total_ms": null,
+      "since_request_ms": null,
+      "pre_entry_ms": null,
+      "checkpoint_count": 4,
+      "checkpoints": [
+        {
+          "label": "activation received",
+          "delta_ms": 126.7,
+          "total_ms": 2731.5,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.open_requested",
+          "delta_ms": 30.9,
+          "total_ms": 2762.4,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.reused",
+          "delta_ms": 49.9,
+          "total_ms": 2812.3,
+          "since_request_ms": null
+        },
+        {
+          "label": "settings_dialog.shown",
+          "delta_ms": 0.3,
+          "total_ms": 2812.5,
+          "since_request_ms": null
+        }
+      ],
+      "matched_line": "[startup] settings_dialog.shown activation_session=6a1ef0ee33a646f491c8cd4fd78256d2 (+0.3 ms, total 2812.5 ms) session=direct-15650-1787799962806775000 pid=15650 ppid=1 argv_mode=normal source=direct ts=2026-08-27T03:06:05.619274+00:00"
     }
   ]
 }

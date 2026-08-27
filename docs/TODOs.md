@@ -130,27 +130,37 @@ Acceptance criteria:
   documented command.
 - `npm --prefix scripts run check` and the pre-push hook select the same Python
   environment.
-- Interpreter drift no longer requires `--no-verify`; the separate existing
-  mypy debt remains tracked below.
+- Interpreter drift no longer requires `--no-verify`; the repository typecheck
+  gate is green under the same environment.
 
-#### INFRA-02: Finish packaged GUI startup diagnosis and remove blocking work
+#### INFRA-02: Finish packaged GUI startup diagnosis and remove blocking work — completed 2026-08-27
 
 Owning plan:
 - `docs/developer/packaged_gui_startup_performance_plan.md`
 
-Problem:
+Resolved problem:
 - Recent packaged resource-settings launches recorded approximately 224 and
-  487 seconds inside `MainWindow` construction, far outside the existing cold
-  launch targets. The responsible initialization step has not yet been isolated.
+  487 seconds inside `MainWindow` construction. Fine-grained checkpoints and a
+  process stack sample isolated the current-machine hang to synchronous
+  `QPixmap` file opening for an active custom-theme image under `~/Downloads`;
+  installed dictionary/resource inventory construction was not the blocker.
 
-Implementation TODO:
-- Add fine-grained startup checkpoints around `MainWindow` construction and
-  resource-panel initialization.
-- Render a usable window before scanning or loading large installed-resource
-  inventories.
-- Move proven expensive metadata/index work off the GUI thread and cache safe
-  inventory results where appropriate.
-- Add a packaged startup budget check using repeatable warm/cold samples.
+Completed work:
+- Added fine-grained startup checkpoints around `MainWindow` construction and
+  resource-panel initialization, plus structured checkpoint extraction in the
+  packaged measurement artifact.
+- Moved custom-theme image file reads and decoding to a shared daemon loader so
+  protected, unavailable, or slow external image paths cannot block the GUI
+  thread. Requests are deduplicated, stale results are ignored, and source
+  payloads are bounded at 64 MiB.
+- Reused and focused an already-visible Settings dialog for repeated
+  resource-settings activation instead of constructing nested modal dialogs.
+- Added exact app-PID cleanup, p95 reporting, and optional median/p95 budget
+  enforcement to repeatable packaged measurements.
+- Rebuilt and installed both app bundles without replacing Application Support.
+  Three installed cold launches to `settings_dialog.shown` passed at 1573.5 ms
+  median / 2313.8 ms measured p95; three already-running activations passed at
+  254.4 ms median / 743.3 ms measured p95.
 
 Acceptance criteria:
 - The responsible blocking operation is identified with checkpoint evidence.
@@ -158,7 +168,12 @@ Acceptance criteria:
   or a current-machine exception is explicitly documented.
 - Large installed dictionaries do not make the application appear dead.
 
-#### INFRA-03: Add one-command macOS build, install, verify, and relaunch — implemented 2026-08-27; live install smoke pending
+Verification evidence:
+- `docs/test_outputs/dev_workflow/gui_startup_performance_open_latest.json`
+- `docs/test_outputs/dev_workflow/gui_startup_performance_activation_latest.json`
+- Installed-bundle build/validation and 66 focused GUI/startup tests passed.
+
+#### INFRA-03: Add one-command macOS build, install, verify, and relaunch — completed 2026-08-27
 
 Problem:
 - The current manual PyInstaller, quit, `ditto`, comparison, and relaunch flow
@@ -182,9 +197,10 @@ Acceptance criteria:
 - Verification does not rely on recursive directory comparison that follows
   framework symlink loops.
 
-Remaining verification:
-- Run the new install/relaunch command once against `/Applications` and confirm
-  the live app opens with existing Application Support and dictionary data.
+Completed verification:
+- Ran the install workflow repeatedly against `/Applications`; installed bundle
+  validation passed, the live app opened with the existing custom theme and
+  dictionary data, and the user confirmed the preserved-data smoke.
 
 #### INFRA-04: Restore a fully green repository typecheck gate — completed 2026-08-27
 

@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-07-02
+Last updated: 2026-08-27
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -871,8 +871,8 @@ Use this file when:
 ## Browser Helper Connection Management
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-06-01` browser-connections manager kept the narrowed one-click prod rows and browser+extension-ID unpacked-dev flow, workspace-host installs switched to a pinned-interpreter wrapper, native-host startup failures write deterministic local logs, resource-settings launches now carry a startup session into GUI startup telemetry, the packaged GUI now uses the canonical PyInstaller onedir EXE/COLLECT payload split, transport/browser failures expose stable helper-facing error codes, options-side helper flows localize timeout/browser-blocked cases alongside helper-missing/host-exited cases, and saved bundled/workspace connections auto-repair a narrow set of deterministic stale manifest/host states on startup or when `Connections...` opens
-- Last verified: `2026-06-01` targeted native-host resource-settings telemetry tests, GUI startup logger tests, packaged startup measurement script tests, GUI build-spec tests, native-host startup-log coverage, installed-bundle rebuild/validation, installed-bundle startup measurements, extension helper transport/localization contracts from the existing evidence set, and changed-scope repo safety
+- Last documented checkpoint: `2026-08-27` resource-settings startup telemetry now continues through the visible dialog, structured checkpoints cover main-window/settings/resource-panel construction, slow external theme-image reads and decoding are off the GUI thread, repeated activation reuses the visible Settings dialog, and repeatable cold/activation measurements enforce optional median/p95 budgets with exact measured-app cleanup. The earlier browser-connections, pinned workspace host, onedir bundle split, stable transport errors, and narrow auto-repair behavior remain active.
+- Last verified: `2026-08-27` installed `/Applications` bundle rebuild/validation, three-run cold Resource Settings budget (`1573.5 ms` median / `2313.8 ms` measured p95), three-run visible activation budget (`254.4 ms` median / `743.3 ms` measured p95), preserved Application Support/user-data smoke, and 66 focused GUI/startup tests. Earlier native-host, extension transport/localization, build-spec, and changed-scope evidence remains applicable.
 - Default behavior:
   - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
   - Fixed-ID production browsers keep a one-click connect/repair path.
@@ -882,6 +882,17 @@ Use this file when:
   - Native-host startup/import failures now append a traceback to `logs/native_host.log` under the LexiShift data root, so browser-side `Native host has exited` failures have a deterministic local log instead of only a transient browser transport error.
   - Native-host resource-settings requests now log a startup session, activation timing, launch resolution, command class, `Popen` timing, and total native-host handoff timing; cold GUI launches receive the same session through `LEXISHIFT_STARTUP_SESSION_ID`.
   - GUI startup timing records now include session id, PID, parent PID, argv mode, launch source, launch mode, resource pair, UTC timestamps, and request-to-checkpoint timing when the GUI was launched by the native host.
+  - Main-window, Settings-dialog, and Language Pack panel construction emit
+    structured checkpoints; the measurement tool captures them, reports p95,
+    can fail explicit median/p95 budgets, and can terminate only the app PID
+    recorded for its own cold-launch session between repetitions.
+  - Custom-theme background file reads and `QImage` decoding run through a
+    shared daemon loader. Slow or protected external paths cannot block the GUI
+    thread; duplicate path requests share one load, stale theme results are
+    ignored, and source images are bounded at 64 MiB.
+  - Existing-GUI resource activation carries its activation session through
+    `settings_dialog.shown` and focuses/reuses an already-visible Settings
+    dialog instead of constructing nested modal dialogs.
   - The packaged GUI uses PyInstaller onedir bundles with `EXE(..., exclude_binaries=True)` and `COLLECT`-owned binaries/zipfiles/datas, so installed main/helper app size and warm relaunch latency are no longer dominated by duplicated executable payloads.
   - Native-messaging manifests now merge all allowed origins for the same browser into one manifest instead of assuming only one extension ID.
   - Same-browser prod and unpacked-dev entries still share one host path; the GUI only surfaces that as a targeted warning when an unpacked-dev change would switch a configured browser to the workspace host.
@@ -895,6 +906,8 @@ Use this file when:
   - `apps/gui/src/main_menu_mixin.py`
   - `apps/gui/src/main_runtime.py`
   - `apps/gui/src/startup_logging.py`
+  - `apps/gui/src/theme_image_loader.py`
+  - `apps/gui/src/theme_widgets.py`
   - `apps/gui/packaging/pyinstaller.spec`
   - `scripts/build/gui_app.py`
   - `apps/gui/src/dialogs.py`
@@ -921,7 +934,10 @@ Use this file when:
   - Native messaging still uses one host manifest per browser name, so same-browser prod and unpacked-dev origins still share one host path.
   - Fixed-ID production rows only work in builds where `apps/gui/resources/helper_extension_ids.json` contains real non-placeholder production IDs.
   - The desktop app can verify manifest/origin/host freshness, but it still cannot prove that the browser extension is currently installed and active.
-  - First launch immediately after reinstall/rebuild can still be materially slower than warm relaunch on the local machine; release signing/notarization and tester-machine measurements still need confirmation.
+  - First launch immediately after reinstall/rebuild can still be slower than
+    later warm launches, although the latest local sample remained within the
+    Resource Settings p95 budget; release signing/notarization and tester-machine
+    measurements still need confirmation.
 
 ## Feature-State Evidence Audit
 

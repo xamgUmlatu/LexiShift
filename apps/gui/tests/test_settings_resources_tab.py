@@ -59,6 +59,34 @@ def test_settings_can_open_directly_to_resources_tab() -> None:
     assert dialog._tabs.currentIndex() == 1
 
 
+def test_settings_startup_checkpoints_cover_resource_panel_construction() -> None:
+    _app()
+    set_locale("en")
+    checkpoints: list[str] = []
+
+    SettingsDialog(
+        app_settings=AppSettings(),
+        dataset_settings=None,
+        initial_tab="resources",
+        initial_resource_pair="en-es",
+        startup_checkpoint=checkpoints.append,
+    )
+
+    expected = (
+        "settings_dialog.construction_begin",
+        "language_pack_panel.construction_begin",
+        "language_pack_panel.lookup_dictionaries_initialized",
+        "language_pack_panel.language_packs_populated",
+        "language_pack_panel.learning_languages_tab_built",
+        "language_pack_panel.lookup_dictionaries_tab_built",
+        "language_pack_panel.construction_complete",
+        "settings_dialog.language_pack_panel_constructed",
+        "settings_dialog.construction_complete",
+    )
+    positions = [checkpoints.index(label) for label in expected]
+    assert positions == sorted(positions)
+
+
 def test_settings_resource_pair_focus_adds_learning_language_card() -> None:
     _app()
     set_locale("en")

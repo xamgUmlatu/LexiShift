@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional
 
 from PySide6.QtCore import QRectF, QSize, QSettings, Qt
 from PySide6.QtGui import QColor, QIcon, QPainter, QPainterPath, QPen, QPixmap
@@ -261,9 +261,15 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         dataset_settings: Optional[VocabSettings],
         initial_tab: str | None = None,
         initial_resource_pair: str | None = None,
+        startup_checkpoint: Callable[[str], None] | None = None,
         parent=None,
     ) -> None:
+        if startup_checkpoint is not None:
+            startup_checkpoint("settings_dialog.construction_begin")
         super().__init__(parent)
+        self._startup_checkpoint = startup_checkpoint
+        self._startup_show_logged = False
+        self._log_startup_checkpoint("settings_dialog.qdialog_initialized")
         self.setWindowTitle(t("dialogs.settings.title"))
         self.setSizeGripEnabled(True)
         self.setMinimumSize(900, 680)
@@ -285,17 +291,26 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         self._theme = self._themes[self._theme_id]
         locale_pref = self._ui_settings.value("appearance/locale", "system")
         self._locale_pref = str(locale_pref) if locale_pref is not None else "system"
+        self._log_startup_checkpoint("settings_dialog.preferences_loaded")
         self.language_pack_panel = LanguagePackPanel(
             parent=self,
             focused_pair=initial_resource_pair,
+            startup_checkpoint=startup_checkpoint,
         )
+        self._log_startup_checkpoint("settings_dialog.language_pack_panel_constructed")
         tabs = QTabWidget()
         self._tabs = tabs
         app_tab = self._wrap_tab(self._build_app_tab())
+        self._log_startup_checkpoint("settings_dialog.app_tab_constructed")
         resources_tab = self._wrap_tab(self._build_resources_tab())
+        self._resources_tab = resources_tab
+        self._log_startup_checkpoint("settings_dialog.resources_tab_constructed")
         appearance_tab = self._wrap_tab(self._build_appearance_tab())
+        self._log_startup_checkpoint("settings_dialog.appearance_tab_constructed")
         dataset_tab = self._wrap_tab(self._build_dataset_tab())
+        self._log_startup_checkpoint("settings_dialog.dataset_tab_constructed")
         integrations_tab = self._wrap_tab(self._build_integrations_tab())
+        self._log_startup_checkpoint("settings_dialog.integrations_tab_constructed")
         tabs.addTab(app_tab, t("tabs.app"))
         tabs.addTab(resources_tab, t("language_packs.title"))
         tabs.addTab(appearance_tab, t("tabs.appearance"))
@@ -308,7 +323,9 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         self._apply_inflections(inflections)
         self._apply_learning(learning)
         self._apply_srs_settings(app_settings.srs)
+        self._log_startup_checkpoint("settings_dialog.values_applied")
         self._refresh_helper_status()
+        self._log_startup_checkpoint("settings_dialog.helper_status_refreshed")
 
         button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         button_box.accepted.connect(self.accept)
@@ -318,6 +335,25 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         layout.addWidget(tabs)
         layout.addWidget(button_box)
         self._apply_theme()
+        self._log_startup_checkpoint("settings_dialog.construction_complete")
+
+    def focus_resources(self, pair: str | None = None) -> None:
+        self._tabs.setCurrentWidget(self._resources_tab)
+        if not pair:
+            return
+        self.language_pack_panel._set_focused_pair(pair)
+        self.language_pack_panel._refresh_learning_pair_cards()
+
+    def _log_startup_checkpoint(self, label: str) -> None:
+        if self._startup_checkpoint is not None:
+            self._startup_checkpoint(label)
+
+    def showEvent(self, event) -> None:
+        super().showEvent(event)
+        if self._startup_show_logged:
+            return
+        self._startup_show_logged = True
+        self._log_startup_checkpoint("settings_dialog.shown")
 
     def result_app_settings(self) -> AppSettings:
         export_format = self.default_export_format.currentData()

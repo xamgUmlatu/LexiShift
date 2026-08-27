@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 import shutil
-from typing import Mapping
+from typing import Callable, Mapping
 import webbrowser
 
 from PySide6.QtCore import QSettings, QStandardPaths, Qt
@@ -89,8 +89,12 @@ class LanguagePackPanel(
         focused_pair: str | None = None,
         pack_source_overrides: Mapping[str, PackTransportOverride | Mapping[str, object]]
         | None = None,
+        startup_checkpoint: Callable[[str], None] | None = None,
     ) -> None:
+        if startup_checkpoint is not None:
+            startup_checkpoint("language_pack_panel.construction_begin")
         super().__init__(parent)
+        self._startup_checkpoint = startup_checkpoint
         self._theme = dict(resolve_current_theme(screen_id="settings_dialog"))
         self._set_focused_pair(focused_pair)
         self._language_pack_dir = _language_pack_dir()
@@ -98,7 +102,9 @@ class LanguagePackPanel(
         self._frequency_pack_dir = _frequency_pack_dir()
         self._pos_overlay_pack_dir = _pos_overlay_pack_dir()
         self._lookup_dictionary_dir = _lookup_dictionary_pack_dir()
+        self._log_startup_checkpoint("language_pack_panel.theme_paths_ready")
         self._initialize_lookup_dictionaries()
+        self._log_startup_checkpoint("language_pack_panel.lookup_dictionaries_initialized")
         self._uses_dynamic_pack_source_overrides = pack_source_overrides is None
         self._pack_source_overrides = (
             load_pack_source_overrides(refresh_remote=False)
@@ -106,6 +112,7 @@ class LanguagePackPanel(
             else dict(pack_source_overrides or {})
         )
         self._set_pack_source_overrides(self._pack_source_overrides)
+        self._log_startup_checkpoint("language_pack_panel.pack_catalog_loaded")
         self._language_pack_rows: dict[str, LanguagePackRow] = {}
         self._frequency_pack_rows: dict[str, FrequencyPackRow] = {}
         self._embedding_pack_rows: dict[str, EmbeddingPackRow] = {}
@@ -187,15 +194,20 @@ class LanguagePackPanel(
         self.frequency_pack_table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self._configure_language_resource_table(self.frequency_pack_table)
         self.frequency_pack_table.setMinimumHeight(380)
+        self._log_startup_checkpoint("language_pack_panel.base_tables_ready")
 
         self.language_pack_status = QLabel("")
         self.language_pack_status.setWordWrap(True)
         self.language_pack_status.setOpenExternalLinks(True)
 
         self._populate_language_packs()
+        self._log_startup_checkpoint("language_pack_panel.language_packs_populated")
         self._populate_frequency_packs()
+        self._log_startup_checkpoint("language_pack_panel.frequency_packs_populated")
         self._populate_embedding_packs()
+        self._log_startup_checkpoint("language_pack_panel.embedding_packs_populated")
         self._populate_cross_embedding_packs()
+        self._log_startup_checkpoint("language_pack_panel.cross_embedding_packs_populated")
 
         layout = QVBoxLayout(self)
         title = QLabel(t("language_packs.title"))
@@ -204,12 +216,16 @@ class LanguagePackPanel(
 
         self._resource_tabs = QTabWidget(self)
         self._resource_tabs.setObjectName("lexishiftResourceTabs")
+        learning_languages_tab = self._build_learning_languages_tab()
+        self._log_startup_checkpoint("language_pack_panel.learning_languages_tab_built")
         self._resource_tabs.addTab(
-            self._build_learning_languages_tab(),
+            learning_languages_tab,
             t("language_packs.learning_pairs.tab_title"),
         )
+        lookup_dictionaries_tab = self._build_lookup_dictionaries_tab()
+        self._log_startup_checkpoint("language_pack_panel.lookup_dictionaries_tab_built")
         self._resource_tabs.addTab(
-            self._build_lookup_dictionaries_tab(),
+            lookup_dictionaries_tab,
             t("language_packs.lookup_dictionaries.tab_title"),
         )
         app = QApplication.instance()
@@ -218,7 +234,13 @@ class LanguagePackPanel(
         layout.addWidget(self._resource_tabs)
         layout.addWidget(self.language_pack_status)
         self._apply_pair_resource_setup_style()
+        self._log_startup_checkpoint("language_pack_panel.pair_style_applied")
         self._refresh_pair_resource_setup_panel()
+        self._log_startup_checkpoint("language_pack_panel.construction_complete")
+
+    def _log_startup_checkpoint(self, label: str) -> None:
+        if self._startup_checkpoint is not None:
+            self._startup_checkpoint(label)
 
     def _on_application_state_changed(self, state) -> None:
         if state == Qt.ApplicationState.ApplicationActive:

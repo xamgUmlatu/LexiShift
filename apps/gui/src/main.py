@@ -119,17 +119,25 @@ class MainWindow(
     MainWindowImportExportMixin,
     QMainWindow,
 ):
-    def __init__(self) -> None:
+    def __init__(self, *, startup_logger: StartupLogger | None = None) -> None:
+        if startup_logger is not None:
+            startup_logger.log("main_window.construction_begin")
         super().__init__()
+        self._startup_logger = startup_logger
+        self._log_startup_checkpoint("main_window.qmainwindow_initialized")
         self._window_title_base = t("app.window_title")
         self.setWindowTitle(self._window_title_base)
         self._ui_settings = QSettings()
         self._theme = dict(resolve_current_theme(screen_id="main_window"))
+        self._log_startup_checkpoint("main_window.settings_theme_resolved")
 
         settings_path = _settings_path()
         self.state = AppState(settings_path=settings_path)
+        self._log_startup_checkpoint("main_window.app_state_created")
         self.state.load_settings()
+        self._log_startup_checkpoint("main_window.app_settings_loaded")
         self._migrate_ruleset_paths()
+        self._log_startup_checkpoint("main_window.ruleset_paths_migrated")
 
         self.rules_model = RulesTableModel([])
         self.rules_model.rulesChanged.connect(self._on_rules_changed)
@@ -138,6 +146,7 @@ class MainWindow(
         self._rules_proxy.setSortRole(Qt.UserRole)
         self._rules_proxy.setSortCaseSensitivity(Qt.CaseInsensitive)
         self._rules_proxy.setDynamicSortFilter(True)
+        self._log_startup_checkpoint("main_window.rules_model_ready")
 
         self._profile_combo_updating = False
         self.profile_combo = QComboBox()
@@ -177,6 +186,7 @@ class MainWindow(
         self.manage_rulesets_button.setProperty("size", "large")
         self.open_ruleset_button.setProperty("size", "large")
         self.save_ruleset_button.setProperty("size", "large")
+        self._log_startup_checkpoint("main_window.profile_ruleset_controls_ready")
 
         self.rules_table = RulesTableView()
         self.rules_table.setModel(self._rules_proxy)
@@ -200,6 +210,7 @@ class MainWindow(
         header.setSectionResizeMode(RulesTableModel.COLUMN_TAGS, QHeaderView.Stretch)
         self.rules_table.verticalHeader().setVisible(False)
         self.rules_table.clicked.connect(self._on_rule_table_clicked)
+        self._log_startup_checkpoint("main_window.rules_table_ready")
 
         self._replacement_thresholds: dict[str, float] = {}
         self._replacement_slider_updating = False
@@ -225,6 +236,7 @@ class MainWindow(
         self.embedding_progress.setTextVisible(True)
         self.embedding_progress.setFormat(t("replacement.loading_embeddings"))
         self.embedding_progress.hide()
+        self._log_startup_checkpoint("main_window.replacement_controls_ready")
 
         self.log_edit = QTextEdit()
         self.log_edit.setReadOnly(True)
@@ -242,6 +254,7 @@ class MainWindow(
             expanded=logs_expanded,
         )
         self._utility_dock.panelToggled.connect(self._on_utility_panel_toggled)
+        self._log_startup_checkpoint("main_window.utility_dock_ready")
 
         editor_panel = QWidget()
         editor_layout = QVBoxLayout(editor_panel)
@@ -271,25 +284,41 @@ class MainWindow(
         container_layout.setContentsMargins(12, 12, 12, 12)
         container_layout.addWidget(self._workspace_stack)
         self.setCentralWidget(self._theme_container)
+        self._log_startup_checkpoint("main_window.central_workspace_ready")
 
         self._setup_actions()
         self._setup_menu()
         self._refresh_helper_menu_label()
+        self._log_startup_checkpoint("main_window.actions_menus_ready")
         auto_install_helper(self._ui_settings)
         self._refresh_helper_menu_label()
+        self._log_startup_checkpoint("main_window.helper_auto_install_complete")
         self._setup_rule_selection()
+        self._log_startup_checkpoint("main_window.rule_selection_ready")
         self._refresh_embedding_index()
+        self._log_startup_checkpoint("main_window.embedding_refresh_complete")
         self.state.datasetChanged.connect(self._on_dataset_loaded)
         self.state.dirtyChanged.connect(self._on_dirty_changed)
         self.state.profilesChanged.connect(self._on_profiles_changed)
         self.state.activeProfileChanged.connect(self._select_active_profile)
+        self._log_startup_checkpoint("main_window.state_signals_connected")
 
         self._load_active_profile()
+        self._log_startup_checkpoint("main_window.active_profile_loaded")
         self._refresh_profiles_ui()
+        self._log_startup_checkpoint("main_window.profiles_ui_refreshed")
         self._restore_window_state()
+        self._log_startup_checkpoint("main_window.window_state_restored")
         self._apply_theme()
+        self._log_startup_checkpoint("main_window.theme_applied")
         self._rebalance_right_splitter(keep_current=True)
         self._refresh_window_title()
+        self._log_startup_checkpoint("main_window.construction_complete")
+
+    def _log_startup_checkpoint(self, label: str) -> None:
+        startup_logger = getattr(self, "_startup_logger", None)
+        if startup_logger is not None:
+            startup_logger.log(label)
 
     def _build_profile_header(self) -> QWidget:
         self.manage_profiles_button.setToolTip(t("dialogs.manage_profiles.title"))
@@ -510,8 +539,11 @@ class MainWindow(
 
     def _apply_theme(self) -> None:
         self._theme = resolve_current_theme(screen_id="main_window")
+        self._log_startup_checkpoint("main_window.theme_resolved")
         apply_theme_background(self._theme_container, self._theme)
+        self._log_startup_checkpoint("main_window.theme_background_requested")
         self.setStyleSheet(build_base_styles(self._theme))
+        self._log_startup_checkpoint("main_window.theme_stylesheet_applied")
         apply_combo_popup_theme(
             self.profile_combo,
             self._theme,
@@ -623,17 +655,44 @@ class MainWindow(
         self,
         initial_tab: str | None = None,
         initial_resource_pair: str | None = None,
+        activation_session: str | None = None,
     ) -> None:
+        session_suffix = f" activation_session={activation_session}" if activation_session else ""
+
+        def checkpoint(label: str) -> None:
+            MainWindow._log_startup_checkpoint(self, f"{label}{session_suffix}")
+
+        checkpoint("settings_dialog.open_requested")
+        existing_dialog = getattr(self, "_settings_dialog", None)
+        if existing_dialog is not None and existing_dialog.isVisible():
+            if initial_tab == "resources":
+                existing_dialog.focus_resources(initial_resource_pair)
+            existing_dialog.show()
+            existing_dialog.raise_()
+            existing_dialog.activateWindow()
+            checkpoint("settings_dialog.reused")
+            checkpoint("settings_dialog.shown")
+            return
+
         dialog = SettingsDialog(
             app_settings=self.state.settings,
             dataset_settings=self.state.dataset.settings,
             initial_tab=initial_tab,
             initial_resource_pair=initial_resource_pair,
+            startup_checkpoint=checkpoint,
             parent=self,
         )
-        if dialog.exec() != QDialog.DialogCode.Accepted:
+        self._settings_dialog = dialog
+        checkpoint("settings_dialog.exec_begin")
+        try:
+            result = dialog.exec()
+        finally:
+            self._settings_dialog = None
+        if result != QDialog.DialogCode.Accepted:
+            checkpoint("settings_dialog.exec_rejected")
             self._sync_resource_settings_from_dialog(dialog)
             return
+        checkpoint("settings_dialog.exec_accepted")
         self.state.update_settings(dialog.result_app_settings())
         dataset = replace(self.state.dataset, settings=dialog.result_dataset_settings())
         self.state.update_dataset(dataset)
@@ -644,8 +703,16 @@ class MainWindow(
         self._refresh_helper_menu_label()
         self._refresh_empty_locale_button_label()
 
-    def _open_settings_resources(self, pair: str | None = None) -> None:
-        self._open_settings(initial_tab="resources", initial_resource_pair=pair)
+    def _open_settings_resources(
+        self,
+        pair: str | None = None,
+        activation_session: str | None = None,
+    ) -> None:
+        self._open_settings(
+            initial_tab="resources",
+            initial_resource_pair=pair,
+            activation_session=activation_session,
+        )
 
     def _add_rule(self) -> None:
         self.rules_model.add_rule(VocabRule(source_phrase="", replacement=""))
@@ -785,7 +852,7 @@ def main() -> None:
         locale_pref = QLocale.system().name()
     set_locale(str(locale_pref))
     startup_logger.log("locale initialized")
-    window = MainWindow()
+    window = MainWindow(startup_logger=startup_logger)
     startup_logger.log("MainWindow constructed")
 
     bind_activation_handler(server, window, logger=startup_logger)
