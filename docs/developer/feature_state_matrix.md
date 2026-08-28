@@ -2142,7 +2142,12 @@ Use this file when:
   renders only sources that have an entry for the selected word, gives each one
   an animated disclosure row, and remembers expanded/collapsed state per
   language pair and dictionary; the first matching source defaults open and
-  lower-priority matches default closed. Legacy first-result fields remain in
+  lower-priority matches default closed. Popup dependency load order is now
+  contract-tested so missing disclosure support cannot silently revert to the
+  legacy single-result presentation. Each module and the complete popup stack
+  have viewport-aware height caps with contained scrolling, keeping later
+  modules and the feedback controls reachable when definitions are long.
+  Legacy first-result fields remain in
   the word-info response for existing callers. `2026-08-27` imported dictionary health now runs
   after Resource Settings renders on a background worker. The bounded probe
   checks managed metadata, manifest/path safety, required SQLite schema, and a

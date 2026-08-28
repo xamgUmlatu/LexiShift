@@ -7,6 +7,9 @@ import unittest
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
+EXTENSION_MANIFEST = PROJECT_ROOT / "apps/chrome-extension/manifest.json"
+CONTENT_SCRIPT_JS = PROJECT_ROOT / "apps/chrome-extension/content_script.js"
+POPUP_LAYOUT_STYLES_JS = PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_layout_styles.js"
 QUICK_DEFINITION_MODULE_JS = (
     PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js"
 )
@@ -46,6 +49,39 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionQuickDefinitionPopupModule(unittest.TestCase):
+    def test_manifest_loads_popup_dependencies_before_consumers(self) -> None:
+        manifest = json.loads(EXTENSION_MANIFEST.read_text(encoding="utf-8"))
+        scripts = manifest["content_scripts"][0]["js"]
+        expected_order = [
+            "content/ui/popup_layout_styles.js",
+            "content/ui/popup_modules/quick_definition_structured_content.js",
+            "content/ui/popup_modules/quick_definition_result_support.js",
+            "content/ui/popup_modules/quick_definition_dictionary_sections.js",
+            "content/ui/popup_modules/quick_definition_module.js",
+            "content/ui/ui.js",
+            "content_script.js",
+        ]
+
+        self.assertEqual(
+            [scripts.index(path) for path in expected_order],
+            sorted(scripts.index(path) for path in expected_order),
+        )
+
+    def test_content_bootstrap_requires_dictionary_disclosures_and_layout(self) -> None:
+        source = CONTENT_SCRIPT_JS.read_text(encoding="utf-8")
+
+        self.assertIn("&& root.uiPopupLayoutStyles", source)
+        self.assertIn("&& root.uiQuickDefinitionResultSupport", source)
+        self.assertIn("&& root.uiQuickDefinitionDictionarySections", source)
+
+    def test_popup_modules_and_stack_have_bounded_scrollable_height(self) -> None:
+        source = POPUP_LAYOUT_STYLES_JS.read_text(encoding="utf-8")
+
+        self.assertIn("max-height:calc(100vh - 16px)", source)
+        self.assertIn("max-height:min(52vh, 420px)", source)
+        self.assertIn("overflow-y:auto", source)
+        self.assertIn("scrollbar-gutter:stable", source)
+
     def test_helper_error_uses_load_error_copy_not_missing_entry_copy(self) -> None:
         source = QUICK_DEFINITION_MODULE_JS.read_text(encoding="utf-8")
         branch = (

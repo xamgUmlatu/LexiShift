@@ -8,6 +8,9 @@
   const quickDefinitionModule = root.uiQuickDefinitionModule && typeof root.uiQuickDefinitionModule === "object"
     ? root.uiQuickDefinitionModule
     : null;
+  const popupLayoutStyles = typeof root.uiPopupLayoutStyles?.styles === "string"
+    ? root.uiPopupLayoutStyles.styles
+    : "";
   const dictionaryDisclosureStyles = typeof root.uiQuickDefinitionDictionarySections?.styles === "string"
     ? root.uiQuickDefinitionDictionarySections.styles
     : "";
@@ -281,21 +284,7 @@
       .lexishift-replacement{cursor:pointer;transition:color 120ms ease;}
       .lexishift-replacement.lexishift-highlight{color:var(--lexishift-highlight-color);}
       .lexishift-replacement.lexishift-highlight.lexishift-srs{color:var(--lexishift-srs-highlight-color);}
-      .lexishift-feedback-popup{position:absolute;display:flex;flex-direction:column;gap:6px;
-        align-items:flex-start;transform:translateY(6px) scale(0.92);opacity:0;
-        transition:transform 140ms ease, opacity 140ms ease;z-index:2147483647;
-        pointer-events:none;box-sizing:border-box;
-        max-width:min(280px, calc(100vw - 16px));}
-      .lexishift-feedback-popup.lexishift-open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto;}
-      .lexishift-feedback-popup.lexishift-measuring{transform:none;transition:none;visibility:hidden;}
-      .lexishift-feedback-modules{display:flex;flex-direction:column;gap:6px;align-items:stretch;
-        width:100%;min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;}
-      .lexishift-feedback-modules:empty{display:none;}
-      .lexishift-popup-module{padding:8px 10px;border-radius:10px;
-        background:var(--lexishift-module-bg, rgba(28,26,23,0.94));
-        color:var(--lexishift-module-text, #f7f4ef);
-        box-sizing:border-box;box-shadow:0 10px 24px var(--lexishift-module-shadow, rgba(0,0,0,0.18));min-width:140px;
-        max-width:min(280px, calc(100vw - 16px));}
+      ${popupLayoutStyles}
       .lexishift-script-module-row{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:start;}
       .lexishift-script-module-row + .lexishift-script-module-row{margin-top:4px;}
       .lexishift-script-module-label{font-size:10px;line-height:1.3;letter-spacing:0.06em;
@@ -313,7 +302,7 @@
       .lexishift-popup-module-quote{padding-left:6px;
         border-left:2px solid var(--lexishift-module-quote-border, rgba(247,244,239,0.35));
         font-style:italic;color:var(--lexishift-module-quote-text, rgba(247,244,239,0.86));}
-      .lexishift-definition-module{min-width:180px;}
+      .lexishift-definition-module{display:flex;flex-direction:column;min-width:180px;overflow:hidden;}
       .lexishift-definition-header{display:flex;align-items:center;justify-content:space-between;
         gap:8px;margin-bottom:5px;}
       .lexishift-definition-word{min-width:0;font-size:14px;line-height:1.2;font-weight:800;
@@ -323,7 +312,8 @@
         color:var(--lexishift-module-label, rgba(247,244,239,0.78));
         font-size:10px;line-height:1.2;font-weight:700;text-transform:uppercase;}
       .lexishift-definition-pos:empty{display:none;}
-      .lexishift-definition-body{display:flex;flex-direction:column;gap:5px;}
+      .lexishift-definition-body{display:flex;min-height:0;flex-direction:column;gap:5px;
+        overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:2px;}
       .lexishift-definition-source{margin-top:-2px;font-size:9px;line-height:1.3;font-weight:700;
         letter-spacing:0.035em;color:var(--lexishift-module-label, rgba(247,244,239,0.68));}
       ${dictionaryDisclosureStyles}

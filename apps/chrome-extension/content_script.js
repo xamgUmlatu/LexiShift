@@ -43,6 +43,9 @@
     && typeof root.srsBrowsingSourceMining.buildSourceMappingSignals === "function"
     && root.popupModulesRegistry
     && root.popupModuleHistoryStore
+    && root.uiPopupLayoutStyles
+    && root.uiQuickDefinitionResultSupport
+    && root.uiQuickDefinitionDictionarySections
     && root.wordInfoApi
   );
   if (!requiredModulesLoaded) {
