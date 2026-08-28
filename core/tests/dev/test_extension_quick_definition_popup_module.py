@@ -80,7 +80,17 @@ class TestExtensionQuickDefinitionPopupModule(unittest.TestCase):
         self.assertIn("max-height:calc(100vh - 16px)", source)
         self.assertIn("max-height:min(52vh, 420px)", source)
         self.assertIn("overflow-y:auto", source)
-        self.assertIn("scrollbar-gutter:stable", source)
+        self.assertIn("max-height:min(52vh, 420px);overflow:hidden", source)
+        self.assertNotIn("scrollbar-gutter", source)
+
+        ui_source = (PROJECT_ROOT / "apps/chrome-extension/content/ui/ui.js").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(
+            ".lexishift-history-module .lexishift-popup-module-details",
+            ui_source,
+        )
+        self.assertIn("max-height:min(42vh, 340px)", ui_source)
 
     def test_helper_error_uses_load_error_copy_not_missing_entry_copy(self) -> None:
         source = QUICK_DEFINITION_MODULE_JS.read_text(encoding="utf-8")

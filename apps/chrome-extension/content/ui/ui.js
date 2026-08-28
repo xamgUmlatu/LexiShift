@@ -296,6 +296,8 @@
       .lexishift-popup-module-toggle-centered{justify-content:center;text-align:center;}
       .lexishift-popup-module-toggle:disabled{opacity:0.65;cursor:default;}
       .lexishift-popup-module-details{display:flex;flex-direction:column;gap:4px;margin-top:6px;}
+      .lexishift-history-module .lexishift-popup-module-details{max-height:min(42vh, 340px);
+        overflow-y:auto;overscroll-behavior:contain;}
       .lexishift-popup-module-details.hidden{display:none;}
       .lexishift-popup-module-line{font-size:11px;line-height:1.35;
         color:var(--lexishift-module-line, rgba(247,244,239,0.9));}
@@ -313,7 +315,7 @@
         font-size:10px;line-height:1.2;font-weight:700;text-transform:uppercase;}
       .lexishift-definition-pos:empty{display:none;}
       .lexishift-definition-body{display:flex;min-height:0;flex-direction:column;gap:5px;
-        overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:2px;}
+        overflow-y:auto;overscroll-behavior:contain;padding-right:2px;}
       .lexishift-definition-source{margin-top:-2px;font-size:9px;line-height:1.3;font-weight:700;
         letter-spacing:0.035em;color:var(--lexishift-module-label, rgba(247,244,239,0.68));}
       ${dictionaryDisclosureStyles}

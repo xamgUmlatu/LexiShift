@@ -2147,6 +2147,9 @@ Use this file when:
   legacy single-result presentation. Each module and the complete popup stack
   have viewport-aware height caps with contained scrolling, keeping later
   modules and the feedback controls reachable when definitions are long.
+  Compact script and collapsed-history cards remain ordinary non-scrollable
+  cards; scrolling is limited to definition bodies, expanded history details,
+  and the complete stack when their content actually exceeds a cap.
   Legacy first-result fields remain in
   the word-info response for existing callers. `2026-08-27` imported dictionary health now runs
   after Resource Settings renders on a background worker. The bounded probe
