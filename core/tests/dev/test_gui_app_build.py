@@ -27,7 +27,7 @@ class TestGuiAppBuild(unittest.TestCase):
         )
 
         self.assertIn("PYINSTALLER_UPX_ENABLED", spec_text)
-        self.assertEqual(spec_text.count("exclude_binaries=True"), 3)
+        self.assertEqual(spec_text.count("exclude_binaries=True"), 4)
         self.assertNotIn("upx=True", spec_text)
 
     def test_pyinstaller_spec_collects_core_hidden_imports(self) -> None:
@@ -83,8 +83,10 @@ class TestGuiAppBuild(unittest.TestCase):
         ):
             self.assertIn(f'"{package_name}"', exclude_body)
         self.assertNotIn('"simplemma"', exclude_body)
-        self.assertEqual(spec_text.count("excludes=PYINSTALLER_OPTIONAL_EXCLUDES"), 3)
+        self.assertEqual(spec_text.count("excludes=PYINSTALLER_OPTIONAL_EXCLUDES"), 4)
         self.assertNotIn("excludes=[]", spec_text)
+        self.assertIn('if sys.platform == "darwin":\n    host_a = Analysis', spec_text)
+        self.assertIn("sharing unpacked bundle dependencies for fast cold startup", spec_text)
 
     def test_build_command_keeps_pyinstaller_args_after_spec(self) -> None:
         command = _build_command(

@@ -16,6 +16,7 @@ from i18n import set_locale
 from lexishift_core.helper.lookup_dictionary_settings import (
     load_lookup_dictionary_settings,
     lookup_dictionary_pack_ids_for_pair,
+    lookup_dictionary_source_ids_for_pair,
 )
 from lexishift_core.helper.yomitan_dictionary_health import (
     inspect_installed_lookup_dictionary_health,
@@ -101,9 +102,9 @@ def test_compatible_lookup_dictionary_directory_url_is_target_aware() -> None:
 
 
 def test_builtin_lookup_source_support_is_reported_per_pair() -> None:
-    assert _lookup_pair_builtin_source("en-ja") == "jmdict"
-    assert _lookup_pair_builtin_source("en-es") == "translation"
-    assert _lookup_pair_builtin_source("en-de") == "translation"
+    assert _lookup_pair_builtin_source("en-ja") == "builtin:jmdict"
+    assert _lookup_pair_builtin_source("en-es") == "builtin:translation"
+    assert _lookup_pair_builtin_source("en-de") == "builtin:translation"
     assert _lookup_pair_builtin_source("ja-ja") == ""
     assert _lookup_pair_builtin_source("es-es") == ""
 
@@ -207,16 +208,20 @@ def test_lookup_dictionary_stack_is_saved_per_language_pair() -> None:
         assert panel._lookup_dictionary_order_table.rowCount() == 1
         assert panel._lookup_dictionary_order_table.item(0, 0).text() == "1"
         assert "JMdict" in panel._lookup_dictionary_order_table.item(0, 1).text()
-        assert "fixed" in panel._lookup_dictionary_order_table.item(0, 1).text()
+        assert "fixed" not in panel._lookup_dictionary_order_table.item(0, 1).text()
         _add_dictionary_to_current_pair(panel, imported.dictionary.pack_id)
         move_up = _stack_action_button(panel, row=0, label="Up")
         move_down = _stack_action_button(panel, row=0, label="Down")
         assert move_up.text() == "↑"
         assert move_down.text() == "↓"
         assert not move_up.isEnabled()
-        assert not move_down.isEnabled()
-        assert "first imported source" in move_up.toolTip()
-        assert "built-in source remains fixed" in move_down.toolTip()
+        assert move_down.isEnabled()
+        assert "already first" in move_up.toolTip()
+        builtin_up = _stack_action_button(panel, row=1, label="Up")
+        builtin_down = _stack_action_button(panel, row=1, label="Down")
+        assert builtin_up.isEnabled()
+        assert not builtin_down.isEnabled()
+        assert "already last" in builtin_down.toolTip()
         remove_from_pair = _stack_action_button(panel, row=0, label="Remove from pair...")
         assert remove_from_pair.property("resourceTableAction")
         assert remove_from_pair.minimumWidth() >= remove_from_pair.sizeHint().width()
@@ -224,6 +229,14 @@ def test_lookup_dictionary_stack_is_saved_per_language_pair() -> None:
             remove_from_pair.minimumWidth() + 68
         )
         assert panel._lookup_dictionary_order_table.item(1, 0).text() == "2"
+        builtin_up.click()
+        saved = load_lookup_dictionary_settings(dictionaries_dir / "settings.json")
+        assert lookup_dictionary_source_ids_for_pair(
+            saved,
+            "en-ja",
+            builtin_source_id="builtin:jmdict",
+        ) == ("builtin:jmdict", imported.dictionary.pack_id)
+        assert "JMdict" in panel._lookup_dictionary_order_table.item(0, 1).text()
 
         ja_ja_index = panel._lookup_dictionary_pair_combo.findData("ja-ja")
         panel._lookup_dictionary_pair_combo.setCurrentIndex(ja_ja_index)

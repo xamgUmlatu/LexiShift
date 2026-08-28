@@ -17,8 +17,10 @@ from lexishift_core.helper.lookup_dictionary_settings import (  # noqa: E402
     LookupDictionarySettings,
     load_lookup_dictionary_settings,
     lookup_dictionary_pack_ids_for_pair,
+    lookup_dictionary_source_ids_for_pair,
     save_lookup_dictionary_settings,
     with_lookup_dictionary_pack_ids,
+    with_lookup_dictionary_source_ids,
     without_lookup_dictionary_pack,
 )
 from lexishift_core.helper.engine import lookup_word_info  # noqa: E402
@@ -387,6 +389,38 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
             self.assertEqual(
                 [entry["dictionary"]["title"] for entry in second_result["dictionary_results"]],
                 ["Second Dictionary", "First Dictionary", "JMdict"],
+            )
+
+            builtin_first = with_lookup_dictionary_source_ids(
+                reordered,
+                pair="en-ja",
+                source_ids=(
+                    "builtin:jmdict",
+                    second.dictionary.pack_id,
+                    first.dictionary.pack_id,
+                ),
+            )
+            save_lookup_dictionary_settings(
+                builtin_first,
+                paths.lookup_dictionary_settings_path,
+            )
+            third_result = lookup()
+            self.assertEqual(
+                lookup_dictionary_source_ids_for_pair(
+                    builtin_first,
+                    "en-ja",
+                    builtin_source_id="builtin:jmdict",
+                ),
+                (
+                    "builtin:jmdict",
+                    second.dictionary.pack_id,
+                    first.dictionary.pack_id,
+                ),
+            )
+            self.assertEqual(third_result["dictionary"]["title"], "JMdict")
+            self.assertEqual(
+                [entry["dictionary"]["title"] for entry in third_result["dictionary_results"]],
+                ["JMdict", "Second Dictionary", "First Dictionary"],
             )
 
     def test_import_preserves_source_and_supports_reading_aware_lookup(self) -> None:

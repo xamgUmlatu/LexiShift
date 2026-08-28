@@ -195,6 +195,7 @@ LEXISHIFT_CORE_HIDDEN_IMPORTS = [
     "lexishift_core.rulegen.semantic_publication",
     "lexishift_core.srs.seed",
     "lexishift_core.srs.topic_overlay",
+    "fsrs",
 ]
 PYINSTALLER_OPTIONAL_EXCLUDES = [
     # Optional research/scorer stacks. Production runtime defaults use the
@@ -354,11 +355,60 @@ if sys.platform == "win32":
     )
 
 if sys.platform == "darwin":
+    host_a = Analysis(
+        [os.path.join(repo_root, "scripts", "helper", "lexishift_native_host.py")],
+        pathex=common_pathex + [os.path.join(repo_root, "scripts", "helper")],
+        binaries=[],
+        datas=[
+            (
+                os.path.join(repo_root, "core", "lexishift_core", "resources"),
+                os.path.join("lexishift_core", "resources"),
+            )
+        ],
+        hiddenimports=LEXISHIFT_CORE_HIDDEN_IMPORTS,
+        hookspath=[],
+        runtime_hooks=[],
+        excludes=PYINSTALLER_OPTIONAL_EXCLUDES,
+        win_no_prefer_redirects=False,
+        win_private_assemblies=False,
+        cipher=block_cipher,
+    )
+
+    host_pyz = PYZ(host_a.pure, host_a.zipped_data, cipher=block_cipher)
+
+    # Chrome launches this executable directly. It has its own analyzed module
+    # graph while sharing unpacked bundle dependencies for fast cold startup.
+    host_exe = EXE(
+        host_pyz,
+        host_a.scripts,
+        [],
+        exclude_binaries=True,
+        name=NATIVE_HOST_WINDOWS_EXE_NAME,
+        debug=False,
+        bootloader_ignore_signals=False,
+        strip=False,
+        upx=PYINSTALLER_UPX_ENABLED,
+        upx_exclude=[],
+        runtime_tmpdir=None,
+        console=True,
+        disable_windowed_traceback=False,
+        argv_emulation=False,
+        target_arch=None,
+        codesign_identity=MACOS_CODESIGN_IDENTITY,
+        entitlements_file=MACOS_ENTITLEMENTS_FILE,
+        icon=None,
+    )
+
+if sys.platform == "darwin":
     main_coll = COLLECT(
         main_exe,
+        host_exe,
         main_a.binaries,
         main_a.zipfiles,
         main_a.datas,
+        host_a.binaries,
+        host_a.zipfiles,
+        host_a.datas,
         strip=False,
         upx=PYINSTALLER_UPX_ENABLED,
         name=COLLECT_NAME,

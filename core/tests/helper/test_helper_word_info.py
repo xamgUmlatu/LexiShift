@@ -467,7 +467,10 @@ class TestHelperWordInfo(unittest.TestCase):
             def fake_loader(
                 path: Path,
                 lookup_candidates: tuple[str, ...],
+                *,
+                index_path: Path | None = None,
             ) -> tuple[dict[str, list[object]], dict[str, list[str]]]:
+                self.assertIsNotNone(index_path)
                 calls.append((path, lookup_candidates))
                 return (
                     {},

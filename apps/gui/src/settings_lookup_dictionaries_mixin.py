@@ -23,9 +23,9 @@ from i18n import t
 from lexishift_core.helper.lp_capabilities import known_pairs, normalize_pair_key
 from lexishift_core.helper.lookup_dictionary_settings import (
     load_lookup_dictionary_settings,
-    lookup_dictionary_pack_ids_for_pair,
+    lookup_dictionary_source_ids_for_pair,
     save_lookup_dictionary_settings,
-    with_lookup_dictionary_pack_ids,
+    with_lookup_dictionary_source_ids,
     without_lookup_dictionary_pack,
 )
 from lexishift_core.helper.yomitan_dictionary_health import (
@@ -42,6 +42,7 @@ from settings_lookup_dictionary_health_mixin import (
 )
 from settings_lookup_dictionary_stack_mixin import (
     LanguagePackPanelLookupDictionaryStackMixin,
+    _lookup_pair_builtin_source,
 )
 from utils_paths import reveal_path
 
@@ -356,6 +357,8 @@ class LanguagePackPanelLookupDictionariesMixin(
         for pair in getattr(self, "_learning_pair_keys", ()):
             add_pair(pair)
         for pair in self._lookup_dictionary_settings.pair_pack_ids:
+            add_pair(pair)
+        for pair in self._lookup_dictionary_settings.pair_source_ids:
             add_pair(pair)
 
         # A target-language monolingual LP is the most useful companion to a
@@ -675,14 +678,15 @@ class LanguagePackPanelLookupDictionariesMixin(
         pack_id = str(getattr(dictionary, "pack_id", "") or "").strip()
         title = str(getattr(dictionary, "title", "") or pack_id).strip()
         if pack_id and not repaired_pack_id:
-            current = lookup_dictionary_pack_ids_for_pair(
+            current = lookup_dictionary_source_ids_for_pair(
                 self._lookup_dictionary_settings,
                 pair,
+                builtin_source_id=_lookup_pair_builtin_source(pair),
             )
-            self._lookup_dictionary_settings = with_lookup_dictionary_pack_ids(
+            self._lookup_dictionary_settings = with_lookup_dictionary_source_ids(
                 self._lookup_dictionary_settings,
                 pair=pair,
-                pack_ids=(pack_id, *(value for value in current if value != pack_id)),
+                source_ids=(pack_id, *(value for value in current if value != pack_id)),
             )
             save_lookup_dictionary_settings(
                 self._lookup_dictionary_settings,

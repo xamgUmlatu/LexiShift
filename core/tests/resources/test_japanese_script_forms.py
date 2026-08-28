@@ -127,6 +127,43 @@ class TestJapaneseScriptForms(unittest.TestCase):
         self.assertEqual(entries["時"][0].reading_records[0].kanji_restrictions, ("時",))
         self.assertFalse(entries["時"][0].reading_records[0].no_kanji)
 
+    def test_targeted_jmdict_definition_index_rebuilds_after_source_or_cache_changes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = root / "JMdict_e"
+            index_path = root / "cache" / "definitions.sqlite3"
+            _write_sample_jmdict(path)
+
+            _entries, glosses = load_jmdict_definition_records_for_terms(
+                path,
+                ("猫",),
+                index_path=index_path,
+            )
+            self.assertEqual(glosses["猫"], ["cat"])
+            self.assertTrue(index_path.exists())
+
+            path.write_text(
+                "<JMdict><entry><k_ele><keb>犬</keb></k_ele>"
+                "<r_ele><reb>いぬ</reb></r_ele>"
+                "<sense><gloss xml:lang='eng'>dog</gloss></sense>"
+                "</entry></JMdict>",
+                encoding="utf-8",
+            )
+            _entries, glosses = load_jmdict_definition_records_for_terms(
+                path,
+                ("犬",),
+                index_path=index_path,
+            )
+            self.assertEqual(glosses["犬"], ["dog"])
+
+            index_path.write_bytes(b"not sqlite")
+            _entries, glosses = load_jmdict_definition_records_for_terms(
+                path,
+                ("犬",),
+                index_path=index_path,
+            )
+            self.assertEqual(glosses["犬"], ["dog"])
+
     def test_jmdict_priority_loader_extracts_form_priority_tags(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "JMdict_e"

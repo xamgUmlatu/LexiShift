@@ -2,8 +2,13 @@
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import plistlib
 from pathlib import Path
+import struct
+import subprocess
+import tempfile
 
 MAIN_APP_BUNDLE = "LexiShift.app"
 HELPER_APP_BUNDLE = "LexiShift Helper.app"
@@ -12,6 +17,7 @@ HELPER_BUNDLE_ID = "com.lexishift.helper.agent"
 MAIN_WINDOWS_EXE = "LexiShift.exe"
 HELPER_WINDOWS_EXE = "LexiShiftHelper.exe"
 HOST_WINDOWS_EXE = "lexishift_native_host.exe"
+HOST_MACOS_EXE = "lexishift_native_host"
 MAIN_WINDOWS_DIR = "LexiShift"
 HELPER_WINDOWS_DIR = "LexiShiftHelper"
 HOST_WINDOWS_DIR = "LexiShiftNativeHost"
@@ -45,6 +51,51 @@ def _check_srs_resource_files(core_root: Path, label: str, errors: list[str]) ->
         )
 
 
+def _check_native_host_smoke(host_path: Path, errors: list[str]) -> None:
+    if not host_path.exists():
+        return
+    request = json.dumps(
+        {"id": "bundle-smoke", "type": "hello", "version": 1, "payload": {}}
+    ).encode("utf-8")
+    framed_request = struct.pack("<I", len(request)) + request
+    try:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            completed = subprocess.run(
+                [str(host_path)],
+                input=framed_request,
+                capture_output=True,
+                check=False,
+                timeout=30,
+                env={**os.environ, "LEXISHIFT_DATA_DIR": temp_dir},
+            )
+    except (OSError, subprocess.SubprocessError) as exc:
+        errors.append(f"Native host smoke failed to start: {exc}")
+        return
+    if completed.returncode != 0:
+        detail = completed.stderr.decode("utf-8", errors="replace").strip()
+        errors.append(
+            f"Native host smoke exited with {completed.returncode}: {detail or 'no stderr'}"
+        )
+        return
+    output = completed.stdout
+    if len(output) < 4:
+        errors.append("Native host smoke returned no framed response.")
+        return
+    response_length = struct.unpack("<I", output[:4])[0]
+    response_bytes = output[4 : 4 + response_length]
+    try:
+        response = json.loads(response_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        errors.append(f"Native host smoke returned invalid JSON: {exc}")
+        return
+    if not isinstance(response, dict) or response.get("ok") is not True:
+        errors.append(f"Native host smoke request failed: {response!r}")
+        return
+    data = response.get("data")
+    if not isinstance(data, dict) or int(data.get("protocol_version", 0) or 0) < 1:
+        errors.append("Native host smoke response omitted the protocol version.")
+
+
 def _load_info_plist(info_path: Path) -> dict:
     try:
         with info_path.open("rb") as handle:
@@ -75,6 +126,9 @@ def _validate_macos_main_app(app_path: Path) -> list[str]:
         _check_path(macos_dir / exe_name, f"Executable {exe_name}", errors)
     else:
         errors.append("Missing CFBundleExecutable in Info.plist")
+    native_host = macos_dir / HOST_MACOS_EXE
+    _check_path(native_host, "self-contained native host", errors)
+    _check_native_host_smoke(native_host, errors)
 
     icon_name = info.get("CFBundleIconFile", "")
     if icon_name:

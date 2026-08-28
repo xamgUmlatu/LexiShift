@@ -46,6 +46,16 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionQuickDefinitionPopupModule(unittest.TestCase):
+    def test_helper_error_uses_load_error_copy_not_missing_entry_copy(self) -> None:
+        source = QUICK_DEFINITION_MODULE_JS.read_text(encoding="utf-8")
+        branch = (
+            'if (!result || result.status === "error") {'
+            "\n          renderUnavailable("
+            '\n            translate("popup_definition_error"'
+        )
+
+        self.assertIn(branch, source)
+
     def test_quick_definition_module_renders_word_info_api_result(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

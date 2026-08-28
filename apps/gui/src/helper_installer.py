@@ -28,6 +28,7 @@ from helper_connection_models import (
     HOST_MODE_BUNDLED,
     HOST_MODE_CUSTOM,
     HOST_MODE_WORKSPACE,
+    REPAIR_REASON_BUNDLED_HOST_STALE,
     TARGET_KIND_PROD,
     TARGET_KIND_UNPACKED,
 )
@@ -49,6 +50,7 @@ from helper_native_messaging_support import (
     normalize_extension_ids as _normalize_extension_ids,
     origin_for_extension_id as _origin_for_extension_id,
     resolve_workspace_python as _resolve_workspace_python,
+    probe_native_host as _probe_native_host,
     resolve_workspace_host_script,
     resolve_host_path_for_mode as _resolve_host_path_for_mode,
     stable_bundled_core_path as _stable_bundled_core_path,
@@ -183,6 +185,15 @@ def default_host_script() -> Path:
         )
         if bundled_host and bundled_host.exists():
             return bundled_host
+    if getattr(sys, "frozen", False) and sys.platform == "darwin":
+        bundled_host = (
+            Path(sys.executable).resolve().parent / Path(NATIVE_HOST_WINDOWS_EXE_NAME).stem
+        )
+        log_helper_install(
+            f"[Helper] Bundled macOS host candidate: {bundled_host} exists={bundled_host.exists()}"
+        )
+        if bundled_host.exists():
+            return bundled_host
     bundled = Path(resource_path("helper", "lexishift_native_host.py"))
     log_helper_install(f"[Helper] Bundled host candidate: {bundled} exists={bundled.exists()}")
     if bundled.exists():
@@ -274,6 +285,13 @@ def _ensure_workspace_host_wrapper(host_script: Path) -> Optional[Path]:
 def _is_bundled_path(path: Path) -> bool:
     if not getattr(sys, "frozen", False):
         return False
+    if sys.platform == "darwin":
+        contents_dir = Path(sys.executable).resolve().parent.parent
+        try:
+            path.resolve().relative_to(contents_dir)
+            return True
+        except ValueError:
+            pass
     base = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
     try:
         path.resolve().relative_to(Path(base).resolve())
@@ -283,6 +301,16 @@ def _is_bundled_path(path: Path) -> bool:
 
 
 def _ensure_stable_helper(host_path: Path) -> Path:
+    if (
+        sys.platform == "darwin"
+        and getattr(sys, "frozen", False)
+        and host_path.name == Path(NATIVE_HOST_WINDOWS_EXE_NAME).stem
+        and host_path.suffix != ".py"
+    ):
+        # The macOS host is an executable inside the signed app bundle and uses
+        # its adjacent unpacked runtime. Keep the manifest on that stable app
+        # path rather than copying an incomplete executable elsewhere.
+        return host_path
     if sys.platform.startswith("win") and host_path.suffix.lower() == ".exe":
         target_dir = _helper_data_root() / "helper" / "native_host"
         resolved_host = host_path.resolve()
@@ -644,6 +672,33 @@ def _bundled_source_host() -> Optional[Path]:
     return None
 
 
+def _runtime_bundled_freshness_issue(
+    host_path: Path,
+) -> Optional[tuple[str, str]]:
+    if sys.platform == "darwin" and getattr(sys, "frozen", False):
+        source_host = _bundled_source_host()
+        if source_host is not None:
+            try:
+                uses_current_host = host_path.resolve() == source_host.resolve()
+            except OSError:
+                uses_current_host = host_path == source_host
+            if not uses_current_host:
+                return (
+                    REPAIR_REASON_BUNDLED_HOST_STALE,
+                    "Bundled host uses the legacy Python-script path.",
+                )
+    return _bundled_freshness_issue(
+        host_path,
+        bundled_source_host=_bundled_source_host,
+        stable_bundled_host_path=stable_bundled_host_path,
+        hash_file=_hash_file,
+        stable_bundled_core_path=stable_bundled_core_path,
+        find_core_dir=_find_core_dir,
+        hash_directory=_hash_directory,
+        is_windows=sys.platform.startswith("win"),
+    )
+
+
 def build_manifest(*, host_path: Path, extension_ids: Sequence[str]) -> dict:
     allowed_origins = [
         _origin_for_extension_id(extension_id)
@@ -671,16 +726,7 @@ def inspect_helper_installation(
         normalize_extension_ids=_normalize_extension_ids,
         extension_id_from_origin=_extension_id_from_origin,
         infer_host_mode=infer_host_mode,
-        bundled_freshness_issue=lambda host_path: _bundled_freshness_issue(
-            host_path,
-            bundled_source_host=_bundled_source_host,
-            stable_bundled_host_path=stable_bundled_host_path,
-            hash_file=_hash_file,
-            stable_bundled_core_path=stable_bundled_core_path,
-            find_core_dir=_find_core_dir,
-            hash_directory=_hash_directory,
-            is_windows=sys.platform.startswith("win"),
-        ),
+        bundled_freshness_issue=_runtime_bundled_freshness_issue,
         workspace_wrapper_issue=lambda host_path: _workspace_wrapper_issue(
             host_path,
             workspace_host_script=workspace_host_script,
@@ -756,6 +802,14 @@ def install_helper(
         stable_path.chmod(mode | stat.S_IEXEC)
     except OSError:
         pass
+    if sys.platform == "darwin" and getattr(sys, "frozen", False) and stable_path.suffix != ".py":
+        smoke_ok, smoke_detail = _probe_native_host(stable_path)
+        if not smoke_ok:
+            log_helper_install(f"[Helper] install_helper failed native-host smoke: {smoke_detail}")
+            return HelperInstallResult(
+                False,
+                f"Bundled helper could not start: {smoke_detail}",
+            )
     manifest.parent.mkdir(parents=True, exist_ok=True)
     payload = build_manifest(host_path=stable_path, extension_ids=normalized_ids)
     manifest.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")

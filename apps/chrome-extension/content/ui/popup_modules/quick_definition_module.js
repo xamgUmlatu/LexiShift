@@ -463,7 +463,9 @@
           { timeoutMs: LOOKUP_TIMEOUT_MS, bypassCache: true }
         );
         if (!result || result.status === "error") {
-          renderUnavailable(translate("popup_definition_unavailable", null, "No definition available."));
+          renderUnavailable(
+            translate("popup_definition_error", null, "Failed to load definition.")
+          );
           return;
         }
         await renderResult(result);

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import json
+import stat
 import sys
 import tempfile
 import unittest
@@ -60,6 +61,25 @@ class _FakeWinreg:
 
 
 class TestHelperInstallerNativeMessaging(unittest.TestCase):
+    def test_native_host_protocol_probe_accepts_valid_hello_response(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            host = Path(tmpdir) / "native-host"
+            host.write_text(
+                "#!/usr/bin/env python3\n"
+                "import json, struct, sys\n"
+                "size = struct.unpack('<I', sys.stdin.buffer.read(4))[0]\n"
+                "request = json.loads(sys.stdin.buffer.read(size))\n"
+                "response = json.dumps({'id': request['id'], 'ok': True, "
+                "'data': {'protocol_version': 1}}).encode()\n"
+                "sys.stdout.buffer.write(struct.pack('<I', len(response)) + response)\n",
+                encoding="utf-8",
+            )
+            host.chmod(host.stat().st_mode | stat.S_IEXEC)
+
+            ok, detail = helper_installer._probe_native_host(host)
+
+        self.assertTrue(ok, detail)
+
     def test_build_manifest_supports_multiple_allowed_origins(self) -> None:
         payload = helper_installer.build_manifest(
             host_path=Path("/tmp/lexishift_native_host.py"),
@@ -96,6 +116,59 @@ class TestHelperInstallerNativeMessaging(unittest.TestCase):
                 resolved = helper_installer.default_host_script()
 
         self.assertEqual(resolved.resolve(), host_exe.resolve())
+
+    def test_default_host_script_prefers_bundled_macos_host_exe_when_frozen(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            app_root = Path(tmpdir) / "LexiShift.app" / "Contents"
+            main_exe = app_root / "MacOS" / "LexiShift"
+            host_exe = app_root / "MacOS" / "lexishift_native_host"
+            main_exe.parent.mkdir(parents=True, exist_ok=True)
+            main_exe.write_bytes(b"main")
+            host_exe.write_bytes(b"host")
+
+            with (
+                mock.patch.object(helper_installer.sys, "platform", "darwin"),
+                mock.patch.object(helper_installer.sys, "frozen", True, create=True),
+                mock.patch.object(helper_installer.sys, "executable", str(main_exe)),
+            ):
+                resolved = helper_installer.default_host_script()
+
+        self.assertEqual(resolved.resolve(), host_exe.resolve())
+
+    def test_macos_legacy_bundled_script_manifest_requires_executable_repair(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            old_host = root / "LexiShift.app" / "Contents" / "Resources" / "host.py"
+            new_host = root / "LexiShift.app" / "Contents" / "MacOS" / "lexishift_native_host"
+            manifest = root / "com.lexishift.helper.json"
+            old_host.parent.mkdir(parents=True, exist_ok=True)
+            new_host.parent.mkdir(parents=True, exist_ok=True)
+            old_host.write_text("legacy\n", encoding="utf-8")
+            new_host.write_bytes(b"native")
+            manifest.write_text(
+                json.dumps(
+                    {
+                        "path": str(old_host),
+                        "allowed_origins": ["chrome-extension://abcdefghijklmnopabcdefghijklmnop/"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with (
+                mock.patch.object(helper_installer.sys, "platform", "darwin"),
+                mock.patch.object(helper_installer.sys, "frozen", True, create=True),
+                mock.patch.object(helper_installer, "manifest_path", return_value=manifest),
+                mock.patch.object(helper_installer, "default_host_script", return_value=new_host),
+                mock.patch.object(helper_installer, "_is_bundled_path", return_value=True),
+            ):
+                status = helper_installer.inspect_helper_installation(
+                    browser="chrome",
+                    expected_extension_ids=["abcdefghijklmnopabcdefghijklmnop"],
+                )
+
+        self.assertEqual(status.state, helper_installer.HELPER_STATE_NEEDS_REPAIR)
+        self.assertIn(REPAIR_REASON_BUNDLED_HOST_STALE, status.repair_reasons)
 
     def test_install_helper_writes_windows_manifest_and_registry(self) -> None:
         fake_winreg = _FakeWinreg()

@@ -25,9 +25,8 @@ from lexishift_core.helper.use_cases.word_info_identity import (
     lookup_japanese_reading,
 )
 from lexishift_core.helper.use_cases.word_info_dictionary_results import (
-    dictionary_result_payload,
-    has_presentable_dictionary_content,
-    resolve_configured_dictionary_results,
+    BuiltinDictionaryLookup,
+    resolve_ordered_dictionary_results,
 )
 from lexishift_core.helper.use_cases.word_info_senses import (
     build_jmdict_sense_payloads,
@@ -46,6 +45,7 @@ from lexishift_core.resources.dict_loaders import (
     load_translation_gloss_records_ordered,
 )
 from lexishift_core.resources.jmdict_definition_lookup import (
+    jmdict_definition_index_path,
     load_jmdict_definition_records_for_terms,
 )
 from lexishift_core.srs import normalize_srs_lifecycle_state
@@ -338,80 +338,46 @@ def _resolve_glosses(
     translation_dict_path: Path | None,
     jmdict_path: Path | None,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
-    configured_results, configured_missing, configured_count = (
-        resolve_configured_dictionary_results(
-            paths,
-            pair=pair,
-            lookup_candidates=lookup_candidates,
-            lookup_surface=lookup_surface,
-            lookup_reading=lookup_reading,
-            sense_limit=SENSE_LIMIT,
-            gloss_limit=GLOSS_LIMIT,
-        )
-    )
     capability = resolve_pair_capability(pair)
-    builtin_lookup: tuple[
-        list[dict[str, object]],
-        list[dict[str, object]],
-        dict[str, object],
-    ]
     builtin_source_id = ""
     if capability.requires_jmdict_for_rulegen or capability.requires_jmdict_for_seed:
         builtin_source_id = "builtin:jmdict"
-        builtin_lookup = _resolve_jmdict_glosses(
-            paths,
-            pair=pair,
-            source_language=source_language,
-            lookup_candidates=lookup_candidates,
-            lookup_surface=lookup_surface,
-            lookup_reading=lookup_reading,
-            jmdict_path=jmdict_path,
-        )
     elif capability.requires_translation_dictionary_for_rulegen:
         builtin_source_id = "builtin:translation"
-        builtin_lookup = _resolve_translation_glosses(
-            paths,
-            pair=pair,
-            source_language=source_language,
-            lookup_candidates=lookup_candidates,
-            lookup_surface=lookup_surface,
-            translation_dict_path=translation_dict_path,
-        )
-    else:
-        builtin_lookup = (
-            [],
-            [],
-            {
-                "provider_status": "unsupported_pair",
-                "missing_resources": [
-                    {"type": "word_info_provider", "reason": "pair_lacks_provider"}
-                ],
-            },
-        )
 
-    builtin_glosses, builtin_senses, builtin_diagnostics = builtin_lookup
-    dictionary_results = list(configured_results)
-    if builtin_source_id and has_presentable_dictionary_content(
-        builtin_glosses,
-        builtin_senses,
-    ):
-        dictionary_results.append(
-            dictionary_result_payload(
-                source_id=builtin_source_id,
-                priority=configured_count + 1,
-                builtin=True,
-                glosses=builtin_glosses,
-                senses=builtin_senses,
-                diagnostics=builtin_diagnostics,
+    def resolve_builtin(source_id: str) -> BuiltinDictionaryLookup | None:
+        if source_id == "builtin:jmdict":
+            return _resolve_jmdict_glosses(
+                paths,
+                pair=pair,
+                source_language=source_language,
+                lookup_candidates=lookup_candidates,
+                lookup_surface=lookup_surface,
+                lookup_reading=lookup_reading,
+                jmdict_path=jmdict_path,
             )
-        )
+        if source_id == "builtin:translation":
+            return _resolve_translation_glosses(
+                paths,
+                pair=pair,
+                source_language=source_language,
+                lookup_candidates=lookup_candidates,
+                lookup_surface=lookup_surface,
+                translation_dict_path=translation_dict_path,
+            )
+        return None
 
-    missing_resources = list(configured_missing)
-    builtin_missing = builtin_diagnostics.get("missing_resources")
-    if isinstance(builtin_missing, list):
-        missing_resources.extend(
-            dict(item) for item in builtin_missing if isinstance(item, Mapping)
-        )
+    dictionary_results, missing_resources, builtin_lookup = resolve_ordered_dictionary_results(
+        paths,
+        pair=pair,
+        builtin_source_id=builtin_source_id,
+        lookup_candidates=lookup_candidates,
+        lookup_surface=lookup_surface,
+        lookup_reading=lookup_reading,
+        sense_limit=SENSE_LIMIT,
+        gloss_limit=GLOSS_LIMIT,
+        resolve_builtin=resolve_builtin,
+    )
     if dictionary_results:
         primary = dictionary_results[0]
         primary_glosses = primary.get("glosses")
@@ -428,6 +394,21 @@ def _resolve_glosses(
             },
         )
 
+    if builtin_lookup is None:
+        unsupported_resource: dict[str, object] = {
+            "type": "word_info_provider",
+            "reason": "pair_lacks_provider",
+        }
+        missing_resources.append(unsupported_resource)
+        builtin_lookup = (
+            [],
+            [],
+            {
+                "provider_status": "unsupported_pair",
+                "missing_resources": [unsupported_resource],
+            },
+        )
+    builtin_glosses, builtin_senses, builtin_diagnostics = builtin_lookup
     return (
         builtin_glosses,
         builtin_senses,
@@ -527,6 +508,7 @@ def _resolve_jmdict_glosses(
     entries_by_headword, glosses_by_headword = _load_cached_jmdict_definition_data(
         resolved_path,
         lookup_candidates,
+        cache_dir=paths.data_root / "cache" / "jmdict",
     )
     entries = jmdict_entries_for_candidates(entries_by_headword, lookup_candidates)
     selection = select_jmdict_definition_entries(
@@ -577,6 +559,7 @@ def _load_jmdict_definition_data_cached(
     mtime_ns: int,
     size: int,
     lookup_candidates: tuple[str, ...],
+    index_path_value: str,
 ) -> tuple[
     Mapping[str, Sequence[JmdictEntryRecord]],
     Mapping[str, list[str]],
@@ -585,12 +568,15 @@ def _load_jmdict_definition_data_cached(
     return load_jmdict_definition_records_for_terms(
         Path(path_value),
         lookup_candidates,
+        index_path=Path(index_path_value),
     )
 
 
 def _load_cached_jmdict_definition_data(
     path: Path,
     lookup_candidates: Sequence[str],
+    *,
+    cache_dir: Path,
 ) -> tuple[
     Mapping[str, Sequence[JmdictEntryRecord]],
     Mapping[str, list[str]],
@@ -607,6 +593,7 @@ def _load_cached_jmdict_definition_data(
                 if (normalized := _normalize_lemma(candidate))
             )
         ),
+        str(jmdict_definition_index_path(cache_dir, path)),
     )
 
 

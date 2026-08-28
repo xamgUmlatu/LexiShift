@@ -2126,7 +2126,17 @@ Use this file when:
   ordered selection of locally imported Yomitan format-3 popup dictionaries;
   cross-profile library enumeration and completed/mastered lifecycle UX remain
   planned.
-- Last documented checkpoint: `2026-08-29` popup lookup now evaluates every
+- Last documented checkpoint: `2026-08-29` lookup ordering now uses one
+  versioned per-language-pair source list for imported dictionaries and built-in
+  providers. Resource Settings numbers every source, lets built-ins move with
+  the same up/down controls, and identifies them as non-removable; runtime and
+  popup result order follow that exact list. JMdict definition lookup now uses a
+  source-identity-validated local SQLite entry-offset index with atomic rebuild
+  and legacy-scan fallback. Packaged macOS builds now include a self-contained
+  native-messaging executable, validate it with a framed protocol smoke test,
+  and refuse to install a manifest for a bundled executable that cannot start.
+  Popup transport/helper errors use the localized load-error state rather than
+  claiming that a word lacks a definition. `2026-08-29` popup lookup now evaluates every
   assigned imported dictionary plus the pair's built-in source and returns each
   matching result in configured priority order. The quick-definition popup
   renders only sources that have an entry for the selected word, gives each one
@@ -2143,7 +2153,7 @@ Use this file when:
   200,000-term Yomitan quality command now measures multi-bank import, repeat
   import, lookup, and cancellation with correctness and optional runner timing
   budgets kept separate. `2026-08-26` lookup-stack rows now use consistent
-  numeric ordering, label real built-in sources as fixed, omit the former fake
+    numeric ordering, label real built-in sources, omit the former fake
   last row when a pair has no built-in source, and keep compact up/down controls
   visible with explicit disabled explanations. Pair unassignment uses a shorter
   localized action that is sized to fit and requires confirmation that the
@@ -2153,7 +2163,7 @@ Use this file when:
   installed dictionary serve multiple language pairs, and configures an ordered
   popup-dictionary stack independently for each pair. The desktop can add,
   remove, and move imported dictionaries without uninstalling them, keeps the
-  built-in source fixed last when the pair has one, and explicitly reports pairs
+  built-in source last by default when the pair has one, and explicitly reports pairs
   with no built-in popup provider. New imports are placed first without replacing
   the existing stack. Configured dictionaries are tried in order before the
   pair's built-in lookup source, with exact surface/reading identity preserved
@@ -2185,7 +2195,18 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-29` ordered multi-source lookup, omission of
+- Last verified: `2026-08-29` unified imported/built-in reordering, settings-v1
+  migration, runtime priority alignment, JMdict index rebuild/corruption
+  recovery, macOS executable-host selection, legacy-script repair detection,
+  and native protocol probing passed focused core/GUI/packaging tests. A live
+  installed-data lookup returned Daijirin and JMdict for `分かる/わかる`; cold
+  index creation completed in about `0.95s`, a new-process indexed lookup in
+  about `31ms`, and a same-process repeat in about `3ms`. Rebuilt and installed
+  macOS app bundles passed bundle validation plus a real framed-host smoke; the
+  unpacked signed host started in about `248ms`, and an installed-host
+  `分かる/わかる` request returned Daijirin plus JMdict in about `296ms`. The
+  repository unit and mypy lanes passed `843` tests plus all `190` typed source
+  files before the state-ledger synchronization rerun. `2026-08-29` ordered multi-source lookup, omission of
   non-matching sources, legacy first-result compatibility, disclosure defaults,
   persisted per-pair expansion state, manifest wiring, and extension structure
   passed `33` focused helper, popup, API-contract, and architecture tests. A
@@ -2253,8 +2274,9 @@ Use this file when:
   - Dictionary selection is persisted per language pair and affects only the
     read-only word-info/dictionary-popup route. It does not participate in
     replacements, rule generation, admission, scheduling, or SRS publication.
-    Assigned imported dictionaries are queried in priority order, followed by
-    the pair's built-in source. Every source with a usable match is included in
+    Imported and built-in sources share one versioned priority order; legacy
+    settings migrate as imported sources followed by the built-in source. Every
+    source with a usable match is included in
     the popup payload; a miss or unavailable pack is omitted from the rendered
     source list. The first result is also exposed through the legacy top-level
     gloss, sense, and dictionary fields. Popup requests bypass the session
@@ -2262,6 +2284,11 @@ Use this file when:
   - Imported Japanese term lookup prefers exact written-form plus reading,
     then exact written form, then exact normalized kana reading. The popup shows
     the imported dictionary title and preserves multiline definition text.
+  - Built-in JMdict popup lookup keeps the source XML authoritative and stores
+    only term-to-entry byte offsets in an app-local SQLite cache. Cache identity
+    includes the resolved source path, size, modification time, and index schema;
+    stale or corrupt caches rebuild atomically, and index failures fall back to
+    the existing exact-tag scan without changing dictionary content.
   - Installed local lexical resources are the canonical gloss source. For
     `en-es`, the route resolves Spanish-to-English translation/gloss packs
     through existing pair-resource capability/default-pack logic rather than
@@ -2303,11 +2330,11 @@ Use this file when:
     back to the generic directory guidance.
   - Popup-dictionary assignment is global per language pair rather than per
     profile. One installed dictionary may be assigned to multiple pairs. The
-    GUI, settings contract, and runtime share an ordered pack-id tuple: new or
+    GUI, settings contract, and runtime share an ordered source-id tuple: new or
     imported dictionaries are placed first, the learner can move or unassign
     them without deleting local data, runtime returns every matching source in
-    that order, and the built-in source remains fixed last when the pair
-    supports one. The popup remembers disclosure visibility per language pair
+    that order, and a pair's built-in source can be moved but not removed. The
+    popup remembers disclosure visibility per language pair
     and dictionary in extension-local storage.
   - The content singleton is configured with the current helper client.
     `quick-definition` receives the shared `LexiShift.wordInfoApi` capability
@@ -2318,9 +2345,9 @@ Use this file when:
     loading state, and then renders target display, POS when known, up to five
     local glosses with compact details/examples when available, and
     deterministic external dictionary links.
-  - `quick-definition` degrades to localized fallback text when the helper is
-    unavailable, the request is invalid, or installed definition data is
-    missing.
+  - `quick-definition` distinguishes a helper/transport load failure from a
+    successful lookup with no definition. Missing entries and missing local data
+    retain their own localized fallback states.
   - Options code can call `HelperManager.lookupWordInfo(...)`.
   - The active Vocabulary Practice card links directly to a dedicated
     Vocabulary Library page instead of rendering an embedded dashboard. The page
@@ -2352,6 +2379,7 @@ Use this file when:
   - `core/lexishift_core/helper/yomitan_dictionary_health.py`
   - `core/lexishift_core/helper/yomitan_lookup_dictionaries.py`
   - `core/lexishift_core/helper/yomitan_dictionary_rendering.py`
+  - `core/lexishift_core/resources/jmdict_definition_lookup.py`
   - `core/lexishift_core/helper/engine.py`
   - `scripts/helper/lexishift_native_host.py`
   - `apps/chrome-extension/shared/helper/helper_client.js`
@@ -2379,6 +2407,8 @@ Use this file when:
   - `apps/chrome-extension/learning_dashboard.js`
   - `apps/gui/src/settings_lookup_dictionaries_mixin.py`
   - `apps/gui/src/settings_lookup_dictionary_stack_mixin.py`
+  - `apps/gui/src/helper_native_messaging_support.py`
+  - `apps/gui/packaging/pyinstaller.spec`
   - `apps/gui/src/settings_lookup_dictionary_acquisition_mixin.py`
   - `apps/gui/src/lookup_dictionary_acquisition.py`
   - `apps/gui/src/lookup_dictionary_import.py`
@@ -2394,6 +2424,7 @@ Use this file when:
   - `core/tests/dev/test_extension_word_info_api_contract.py`
   - `apps/gui/tests/test_lookup_dictionary_settings.py`
   - `core/tests/dev/test_extension_learning_dashboard_page.py`
+  - `scripts/build/validate_app_bundle.py`
   - `core/tests/architecture/test_extension_structure.py`
 - Known gaps:
   - Cross-profile Vocabulary Library enumeration is not implemented.
