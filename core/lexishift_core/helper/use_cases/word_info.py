@@ -10,10 +10,6 @@ from lexishift_core.helper.lp_capabilities import (
     normalize_pair_key,
     resolve_pair_capability,
 )
-from lexishift_core.helper.lookup_dictionary_settings import (
-    load_lookup_dictionary_settings,
-    lookup_dictionary_pack_ids_for_pair,
-)
 from lexishift_core.helper.pair_resources import resolve_pair_translation_packs
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.use_cases.word_info_dictionary import (
@@ -27,6 +23,11 @@ from lexishift_core.helper.use_cases.word_info_dictionary import (
 from lexishift_core.helper.use_cases.word_info_identity import (
     find_srs_item,
     lookup_japanese_reading,
+)
+from lexishift_core.helper.use_cases.word_info_dictionary_results import (
+    dictionary_result_payload,
+    has_presentable_dictionary_content,
+    resolve_configured_dictionary_results,
 )
 from lexishift_core.helper.use_cases.word_info_senses import (
     build_jmdict_sense_payloads,
@@ -47,9 +48,7 @@ from lexishift_core.resources.dict_loaders import (
 from lexishift_core.resources.jmdict_definition_lookup import (
     load_jmdict_definition_records_for_terms,
 )
-from lexishift_core.resources.installed_packs import resolve_installed_pack_artifact
 from lexishift_core.srs import normalize_srs_lifecycle_state
-from lexishift_core.helper.yomitan_lookup_dictionaries import lookup_yomitan_dictionary
 
 
 GLOSS_LIMIT = 5
@@ -171,6 +170,7 @@ def lookup_word_info(
         "senses": sense_payload,
         "dictionary": gloss_diagnostics.get("dictionary"),
         "dictionary_match": gloss_diagnostics.get("dictionary_match"),
+        "dictionary_results": gloss_diagnostics.get("dictionary_results", []),
         "source_phrases": rule_summary["source_phrases"],
         "rule_summary": {
             "rule_count": rule_summary["rule_count"],
@@ -338,18 +338,27 @@ def _resolve_glosses(
     translation_dict_path: Path | None,
     jmdict_path: Path | None,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
-    configured_lookup = _resolve_configured_lookup_dictionary(
-        paths,
-        pair=pair,
-        lookup_candidates=lookup_candidates,
-        lookup_surface=lookup_surface,
-        lookup_reading=lookup_reading,
+    configured_results, configured_missing, configured_count = (
+        resolve_configured_dictionary_results(
+            paths,
+            pair=pair,
+            lookup_candidates=lookup_candidates,
+            lookup_surface=lookup_surface,
+            lookup_reading=lookup_reading,
+            sense_limit=SENSE_LIMIT,
+            gloss_limit=GLOSS_LIMIT,
+        )
     )
-    if configured_lookup is not None:
-        return configured_lookup
     capability = resolve_pair_capability(pair)
+    builtin_lookup: tuple[
+        list[dict[str, object]],
+        list[dict[str, object]],
+        dict[str, object],
+    ]
+    builtin_source_id = ""
     if capability.requires_jmdict_for_rulegen or capability.requires_jmdict_for_seed:
-        return _resolve_jmdict_glosses(
+        builtin_source_id = "builtin:jmdict"
+        builtin_lookup = _resolve_jmdict_glosses(
             paths,
             pair=pair,
             source_language=source_language,
@@ -358,8 +367,9 @@ def _resolve_glosses(
             lookup_reading=lookup_reading,
             jmdict_path=jmdict_path,
         )
-    if capability.requires_translation_dictionary_for_rulegen:
-        return _resolve_translation_glosses(
+    elif capability.requires_translation_dictionary_for_rulegen:
+        builtin_source_id = "builtin:translation"
+        builtin_lookup = _resolve_translation_glosses(
             paths,
             pair=pair,
             source_language=source_language,
@@ -367,54 +377,66 @@ def _resolve_glosses(
             lookup_surface=lookup_surface,
             translation_dict_path=translation_dict_path,
         )
-    return (
-        [],
-        [],
-        {
-            "provider_status": "unsupported_pair",
-            "missing_resources": [{"type": "word_info_provider", "reason": "pair_lacks_provider"}],
-        },
-    )
-
-
-def _resolve_configured_lookup_dictionary(
-    paths: HelperPaths,
-    *,
-    pair: str,
-    lookup_candidates: Sequence[str],
-    lookup_surface: str,
-    lookup_reading: str,
-) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]] | None:
-    settings = load_lookup_dictionary_settings(paths.lookup_dictionary_settings_path)
-    pack_ids = lookup_dictionary_pack_ids_for_pair(settings, pair)
-    for pack_id in pack_ids:
-        artifact_path = resolve_installed_pack_artifact(
-            paths.lookup_dictionary_packs_dir,
-            pack_id,
-        )
-        if artifact_path is None:
-            continue
-        result = lookup_yomitan_dictionary(
-            artifact_path,
-            lookup_candidates=lookup_candidates,
-            surface=lookup_surface,
-            reading=lookup_reading,
-            sense_limit=SENSE_LIMIT,
-            gloss_limit=GLOSS_LIMIT,
-        )
-        if result is None:
-            continue
-        return (
-            list(result.glosses),
-            list(result.senses),
+    else:
+        builtin_lookup = (
+            [],
+            [],
             {
-                "provider_status": "ok",
-                "missing_resources": [],
-                "dictionary": result.dictionary,
-                "dictionary_match": result.dictionary_match,
+                "provider_status": "unsupported_pair",
+                "missing_resources": [
+                    {"type": "word_info_provider", "reason": "pair_lacks_provider"}
+                ],
             },
         )
-    return None
+
+    builtin_glosses, builtin_senses, builtin_diagnostics = builtin_lookup
+    dictionary_results = list(configured_results)
+    if builtin_source_id and has_presentable_dictionary_content(
+        builtin_glosses,
+        builtin_senses,
+    ):
+        dictionary_results.append(
+            dictionary_result_payload(
+                source_id=builtin_source_id,
+                priority=configured_count + 1,
+                builtin=True,
+                glosses=builtin_glosses,
+                senses=builtin_senses,
+                diagnostics=builtin_diagnostics,
+            )
+        )
+
+    missing_resources = list(configured_missing)
+    builtin_missing = builtin_diagnostics.get("missing_resources")
+    if isinstance(builtin_missing, list):
+        missing_resources.extend(
+            dict(item) for item in builtin_missing if isinstance(item, Mapping)
+        )
+    if dictionary_results:
+        primary = dictionary_results[0]
+        primary_glosses = primary.get("glosses")
+        primary_senses = primary.get("senses")
+        return (
+            list(primary_glosses) if isinstance(primary_glosses, list) else [],
+            list(primary_senses) if isinstance(primary_senses, list) else [],
+            {
+                "provider_status": "ok",
+                "missing_resources": missing_resources,
+                "dictionary": primary.get("dictionary"),
+                "dictionary_match": primary.get("dictionary_match"),
+                "dictionary_results": dictionary_results,
+            },
+        )
+
+    return (
+        builtin_glosses,
+        builtin_senses,
+        {
+            **builtin_diagnostics,
+            "missing_resources": missing_resources,
+            "dictionary_results": [],
+        },
+    )
 
 
 def _resolve_translation_glosses(

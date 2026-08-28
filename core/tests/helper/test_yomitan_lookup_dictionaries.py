@@ -249,6 +249,11 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
             )
             self.assertEqual(local_result["dictionary"]["provider"], "yomitan")
             self.assertEqual(local_result["dictionary"]["title"], imported.dictionary.title)
+            self.assertEqual(len(local_result["dictionary_results"]), 1)
+            self.assertEqual(
+                local_result["dictionary_results"][0]["source_id"],
+                imported.dictionary.pack_id,
+            )
             self.assertEqual(
                 [gloss["text"] for gloss in local_result["glosses"]],
                 ["time as a general concept\n① a point in time"],
@@ -285,11 +290,15 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
             )
             self.assertEqual(fallback_result["dictionary"]["provider"], "edrdg")
             self.assertEqual(
+                [entry["dictionary"]["title"] for entry in fallback_result["dictionary_results"]],
+                ["JMdict"],
+            )
+            self.assertEqual(
                 [gloss["text"] for gloss in fallback_result["glosses"]],
                 ["company"],
             )
 
-    def test_word_info_uses_first_matching_dictionary_in_configured_order(self) -> None:
+    def test_word_info_returns_every_match_in_configured_order_then_builtin(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
             first_source = Path(tmp) / "first.zip"
@@ -311,6 +320,20 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
             second = import_yomitan_dictionary_zip(
                 second_source,
                 dictionaries_dir=paths.lookup_dictionary_packs_dir,
+            )
+            jmdict_path = paths.language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+            jmdict_path.parent.mkdir(parents=True, exist_ok=True)
+            jmdict_path.write_text(
+                """
+<JMdict>
+  <entry>
+    <k_ele><keb>時</keb></k_ele>
+    <r_ele><reb>とき</reb></r_ele>
+    <sense><pos>noun</pos><gloss>built-in definition</gloss></sense>
+  </entry>
+</JMdict>
+""".strip(),
+                encoding="utf-8",
             )
 
             def lookup() -> dict[str, object]:
@@ -339,6 +362,18 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
             first_result = lookup()
             self.assertEqual(first_result["dictionary"]["title"], "First Dictionary")
             self.assertEqual(first_result["glosses"][0]["text"], "first definition")
+            self.assertEqual(
+                [entry["dictionary"]["title"] for entry in first_result["dictionary_results"]],
+                ["First Dictionary", "Second Dictionary", "JMdict"],
+            )
+            self.assertEqual(
+                [entry["priority"] for entry in first_result["dictionary_results"]],
+                [1, 2, 3],
+            )
+            self.assertEqual(
+                [entry["glosses"][0]["text"] for entry in first_result["dictionary_results"]],
+                ["first definition", "second definition", "built-in definition"],
+            )
 
             reordered = with_lookup_dictionary_pack_ids(
                 settings,
@@ -349,6 +384,10 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
             second_result = lookup()
             self.assertEqual(second_result["dictionary"]["title"], "Second Dictionary")
             self.assertEqual(second_result["glosses"][0]["text"], "second definition")
+            self.assertEqual(
+                [entry["dictionary"]["title"] for entry in second_result["dictionary_results"]],
+                ["Second Dictionary", "First Dictionary", "JMdict"],
+            )
 
     def test_import_preserves_source_and_supports_reading_aware_lookup(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -2126,7 +2126,14 @@ Use this file when:
   ordered selection of locally imported Yomitan format-3 popup dictionaries;
   cross-profile library enumeration and completed/mastered lifecycle UX remain
   planned.
-- Last documented checkpoint: `2026-08-27` imported dictionary health now runs
+- Last documented checkpoint: `2026-08-29` popup lookup now evaluates every
+  assigned imported dictionary plus the pair's built-in source and returns each
+  matching result in configured priority order. The quick-definition popup
+  renders only sources that have an entry for the selected word, gives each one
+  an animated disclosure row, and remembers expanded/collapsed state per
+  language pair and dictionary; the first matching source defaults open and
+  lower-priority matches default closed. Legacy first-result fields remain in
+  the word-info response for existing callers. `2026-08-27` imported dictionary health now runs
   after Resource Settings renders on a background worker. The bounded probe
   checks managed metadata, manifest/path safety, required SQLite schema, and a
   single readable term row without hashing the source archive or scanning the
@@ -2178,7 +2185,14 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-27` focused core and GUI coverage passed for healthy,
+- Last verified: `2026-08-29` ordered multi-source lookup, omission of
+  non-matching sources, legacy first-result compatibility, disclosure defaults,
+  persisted per-pair expansion state, manifest wiring, and extension structure
+  passed `33` focused helper, popup, API-contract, and architecture tests. A
+  read-only lookup against the installed `suisui` data returned `大辞林 第四版`
+  first and JMdict second for `時/とき`. The full repository gate passed
+  `842` tests plus repo-wide mypy and style checks after the multi-result helper
+  and popup disclosure support were kept in focused modules. `2026-08-27` focused core and GUI coverage passed for healthy,
   missing, corrupt, and repaired dictionaries; exact-copy enforcement; retained
   assignments; and the generated performance fixture/report contracts.
   `2026-08-26` the focused lookup GUI/helper suite passed `24`
@@ -2239,10 +2253,12 @@ Use this file when:
   - Dictionary selection is persisted per language pair and affects only the
     read-only word-info/dictionary-popup route. It does not participate in
     replacements, rule generation, admission, scheduling, or SRS publication.
-    A selected imported dictionary is tried first; a miss or unavailable pack
-    falls through to the pair's existing built-in lookup source. Popup requests
-    bypass the session word-info cache so a newly selected source is visible on
-    the next lookup.
+    Assigned imported dictionaries are queried in priority order, followed by
+    the pair's built-in source. Every source with a usable match is included in
+    the popup payload; a miss or unavailable pack is omitted from the rendered
+    source list. The first result is also exposed through the legacy top-level
+    gloss, sense, and dictionary fields. Popup requests bypass the session
+    word-info cache so a newly selected source is visible on the next lookup.
   - Imported Japanese term lookup prefers exact written-form plus reading,
     then exact written form, then exact normalized kana reading. The popup shows
     the imported dictionary title and preserves multiline definition text.
@@ -2289,8 +2305,10 @@ Use this file when:
     profile. One installed dictionary may be assigned to multiple pairs. The
     GUI, settings contract, and runtime share an ordered pack-id tuple: new or
     imported dictionaries are placed first, the learner can move or unassign
-    them without deleting local data, runtime returns the first matching entry,
-    and the built-in source remains fixed last when the pair supports one.
+    them without deleting local data, runtime returns every matching source in
+    that order, and the built-in source remains fixed last when the pair
+    supports one. The popup remembers disclosure visibility per language pair
+    and dictionary in extension-local storage.
   - The content singleton is configured with the current helper client.
     `quick-definition` receives the shared `LexiShift.wordInfoApi` capability
     through the popup descriptor context and does not call native messaging or
@@ -2324,6 +2342,7 @@ Use this file when:
   - `docs/srs/srs_vocabulary_library_and_word_info_plan.md`
   - `docs/architecture/popup_modules_pattern.md`
   - `core/lexishift_core/helper/use_cases/word_info.py`
+  - `core/lexishift_core/helper/use_cases/word_info_dictionary_results.py`
   - `core/lexishift_core/helper/use_cases/word_info_dictionary.py`
   - `core/lexishift_core/helper/use_cases/word_info_identity.py`
   - `core/lexishift_core/helper/use_cases/word_info_jmdict.py`
@@ -2338,6 +2357,8 @@ Use this file when:
   - `apps/chrome-extension/shared/helper/helper_client.js`
   - `apps/chrome-extension/shared/helper/word_info_api.js`
   - `apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js`
+  - `apps/chrome-extension/content/ui/popup_modules/quick_definition_result_support.js`
+  - `apps/chrome-extension/content/ui/popup_modules/quick_definition_dictionary_sections.js`
   - `apps/chrome-extension/content/ui/manual_source_prompt.js`
   - `apps/chrome-extension/content/ui/ui.js`
   - `apps/gui/src/settings_lookup_dictionaries_mixin.py`
@@ -2381,8 +2402,8 @@ Use this file when:
   - Batch lookup for a page of library rows is not implemented.
   - The normalized public popup module API remains target architecture; the
     current module uses the existing internal popup descriptor/context pattern.
-  - The ordered lookup stack uses first-match fallback semantics; it does not
-    merge definitions from multiple dictionaries.
+  - Dictionary results are shown as separate ordered sections rather than
+    merging or semantically reconciling definitions across sources.
   - `ja-ja`, `en-en`, `de-de`, and `es-es` currently have no built-in popup
     provider, so they require an assigned imported dictionary for local results.
   - Yomitan media files are not imported. Structured-content image nodes use a

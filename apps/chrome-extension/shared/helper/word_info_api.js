@@ -79,6 +79,7 @@
       },
       glosses: [],
       senses: [],
+      dictionary_results: [],
       source_phrases: [],
       srs: { present: false },
       external_links: []
