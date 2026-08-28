@@ -79,6 +79,8 @@ class TestExtensionQuickDefinitionPopupModule(unittest.TestCase):
 
         self.assertIn("max-height:calc(100vh - 16px)", source)
         self.assertIn("max-height:min(52vh, 420px)", source)
+        self.assertIn(".lexishift-popup-module{flex:0 0 auto", source)
+        self.assertNotIn(".lexishift-popup-module{flex:0 1 auto", source)
         self.assertIn("overflow-y:auto", source)
         self.assertIn("max-height:min(52vh, 420px);overflow:hidden", source)
         self.assertNotIn("scrollbar-gutter", source)

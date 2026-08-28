@@ -2151,7 +2151,9 @@ Use this file when:
   cards; scrolling is limited to definition bodies, expanded history details,
   and the complete stack when their content actually exceeds a cap. Expanded
   dictionary entries and structured Yomitan content grow within the definition
-  body rather than creating competing nested scroll areas.
+  body rather than creating competing nested scroll areas. Popup modules do not
+  flex-shrink when asynchronous definition content arrives, so compact script
+  and history cards retain their natural height instead of clipping their text.
   Legacy first-result fields remain in
   the word-info response for existing callers. `2026-08-27` imported dictionary health now runs
   after Resource Settings renders on a background worker. The bounded probe
