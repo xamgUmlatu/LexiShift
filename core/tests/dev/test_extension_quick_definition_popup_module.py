@@ -91,6 +91,11 @@ class TestExtensionQuickDefinitionPopupModule(unittest.TestCase):
             ui_source,
         )
         self.assertIn("max-height:min(42vh, 340px)", ui_source)
+        self.assertIn(".lexishift-definition-structured{padding-right:3px", ui_source)
+        self.assertNotIn(".lexishift-definition-structured{max-height", ui_source)
+
+        disclosure_source = QUICK_DEFINITION_DICTIONARY_SECTIONS_JS.read_text(encoding="utf-8")
+        self.assertNotIn("overflow-y:auto", disclosure_source)
 
     def test_helper_error_uses_load_error_copy_not_missing_entry_copy(self) -> None:
         source = QUICK_DEFINITION_MODULE_JS.read_text(encoding="utf-8")

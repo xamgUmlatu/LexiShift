@@ -2149,7 +2149,9 @@ Use this file when:
   modules and the feedback controls reachable when definitions are long.
   Compact script and collapsed-history cards remain ordinary non-scrollable
   cards; scrolling is limited to definition bodies, expanded history details,
-  and the complete stack when their content actually exceeds a cap.
+  and the complete stack when their content actually exceeds a cap. Expanded
+  dictionary entries and structured Yomitan content grow within the definition
+  body rather than creating competing nested scroll areas.
   Legacy first-result fields remain in
   the word-info response for existing callers. `2026-08-27` imported dictionary health now runs
   after Resource Settings renders on a background worker. The bounded probe

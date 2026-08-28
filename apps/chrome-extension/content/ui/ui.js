@@ -348,8 +348,8 @@
       .lexishift-definition-structured-senses{display:flex;flex-direction:column;gap:7px;}
       .lexishift-definition-structured-sense + .lexishift-definition-structured-sense{
         padding-top:6px;border-top:1px solid var(--lexishift-module-quote-border, rgba(247,244,239,0.16));}
-      .lexishift-definition-structured{max-height:270px;overflow-y:auto;overscroll-behavior:contain;
-        padding-right:3px;font-size:11px;line-height:1.5;color:var(--lexishift-module-line, rgba(247,244,239,0.92));}
+      .lexishift-definition-structured{padding-right:3px;font-size:11px;line-height:1.5;
+        color:var(--lexishift-module-line, rgba(247,244,239,0.92));}
       .lexishift-yomitan-element{box-sizing:border-box;}
       .lexishift-yomitan-element.lexishift-yomitan-role-headword{margin-bottom:5px;font-size:12px;font-weight:750;
         color:var(--lexishift-module-text, #f7f4ef);}
