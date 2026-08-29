@@ -276,6 +276,27 @@ def _all_strings(value: object) -> Iterable[str]:
 
 
 class TestHelperWordInfo(unittest.TestCase):
+    def test_pos_payload_preserves_raw_label_and_prefers_stable_canonical(self) -> None:
+        payload = word_info_module._pos_payload(
+            (
+                {
+                    "pos": "動詞-一般",
+                    "pos_raw": "動詞-一般",
+                },
+                {
+                    "pos": "動詞-一般",
+                    "pos_raw": "動詞-一般",
+                    "pos_canonical": "verb",
+                },
+            ),
+            (),
+        )
+
+        self.assertEqual(payload["canonical"], "verb")
+        self.assertEqual(payload["label"], "動詞-一般")
+        self.assertEqual(payload["raw"], "動詞-一般")
+        self.assertEqual(payload["source"], "word_package")
+
     def test_jmdict_structures_only_exact_notes_for_known_written_forms(self) -> None:
         source_text = "刻 signifies a time of day; 秋 signifies an important time"
         self.assertEqual(

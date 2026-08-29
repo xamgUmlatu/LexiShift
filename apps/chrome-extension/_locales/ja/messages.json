@@ -1445,6 +1445,18 @@
   "popup_definition_error": {
     "message": "定義を読み込めませんでした。"
   },
+  "popup_pos_noun": { "message": "名詞" },
+  "popup_pos_adjective": { "message": "形容詞" },
+  "popup_pos_verb": { "message": "動詞" },
+  "popup_pos_adverb": { "message": "副詞" },
+  "popup_pos_pronoun": { "message": "代名詞" },
+  "popup_pos_determiner": { "message": "限定詞" },
+  "popup_pos_adposition": { "message": "接置詞" },
+  "popup_pos_conjunction": { "message": "接続詞" },
+  "popup_pos_interjection": { "message": "感動詞" },
+  "popup_pos_numeral": { "message": "数詞" },
+  "popup_pos_punctuation": { "message": "句読点" },
+  "popup_pos_other": { "message": "その他" },
   "popup_feedback_history_loading": {
     "message": "フィードバック履歴（読み込み中...）"
   },

@@ -38,6 +38,7 @@ from lexishift_core.helper.use_cases.word_info_jmdict import (
     select_jmdict_definition_entries,
 )
 from lexishift_core.lexicon.word_package import normalize_word_package
+from lexishift_core.pos.normalization import CANONICAL_POS_TAGS
 from lexishift_core.persistence.storage import load_vocab_dataset
 from lexishift_core.resources.dict_loaders import (
     JmdictEntryRecord,
@@ -165,7 +166,10 @@ def lookup_word_info(
         "display": resolved_display,
         "normalized_lemma": normalized_lemma,
         "origin": str(origin or "").strip().lower(),
-        "pos": _pos_payload(primary_word_package, gloss_payload),
+        "pos": _pos_payload(
+            (request_word_package, srs_word_package),
+            gloss_payload,
+        ),
         "glosses": gloss_payload,
         "senses": sense_payload,
         "dictionary": gloss_diagnostics.get("dictionary"),
@@ -778,17 +782,47 @@ def _truncate_text(value: object, *, limit: int = 160) -> str:
 
 
 def _pos_payload(
-    word_package: Mapping[str, object],
+    word_packages: Sequence[Mapping[str, object]],
     glosses: Sequence[Mapping[str, object]],
 ) -> dict[str, object]:
-    canonical = _first_text(word_package.get("pos_canonical"), word_package.get("pos"))
-    if canonical:
-        return {"canonical": canonical, "label": canonical, "source": "word_package"}
+    canonical_tags = frozenset(CANONICAL_POS_TAGS)
+    raw_label = ""
+    for word_package in word_packages:
+        if not isinstance(word_package, Mapping):
+            continue
+        if not raw_label:
+            raw_label = _first_text(
+                word_package.get("pos_raw"),
+                word_package.get("pos"),
+                word_package.get("pos_canonical"),
+            )
+        for value in (word_package.get("pos_canonical"), word_package.get("pos")):
+            canonical = _first_text(value).casefold()
+            if canonical in canonical_tags:
+                return {
+                    "canonical": canonical,
+                    "label": raw_label or canonical,
+                    "raw": raw_label,
+                    "source": "word_package",
+                }
     for gloss in glosses:
         pos = _first_text(gloss.get("pos") if isinstance(gloss, Mapping) else "")
         if pos:
-            return {"canonical": pos, "label": pos, "source": "installed_dictionary"}
-    return {"canonical": "", "label": "", "source": ""}
+            canonical = pos.casefold() if pos.casefold() in canonical_tags else ""
+            return {
+                "canonical": canonical,
+                "label": pos,
+                "raw": pos,
+                "source": "installed_dictionary",
+            }
+    if raw_label:
+        return {
+            "canonical": "",
+            "label": raw_label,
+            "raw": raw_label,
+            "source": "word_package",
+        }
+    return {"canonical": "", "label": "", "raw": "", "source": ""}
 
 
 def _srs_payload(item: object | None) -> dict[str, object]:

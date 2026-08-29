@@ -438,7 +438,7 @@
       renderLinks(nextBody, result && result.external_links);
 
       word.textContent = resolveDisplayWord(result, payload);
-      const posLabel = resolvePosLabel(result);
+      const posLabel = resolvePosLabel(result, translate);
       pos.textContent = posLabel;
       pos.style.display = posLabel ? "" : "none";
       body.textContent = "";

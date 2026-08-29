@@ -1445,6 +1445,18 @@
   "popup_definition_error": {
     "message": "无法加载定义。"
   },
+  "popup_pos_noun": { "message": "名词" },
+  "popup_pos_adjective": { "message": "形容词" },
+  "popup_pos_verb": { "message": "动词" },
+  "popup_pos_adverb": { "message": "副词" },
+  "popup_pos_pronoun": { "message": "代词" },
+  "popup_pos_determiner": { "message": "限定词" },
+  "popup_pos_adposition": { "message": "介词" },
+  "popup_pos_conjunction": { "message": "连词" },
+  "popup_pos_interjection": { "message": "感叹词" },
+  "popup_pos_numeral": { "message": "数词" },
+  "popup_pos_punctuation": { "message": "标点符号" },
+  "popup_pos_other": { "message": "其他" },
   "popup_feedback_history_loading": {
     "message": "评分历史（加载中...）"
   },

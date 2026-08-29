@@ -256,7 +256,8 @@ const messages = {{
   popup_definition_loading: "Loading definition...",
   popup_definition_unavailable: "No definition available.",
   popup_definition_missing: "Definition data is not installed for this word.",
-  popup_definition_error: "Failed to load definition."
+  popup_definition_error: "Failed to load definition.",
+  popup_pos_verb: "Browser-language verb"
 }};
 const stored = {{}};
 const context = vm.createContext({{
@@ -328,13 +329,17 @@ const moduleNode = context.LexiShift.uiQuickDefinitionModule.build(
   () => {{}},
   {{
     profileId: "suisui",
+    t(key, substitutions, fallback) {{
+      if (key === "popup_pos_verb") return "Selected-language verb";
+      return messages[key] || fallback || key;
+    }},
     wordInfoApi: {{
       async lookup(request, options) {{
         calls.push({{ request, options }});
         return {{
           status: "ok",
           display: "perro",
-          pos: {{ label: "noun" }},
+          pos: {{ canonical: "verb", label: "動詞-一般", raw: "動詞-一般" }},
           dictionary: {{
             provider: "yomitan",
             title: "User-owned Spanish Dictionary"
@@ -464,7 +469,9 @@ assert.match(collectText(moduleNode), /Loading definition/);
   }}));
   const rendered = collectText(moduleNode);
   assert.match(rendered, /perro/);
-  assert.match(rendered, /noun/);
+  assert.match(rendered, /Selected-language verb/);
+  assert.doesNotMatch(rendered, /Browser-language verb/);
+  assert.doesNotMatch(rendered, /動詞-一般/);
   assert.match(rendered, /User-owned Spanish Dictionary/);
   assert.match(rendered, /Supplemental Dictionary/);
   assert.doesNotMatch(rendered, /Dictionary Without This Word/);
@@ -722,6 +729,18 @@ assert.ok(registry.resolveVisibleSettingModules("es").some((item) => item.id ===
             "popup_definition_unavailable",
             "popup_definition_missing",
             "popup_definition_error",
+            "popup_pos_noun",
+            "popup_pos_adjective",
+            "popup_pos_verb",
+            "popup_pos_adverb",
+            "popup_pos_pronoun",
+            "popup_pos_determiner",
+            "popup_pos_adposition",
+            "popup_pos_conjunction",
+            "popup_pos_interjection",
+            "popup_pos_numeral",
+            "popup_pos_punctuation",
+            "popup_pos_other",
         }
         for locale in ("en", "ja", "zh", "de"):
             with self.subTest(locale=locale):

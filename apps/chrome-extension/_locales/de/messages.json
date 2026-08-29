@@ -1445,6 +1445,18 @@
   "popup_definition_error": {
     "message": "Definition konnte nicht geladen werden."
   },
+  "popup_pos_noun": { "message": "Substantiv" },
+  "popup_pos_adjective": { "message": "Adjektiv" },
+  "popup_pos_verb": { "message": "Verb" },
+  "popup_pos_adverb": { "message": "Adverb" },
+  "popup_pos_pronoun": { "message": "Pronomen" },
+  "popup_pos_determiner": { "message": "Determinativ" },
+  "popup_pos_adposition": { "message": "Adposition" },
+  "popup_pos_conjunction": { "message": "Konjunktion" },
+  "popup_pos_interjection": { "message": "Interjektion" },
+  "popup_pos_numeral": { "message": "Numerale" },
+  "popup_pos_punctuation": { "message": "Interpunktion" },
+  "popup_pos_other": { "message": "Sonstiges" },
   "popup_feedback_history_loading": {
     "message": "Feedback-Verlauf (wird geladen...)"
   },

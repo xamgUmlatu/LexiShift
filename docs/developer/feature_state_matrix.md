@@ -2164,6 +2164,11 @@ Use this file when:
   Horizontal placement starts beyond the replacement element's right edge,
   flips beyond its left edge when needed, and clamps only when neither side
   fits, avoiding overlap with the active word whenever the viewport permits.
+  Popup POS presentation now preserves detailed analyzer and dictionary tags as
+  raw metadata while preferring the stable canonical category for display. All
+  canonical POS categories are localized through the selected extension UI
+  language for English, Japanese, German, and Chinese; unknown source-specific
+  labels remain verbatim rather than being guessed or mistranslated.
   Legacy first-result fields remain in the word-info response for existing
   callers. `2026-08-27` imported dictionary health now runs
   after Resource Settings renders on a background worker. The bounded probe
@@ -2217,7 +2222,13 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-29` atomic multi-dictionary rendering, natural-height
+- Last verified: `2026-08-29` POS raw/canonical separation and localized popup
+  labels passed `19` focused helper and extension tests. A live `分かる/わかる`
+  request carrying only raw `動詞-一般` metadata resolved canonical `verb` while
+  retaining the original raw label, and returned both configured dictionary
+  results. The full repository gate passed `844` tests, mypy across `190` source
+  files, strict style, state, Windows parity, and documentation checks.
+  `2026-08-29` atomic multi-dictionary rendering, natural-height
   stack measurement, below/above re-anchoring after late definition growth,
   viewport-clamped fallback placement, replacement-edge horizontal anchoring,
   dependency ordering, and extension structure passed `25` focused tests plus

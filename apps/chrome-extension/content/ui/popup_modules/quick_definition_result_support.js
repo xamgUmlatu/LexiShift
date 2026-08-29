@@ -1,14 +1,35 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const LINK_LIMIT = 2;
+  const POS_FALLBACK_LABELS = Object.freeze({
+    noun: "Noun",
+    adjective: "Adjective",
+    verb: "Verb",
+    adverb: "Adverb",
+    pronoun: "Pronoun",
+    determiner: "Determiner",
+    adposition: "Adposition",
+    conjunction: "Conjunction",
+    interjection: "Interjection",
+    numeral: "Numeral",
+    punctuation: "Punctuation",
+    other: "Other"
+  });
 
   function normalizeText(value) {
     return String(value || "").trim();
   }
 
-  function resolvePosLabel(result) {
+  function resolvePosLabel(result, translate) {
     const pos = result && result.pos && typeof result.pos === "object" ? result.pos : {};
-    return normalizeText(pos.label || pos.canonical);
+    const canonical = normalizeText(pos.canonical).toLowerCase();
+    const fallback = POS_FALLBACK_LABELS[canonical];
+    if (fallback) {
+      return typeof translate === "function"
+        ? normalizeText(translate(`popup_pos_${canonical}`, null, fallback)) || fallback
+        : fallback;
+    }
+    return normalizeText(pos.label || pos.raw || pos.canonical);
   }
 
   function resolveDisplayWord(result, payload) {

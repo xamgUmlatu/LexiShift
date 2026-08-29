@@ -1454,6 +1454,18 @@
   "popup_definition_error": {
     "message": "Failed to load definition."
   },
+  "popup_pos_noun": { "message": "Noun" },
+  "popup_pos_adjective": { "message": "Adjective" },
+  "popup_pos_verb": { "message": "Verb" },
+  "popup_pos_adverb": { "message": "Adverb" },
+  "popup_pos_pronoun": { "message": "Pronoun" },
+  "popup_pos_determiner": { "message": "Determiner" },
+  "popup_pos_adposition": { "message": "Adposition" },
+  "popup_pos_conjunction": { "message": "Conjunction" },
+  "popup_pos_interjection": { "message": "Interjection" },
+  "popup_pos_numeral": { "message": "Numeral" },
+  "popup_pos_punctuation": { "message": "Punctuation" },
+  "popup_pos_other": { "message": "Other" },
   "popup_feedback_history_loading": {
     "message": "Feedback history (loading...)"
   },
