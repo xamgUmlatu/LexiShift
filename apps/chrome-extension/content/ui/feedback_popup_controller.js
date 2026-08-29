@@ -38,17 +38,15 @@
     const spaceAbove = Math.max(0, targetRect.top - margin - gap);
     const fitsBelow = desiredHeight <= spaceBelow;
     const fitsAbove = desiredHeight <= spaceAbove;
-    let vertical = "below";
-    if (!fitsBelow && fitsAbove) {
-      vertical = "above";
-    } else if (!fitsBelow && !fitsAbove && spaceAbove > spaceBelow) {
+    let vertical = "viewport";
+    if (fitsBelow) {
+      vertical = "below";
+    } else if (fitsAbove) {
       vertical = "above";
     }
-    let availableHeight = vertical === "above" ? spaceAbove : spaceBelow;
-    if (availableHeight <= 0) {
-      vertical = "viewport";
-      availableHeight = viewportPopupHeight;
-    }
+    const availableHeight = vertical === "viewport"
+      ? viewportPopupHeight
+      : vertical === "above" ? spaceAbove : spaceBelow;
     const maxHeight = Math.max(0, Math.min(desiredHeight || availableHeight, availableHeight));
     const renderedHeight = Math.min(desiredHeight, maxHeight);
     let top = margin;
@@ -56,6 +54,8 @@
       top = targetRect.bottom + gap;
     } else if (vertical === "above") {
       top = targetRect.top - gap - renderedHeight;
+    } else {
+      top = targetRect.bottom + gap;
     }
     top = clamp(top, margin, viewportHeight - margin - renderedHeight);
     const anchor = options.anchorPoint && typeof options.anchorPoint === "object"

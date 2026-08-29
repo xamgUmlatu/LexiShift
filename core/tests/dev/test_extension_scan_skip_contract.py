@@ -95,6 +95,18 @@ const grownAbove = place({{
 assert.equal(grownAbove.vertical, "above");
 assert.equal(grownAbove.top, 12);
 
+const clampedToViewport = place({{
+  targetRect: {{ top: 336, bottom: 350, left: 300, right: 340, width: 40, height: 14 }},
+  popupWidth: 240,
+  popupHeight: naturalHeight,
+  viewportWidth: 800,
+  viewportHeight: 600,
+  anchorPoint: {{ clientX: 320, clientY: 343 }}
+}});
+assert.equal(clampedToViewport.vertical, "viewport");
+assert.equal(clampedToViewport.top, 92);
+assert.equal(clampedToViewport.maxHeight, 500);
+
 const tall = place({{
   targetRect: {{ top: 280, bottom: 300, left: 300, right: 340, width: 40, height: 20 }},
   popupWidth: 240,
@@ -103,10 +115,9 @@ const tall = place({{
   viewportHeight: 600,
   anchorPoint: {{ clientX: 320, clientY: 290 }}
 }});
-assert.equal(tall.vertical, "below");
-assert.equal(tall.top, 308);
-assert.equal(tall.maxHeight, 284);
-assert.ok(tall.top >= 300 + 8);
+assert.equal(tall.vertical, "viewport");
+assert.equal(tall.top, 8);
+assert.equal(tall.maxHeight, 584);
 
 const leftFlip = place({{
   targetRect: {{ top: 200, bottom: 220, left: 740, right: 780, width: 40, height: 20 }},
