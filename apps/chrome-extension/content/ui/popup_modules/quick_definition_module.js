@@ -389,12 +389,7 @@
     }
 
     async function renderResult(result) {
-      body.textContent = "";
-      word.textContent = resolveDisplayWord(result, payload);
-      const posLabel = resolvePosLabel(result);
-      pos.textContent = posLabel;
-      pos.style.display = posLabel ? "" : "none";
-
+      const nextBody = document.createElement("div");
       const dictionaryResults = resolveDictionaryResults(result, hasPresentableDefinition);
       if (dictionaryResults.length) {
         const preferences = await readDictionaryPreferences(payload.languagePair);
@@ -414,21 +409,21 @@
               : index === 0
           });
         });
-        body.appendChild(dictionaryList);
+        nextBody.appendChild(dictionaryList);
       } else {
         const dictionaryTitle = resolveDictionaryTitle(result);
         if (dictionaryTitle) {
-          appendText(body, "lexishift-definition-source", dictionaryTitle);
+          appendText(nextBody, "lexishift-definition-source", dictionaryTitle);
         }
         const senses = resolveSenses(result);
         const glosses = resolveGlosses(result);
         if (senses.length) {
-          renderSenses(body, senses);
+          renderSenses(nextBody, senses);
         } else if (glosses.length) {
-          renderFlatGlosses(body, glosses);
+          renderFlatGlosses(nextBody, glosses);
         } else {
           appendText(
-            body,
+            nextBody,
             "lexishift-definition-status",
             hasMissingDefinitionData(result)
               ? translate(
@@ -440,7 +435,14 @@
           );
         }
       }
-      renderLinks(body, result && result.external_links);
+      renderLinks(nextBody, result && result.external_links);
+
+      word.textContent = resolveDisplayWord(result, payload);
+      const posLabel = resolvePosLabel(result);
+      pos.textContent = posLabel;
+      pos.style.display = posLabel ? "" : "none";
+      body.textContent = "";
+      Array.from(nextBody.childNodes).forEach((child) => body.appendChild(child));
     }
 
     async function loadDefinition() {

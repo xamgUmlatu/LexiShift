@@ -44,6 +44,7 @@
     && root.popupModulesRegistry
     && root.popupModuleHistoryStore
     && root.uiPopupLayoutStyles
+    && root.uiPopupLayoutMeasurement
     && root.uiQuickDefinitionResultSupport
     && root.uiQuickDefinitionDictionarySections
     && root.wordInfoApi

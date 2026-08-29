@@ -6,7 +6,6 @@
     const parsed = Number(value);
     return Number.isFinite(parsed) ? parsed : fallback;
   }
-
   function clamp(value, lower, upper) {
     const safeLower = finiteNumber(lower, 0);
     const safeUpper = Math.max(safeLower, finiteNumber(upper, safeLower));
@@ -152,9 +151,10 @@
       try {
         const placeMeasuredPopup = () => {
           const popupRect = popup.getBoundingClientRect();
+          const popupHeight = root.uiPopupLayoutMeasurement.measureNaturalHeight(popup, feedbackModules);
           return computePopupPlacement({
             targetRect, viewportWidth, viewportHeight,
-            popupWidth: popupRect.width, popupHeight: popupRect.height,
+            popupWidth: popupRect.width, popupHeight,
             anchorPoint: activeFeedbackAnchor
           });
         };

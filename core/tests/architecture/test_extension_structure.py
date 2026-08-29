@@ -218,6 +218,7 @@ class TestExtensionStructure(unittest.TestCase):
             "content/runtime/apply_settings_pipeline.js",
             "content/runtime/feedback/feedback_runtime_controller.js",
             "content/runtime/settings_change_router.js",
+            "content/ui/popup_layout_measurement.js",
             "content/ui/popup_modules/module_registry.js",
             "content/ui/popup_modules/quick_definition_structured_content.js",
             "content/ui/popup_modules/quick_definition_module.js",

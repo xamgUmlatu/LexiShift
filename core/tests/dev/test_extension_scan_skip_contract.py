@@ -11,6 +11,9 @@ NODE_FILTERS_JS = PROJECT_ROOT / "apps/chrome-extension/content/runtime/dom_scan
 FEEDBACK_POPUP_CONTROLLER_JS = (
     PROJECT_ROOT / "apps/chrome-extension/content/ui/feedback_popup_controller.js"
 )
+POPUP_LAYOUT_MEASUREMENT_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_layout_measurement.js"
+)
 
 
 def _run_node(script: str) -> None:
@@ -37,14 +40,24 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const measurementPath = {json.dumps(str(POPUP_LAYOUT_MEASUREMENT_JS))};
 const modulePath = {json.dumps(str(FEEDBACK_POPUP_CONTROLLER_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(measurementPath, "utf8"), context, {{ filename: measurementPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
+const measureNaturalHeight = context.LexiShift.uiPopupLayoutMeasurement.measureNaturalHeight;
 const place = context.LexiShift.uiFeedbackPopupController.computePopupPlacement;
+assert.equal(typeof measureNaturalHeight, "function");
 assert.equal(typeof place, "function");
+
+const naturalHeight = measureNaturalHeight(
+  {{ getBoundingClientRect: () => ({{ height: 220 }}) }},
+  {{ scrollHeight: 420, getBoundingClientRect: () => ({{ height: 140 }}) }}
+);
+assert.equal(naturalHeight, 500);
 
 const below = place({{
   targetRect: {{ top: 200, bottom: 220, left: 300, right: 340, width: 40, height: 20 }},
@@ -70,6 +83,17 @@ const above = place({{
 }});
 assert.equal(above.vertical, "above");
 assert.equal(above.top, 332);
+
+const grownAbove = place({{
+  targetRect: {{ top: 520, bottom: 540, left: 300, right: 340, width: 40, height: 20 }},
+  popupWidth: 240,
+  popupHeight: naturalHeight,
+  viewportWidth: 800,
+  viewportHeight: 600,
+  anchorPoint: {{ clientX: 320, clientY: 530 }}
+}});
+assert.equal(grownAbove.vertical, "above");
+assert.equal(grownAbove.top, 12);
 
 const tall = place({{
   targetRect: {{ top: 280, bottom: 300, left: 300, right: 340, width: 40, height: 20 }},
@@ -215,6 +239,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const measurementPath = {json.dumps(str(POPUP_LAYOUT_MEASUREMENT_JS))};
 const modulePath = {json.dumps(str(FEEDBACK_POPUP_CONTROLLER_JS))};
 
 function createClassList(element) {{
@@ -307,6 +332,7 @@ const context = vm.createContext({{
 }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(measurementPath, "utf8"), context, {{ filename: measurementPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const controller = context.LexiShift.uiFeedbackPopupController.createController({{}});

@@ -2154,7 +2154,12 @@ Use this file when:
   body rather than creating competing nested scroll areas. Popup modules do not
   flex-shrink when asynchronous definition content arrives, so compact script
   and history cards retain their natural height instead of clipping their text.
-  Legacy first-result fields remain in
+  Multi-dictionary results are staged off-screen and committed as one visible
+  update after disclosure preferences resolve. Reactive placement measures the
+  complete natural module stack, including overflow-hidden content, so late
+  definition growth re-anchors the popup above or below the active word before
+  falling back to the stack's single outer scroller. Legacy first-result fields
+  remain in
   the word-info response for existing callers. `2026-08-27` imported dictionary health now runs
   after Resource Settings renders on a background worker. The bounded probe
   checks managed metadata, manifest/path safety, required SQLite schema, and a
@@ -2207,7 +2212,12 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-08-29` unified imported/built-in reordering, settings-v1
+- Last verified: `2026-08-29` atomic multi-dictionary rendering, natural-height
+  stack measurement, below/above re-anchoring after late definition growth,
+  dependency ordering, and extension structure passed `25` focused tests plus
+  `4` subtests; the full repository gate passed `843` tests, mypy across `190`
+  source files, strict style, state, Windows parity, and documentation checks.
+  `2026-08-29` unified imported/built-in reordering, settings-v1
   migration, runtime priority alignment, JMdict index rebuild/corruption
   recovery, macOS executable-host selection, legacy-script repair detection,
   and native protocol probing passed focused core/GUI/packaging tests. A live

@@ -10,6 +10,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 EXTENSION_MANIFEST = PROJECT_ROOT / "apps/chrome-extension/manifest.json"
 CONTENT_SCRIPT_JS = PROJECT_ROOT / "apps/chrome-extension/content_script.js"
 POPUP_LAYOUT_STYLES_JS = PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_layout_styles.js"
+POPUP_LAYOUT_MEASUREMENT_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_layout_measurement.js"
+)
 QUICK_DEFINITION_MODULE_JS = (
     PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js"
 )
@@ -54,6 +57,7 @@ class TestExtensionQuickDefinitionPopupModule(unittest.TestCase):
         scripts = manifest["content_scripts"][0]["js"]
         expected_order = [
             "content/ui/popup_layout_styles.js",
+            "content/ui/popup_layout_measurement.js",
             "content/ui/popup_modules/quick_definition_structured_content.js",
             "content/ui/popup_modules/quick_definition_result_support.js",
             "content/ui/popup_modules/quick_definition_dictionary_sections.js",
@@ -71,6 +75,7 @@ class TestExtensionQuickDefinitionPopupModule(unittest.TestCase):
         source = CONTENT_SCRIPT_JS.read_text(encoding="utf-8")
 
         self.assertIn("&& root.uiPopupLayoutStyles", source)
+        self.assertIn("&& root.uiPopupLayoutMeasurement", source)
         self.assertIn("&& root.uiQuickDefinitionResultSupport", source)
         self.assertIn("&& root.uiQuickDefinitionDictionarySections", source)
 
@@ -108,6 +113,19 @@ class TestExtensionQuickDefinitionPopupModule(unittest.TestCase):
         )
 
         self.assertIn(branch, source)
+
+    def test_dictionary_result_is_staged_before_visible_body_swap(self) -> None:
+        source = QUICK_DEFINITION_MODULE_JS.read_text(encoding="utf-8")
+        render_result = source.split("async function renderResult(result)", 1)[1].split(
+            "async function loadDefinition", 1
+        )[0]
+
+        self.assertIn('const nextBody = document.createElement("div")', render_result)
+        self.assertLess(
+            render_result.index("await readDictionaryPreferences"),
+            render_result.index('body.textContent = ""'),
+        )
+        self.assertIn("Array.from(nextBody.childNodes)", render_result)
 
     def test_quick_definition_module_renders_word_info_api_result(self) -> None:
         script = f"""
