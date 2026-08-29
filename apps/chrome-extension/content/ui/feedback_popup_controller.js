@@ -58,15 +58,8 @@
       top = targetRect.bottom + gap;
     }
     top = clamp(top, margin, viewportHeight - margin - renderedHeight);
-    const anchor = options.anchorPoint && typeof options.anchorPoint === "object"
-      ? options.anchorPoint : {};
-    const targetCenterX = targetRect.left + (targetRect.width / 2);
-    const anchorX = clamp(
-      finiteNumber(anchor.clientX, targetCenterX), margin,
-      Math.max(margin, viewportWidth - margin)
-    );
-    const rightCandidate = anchorX + gap;
-    const leftCandidate = anchorX - gap - popupWidth;
+    const rightCandidate = targetRect.right + gap;
+    const leftCandidate = targetRect.left - gap - popupWidth;
     let horizontal = "right";
     let left = rightCandidate;
     if (rightCandidate + popupWidth > viewportWidth - margin && leftCandidate >= margin) {
@@ -74,7 +67,7 @@
       left = leftCandidate;
     } else if (rightCandidate + popupWidth > viewportWidth - margin) {
       const spaceRight = Math.max(0, viewportWidth - margin - rightCandidate);
-      const spaceLeft = Math.max(0, anchorX - gap - margin);
+      const spaceLeft = Math.max(0, targetRect.left - gap - margin);
       horizontal = spaceLeft > spaceRight ? "clamped-left" : "clamped-right";
       left = horizontal === "clamped-left" ? leftCandidate : rightCandidate;
     }

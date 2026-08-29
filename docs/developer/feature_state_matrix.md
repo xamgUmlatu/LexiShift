@@ -2161,6 +2161,9 @@ Use this file when:
   the bounded stack fits on neither side, context-menu-style viewport clamping
   shifts the complete box vertically instead of leaving its lower modules past
   the viewport; the stack's single outer scroller remains the final fallback.
+  Horizontal placement starts beyond the replacement element's right edge,
+  flips beyond its left edge when needed, and clamps only when neither side
+  fits, avoiding overlap with the active word whenever the viewport permits.
   Legacy first-result fields remain in the word-info response for existing
   callers. `2026-08-27` imported dictionary health now runs
   after Resource Settings renders on a background worker. The bounded probe
@@ -2216,10 +2219,10 @@ Use this file when:
   and reuses confirmed discard as its only mutation.
 - Last verified: `2026-08-29` atomic multi-dictionary rendering, natural-height
   stack measurement, below/above re-anchoring after late definition growth,
-  viewport-clamped fallback placement, dependency ordering, and extension
-  structure passed `25` focused tests plus `4` subtests; the full repository
-  gate passed `843` tests, mypy across `190` source files, strict style, state,
-  Windows parity, and documentation checks.
+  viewport-clamped fallback placement, replacement-edge horizontal anchoring,
+  dependency ordering, and extension structure passed `25` focused tests plus
+  `4` subtests; the full repository gate passed `843` tests, mypy across `190`
+  source files, strict style, state, Windows parity, and documentation checks.
   `2026-08-29` unified imported/built-in reordering, settings-v1
   migration, runtime priority alignment, JMdict index rebuild/corruption
   recovery, macOS executable-host selection, legacy-script repair detection,

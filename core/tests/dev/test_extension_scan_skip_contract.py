@@ -70,7 +70,8 @@ const below = place({{
 assert.equal(below.vertical, "below");
 assert.equal(below.horizontal, "right");
 assert.equal(below.top, 228);
-assert.equal(below.left, 328);
+assert.equal(below.left, 348);
+assert.ok(below.left >= 340 + 8);
 assert.equal(below.maxHeight, 180);
 
 const above = place({{
@@ -128,7 +129,8 @@ const leftFlip = place({{
   anchorPoint: {{ clientX: 760, clientY: 210 }}
 }});
 assert.equal(leftFlip.horizontal, "left");
-assert.equal(leftFlip.left, 532);
+assert.equal(leftFlip.left, 512);
+assert.ok(leftFlip.left + 220 <= 740 - 8);
 
 const narrow = place({{
   targetRect: {{ top: 200, bottom: 220, left: 180, right: 220, width: 40, height: 20 }},
