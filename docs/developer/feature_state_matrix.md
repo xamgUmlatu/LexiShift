@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-08-27
+Last updated: 2026-08-31
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -867,6 +867,26 @@ Use this file when:
 - Known gaps:
   - The parity audit is now a required workflow gate, but it is still not a complete release certification on its own.
   - Current browser coverage is limited to the supported GUI helper environments (`chrome`, `chromium`, `brave`).
+
+## Chrome Web Store Release Packaging
+
+- Status: `implemented`, `verified`; `default-on` = `no` (operator release command)
+- Last documented checkpoint: `2026-08-31` release version `0.1.1` aligns the extension, desktop bundles, native helper, installer defaults, and Windows metadata; deterministic CWS ZIP packaging is a first-class command.
+- Last verified: `2026-08-31` focused package/version tests, CWS preflight, deterministic rebuild comparison, archive inspection, and repo safety/build gates.
+- Default behavior:
+  - `npm --prefix scripts run package:cws -- --version <version>` packages the current extension runtime into a root-manifest ZIP under `dist/cws/`.
+  - The package excludes developer-only README content, rejects package noise and symlinks, validates exact archive membership and version, normalizes ZIP metadata, and emits an adjacent SHA-256 file.
+  - Repo tests fail when the extension, app bundle, native helper, core helper, installer defaults, or Windows release metadata drift to different release versions.
+- Evidence:
+  - `scripts/build/package_chrome_extension.py`
+  - `scripts/package.json`
+  - `core/tests/dev/test_package_chrome_extension.py`
+  - `core/tests/dev/test_release_version_alignment.py`
+  - `docs/runbooks/cws_upload_gate.md`
+  - `docs/developer/build_and_release.md`
+- Known gaps:
+  - Chrome Web Store dashboard upload, privacy declarations, distribution selection, reviewer instructions, and submission remain explicit maintainer actions.
+  - The package command produces the upload artifact but does not publish it or mutate the Web Store draft.
 
 ## Browser Helper Connection Management
 

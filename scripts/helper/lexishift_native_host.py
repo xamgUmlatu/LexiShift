@@ -129,7 +129,7 @@ except Exception as exc:  # noqa: BLE001
     _log_native_host_failure("startup_import", exc)
     raise
 
-PROTOCOL_VERSION, HELPER_VERSION = 1, "0.1.0"
+PROTOCOL_VERSION, HELPER_VERSION = 1, "0.1.1"
 OPEN_RESOURCE_SETTINGS_FLAG, RESOURCE_PAIR_FLAG = "--open-resource-settings", "--resource-pair"
 
 

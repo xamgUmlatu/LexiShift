@@ -2,7 +2,7 @@
   #define AppName "LexiShift"
 #endif
 #ifndef AppVersion
-  #define AppVersion "0.1.0"
+  #define AppVersion "0.1.1"
 #endif
 #ifndef AppExePath
   #define AppExePath "LexiShift\LexiShift.exe"

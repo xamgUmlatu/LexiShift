@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-08-27
-Last verified: 2026-08-27 deterministic Python setup and macOS install-lifecycle implementation with focused tests
+Last updated: 2026-08-31
+Last verified: 2026-08-31 deterministic Chrome Web Store package build and 0.1.1 release-candidate packaging
 Purpose: current build, packaging, signing, and release entrypoints for maintained surfaces
 Source-of-truth: build/release runbook; operational behavior is defined by `scripts/package.json`, `scripts/dev/dev_workflow_build.py`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
 
@@ -120,10 +120,21 @@ python scripts/build/installer.py \
 
 ## Chrome Web Store Upload Gate
 
-Run preflight:
+Run preflight, then create the deterministic upload ZIP:
 ```bash
 npm --prefix scripts run preflight:cws
+npm --prefix scripts run package:cws -- --version 0.1.1
 ```
+
+Expected outputs:
+
+- `dist/cws/lexishift-chrome-extension-0.1.1-beta.zip`
+- `dist/cws/lexishift-chrome-extension-0.1.1-beta.zip.sha256`
+
+The package command places `manifest.json` at the ZIP root, excludes the
+developer-only extension README, rejects package noise and symlinks, validates
+the archive contents, and uses stable ZIP metadata so identical source produces
+an identical SHA-256 digest.
 
 Runbook:
 - `../runbooks/cws_upload_gate.md`

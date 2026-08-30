@@ -123,6 +123,8 @@ you need to choose the smallest honest bundle for a specific change type.
 - Build app bundle: `build/gui_app.py`
   - On macOS, `npm --prefix scripts run build:gui:install:relaunch` provides the validated build/install/verify/relaunch lifecycle while preserving user data
 - Build installers: `build/installer.py`
+- Build deterministic Chrome Web Store ZIP + checksum:
+  `npm --prefix scripts run package:cws -- --version <version>`
 - Convert embeddings: `data/convert_embeddings.py`
 - Convert FreeDict TEI to SQLite: `data/convert_freedict_tei_to_sqlite.py`
 - Convert FreeDict Spanish->English to SQLite: `data/convert_freedict_spa_eng_to_sqlite.py`

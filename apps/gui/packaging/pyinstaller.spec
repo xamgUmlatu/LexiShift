@@ -46,8 +46,8 @@ APP_NAME = "LexiShift"
 APP_DISPLAY_NAME = "LexiShift"
 APP_DESCRIPTION = "LexiShift desktop app"
 APP_BUNDLE_ID = "com.lexishift.app"
-APP_VERSION = "0.1.0"
-APP_BUILD = "0.1.0"
+APP_VERSION = "0.1.1"
+APP_BUILD = "0.1.1"
 APP_COMPANY_NAME = "LexiShift"
 APP_PRODUCT_NAME = "LexiShift"
 APP_COPYRIGHT = "髮ｻ蟄舌Ξ繝ｳ繧ｸ"
@@ -117,8 +117,8 @@ if MACOS_MIN_SYSTEM_VERSION:
     HELPER_MACOS_INFO_PLIST["LSMinimumSystemVersion"] = MACOS_MIN_SYSTEM_VERSION
 
 # Windows version resource (explicit for easy editing)
-WIN_FILE_VERSION = (0, 1, 0, 0)
-WIN_PRODUCT_VERSION = (0, 1, 0, 0)
+WIN_FILE_VERSION = (0, 1, 1, 0)
+WIN_PRODUCT_VERSION = (0, 1, 1, 0)
 WIN_VERSION_STR = APP_VERSION
 WIN_VERSION_FILE = os.path.join(spec_dir, "windows_version_info.txt")
 WIN_MANIFEST_FILE = None

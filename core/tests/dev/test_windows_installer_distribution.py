@@ -11,10 +11,36 @@ SCRIPT_DIR = REPO_ROOT / "scripts" / "build"
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from installer import _build_dmg, _build_windows_installer, _ensure_iscc, _find_windows_distribution  # noqa: E402
+from installer import (  # noqa: E402
+    _build_dmg,
+    _build_windows_installer,
+    _ensure_iscc,
+    _find_windows_distribution,
+    _load_spec_values,
+)
 
 
 class TestWindowsInstallerDistribution(unittest.TestCase):
+    def test_load_spec_values_reads_release_version_constant(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            spec_path = Path(tmpdir) / "pyinstaller.spec"
+            spec_path.write_text(
+                "\n".join(
+                    (
+                        'APP_NAME = "LexiShift"',
+                        'APP_PRODUCT_NAME = "LexiShift"',
+                        'APP_BUNDLE_ID = "com.lexishift.app"',
+                        'APP_VERSION = "0.1.1"',
+                        'MACOS_INFO_PLIST = {"CFBundleShortVersionString": APP_VERSION}',
+                    )
+                ),
+                encoding="utf-8",
+            )
+
+            values = _load_spec_values(spec_path)
+
+        self.assertEqual(values["APP_VERSION"], "0.1.1")
+
     def test_build_dmg_preserves_app_bundle_symlinks(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             root = Path(tmpdir)

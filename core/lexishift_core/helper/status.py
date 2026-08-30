@@ -11,7 +11,7 @@ from typing import Any, Mapping, Optional
 @dataclass(frozen=True)
 class HelperStatus:
     version: int = 1
-    helper_version: str = "0.1.0"
+    helper_version: str = "0.1.1"
     last_run_at: Optional[str] = None
     last_error: Optional[str] = None
     last_pair: Optional[str] = None
@@ -22,7 +22,7 @@ class HelperStatus:
 def status_from_dict(data: Mapping[str, Any]) -> HelperStatus:
     return HelperStatus(
         version=int(data.get("version", 1)),
-        helper_version=str(data.get("helper_version", "0.1.0")),
+        helper_version=str(data.get("helper_version", "0.1.1")),
         last_run_at=data.get("last_run_at"),
         last_error=data.get("last_error"),
         last_pair=data.get("last_pair"),

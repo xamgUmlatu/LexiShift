@@ -30,6 +30,15 @@ What it checks:
 - literal remote URL presence warnings
 - package noise (`.DS_Store`, temp files)
 
+After the gate passes, build the upload package:
+
+```bash
+npm --prefix scripts run package:cws -- --version 0.1.1
+```
+
+The command emits a deterministic ZIP and adjacent `.sha256` file under
+`dist/cws/`. Upload the ZIP, not the containing directory.
+
 Report output:
 - Markdown report under:
   - `docs/runbooks/cws_preflight_reports/`
@@ -47,6 +56,7 @@ Before upload, confirm all:
 - [ ] Privacy policy and store listing text match actual data behavior (especially local sensitive data handling).
 - [ ] Helper onboarding was tested in both states: helper available and helper unavailable.
 - [ ] Final package is clean (no debug artifacts, no temporary/system files).
+- [ ] Final package SHA-256 is recorded from the adjacent generated checksum file.
 
 ## Notes for current project state
 
