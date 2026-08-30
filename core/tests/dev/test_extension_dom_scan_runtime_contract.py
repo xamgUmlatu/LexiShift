@@ -38,6 +38,100 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionDomScanRuntimeContract(unittest.TestCase):
+    def test_visibility_attribute_changes_rescan_the_changed_subtree(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(DOM_SCAN_RUNTIME_JS))};
+let observerCallback = null;
+let observerOptions = null;
+let resolveProcessed = null;
+const processed = new Promise((resolve) => {{ resolveProcessed = resolve; }});
+const body = {{ id: "body" }};
+const changedElement = {{ id: "changed", nodeType: 1 }};
+const changedText = {{ id: "changed-text", nodeType: 3, nodeValue: "castle" }};
+const context = vm.createContext({{
+  console,
+  setTimeout,
+  clearTimeout,
+  Node: {{ TEXT_NODE: 3, ELEMENT_NODE: 1 }},
+  document: {{ body }},
+  MutationObserver: class MutationObserver {{
+    constructor(callback) {{ observerCallback = callback; }}
+    observe(target, options) {{
+      assert.equal(target, body);
+      observerOptions = options;
+    }}
+    disconnect() {{}}
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{
+  contentDomScanPageBudgetTracker: {{
+    createPageBudgetTracker() {{
+      return {{
+        attachReplacementBudgetSummary(counter) {{ return counter; }},
+        buildPageBudgetState() {{ return null; }},
+        updatePageBudgetUsage() {{}}
+      }};
+    }}
+  }},
+  contentDomScanCounters: {{
+    createScanCounters() {{
+      const createCounter = () => ({{
+        scanStartedAtMs: 0,
+        replacementBudgetRejectedPage: 0,
+        replacementBudgetRejectedSentence: 0,
+        replacementBudgetRejectedLemma: 0
+      }});
+      return {{
+        createFullScanCounter: createCounter,
+        createMutationCounter: createCounter
+      }};
+    }}
+  }},
+  contentDomScanTextNodeProcessor: {{
+    createTextNodeProcessor() {{
+      return {{
+        async processTextNode(node) {{
+          assert.equal(node, changedText);
+          resolveProcessed();
+        }}
+      }};
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const runtime = context.LexiShift.contentDomScanRuntime.createRuntime({{
+  getCurrentSettings: () => ({{ enabled: true, debugEnabled: false }}),
+  collectTextNodes(target) {{
+    assert.equal(target, changedElement);
+    return [changedText];
+  }},
+  nowMs: () => 1,
+  log: () => {{}}
+}});
+
+(async () => {{
+  runtime.observeChanges();
+  assert.equal(typeof observerCallback, "function");
+  assert.equal(observerOptions.attributes, true);
+  assert.equal(
+    JSON.stringify(observerOptions.attributeFilter),
+    JSON.stringify(["class", "hidden", "style"])
+  );
+  observerCallback([{{ type: "attributes", target: changedElement }}]);
+  await processed;
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_semantic_performance_metrics_aggregate_fallback_reason_counts(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
@@ -214,9 +308,22 @@ const context = vm.createContext({{
     querySelectorAll(selector) {{
       assert.equal(selector, ".lexishift-replacement");
       return [
-        {{ dataset: {{ replacement: "Hola" }}, textContent: "Hola" }},
-        {{ dataset: {{ replacement: "hola" }}, textContent: "hola" }},
-        {{ dataset: {{}}, textContent: "Adios" }}
+        {{
+          dataset: {{ replacement: "Hola", sentenceKey: "sentence:1" }},
+          textContent: "Hola"
+        }},
+        {{
+          dataset: {{ replacement: "hola", sentenceKey: "sentence:1" }},
+          textContent: "hola"
+        }},
+        {{
+          dataset: {{ sentenceKey: "sentence:2" }},
+          textContent: "Adios"
+        }},
+        {{
+          dataset: {{ replacement: "Oculto", sentenceKey: "sentence:hidden", hidden: "true" }},
+          textContent: "Oculto"
+        }}
       ];
     }}
   }}
@@ -227,31 +334,43 @@ vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modul
 
 const createPageBudgetTracker =
   context.LexiShift.contentDomScanPageBudgetTracker.createPageBudgetTracker;
-const tracker = createPageBudgetTracker();
+const tracker = createPageBudgetTracker({{
+  isNonRendered: (span) => span.dataset.hidden === "true"
+}});
 
 assert.equal(
   tracker.buildPageBudgetState({{
     maxReplacementsPerPage: 0,
-    maxReplacementsPerLemmaPerPage: 0
+    maxReplacementsPerLemmaPerPage: 0,
+    maxReplacementsPerSentence: 0
   }}),
   null
 );
 
 const state = tracker.buildPageBudgetState({{
   maxReplacementsPerPage: "5",
-  maxReplacementsPerLemmaPerPage: "2"
+  maxReplacementsPerLemmaPerPage: "2",
+  maxReplacementsPerSentence: "1"
 }});
 
 assert.equal(state.maxTotal, 5);
 assert.equal(state.maxPerLemma, 2);
+assert.equal(state.maxPerSentence, 1);
 assert.equal(state.usedTotal, 3);
 assert.equal(state.usedByLemma.hola, 2);
 assert.equal(state.usedByLemma.adios, 1);
+assert.equal(state.usedBySentence["sentence:1"], 2);
+assert.equal(state.usedBySentence["sentence:2"], 1);
 
-tracker.updatePageBudgetUsage(state, ["hola", "nuevo"]);
+tracker.updatePageBudgetUsage(state, [
+  {{ lemma: "hola", sentenceKey: "sentence:1" }},
+  {{ lemma: "nuevo", sentenceKey: "sentence:3" }}
+]);
 assert.equal(state.usedTotal, 5);
 assert.equal(state.usedByLemma.hola, 3);
 assert.equal(state.usedByLemma.nuevo, 1);
+assert.equal(state.usedBySentence["sentence:1"], 3);
+assert.equal(state.usedBySentence["sentence:3"], 1);
 """
         _run_node(script)
 
@@ -290,6 +409,7 @@ context.LexiShift = {{
   contentDomScanPageBudgetTracker: {{
     createPageBudgetTracker() {{
       return {{
+        attachReplacementBudgetSummary(counter) {{ return counter; }},
         buildPageBudgetState(settings) {{
           calls.push(["build-budget", settings.maxReplacementsPerPage]);
           return {{ maxTotal: settings.maxReplacementsPerPage, usedTotal: 0, usedByLemma: {{}} }};
@@ -782,8 +902,29 @@ context.LexiShift = {{
   contentDomScanPageBudgetTracker: {{
     createPageBudgetTracker() {{
       return {{
+        attachReplacementBudgetSummary(counter, state) {{
+          Object.assign(counter, {{
+            replacementBudgetScope: "frame_document",
+            replacementBudgetActive: Boolean(state),
+            replacementBudgetMaxTotal: state.maxTotal,
+            replacementBudgetMaxPerLemma: state.maxPerLemma,
+            replacementBudgetMaxPerSentence: state.maxPerSentence,
+            replacementBudgetUsedTotal: state.usedTotal,
+            replacementBudgetTrackedSentenceCount: Object.keys(state.usedBySentence).length,
+            replacementBudgetPageExhausted: false,
+            replacementBudgetSentenceCapReachedCount: 0
+          }});
+          return counter;
+        }},
         buildPageBudgetState() {{
-          return {{ maxTotal: 10, maxPerLemma: 1, usedTotal: 0, usedByLemma: {{}} }};
+          return {{
+            maxTotal: 10,
+            maxPerLemma: 1,
+            maxPerSentence: 2,
+            usedTotal: 0,
+            usedByLemma: {{}},
+            usedBySentence: {{ "sentence:existing": 1 }}
+          }};
         }},
         updatePageBudgetUsage() {{}}
       }};
@@ -841,6 +982,15 @@ const runtime = context.LexiShift.contentDomScanRuntime.createRuntime({{
   assert.equal(counter.semanticScanNodeConcurrentBatches, 0);
   assert.equal(counter.semanticScanNodeSerialBatches, 2);
   assert.equal(counter.semanticScanNodeSerialBudgetBatches, 2);
+  assert.equal(counter.replacementBudgetScope, "frame_document");
+  assert.equal(counter.replacementBudgetActive, true);
+  assert.equal(counter.replacementBudgetMaxTotal, 10);
+  assert.equal(counter.replacementBudgetMaxPerLemma, 1);
+  assert.equal(counter.replacementBudgetMaxPerSentence, 2);
+  assert.equal(counter.replacementBudgetUsedTotal, 0);
+  assert.equal(counter.replacementBudgetTrackedSentenceCount, 1);
+  assert.equal(counter.replacementBudgetPageExhausted, false);
+  assert.equal(counter.replacementBudgetSentenceCapReachedCount, 0);
   assert.deepEqual(calls, [
     ["process", "castle"],
     ["admit", "castle"],
@@ -884,8 +1034,16 @@ context.LexiShift = {{
   contentDomScanPageBudgetTracker: {{
     createPageBudgetTracker() {{
       return {{
+        attachReplacementBudgetSummary(counter) {{ return counter; }},
         buildPageBudgetState() {{
-          return {{ maxTotal: 10, maxPerLemma: 1, usedTotal: 0, usedByLemma: {{}} }};
+          return {{
+            maxTotal: 10,
+            maxPerLemma: 1,
+            maxPerSentence: 2,
+            usedTotal: 0,
+            usedByLemma: {{}},
+            usedBySentence: {{ "sentence:existing": 1 }}
+          }};
         }},
         updatePageBudgetUsage() {{}}
       }};
@@ -897,6 +1055,11 @@ context.LexiShift = {{
         async preflightSemanticTextNode(node, counter, runOptions) {{
           assert.equal(runOptions.semanticPreflightBudget.maxTotal, 10);
           assert.equal(runOptions.semanticPreflightBudget.maxPerLemma, 1);
+          assert.equal(runOptions.semanticPreflightBudget.maxPerSentence, 2);
+          assert.equal(
+            runOptions.semanticPreflightBudget.usedBySentence["sentence:existing"],
+            1
+          );
           calls.push(["preflight", node.id]);
           await options.semanticGateRuntime.admitMatches({{ text: node.id, matches: [node.id] }});
           calls.push(["preflight-done", node.id]);

@@ -92,6 +92,7 @@
     "unknown_pos_growth_budget_by_pack": {
       "freq-de-default.sqlite": 0,
       "freq-en-coca.sqlite": 0,
+      "freq-en-leipzig-default.sqlite": 0,
       "freq-es-cde.sqlite": 0,
       "freq-ja-bccwj.sqlite": 0
     },

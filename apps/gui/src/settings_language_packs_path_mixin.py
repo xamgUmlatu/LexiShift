@@ -10,7 +10,7 @@ from lexishift_core.helper.installed_packs import (
     load_installed_pack_manifest,
     resolve_installed_pack_artifact,
 )
-from language_packs import FrequencyPackInfo, LanguagePackInfo
+from language_packs import FrequencyPackInfo, LanguagePackInfo, PosOverlayPackInfo
 from settings_language_packs_support import is_sqlite_db_file
 
 
@@ -46,11 +46,20 @@ class LanguagePackPanelPathMixin:
     def _frequency_pack_storage_dir(self, pack: FrequencyPackInfo) -> Path:
         return installed_pack_root(Path(self._frequency_pack_dir), pack.pack_id)
 
+    def _pos_overlay_pack_storage_dir(self, pack: PosOverlayPackInfo) -> Path:
+        return installed_pack_root(Path(self._pos_overlay_pack_dir), pack.pack_id)
+
     def _frequency_archive_path(self, pack: FrequencyPackInfo) -> str:
         return str(self._frequency_pack_storage_dir(pack) / pack.filename)
 
     def _frequency_sqlite_path(self, pack: FrequencyPackInfo) -> str:
         return str(self._frequency_pack_storage_dir(pack) / pack.sqlite_filename)
+
+    def _pos_overlay_source_dir(self, pack: PosOverlayPackInfo) -> str:
+        return str(self._pos_overlay_pack_storage_dir(pack) / "sources")
+
+    def _pos_overlay_sqlite_path(self, pack: PosOverlayPackInfo) -> str:
+        return str(self._pos_overlay_pack_storage_dir(pack) / pack.sqlite_filename)
 
     def _legacy_frequency_sqlite_paths(self, pack: FrequencyPackInfo) -> tuple[str, ...]:
         legacy_name = f"{pack.pack_id}.sqlite"
@@ -170,6 +179,22 @@ class LanguagePackPanelPathMixin:
                 return sqlite_path
         return None
 
+    def _resolve_pos_overlay_pack_path(self, pack: Optional[PosOverlayPackInfo]) -> Optional[str]:
+        if not pack:
+            return None
+        manifest = load_installed_pack_manifest(Path(self._pos_overlay_pack_dir), pack.pack_id)
+        if manifest is not None:
+            resolved_artifact = resolve_installed_pack_artifact(
+                Path(self._pos_overlay_pack_dir),
+                pack.pack_id,
+            )
+            if resolved_artifact is not None:
+                return str(resolved_artifact)
+        sqlite_path = self._pos_overlay_sqlite_path(pack)
+        if os.path.exists(sqlite_path):
+            return sqlite_path
+        return None
+
     def _is_app_data_path(self, path: str, *, embeddings: bool = False) -> bool:
         base = os.path.abspath(self._embedding_pack_dir if embeddings else self._language_pack_dir)
         target = os.path.abspath(os.path.expanduser(path))
@@ -180,6 +205,14 @@ class LanguagePackPanelPathMixin:
 
     def _is_frequency_pack_data_path(self, path: str) -> bool:
         base = os.path.abspath(self._frequency_pack_dir)
+        target = os.path.abspath(os.path.expanduser(path))
+        try:
+            return os.path.commonpath([base, target]) == base
+        except ValueError:
+            return False
+
+    def _is_pos_overlay_pack_data_path(self, path: str) -> bool:
+        base = os.path.abspath(self._pos_overlay_pack_dir)
         target = os.path.abspath(os.path.expanduser(path))
         try:
             return os.path.commonpath([base, target]) == base

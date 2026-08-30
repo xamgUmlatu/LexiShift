@@ -2,10 +2,37 @@
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
   const GLOSS_LIMIT = 5;
+  const SENSE_LIMIT = 5;
   const DETAIL_LIMIT = 2;
   const EXAMPLE_LIMIT = 1;
-  const LINK_LIMIT = 2;
   const LOOKUP_TIMEOUT_MS = 4000;
+  const structuredContent = root.uiQuickDefinitionStructuredContent || {};
+  const resultSupport = root.uiQuickDefinitionResultSupport || {};
+  const dictionarySections = root.uiQuickDefinitionDictionarySections || {};
+  const appendStructuredContent = typeof structuredContent.appendContent === "function"
+    ? structuredContent.appendContent : (() => {});
+  const normalizeStructuredContent = typeof structuredContent.normalizeContent === "function"
+    ? structuredContent.normalizeContent : (() => []);
+  const normalizeStructuredNotes = typeof structuredContent.normalizeNotes === "function"
+    ? structuredContent.normalizeNotes : (() => []);
+  const hasMissingDefinitionData = typeof resultSupport.hasMissingDefinitionData === "function"
+    ? resultSupport.hasMissingDefinitionData : (() => false);
+  const renderLinks = typeof resultSupport.renderLinks === "function"
+    ? resultSupport.renderLinks : (() => {});
+  const resolveDictionaryTitle = typeof resultSupport.resolveDictionaryTitle === "function"
+    ? resultSupport.resolveDictionaryTitle : (() => "");
+  const resolveDisplayWord = typeof resultSupport.resolveDisplayWord === "function"
+    ? resultSupport.resolveDisplayWord : ((result, payload) => normalizeText(
+        (result && result.display) || (payload && payload.displayReplacement)
+      ));
+  const resolvePosLabel = typeof resultSupport.resolvePosLabel === "function"
+    ? resultSupport.resolvePosLabel : (() => "");
+  const readDictionaryPreferences = typeof dictionarySections.readPreferences === "function"
+    ? dictionarySections.readPreferences : (async () => ({}));
+  const renderDictionarySection = typeof dictionarySections.renderSection === "function"
+    ? dictionarySections.renderSection : (() => {});
+  const resolveDictionaryResults = typeof dictionarySections.resolveResults === "function"
+    ? dictionarySections.resolveResults : (() => []);
 
   function t(key, substitutions, fallback) {
     try {
@@ -25,6 +52,10 @@
 
   function normalizeText(value) {
     return String(value || "").trim();
+  }
+
+  function comparableText(value) {
+    return normalizeText(value).replace(/\s+/g, " ").toLowerCase();
   }
 
   function normalizePair(value) {
@@ -167,51 +198,154 @@
     return glosses;
   }
 
-  function resolvePosLabel(result) {
-    const pos = result && result.pos && typeof result.pos === "object" ? result.pos : {};
-    return normalizeText(pos.label || pos.canonical);
+  function resolveSenses(result) {
+    const senses = [];
+    for (const value of Array.isArray(result && result.senses) ? result.senses : []) {
+      const raw = value && typeof value === "object" ? value : {};
+      const glosses = dedupeTexts(raw.glosses);
+      if (!glosses.length) {
+        continue;
+      }
+      const structuredNotes = normalizeStructuredNotes(raw.structured_notes);
+      const structuredSourceTexts = new Set(
+        structuredNotes.map((note) => comparableText(note.sourceText))
+      );
+      senses.push({
+        glosses,
+        structuredContent: normalizeStructuredContent(raw.structured_content),
+        structuredContentTruncated: raw.structured_content_truncated === true,
+        details: normalizeTextList(raw.details || raw.notes, DETAIL_LIMIT)
+          .filter((detail) => !structuredSourceTexts.has(comparableText(detail))),
+        structuredNotes,
+        labels: normalizeTextList(raw.labels || raw.tags, 4),
+        examples: normalizeExamples(raw.examples)
+      });
+      if (senses.length >= SENSE_LIMIT) {
+        break;
+      }
+    }
+    return senses;
   }
 
-  function resolveDisplayWord(result, payload) {
-    return normalizeText(result && result.display)
-      || normalizeText(payload.displayReplacement)
-      || normalizeText(payload.replacement);
+  function appendExamples(parent, examples) {
+    for (const example of examples || []) {
+      const exampleText = [example.text, example.translation]
+        .map(normalizeText)
+        .filter(Boolean)
+        .join(" / ");
+      if (exampleText) {
+        appendText(parent, "lexishift-definition-example", exampleText);
+      }
+    }
   }
 
-  function hasMissingDefinitionData(result) {
-    const diagnostics = result && result.diagnostics && typeof result.diagnostics === "object"
-      ? result.diagnostics
-      : {};
-    const providerStatus = normalizeText(diagnostics.provider_status).toLowerCase();
-    const missingResources = Array.isArray(diagnostics.missing_resources)
-      ? diagnostics.missing_resources
-      : [];
-    return providerStatus.startsWith("missing_") || missingResources.length > 0;
-  }
-
-  function renderLinks(parent, links) {
-    const safeLinks = Array.isArray(links) ? links.slice(0, LINK_LIMIT) : [];
-    if (!safeLinks.length) {
+  function appendLabels(parent, labels) {
+    if (!labels || !labels.length) {
       return;
     }
-    const row = document.createElement("div");
-    row.className = "lexishift-definition-links";
-    safeLinks.forEach((link) => {
-      const url = normalizeText(link && link.url);
-      const label = normalizeText(link && link.label) || "Dictionary";
-      if (!url) {
-        return;
+    const labelRow = document.createElement("div");
+    labelRow.className = "lexishift-definition-labels";
+    for (const label of labels) {
+      const labelNode = document.createElement("span");
+      labelNode.className = "lexishift-definition-label";
+      labelNode.textContent = label;
+      labelRow.appendChild(labelNode);
+    }
+    parent.appendChild(labelRow);
+  }
+
+  function renderSenses(parent, senses) {
+    if (senses.some((sense) => sense.structuredContent.length)) {
+      const container = document.createElement("div");
+      container.className = "lexishift-definition-structured-senses";
+      for (const sense of senses) {
+        const item = document.createElement("div");
+        item.className = "lexishift-definition-structured-sense";
+        if (sense.structuredContent.length) {
+          appendStructuredContent(
+            item,
+            sense.structuredContent,
+            sense.structuredContentTruncated
+          );
+        } else {
+          appendText(
+            item,
+            "lexishift-definition-sense-glosses",
+            sense.glosses.join(" · ")
+          );
+        }
+        appendLabels(item, sense.labels);
+        for (const detail of sense.details || []) {
+          appendText(item, "lexishift-definition-detail", detail);
+        }
+        appendExamples(item, sense.examples);
+        container.appendChild(item);
       }
-      const anchor = document.createElement("a");
-      anchor.className = "lexishift-definition-link";
-      anchor.href = url;
-      anchor.target = "_blank";
-      anchor.rel = "noopener noreferrer";
-      anchor.textContent = label;
-      row.appendChild(anchor);
-    });
-    if (row.childNodes.length) {
-      parent.appendChild(row);
+      parent.appendChild(container);
+      return;
+    }
+    const list = document.createElement("ol");
+    list.className = "lexishift-definition-senses";
+    for (const sense of senses) {
+      const item = document.createElement("li");
+      item.className = "lexishift-definition-sense";
+      appendText(
+        item,
+        "lexishift-definition-sense-glosses",
+        sense.glosses.join(" · ")
+      );
+      for (const note of sense.structuredNotes || []) {
+        for (const noteItem of note.items || []) {
+          const row = document.createElement("div");
+          row.className = "lexishift-definition-orthography-note";
+          const writtenForm = document.createElement("span");
+          writtenForm.className = "lexishift-definition-orthography-form";
+          writtenForm.textContent = `《${noteItem.writtenForm}》`;
+          const text = document.createElement("span");
+          text.className = "lexishift-definition-orthography-text";
+          text.textContent = noteItem.text;
+          row.appendChild(writtenForm);
+          row.appendChild(text);
+          item.appendChild(row);
+        }
+      }
+      appendLabels(item, sense.labels);
+      for (const detail of sense.details || []) {
+        appendText(item, "lexishift-definition-detail", detail);
+      }
+      appendExamples(item, sense.examples);
+      list.appendChild(item);
+    }
+    parent.appendChild(list);
+  }
+
+  function renderFlatGlosses(parent, glosses) {
+    const list = document.createElement("ul");
+    list.className = "lexishift-definition-glosses";
+    for (const gloss of glosses) {
+      const item = document.createElement("li");
+      item.className = "lexishift-definition-gloss-item";
+      appendText(item, "lexishift-definition-gloss", gloss.text);
+      for (const detail of gloss.details || []) {
+        appendText(item, "lexishift-definition-detail", detail);
+      }
+      appendExamples(item, gloss.examples);
+      list.appendChild(item);
+    }
+    parent.appendChild(list);
+  }
+
+  function hasPresentableDefinition(result) {
+    return resolveSenses(result).length > 0 || resolveGlosses(result).length > 0;
+  }
+
+  function renderDictionaryDefinition(parent, result) {
+    const senses = resolveSenses(result);
+    const glosses = resolveGlosses(result);
+    if (senses.length) {
+      renderSenses(parent, senses);
+    } else if (glosses.length) {
+      renderFlatGlosses(parent, glosses);
     }
   }
 
@@ -254,50 +388,61 @@
       appendText(body, "lexishift-definition-status", message);
     }
 
-    function renderResult(result) {
-      body.textContent = "";
+    async function renderResult(result) {
+      const nextBody = document.createElement("div");
+      const dictionaryResults = resolveDictionaryResults(result, hasPresentableDefinition);
+      if (dictionaryResults.length) {
+        const preferences = await readDictionaryPreferences(payload.languagePair);
+        const dictionaryList = document.createElement("div");
+        dictionaryList.className = "lexishift-definition-dictionaries";
+        dictionaryResults.forEach((dictionaryResult, index) => {
+          const hasSavedPreference = Object.prototype.hasOwnProperty.call(
+            preferences,
+            dictionaryResult.disclosureId
+          );
+          renderDictionarySection(dictionaryList, dictionaryResult, {
+            pair: payload.languagePair,
+            title: resolveDictionaryTitle(dictionaryResult),
+            renderDefinition: renderDictionaryDefinition,
+            open: hasSavedPreference
+              ? preferences[dictionaryResult.disclosureId] === true
+              : index === 0
+          });
+        });
+        nextBody.appendChild(dictionaryList);
+      } else {
+        const dictionaryTitle = resolveDictionaryTitle(result);
+        if (dictionaryTitle) {
+          appendText(nextBody, "lexishift-definition-source", dictionaryTitle);
+        }
+        const senses = resolveSenses(result);
+        const glosses = resolveGlosses(result);
+        if (senses.length) {
+          renderSenses(nextBody, senses);
+        } else if (glosses.length) {
+          renderFlatGlosses(nextBody, glosses);
+        } else {
+          appendText(
+            nextBody,
+            "lexishift-definition-status",
+            hasMissingDefinitionData(result)
+              ? translate(
+                  "popup_definition_missing",
+                  null,
+                  "Definition data is not installed for this word."
+                )
+              : translate("popup_definition_unavailable", null, "No definition available.")
+          );
+        }
+      }
+      renderLinks(nextBody, result && result.external_links);
+
       word.textContent = resolveDisplayWord(result, payload);
-      const posLabel = resolvePosLabel(result);
+      const posLabel = resolvePosLabel(result, translate);
       pos.textContent = posLabel;
       pos.style.display = posLabel ? "" : "none";
-
-      const glosses = resolveGlosses(result);
-      if (glosses.length) {
-        const list = document.createElement("div");
-        list.className = "lexishift-definition-glosses";
-        for (const gloss of glosses) {
-          const item = document.createElement("div");
-          item.className = "lexishift-definition-gloss-item";
-          appendText(item, "lexishift-definition-gloss", gloss.text);
-          for (const detail of gloss.details || []) {
-            appendText(item, "lexishift-definition-detail", detail);
-          }
-          for (const example of gloss.examples || []) {
-            const exampleText = [example.text, example.translation]
-              .map(normalizeText)
-              .filter(Boolean)
-              .join(" / ");
-            if (exampleText) {
-              appendText(item, "lexishift-definition-example", exampleText);
-            }
-          }
-          list.appendChild(item);
-        }
-        body.appendChild(list);
-      } else {
-        appendText(
-          body,
-          "lexishift-definition-status",
-          hasMissingDefinitionData(result)
-            ? translate(
-                "popup_definition_missing",
-                null,
-                "Definition data is not installed for this word."
-              )
-            : translate("popup_definition_unavailable", null, "No definition available.")
-        );
-      }
-      renderLinks(body, result && result.external_links);
+      body.textContent = "";
+      Array.from(nextBody.childNodes).forEach((child) => body.appendChild(child));
     }
 
     async function loadDefinition() {
@@ -317,13 +462,15 @@
             sourcePhrase: payload.sourcePhrase,
             wordPackage: payload.wordPackage || undefined
           },
-          { timeoutMs: LOOKUP_TIMEOUT_MS }
+          { timeoutMs: LOOKUP_TIMEOUT_MS, bypassCache: true }
         );
         if (!result || result.status === "error") {
-          renderUnavailable(translate("popup_definition_unavailable", null, "No definition available."));
+          renderUnavailable(
+            translate("popup_definition_error", null, "Failed to load definition.")
+          );
           return;
         }
-        renderResult(result);
+        await renderResult(result);
       } catch (error) {
         renderUnavailable(translate("popup_definition_error", null, "Failed to load definition."));
         if (typeof debugLog === "function") {

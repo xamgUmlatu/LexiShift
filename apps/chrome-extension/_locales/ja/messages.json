@@ -1,9 +1,9 @@
 {
   "app_name": {
-    "message": "LexiShift"
+    "message": "LexiShift Beta"
   },
   "app_description": {
-    "message": "設定可能なルールで表示テキストを置換し、ハイライト可能。"
+    "message": "BETAテスト版。ローカルのLexiShiftデータで、閲覧中に語彙を練習できます。"
   },
   "options_title": {
     "message": "LexiShift オプション"
@@ -57,13 +57,16 @@
     "message": "ページ内の置換密度"
   },
   "hint_replacement_behavior_scope": {
-    "message": "語彙練習と手動ルールを統合した後のページ表示に適用されます。"
+    "message": "これらの全体設定は、語彙練習と手動ルールを統合した後に適用されます。ページ上限はトップページと各埋め込みフレームに個別に適用されます。"
+  },
+  "summary_legacy_replacement_compatibility": {
+    "message": "従来の置換設定との互換性"
   },
   "toggle_max_one": {
-    "message": "テキストブロックごとに最大1語を置換"
+    "message": "従来設定: 各テキストノードの置換を1件に制限"
   },
   "hint_max_one": {
-    "message": "各テキストノードにつき1回だけ置換します。"
+    "message": "既存設定との互換性のために残されています。学習者向けの密度制限には「1文あたりの最大置換数」を1に設定してください。"
   },
   "toggle_allow_adjacent": {
     "message": "隣接する語の置換を許可"
@@ -75,19 +78,40 @@
     "message": "ページあたりの最大置換数"
   },
   "hint_max_replacements_page": {
-    "message": "標準の既定値は 20 です。無制限にする場合のみ 0 を使用します。"
+    "message": "標準の既定値は 0（無制限）です。"
+  },
+  "label_max_replacements_sentence": {
+    "message": "1文あたりの最大置換数"
+  },
+  "hint_max_replacements_sentence": {
+    "message": "標準の既定値は 0（無制限）です。複数語のフレーズも1回の置換として数えます。"
   },
   "label_max_replacements_lemma_page": {
     "message": "1語あたりの最大置換数（ページ）"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "標準の既定値は 2 です。1語だけがページ内で多発するのを防ぎます。"
+    "message": "標準の既定値は 0（無制限）です。1語だけがページ内で多発するのを防ぎます。"
   },
   "section_srs": {
     "message": "語彙練習"
   },
   "badge_srs_active_story": {
     "message": "アクティブ"
+  },
+  "badge_srs_ready_story": {
+    "message": "準備済み"
+  },
+  "badge_srs_paused_story": {
+    "message": "一時停止"
+  },
+  "button_srs_story_switch": {
+    "message": "切り替え"
+  },
+  "heading_srs_practice_settings": {
+    "message": "練習設定"
+  },
+  "label_srs_active_words": {
+    "message": "アクティブな単語 $1 語"
   },
   "summary_srs_story_sampling": {
     "message": "次の単語をサンプル"
@@ -197,12 +221,6 @@
   "hint_srs_max_active": {
     "message": "LexiShiftが同時に練習対象として保つ学習単語数です。"
   },
-  "label_srs_bootstrap_top_n": {
-    "message": "語彙検索範囲"
-  },
-  "hint_srs_bootstrap_top_n": {
-    "message": "サンプルや新規単語選択で使う頻度順の単語プールを広げます。サンプルが狭すぎると感じるまでは既定値のままにしてください。"
-  },
   "label_srs_initial_active_count": {
     "message": "開始時の単語数"
   },
@@ -218,11 +236,23 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "カバレッジはペアで変わります"
   },
+  "tooltip_srs_topic_not_covered": {
+    "message": "$1 ではまだ対応していません"
+  },
+  "topic_srs_general": {
+    "message": "一般"
+  },
   "topic_srs_medicine_health": {
     "message": "医療・健康"
   },
   "topic_srs_finance_business": {
     "message": "金融・ビジネス"
+  },
+  "topic_srs_shopping_money": {
+    "message": "買い物・お金"
+  },
+  "topic_srs_work_office": {
+    "message": "仕事・オフィス"
   },
   "topic_srs_sports_fitness": {
     "message": "スポーツ・フィットネス"
@@ -239,6 +269,12 @@
   "topic_srs_science_technology": {
     "message": "科学・技術"
   },
+  "topic_srs_science_math": {
+    "message": "科学・数学"
+  },
+  "topic_srs_computing_internet": {
+    "message": "コンピューター・インターネット"
+  },
   "topic_srs_arts_literature_humanities": {
     "message": "芸術・文学"
   },
@@ -250,6 +286,15 @@
   },
   "topic_srs_plants_nature": {
     "message": "植物・自然"
+  },
+  "topic_srs_travel_places_transport": {
+    "message": "旅行・交通"
+  },
+  "topic_srs_anime_manga_pop_culture": {
+    "message": "アニメ・漫画・ポップカルチャー"
+  },
+  "topic_srs_hobbies_crafts": {
+    "message": "趣味・手芸"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高度なタグ"
@@ -362,6 +407,12 @@
   "toggle_srs_sound": {
     "message": "フィードバック音を再生"
   },
+  "toggle_srs_browsing_admission": {
+    "message": "閲覧内容を語彙練習に反映する"
+  },
+  "hint_srs_browsing_admission": {
+    "message": "すべての語彙練習に適用されます。対応している言語ペアで、閲覧ページ内の語彙傾向を端末内に保存し、次に出す単語の候補調整に使います。"
+  },
   "label_helper_status": {
     "message": "ヘルパー状態"
   },
@@ -434,6 +485,66 @@
   "button_srs_admission_preview": {
     "message": "好みに合う10語をサンプル…"
   },
+  "status_srs_admission_preview_running": {
+    "message": "次に出せる単語をサンプル中（$1）…"
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "単語サンプルに失敗しました。"
+  },
+  "status_srs_admission_preview_header": {
+    "message": "次候補のサンプル: $3 で $2語中 $1語を表示。"
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "選択中の方式ではプレビューできません。"
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "$1 で表示できる追加候補サンプルがありません。"
+  },
+  "note_srs_admission_preview_sample_only": {
+    "message": "サンプルのみです。単語は追加されていません。"
+  },
+  "label_srs_admission_preview_sampled_words": {
+    "message": "サンプル語:"
+  },
+  "label_srs_admission_preview_sample_details": {
+    "message": "サンプル詳細:"
+  },
+  "label_srs_admission_preview_effective_profile_context": {
+    "message": "有効なプロフィール条件:"
+  },
+  "label_srs_admission_preview_topic_overlay": {
+    "message": "トピック補助データ:"
+  },
+  "label_srs_admission_preview_neutral_topic_support": {
+    "message": "中立候補内のトピック対応:"
+  },
+  "label_srs_admission_preview_plan_notes": {
+    "message": "計画メモ:"
+  },
+  "label_srs_admission_preview_advanced_details": {
+    "message": "詳細情報"
+  },
+  "summary_srs_admission_preview_selected_topics": {
+    "message": "選択トピック: $1。"
+  },
+  "summary_srs_admission_preview_sampled_topic_words": {
+    "message": "トピック一致のサンプル語: $1語。"
+  },
+  "summary_srs_admission_preview_matched_candidates": {
+    "message": "プレビュー候補内で一致した候補: $1件。"
+  },
+  "summary_srs_admission_preview_no_topic_candidates": {
+    "message": "このプレビュー範囲では選択トピックに一致する候補がありません。"
+  },
+  "summary_srs_admission_preview_overlay_status": {
+    "message": "補助データの状態: $1。"
+  },
+  "summary_srs_admission_preview_no_topic_priorities": {
+    "message": "このサンプルではトピック優先度がヘルパーに届いていません。"
+  },
+  "summary_srs_admission_preview_showing": {
+    "message": "$3 で $2語中 $1語を表示しています。"
+  },
   "button_srs_initialize": {
     "message": "練習を開始"
   },
@@ -453,7 +564,7 @@
     "message": "サンプル5件でルール生成…"
   },
   "button_srs_delete_story": {
-    "message": "語彙練習を削除"
+    "message": "この語彙練習を削除"
   },
   "heading_srs_words_dashboard": {
     "message": "学習中の語"
@@ -681,10 +792,10 @@
     "message": "最後"
   },
   "confirm_srs_reset_1": {
-    "message": "現在のプロフィールと言語ペアの語彙練習を削除しますか？この操作は元に戻せません。"
+    "message": "現在のプロフィールで、この言語ペアの語彙練習を削除しますか？この操作は元に戻せません。"
   },
   "confirm_srs_reset_2": {
-    "message": "この練習の学習語、復習履歴、破棄データを本当に削除しますか？"
+    "message": "この語彙練習の学習語、復習履歴、破棄データをすべて削除します。よろしいですか？"
   },
   "status_srs_sampling": {
     "message": "サンプリング中…"
@@ -783,13 +894,13 @@
     "message": "対処:"
   },
   "status_srs_resetting": {
-    "message": "語彙練習を削除中…"
+    "message": "この語彙練習を削除中…"
   },
   "status_srs_reset_success": {
-    "message": "語彙練習を削除しました。"
+    "message": "この語彙練習を削除しました。"
   },
   "status_srs_reset_failed": {
-    "message": "語彙練習の削除に失敗しました。"
+    "message": "この語彙練習の削除に失敗しました。"
   },
   "status_srs_reset_outdated": {
     "message": "削除に失敗しました: Helperコマンドが見つかりません。Helperを再起動しますか？"
@@ -1334,6 +1445,18 @@
   "popup_definition_error": {
     "message": "定義を読み込めませんでした。"
   },
+  "popup_pos_noun": { "message": "名詞" },
+  "popup_pos_adjective": { "message": "形容詞" },
+  "popup_pos_verb": { "message": "動詞" },
+  "popup_pos_adverb": { "message": "副詞" },
+  "popup_pos_pronoun": { "message": "代名詞" },
+  "popup_pos_determiner": { "message": "限定詞" },
+  "popup_pos_adposition": { "message": "接置詞" },
+  "popup_pos_conjunction": { "message": "接続詞" },
+  "popup_pos_interjection": { "message": "感動詞" },
+  "popup_pos_numeral": { "message": "数詞" },
+  "popup_pos_punctuation": { "message": "句読点" },
+  "popup_pos_other": { "message": "その他" },
   "popup_feedback_history_loading": {
     "message": "フィードバック履歴（読み込み中...）"
   },
@@ -1436,9 +1559,6 @@
   "hint_profile_bg_scope": {
     "message": "このプロファイルのオプション画面デザインのみを変更します。"
   },
-  "toggle_profile_bg_enabled": {
-    "message": "オプション画面の背景画像を有効化"
-  },
   "label_profile_bg_backdrop_color": {
     "message": "オプション画面の背景色"
   },
@@ -1450,9 +1570,6 @@
   },
   "button_profile_bg_remove": {
     "message": "削除"
-  },
-  "button_profile_bg_apply": {
-    "message": "オプション画面の背景を適用"
   },
   "button_profile_bg_position_reset": {
     "message": "画像位置をリセット"
@@ -1606,5 +1723,68 @@
   },
   "status_srs_discard_failed": {
     "message": "学習語を破棄できませんでした。"
+  },
+  "label_language_pair": {
+    "message": "$1→$2"
+  },
+  "replacement_tooltip_toggle_original": {
+    "message": "クリックで元の語に切り替え"
+  },
+  "replacement_tooltip_details_feedback": {
+    "message": "詳細とフィードバックは右クリック（macOSではCtrl+クリック）"
+  },
+  "replacement_tooltip_toggle_original_with_details": {
+    "message": "クリックで元の語に切り替え。詳細とフィードバックは右クリック（macOSではCtrl+クリック）"
+  },
+  "replacement_tooltip_original": {
+    "message": "元の語: $1"
+  },
+  "manual_source_prompt_title": {
+    "message": "LexiShift データソース"
+  },
+  "dictionary_source_prompt_title": {
+    "message": "LexiShift ポップアップ辞書"
+  },
+  "dictionary_source_prompt_body": {
+    "message": "このコミュニティ管理の一覧から、対応する Yomitan 形式3の単語辞書 ZIP を LexiShift にインポートできます。入手前に各辞書のライセンスや利用条件を確認してください。"
+  },
+  "dictionary_source_prompt_after_download": {
+    "message": "使用可能な ZIP をダウンロードしたら LexiShift に戻ってください。デスクトップアプリがファイルを検証し、ローカルインポートを案内します。"
+  },
+  "dictionary_source_prompt_recommended": {
+    "message": "日本語向けのおすすめ: $1"
+  },
+  "dictionary_source_prompt_format": {
+    "message": "形式: $1"
+  },
+  "dictionary_source_prompt_show_entry": {
+    "message": "おすすめの項目を表示"
+  },
+  "dictionary_source_prompt_entry_found": {
+    "message": "おすすめの項目を強調表示しました。このページのダウンロードリンクを使用し、完了後に LexiShift に戻ってください。"
+  },
+  "dictionary_source_prompt_entry_missing": {
+    "message": "ページが変更されたため、おすすめの項目を見つけられませんでした。このページで「$1」を検索してください。"
+  },
+  "manual_source_prompt_body": {
+    "message": "このページには $2 用の $1 があります。提供元の利用条件を確認してから、必要なソースファイルをダウンロードしてください。"
+  },
+  "manual_source_prompt_file": {
+    "message": "必要なファイル: $1"
+  },
+  "manual_source_prompt_terms": {
+    "message": "このページの利用条件を確認"
+  },
+  "manual_source_prompt_download": {
+    "message": "ソースファイルをダウンロード"
+  },
+  "manual_source_prompt_after_download": {
+    "message": "ダウンロード後、LexiShift に戻ってファイルをインポートしてください。"
+  },
+  "manual_source_prompt_download_opened": {
+    "message": "ダウンロードを開きました。完了後、LexiShift に戻ってください。"
+  },
+  "manual_source_prompt_dismiss": {
+    "message": "閉じる"
   }
 }

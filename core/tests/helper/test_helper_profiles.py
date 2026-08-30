@@ -12,7 +12,11 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
-from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot  # noqa: E402
+from lexishift_core.helper.profiles import (  # noqa: E402
+    get_profile_rulesets_snapshot,
+    get_profiles_snapshot,
+    resolve_active_profile_id,
+)
 from lexishift_core.persistence.settings import AppSettings, Profile, save_app_settings  # noqa: E402
 
 
@@ -55,6 +59,22 @@ class TestHelperProfilesSnapshot(unittest.TestCase):
             self.assertEqual(payload["profiles_count"], 2)
             self.assertEqual(payload["active_profile_id"], "missing-profile")
             self.assertEqual(payload["resolved_profile_id"], "p1")
+
+    def test_resolve_active_profile_id_reads_settings(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            save_app_settings(
+                AppSettings(
+                    profiles=(
+                        Profile(profile_id="p1", name="Profile 1", dataset_path="/tmp/a.json"),
+                        Profile(profile_id="p2", name="Profile 2", dataset_path="/tmp/b.json"),
+                    ),
+                    active_profile_id="p2",
+                ),
+                paths.app_settings_path,
+            )
+
+            self.assertEqual(resolve_active_profile_id(paths), "p2")
 
     def test_profile_rulesets_snapshot_for_requested_profile(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -33,6 +33,24 @@ class TestSrsHarnessResourceNormalization(unittest.TestCase):
                 count = conn.execute("SELECT COUNT(*) FROM entries").fetchone()[0]
             self.assertEqual(count, 70)
 
+    def test_quality_harness_en_es_writes_sqlite_translation_pack(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+
+            build_pair_resources(paths, pair="en-es")
+
+            frequency_path = paths.frequency_packs_dir / "freq-es-spalex-v1.sqlite"
+            translation_path = paths.language_packs_dir / "wiktionary-es-en.sqlite"
+            self.assertTrue(frequency_path.exists())
+            self.assertTrue(translation_path.exists())
+            self.assertFalse((paths.language_packs_dir / "spa-eng.tei").exists())
+            with sqlite3.connect(frequency_path) as conn:
+                frequency_count = conn.execute("SELECT COUNT(*) FROM frequency").fetchone()[0]
+            with sqlite3.connect(translation_path) as conn:
+                translation_count = conn.execute("SELECT COUNT(*) FROM entries").fetchone()[0]
+            self.assertEqual(frequency_count, 70)
+            self.assertEqual(translation_count, 70)
+
     def test_journey_harness_en_es_uses_sqlite_forward_and_reverse_packs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))

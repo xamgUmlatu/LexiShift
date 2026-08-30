@@ -88,6 +88,31 @@ class TestSqliteFrequencyStore(unittest.TestCase):
             lemmas = [row["lemma"] for row in rows]
             self.assertEqual(lemmas, ["rank_1", "rank_2"])
 
+    def test_iter_top_by_rank_without_limit_returns_all_ranked_rows(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "freq.sqlite"
+            conn = sqlite3.connect(db_path)
+            conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL)")
+            conn.executemany(
+                "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
+                [
+                    ("rank_3", 3.0, 10.0),
+                    ("rank_1", 1.0, 30.0),
+                    ("rank_2", 2.0, 20.0),
+                ],
+            )
+            conn.commit()
+            conn.close()
+
+            store = SqliteFrequencyStore(SqliteFrequencyConfig(path=db_path, table="frequency"))
+            try:
+                rows = list(store.iter_top_by_rank(limit=None))
+            finally:
+                store.close()
+
+            lemmas = [row["lemma"] for row in rows]
+            self.assertEqual(lemmas, ["rank_1", "rank_2", "rank_3"])
+
     def test_max_value_falls_back_from_pmw_to_freq(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "freq.sqlite"

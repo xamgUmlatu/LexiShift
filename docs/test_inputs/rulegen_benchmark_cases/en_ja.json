@@ -298,6 +298,242 @@
       ],
       "forbidden_top1": [],
       "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:人",
+      "target": "人",
+      "tier": "smoke",
+      "target_reading": "ひと",
+      "expected_any": [
+        "person",
+        "someone"
+      ],
+      "expected_top1_any": [
+        "person"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:国",
+      "target": "国",
+      "tier": "smoke",
+      "target_reading": "くに",
+      "expected_any": [
+        "country",
+        "state"
+      ],
+      "expected_top1_any": [
+        "country"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:年",
+      "target": "年",
+      "tier": "smoke",
+      "target_reading": "とし",
+      "expected_any": [
+        "year",
+        "age"
+      ],
+      "expected_top1_any": [
+        "year"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:子供",
+      "target": "子供",
+      "tier": "smoke",
+      "target_reading": "こども",
+      "expected_any": [
+        "child",
+        "children"
+      ],
+      "expected_top1_any": [
+        "child"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:車",
+      "target": "車",
+      "tier": "smoke",
+      "target_reading": "くるま",
+      "expected_any": [
+        "car",
+        "automobile"
+      ],
+      "expected_top1_any": [
+        "car"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:電車",
+      "target": "電車",
+      "tier": "smoke",
+      "target_reading": "でんしゃ",
+      "expected_any": [
+        "train"
+      ],
+      "expected_top1_any": [
+        "train"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:本",
+      "target": "本",
+      "tier": "smoke",
+      "target_reading": "ほん",
+      "expected_any": [
+        "book",
+        "volume"
+      ],
+      "expected_top1_any": [
+        "book"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:名前",
+      "target": "名前",
+      "tier": "smoke",
+      "target_reading": "なまえ",
+      "expected_any": [
+        "name"
+      ],
+      "expected_top1_any": [
+        "name"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:食べ物",
+      "target": "食べ物",
+      "tier": "smoke",
+      "target_reading": "たべもの",
+      "expected_any": [
+        "food"
+      ],
+      "expected_top1_any": [
+        "food"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:会社",
+      "target": "会社",
+      "tier": "smoke",
+      "target_reading": "かいしゃ",
+      "expected_any": [
+        "company",
+        "corporation"
+      ],
+      "expected_top1_any": [
+        "company"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:病院",
+      "target": "病院",
+      "tier": "smoke",
+      "target_reading": "びょういん",
+      "expected_any": [
+        "hospital",
+        "clinic"
+      ],
+      "expected_top1_any": [
+        "hospital"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:町",
+      "target": "町",
+      "tier": "smoke",
+      "target_reading": "まち",
+      "expected_any": [
+        "town",
+        "block"
+      ],
+      "expected_top1_any": [
+        "town"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:海",
+      "target": "海",
+      "tier": "smoke",
+      "target_reading": "うみ",
+      "expected_any": [
+        "sea",
+        "ocean"
+      ],
+      "expected_top1_any": [
+        "sea"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:花",
+      "target": "花",
+      "tier": "smoke",
+      "target_reading": "はな",
+      "expected_any": [
+        "flower",
+        "blossom"
+      ],
+      "expected_top1_any": [
+        "flower"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:猫",
+      "target": "猫",
+      "tier": "smoke",
+      "target_reading": "ねこ",
+      "expected_any": [
+        "cat",
+        "feline"
+      ],
+      "expected_top1_any": [
+        "cat"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
+    },
+    {
+      "case_id": "en-ja:魚",
+      "target": "魚",
+      "tier": "smoke",
+      "target_reading": "さかな",
+      "expected_any": [
+        "fish"
+      ],
+      "expected_top1_any": [
+        "fish"
+      ],
+      "forbidden_top1": [],
+      "forbidden_any": []
     }
   ]
 }

@@ -19,6 +19,7 @@ from lexishift_core.rulegen.pairs.en_de_gloss_processing import (
     _resolve_en_de_kaikki_register_demotion,
     _resolve_en_de_marked_sense_demotion,
     _resolve_sense_representative_indexes,
+    _resolve_sense_defaultness_competition,
 )
 from lexishift_core.rulegen.pairs.en_es_support import (
     apply_semantic_demotion as _apply_semantic_demotion,
@@ -72,6 +73,7 @@ class FreedictCandidateSource:
         source_frequency_provider: Optional[Callable[[str], float]] = None,
         cleaner_later_competition_penalty: float = 0.0,
         sense_representative_selection: bool = False,
+        sense_defaultness_competition_penalty: float = 0.0,
         kaikki_policy: Optional[EnDeKaikkiPolicyConfig] = None,
     ) -> None:
         self._records_by_target = records_by_target
@@ -91,6 +93,9 @@ class FreedictCandidateSource:
             cleaner_later_competition_penalty
         )
         self._sense_representative_selection = bool(sense_representative_selection)
+        self._sense_defaultness_competition_penalty = _normalize_competition_penalty(
+            sense_defaultness_competition_penalty
+        )
         self._kaikki_policy = kaikki_policy
 
     def generate(self, targets: Iterable[str], *, language_pair: str) -> Iterable[RuleCandidate]:
@@ -298,6 +303,36 @@ class FreedictCandidateSource:
                             metadata,
                             demotion=self._cleaner_later_competition_penalty,
                             reason="cleaner_later_competition",
+                        )
+                if (
+                    self._sense_defaultness_competition_penalty > 0.0
+                    and self._sense_representative_selection
+                    and self._source_frequency_provider is not None
+                ):
+                    defaultness_competitor_index = _resolve_sense_defaultness_competition(
+                        current_index=index,
+                        entries=entries,
+                        source_frequency_priors=source_frequency_priors,
+                        canonical_inventory=canonical_inventory,
+                    )
+                    if defaultness_competitor_index is not None:
+                        metadata["sense_defaultness_competition_present"] = True
+                        metadata["sense_defaultness_competitor_index"] = (
+                            defaultness_competitor_index
+                        )
+                        metadata["sense_defaultness_competitor_phrase"] = str(
+                            entries[defaultness_competitor_index].translation
+                        )
+                        metadata["sense_defaultness_competitor_prior"] = float(
+                            source_frequency_priors[defaultness_competitor_index]
+                        )
+                        metadata["sense_defaultness_competition_penalty"] = (
+                            self._sense_defaultness_competition_penalty
+                        )
+                        _apply_semantic_demotion(
+                            metadata,
+                            demotion=self._sense_defaultness_competition_penalty,
+                            reason="sense_defaultness_competition",
                         )
                 shadow = shadow_by_index[index] if index < len(shadow_by_index) else {}
                 if shadow and self._kaikki_policy is not None:

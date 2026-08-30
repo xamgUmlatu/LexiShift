@@ -145,24 +145,25 @@ python scripts/build/installer.py \
   --dmg-name LexiShift-0.1.0
 ```
 
-Known branch-level blocker:
+Known branch-level release state:
 
 - The local macOS installer smoke produced an unsigned, unnotarized DMG around
   `576 MB`. That is adequate evidence that the installer path works, but it is
   not broad-beta trust evidence; signing/notarization and app-size review stay
   open release tasks.
-- `npm --prefix scripts run check` currently fails at `mypy` before reaching
-  later checks. The same `409` mypy errors in `46` files are present on the
-  raw app-code baseline before the Pages/distribution merge, so this is
-  inherited app-branch type debt, not a website/distribution regression.
+- On the 2026-08-27 post-integration hygiene checkpoint, `npm --prefix scripts
+  run check` passes all `838` unit tests (`4` skipped), mypy over `188` source
+  files, strict style, Windows parity, documentation checks, and LP
+  profile/conformance checks. The inherited `en-es` NumPy typing debt is
+  resolved.
 - `npm --prefix scripts run check:changed:report` is not a useful green gate
   for this integration branch against `origin/main` because the app-code
   baseline differs by thousands of files. Use slice-local validation until the
   app branch has a clean baseline or a deliberate beta exception is recorded.
 
 Do not bypass the pre-push safety hook for this branch without an explicit
-decision. If a remote PR is needed before the inherited full-check debt is
-fixed, mark it as WIP and call out the failed full gate in the PR body.
+decision. The branch currently passes the full hook; any future exception must
+be called out in the PR body.
 
 ## Phase 1: Domain And Public Pages
 

@@ -9,11 +9,11 @@
   "strict_saturation": false,
   "fail_on_warn": false,
   "summary": {
-    "pass_count": 13,
-    "warn_count": 3,
-    "fail_count": 1,
-    "status": "FAIL",
-    "should_fail": true
+    "pass_count": 15,
+    "warn_count": 1,
+    "fail_count": 0,
+    "status": "WARN",
+    "should_fail": false
   },
   "findings": [
     {
@@ -23,10 +23,10 @@
       "details": null
     },
     {
-      "level": "FAIL",
-      "code": "QUALITY_FLOOR_BREACH",
-      "message": "Quality floor failed for pair 'en-de'.",
-      "details": "top1_accuracy=0.6552 below min_top1_accuracy=0.8500"
+      "level": "PASS",
+      "code": "QUALITY_FLOOR_OK",
+      "message": "Quality floor satisfied for pair 'en-de'.",
+      "details": null
     },
     {
       "level": "WARN",
@@ -35,16 +35,10 @@
       "details": null
     },
     {
-      "level": "WARN",
-      "code": "SATURATION_TOP_VECTOR_WARN",
-      "message": "Pair 'en-de' top metric vector share=0.500 indicates low sensitivity (warn threshold>=0.500).",
-      "details": "run_count=32 unique_vectors=3 top_count=16"
-    },
-    {
-      "level": "WARN",
-      "code": "SATURATION_UNIQUE_VECTOR_WARN",
-      "message": "Pair 'en-de' unique metric vectors=3 below expected minimum=5.",
-      "details": null
+      "level": "PASS",
+      "code": "SATURATION_TOP_VECTOR_OK",
+      "message": "Pair 'en-de' top metric vector share=0.083 is below warning threshold.",
+      "details": "run_count=96 unique_vectors=16 top_count=8"
     },
     {
       "level": "PASS",

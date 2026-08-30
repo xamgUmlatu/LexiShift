@@ -24,7 +24,7 @@ This keeps review behavior stable while allowing curriculum personalization.
 Use a high‑frequency lexicon as the starting core. This provides strong early coverage and ensures that the initial SRS set is broadly useful even before personalization.
 
 Current bootstrap sizing defaults:
-- bootstrap inventory target: `800` lemmas (`bootstrap_top_n`)
+- bootstrap candidate frontier: all available seed rows by default (`bootstrap_top_n` omitted/null)
 - initial active subset declaration: `40` (`initial_active_count`)
 
 ## Growth strategy (planned)

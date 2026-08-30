@@ -1,12 +1,15 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const { copySelectOptions, DEFAULT_STORY_FLOW_PROFICIENCY, formatProficiencyValue, hasExplicitProficiencyValue, matchesStoryContext, normalizeInterestList, readStoryContext, readStoryFlowValues, setProficiencyInput, setSelectValue, syncTopicChips } = root.optionsSrsStoryFlowUtils;
+  const { buildPreviewPlanningState, copySelectOptions, DEFAULT_STORY_FLOW_PROFICIENCY, formatProficiencyValue, hasExplicitProficiencyValue, matchesStoryContext, normalizeInterestList, readStoryContext, readStoryFlowValues, setProficiencyInput, setSelectValue, syncTopicChips } = root.optionsSrsStoryFlowUtils;
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const log = typeof opts.log === "function" ? opts.log : (() => {});
+    const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object"
+      ? opts.settingsManager
+      : null;
     const saveLanguageSettings = typeof opts.saveLanguageSettings === "function"
       ? opts.saveLanguageSettings
       : (() => Promise.resolve());
@@ -60,8 +63,10 @@
     const mainMaxActiveInput = elements.mainMaxActiveInput || null;
     const mainBootstrapTopNInput = elements.mainBootstrapTopNInput || null;
     const mainInitialActiveCountInput = elements.mainInitialActiveCountInput || null;
-    const mainSamplingCurtain = elements.mainSamplingCurtain || null;
-    const mainAdmissionPreviewOutput = elements.mainAdmissionPreviewOutput || null;
+    const topicSupport = root.optionsSrsTopicSupport
+      && typeof root.optionsSrsTopicSupport === "object"
+      ? root.optionsSrsTopicSupport
+      : null;
 
     let bound = false;
     let isOpen = false;
@@ -76,8 +81,17 @@
     const currentActiveProfileId = () => (mainProfileIdInput
       ? String(mainProfileIdInput.value || "default").trim() || "default"
       : "default");
+    function filterInterestsForPair(interests, pairKey) {
+      if (topicSupport && typeof topicSupport.filterTopicsForPair === "function") {
+        return topicSupport.filterTopicsForPair(pairKey, interests);
+      }
+      return normalizeInterestList(interests);
+    }
+
     const readVisibleValues = () => {
       const values = readStoryFlowValues(elements);
+      const pairKey = `${values.sourceLanguage || "en"}-${values.targetLanguage || "es"}`;
+      values.interests = filterInterestsForPair(values.interests, pairKey);
       values.profileId = currentActiveProfileId();
       setSelectValue(modalProfileIdInput, values.profileId, values.profileId);
       return values;
@@ -91,6 +105,18 @@
       previewOutput.style.color = color || "";
     }
 
+    function renderPreviewContent(content, color) {
+      if (!previewOutput) {
+        return;
+      }
+      if (content && typeof content === "object" && typeof content.html === "string") {
+        previewOutput.innerHTML = content.html;
+        previewOutput.style.color = "";
+        return;
+      }
+      setPreviewText(String(content ?? ""), color);
+    }
+
     function syncBodyModalOpen() {
       if (globalThis.document && globalThis.document.body) {
         globalThis.document.body.classList.toggle("modal-open", isOpen || isInitializing);
@@ -101,6 +127,17 @@
       const source = modalSourceLanguageInput ? String(modalSourceLanguageInput.value || "").trim() : "en";
       const target = modalTargetLanguageInput ? String(modalTargetLanguageInput.value || "").trim() : "es";
       return `${source || "en"}-${target || "es"}`;
+    }
+
+    function updateModalTopicSupport() {
+      const pairKey = currentPair();
+      if (topicSupport && typeof topicSupport.applyTopicChipSupport === "function") {
+        topicSupport.applyTopicChipSupport(modalTopicInterestChipButtons, pairKey);
+      }
+      setModalInterests(filterInterestsForPair(
+        modalTopicInterestsInput ? modalTopicInterestsInput.value : "",
+        pairKey
+      ));
     }
 
     const resourceCheck = root.optionsSrsStoryFlowResourceCheck.createController({
@@ -154,7 +191,7 @@
     }
 
     function setModalInterests(interests) {
-      const normalized = normalizeInterestList(interests);
+      const normalized = filterInterestsForPair(interests, currentPair());
       if (modalTopicInterestsInput) {
         modalTopicInterestsInput.value = normalized.join(", ");
       }
@@ -186,13 +223,11 @@
       if (modalMaxActiveInput && mainMaxActiveInput) {
         modalMaxActiveInput.value = mainMaxActiveInput.value || "";
       }
-      if (modalBootstrapTopNInput && mainBootstrapTopNInput) {
-        modalBootstrapTopNInput.value = mainBootstrapTopNInput.value || "";
-      }
       if (modalInitialActiveCountInput && mainInitialActiveCountInput) {
         modalInitialActiveCountInput.value = mainInitialActiveCountInput.value || "";
       }
       setModalInterests("");
+      updateModalTopicSupport();
       setPreviewText("");
       clearResourceCheck();
     }
@@ -247,9 +282,6 @@
       if (mainMaxActiveInput) {
         mainMaxActiveInput.value = values.maxActive;
       }
-      if (mainBootstrapTopNInput) {
-        mainBootstrapTopNInput.value = values.bootstrapTopN;
-      }
       if (mainInitialActiveCountInput) {
         mainInitialActiveCountInput.value = values.initialActiveCount;
       }
@@ -285,26 +317,30 @@
       );
       try {
         clearResourceCheck();
-        await persistVisibleSettings({ activateStory: false });
-        if (mainSamplingCurtain) {
-          mainSamplingCurtain.open = true;
-        }
-        await srsActionsController.previewAdmission();
+        const values = readVisibleValues();
+        const pairKey = `${values.sourceLanguage || "en"}-${values.targetLanguage || "es"}`;
+        const items = settingsManager && typeof settingsManager.load === "function"
+          ? await settingsManager.load()
+          : null;
+        const planningState = items
+          ? buildPreviewPlanningState(settingsManager, values, items, pairKey)
+          : null;
+        await srsActionsController.previewAdmission({
+          pairKey,
+          profileId: values.profileId,
+          items,
+          planningState,
+          skipSelectedProfileSync: Boolean(planningState),
+          setOutputText: (content) => {
+            renderPreviewContent(content, colors.DEFAULT);
+          }
+        });
         if (resourceCheck.latestBlock()) {
           setPreviewText(
             translate("status_srs_language_data_check_required", null, "Install the required language data, then retry."),
             colors.ERROR
           );
           return;
-        }
-        if (previewOutput && mainAdmissionPreviewOutput) {
-          const previewHtml = String(mainAdmissionPreviewOutput.innerHTML || "");
-          if (previewHtml) {
-            previewOutput.innerHTML = previewHtml;
-          } else {
-            previewOutput.textContent = mainAdmissionPreviewOutput.textContent || "";
-          }
-          previewOutput.style.color = "";
         }
         setStatus(translate("status_srs_story_flow_sampled", null, "Sample updated."), colors.SUCCESS);
       } catch (err) {
@@ -327,6 +363,9 @@
     }
 
     function toggleModalTopic(button) {
+      if (!button || button.disabled === true || button.hidden === true) {
+        return;
+      }
       const topic = String(button.getAttribute("data-srs-story-topic-interest") || "").trim();
       if (!topic) {
         return;
@@ -369,10 +408,14 @@
       }
       [modalSourceLanguageInput, modalTargetLanguageInput, modalProfileIdInput].forEach((input) => {
         if (input && typeof input.addEventListener === "function") {
-          input.addEventListener("change", clearResourceCheck);
+          input.addEventListener("change", () => {
+            clearResourceCheck();
+            updateModalTopicSupport();
+          });
         }
       });
       updateModalProficiencyOutput();
+      updateModalTopicSupport();
       modalTopicInterestChipButtons.forEach((button) => {
         button.addEventListener("click", () => {
           toggleModalTopic(button);

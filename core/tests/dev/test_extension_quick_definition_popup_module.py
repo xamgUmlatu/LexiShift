@@ -7,8 +7,26 @@ import unittest
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
+EXTENSION_MANIFEST = PROJECT_ROOT / "apps/chrome-extension/manifest.json"
+CONTENT_SCRIPT_JS = PROJECT_ROOT / "apps/chrome-extension/content_script.js"
+POPUP_LAYOUT_STYLES_JS = PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_layout_styles.js"
+POPUP_LAYOUT_MEASUREMENT_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_layout_measurement.js"
+)
 QUICK_DEFINITION_MODULE_JS = (
     PROJECT_ROOT / "apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js"
+)
+QUICK_DEFINITION_STRUCTURED_CONTENT_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/content/ui/popup_modules/quick_definition_structured_content.js"
+)
+QUICK_DEFINITION_DICTIONARY_SECTIONS_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/content/ui/popup_modules/quick_definition_dictionary_sections.js"
+)
+QUICK_DEFINITION_RESULT_SUPPORT_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/content/ui/popup_modules/quick_definition_result_support.js"
 )
 POPUP_MODULES_REGISTRY_JS = (
     PROJECT_ROOT / "apps/chrome-extension/shared/srs/popup_modules_registry.js"
@@ -34,6 +52,81 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionQuickDefinitionPopupModule(unittest.TestCase):
+    def test_manifest_loads_popup_dependencies_before_consumers(self) -> None:
+        manifest = json.loads(EXTENSION_MANIFEST.read_text(encoding="utf-8"))
+        scripts = manifest["content_scripts"][0]["js"]
+        expected_order = [
+            "content/ui/popup_layout_styles.js",
+            "content/ui/popup_layout_measurement.js",
+            "content/ui/popup_modules/quick_definition_structured_content.js",
+            "content/ui/popup_modules/quick_definition_result_support.js",
+            "content/ui/popup_modules/quick_definition_dictionary_sections.js",
+            "content/ui/popup_modules/quick_definition_module.js",
+            "content/ui/ui.js",
+            "content_script.js",
+        ]
+
+        self.assertEqual(
+            [scripts.index(path) for path in expected_order],
+            sorted(scripts.index(path) for path in expected_order),
+        )
+
+    def test_content_bootstrap_requires_dictionary_disclosures_and_layout(self) -> None:
+        source = CONTENT_SCRIPT_JS.read_text(encoding="utf-8")
+
+        self.assertIn("&& root.uiPopupLayoutStyles", source)
+        self.assertIn("&& root.uiPopupLayoutMeasurement", source)
+        self.assertIn("&& root.uiQuickDefinitionResultSupport", source)
+        self.assertIn("&& root.uiQuickDefinitionDictionarySections", source)
+
+    def test_popup_modules_and_stack_have_bounded_scrollable_height(self) -> None:
+        source = POPUP_LAYOUT_STYLES_JS.read_text(encoding="utf-8")
+
+        self.assertIn("max-height:calc(100vh - 16px)", source)
+        self.assertIn("max-height:min(52vh, 420px)", source)
+        self.assertIn(".lexishift-popup-module{flex:0 0 auto", source)
+        self.assertNotIn(".lexishift-popup-module{flex:0 1 auto", source)
+        self.assertIn("overflow-y:auto", source)
+        self.assertIn("max-height:min(52vh, 420px);overflow:hidden", source)
+        self.assertNotIn("scrollbar-gutter", source)
+
+        ui_source = (PROJECT_ROOT / "apps/chrome-extension/content/ui/ui.js").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(
+            ".lexishift-history-module .lexishift-popup-module-details",
+            ui_source,
+        )
+        self.assertIn("max-height:min(42vh, 340px)", ui_source)
+        self.assertIn(".lexishift-definition-structured{padding-right:3px", ui_source)
+        self.assertNotIn(".lexishift-definition-structured{max-height", ui_source)
+
+        disclosure_source = QUICK_DEFINITION_DICTIONARY_SECTIONS_JS.read_text(encoding="utf-8")
+        self.assertNotIn("overflow-y:auto", disclosure_source)
+
+    def test_helper_error_uses_load_error_copy_not_missing_entry_copy(self) -> None:
+        source = QUICK_DEFINITION_MODULE_JS.read_text(encoding="utf-8")
+        branch = (
+            'if (!result || result.status === "error") {'
+            "\n          renderUnavailable("
+            '\n            translate("popup_definition_error"'
+        )
+
+        self.assertIn(branch, source)
+
+    def test_dictionary_result_is_staged_before_visible_body_swap(self) -> None:
+        source = QUICK_DEFINITION_MODULE_JS.read_text(encoding="utf-8")
+        render_result = source.split("async function renderResult(result)", 1)[1].split(
+            "async function loadDefinition", 1
+        )[0]
+
+        self.assertIn('const nextBody = document.createElement("div")', render_result)
+        self.assertLess(
+            render_result.index("await readDictionaryPreferences"),
+            render_result.index('body.textContent = ""'),
+        )
+        self.assertIn("Array.from(nextBody.childNodes)", render_result)
+
     def test_quick_definition_module_renders_word_info_api_result(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
@@ -41,6 +134,9 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const modulePath = {json.dumps(str(QUICK_DEFINITION_MODULE_JS))};
+const structuredContentPath = {json.dumps(str(QUICK_DEFINITION_STRUCTURED_CONTENT_JS))};
+const dictionarySectionsPath = {json.dumps(str(QUICK_DEFINITION_DICTIONARY_SECTIONS_JS))};
+const resultSupportPath = {json.dumps(str(QUICK_DEFINITION_RESULT_SUPPORT_JS))};
 
 class FakeElement {{
   constructor(tagName) {{
@@ -55,6 +151,16 @@ class FakeElement {{
     this.target = "";
     this.rel = "";
     this._textContent = "";
+    this.listeners = {{}};
+    this.classList = {{
+      toggle: (className, force) => {{
+        const classes = new Set(String(this.className || "").split(/\s+/).filter(Boolean));
+        const enabled = force === undefined ? !classes.has(className) : force === true;
+        if (enabled) classes.add(className); else classes.delete(className);
+        this.className = [...classes].join(" ");
+        return enabled;
+      }}
+    }};
   }}
   appendChild(child) {{
     this.children.push(child);
@@ -64,7 +170,15 @@ class FakeElement {{
   setAttribute(name, value) {{
     this.attributes[name] = String(value);
   }}
-  addEventListener() {{}}
+  addEventListener(type, listener) {{
+    this.listeners[type] = this.listeners[type] || [];
+    this.listeners[type].push(listener);
+  }}
+  click() {{
+    for (const listener of this.listeners.click || []) {{
+      listener({{ preventDefault() {{}}, stopPropagation() {{}} }});
+    }}
+  }}
   set textContent(value) {{
     this._textContent = String(value || "");
     this.children = [];
@@ -114,12 +228,38 @@ function findByTag(node, tagName) {{
   return null;
 }}
 
+function findByAttribute(node, name, value) {{
+  if (!node) {{
+    return null;
+  }}
+  if (node.attributes && node.attributes[name] === value) {{
+    return node;
+  }}
+  for (const child of node.children || []) {{
+    const found = findByAttribute(child, name, value);
+    if (found) {{
+      return found;
+    }}
+  }}
+  return null;
+}}
+
+function findAllByClass(node, className, matches = []) {{
+  if (!node) return matches;
+  const classes = String(node.className || "").split(/\s+/).filter(Boolean);
+  if (classes.includes(className)) matches.push(node);
+  for (const child of node.children || []) findAllByClass(child, className, matches);
+  return matches;
+}}
+
 const messages = {{
   popup_definition_loading: "Loading definition...",
   popup_definition_unavailable: "No definition available.",
   popup_definition_missing: "Definition data is not installed for this word.",
-  popup_definition_error: "Failed to load definition."
+  popup_definition_error: "Failed to load definition.",
+  popup_pos_verb: "Browser-language verb"
 }};
+const stored = {{}};
 const context = vm.createContext({{
   console,
   document,
@@ -134,11 +274,35 @@ const context = vm.createContext({{
         }}
         return message;
       }}
+    }},
+    storage: {{
+      local: {{
+        get(defaults, callback) {{ callback({{ ...defaults, ...stored }}); }},
+        set(payload, callback) {{
+          Object.assign(stored, payload);
+          if (callback) callback();
+        }}
+      }}
     }}
   }}
 }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(
+  fs.readFileSync(structuredContentPath, "utf8"),
+  context,
+  {{ filename: structuredContentPath }}
+);
+vm.runInContext(
+  fs.readFileSync(resultSupportPath, "utf8"),
+  context,
+  {{ filename: resultSupportPath }}
+);
+vm.runInContext(
+  fs.readFileSync(dictionarySectionsPath, "utf8"),
+  context,
+  {{ filename: dictionarySectionsPath }}
+);
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const calls = [];
@@ -165,13 +329,96 @@ const moduleNode = context.LexiShift.uiQuickDefinitionModule.build(
   () => {{}},
   {{
     profileId: "suisui",
+    t(key, substitutions, fallback) {{
+      if (key === "popup_pos_verb") return "Selected-language verb";
+      return messages[key] || fallback || key;
+    }},
     wordInfoApi: {{
       async lookup(request, options) {{
         calls.push({{ request, options }});
         return {{
           status: "ok",
           display: "perro",
-          pos: {{ label: "noun" }},
+          pos: {{ canonical: "verb", label: "動詞-一般", raw: "動詞-一般" }},
+          dictionary: {{
+            provider: "yomitan",
+            title: "User-owned Spanish Dictionary"
+          }},
+          dictionary_results: [
+            {{
+              source_id: "user-spanish",
+              dictionary: {{ provider: "yomitan", title: "User-owned Spanish Dictionary" }},
+              senses: [
+                {{
+                  glosses: [{{ text: "dog" }}, {{ text: "domestic dog" }}],
+                  details: [
+                    "dog (the species Canis familiaris)",
+                    "犬 signifies a domestic dog; 狗 signifies a dog in older writing"
+                  ],
+                  structured_notes: [
+                    {{
+                      kind: "orthography_variants",
+                      source_text: "犬 signifies a domestic dog; 狗 signifies a dog in older writing",
+                      items: [
+                        {{ written_form: "犬", text: "a domestic dog" }},
+                        {{ written_form: "狗", text: "a dog in older writing" }}
+                      ]
+                    }}
+                  ],
+                  labels: ["common"],
+                  examples: [{{ text: "perro callejero", translation: "stray dog" }}]
+                }},
+                {{ glosses: [{{ text: "hound" }}], details: ["hunting dog"] }},
+                {{ glosses: [{{ text: "canine" }}, {{ text: "male dog" }}] }}
+              ],
+              glosses: [
+                {{
+                  text: "dog",
+                  details: ["dog (the species Canis familiaris)"],
+                  examples: [{{ text: "perro callejero", translation: "stray dog" }}]
+                }},
+                {{ text: "hound", raw_glosses: ["hunting dog"] }},
+                {{ text: "canine" }},
+                {{ text: "domestic dog" }},
+                {{ text: "male dog" }}
+              ]
+            }},
+            {{
+              source_id: "supplemental-spanish",
+              dictionary: {{ provider: "test", title: "Supplemental Dictionary" }},
+              senses: [],
+              glosses: [{{ text: "canid" }}]
+            }},
+            {{
+              source_id: "missing-entry",
+              dictionary: {{ title: "Dictionary Without This Word" }},
+              senses: [],
+              glosses: []
+            }}
+          ],
+          senses: [
+            {{
+              glosses: [{{ text: "dog" }}, {{ text: "domestic dog" }}],
+              details: [
+                "dog (the species Canis familiaris)",
+                "犬 signifies a domestic dog; 狗 signifies a dog in older writing"
+              ],
+              structured_notes: [
+                {{
+                  kind: "orthography_variants",
+                  source_text: "犬 signifies a domestic dog; 狗 signifies a dog in older writing",
+                  items: [
+                    {{ written_form: "犬", text: "a domestic dog" }},
+                    {{ written_form: "狗", text: "a dog in older writing" }}
+                  ]
+                }}
+              ],
+              labels: ["common"],
+              examples: [{{ text: "perro callejero", translation: "stray dog" }}]
+            }},
+            {{ glosses: [{{ text: "hound" }}], details: ["hunting dog"] }},
+            {{ glosses: [{{ text: "canine" }}, {{ text: "male dog" }}] }}
+          ],
           glosses: [
             {{
               text: "dog",
@@ -218,14 +465,25 @@ assert.match(collectText(moduleNode), /Loading definition/);
         source: {{ provider: "test" }}
       }}
     }},
-    options: {{ timeoutMs: 4000 }}
+    options: {{ timeoutMs: 4000, bypassCache: true }}
   }}));
   const rendered = collectText(moduleNode);
   assert.match(rendered, /perro/);
-  assert.match(rendered, /noun/);
+  assert.match(rendered, /Selected-language verb/);
+  assert.doesNotMatch(rendered, /Browser-language verb/);
+  assert.doesNotMatch(rendered, /動詞-一般/);
+  assert.match(rendered, /User-owned Spanish Dictionary/);
+  assert.match(rendered, /Supplemental Dictionary/);
+  assert.doesNotMatch(rendered, /Dictionary Without This Word/);
   assert.doesNotMatch(rendered, /Matches:/);
+  assert.ok(findByTag(moduleNode, "ol"));
+  assert.match(rendered, /dog · domestic dog/);
+  assert.match(rendered, /common/);
   assert.match(rendered, /dog/);
   assert.match(rendered, /Canis familiaris/);
+  assert.match(rendered, /《犬》 a domestic dog/);
+  assert.match(rendered, /《狗》 a dog in older writing/);
+  assert.doesNotMatch(rendered, /犬 signifies/);
   assert.match(rendered, /perro callejero \\/ stray dog/);
   assert.match(rendered, /hound/);
   assert.match(rendered, /hunting dog/);
@@ -234,8 +492,138 @@ assert.match(collectText(moduleNode), /Loading definition/);
   assert.match(rendered, /male dog/);
   assert.doesNotMatch(rendered, /sixth gloss should not render/);
   assert.match(rendered, /Wiktionary/);
+  assert.match(rendered, /Wiktionary ↗/);
   const anchor = findByTag(moduleNode, "a");
   assert.equal(anchor.href, "https://en.wiktionary.org/wiki/perro#Spanish");
+  const dictionarySections = findAllByClass(moduleNode, "lexishift-definition-dictionary");
+  const dictionaryToggles = findAllByClass(moduleNode, "lexishift-definition-dictionary-toggle");
+  assert.equal(dictionarySections.length, 2);
+  assert.equal(dictionaryToggles.length, 2);
+  assert.equal(dictionaryToggles[0].attributes["aria-expanded"], "true");
+  assert.equal(dictionaryToggles[1].attributes["aria-expanded"], "false");
+  dictionaryToggles[1].click();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(dictionaryToggles[1].attributes["aria-expanded"], "true");
+  assert.equal(
+    stored.lexishift_definition_dictionary_disclosure_v1.by_pair["en-es"]["supplemental-spanish"],
+    true
+  );
+
+  const rememberedTarget = document.createElement("span");
+  rememberedTarget.textContent = "perro";
+  rememberedTarget.dataset = {{ languagePair: "en-es", replacement: "perro" }};
+  const rememberedNode = context.LexiShift.uiQuickDefinitionModule.build(
+    rememberedTarget,
+    () => {{}},
+    {{
+      wordInfoApi: {{
+        async lookup() {{
+          return {{
+            status: "ok",
+            display: "perro",
+            dictionary_results: [
+              {{
+                source_id: "user-spanish",
+                dictionary: {{ title: "User-owned Spanish Dictionary" }},
+                glosses: [{{ text: "dog" }}]
+              }},
+              {{
+                source_id: "supplemental-spanish",
+                dictionary: {{ title: "Supplemental Dictionary" }},
+                glosses: [{{ text: "canid" }}]
+              }}
+            ]
+          }};
+        }}
+      }}
+    }}
+  );
+  await new Promise((resolve) => setImmediate(resolve));
+  const rememberedToggles = findAllByClass(
+    rememberedNode,
+    "lexishift-definition-dictionary-toggle"
+  );
+  assert.equal(rememberedToggles[0].attributes["aria-expanded"], "true");
+  assert.equal(rememberedToggles[1].attributes["aria-expanded"], "true");
+
+  const fallbackTarget = document.createElement("span");
+  fallbackTarget.textContent = "Hund";
+  fallbackTarget.dataset = {{ languagePair: "en-de", replacement: "Hund" }};
+  const fallbackNode = context.LexiShift.uiQuickDefinitionModule.build(
+    fallbackTarget,
+    () => {{}},
+    {{
+      wordInfoApi: {{
+        async lookup() {{
+          return {{ status: "ok", display: "Hund", glosses: [{{ text: "dog" }}] }};
+        }}
+      }}
+    }}
+  );
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.ok(findByTag(fallbackNode, "ul"));
+  assert.match(collectText(fallbackNode), /dog/);
+
+  const structuredTarget = document.createElement("span");
+  structuredTarget.textContent = "時";
+  structuredTarget.dataset = {{ languagePair: "en-ja", replacement: "時" }};
+  const structuredNode = context.LexiShift.uiQuickDefinitionModule.build(
+    structuredTarget,
+    () => {{}},
+    {{
+      wordInfoApi: {{
+        async lookup() {{
+          return {{
+            status: "ok",
+            display: "時",
+            dictionary: {{ title: "Local Japanese Dictionary" }},
+            senses: [{{
+              glosses: [{{ text: "fallback text should not be duplicated" }}],
+              structured_content: [
+                {{
+                  type: "element",
+                  tag: "div",
+                  role: "sense",
+                  children: [
+                    {{
+                      type: "element",
+                      tag: "span",
+                      role: "sense-number",
+                      children: [{{ type: "text", text: "①" }}]
+                    }},
+                    {{
+                      type: "element",
+                      tag: "span",
+                      role: "definition",
+                      children: [{{ type: "text", text: "ある時点。" }}]
+                    }},
+                    {{
+                      type: "element",
+                      tag: "div",
+                      role: "subsense",
+                      children: [
+                        {{ type: "image-fallback", text: "一" }},
+                        {{ type: "text", text: "時刻。" }}
+                      ]
+                    }}
+                  ]
+                }}
+              ]
+            }}],
+            external_links: []
+          }};
+        }}
+      }}
+    }}
+  );
+  await new Promise((resolve) => setImmediate(resolve));
+  const structuredText = collectText(structuredNode);
+  assert.match(structuredText, /①/);
+  assert.match(structuredText, /ある時点/);
+  assert.match(structuredText, /時刻/);
+  assert.doesNotMatch(structuredText, /fallback text should not be duplicated/);
+  assert.ok(findByAttribute(structuredNode, "data-yomitan-role", "sense"));
+  assert.ok(findByAttribute(structuredNode, "data-yomitan-role", "subsense"));
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);
@@ -341,6 +729,18 @@ assert.ok(registry.resolveVisibleSettingModules("es").some((item) => item.id ===
             "popup_definition_unavailable",
             "popup_definition_missing",
             "popup_definition_error",
+            "popup_pos_noun",
+            "popup_pos_adjective",
+            "popup_pos_verb",
+            "popup_pos_adverb",
+            "popup_pos_pronoun",
+            "popup_pos_determiner",
+            "popup_pos_adposition",
+            "popup_pos_conjunction",
+            "popup_pos_interjection",
+            "popup_pos_numeral",
+            "popup_pos_punctuation",
+            "popup_pos_other",
         }
         for locale in ("en", "ja", "zh", "de"):
             with self.subTest(locale=locale):

@@ -69,7 +69,6 @@
           profileId: synced.profileId,
           strategy: "profile_growth",
           objective: "rebalance",
-          setTopN: planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
           maxActiveItems: planningState.profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
           trigger: "options_rebalance_preview_button",
           profileContext
@@ -134,7 +133,6 @@
           profileId: synced.profileId,
           strategy: "profile_growth",
           objective: "rebalance",
-          setTopN: planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
           maxActiveItems: planningState.profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
           profileContext
         };

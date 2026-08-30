@@ -125,12 +125,15 @@
       }
       const localOptions = options && typeof options === "object" ? options : {};
       const forceHelperRefresh = localOptions.forceHelperRefresh === true;
+      const skipHelperProfiles = localOptions.skipHelperProfiles === true;
       let workingItems = items;
       let selectedSrsProfileId = settingsManager.getSelectedSrsProfileId(workingItems);
       let selectedUiProfileId = settingsManager.getSelectedUiProfileId(workingItems);
       // SRS profile selector is the user-facing source of truth for profile-scoped settings.
       let selectedProfileId = selectedSrsProfileId || selectedUiProfileId;
-      const helperProfilesPayload = await fetchHelperProfiles({ force: forceHelperRefresh });
+      const helperProfilesPayload = skipHelperProfiles
+        ? null
+        : await fetchHelperProfiles({ force: forceHelperRefresh });
       const helperProfileItems = resolveHelperProfileItems(helperProfilesPayload);
       const helperProfileIds = helperProfileItems.map((item) => item.profileId);
       const hasSelectedProfile = helperProfileIds.length

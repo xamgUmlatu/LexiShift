@@ -1,0 +1,1124 @@
+{
+  "candidate_summary": {
+    "covered_lemma_count": 2845,
+    "loaded_count": 73752,
+    "selected_by_band": {
+      "0.00-0.05": 2,
+      "0.05-0.10": 6,
+      "0.10-0.15": 11,
+      "0.15-0.20": 18,
+      "0.20-0.25": 27,
+      "0.25-0.30": 6,
+      "0.30-0.35": 8,
+      "0.35-0.40": 12,
+      "0.40-0.45": 17,
+      "0.45-0.50": 19,
+      "0.50-0.55": 13,
+      "0.55-0.60": 14,
+      "0.60-0.65": 10,
+      "0.65-0.70": 11,
+      "0.70-0.75": 14,
+      "0.75-0.80": 13,
+      "0.80-0.85": 16,
+      "0.85-0.90": 15,
+      "0.90-0.95": 13,
+      "0.95-1.00": 5
+    },
+    "selected_candidate_sample": [
+      {
+        "band": "0.05-0.10",
+        "lemma": "乗る",
+        "rank": 107,
+        "reading": "のる",
+        "score": 0.050085
+      },
+      {
+        "band": "0.05-0.10",
+        "lemma": "小さな",
+        "rank": 157,
+        "reading": "ちいさな",
+        "score": 0.059237
+      },
+      {
+        "band": "0.05-0.10",
+        "lemma": "勉強",
+        "rank": 203,
+        "reading": "べんきょう",
+        "score": 0.067373
+      },
+      {
+        "band": "0.05-0.10",
+        "lemma": "便利",
+        "rank": 250,
+        "reading": "べんり",
+        "score": 0.075678
+      },
+      {
+        "band": "0.05-0.10",
+        "lemma": "遅い",
+        "rank": 297,
+        "reading": "おそい",
+        "score": 0.083305
+      },
+      {
+        "band": "0.05-0.10",
+        "lemma": "散歩",
+        "rank": 343,
+        "reading": "さんぽ",
+        "score": 0.09178
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "パーティー",
+        "rank": 394,
+        "reading": "ぱーてぃー",
+        "score": 0.100212
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "黄色",
+        "rank": 444,
+        "reading": "きいろ",
+        "score": 0.105042
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "朝御飯",
+        "rank": 493,
+        "reading": "あさごはん",
+        "score": 0.111737
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "作家",
+        "rank": 544,
+        "reading": "さっか",
+        "score": 0.120805
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "以上",
+        "rank": 593,
+        "reading": "いじょう",
+        "score": 0.125805
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "門",
+        "rank": 642,
+        "reading": "もん",
+        "score": 0.13
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "警察",
+        "rank": 688,
+        "reading": "けいさつ",
+        "score": 0.133686
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "集める",
+        "rank": 734,
+        "reading": "あつめる",
+        "score": 0.137331
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "怖い",
+        "rank": 779,
+        "reading": "こわい",
+        "score": 0.14089
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "世話",
+        "rank": 823,
+        "reading": "せわ",
+        "score": 0.144619
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "港",
+        "rank": 870,
+        "reading": "みなと",
+        "score": 0.148686
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "大抵",
+        "rank": 916,
+        "reading": "たいてい",
+        "score": 0.151723
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "壊す",
+        "rank": 958,
+        "reading": "こわす",
+        "score": 0.154096
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "太る",
+        "rank": 1006,
+        "reading": "ふとる",
+        "score": 0.156977
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "踊り",
+        "rank": 1047,
+        "reading": "おどり",
+        "score": 0.159576
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "ガス",
+        "rank": 1090,
+        "reading": "がす",
+        "score": 0.165
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "コーラ",
+        "rank": 1135,
+        "reading": "こーら",
+        "score": 0.167768
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "現在",
+        "rank": 1180,
+        "reading": "げんざい",
+        "score": 0.17065
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "オークション",
+        "rank": 1230,
+        "reading": "おーくしょん",
+        "score": 0.173701
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "自身",
+        "rank": 1279,
+        "reading": "じしん",
+        "score": 0.176525
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "プロセス",
+        "rank": 1325,
+        "reading": "ぷろせす",
+        "score": 0.179181
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "対策",
+        "rank": 1371,
+        "reading": "たいさく",
+        "score": 0.182006
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "オリジナル",
+        "rank": 1417,
+        "reading": "おりじなる",
+        "score": 0.184605
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "コンクリート",
+        "rank": 1457,
+        "reading": "こんくりーと",
+        "score": 0.186808
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "主義",
+        "rank": 1503,
+        "reading": "しゅぎ",
+        "score": 0.189407
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "パーツ",
+        "rank": 1553,
+        "reading": "ぱーつ",
+        "score": 0.192175
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "指導",
+        "rank": 1593,
+        "reading": "しどう",
+        "score": 0.194661
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "ショック",
+        "rank": 1636,
+        "reading": "しょっく",
+        "score": 0.197316
+      },
+      {
+        "band": "0.15-0.20",
+        "lemma": "クリニック",
+        "rank": 1678,
+        "reading": "くりにっく",
+        "score": 0.199689
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "シフト",
+        "rank": 1720,
+        "reading": "しふと",
+        "score": 0.201716
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "通常",
+        "rank": 1766,
+        "reading": "つうじょう",
+        "score": 0.203538
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "記憶",
+        "rank": 1809,
+        "reading": "きおく",
+        "score": 0.20536
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "モーター",
+        "rank": 1855,
+        "reading": "もーたー",
+        "score": 0.207352
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "金融",
+        "rank": 1900,
+        "reading": "きんゆう",
+        "score": 0.209343
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "全員",
+        "rank": 1946,
+        "reading": "ぜんいん",
+        "score": 0.211377
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "パスポート",
+        "rank": 1998,
+        "reading": "ぱすぽーと",
+        "score": 0.213496
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "未来",
+        "rank": 2041,
+        "reading": "みらい",
+        "score": 0.215445
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "ホイール",
+        "rank": 2081,
+        "reading": "ほいーる",
+        "score": 0.217182
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "現代",
+        "rank": 2125,
+        "reading": "げんだい",
+        "score": 0.219089
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "記念",
+        "rank": 2186,
+        "reading": "きねん",
+        "score": 0.220953
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "豊か",
+        "rank": 2229,
+        "reading": "ゆたか",
+        "score": 0.222818
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "エッセー",
+        "rank": 2285,
+        "reading": "えっせー",
+        "score": 0.225178
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "キック",
+        "rank": 2328,
+        "reading": "きっく",
+        "score": 0.226801
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "風呂",
+        "rank": 2377,
+        "reading": "ふろ",
+        "score": 0.228623
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "エクスプレス",
+        "rank": 2425,
+        "reading": "えくすぷれす",
+        "score": 0.23036
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "エントリー",
+        "rank": 2472,
+        "reading": "えんとりー",
+        "score": 0.232182
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "収入",
+        "rank": 2513,
+        "reading": "しゅうにゅう",
+        "score": 0.233962
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "グリップ",
+        "rank": 2554,
+        "reading": "ぐりっぷ",
+        "score": 0.235742
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "目立つ",
+        "rank": 2599,
+        "reading": "めだつ",
+        "score": 0.237691
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "フロント",
+        "rank": 2645,
+        "reading": "ふろんと",
+        "score": 0.239597
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "チーム",
+        "rank": 2695,
+        "reading": "ちーむ",
+        "score": 0.241504
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "伝統",
+        "rank": 2739,
+        "reading": "でんとう",
+        "score": 0.243157
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "化粧",
+        "rank": 2780,
+        "reading": "けしょう",
+        "score": 0.244682
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "合格",
+        "rank": 2822,
+        "reading": "ごうかく",
+        "score": 0.246462
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "模様",
+        "rank": 2868,
+        "reading": "もよう",
+        "score": 0.248369
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "サンクスギビング",
+        "rank": 2909,
+        "reading": "さんくすぎびんぐ",
+        "score": 0.249991
+      },
+      {
+        "band": "0.25-0.30",
+        "lemma": "犯人",
+        "rank": 2910,
+        "reading": "はんにん",
+        "score": 0.250015
+      },
+      {
+        "band": "0.25-0.30",
+        "lemma": "屡",
+        "rank": 3145,
+        "reading": "しばしば",
+        "score": 0.257044
+      },
+      {
+        "band": "0.25-0.30",
+        "lemma": "陽気",
+        "rank": 3398,
+        "reading": "ようき",
+        "score": 0.265059
+      },
+      {
+        "band": "0.25-0.30",
+        "lemma": "サーカス",
+        "rank": 3652,
+        "reading": "さーかす",
+        "score": 0.281643
+      },
+      {
+        "band": "0.25-0.30",
+        "lemma": "ライフル",
+        "rank": 3892,
+        "reading": "らいふる",
+        "score": 0.289473
+      },
+      {
+        "band": "0.25-0.30",
+        "lemma": "ソフトボール",
+        "rank": 4129,
+        "reading": "そふとぼーる",
+        "score": 0.297642
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "府県",
+        "rank": 4390,
+        "reading": "ふけん",
+        "score": 0.30411
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "ピープル",
+        "rank": 4628,
+        "reading": "ぴーぷる",
+        "score": 0.31002
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "十字",
+        "rank": 4871,
+        "reading": "じゅうじ",
+        "score": 0.316301
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "日米",
+        "rank": 5112,
+        "reading": "にちべい",
+        "score": 0.322379
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "ミラクル",
+        "rank": 5351,
+        "reading": "みらくる",
+        "score": 0.328592
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "派手",
+        "rank": 5586,
+        "reading": "はで",
+        "score": 0.335032
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "師匠",
+        "rank": 5822,
+        "reading": "ししょう",
+        "score": 0.340943
+      },
+      {
+        "band": "0.30-0.35",
+        "lemma": "弁",
+        "rank": 6061,
+        "reading": "べん",
+        "score": 0.347735
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "要領",
+        "rank": 6316,
+        "reading": "ようりょう",
+        "score": 0.353195
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "スリップ",
+        "rank": 6555,
+        "reading": "すりっぷ",
+        "score": 0.358381
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "スキッパー",
+        "rank": 6788,
+        "reading": "すきっぱー",
+        "score": 0.363263
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "原油",
+        "rank": 7024,
+        "reading": "げんゆ",
+        "score": 0.368686
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "増殖",
+        "rank": 7268,
+        "reading": "ぞうしょく",
+        "score": 0.374076
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "ポーチ",
+        "rank": 7512,
+        "reading": "ぽーち",
+        "score": 0.379805
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "基調",
+        "rank": 7759,
+        "reading": "きちょう",
+        "score": 0.385703
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "キャメル",
+        "rank": 8004,
+        "reading": "きゃめる",
+        "score": 0.388105
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "フリーハンド",
+        "rank": 8252,
+        "reading": "ふりーはんど",
+        "score": 0.389547
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "マットレス",
+        "rank": 8496,
+        "reading": "まっとれす",
+        "score": 0.391998
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "理科",
+        "rank": 8746,
+        "reading": "りか",
+        "score": 0.394347
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "トレッカー",
+        "rank": 8990,
+        "reading": "とれっかー",
+        "score": 0.397054
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "ビジター",
+        "rank": 9250,
+        "reading": "びじたー",
+        "score": 0.400007
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "からかう",
+        "rank": 9483,
+        "reading": "からかう",
+        "score": 0.403288
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "有益",
+        "rank": 9734,
+        "reading": "ゆうえき",
+        "score": 0.406772
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "配送",
+        "rank": 9970,
+        "reading": "はいそう",
+        "score": 0.409985
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "虐殺",
+        "rank": 10209,
+        "reading": "ぎゃくさつ",
+        "score": 0.413171
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "拷問",
+        "rank": 10442,
+        "reading": "ごうもん",
+        "score": 0.416276
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "新入",
+        "rank": 10670,
+        "reading": "しんにゅう",
+        "score": 0.41934
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "上層",
+        "rank": 10911,
+        "reading": "じょうそう",
+        "score": 0.422404
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "対峙",
+        "rank": 11155,
+        "reading": "たいじ",
+        "score": 0.425793
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "檻",
+        "rank": 11395,
+        "reading": "おり",
+        "score": 0.428803
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "便宜",
+        "rank": 11634,
+        "reading": "べんぎ",
+        "score": 0.432097
+      },
+      {
+        "band": "0.40-0.45",
+        "lemma": "異論",
+        "rank": 11879,
+        "reading": "いろん",
+        "score": 0.435243
+      }
+    ],
+    "selected_label_count": 250
+  },
+  "decision": "wikidata_claim_probe_has_topic_evidence",
+  "evidence_rows": [
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.25-0.30",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.68,
+      "core_rank": 3162.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 犯罪者 -> legal person role",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "法律によって禁じられ刑罰が科される根拠となる事実・行為を行った人物",
+        "wikidata_label": "犯罪者",
+        "wikidata_path": [
+          "Q2159907",
+          "Q57735705"
+        ],
+        "wikidata_qid": "Q2159907",
+        "wikidata_root_label": "legal person role",
+        "wikidata_root_qid": "Q57735705",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "犯人",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "犯人",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.72,
+      "rank": 2910,
+      "reading": "はんにん",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.250015,
+      "source": "wikidata_claim_probe",
+      "source_label": "legal person role",
+      "topic": "law_politics_civics",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.15-0.20",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 2493.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: ショック -> disease",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "ショック"
+        ],
+        "wikidata_depth": 2,
+        "wikidata_description": "medical condition of insufficient blood flow to the tissues of the body",
+        "wikidata_label": "ショック",
+        "wikidata_path": [
+          "Q178061",
+          "Q179630",
+          "Q12136"
+        ],
+        "wikidata_qid": "Q178061",
+        "wikidata_root_label": "disease",
+        "wikidata_root_qid": "Q12136",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "ショック",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "ショック",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.76,
+      "rank": 1636,
+      "reading": "しょっく",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.197316,
+      "source": "wikidata_claim_probe",
+      "source_label": "disease",
+      "topic": "medicine_health",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.85-0.90",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 0.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path:  -> disease",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 2,
+        "wikidata_description": "",
+        "wikidata_label": "",
+        "wikidata_path": [
+          "Q8055111",
+          "Q10267828",
+          "Q12136"
+        ],
+        "wikidata_qid": "Q8055111",
+        "wikidata_root_label": "disease",
+        "wikidata_root_qid": "Q12136",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "鼻茸",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "鼻茸",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.76,
+      "rank": 61578,
+      "reading": "はなたけ",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.874425,
+      "source": "wikidata_claim_probe",
+      "source_label": "disease",
+      "topic": "medicine_health",
+      "topic_stretch_allowed": ""
+    }
+  ],
+  "findings": [
+    {
+      "code": "wikidata_claim_probe_completed",
+      "level": "PASS",
+      "message": "Checked 250 exact labels, found 101 exact entities, skipped 25 disambiguation pages, mapped 3, missed roots for 73. Reading identity gate: accepted_exact_source_reading=39, accepted_unique_surface_reading=62."
+    },
+    {
+      "code": "wikidata_rate_limited",
+      "level": "WARN",
+      "message": "Wikidata returned HTTP 429 267 time(s); probe stopped affected branches."
+    },
+    {
+      "code": "wikidata_claim_evidence_generated",
+      "level": "PASS",
+      "message": "Generated 3 Wikidata claim evidence rows."
+    }
+  ],
+  "generated_at": "2026-06-30T23:36:34+00:00",
+  "inputs": {
+    "cache_json": "docs/test_outputs/srs_topic_autotag_wikidata_claim_probe_cache_en_ja.json",
+    "candidates_csv": "core/lexishift_core/resources/srs/en_ja/learner_difficulty_corrected.csv",
+    "existing_overlay_json": "docs/test_outputs/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
+    "explicit_lemmas": [],
+    "include_covered": false,
+    "label_lookup": "jawikipedia_pageprops",
+    "max_branch_targets": 16,
+    "max_depth": 4,
+    "max_entity_requests": 2500,
+    "max_labels": 250,
+    "offline_only": false,
+    "policy_json": "docs/test_inputs/srs_topic_autotag_policy_en_ja.json",
+    "top_n": 73752
+  },
+  "language_pair": "en-ja",
+  "limitations": [
+    "This probe samples exact labels only; it does not measure full Wikidata coverage.",
+    "Wikidata labels identify entities/concepts, not SRS sense suitability by themselves.",
+    "Claim ancestry can miss useful rows when Wikidata models a term through properties outside P31/P279/P171.",
+    "Rows generated here are mining evidence only; promotion requires source-specific guards and review."
+  ],
+  "method": {
+    "claim_properties": [
+      "P31",
+      "P279",
+      "P171"
+    ],
+    "identity_gate": "exact Japanese label/alias search plus existing single-reading or source-reading verification; ambiguous multi-reading surfaces are rejected",
+    "promotion_state": "evidence_only_not_product_overlay",
+    "query_shape": "Japanese Wikipedia pageprops title-to-QID lookup, then Wikidata Special:EntityData cached claim ancestry",
+    "source": "wikidata_claim_probe"
+  },
+  "review_sample": [
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.25-0.30",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.68,
+      "core_rank": 3162.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 犯罪者 -> legal person role",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "法律によって禁じられ刑罰が科される根拠となる事実・行為を行った人物",
+        "wikidata_label": "犯罪者",
+        "wikidata_path": [
+          "Q2159907",
+          "Q57735705"
+        ],
+        "wikidata_qid": "Q2159907",
+        "wikidata_root_label": "legal person role",
+        "wikidata_root_qid": "Q57735705",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "犯人",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "犯人",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.72,
+      "rank": 2910,
+      "reading": "はんにん",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.250015,
+      "source": "wikidata_claim_probe",
+      "source_label": "legal person role",
+      "topic": "law_politics_civics",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.15-0.20",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 2493.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: ショック -> disease",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "ショック"
+        ],
+        "wikidata_depth": 2,
+        "wikidata_description": "medical condition of insufficient blood flow to the tissues of the body",
+        "wikidata_label": "ショック",
+        "wikidata_path": [
+          "Q178061",
+          "Q179630",
+          "Q12136"
+        ],
+        "wikidata_qid": "Q178061",
+        "wikidata_root_label": "disease",
+        "wikidata_root_qid": "Q12136",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "ショック",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "ショック",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.76,
+      "rank": 1636,
+      "reading": "しょっく",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.197316,
+      "source": "wikidata_claim_probe",
+      "source_label": "disease",
+      "topic": "medicine_health",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.85-0.90",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 0.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path:  -> disease",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 2,
+        "wikidata_description": "",
+        "wikidata_label": "",
+        "wikidata_path": [
+          "Q8055111",
+          "Q10267828",
+          "Q12136"
+        ],
+        "wikidata_qid": "Q8055111",
+        "wikidata_root_label": "disease",
+        "wikidata_root_qid": "Q12136",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "鼻茸",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "鼻茸",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.76,
+      "rank": 61578,
+      "reading": "はなたけ",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.874425,
+      "source": "wikidata_claim_probe",
+      "source_label": "disease",
+      "topic": "medicine_health",
+      "topic_stretch_allowed": ""
+    }
+  ],
+  "schema_version": 1,
+  "source_summary": {
+    "wikidata_claim_probe": {
+      "ambiguity_flag_count": 2,
+      "avg_confidence": 0.706667,
+      "avg_membership": 0.746667,
+      "lemma_count": 3,
+      "row_count": 3,
+      "topic_count": 2
+    }
+  },
+  "status": "ok",
+  "topic_summary": {
+    "law_politics_civics": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "medicine_health": {
+      "lemma_count": 2,
+      "row_count": 2
+    }
+  },
+  "wikidata_summary": {
+    "entity_cache_hit": 1781,
+    "entity_cache_size": 817,
+    "entity_rate_limited": 267,
+    "entity_request_count": 247,
+    "http_429_count": 267,
+    "pageprops_cache_hit": 250,
+    "pageprops_cache_size": 328,
+    "pageprops_request_count": 5,
+    "search_cache_size": 2
+  }
+}

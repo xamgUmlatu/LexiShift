@@ -20,7 +20,10 @@ DEFAULT_DEPTH_AUDIT = TEST_OUTPUTS_ROOT / "srs_topic_family_depth_audit_en_es_la
 DEFAULT_OVERLAYS = (
     TEST_OUTPUTS_ROOT / "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
     TEST_OUTPUTS_ROOT / "srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
+    TEST_OUTPUTS_ROOT / "srs_topic_manual_semantic_lexicon_en_es_latest.json",
+    TEST_OUTPUTS_ROOT / "srs_topic_todosloscorpus_overlay_en_es_latest.json",
     TEST_OUTPUTS_ROOT / "srs_wikidata_natural_taxonomy_topic_overlay_en_es_spalex_10k_latest.json",
+    TEST_OUTPUTS_ROOT / "srs_wikidata_science_topic_overlay_en_es_spalex_10k_latest.json",
     TEST_OUTPUTS_ROOT / "srs_source_topic_overlay_en_es_spalex_10k_latest.json",
     TEST_OUTPUTS_ROOT / "srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json",
 )
@@ -195,6 +198,8 @@ def render_markdown(report: Mapping[str, object]) -> str:
         f"- Limited-visible candidates: `{summary.get('limited_visible_count', 0)}`",
         f"- Beta-visible candidates: `{summary.get('beta_visible_count', 0)}`",
         f"- Hidden/source-blocked candidates: `{summary.get('hidden_count', 0)}`",
+        f"- MVP picker visible: `{summary.get('mvp_picker_visible_count', 0)}`",
+        f"- MVP picker hidden: `{summary.get('mvp_picker_hidden_count', 0)}`",
         "",
         "## Release Gate",
         "",
@@ -231,8 +236,8 @@ def render_markdown(report: Mapping[str, object]) -> str:
             "",
             "## Topic Matrix",
             "",
-            "| Family | Axis | Status | Visibility | Effective Rows | Source Rows | Runtime Overlay Rows | Bands | Next Work |",
-            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |",
+            "| Family | Axis | Status | Visibility | MVP Picker | Effective Rows | Source Rows | Runtime Overlay Rows | Bands | Next Work |",
+            "| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |",
         ]
     )
     for row in _mapping_rows(report.get("topics")):
@@ -245,6 +250,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
                     f"`{row.get('axis', '')}`",
                     f"`{row.get('release_status', '')}`",
                     f"`{row.get('recommended_visibility', '')}`",
+                    f"`{row.get('mvp_picker_visibility', '')}`",
                     str(row.get("effective_candidate_count", 0)),
                     str(row.get("source_trusted_candidate_count", 0)),
                     str(row.get("reviewed_overlay_candidate_count", 0)),
@@ -302,6 +308,7 @@ def _readiness_row(
 ) -> dict[str, object]:
     family_id = str(family.get("id") or "").strip()
     axis = str(family.get("axis") or "topic").strip() or "topic"
+    mvp_picker_visibility = str(family.get("mvp_picker_visibility") or "").strip()
     source_count = int(depth.get("trusted_candidate_count") or 0)
     overlay_by_topic = _as_mapping(overlays.get("by_topic"))
     overlay = _as_mapping(overlay_by_topic.get(family_id))
@@ -329,6 +336,8 @@ def _readiness_row(
         "data_strategy": str(family.get("data_strategy") or ""),
         "release_status": status,
         "recommended_visibility": visibility,
+        "mvp_picker_visibility": mvp_picker_visibility,
+        "ux_picker_exposure": _ux_picker_exposure(mvp_picker_visibility),
         "effective_candidate_count": effective_count,
         "effective_candidate_source": (
             "review_only_register"
@@ -350,6 +359,14 @@ def _readiness_row(
         "review_only_candidate_count": review_only_count,
         "next_work": next_work,
     }
+
+
+def _ux_picker_exposure(mvp_picker_visibility: str) -> str:
+    if mvp_picker_visibility == "strict_mvp_visible":
+        return "mvp_picker_visible"
+    if mvp_picker_visibility:
+        return "hidden_from_mvp_picker"
+    return "unknown_picker_policy"
 
 
 def _source_precision_summary(
@@ -653,10 +670,14 @@ def _summary(
 ) -> dict[str, object]:
     status_counts = Counter(str(row.get("release_status") or "") for row in topic_rows)
     visibility_counts = Counter(str(row.get("recommended_visibility") or "") for row in topic_rows)
+    picker_counts = Counter(str(row.get("ux_picker_exposure") or "") for row in topic_rows)
     return {
         "topic_count": len(topic_rows),
         "release_status_counts": dict(status_counts),
         "visibility_counts": dict(visibility_counts),
+        "picker_exposure_counts": dict(picker_counts),
+        "mvp_picker_visible_count": picker_counts.get("mvp_picker_visible", 0),
+        "mvp_picker_hidden_count": picker_counts.get("hidden_from_mvp_picker", 0),
         "default_visible_count": visibility_counts.get("default_visible", 0),
         "limited_visible_count": visibility_counts.get("visible_with_limited_depth_note", 0)
         + visibility_counts.get("visible_after_policy_review", 0),

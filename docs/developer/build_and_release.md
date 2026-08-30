@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-06-03
-Last verified: 2026-06-03 hosting/distribution roadmap routing review and doc-reference check; build not rerun
+Last updated: 2026-08-31
+Last verified: 2026-08-31 deterministic Chrome Web Store package build and 0.1.1 release-candidate packaging
 Purpose: current build, packaging, signing, and release entrypoints for maintained surfaces
 Source-of-truth: build/release runbook; operational behavior is defined by `scripts/package.json`, `scripts/dev/dev_workflow_build.py`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
 
@@ -29,7 +29,7 @@ Notes:
 
 Install packaging deps:
 ```bash
-pip install -r requirements-build.txt
+npm --prefix scripts run setup:python:build
 ```
 
 This installs the shared developer tools plus the maintained GUI packaging deps used by hosted macOS build validation.
@@ -46,8 +46,18 @@ python scripts/build/gui_app.py --validate
 
 Install app bundles into `/Applications` on macOS:
 ```bash
-python scripts/build/gui_app.py --install
+npm --prefix scripts run build:gui:install
 ```
+
+Build, validate, install, verify the installed bundles, and relaunch:
+
+```bash
+npm --prefix scripts run build:gui:install:relaunch
+```
+
+The installer stops only processes executing from the target LexiShift app
+bundles, waits for clean exit, stages each replacement before swapping it into
+place, validates the installed copies, and never modifies Application Support.
 
 Direct PyInstaller invocation:
 ```bash
@@ -110,10 +120,21 @@ python scripts/build/installer.py \
 
 ## Chrome Web Store Upload Gate
 
-Run preflight:
+Run preflight, then create the deterministic upload ZIP:
 ```bash
 npm --prefix scripts run preflight:cws
+npm --prefix scripts run package:cws -- --version 0.1.1
 ```
+
+Expected outputs:
+
+- `dist/cws/lexishift-chrome-extension-0.1.1-beta.zip`
+- `dist/cws/lexishift-chrome-extension-0.1.1-beta.zip.sha256`
+
+The package command places `manifest.json` at the ZIP root, excludes the
+developer-only extension README, rejects package noise and symlinks, validates
+the archive contents, and uses stable ZIP metadata so identical source produces
+an identical SHA-256 digest.
 
 Runbook:
 - `../runbooks/cws_upload_gate.md`

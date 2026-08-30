@@ -7,9 +7,11 @@ from i18n import t
 from language_packs import (
     FrequencyPackDownloadThread,
     LanguagePackDownloadThread,
+    PosOverlayPackDownloadThread,
     _converter_version_for_mode,
     _file_checksums,
     download_log_path,
+    provenance_license_status_for_pack,
 )
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest
 from lexishift_core.helper.pack_provenance import write_app_managed_pack_provenance
@@ -27,7 +29,10 @@ from pack_download_failures import (
     pack_download_failure_supports_archive_mirror,
     parse_pack_download_failure,
 )
-from settings_language_packs_support import EmbeddingConversionThread
+from settings_language_packs_support import (
+    EmbeddingConversionThread,
+    SeedFrontierCachePrepareThread,
+)
 
 
 class LanguagePackPanelTransferMixin:
@@ -56,6 +61,10 @@ class LanguagePackPanelTransferMixin:
             row.status_item.setText(t("language_packs.status.downloading_pct", percent=pct))
         else:
             row.status_item.setText(t("language_packs.status.downloading"))
+
+    def _on_pos_overlay_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
+        if hasattr(self, "_update_learning_pair_resource_progress"):
+            self._update_learning_pair_resource_progress(pack_id, downloaded, total)
 
     def _on_embedding_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
         row = self._embedding_row_for(pack_id)
@@ -146,6 +155,26 @@ class LanguagePackPanelTransferMixin:
             return
         self._set_download_failed_status(pack=pack, row=row, message=message)
 
+    def _on_pos_overlay_pack_failed(self, pack_id: str, message: str) -> None:
+        if hasattr(self, "_clear_learning_pair_resource_progress"):
+            self._clear_learning_pair_resource_progress(pack_id)
+        pack = self._pos_overlay_pack_info.get(pack_id)
+        if not pack:
+            return
+        failure = parse_pack_download_failure(message)
+        if failure.kind == PACK_DOWNLOAD_FAILURE_CANCELLED and self._closing:
+            self._set_status_message(t("language_packs.status.cancelled"), tone="muted")
+        else:
+            log_path = download_log_path()
+            tooltip = self._download_failure_tooltip(log_path=log_path, failure=failure)
+            self._set_status_message(
+                self._download_failure_message(pack=pack, failure=failure),
+                tone="error",
+                tooltip=tooltip,
+            )
+        if hasattr(self, "_refresh_pair_resource_setup_panel"):
+            self._refresh_pair_resource_setup_panel()
+
     def _on_embedding_pack_failed(self, pack_id: str, message: str) -> None:
         pack = self._embedding_pack_info.get(pack_id)
         row = self._embedding_row_for(pack_id)
@@ -163,10 +192,57 @@ class LanguagePackPanelTransferMixin:
             self._frequency_pack_threads.remove(thread)
         thread.deleteLater()
 
+    def _cleanup_pos_overlay_pack_thread(self, thread: PosOverlayPackDownloadThread) -> None:
+        if thread in self._pos_overlay_pack_threads:
+            self._pos_overlay_pack_threads.remove(thread)
+        thread.deleteLater()
+
     def _cleanup_embedding_conversion_thread(self, thread: EmbeddingConversionThread) -> None:
         if thread in self._embedding_conversion_threads:
             self._embedding_conversion_threads.remove(thread)
         thread.deleteLater()
+
+    def _cleanup_seed_cache_prepare_thread(self, thread: SeedFrontierCachePrepareThread) -> None:
+        if thread in getattr(self, "_seed_cache_prepare_threads", []):
+            self._seed_cache_prepare_threads.remove(thread)
+        thread.deleteLater()
+
+    def _prepare_seed_cache_for_pack(self, pack_id: str) -> None:
+        normalized_pack_id = str(pack_id or "").strip()
+        if not normalized_pack_id:
+            return
+        for thread in list(getattr(self, "_seed_cache_prepare_threads", [])):
+            if thread.isRunning() and getattr(thread, "_pack_id", "") == normalized_pack_id:
+                return
+        thread = SeedFrontierCachePrepareThread(
+            pack_id=normalized_pack_id,
+            data_root=self._resource_data_root(),
+            parent=self,
+        )
+        thread.completed.connect(self._on_seed_cache_prepare_completed)
+        thread.failed.connect(self._on_seed_cache_prepare_failed)
+        thread.finished.connect(lambda: self._cleanup_seed_cache_prepare_thread(thread))
+        self._seed_cache_prepare_threads.append(thread)
+        thread.start()
+
+    def _on_seed_cache_prepare_completed(self, pack_id: str, payload: object) -> None:
+        if not isinstance(payload, dict):
+            return
+        pair_count = int(payload.get("pair_count") or 0)
+        prepared_count = int(payload.get("prepared_count") or 0)
+        if pair_count <= 0 or prepared_count <= 0:
+            return
+        pairs = ", ".join(str(pair) for pair in payload.get("pairs", []) if str(pair))
+        self._set_status_message(
+            t("language_packs.seed_cache_ready", pack_id=pack_id, pairs=pairs),
+            tone="success",
+        )
+
+    def _on_seed_cache_prepare_failed(self, pack_id: str, message: str) -> None:
+        self._set_status_message(
+            t("language_packs.seed_cache_failed", pack_id=pack_id, message=message),
+            tone="warning",
+        )
 
     def _auto_link_downloaded_packs(self) -> None:
         for pack_id, pack in self._language_pack_info.items():
@@ -227,6 +303,7 @@ class LanguagePackPanelTransferMixin:
                 t("language_packs.installed_linked", name=pack.display_name(), path=dest_path),
                 tone="success",
             )
+            self._prepare_seed_cache_for_pack(pack_id)
         else:
             self._clear_language_pack_entry(pack_id)
             row.status_item.setText(t("language_packs.status.invalid"))
@@ -259,6 +336,7 @@ class LanguagePackPanelTransferMixin:
                 t("language_packs.installed_linked", name=pack.display_name(), path=dest_path),
                 tone="success",
             )
+            self._prepare_seed_cache_for_pack(pack_id)
         else:
             self._clear_frequency_pack_entry(pack_id)
             row.status_item.setText(t("language_packs.status.invalid"))
@@ -271,6 +349,27 @@ class LanguagePackPanelTransferMixin:
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.redownload"))
         self._refresh_frequency_pack_table()
+        if hasattr(self, "_refresh_pair_resource_setup_panel"):
+            self._refresh_pair_resource_setup_panel()
+
+    def _on_pos_overlay_pack_completed(self, pack_id: str, dest_path: str) -> None:
+        if hasattr(self, "_clear_learning_pair_resource_progress"):
+            self._clear_learning_pair_resource_progress(pack_id)
+        pack = self._pos_overlay_pack_info.get(pack_id)
+        if not pack:
+            return
+        valid, message = self._validate_pos_overlay_pack_path(pack, dest_path)
+        if valid:
+            self._set_status_message(
+                t("language_packs.installed_linked", name=pack.display_name(), path=dest_path),
+                tone="success",
+            )
+            self._prepare_seed_cache_for_pack(pack_id)
+        else:
+            self._set_status_message(
+                t("language_packs.installed_invalid", name=pack.display_name(), message=message),
+                tone="error",
+            )
         if hasattr(self, "_refresh_pair_resource_setup_panel"):
             self._refresh_pair_resource_setup_panel()
 
@@ -366,6 +465,7 @@ class LanguagePackPanelTransferMixin:
                 source_name=str(pack.source or "").strip(),
                 source_url=str(pack.url or "").strip(),
                 wayback_url=pack.wayback_url,
+                license_status=provenance_license_status_for_pack(pack),
                 build_mode="convert_to_sqlite",
                 build_command="scripts/data/convert_embeddings.py",
                 converter_version=_converter_version_for_mode("convert_to_sqlite"),

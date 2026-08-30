@@ -115,6 +115,8 @@ assert.equal(span.dataset.semanticCompetitionSetId, "comp:light");
 assert.equal(span.dataset.semanticScoreMargin, "0.02");
 assert.equal(span.dataset.semanticActiveScore, "0.18");
 assert.equal(span.dataset.semanticTopShadowScore, "0.16");
+assert.equal(span.dataset.lexishiftScanSkip, "true");
+assert.equal(span.title, "Click to toggle original");
         """
         _run_node(script)
 
@@ -226,10 +228,13 @@ const semanticGateRuntime = {{
   async admitMatches(payload) {{
     helperCalls += 1;
     assert.equal(payload.matches.length, 2);
+    const admitted = payload.matches.filter(
+      (match) => match.rule.source_phrase === "fortified"
+    );
     return {{
-      matches: payload.matches,
-      decisionMap: new Map(payload.matches.map((match) => [match, {{ decision: "replace" }}])),
-      summary: {{ eligible: 2, ready: 2 }}
+      matches: admitted,
+      decisionMap: new Map(admitted.map((match) => [match, {{ decision: "replace" }}])),
+      summary: {{ eligible: 2, ready: 1 }}
     }};
   }}
 }};
@@ -243,6 +248,16 @@ const settings = {{
 }};
 const text = "castle fortified";
 const originResolver = (rule) => String(rule.metadata.lexishift_origin || "");
+const sentenceKey = "container:1:sentence:0";
+const sentenceResolver = () => ({{ sentenceKey }});
+const budget = {{
+  maxTotal: 1,
+  maxPerLemma: 0,
+  maxPerSentence: 1,
+  usedTotal: 0,
+  usedByLemma: {{}},
+  usedBySentence: {{}}
+}};
 
 (async () => {{
   const preflight = await context.LexiShift.replacements.buildReplacementFragment(
@@ -251,15 +266,14 @@ const originResolver = (rule) => String(rule.metadata.lexishift_origin || "");
     settings,
     null,
     originResolver,
-    null,
+    budget,
     semanticGateRuntime,
-    null,
+    sentenceResolver,
     {{ dryRun: true }}
   );
   assert.equal(helperCalls, 1);
   assert.ok(preflight.semanticResultOverride);
 
-  const budget = {{ maxTotal: 1, maxPerLemma: 0, usedTotal: 0, usedByLemma: {{}} }};
   const rendered = await context.LexiShift.replacements.buildReplacementFragment(
     text,
     {{}},
@@ -268,19 +282,164 @@ const originResolver = (rule) => String(rule.metadata.lexishift_origin || "");
     originResolver,
     budget,
     semanticGateRuntime,
-    null,
+    sentenceResolver,
     {{ semanticResultOverride: preflight.semanticResultOverride }}
   );
 
   assert.equal(helperCalls, 1);
   assert.equal(rendered.replacements, 1);
   assert.equal(rendered.budgetKeys.length, 1);
-  assert.equal(rendered.fragment.children.filter((child) => child.dataset).length, 1);
+  assert.equal(rendered.budgetKeys[0], "fortificado");
+  assert.equal(rendered.budgetEntries.length, 1);
+  assert.equal(rendered.budgetEntries[0].sentenceKey, sentenceKey);
+  const spans = rendered.fragment.children.filter((child) => child.dataset);
+  assert.equal(spans.length, 1);
+  assert.equal(spans[0].dataset.sentenceKey, sentenceKey);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);
 }});
         """
+        _run_node(script)
+
+    def test_unified_budget_limits_per_sentence_and_respects_existing_usage(
+        self,
+    ) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const selectionPath = {json.dumps(str(REPLACEMENT_SELECTION_JS))};
+const context = vm.createContext({{
+  console,
+  location: {{ origin: "https://example.com", pathname: "/lesson" }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(selectionPath, "utf8"), context, {{ filename: selectionPath }});
+
+const selection = context.LexiShift.replacementSelection;
+function match(source, sentenceKey, wordIndex) {{
+  return {{
+    startWordIndex: wordIndex,
+    endWordIndex: wordIndex,
+    sentenceKey,
+    rule: {{
+      source_phrase: source,
+      replacement: `translated-${{source}}`,
+      metadata: {{ lexishift_origin: "ruleset", language_pair: "en-es" }}
+    }}
+  }};
+}}
+
+const candidates = [
+  match("one", "sentence:1", 0),
+  match("two", "sentence:1", 1),
+  match("three", "sentence:2", 2),
+  match("four", "sentence:2", 3)
+];
+const settings = {{
+  maxOnePerTextBlock: false,
+  allowAdjacentReplacements: true,
+  srsProfileId: "default"
+}};
+const budget = {{
+  maxTotal: 2,
+  maxPerLemma: 0,
+  maxPerSentence: 1,
+  usedTotal: 0,
+  usedByLemma: {{}},
+  usedBySentence: {{}}
+}};
+const selected = selection.filterMatches(
+  candidates,
+  settings,
+  [true, true, true, true],
+  budget,
+  123456
+);
+
+assert.equal(selected.length, 2);
+assert.equal(
+  JSON.stringify(selected.map((entry) => entry.sentenceKey).sort()),
+  JSON.stringify(["sentence:1", "sentence:2"])
+);
+
+const existingUsage = selection.filterMatches(
+  candidates,
+  settings,
+  [true, true, true, true],
+  {{
+    ...budget,
+    usedTotal: 1,
+    usedBySentence: {{ "sentence:1": 1 }}
+  }},
+  123456
+);
+assert.equal(existingUsage.length, 1);
+assert.equal(existingUsage[0].sentenceKey, "sentence:2");
+
+const pageRejections = {{}};
+selection.filterMatches(
+  candidates.slice(0, 3),
+  settings,
+  [true, true, true],
+  {{
+    maxTotal: 1,
+    maxPerLemma: 0,
+    maxPerSentence: 0,
+    usedTotal: 0,
+    usedByLemma: {{}},
+    usedBySentence: {{}}
+  }},
+  123456,
+  pageRejections
+);
+assert.deepEqual(JSON.parse(JSON.stringify(pageRejections)), {{ page: 2 }});
+
+const repeatedLemma = [
+  match("lemma-one", "sentence:3", 0),
+  match("lemma-two", "sentence:4", 1)
+];
+repeatedLemma[0].rule.replacement = "shared-lemma";
+repeatedLemma[1].rule.replacement = "shared-lemma";
+const lemmaRejections = {{}};
+selection.filterMatches(
+  repeatedLemma,
+  settings,
+  [true, true],
+  {{
+    maxTotal: 0,
+    maxPerLemma: 1,
+    maxPerSentence: 0,
+    usedTotal: 0,
+    usedByLemma: {{}},
+    usedBySentence: {{}}
+  }},
+  123456,
+  lemmaRejections
+);
+assert.deepEqual(JSON.parse(JSON.stringify(lemmaRejections)), {{ lemma: 1 }});
+
+const sentenceRejections = {{}};
+selection.filterMatches(
+  candidates.slice(0, 2),
+  settings,
+  [true, true],
+  {{
+    maxTotal: 0,
+    maxPerLemma: 0,
+    maxPerSentence: 1,
+    usedTotal: 0,
+    usedByLemma: {{}},
+    usedBySentence: {{}}
+  }},
+  123456,
+  sentenceRejections
+);
+assert.deepEqual(JSON.parse(JSON.stringify(sentenceRejections)), {{ sentence: 1 }});
+"""
         _run_node(script)
 
     def test_page_budget_prefers_active_learning_srs_before_mature_or_future_srs(self) -> None:

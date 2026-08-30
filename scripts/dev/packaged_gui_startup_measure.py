@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import re
+import signal
 import statistics
 import subprocess
 import sys
@@ -28,6 +29,11 @@ from lexishift_core.helper.gui_startup_telemetry import (  # noqa: E402
 
 TOTAL_RE = re.compile(r"total ([0-9.]+) ms")
 SINCE_REQUEST_RE = re.compile(r"since_request_ms=([0-9.]+)")
+PID_RE = re.compile(r"(?:^| )pid=([0-9]+)(?: |$)")
+STARTUP_LINE_RE = re.compile(
+    r"^\[startup\] (?P<label>.*?) \(\+(?P<delta_ms>[0-9.]+) ms, "
+    r"total (?P<total_ms>[0-9.]+) ms\)"
+)
 
 
 def _platform_data_root() -> Path:
@@ -83,6 +89,7 @@ def _wait_for_log_line(
     session_id: str,
     marker: str,
     timeout_seconds: float,
+    session_field: str = "session",
 ) -> str | None:
     deadline = time.monotonic() + timeout_seconds
     while time.monotonic() < deadline:
@@ -92,7 +99,7 @@ def _wait_for_log_line(
             time.sleep(0.1)
             continue
         for line in reversed(text.splitlines()):
-            if f"session={session_id}" in line and marker in line:
+            if f"{session_field}={session_id}" in line and marker in line:
                 return line
         time.sleep(0.1)
     return None
@@ -108,6 +115,70 @@ def _extract_float(pattern: re.Pattern[str], text: str | None) -> float | None:
         return float(match.group(1))
     except ValueError:
         return None
+
+
+def _extract_int(pattern: re.Pattern[str], text: str | None) -> int | None:
+    if not text:
+        return None
+    match = pattern.search(text)
+    if not match:
+        return None
+    try:
+        return int(match.group(1))
+    except ValueError:
+        return None
+
+
+def _terminate_started_app(app_pid: int, *, timeout_seconds: float = 5.0) -> str:
+    try:
+        os.kill(app_pid, signal.SIGTERM)
+    except ProcessLookupError:
+        return "already_exited"
+    except OSError as exc:
+        return f"error:{exc}"
+
+    deadline = time.monotonic() + timeout_seconds
+    while time.monotonic() < deadline:
+        try:
+            os.kill(app_pid, 0)
+        except ProcessLookupError:
+            return "terminated"
+        except OSError as exc:
+            return f"error:{exc}"
+        time.sleep(0.05)
+    return "timeout"
+
+
+def _session_checkpoint_rows(
+    *,
+    startup_log_path: Path,
+    session_id: str,
+    session_field: str = "session",
+) -> list[dict[str, Any]]:
+    try:
+        text = startup_log_path.read_text(encoding="utf-8")
+    except OSError:
+        return []
+    session_marker = f" {session_field}={session_id} "
+    rows: list[dict[str, Any]] = []
+    for line in text.splitlines():
+        if session_marker not in f"{line} ":
+            continue
+        match = STARTUP_LINE_RE.search(line)
+        if match is None:
+            continue
+        label = match.group("label")
+        if session_field == "activation_session":
+            label = label.partition(" activation_session=")[0]
+        rows.append(
+            {
+                "label": label,
+                "delta_ms": float(match.group("delta_ms")),
+                "total_ms": float(match.group("total_ms")),
+                "since_request_ms": _extract_float(SINCE_REQUEST_RE, line),
+            }
+        )
+    return rows
 
 
 def _activate_existing_gui(*, pair: str, session_id: str) -> bool:
@@ -136,13 +207,15 @@ def _run_one(args: argparse.Namespace, *, index: int) -> dict[str, Any]:
     process_pid: int | None = None
     activated: bool | None = None
     command: list[str] = []
+    process: subprocess.Popen[bytes] | None = None
     if args.launch_mode == "activation":
         activated = _activate_existing_gui(pair=args.pair, session_id=session_id)
         line = _wait_for_log_line(
             startup_log_path=startup_log_path,
             session_id=session_id,
-            marker="activation received",
+            marker=args.ready_marker,
             timeout_seconds=args.timeout,
+            session_field="activation_session",
         )
     else:
         command = _build_launch_command(
@@ -165,15 +238,9 @@ def _run_one(args: argparse.Namespace, *, index: int) -> dict[str, Any]:
         line = _wait_for_log_line(
             startup_log_path=startup_log_path,
             session_id=session_id,
-            marker="window shown",
+            marker=args.ready_marker,
             timeout_seconds=args.timeout,
         )
-        if (
-            args.terminate_direct_process
-            and args.launch_mode == "direct"
-            and process.poll() is None
-        ):
-            process.terminate()
 
     observed_elapsed_ms = (time.perf_counter() - start) * 1000.0
     status = "ok" if line else "timeout"
@@ -185,6 +252,24 @@ def _run_one(args: argparse.Namespace, *, index: int) -> dict[str, Any]:
     pre_entry_ms = None
     if since_request_ms is not None and startup_total_ms is not None:
         pre_entry_ms = round(max(0.0, since_request_ms - startup_total_ms), 1)
+    checkpoints = _session_checkpoint_rows(
+        startup_log_path=startup_log_path,
+        session_id=session_id,
+        session_field="activation_session" if activation_mode else "session",
+    )
+    app_pid = _extract_int(PID_RE, line)
+    cleanup_status = "not_requested"
+    should_terminate = args.terminate_launched_app or (
+        args.terminate_direct_process and args.launch_mode == "direct"
+    )
+    if not activation_mode and should_terminate:
+        if app_pid is not None:
+            cleanup_status = _terminate_started_app(app_pid)
+        elif process is not None and process.poll() is None:
+            process.terminate()
+            cleanup_status = "launcher_terminated"
+        else:
+            cleanup_status = "app_pid_unavailable"
     return {
         "index": index,
         "status": status,
@@ -192,13 +277,18 @@ def _run_one(args: argparse.Namespace, *, index: int) -> dict[str, Any]:
         "requested_at": requested_at,
         "launch_mode": args.launch_mode,
         "pair": args.pair,
+        "ready_marker": args.ready_marker,
         "command": command,
         "process_pid": process_pid,
+        "app_pid": app_pid,
+        "cleanup_status": cleanup_status,
         "activated": activated,
         "observed_elapsed_ms": round(observed_elapsed_ms, 1),
         "startup_total_ms": startup_total_ms,
         "since_request_ms": since_request_ms,
         "pre_entry_ms": pre_entry_ms,
+        "checkpoint_count": len(checkpoints),
+        "checkpoints": checkpoints,
         "matched_line": line,
     }
 
@@ -210,8 +300,20 @@ def _metric_summary(values: list[float]) -> dict[str, float | int] | None:
         "count": len(values),
         "min_ms": round(min(values), 1),
         "median_ms": round(statistics.median(values), 1),
+        "p95_ms": round(_percentile(values, 0.95), 1),
         "max_ms": round(max(values), 1),
     }
+
+
+def _percentile(values: list[float], fraction: float) -> float:
+    ordered = sorted(values)
+    if len(ordered) == 1:
+        return ordered[0]
+    position = (len(ordered) - 1) * fraction
+    lower_index = int(position)
+    upper_index = min(lower_index + 1, len(ordered) - 1)
+    weight = position - lower_index
+    return ordered[lower_index] * (1.0 - weight) + ordered[upper_index] * weight
 
 
 def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -231,6 +333,7 @@ def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "timeout_count": len(rows) - len(ok_values),
         "min_ms": round(min(ok_values), 1),
         "median_ms": round(statistics.median(ok_values), 1),
+        "p95_ms": round(_percentile(ok_values, 0.95), 1),
         "max_ms": round(max(ok_values), 1),
         "pre_entry": _metric_summary(
             [float(row["pre_entry_ms"]) for row in rows if row.get("pre_entry_ms") is not None]
@@ -243,6 +346,21 @@ def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
             ]
         ),
     }
+
+
+def _budget_failures(summary: dict[str, Any], args: argparse.Namespace) -> list[str]:
+    failures: list[str] = []
+    if summary.get("ok_count", 0) != args.repetitions:
+        failures.append("not all repetitions reached the ready marker")
+    median_ms = summary.get("median_ms")
+    if args.max_median_ms is not None and (
+        median_ms is None or float(median_ms) > args.max_median_ms
+    ):
+        failures.append(f"median {median_ms} ms exceeds {args.max_median_ms:.1f} ms")
+    p95_ms = summary.get("p95_ms")
+    if args.max_p95_ms is not None and (p95_ms is None or float(p95_ms) > args.max_p95_ms):
+        failures.append(f"p95 {p95_ms} ms exceeds {args.max_p95_ms:.1f} ms")
+    return failures
 
 
 def _write_json(path: str | None, payload: dict[str, Any]) -> None:
@@ -264,7 +382,9 @@ def _markdown(payload: dict[str, Any]) -> str:
         f"- app: `{payload['app']}`",
         f"- pair: `{payload['pair']}`",
         f"- launch_mode: `{payload['launch_mode']}`",
+        f"- ready_marker: `{payload['ready_marker']}`",
         f"- summary: `{payload['summary']}`",
+        f"- budget: `{payload['budget']}`",
         "",
         "| Run | Status | Session | Since request ms | Pre-entry ms | Startup total ms | Observed ms |",
         "| ---: | --- | --- | ---: | ---: | ---: | ---: |",
@@ -301,6 +421,11 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--timeout", type=float, default=30.0)
     parser.add_argument("--data-root", default="")
     parser.add_argument("--startup-log", default="")
+    parser.add_argument(
+        "--ready-marker",
+        default="settings_dialog.shown",
+        help="Startup checkpoint that marks a successful cold resource-settings launch.",
+    )
     parser.add_argument("--json-out", default="")
     parser.add_argument("--markdown-out", default="")
     parser.add_argument(
@@ -308,6 +433,13 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Terminate the directly launched process after a successful direct-mode measurement.",
     )
+    parser.add_argument(
+        "--terminate-launched-app",
+        action="store_true",
+        help="Terminate only the app PID recorded for each measured cold-launch session.",
+    )
+    parser.add_argument("--max-median-ms", type=float)
+    parser.add_argument("--max-p95-ms", type=float)
     return parser
 
 
@@ -317,19 +449,28 @@ def main(argv: list[str] | None = None) -> int:
     if args.repetitions < 1:
         parser.error("--repetitions must be at least 1")
     runs = [_run_one(args, index=index + 1) for index in range(args.repetitions)]
+    summary = _summary(runs)
+    budget_failures = _budget_failures(summary, args)
     payload = {
         "generated_at": utc_timestamp(),
         "app": args.app,
         "pair": args.pair,
         "launch_mode": args.launch_mode,
+        "ready_marker": args.ready_marker,
         "repetitions": args.repetitions,
-        "summary": _summary(runs),
+        "summary": summary,
+        "budget": {
+            "max_median_ms": args.max_median_ms,
+            "max_p95_ms": args.max_p95_ms,
+            "passed": not budget_failures,
+            "failures": budget_failures,
+        },
         "runs": runs,
     }
     _write_json(args.json_out, payload)
     _write_markdown(args.markdown_out, payload)
-    print(json.dumps(payload["summary"], ensure_ascii=False))
-    return 0 if all(row["status"] == "ok" for row in runs) else 1
+    print(json.dumps({"summary": summary, "budget": payload["budget"]}, ensure_ascii=False))
+    return 0 if not budget_failures else 1
 
 
 if __name__ == "__main__":

@@ -137,6 +137,61 @@ def test_open_settings_resources_passes_pair_focus() -> None:
     assert called_kwargs[0]["initial_resource_pair"] == "en-es"
 
 
+def test_open_settings_resources_passes_activation_session() -> None:
+    called_kwargs: list[dict] = []
+
+    dummy = SimpleNamespace()
+    dummy._open_settings = lambda **kwargs: called_kwargs.append(kwargs)
+
+    MainWindow._open_settings_resources(
+        dummy,
+        pair="en-es",
+        activation_session="activation-1",
+    )
+
+    assert called_kwargs[0]["activation_session"] == "activation-1"
+
+
+def test_open_settings_reuses_visible_dialog_for_activation() -> None:
+    calls: list[object] = []
+
+    class _ExistingDialog:
+        def isVisible(self) -> bool:
+            return True
+
+        def focus_resources(self, pair: str | None) -> None:
+            calls.append(("focus", pair))
+
+        def show(self) -> None:
+            calls.append("show")
+
+        def raise_(self) -> None:
+            calls.append("raise")
+
+        def activateWindow(self) -> None:
+            calls.append("activate")
+
+    class _Logger:
+        def log(self, label: str) -> None:
+            calls.append(label)
+
+    dummy = SimpleNamespace(
+        _settings_dialog=_ExistingDialog(),
+        _startup_logger=_Logger(),
+    )
+
+    MainWindow._open_settings(
+        dummy,
+        initial_tab="resources",
+        initial_resource_pair="en-es",
+        activation_session="activation-1",
+    )
+
+    assert ("focus", "en-es") in calls
+    assert "settings_dialog.reused activation_session=activation-1" in calls
+    assert "settings_dialog.shown activation_session=activation-1" in calls
+
+
 def test_resolve_frequency_pack_for_pair_prefers_manifest_backed_default_app_data_pack() -> None:
     with TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)

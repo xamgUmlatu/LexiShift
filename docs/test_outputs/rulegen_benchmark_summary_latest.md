@@ -1,6 +1,6 @@
 # Rulegen Benchmark
 
-- Generated at: `2026-06-02T01:30:35.111317+00:00`
+- Generated at: `2026-06-07T19:38:59.204045+00:00`
 - Dataset: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases`
 - Profile ID: `default`
 - Pair filter: `en-es`

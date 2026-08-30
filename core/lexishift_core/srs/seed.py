@@ -1,11 +1,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from functools import lru_cache
 import json
 from pathlib import Path
-from typing import Optional, Sequence
+import time
+from typing import Optional, Sequence, cast
 
-from lexishift_core.lexicon.word_package import build_word_package
+from lexishift_core.lexicon.word_package import (
+    build_word_package,
+    normalize_reading,
+    resolve_language_tag_from_pair,
+)
 from lexishift_core.pos.normalization import normalize_pos
 from lexishift_core.resources.dict_loaders import load_jmdict_lemmas
 from lexishift_core.resources.japanese_script import contains_kanji
@@ -15,6 +21,49 @@ from lexishift_core.srs.admission_policy import (
     AdmissionPosWeights,
     compute_admission_weight,
     resolve_default_pos_weights,
+)
+from lexishift_core.srs.candidate_classification import (
+    classify_srs_candidate,
+)
+from lexishift_core.srs.candidate_identity import (
+    build_candidate_identity,
+    candidate_identity_key_from_seed,
+)
+from lexishift_core.srs.learner_difficulty import (
+    lookup_corrected_en_ja_learner_difficulty,
+)
+from lexishift_core.srs.pos_overlay import (
+    PosOverlayEntry,
+    load_pos_overlay_entries,
+    lookup_pos_overlay_entry,
+)
+from lexishift_core.srs.seed_cache import (
+    acquire_seed_frontier_cache_lock as _acquire_seed_frontier_cache_lock,
+    cleanup_seed_frontier_cache,
+    release_seed_frontier_cache_lock as _release_seed_frontier_cache_lock,
+    seed_frontier_cache_path as _seed_frontier_cache_path,
+    seed_frontier_cache_status,
+)
+from lexishift_core.srs.seed_frontier_rows import (
+    load_seed_frontier_cache as _load_seed_frontier_cache_rows,
+    write_seed_frontier_cache as _write_seed_frontier_cache_rows,
+)
+from lexishift_core.srs.seed_japanese_signals import (
+    extract_learner_signal_metadata,
+    extract_source_frequency_metadata,
+    load_optional_japanese_lesson_vocabulary_index,
+    load_optional_jmdict_lexical_index,
+    load_optional_jmdict_priority_index,
+    load_optional_jmnedict_name_index,
+    load_optional_jlpt_vocabulary_index,
+    load_optional_kanjidic2_character_index,
+    load_optional_kanjivg_character_index,
+    resolve_lesson_vocabulary_path,
+    resolve_jlpt_vocabulary_path,
+    resolve_jmnedict_path,
+    resolve_kanjidic2_path,
+    resolve_kanjivg_path,
+    source_frequency_profile_columns,
 )
 from lexishift_core.srs.selector import SelectorCandidate
 from lexishift_core.scoring.weighting import PmwWeighting
@@ -33,6 +82,13 @@ class SeedWord:
     base_weight: float
     admission_weight: float
     metadata: dict[str, object]
+    identity_key: str = ""
+    candidate_state: str = "normal_vocab"
+    presentation_mode: str = "vocab"
+    problem_class: str = "normal_vocab"
+    classification_confidence: str = "review"
+    classification_reasons: Sequence[str] = ()
+    admission_suitability: float = 1.0
     pos_raw: Optional[str] = None
     pos_canonical: Optional[str] = None
     pos_source_profile: Optional[str] = None
@@ -43,7 +99,7 @@ class SeedWord:
 @dataclass(frozen=True)
 class SeedSelectionConfig:
     language_pair: str = "en-ja"
-    top_n: int = 2000
+    top_n: Optional[int] = None
     lemma_column: str = "lemma"
     rank_column: str = "core_rank"
     pmw_column: str = "pmw"
@@ -56,9 +112,17 @@ class SeedSelectionConfig:
     sort_by_admission_weight: bool = True
     require_jmdict: bool = True
     jmdict_path: Optional[Path] = None
+    jmnedict_path: Optional[Path] = None
+    kanjidic2_path: Optional[Path] = None
+    kanjivg_path: Optional[Path] = None
+    jlpt_vocabulary_path: Optional[Path] = None
+    lesson_vocabulary_path: Optional[Path] = None
     stopwords_path: Optional[Path] = None
     stopwords: Optional[set[str]] = None
     source_label: Optional[str] = None
+    pos_overlay_path: Optional[Path] = None
+    cache_dir: Optional[Path] = None
+    apply_learner_signal_classification: bool = True
     topic_columns: Sequence[str] = (
         "sense_topics",
         "topics",
@@ -78,6 +142,29 @@ _JA_BOOTSTRAP_ORTHOGRAPHIC_NORMALIZATION = {
     "為る": "する",
 }
 
+_JA_BOOTSTRAP_READING_SPECIFIC_SURFACE_NORMALIZATION = {
+    ("為", "ため"): "ため",
+    ("居る", "いる"): "いる",
+    ("有る", "ある"): "ある",
+    ("事", "こと"): "こと",
+    ("成る", "なる"): "なる",
+    ("様", "よう"): "よう",
+    ("猶", "なお"): "なお",
+    ("所", "ところ"): "ところ",
+    ("何時", "いつ"): "いつ",
+    ("頂く", "いただく"): "いただく",
+    ("貴方", "あなた"): "あなた",
+    ("彼の", "あの"): "あの",
+    ("彼れ", "あれ"): "あれ",
+    ("此の", "この"): "この",
+    ("其の", "その"): "その",
+    ("此れ", "これ"): "これ",
+    ("其れ", "それ"): "それ",
+    ("此処", "ここ"): "ここ",
+    ("其処", "そこ"): "そこ",
+    ("何処", "どこ"): "どこ",
+}
+
 
 def build_seed_candidates(
     *,
@@ -86,241 +173,468 @@ def build_seed_candidates(
 ) -> list[SeedWord]:
     if config.require_jmdict and not config.jmdict_path:
         raise ValueError("JMDict path is required when require_jmdict is True.")
-    jmdict_lemmas = _load_jmdict_lemmas(config.jmdict_path) if config.require_jmdict else None
-    stopwords = _resolve_stopwords(config)
-    source_label = _resolve_source_label(config=config, frequency_db=frequency_db)
-    store_config = SqliteFrequencyConfig(
-        path=frequency_db,
-        lemma_column=config.lemma_column,
-        rank_column=config.rank_column,
-        pmw_column=config.pmw_column,
-    )
-    with SqliteFrequencyStore(store_config) as store:
-        available_columns = store.column_names()
-        resolved_lemma_column = store.resolve_column(
-            config.lemma_column,
-            available_columns=available_columns,
+
+    cache_path = _seed_frontier_cache_path(frequency_db=frequency_db, config=config)
+    if cache_path is not None:
+        cached = _load_seed_frontier_cache_rows(
+            cache_path=cache_path,
+            config=config,
+            seed_factory=SeedWord,
         )
-        if not resolved_lemma_column:
-            raise ValueError(
-                f"Missing lemma column '{config.lemma_column}' in frequency DB: {frequency_db}"
+        if cached is not None:
+            return list(cast(Sequence[SeedWord], cached))
+    lock_path: Path | None = None
+    if cache_path is not None:
+        lock_path = _acquire_seed_frontier_cache_lock(cache_path)
+        cached = _load_seed_frontier_cache_rows(
+            cache_path=cache_path,
+            config=config,
+            seed_factory=SeedWord,
+        )
+        if cached is not None:
+            _release_seed_frontier_cache_lock(lock_path)
+            return list(cast(Sequence[SeedWord], cached))
+
+    try:
+        jmdict_lemmas = _load_jmdict_lemmas(config.jmdict_path) if config.require_jmdict else None
+        jmdict_priority_index = load_optional_jmdict_priority_index(config.jmdict_path)
+        jmdict_lexical_index = load_optional_jmdict_lexical_index(config.jmdict_path)
+        jmnedict_name_index = load_optional_jmnedict_name_index(resolve_jmnedict_path(config))
+        kanjidic2_character_index = load_optional_kanjidic2_character_index(
+            resolve_kanjidic2_path(config)
+        )
+        kanjivg_character_index = load_optional_kanjivg_character_index(
+            resolve_kanjivg_path(config)
+        )
+        jlpt_vocabulary_index = load_optional_jlpt_vocabulary_index(
+            resolve_jlpt_vocabulary_path(config),
+            jmdict_path=config.jmdict_path if config.require_jmdict else None,
+        )
+        lesson_vocabulary_index = load_optional_japanese_lesson_vocabulary_index(
+            resolve_lesson_vocabulary_path(config)
+        )
+        stopwords = _resolve_stopwords(config)
+        source_label = _resolve_source_label(config=config, frequency_db=frequency_db)
+        pos_overlay_entries = load_pos_overlay_entries(config.pos_overlay_path)
+        store_config = SqliteFrequencyConfig(
+            path=frequency_db,
+            lemma_column=config.lemma_column,
+            rank_column=config.rank_column,
+            pmw_column=config.pmw_column,
+        )
+        with SqliteFrequencyStore(store_config) as store:
+            available_columns = store.column_names()
+            resolved_lemma_column = store.resolve_column(
+                config.lemma_column,
+                available_columns=available_columns,
             )
-        resolved_rank_column = store.resolve_rank_column(
-            config.rank_column,
-            available_columns=available_columns,
-        )
-        resolved_pmw_column = store.resolve_frequency_column(
-            config.pmw_column,
-            available_columns=available_columns,
-        )
-        resolved_pos_column = store.resolve_column(
-            config.pos_column,
-            available_columns=available_columns,
-        )
-        resolved_lform_column = store.resolve_column(
-            config.lform_column,
-            available_columns=available_columns,
-        )
-        resolved_wtype_column = store.resolve_column(
-            config.wtype_column,
-            available_columns=available_columns,
-        )
-        resolved_sublemma_column = store.resolve_column(
-            config.sublemma_column,
-            available_columns=available_columns,
-        )
-        resolved_topic_columns = tuple(
-            dict.fromkeys(
-                column
-                for column in (
-                    store.resolve_column(topic_column, available_columns=available_columns)
-                    for topic_column in config.topic_columns
+            if not resolved_lemma_column:
+                raise ValueError(
+                    f"Missing lemma column '{config.lemma_column}' in frequency DB: {frequency_db}"
                 )
-                if column
+            resolved_rank_column = store.resolve_rank_column(
+                config.rank_column,
+                available_columns=available_columns,
             )
-        )
-        include_pos = bool(resolved_pos_column)
-        include_lform = bool(resolved_lform_column)
-        include_wtype = bool(resolved_wtype_column)
-        include_sublemma = bool(resolved_sublemma_column)
-        selected_columns = [
-            column
-            for column in (
-                resolved_pos_column,
-                resolved_lform_column,
-                resolved_wtype_column,
-                resolved_sublemma_column,
-                *resolved_topic_columns,
+            resolved_pmw_column = store.resolve_frequency_column(
+                config.pmw_column,
+                available_columns=available_columns,
             )
-            if column
-        ]
-        resolved_pos_weights = config.admission_pos_weights or resolve_default_pos_weights(
-            language_pair=config.language_pair
-        )
-        max_pmw = store.max_value(resolved_pmw_column) if resolved_pmw_column else None
-        results: list[SeedWord] = []
-        for row_index, row in enumerate(
-            store.iter_top_by_rank(
-                limit=config.top_n,
-                rank_column=resolved_rank_column,
-                pmw_column=resolved_pmw_column,
-                columns=selected_columns,
-            ),
-            start=1,
-        ):
-            lemma = str(row[resolved_lemma_column]).strip()
-            if not lemma:
-                continue
-            if stopwords and lemma in stopwords:
-                continue
-            if jmdict_lemmas is not None and lemma not in jmdict_lemmas:
-                continue
-            columns = row.keys()
-            core_rank = (
-                _safe_float(row[resolved_rank_column])
-                if resolved_rank_column and resolved_rank_column in columns
-                else None
+            resolved_pos_column = store.resolve_column(
+                config.pos_column,
+                available_columns=available_columns,
             )
-            pmw = (
-                _safe_float(row[resolved_pmw_column])
-                if resolved_pmw_column and resolved_pmw_column in columns
-                else None
+            resolved_lform_column = store.resolve_column(
+                config.lform_column,
+                available_columns=available_columns,
             )
-            raw_pos = (
-                str(row[resolved_pos_column]).strip()
-                if include_pos
-                and resolved_pos_column in columns
-                and row[resolved_pos_column] is not None
-                else None
+            resolved_wtype_column = store.resolve_column(
+                config.wtype_column,
+                available_columns=available_columns,
             )
-            normalized_pos = normalize_pos(
-                raw_pos,
-                language_pair=config.language_pair,
-                source_provider=source_label,
-                source_kind="frequency",
+            resolved_sublemma_column = store.resolve_column(
+                config.sublemma_column,
+                available_columns=available_columns,
             )
-            raw_lform = (
-                str(row[resolved_lform_column]).strip()
-                if include_lform
-                and resolved_lform_column in columns
-                and row[resolved_lform_column] is not None
-                else None
+            resolved_topic_columns = tuple(
+                dict.fromkeys(
+                    column
+                    for column in (
+                        store.resolve_column(topic_column, available_columns=available_columns)
+                        for topic_column in config.topic_columns
+                    )
+                    if column
+                )
             )
-            raw_wtype = (
-                str(row[resolved_wtype_column]).strip()
-                if include_wtype
-                and resolved_wtype_column in columns
-                and row[resolved_wtype_column] is not None
-                else None
+            resolved_frequency_profile_columns = source_frequency_profile_columns(
+                available_columns=available_columns
             )
-            raw_sublemma = (
-                str(row[resolved_sublemma_column]).strip()
-                if include_sublemma
-                and resolved_sublemma_column in columns
-                and row[resolved_sublemma_column] is not None
-                else None
+            include_pos = bool(resolved_pos_column)
+            include_lform = bool(resolved_lform_column)
+            include_wtype = bool(resolved_wtype_column)
+            include_sublemma = bool(resolved_sublemma_column)
+            selected_columns = list(
+                dict.fromkeys(
+                    column
+                    for column in (
+                        resolved_pos_column,
+                        resolved_lform_column,
+                        resolved_wtype_column,
+                        resolved_sublemma_column,
+                        *resolved_topic_columns,
+                        *resolved_frequency_profile_columns,
+                    )
+                    if column
+                )
             )
-            if _should_exclude_bootstrap_lemma(
-                language_pair=config.language_pair,
-                lemma=lemma,
+            resolved_pos_weights = config.admission_pos_weights or resolve_default_pos_weights(
+                language_pair=config.language_pair
+            )
+            max_pmw = store.max_value(resolved_pmw_column) if resolved_pmw_column else None
+            results: list[SeedWord] = []
+            for row_index, row in enumerate(
+                store.iter_top_by_rank(
+                    limit=config.top_n,
+                    rank_column=resolved_rank_column,
+                    pmw_column=resolved_pmw_column,
+                    columns=selected_columns,
+                ),
+                start=1,
             ):
-                continue
-            normalized_lemma, script_forms_override, bootstrap_metadata = (
-                _apply_bootstrap_surface_policy(
+                lemma = str(row[resolved_lemma_column]).strip()
+                if not lemma:
+                    continue
+                if stopwords and lemma in stopwords:
+                    continue
+                if jmdict_lemmas is not None and lemma not in jmdict_lemmas:
+                    continue
+                columns = row.keys()
+                core_rank = (
+                    _safe_float(row[resolved_rank_column])
+                    if resolved_rank_column and resolved_rank_column in columns
+                    else None
+                )
+                pmw = (
+                    _safe_float(row[resolved_pmw_column])
+                    if resolved_pmw_column and resolved_pmw_column in columns
+                    else None
+                )
+                raw_pos = (
+                    str(row[resolved_pos_column]).strip()
+                    if include_pos
+                    and resolved_pos_column in columns
+                    and row[resolved_pos_column] is not None
+                    else None
+                )
+                frequency_normalized_pos = normalize_pos(
+                    raw_pos,
+                    language_pair=config.language_pair,
+                    source_provider=source_label,
+                    source_kind="frequency",
+                )
+                pos_overlay_entry = lookup_pos_overlay_entry(pos_overlay_entries, lemma)
+                raw_pos, normalized_pos, pos_source_metadata = _resolve_effective_pos(
+                    raw_pos=raw_pos,
+                    frequency_normalized_pos=frequency_normalized_pos,
+                    overlay_entry=pos_overlay_entry,
+                    language_pair=config.language_pair,
+                )
+                raw_lform = (
+                    str(row[resolved_lform_column]).strip()
+                    if include_lform
+                    and resolved_lform_column in columns
+                    and row[resolved_lform_column] is not None
+                    else None
+                )
+                raw_wtype = (
+                    str(row[resolved_wtype_column]).strip()
+                    if include_wtype
+                    and resolved_wtype_column in columns
+                    and row[resolved_wtype_column] is not None
+                    else None
+                )
+                raw_sublemma = (
+                    str(row[resolved_sublemma_column]).strip()
+                    if include_sublemma
+                    and resolved_sublemma_column in columns
+                    and row[resolved_sublemma_column] is not None
+                    else None
+                )
+                if _should_exclude_bootstrap_lemma(
                     language_pair=config.language_pair,
                     lemma=lemma,
+                ):
+                    continue
+                normalized_reading = (
+                    normalize_reading(
+                        raw_lform,
+                        language_tag=resolve_language_tag_from_pair(config.language_pair),
+                    )
+                    if raw_lform
+                    else None
                 )
-            )
-            topic_metadata = _extract_seed_topic_metadata(
-                row,
-                topic_columns=resolved_topic_columns,
-            )
-            if stopwords and normalized_lemma in stopwords:
-                continue
-            if _should_exclude_bootstrap_lemma(
-                language_pair=config.language_pair,
-                lemma=normalized_lemma,
-            ):
-                continue
-            word_package = build_word_package(
-                language_pair=config.language_pair,
-                surface=normalized_lemma,
-                reading=raw_lform or normalized_lemma,
-                source_provider=source_label,
-                script_forms=script_forms_override,
-                pos=raw_pos,
-                pos_raw=raw_pos,
-                pos_canonical=normalized_pos.canonical,
-                wtype=raw_wtype,
-                sublemma=raw_sublemma,
-                core_rank=core_rank,
-                pmw=pmw,
-                lform_raw=raw_lform,
-                row_index=row_index,
-                row_rank=core_rank,
-                source_extra={
-                    "rank_column": resolved_rank_column,
-                    "pmw_column": resolved_pmw_column,
-                    "lemma_column": resolved_lemma_column,
-                    "pos_column": resolved_pos_column if include_pos else None,
-                    "lform_column": resolved_lform_column if include_lform else None,
-                    "wtype_column": resolved_wtype_column if include_wtype else None,
-                    "sublemma_column": resolved_sublemma_column if include_sublemma else None,
-                    **bootstrap_metadata,
-                },
-            )
-            base_weight = config.pmw_weighting.normalize(pmw, max_value=max_pmw)
-            canonical_pos_for_admission = (
-                normalized_pos.canonical if normalized_pos.mapped else None
-            )
-            pos_bucket, pos_weight, admission_weight = compute_admission_weight(
-                language_pair=config.language_pair,
-                raw_pos=raw_pos,
-                canonical_pos=canonical_pos_for_admission,
-                base_weight=base_weight,
-                pos_weights=resolved_pos_weights,
-            )
-            results.append(
-                SeedWord(
-                    lemma=normalized_lemma,
+                normalized_lemma, script_forms_override, bootstrap_metadata = (
+                    _apply_bootstrap_surface_policy(
+                        language_pair=config.language_pair,
+                        lemma=lemma,
+                        reading=normalized_reading,
+                    )
+                )
+                topic_metadata = _extract_seed_topic_metadata(
+                    row,
+                    topic_columns=resolved_topic_columns,
+                )
+                source_frequency_metadata = extract_source_frequency_metadata(
+                    row,
+                    profile_columns=resolved_frequency_profile_columns,
+                )
+                learner_signal_metadata = extract_learner_signal_metadata(
                     language_pair=config.language_pair,
-                    word_package=word_package,
-                    core_rank=core_rank,
+                    lemma=normalized_lemma,
+                    reading=normalized_reading,
+                    raw_pos=raw_pos,
+                    wtype=raw_wtype,
+                    source_frequency_profile=source_frequency_metadata.get(
+                        "source_frequency_profile"
+                    ),
+                    jmdict_priority_index=jmdict_priority_index,
+                    jmdict_lexical_index=jmdict_lexical_index,
+                    jmnedict_name_index=jmnedict_name_index,
+                    kanjidic2_character_index=kanjidic2_character_index,
+                    kanjivg_character_index=kanjivg_character_index,
+                    jlpt_vocabulary_index=jlpt_vocabulary_index,
+                    lesson_vocabulary_index=lesson_vocabulary_index,
+                )
+                word_package_learner_signal_metadata = {
+                    key: value
+                    for key, value in learner_signal_metadata.items()
+                    if key != "learner_signals"
+                }
+                if stopwords and normalized_lemma in stopwords:
+                    continue
+                if _should_exclude_bootstrap_lemma(
+                    language_pair=config.language_pair,
+                    lemma=normalized_lemma,
+                ):
+                    continue
+                classification = classify_srs_candidate(
+                    language_pair=config.language_pair,
+                    lemma=normalized_lemma,
+                    raw_pos=raw_pos,
+                    learner_signals=learner_signal_metadata.get("learner_signals"),
+                    apply_learner_signal_recommendations=(
+                        config.apply_learner_signal_classification
+                    ),
+                )
+                classification_payload = classification.to_dict()
+                candidate_identity = build_candidate_identity(
+                    language_pair=config.language_pair,
+                    surface=normalized_lemma,
+                    reading=raw_lform or normalized_lemma,
                     pos=raw_pos,
-                    pos_bucket=pos_bucket,
-                    pos_weight=pos_weight,
+                    source_provider=source_label,
+                    row_index=row_index,
+                    row_rank=core_rank,
+                )
+                candidate_identity_key = str(candidate_identity.get("key") or "").strip()
+                word_package = build_word_package(
+                    language_pair=config.language_pair,
+                    surface=normalized_lemma,
+                    reading=raw_lform or normalized_lemma,
+                    source_provider=source_label,
+                    script_forms=script_forms_override,
+                    pos=raw_pos,
+                    pos_raw=raw_pos,
+                    pos_canonical=normalized_pos.canonical,
+                    wtype=raw_wtype,
+                    sublemma=raw_sublemma,
+                    core_rank=core_rank,
                     pmw=pmw,
-                    base_weight=base_weight,
-                    admission_weight=admission_weight,
-                    metadata={
-                        "source": source_label,
-                        "pos_raw": raw_pos,
-                        "pos_canonical": normalized_pos.canonical,
-                        "pos_mapped": normalized_pos.mapped,
-                        "pos_source_profile": normalized_pos.source_profile,
-                        "pos_matched_rule": normalized_pos.matched_rule,
+                    lform_raw=raw_lform,
+                    row_index=row_index,
+                    row_rank=core_rank,
+                    source_extra={
                         "rank_column": resolved_rank_column,
                         "pmw_column": resolved_pmw_column,
+                        "lemma_column": resolved_lemma_column,
                         "pos_column": resolved_pos_column if include_pos else None,
                         "lform_column": resolved_lform_column if include_lform else None,
                         "wtype_column": resolved_wtype_column if include_wtype else None,
                         "sublemma_column": resolved_sublemma_column if include_sublemma else None,
-                        "pos_bucket": pos_bucket,
-                        "pos_weight": pos_weight,
-                        "admission_weight": admission_weight,
+                        "candidate_identity_key": candidate_identity_key,
+                        "candidate_identity_version": candidate_identity.get("version"),
+                        **classification_payload,
+                        **pos_source_metadata,
                         **bootstrap_metadata,
-                        **topic_metadata,
+                        **source_frequency_metadata,
+                        **word_package_learner_signal_metadata,
                     },
-                    pos_raw=raw_pos,
-                    pos_canonical=normalized_pos.canonical,
-                    pos_source_profile=normalized_pos.source_profile,
-                    pos_matched_rule=normalized_pos.matched_rule,
-                    pos_mapped=normalized_pos.mapped,
                 )
-            )
-        if config.sort_by_admission_weight:
-            results.sort(key=_admission_sort_key)
-        return results
+                base_weight = config.pmw_weighting.normalize(pmw, max_value=max_pmw)
+                canonical_pos_for_admission = (
+                    normalized_pos.canonical if normalized_pos.mapped else None
+                )
+                pos_bucket, pos_weight, admission_weight = compute_admission_weight(
+                    language_pair=config.language_pair,
+                    raw_pos=raw_pos,
+                    canonical_pos=canonical_pos_for_admission,
+                    base_weight=base_weight,
+                    pos_weights=resolved_pos_weights,
+                )
+                results.append(
+                    SeedWord(
+                        lemma=normalized_lemma,
+                        language_pair=config.language_pair,
+                        identity_key=candidate_identity_key,
+                        word_package=word_package,
+                        core_rank=core_rank,
+                        pos=raw_pos,
+                        pos_bucket=pos_bucket,
+                        pos_weight=pos_weight,
+                        pmw=pmw,
+                        base_weight=base_weight,
+                        admission_weight=admission_weight,
+                        metadata={
+                            "source": source_label,
+                            "pos_raw": raw_pos,
+                            "pos_canonical": normalized_pos.canonical,
+                            "pos_mapped": normalized_pos.mapped,
+                            "pos_source_profile": normalized_pos.source_profile,
+                            "pos_matched_rule": normalized_pos.matched_rule,
+                            **pos_source_metadata,
+                            "rank_column": resolved_rank_column,
+                            "pmw_column": resolved_pmw_column,
+                            "pos_column": resolved_pos_column if include_pos else None,
+                            "lform_column": resolved_lform_column if include_lform else None,
+                            "wtype_column": resolved_wtype_column if include_wtype else None,
+                            "sublemma_column": resolved_sublemma_column
+                            if include_sublemma
+                            else None,
+                            "candidate_identity_key": candidate_identity_key,
+                            "candidate_identity": candidate_identity,
+                            "pos_bucket": pos_bucket,
+                            "pos_weight": pos_weight,
+                            "admission_weight": admission_weight,
+                            **classification_payload,
+                            **bootstrap_metadata,
+                            **source_frequency_metadata,
+                            **learner_signal_metadata,
+                            **topic_metadata,
+                        },
+                        candidate_state=classification.candidate_state,
+                        presentation_mode=classification.presentation_mode,
+                        problem_class=classification.problem_class,
+                        classification_confidence=classification.confidence,
+                        classification_reasons=tuple(classification.reasons),
+                        admission_suitability=classification.admission_suitability,
+                        pos_raw=raw_pos,
+                        pos_canonical=normalized_pos.canonical,
+                        pos_source_profile=normalized_pos.source_profile,
+                        pos_matched_rule=normalized_pos.matched_rule,
+                        pos_mapped=normalized_pos.mapped,
+                    )
+                )
+            if config.sort_by_admission_weight:
+                results.sort(key=_admission_sort_key)
+            if cache_path is not None and lock_path is not None:
+                _write_seed_frontier_cache_rows(
+                    cache_path=cache_path,
+                    seeds=results,
+                    config=config,
+                )
+            return results
+    finally:
+        _release_seed_frontier_cache_lock(lock_path)
+
+
+def prepare_seed_frontier_cache(
+    *,
+    frequency_db: Path,
+    config: SeedSelectionConfig,
+    cleanup: bool = True,
+) -> dict[str, object]:
+    started_at = time.perf_counter()
+    seeds = build_seed_candidates(frequency_db=frequency_db, config=config)
+    cache_path = _seed_frontier_cache_path(frequency_db=frequency_db, config=config)
+    cleanup_payload: dict[str, object] = {}
+    if cleanup and cache_path is not None:
+        cleanup_payload = cleanup_seed_frontier_cache(
+            cache_dir=Path(config.cache_dir) if config.cache_dir else None,
+            pair=config.language_pair,
+            active_cache_path=cache_path,
+        )
+    status = seed_frontier_cache_status(frequency_db=frequency_db, config=config)
+    status.update(
+        {
+            "prepared": True,
+            "seed_count": len(seeds),
+            "duration_ms": round((time.perf_counter() - started_at) * 1000.0, 3),
+            "cleanup": cleanup_payload,
+        }
+    )
+    return status
+
+
+def _resolve_effective_pos(
+    *,
+    raw_pos: str | None,
+    frequency_normalized_pos,
+    overlay_entry: PosOverlayEntry | None,
+    language_pair: str,
+):
+    frequency_raw_pos = raw_pos
+    if raw_pos and frequency_normalized_pos.mapped:
+        return (
+            raw_pos,
+            frequency_normalized_pos,
+            {
+                "pos_source_kind": "frequency",
+                "frequency_pos_raw": frequency_raw_pos,
+            },
+        )
+    if overlay_entry is None:
+        return (
+            raw_pos,
+            frequency_normalized_pos,
+            {
+                "pos_source_kind": "frequency",
+                "frequency_pos_raw": frequency_raw_pos,
+            },
+        )
+    overlay_normalized_pos = normalize_pos(
+        overlay_entry.raw_pos,
+        language_pair=language_pair,
+        source_provider=overlay_entry.source_provider,
+        source_kind="pos_overlay",
+        source_profile=overlay_entry.pos_source_profile,
+    )
+    if not overlay_normalized_pos.mapped:
+        return (
+            raw_pos,
+            frequency_normalized_pos,
+            {
+                "pos_source_kind": "frequency",
+                "frequency_pos_raw": frequency_raw_pos,
+                "pos_overlay_id": overlay_entry.overlay_id,
+                "pos_overlay_raw_pos": overlay_entry.raw_pos,
+                "pos_overlay_mapped": False,
+            },
+        )
+    return (
+        overlay_entry.raw_pos,
+        overlay_normalized_pos,
+        {
+            "pos_source_kind": "pos_overlay",
+            "frequency_pos_raw": frequency_raw_pos,
+            "pos_overlay_id": overlay_entry.overlay_id,
+            "pos_overlay_provider": overlay_entry.source_provider,
+            "pos_overlay_raw_pos": overlay_entry.raw_pos,
+            "pos_overlay_confidence": overlay_entry.confidence,
+            "pos_overlay_source_count": overlay_entry.source_count,
+            "pos_overlay_total_count": overlay_entry.total_count,
+            "pos_overlay_mapped": True,
+        },
+    )
 
 
 def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandidate]:
@@ -331,7 +645,18 @@ def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandi
         pos_mapped = bool(getattr(seed, "pos_mapped", False))
         pos_source_profile = getattr(seed, "pos_source_profile", None)
         pos_matched_rule = getattr(seed, "pos_matched_rule", None)
+        seed_metadata = getattr(seed, "metadata", None)
+        if not isinstance(seed_metadata, dict):
+            seed_metadata = {}
+        suitability_raw = getattr(seed, "admission_suitability", None)
+        if suitability_raw is None:
+            suitability_raw = seed_metadata.get("admission_suitability", 1.0)
+        try:
+            admission_suitability = float(suitability_raw)
+        except (TypeError, ValueError):
+            admission_suitability = 1.0
         metadata = {
+            "candidate_identity_key": candidate_identity_key_from_seed(seed),
             "core_rank": seed.core_rank,
             "pos": seed.pos,
             "pos_raw": pos_raw if pos_raw is not None else seed.pos,
@@ -344,7 +669,13 @@ def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandi
             "pmw": seed.pmw,
             "base_weight": seed.base_weight,
             "admission_weight": seed.admission_weight,
-            **seed.metadata,
+            "candidate_state": getattr(seed, "candidate_state", "normal_vocab"),
+            "presentation_mode": getattr(seed, "presentation_mode", "vocab"),
+            "problem_class": getattr(seed, "problem_class", "normal_vocab"),
+            "classification_confidence": getattr(seed, "classification_confidence", "review"),
+            "classification_reasons": list(getattr(seed, "classification_reasons", ())),
+            "admission_suitability": admission_suitability,
+            **seed_metadata,
         }
         word_package = getattr(seed, "word_package", None)
         if word_package:
@@ -354,6 +685,7 @@ def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandi
                 lemma=seed.lemma,
                 language_pair=seed.language_pair,
                 base_freq=seed.admission_weight,
+                admission_suitability=admission_suitability,
                 confidence=seed.admission_weight,
                 pos=seed.pos_bucket,
                 metadata=metadata,
@@ -362,10 +694,29 @@ def seed_to_selector_candidates(seeds: Sequence[SeedWord]) -> list[SelectorCandi
     return candidates
 
 
-def _load_jmdict_lemmas(path: Optional[Path]) -> Optional[set[str]]:
+def _load_jmdict_lemmas(path: Optional[Path]) -> Optional[frozenset[str]]:
     if not path:
         return None
-    return load_jmdict_lemmas(path)
+    resolved = Path(path).resolve()
+    try:
+        stat = resolved.stat()
+    except OSError:
+        return frozenset()
+    return _load_jmdict_lemmas_cached(
+        str(resolved),
+        int(stat.st_mtime_ns),
+        int(stat.st_size),
+    )
+
+
+@lru_cache(maxsize=8)
+def _load_jmdict_lemmas_cached(
+    path: str,
+    mtime_ns: int,
+    size: int,
+) -> frozenset[str]:
+    del mtime_ns, size
+    return frozenset(load_jmdict_lemmas(Path(path)))
 
 
 def _safe_float(value) -> Optional[float]:
@@ -456,14 +807,27 @@ def _apply_bootstrap_surface_policy(
     *,
     language_pair: str,
     lemma: str,
+    reading: object | None = None,
 ) -> tuple[str, Optional[dict[str, str]], dict[str, object]]:
     if _target_language_from_pair(language_pair) != "ja":
         return lemma, None, {}
     source_surface = str(lemma or "").strip()
-    normalized_surface = _JA_BOOTSTRAP_ORTHOGRAPHIC_NORMALIZATION.get(
-        source_surface,
-        source_surface,
+    normalized_reading = normalize_reading(
+        reading,
+        language_tag=resolve_language_tag_from_pair(language_pair),
     )
+    normalized_surface = _corrected_ranking_display_surface(
+        source_surface=source_surface,
+        normalized_reading=normalized_reading,
+    )
+    if normalized_surface is None:
+        normalized_surface = _JA_BOOTSTRAP_READING_SPECIFIC_SURFACE_NORMALIZATION.get(
+            (source_surface, normalized_reading),
+        )
+    if normalized_surface is None:
+        normalized_surface = _JA_BOOTSTRAP_ORTHOGRAPHIC_NORMALIZATION.get(source_surface)
+    if normalized_surface is None:
+        normalized_surface = source_surface
     if normalized_surface == source_surface:
         return normalized_surface, None, {}
     script_forms: Optional[dict[str, str]] = None
@@ -480,3 +844,26 @@ def _apply_bootstrap_surface_policy(
             ),
         },
     )
+
+
+def _corrected_ranking_display_surface(
+    *,
+    source_surface: str,
+    normalized_reading: str,
+) -> str | None:
+    corrected_match = lookup_corrected_en_ja_learner_difficulty(
+        lemma=source_surface,
+        reading=normalized_reading,
+    )
+    if corrected_match is None or corrected_match.match_mode != "exact_pair":
+        return None
+    row = corrected_match.row
+    if {
+        "exclude_standalone_srs",
+        "restricted_admission",
+    }.intersection(row.correction_types):
+        return None
+    display_form = str(row.display_form or "").strip()
+    if not display_form or display_form == source_surface:
+        return None
+    return display_form

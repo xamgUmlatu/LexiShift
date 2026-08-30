@@ -31,7 +31,10 @@ from lexishift_core.helper.rulegen import annotate_rules_with_srs_serving_metada
 from lexishift_core.lexicon.word_package import build_word_package  # noqa: E402
 from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
 from lexishift_core.srs import SrsSettings, load_srs_store, save_srs_settings  # noqa: E402
-from lexishift_core.srs.profile_bootstrap import DEFAULT_PROFILE_BOOTSTRAP_POLICY  # noqa: E402
+from lexishift_core.srs.profile_bootstrap import (  # noqa: E402
+    DEFAULT_PROFILE_BOOTSTRAP_POLICY,
+    PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SELECTION_POLICY,
+)
 from lexishift_core.srs.seed import SeedWord  # noqa: E402
 
 SRS_GATE_JS = PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_gate.js"
@@ -273,7 +276,7 @@ def _run_profile_growth_share_probe(
         root = Path(tmp)
         paths = build_helper_paths(root)
         pair = "en-es"
-        source_db = _create_frequency_db(paths.frequency_packs_dir / "freq-es-cde.sqlite")
+        source_db = _create_frequency_db(paths.frequency_packs_dir / "freq-es-spalex-v1.sqlite")
         translation_dict = paths.language_packs_dir / "wiktionary-es-en.sqlite"
         translation_dict.parent.mkdir(parents=True, exist_ok=True)
         translation_dict.write_text("{}\n", encoding="utf-8")
@@ -378,7 +381,7 @@ class TestSrsPreferenceProductLoop(unittest.TestCase):
             paths = build_helper_paths(root)
             pair = "en-es"
             profile_id = "animal-profile"
-            source_db = _create_frequency_db(paths.frequency_packs_dir / "freq-es-cde.sqlite")
+            source_db = _create_frequency_db(paths.frequency_packs_dir / "freq-es-spalex-v1.sqlite")
             translation_dict = paths.language_packs_dir / "wiktionary-es-en.sqlite"
             translation_dict.parent.mkdir(parents=True, exist_ok=True)
             translation_dict.write_text("{}\n", encoding="utf-8")
@@ -430,8 +433,14 @@ class TestSrsPreferenceProductLoop(unittest.TestCase):
                 preview_active = set(preview_payload["initial_active_preview"])
 
                 self.assertEqual(preview_payload["selection_strategy"], "profile_bootstrap")
-                self.assertEqual(preview_payload["sampling_mode"], "reserved_topic_lane")
-                self.assertEqual(preview_profile["selection_policy"], "reserved_topic_lane")
+                self.assertEqual(
+                    preview_payload["sampling_mode"],
+                    PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SELECTION_POLICY,
+                )
+                self.assertEqual(
+                    preview_profile["selection_policy"],
+                    PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SELECTION_POLICY,
+                )
                 self.assertEqual(
                     preview_profile["profile_context"]["topic_weights"]["animals"],
                     1.0,
@@ -460,7 +469,7 @@ class TestSrsPreferenceProductLoop(unittest.TestCase):
                 self.assertGreaterEqual(len(initialized_active & animal_lemmas), 1)
                 self.assertEqual(
                     initialized["bootstrap_diagnostics"]["selection_policy"],
-                    "reserved_topic_lane",
+                    PROFILE_BOOTSTRAP_FRONTIER_GAUSSIAN_HYBRID_SELECTION_POLICY,
                 )
 
                 reviewed_lemma = sorted(initialized_active & animal_lemmas)[0]

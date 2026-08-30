@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "registry_id": "srs_topic_source_registry_en_es_v1",
+  "language_pair": "en-es",
+  "purpose": "Inventory of candidate sources for en-es SRS topic expansion. Runtime rows are emitted only from sources with direct_runtime ingest_state.",
+  "source_policy": {
+    "direct_runtime": "License and extraction shape are reviewed enough to emit strong exact-match rows.",
+    "candidate_not_runtime": "Useful source or topic idea, but not emitted until topic family or filtering policy is designed.",
+    "future_api_review": "Structured source exists, but extraction, attribution, or category semantics still need implementation review.",
+    "blocked_license_review": "Potentially useful, but not ingested without explicit license approval."
+  },
+  "sources": [
+    {
+      "id": "todosloscorpus_animals_common",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/animals/common.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "animals",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "notes": "Common animal names."
+    },
+    {
+      "id": "todosloscorpus_food_bread_and_pastries",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/foods/bread_and_pastries.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "food_cooking",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "notes": "Food set list."
+    },
+    {
+      "id": "todosloscorpus_food_fruits",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/foods/fruits.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "food_cooking",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "notes": "Fruit list."
+    },
+    {
+      "id": "todosloscorpus_food_pizza_toppings",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/foods/pizzaToppings.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "food_cooking",
+      "membership": 1.0,
+      "confidence": 0.96,
+      "notes": "Food ingredient set list."
+    },
+    {
+      "id": "todosloscorpus_food_spices",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/foods/spices.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "food_cooking",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "notes": "Spice/herb ingredient list."
+    },
+    {
+      "id": "todosloscorpus_food_vegetables",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/foods/vegetables.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "food_cooking",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "notes": "Vegetable and culinary plant list."
+    },
+    {
+      "id": "todosloscorpus_plants_flowers",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/plants/flowers.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "plants_nature",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "min_corpus_rank": 1500,
+      "notes": "Flower names."
+    },
+    {
+      "id": "todosloscorpus_plants_plants",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/plants/plants.json",
+      "extraction_method": "static_json",
+      "ingest_state": "candidate_not_runtime",
+      "target_family": "plants_nature",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "notes": "Plant names; high homograph risk in lemma-only ranking, so keep candidate-only until sense safeguards exist."
+    },
+    {
+      "id": "todosloscorpus_plants_trees",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/plants/trees.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "plants_nature",
+      "membership": 1.0,
+      "confidence": 0.96,
+      "filters": {
+        "number": "s"
+      },
+      "min_corpus_rank": 1500,
+      "notes": "Tree names; singular entries only because the source includes singular/plural pairs."
+    },
+    {
+      "id": "todosloscorpus_body_parts",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/humans/partes_del_cuerpo.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "medicine_health",
+      "membership": 1.0,
+      "confidence": 0.96,
+      "notes": "Body-part vocabulary."
+    },
+    {
+      "id": "todosloscorpus_body_fluids",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/materials/abridged-body-fluids.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "medicine_health",
+      "membership": 1.0,
+      "confidence": 0.94,
+      "exclude_lemmas": [
+        "cera"
+      ],
+      "notes": "Body-fluid vocabulary. Excludes cera because the dominant standalone sense is wax rather than earwax."
+    },
+    {
+      "id": "todosloscorpus_instruments",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/instruments/instrumentos.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "music_media_entertainment",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "min_corpus_rank": 1000,
+      "notes": "Musical instruments."
+    },
+    {
+      "id": "todosloscorpus_government_forms",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/governments/governmentForms.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "law_politics_civics",
+      "membership": 1.0,
+      "confidence": 0.96,
+      "notes": "Government forms and political systems."
+    },
+    {
+      "id": "todosloscorpus_aerobic_sports",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/games/aerobic_sports.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "sports_fitness",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "notes": "Sports and fitness activities."
+    },
+    {
+      "id": "todosloscorpus_anaerobic_sports",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/games/anaerobic_sports.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "sports_fitness",
+      "membership": 1.0,
+      "confidence": 0.98,
+      "notes": "Sports and fitness activities."
+    },
+    {
+      "id": "todosloscorpus_traditional_childrens_games",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/games/traditional_childrens_games.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "games",
+      "membership": 1.0,
+      "confidence": 0.94,
+      "notes": "Traditional games; some entries are multiword phrases."
+    },
+    {
+      "id": "todosloscorpus_countries",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/geography/countries.json",
+      "extraction_method": "static_json",
+      "ingest_state": "candidate_not_runtime",
+      "target_family": "travel_places_transport",
+      "membership": 1.0,
+      "confidence": 0.94,
+      "notes": "Country names; capitalization/proper-name ambiguity makes lemma-only runtime use unsafe for now."
+    },
+    {
+      "id": "todosloscorpus_art_isms",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/art/isms.json",
+      "extraction_method": "static_json",
+      "ingest_state": "candidate_not_runtime",
+      "target_family": "arts_literature_humanities",
+      "membership": 1.0,
+      "confidence": 0.94,
+      "notes": "Art and intellectual movement names; includes broad ambiguous terms, so keep candidate-only until reviewed."
+    },
+    {
+      "id": "todosloscorpus_layperson_metals",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/materials/layperson-metals.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "science_technology",
+      "membership": 1.0,
+      "confidence": 0.94,
+      "notes": "Everyday metal/material names."
+    },
+    {
+      "id": "todosloscorpus_carbon_allotropes",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/materials/carbon-allotropes.json",
+      "extraction_method": "static_json",
+      "ingest_state": "direct_runtime",
+      "target_family": "science_technology",
+      "membership": 1.0,
+      "confidence": 0.94,
+      "notes": "Chemistry/material science set list."
+    },
+    {
+      "id": "todosloscorpus_fabrics",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/materials/fabrics.json",
+      "extraction_method": "static_json",
+      "ingest_state": "candidate_not_runtime",
+      "target_family": "clothing_fashion",
+      "notes": "Good candidate for a future clothing/fashion topic."
+    },
+    {
+      "id": "todosloscorpus_occupations",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/humans/occupations.json",
+      "extraction_method": "static_json",
+      "ingest_state": "candidate_not_runtime",
+      "target_family": "work_office",
+      "notes": "Large occupation list; needs filtering before runtime use."
+    },
+    {
+      "id": "todosloscorpus_academic_subjects",
+      "provider": "Lingwars/todosloscorpus",
+      "license": "CC0",
+      "source_url": "https://raw.githubusercontent.com/Lingwars/todosloscorpus/main/data/books/academic_subjects.json",
+      "extraction_method": "static_json",
+      "ingest_state": "candidate_not_runtime",
+      "target_family": "school_education",
+      "notes": "Large academic subject list; useful but advanced/noisy without filtering."
+    },
+    {
+      "id": "wiktionary_es_set_categories",
+      "provider": "Wiktionary",
+      "license": "CC-BY-SA-4.0/GFDL",
+      "source_url": "https://en.wiktionary.org/wiki/Category:Spanish_language",
+      "extraction_method": "mediawiki_category_api",
+      "ingest_state": "future_api_review",
+      "target_family": "multiple",
+      "notes": "Useful second-stage source. Needs category allowlist, pagination, subcategory policy, and attribution handling."
+    },
+    {
+      "id": "learning_blog_vocab_lists",
+      "provider": "General learning websites",
+      "license": "varies",
+      "extraction_method": "html_scrape_or_manual_inspiration",
+      "ingest_state": "blocked_license_review",
+      "target_family": "multiple",
+      "notes": "Do not directly ingest unless an explicit usable license is found; product-owned supplements can use these only as inspiration."
+    }
+  ]
+}

@@ -9,10 +9,14 @@ from lexishift_core.srs.browsing_admission import (
     BrowsingSignalPacket,
     BrowsingSignalPacketEntry,
     BrowsingSignalStore,
+    aggregate_target_key,
+    browsing_context_count,
+    browsing_evidence_value,
     browsing_raw_value,
     browsing_signal_value,
     ingest_browsing_signal_packet,
     load_browsing_signal_store,
+    maintain_browsing_signal_store,
     save_browsing_signal_store,
 )
 from lexishift_core.srs.time import parse_ts
@@ -51,6 +55,15 @@ def ingest_browsing_admission_signals(
     policy = policy or BrowsingSignalIngestPolicy()
 
     if not opt_in:
+        maintained_store = None
+        if store_path.exists():
+            maintained_store = maintain_browsing_signal_store(
+                load_browsing_signal_store(store_path),
+                policy=policy,
+                now=now or parse_ts(captured_at),
+            )
+            if maintained_store.pair:
+                save_browsing_signal_store(maintained_store, store_path)
         return {
             "status": "skipped",
             "reason": "browsing_admission_not_opted_in",
@@ -59,10 +72,10 @@ def ingest_browsing_admission_signals(
             "runtime_srs_mutation": False,
             "privacy": _privacy_payload(private_field_count=0),
             "aggregate_store": _summarize_store(
-                load_browsing_signal_store(store_path),
+                maintained_store,
                 policy=policy,
             )
-            if store_path.exists()
+            if maintained_store is not None
             else _empty_store_summary(normalized_pair, normalized_profile_id),
         }
 
@@ -112,6 +125,7 @@ def _parse_signal_entries(
                     side="",
                     count=0.0,
                     source_mapping_confidence=0.0,
+                    reading_confidence=0.0,
                 )
             )
             continue
@@ -124,13 +138,43 @@ def _parse_signal_entries(
                     or signal.get("targetLemma")
                     or ""
                 ).strip(),
+                target_key=str(signal.get("target_key") or signal.get("targetKey") or "").strip(),
+                target_reading=str(
+                    signal.get("target_reading")
+                    or signal.get("targetReading")
+                    or signal.get("reading")
+                    or ""
+                ).strip(),
                 side=str(signal.get("side") or signal.get("signal_side") or "").strip(),
                 count=_safe_float(signal.get("count"), default=1.0),
                 source_mapping_confidence=_safe_float(
-                    signal.get("source_mapping_confidence")
-                    or signal.get("sourceMappingConfidence"),
+                    _first_present(
+                        signal.get("source_mapping_confidence"),
+                        signal.get("sourceMappingConfidence"),
+                    ),
                     default=1.0,
                 ),
+                reading_confidence=_safe_float(
+                    _first_present(
+                        signal.get("reading_confidence"),
+                        signal.get("readingConfidence"),
+                    ),
+                    default=1.0,
+                ),
+                observation_source=str(
+                    signal.get("observation_source") or signal.get("observationSource") or ""
+                ).strip(),
+                context_key=str(
+                    signal.get("context_key")
+                    or signal.get("contextKey")
+                    or signal.get("page_context_key")
+                    or signal.get("pageContextKey")
+                    or signal.get("session_key")
+                    or signal.get("sessionKey")
+                    or signal.get("document_id")
+                    or signal.get("documentId")
+                    or ""
+                ).strip(),
             )
         )
     return tuple(parsed), private_field_count
@@ -146,7 +190,9 @@ def _summarize_store(
     for aggregate in store.items.values():
         rows.append(
             {
+                "target_key": aggregate_target_key(aggregate),
                 "target_lemma": aggregate.target_lemma,
+                "target_reading": aggregate.target_reading,
                 "source_hit_count": round(float(aggregate.source_hit_count), 6),
                 "target_hit_count": round(float(aggregate.target_hit_count), 6),
                 "replacement_exposure_count": round(
@@ -157,7 +203,11 @@ def _summarize_store(
                     float(aggregate.source_mapping_confidence),
                     6,
                 ),
+                "reading_confidence": round(float(aggregate.reading_confidence), 6),
+                "observation_sources": list(aggregate.observation_sources),
                 "raw_browsing": round(browsing_raw_value(aggregate, policy=policy), 6),
+                "browsing_evidence": round(browsing_evidence_value(aggregate, policy=policy), 6),
+                "browsing_context_count": browsing_context_count(aggregate, policy=policy),
                 "browsing_signal": round(browsing_signal_value(aggregate, policy=policy), 6),
                 "last_seen_at": aggregate.last_seen_at,
             }
@@ -165,7 +215,7 @@ def _summarize_store(
     rows.sort(
         key=lambda row: (
             -_safe_float(row.get("browsing_signal"), default=0.0),
-            str(row.get("target_lemma") or ""),
+            str(row.get("target_key") or row.get("target_lemma") or ""),
         )
     )
     return {
@@ -201,6 +251,7 @@ def _policy_payload(policy: BrowsingSignalIngestPolicy) -> dict[str, object]:
         "version": policy.version,
         "max_signals_per_packet": policy.max_signals_per_packet,
         "max_count_per_signal": policy.max_count_per_signal,
+        "max_contexts_per_item": policy.max_contexts_per_item,
         "max_items_per_store": policy.max_items_per_store,
         "prune_signal_below": policy.prune_signal_below,
         "half_life_days": policy.half_life_days,
@@ -218,3 +269,10 @@ def _safe_float(value: object, *, default: float) -> float:
         return float(str(value or "").strip())
     except (TypeError, ValueError):
         return default
+
+
+def _first_present(*values: object) -> object:
+    for value in values:
+        if value is not None and str(value).strip() != "":
+            return value
+    return None

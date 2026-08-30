@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "config_id": "srs_admission_product_acceptance_configs_en_de_v1",
+  "language_pair": "en-de",
+  "purpose": "Product-style SRS admission acceptance pass using one scalar learner proficiency plus representative en-de topic preferences.",
+  "defaults": {
+    "set_top_n": 50000,
+    "initial_active_count": 80,
+    "preview_count": 40,
+    "preview_sampling_mode": "reserved_topic_lane"
+  },
+  "scenarios": [
+    {
+      "name": "neutral_p00",
+      "description": "No topic preference, absolute beginner proficiency.",
+      "proficiency": 0.0
+    },
+    {
+      "name": "neutral_p20",
+      "description": "No topic preference, upper beginner proficiency.",
+      "proficiency": 0.2
+    },
+    {
+      "name": "neutral_p45",
+      "description": "No topic preference, intermediate proficiency.",
+      "proficiency": 0.45
+    },
+    {
+      "name": "neutral_p72",
+      "description": "No topic preference, advanced proficiency.",
+      "proficiency": 0.72
+    },
+    {
+      "name": "neutral_p90",
+      "description": "No topic preference, very advanced proficiency.",
+      "proficiency": 0.9
+    },
+    {
+      "name": "computing_internet_p45",
+      "description": "Computing/internet preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "computing_internet": 1.0
+      }
+    },
+    {
+      "name": "games_p45",
+      "description": "Games preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "games": 1.0
+      }
+    },
+    {
+      "name": "hobbies_crafts_p45",
+      "description": "Hobbies/crafts preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "hobbies_crafts": 1.0
+      }
+    },
+    {
+      "name": "plants_nature_p45",
+      "description": "Plants/nature preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "plants_nature": 1.0
+      }
+    },
+    {
+      "name": "science_math_p45",
+      "description": "Science/math preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "science_math": 1.0
+      }
+    },
+    {
+      "name": "science_technology_p45",
+      "description": "Science/technology preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "science_technology": 1.0
+      }
+    },
+    {
+      "name": "shopping_money_p45",
+      "description": "Shopping/money preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "shopping_money": 1.0
+      }
+    },
+    {
+      "name": "work_office_p45",
+      "description": "Work/office preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "work_office": 1.0
+      }
+    },
+    {
+      "name": "mixed_computing_work_p50",
+      "description": "Weighted mixed computing and work interests.",
+      "proficiency": 0.5,
+      "topic_weights": {
+        "computing_internet": 0.8,
+        "work_office": 0.6
+      }
+    },
+    {
+      "name": "mixed_games_hobbies_p45",
+      "description": "Weighted games and hobbies interests.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "games": 0.8,
+        "hobbies_crafts": 0.6
+      }
+    }
+  ]
+}

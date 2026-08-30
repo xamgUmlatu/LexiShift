@@ -42,6 +42,9 @@ from lexishift_core.helper.use_cases.auto_refresh_set import (
 from lexishift_core.helper.use_cases.browsing_admission import (
     ingest_browsing_admission_signals as _ingest_browsing_admission_signals_use_case,
 )
+from lexishift_core.helper.use_cases.browsing_source_index import (
+    build_srs_browsing_source_index as _build_srs_browsing_source_index_use_case,
+)
 from lexishift_core.srs import (
     SrsSettings,
     SrsStore,
@@ -84,6 +87,14 @@ def _run_rulegen_job_use_case(*args, **kwargs):
         fromlist=["run_rulegen_job"],
     )
     return rulegen_job_module.run_rulegen_job(*args, **kwargs)
+
+
+def _build_runtime_ruleset_payload(*args, **kwargs):
+    runtime_ruleset_module = __import__(
+        "lexishift_core.helper.runtime_ruleset",
+        fromlist=["build_runtime_ruleset_payload"],
+    )
+    return runtime_ruleset_module.build_runtime_ruleset_payload(*args, **kwargs)
 
 
 def _preview_srs_admission_use_case(*args, **kwargs):
@@ -367,7 +378,8 @@ def load_ruleset(paths: HelperPaths, *, pair: str, profile_id: str = "default") 
     ruleset_path = paths.ruleset_path(pair, profile_id=profile_id)
     if not ruleset_path.exists():
         raise FileNotFoundError(ruleset_path)
-    return json.loads(ruleset_path.read_text(encoding="utf-8"))
+    payload = json.loads(ruleset_path.read_text(encoding="utf-8"))
+    return _build_runtime_ruleset_payload(payload, pair=pair)
 
 
 def load_semantic_inventory(paths: HelperPaths, *, pair: str, profile_id: str = "default") -> dict:
@@ -396,12 +408,14 @@ def list_srs_items(
     pair: str,
     profile_id: str = "default",
     now: datetime | None = None,
+    compact: bool = False,
 ) -> dict:
     return _list_srs_items_use_case(
         paths,
         pair=pair,
         profile_id=profile_id,
         now=now,
+        compact=compact,
         resolve_profile_id_fn=_resolve_profile_id,
     )
 
@@ -460,11 +474,18 @@ def semantic_admit_batch(
     return _semantic_admit_batch_use_case(paths, payload=payload)
 
 
-def _resolve_pair_set_top_n(*, pair: str, requested_top_n: Optional[int], purpose: str) -> int:
+def _resolve_pair_set_top_n(
+    *,
+    pair: str,
+    requested_top_n: Optional[int],
+    purpose: str,
+) -> Optional[int]:
     policy = resolve_srs_pair_policy(pair)
     if requested_top_n is not None:
         return max(1, int(requested_top_n))
     if purpose == "bootstrap":
+        if policy.bootstrap_top_n_default is None:
+            return None
         return max(1, int(policy.bootstrap_top_n_default))
     return max(1, int(policy.refresh_top_n_default))
 
@@ -800,6 +821,36 @@ def ingest_browsing_admission_signals(
         policy=policy,
         now=now,
         resolve_profile_id_fn=_resolve_profile_id,
+    )
+
+
+def build_srs_browsing_source_index(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    profile_id: str = "default",
+    top_n: int | None = None,
+    max_targets: int | None = None,
+    max_rules: int | None = None,
+    allow_generate: bool = True,
+    force_refresh: bool = False,
+) -> dict:
+    return _build_srs_browsing_source_index_use_case(
+        paths,
+        pair=pair,
+        profile_id=profile_id,
+        top_n=top_n,
+        max_targets=max_targets,
+        max_rules=max_rules,
+        allow_generate=allow_generate,
+        force_refresh=force_refresh,
+        resolve_pair_set_top_n_fn=_resolve_pair_set_top_n,
+        resolve_pair_resources_fn=_resolve_pair_resources,
+        ensure_pair_requirements_fn=_ensure_pair_requirements,
+        resolve_profile_id_fn=_resolve_profile_id,
+        resolve_stopwords_path_fn=_resolve_stopwords_path,
+        initialize_store_from_frequency_list_with_report_fn=initialize_store_from_frequency_list_with_report,
+        run_rulegen_for_pair_fn=run_rulegen_for_pair,
     )
 
 

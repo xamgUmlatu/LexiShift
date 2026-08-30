@@ -52,7 +52,7 @@ Key semantics:
 - `max_active_items` caps study load.
 - `max_new_items_per_day` throttles growth into `S`.
 - Pair bootstrap sizing is currently configured via profile/options payload:
-  - `bootstrap_top_n` (default `800`)
+  - `bootstrap_top_n` (optional; omitted/null means all available seed rows)
   - `initial_active_count` (default `40`)
   - Admission rule: only `initial_active_count` unique lemmas are written into sparse `S` at initialization.
 

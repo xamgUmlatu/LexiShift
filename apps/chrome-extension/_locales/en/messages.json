@@ -1,9 +1,9 @@
 {
   "app_name": {
-    "message": "LexiShift"
+    "message": "LexiShift Beta"
   },
   "app_description": {
-    "message": "Replace visible text using a configurable ruleset with optional highlighting."
+    "message": "THIS EXTENSION IS FOR BETA TESTING. Practice vocabulary while browsing with local LexiShift data."
   },
   "options_title": {
     "message": "LexiShift Options"
@@ -57,13 +57,16 @@
     "message": "Page Replacement Density"
   },
   "hint_replacement_behavior_scope": {
-    "message": "Applies after vocabulary practice and manual rules are merged for page display."
+    "message": "These global settings apply after vocabulary practice and manual rules are merged. Page limits apply independently to the top page and each embedded frame."
+  },
+  "summary_legacy_replacement_compatibility": {
+    "message": "Legacy replacement compatibility"
   },
   "toggle_max_one": {
-    "message": "Replace max 1 word per text block"
+    "message": "Legacy: limit each text node to 1 replacement"
   },
   "hint_max_one": {
-    "message": "Limits each text node to a single replacement."
+    "message": "Kept for existing configurations. For learner-facing density, set Max replacements per sentence to 1."
   },
   "toggle_allow_adjacent": {
     "message": "Allow replacing adjacent words"
@@ -75,19 +78,40 @@
     "message": "Max replacements per page"
   },
   "hint_max_replacements_page": {
-    "message": "Standard default is 20. Use 0 only for unlimited replacement."
+    "message": "Standard default is 0 (unlimited)."
+  },
+  "label_max_replacements_sentence": {
+    "message": "Max replacements per sentence"
+  },
+  "hint_max_replacements_sentence": {
+    "message": "Standard default is 0 (unlimited). Multi-word phrases count as one replacement."
   },
   "label_max_replacements_lemma_page": {
     "message": "Max per word per page"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "Standard default is 2. Prevents one word from dominating the page."
+    "message": "Standard default is 0 (unlimited). Prevents one word from dominating the page."
   },
   "section_srs": {
     "message": "Vocabulary Practice"
   },
   "badge_srs_active_story": {
     "message": "Active"
+  },
+  "badge_srs_ready_story": {
+    "message": "Ready"
+  },
+  "badge_srs_paused_story": {
+    "message": "Paused"
+  },
+  "button_srs_story_switch": {
+    "message": "Switch"
+  },
+  "heading_srs_practice_settings": {
+    "message": "Practice settings"
+  },
+  "label_srs_active_words": {
+    "message": "$1 active words"
   },
   "summary_srs_story_sampling": {
     "message": "Sample next words"
@@ -200,12 +224,6 @@
   "hint_srs_max_active": {
     "message": "How many learning words LexiShift keeps in rotation at once."
   },
-  "label_srs_bootstrap_top_n": {
-    "message": "Vocabulary search range"
-  },
-  "hint_srs_bootstrap_top_n": {
-    "message": "Broadens the ranked word pool used for samples and new-word selection. Leave at default unless samples feel too narrow."
-  },
   "label_srs_initial_active_count": {
     "message": "Starting words"
   },
@@ -221,11 +239,23 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "Coverage varies by pair"
   },
+  "tooltip_srs_topic_not_covered": {
+    "message": "Not covered for $1 yet"
+  },
+  "topic_srs_general": {
+    "message": "General"
+  },
   "topic_srs_medicine_health": {
     "message": "Medicine & health"
   },
   "topic_srs_finance_business": {
     "message": "Finance & business"
+  },
+  "topic_srs_shopping_money": {
+    "message": "Shopping & money"
+  },
+  "topic_srs_work_office": {
+    "message": "Work & office"
   },
   "topic_srs_sports_fitness": {
     "message": "Sports & fitness"
@@ -242,6 +272,12 @@
   "topic_srs_science_technology": {
     "message": "Science & technology"
   },
+  "topic_srs_science_math": {
+    "message": "Science & math"
+  },
+  "topic_srs_computing_internet": {
+    "message": "Computing & internet"
+  },
   "topic_srs_arts_literature_humanities": {
     "message": "Arts & literature"
   },
@@ -253,6 +289,15 @@
   },
   "topic_srs_plants_nature": {
     "message": "Plants & nature"
+  },
+  "topic_srs_travel_places_transport": {
+    "message": "Travel & transport"
+  },
+  "topic_srs_anime_manga_pop_culture": {
+    "message": "Anime, manga & pop culture"
+  },
+  "topic_srs_hobbies_crafts": {
+    "message": "Hobbies & crafts"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Advanced tags"
@@ -365,6 +410,12 @@
   "toggle_srs_sound": {
     "message": "Play feedback sound"
   },
+  "toggle_srs_browsing_admission": {
+    "message": "Use browsing activity for vocabulary practice"
+  },
+  "hint_srs_browsing_admission": {
+    "message": "Applies to all vocabulary practice. Supported language pairs can save page vocabulary trends locally and use them when choosing future words."
+  },
   "label_helper_status": {
     "message": "Helper status"
   },
@@ -437,6 +488,66 @@
   "button_srs_admission_preview": {
     "message": "Sample 10 preference-matched words…"
   },
+  "status_srs_admission_preview_running": {
+    "message": "Sampling possible next words ($1)…"
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "Word sample failed."
+  },
+  "status_srs_admission_preview_header": {
+    "message": "Next-word sample: $1 shown / $2 possible words for $3."
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "Preview unavailable for the selected strategy."
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "No admission sample is available for $1."
+  },
+  "note_srs_admission_preview_sample_only": {
+    "message": "Sample only. No words were added."
+  },
+  "label_srs_admission_preview_sampled_words": {
+    "message": "Sampled words:"
+  },
+  "label_srs_admission_preview_sample_details": {
+    "message": "Sample details:"
+  },
+  "label_srs_admission_preview_effective_profile_context": {
+    "message": "Effective profile context:"
+  },
+  "label_srs_admission_preview_topic_overlay": {
+    "message": "Topic overlay:"
+  },
+  "label_srs_admission_preview_neutral_topic_support": {
+    "message": "Neutral frontier topic support:"
+  },
+  "label_srs_admission_preview_plan_notes": {
+    "message": "Plan notes:"
+  },
+  "label_srs_admission_preview_advanced_details": {
+    "message": "Advanced details"
+  },
+  "summary_srs_admission_preview_selected_topics": {
+    "message": "Selected topics: $1."
+  },
+  "summary_srs_admission_preview_sampled_topic_words": {
+    "message": "$1 sampled topic words."
+  },
+  "summary_srs_admission_preview_matched_candidates": {
+    "message": "$1 matched candidates in the preview frontier."
+  },
+  "summary_srs_admission_preview_no_topic_candidates": {
+    "message": "No matching candidates for those topics in this preview window."
+  },
+  "summary_srs_admission_preview_overlay_status": {
+    "message": "Overlay status: $1."
+  },
+  "summary_srs_admission_preview_no_topic_priorities": {
+    "message": "No topic priorities reached the helper for this sample."
+  },
+  "summary_srs_admission_preview_showing": {
+    "message": "Showing $1 of $2 possible words for $3."
+  },
   "button_srs_initialize": {
     "message": "Start practice"
   },
@@ -456,7 +567,7 @@
     "message": "Run sampled rulegen (5)…"
   },
   "button_srs_delete_story": {
-    "message": "Delete Vocabulary Practice"
+    "message": "Delete this Vocabulary Practice"
   },
   "heading_srs_words_dashboard": {
     "message": "Learning words"
@@ -684,10 +795,10 @@
     "message": "Last"
   },
   "confirm_srs_reset_1": {
-    "message": "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone."
+    "message": "Delete this Vocabulary Practice for the current profile and language pair? This cannot be undone."
   },
   "confirm_srs_reset_2": {
-    "message": "Really delete this practice's learning words, review history, and discard data?"
+    "message": "Really delete this Vocabulary Practice's learning words, review history, and discard data?"
   },
   "status_srs_sampling": {
     "message": "Sampling…"
@@ -786,13 +897,13 @@
     "message": "Fix:"
   },
   "status_srs_resetting": {
-    "message": "Deleting Vocabulary Practice…"
+    "message": "Deleting this Vocabulary Practice…"
   },
   "status_srs_reset_success": {
-    "message": "Vocabulary Practice deleted."
+    "message": "This Vocabulary Practice was deleted."
   },
   "status_srs_reset_failed": {
-    "message": "Vocabulary Practice deletion failed."
+    "message": "This Vocabulary Practice deletion failed."
   },
   "status_srs_reset_outdated": {
     "message": "Delete failed: helper command not found. Restart helper?"
@@ -1343,6 +1454,18 @@
   "popup_definition_error": {
     "message": "Failed to load definition."
   },
+  "popup_pos_noun": { "message": "Noun" },
+  "popup_pos_adjective": { "message": "Adjective" },
+  "popup_pos_verb": { "message": "Verb" },
+  "popup_pos_adverb": { "message": "Adverb" },
+  "popup_pos_pronoun": { "message": "Pronoun" },
+  "popup_pos_determiner": { "message": "Determiner" },
+  "popup_pos_adposition": { "message": "Adposition" },
+  "popup_pos_conjunction": { "message": "Conjunction" },
+  "popup_pos_interjection": { "message": "Interjection" },
+  "popup_pos_numeral": { "message": "Numeral" },
+  "popup_pos_punctuation": { "message": "Punctuation" },
+  "popup_pos_other": { "message": "Other" },
   "popup_feedback_history_loading": {
     "message": "Feedback history (loading...)"
   },
@@ -1445,9 +1568,6 @@
   "hint_profile_bg_scope": {
     "message": "Only changes the options page design for this profile."
   },
-  "toggle_profile_bg_enabled": {
-    "message": "Enable options page background image"
-  },
   "label_profile_bg_backdrop_color": {
     "message": "Options page backdrop color"
   },
@@ -1459,9 +1579,6 @@
   },
   "button_profile_bg_remove": {
     "message": "Remove"
-  },
-  "button_profile_bg_apply": {
-    "message": "Apply options page background"
   },
   "button_profile_bg_position_reset": {
     "message": "Reset image position"
@@ -1615,5 +1732,68 @@
   },
   "status_srs_discard_failed": {
     "message": "Failed to discard learning word."
+  },
+  "label_language_pair": {
+    "message": "$1 -> $2"
+  },
+  "replacement_tooltip_toggle_original": {
+    "message": "Click to toggle original"
+  },
+  "replacement_tooltip_details_feedback": {
+    "message": "Right-click (or Ctrl+Click on macOS) for details and feedback."
+  },
+  "replacement_tooltip_toggle_original_with_details": {
+    "message": "Click to toggle original. Right-click (or Ctrl+Click on macOS) for details and feedback."
+  },
+  "replacement_tooltip_original": {
+    "message": "Original: $1"
+  },
+  "manual_source_prompt_title": {
+    "message": "LexiShift data source"
+  },
+  "dictionary_source_prompt_title": {
+    "message": "LexiShift popup dictionaries"
+  },
+  "dictionary_source_prompt_body": {
+    "message": "LexiShift can import compatible Yomitan format-3 term dictionary ZIPs from this community-maintained directory. Review each dictionary's license or terms before obtaining it."
+  },
+  "dictionary_source_prompt_after_download": {
+    "message": "After downloading an eligible ZIP, return to LexiShift. The desktop app will validate it and offer to import it locally."
+  },
+  "dictionary_source_prompt_recommended": {
+    "message": "Recommended for Japanese: $1"
+  },
+  "dictionary_source_prompt_format": {
+    "message": "Format: $1"
+  },
+  "dictionary_source_prompt_show_entry": {
+    "message": "Show recommended entry"
+  },
+  "dictionary_source_prompt_entry_found": {
+    "message": "Recommended entry highlighted. Use its download link on this page, then return to LexiShift."
+  },
+  "dictionary_source_prompt_entry_missing": {
+    "message": "The page changed and the recommended entry could not be found. Search this page for $1."
+  },
+  "manual_source_prompt_body": {
+    "message": "This page hosts $1 for $2. Review the provider terms, then download the required source file."
+  },
+  "manual_source_prompt_file": {
+    "message": "Expected file: $1"
+  },
+  "manual_source_prompt_terms": {
+    "message": "Review terms on this page"
+  },
+  "manual_source_prompt_download": {
+    "message": "Download source file"
+  },
+  "manual_source_prompt_after_download": {
+    "message": "After it downloads, return to LexiShift and import the file."
+  },
+  "manual_source_prompt_download_opened": {
+    "message": "Download opened. Return to LexiShift when it finishes."
+  },
+  "manual_source_prompt_dismiss": {
+    "message": "Dismiss"
   }
 }

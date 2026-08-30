@@ -71,6 +71,12 @@ Today:
   - ready pointers require semantic inventory publication
   - ready pointers must resolve to trigger/sense/competition-set records in the sidecar
   - snapshot and semantic inventory must agree with the requested pair/profile/generation
+- when a pair capability declares a default local semantic reference pack and that
+  pack copy is installed under `language_packs/<pair>/semantic_packs/`, normal
+  SRS rulegen publication may use the pack as evidence enrichment for matching
+  source/replacement families that are already in the current ruleset; this
+  upgrades ready pointers without widening or replacing the active Vocabulary
+  Practice ruleset
 - helper source-of-truth diagnostics inspect:
   - store
   - ruleset

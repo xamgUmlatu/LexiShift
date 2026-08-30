@@ -42,6 +42,13 @@
     const applySettings = typeof opts.applySettings === "function"
       ? opts.applySettings
       : (() => {});
+    const onBrowsingSourceIndexRefresh = typeof opts.onBrowsingSourceIndexRefresh === "function"
+      ? opts.onBrowsingSourceIndexRefresh
+      : (() => {});
+    const browsingAdmissionSignals = opts.browsingAdmissionSignals
+      && typeof opts.browsingAdmissionSignals === "object"
+      ? opts.browsingAdmissionSignals
+      : null;
 
     const rebuildKeys = [
       "enabled",
@@ -51,8 +58,12 @@
       "maxOnePerTextBlock",
       "allowAdjacentReplacements",
       "maxReplacementsPerPage",
+      "maxReplacementsPerSentence",
       "maxReplacementsPerLemmaPerPage",
       "srsEnabled",
+      "sourceLanguage",
+      "targetLanguage",
+      "srsPairAuto",
       "srsPair",
       "srsProfileId",
       "srsMaxActive",
@@ -75,6 +86,9 @@
       "srsAutoRefreshMinGoodEasy",
       "srsAutoRefreshRepeatMinGoodEasy",
       "srsAutoRefreshCooldownMinutes",
+      "srsBrowsingAdmissionSignalsEnabled",
+      "srsBrowsingSourceMiningOptions",
+      "srsBrowsingSourceIndexOptions",
       "srsProfileContext"
     ];
 
@@ -112,6 +126,15 @@
       }
       if (applyHighlightToDom) {
         applyHighlightToDom(merged.highlightEnabled);
+      }
+    }
+
+    function clearBrowsingAdmissionPending(reason) {
+      if (
+        browsingAdmissionSignals
+        && typeof browsingAdmissionSignals.clearPending === "function"
+      ) {
+        browsingAdmissionSignals.clearPending(reason);
       }
     }
 
@@ -186,6 +209,22 @@
         }
       }
 
+      if (changes.srsBrowsingAdmissionSignalsEnabled) {
+        nextSettings.srsBrowsingAdmissionSignalsEnabled =
+          changes.srsBrowsingAdmissionSignalsEnabled.newValue;
+        clearBrowsingAdmissionPending("browsing_admission_setting_changed");
+        const merged = mergeSettings(nextSettings);
+        if (merged.debugEnabled) {
+          log(
+            `SRS browsing-admission signals ${
+              merged.srsBrowsingAdmissionSignalsEnabled === true ? "enabled" : "disabled"
+            }.`
+          );
+        }
+      } else if (changes.srsPair || changes.srsProfileId) {
+        clearBrowsingAdmissionPending("browsing_admission_scope_changed");
+      }
+
       if (changes.debugEnabled) {
         nextSettings.debugEnabled = changes.debugEnabled.newValue;
         const merged = mergeSettings(nextSettings);
@@ -234,6 +273,16 @@
       }
       if (needsRebuild) {
         applySettings(nextSettings);
+      }
+      if (
+        !needsRebuild
+        && (
+          changes.srsBrowsingAdmissionSignalsEnabled
+          || changes.srsBrowsingSourceMiningOptions
+          || changes.srsBrowsingSourceIndexOptions
+        )
+      ) {
+        onBrowsingSourceIndexRefresh(mergeSettings(nextSettings), "settings changed");
       }
     }
 

@@ -85,23 +85,34 @@ Define how set `S` is planned and mutated:
 All sizing normalization is centralized in `srs/set_policy.py` to avoid duplicated magic numbers.
 
 Current constants:
-- `DEFAULT_BOOTSTRAP_TOP_N = 800`
-- `MIN_BOOTSTRAP_TOP_N = 200`
-- `MAX_BOOTSTRAP_TOP_N = 50000`
+- `DEFAULT_BOOTSTRAP_TOP_N = None` (all available seed rows)
+- `MIN_BOOTSTRAP_TOP_N = 200` for explicit finite overrides
+- `MAX_BOOTSTRAP_TOP_N = 50000` for explicit finite overrides
 - `DEFAULT_INITIAL_ACTIVE_COUNT = 40`
 - `MIN_INITIAL_ACTIVE_COUNT = 1`
 - `MAX_INITIAL_ACTIVE_COUNT = 5000`
 
 Resolution algorithm:
-1. Resolve requested bootstrap size from `bootstrap_top_n`; if missing, use `set_top_n`; if invalid, default to `800`.
-2. Clamp bootstrap size to `200..50000`.
+1. Resolve requested bootstrap size from `bootstrap_top_n`; if missing, use `set_top_n`; if still missing/invalid, use all available seed rows.
+2. Clamp explicit finite bootstrap size to `200..50000`.
 3. Resolve `max_active_items_hint` (optional), clamp to `1..5000` when present.
 4. Resolve `initial_active_count`; if missing/invalid, use `max_active_items_hint` when present, otherwise default to `40`.
-5. Clamp `initial_active_count` to `1..5000`, then clamp again so it never exceeds effective bootstrap size.
+5. Clamp `initial_active_count` to `1..5000`; if an explicit finite bootstrap size is present, clamp again so it never exceeds that size.
 6. Emit policy notes in planner output whenever defaults/clamps are applied.
 
 Current mutation behavior:
-- Bootstrap builds candidate pool from `bootstrap_top_n`, then admits only `initial_active_count` unique lemmas into persisted inventory `S`.
+- Bootstrap builds the candidate pool from all available seed rows by default, or from explicit `bootstrap_top_n` when a finite override is supplied, then admits only `initial_active_count` unique lemmas into persisted inventory `S`.
+- Helper-driven SRS flows cache source-normalized seed rows under
+  `srs/cache/seed_frontiers/` so full-frontier bootstrap does not repeat
+  frequency/JMDict/POS/package/classification work on every request. The cache
+  is keyed by source freshness and seed config, excludes profile-specific
+  scoring, and falls back to rebuilding on miss, stale key, or corrupt file.
+- Cache preparation is also available as a profile-independent lifecycle
+  operation. `srs_seed_cache_status` and `srs_seed_cache_prepare` report or
+  warm the cache for a pair, while resource-pack warmup maps installed packs to
+  affected SRS pairs. Cache writes use a single-flight lock, stale cache cleanup
+  keeps old fingerprints bounded, and blocked warmups report missing companion
+  resources without changing admission behavior.
 - Items outside that admitted subset are excluded from `S` (implicit zero probability in sparse representation).
 - Review scheduling still remains feedback-driven and due-based after admission.
 

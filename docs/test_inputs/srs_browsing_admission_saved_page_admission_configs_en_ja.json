@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "pair": "en-ja",
+  "description": "Saved-page aggregate admission preview scenarios for checking whether mined browsing signals improve SRS admission UX without mutating runtime state.",
+  "defaults": {
+    "set_top_n": 12000,
+    "admission_budget": 8,
+    "max_active_items": 20,
+    "row_limit": 60
+  },
+  "scenarios": [
+    {
+      "name": "neutral_p35_saved_pages",
+      "description": "Neutral learner near early intermediate proficiency; checks whether saved-page signals can add relevant story words without profile-topic help.",
+      "proficiency": 0.35,
+      "expectations": {
+        "min_matching_signal_count": 5,
+        "strong_has_browsing_lane": true,
+        "preview_only": true,
+        "monotonic_strength": true
+      }
+    },
+    {
+      "name": "neutral_p50_saved_pages",
+      "description": "Neutral learner near upper intermediate proficiency; checks whether the same aggregate finds harder content words.",
+      "proficiency": 0.5,
+      "expectations": {
+        "min_matching_signal_count": 5,
+        "strong_has_browsing_lane": true,
+        "preview_only": true,
+        "monotonic_strength": true
+      }
+    },
+    {
+      "name": "food_p35_saved_pages",
+      "description": "Food-interested learner; checks interaction between explicit topic preference and saved-page browsing evidence.",
+      "proficiency": 0.35,
+      "interests": [
+        "food_cooking"
+      ],
+      "topic_weights": {
+        "food_cooking": 1.0
+      },
+      "expectations": {
+        "min_matching_signal_count": 5,
+        "strong_has_browsing_lane": true,
+        "preview_only": true,
+        "monotonic_strength": true
+      }
+    },
+    {
+      "name": "animals_p35_saved_pages",
+      "description": "Animal-interested learner; checks whether the Rabbit source page and Aozora animal mentions shape selection.",
+      "proficiency": 0.35,
+      "interests": [
+        "animals"
+      ],
+      "topic_weights": {
+        "animals": 1.0
+      },
+      "expectations": {
+        "min_matching_signal_count": 5,
+        "strong_has_browsing_lane": true,
+        "preview_only": true,
+        "monotonic_strength": true
+      }
+    }
+  ]
+}

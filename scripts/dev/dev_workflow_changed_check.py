@@ -266,13 +266,17 @@ def _collect_substantive_changed_files(
     substantive: set[str] = set()
     for path in changed_files:
         normalized = path.replace("\\", "/")
-        base_source = _git_tracked_file_text(tracked_base_revision, normalized)
-        current_source = _current_file_text(normalized, scope)
         if normalized.endswith(".py"):
+            base_source = _git_tracked_file_text(tracked_base_revision, normalized)
+            current_source = _current_file_text(normalized, scope)
             is_substantive = _python_change_is_substantive(base_source, current_source)
         elif normalized.endswith(JSON_NORMALIZED_EXTENSIONS):
+            base_source = _git_tracked_file_text(tracked_base_revision, normalized)
+            current_source = _current_file_text(normalized, scope)
             is_substantive = _json_change_is_substantive(base_source, current_source)
         elif normalized.endswith(WHITESPACE_NORMALIZED_TEXT_EXTENSIONS):
+            base_source = _git_tracked_file_text(tracked_base_revision, normalized)
+            current_source = _current_file_text(normalized, scope)
             is_substantive = _text_change_is_substantive(base_source, current_source)
         else:
             is_substantive = normalized in non_whitespace_changed

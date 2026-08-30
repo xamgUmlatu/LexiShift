@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from functools import lru_cache
 from pathlib import Path
 from typing import Callable, Mapping, Sequence
 from urllib.parse import quote
@@ -11,19 +12,51 @@ from lexishift_core.helper.lp_capabilities import (
 )
 from lexishift_core.helper.pair_resources import resolve_pair_translation_packs
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.use_cases.word_info_dictionary import (
+    dictionary_metadata_for_path,
+    jmdict_gloss_records_for_candidates,
+    matched_headword,
+    records_for_candidates,
+    translation_dictionary_match,
+    translation_dictionary_metadata,
+)
+from lexishift_core.helper.use_cases.word_info_identity import (
+    find_srs_item,
+    lookup_japanese_reading,
+)
+from lexishift_core.helper.use_cases.word_info_dictionary_results import (
+    BuiltinDictionaryLookup,
+    resolve_ordered_dictionary_results,
+)
+from lexishift_core.helper.use_cases.word_info_senses import (
+    build_jmdict_sense_payloads,
+    build_translation_sense_payloads,
+)
+from lexishift_core.helper.use_cases.word_info_jmdict import (
+    jmdict_entries_for_candidates,
+    jmdict_gloss_records,
+    select_jmdict_definition_entries,
+)
 from lexishift_core.lexicon.word_package import normalize_word_package
+from lexishift_core.pos.normalization import CANONICAL_POS_TAGS
 from lexishift_core.persistence.storage import load_vocab_dataset
 from lexishift_core.resources.dict_loaders import (
+    JmdictEntryRecord,
     TranslationGlossRecord,
-    load_jmdict_glosses_ordered,
     load_translation_gloss_records_ordered,
 )
-from lexishift_core.srs import load_srs_store, normalize_srs_lifecycle_state
+from lexishift_core.resources.jmdict_definition_lookup import (
+    jmdict_definition_index_path,
+    load_jmdict_definition_records_for_terms,
+)
+from lexishift_core.srs import normalize_srs_lifecycle_state
 
 
 GLOSS_LIMIT = 5
+SENSE_LIMIT = 5
 DETAIL_LIMIT = 2
 EXAMPLE_LIMIT = 1
+LABEL_LIMIT = 4
 SOURCE_PHRASE_LIMIT = 5
 RESTRICTED_USAGE_TAGS = {
     "derogatory",
@@ -63,11 +96,12 @@ def lookup_word_info(
         fallback_language_tag=target_language,
         fallback_provider="request",
     )
-    srs_item = _find_srs_item(
+    srs_item = find_srs_item(
         paths,
         profile_id=normalized_profile_id,
         pair=normalized_pair,
         normalized_lemma=normalized_lemma,
+        request_word_package=request_word_package,
     )
     srs_word_package = _normalize_package(
         getattr(srs_item, "word_package", None),
@@ -75,7 +109,7 @@ def lookup_word_info(
         fallback_language_tag=target_language,
         fallback_provider=getattr(srs_item, "source_type", "") if srs_item is not None else "",
     )
-    primary_word_package = srs_word_package or request_word_package or {}
+    primary_word_package = request_word_package or srs_word_package or {}
     resolved_display = _first_text(
         display,
         primary_word_package.get("surface") if isinstance(primary_word_package, Mapping) else "",
@@ -87,6 +121,12 @@ def lookup_word_info(
         request_word_package=request_word_package,
         srs_word_package=srs_word_package,
     )
+    lookup_surface = _first_text(primary_word_package.get("surface"), lemma, resolved_display)
+    lookup_reading = lookup_japanese_reading(
+        primary_word_package,
+        target_language=target_language,
+        surface=lookup_surface,
+    )
     rule_summary = _rule_summary(
         paths,
         pair=normalized_pair,
@@ -94,12 +134,14 @@ def lookup_word_info(
         normalized_lemma=normalized_lemma,
         source_phrase=source_phrase,
     )
-    gloss_payload, gloss_diagnostics = _resolve_glosses(
+    gloss_payload, sense_payload, gloss_diagnostics = _resolve_glosses(
         paths,
         pair=normalized_pair,
         source_language=source_language,
         target_language=target_language,
         lookup_candidates=lookup_candidates,
+        lookup_surface=lookup_surface,
+        lookup_reading=lookup_reading,
         translation_dict_path=translation_dict_path,
         jmdict_path=jmdict_path,
     )
@@ -124,8 +166,15 @@ def lookup_word_info(
         "display": resolved_display,
         "normalized_lemma": normalized_lemma,
         "origin": str(origin or "").strip().lower(),
-        "pos": _pos_payload(primary_word_package, gloss_payload),
+        "pos": _pos_payload(
+            (request_word_package, srs_word_package),
+            gloss_payload,
+        ),
         "glosses": gloss_payload,
+        "senses": sense_payload,
+        "dictionary": gloss_diagnostics.get("dictionary"),
+        "dictionary_match": gloss_diagnostics.get("dictionary_match"),
+        "dictionary_results": gloss_diagnostics.get("dictionary_results", []),
         "source_phrases": rule_summary["source_phrases"],
         "rule_summary": {
             "rule_count": rule_summary["rule_count"],
@@ -201,25 +250,6 @@ def _safe_payload_value(value: object) -> object:
 def _is_local_resource_key(key: str) -> bool:
     normalized = str(key or "").strip().lower()
     return "path" in normalized or normalized.endswith("_dir") or normalized == "dir"
-
-
-def _find_srs_item(
-    paths: HelperPaths,
-    *,
-    profile_id: str,
-    pair: str,
-    normalized_lemma: str,
-) -> object | None:
-    store_path = paths.srs_store_path_for(profile_id)
-    if not store_path.exists():
-        return None
-    store = load_srs_store(store_path)
-    for item in store.items:
-        if item.language_pair != pair:
-            continue
-        if _normalize_lemma(item.lemma) == normalized_lemma:
-            return item
-    return None
 
 
 def _lookup_candidates(
@@ -307,30 +337,91 @@ def _resolve_glosses(
     source_language: str,
     target_language: str,
     lookup_candidates: Sequence[str],
+    lookup_surface: str,
+    lookup_reading: str,
     translation_dict_path: Path | None,
     jmdict_path: Path | None,
-) -> tuple[list[dict[str, object]], dict[str, object]]:
+) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
     capability = resolve_pair_capability(pair)
+    builtin_source_id = ""
     if capability.requires_jmdict_for_rulegen or capability.requires_jmdict_for_seed:
-        return _resolve_jmdict_glosses(
-            paths,
-            pair=pair,
-            source_language=source_language,
-            lookup_candidates=lookup_candidates,
-            jmdict_path=jmdict_path,
+        builtin_source_id = "builtin:jmdict"
+    elif capability.requires_translation_dictionary_for_rulegen:
+        builtin_source_id = "builtin:translation"
+
+    def resolve_builtin(source_id: str) -> BuiltinDictionaryLookup | None:
+        if source_id == "builtin:jmdict":
+            return _resolve_jmdict_glosses(
+                paths,
+                pair=pair,
+                source_language=source_language,
+                lookup_candidates=lookup_candidates,
+                lookup_surface=lookup_surface,
+                lookup_reading=lookup_reading,
+                jmdict_path=jmdict_path,
+            )
+        if source_id == "builtin:translation":
+            return _resolve_translation_glosses(
+                paths,
+                pair=pair,
+                source_language=source_language,
+                lookup_candidates=lookup_candidates,
+                lookup_surface=lookup_surface,
+                translation_dict_path=translation_dict_path,
+            )
+        return None
+
+    dictionary_results, missing_resources, builtin_lookup = resolve_ordered_dictionary_results(
+        paths,
+        pair=pair,
+        builtin_source_id=builtin_source_id,
+        lookup_candidates=lookup_candidates,
+        lookup_surface=lookup_surface,
+        lookup_reading=lookup_reading,
+        sense_limit=SENSE_LIMIT,
+        gloss_limit=GLOSS_LIMIT,
+        resolve_builtin=resolve_builtin,
+    )
+    if dictionary_results:
+        primary = dictionary_results[0]
+        primary_glosses = primary.get("glosses")
+        primary_senses = primary.get("senses")
+        return (
+            list(primary_glosses) if isinstance(primary_glosses, list) else [],
+            list(primary_senses) if isinstance(primary_senses, list) else [],
+            {
+                "provider_status": "ok",
+                "missing_resources": missing_resources,
+                "dictionary": primary.get("dictionary"),
+                "dictionary_match": primary.get("dictionary_match"),
+                "dictionary_results": dictionary_results,
+            },
         )
-    if capability.requires_translation_dictionary_for_rulegen:
-        return _resolve_translation_glosses(
-            paths,
-            pair=pair,
-            source_language=source_language,
-            lookup_candidates=lookup_candidates,
-            translation_dict_path=translation_dict_path,
+
+    if builtin_lookup is None:
+        unsupported_resource: dict[str, object] = {
+            "type": "word_info_provider",
+            "reason": "pair_lacks_provider",
+        }
+        missing_resources.append(unsupported_resource)
+        builtin_lookup = (
+            [],
+            [],
+            {
+                "provider_status": "unsupported_pair",
+                "missing_resources": [unsupported_resource],
+            },
         )
-    return [], {
-        "provider_status": "unsupported_pair",
-        "missing_resources": [{"type": "word_info_provider", "reason": "pair_lacks_provider"}],
-    }
+    builtin_glosses, builtin_senses, builtin_diagnostics = builtin_lookup
+    return (
+        builtin_glosses,
+        builtin_senses,
+        {
+            **builtin_diagnostics,
+            "missing_resources": missing_resources,
+            "dictionary_results": [],
+        },
+    )
 
 
 def _resolve_translation_glosses(
@@ -339,38 +430,60 @@ def _resolve_translation_glosses(
     pair: str,
     source_language: str,
     lookup_candidates: Sequence[str],
+    lookup_surface: str,
     translation_dict_path: Path | None,
-) -> tuple[list[dict[str, object]], dict[str, object]]:
+) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
     resolved_pack, _reverse_pack = resolve_pair_translation_packs(
         paths,
         pair=pair,
         translation_dict_path=translation_dict_path,
     )
     if resolved_pack is None or not resolved_pack.path.exists():
-        return [], {
-            "provider_status": "missing_translation_pack",
-            "missing_resources": [
-                {
-                    "type": "translation_pack",
-                    "reason": "missing",
-                    "pack_id": resolved_pack.pack_id if resolved_pack is not None else "",
-                }
-            ],
-        }
+        return (
+            [],
+            [],
+            {
+                "provider_status": "missing_translation_pack",
+                "missing_resources": [
+                    {
+                        "type": "translation_pack",
+                        "reason": "missing",
+                        "pack_id": resolved_pack.pack_id if resolved_pack is not None else "",
+                    }
+                ],
+            },
+        )
     records_by_headword = load_translation_gloss_records_ordered(
         resolved_pack.path,
         target_lang=source_language,
         headwords=lookup_candidates,
     )
-    records = _records_for_candidates(records_by_headword, lookup_candidates)
+    records = records_for_candidates(records_by_headword, lookup_candidates)
+    resolved_headword = matched_headword(records_by_headword, lookup_candidates)
+    payload_options = {
+        "language": source_language,
+        "source": resolved_pack.pack_id,
+        "source_kind": "installed_translation_pack",
+    }
     return (
-        _gloss_payloads(
-            records,
-            language=source_language,
-            source=resolved_pack.pack_id,
-            source_kind="installed_translation_pack",
+        _gloss_payloads(records, **payload_options),
+        build_translation_sense_payloads(
+            _presentation_records(records),
+            **payload_options,
+            sense_limit=SENSE_LIMIT,
+            detail_limit=DETAIL_LIMIT,
+            example_limit=EXAMPLE_LIMIT,
+            label_limit=LABEL_LIMIT,
         ),
-        {"provider_status": "ok", "missing_resources": []},
+        {
+            "provider_status": "ok",
+            "missing_resources": [],
+            "dictionary": translation_dictionary_metadata(resolved_pack),
+            "dictionary_match": translation_dictionary_match(
+                resolved_headword,
+                lookup_surface=lookup_surface,
+            ),
+        },
     )
 
 
@@ -380,23 +493,36 @@ def _resolve_jmdict_glosses(
     pair: str,
     source_language: str,
     lookup_candidates: Sequence[str],
+    lookup_surface: str,
+    lookup_reading: str,
     jmdict_path: Path | None,
-) -> tuple[list[dict[str, object]], dict[str, object]]:
+) -> tuple[list[dict[str, object]], list[dict[str, object]], dict[str, object]]:
     resolved_path = jmdict_path or default_jmdict_path(
         pair, language_packs_dir=paths.language_packs_dir
     )
     if resolved_path is None or not resolved_path.exists():
-        return [], {
-            "provider_status": "missing_jmdict",
-            "missing_resources": [{"type": "jmdict", "reason": "missing", "pack_id": "jmdict"}],
-        }
-    glosses_by_headword = load_jmdict_glosses_ordered(resolved_path)
-    records: list[TranslationGlossRecord] = []
-    lookup_set = {_normalize_lemma(candidate) for candidate in lookup_candidates}
-    for headword, glosses in glosses_by_headword.items():
-        if _normalize_lemma(headword) not in lookup_set:
-            continue
-        records.extend(TranslationGlossRecord(translation=gloss, pos_raw="") for gloss in glosses)
+        return (
+            [],
+            [],
+            {
+                "provider_status": "missing_jmdict",
+                "missing_resources": [{"type": "jmdict", "reason": "missing", "pack_id": "jmdict"}],
+            },
+        )
+    entries_by_headword, glosses_by_headword = _load_cached_jmdict_definition_data(
+        resolved_path,
+        lookup_candidates,
+        cache_dir=paths.data_root / "cache" / "jmdict",
+    )
+    entries = jmdict_entries_for_candidates(entries_by_headword, lookup_candidates)
+    selection = select_jmdict_definition_entries(
+        entries,
+        surface=lookup_surface,
+        reading=lookup_reading,
+    )
+    records = jmdict_gloss_records(selection.entries)
+    if not records:
+        records = jmdict_gloss_records_for_candidates(glosses_by_headword, lookup_candidates)
     return (
         _gloss_payloads(
             records,
@@ -404,21 +530,75 @@ def _resolve_jmdict_glosses(
             source="jmdict",
             source_kind="installed_jmdict",
         ),
-        {"provider_status": "ok", "missing_resources": []},
+        build_jmdict_sense_payloads(
+            selection.entries,
+            language=source_language or "en",
+            source="jmdict",
+            source_kind="installed_jmdict",
+            sense_limit=SENSE_LIMIT,
+            detail_limit=DETAIL_LIMIT,
+            label_limit=LABEL_LIMIT,
+        ),
+        {
+            "provider_status": "ok",
+            "missing_resources": [],
+            "dictionary": dictionary_metadata_for_path(
+                resolved_path,
+                fallback_pack_id="jmdict-ja-en",
+                fallback_provider="edrdg",
+                source_kind="installed_jmdict",
+            ),
+            "dictionary_match": {
+                "surface": selection.matched_surface,
+                "reading": selection.matched_reading,
+                "quality": selection.match_quality,
+            },
+        },
     )
 
 
-def _records_for_candidates(
-    records_by_headword: Mapping[str, Sequence[TranslationGlossRecord]],
+@lru_cache(maxsize=128)
+def _load_jmdict_definition_data_cached(
+    path_value: str,
+    mtime_ns: int,
+    size: int,
+    lookup_candidates: tuple[str, ...],
+    index_path_value: str,
+) -> tuple[
+    Mapping[str, Sequence[JmdictEntryRecord]],
+    Mapping[str, list[str]],
+]:
+    del mtime_ns, size
+    return load_jmdict_definition_records_for_terms(
+        Path(path_value),
+        lookup_candidates,
+        index_path=Path(index_path_value),
+    )
+
+
+def _load_cached_jmdict_definition_data(
+    path: Path,
     lookup_candidates: Sequence[str],
-) -> list[TranslationGlossRecord]:
-    lookup_set = {_normalize_lemma(candidate) for candidate in lookup_candidates}
-    records: list[TranslationGlossRecord] = []
-    for headword, entries in records_by_headword.items():
-        if _normalize_lemma(headword) not in lookup_set:
-            continue
-        records.extend(entries)
-    return records
+    *,
+    cache_dir: Path,
+) -> tuple[
+    Mapping[str, Sequence[JmdictEntryRecord]],
+    Mapping[str, list[str]],
+]:
+    stat = path.stat()
+    return _load_jmdict_definition_data_cached(
+        str(path),
+        int(stat.st_mtime_ns),
+        int(stat.st_size),
+        tuple(
+            dict.fromkeys(
+                normalized
+                for candidate in lookup_candidates
+                if (normalized := _normalize_lemma(candidate))
+            )
+        ),
+        str(jmdict_definition_index_path(cache_dir, path)),
+    )
 
 
 def _gloss_payloads(
@@ -430,8 +610,7 @@ def _gloss_payloads(
 ) -> list[dict[str, object]]:
     payloads: list[dict[str, object]] = []
     seen: set[str] = set()
-    unrestricted_records = [record for record in records if not _has_restricted_usage(record)]
-    for record in _primary_pos_records(unrestricted_records or records):
+    for record in _presentation_records(records):
         raw_text = str(record.translation or "").strip()
         if not raw_text:
             continue
@@ -467,6 +646,13 @@ def _gloss_payloads(
         if len(payloads) >= GLOSS_LIMIT:
             break
     return payloads
+
+
+def _presentation_records(
+    records: Sequence[TranslationGlossRecord],
+) -> Sequence[TranslationGlossRecord]:
+    unrestricted_records = [record for record in records if not _has_restricted_usage(record)]
+    return _primary_pos_records(unrestricted_records or records)
 
 
 def _record_metadata(record: TranslationGlossRecord) -> Mapping[str, object]:
@@ -596,17 +782,47 @@ def _truncate_text(value: object, *, limit: int = 160) -> str:
 
 
 def _pos_payload(
-    word_package: Mapping[str, object],
+    word_packages: Sequence[Mapping[str, object]],
     glosses: Sequence[Mapping[str, object]],
 ) -> dict[str, object]:
-    canonical = _first_text(word_package.get("pos_canonical"), word_package.get("pos"))
-    if canonical:
-        return {"canonical": canonical, "label": canonical, "source": "word_package"}
+    canonical_tags = frozenset(CANONICAL_POS_TAGS)
+    raw_label = ""
+    for word_package in word_packages:
+        if not isinstance(word_package, Mapping):
+            continue
+        if not raw_label:
+            raw_label = _first_text(
+                word_package.get("pos_raw"),
+                word_package.get("pos"),
+                word_package.get("pos_canonical"),
+            )
+        for value in (word_package.get("pos_canonical"), word_package.get("pos")):
+            canonical = _first_text(value).casefold()
+            if canonical in canonical_tags:
+                return {
+                    "canonical": canonical,
+                    "label": raw_label or canonical,
+                    "raw": raw_label,
+                    "source": "word_package",
+                }
     for gloss in glosses:
         pos = _first_text(gloss.get("pos") if isinstance(gloss, Mapping) else "")
         if pos:
-            return {"canonical": pos, "label": pos, "source": "installed_dictionary"}
-    return {"canonical": "", "label": "", "source": ""}
+            canonical = pos.casefold() if pos.casefold() in canonical_tags else ""
+            return {
+                "canonical": canonical,
+                "label": pos,
+                "raw": pos,
+                "source": "installed_dictionary",
+            }
+    if raw_label:
+        return {
+            "canonical": "",
+            "label": raw_label,
+            "raw": raw_label,
+            "source": "word_package",
+        }
+    return {"canonical": "", "label": "", "raw": "", "source": ""}
 
 
 def _srs_payload(item: object | None) -> dict[str, object]:

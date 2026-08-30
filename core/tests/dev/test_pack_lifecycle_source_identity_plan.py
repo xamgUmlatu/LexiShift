@@ -33,6 +33,12 @@ class PackLifecycleSourceIdentityPlanTests(unittest.TestCase):
         self.assertEqual(rows["freq-es-cde"]["classification"], "label_only")
         self.assertEqual(rows["freq-es-cde"]["policy_category"], "source_label_policy")
         self.assertEqual(rows["freq-es-cde"]["candidate_value"], "spanish_lemmas20k")
+        self.assertEqual(rows["freq-es-spalex-v1"]["classification"], "safe_to_write")
+        self.assertEqual(rows["freq-es-spalex-v1"]["candidate_field"], "source_version")
+        self.assertEqual(
+            rows["freq-es-spalex-v1"]["candidate_value"],
+            "10.6084/m9.figshare.5924794.v4",
+        )
         self.assertEqual(rows["wiktionary-en-es"]["classification"], "needs_policy")
         self.assertEqual(rows["wiktionary-en-es"]["candidate_field"], "source_dump")
         self.assertEqual(

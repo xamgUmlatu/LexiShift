@@ -30,6 +30,7 @@ class SrsTopicFamilyDepthAuditTests(unittest.TestCase):
             report = build_report(
                 taxonomy_path=taxonomy,
                 kaikki_forward_db=kaikki_db,
+                difficulty_ranking_csv=None,
                 frontiers=[("unit_frontier", frequency_db, True)],
                 top_n=8,
                 generated_at="2026-05-19T00:00:00+00:00",
@@ -75,6 +76,7 @@ class SrsTopicFamilyDepthAuditTests(unittest.TestCase):
             report = build_report(
                 taxonomy_path=taxonomy,
                 kaikki_forward_db=kaikki_db,
+                difficulty_ranking_csv=None,
                 frontiers=[
                     ("unit_frontier", frequency_db, True),
                     ("optional_missing", missing_db, False),
@@ -86,6 +88,50 @@ class SrsTopicFamilyDepthAuditTests(unittest.TestCase):
             self.assertEqual(report["status"], "ok")
             self.assertIn("frontier_missing:optional_missing", report["summary"]["warnings"])
             self.assertEqual(report["summary"]["issues"], [])
+
+    def test_corrected_ranking_csv_drives_difficulty_bands_when_available(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            taxonomy = root / "taxonomy.json"
+            frequency_db = root / "freq.sqlite"
+            kaikki_db = root / "kaikki.sqlite"
+            ranking_csv = root / "ranking.csv"
+            taxonomy.write_text(json.dumps(_taxonomy_json()), encoding="utf-8")
+            _write_frequency_db(frequency_db)
+            _write_kaikki_db(kaikki_db)
+            ranking_csv.write_text(
+                "rank,lemma,score\n1,salud,0.10\n2,clínica,0.90\n",
+                encoding="utf-8",
+            )
+
+            report = build_report(
+                taxonomy_path=taxonomy,
+                kaikki_forward_db=kaikki_db,
+                difficulty_ranking_csv=ranking_csv,
+                frontiers=[("unit_frontier", frequency_db, True)],
+                top_n=8,
+                generated_at="2026-05-19T00:00:00+00:00",
+            )
+
+            self.assertEqual(
+                report["methodology"]["difficulty_source"],
+                "corrected_learner_difficulty_ranking",
+            )
+            self.assertEqual(report["difficulty_ranking"]["score_count"], 2)
+            frontier = report["frontiers"][0]
+            self.assertEqual(
+                frontier["difficulty_source_counts"]["corrected_learner_difficulty_ranking"],
+                2,
+            )
+            medicine = {row["family"]: row for row in frontier["families"]}["medicine_health"]
+            self.assertEqual(medicine["trusted_nonempty_band_count"], 2)
+            self.assertEqual(medicine["trusted_max_difficulty"], 0.9)
+            hardest = medicine["trusted_hardest_examples"][0]
+            self.assertEqual(hardest["lemma"], "clínica")
+            self.assertEqual(
+                hardest["difficulty_source"],
+                "corrected_learner_difficulty_ranking",
+            )
 
 
 def _taxonomy_json() -> dict[str, object]:

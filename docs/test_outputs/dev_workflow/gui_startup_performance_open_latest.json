@@ -1,51 +1,1277 @@
 {
-  "generated_at": "2026-06-01T02:34:55.713082+00:00",
+  "generated_at": "2026-08-27T03:06:02.266936+00:00",
   "app": "/Applications/LexiShift.app",
-  "pair": "en-es",
+  "pair": "en-ja",
   "launch_mode": "open",
-  "repetitions": 1,
+  "ready_marker": "settings_dialog.shown",
+  "repetitions": 3,
   "summary": {
-    "ok_count": 1,
+    "ok_count": 3,
     "timeout_count": 0,
-    "min_ms": 1041.5,
-    "median_ms": 1041.5,
-    "max_ms": 1041.5,
+    "min_ms": 1515.1,
+    "median_ms": 1573.5,
+    "p95_ms": 2313.8,
+    "max_ms": 2396.0,
     "pre_entry": {
-      "count": 1,
-      "min_ms": 584.4,
-      "median_ms": 584.4,
-      "max_ms": 584.4
+      "count": 3,
+      "min_ms": 535.5,
+      "median_ms": 559.5,
+      "p95_ms": 1289.5,
+      "max_ms": 1370.6
     },
     "process_entry_to_window": {
-      "count": 1,
-      "min_ms": 457.1,
-      "median_ms": 457.1,
-      "max_ms": 457.1
+      "count": 3,
+      "min_ms": 979.6,
+      "median_ms": 1014.0,
+      "p95_ms": 1024.3,
+      "max_ms": 1025.4
     }
+  },
+  "budget": {
+    "max_median_ms": 3500.0,
+    "max_p95_ms": 6000.0,
+    "passed": true,
+    "failures": []
   },
   "runs": [
     {
       "index": 1,
       "status": "ok",
-      "session_id": "89adf0b6087a449fa70985c34c4d6ae1",
-      "requested_at": "2026-06-01T02:34:54.666801+00:00",
+      "session_id": "8682a6c359f4468483b81067950503cd",
+      "requested_at": "2026-08-27T03:05:56.509765+00:00",
       "launch_mode": "open",
-      "pair": "en-es",
+      "pair": "en-ja",
+      "ready_marker": "settings_dialog.shown",
       "command": [
         "open",
         "/Applications/LexiShift.app",
         "--args",
         "--open-resource-settings",
         "--resource-pair",
-        "en-es"
+        "en-ja"
       ],
-      "process_pid": 99215,
+      "process_pid": 15633,
+      "app_pid": 15634,
+      "cleanup_status": "terminated",
       "activated": null,
-      "observed_elapsed_ms": 1045.8,
-      "startup_total_ms": 457.1,
-      "since_request_ms": 1041.5,
-      "pre_entry_ms": 584.4,
-      "matched_line": "[startup] window shown (+26.1 ms, total 457.1 ms) session=89adf0b6087a449fa70985c34c4d6ae1 pid=99243 ppid=1 argv_mode=resource_settings source=startup_measure_open ts=2026-06-01T02:34:55.708248+00:00 launch_mode=open resource_pair=en-es since_request_ms=1041.5"
+      "observed_elapsed_ms": 2425.6,
+      "startup_total_ms": 1025.4,
+      "since_request_ms": 2396.0,
+      "pre_entry_ms": 1370.6,
+      "checkpoint_count": 64,
+      "checkpoints": [
+        {
+          "label": "process entry before Qt imports",
+          "delta_ms": 0.0,
+          "total_ms": 0.1,
+          "since_request_ms": null
+        },
+        {
+          "label": "main() begin",
+          "delta_ms": 191.5,
+          "total_ms": 191.5,
+          "since_request_ms": 1562.1
+        },
+        {
+          "label": "exception hook installed",
+          "delta_ms": 0.2,
+          "total_ms": 191.7,
+          "since_request_ms": 1562.3
+        },
+        {
+          "label": "QApplication created",
+          "delta_ms": 37.4,
+          "total_ms": 229.2,
+          "since_request_ms": 1599.8
+        },
+        {
+          "label": "single-instance server ready",
+          "delta_ms": 0.7,
+          "total_ms": 229.9,
+          "since_request_ms": 1600.4
+        },
+        {
+          "label": "theme_dir()",
+          "delta_ms": 0.2,
+          "total_ms": 230.0,
+          "since_request_ms": 1600.6
+        },
+        {
+          "label": "ensure_sample_images()",
+          "delta_ms": 0.2,
+          "total_ms": 230.2,
+          "since_request_ms": 1600.8
+        },
+        {
+          "label": "ensure_sample_themes()",
+          "delta_ms": 0.1,
+          "total_ms": 230.4,
+          "since_request_ms": 1600.9
+        },
+        {
+          "label": "locale initialized",
+          "delta_ms": 1.0,
+          "total_ms": 231.4,
+          "since_request_ms": 1601.9
+        },
+        {
+          "label": "main_window.construction_begin",
+          "delta_ms": 0.1,
+          "total_ms": 231.5,
+          "since_request_ms": 1602.1
+        },
+        {
+          "label": "main_window.qmainwindow_initialized",
+          "delta_ms": 0.3,
+          "total_ms": 231.8,
+          "since_request_ms": 1602.4
+        },
+        {
+          "label": "main_window.settings_theme_resolved",
+          "delta_ms": 0.6,
+          "total_ms": 232.4,
+          "since_request_ms": 1602.9
+        },
+        {
+          "label": "main_window.app_state_created",
+          "delta_ms": 0.1,
+          "total_ms": 232.5,
+          "since_request_ms": 1603.1
+        },
+        {
+          "label": "main_window.app_settings_loaded",
+          "delta_ms": 0.8,
+          "total_ms": 233.3,
+          "since_request_ms": 1603.9
+        },
+        {
+          "label": "main_window.ruleset_paths_migrated",
+          "delta_ms": 0.1,
+          "total_ms": 233.5,
+          "since_request_ms": 1604.0
+        },
+        {
+          "label": "main_window.rules_model_ready",
+          "delta_ms": 0.3,
+          "total_ms": 233.8,
+          "since_request_ms": 1604.4
+        },
+        {
+          "label": "main_window.profile_ruleset_controls_ready",
+          "delta_ms": 9.7,
+          "total_ms": 243.5,
+          "since_request_ms": 1614.1
+        },
+        {
+          "label": "main_window.rules_table_ready",
+          "delta_ms": 70.2,
+          "total_ms": 313.8,
+          "since_request_ms": 1684.3
+        },
+        {
+          "label": "main_window.replacement_controls_ready",
+          "delta_ms": 0.6,
+          "total_ms": 314.4,
+          "since_request_ms": 1684.9
+        },
+        {
+          "label": "main_window.utility_dock_ready",
+          "delta_ms": 1.5,
+          "total_ms": 315.9,
+          "since_request_ms": 1686.5
+        },
+        {
+          "label": "main_window.central_workspace_ready",
+          "delta_ms": 4.1,
+          "total_ms": 320.0,
+          "since_request_ms": 1690.6
+        },
+        {
+          "label": "main_window.actions_menus_ready",
+          "delta_ms": 39.0,
+          "total_ms": 359.1,
+          "since_request_ms": 1729.6
+        },
+        {
+          "label": "main_window.helper_auto_install_complete",
+          "delta_ms": 2.0,
+          "total_ms": 361.0,
+          "since_request_ms": 1731.6
+        },
+        {
+          "label": "main_window.rule_selection_ready",
+          "delta_ms": 0.3,
+          "total_ms": 361.3,
+          "since_request_ms": 1731.9
+        },
+        {
+          "label": "main_window.embedding_refresh_complete",
+          "delta_ms": 0.1,
+          "total_ms": 361.4,
+          "since_request_ms": 1732.0
+        },
+        {
+          "label": "main_window.state_signals_connected",
+          "delta_ms": 0.2,
+          "total_ms": 361.6,
+          "since_request_ms": 1732.2
+        },
+        {
+          "label": "main_window.active_profile_loaded",
+          "delta_ms": 0.7,
+          "total_ms": 362.3,
+          "since_request_ms": 1732.9
+        },
+        {
+          "label": "main_window.profiles_ui_refreshed",
+          "delta_ms": 0.2,
+          "total_ms": 362.6,
+          "since_request_ms": 1733.1
+        },
+        {
+          "label": "main_window.window_state_restored",
+          "delta_ms": 0.2,
+          "total_ms": 362.7,
+          "since_request_ms": 1733.3
+        },
+        {
+          "label": "main_window.theme_resolved",
+          "delta_ms": 0.3,
+          "total_ms": 363.1,
+          "since_request_ms": 1733.6
+        },
+        {
+          "label": "main_window.theme_background_requested",
+          "delta_ms": 0.2,
+          "total_ms": 363.3,
+          "since_request_ms": 1733.8
+        },
+        {
+          "label": "main_window.theme_stylesheet_applied",
+          "delta_ms": 5.6,
+          "total_ms": 368.8,
+          "since_request_ms": 1739.4
+        },
+        {
+          "label": "main_window.theme_applied",
+          "delta_ms": 10.4,
+          "total_ms": 379.2,
+          "since_request_ms": 1749.8
+        },
+        {
+          "label": "main_window.construction_complete",
+          "delta_ms": 0.3,
+          "total_ms": 379.5,
+          "since_request_ms": 1750.0
+        },
+        {
+          "label": "MainWindow constructed",
+          "delta_ms": 0.1,
+          "total_ms": 379.6,
+          "since_request_ms": 1750.1
+        },
+        {
+          "label": "window shown",
+          "delta_ms": 42.5,
+          "total_ms": 422.0,
+          "since_request_ms": 1792.6
+        },
+        {
+          "label": "settings_dialog.open_requested",
+          "delta_ms": 52.3,
+          "total_ms": 474.4,
+          "since_request_ms": 1844.9
+        },
+        {
+          "label": "settings_dialog.construction_begin",
+          "delta_ms": 0.4,
+          "total_ms": 474.7,
+          "since_request_ms": 1845.3
+        },
+        {
+          "label": "settings_dialog.qdialog_initialized",
+          "delta_ms": 0.2,
+          "total_ms": 474.9,
+          "since_request_ms": 1845.5
+        },
+        {
+          "label": "settings_dialog.preferences_loaded",
+          "delta_ms": 0.5,
+          "total_ms": 475.5,
+          "since_request_ms": 1846.0
+        },
+        {
+          "label": "language_pack_panel.construction_begin",
+          "delta_ms": 0.1,
+          "total_ms": 475.6,
+          "since_request_ms": 1846.2
+        },
+        {
+          "label": "language_pack_panel.theme_paths_ready",
+          "delta_ms": 0.7,
+          "total_ms": 476.3,
+          "since_request_ms": 1846.9
+        },
+        {
+          "label": "language_pack_panel.lookup_dictionaries_initialized",
+          "delta_ms": 0.2,
+          "total_ms": 476.5,
+          "since_request_ms": 1847.0
+        },
+        {
+          "label": "language_pack_panel.pack_catalog_loaded",
+          "delta_ms": 0.3,
+          "total_ms": 476.7,
+          "since_request_ms": 1847.3
+        },
+        {
+          "label": "language_pack_panel.base_tables_ready",
+          "delta_ms": 3.3,
+          "total_ms": 480.1,
+          "since_request_ms": 1850.7
+        },
+        {
+          "label": "language_pack_panel.language_packs_populated",
+          "delta_ms": 6.8,
+          "total_ms": 486.9,
+          "since_request_ms": 1857.4
+        },
+        {
+          "label": "language_pack_panel.frequency_packs_populated",
+          "delta_ms": 6.3,
+          "total_ms": 493.2,
+          "since_request_ms": 1863.8
+        },
+        {
+          "label": "language_pack_panel.embedding_packs_populated",
+          "delta_ms": 1.8,
+          "total_ms": 495.0,
+          "since_request_ms": 1865.6
+        },
+        {
+          "label": "language_pack_panel.cross_embedding_packs_populated",
+          "delta_ms": 1.6,
+          "total_ms": 496.7,
+          "since_request_ms": 1867.2
+        },
+        {
+          "label": "language_pack_panel.learning_languages_tab_built",
+          "delta_ms": 0.9,
+          "total_ms": 497.6,
+          "since_request_ms": 1868.1
+        },
+        {
+          "label": "language_pack_panel.lookup_dictionaries_tab_built",
+          "delta_ms": 6.6,
+          "total_ms": 504.2,
+          "since_request_ms": 1874.8
+        },
+        {
+          "label": "language_pack_panel.pair_style_applied",
+          "delta_ms": 8.4,
+          "total_ms": 512.6,
+          "since_request_ms": 1883.2
+        },
+        {
+          "label": "language_pack_panel.construction_complete",
+          "delta_ms": 23.5,
+          "total_ms": 536.1,
+          "since_request_ms": 1906.6
+        },
+        {
+          "label": "settings_dialog.language_pack_panel_constructed",
+          "delta_ms": 0.2,
+          "total_ms": 536.3,
+          "since_request_ms": 1906.8
+        },
+        {
+          "label": "settings_dialog.app_tab_constructed",
+          "delta_ms": 2.8,
+          "total_ms": 539.0,
+          "since_request_ms": 1909.6
+        },
+        {
+          "label": "settings_dialog.resources_tab_constructed",
+          "delta_ms": 130.1,
+          "total_ms": 669.1,
+          "since_request_ms": 2039.7
+        },
+        {
+          "label": "settings_dialog.appearance_tab_constructed",
+          "delta_ms": 3.9,
+          "total_ms": 673.0,
+          "since_request_ms": 2043.6
+        },
+        {
+          "label": "settings_dialog.dataset_tab_constructed",
+          "delta_ms": 7.4,
+          "total_ms": 680.4,
+          "since_request_ms": 2051.0
+        },
+        {
+          "label": "settings_dialog.integrations_tab_constructed",
+          "delta_ms": 23.7,
+          "total_ms": 704.1,
+          "since_request_ms": 2074.7
+        },
+        {
+          "label": "settings_dialog.values_applied",
+          "delta_ms": 76.6,
+          "total_ms": 780.7,
+          "since_request_ms": 2151.2
+        },
+        {
+          "label": "settings_dialog.helper_status_refreshed",
+          "delta_ms": 0.8,
+          "total_ms": 781.5,
+          "since_request_ms": 2152.0
+        },
+        {
+          "label": "settings_dialog.construction_complete",
+          "delta_ms": 200.1,
+          "total_ms": 981.5,
+          "since_request_ms": 2352.1
+        },
+        {
+          "label": "settings_dialog.exec_begin",
+          "delta_ms": 0.3,
+          "total_ms": 981.8,
+          "since_request_ms": 2352.4
+        },
+        {
+          "label": "settings_dialog.shown",
+          "delta_ms": 43.6,
+          "total_ms": 1025.4,
+          "since_request_ms": 2396.0
+        }
+      ],
+      "matched_line": "[startup] settings_dialog.shown (+43.6 ms, total 1025.4 ms) session=8682a6c359f4468483b81067950503cd pid=15634 ppid=1 argv_mode=resource_settings source=startup_measure_open ts=2026-08-27T03:05:58.905710+00:00 launch_mode=open resource_pair=en-ja since_request_ms=2396.0"
+    },
+    {
+      "index": 2,
+      "status": "ok",
+      "session_id": "e3943efe7cf54238a89be821e3d76430",
+      "requested_at": "2026-08-27T03:05:58.991860+00:00",
+      "launch_mode": "open",
+      "pair": "en-ja",
+      "ready_marker": "settings_dialog.shown",
+      "command": [
+        "open",
+        "/Applications/LexiShift.app",
+        "--args",
+        "--open-resource-settings",
+        "--resource-pair",
+        "en-ja"
+      ],
+      "process_pid": 15636,
+      "app_pid": 15637,
+      "cleanup_status": "terminated",
+      "activated": null,
+      "observed_elapsed_ms": 1580.8,
+      "startup_total_ms": 979.6,
+      "since_request_ms": 1515.1,
+      "pre_entry_ms": 535.5,
+      "checkpoint_count": 64,
+      "checkpoints": [
+        {
+          "label": "process entry before Qt imports",
+          "delta_ms": 0.0,
+          "total_ms": 0.0,
+          "since_request_ms": null
+        },
+        {
+          "label": "main() begin",
+          "delta_ms": 172.7,
+          "total_ms": 172.7,
+          "since_request_ms": 708.1
+        },
+        {
+          "label": "exception hook installed",
+          "delta_ms": 0.3,
+          "total_ms": 172.9,
+          "since_request_ms": 708.4
+        },
+        {
+          "label": "QApplication created",
+          "delta_ms": 37.0,
+          "total_ms": 209.9,
+          "since_request_ms": 745.4
+        },
+        {
+          "label": "single-instance server ready",
+          "delta_ms": 0.6,
+          "total_ms": 210.6,
+          "since_request_ms": 746.0
+        },
+        {
+          "label": "theme_dir()",
+          "delta_ms": 0.2,
+          "total_ms": 210.7,
+          "since_request_ms": 746.2
+        },
+        {
+          "label": "ensure_sample_images()",
+          "delta_ms": 0.2,
+          "total_ms": 210.9,
+          "since_request_ms": 746.4
+        },
+        {
+          "label": "ensure_sample_themes()",
+          "delta_ms": 0.2,
+          "total_ms": 211.1,
+          "since_request_ms": 746.6
+        },
+        {
+          "label": "locale initialized",
+          "delta_ms": 1.0,
+          "total_ms": 212.1,
+          "since_request_ms": 747.6
+        },
+        {
+          "label": "main_window.construction_begin",
+          "delta_ms": 0.2,
+          "total_ms": 212.3,
+          "since_request_ms": 747.7
+        },
+        {
+          "label": "main_window.qmainwindow_initialized",
+          "delta_ms": 0.2,
+          "total_ms": 212.4,
+          "since_request_ms": 747.9
+        },
+        {
+          "label": "main_window.settings_theme_resolved",
+          "delta_ms": 0.4,
+          "total_ms": 212.8,
+          "since_request_ms": 748.3
+        },
+        {
+          "label": "main_window.app_state_created",
+          "delta_ms": 0.2,
+          "total_ms": 213.0,
+          "since_request_ms": 748.4
+        },
+        {
+          "label": "main_window.app_settings_loaded",
+          "delta_ms": 0.9,
+          "total_ms": 213.9,
+          "since_request_ms": 749.3
+        },
+        {
+          "label": "main_window.ruleset_paths_migrated",
+          "delta_ms": 0.2,
+          "total_ms": 214.0,
+          "since_request_ms": 749.5
+        },
+        {
+          "label": "main_window.rules_model_ready",
+          "delta_ms": 0.2,
+          "total_ms": 214.2,
+          "since_request_ms": 749.7
+        },
+        {
+          "label": "main_window.profile_ruleset_controls_ready",
+          "delta_ms": 9.5,
+          "total_ms": 223.8,
+          "since_request_ms": 759.2
+        },
+        {
+          "label": "main_window.rules_table_ready",
+          "delta_ms": 71.8,
+          "total_ms": 295.6,
+          "since_request_ms": 831.1
+        },
+        {
+          "label": "main_window.replacement_controls_ready",
+          "delta_ms": 0.5,
+          "total_ms": 296.1,
+          "since_request_ms": 831.6
+        },
+        {
+          "label": "main_window.utility_dock_ready",
+          "delta_ms": 1.3,
+          "total_ms": 297.4,
+          "since_request_ms": 832.8
+        },
+        {
+          "label": "main_window.central_workspace_ready",
+          "delta_ms": 4.3,
+          "total_ms": 301.6,
+          "since_request_ms": 837.1
+        },
+        {
+          "label": "main_window.actions_menus_ready",
+          "delta_ms": 41.3,
+          "total_ms": 342.9,
+          "since_request_ms": 878.4
+        },
+        {
+          "label": "main_window.helper_auto_install_complete",
+          "delta_ms": 1.7,
+          "total_ms": 344.6,
+          "since_request_ms": 880.1
+        },
+        {
+          "label": "main_window.rule_selection_ready",
+          "delta_ms": 0.2,
+          "total_ms": 344.8,
+          "since_request_ms": 880.3
+        },
+        {
+          "label": "main_window.embedding_refresh_complete",
+          "delta_ms": 0.1,
+          "total_ms": 345.0,
+          "since_request_ms": 880.4
+        },
+        {
+          "label": "main_window.state_signals_connected",
+          "delta_ms": 0.2,
+          "total_ms": 345.1,
+          "since_request_ms": 880.6
+        },
+        {
+          "label": "main_window.active_profile_loaded",
+          "delta_ms": 0.6,
+          "total_ms": 345.7,
+          "since_request_ms": 881.2
+        },
+        {
+          "label": "main_window.profiles_ui_refreshed",
+          "delta_ms": 0.2,
+          "total_ms": 346.0,
+          "since_request_ms": 881.4
+        },
+        {
+          "label": "main_window.window_state_restored",
+          "delta_ms": 0.1,
+          "total_ms": 346.1,
+          "since_request_ms": 881.6
+        },
+        {
+          "label": "main_window.theme_resolved",
+          "delta_ms": 0.3,
+          "total_ms": 346.4,
+          "since_request_ms": 881.9
+        },
+        {
+          "label": "main_window.theme_background_requested",
+          "delta_ms": 0.2,
+          "total_ms": 346.6,
+          "since_request_ms": 882.1
+        },
+        {
+          "label": "main_window.theme_stylesheet_applied",
+          "delta_ms": 5.5,
+          "total_ms": 352.1,
+          "since_request_ms": 887.6
+        },
+        {
+          "label": "main_window.theme_applied",
+          "delta_ms": 9.8,
+          "total_ms": 361.9,
+          "since_request_ms": 897.4
+        },
+        {
+          "label": "main_window.construction_complete",
+          "delta_ms": 0.2,
+          "total_ms": 362.1,
+          "since_request_ms": 897.6
+        },
+        {
+          "label": "MainWindow constructed",
+          "delta_ms": 0.1,
+          "total_ms": 362.2,
+          "since_request_ms": 897.7
+        },
+        {
+          "label": "window shown",
+          "delta_ms": 12.2,
+          "total_ms": 374.5,
+          "since_request_ms": 909.9
+        },
+        {
+          "label": "settings_dialog.open_requested",
+          "delta_ms": 44.4,
+          "total_ms": 418.9,
+          "since_request_ms": 954.3
+        },
+        {
+          "label": "settings_dialog.construction_begin",
+          "delta_ms": 0.3,
+          "total_ms": 419.2,
+          "since_request_ms": 954.7
+        },
+        {
+          "label": "settings_dialog.qdialog_initialized",
+          "delta_ms": 0.2,
+          "total_ms": 419.4,
+          "since_request_ms": 954.9
+        },
+        {
+          "label": "settings_dialog.preferences_loaded",
+          "delta_ms": 0.6,
+          "total_ms": 420.0,
+          "since_request_ms": 955.5
+        },
+        {
+          "label": "language_pack_panel.construction_begin",
+          "delta_ms": 0.1,
+          "total_ms": 420.1,
+          "since_request_ms": 955.6
+        },
+        {
+          "label": "language_pack_panel.theme_paths_ready",
+          "delta_ms": 0.5,
+          "total_ms": 420.7,
+          "since_request_ms": 956.1
+        },
+        {
+          "label": "language_pack_panel.lookup_dictionaries_initialized",
+          "delta_ms": 0.2,
+          "total_ms": 420.8,
+          "since_request_ms": 956.3
+        },
+        {
+          "label": "language_pack_panel.pack_catalog_loaded",
+          "delta_ms": 0.2,
+          "total_ms": 421.1,
+          "since_request_ms": 956.5
+        },
+        {
+          "label": "language_pack_panel.base_tables_ready",
+          "delta_ms": 6.1,
+          "total_ms": 427.1,
+          "since_request_ms": 962.6
+        },
+        {
+          "label": "language_pack_panel.language_packs_populated",
+          "delta_ms": 6.6,
+          "total_ms": 433.7,
+          "since_request_ms": 969.2
+        },
+        {
+          "label": "language_pack_panel.frequency_packs_populated",
+          "delta_ms": 5.0,
+          "total_ms": 438.7,
+          "since_request_ms": 974.2
+        },
+        {
+          "label": "language_pack_panel.embedding_packs_populated",
+          "delta_ms": 1.8,
+          "total_ms": 440.5,
+          "since_request_ms": 976.0
+        },
+        {
+          "label": "language_pack_panel.cross_embedding_packs_populated",
+          "delta_ms": 1.7,
+          "total_ms": 442.2,
+          "since_request_ms": 977.7
+        },
+        {
+          "label": "language_pack_panel.learning_languages_tab_built",
+          "delta_ms": 0.8,
+          "total_ms": 443.0,
+          "since_request_ms": 978.5
+        },
+        {
+          "label": "language_pack_panel.lookup_dictionaries_tab_built",
+          "delta_ms": 6.0,
+          "total_ms": 449.1,
+          "since_request_ms": 984.5
+        },
+        {
+          "label": "language_pack_panel.pair_style_applied",
+          "delta_ms": 8.1,
+          "total_ms": 457.2,
+          "since_request_ms": 992.7
+        },
+        {
+          "label": "language_pack_panel.construction_complete",
+          "delta_ms": 24.2,
+          "total_ms": 481.4,
+          "since_request_ms": 1016.8
+        },
+        {
+          "label": "settings_dialog.language_pack_panel_constructed",
+          "delta_ms": 0.2,
+          "total_ms": 481.5,
+          "since_request_ms": 1017.0
+        },
+        {
+          "label": "settings_dialog.app_tab_constructed",
+          "delta_ms": 2.7,
+          "total_ms": 484.2,
+          "since_request_ms": 1019.7
+        },
+        {
+          "label": "settings_dialog.resources_tab_constructed",
+          "delta_ms": 134.0,
+          "total_ms": 618.2,
+          "since_request_ms": 1153.7
+        },
+        {
+          "label": "settings_dialog.appearance_tab_constructed",
+          "delta_ms": 3.7,
+          "total_ms": 621.9,
+          "since_request_ms": 1157.4
+        },
+        {
+          "label": "settings_dialog.dataset_tab_constructed",
+          "delta_ms": 7.8,
+          "total_ms": 629.7,
+          "since_request_ms": 1165.2
+        },
+        {
+          "label": "settings_dialog.integrations_tab_constructed",
+          "delta_ms": 22.7,
+          "total_ms": 652.5,
+          "since_request_ms": 1187.9
+        },
+        {
+          "label": "settings_dialog.values_applied",
+          "delta_ms": 79.3,
+          "total_ms": 731.8,
+          "since_request_ms": 1267.3
+        },
+        {
+          "label": "settings_dialog.helper_status_refreshed",
+          "delta_ms": 0.9,
+          "total_ms": 732.7,
+          "since_request_ms": 1268.1
+        },
+        {
+          "label": "settings_dialog.construction_complete",
+          "delta_ms": 201.9,
+          "total_ms": 934.6,
+          "since_request_ms": 1470.1
+        },
+        {
+          "label": "settings_dialog.exec_begin",
+          "delta_ms": 0.3,
+          "total_ms": 934.9,
+          "since_request_ms": 1470.4
+        },
+        {
+          "label": "settings_dialog.shown",
+          "delta_ms": 44.8,
+          "total_ms": 979.6,
+          "since_request_ms": 1515.1
+        }
+      ],
+      "matched_line": "[startup] settings_dialog.shown (+44.8 ms, total 979.6 ms) session=e3943efe7cf54238a89be821e3d76430 pid=15637 ppid=1 argv_mode=resource_settings source=startup_measure_open ts=2026-08-27T03:06:00.506977+00:00 launch_mode=open resource_pair=en-ja since_request_ms=1515.1"
+    },
+    {
+      "index": 3,
+      "status": "ok",
+      "session_id": "9da976885d2a4bf2a0440dea40901212",
+      "requested_at": "2026-08-27T03:06:00.627074+00:00",
+      "launch_mode": "open",
+      "pair": "en-ja",
+      "ready_marker": "settings_dialog.shown",
+      "command": [
+        "open",
+        "/Applications/LexiShift.app",
+        "--args",
+        "--open-resource-settings",
+        "--resource-pair",
+        "en-ja"
+      ],
+      "process_pid": 15638,
+      "app_pid": 15643,
+      "cleanup_status": "terminated",
+      "activated": null,
+      "observed_elapsed_ms": 1586.2,
+      "startup_total_ms": 1014.0,
+      "since_request_ms": 1573.5,
+      "pre_entry_ms": 559.5,
+      "checkpoint_count": 64,
+      "checkpoints": [
+        {
+          "label": "process entry before Qt imports",
+          "delta_ms": 0.0,
+          "total_ms": 0.0,
+          "since_request_ms": null
+        },
+        {
+          "label": "main() begin",
+          "delta_ms": 174.3,
+          "total_ms": 174.3,
+          "since_request_ms": 733.7
+        },
+        {
+          "label": "exception hook installed",
+          "delta_ms": 0.4,
+          "total_ms": 174.6,
+          "since_request_ms": 734.1
+        },
+        {
+          "label": "QApplication created",
+          "delta_ms": 41.2,
+          "total_ms": 215.8,
+          "since_request_ms": 775.3
+        },
+        {
+          "label": "single-instance server ready",
+          "delta_ms": 0.7,
+          "total_ms": 216.5,
+          "since_request_ms": 775.9
+        },
+        {
+          "label": "theme_dir()",
+          "delta_ms": 0.2,
+          "total_ms": 216.6,
+          "since_request_ms": 776.1
+        },
+        {
+          "label": "ensure_sample_images()",
+          "delta_ms": 0.2,
+          "total_ms": 216.8,
+          "since_request_ms": 776.3
+        },
+        {
+          "label": "ensure_sample_themes()",
+          "delta_ms": 0.1,
+          "total_ms": 217.0,
+          "since_request_ms": 776.4
+        },
+        {
+          "label": "locale initialized",
+          "delta_ms": 1.0,
+          "total_ms": 218.0,
+          "since_request_ms": 777.4
+        },
+        {
+          "label": "main_window.construction_begin",
+          "delta_ms": 0.2,
+          "total_ms": 218.1,
+          "since_request_ms": 777.6
+        },
+        {
+          "label": "main_window.qmainwindow_initialized",
+          "delta_ms": 0.2,
+          "total_ms": 218.3,
+          "since_request_ms": 777.8
+        },
+        {
+          "label": "main_window.settings_theme_resolved",
+          "delta_ms": 0.4,
+          "total_ms": 218.8,
+          "since_request_ms": 778.2
+        },
+        {
+          "label": "main_window.app_state_created",
+          "delta_ms": 0.2,
+          "total_ms": 219.0,
+          "since_request_ms": 778.4
+        },
+        {
+          "label": "main_window.app_settings_loaded",
+          "delta_ms": 0.9,
+          "total_ms": 219.9,
+          "since_request_ms": 779.3
+        },
+        {
+          "label": "main_window.ruleset_paths_migrated",
+          "delta_ms": 0.2,
+          "total_ms": 220.1,
+          "since_request_ms": 779.5
+        },
+        {
+          "label": "main_window.rules_model_ready",
+          "delta_ms": 0.3,
+          "total_ms": 220.3,
+          "since_request_ms": 779.8
+        },
+        {
+          "label": "main_window.profile_ruleset_controls_ready",
+          "delta_ms": 9.2,
+          "total_ms": 229.5,
+          "since_request_ms": 788.9
+        },
+        {
+          "label": "main_window.rules_table_ready",
+          "delta_ms": 72.4,
+          "total_ms": 301.9,
+          "since_request_ms": 861.3
+        },
+        {
+          "label": "main_window.replacement_controls_ready",
+          "delta_ms": 0.5,
+          "total_ms": 302.3,
+          "since_request_ms": 861.8
+        },
+        {
+          "label": "main_window.utility_dock_ready",
+          "delta_ms": 1.3,
+          "total_ms": 303.6,
+          "since_request_ms": 863.1
+        },
+        {
+          "label": "main_window.central_workspace_ready",
+          "delta_ms": 4.3,
+          "total_ms": 307.9,
+          "since_request_ms": 867.3
+        },
+        {
+          "label": "main_window.actions_menus_ready",
+          "delta_ms": 43.7,
+          "total_ms": 351.6,
+          "since_request_ms": 911.1
+        },
+        {
+          "label": "main_window.helper_auto_install_complete",
+          "delta_ms": 2.3,
+          "total_ms": 353.9,
+          "since_request_ms": 913.4
+        },
+        {
+          "label": "main_window.rule_selection_ready",
+          "delta_ms": 0.4,
+          "total_ms": 354.3,
+          "since_request_ms": 913.8
+        },
+        {
+          "label": "main_window.embedding_refresh_complete",
+          "delta_ms": 0.2,
+          "total_ms": 354.5,
+          "since_request_ms": 913.9
+        },
+        {
+          "label": "main_window.state_signals_connected",
+          "delta_ms": 0.2,
+          "total_ms": 354.7,
+          "since_request_ms": 914.2
+        },
+        {
+          "label": "main_window.active_profile_loaded",
+          "delta_ms": 0.8,
+          "total_ms": 355.5,
+          "since_request_ms": 914.9
+        },
+        {
+          "label": "main_window.profiles_ui_refreshed",
+          "delta_ms": 0.3,
+          "total_ms": 355.8,
+          "since_request_ms": 915.2
+        },
+        {
+          "label": "main_window.window_state_restored",
+          "delta_ms": 0.2,
+          "total_ms": 356.0,
+          "since_request_ms": 915.4
+        },
+        {
+          "label": "main_window.theme_resolved",
+          "delta_ms": 0.4,
+          "total_ms": 356.4,
+          "since_request_ms": 915.8
+        },
+        {
+          "label": "main_window.theme_background_requested",
+          "delta_ms": 0.3,
+          "total_ms": 356.6,
+          "since_request_ms": 916.1
+        },
+        {
+          "label": "main_window.theme_stylesheet_applied",
+          "delta_ms": 6.1,
+          "total_ms": 362.8,
+          "since_request_ms": 922.2
+        },
+        {
+          "label": "main_window.theme_applied",
+          "delta_ms": 10.5,
+          "total_ms": 373.3,
+          "since_request_ms": 932.8
+        },
+        {
+          "label": "main_window.construction_complete",
+          "delta_ms": 0.3,
+          "total_ms": 373.6,
+          "since_request_ms": 933.1
+        },
+        {
+          "label": "MainWindow constructed",
+          "delta_ms": 0.1,
+          "total_ms": 373.8,
+          "since_request_ms": 933.2
+        },
+        {
+          "label": "window shown",
+          "delta_ms": 26.2,
+          "total_ms": 400.0,
+          "since_request_ms": 959.5
+        },
+        {
+          "label": "settings_dialog.open_requested",
+          "delta_ms": 59.1,
+          "total_ms": 459.1,
+          "since_request_ms": 1018.5
+        },
+        {
+          "label": "settings_dialog.construction_begin",
+          "delta_ms": 0.4,
+          "total_ms": 459.5,
+          "since_request_ms": 1018.9
+        },
+        {
+          "label": "settings_dialog.qdialog_initialized",
+          "delta_ms": 0.2,
+          "total_ms": 459.6,
+          "since_request_ms": 1019.1
+        },
+        {
+          "label": "settings_dialog.preferences_loaded",
+          "delta_ms": 0.5,
+          "total_ms": 460.2,
+          "since_request_ms": 1019.6
+        },
+        {
+          "label": "language_pack_panel.construction_begin",
+          "delta_ms": 0.1,
+          "total_ms": 460.3,
+          "since_request_ms": 1019.7
+        },
+        {
+          "label": "language_pack_panel.theme_paths_ready",
+          "delta_ms": 0.5,
+          "total_ms": 460.8,
+          "since_request_ms": 1020.2
+        },
+        {
+          "label": "language_pack_panel.lookup_dictionaries_initialized",
+          "delta_ms": 0.3,
+          "total_ms": 461.0,
+          "since_request_ms": 1020.5
+        },
+        {
+          "label": "language_pack_panel.pack_catalog_loaded",
+          "delta_ms": 0.3,
+          "total_ms": 461.3,
+          "since_request_ms": 1020.7
+        },
+        {
+          "label": "language_pack_panel.base_tables_ready",
+          "delta_ms": 2.6,
+          "total_ms": 463.8,
+          "since_request_ms": 1023.3
+        },
+        {
+          "label": "language_pack_panel.language_packs_populated",
+          "delta_ms": 6.7,
+          "total_ms": 470.6,
+          "since_request_ms": 1030.0
+        },
+        {
+          "label": "language_pack_panel.frequency_packs_populated",
+          "delta_ms": 6.0,
+          "total_ms": 476.6,
+          "since_request_ms": 1036.0
+        },
+        {
+          "label": "language_pack_panel.embedding_packs_populated",
+          "delta_ms": 2.1,
+          "total_ms": 478.7,
+          "since_request_ms": 1038.1
+        },
+        {
+          "label": "language_pack_panel.cross_embedding_packs_populated",
+          "delta_ms": 1.5,
+          "total_ms": 480.2,
+          "since_request_ms": 1039.6
+        },
+        {
+          "label": "language_pack_panel.learning_languages_tab_built",
+          "delta_ms": 0.9,
+          "total_ms": 481.1,
+          "since_request_ms": 1040.5
+        },
+        {
+          "label": "language_pack_panel.lookup_dictionaries_tab_built",
+          "delta_ms": 6.6,
+          "total_ms": 487.6,
+          "since_request_ms": 1047.1
+        },
+        {
+          "label": "language_pack_panel.pair_style_applied",
+          "delta_ms": 8.4,
+          "total_ms": 496.1,
+          "since_request_ms": 1055.5
+        },
+        {
+          "label": "language_pack_panel.construction_complete",
+          "delta_ms": 25.3,
+          "total_ms": 521.3,
+          "since_request_ms": 1080.8
+        },
+        {
+          "label": "settings_dialog.language_pack_panel_constructed",
+          "delta_ms": 0.2,
+          "total_ms": 521.5,
+          "since_request_ms": 1081.0
+        },
+        {
+          "label": "settings_dialog.app_tab_constructed",
+          "delta_ms": 2.9,
+          "total_ms": 524.4,
+          "since_request_ms": 1083.8
+        },
+        {
+          "label": "settings_dialog.resources_tab_constructed",
+          "delta_ms": 132.5,
+          "total_ms": 656.9,
+          "since_request_ms": 1216.4
+        },
+        {
+          "label": "settings_dialog.appearance_tab_constructed",
+          "delta_ms": 3.8,
+          "total_ms": 660.7,
+          "since_request_ms": 1220.1
+        },
+        {
+          "label": "settings_dialog.dataset_tab_constructed",
+          "delta_ms": 7.6,
+          "total_ms": 668.3,
+          "since_request_ms": 1227.7
+        },
+        {
+          "label": "settings_dialog.integrations_tab_constructed",
+          "delta_ms": 23.0,
+          "total_ms": 691.2,
+          "since_request_ms": 1250.7
+        },
+        {
+          "label": "settings_dialog.values_applied",
+          "delta_ms": 78.4,
+          "total_ms": 769.7,
+          "since_request_ms": 1329.1
+        },
+        {
+          "label": "settings_dialog.helper_status_refreshed",
+          "delta_ms": 0.9,
+          "total_ms": 770.5,
+          "since_request_ms": 1330.0
+        },
+        {
+          "label": "settings_dialog.construction_complete",
+          "delta_ms": 199.8,
+          "total_ms": 970.4,
+          "since_request_ms": 1529.8
+        },
+        {
+          "label": "settings_dialog.exec_begin",
+          "delta_ms": 0.4,
+          "total_ms": 970.8,
+          "since_request_ms": 1530.2
+        },
+        {
+          "label": "settings_dialog.shown",
+          "delta_ms": 43.3,
+          "total_ms": 1014.0,
+          "since_request_ms": 1573.5
+        }
+      ],
+      "matched_line": "[startup] settings_dialog.shown (+43.3 ms, total 1014.0 ms) session=9da976885d2a4bf2a0440dea40901212 pid=15643 ppid=1 argv_mode=resource_settings source=startup_measure_open ts=2026-08-27T03:06:02.200551+00:00 launch_mode=open resource_pair=en-ja since_request_ms=1573.5"
     }
   ]
 }

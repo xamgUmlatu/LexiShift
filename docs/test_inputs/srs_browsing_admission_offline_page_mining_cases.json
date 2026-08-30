@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "description": "Offline pre-runtime page-mining cases. Add future LPs by adding cases with pair, active_rules, optional source_mining_rules, documents, and expectations.",
+  "cases": [
+    {
+      "name": "en-ja_source_and_ruby_saved_pages_v1",
+      "pair": "en-ja",
+      "profile_id": "offline_page_mining",
+      "source_mining_options": {
+        "sourceMorphologyEnabled": true,
+        "sourceSingleWordConfidence": 0.58,
+        "sourcePhraseConfidence": 0.72,
+        "sourceDerivationConfidenceMultiplier": 0.82,
+        "sourceInflectionConfidenceMultiplier": 0.92
+      },
+      "documents": [
+        {
+          "document_id": "en_ja_fermentation_article_a",
+          "side": "source",
+          "format": "html",
+          "path": "docs/test_inputs/srs_browsing_admission_offline_pages/en_ja_fermentation_article_a.html",
+          "encoding": "utf-8",
+          "page_context_key": "offline-source-a"
+        },
+        {
+          "document_id": "en_ja_fermentation_article_b",
+          "side": "source",
+          "format": "html",
+          "path": "docs/test_inputs/srs_browsing_admission_offline_pages/en_ja_fermentation_article_b.html",
+          "encoding": "utf-8",
+          "page_context_key": "offline-source-b"
+        },
+        {
+          "document_id": "ja_fermentation_ruby_note",
+          "side": "target",
+          "format": "html",
+          "path": "docs/test_inputs/srs_browsing_admission_offline_pages/ja_fermentation_ruby_note.html",
+          "encoding": "utf-8",
+          "page_context_key": "offline-target-ruby"
+        }
+      ],
+      "active_rules": [
+        {
+          "source_phrase": "blood pressure",
+          "replacement": "血圧",
+          "metadata": {
+            "lexishift_origin": "srs",
+            "language_pair": "en-ja",
+            "word_package": {
+              "version": 1,
+              "language_tag": "ja",
+              "surface": "血圧",
+              "reading": "けつあつ",
+              "script_forms": {
+                "kanji": "血圧",
+                "kana": "けつあつ"
+              },
+              "source": {
+                "provider": "offline_fixture"
+              }
+            }
+          }
+        }
+      ],
+      "source_mining_rules": [
+        {
+          "source_phrase": "fermentation",
+          "replacement": "発酵",
+          "metadata": {
+            "lexishift_origin": "srs",
+            "language_pair": "en-ja",
+            "word_package": {
+              "version": 1,
+              "language_tag": "ja",
+              "surface": "発酵",
+              "reading": "はっこう",
+              "script_forms": {
+                "kanji": "発酵",
+                "kana": "はっこう"
+              },
+              "source": {
+                "provider": "offline_fixture"
+              }
+            }
+          }
+        },
+        {
+          "source_phrase": "light",
+          "replacement": "光",
+          "metadata": {
+            "lexishift_origin": "srs",
+            "language_pair": "en-ja",
+            "word_package": {
+              "version": 1,
+              "language_tag": "ja",
+              "surface": "光",
+              "reading": "ひかり",
+              "script_forms": {
+                "kanji": "光",
+                "kana": "ひかり"
+              },
+              "source": {
+                "provider": "offline_fixture"
+              }
+            }
+          }
+        },
+        {
+          "source_phrase": "light",
+          "replacement": "軽い",
+          "metadata": {
+            "lexishift_origin": "srs",
+            "language_pair": "en-ja",
+            "word_package": {
+              "version": 1,
+              "language_tag": "ja",
+              "surface": "軽い",
+              "reading": "かるい",
+              "script_forms": {
+                "kanji": "軽い",
+                "kana": "かるい"
+              },
+              "source": {
+                "provider": "offline_fixture"
+              }
+            }
+          }
+        },
+        {
+          "source_phrase": "work",
+          "replacement": "仕事",
+          "metadata": {
+            "lexishift_origin": "srs",
+            "language_pair": "en-ja",
+            "word_package": {
+              "version": 1,
+              "language_tag": "ja",
+              "surface": "仕事",
+              "reading": "しごと",
+              "script_forms": {
+                "kanji": "仕事",
+                "kana": "しごと"
+              },
+              "source": {
+                "provider": "offline_fixture"
+              }
+            }
+          }
+        },
+        {
+          "source_phrase": "fermentation",
+          "replacement": "fermentación",
+          "metadata": {
+            "lexishift_origin": "srs",
+            "language_pair": "en-es"
+          }
+        },
+        {
+          "source_phrase": "fermentation",
+          "replacement": "発酵",
+          "metadata": {
+            "lexishift_origin": "ruleset",
+            "language_pair": "en-ja"
+          }
+        }
+      ],
+      "admission": {
+        "admission_budget": 4,
+        "candidates": [
+          {
+            "lemma": "する",
+            "neutral_score": 1.0,
+            "lexical_commonness": 1.0,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "いる",
+            "neutral_score": 0.96,
+            "lexical_commonness": 1.0,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "言う",
+            "neutral_score": 0.9,
+            "lexical_commonness": 0.96,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "犬",
+            "neutral_score": 0.84,
+            "lexical_commonness": 0.7,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "発酵",
+            "target_reading": "はっこう",
+            "neutral_score": 0.59,
+            "readiness_multiplier": 0.9,
+            "explicit_preference_fit": 0.72,
+            "source_confidence": 0.86,
+            "lexical_commonness": 0.32,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "血圧",
+            "target_reading": "けつあつ",
+            "neutral_score": 0.54,
+            "readiness_multiplier": 0.88,
+            "explicit_preference_fit": 0.65,
+            "source_confidence": 0.84,
+            "lexical_commonness": 0.34,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "麹",
+            "target_reading": "こうじ",
+            "neutral_score": 0.5,
+            "readiness_multiplier": 0.82,
+            "explicit_preference_fit": 0.7,
+            "source_confidence": 0.82,
+            "lexical_commonness": 0.24,
+            "lexical_commonness_known": true
+          },
+          {
+            "lemma": "旅行",
+            "neutral_score": 0.58,
+            "lexical_commonness": 0.55,
+            "lexical_commonness_known": true
+          }
+        ]
+      },
+      "expectations": {
+        "min_packet_count": 1,
+        "min_signal_count": 5,
+        "min_source_mapping_signals": 3,
+        "min_target_surface_signals": 2,
+        "required_payload_targets": [
+          "発酵|はっこう",
+          "血圧|けつあつ",
+          "麹|こうじ"
+        ],
+        "absent_payload_targets": [
+          "光|ひかり",
+          "軽い|かるい",
+          "仕事|しごと",
+          "fermentación"
+        ],
+        "required_aggregate_targets": [
+          {
+            "target_key": "発酵|はっこう",
+            "source_hit_count_min": 3.2,
+            "target_hit_count_min": 2.0,
+            "context_count_min": 3,
+            "observation_sources": [
+              "source_mapping",
+              "target_surface"
+            ]
+          },
+          {
+            "target_key": "血圧|けつあつ",
+            "source_hit_count_min": 0.7,
+            "observation_sources": [
+              "source_mapping"
+            ]
+          }
+        ],
+        "admission": {
+          "strength": "strong",
+          "browsing_driven_count_min": 1,
+          "required_rows": [
+            {
+              "target_key": "発酵|はっこう",
+              "selected": true,
+              "selected_lane": "browsing",
+              "effective_browsing_signal_min": 0.25
+            }
+          ]
+        },
+        "private_strings_absent": [
+          "Fermentation changes sugars",
+          "window.hiddenTopic",
+          "offline-source-a"
+        ]
+      }
+    },
+    {
+      "name": "en-es_source_saved_page_currently_unsupported_v1",
+      "pair": "en-es",
+      "profile_id": "offline_page_mining",
+      "documents": [
+        {
+          "document_id": "en_es_fermentation_article_a",
+          "side": "source",
+          "format": "html",
+          "path": "docs/test_inputs/srs_browsing_admission_offline_pages/en_ja_fermentation_article_a.html",
+          "encoding": "utf-8",
+          "page_context_key": "offline-en-es-source-a"
+        }
+      ],
+      "active_rules": [
+        {
+          "source_phrase": "fermentation",
+          "replacement": "fermentación",
+          "metadata": {
+            "lexishift_origin": "srs",
+            "language_pair": "en-es"
+          }
+        }
+      ],
+      "expectations": {
+        "min_packet_count": 0,
+        "max_packet_count": 0,
+        "min_signal_count": 0,
+        "max_signal_count": 0,
+        "min_source_mapping_signals": 0,
+        "max_source_mapping_signals": 0,
+        "min_target_surface_signals": 0,
+        "max_target_surface_signals": 0,
+        "require_native_ingest": false,
+        "absent_payload_targets": [
+          "fermentación"
+        ]
+      }
+    }
+  ]
+}

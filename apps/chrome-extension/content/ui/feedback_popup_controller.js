@@ -1,6 +1,79 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-
+  const POPUP_VIEWPORT_MARGIN = 8;
+  const POPUP_ANCHOR_GAP = 8;
+  function finiteNumber(value, fallback = 0) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : fallback;
+  }
+  function clamp(value, lower, upper) {
+    const safeLower = finiteNumber(lower, 0);
+    const safeUpper = Math.max(safeLower, finiteNumber(upper, safeLower));
+    return Math.min(Math.max(finiteNumber(value, safeLower), safeLower), safeUpper);
+  }
+  function normalizeRect(value) {
+    const rect = value && typeof value === "object" ? value : {};
+    const left = finiteNumber(rect.left, 0);
+    const top = finiteNumber(rect.top, 0);
+    const width = Math.max(0, finiteNumber(rect.width, finiteNumber(rect.right, left) - left));
+    const height = Math.max(0, finiteNumber(rect.height, finiteNumber(rect.bottom, top) - top));
+    return {
+      left, top,
+      right: finiteNumber(rect.right, left + width),
+      bottom: finiteNumber(rect.bottom, top + height),
+      width, height
+    };
+  }
+  function computePopupPlacement(options = {}) {
+    const viewportWidth = Math.max(0, finiteNumber(options.viewportWidth, 0));
+    const viewportHeight = Math.max(0, finiteNumber(options.viewportHeight, 0));
+    const margin = Math.max(0, finiteNumber(options.margin, POPUP_VIEWPORT_MARGIN));
+    const gap = Math.max(0, finiteNumber(options.gap, POPUP_ANCHOR_GAP));
+    const targetRect = normalizeRect(options.targetRect);
+    const viewportPopupWidth = Math.max(0, viewportWidth - (margin * 2));
+    const viewportPopupHeight = Math.max(0, viewportHeight - (margin * 2));
+    const popupWidth = Math.min(Math.max(0, finiteNumber(options.popupWidth, 0)), viewportPopupWidth);
+    const desiredHeight = Math.min(Math.max(0, finiteNumber(options.popupHeight, 0)), viewportPopupHeight);
+    const spaceBelow = Math.max(0, viewportHeight - margin - targetRect.bottom - gap);
+    const spaceAbove = Math.max(0, targetRect.top - margin - gap);
+    const fitsBelow = desiredHeight <= spaceBelow;
+    const fitsAbove = desiredHeight <= spaceAbove;
+    let vertical = "viewport";
+    if (fitsBelow) {
+      vertical = "below";
+    } else if (fitsAbove) {
+      vertical = "above";
+    }
+    const availableHeight = vertical === "viewport"
+      ? viewportPopupHeight
+      : vertical === "above" ? spaceAbove : spaceBelow;
+    const maxHeight = Math.max(0, Math.min(desiredHeight || availableHeight, availableHeight));
+    const renderedHeight = Math.min(desiredHeight, maxHeight);
+    let top = margin;
+    if (vertical === "below") {
+      top = targetRect.bottom + gap;
+    } else if (vertical === "above") {
+      top = targetRect.top - gap - renderedHeight;
+    } else {
+      top = targetRect.bottom + gap;
+    }
+    top = clamp(top, margin, viewportHeight - margin - renderedHeight);
+    const rightCandidate = targetRect.right + gap;
+    const leftCandidate = targetRect.left - gap - popupWidth;
+    let horizontal = "right";
+    let left = rightCandidate;
+    if (rightCandidate + popupWidth > viewportWidth - margin && leftCandidate >= margin) {
+      horizontal = "left";
+      left = leftCandidate;
+    } else if (rightCandidate + popupWidth > viewportWidth - margin) {
+      const spaceRight = Math.max(0, viewportWidth - margin - rightCandidate);
+      const spaceLeft = Math.max(0, targetRect.left - gap - margin);
+      horizontal = spaceLeft > spaceRight ? "clamped-left" : "clamped-right";
+      left = horizontal === "clamped-left" ? leftCandidate : rightCandidate;
+    }
+    left = clamp(left, margin, viewportWidth - margin - popupWidth);
+    return { top, left, maxHeight, vertical, horizontal };
+  }
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
     const popupModuleRegistry = opts.popupModuleRegistry && typeof opts.popupModuleRegistry === "object"
@@ -30,6 +103,11 @@
     let feedbackPopup = null;
     let feedbackModules = null;
     let activeFeedbackTarget = null;
+    let activeFeedbackAnchor = null;
+    let feedbackOpenFrame = null;
+    let feedbackPositionFrame = null;
+    let feedbackResizeObserver = null;
+    let feedbackMutationObserver = null;
     let keyListener = null;
     let closeListener = null;
     let feedbackSoundEnabled = true;
@@ -43,12 +121,92 @@
       console.debug("[LexiShift][UI]", ...args);
     }
 
+    function cancelFrame(frameId) {
+      if (frameId === null || typeof window.cancelAnimationFrame !== "function") {
+        return;
+      }
+      window.cancelAnimationFrame(frameId);
+    }
+
+    function positionFeedbackPopup() {
+      if (!feedbackPopup || !activeFeedbackTarget) {
+        return null;
+      }
+      const popup = feedbackPopup;
+      const targetRect = activeFeedbackTarget.getBoundingClientRect();
+      const viewportWidth = Number(document.documentElement.clientWidth
+        || window.innerWidth || 0);
+      const viewportHeight = Number(window.innerHeight
+        || document.documentElement.clientHeight || 0);
+      const viewportMaxHeight = Math.max(1, viewportHeight - (POPUP_VIEWPORT_MARGIN * 2));
+      popup.classList.add("lexishift-measuring");
+      popup.style.maxHeight = `${viewportMaxHeight}px`;
+      try {
+        const placeMeasuredPopup = () => {
+          const popupRect = popup.getBoundingClientRect();
+          const popupHeight = root.uiPopupLayoutMeasurement.measureNaturalHeight(popup, feedbackModules);
+          return computePopupPlacement({
+            targetRect, viewportWidth, viewportHeight,
+            popupWidth: popupRect.width, popupHeight,
+            anchorPoint: activeFeedbackAnchor
+          });
+        };
+        let placement = placeMeasuredPopup();
+        popup.style.maxHeight = `${Math.max(1, placement.maxHeight)}px`;
+        placement = placeMeasuredPopup();
+        popup.style.maxHeight = `${Math.max(1, placement.maxHeight)}px`;
+        popup.style.top = `${window.scrollY + placement.top}px`;
+        popup.style.left = `${window.scrollX + placement.left}px`;
+        popup.dataset.verticalPlacement = placement.vertical;
+        popup.dataset.horizontalPlacement = placement.horizontal;
+        return placement;
+      } finally {
+        popup.classList.remove("lexishift-measuring");
+      }
+    }
+
+    function scheduleFeedbackPopupPosition() {
+      if (!activeFeedbackTarget || feedbackPositionFrame !== null) {
+        return;
+      }
+      feedbackPositionFrame = requestAnimationFrame(() => {
+        feedbackPositionFrame = null;
+        if (activeFeedbackTarget && feedbackPopup) {
+          positionFeedbackPopup();
+        }
+      });
+    }
+
+    function attachPopupLayoutObservers(popup) {
+      if (!feedbackResizeObserver && typeof ResizeObserver === "function") {
+        feedbackResizeObserver = new ResizeObserver(() => {
+          scheduleFeedbackPopupPosition();
+        });
+        feedbackResizeObserver.observe(popup);
+      }
+      if (!feedbackMutationObserver
+        && feedbackModules
+        && typeof MutationObserver === "function") {
+        feedbackMutationObserver = new MutationObserver(() => {
+          scheduleFeedbackPopupPosition();
+        });
+        feedbackMutationObserver.observe(feedbackModules, {
+          attributes: true,
+          attributeFilter: ["class"],
+          characterData: true,
+          childList: true,
+          subtree: true
+        });
+      }
+    }
+
     function ensureFeedbackPopup() {
       if (feedbackPopup) {
         return feedbackPopup;
       }
       const popup = document.createElement("div");
       popup.className = "lexishift-feedback-popup";
+      popup.dataset.lexishiftScanSkip = "true";
       popup.setAttribute("role", "dialog");
       popup.setAttribute("aria-live", "polite");
       popup.setAttribute("aria-hidden", "true");
@@ -80,6 +238,7 @@
       popup.appendChild(feedbackBar);
       document.body.appendChild(popup);
       feedbackPopup = popup;
+      attachPopupLayoutObservers(popup);
       return popup;
     }
 
@@ -122,35 +281,30 @@
       });
     }
 
-    function openFeedbackPopup(target) {
+    function openFeedbackPopup(target, anchorPoint = null) {
       const popup = ensureFeedbackPopup();
-      renderFeedbackModules(target);
       activeFeedbackTarget = target;
+      activeFeedbackAnchor = anchorPoint && typeof anchorPoint === "object"
+        ? anchorPoint
+        : null;
       popup.classList.remove("lexishift-open");
-      const rect = target.getBoundingClientRect();
-      const popupRect = popup.getBoundingClientRect();
-      const viewportTop = window.scrollY;
-      const viewportBottom = window.scrollY + window.innerHeight;
-      const viewportLeft = window.scrollX;
-      const viewportRight = window.scrollX + document.documentElement.clientWidth;
-      let top = window.scrollY + rect.top - popupRect.height - 8;
-      if (top < viewportTop + 8) {
-        top = window.scrollY + rect.bottom + 8;
-      }
-      let left = window.scrollX + rect.left + rect.width / 2 - popupRect.width / 2;
-      top = Math.min(Math.max(top, viewportTop + 8), Math.max(viewportTop + 8, viewportBottom - popupRect.height - 8));
-      left = Math.min(Math.max(left, viewportLeft + 8), Math.max(viewportLeft + 8, viewportRight - popupRect.width - 8));
-      popup.style.top = `${top}px`;
-      popup.style.left = `${left}px`;
+      renderFeedbackModules(target);
+      const placement = positionFeedbackPopup();
       debugLog("Opening feedback popup.", {
-        top,
-        left,
+        top: popup.style.top,
+        left: popup.style.left,
+        verticalPlacement: placement ? placement.vertical : "",
+        horizontalPlacement: placement ? placement.horizontal : "",
         moduleCount: feedbackModules ? feedbackModules.childElementCount : 0,
         target: summarizeTarget(target)
       });
-      requestAnimationFrame(() => {
-        popup.classList.add("lexishift-open");
-        popup.setAttribute("aria-hidden", "false");
+      cancelFrame(feedbackOpenFrame);
+      feedbackOpenFrame = requestAnimationFrame(() => {
+        feedbackOpenFrame = null;
+        if (activeFeedbackTarget === target) {
+          popup.classList.add("lexishift-open");
+          popup.setAttribute("aria-hidden", "false");
+        }
       });
       attachFeedbackKeyListener();
       attachFeedbackCloseListener();
@@ -162,7 +316,12 @@
       }
       feedbackPopup.classList.remove("lexishift-open");
       feedbackPopup.setAttribute("aria-hidden", "true");
+      cancelFrame(feedbackOpenFrame);
+      cancelFrame(feedbackPositionFrame);
+      feedbackOpenFrame = null;
+      feedbackPositionFrame = null;
       activeFeedbackTarget = null;
+      activeFeedbackAnchor = null;
       detachFeedbackKeyListener();
       detachFeedbackCloseListener();
     }
@@ -297,7 +456,12 @@
           origin,
           target: summarizeTarget(target)
         });
-        openFeedbackPopup(target);
+        const pointerAnchor = Number.isFinite(Number(event.clientX))
+          && Number.isFinite(Number(event.clientY))
+          && (Number(event.clientX) !== 0 || Number(event.clientY) !== 0)
+          ? { clientX: Number(event.clientX), clientY: Number(event.clientY) }
+          : null;
+        openFeedbackPopup(target, pointerAnchor);
       });
       feedbackListenerAttached = true;
     }
@@ -322,6 +486,7 @@
   }
 
   root.uiFeedbackPopupController = {
-    createController
+    createController,
+    computePopupPlacement
   };
 })();

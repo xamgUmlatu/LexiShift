@@ -123,6 +123,7 @@ class SemanticPackInstallConfig:
     pack_id: str = DEFAULT_PACK_ID
     generated_at: str = ""
     copy_pack: bool = True
+    copy_only: bool = False
     dry_run: bool = False
     rule_source: str = "semantic_pack_install"
     rule_source_type: str = "semantic_veto_candidate"
@@ -201,28 +202,26 @@ def install_semantic_pack(
                 source_path=resolved_inventory_path,
                 generated_at=generated_at,
             )
-        write_rulegen_outputs(
-            paths=paths,
-            pair=pair,
-            profile_id=profile_id,
-            rules=rules,
-            snapshot=snapshot,
-            semantic_inventory=inventory,
-            source_lineage=source_lineage,
-        )
+        if not config.copy_only:
+            write_rulegen_outputs(
+                paths=paths,
+                pair=pair,
+                profile_id=profile_id,
+                rules=rules,
+                snapshot=snapshot,
+                semantic_inventory=inventory,
+                source_lineage=source_lineage,
+            )
+    wrote_profile_artifacts = not config.dry_run and not config.copy_only
     written = (
         {key: path.exists() for key, path in target_paths.items()}
-        if not config.dry_run
+        if wrote_profile_artifacts
         else {key: False for key in target_paths}
     )
     return {
         "schema_version": 1,
         "status": "dry_run" if config.dry_run else "ok",
-        "decision": (
-            "semantic_pack_materialization_preview"
-            if config.dry_run
-            else "semantic_pack_materialized"
-        ),
+        "decision": _install_decision(config),
         "pair": pair,
         "profile_id": profile_id,
         "pack_id": str(config.pack_id or DEFAULT_PACK_ID).strip() or DEFAULT_PACK_ID,
@@ -302,6 +301,22 @@ def resolve_semantic_pack_inventory_path(
         "semantic_inventory_path, install a semantic pack copy under language_packs, "
         f"or configure {SEMANTIC_PACK_CATALOG_ENV}."
     )
+
+
+def resolve_installed_semantic_pack_inventory_path(
+    *,
+    paths: HelperPaths,
+    pair: str,
+    pack_id: str,
+) -> Path | None:
+    installed_pack_path = Path(
+        _semantic_pack_inventory_path(
+            paths=paths,
+            pair=str(pair or "").strip(),
+            pack_id=str(pack_id or DEFAULT_PACK_ID).strip() or DEFAULT_PACK_ID,
+        )
+    )
+    return installed_pack_path if installed_pack_path.exists() else None
 
 
 def normalize_semantic_inventory_for_helper(
@@ -576,6 +591,18 @@ def _target_paths(*, paths: HelperPaths, pair: str, profile_id: str) -> dict[str
         "semantic_inventory": paths.semantic_inventory_path(pair, profile_id=profile_id),
         "publication_manifest": paths.publication_manifest_path(pair, profile_id=profile_id),
     }
+
+
+def _install_decision(config: SemanticPackInstallConfig) -> str:
+    if config.dry_run:
+        return (
+            "semantic_pack_copy_preview"
+            if config.copy_only
+            else "semantic_pack_materialization_preview"
+        )
+    if config.copy_only:
+        return "semantic_pack_copy_written"
+    return "semantic_pack_materialized"
 
 
 def _sense_trigger_ids(competition_sets: Mapping[str, object]) -> dict[str, str]:

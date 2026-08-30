@@ -2,8 +2,13 @@
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import plistlib
 from pathlib import Path
+import struct
+import subprocess
+import tempfile
 
 MAIN_APP_BUNDLE = "LexiShift.app"
 HELPER_APP_BUNDLE = "LexiShift Helper.app"
@@ -12,9 +17,19 @@ HELPER_BUNDLE_ID = "com.lexishift.helper.agent"
 MAIN_WINDOWS_EXE = "LexiShift.exe"
 HELPER_WINDOWS_EXE = "LexiShiftHelper.exe"
 HOST_WINDOWS_EXE = "lexishift_native_host.exe"
+HOST_MACOS_EXE = "lexishift_native_host"
 MAIN_WINDOWS_DIR = "LexiShift"
 HELPER_WINDOWS_DIR = "LexiShiftHelper"
 HOST_WINDOWS_DIR = "LexiShiftNativeHost"
+REQUIRED_SRS_RESOURCE_FILES = (
+    "en_ja/learner_difficulty_corrected.csv",
+    "en_ja/learner_difficulty_manual_corrections.json",
+    "en_ja/topic_overlays/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
+    "en_es/learner_difficulty_corrected.csv",
+    "en_es/topic_overlays/srs_topic_reviewed_overlay_merged_en_es_latest.json",
+    "en_de/learner_difficulty_corrected.csv",
+    "en_de/topic_overlays/srs_topic_reviewed_overlay_merged_en_de_latest.json",
+)
 
 
 def _fail(msg: str) -> None:
@@ -24,6 +39,61 @@ def _fail(msg: str) -> None:
 def _check_path(path: Path, label: str, errors: list[str]) -> None:
     if not path.exists():
         errors.append(f"Missing {label}: {path}")
+
+
+def _check_srs_resource_files(core_root: Path, label: str, errors: list[str]) -> None:
+    _check_path(core_root, label, errors)
+    for relative in REQUIRED_SRS_RESOURCE_FILES:
+        _check_path(
+            core_root / "resources" / "srs" / relative,
+            f"{label} SRS resource {relative}",
+            errors,
+        )
+
+
+def _check_native_host_smoke(host_path: Path, errors: list[str]) -> None:
+    if not host_path.exists():
+        return
+    request = json.dumps(
+        {"id": "bundle-smoke", "type": "hello", "version": 1, "payload": {}}
+    ).encode("utf-8")
+    framed_request = struct.pack("<I", len(request)) + request
+    try:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            completed = subprocess.run(
+                [str(host_path)],
+                input=framed_request,
+                capture_output=True,
+                check=False,
+                timeout=30,
+                env={**os.environ, "LEXISHIFT_DATA_DIR": temp_dir},
+            )
+    except (OSError, subprocess.SubprocessError) as exc:
+        errors.append(f"Native host smoke failed to start: {exc}")
+        return
+    if completed.returncode != 0:
+        detail = completed.stderr.decode("utf-8", errors="replace").strip()
+        errors.append(
+            f"Native host smoke exited with {completed.returncode}: {detail or 'no stderr'}"
+        )
+        return
+    output = completed.stdout
+    if len(output) < 4:
+        errors.append("Native host smoke returned no framed response.")
+        return
+    response_length = struct.unpack("<I", output[:4])[0]
+    response_bytes = output[4 : 4 + response_length]
+    try:
+        response = json.loads(response_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        errors.append(f"Native host smoke returned invalid JSON: {exc}")
+        return
+    if not isinstance(response, dict) or response.get("ok") is not True:
+        errors.append(f"Native host smoke request failed: {response!r}")
+        return
+    data = response.get("data")
+    if not isinstance(data, dict) or int(data.get("protocol_version", 0) or 0) < 1:
+        errors.append("Native host smoke response omitted the protocol version.")
 
 
 def _load_info_plist(info_path: Path) -> dict:
@@ -56,6 +126,9 @@ def _validate_macos_main_app(app_path: Path) -> list[str]:
         _check_path(macos_dir / exe_name, f"Executable {exe_name}", errors)
     else:
         errors.append("Missing CFBundleExecutable in Info.plist")
+    native_host = macos_dir / HOST_MACOS_EXE
+    _check_path(native_host, "self-contained native host", errors)
+    _check_native_host_smoke(native_host, errors)
 
     icon_name = info.get("CFBundleIconFile", "")
     if icon_name:
@@ -67,7 +140,11 @@ def _validate_macos_main_app(app_path: Path) -> list[str]:
     _check_path(resource_root / "themes", "themes resources", errors)
     _check_path(resource_root / "sample_images", "sample images", errors)
     _check_path(resource_root / "helper" / "lexishift_native_host.py", "native host", errors)
-    _check_path(resource_root / "helper" / "lexishift_core", "lexishift_core helper", errors)
+    _check_srs_resource_files(
+        resource_root / "helper" / "lexishift_core",
+        "lexishift_core helper",
+        errors,
+    )
     _check_path(resource_root / "helper" / "helper_daemon.py", "helper daemon", errors)
     return errors
 
@@ -171,7 +248,7 @@ def _validate_windows_main_exe(exe_path: Path) -> list[str]:
         "native host",
         errors,
     )
-    _check_path(
+    _check_srs_resource_files(
         contents_root / "resources" / "helper" / "lexishift_core",
         "lexishift_core helper",
         errors,
@@ -197,7 +274,14 @@ def _validate_windows_helper_exe(exe_path: Path) -> list[str]:
 
 def _validate_windows_host_exe(exe_path: Path) -> list[str]:
     errors: list[str] = []
+    root = exe_path.parent
+    contents_root = root / "_internal" if (root / "_internal").exists() else root
     _check_path(exe_path, "Native host executable", errors)
+    _check_srs_resource_files(
+        contents_root / "lexishift_core",
+        "native host lexishift_core",
+        errors,
+    )
     return errors
 
 

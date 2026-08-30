@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-06-02
+Last updated: 2026-08-31
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -32,8 +32,8 @@ Use this file when:
 ## Rulegen Benchmark / Gate / Triage Loop
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-04-04` benchmark case authoring now uses LP-specific source files under `docs/test_inputs/rulegen_benchmark_cases/`, the benchmark/gate loader now accepts either a single JSON file or that directory directly, pair-scoped dataset validation now stays local to the selected LP, and bundle export now materializes a merged dataset JSON for replay
-- Last verified: `2026-04-04` focused dataset-loader/gate/bundle tests plus local `en-de` benchmark/gate/triage refresh on the directory-backed dataset
+- Last documented checkpoint: `2026-06-09` dedicated advisory latest lanes now include `en-ja`; the quality gate now scopes saturation checks to the requested pair and reports a non-strict one-run saturation warning for fixed reference lanes instead of a hard saturation failure.
+- Last verified: `2026-06-09` dedicated `npm --prefix scripts run quality:rulegen:en-ja` refresh, en-ja summary rendering, LP profile/conformance checks, and focused saturation validator coverage; earlier `2026-04-04` focused dataset-loader/gate/bundle tests plus local `en-de` benchmark/gate/triage refresh on the directory-backed dataset
 - Default behavior:
   - Required for rulegen scoring, candidate filtering, POS normalization, and LP tuning changes.
   - Canonical loop remains benchmark -> quality gate -> triage.
@@ -64,6 +64,7 @@ Use this file when:
   - Cross-machine benchmark artifacts can preserve source-machine absolute dataset paths; the gate now falls back to the repo-local dataset copy when the original path is unavailable.
   - Artifact history and pair inference still depend on wrapper usage rather than a mandatory repo-wide gate.
   - Benchmark artifacts now mirror resolved resources under each pair as well as in the top-level `resources` block, they now carry SHA-256 resource checksums, they now record the effective per-target `word_package` snapshot used by the run, the benchmark CLI now supports named preset methodologies from `docs/test_inputs/rulegen_benchmark_presets.json`, and portable bundle export/replay now packages the exact dataset/resources/snapshots for cross-machine reruns; the remaining ergonomic gap is optional single-file archive/import support.
+  - Fixed one-config advisory lanes can now pass quality-floor checks while still warning that sweep saturation cannot be evaluated; use broad presets when parameter-sensitivity evidence matters.
 
 ## Rulegen Benchmark Optimization Architecture
 
@@ -134,8 +135,8 @@ Use this file when:
 ## Data Source Normalization Architecture
 
 - Status: `implemented`, `verified`; `default-on` = `partial` for manifest-backed translation-pack, frequency-pack, and app-managed embedding-pack installs plus helper default-pack discovery
-- Last documented checkpoint: `2026-04-21` the data-source normalization contract now also pins `wordnet-en` / `moby-en` as explicit compatibility exceptions: panel/dialog persistence still mirrors them into `wordnet_dir` / `moby_path`, but downstream bulk-rules consumers now resolve those two packs through the shared binding-map-first effective-path helper instead of direct legacy-field reads
-- Last verified: `2026-04-21` targeted bulk-rules, panel-state, dialog-persistence, and persistence helper tests plus state/doc safety checks
+- Last documented checkpoint: `2026-06-10` manual-supply frequency-source setup now has a GUI baseline: supported source-file builders can open the provider/license page, detect expected source files in Downloads, import provider-native sources into managed `main.sqlite` packs, and write manifest/provenance sidecars. Earlier `2026-06-09` resource catalog entries carry source/license/distribution metadata, Learning Languages exposes source/license details and semantic-pack setup state, and `en-ja` has an explicit source-stack setup path using quality-preferred BCCWJ plus JMDict.
+- Last verified: `2026-06-10` targeted GUI tests for frequency-source import and Learning Languages resource-card manual-source candidate import plus i18n JSON validation; earlier `2026-06-09` targeted source-stack test and local pair-resource-plan/i18n JSON smoke for `en-ja`; earlier `2026-06-08` targeted source-stack, semantic-pack install, learning-pair setup, POS overlay catalog/source-license plumbing, generated notices, and locale validation; earlier `2026-04-21` targeted bulk-rules, panel-state, dialog-persistence, and persistence helper tests plus state/doc safety checks
 - Default behavior:
   - Target architecture is now explicit:
     - installed packs should resolve by manifest-backed pack identity rather than flat filenames
@@ -159,6 +160,7 @@ Use this file when:
     - app-managed frequency-pack installs now write `manifest.json`
     - helper default frequency resolution now prefers manifest-backed installed pack artifacts before falling back to legacy flat filenames
     - helper/runtime now expose a first frequency pack-ref seam so pair-resource resolution, runtime diagnostics, and benchmark resource payloads can report frequency pack id, provider, and POS source profile instead of only a raw SQLite path
+    - LP source-stack defaults now live in `core/lexishift_core/helper/source_stacks.py`; helper runtime diagnostics expose the full `source_stack`, required missing resources, and recommended missing enrichment, while the GUI learning-pair setup cards derive installable frequency, language, POS-overlay, and semantic-pack resources from that same registry
     - GUI SRS growth and the POS normalization probe now share a configured frequency-pack resolver from the helper layer instead of each carrying their own managed-id/manual-path/fallback path logic
     - app-managed translation installs now converge on `language_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `<pack_id>.sqlite` filenames for older local installs
     - app-managed frequency installs now converge on `frequency_packs/<pack_id>/main.sqlite`, while panel/runtime resolution still accepts legacy `freq-*.sqlite` filenames for older local installs
@@ -181,12 +183,21 @@ Use this file when:
     - the settings UI now labels app-owned resolved resources as installed artifacts and external/manual paths as manual inputs, with embedding activation explicitly distinguishing active installed vs active manual rows
     - the resource workspace intro plus the frequency and embedding tab copy now explicitly describe installed packs as the default path and manual paths as compatibility/import surfaces
     - helper CLI/native-host execution entrypoints now accept `frequency_pack_path` as the preferred frequency override field while retaining `set_source_db` as a compatibility alias, and preview/rebalance payloads expose frequency pack path/id/provider/POS-profile fields alongside the legacy execution field
+    - Spanish-target SRS seed/admission paths can now auto-discover an installed `pos-es-ud-ancora-v1` POS overlay under `pos_packs/`, fill missing/unmapped SPALEX POS from UD AnCora word-form UPOS, and expose `pos_overlay_*` diagnostics separately from the frequency-pack source
+    - the learning-pair resource setup surface now includes `en-de` via the source-stack registry (`freq-de-default`, `freedict-de-en`, `freedict-en-de`) and keeps existing pair cards in creation order while focus/status labels change
+    - the learning-pair resource setup surface now also includes `en-ja` via the source-stack registry with `freq-ja-bccwj` as the quality-preferred/manual target-frequency source and `jmdict-ja-en` as the auto-download rulegen/semantic-locator source; source-frequency prior and JP WordNet remain documented as non-blocking experiments/enrichment rather than required setup resources
+    - Learning Languages now shows semantic/veto reference-pack state: `en-es` can install `en-es-active-only-combined-full-v1-tranche-011` as a pair-level semantic pack copy for later SRS rule-publication enrichment, while `en-de` shows a non-blocking pending row because no default semantic reference pack is declared yet
+    - detailed resource tables and Learning Languages resource slots now expose a non-blocking Source & license details action showing provider, source URL, license link, distribution mode, local installed path when present, and the generated notices path
+    - manual-supply frequency resources with supported source-file builders now route through explicit user-local acquisition: the setup UI opens the provider/license page, detects expected Downloads-folder source filenames, offers an import action from the pair card, confirms source rights, and converts/links into the managed pack layout with manifest/provenance sidecars
+    - `scripts/data/generate_third_party_data_notices.py` renders `docs/language_pairs/THIRD_PARTY_DATA_NOTICES.md` from the same resource catalog metadata used by GUI install/setup flows
   - Current runtime contract is still transitional rather than final:
     - FreeDict and Kaikki translation packs now expose SQLite as the canonical app-managed runtime artifact, but manual TEI files, older extracted directories, and legacy `<pack_id>.sqlite` filenames remain compatibility inputs during migration
     - normalized translation/frequency settings are now pack-id-first for the mandatory managed families, while `wordnet-en` / `moby-en` remain explicit compatibility aliases inside the secondary language-pack family until any later promotion decision is made
     - frequency packs already expose SQLite, and new app-managed installs now use `main.sqlite`, but legacy `freq-*.sqlite` names still remain valid fallback paths during migration
     - embedding runtime still accepts raw `.vec/.bin` paths as a compatibility path for manually supplied external files
     - managed embedding settings/runtime are now pack-id-first for app-owned installs, while manual raw/vector and external SQLite paths remain separate compatibility/import inputs
+    - POS overlays have a helper/runtime resolver and builder for Spanish, and `pos-es-ud-ancora-v1` is now a first-class recommended learning-pair setup resource that auto-downloads UD AnCora sources into `pos_packs/<pack_id>/main.sqlite`; broader POS-overlay table views and non-Spanish overlay catalogs remain future work
+    - semantic-pack setup is now visible in Learning Languages, but runtime semantic accuracy remains dependent on a subsequent SRS rule publication/refresh that attaches the installed reference evidence to eligible rules
     - broad manual file-path selection is not a promoted product feature; it is a transitional compatibility surface and likely phase-out candidate unless a concrete use case survives
 - Evidence:
   - `docs/developer/data_source_normalization_architecture.md`
@@ -194,16 +205,24 @@ Use this file when:
   - `docs/language_pairs/de_en_workstream_roadmap.md`
   - `apps/gui/src/language_packs_catalog.py`
   - `apps/gui/src/language_packs.py`
+  - `apps/gui/src/settings_pair_resource_plan.py`
   - `apps/gui/src/settings_language_packs_path_mixin.py`
   - `apps/gui/src/settings_language_packs.py`
+  - `apps/gui/src/settings_language_packs_table_mixin.py`
+  - `apps/gui/src/settings_language_packs_pair_setup_mixin.py`
   - `apps/gui/src/settings_language_packs_support.py`
+  - `scripts/data/generate_third_party_data_notices.py`
+  - `docs/language_pairs/THIRD_PARTY_DATA_NOTICES.md`
   - `core/lexishift_core/helper/translation_packs.py`
   - `core/lexishift_core/helper/frequency_packs.py`
   - `core/lexishift_core/helper/embedding_packs.py`
   - `core/lexishift_core/helper/pair_resources.py`
+  - `core/lexishift_core/helper/source_stacks.py`
   - `core/lexishift_core/helper/installed_packs.py`
+  - `core/lexishift_core/resources/installed_packs.py`
   - `core/lexishift_core/helper/lp_capabilities.py`
   - `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+  - `core/lexishift_core/helper/use_cases/semantic_pack_install.py`
   - `apps/gui/src/main_srs_mixin.py`
   - `apps/gui/src/main_replacement_filter_mixin.py`
   - `apps/gui/src/dialogs.py`
@@ -273,14 +292,18 @@ Use this file when:
 ## `en-de` Advisory Quality Lane
 
 - Status: `implemented`, `verified`; `default-on` = `no` for the repo-wide hard gate
-- Last documented checkpoint: `2026-04-04` `en-de` now has a real Kaikki tuning lane, same-sense representative selection, German register/family enrichment, and an experimental sense-level defaultness penalty in addition to the earlier source-frequency, reverse-check, and Kaikki-policy scaffolding
-- Last verified: `2026-04-10` feature-state evidence sync against the clean branch after preserving the separate `en-de` benchmark WIP branch
+- Last documented checkpoint: `2026-06-09` `en-de` now uses `freq-en-leipzig-default` as the default English source-frequency prior, and the canonical advisory preset is retuned around the accepted top3-first configuration.
+- Last verified: `2026-06-09` focused source-frequency/default-resolution tests, SRS quality harness, LP conformance checks, resource integrity audit, and dedicated `npm --prefix scripts run quality:rulegen:en-de` refresh
 - Default behavior:
   - `en-de` now has a first-class advisory benchmark/gate/triage surface separate from the canonical strict `en-es` lane.
   - The dedicated `en-de` gate now runs in pair-scoped mode, so it no longer reports missing required/recommended-pair or no-delta-overlap noise from unrelated benchmark lanes.
   - The lane now uses a named preset:
     - `en_de_canonical_matrix`
-  - `en-de` now also has an experimental default-off source-frequency prior:
+  - `en-de` now has a default-on English source-frequency prior in the
+    canonical advisory lane and helper rulegen publication path when the pack
+    is installed:
+    - default pack: `freq-en-leipzig-default/main.sqlite`
+    - fallback compatibility pack: `freq-en-coca.sqlite`
     - benchmark/config label: `sfreq=on/off`
     - benchmark CLI surface: `--source-frequency-prior-values`, `--source-frequency-db-en-de`
     - probe CLI surface: `--enable-source-frequency-prior`, `--source-frequency-db-en-de`
@@ -310,10 +333,12 @@ Use this file when:
     - `docs/test_outputs/rulegen_benchmark_en_de_summary_latest.md`
     - `docs/test_outputs/rulegen_quality_gate_en_de_summary_latest.md`
     - `docs/test_outputs/rulegen_benchmark_triage_en_de_summary_latest.md`
-  - The current lane intentionally stays baseline:
+  - The current lane intentionally stays advisory:
     - no reverse-check in the canonical advisory latest lane
     - no promoted `en-de` Kaikki default source path yet
-    - dataset-expansion and lexical-choice cleanup come before pair-specific frontier work
+    - current scoped quality is product-accepted for beta/advisory use
+    - no promoted `en-de` machine delta baseline yet
+    - severity-aware forbidden-any cleanup comes before pair-specific frontier work
 - Evidence:
   - `docs/language_pairs/en_de_workstream_roadmap.md`
   - `docs/developer/ai_workflow.md`
@@ -322,6 +347,7 @@ Use this file when:
   - `docs/test_outputs/rulegen_benchmark_en_de_latest.json`
   - `docs/test_outputs/rulegen_quality_gate_en_de_latest.json`
   - `docs/test_outputs/rulegen_benchmark_triage_en_de_latest.json`
+  - `docs/test_outputs/srs_quality_latest.json`
   - `docs/test_outputs/rulegen_benchmark_en_de_source_freq_experiment_latest.json`
   - `docs/test_outputs/rulegen_quality_gate_en_de_source_freq_experiment_latest.json`
   - `docs/test_outputs/rulegen_benchmark_triage_en_de_source_freq_experiment_latest.json`
@@ -332,6 +358,9 @@ Use this file when:
   - `core/lexishift_core/rulegen/pairs/en_de.py`
   - `core/lexishift_core/rulegen/adapters.py`
   - `apps/gui/src/language_packs_catalog.py`
+  - `core/lexishift_core/frequency/en/pipeline.py`
+  - `core/lexishift_core/helper/source_stacks.py`
+  - `core/lexishift_core/helper/lp_capabilities.py`
   - `scripts/data/convert_kaikki_de_en_to_sqlite.py`
   - `scripts/testing/rulegen_probe_words.py`
   - `core/tests/rulegen/test_rulegen_adapters.py`
@@ -339,14 +368,14 @@ Use this file when:
   - `core/tests/resources/test_kaikki_sqlite_conversion.py`
 - Known gaps:
   - `en-de` remains advisory and is still not part of `required_benchmark_pairs`.
-  - The benchmark case set is now broader at `58` targets, but the current `en-de` latest run is still well below the configured top-1 floor (`65.52%` top1, `93.10%` top3).
-  - The current `en-de` latest triage surface is still heavy at `21` actionable items (`16` FAIL, `5` REVIEW), including hard junk-gloss failures such as `Zeit -> spell`, `Sprache -> diction`, `Fenster -> box`, and `Tag -> tag`.
-  - The dedicated `en-de` gate is now pair-scoped, but delta checks still warn until an `en-de` baseline is accepted:
+  - The benchmark case set is now broader at `58` targets, and the current `en-de` latest run passes the scoped advisory quality floor with `86.21%` top1, `100.00%` top3, `0.00%` forbidden-top1, `15.52%` forbidden-any, and `2.29` average rules per target.
+  - The current `en-de` latest triage surface still has `12` actionable items (`9` FAIL, `3` REVIEW). These are now forbidden-any or top1-order issues rather than forbidden-top1 issues; examples include `Schule -> pod`, `Zeit -> spell/most`, `Fenster -> box`, `Tag -> tag`, and `Stimme -> part`.
+  - The dedicated `en-de` gate is pair-scoped, passing, and product-accepted for beta/advisory use. Delta checks still warn until an `en-de` machine baseline is promoted:
     - `DELTA_SCOPE_BASELINE_MISSING`
   - `en-de` now has default-off reverse-check plumbing and probe support, but the first focused Kaikki reverse experiment did not beat `rev=off` (`93.10%` top1 / `96.55%` top3 -> `91.38%` / `96.55%` with the tested reverse setting).
-  - The new source-frequency prior is measurable but not sufficient on its own:
-    - focused experiment improved `top3` (`93.10%` -> `98.28%`) without moving `top1` (`65.52%`)
-    - the mechanism currently helps expected answers re-enter top3 (`Grund`, `Straße`, `Zug`) more than it fixes junk top1 defaults
+  - The Leipzig source-frequency prior plus top3-first preset is sufficient for the scoped advisory floor, but not enough to call `en-de` hard-gated or semantically parity-ready:
+    - current canonical config: `md=3 mr=none srep=on thr=0.500 sfreq=on sdef=0.80 var=off pos=on rev=off w_pos=0.000`
+    - remaining cleanup is mainly severity/defaultness work around broad third-slot candidates and top1 order
   - `wiktionary-de-en` download/build support now exists, and the local Kaikki tuning lane is strong (`93.10%` top1 / `96.55%` top3), but it is still a local advisory comparison rather than a promoted default source path or accepted scoped baseline.
   - The current best local Kaikki `en-de` config still leaves the richer parity signals off:
     - `rev=off`
@@ -354,7 +383,140 @@ Use this file when:
     - `kprov=off`
   - Same-sense representative selection is now a real frontier mover in local Kaikki runs, but the first sense-level defaultness penalty (`sdcmp`) proved too blunt to help.
   - `en-de` now has a compiled resource context, candidate-row IR, and live/compiled prepared score-table plus selected-row sweep coverage, but it still lacks the fuller `en-es` prepared benchmark stack and the richer `en-es`-style provenance competition layer.
-  - Practical initialize/refresh work for the German-target lane still needs the missing `freq-de-default.sqlite` resource even though the benchmark lane itself can run.
+  - Practical initialize/refresh work for the German-target lane is no longer blocked on a missing German frequency resource in the current source-stack path; `freq-de-default` is installable/valid in the latest local smoke. The remaining `en-de` gap is quality maturity, not basic resource availability.
+
+## `en-ja` Advisory Quality Lane
+
+- Status: `implemented`, `verified`; `default-on` = `no` for the repo-wide hard gate
+- Last documented checkpoint: `2026-06-10` `en-ja` now has an expanded 33-case benchmark set, machine-readable LP profile, named canonical advisory preset, dedicated npm wrapper, latest benchmark/gate/triage artifacts, pair-scoped quality-gate evidence, a 95-case semantic-veto breadth-stress lane, explicit non-default helper policy `en_ja_sentence_veto_breadth_v1`, JMDict/BCCWJ topic-source readiness evidence, a user-approved topic precision packet, and an approved non-default strong-label topic-overlay path for helper admission previews.
+- Last verified: `2026-06-10` dedicated `npm --prefix scripts run quality:rulegen:en-ja` refresh and summary rendering on the expanded case set; SRS/runtime smoke via `quality:srs:harness`, `quality:srs:journey`, `quality:srs:journey:real`, `quality:srs:journey:installed`, targeted SRS/extension/helper semantic policy contract tests, en-ja semantic-veto breadth harness/sweep/product-quality artifacts, `npm --prefix scripts run quality:srs:topic:en-ja`, `quality:srs:topic:en-ja:review`, `quality:srs:topic:en-ja:overlay`, focused en-ja topic-overlay helper preview coverage, and Options en-ja topic allowlist contract coverage; earlier `2026-06-09` LP profile/conformance checks, focused rulegen benchmark/preset/gate tests, and source-stack/resource-plan validation
+- Default behavior:
+  - `en-ja` now has a first-class advisory benchmark/gate/triage surface separate from the canonical strict `en-es` lane.
+  - Current promotion decision: keep `en-ja` advisory/non-default for this stage.
+    Do not add a machine delta baseline, `required_benchmark_pairs`, or default
+    runtime semantic policy until product/default enablement needs that stronger
+    contract.
+  - The lane uses a named preset:
+    - `en_ja_canonical_matrix`
+  - The current reference config is:
+    - `max_definitions=2`
+    - `max_rules=none`
+    - `exact_gloss_demotion=on`
+    - `source_frequency_prior=off`
+    - `variants=off`
+    - `pos=on`
+    - `reverse=off`
+  - The source posture is explicit:
+    - `jmdict-ja-en` is the JMDict-backed translation/rulegen/semantic-locator source.
+    - `freq-ja-bccwj` is the quality-preferred/manual target-frequency source for SRS/admission and target word-package context, not an active source-frequency ranking prior in the current rulegen lane.
+  - Current SRS/runtime smoke is non-failing:
+    - `docs/test_outputs/srs_quality_latest.json` reports `PASS` with `pass=22`, `warn=0`, `fail=0`
+    - en-ja deterministic, real-publication, and installed-data journey lanes complete with `fail=0`; their only journey warning is the known admitted-set publication broader than due-subset observation
+    - installed-data journey resolves real BCCWJ/JMDict candidates and Japanese script-form word packages without mutating the live helper state
+  - Current semantic-veto breadth evidence is non-failing for the initial product target:
+    - `docs/test_outputs/semantic_routing_sentence_veto_en_ja_breadth_latest.json` reports `95` cases, `96.8%` decision accuracy, `100.0%` replace precision, `92.1%` replace recall, `0` harmful replacements, and `3` false abstains
+    - `docs/test_outputs/semantic_routing_sentence_veto_sweep_en_ja_breadth_latest.json` sweeps `10240` lexical rows including `family_all` and `active_only` phrase-guard POS scopes; the best objective and zero-harmful frontier now agree on the active-only phrase-scope candidate
+    - `docs/test_outputs/semantic_veto_product_quality_en_ja_latest.json` meets the mirrored `en-es` initial product thresholds with `92.1%` positive allow, `100.0%` negative abstain, and utility above lexical allow-all
+    - `core/lexishift_core/rulegen/semantic_routing_runtime_policy.py` registers explicit, non-default helper policy `en_ja_sentence_veto_breadth_v1` with the accepted active-only phrase-guard POS scope
+  - Current topic-source readiness is measured but not promoted:
+    - `docs/test_outputs/srs_jmdict_topic_source_readiness_en_ja_latest.json` reports `9,258` candidate-like BCCWJ rows in the top `10k` frontier, `8,403` with any JMDict match, `8,363` with strong exact/alias JMDict matches, `1,910` with trusted topic fields, and `866` with trusted topic fields plus strong matching
+    - the audit keeps exact/alias evidence separate from reading-only evidence so same-reading homographs do not inflate strong topic counts
+    - `12 / 16` product-taxonomy families have strong candidate rows; anime/manga, hobbies/crafts, and register/style families remain source-thin or review-only backlog surfaces
+    - `docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json` samples `144` rows across all `116` family/match/source-label cells and applies `144` user-approved labels: `8` strong accepts, `57` light accepts, `63` wrong-topic rejects, and `16` secondary/obscure rejects
+    - `docs/test_outputs/srs_jmdict_topic_overlay_poc_en_ja_latest.json` builds a user-approved, non-default `65` row overlay candidate; only the `8` strong labels are runtime-effective under the current `profile_injection_min_membership=1.0` policy, while `57` light labels remain lower-membership evidence for later scalar-topic work
+    - `core/tests/helper/test_helper_engine.py` verifies that ordinary helper preview resolution can load the `en-ja` overlay and move a matched medicine/health candidate into the admitted preview
+    - `apps/chrome-extension/options/core/srs_topic_support.js` gates `en-ja`
+      topic chips to the approved strong-label families:
+      `finance_business`, `games`, `law_politics_civics`, `medicine_health`,
+      `science_technology`, and `sports_fitness`
+    - this proves source supply, reviewed-label integration, and some admission movement, but it is still not broad topic recall proof, ordinary installed Options-flow proof, or default topic-admission parity
+  - Dedicated outputs now live at:
+    - `docs/test_outputs/rulegen_benchmark_en_ja_latest.json`
+    - `docs/test_outputs/rulegen_benchmark_en_ja_latest.md`
+    - `docs/test_outputs/rulegen_benchmark_en_ja_latest.html`
+    - `docs/test_outputs/rulegen_quality_gate_en_ja_latest.json`
+    - `docs/test_outputs/rulegen_benchmark_triage_en_ja_latest.json`
+    - `docs/test_outputs/rulegen_benchmark_triage_en_ja_latest.md`
+    - `docs/test_outputs/rulegen_benchmark_en_ja_summary_latest.md`
+    - `docs/test_outputs/rulegen_quality_gate_en_ja_summary_latest.md`
+    - `docs/test_outputs/rulegen_benchmark_triage_en_ja_summary_latest.md`
+    - `docs/test_outputs/srs_jmdict_topic_source_readiness_en_ja_latest.json`
+    - `docs/test_outputs/srs_jmdict_topic_source_readiness_en_ja_latest.md`
+    - `docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json`
+    - `docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.md`
+    - `docs/test_outputs/srs_jmdict_topic_overlay_en_ja_latest.json`
+    - `docs/test_outputs/srs_jmdict_topic_overlay_poc_en_ja_latest.json`
+    - `docs/test_outputs/srs_jmdict_topic_overlay_poc_en_ja_latest.md`
+- Evidence:
+  - `docs/test_inputs/rulegen_lp_profiles/en_ja.json`
+  - `docs/test_inputs/rulegen_benchmark_presets.json`
+  - `docs/test_inputs/rulegen_benchmark_cases/en_ja.json`
+  - `scripts/package.json`
+  - `core/lexishift_core/rulegen/pairs/en_ja.py`
+  - `core/lexishift_core/rulegen/adapters.py`
+  - `core/lexishift_core/helper/source_stacks.py`
+  - `core/lexishift_core/helper/lp_capabilities.py`
+  - `docs/test_outputs/rulegen_benchmark_en_ja_latest.json`
+  - `docs/test_outputs/rulegen_quality_gate_en_ja_latest.json`
+  - `docs/test_outputs/rulegen_benchmark_triage_en_ja_latest.json`
+  - `docs/test_outputs/srs_quality_latest.json`
+  - `docs/test_outputs/srs_quality_summary_latest.md`
+  - `docs/test_outputs/srs_journey/srs_journey_en_ja_latest.json`
+  - `docs/test_outputs/srs_journey/srs_journey_en_ja_real_latest.json`
+  - `docs/test_outputs/srs_journey/srs_journey_en_ja_installed_latest.json`
+  - `docs/test_inputs/semantic_routing_cases/en_ja_sentence_veto_breadth_v1.json`
+  - `docs/test_inputs/semantic_veto_product_quality_policy_en_ja.json`
+  - `core/lexishift_core/rulegen/semantic_routing_runtime_policy.py`
+  - `docs/test_outputs/semantic_routing_sentence_veto_en_ja_breadth_latest.json`
+  - `docs/test_outputs/semantic_routing_sentence_veto_sweep_en_ja_breadth_latest.json`
+  - `docs/test_outputs/semantic_veto_product_quality_en_ja_latest.json`
+  - `docs/test_inputs/srs_topic_preference_taxonomy_en_ja.json`
+  - `docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json`
+  - `scripts/testing/srs_jmdict_topic_source_readiness_en_ja.py`
+  - `docs/test_outputs/srs_jmdict_topic_source_readiness_en_ja_latest.json`
+  - `docs/test_outputs/srs_jmdict_topic_source_readiness_en_ja_latest.md`
+  - `scripts/testing/srs_jmdict_topic_review_packet_en_ja.py`
+  - `docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json`
+  - `docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.md`
+  - `scripts/testing/srs_jmdict_topic_overlay_poc_en_ja.py`
+  - `docs/test_outputs/srs_jmdict_topic_overlay_en_ja_latest.json`
+  - `docs/test_outputs/srs_jmdict_topic_overlay_poc_en_ja_latest.json`
+  - `docs/test_outputs/srs_jmdict_topic_overlay_poc_en_ja_latest.md`
+  - `core/tests/helper/test_helper_engine.py`
+  - `apps/chrome-extension/options/core/srs_topic_support.js`
+  - `core/tests/dev/test_extension_srs_settings_contract.py`
+- Known gaps:
+  - `en-ja` remains advisory and is still not part of `required_benchmark_pairs`.
+  - The benchmark case set is now expanded to `33` targets; current scoped advisory quality passes with `96.97%` top1, `100.00%` top3, `0.00%` forbidden-top1, `3.03%` forbidden-any, and `1.76` average rules per target.
+  - The current scoped gate has no failure findings, but still warns until an `en-ja` machine baseline and broader sensitivity sweep are promoted:
+    - `DELTA_SCOPE_BASELINE_MISSING`
+    - `SATURATION_SINGLE_RUN_WARN`
+    - These are accepted advisory-lane warnings for this stage, not active
+      blockers. The repo should keep using `npm --prefix scripts run
+      quality:rulegen:en-ja` for en-ja work and shared rulegen regression checks
+      instead of hard-gating the pair globally.
+  - The current latest triage has one accepted nonblocking known failure:
+    `世界` top1 is `society`, while `sphere` remains a forbidden-any third-slot
+    candidate under the JMDict gloss ordering. Keep `sphere` forbidden because
+    the sense is obscure and should not be silently product-accepted for
+    teaching; do not weaken the case just to clear the advisory lane.
+  - The current benchmark machinery does not yet make BCCWJ an active candidate-ordering prior; it relies on JMDict gloss order plus exact generic-gloss demotion and target word-package context.
+  - The semantic-veto breadth-stress lane passes the mirrored initial product thresholds, but it is not enough for parity/default-on:
+    - only curated stress rows are measured so far
+    - no representative browsing lane has been measured
+    - `en_ja_sentence_veto_breadth_v1` is explicit-callable but not the default `en-ja` semantic decision policy by current promotion decision
+    - current zero-harmful breadth behavior depends on active-only phrase-guard POS scope plus the idiom-tail phrase signal for `ball is in your court`
+  - Runtime/SRS smoke is accepted for this onboarding stage, but `en-ja` is still not promoted into the repo-wide required rulegen pair list or any public default-on rollout policy.
+  - Topic-source readiness is no longer unknown for `en-ja`: BCCWJ/JMDict plus
+    `srs_topic_preference_taxonomy_en_ja_v1` provide real source supply for
+    selected families. Topic-aware SRS admission is partially evidenced by a
+    user-approved non-default overlay and focused helper preview coverage, but
+    still unresolved for full product parity because light labels are not yet a
+    product scalar-membership contract and broad visible preference movement
+    comparable to the `en-es` topic MVP has not been proven through the ordinary
+    installed Options/helper/runtime flow. Follow
+    `docs/srs/srs_topic_signal_lp_generalization_runbook.md` before claiming
+    profile-personalized admission parity.
 
 ## Rulegen Auto Audit Wrapper
 
@@ -377,8 +539,8 @@ Use this file when:
 ## SRS Quality Harness
 
 - Status: `implemented`, `verified`, `default-on` = `yes` for SRS scheduler/admission/publication/runtime-serving workflow
-- Last documented checkpoint: `2026-05-27` feedback-cycle before/after snapshots now make the SRS quality artifact show feedback deltas separately from refresh/admission deltas; the harness also includes an encounter-watch scenario for fresh unseen, stale unseen, legacy age-unknown, reviewed, and no-enabled-rule active SRS items
-- Last verified: `2026-05-27` targeted harness/summary tests, feedback simulation test, SRS quality harness rerun with encounter-watch coverage, and fresh normalized JSON + Markdown artifact rerender
+- Last documented checkpoint: `2026-06-10` synthetic SRS harness refresh remains clean across `en-ja` and `en-de`, with bootstrap/publication/runtime diagnostics, due-aware runtime metadata, feedback-cycle pause/resume, and encounter-watch coverage all non-failing.
+- Last verified: `2026-06-10` `npm --prefix scripts run quality:srs:harness`, `quality:srs:summary`, focused en-ja LP E2E publication test, and targeted SRS quality/journey tests
 - Default behavior:
   - Use the synthetic harness for SRS scheduler, admission refresh, helper publication, set execution, and runtime-serving workflow changes.
   - Review scheduling is now FSRS-based.
@@ -402,6 +564,32 @@ Use this file when:
   - Coverage is synthetic and pair-limited; it does not yet grade pedagogical quality or real user data.
   - The harness verifies runtime due-aware serving through metadata; it does not require or prove a dedicated due-only publication artifact.
   - `es-en` / `en-es` SRS quality scenarios are not yet represented in the synthetic harness.
+
+## Testing Artifact Provenance / Freshness
+
+- Status: `implemented`, `verified`; `default-on` = `partial` for the en-ja SRS learner-difficulty research chain
+- Last documented checkpoint: `2026-06-17` generated SRS learner-difficulty research artifacts now have a standardized provenance contract and a reusable freshness checker; missing provenance is treated as stale.
+- Last verified: `2026-06-17` focused artifact-provenance unit coverage plus live acronym-audit freshness smoke.
+- Default behavior:
+  - Do not trust `*_latest` by filename alone.
+  - Use live producer/consumer code as source of truth, then regenerate or run `scripts/testing/check_artifact_freshness.py` before using an existing artifact for a tuning decision.
+  - Generated artifacts under `docs/test_outputs/` are recursively checked when they are inputs to another generated artifact, so a downstream report cannot silently rely on an unprovenanced upstream matrix/search output.
+- Evidence:
+  - `docs/developer/testing_artifact_provenance.md`
+  - `scripts/testing/artifact_provenance.py`
+  - `scripts/testing/check_artifact_freshness.py`
+  - `scripts/testing/srs_ja_acronym_signal_audit_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_signal_sweep_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_piecewise_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_model_family_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_model_family_meta_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_model_tree_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_curve_search_en_ja.py`
+  - `scripts/testing/srs_learner_difficulty_tail_partition_search_en_ja.py`
+  - `core/tests/dev/test_artifact_provenance.py`
+- Known gaps:
+  - Coverage is not repo-wide yet; older rulegen/semantic artifacts may still lack this generated-artifact provenance block.
+  - Large external installed-resource files may be tracked by size/mtime instead of SHA-256 when they exceed the configured hash threshold.
 
 ## Kaikki `en-es` Compatibility Dictionary Pipeline
 
@@ -450,8 +638,8 @@ Use this file when:
 ## SRS Journey E2E Harness
 
 - Status: `implemented`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-27` FSRS-backed journey artifacts for deterministic, synthetic-real, installed-resource, and `en-es` profile-preference lanes
-- Last verified: `2026-05-27` deterministic `en-ja` + `en-es` core and edge journey harness runs, synthetic-resource real-publication lanes, installed-resource `en-ja` + `en-es` runs, `en-es_profile_preference_journey_v1`, Markdown summaries, and interactive HTML review artifacts
+- Last documented checkpoint: `2026-06-10` en-ja deterministic, real-publication, and installed-resource journey artifacts were refreshed for onboarding smoke, and installed-resource staging now preserves installed POS-overlay packs so Spanish SPALEX journeys exercise the same UD AnCora enrichment available to helper seed/admission paths.
+- Last verified: `2026-06-10` `quality:srs:journey`, `quality:srs:journey:real`, `quality:srs:journey:installed`, journey summaries/HTML renderers, targeted journey tests, installed-support test, and extension SRS/settings/runtime contract tests
 - Default behavior:
   - Deterministic `en-ja` and `en-es` core and edge journey lanes plus matching real-publication lanes are available as analysis-first SRS E2E harnesses, but they are not yet part of the required default SRS workflow loop in `AGENTS.md`.
   - The core lane captures item-level admitted `S`, due `D`, and published `P` sets across bootstrap, refresh, and fade/stick phases.
@@ -459,6 +647,7 @@ Use this file when:
   - The edge lane captures duplicate-feedback and exposure-only behavior with the same item-level reporting contract.
   - The real-publication lane keeps deterministic clocks/resources, uses the actual seed-builder plus helper/rulegen publication path, and now holds complete due publication for the current `en-ja` and `en-es` scenarios.
   - Separate installed-resource review lanes now stage the user's local frequency/dictionary packs into an isolated temp helper root, assign cohorts from actual admitted lemmas, and surface real-data pedagogical flow without mutating the live helper state.
+  - Installed-resource staging preserves manifest-backed POS-overlay packs as well as frequency, language, reverse-language, and stopword resources, so `en-es` SPALEX installed journeys use `pos-es-ud-ancora-v1` when present.
   - The `en-es` profile-preference lane proves that `profile_bootstrap` can promote a tagged topic candidate into the initial active set, while the same scenario still grows, pauses, and resumes through feedback refresh.
   - Interactive HTML playback artifacts now provide step-by-step review with phase controls, admission rationale tables, and a sticky profile-state panel.
   - Current contract mode defaults to observation: publication broader than the due subset is surfaced as a warning rather than a hard failure.
@@ -498,6 +687,11 @@ Use this file when:
   - `en-de` extension is still pending.
   - The deterministic and synthetic-resource real-publication lanes are still useful regression surfaces, but installed-resource review currently depends on local data-pack availability and is not yet part of the default required workflow loop.
   - The journey harness artifacts are not the current due-aware runtime serving authority; use the SRS quality harness for the Lane 5 helper-metadata/runtime-gate contract.
+  - Current `en-ja` journey smoke by itself does not establish topic-aware
+    admission parity. Use the pair-local source-readiness, user-approved overlay,
+    and focused helper preview evidence as the backend gate, then run the
+    ordinary installed Options/helper/runtime flow before any profile-topic
+    parity claim.
 
 ## en-es SRS Beta Preflight
 
@@ -545,8 +739,8 @@ Use this file when:
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-04-19` Ruff fallback resolution + explicit unavailable reporting for workflow style checks
-- Last verified: `2026-04-19` targeted dev-workflow unit tests + wrapper-driven `check:style` report + `check:changed:local`; `2026-05-15` Lane 3 L3-F packaging/platform parity truth pass, Windows parity audit, parity summary render, focused workflow/build/parity tests, doc-reference check, state check, and diff hygiene
+- Last documented checkpoint: `2026-08-27` Python-backed workflows now require the supported Python 3.10 line and have one-command repository environment setup/checks; macOS GUI packaging now has a safe build/validate/install/verify/relaunch command; NumPy boundary typing in `en-es` compiled scoring is explicit enough for the pinned mypy gate
+- Last verified: `2026-08-27` real Python 3.10.16 build-environment bootstrap, validated packaged build containing the newly declared `simplemma` dependency, focused launcher/GUI install-lifecycle/build-workflow tests, focused `en-es` compiled-scoring tests (`53` pass, `1` skipped), required `en-es` benchmark/gate/triage loop, and a fully green repository check with `838` tests (`4` skipped), mypy over `188` source files, strict style, Windows parity (`9` pass), state/doc checks, and LP profile/conformance checks
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
@@ -561,7 +755,9 @@ Use this file when:
   - `npm --prefix scripts run build:report` is the full build contract and now verifies expected BetterDiscord / GUI artifacts in the report payload.
   - Hosted macOS `build:report` keeps the full GUI bundle validation path; hosted Windows `build:report` now uses the full GUI build plus artifact verification, while the strict Windows parity audit remains the dedicated Windows-specific validation gate.
   - Hosted CI now runs both the full macOS `build:report` path and the explicit Ubuntu `build:ci:report` partial path.
-  - Python-backed npm workflow commands now resolve their interpreter through `scripts/dev/run_python.js` so `check` / `build` / audit entrypoints remain usable on Windows hosts.
+  - Python-backed npm workflow commands resolve their interpreter through `scripts/dev/run_python.js` so `check` / `build` / audit entrypoints remain usable on Windows hosts. The launcher now accepts only Python 3.10, prefers the repository `.venv`, an active virtualenv, or an explicit interpreter, and permits system fallback automatically only in hosted CI.
+  - `npm --prefix scripts run setup:python` creates/synchronizes the repository Python 3.10 development environment from exact direct dependency pins, including the previously implicit `simplemma` runtime/build dependency; `setup:python:build` adds GUI packaging dependencies, and matching read-only check commands verify package presence and pinned versions for either dependency tier.
+  - `.python-version` declares the repository's current preferred Python 3.10.16 patch while the launcher remains compatible with other 3.10 patch releases.
   - `npm --prefix scripts run build:ci` / `build:ci:report` keep the same build workflow on unsupported hosts while recording explicit GUI-validation skips.
   - `npm --prefix scripts run check:style` is the standalone repo-wide style loop.
   - `npm --prefix scripts run check:style:report` and `check:style:summary` publish the current repo-wide Ruff style state as JSON and Markdown artifacts.
@@ -573,7 +769,9 @@ Use this file when:
   - Hosted Ubuntu repo-safety now uses `npm --prefix scripts run check:report:ci`, which skips the redundant Windows parity audit; dedicated Windows parity/build jobs remain responsible for that surface.
   - Hosted repo-safety still renders the latest rulegen benchmark/gate/triage summaries, but the known-red rulegen artifact no longer blocks the generic repo-safety job.
   - `npm --prefix scripts run hooks:install` installs both `pre-commit` and `pre-push`; the pre-push hook mirrors `npm --prefix scripts run check`.
+  - The feature-state pre-commit hook now uses the same Python launcher instead of bypassing environment selection with a bare `python3` command.
   - `pre-commit` now runs repo-wide Ruff lint and Ruff format before commit, while `pre-push` keeps the full repo-safety gate.
+  - On macOS, `npm --prefix scripts run build:gui:install:relaunch` builds and validates both app bundles, stops only executables running from the target install directory, stages replacements before swapping them into place, validates the installed copies, and relaunches the main app without modifying Application Support.
 - Evidence:
   - `scripts/dev/feature_state_audit.py`
   - `scripts/dev/dev_workflow_check.py`
@@ -587,11 +785,19 @@ Use this file when:
   - `scripts/dev/project_health_rules.js`
   - `scripts/dev/ci_report_gate.py`
   - `scripts/dev/run_python.js`
+  - `scripts/dev/python_environment.js`
+  - `scripts/dev/bootstrap_python_env.js`
+  - `.python-version`
   - `apps/betterdiscord-plugin/build_plugin.js`
   - `.pre-commit-config.yaml`
   - `.github/workflows/ci.yml`
   - `requirements-build.txt`
   - `scripts/package.json`
+  - `scripts/build/gui_app.py`
+  - `core/lexishift_core/rulegen/pairs/en_es_compiled_score_math.py`
+  - `core/lexishift_core/rulegen/pairs/en_es_compiled_scoring.py`
+  - `core/tests/dev/test_python_environment_launcher.py`
+  - `core/tests/dev/test_gui_app_build.py`
   - `docs/test_outputs/dev_workflow/feature_state_audit_latest.json`
   - `docs/test_outputs/dev_workflow/doc_references_latest.json`
   - `docs/test_outputs/dev_workflow/check_latest.json`
@@ -662,20 +868,52 @@ Use this file when:
   - The parity audit is now a required workflow gate, but it is still not a complete release certification on its own.
   - Current browser coverage is limited to the supported GUI helper environments (`chrome`, `chromium`, `brave`).
 
+## Chrome Web Store Release Packaging
+
+- Status: `implemented`, `verified`; `default-on` = `no` (operator release command)
+- Last documented checkpoint: `2026-08-31` release version `0.1.1` aligns the extension, desktop bundles, native helper, installer defaults, and Windows metadata; deterministic CWS ZIP packaging is a first-class command.
+- Last verified: `2026-08-31` focused package/version tests, CWS preflight, deterministic rebuild comparison, archive inspection, and repo safety/build gates.
+- Default behavior:
+  - `npm --prefix scripts run package:cws -- --version <version>` packages the current extension runtime into a root-manifest ZIP under `dist/cws/`.
+  - The package excludes developer-only README content, rejects package noise and symlinks, validates exact archive membership and version, normalizes ZIP metadata, and emits an adjacent SHA-256 file.
+  - Repo tests fail when the extension, app bundle, native helper, core helper, installer defaults, or Windows release metadata drift to different release versions.
+- Evidence:
+  - `scripts/build/package_chrome_extension.py`
+  - `scripts/package.json`
+  - `core/tests/dev/test_package_chrome_extension.py`
+  - `core/tests/dev/test_release_version_alignment.py`
+  - `docs/runbooks/cws_upload_gate.md`
+  - `docs/developer/build_and_release.md`
+- Known gaps:
+  - Chrome Web Store dashboard upload, privacy declarations, distribution selection, reviewer instructions, and submission remain explicit maintainer actions.
+  - The package command produces the upload artifact but does not publish it or mutate the Web Store draft.
+
 ## Browser Helper Connection Management
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-06-01` browser-connections manager kept the narrowed one-click prod rows and browser+extension-ID unpacked-dev flow, workspace-host installs switched to a pinned-interpreter wrapper, native-host startup failures write deterministic local logs, resource-settings launches now carry a startup session into GUI startup telemetry, the packaged GUI now uses the canonical PyInstaller onedir EXE/COLLECT payload split, transport/browser failures expose stable helper-facing error codes, options-side helper flows localize timeout/browser-blocked cases alongside helper-missing/host-exited cases, and saved bundled/workspace connections auto-repair a narrow set of deterministic stale manifest/host states on startup or when `Connections...` opens
-- Last verified: `2026-06-01` targeted native-host resource-settings telemetry tests, GUI startup logger tests, packaged startup measurement script tests, GUI build-spec tests, native-host startup-log coverage, installed-bundle rebuild/validation, installed-bundle startup measurements, extension helper transport/localization contracts from the existing evidence set, and changed-scope repo safety
+- Last documented checkpoint: `2026-08-31` the real Chrome Web Store extension ID is bundled for both Chrome and Brave production connections. The `2026-08-27` resource-settings startup telemetry, browser-connections, pinned workspace host, onedir bundle split, stable transport errors, and narrow auto-repair behavior remain active.
+- Last verified: `2026-08-31` Chrome Web Store preflight, helper connection tests, feature-state audit, and repo safety gate. The `2026-08-27` installed-bundle startup measurements and preserved-user-data smoke remain applicable.
 - Default behavior:
   - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
   - Fixed-ID production browsers keep a one-click connect/repair path.
+  - Chrome and Brave production connections use the real Chrome Web Store package ID; both browsers install the same Web Store item while retaining browser-specific native-messaging manifests.
   - Unpacked development extensions are managed separately through a narrow dialog that captures only browser + unpacked extension ID; the app uses the current workspace helper automatically for that browser.
   - Workspace-host installs now target a generated wrapper script that pins the repo interpreter, so browser launches from Finder/GUI shells do not depend on whichever `python3` happens to be on `PATH`.
   - Saved bundled/workspace browser connections now auto-repair a narrow set of deterministic stale states on startup and when `Connections...` opens: unreadable manifests, missing host paths, missing expected origins, stale bundled copies, and pre-wrapper/stale workspace-wrapper states.
   - Native-host startup/import failures now append a traceback to `logs/native_host.log` under the LexiShift data root, so browser-side `Native host has exited` failures have a deterministic local log instead of only a transient browser transport error.
   - Native-host resource-settings requests now log a startup session, activation timing, launch resolution, command class, `Popen` timing, and total native-host handoff timing; cold GUI launches receive the same session through `LEXISHIFT_STARTUP_SESSION_ID`.
   - GUI startup timing records now include session id, PID, parent PID, argv mode, launch source, launch mode, resource pair, UTC timestamps, and request-to-checkpoint timing when the GUI was launched by the native host.
+  - Main-window, Settings-dialog, and Language Pack panel construction emit
+    structured checkpoints; the measurement tool captures them, reports p95,
+    can fail explicit median/p95 budgets, and can terminate only the app PID
+    recorded for its own cold-launch session between repetitions.
+  - Custom-theme background file reads and `QImage` decoding run through a
+    shared daemon loader. Slow or protected external paths cannot block the GUI
+    thread; duplicate path requests share one load, stale theme results are
+    ignored, and source images are bounded at 64 MiB.
+  - Existing-GUI resource activation carries its activation session through
+    `settings_dialog.shown` and focuses/reuses an already-visible Settings
+    dialog instead of constructing nested modal dialogs.
   - The packaged GUI uses PyInstaller onedir bundles with `EXE(..., exclude_binaries=True)` and `COLLECT`-owned binaries/zipfiles/datas, so installed main/helper app size and warm relaunch latency are no longer dominated by duplicated executable payloads.
   - Native-messaging manifests now merge all allowed origins for the same browser into one manifest instead of assuming only one extension ID.
   - Same-browser prod and unpacked-dev entries still share one host path; the GUI only surfaces that as a targeted warning when an unpacked-dev change would switch a configured browser to the workspace host.
@@ -689,6 +927,8 @@ Use this file when:
   - `apps/gui/src/main_menu_mixin.py`
   - `apps/gui/src/main_runtime.py`
   - `apps/gui/src/startup_logging.py`
+  - `apps/gui/src/theme_image_loader.py`
+  - `apps/gui/src/theme_widgets.py`
   - `apps/gui/packaging/pyinstaller.spec`
   - `scripts/build/gui_app.py`
   - `apps/gui/src/dialogs.py`
@@ -713,9 +953,12 @@ Use this file when:
   - `docs/test_outputs/dev_workflow/gui_startup_performance_direct_latest.json`
 - Known gaps:
   - Native messaging still uses one host manifest per browser name, so same-browser prod and unpacked-dev origins still share one host path.
-  - Fixed-ID production rows only work in builds where `apps/gui/resources/helper_extension_ids.json` contains real non-placeholder production IDs.
+  - The bundled fixed ID identifies the current Chrome Web Store listing; any future separate store listing must be added deliberately rather than inferred from the browser name.
   - The desktop app can verify manifest/origin/host freshness, but it still cannot prove that the browser extension is currently installed and active.
-  - First launch immediately after reinstall/rebuild can still be materially slower than warm relaunch on the local machine; release signing/notarization and tester-machine measurements still need confirmation.
+  - First launch immediately after reinstall/rebuild can still be slower than
+    later warm launches, although the latest local sample remained within the
+    Resource Settings p95 budget; release signing/notarization and tester-machine
+    measurements still need confirmation.
 
 ## Feature-State Evidence Audit
 
@@ -891,8 +1134,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-05-15` Lane 5 contains thrown semantic inventory/helper exceptions inside the fail-closed semantic admission fallback path
-- Last verified: `2026-05-15` Lane 5 L5-E semantic inventory exception containment validation with focused semantic gate/runtime tests; `2026-05-16` routing-only evidence sync for semantic-shadow review queue path; `2026-06-06` route-only evidence sync from getting-started page to guide page
+- Last documented checkpoint: `2026-08-08` browser, Options profile publication, and runtime diagnostics now share the helper's fail-closed `abstain_on_unavailable` default, while the active-rule resolver prevents stale stored legacy values from weakening the derived runtime posture. Profile language mirror changes now rebuild source, target, automatic-pair mode, and pair together in already-open tabs. `2026-07-26` browser semantic context added locale-aware sentence/word segmentation and unified committed replacement budgets.
+- Last verified: `2026-08-08` the full extension contract suite passed (`167` tests), including fail-closed semantic fallback, explicit legacy compatibility, atomic language-mirror hot reload, semantic-context, tricky-HTML, unified-budget, committed-counting, Options, and replacement-selection coverage; the synthetic SRS quality harness passed (`pass=29 warn=0 fail=0`) across `en-ja`, `en-es`, and `en-de`.
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -901,7 +1144,9 @@ Use this file when:
     - helper publication can write a semantic inventory sidecar
     - helper publication now also writes a generation-aligned publication manifest for the ruleset/snapshot/semantic-inventory family
     - helper/native-host can now serve that semantic inventory as a first-class artifact
-    - helper CLI/native-host can now materialize a compiled semantic pack into a profile-local publication family and pair-level pack copy, while requiring an explicit data root unless the caller explicitly opts into the platform default; the installer can resolve a named pack id from an installed pack copy, `LEXISHIFT_SEMANTIC_PACK_CATALOG`, or the current repo dev pack before falling back to a developer inventory-path override; the shared extension helper client and Advanced debug options flow now expose a named `installSemanticPack` route
+    - helper CLI/native-host can now materialize a compiled semantic pack into a profile-local publication family and pair-level pack copy, or copy only the pair-level pack for later rulegen enrichment, while requiring an explicit data root unless the caller explicitly opts into the platform default; the installer can resolve a named pack id from an installed pack copy, `LEXISHIFT_SEMANTIC_PACK_CATALOG`, or the current repo dev pack before falling back to a developer inventory-path override; the shared extension helper client and Advanced debug options flow now expose a named `installSemanticPack` route
+    - pair capabilities can declare a default local semantic reference pack; normal SRS rulegen publication then uses an installed copy only as evidence enrichment for already-published source/replacement families, so a generated semantic pack can close ready-pointer gaps without widening or replacing the current Vocabulary Practice ruleset
+    - GUI Learning Languages now uses the same source-stack/catalog model to show semantic pack state: `en-es` has an installable pair-level reference copy path, and `en-de` has an explicit non-blocking pending row because no comparable semantic reference pack is declared yet
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
     - helper source-of-truth diagnostics can inspect pointer coverage, sidecar coverage, publication generation ids, and recomputed manifest-family state from the live helper artifacts
     - extension options/runtime diagnostics can surface best-effort cache counts plus cached snapshot/semantic generation ids and simple alignment, helper semantic capability/reason state, runtime semantic capability/pointer/ready counts, live semantic gate enablement, helper vs helper-cache source/error, aggregate ready/replace/abstain/soft-affordance counts, aggregate semantic fallback `reason_codes`, semantic helper batch/latency metrics, semantic scan scheduler metrics, DOM context-cache reuse metrics, and the last resolved `decision_policy_id` from the shipped runtime path
@@ -926,8 +1171,9 @@ Use this file when:
     - semantic admission activates only when the current enabled SRS rules have nonzero `status=ready` coverage and semantic inventory resolves cleanly
     - eligible matches are counted, but only `status=ready` eligible matches are batched to helper `semantic_admit_batch`
     - fallback decisions now roll up reason-code counts such as `semantic_status_pending`, `semantic_inventory_unavailable`, and `decision_service_error` into runtime diagnostics without changing replacement behavior
-    - ready semantic helper requests use bounded block/sentence-window DOM context when inline markup splits the visible sentence across text nodes, with scan-local context-buffer reuse for small complete blocks, same-context helper-call coalescing, pair/profile inventory-resolution reuse across serial admissions, explicit `fit_scope=per_match` batching across different context strings, and two-phase semantic preflight for budgeted scans so TF-IDF-style scoring keeps one-match semantics while native helper calls are reduced; the default semantic scan node batch is now `96` with no helper flush delay, based on the live Castle first-visible/throughput tuning; replacement edits remain scoped to the original text node and final page-budget enforcement remains ordered
-    - non-ready eligible matches still resolve locally through the shipped internal legacy fallback posture
+    - ready semantic helper requests use bounded block/sentence-window DOM context when inline markup splits the visible sentence across text nodes; sentence clipping prefers locale-aware `Intl.Segmenter` sentence/word boundaries and retains a deterministic Unicode-aware fallback, while explicit `<br>` and DOM/CSS block transitions remain context boundaries and headings remain isolated containers
+    - semantic context keeps scan-local context-buffer reuse for small complete blocks, same-context helper-call coalescing, pair/profile inventory-resolution reuse across serial admissions, explicit `fit_scope=per_match` batching across different context strings, and two-phase semantic preflight for budgeted scans so TF-IDF-style scoring keeps one-match semantics while native helper calls are reduced; the default semantic scan node batch is now `96` with no helper flush delay, based on the live Castle first-visible/throughput tuning; replacement edits remain scoped to the original text node, sentence identity is shared across inline-node splits when reconstruction succeeds, and ordered rendering applies the unified page/sentence/lemma budget only after semantic admission
+    - non-ready eligible matches resolve locally through the shipped fail-closed fallback posture
     - runtime replaces only `replace` decisions and keeps the original otherwise
   - `en-es` now has a narrow publication PoC:
     - if real sibling senses for the same trigger are present either in the active emitted ruleset or in the broader initialize/refresh semantic-context pool, `metadata.semantic_admission.status` can be promoted to `ready` for the active rules without widening the visible SRS ruleset
@@ -1039,6 +1285,7 @@ Use this file when:
 	    - `scripts/testing/semantic_routing_sentence_veto_harness.py` evaluates one fixed active-vs-shadow scorer configuration over a curated sentence dataset
 	    - `scripts/testing/semantic_routing_sentence_veto_sweep.py` sweeps scorer family, context view, evidence view, and threshold ladders over that same fixed dataset
 	    - the current `en-es` fixed-shadow evaluation dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
+	    - the current first `en-ja` fixed-shadow breadth evaluation dataset lives at `docs/test_inputs/semantic_routing_cases/en_ja_sentence_veto_breadth_v1.json`
 	    - this harness explicitly measures runtime-scoring quality separately from upstream shadow-mining quality
 	    - the default sweep stays on the cheap lexical scorer family, while `sentence_transformer_cosine` is available as an explicit heavier model-choice lane
 	    - the shipped ordinary `en-es` helper runtime now defaults to the deployable lexical gate via `en_es_sentence_veto_v2` (`tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.015 + min_margin=0.00`); the heavier `en_es_sentence_veto_v3` sentence-transformer lane remains explicit because it requires model/dependency availability
@@ -1310,6 +1557,7 @@ Use this file when:
   - `apps/chrome-extension/content/processing/replacements.js`
   - `apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js`
   - `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/semantic_context_support.js`
   - `apps/chrome-extension/content/runtime/dom_scan/semantic_context.js`
   - `apps/chrome-extension/content/runtime/dom_scan/semantic_node_scheduler.js`
   - `apps/chrome-extension/content/runtime/dom_scan/semantic_performance_metrics.js`
@@ -1445,14 +1693,34 @@ Use this file when:
 
 - Status:
   - `frequency_bootstrap`: `implemented`, `default-on`, `verified`
-  - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
+  - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `guided Options setup`
   - `profile_growth`: `implemented`, `default-on` for refresh, `verified`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-06-02` Options admission preview remains read-only but now returns a seed-controlled sampled subset from the planned active pool instead of the deterministic prefix, so repeated user-facing samples can vary while advanced diagnostics retain the full planned pool and seed. `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes with expected-vs-observed reserved-lane topic counts. Refresh payloads now report realized preferred-topic share for selected new admissions, and the preference product-loop test derives expected post-feedback topic share from topic strength, the capped topic lane, and remaining eligible topic capacity, including sparse medicine/technology cases. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met, and extension retry-only feedback flushes do not run the refresh check. The en-es topic taxonomy now records `mvp_picker_visibility`, the options-page topic chips exactly mirror `strict_mvp_visible`, and the dev admission lab surfaces beta/hidden/register visibility metadata without removing diagnostic scenarios.
-- Last verified: `2026-06-02` focused helper admission-preview tests covering weighted and reserved-topic seeded preview sampling, plus state and changed-file gates. Earlier `2026-05-27` coverage included focused profile-growth refresh/helper/native-host/options tests, preference-shaped product-loop tests with derived strong/weaker/sparse post-feedback topic-share assertions, automatic refresh policy/state tests, extension feedback-sync auto-refresh contract tests, content-runtime/background bridge auto-refresh contract tests, options SRS bridge contract tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, strict-MVP options topic-picker contract tests, taxonomy visibility validation, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last documented checkpoint: `2026-07-12` profile-bootstrap admission now uses the deterministic hard frontier-Gaussian hybrid lane selector (`profile_bootstrap_frontier_gaussian_hybrid_policy_v2`) for helper initialization, admission preview, and profile-growth refresh candidate formation. The base `profile_bootstrap_policy_v5` utility model remains the signal/core-score source and no-proficiency fallback. Offline comparison keeps the first frontier prototype and soft-topic v3 diagnostic available; hard v2 is preferred because it preserved topic visibility while keeping severe below-target leakage at zero in the 22-scenario en-ja comparison pack. `2026-07-03` `profile_bootstrap_policy_v5` made corrected learner difficulty the main scalar admission authority: source commonness is a small tie-breaker, challenge fit remains computed but unweighted in the default one-slider profile path, proficiency/readiness fit is dominant, and topic affinity plus bounded scarcity remain topic-UX helpers. `2026-06-11` seed-frontier cache lifecycle now includes explicit status/prepare APIs, single-flight locking, stale-cache cleanup, native-host/CLI entrypoints, and desktop resource-flow background warmup after relevant pack download/link/import. Full-frontier SRS bootstrap/admission now omits `bootstrap_top_n` by default and helper-driven initialize, preview, refresh, rebalance, and rulegen-job flows cache source-normalized seed rows under `srs/cache/seed_frontiers/` without caching profile scores. `2026-06-02` Options admission preview remains read-only but now returns a seed-controlled sampled subset from the planned active pool instead of the deterministic prefix, so repeated user-facing samples can vary while advanced diagnostics retain the full planned pool and seed. `2026-05-27` refresh admission defaults to `profile_growth`, preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. Refresh payloads now report realized preferred-topic share for selected new admissions, and automatic post-feedback refresh triggers `profile_growth` only after helper-persisted feedback thresholds are met.
+- Last verified: `2026-07-12` frontier-Gaussian comparison artifact refreshed for en-ja (`current/frontier v1/hard hybrid v2/soft hybrid v3`), focused profile-bootstrap/product-loop/helper preview tests passed, Ruff passed for touched SRS admission modules, doc-reference check passed, and SRS quality harness passed across en-ja/en-es/en-de (`pass=29 warn=0 fail=0`). Earlier `2026-07-03` en-ja product admission artifacts (`srs_admission_product_acceptance_en_ja_latest`: `PASS`, `srs_admission_random_ux_sample_pack_en_ja_latest`: `PASS`) show all `19` topic scenarios with movers, zero sampled `restricted_admission` rows, zero neutral non-topic rows more than `0.10` above proficiency, and surfaced-auto topic review `row_count=0`; focused profile-bootstrap/selector tests passed and SRS quality harness passed (`pass=22 warn=0 fail=0`). Earlier `2026-07-02` coverage included en-ja explicit admission artifacts (`srs_admission_preference_sample_pack_en_ja_latest`: `PASS`, `srs_admission_topic_proficiency_grid_en_ja_latest`: `WARN` with only sparse-topic no-mover warnings), hard admission-suitability selector tests, focused initial-bootstrap and refresh no-rule refill tests, and SRS quality harness. Earlier `2026-06-11` coverage included focused seed-cache lifecycle/use-case tests (`21 passed`) plus syntax/style checks for the helper/native-host/GUI cache-prep entrypoints, focused SRS/helper/options contract test set (`177 passed`), en-ja learner-difficulty audit regeneration (`72,758` deduped unique lemmas), local installed en-ja seed-cache timing probe (`10.379s` first full-frontier seed build, `2.497s` repeat cache hit, same `78,316` raw normalized seed rows), and local installed en-ja profile-bootstrap timing probe (`17.201s` first initialization, `8.326s` repeat cached initialization, same `72,758` selected unique count).
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
-  - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, a proficiency readiness multiplier, and capped reserved topic-lane selection over the frequency seed frontier before initial active selection.
+  - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, corrected-difficulty-first utility weights, and the hard hybrid frontier-lane selector over the frequency seed frontier before initial active selection.
+  - `profile_bootstrap` final selection now uses deterministic frontier,
+    trail, topic, and beginner-core lanes from hard hybrid v2. Profiles without
+    a proficiency estimate fall back to the base core profile score so topic
+    preferences still work before the user chooses or earns a proficiency
+    frontier.
+  - Actual selector admission now treats `admission_suitability=0.0` as hard
+    ineligible while leaving those rows visible in ranking diagnostics. Low
+    nonzero suitability remains a soft multiplier.
+  - Initial bootstrap and manual refresh reconcile active items without enabled
+    generated rules, then run bounded refill passes that block
+    discarded/no-rule lemmas plus still-active lemmas, select replacement
+    candidates within the original active/budget target, rerun rulegen, and
+    report the result through `rule_availability_refill`. Rebalance still
+    reconciles no-rule active items without refill.
+  - Bootstrap/admission uses all available seed rows by default when
+    `bootstrap_top_n` is omitted/null. Helper-driven flows use the
+    source-normalized seed-frontier cache as a latency optimization; cache
+    misses, stale keys, and corrupt files rebuild the same configured frontier.
+    Cache status/prepare routes and desktop resource-flow warmup are
+    profile-independent and do not change admission scoring.
   - Options admission preview sends a fresh seed per sample request and displays
     a sampled subset of the planned active pool; it does not initialize,
     persist, or publish SRS words.
@@ -1470,9 +1738,9 @@ Use this file when:
     topic count/status from lane cap plus source capacity. Full-pool weighted
     sampling remains too diffuse as a direct topic-preference policy.
   - `profile_growth` is executable for refresh/growth admission into `S`; it
-    transforms the seed frontier through profile-aware scoring, applies the
-    capped reserved topic-lane selector where relevant, and then uses the
-    existing refresh admission gates before persistence/publication. When
+    forms its refresh candidate pool with the same hard hybrid frontier lanes,
+    then uses the existing refresh admission gates before
+    persistence/publication. When
     profile-growth diagnostics are active, refresh output includes
     `selected_preferred_topic` with selected count, preferred-topic count,
     realized share, and preferred-topic lemmas.
@@ -1495,7 +1763,9 @@ Use this file when:
   - `core/lexishift_core/srs/admission_features.py`
   - `core/lexishift_core/srs/profile_bootstrap.py`
   - `core/lexishift_core/srs/profile_bootstrap_support.py`
+  - `core/lexishift_core/srs/seed_cache.py`
   - `core/lexishift_core/helper/use_cases/admission_preview.py`
+  - `core/lexishift_core/helper/use_cases/seed_cache.py`
   - `core/lexishift_core/helper/use_cases/refresh_set.py`
   - `core/lexishift_core/helper/use_cases/auto_refresh_set.py`
   - `core/lexishift_core/srs/auto_refresh.py`
@@ -1541,13 +1811,16 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-31` active-rotation release now parks
-  mature review words out of full active inventories before refresh capacity is
+- Last documented checkpoint: `2026-07-03` reading-aware browsing aggregates
+  now use a target-key structure carrying lemma, optional reading, confidence,
+  and observation-source metadata while preserving the opt-in, preview-only
+  behavior. Earlier `2026-05-31` active-rotation release now parks mature
+  review words out of full active inventories before refresh capacity is
   calculated, and reset treats the helper signal queue as story-scoped
-  lifecycle state; pair reset removes that pair's
-  feedback/exposure events and all-story reset removes the queue file. This
-  extends the `2026-05-27` SRS lifecycle, active-budget, stale-unseen capacity,
-  and manual refresh diagnostics update:
+  lifecycle state; pair reset removes that pair's feedback/exposure events and
+  all-story reset removes the queue file. This extends the `2026-05-27` SRS
+  lifecycle, active-budget, stale-unseen capacity, and manual refresh
+  diagnostics update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
@@ -1563,9 +1836,14 @@ Use this file when:
   due-only subset or every lifecycle-active store row; options refresh output
   now surfaces active budget, stale-unseen capacity pressure, selected lemmas,
   and preview-only browsing comparison diagnostics for manual SRS testing
-- Last verified: `2026-05-31` active-rotation release, inventory-scoped
-  capacity, helper refresh parking, product-loop regression, and reset
-  signal-queue cleanup tests extend
+- Last verified: `2026-07-03` backend plus gradient-verified browsing packs
+  for `en-ja` and `en-es`; the en-ja implicit sample pack has `7` scenarios
+  passing, the en-ja signal-gradient pack has `36` scenarios passing, alongside
+  Unicode/en-ja browsing-signal core tests, focused helper/native-host browsing
+  ingest tests, and SRS quality harness
+  (`pass=22 warn=0 fail=0`). Earlier `2026-05-31` active-rotation release,
+  inventory-scoped capacity, helper refresh parking, product-loop regression,
+  and reset signal-queue cleanup tests extend
   lifecycle marker, inventory-scoped active-budget, automatic active-rotation
   release, stale-unseen capacity,
   manual refresh diagnostics,
@@ -1618,15 +1896,28 @@ Use this file when:
   - The preview uses fractional small-budget realization so `Balanced` can show
     one browsing lane when signal pressure is meaningful, while actual persisted
     admission remains neutral.
-  - The helper ingest path requires explicit opt-in and stores bounded target
-    lemma aggregates only; URLs, raw page text, HTML, and context text are
-    ignored.
+  - The helper ingest path requires explicit opt-in and stores bounded target-key
+    aggregates only. Aggregates can carry `target_lemma`, `target_reading`,
+    per-channel counts, observation-source metadata, and reading confidence, but
+    URLs, raw page text, HTML, and context text are ignored.
   - The extension packet builder currently captures replacement exposures only,
     not arbitrary page words. It sanitizes observations before queueing helper
     packets.
-  - The current simulation uses a helper-persisted synthetic packet to prove
-    capping, pruning, suppression, and monotonic `Off` / `Balanced` / `Strong`
-    browsing-share behavior without mutating SRS items.
+  - The current simulation accepts an explicit pair and uses helper-persisted
+    synthetic packets to prove capping, pruning, suppression, neutral/off
+    baseline preservation, and monotonic `Off` / `Balanced` / `Strong`
+    browsing-share behavior without mutating SRS items. The default fixture now
+    exercises `en-ja` Unicode target lemmas, with an `en-es` comparison artifact
+    retained for the older research lane.
+  - The en-ja implicit browsing sample pack now runs profile-shaped preview
+    scenarios over the real en-ja seed frontier: no-history neutral, explicit
+    topic only, implicit history only, agreeing explicit+implicit history,
+    conflicting explicit+implicit history, and blocked-lemma guards. It uses
+    already-resolved target lemma aggregates only and remains preview-only.
+  - The en-ja signal-gradient pack now verifies count sensitivity over the same
+    preview path: weak single signals do not affect `Balanced`, multiple
+    target-side signals reserve slots earlier, replacement-exposure signals are
+    weaker, and lane counts remain monotonic as aggregate counts rise.
   - Topic preference, browsing admission, review scheduling, and page
     replacement are documented as separate product decisions; known/learned
     words must not become permanent unlimited page replacements by default.
@@ -1657,8 +1948,16 @@ Use this file when:
   - `apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js`
   - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
   - `scripts/testing/srs_browsing_admission_backend_simulation.py`
+  - `scripts/testing/srs_browsing_admission_implicit_sample_pack_en_ja.py`
+  - `scripts/testing/srs_browsing_admission_signal_gradient_en_ja.py`
   - `scripts/testing/srs_browsing_admission_research_en_es.py`
+  - `docs/test_inputs/srs_browsing_admission_implicit_configs_en_ja.json`
+  - `docs/test_inputs/srs_browsing_admission_signal_gradient_en_ja.json`
   - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
+  - `docs/test_outputs/srs_browsing_admission_backend_simulation_en_ja_latest.md`
+  - `docs/test_outputs/srs_browsing_admission_backend_simulation_en_es_latest.md`
+  - `docs/test_outputs/srs_browsing_admission_implicit_sample_pack_en_ja_latest.md`
+  - `docs/test_outputs/srs_browsing_admission_signal_gradient_en_ja_latest.md`
   - `docs/test_outputs/srs_browsing_admission_research_en_es_latest.md`
   - `core/tests/srs/test_srs_admission_refresh.py`
   - `core/tests/srs/test_srs_active_rotation.py`
@@ -1673,9 +1972,12 @@ Use this file when:
   - `core/tests/helper/test_helper_browsing_admission.py`
   - `core/tests/helper/test_helper_engine.py`
   - `core/tests/helper/test_helper_rulegen.py`
+  - `core/tests/dev/test_srs_browsing_admission_backend_simulation.py`
   - `core/tests/dev/test_extension_srs_action_workflows.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_browsing_admission_signals.py`
+  - `core/tests/dev/test_srs_browsing_admission_implicit_sample_pack_en_ja.py`
+  - `core/tests/dev/test_srs_browsing_admission_signal_gradient_en_ja.py`
   - `core/tests/dev/test_srs_browsing_admission_research_en_es.py`
 - Known gaps:
   - Broad live page-word capture remains unwired; only LexiShift replacement
@@ -1841,9 +2143,94 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified` for the shared read-only
   word-info API, selected-profile Vocabulary Library page with active-pair
-  selection, and built-in `quick-definition` popup module; cross-profile library enumeration and completed/
-  mastered lifecycle UX remain planned.
-- Last documented checkpoint: `2026-06-02` selected-profile Vocabulary Library
+  selection, built-in `quick-definition` popup module, and per-language-pair
+  ordered selection of locally imported Yomitan format-3 popup dictionaries;
+  cross-profile library enumeration and completed/mastered lifecycle UX remain
+  planned.
+- Last documented checkpoint: `2026-08-29` lookup ordering now uses one
+  versioned per-language-pair source list for imported dictionaries and built-in
+  providers. Resource Settings numbers every source, lets built-ins move with
+  the same up/down controls, and identifies them as non-removable; runtime and
+  popup result order follow that exact list. JMdict definition lookup now uses a
+  source-identity-validated local SQLite entry-offset index with atomic rebuild
+  and legacy-scan fallback. Packaged macOS builds now include a self-contained
+  native-messaging executable, validate it with a framed protocol smoke test,
+  and refuse to install a manifest for a bundled executable that cannot start.
+  Popup transport/helper errors use the localized load-error state rather than
+  claiming that a word lacks a definition. `2026-08-29` popup lookup now evaluates every
+  assigned imported dictionary plus the pair's built-in source and returns each
+  matching result in configured priority order. The quick-definition popup
+  renders only sources that have an entry for the selected word, gives each one
+  an animated disclosure row, and remembers expanded/collapsed state per
+  language pair and dictionary; the first matching source defaults open and
+  lower-priority matches default closed. Popup dependency load order is now
+  contract-tested so missing disclosure support cannot silently revert to the
+  legacy single-result presentation. Each module and the complete popup stack
+  have viewport-aware height caps with contained scrolling, keeping later
+  modules and the feedback controls reachable when definitions are long.
+  Compact script and collapsed-history cards remain ordinary non-scrollable
+  cards; scrolling is limited to definition bodies, expanded history details,
+  and the complete stack when their content actually exceeds a cap. Expanded
+  dictionary entries and structured Yomitan content grow within the definition
+  body rather than creating competing nested scroll areas. Popup modules do not
+  flex-shrink when asynchronous definition content arrives, so compact script
+  and history cards retain their natural height instead of clipping their text.
+  Multi-dictionary results are staged off-screen and committed as one visible
+  update after disclosure preferences resolve. Reactive placement measures the
+  complete natural module stack, including overflow-hidden content, so late
+  definition growth re-anchors the popup above or below the active word. When
+  the bounded stack fits on neither side, context-menu-style viewport clamping
+  shifts the complete box vertically instead of leaving its lower modules past
+  the viewport; the stack's single outer scroller remains the final fallback.
+  Horizontal placement starts beyond the replacement element's right edge,
+  flips beyond its left edge when needed, and clamps only when neither side
+  fits, avoiding overlap with the active word whenever the viewport permits.
+  Popup POS presentation now preserves detailed analyzer and dictionary tags as
+  raw metadata while preferring the stable canonical category for display. All
+  canonical POS categories are localized through the selected extension UI
+  language for English, Japanese, German, and Chinese; unknown source-specific
+  labels remain verbatim rather than being guessed or mistranslated.
+  Legacy first-result fields remain in the word-info response for existing
+  callers. `2026-08-27` imported dictionary health now runs
+  after Resource Settings renders on a background worker. The bounded probe
+  checks managed metadata, manifest/path safety, required SQLite schema, and a
+  single readable term row without hashing the source archive or scanning the
+  dictionary. Settings reports healthy, repairable, and incompatible copies;
+  exact-ZIP reimport rebuilds and validates a staged copy before replacing the
+  managed files while preserving pair assignments. A redistributable generated
+  200,000-term Yomitan quality command now measures multi-bank import, repeat
+  import, lookup, and cancellation with correctness and optional runner timing
+  budgets kept separate. `2026-08-26` lookup-stack rows now use consistent
+    numeric ordering, label real built-in sources, omit the former fake
+  last row when a pair has no built-in source, and keep compact up/down controls
+  visible with explicit disabled explanations. Pair unassignment uses a shorter
+  localized action that is sized to fit and requires confirmation that the
+  installed local dictionary will remain available. `2026-08-22` contextual dictionary acquisition
+  now complements the helper's user-supplied Yomitan format-3 import path. The
+  helper indexes term dictionaries into local SQLite, lets one
+  installed dictionary serve multiple language pairs, and configures an ordered
+  popup-dictionary stack independently for each pair. The desktop can add,
+  remove, and move imported dictionaries without uninstalling them, keeps the
+  built-in source last by default when the pair has one, and explicitly reports pairs
+  with no built-in popup provider. New imports are placed first without replacing
+  the existing stack. Configured dictionaries are tried in order before the
+  pair's built-in lookup source, with exact surface/reading identity preserved
+  for Japanese lookup. The helper-first acquisition UI
+  explains the local-only/licensing boundary and guides users to compatible
+  sources before ZIP import. Opening the community source directory now starts
+  a short-lived, pair-aware Downloads check; the extension gives contextual
+  guidance on that directory without linking directly to a commercial archive,
+  Japanese-target pairs use the directory's stable Daijirin section anchor while
+  other pairs retain the directory root, and the Japanese guidance card can
+  re-locate and briefly highlight that section without opening its external
+  download link,
+  and the desktop offers import only after validating a recent ZIP's Yomitan
+  format, index metadata, term bank, and declared headword language.
+  `2026-08-20` Japanese definition lookup now uses
+  the clicked replacement's exact surface/reading identity when available,
+  honors JMdict reading and sense restrictions, keeps SRS attachment and the
+  extension lookup cache reading-aware, and reports stable local dictionary and
+  match metadata for future source selection. `2026-06-02` selected-profile Vocabulary Library
   page with active-pair selection and selected-profile theme application extends the source-resolution and enriched popup checkpoint:
   helper/core can read a profile/pair/lemma
   word-info payload, native host exposes `word_info_lookup`, the extension
@@ -1856,7 +2243,64 @@ Use this file when:
   selected pair, applies the selected profile's Options background/card-theme
   preferences, loads current-page definition previews, opens a detail panel,
   and reuses confirmed discard as its only mutation.
-- Last verified: `2026-06-02` dedicated Vocabulary Library page pair-selector/theme-loading tests plus
+- Last verified: `2026-08-29` POS raw/canonical separation and localized popup
+  labels passed `19` focused helper and extension tests. A live `分かる/わかる`
+  request carrying only raw `動詞-一般` metadata resolved canonical `verb` while
+  retaining the original raw label, and returned both configured dictionary
+  results. The full repository gate passed `844` tests, mypy across `190` source
+  files, strict style, state, Windows parity, and documentation checks.
+  `2026-08-29` atomic multi-dictionary rendering, natural-height
+  stack measurement, below/above re-anchoring after late definition growth,
+  viewport-clamped fallback placement, replacement-edge horizontal anchoring,
+  dependency ordering, and extension structure passed `25` focused tests plus
+  `4` subtests; the full repository gate passed `843` tests, mypy across `190`
+  source files, strict style, state, Windows parity, and documentation checks.
+  `2026-08-29` unified imported/built-in reordering, settings-v1
+  migration, runtime priority alignment, JMdict index rebuild/corruption
+  recovery, macOS executable-host selection, legacy-script repair detection,
+  and native protocol probing passed focused core/GUI/packaging tests. A live
+  installed-data lookup returned Daijirin and JMdict for `分かる/わかる`; cold
+  index creation completed in about `0.95s`, a new-process indexed lookup in
+  about `31ms`, and a same-process repeat in about `3ms`. Rebuilt and installed
+  macOS app bundles passed bundle validation plus a real framed-host smoke; the
+  unpacked signed host started in about `248ms`, and an installed-host
+  `分かる/わかる` request returned Daijirin plus JMdict in about `296ms`. The
+  repository unit and mypy lanes passed `843` tests plus all `190` typed source
+  files before the state-ledger synchronization rerun. `2026-08-29` ordered multi-source lookup, omission of
+  non-matching sources, legacy first-result compatibility, disclosure defaults,
+  persisted per-pair expansion state, manifest wiring, and extension structure
+  passed `33` focused helper, popup, API-contract, and architecture tests. A
+  read-only lookup against the installed `suisui` data returned `大辞林 第四版`
+  first and JMdict second for `時/とき`. The full repository gate passed
+  `842` tests plus repo-wide mypy and style checks after the multi-result helper
+  and popup disclosure support were kept in focused modules. `2026-08-27` focused core and GUI coverage passed for healthy,
+  missing, corrupt, and repaired dictionaries; exact-copy enforcement; retained
+  assignments; and the generated performance fixture/report contracts.
+  `2026-08-26` the focused lookup GUI/helper suite passed `24`
+  tests covering actionable move-button wiring, visible disabled boundary
+  controls and explanations, consistent built-in numbering, no-source row
+  omission, action sizing, cancelled and confirmed pair unassignment, retained imported files, and the
+  existing import/lookup contracts. `2026-08-22` ordered lookup-stack controls, first-match runtime
+  ordering, per-pair persistence, import-at-top behavior, built-in provider
+  status, non-destructive pair removal, restart persistence, GUI localization,
+  and packaging contracts passed `68` focused tests. The changed-file repository
+  gate also passed after the stack controller was separated from acquisition and
+  library management. `2026-08-22` contextual source-page guidance and validated
+  recent-download detection passed `66` focused helper, GUI, extension,
+  activation, syntax, and locale-catalog contracts. The refactored acquisition
+  modules also passed the changed-file repository gate, and rebuilt macOS app
+  bundles validated and installed successfully. A real user-supplied Daijirin Fourth Edition
+  image-free archive also imported `334,750` terms in an isolated helper root;
+  repeat import reused the same pack, cancellation left no partial install,
+  and reading-aware lookups separately resolved `時/とき` and `時/じ` for both
+  `en-ja` and `ja-ja`. Focused lookup/settings tests, the full repository safety
+  check, and packaged macOS GUI validation passed. The acquisition follow-up
+  adds neither a Chrome downloads permission nor a direct MediaFire URL.
+  `2026-08-20` focused
+  word-info, JMdict parsing, extension cache,
+  and quick-definition tests passed (`48` tests); a read-only lookup against the
+  installed `suisui` data returned `時/とき` without the unrelated `斎/とき`
+  ritual-meal sense and separately resolved `時/じ`. Earlier `2026-06-02` dedicated Vocabulary Library page pair-selector/theme-loading tests plus
   focused helper word-info tests, native-host route tests, helper-client/API
   contract tests, quick-definition popup render and registry tests, extension
   structure tests, JS syntax checks, and Python compile checks
@@ -1871,6 +2315,40 @@ Use this file when:
   - Compact gloss selection prefers unrestricted senses and the first dictionary
     POS group; restricted usage senses such as slang/vulgar/obsolete/derogatory
     entries are fallback-only when no unrestricted sense is available.
+  - When a Japanese word package supplies a usable reading, JMdict lookup
+    isolates an exact surface/reading entry match when available and applies
+    `re_restr`, `re_nokanji`, `stagk`, and `stagr` restrictions before presentation. The
+    clicked package remains authoritative, so an SRS item for another reading
+    is not attached to the response.
+  - JMdict sense-info prose is preserved verbatim in the helper payload. The
+    popup derives `《written form》 description` rows only for the narrow shape
+    where every semicolon-separated clause exactly says that a written form from
+    the same JMdict entry "signifies" a description; all other notes remain
+    unchanged.
+  - Users can import a Yomitan format-3 dictionary ZIP in the desktop Resource
+    settings. LexiShift never supplies or uploads that data, leaves the original
+    ZIP unchanged, and stores a managed local SQLite lookup index with manifest
+    and provenance sidecars. Glossary JSON is retained in the index, while the
+    current popup renderer uses a safe text projection rather than dictionary
+    HTML, remote media, or custom styles.
+  - Dictionary selection is persisted per language pair and affects only the
+    read-only word-info/dictionary-popup route. It does not participate in
+    replacements, rule generation, admission, scheduling, or SRS publication.
+    Imported and built-in sources share one versioned priority order; legacy
+    settings migrate as imported sources followed by the built-in source. Every
+    source with a usable match is included in
+    the popup payload; a miss or unavailable pack is omitted from the rendered
+    source list. The first result is also exposed through the legacy top-level
+    gloss, sense, and dictionary fields. Popup requests bypass the session
+    word-info cache so a newly selected source is visible on the next lookup.
+  - Imported Japanese term lookup prefers exact written-form plus reading,
+    then exact written form, then exact normalized kana reading. The popup shows
+    the imported dictionary title and preserves multiline definition text.
+  - Built-in JMdict popup lookup keeps the source XML authoritative and stores
+    only term-to-entry byte offsets in an app-local SQLite cache. Cache identity
+    includes the resolved source path, size, modification time, and index schema;
+    stale or corrupt caches rebuild atomically, and index failures fall back to
+    the existing exact-tag scan without changing dictionary content.
   - Installed local lexical resources are the canonical gloss source. For
     `en-es`, the route resolves Spanish-to-English translation/gloss packs
     through existing pair-resource capability/default-pack logic rather than
@@ -1878,8 +2356,46 @@ Use this file when:
     pack roots are recognized so local `wiktionary-es-en` installs keep the
     intended Wiktionary-first priority over FreeDict fallback.
   - The extension API wrapper normalizes camelCase/snake_case request fields,
-    caches successful lookups for the current JS runtime session, and delegates
-    native messaging to `HelperClient.lookupWordInfo`.
+    caches successful lookups for the current JS runtime session using word
+    package identity including surface and reading, and delegates native
+    messaging to `HelperClient.lookupWordInfo`.
+  - Successful payloads expose local dictionary `pack_id`, `provider`, and
+    `source_kind`, plus the matched surface/reading and match quality; no local
+    resource path is exposed.
+  - The helper can securely import a user-supplied Yomitan format-3 term
+    dictionary ZIP into an app-local SQLite index. Import runs off the GUI
+    thread, reports progress, supports cancellation, rejects unsafe or
+    oversized archives, and does not copy the source ZIP into the repository or
+    upload dictionary data.
+  - Resource Settings checks installed dictionary health only after the panel
+    renders and off the GUI thread. The probe reads known sidecars and performs
+    bounded SQLite schema/readability queries; it does not hash the source ZIP,
+    recursively scan the managed directory, run `PRAGMA integrity_check`, or
+    add work to normal popup lookup. Reimport repair accepts only the exact ZIP
+    that derives the existing pack ID, validates a staged rebuild, and preserves
+    every language-pair assignment.
+  - Dictionary acquisition remains explicit and user-driven. After the desktop
+    opens the community directory, it checks only recent top-level ZIP files in
+    the Downloads folder for up to seven days. It does not trust filenames or
+    inspect historical downloads: a candidate must pass the same bounded
+    archive-path, format-3 index, term-bank, and target-headword-language checks
+    before a separate import action appears, and import still requires the
+    existing source-rights confirmation.
+  - The extension recognizes the community directory by exact hostname/path and
+    explains the return-to-LexiShift flow in an isolated content-script card. It
+    neither points to the Daijirin MediaFire archive nor initiates or observes
+    browser downloads, and the manifest still has no `downloads` permission.
+    An exact, stable Daijirin heading fragment opts into Japanese recommendation
+    details and a resilient locate/highlight action; any other fragment falls
+    back to the generic directory guidance.
+  - Popup-dictionary assignment is global per language pair rather than per
+    profile. One installed dictionary may be assigned to multiple pairs. The
+    GUI, settings contract, and runtime share an ordered source-id tuple: new or
+    imported dictionaries are placed first, the learner can move or unassign
+    them without deleting local data, runtime returns every matching source in
+    that order, and a pair's built-in source can be moved but not removed. The
+    popup remembers disclosure visibility per language pair
+    and dictionary in extension-local storage.
   - The content singleton is configured with the current helper client.
     `quick-definition` receives the shared `LexiShift.wordInfoApi` capability
     through the popup descriptor context and does not call native messaging or
@@ -1889,9 +2405,9 @@ Use this file when:
     loading state, and then renders target display, POS when known, up to five
     local glosses with compact details/examples when available, and
     deterministic external dictionary links.
-  - `quick-definition` degrades to localized fallback text when the helper is
-    unavailable, the request is invalid, or installed definition data is
-    missing.
+  - `quick-definition` distinguishes a helper/transport load failure from a
+    successful lookup with no definition. Missing entries and missing local data
+    retain their own localized fallback states.
   - Options code can call `HelperManager.lookupWordInfo(...)`.
   - The active Vocabulary Practice card links directly to a dedicated
     Vocabulary Library page instead of rendering an embedded dashboard. The page
@@ -1913,12 +2429,30 @@ Use this file when:
   - `docs/srs/srs_vocabulary_library_and_word_info_plan.md`
   - `docs/architecture/popup_modules_pattern.md`
   - `core/lexishift_core/helper/use_cases/word_info.py`
+  - `core/lexishift_core/helper/use_cases/word_info_dictionary_results.py`
+  - `core/lexishift_core/helper/use_cases/word_info_dictionary.py`
+  - `core/lexishift_core/helper/use_cases/word_info_identity.py`
+  - `core/lexishift_core/helper/use_cases/word_info_jmdict.py`
+  - `core/lexishift_core/helper/use_cases/word_info_senses.py`
+  - `core/lexishift_core/helper/lookup_dictionary_settings.py`
+  - `core/lexishift_core/helper/yomitan_dictionary_inspection.py`
+  - `core/lexishift_core/helper/yomitan_dictionary_health.py`
+  - `core/lexishift_core/helper/yomitan_lookup_dictionaries.py`
+  - `core/lexishift_core/helper/yomitan_dictionary_rendering.py`
+  - `core/lexishift_core/resources/jmdict_definition_lookup.py`
   - `core/lexishift_core/helper/engine.py`
   - `scripts/helper/lexishift_native_host.py`
   - `apps/chrome-extension/shared/helper/helper_client.js`
   - `apps/chrome-extension/shared/helper/word_info_api.js`
   - `apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js`
+  - `apps/chrome-extension/content/ui/popup_modules/quick_definition_result_support.js`
+  - `apps/chrome-extension/content/ui/popup_modules/quick_definition_dictionary_sections.js`
+  - `apps/chrome-extension/content/ui/manual_source_prompt.js`
   - `apps/chrome-extension/content/ui/ui.js`
+  - `apps/gui/src/settings_lookup_dictionaries_mixin.py`
+  - `apps/gui/src/settings_lookup_dictionary_health_mixin.py`
+  - `apps/gui/src/lookup_dictionary_health.py`
+  - `apps/gui/src/lookup_dictionary_import.py`
   - `apps/chrome-extension/shared/srs/popup_modules_registry.js`
   - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
   - `apps/chrome-extension/content_script.js`
@@ -1931,11 +2465,26 @@ Use this file when:
   - `apps/chrome-extension/learning_dashboard_table.js`
   - `apps/chrome-extension/learning_dashboard_theme.js`
   - `apps/chrome-extension/learning_dashboard.js`
+  - `apps/gui/src/settings_lookup_dictionaries_mixin.py`
+  - `apps/gui/src/settings_lookup_dictionary_stack_mixin.py`
+  - `apps/gui/src/helper_native_messaging_support.py`
+  - `apps/gui/packaging/pyinstaller.spec`
+  - `apps/gui/src/settings_lookup_dictionary_acquisition_mixin.py`
+  - `apps/gui/src/lookup_dictionary_acquisition.py`
+  - `apps/gui/src/lookup_dictionary_import.py`
+  - `apps/gui/tests/test_lookup_dictionary_settings.py`
   - `core/tests/helper/test_helper_word_info.py`
+  - `core/tests/helper/test_yomitan_lookup_dictionaries.py`
+  - `scripts/testing/yomitan_dictionary_performance.py`
+  - `core/tests/dev/test_yomitan_dictionary_performance.py`
+  - `docs/developer/yomitan_dictionary_performance.md`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_helper_status_profile_contract.py`
   - `core/tests/dev/test_extension_quick_definition_popup_module.py`
+  - `core/tests/dev/test_extension_word_info_api_contract.py`
+  - `apps/gui/tests/test_lookup_dictionary_settings.py`
   - `core/tests/dev/test_extension_learning_dashboard_page.py`
+  - `scripts/build/validate_app_bundle.py`
   - `core/tests/architecture/test_extension_structure.py`
 - Known gaps:
   - Cross-profile Vocabulary Library enumeration is not implemented.
@@ -1944,19 +2493,31 @@ Use this file when:
   - Batch lookup for a page of library rows is not implemented.
   - The normalized public popup module API remains target architecture; the
     current module uses the existing internal popup descriptor/context pattern.
-  - JMDict and future-pair provider behavior has a generic path but only
-    `en-es` translation-pack lookup has focused production-style coverage in
-    this slice.
+  - Dictionary results are shown as separate ordered sections rather than
+    merging or semantically reconciling definitions across sources.
+  - `ja-ja`, `en-en`, `de-de`, and `es-es` currently have no built-in popup
+    provider, so they require an assigned imported dictionary for local results.
+  - Yomitan media files are not imported. Structured-content image nodes use a
+    safe textual fallback, so the verified image-free Daijirin archive works
+    without claiming general image-dictionary support.
+  - Acquisition guidance currently opens a community-maintained source
+    directory and can validate a recently downloaded compatible ZIP; it is not
+    yet a curated in-app catalogue or automatic downloader.
 
 ## Vocabulary Practice Options UX
 
-- Status: `implemented`, `default-on`, `verified` for the selected-story shell,
-  direct Vocabulary Library entry, sampling curtain, switch styling, proficiency slider presentation,
-  lazy status output, guided new-story initialization modal, and helper-backed
-  missing-language-data setup recovery, delete-story state cleanup, and
-  existing-GUI resource-settings deep-link activation; full multi-story
-  enumeration remains `planned`
-- Last documented checkpoint: `2026-06-02` Options now links directly to the
+- Status: `implemented`, `default-on`, `verified` for the current beta LP setup
+  flow, selected-story shell, direct Vocabulary Library entry, sampling
+  curtain, switch styling, proficiency slider presentation, lazy status output,
+  guided new-story initialization modal, helper-backed missing-language-data
+  setup recovery, delete-story state cleanup, and existing-GUI
+  resource-settings deep-link activation; full multi-story enumeration remains
+  `planned`
+- Last documented checkpoint: `2026-07-15` current beta LP setup flows are
+  accepted as complete for the tested scope after the en-ja creation flow was
+  retested with hard frontier-Gaussian hybrid admission, fast indexed preview,
+  localized setup copy, topic picker filtering, persisted browsing-admission
+  toggle state, and early Options theme/backdrop loading. `2026-06-02` Options now links directly to the
   dedicated Vocabulary Library instead of embedding the admitted-words
   dashboard, the dedicated page lets the selected profile switch among active
   language pairs while applying the same selected-profile background/card-theme
@@ -2009,11 +2570,10 @@ Use this file when:
   retry the same setup check; the Learning Languages pair cards promote
   app-managed downloads, hide per-resource manual file selection from the
   learner-facing path, include the required Kaikki/Wiktionary `wiktionary-es-en`
-  resource for en-es, show catalog sizes and per-resource progress, route
-  license-restricted `freq-es-cde` through a manual setup instruction dialog
-  with provider-page access, a rights-confirmed local source import for
-  `spanish_lemmas20k.txt`, and managed SQLite conversion instead of showing a
-  false download-progress state or switching tabs, expose per-resource
+  resource and the CC BY `freq-es-spalex-v1` frequency resource for en-es, show
+  catalog sizes and per-resource progress, keep license-restricted
+  `freq-es-cde` available only as a legacy/manual import path with
+  rights-confirmed local source import for `spanish_lemmas20k.txt`, expose per-resource
   file-location reveal and uninstall actions for installed data, and confirm
   before removing a pair card from the Learning Languages list when any
   required resources for that pair are installed; Learning Languages pair and
@@ -2075,7 +2635,12 @@ Use this file when:
   path; the page-background manager also skips duplicate backdrop/image/position
   DOM writes so late background sync does not repaint the same already-applied
   visual state.
-- Last verified: `2026-06-02` focused Vocabulary Library pair-selector/theme-loading/direct-link/implicit-feedback-auto-refresh tests plus
+- Last verified: `2026-07-15` manual en-ja Options creation-flow smoke passed
+  after the hard hybrid admission promotion and setup-flow polish; observed
+  setup samples were notably better and the LP setup flow is accepted for the
+  current beta scope. Earlier `2026-07-12` SRS quality harness passed
+  (`pass=29 warn=0 fail=0`) and focused profile-bootstrap/helper preview tests
+  passed for the active admission selector. Earlier `2026-06-02` focused Vocabulary Library pair-selector/theme-loading/direct-link/implicit-feedback-auto-refresh tests plus
   resource-plan/manual-frequency-policy/native-app-launch checks now extend the
   setup-flow profile inheritance, clean-topic setup opening, sanitized preview
   diagnostics, preview-renderer update, and focused
@@ -2089,7 +2654,7 @@ Use this file when:
   clean setup topic defaults,
   non-activating setup sampling, learner-facing sample preview cards with
   locally toggled advanced diagnostics and no printed local source paths,
-	  Vocabulary Practice theme-token CSS contract,
+  Vocabulary Practice theme-token CSS contract,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
   lazy rulegen status output, hidden SRS enable backing control, removed
@@ -2103,9 +2668,10 @@ Use this file when:
   GUI resource-tab activation routing, persistent Learning Languages pair card,
   learner-facing Learning Languages card localization,
   per-resource installed-data file-location reveal, required `wiktionary-es-en`
-  pair resource plan coverage, built-in `freq-es-cde` manual-download block,
-  manual-only resource progress suppression, manual resource instruction dialog
-  routing without tab switching, removed pair-card Add manually affordance,
+  and `freq-es-spalex-v1` pair resource plan coverage, SPALEX frequency
+  download/import catalog coverage, built-in `freq-es-cde` legacy manual-import block,
+  downloadable resource progress suppression before download start, downloadable
+  resource detail routing, removed pair-card Add manually affordance,
   Learning Languages resource uninstall buttons and installed-resource remove
   confirmation,
   localized Learning Languages pair/resource labels plus recursive GUI i18n
@@ -2144,14 +2710,14 @@ Use this file when:
     open the LexiShift GUI Resource settings tab via the native helper with the
     pair added/focused in the persistent Learning Languages view, and keeps the
     learner in the same setup flow for retry. That view offers app-managed
-    dictionary downloads for `wiktionary-es-en` / `freedict-es-en`, displays
+    dictionary downloads for `wiktionary-es-en` / `freedict-es-en`, the
+    app-managed `freq-es-spalex-v1` Spanish frequency download/build path,
     byte-exact catalog download sizes and per-resource determinate progress
     when either the response or catalog has a known total, and offers
-    file-location reveal for installed resources. License-restricted frequency
-    resources such as `freq-es-cde` remain required when the pair needs them,
-    but the pair card opens a manual setup instruction dialog with provider-page
-    access and local file import instead of starting an app-managed download or
-    switching the user to the detailed Frequency packs tab. For `freq-es-cde`,
+    file-location reveal for installed resources. License-restricted legacy
+    frequency resources such as `freq-es-cde` remain available in the detailed
+    resource tabs for compatibility/manual import, but are not the promoted
+    en-es required resource. For `freq-es-cde`,
     selecting a licensed `spanish_lemmas20k.txt` source confirms local-use rights,
     keeps the Import action disabled until the local-use confirmation checkbox
     is checked, starts the file picker in the user's Downloads folder and
@@ -2215,7 +2781,7 @@ Use this file when:
     feedback remains off/reserved, so none of those three flags are exposed as
     learner-facing toggles.
   - The collapsed active-practice `Advanced` section exposes new-word timing
-	    thresholds as same-level controls, followed by `Delete Vocabulary Practice`. The
+    thresholds as same-level controls, followed by `Delete Vocabulary Practice`. The
     delete action uses the existing helper reset route but is presented and
     confirmed as deleting only the selected profile/language-pair story. On
     helper reset success, Options removes the selected pair's persisted SRS
@@ -2229,7 +2795,8 @@ Use this file when:
     is available.
   - The guided new-story modal uses the same underlying Options controls and
     helper workflows as the existing page path; it does not introduce a second
-    SRS initialization implementation.
+    SRS initialization implementation. The current beta LP setup flow is
+    considered complete for the present tested scope.
   - Modal sampling is non-mutating with respect to SRS admission and persists
     visible preference settings before calling the existing admission preview.
   - Modal initialization enables SRS for the selected story, persists visible
@@ -2240,6 +2807,8 @@ Use this file when:
     admission actually consumes browsing aggregates.
 - Evidence:
   - `docs/srs/srs_story_based_options_flow_plan.md`
+  - `docs/test_outputs/srs_admission_frontier_gaussian_config_compare_en_ja_latest.md`
+  - `docs/test_outputs/srs_quality_summary_latest.md`
   - `apps/chrome-extension/options.html`
   - `apps/chrome-extension/options.css`
   - `apps/chrome-extension/options/controllers/srs/story_flow_controller.js`
@@ -2302,10 +2871,22 @@ Use this file when:
 ## Due-Aware SRS Serving
 
 - Status: `implemented`, `default-on when capable`, `verified`
-- Last documented checkpoint: `2026-05-26` standard page replacement density update
-- Last verified: `2026-05-26` settings-default contract, helper annotation test,
-  extension runtime gate contract, replacement-selection page-budget contract,
-  SRS quality harness, and regenerated SRS quality artifacts
+- Last documented checkpoint: `2026-08-09` the ambiguous
+  `maxOnePerTextBlock` control moved under Advanced as explicitly labeled
+  legacy text-node compatibility, while learner-facing one-per-unit guidance
+  now routes to `maxReplacementsPerSentence = 1`; existing stored values remain
+  honored without automatic migration. `2026-08-08` replacement-budget diagnostics now
+  expose aggregate configured limits, committed usage, exhaustion, and
+  page/sentence/lemma rejection counts with explicit `frame_document` scope.
+  Density settings are explicitly global, and non-rendered subtrees no longer
+  consume replacement capacity; visibility-related attribute changes trigger a
+  targeted rescan when content is revealed.
+- Last verified: `2026-08-09` the full extension contract suite passed (`170`
+  tests), including the legacy-control placement/copy contract, aggregate budget
+  rejection accounting, frame-document diagnostics, non-rendered subtree
+  filtering, visibility-mutation rescans, sentence context, committed-counting,
+  Options, and replacement selection. `2026-08-08` the synthetic SRS quality
+  harness passed (`pass=29 warn=0 fail=0`) across `en-ja`, `en-es`, and `en-de`.
 - Default behavior:
   - Scheduler code builds a due queue from `next_due`.
   - Helper rulegen annotates matching SRS rules with `metadata.rulegen.srs`
@@ -2316,9 +2897,22 @@ Use this file when:
     active, extension replacement selection prefers new, learning, or
     lower-stability due SRS items over mature or future-due SRS rows inside the
     limited replacement slots.
-  - Standard extension page-density defaults are explicit and conservative:
-    `maxReplacementsPerPage = 20`, `maxReplacementsPerLemmaPerPage = 2`,
-    `allowAdjacentReplacements = false`, and `maxOnePerTextBlock = false`.
+  - Standard extension page-density defaults are explicit and permissive:
+    `maxReplacementsPerPage = 0`, `maxReplacementsPerSentence = 0`,
+    `maxReplacementsPerLemmaPerPage = 0`, `allowAdjacentReplacements = true`,
+    and `maxOnePerTextBlock = false`.
+  - A nonzero per-sentence cap uses locale-aware sentence segmentation and
+    reconstructed inline DOM context where available. If reconstruction is
+    unavailable, a text-node-local key provides a conservative fallback.
+  - Page-total, per-sentence, and per-lemma constraints are evaluated together
+    after semantic admission. Semantic abstentions do not consume capacity, and
+    budget usage is committed only after the replacement fragment is attached.
+  - Page-total state is per frame document; the top page and each embedded frame
+    have independent budgets. The settings themselves remain global.
+  - Runtime diagnostics persist aggregate budget counts only, without lemma or
+    sentence identifiers.
+  - Non-rendered text under hidden/template/display/visibility boundaries is
+    excluded from replacement scanning and therefore cannot consume capacity.
   - Metadata-free cached helper rules remain active as a legacy compatibility fallback until regenerated.
 - Evidence:
   - `docs/developer/productization_lane5_runtime_seam_inventory.md`
@@ -2328,10 +2922,18 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/refresh_set.py`
   - `core/lexishift_core/helper/rulegen.py`
   - `apps/chrome-extension/shared/srs/srs_gate.js`
+  - `apps/chrome-extension/content/processing/replacement_selection.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/semantic_context.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/node_filters.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js`
+  - `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
   - `scripts/testing/srs_quality_harness.py`
   - `core/tests/helper/test_helper_rulegen.py`
   - `core/tests/dev/test_extension_settings_defaults_contract.py`
   - `core/tests/dev/test_extension_replacements_contract.py`
+  - `core/tests/dev/test_extension_dom_scan_runtime_contract.py`
+  - `core/tests/dev/test_extension_scan_skip_contract.py`
+  - `core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py`
   - `core/tests/dev/test_extension_srs_runtime_gate_contract.py`
   - `core/tests/dev/test_srs_quality_harness.py`
   - `docs/test_outputs/srs_quality_latest.json`
@@ -2340,8 +2942,11 @@ Use this file when:
   - Legacy metadata-free cached helper rules are intentionally permissive until the helper ruleset is regenerated.
   - Browser/native E2E coverage for automatic feedback-triggered refresh remains
     open beyond helper policy/state tests.
-  - `0` remains available as an explicit unlimited override for page and
-    per-lemma replacement caps.
+  - `0` remains available as an explicit unlimited override for page,
+    per-sentence, and per-lemma replacement caps.
+  - Sentence grouping is best effort: malformed or punctuation-free content,
+    shadow DOM boundaries, and oversized/truncated containers can produce
+    conservative text-node-local grouping or split a visible sentence.
   - No durable mastered/released flag is fully implemented yet.
   - Synthetic harness coverage remains pair-limited.
 

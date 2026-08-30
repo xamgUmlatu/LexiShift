@@ -1,0 +1,758 @@
+{
+  "schema_version": 1,
+  "pair": "en-ja",
+  "dataset_id": "en_ja_sentence_veto_seed_v1",
+  "description": "Seed en-ja sentence-veto evaluation set aligned to the en-es v10 ambiguity-family style. This is an executable first signal for en-ja veto tuning, not a final parity/promotional suite.",
+  "families": [
+    {
+      "family_id": "en-ja:sentence-veto:ball:ball",
+      "trigger": "ball",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:ball:ball:active",
+        "target_lemma": "ボール",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "ball used in games or sports",
+          "gloss_text": "round object used in sports, games, kicking, throwing, or play",
+          "sense_gloss_bundle": "ball used in games or sports | sports equipment",
+          "all_evidence_text": "ball used in games or sports | round object used in sports, games, kicking, throwing, or play | sports equipment"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:ball:dance:shadow",
+          "target_lemma": "舞踏会",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "formal dance event",
+            "gloss_text": "gala or social dance gathering",
+            "sense_gloss_bundle": "formal dance event | gala",
+            "all_evidence_text": "formal dance event | gala or social dance gathering | royal dance | charity dance"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:ball:001",
+          "sentence": "The goalkeeper punched the ball over the bar.",
+          "source_phrase": "ball",
+          "gold_winner": "en-ja:sentence-veto:ball:ball:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "sports"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["ball"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:ball:002",
+          "sentence": "The child kicked the ball into the street.",
+          "source_phrase": "ball",
+          "gold_winner": "en-ja:sentence-veto:ball:ball:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "sports"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["ball"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:ball:003",
+          "sentence": "They danced at the royal ball until dawn.",
+          "source_phrase": "ball",
+          "gold_winner": "en-ja:sentence-veto:ball:dance:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "event"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["ball"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:ball:004",
+          "sentence": "The charity ball raised thousands of dollars.",
+          "source_phrase": "ball",
+          "gold_winner": "en-ja:sentence-veto:ball:dance:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "event"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["ball"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:ball:005",
+          "sentence": "The ball is in your court now.",
+          "source_phrase": "ball",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "idiom"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["ball"]}
+        }
+      ]
+    },
+    {
+      "family_id": "en-ja:sentence-veto:bank:bank",
+      "trigger": "bank",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:bank:bank:active",
+        "target_lemma": "銀行",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "financial bank",
+          "gloss_text": "financial institution for deposits, cash, loans, mortgage, or accounts",
+          "sense_gloss_bundle": "financial bank | money institution",
+          "all_evidence_text": "financial bank | financial institution for deposits, cash, loans, mortgage, or accounts | money institution"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:bank:river-edge:shadow",
+          "target_lemma": "岸",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "river bank",
+            "gloss_text": "land edge beside a river, stream, or muddy water",
+            "sense_gloss_bundle": "river bank | land beside water",
+            "all_evidence_text": "river bank | land edge beside a river, stream, or muddy water | grassy bank | river shore"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:bank:001",
+          "sentence": "She deposited the cash at the bank before lunch.",
+          "source_phrase": "bank",
+          "gold_winner": "en-ja:sentence-veto:bank:bank:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "finance"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["bank"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:bank:002",
+          "sentence": "The bank approved our mortgage application.",
+          "source_phrase": "bank",
+          "gold_winner": "en-ja:sentence-veto:bank:bank:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "finance"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["bank"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:bank:003",
+          "sentence": "They sat on the grassy bank of the river.",
+          "source_phrase": "bank",
+          "gold_winner": "en-ja:sentence-veto:bank:river-edge:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "nature"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["bank"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:bank:004",
+          "sentence": "Wildflowers grew along the muddy bank.",
+          "source_phrase": "bank",
+          "gold_winner": "en-ja:sentence-veto:bank:river-edge:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "nature"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["bank"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:bank:005",
+          "sentence": "You can bank on her support.",
+          "source_phrase": "bank",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "phrasal_verb"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["bank"]}
+        }
+      ]
+    },
+    {
+      "family_id": "en-ja:sentence-veto:plant:plant",
+      "trigger": "plant",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:plant:plant:active",
+        "target_lemma": "植物",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "living plant",
+          "gloss_text": "living organism with leaves, roots, flowers, water, and sunlight",
+          "sense_gloss_bundle": "living plant | botanical organism",
+          "all_evidence_text": "living plant | living organism with leaves, roots, flowers, water, and sunlight | botanical organism"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:plant:factory:shadow",
+          "target_lemma": "工場",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "industrial plant",
+            "gloss_text": "factory or industrial facility with workers, steel, chemical production, or manufacturing",
+            "sense_gloss_bundle": "industrial plant | factory",
+            "all_evidence_text": "industrial plant | factory or industrial facility with workers, steel, chemical production, or manufacturing | steel plant | chemical plant"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:plant:001",
+          "sentence": "She watered the plant on the windowsill.",
+          "source_phrase": "plant",
+          "gold_winner": "en-ja:sentence-veto:plant:plant:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "nature"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["plant"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:plant:002",
+          "sentence": "The plant needs more sunlight in the afternoon.",
+          "source_phrase": "plant",
+          "gold_winner": "en-ja:sentence-veto:plant:plant:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "nature"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["plant"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:plant:003",
+          "sentence": "The steel plant closed after the strike.",
+          "source_phrase": "plant",
+          "gold_winner": "en-ja:sentence-veto:plant:factory:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "industry"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["plant"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:plant:004",
+          "sentence": "Hundreds of workers left the chemical plant at noon.",
+          "source_phrase": "plant",
+          "gold_winner": "en-ja:sentence-veto:plant:factory:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "industry"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["plant"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:plant:005",
+          "sentence": "They tried to plant evidence in his office.",
+          "source_phrase": "plant",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "verb"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["plant"]}
+        }
+      ]
+    },
+    {
+      "family_id": "en-ja:sentence-veto:cell:cell",
+      "trigger": "cell",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:cell:cell:active",
+        "target_lemma": "細胞",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "biological cell",
+          "gloss_text": "microscopic biological unit in tissue examined by scientists",
+          "sense_gloss_bundle": "biological cell | living tissue unit",
+          "all_evidence_text": "biological cell | microscopic biological unit in tissue examined by scientists | microscope | tissue"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:cell:prison-room:shadow",
+          "target_lemma": "独房",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "prison cell",
+            "gloss_text": "small room in a jail or prison for a prisoner, guard, or lock",
+            "sense_gloss_bundle": "prison cell | jail room",
+            "all_evidence_text": "prison cell | small room in a jail or prison for a prisoner, guard, or lock | unlocked cell | prison room"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:cell:001",
+          "sentence": "The scientist examined the cell under a microscope.",
+          "source_phrase": "cell",
+          "gold_winner": "en-ja:sentence-veto:cell:cell:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "biology"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["cell"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:cell:002",
+          "sentence": "Each cell in the tissue absorbed the dye.",
+          "source_phrase": "cell",
+          "gold_winner": "en-ja:sentence-veto:cell:cell:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "biology"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["cell"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:cell:003",
+          "sentence": "The prisoner was returned to his cell after dinner.",
+          "source_phrase": "cell",
+          "gold_winner": "en-ja:sentence-veto:cell:prison-room:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "prison"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["cell"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:cell:004",
+          "sentence": "The guard unlocked the cell at dawn.",
+          "source_phrase": "cell",
+          "gold_winner": "en-ja:sentence-veto:cell:prison-room:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "prison"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["cell"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:cell:005",
+          "sentence": "My phone lost cell service in the tunnel.",
+          "source_phrase": "cell",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "telecom"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["cell"]}
+        }
+      ]
+    },
+    {
+      "family_id": "en-ja:sentence-veto:spring:spring",
+      "trigger": "spring",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:spring:spring:active",
+        "target_lemma": "春",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "spring season",
+          "gloss_text": "season after winter with warm rain, parks, flowers, and beautiful weather",
+          "sense_gloss_bundle": "spring season | warm season",
+          "all_evidence_text": "spring season | season after winter with warm rain, parks, flowers, and beautiful weather | in spring"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:spring:coil:shadow",
+          "target_lemma": "ばね",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "coiled spring",
+            "gloss_text": "metal coil inside a lock, toy, or mechanism",
+            "sense_gloss_bundle": "coiled spring | mechanical coil",
+            "all_evidence_text": "coiled spring | metal coil inside a lock, toy, or mechanism | broken spring | snapped spring"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:spring:001",
+          "sentence": "Warm rain usually arrives in spring.",
+          "source_phrase": "spring",
+          "gold_winner": "en-ja:sentence-veto:spring:spring:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "season"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["spring"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:spring:002",
+          "sentence": "The park looks beautiful in the spring.",
+          "source_phrase": "spring",
+          "gold_winner": "en-ja:sentence-veto:spring:spring:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "season"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["spring"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:spring:003",
+          "sentence": "The spring inside the lock snapped suddenly.",
+          "source_phrase": "spring",
+          "gold_winner": "en-ja:sentence-veto:spring:coil:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "mechanical"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["spring"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:spring:004",
+          "sentence": "He replaced the broken spring in the toy.",
+          "source_phrase": "spring",
+          "gold_winner": "en-ja:sentence-veto:spring:coil:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "mechanical"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["spring"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:spring:005",
+          "sentence": "The team will spring into action at dawn.",
+          "source_phrase": "spring",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "verb"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["spring"]}
+        }
+      ]
+    },
+    {
+      "family_id": "en-ja:sentence-veto:seal:seal",
+      "trigger": "seal",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:seal:seal:active",
+        "target_lemma": "印章",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "official seal or stamp",
+          "gloss_text": "official mark, stamp, wax imprint, or certificate seal",
+          "sense_gloss_bundle": "official seal | stamp mark",
+          "all_evidence_text": "official seal | official mark, stamp, wax imprint, or certificate seal | pressed seal | hot wax"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:seal:animal:shadow",
+          "target_lemma": "アザラシ",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "marine seal animal",
+            "gloss_text": "sea mammal resting on icy rocks or swimming beneath water",
+            "sense_gloss_bundle": "marine seal animal | sea mammal",
+            "all_evidence_text": "marine seal animal | sea mammal resting on icy rocks or swimming beneath water | icy rock | beneath water"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:seal:001",
+          "sentence": "The certificate carries the official seal.",
+          "source_phrase": "seal",
+          "gold_winner": "en-ja:sentence-veto:seal:seal:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "document"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["seal"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:seal:002",
+          "sentence": "She pressed the seal into the hot wax.",
+          "source_phrase": "seal",
+          "gold_winner": "en-ja:sentence-veto:seal:seal:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "document"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["seal"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:seal:003",
+          "sentence": "A seal rested on the icy rock.",
+          "source_phrase": "seal",
+          "gold_winner": "en-ja:sentence-veto:seal:animal:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "animal"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["seal"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:seal:004",
+          "sentence": "The seal disappeared beneath the water.",
+          "source_phrase": "seal",
+          "gold_winner": "en-ja:sentence-veto:seal:animal:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "animal"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["seal"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:seal:005",
+          "sentence": "Please seal the envelope before mailing it.",
+          "source_phrase": "seal",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "verb"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["seal"]}
+        }
+      ]
+    },
+    {
+      "family_id": "en-ja:sentence-veto:file:file",
+      "trigger": "file",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:file:file:active",
+        "target_lemma": "ファイル",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "computer file or document",
+          "gloss_text": "digital document uploaded, downloaded, stored, corrupted, or shared in a folder",
+          "sense_gloss_bundle": "computer file | digital document",
+          "all_evidence_text": "computer file | digital document uploaded, downloaded, stored, corrupted, or shared in a folder | shared folder"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:file:tool:shadow",
+          "target_lemma": "やすり",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "metal file tool",
+            "gloss_text": "tool used to smooth a rough edge on metal, jewelry, or a bench",
+            "sense_gloss_bundle": "metal file tool | smoothing tool",
+            "all_evidence_text": "metal file tool | tool used to smooth a rough edge on metal, jewelry, or a bench | rough edge | jeweler bench"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:file:001",
+          "sentence": "I uploaded the file to the shared folder.",
+          "source_phrase": "file",
+          "gold_winner": "en-ja:sentence-veto:file:file:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "technology"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["file"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:file:002",
+          "sentence": "The file was corrupted after the download.",
+          "source_phrase": "file",
+          "gold_winner": "en-ja:sentence-veto:file:file:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "technology"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["file"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:file:003",
+          "sentence": "He used a file to smooth the rough edge.",
+          "source_phrase": "file",
+          "gold_winner": "en-ja:sentence-veto:file:tool:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "tool"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["file"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:file:004",
+          "sentence": "The jeweler picked up a fine file from the bench.",
+          "source_phrase": "file",
+          "gold_winner": "en-ja:sentence-veto:file:tool:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "tool"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["file"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:file:005",
+          "sentence": "They will file the complaint tomorrow morning.",
+          "source_phrase": "file",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "verb"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["file"]}
+        }
+      ]
+    },
+    {
+      "family_id": "en-ja:sentence-veto:match:match",
+      "trigger": "match",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:match:match:active",
+        "target_lemma": "試合",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "sports match",
+          "gloss_text": "sports game or contest in a stadium with extra time and teams",
+          "sense_gloss_bundle": "sports match | game contest",
+          "all_evidence_text": "sports match | sports game or contest in a stadium with extra time and teams | stadium match | match ended"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:match:matchstick:shadow",
+          "target_lemma": "マッチ",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "matchstick",
+            "gloss_text": "small stick used to light a fire, stove, or flame",
+            "sense_gloss_bundle": "matchstick | fire-starting stick",
+            "all_evidence_text": "matchstick | small stick used to light a fire, stove, or flame | burning match | lit match"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:match:001",
+          "sentence": "The match ended after extra time.",
+          "source_phrase": "match",
+          "gold_winner": "en-ja:sentence-veto:match:match:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "sports"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["match"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:match:002",
+          "sentence": "The stadium filled before the match began.",
+          "source_phrase": "match",
+          "gold_winner": "en-ja:sentence-veto:match:match:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "sports"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["match"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:match:003",
+          "sentence": "She lit a match beside the stove.",
+          "source_phrase": "match",
+          "gold_winner": "en-ja:sentence-veto:match:matchstick:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "tool"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["match"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:match:004",
+          "sentence": "He dropped the burning match into the sink.",
+          "source_phrase": "match",
+          "gold_winner": "en-ja:sentence-veto:match:matchstick:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "tool"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["match"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:match:005",
+          "sentence": "These curtains match the sofa perfectly.",
+          "source_phrase": "match",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "verb"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["match"]}
+        }
+      ]
+    },
+    {
+      "family_id": "en-ja:sentence-veto:board:board",
+      "trigger": "board",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:board:board:active",
+        "target_lemma": "盤",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "game board",
+          "gloss_text": "flat board used for game pieces, lessons, and folding after a game",
+          "sense_gloss_bundle": "game board | playing surface",
+          "all_evidence_text": "game board | flat board used for game pieces, lessons, and folding after a game | pieces on board"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:board:committee:shadow",
+          "target_lemma": "取締役会",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "governing board",
+            "gloss_text": "committee or directors who approve mergers, audits, and resignations",
+            "sense_gloss_bundle": "governing board | committee",
+            "all_evidence_text": "governing board | committee or directors who approve mergers, audits, and resignations | board members"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:board:001",
+          "sentence": "He arranged the pieces on the board before the lesson began.",
+          "source_phrase": "board",
+          "gold_winner": "en-ja:sentence-veto:board:board:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "game"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["board"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:board:002",
+          "sentence": "She folded the board after the game ended.",
+          "source_phrase": "board",
+          "gold_winner": "en-ja:sentence-veto:board:board:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "game"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["board"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:board:003",
+          "sentence": "The board approved the merger on Tuesday.",
+          "source_phrase": "board",
+          "gold_winner": "en-ja:sentence-veto:board:committee:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "organization"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["board"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:board:004",
+          "sentence": "Two members of the board resigned after the audit.",
+          "source_phrase": "board",
+          "gold_winner": "en-ja:sentence-veto:board:committee:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "organization"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["board"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:board:005",
+          "sentence": "Are you on board with the revised plan?",
+          "source_phrase": "board",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "idiom"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["board"]}
+        }
+      ]
+    },
+    {
+      "family_id": "en-ja:sentence-veto:table:table",
+      "trigger": "table",
+      "active": {
+        "sense_id": "en-ja:sentence-veto:table:table:active",
+        "target_lemma": "テーブル",
+        "canonical_pos": "noun",
+        "evidence_views": {
+          "sense_label": "furniture table",
+          "gloss_text": "piece of furniture in a kitchen or room for plates and flowers",
+          "sense_gloss_bundle": "furniture table | kitchen table",
+          "all_evidence_text": "furniture table | piece of furniture in a kitchen or room for plates and flowers | kitchen table | plates on table"
+        }
+      },
+      "shadows": [
+        {
+          "sense_id": "en-ja:sentence-veto:table:data-chart:shadow",
+          "target_lemma": "表",
+          "canonical_pos": "noun",
+          "evidence_views": {
+            "sense_label": "data table",
+            "gloss_text": "organized chart of numbers, exchange rates, budgets, departments, rows, or columns",
+            "sense_gloss_bundle": "data table | chart",
+            "all_evidence_text": "data table | organized chart of numbers, exchange rates, budgets, departments, rows, or columns | budget table"
+          }
+        }
+      ],
+      "cases": [
+        {
+          "case_id": "en-ja:sentence-veto:table:001",
+          "sentence": "The plates are already on the table.",
+          "source_phrase": "table",
+          "gold_winner": "en-ja:sentence-veto:table:table:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "furniture"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["table"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:table:002",
+          "sentence": "We left the flowers on the kitchen table.",
+          "source_phrase": "table",
+          "gold_winner": "en-ja:sentence-veto:table:table:active",
+          "gold_decision": "replace",
+          "slice_tags": ["clear_active", "furniture"],
+          "slice_dimensions": {"winner_type": ["active"], "family": ["table"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:table:003",
+          "sentence": "The table of exchange rates appears in the appendix.",
+          "source_phrase": "table",
+          "gold_winner": "en-ja:sentence-veto:table:data-chart:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "data"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["table"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:table:004",
+          "sentence": "The budget table lists every department in one column.",
+          "source_phrase": "table",
+          "gold_winner": "en-ja:sentence-veto:table:data-chart:shadow",
+          "gold_decision": "abstain",
+          "slice_tags": ["clear_shadow", "data"],
+          "slice_dimensions": {"winner_type": ["shadow"], "family": ["table"]}
+        },
+        {
+          "case_id": "en-ja:sentence-veto:table:005",
+          "sentence": "They will table the amendment until Friday.",
+          "source_phrase": "table",
+          "gold_winner": "none",
+          "gold_decision": "abstain",
+          "slice_tags": ["phrase_control", "verb"],
+          "slice_dimensions": {"winner_type": ["none"], "family": ["table"]}
+        }
+      ]
+    }
+  ]
+}

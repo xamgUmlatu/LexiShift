@@ -15,9 +15,10 @@
   const replacementDensityDefaults = Object.freeze({
     standard: Object.freeze({
       maxOnePerTextBlock: false,
-      allowAdjacentReplacements: false,
-      maxReplacementsPerPage: 20,
-      maxReplacementsPerLemmaPerPage: 2
+      allowAdjacentReplacements: true,
+      maxReplacementsPerPage: 0,
+      maxReplacementsPerLemmaPerPage: 0,
+      maxReplacementsPerSentence: 0
     })
   });
   const standardReplacementDensity = replacementDensityDefaults.standard;
@@ -36,6 +37,7 @@
     allowAdjacentReplacements: standardReplacementDensity.allowAdjacentReplacements,
     maxReplacementsPerPage: standardReplacementDensity.maxReplacementsPerPage,
     maxReplacementsPerLemmaPerPage: standardReplacementDensity.maxReplacementsPerLemmaPerPage,
+    maxReplacementsPerSentence: standardReplacementDensity.maxReplacementsPerSentence,
     debugEnabled: false,
     debugFocusWord: "",
     debugSemanticDecisionOverride: "",
@@ -60,7 +62,7 @@
     srsEnabled: false,
     srsPair: "en-en",
     srsMaxActive: 40,
-    srsBootstrapTopN: 800,
+    srsBootstrapTopN: null,
     srsInitialActiveCount: 40,
     srsSoundEnabled: true,
     srsHighlightColor: "#2F74D0",
@@ -73,6 +75,8 @@
     srsAutoRefreshRepeatMinGoodEasy: 12,
     srsAutoRefreshCooldownMinutes: 90,
     srsBrowsingAdmissionSignalsEnabled: false,
+    srsBrowsingSourceMiningOptions: {},
+    srsBrowsingSourceIndexOptions: {},
     srsSemanticAdmissionEnabled: true,
     srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
     profileBackgroundEnabled: false,

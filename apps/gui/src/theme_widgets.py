@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from PySide6.QtCore import QPoint, Qt
-from PySide6.QtGui import QPainter, QPixmap
+from PySide6.QtGui import QImage, QPainter, QPixmap
 from PySide6.QtWidgets import QWidget
 
-from theme_logger import log_theme
+from theme_image_loader import request_theme_image
 
 
 class ThemedBackgroundWidget(QWidget):
@@ -15,6 +15,8 @@ class ThemedBackgroundWidget(QWidget):
         self._bg_position = "center"
         self._bg_size = "cover"
         self._bg_repeat = "no-repeat"
+        self._bg_image_path = ""
+        self._bg_request_token = 0
 
     def set_background(
         self,
@@ -25,19 +27,27 @@ class ThemedBackgroundWidget(QWidget):
         size: str,
         repeat: str,
     ) -> None:
+        self._bg_request_token += 1
+        request_token = self._bg_request_token
+        self._bg_image_path = str(image_path or "")
+        self._bg_pixmap = None
         if image_path:
-            pixmap = QPixmap(image_path)
-            if pixmap.isNull():
-                log_theme(f"[Theme] Failed to load image: {image_path}")
-                self._bg_pixmap = None
-            else:
-                self._bg_pixmap = pixmap
-        else:
-            self._bg_pixmap = None
+            request_theme_image(self, image_path, request_token)
         self._bg_opacity = max(0.0, min(1.0, opacity))
         self._bg_position = position
         self._bg_size = size
         self._bg_repeat = repeat
+        self.update()
+
+    def _accept_theme_image(
+        self,
+        image_path: str,
+        request_token: int,
+        image: QImage | None,
+    ) -> None:
+        if request_token != self._bg_request_token or image_path != self._bg_image_path:
+            return
+        self._bg_pixmap = QPixmap.fromImage(image) if image is not None else None
         self.update()
 
     def paintEvent(self, event) -> None:

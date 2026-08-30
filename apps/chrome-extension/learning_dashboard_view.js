@@ -92,7 +92,13 @@
     }
     const glosses = resolveGlosses(entry.result);
     if (entry.status === "error" || !glosses.length) {
-      section.appendChild(createNode(opts.doc, "p", "", t("learning_dashboard_definition_unavailable", null, "Definition unavailable.")));
+      const fallback = model.sourcePhraseSummary(item);
+      section.appendChild(createNode(
+        opts.doc,
+        "p",
+        "",
+        fallback || t("learning_dashboard_definition_unavailable", null, "Definition unavailable.")
+      ));
       opts.elements.detailRoot.appendChild(section);
       return;
     }

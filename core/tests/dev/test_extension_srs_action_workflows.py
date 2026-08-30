@@ -51,14 +51,14 @@ const normalize = (value) => JSON.parse(JSON.stringify(value));
 const settingsManager = {{
   defaults: {{
     srsMaxActive: 20,
-    srsBootstrapTopN: 800,
+    srsBootstrapTopN: null,
     srsInitialActiveCount: 40
   }},
   getSrsProfile() {{
     return {{
       profileId: "default",
       srsMaxActive: 20,
-      srsBootstrapTopN: 800,
+      srsBootstrapTopN: null,
       srsInitialActiveCount: 40
     }};
   }},
@@ -74,7 +74,7 @@ const settingsManager = {{
   }},
   resolveSrsSetSizing(raw, defaults) {{
     return {{
-      srsBootstrapTopN: Number.parseInt(raw.srsBootstrapTopN, 10) || defaults.srsBootstrapTopN,
+      srsBootstrapTopN: null,
       srsInitialActiveCount: Number.parseInt(raw.srsInitialActiveCount, 10)
         || defaults.srsInitialActiveCount
     }};
@@ -110,7 +110,6 @@ const resolver = createResolver({{
     return Number.isFinite(parsed) ? Math.min(100, Math.max(0, parsed)) / 100 : null;
   }},
   srsMaxActiveInput: {{ value: "24" }},
-  srsBootstrapTopNInput: {{ value: "900" }},
   srsInitialActiveCountInput: {{ value: "33" }},
   srsTopicInterestsInput: {{ value: "animals, travel" }},
   srsProficiencyEstimateInput: {{ value: "55" }},
@@ -123,7 +122,6 @@ assert.equal(result.contextMeta.source, "current_form");
 assert.deepEqual(
   normalize(result.contextMeta.pendingOverrides).sort(),
   [
-    "bootstrap_top_n",
     "challenge_target",
     "initial_active_count",
     "interests",
@@ -132,7 +130,7 @@ assert.deepEqual(
   ].sort()
 );
 assert.equal(result.profile.srsMaxActive, 24);
-assert.equal(result.profile.srsBootstrapTopN, 900);
+assert.equal(result.profile.srsBootstrapTopN, null);
 assert.equal(result.profile.srsInitialActiveCount, 33);
 assert.deepEqual(normalize(result.profileContext), {{
   pair: "en-ja",
@@ -141,7 +139,7 @@ assert.deepEqual(normalize(result.profileContext), {{
   proficiency: {{ estimated_value: 0.55 }},
   difficulty_preferences: {{ target_challenge_center: 0.65 }},
   constraints: {{ max_active_items: 24 }},
-  sizing: {{ bootstrap_top_n: 900, initial_active_count: 33 }}
+  sizing: {{ bootstrap_top_n: null, initial_active_count: 33 }}
 }});
 """
         _run_node(script)
@@ -199,7 +197,7 @@ const workflow = createAdmissionPreviewWorkflow({{
   syncSelectedProfile: async (items) => ({{ items, profileId: "default" }}),
   resolvePlanningState: () => ({{
     profile: {{
-      srsBootstrapTopN: 900,
+      srsBootstrapTopN: null,
       srsInitialActiveCount: 33,
       srsMaxActive: 24
     }},
@@ -210,7 +208,7 @@ const workflow = createAdmissionPreviewWorkflow({{
       proficiency: {{ estimated_value: 0.55 }},
       difficulty_preferences: {{ target_challenge_center: 0.65 }},
       constraints: {{ max_active_items: 24 }},
-      sizing: {{ bootstrap_top_n: 900, initial_active_count: 33 }}
+      sizing: {{ bootstrap_top_n: null, initial_active_count: 33 }}
     }},
     contextMeta: {{
       source: "current_form",
@@ -229,7 +227,7 @@ const workflow = createAdmissionPreviewWorkflow({{
   assert.equal(admissionPreviewButton.disabled, false);
   assert.equal(request.pair, "en-ja");
   assert.deepEqual(normalize(request.sizing), {{
-    bootstrapTopN: 900,
+    bootstrapTopN: null,
     initialActiveCount: 33,
     maxActiveItemsHint: 24
   }});
@@ -247,7 +245,7 @@ const workflow = createAdmissionPreviewWorkflow({{
     proficiency: {{ estimated_value: 0.55 }},
     difficulty_preferences: {{ target_challenge_center: 0.65 }},
     constraints: {{ max_active_items: 24 }},
-    sizing: {{ bootstrap_top_n: 900, initial_active_count: 33 }}
+    sizing: {{ bootstrap_top_n: null, initial_active_count: 33 }}
   }});
 }})().catch((error) => {{
   console.error(error);
@@ -290,12 +288,12 @@ const profileContext = {{
   proficiency: {{ estimated_value: 0.55 }},
   difficulty_preferences: {{ target_challenge_center: 0.65 }},
   constraints: {{ max_active_items: 24 }},
-  sizing: {{ bootstrap_top_n: 900, initial_active_count: 33 }}
+  sizing: {{ bootstrap_top_n: null, initial_active_count: 33 }}
 }};
 const workflows = createRebalanceWorkflows({{
   settingsManager: {{
     defaults: {{
-      srsBootstrapTopN: 800,
+      srsBootstrapTopN: null,
       srsMaxActive: 40
     }},
     async load() {{
@@ -328,7 +326,7 @@ const workflows = createRebalanceWorkflows({{
   syncSelectedProfile: async (items) => ({{ items, profileId: "default" }}),
   resolvePlanningState: () => ({{
     profile: {{
-      srsBootstrapTopN: 900,
+      srsBootstrapTopN: null,
       srsMaxActive: 24
     }},
     profileContext,
@@ -362,21 +360,21 @@ const workflows = createRebalanceWorkflows({{
   assert.equal(previewCall.kind, "plan");
   assert.equal(previewCall.pair, "en-ja");
   assert.equal(previewCall.options.trigger, "options_rebalance_preview_button");
-  assert.equal(previewCall.options.setTopN, 900);
+  assert.equal(previewCall.options.setTopN, undefined);
   assert.equal(previewCall.options.maxActiveItems, 24);
   assert.deepEqual(normalize(previewCall.options.profileContext), profileContext);
 
   const applyPreviewCall = calls[1];
   assert.equal(applyPreviewCall.kind, "plan");
   assert.equal(applyPreviewCall.options.trigger, "options_rebalance_apply_preview");
-  assert.equal(applyPreviewCall.options.setTopN, 900);
+  assert.equal(applyPreviewCall.options.setTopN, undefined);
   assert.equal(applyPreviewCall.options.maxActiveItems, 24);
   assert.deepEqual(normalize(applyPreviewCall.options.profileContext), profileContext);
 
   const applyCall = calls[2];
   assert.equal(applyCall.kind, "apply");
   assert.equal(applyCall.options.trigger, "options_rebalance_apply_button");
-  assert.equal(applyCall.options.setTopN, 900);
+  assert.equal(applyCall.options.setTopN, undefined);
   assert.equal(applyCall.options.maxActiveItems, 24);
   assert.deepEqual(normalize(applyCall.options.profileContext), profileContext);
   assert.equal(rulesetUpdatedCount, 1);

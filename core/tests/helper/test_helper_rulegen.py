@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import json
 import sys
 import tempfile
 import unittest
@@ -21,6 +22,8 @@ from lexishift_core.helper.rulegen import (  # noqa: E402
     load_targets_from_store,
     run_rulegen_for_pair,
 )
+from lexishift_core.helper.installed_packs import write_installed_pack_manifest  # noqa: E402
+from lexishift_core.helper.use_cases.semantic_pack_install import DEFAULT_PACK_ID  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
 from lexishift_core.rulegen.generation import RuleCandidate  # noqa: E402
@@ -87,6 +90,88 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertEqual(report.selected_unique_count, 3)
         self.assertEqual(report.admitted_count, 3)
         self.assertEqual(report.inserted_count, 3)
+
+    def test_blocked_lemmas_are_not_selected_for_initial_admission(self) -> None:
+        selected = [
+            SimpleNamespace(lemma="alpha", language_pair="en-ja"),
+            SimpleNamespace(lemma="beta", language_pair="en-ja"),
+            SimpleNamespace(lemma="gamma", language_pair="en-ja"),
+        ]
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
+            store, report = initialize_store_from_frequency_list_with_report(
+                SrsStore(),
+                config=SetInitializationConfig(
+                    frequency_db=Path("/tmp/freq.sqlite"),
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    top_n=800,
+                    initial_active_count=2,
+                    language_pair="en-ja",
+                    blocked_lemmas=("alpha",),
+                ),
+            )
+
+        self.assertEqual([item.lemma for item in store.items], ["beta", "gamma"])
+        self.assertEqual(tuple(report.initial_active_preview), ("beta", "gamma"))
+        self.assertEqual(tuple(report.blocked_lemmas), ("alpha",))
+
+    def test_same_surface_dedupe_prefers_admissible_reading_row(self) -> None:
+        suffix_package = {
+            "version": 1,
+            "language_tag": "ja",
+            "surface": "的",
+            "reading": "てき",
+            "script_forms": {"kanji": "的", "kana": "てき", "romaji": "teki"},
+            "source": {"provider": "freq-ja-bccwj"},
+            "pos": "接尾辞-形状詞的",
+            "pos_raw": "接尾辞-形状詞的",
+        }
+        noun_package = {
+            "version": 1,
+            "language_tag": "ja",
+            "surface": "的",
+            "reading": "まと",
+            "script_forms": {"kanji": "的", "kana": "まと", "romaji": "mato"},
+            "source": {"provider": "freq-ja-bccwj"},
+            "pos": "名詞-普通名詞-一般",
+            "pos_raw": "名詞-普通名詞-一般",
+        }
+        selected = [
+            SimpleNamespace(
+                lemma="的",
+                language_pair="en-ja",
+                base_weight=0.99,
+                admission_weight=0.99,
+                admission_suitability=0.02,
+                pos="接尾辞-形状詞的",
+                word_package=suffix_package,
+            ),
+            SimpleNamespace(
+                lemma="的",
+                language_pair="en-ja",
+                base_weight=0.20,
+                admission_weight=0.20,
+                admission_suitability=1.0,
+                pos="名詞-普通名詞-一般",
+                word_package=noun_package,
+            ),
+        ]
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
+            store, report = initialize_store_from_frequency_list_with_report(
+                SrsStore(),
+                config=SetInitializationConfig(
+                    frequency_db=Path("/tmp/freq.sqlite"),
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    top_n=800,
+                    initial_active_count=1,
+                    language_pair="en-ja",
+                ),
+            )
+
+        self.assertEqual(report.selected_unique_count, 1)
+        self.assertEqual(report.admitted_count, 1)
+        self.assertEqual(store.items[0].lemma, "的")
+        self.assertEqual(store.items[0].word_package["reading"], "まと")
+        self.assertEqual(report.initial_active_weight_preview[0]["pos"], "名詞-普通名詞-一般")
 
     def test_reports_updates_for_existing_items_in_admitted_subset(self) -> None:
         selected = [
@@ -212,7 +297,7 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertIn("verb", report.admission_weight_profile)
         self.assertEqual(report.initial_active_weight_preview[0]["lemma"], "alpha")
 
-    def test_profile_bootstrap_uses_reserved_topic_lane_by_default(self) -> None:
+    def test_profile_bootstrap_uses_frontier_gaussian_hybrid_by_default(self) -> None:
         selected = [
             SimpleNamespace(
                 lemma="animal-a",
@@ -249,11 +334,11 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                 ),
             )
 
-        self.assertEqual(report.selection_policy, "reserved_topic_lane")
+        self.assertEqual(report.selection_policy, "frontier_gaussian_hybrid_lanes")
         self.assertEqual(len(store.items), 4)
         self.assertEqual(
             tuple(report.initial_active_preview),
-            ("animal-a", "animal-b", "general-a", "general-b"),
+            ("animal-a", "animal-b", "animal-c", "general-a"),
         )
 
     def test_initialization_persists_selected_word_package(self) -> None:
@@ -344,6 +429,56 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertTrue(request.scoring.pos_match.enabled)
         self.assertAlmostEqual(request.scoring.weights.pos_match, 0.1, places=6)
         self.assertFalse(request.reverse_check.enabled)
+
+    def test_run_rulegen_for_pair_resolves_source_frequency_prior(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            pack_root = paths.frequency_packs_dir / "freq-en-leipzig-default"
+            pack_root.mkdir(parents=True, exist_ok=True)
+            artifact = pack_root / "main.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                paths.frequency_packs_dir,
+                pack_id="freq-en-leipzig-default",
+                pack_kind="frequency",
+                provider="freq-en-leipzig-default",
+                local_kind="file",
+                build_mode="en_frequency_pipeline",
+                artifact_path=artifact,
+                sqlite_filename="main.sqlite",
+            )
+            store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-de:Zeit",
+                        lemma="Zeit",
+                        language_pair="en-de",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+            with patch(
+                "lexishift_core.helper.rulegen.run_results_with_adapter", return_value=[]
+            ) as run_results:
+                run_rulegen_for_pair(
+                    paths=paths,
+                    pair="en-de",
+                    store=store,
+                    settings=None,
+                    translation_dict_path=Path("/tmp/freedict-de-en.sqlite"),
+                    rulegen_config=RulegenConfig(
+                        language_pair="en-de",
+                        enable_source_frequency_prior=True,
+                    ),
+                    initialize_if_empty=False,
+                    persist_store=False,
+                )
+
+        request = run_results.call_args.args[0]
+        self.assertTrue(request.enable_source_frequency_prior)
+        self.assertEqual(request.source_frequency_db_path, artifact)
 
     def test_store_targets_and_packages_exclude_inactive_lifecycle_items(self) -> None:
         store = SrsStore(
@@ -541,6 +676,68 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         competition_set = next(iter(output.semantic_inventory["competition_sets"].values()))
         self.assertEqual(competition_set["status"], "ready")
 
+    def test_run_rulegen_for_pair_can_upgrade_primary_rules_from_installed_semantic_pack(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            pack_inventory = (
+                paths.language_packs_dir
+                / "en-es"
+                / "semantic_packs"
+                / DEFAULT_PACK_ID
+                / "semantic_inventory.json"
+            )
+            pack_inventory.parent.mkdir(parents=True, exist_ok=True)
+            pack_inventory.write_text(
+                json.dumps(_build_reference_semantic_inventory(), ensure_ascii=False),
+                encoding="utf-8",
+            )
+            store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-es:luz",
+                        lemma="luz",
+                        language_pair="en-es",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+            primary_results = annotate_results_with_semantic_admission(
+                [
+                    _build_semantic_result(
+                        source_phrase="light",
+                        replacement="luz",
+                        entry_ord=30,
+                        sense_ord=0,
+                    ),
+                ]
+            )
+            with patch(
+                "lexishift_core.helper.rulegen.run_results_with_adapter",
+                return_value=primary_results,
+            ) as run_results:
+                _updated_store, output = run_rulegen_for_pair(
+                    paths=paths,
+                    pair="en-es",
+                    store=store,
+                    settings=None,
+                    translation_dict_path=Path("/tmp/freedict-es-en.sqlite"),
+                    rulegen_config=RulegenConfig(language_pair="en-es"),
+                    initialize_if_empty=False,
+                    persist_store=False,
+                )
+
+        self.assertEqual(run_results.call_count, 1)
+        self.assertEqual(len(output.rules), 1)
+        admission = output.rules[0].metadata.semantic_admission
+        assert isinstance(admission, dict)
+        self.assertEqual(admission["status"], "ready")
+        self.assertEqual(admission["trigger_id"], "pack:trigger:light")
+        self.assertIn("pack:competition:light:luz", output.semantic_inventory["competition_sets"])
+
 
 def _build_semantic_result(
     *,
@@ -575,6 +772,39 @@ def _build_semantic_result(
         ),
         confidence=0.9,
     )
+
+
+def _build_reference_semantic_inventory() -> dict[str, object]:
+    return {
+        "schema_version": 1,
+        "pair": "en-es",
+        "profile_id": "semantic_pack_builder",
+        "generated_at": "2026-04-09T00:00:00Z",
+        "capability": {},
+        "triggers": {
+            "pack:trigger:light": {
+                "trigger_id": "pack:trigger:light",
+                "source_phrase": "light",
+            }
+        },
+        "senses": {
+            "pack:sense:luz": {
+                "sense_id": "pack:sense:luz",
+                "trigger_id": "pack:trigger:light",
+                "target_lemma": "luz",
+            }
+        },
+        "competition_sets": {
+            "pack:competition:light:luz": {
+                "competition_set_id": "pack:competition:light:luz",
+                "trigger_id": "pack:trigger:light",
+                "status": "ready",
+                "active_sense_id": "pack:sense:luz",
+                "shadow_sense_ids": [],
+            }
+        },
+        "phrase_sets": {},
+    }
 
 
 if __name__ == "__main__":

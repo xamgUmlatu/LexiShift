@@ -244,6 +244,7 @@ const runtime = createRuntime({{
       srsEnabled: true,
       srsPair: "en-es",
       srsProfileId: "default",
+      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
       profileRules: [],
       rules: []
     }},

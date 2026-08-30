@@ -172,12 +172,14 @@ def build_definition_bucket_key(
     metadata = entry.metadata if isinstance(entry.metadata, Mapping) else {}
     entry_ord = metadata_int_value(metadata, "entry_ord")
     sense_ord = metadata_int_value(metadata, "sense_ord")
+    gloss_ord = metadata_int_value(metadata, "gloss_ord")
+    if entry_ord is not None and sense_ord is None and gloss_ord is not None:
+        return f"sense:{entry_ord}:gloss:{gloss_ord}"
     if entry_ord is not None or sense_ord is not None:
         return (
             f"sense:{entry_ord if entry_ord is not None else 'na'}:"
             f"{sense_ord if sense_ord is not None else 'na'}"
         )
-    gloss_ord = metadata_int_value(metadata, "gloss_ord")
     if gloss_ord is not None:
         return f"gloss:{gloss_ord}"
     return f"gloss:{fallback_index}"

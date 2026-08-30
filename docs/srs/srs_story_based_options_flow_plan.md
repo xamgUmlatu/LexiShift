@@ -1,15 +1,16 @@
 # Vocabulary Practice Options Flow Plan
 
-Status: active target UX plan
+Status: active target UX plan; current beta LP setup flow accepted
 Role: Planning
-Last updated: 2026-06-02
-Last verified: 2026-06-02 learner-facing Vocabulary Practice naming pass plus selected-story shell, direct Vocabulary Library entry, sampling curtain, hidden active-story pool backing control, guided new-story modal, page-level setup progress popup, missing-language-data setup panel, and resource-settings existing-GUI activation through focused extension/options/native-host tests
+Last updated: 2026-07-15
+Last verified: 2026-07-15 manual en-ja creation-flow smoke passed after hard frontier-Gaussian hybrid admission promotion, fast indexed preview, localized setup copy, topic picker filtering, persisted browsing-admission toggle state, and early Options theme/backdrop loading; earlier 2026-06-02 learner-facing Vocabulary Practice naming pass plus selected-story shell, direct Vocabulary Library entry, sampling curtain, hidden active-story pool backing control, guided new-story modal, page-level setup progress popup, missing-language-data setup panel, and resource-settings existing-GUI activation through focused extension/options/native-host tests
 Purpose: define the target Options-page Vocabulary Practice UX before beta-facing cleanup so implementation can follow the same flow deliberately
 Source-of-truth: product UX plan only; implemented/default-on status remains in `docs/developer/feature_state_matrix.md` and code/tests.
 
 ## Current Implementation State
 
-As of 2026-05-28, the Options page has the beta-facing structural flow:
+As of 2026-07-15, the Options page has the beta-facing structural flow and the
+current LP setup flow is accepted for the tested beta scope:
 
 - selected profile/pair practice controls are grouped under a selected-practice block;
 - admission sampling is behind a `Sample next words` curtain placed directly
@@ -40,6 +41,9 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   choice, proficiency, topics, starting size, sampling, and initialization; the
   profile is inherited from the active profile through a hidden backing value
   and is not presented as a learner-facing setup choice;
+- current beta LP setup smoke has passed for the en-ja creation flow after the
+  hard hybrid admission selector, setup preview performance path, topic picker,
+  localized setup copy, and early theme/backdrop loading changes;
 - the new-practice proficiency slider always starts at an explicit beginner
   value (`0%`) on fresh setup-modal open, even if the active practice already
   has a saved proficiency value;

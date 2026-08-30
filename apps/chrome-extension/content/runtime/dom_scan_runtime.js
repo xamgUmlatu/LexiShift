@@ -1,5 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const LEXISHIFT_SCAN_SKIP_SELECTOR = ".lexishift-replacement, [data-lexishift-scan-skip=\"true\"]";
   const functionType = "fun" + "ction";
   const returnEmptyObject = () => ({});
   const returnNull = () => null;
@@ -191,7 +192,7 @@
             if (!node || !node.parentElement) {
               return false;
             }
-            return Boolean(node.parentElement.closest(".lexishift-replacement"));
+            return Boolean(node.parentElement.closest(LEXISHIFT_SCAN_SKIP_SELECTOR));
           }
         };
 
@@ -200,11 +201,17 @@
       ? root.contentDomScanPageBudgetTracker.createPageBudgetTracker
       : null;
     const pageBudgetTracker = pageBudgetTrackerFactory
-      ? pageBudgetTrackerFactory()
+      ? pageBudgetTrackerFactory({
+          isNonRendered: nodeFilters.isInsideNonRenderedSubtree
+        })
       : {
+          attachReplacementBudgetSummary: (counter) => counter,
           buildPageBudgetState: (_settings) => null,
           updatePageBudgetUsage: noop
         };
+    const attachReplacementBudgetSummary = (counter) => (
+      pageBudgetTracker.attachReplacementBudgetSummary(counter, pageBudgetState)
+    );
 
     const reorderNodesForScanFactory = root.contentDomScanOrder
       && typeof root.contentDomScanOrder.createReorderNodesForScan === "function"
@@ -270,7 +277,7 @@
       const counter = scanCounters.createFullScanCounter(currentSettings);
       if (!document.body) {
         log("Document body not ready.");
-        return counter;
+        return attachReplacementBudgetSummary(counter);
       }
       pageBudgetState = pageBudgetTracker.buildPageBudgetState(currentSettings);
       if (currentSettings.debugEnabled && counter.focusWord) {
@@ -316,7 +323,7 @@
           log(`Focus logs truncated after ${counter.focusDetailLimit} node(s).`);
         }
       }
-      return counter;
+      return attachReplacementBudgetSummary(counter);
     }
 
     function processDocument() {
@@ -341,6 +348,7 @@
           const counter = scanCounters.createMutationCounter(currentSettings);
           pageBudgetState = pageBudgetTracker.buildPageBudgetState(currentSettings);
           let deadlineMs = Number(counter.scanStartedAtMs || nowMs()) + 12;
+          const attributeTargets = new Set();
           for (const mutation of mutations) {
             if (mutation.type === "characterData") {
               await textNodeProcessor.processTextNode(mutation.target, counter);
@@ -359,9 +367,16 @@
                   deadlineMs = await processTextNodes(textNodes, counter, currentSettings, deadlineMs);
                 }
               }
+            } else if (mutation.type === "attributes" && mutation.target) {
+              attributeTargets.add(mutation.target);
             }
           }
+          for (const target of attributeTargets) {
+            const textNodes = collectTextNodes(target);
+            deadlineMs = await processTextNodes(textNodes, counter, currentSettings, deadlineMs);
+          }
           counter.scanDurationMs = nowMs() - Number(counter.scanStartedAtMs || 0);
+          attachReplacementBudgetSummary(counter);
           if (currentSettings.debugEnabled) {
             if (counter.replacements > 0) {
               log(`Updated ${counter.replacements} replacement(s) in ${counter.nodes} node(s).`);
@@ -391,7 +406,13 @@
           }
         });
       });
-      observer.observe(observedBody, { childList: true, subtree: true, characterData: true });
+      observer.observe(observedBody, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ["class", "hidden", "style"]
+      });
     }
 
     function rescanDocument(reason) {

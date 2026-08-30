@@ -25,7 +25,7 @@ class TestSrsResourceBudgetAudit(unittest.TestCase):
 
         rows = {(row["surface"], row["budget"]): row for row in report["code_budget_rows"]}
         self.assertEqual(rows[("helper_srs_settings", "max_active_items")]["cap"], 40)
-        self.assertEqual(rows[("runtime_page_budget", "max_replacements_per_page")]["cap"], 20)
+        self.assertEqual(rows[("runtime_page_budget", "max_replacements_per_page")]["cap"], 0)
         self.assertEqual(rows[("extension_exposure_log", "max_entries")]["cap"], 2000)
         self.assertEqual(
             rows[("helper_browsing_signal_ingest", "max_items_per_store")]["cap"], 5000

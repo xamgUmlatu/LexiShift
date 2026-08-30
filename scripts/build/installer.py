@@ -24,13 +24,14 @@ def _resolve_repo_root() -> Path:
 def _load_spec_values(spec_path: Path) -> dict[str, str]:
     data = spec_path.read_text(encoding="utf-8")
     values: dict[str, str] = {}
-    for key in ("APP_NAME", "APP_PRODUCT_NAME", "APP_BUNDLE_ID"):
-        match = re.search(rf"^{key}\\s*=\\s*\"([^\"]+)\"", data, re.MULTILINE)
+    for key in ("APP_NAME", "APP_PRODUCT_NAME", "APP_BUNDLE_ID", "APP_VERSION"):
+        match = re.search(
+            rf'^{re.escape(key)}\s*=\s*"([^"]+)"',
+            data,
+            re.MULTILINE,
+        )
         if match:
             values[key] = match.group(1)
-    version_match = re.search(r"CFBundleShortVersionString\"\\s*:\\s*\"([^\"]+)\"", data)
-    if version_match:
-        values["APP_VERSION"] = version_match.group(1)
     return values
 
 
@@ -280,7 +281,7 @@ def main() -> int:
         help="Validate the built app bundle after PyInstaller.",
     )
     parser.add_argument("--app-name", default="LexiShift", help="Installer display name.")
-    parser.add_argument("--app-version", default="0.1.0", help="Installer version.")
+    parser.add_argument("--app-version", default="0.1.1", help="Installer version.")
     parser.add_argument("--dmg-name", default="LexiShift", help="DMG file base name (macOS).")
     parser.add_argument(
         "--mac-sign-identity",

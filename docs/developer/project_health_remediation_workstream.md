@@ -3,8 +3,8 @@
 Status: active
 Role: Planning / WIP
 Owner: engineering
-Last updated: 2026-05-15
-Last verified: 2026-05-15 `npm --prefix scripts run health:project:report`
+Last updated: 2026-08-31
+Last verified: 2026-08-31 `npm --prefix scripts run health:project:report`
 Purpose: maintain the live project-health state while preserving the completed zero-warning milestone history
 Source-of-truth: remediation workstream + watchlist; current health evidence lives in `../test_outputs/project_health/project_health_latest.json`.
 
@@ -16,7 +16,7 @@ Treat project-health remediation as a first-class architecture project:
 2. Prevent new debt from entering while cleanup is in progress.
 3. Move from advisory checks to strict CI enforcement without freezing delivery.
 
-## Live Snapshot (2026-05-15)
+## Live Snapshot (2026-08-31)
 
 Source command:
 
@@ -28,46 +28,49 @@ Verification artifact: `../test_outputs/project_health/project_health_latest.jso
 
 Live violation profile:
 
-1. Total violations: `0` files (out of `693` scanned)
+1. Total violations: `75` files (out of `1024` scanned)
 2. By area:
-   - `scripts/testing`: `0`
+   - `scripts/testing`: `69`
    - `apps/chrome-extension`: `0`
-   - `apps/gui/src`: `0`
-   - `core/lexishift_core`: `0`
+   - `apps/gui/src`: `2`
+   - `core/lexishift_core`: `4`
 3. By metric:
-   - `lines`: `0`
-   - `functions`: `0`
-   - `imports`: `0`
+   - `lines`: `74`
+   - `functions`: `20`
+   - `imports`: `1`
    - `domainBreadth`: `0`
-4. Active violation files: none.
+4. The exact active file inventory is recorded in the verification artifact.
 
 Near-limit watchlist (non-blocking):
 
-1. Total warnings: `0`
+1. Total warnings: `41`
 2. By area:
-   - `scripts/testing`: `0`
-   - `apps/chrome-extension`: `0`
-   - `apps/gui/src`: `0`
-   - `core/lexishift_core`: `0`
-3. Highest-priority watchlist: none.
+   - `scripts/testing`: `14`
+   - `apps/chrome-extension`: `13`
+   - `apps/gui/src`: `2`
+   - `core/lexishift_core`: `11`
+   - other: `1`
+3. Prioritize runtime files over research/probe scripts when planning splits.
 
 Operational note:
 
-1. the live operating baseline is back to zero advisory violations and zero
-   near-limit warnings
-2. the 2026-05-15 cleanup cleared the semantic testing/support script pressure
-   and the extension semantic-context runtime warning without weakening
-   thresholds or baselines
-3. future warning debt should be treated as a changed-file regression and routed
-   through the same ownership/test-surface review
-4. use `productization_lane2_code_disposition_inventory.md` for the cleanup
-   history and follow-up disposition queue
+1. The 2026-08-31 beta integration joined 81 commits and 937 changed files to a
+   default branch whose project-health baseline still reflected the smaller
+   February tree. The baseline was deliberately refreshed at that integration
+   boundary; it records, but does not remove, the 75 violations and 41 warnings.
+2. The refreshed baseline keeps changed-file enforcement meaningful: the strict
+   gate passes with `new=0`, `regressions=0`, `new_warnings=0`, and
+   `warning_regressions=0`, while any future growth remains blocking.
+3. Most current violations are standalone research/probe scripts. The six
+   production violations in GUI/core are higher priority for structural cleanup.
+4. Use `productization_lane2_code_disposition_inventory.md` for the cleanup
+   history and follow-up disposition queue.
 
-## Live Operating Queue (2026-05-15)
+## Live Operating Queue (2026-08-31)
 
 1. Keep `npm --prefix scripts run health:project:changed` in the PR loop.
 2. Treat new/regressed warning debt the same way as new/regressed violation debt for changed files.
-3. Keep the zero-current-violation and zero-warning state clean; treat new
+3. Reduce the recorded beta baseline rather than allowing it to grow; treat new
    changed-file warnings as Lane 2 structural cleanup work, not as acceptable
    background noise.
 4. Start with a semantic testing script registry before deleting or moving

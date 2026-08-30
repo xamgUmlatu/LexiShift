@@ -1,0 +1,527 @@
+{
+  "authority_kind_counts": {
+    "ndlgft": 1,
+    "ndlsh": 5
+  },
+  "authority_scheme_counts": {
+    "genreformTerms": 1,
+    "topicalTerms": 5
+  },
+  "chunk_summary": {
+    "complete_chunk_count": 1,
+    "completed_label_count": 7,
+    "eligible_label_count": 7,
+    "expected_chunk_count": 1,
+    "loaded_chunk_count": 1,
+    "missing_chunk_count": 0,
+    "missing_chunk_sample": []
+  },
+  "decision": "ndl_authority_probe_complete",
+  "evidence_rows": [
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.68,
+      "core_rank": 2447.0,
+      "correction_types": "",
+      "evidence_label": "NDL authority keyword: 漫画",
+      "extra": {
+        "ndl_alt_labels": [],
+        "ndl_authority_kind": "ndlsh",
+        "ndl_broader_labels": [
+          "絵画"
+        ],
+        "ndl_label": "漫画",
+        "ndl_related_labels": [
+          "諷刺画",
+          "漫画家",
+          "キャラクター",
+          "漫画喫茶",
+          "漫画雑誌"
+        ],
+        "ndl_scheme_kinds": [
+          "topicalTerms"
+        ],
+        "ndl_scheme_uris": [
+          "http://id.ndl.go.jp/auth#topicalTerms"
+        ],
+        "ndl_topical_authority": true,
+        "ndl_uri": "http://id.ndl.go.jp/auth/ndlsh/00567438",
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": []
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "漫画",
+      "license_note": "Web NDL Authorities data is public/free to use with attribution guidance; online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.72,
+      "rank": 567,
+      "reading": "まんが",
+      "review_posture": "bounded_online_authority_candidate_generation",
+      "score": 0.123432,
+      "source": "ndl_authority_probe",
+      "source_label": "漫画",
+      "topic": "anime_manga_pop_culture",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.35-0.40",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.65,
+      "core_rank": 8378.0,
+      "correction_types": "",
+      "evidence_label": "NDL authority keyword: ゲーム",
+      "extra": {
+        "ndl_alt_labels": [],
+        "ndl_authority_kind": "ndlsh",
+        "ndl_broader_labels": [
+          "ボードゲーム"
+        ],
+        "ndl_label": "将棋",
+        "ndl_related_labels": [
+          "英語 (将棋用)"
+        ],
+        "ndl_scheme_kinds": [
+          "topicalTerms"
+        ],
+        "ndl_scheme_uris": [
+          "http://id.ndl.go.jp/auth#topicalTerms"
+        ],
+        "ndl_topical_authority": true,
+        "ndl_uri": "http://id.ndl.go.jp/auth/ndlsh/00572018",
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": []
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "将棋",
+      "license_note": "Web NDL Authorities data is public/free to use with attribution guidance; online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.7,
+      "rank": 7581,
+      "reading": "しょうぎ",
+      "review_posture": "bounded_online_authority_candidate_generation",
+      "score": 0.381788,
+      "source": "ndl_authority_probe",
+      "source_label": "ゲーム",
+      "topic": "games",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.66,
+      "core_rank": 1478.0,
+      "correction_types": "",
+      "evidence_label": "NDL authority keyword: 医学",
+      "extra": {
+        "ndl_alt_labels": [],
+        "ndl_authority_kind": "ndlsh",
+        "ndl_broader_labels": [],
+        "ndl_label": "医学",
+        "ndl_related_labels": [
+          "医療",
+          "医学教育",
+          "医学研究",
+          "漢方医学",
+          "蘭方",
+          "医学写真",
+          "薬学"
+        ],
+        "ndl_scheme_kinds": [
+          "topicalTerms"
+        ],
+        "ndl_scheme_uris": [
+          "http://id.ndl.go.jp/auth#topicalTerms"
+        ],
+        "ndl_topical_authority": true,
+        "ndl_uri": "http://id.ndl.go.jp/auth/ndlsh/00563899",
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": []
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "医学",
+      "license_note": "Web NDL Authorities data is public/free to use with attribution guidance; online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.7,
+      "rank": 762,
+      "reading": "いがく",
+      "review_posture": "bounded_online_authority_candidate_generation",
+      "score": 0.139619,
+      "source": "ndl_authority_probe",
+      "source_label": "医学",
+      "topic": "medicine_health",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.66,
+      "core_rank": 1911.0,
+      "correction_types": "",
+      "evidence_label": "NDL authority keyword: 野球",
+      "extra": {
+        "ndl_alt_labels": [],
+        "ndl_authority_kind": "ndlsh",
+        "ndl_broader_labels": [],
+        "ndl_label": "野球",
+        "ndl_related_labels": [
+          "野球場",
+          "ワールドベースボールクラシック",
+          "セイバーメトリクス",
+          "英語 (野球用)"
+        ],
+        "ndl_scheme_kinds": [
+          "topicalTerms"
+        ],
+        "ndl_scheme_uris": [
+          "http://id.ndl.go.jp/auth#topicalTerms"
+        ],
+        "ndl_topical_authority": true,
+        "ndl_uri": "http://id.ndl.go.jp/auth/ndlsh/00574218",
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": []
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "野球",
+      "license_note": "Web NDL Authorities data is public/free to use with attribution guidance; online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.7,
+      "rank": 2680,
+      "reading": "やきゅう",
+      "review_posture": "bounded_online_authority_candidate_generation",
+      "score": 0.240826,
+      "source": "ndl_authority_probe",
+      "source_label": "野球",
+      "topic": "sports_fitness",
+      "topic_stretch_allowed": ""
+    }
+  ],
+  "findings": [
+    {
+      "code": "ndl_chunk_reports_loaded",
+      "level": "PASS",
+      "message": "Loaded 1 chunk report(s) from /Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_topic_autotag_ndl_authority_probe_chunks_en_ja."
+    },
+    {
+      "code": "ndl_merged_evidence_present",
+      "level": "PASS",
+      "message": "Merged 4 evidence rows."
+    }
+  ],
+  "generated_at": "2026-07-01T00:24:57+00:00",
+  "inputs": {
+    "cache_json": "docs/test_outputs/srs_topic_autotag_ndl_authority_probe_cache_en_ja.json",
+    "candidates_csv": "core/lexishift_core/resources/srs/en_ja/learner_difficulty_corrected.csv",
+    "chunk_dir": "docs/test_outputs/srs_topic_autotag_ndl_authority_probe_chunks_en_ja",
+    "chunk_size": 20,
+    "existing_overlay_json": "docs/test_outputs/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
+    "include_covered": true,
+    "include_non_topical_authorities": false,
+    "policy_json": "docs/test_inputs/srs_topic_autotag_policy_en_ja.json",
+    "run_id": "2f4d7a5aec597dca",
+    "top_n": 73752
+  },
+  "language_pair": "en-ja",
+  "limitations": [
+    "This is build-time NDL authority evidence, not a runtime dependency.",
+    "Default topic evidence is limited to NDLSH/topicalTerms authority rows to avoid name-authority contamination.",
+    "Keyword matches over broader/related terms are review evidence; they are not promotion-ready without sampling."
+  ],
+  "method": {
+    "default_authority_filter": "ndlsh/topicalTerms only",
+    "include_non_topical_authorities": false,
+    "promotion_state": "evidence_only_not_product_overlay",
+    "query_shape": "Web NDL Authorities exact rdfs:label query with SKOS scheme/broader/related labels",
+    "source": "ndl_authority_probe",
+    "topic_assignment": "Japanese keyword rules over exact label, alternate labels, and broader labels; related labels are retained only as review context"
+  },
+  "review_sample": [
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.68,
+      "core_rank": 2447.0,
+      "correction_types": "",
+      "evidence_label": "NDL authority keyword: 漫画",
+      "extra": {
+        "ndl_alt_labels": [],
+        "ndl_authority_kind": "ndlsh",
+        "ndl_broader_labels": [
+          "絵画"
+        ],
+        "ndl_label": "漫画",
+        "ndl_related_labels": [
+          "諷刺画",
+          "漫画家",
+          "キャラクター",
+          "漫画喫茶",
+          "漫画雑誌"
+        ],
+        "ndl_scheme_kinds": [
+          "topicalTerms"
+        ],
+        "ndl_scheme_uris": [
+          "http://id.ndl.go.jp/auth#topicalTerms"
+        ],
+        "ndl_topical_authority": true,
+        "ndl_uri": "http://id.ndl.go.jp/auth/ndlsh/00567438",
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": []
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "漫画",
+      "license_note": "Web NDL Authorities data is public/free to use with attribution guidance; online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.72,
+      "rank": 567,
+      "reading": "まんが",
+      "review_posture": "bounded_online_authority_candidate_generation",
+      "score": 0.123432,
+      "source": "ndl_authority_probe",
+      "source_label": "漫画",
+      "topic": "anime_manga_pop_culture",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.35-0.40",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.65,
+      "core_rank": 8378.0,
+      "correction_types": "",
+      "evidence_label": "NDL authority keyword: ゲーム",
+      "extra": {
+        "ndl_alt_labels": [],
+        "ndl_authority_kind": "ndlsh",
+        "ndl_broader_labels": [
+          "ボードゲーム"
+        ],
+        "ndl_label": "将棋",
+        "ndl_related_labels": [
+          "英語 (将棋用)"
+        ],
+        "ndl_scheme_kinds": [
+          "topicalTerms"
+        ],
+        "ndl_scheme_uris": [
+          "http://id.ndl.go.jp/auth#topicalTerms"
+        ],
+        "ndl_topical_authority": true,
+        "ndl_uri": "http://id.ndl.go.jp/auth/ndlsh/00572018",
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": []
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "将棋",
+      "license_note": "Web NDL Authorities data is public/free to use with attribution guidance; online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.7,
+      "rank": 7581,
+      "reading": "しょうぎ",
+      "review_posture": "bounded_online_authority_candidate_generation",
+      "score": 0.381788,
+      "source": "ndl_authority_probe",
+      "source_label": "ゲーム",
+      "topic": "games",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.66,
+      "core_rank": 1478.0,
+      "correction_types": "",
+      "evidence_label": "NDL authority keyword: 医学",
+      "extra": {
+        "ndl_alt_labels": [],
+        "ndl_authority_kind": "ndlsh",
+        "ndl_broader_labels": [],
+        "ndl_label": "医学",
+        "ndl_related_labels": [
+          "医療",
+          "医学教育",
+          "医学研究",
+          "漢方医学",
+          "蘭方",
+          "医学写真",
+          "薬学"
+        ],
+        "ndl_scheme_kinds": [
+          "topicalTerms"
+        ],
+        "ndl_scheme_uris": [
+          "http://id.ndl.go.jp/auth#topicalTerms"
+        ],
+        "ndl_topical_authority": true,
+        "ndl_uri": "http://id.ndl.go.jp/auth/ndlsh/00563899",
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": []
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "医学",
+      "license_note": "Web NDL Authorities data is public/free to use with attribution guidance; online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.7,
+      "rank": 762,
+      "reading": "いがく",
+      "review_posture": "bounded_online_authority_candidate_generation",
+      "score": 0.139619,
+      "source": "ndl_authority_probe",
+      "source_label": "医学",
+      "topic": "medicine_health",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.66,
+      "core_rank": 1911.0,
+      "correction_types": "",
+      "evidence_label": "NDL authority keyword: 野球",
+      "extra": {
+        "ndl_alt_labels": [],
+        "ndl_authority_kind": "ndlsh",
+        "ndl_broader_labels": [],
+        "ndl_label": "野球",
+        "ndl_related_labels": [
+          "野球場",
+          "ワールドベースボールクラシック",
+          "セイバーメトリクス",
+          "英語 (野球用)"
+        ],
+        "ndl_scheme_kinds": [
+          "topicalTerms"
+        ],
+        "ndl_scheme_uris": [
+          "http://id.ndl.go.jp/auth#topicalTerms"
+        ],
+        "ndl_topical_authority": true,
+        "ndl_uri": "http://id.ndl.go.jp/auth/ndlsh/00574218",
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": []
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "野球",
+      "license_note": "Web NDL Authorities data is public/free to use with attribution guidance; online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.7,
+      "rank": 2680,
+      "reading": "やきゅう",
+      "review_posture": "bounded_online_authority_candidate_generation",
+      "score": 0.240826,
+      "source": "ndl_authority_probe",
+      "source_label": "野球",
+      "topic": "sports_fitness",
+      "topic_stretch_allowed": ""
+    }
+  ],
+  "schema_version": 1,
+  "source_summary": {
+    "ndl_authority_probe": {
+      "ambiguity_flag_count": 4,
+      "avg_confidence": 0.6625,
+      "avg_membership": 0.705,
+      "lemma_count": 4,
+      "row_count": 4,
+      "topic_count": 4
+    }
+  },
+  "status": "ok",
+  "topic_summary": {
+    "anime_manga_pop_culture": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "games": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "medicine_health": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "sports_fitness": {
+      "lemma_count": 1,
+      "row_count": 1
+    }
+  }
+}

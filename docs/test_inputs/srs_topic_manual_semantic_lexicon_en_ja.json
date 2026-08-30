@@ -1,0 +1,642 @@
+{
+  "schema_version": 1,
+  "lexicon_id": "srs_topic_manual_semantic_lexicon_en_ja_v1",
+  "language_pair": "en-ja",
+  "status": "seed",
+  "purpose": "Product-owned closed-set semantic lists for obvious en-ja SRS topic and facet tagging. Lists are intentionally conservative and exact-matched to the corrected candidate CSV.",
+  "collections": [
+    {
+      "id": "common_food_drink",
+      "display_name": "Common Food & Drink",
+      "target_family": "food_cooking",
+      "facet_id": "food_drink",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of common foods, drinks, and cooking ingredients.",
+      "entries": [
+        {"lemma": "御飯", "reading": "ごはん", "note": "Canonical ranked lemma for display ご飯."},
+        {"lemma": "米", "reading": "こめ"},
+        "パン", "肉", {"lemma": "魚", "reading": "さかな"}, "野菜", "果物",
+        {"lemma": "卵", "reading": "たまご"}, "牛乳", "チーズ",
+        "バター", {"lemma": "塩", "reading": "しお"}, "砂糖", "味噌", "醤油", "寿司", "ラーメン", "カレー",
+        "サラダ", "ピザ", "パスタ", "スープ", "ステーキ", "ハンバーグ",
+        "サンドイッチ", "ジャム", "コーヒー", "紅茶", {"lemma": "茶", "reading": "ちゃ"}, "ジュース",
+        "ビール", "ワイン", "酒", {"lemma": "水", "reading": "みず"}, "豆腐",
+        {"lemma": "蕎麦", "reading": "そば"}, {"lemma": "饂飩", "reading": "うどん"},
+        "餅", "海苔", "芋", "林檎", "バナナ", "トマト", "玉葱", "人参",
+        {"lemma": "大根", "reading": "だいこん"}
+      ]
+    },
+    {
+      "id": "common_animals",
+      "display_name": "Common Animals",
+      "target_family": "animals",
+      "facet_id": "animal_kind",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of common animals and pets.",
+      "entries": [
+        "犬", "猫", "鳥", {"lemma": "魚", "reading": "さかな"}, "馬", "牛",
+        {"lemma": "豚", "reading": "ぶた"}, {"lemma": "羊", "reading": "ひつじ"},
+        "猿", "熊", "兎", "狐", "鹿", "象", "虎", "ライオン", "パンダ",
+        {"lemma": "鼠", "reading": "ねずみ"}, {"lemma": "蛇", "reading": "へび"},
+        {"lemma": "蛙", "reading": "かえる"}, "亀", "虫", "蟻", "蜂", "蝶", "蚊",
+        {"lemma": "蠅", "reading": "はえ", "note": "Canonical ranked lemma for fly."},
+        "蜘蛛", "烏", {"lemma": "鶏", "reading": "にわとり"}, "鴨",
+        {"lemma": "鯨", "reading": "くじら"}, "鮫", "蛸", "烏賊",
+        {"lemma": "貝", "reading": "かい"}
+      ]
+    },
+    {
+      "id": "common_plants_flowers",
+      "display_name": "Common Plants, Flowers & Crops",
+      "target_family": "plants_nature",
+      "facet_id": "plant_kind",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of common plants, trees, flowers, and crops.",
+      "entries": [
+        "花", {"lemma": "草", "reading": "くさ"}, {"lemma": "木", "reading": "き"},
+        "森", {"lemma": "林", "reading": "はやし"}, {"lemma": "桜", "reading": "さくら"},
+        {"lemma": "梅", "reading": "うめ"}, {"lemma": "薔薇", "reading": "ばら"},
+        "菊", "向日葵", {"lemma": "竹", "reading": "たけ"},
+        {"lemma": "松", "reading": "まつ"}, "杉",
+        {"lemma": "檜", "reading": "ひのき", "note": "Canonical ranked lemma for hinoki."},
+        "栗", {"lemma": "桃", "reading": "もも"}, "葡萄", "苺", "稲", "麦",
+        {"lemma": "米", "reading": "こめ"}, "豆", "芋", {"lemma": "茸", "reading": "きのこ"},
+        "林檎", "蜜柑", "梨", {"lemma": "柿", "reading": "かき"}
+      ]
+    },
+    {
+      "id": "sports_names",
+      "display_name": "Sports Names",
+      "target_family": "sports_fitness",
+      "facet_id": "sport_kind",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of common sports and physical activities.",
+      "entries": [
+        "野球", "サッカー", "テニス", "バスケットボール", "バレー", "卓球",
+        "相撲", "柔道", "剣道", {"lemma": "空手", "reading": "からて"}, "ボクシング", "レスリング", "水泳",
+        "陸上", "体操", "スキー", "スケート", "ゴルフ", "ラグビー",
+        "マラソン", "ジョギング", "サイクリング", "ハイキング", "ダンス"
+      ]
+    },
+    {
+      "id": "games_named",
+      "display_name": "Games & Gameplay",
+      "target_family": "games",
+      "facet_id": "game_kind",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of common games, game categories, play venues, game pieces, and gameplay vocabulary.",
+      "entries": [
+        "ゲーム", "将棋", "囲碁", "花札", "チェス", "トランプ",
+        "カード", {"lemma": "賽子", "reading": "さいころ", "note": "Canonical ranked lemma for dice."},
+        "双六", "パズル", "クイズ",
+        "カルタ", "オセロ", "リバーシ", "ビリヤード", "ダーツ",
+        "ボウリング", "バックギャモン", "ポーカー", "バカラ",
+        "ルーレット", "ビンゴ", "カジノ", "スロット",
+        "じゃんけん", "鬼ごっこ", "謎々", "綾取り",
+        "シャッフル", "羽根突き", "凧揚げ", "連珠", "人狼", "ゲーセン",
+        "音ゲー", "コントローラー", "対戦", "攻略", "クリア",
+        "セーブ", "リセット", "ステージ", "レベル", "ラスボス",
+        "ボス", "キャラ", "キャラクター", "ルール", "得点",
+        "点数", "勝負", "試合", "大会", "ランキング", "対局",
+        "クエスト", "ターン", "駒", "盤面", "王手", "ジョーカー",
+        "詰み", "リーチ", "先手", "後手", "布石", "定石",
+        "局面", "逆転", "一手", "手筋", "悪手", "妙手",
+        "好手", "勝ち筋", "勝機", "勝算", "形勢", "優勢",
+        "劣勢", "互角", "引き分け", "番狂わせ", "駆け引き", "読み",
+        "詰め", "詰む", "戦略", "戦術", "作戦", "打開",
+        "反撃", "攻勢", "守勢", "防御", "攻防", "先読み",
+        "切り札", "奥の手", "持ち駒", "伏線", "布陣", "陣形",
+        "陣取り", "縄張り", "賭け", "決め手", "勝敗", "手詰まり",
+        "初手", "終盤"
+      ]
+    },
+    {
+      "id": "anime_manga_pop_culture_core",
+      "display_name": "Anime, Manga & Pop Culture",
+      "target_family": "anime_manga_pop_culture",
+      "facet_id": "anime_manga_pop_culture",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of anime, manga, fandom, media-production, publishing, merch/event, genre, trope, and pop-culture vocabulary.",
+      "entries": [
+        "アニメ", "漫画", "声優", "キャラ", "キャラクター",
+        "主役", "悪役", "敵役", "ヒロイン", "ヒーロー",
+        "作画", "原作", "連載", "同人", "コスプレ",
+        "コスチューム", "フィギュア", "ファン", "イベント", "グッズ",
+        "コミケ", "表紙", "付録", "扉絵", "台本",
+        "脚本", "アフレコ", "吹き替え", "字幕", "アニメーター",
+        "イラスト", "イラストレーター", "絵師", "作風", "画風",
+        "タッチ", "設定", "伏線", "回想", "外伝",
+        "続編", "新作", "名作", "ノベライズ", "配信",
+        "動画", "コメント", "考察", "感想", "レビュー",
+        "界隈", "尊い", "沼", "属性", "ジャンル",
+        "作品", "打ち切り", "休載", "完結", "新刊",
+        "既刊", "未完", "再開", "サークル", "スペース",
+        "特典", "予約", "発売", "ポスター", "ステッカー",
+        "カード", "ポストカード", "抱き枕", "原画",
+        "傑作", "アクリル", "萌えキャラ", "ブーム",
+        "制服", "学ラン", "着ぐるみ", "転生", "ロボット",
+        "怪獣", "変身", "戦闘", "冒険", "青春",
+        "恋愛", "学園", "日常", "ファンタジー", "ホラー",
+        "ミステリー", "ギャグ", "サントラ", "エンディング",
+        "オープニング", "予告", "名台詞"
+      ]
+    },
+    {
+      "id": "hobbies_crafts_core",
+      "display_name": "Hobbies & Crafts Core",
+      "target_family": "hobbies_crafts",
+      "facet_id": "hobbies_crafts",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated seed of hobbies, crafts, creative practice, collecting, outdoor/leisure activities, and specific craft materials or techniques.",
+      "entries": [
+        "趣味", "写真", "釣り", "登山", "園芸",
+        "手芸", "編み物", "裁縫", "陶芸", "工作",
+        "模型", "折り紙", "絵", "絵画", "書道",
+        "料理", "読書", "映画", "散歩", "旅行",
+        "キャンプ", "ハイキング", "サイクリング", "ジョギング", "ダンス",
+        "カラオケ", "音楽", "歌", "楽器", "ギター",
+        "ピアノ", "観劇", "演劇", "茶道", "華道",
+        "俳句", "短歌", "日記", "ブログ", "コレクション",
+        "収集", "手作り", "刺繍", "盆栽", "ガーデニング",
+        "花見", "ドライブ", "ツーリング", "スケッチ", "デッサン",
+        "縫い物", "手仕事", "毛糸", "編む", "縫う",
+        "彫刻", "版画", "油絵", "水彩", "習字",
+        "切り絵", "塗り絵", "焼き物", "プラモデル", "ラジコン",
+        "鉢植え", "栽培", "陶器", "習い事", "盆踊り",
+        "俳諧", "連句", "句会", "写生", "写経",
+        "陶土", "粘土", "窯", "機織り", "織物",
+        "染め物", "藍染め", "木彫り", "寄せ植え", "生け花",
+        "押し花", "苔玉", "金魚", "水槽", "アクアリウム",
+        "野鳥", "星空", "天文", "星座", "撮影",
+        "録音", "編集", "手品", "マジック", "占い"
+      ]
+    },
+    {
+      "id": "music_instruments",
+      "display_name": "Music & Instruments",
+      "target_family": "music_media_entertainment",
+      "facet_id": "music_instrument",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of musical instruments and music words.",
+      "entries": [
+        "音楽", "歌", {"lemma": "曲", "reading": "きょく"}, "楽器", "ピアノ", "ギター",
+        "バイオリン", "ドラム", "笛", "太鼓", "尺八",
+        {"lemma": "琴", "reading": "こと"}, "合唱", "演奏", "歌手"
+      ]
+    },
+    {
+      "id": "vehicles_transport",
+      "display_name": "Vehicles & Transport",
+      "target_family": "travel_places_transport",
+      "facet_id": "vehicle_transport",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of vehicles and transport infrastructure.",
+      "entries": [
+        "車", "電車", "汽車", "列車", "バス", "タクシー", "バイク", "船",
+        "空港", "駅", "港", "道路", "橋", "信号", "切符", "旅行", "観光", "ホテル"
+      ]
+    },
+    {
+      "id": "countries_regions_common",
+      "display_name": "Common Countries & Regions",
+      "target_family": "travel_places_transport",
+      "facet_id": "place_region",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of common country and region names.",
+      "entries": [
+        "日本", "アメリカ", {"lemma": "中国", "reading": "ちゅうごく"}, "韓国", "英国", "イギリス", "フランス",
+        "ドイツ", "イタリア", "スペイン", "ロシア", "インド", "ブラジル",
+        "カナダ", "オーストラリア"
+      ]
+    },
+    {
+      "id": "body_parts_health",
+      "display_name": "Body Parts & Basic Health",
+      "target_family": "medicine_health",
+      "facet_id": "body_part",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated seed of common body parts and basic health terms.",
+      "entries": [
+        {"lemma": "頭", "reading": "あたま"}, "顔", "目", {"lemma": "耳", "reading": "みみ"},
+        "鼻", "口", {"lemma": "歯", "reading": "は"}, {"lemma": "舌", "reading": "した"},
+        {"lemma": "首", "reading": "くび"}, "肩", {"lemma": "腕", "reading": "うで"},
+        "指", "爪", "胸", "腹", "背中", "腰", "足", "膝",
+        {"lemma": "骨", "reading": "ほね"}, "血", "皮膚", "心臓", "肺", "胃", "病気",
+        {"lemma": "薬", "reading": "くすり"}, "医者", "病院", "熱", "風邪", "怪我"
+      ]
+    },
+    {
+      "id": "science_math_core",
+      "display_name": "Science & Math Core",
+      "target_family": "science_math",
+      "facet_id": "science_math",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of common science, math, and technical school terms.",
+      "entries": [
+        "科学", "数学", "物理", "化学", {"lemma": "生物", "reading": "せいぶつ"},
+        "地理", "地学", "実験", "研究", "理論", "公式", "数字",
+        {"lemma": "数", "reading": "すう"}, "計算", "三角", "四角", "温度", "電気", "機械"
+      ]
+    },
+    {
+      "id": "law_civics_core",
+      "display_name": "Law, Politics & Civics Core",
+      "target_family": "law_politics_civics",
+      "facet_id": "civics_core",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of common civics, law, and government terms.",
+      "entries": [
+        "法律", "政治", "政府", "国会", "選挙", "投票", "裁判", "警察",
+        "犯人", "犯罪", "事件", "権利", "義務", "税金", "市民", "社会", "国民",
+        "大統領", "首相", {"lemma": "天皇", "reading": "てんのう"}
+      ]
+    },
+    {
+      "id": "law_civics_extended",
+      "display_name": "Law, Politics & Civics Extended",
+      "target_family": "law_politics_civics",
+      "facet_id": "civics_core",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated extension of safe civics, legal, government, and military/public-affairs vocabulary for mid-level topic preference coverage.",
+      "entries": [
+        {"lemma": "憲法", "reading": "けんぽう"},
+        {"lemma": "条約", "reading": "じょうやく"},
+        {"lemma": "議会", "reading": "ぎかい"},
+        {"lemma": "政党", "reading": "せいとう"},
+        {"lemma": "政策", "reading": "せいさく"},
+        {"lemma": "制度", "reading": "せいど"},
+        {"lemma": "行政", "reading": "ぎょうせい"},
+        {"lemma": "司法", "reading": "しほう"},
+        {"lemma": "立法", "reading": "りっぽう"},
+        {"lemma": "法案", "reading": "ほうあん"},
+        {"lemma": "判決", "reading": "はんけつ"},
+        {"lemma": "検察", "reading": "けんさつ"},
+        {"lemma": "被告", "reading": "ひこく"},
+        {"lemma": "逮捕", "reading": "たいほ"},
+        {"lemma": "捜査", "reading": "そうさ"},
+        {"lemma": "証拠", "reading": "しょうこ"},
+        {"lemma": "罰金", "reading": "ばっきん"},
+        {"lemma": "税制", "reading": "ぜいせい"},
+        {"lemma": "外交", "reading": "がいこう"},
+        {"lemma": "軍隊", "reading": "ぐんたい"},
+        {"lemma": "兵士", "reading": "へいし"},
+        {"lemma": "戦争", "reading": "せんそう"},
+        {"lemma": "平和", "reading": "へいわ"},
+        {"lemma": "条例", "reading": "じょうれい"},
+        {"lemma": "内閣", "reading": "ないかく"},
+        {"lemma": "国籍", "reading": "こくせき"}
+      ]
+    },
+    {
+      "id": "media_forms",
+      "display_name": "Media Forms",
+      "target_family": "music_media_entertainment",
+      "facet_id": "media_form",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of media and entertainment forms.",
+      "entries": [
+        "映画", "テレビ", "ラジオ", "新聞", "雑誌", "漫画", "アニメ", "番組",
+        "ニュース", "放送", "広告", "写真", "動画", "音声",
+        {"lemma": "俳優", "reading": "はいゆう"}, "監督"
+      ]
+    },
+    {
+      "id": "arts_literature_forms",
+      "display_name": "Arts & Literature Forms",
+      "target_family": "arts_literature_humanities",
+      "facet_id": "arts_literature_form",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of arts, literature, and humanities forms.",
+      "entries": [
+        "小説", "詩", "物語", "本", "辞書", "辞典", "日記", "手紙", "絵",
+        "絵画", "美術", "芸術", "文学", "歴史", "哲学", "宗教", "神社", "寺",
+        "俳句", "短歌"
+      ]
+    },
+    {
+      "id": "arts_literature_humanities_extended",
+      "display_name": "Arts, Literature & Humanities Extended",
+      "target_family": "arts_literature_humanities",
+      "facet_id": "arts_literature_form",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated extension of safe literature, performing arts, religion, history, and humanities vocabulary for mid-level topic preference coverage.",
+      "entries": [
+        {"lemma": "文化", "reading": "ぶんか"},
+        {"lemma": "作家", "reading": "さっか"},
+        {"lemma": "作者", "reading": "さくしゃ"},
+        {"lemma": "作品", "reading": "さくひん"},
+        {"lemma": "古典", "reading": "こてん"},
+        {"lemma": "歌舞伎", "reading": "かぶき"},
+        {"lemma": "演劇", "reading": "えんげき"},
+        {"lemma": "劇場", "reading": "げきじょう"},
+        {"lemma": "舞台", "reading": "ぶたい"},
+        {"lemma": "脚本", "reading": "きゃくほん"},
+        {"lemma": "台本", "reading": "だいほん"},
+        {"lemma": "戯曲", "reading": "ぎきょく"},
+        {"lemma": "評論", "reading": "ひょうろん"},
+        {"lemma": "批評", "reading": "ひひょう"},
+        {"lemma": "神話", "reading": "しんわ"},
+        {"lemma": "伝説", "reading": "でんせつ"},
+        {"lemma": "民話", "reading": "みんわ"},
+        {"lemma": "和歌", "reading": "わか"},
+        {"lemma": "古文", "reading": "こぶん"},
+        {"lemma": "漢文", "reading": "かんぶん"},
+        {"lemma": "仏教", "reading": "ぶっきょう"},
+        {"lemma": "神道", "reading": "しんとう"},
+        {"lemma": "教会", "reading": "きょうかい"},
+        {"lemma": "聖書", "reading": "せいしょ"},
+        {"lemma": "寺院", "reading": "じいん"},
+        {"lemma": "仏", "reading": "ほとけ"},
+        {"lemma": "神", "reading": "かみ"},
+        {"lemma": "遺跡", "reading": "いせき"},
+        {"lemma": "人類", "reading": "じんるい"}
+      ]
+    },
+    {
+      "id": "weather_nature_core",
+      "display_name": "Weather & Natural Events",
+      "target_family": "plants_nature",
+      "facet_id": "weather_nature",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of weather and natural-event words.",
+      "entries": [
+        "天気", "雨", {"lemma": "雪", "reading": "ゆき"}, {"lemma": "風", "reading": "かぜ"},
+        "雲", {"lemma": "空", "reading": "そら"}, {"lemma": "雷", "reading": "かみなり"},
+        "台風", "地震", "津波", "火山", {"lemma": "嵐", "reading": "あらし"},
+        "洪水", "気温", "季節", {"lemma": "春", "reading": "はる"},
+        {"lemma": "夏", "reading": "なつ"}, {"lemma": "秋", "reading": "あき"},
+        {"lemma": "冬", "reading": "ふゆ"}
+      ]
+    },
+    {
+      "id": "places_facilities_common",
+      "display_name": "Common Places & Facilities",
+      "target_family": "travel_places_transport",
+      "facet_id": "place_facility",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of common places, facilities, and public destinations.",
+      "entries": [
+        "公園", "店", "銀行", "会社", "学校", "病院",
+        {"lemma": "役所", "reading": "やくしょ"}, "交番", "神社", "寺",
+        "レストラン", "スーパー", "コンビニ", {"lemma": "市場", "reading": "いちば"},
+        "空港", "駅", "港", "ホテル", "会場", "教会", "劇場"
+      ]
+    },
+    {
+      "id": "shopping_money_commerce",
+      "display_name": "Shopping, Money & Commerce",
+      "target_family": "shopping_money",
+      "facet_id": "shopping_money",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of shopping, prices, payment, and everyday commerce words.",
+      "entries": [
+        "買い物", "買う", "売る", "値段", "価格", "料金", "代金", "現金", "財布",
+        "会計", {"lemma": "注文", "reading": "ちゅうもん"}, "支払う", "払う",
+        "高い", "安い", "レジ", "商品", {"lemma": "客", "reading": "きゃく"},
+        "店員", "予約", "スーパー", "コンビニ", {"lemma": "市場", "reading": "いちば"},
+        "店", "商店", "無料", "値引き", "セール", {"lemma": "金", "reading": "かね"}, "円"
+      ]
+    },
+    {
+      "id": "work_office_core",
+      "display_name": "Work & Office",
+      "target_family": "work_office",
+      "facet_id": "work_office",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of workplace, office, employment, and business-operation words.",
+      "entries": [
+        "仕事", "働く", "会社", "社員", "上司", "部下", "同僚", "会議", "書類",
+        "資料", "連絡", "予定", "残業", "給料", "面接", "出張", "契約", "報告",
+        "事務", "職場", "職業", "役員", "部長", "社長", "雇う", "職員", "勤務",
+        "出勤", "退勤"
+      ]
+    },
+    {
+      "id": "computing_internet_devices",
+      "display_name": "Computing, Internet & Devices",
+      "target_family": "computing_internet",
+      "facet_id": "computing_internet",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of computing, internet, communication-device, digital-file, account, network, web/social-platform, developer, systems, and security words.",
+      "entries": [
+        "電話", "携帯", "パソコン", "画面", "入力", "検索", "保存", "送信", "受信",
+        "メール", "アプリ", "サイト", "ファイル", "写真", "動画", "印刷",
+        "インターネット", "コンピューター", "プログラム", "情報", "通信", "電子",
+        "機械", "電源", "電池", "充電", "設定", "登録",
+        "端末", "キーボード", "マウス", "ソフト", "ブログ",
+        "投稿", "配信", "画像", "パスワード", "ダウンロード",
+        "アップロード", "インストール", "データ", "削除", "コピー",
+        "出力", "通知", "更新", "接続", "回線",
+        "無線", "有線", "バッテリー", "容量", "ストレージ",
+        "サーバー", "クライアント", "クラウド", "ネット", "ウェブ",
+        "ブラウザ", "タブ", "リンク", "アカウント", "ユーザー",
+        "アイコン", "プロフィール", "コメント", "チャット", "メッセージ",
+        "ＳＮＳ", "フォロー", "シェア", "拡散", "リモート",
+        "テレワーク", "スクリーン", "モニター", "プリンター", "スキャナー",
+        "プログラミング", "コード", "ソース", "バグ", "デバッグ",
+        "エラー", "警告", "例外", "関数", "変数",
+        "配列", "数値", "条件", "分岐", "ループ",
+        "処理", "実行", "実装", "開発", "エンジニア",
+        "システム", "ソフトウェア", "ハードウェア", "ネットワーク", "暗号",
+        "認証", "許可", "権限", "バックアップ", "復元",
+        "同期", "圧縮", "解凍", "形式", "履歴",
+        "キャッシュ", "クッキー", "ウイルス", "スパム", "広告",
+        "閲覧", "アルゴリズム", "フレームワーク", "モジュール", "パッケージ",
+        "バージョン", "アップデート", "インターフェース", "プロトコル", "ポート"
+      ]
+    },
+    {
+      "id": "food_cooking_dining_actions",
+      "display_name": "Cooking & Dining Actions",
+      "target_family": "food_cooking",
+      "facet_id": "cooking_dining",
+      "promotion_eligible": true,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated seed of cooking, dining, taste, and restaurant-use words.",
+      "entries": [
+        "食べる", "飲む", "料理", "焼く", "煮る", {"lemma": "注文", "reading": "ちゅうもん"},
+        "レストラン", "食堂", "喫茶", "箸", "茶碗", "包丁", "鍋", "味",
+        "甘い", {"lemma": "辛い", "reading": "からい"}, "熱い", "冷たい"
+      ]
+    },
+    {
+      "id": "daily_life_routines",
+      "display_name": "Daily Life & Routines",
+      "facet_id": "daily_life_routines",
+      "promotion_eligible": false,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated daily-life facet. Kept as facet because daily-life is not yet a configured user-facing topic family.",
+      "entries": [
+        "起きる", "寝る", {"lemma": "眠る", "reading": "ねむる"}, "洗う", "掃除", "料理",
+        "作る", "食べる", "飲む", "風呂", "入浴", "洗濯", "布団", "ベッド", "台所",
+        "部屋", "片付ける", "着る", "脱ぐ", "出掛ける", "散歩", "休む", "待つ",
+        "使う", "会う", "遊ぶ", "住む", "暮らす", "生活"
+      ]
+    },
+    {
+      "id": "emotion_social_core",
+      "display_name": "Emotion & Social Description",
+      "facet_id": "emotion_social",
+      "promotion_eligible": false,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated emotion/social facet. Kept as facet because affective and social-description words cut across topic families.",
+      "entries": [
+        "嬉しい", "悲しい", "怖い", "寂しい", "楽しい", "安心", "不安",
+        {"lemma": "怒る", "reading": "おこる"}, "優しい", {"lemma": "厳しい", "reading": "きびしい"},
+        "恥ずかしい", "驚く", "疲れる", "好き", "嫌い", "幸せ", "気持ち", "泣く",
+        "笑う", "喜ぶ", "困る", "心配", "楽しむ", "苦しい", "悔しい",
+        {"lemma": "辛い", "reading": "つらい"}
+      ]
+    },
+    {
+      "id": "communication_language_acts",
+      "display_name": "Communication & Language Acts",
+      "facet_id": "communication_language",
+      "promotion_eligible": false,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated communication/language facet. Kept as facet because these words are cross-cutting learner-function words.",
+      "entries": [
+        "話す", "聞く", "読む", "書く", "言う", "答える", "質問", "説明", "返事",
+        "会話", "相談", "連絡", "伝える", "教える", "習う", "約束", "電話",
+        "メール", "発表", "報告", "意味", "言葉", "文字", "文章"
+      ]
+    },
+    {
+      "id": "colors_basic",
+      "display_name": "Basic Colors",
+      "facet_id": "colors",
+      "promotion_eligible": false,
+      "membership": 1.0,
+      "confidence": 0.99,
+      "source_note": "Product-owned manually curated basic color facet. Kept as facet because colors are not yet a user-facing topic family.",
+      "entries": [
+        "赤", "青", {"lemma": "黄色", "reading": "きいろ"}, {"lemma": "緑", "reading": "みどり"},
+        "黒", {"lemma": "白", "reading": "しろ"}, "茶色", {"lemma": "紫", "reading": "むらさき"}, "ピンク",
+        "オレンジ", {"lemma": "金", "reading": "きん"}, {"lemma": "銀", "reading": "ぎん"},
+        "灰色", {"lemma": "水色", "reading": "みずいろ"}
+      ]
+    },
+    {
+      "id": "calendar_time_basic",
+      "display_name": "Calendar & Time Basics",
+      "facet_id": "calendar_time",
+      "promotion_eligible": false,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated calendar/time facet.",
+      "entries": [
+        {"lemma": "今日", "reading": "きょう"}, {"lemma": "昨日", "reading": "きのう"},
+        {"lemma": "明日", "reading": "あした"}, "今朝", "今夜", {"lemma": "朝", "reading": "あさ"},
+        "昼", {"lemma": "夜", "reading": "よる"}, "午前", "午後",
+        "月曜", "火曜", "水曜", "木曜", "金曜", "土曜", "日曜",
+        {"lemma": "春", "reading": "はる"}, {"lemma": "夏", "reading": "なつ"},
+        {"lemma": "秋", "reading": "あき"}, {"lemma": "冬", "reading": "ふゆ"}, "正月"
+      ]
+    },
+    {
+      "id": "family_people_basic",
+      "display_name": "Family & People Basics",
+      "facet_id": "family_people",
+      "promotion_eligible": false,
+      "membership": 1.0,
+      "confidence": 0.98,
+      "source_note": "Product-owned manually curated family/people-role facet.",
+      "entries": [
+        "家族", {"lemma": "父", "reading": "ちち"}, {"lemma": "母", "reading": "はは"},
+        {"lemma": "兄", "reading": "あに"}, {"lemma": "姉", "reading": "あね"}, "弟",
+        {"lemma": "妹", "reading": "いもうと"}, {"lemma": "祖父", "reading": "そふ"}, "祖母", "夫", "妻",
+        "子供", "息子", "娘", "親", "友達", "先生", "学生",
+        {"lemma": "男", "reading": "おとこ"}, {"lemma": "女", "reading": "おんな"}, "男性",
+        "女性", {"lemma": "大人", "reading": "おとな"}, "赤ちゃん"
+      ]
+    },
+    {
+      "id": "school_classroom_basic",
+      "display_name": "School & Classroom Basics",
+      "facet_id": "school_classroom",
+      "promotion_eligible": false,
+      "membership": 1.0,
+      "confidence": 0.97,
+      "source_note": "Product-owned manually curated school/classroom facet.",
+      "entries": [
+        "学校", "大学", "高校", "中学", "教室", "授業", "宿題", "試験",
+        "勉強", "先生", "学生", "生徒", "本", "ノート", "鉛筆", "黒板", "机", "椅子"
+      ]
+    },
+    {
+      "id": "clothing_household_basic",
+      "display_name": "Clothing & Household Basics",
+      "facet_id": "clothing_household",
+      "promotion_eligible": false,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated clothing and household object facet.",
+      "entries": [
+        "服", "靴", "帽子", "鞄", {"lemma": "眼鏡", "reading": "めがね"}, "時計",
+        {"lemma": "傘", "reading": "かさ"}, {"lemma": "家", "reading": "いえ"}, "部屋", "台所",
+        "風呂", "トイレ", "玄関", "窓", "扉", "机", "椅子", "布団", "ベッド",
+        "枕", "茶碗", "箸", "包丁", "鍋"
+      ]
+    },
+    {
+      "id": "units_measurement_basic",
+      "display_name": "Units & Measurement Basics",
+      "facet_id": "units_measurement",
+      "promotion_eligible": false,
+      "membership": 1.0,
+      "confidence": 0.96,
+      "source_note": "Product-owned manually curated unit and measurement facet.",
+      "entries": [
+        "円", "メートル", "キロ", "グラム", "日", "年", "個"
+      ]
+    }
+  ]
+}

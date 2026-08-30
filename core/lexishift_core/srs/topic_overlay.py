@@ -9,6 +9,8 @@ from pathlib import Path
 from typing import Mapping, Sequence
 
 from lexishift_core.srs.admission_features import (
+    ADMISSION_CANDIDATE_FEATURES_METADATA_KEY,
+    ADMISSION_CANDIDATE_FEATURES_PRECOMPUTE_VERSION_KEY,
     canonicalize_topic_token,
     mapping_or_empty,
     normalize_admission_profile_features,
@@ -21,7 +23,24 @@ PROFILE_TOPIC_OVERLAY_PAIR = "en-es"
 ANIMALS_PLANTS_OVERLAY_PAIR = PROFILE_TOPIC_OVERLAY_PAIR
 ANIMALS_PLANTS_OVERLAY_FILENAME = "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json"
 ANIMALS_PLANTS_OVERLAY_TOPICS = frozenset({"animals", "plants_nature"})
+EN_ES_REVIEWED_OVERLAY_FILENAME = "srs_topic_reviewed_overlay_merged_en_es_latest.json"
+EN_DE_REVIEWED_OVERLAY_FILENAME = "srs_topic_reviewed_overlay_merged_en_de_latest.json"
+EN_DE_MANUAL_SEMANTIC_OVERLAY_FILENAME = "srs_topic_manual_semantic_lexicon_en_de_latest.json"
+EN_JA_JMDICT_OVERLAY_FILENAME = "srs_jmdict_topic_overlay_en_ja_latest.json"
+EN_JA_PRODUCT_SAFE_OVERLAY_FILENAME = "srs_topic_autotag_promotion_overlay_en_ja_latest.json"
+DEFAULT_TOPIC_OVERLAY_FILENAMES_BY_PAIR = {
+    ANIMALS_PLANTS_OVERLAY_PAIR: (
+        EN_ES_REVIEWED_OVERLAY_FILENAME,
+        ANIMALS_PLANTS_OVERLAY_FILENAME,
+    ),
+    "en-de": (EN_DE_REVIEWED_OVERLAY_FILENAME, EN_DE_MANUAL_SEMANTIC_OVERLAY_FILENAME),
+    "en-ja": (EN_JA_PRODUCT_SAFE_OVERLAY_FILENAME, EN_JA_JMDICT_OVERLAY_FILENAME),
+}
 PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP = 1.0
+_PACKAGED_SRS_RESOURCE_ROOT = Path(__file__).resolve().parents[1] / "resources" / "srs"
+_EXPLICIT_OVERRIDE_PRECEDENCE_VALUES = frozenset(
+    {"override", "explicit_override", "runtime_override", "user_override", "local_override"}
+)
 
 
 def resolve_preview_profile_topic_overlay(
@@ -37,14 +56,12 @@ def resolve_preview_profile_topic_overlay(
         requested_topics=requested_topics,
         active_topics=requested_topics,
     )
-    if resolved_pair != PROFILE_TOPIC_OVERLAY_PAIR:
-        return None, {}
     if not requested_topics:
         return None, {}
 
-    candidate_paths = _candidate_overlay_paths(paths)
-    overlay_path = next((path for path in candidate_paths if path.exists()), None)
-    if overlay_path is None:
+    candidate_paths = _candidate_overlay_paths(paths, pair=resolved_pair)
+    existing_candidate_paths = [path for path in candidate_paths if path.exists()]
+    if not existing_candidate_paths:
         return None, {
             **base_diagnostics,
             "status": "unavailable",
@@ -52,84 +69,105 @@ def resolve_preview_profile_topic_overlay(
             "candidate_paths": [str(path) for path in candidate_paths],
         }
 
-    try:
-        payload = json.loads(overlay_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        return None, {
-            **base_diagnostics,
-            "status": "unavailable",
-            "reason": "overlay_artifact_unreadable",
-            "source_path": str(overlay_path),
-            "error": str(exc),
-        }
-    if not isinstance(payload, Mapping):
-        return None, {
-            **base_diagnostics,
-            "status": "unavailable",
-            "reason": "overlay_artifact_invalid",
-            "source_path": str(overlay_path),
-        }
+    unusable_candidates: list[dict[str, object]] = []
+    supported_topic_set: set[str] = set()
+    loaded_candidates: list[tuple[int, int, Path, Mapping[str, object]]] = []
+    for index, overlay_path in enumerate(existing_candidate_paths):
+        payload, error_diagnostics = _load_overlay_payload(overlay_path)
+        if payload is None:
+            unusable_candidates.append(error_diagnostics)
+            continue
+        loaded_candidates.append(
+            (
+                _overlay_candidate_priority(overlay_path, payload, paths=paths, pair=resolved_pair),
+                index,
+                overlay_path,
+                payload,
+            )
+        )
 
-    overlay_id = str(payload.get("overlay_id") or "").strip()
-    if str(payload.get("status") or "").strip() != "ok":
-        return None, {
+    for _priority, _index, overlay_path, payload in sorted(
+        loaded_candidates, key=lambda item: (item[0], item[1])
+    ):
+        overlay_id = str(payload.get("overlay_id") or "").strip()
+        if str(payload.get("status") or "").strip() != "ok":
+            unusable_candidates.append(
+                {
+                    "reason": "overlay_artifact_not_ready",
+                    "source_path": str(overlay_path),
+                    "overlay_id": overlay_id,
+                }
+            )
+            continue
+        supported_topics = _supported_topics_for_pair(payload, pair=resolved_pair)
+        supported_topic_set.update(supported_topics)
+        active_topics = _active_supported_topics(
+            profile_context,
+            overlay_payload=payload,
+            pair=resolved_pair,
+        )
+        if not active_topics:
+            unusable_candidates.append(
+                {
+                    "reason": "requested_topics_not_available_in_overlay",
+                    "source_path": str(overlay_path),
+                    "overlay_id": overlay_id,
+                    "supported_topics": list(supported_topics),
+                }
+            )
+            continue
+
+        applicable_rows = _applicable_overlay_rows(
+            payload,
+            pair=resolved_pair,
+            active_topics=active_topics,
+        )
+        if not applicable_rows:
+            unusable_candidates.append(
+                {
+                    "reason": "overlay_rows_absent_for_requested_topics",
+                    "source_path": str(overlay_path),
+                    "overlay_id": overlay_id,
+                    "supported_topics": list(supported_topics),
+                    "active_topics": list(active_topics),
+                }
+            )
+            continue
+
+        base_diagnostics = _base_diagnostics(
+            pair=resolved_pair,
+            requested_topics=requested_topics,
+            active_topics=active_topics,
+            supported_topics=supported_topics,
+        )
+        return payload, {
             **base_diagnostics,
-            "status": "unavailable",
-            "reason": "overlay_artifact_not_ready",
+            "status": "active",
+            "reason": "overlay_artifact_ready",
             "source_path": str(overlay_path),
             "overlay_id": overlay_id,
+            "available_row_count": len(_mapping_rows(payload.get("rows"))),
+            "applicable_row_count": len(applicable_rows),
+            "applicable_topics": dict(
+                sorted(Counter(str(row.get("topic") or "") for row in applicable_rows).items())
+            ),
+            "promotion_state": str(
+                mapping_or_empty(payload.get("overlay_policy")).get("promotion_state")
+                or "poc_candidate_not_product_overlay"
+            ),
         }
 
-    supported_topics = _supported_topics_for_pair(payload, pair=resolved_pair)
-    active_topics = _active_supported_topics(
-        profile_context,
-        overlay_payload=payload,
-        pair=resolved_pair,
-    )
-    base_diagnostics = _base_diagnostics(
-        pair=resolved_pair,
-        requested_topics=requested_topics,
-        active_topics=active_topics,
-        supported_topics=supported_topics,
-    )
-    if not active_topics:
-        return None, {
-            **base_diagnostics,
-            "status": "unavailable",
-            "reason": "requested_topics_not_available_in_overlay",
-            "source_path": str(overlay_path),
-            "overlay_id": overlay_id,
-        }
-
-    applicable_rows = _applicable_overlay_rows(
-        payload,
-        pair=resolved_pair,
-        active_topics=active_topics,
-    )
-    if not applicable_rows:
-        return None, {
-            **base_diagnostics,
-            "status": "unavailable",
-            "reason": "overlay_rows_absent_for_requested_topics",
-            "source_path": str(overlay_path),
-            "overlay_id": overlay_id,
-        }
-
-    return payload, {
-        **base_diagnostics,
-        "status": "active",
-        "reason": "overlay_artifact_ready",
-        "source_path": str(overlay_path),
-        "overlay_id": overlay_id,
-        "available_row_count": len(_mapping_rows(payload.get("rows"))),
-        "applicable_row_count": len(applicable_rows),
-        "applicable_topics": dict(
-            sorted(Counter(str(row.get("topic") or "") for row in applicable_rows).items())
+    return None, {
+        **_base_diagnostics(
+            pair=resolved_pair,
+            requested_topics=requested_topics,
+            active_topics=(),
+            supported_topics=tuple(sorted(supported_topic_set)),
         ),
-        "promotion_state": str(
-            mapping_or_empty(payload.get("overlay_policy")).get("promotion_state")
-            or "poc_candidate_not_product_overlay"
-        ),
+        "status": "unavailable",
+        "reason": "requested_topics_not_available_in_overlay",
+        "candidate_paths": [str(path) for path in existing_candidate_paths],
+        "unusable_candidates": unusable_candidates,
     }
 
 
@@ -232,7 +270,7 @@ def _base_diagnostics(
         "schema_version": PROFILE_TOPIC_OVERLAY_SCHEMA_VERSION,
         "overlay_family": "profile_topics",
         "pair": pair,
-        "supported_pair": PROFILE_TOPIC_OVERLAY_PAIR,
+        "supported_pair": pair,
         "supported_topics": list(supported_topics),
         "requested_topics": list(requested_topics),
         "active_topics": list(active_topics),
@@ -273,21 +311,41 @@ def _supported_topics_for_pair(
             continue
         topic = canonicalize_topic_token(row.get("topic"))
         lemma = str(row.get("lemma") or "").strip()
+        membership = safe_optional_float(row.get("membership")) or 0.0
+        if membership < PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP:
+            continue
         if topic and lemma and topic not in seen:
             seen.add(topic)
             topics.append(topic)
     return tuple(sorted(topics))
 
 
-def _candidate_overlay_paths(paths: object) -> tuple[Path, ...]:
+def _candidate_overlay_paths(paths: object, *, pair: str) -> tuple[Path, ...]:
     srs_dir = getattr(paths, "srs_dir", None)
     data_root = getattr(paths, "data_root", None)
+    explicit_filenames = DEFAULT_TOPIC_OVERLAY_FILENAMES_BY_PAIR.get(pair, ())
     candidates: list[Path] = []
-    if srs_dir:
-        candidates.append(Path(srs_dir) / "topic_overlays" / ANIMALS_PLANTS_OVERLAY_FILENAME)
-    if data_root:
-        candidates.append(Path(data_root) / "topic_overlays" / ANIMALS_PLANTS_OVERLAY_FILENAME)
-    candidates.append(_repo_root() / "docs" / "test_outputs" / ANIMALS_PLANTS_OVERLAY_FILENAME)
+    local_roots = tuple(
+        root
+        for root in (Path(srs_dir) if srs_dir else None, Path(data_root) if data_root else None)
+        if root is not None
+    )
+    for root in local_roots:
+        override_dir = root / "topic_overlays" / "overrides"
+        candidates.extend(override_dir / filename for filename in explicit_filenames)
+        candidates.extend(sorted(override_dir.glob("*.json")))
+    packaged_overlay_dir = _PACKAGED_SRS_RESOURCE_ROOT / pair.replace("-", "_") / "topic_overlays"
+    candidates.extend(packaged_overlay_dir / filename for filename in explicit_filenames)
+    for root in local_roots:
+        if root is None:
+            continue
+        overlay_dir = root / "topic_overlays"
+        candidates.extend(overlay_dir / filename for filename in explicit_filenames)
+        candidates.extend(sorted(overlay_dir.glob("*.json")))
+    repo_outputs = _repo_root() / "docs" / "test_outputs"
+    candidates.extend(repo_outputs / filename for filename in explicit_filenames)
+    pair_fragment = pair.replace("-", "_")
+    candidates.extend(sorted(repo_outputs.glob(f"srs_*topic_overlay*{pair_fragment}*_latest.json")))
     seen: set[str] = set()
     unique: list[Path] = []
     for path in candidates:
@@ -296,6 +354,86 @@ def _candidate_overlay_paths(paths: object) -> tuple[Path, ...]:
             seen.add(key)
             unique.append(path)
     return tuple(unique)
+
+
+def _overlay_candidate_priority(
+    path: Path,
+    payload: Mapping[str, object],
+    *,
+    paths: object,
+    pair: str,
+) -> int:
+    if _is_explicit_runtime_overlay_override(path, payload, paths=paths):
+        return 0
+    if _is_local_overlay_path(path, paths=paths):
+        return 10
+    if _is_packaged_overlay_path(path, pair=pair):
+        return 20
+    return 30
+
+
+def _is_explicit_runtime_overlay_override(
+    path: Path,
+    payload: Mapping[str, object],
+    *,
+    paths: object,
+) -> bool:
+    if _path_has_segment(path, "overrides") and _is_local_overlay_path(path, paths=paths):
+        return True
+    overlay_policy = mapping_or_empty(payload.get("overlay_policy"))
+    values = (
+        payload.get("runtime_precedence"),
+        payload.get("precedence"),
+        overlay_policy.get("runtime_precedence"),
+        overlay_policy.get("precedence"),
+    )
+    if any(
+        str(value or "").strip().lower() in _EXPLICIT_OVERRIDE_PRECEDENCE_VALUES for value in values
+    ):
+        return True
+    return payload.get("runtime_override") is True or overlay_policy.get("runtime_override") is True
+
+
+def _is_packaged_overlay_path(path: Path, *, pair: str) -> bool:
+    packaged_dir = _PACKAGED_SRS_RESOURCE_ROOT / pair.replace("-", "_") / "topic_overlays"
+    return _is_relative_to(path, packaged_dir)
+
+
+def _is_local_overlay_path(path: Path, *, paths: object) -> bool:
+    roots = (
+        getattr(paths, "srs_dir", None),
+        getattr(paths, "data_root", None),
+    )
+    return any(root is not None and _is_relative_to(path, Path(root)) for root in roots)
+
+
+def _is_relative_to(path: Path, root: Path) -> bool:
+    try:
+        path.resolve().relative_to(root.resolve())
+        return True
+    except (OSError, ValueError):
+        return False
+
+
+def _path_has_segment(path: Path, segment: str) -> bool:
+    return segment in path.parts
+
+
+def _load_overlay_payload(path: Path) -> tuple[Mapping[str, object] | None, dict[str, object]]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return None, {
+            "reason": "overlay_artifact_unreadable",
+            "source_path": str(path),
+            "error": str(exc),
+        }
+    if not isinstance(payload, Mapping):
+        return None, {
+            "reason": "overlay_artifact_invalid",
+            "source_path": str(path),
+        }
+    return payload, {}
 
 
 def _repo_root() -> Path:
@@ -350,6 +488,8 @@ def _seed_with_profile_topic_overlay(
         "rows": overlay_payload,
         "min_membership": PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP,
     }
+    metadata.pop(ADMISSION_CANDIDATE_FEATURES_METADATA_KEY, None)
+    metadata.pop(ADMISSION_CANDIDATE_FEATURES_PRECOMPUTE_VERSION_KEY, None)
     if is_dataclass(seed):
         return replace(cast(Any, seed), metadata=metadata), tuple(applied_topics)
     if hasattr(seed, "__dict__"):

@@ -25,6 +25,10 @@ HELPER_ACTIONS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/helper/actions_controller.js"
 )
 PAGE_INIT_JS = PROJECT_ROOT / "apps/chrome-extension/options/controllers/page/init_controller.js"
+DISPLAY_REPLACEMENT_SETTINGS_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/options/controllers/ui/display_replacement_settings_controller.js"
+)
 
 
 def _run_node(script: str) -> None:
@@ -45,6 +49,59 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionHelperStatusProfileContract(unittest.TestCase):
+    def test_replacement_settings_save_includes_sentence_budget(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const translateResolverPath = {json.dumps(str(TRANSLATE_RESOLVER_JS))};
+const controllerPath = {json.dumps(str(DISPLAY_REPLACEMENT_SETTINGS_JS))};
+let saved = null;
+const context = vm.createContext({{
+  console,
+  chrome: {{
+    storage: {{
+      local: {{
+        set(value, callback) {{
+          saved = value;
+          callback();
+        }}
+      }}
+    }}
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(translateResolverPath, "utf8"), context, {{ filename: translateResolverPath }});
+vm.runInContext(fs.readFileSync(controllerPath, "utf8"), context, {{ filename: controllerPath }});
+
+const sentenceInput = {{ value: "2" }};
+const controller = context.LexiShift.optionsDisplayReplacement.createController({{
+  settingsManager: {{
+    defaults: {{
+      maxReplacementsPerPage: 0,
+      maxReplacementsPerSentence: 0,
+      maxReplacementsPerLemmaPerPage: 0
+    }}
+  }},
+  elements: {{
+    maxOnePerBlockInput: {{ checked: false }},
+    allowAdjacentInput: {{ checked: true }},
+    maxReplacementsPerPageInput: {{ value: "5" }},
+    maxReplacementsPerSentenceInput: sentenceInput,
+    maxReplacementsPerLemmaPageInput: {{ value: "3" }}
+  }}
+}});
+
+controller.saveReplacementSettings();
+assert.equal(sentenceInput.value, "2");
+assert.equal(saved.maxReplacementsPerPage, 5);
+assert.equal(saved.maxReplacementsPerSentence, 2);
+assert.equal(saved.maxReplacementsPerLemmaPerPage, 3);
+"""
+        _run_node(script)
+
     def test_helper_client_status_includes_profile_id_when_provided(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
@@ -149,10 +206,15 @@ const client = new HelperClient({{
 
 (async () => {{
   await client.listSrsItems("en-es", "default");
+  await client.listSrsItems("en-ja", "suisui", {{ compact: true }});
   assert.equal(JSON.stringify(calls), JSON.stringify([
     {{
       type: "srs_items_list",
       payload: {{ pair: "en-es", profile_id: "default" }}
+    }},
+    {{
+      type: "srs_items_list",
+      payload: {{ pair: "en-ja", profile_id: "suisui", compact: true }}
     }}
   ]));
 }})().catch((error) => {{
@@ -758,7 +820,14 @@ const vm = require("node:vm");
 
 const translateResolverPath = {json.dumps(str(TRANSLATE_RESOLVER_JS))};
 const pageInitPath = {json.dumps(str(PAGE_INIT_JS))};
-const context = vm.createContext({{ console }});
+const scheduledTasks = [];
+const context = vm.createContext({{
+  console,
+  setTimeout(callback) {{
+    scheduledTasks.push(callback);
+    return scheduledTasks.length;
+  }}
+}});
 context.globalThis = context;
 context.LexiShift = {{}};
 vm.runInContext(fs.readFileSync(translateResolverPath, "utf8"), context, {{ filename: translateResolverPath }});
@@ -767,11 +836,14 @@ vm.runInContext(fs.readFileSync(pageInitPath, "utf8"), context, {{ filename: pag
 const createController = context.LexiShift.optionsPageInit.createController;
 let refreshedProfileId = null;
 const calls = [];
+const srsBrowsingAdmissionSignalsInput = {{ checked: false }};
+const maxReplacementsPerSentenceInput = {{ value: "" }};
 const controller = createController({{
   settingsManager: {{
     defaults: {{
       highlightColor: "#ffcc00",
       maxReplacementsPerPage: 20,
+      maxReplacementsPerSentence: 3,
       maxReplacementsPerLemmaPerPage: 2
     }},
     currentRules: [],
@@ -783,6 +855,7 @@ const controller = createController({{
         maxOnePerTextBlock: false,
         allowAdjacentReplacements: false,
         maxReplacementsPerPage: 20,
+        maxReplacementsPerSentence: 3,
         maxReplacementsPerLemmaPerPage: 2,
         debugEnabled: false,
         debugFocusWord: "",
@@ -792,6 +865,7 @@ const controller = createController({{
         rulesUpdatedAt: "",
         rulesFileName: "",
         customRulesetEnabled: true,
+        srsBrowsingAdmissionSignalsEnabled: true,
         srsSelectedProfileId: "suisui"
       }};
     }},
@@ -804,7 +878,8 @@ const controller = createController({{
     getProfileUiPrefs(_items, options) {{
       return {{
         profileId: options.profileId,
-        backgroundBackdropColor: "#4455aa"
+        backgroundBackdropColor: "#4455aa",
+        backgroundAssetId: "asset-1"
       }};
     }},
     async publishProfileLanguagePrefs() {{}}
@@ -824,10 +899,23 @@ const controller = createController({{
     return "en-es";
   }},
   applyProfileBackgroundFromPrefs: async (uiPrefs, options) => {{
-    calls.push(["theme", uiPrefs.profileId, uiPrefs.backgroundBackdropColor, options.eagerBackdrop]);
+    calls.push([
+      "theme",
+      uiPrefs.profileId,
+      uiPrefs.backgroundBackdropColor,
+      options.eagerBackdrop,
+      options.skipImageAsset
+    ]);
   }},
-  loadSrsProfileForPair: async (_items, pairKey) => {{
-    calls.push(["profile", pairKey]);
+  loadSrsProfileForPair: async (_items, pairKey, options) => {{
+    calls.push([
+      "profile",
+      pairKey,
+      options && options.visualOnly === true,
+      options && options.skipHelperProfiles === true,
+      options && options.backgroundSync === true,
+      options && options.skipPageImageAsset === true
+    ]);
   }},
   updateRulesSourceUI: () => {{}},
   updateRulesMeta: () => {{}},
@@ -844,6 +932,7 @@ const controller = createController({{
     maxOnePerBlockInput: {{ checked: false }},
     allowAdjacentInput: {{ checked: false }},
     maxReplacementsPerPageInput: {{ value: "" }},
+    maxReplacementsPerSentenceInput,
     maxReplacementsPerLemmaPageInput: {{ value: "" }},
     debugEnabledInput: {{ checked: false }},
     debugFocusInput: {{ value: "", disabled: false }},
@@ -853,17 +942,31 @@ const controller = createController({{
     languageSelect: {{ value: "" }},
     rulesInput: {{ value: "" }},
     fileStatus: {{ textContent: "" }},
-    customRulesetEnabledInput: {{ checked: false }}
+    customRulesetEnabledInput: {{ checked: false }},
+    srsBrowsingAdmissionSignalsInput
   }}
 }});
 
 (async () => {{
   await controller.load();
+  assert.equal(refreshedProfileId, null);
+  assert.equal(srsBrowsingAdmissionSignalsInput.checked, true);
+  assert.equal(maxReplacementsPerSentenceInput.value, "3");
+  assert.deepEqual(calls, [
+    ["theme", "suisui", "#4455aa", true, true],
+    ["i18n"],
+    ["profile", "en-es", true, true, false, false]
+  ]);
+  while (scheduledTasks.length) {{
+    await scheduledTasks.shift()();
+  }}
   assert.equal(refreshedProfileId, "suisui");
   assert.deepEqual(calls, [
-    ["theme", "suisui", "#4455aa", true],
+    ["theme", "suisui", "#4455aa", true, true],
     ["i18n"],
-    ["profile", "en-es"],
+    ["profile", "en-es", true, true, false, false],
+    ["theme", "suisui", "#4455aa", true, undefined],
+    ["profile", "en-es", false, false, true, true],
     ["helper", "suisui"]
   ]);
 }})().catch((error) => {{

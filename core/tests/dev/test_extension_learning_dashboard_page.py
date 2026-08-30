@@ -104,6 +104,15 @@ assert.deepEqual(normalize(model.listPracticePairs({{
   {{ pair: "en-es", label: "English -> Español" }},
   {{ pair: "en-ja", label: "English -> 日本語" }}
 ]);
+assert.deepEqual(normalize(model.listPracticePairs({{
+  srsProfiles: {{
+    suisui: {{
+      srsByPair: {{}}
+    }}
+  }}
+}}, "suisui", {{ fallbackPair: "en-ja" }})), [
+  {{ pair: "en-ja", label: "English -> 日本語" }}
+]);
 assert.equal(model.resolveGlossPreview({{
   glosses: [
     {{ text: "dog" }},
@@ -122,6 +131,82 @@ assert.deepEqual(normalize(view.resolveGlosses({{
   {{ text: "dog", details: ["domestic animal", "canid"] }},
   {{ text: "hound", details: [] }}
 ]);
+"""
+        _run_node(script)
+
+    def test_view_uses_source_phrase_when_definition_lookup_fails(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modelPath = {json.dumps(str(MODEL_JS))};
+const viewPath = {json.dumps(str(VIEW_JS))};
+const formattingPath = {json.dumps(str(FORMATTING_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+
+vm.runInContext(fs.readFileSync(formattingPath, "utf8"), context, {{ filename: formattingPath }});
+vm.runInContext(fs.readFileSync(modelPath, "utf8"), context, {{ filename: modelPath }});
+vm.runInContext(fs.readFileSync(viewPath, "utf8"), context, {{ filename: viewPath }});
+
+function node(tagName) {{
+  return {{
+    tagName,
+    children: [],
+    className: "",
+    href: "",
+    rel: "",
+    target: "",
+    _text: "",
+    get firstChild() {{ return this.children[0] || null; }},
+    set textContent(value) {{ this._text = String(value || ""); }},
+    get textContent() {{
+      return [this._text, ...this.children.map((child) => child.textContent || "")].join("");
+    }},
+    appendChild(child) {{ this.children.push(child); return child; }},
+    removeChild(child) {{
+      const index = this.children.indexOf(child);
+      if (index >= 0) this.children.splice(index, 1);
+      return child;
+    }}
+  }};
+}}
+
+const detailRoot = node("div");
+const doc = {{ createElement: node }};
+const wordInfoByKey = new Map([[
+  "en-ja:会社",
+  {{ status: "error", error: new Error("timeout") }}
+]]);
+context.LexiShift.learningDashboardView.renderDetail({{
+  advancedEnabled: false,
+  doc,
+  elements: {{ detailRoot }},
+  ensureRuleDetails: () => Promise.resolve(null),
+  ensureWordInfo: () => Promise.resolve(null),
+  getSelectedKey: () => "en-ja:会社",
+  isAdvancedEnabled: () => false,
+  item: {{
+    item_id: "en-ja:会社",
+    lemma: "会社",
+    display: "会社",
+    status_label: "Learning",
+    review_count: 0,
+    exposures: 0,
+    rule_summary: {{
+      enabled_rule_count: 1,
+      source_phrases: ["company"]
+    }}
+  }},
+  renderDetail: () => {{}},
+  t: (_key, _subs, fallback) => fallback,
+  wordInfoByKey
+}});
+
+assert.match(detailRoot.textContent, /company/);
+assert.doesNotMatch(detailRoot.textContent, /Definition unavailable/);
 """
         _run_node(script)
 

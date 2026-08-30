@@ -59,7 +59,7 @@ class TestPairResources(unittest.TestCase):
         self.assertEqual(reverse.pack_id, "freedict_de_en")
         self.assertTrue(str(reverse.path).endswith("freedict-de-en.sqlite"))
 
-    def test_resolve_pair_resources_prefers_manifest_backed_frequency_artifact(self) -> None:
+    def test_resolve_pair_resources_ignores_installed_legacy_cde_frequency_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
             pack_root = paths.frequency_packs_dir / "freq-es-cde"
@@ -83,7 +83,52 @@ class TestPairResources(unittest.TestCase):
                 translation_dict_path=None,
                 set_source_db=None,
             )
-        self.assertEqual(resolved_frequency, artifact)
+        self.assertEqual(
+            resolved_frequency,
+            paths.frequency_packs_dir / "freq-es-spalex-v1.sqlite",
+        )
+
+    def test_resolve_pair_resources_prefers_spalex_over_legacy_cde_when_both_installed(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            cde_root = paths.frequency_packs_dir / "freq-es-cde"
+            cde_root.mkdir(parents=True, exist_ok=True)
+            cde_artifact = cde_root / "main.sqlite"
+            cde_artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                paths.frequency_packs_dir,
+                pack_id="freq-es-cde",
+                pack_kind="frequency",
+                provider="freq-es-cde",
+                local_kind="file",
+                build_mode="convert_archive",
+                artifact_path=cde_artifact,
+                sqlite_filename="main.sqlite",
+            )
+            spalex_root = paths.frequency_packs_dir / "freq-es-spalex-v1"
+            spalex_root.mkdir(parents=True, exist_ok=True)
+            spalex_artifact = spalex_root / "main.sqlite"
+            spalex_artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                paths.frequency_packs_dir,
+                pack_id="freq-es-spalex-v1",
+                pack_kind="frequency",
+                provider="freq-es-spalex-v1",
+                local_kind="file",
+                build_mode="spalex_frequency_pipeline",
+                artifact_path=spalex_artifact,
+                sqlite_filename="main.sqlite",
+            )
+            _resolved_jmdict, _resolved_translation, resolved_frequency = resolve_pair_resources(
+                paths,
+                pair="en-es",
+                jmdict_path=None,
+                translation_dict_path=None,
+                set_source_db=None,
+            )
+        self.assertEqual(resolved_frequency, spalex_artifact)
 
     def test_resolve_pair_frequency_pack_uses_manifest_identity(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

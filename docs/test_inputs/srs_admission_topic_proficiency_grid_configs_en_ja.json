@@ -1,0 +1,866 @@
+{
+  "schema_version": 1,
+  "config_id": "srs_admission_topic_proficiency_grid_configs_en_ja_v1",
+  "language_pair": "en-ja",
+  "purpose": "Systematic en-ja SRS admission sampling matrix for topic preference guardrails: shared proficiency levels for every runtime-safe topic plus adversarial mixed-profile stress cases.",
+  "defaults": {
+    "set_top_n": 10000,
+    "initial_active_count": 80,
+    "preview_count": 80,
+    "preview_sampling_mode": "reserved_topic_lane",
+    "preview_seed": 314159
+  },
+  "proficiency_grid": [
+    {
+      "suffix": "p10",
+      "proficiency": 0.1,
+      "purpose": "beginner stress level; topic preference must not overpower readiness"
+    },
+    {
+      "suffix": "p25",
+      "proficiency": 0.25,
+      "purpose": "upper-beginner level; should surface only approachable topic words"
+    },
+    {
+      "suffix": "p45",
+      "proficiency": 0.45,
+      "purpose": "intermediate main-use level; expected to show clear topic movement"
+    },
+    {
+      "suffix": "p65",
+      "proficiency": 0.65,
+      "purpose": "N1-ish/post-pedagogical transition; should expose more specialized topic words"
+    },
+    {
+      "suffix": "p85",
+      "proficiency": 0.85,
+      "purpose": "advanced-tail level; should separate useful domain words from recondite leftovers"
+    }
+  ],
+  "topic_scope": [
+    {
+      "topic_id": "animals",
+      "label": "Animals"
+    },
+    {
+      "topic_id": "anime_manga_pop_culture",
+      "label": "Anime/manga/pop-culture"
+    },
+    {
+      "topic_id": "arts_literature_humanities",
+      "label": "Arts/literature/humanities"
+    },
+    {
+      "topic_id": "computing_internet",
+      "label": "Computing/internet"
+    },
+    {
+      "topic_id": "food_cooking",
+      "label": "Food/cooking"
+    },
+    {
+      "topic_id": "games",
+      "label": "Games"
+    },
+    {
+      "topic_id": "hobbies_crafts",
+      "label": "Hobbies/crafts"
+    },
+    {
+      "topic_id": "law_politics_civics",
+      "label": "Law/politics/civics"
+    },
+    {
+      "topic_id": "medicine_health",
+      "label": "Medicine/health"
+    },
+    {
+      "topic_id": "music_media_entertainment",
+      "label": "Music/media/entertainment"
+    },
+    {
+      "topic_id": "plants_nature",
+      "label": "Plants/nature"
+    },
+    {
+      "topic_id": "science_math",
+      "label": "Science/math"
+    },
+    {
+      "topic_id": "shopping_money",
+      "label": "Shopping/money"
+    },
+    {
+      "topic_id": "sports_fitness",
+      "label": "Sports/fitness"
+    },
+    {
+      "topic_id": "travel_places_transport",
+      "label": "Travel/places/transport"
+    },
+    {
+      "topic_id": "work_office",
+      "label": "Work/office"
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "neutral_p10",
+      "description": "No topic preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1
+    },
+    {
+      "name": "neutral_p25",
+      "description": "No topic preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25
+    },
+    {
+      "name": "neutral_p45",
+      "description": "No topic preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45
+    },
+    {
+      "name": "neutral_p65",
+      "description": "No topic preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65
+    },
+    {
+      "name": "neutral_p85",
+      "description": "No topic preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85
+    },
+    {
+      "name": "animals_p10",
+      "description": "Animals preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "animals": 1.0
+      }
+    },
+    {
+      "name": "animals_p25",
+      "description": "Animals preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "animals": 1.0
+      }
+    },
+    {
+      "name": "animals_p45",
+      "description": "Animals preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "animals": 1.0
+      }
+    },
+    {
+      "name": "animals_p65",
+      "description": "Animals preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "animals": 1.0
+      }
+    },
+    {
+      "name": "animals_p85",
+      "description": "Animals preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "animals": 1.0
+      }
+    },
+    {
+      "name": "anime_manga_pop_culture_p10",
+      "description": "Anime/manga/pop-culture preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "anime_manga_pop_culture": 1.0
+      }
+    },
+    {
+      "name": "anime_manga_pop_culture_p25",
+      "description": "Anime/manga/pop-culture preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "anime_manga_pop_culture": 1.0
+      }
+    },
+    {
+      "name": "anime_manga_pop_culture_p45",
+      "description": "Anime/manga/pop-culture preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "anime_manga_pop_culture": 1.0
+      }
+    },
+    {
+      "name": "anime_manga_pop_culture_p65",
+      "description": "Anime/manga/pop-culture preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "anime_manga_pop_culture": 1.0
+      }
+    },
+    {
+      "name": "anime_manga_pop_culture_p85",
+      "description": "Anime/manga/pop-culture preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "anime_manga_pop_culture": 1.0
+      }
+    },
+    {
+      "name": "arts_literature_humanities_p10",
+      "description": "Arts/literature/humanities preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "arts_literature_humanities": 1.0
+      }
+    },
+    {
+      "name": "arts_literature_humanities_p25",
+      "description": "Arts/literature/humanities preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "arts_literature_humanities": 1.0
+      }
+    },
+    {
+      "name": "arts_literature_humanities_p45",
+      "description": "Arts/literature/humanities preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "arts_literature_humanities": 1.0
+      }
+    },
+    {
+      "name": "arts_literature_humanities_p65",
+      "description": "Arts/literature/humanities preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "arts_literature_humanities": 1.0
+      }
+    },
+    {
+      "name": "arts_literature_humanities_p85",
+      "description": "Arts/literature/humanities preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "arts_literature_humanities": 1.0
+      }
+    },
+    {
+      "name": "computing_internet_p10",
+      "description": "Computing/internet preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "computing_internet": 1.0
+      }
+    },
+    {
+      "name": "computing_internet_p25",
+      "description": "Computing/internet preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "computing_internet": 1.0
+      }
+    },
+    {
+      "name": "computing_internet_p45",
+      "description": "Computing/internet preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "computing_internet": 1.0
+      }
+    },
+    {
+      "name": "computing_internet_p65",
+      "description": "Computing/internet preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "computing_internet": 1.0
+      }
+    },
+    {
+      "name": "computing_internet_p85",
+      "description": "Computing/internet preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "computing_internet": 1.0
+      }
+    },
+    {
+      "name": "food_cooking_p10",
+      "description": "Food/cooking preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "food_cooking": 1.0
+      }
+    },
+    {
+      "name": "food_cooking_p25",
+      "description": "Food/cooking preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "food_cooking": 1.0
+      }
+    },
+    {
+      "name": "food_cooking_p45",
+      "description": "Food/cooking preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "food_cooking": 1.0
+      }
+    },
+    {
+      "name": "food_cooking_p65",
+      "description": "Food/cooking preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "food_cooking": 1.0
+      }
+    },
+    {
+      "name": "food_cooking_p85",
+      "description": "Food/cooking preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "food_cooking": 1.0
+      }
+    },
+    {
+      "name": "games_p10",
+      "description": "Games preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "games": 1.0
+      }
+    },
+    {
+      "name": "games_p25",
+      "description": "Games preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "games": 1.0
+      }
+    },
+    {
+      "name": "games_p45",
+      "description": "Games preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "games": 1.0
+      }
+    },
+    {
+      "name": "games_p65",
+      "description": "Games preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "games": 1.0
+      }
+    },
+    {
+      "name": "games_p85",
+      "description": "Games preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "games": 1.0
+      }
+    },
+    {
+      "name": "hobbies_crafts_p10",
+      "description": "Hobbies/crafts preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "hobbies_crafts": 1.0
+      }
+    },
+    {
+      "name": "hobbies_crafts_p25",
+      "description": "Hobbies/crafts preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "hobbies_crafts": 1.0
+      }
+    },
+    {
+      "name": "hobbies_crafts_p45",
+      "description": "Hobbies/crafts preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "hobbies_crafts": 1.0
+      }
+    },
+    {
+      "name": "hobbies_crafts_p65",
+      "description": "Hobbies/crafts preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "hobbies_crafts": 1.0
+      }
+    },
+    {
+      "name": "hobbies_crafts_p85",
+      "description": "Hobbies/crafts preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "hobbies_crafts": 1.0
+      }
+    },
+    {
+      "name": "law_politics_civics_p10",
+      "description": "Law/politics/civics preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "law_politics_civics": 1.0
+      }
+    },
+    {
+      "name": "law_politics_civics_p25",
+      "description": "Law/politics/civics preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "law_politics_civics": 1.0
+      }
+    },
+    {
+      "name": "law_politics_civics_p45",
+      "description": "Law/politics/civics preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "law_politics_civics": 1.0
+      }
+    },
+    {
+      "name": "law_politics_civics_p65",
+      "description": "Law/politics/civics preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "law_politics_civics": 1.0
+      }
+    },
+    {
+      "name": "law_politics_civics_p85",
+      "description": "Law/politics/civics preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "law_politics_civics": 1.0
+      }
+    },
+    {
+      "name": "medicine_health_p10",
+      "description": "Medicine/health preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "medicine_health": 1.0
+      }
+    },
+    {
+      "name": "medicine_health_p25",
+      "description": "Medicine/health preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "medicine_health": 1.0
+      }
+    },
+    {
+      "name": "medicine_health_p45",
+      "description": "Medicine/health preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "medicine_health": 1.0
+      }
+    },
+    {
+      "name": "medicine_health_p65",
+      "description": "Medicine/health preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "medicine_health": 1.0
+      }
+    },
+    {
+      "name": "medicine_health_p85",
+      "description": "Medicine/health preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "medicine_health": 1.0
+      }
+    },
+    {
+      "name": "music_media_entertainment_p10",
+      "description": "Music/media/entertainment preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "music_media_entertainment": 1.0
+      }
+    },
+    {
+      "name": "music_media_entertainment_p25",
+      "description": "Music/media/entertainment preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "music_media_entertainment": 1.0
+      }
+    },
+    {
+      "name": "music_media_entertainment_p45",
+      "description": "Music/media/entertainment preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "music_media_entertainment": 1.0
+      }
+    },
+    {
+      "name": "music_media_entertainment_p65",
+      "description": "Music/media/entertainment preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "music_media_entertainment": 1.0
+      }
+    },
+    {
+      "name": "music_media_entertainment_p85",
+      "description": "Music/media/entertainment preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "music_media_entertainment": 1.0
+      }
+    },
+    {
+      "name": "plants_nature_p10",
+      "description": "Plants/nature preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "plants_nature": 1.0
+      }
+    },
+    {
+      "name": "plants_nature_p25",
+      "description": "Plants/nature preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "plants_nature": 1.0
+      }
+    },
+    {
+      "name": "plants_nature_p45",
+      "description": "Plants/nature preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "plants_nature": 1.0
+      }
+    },
+    {
+      "name": "plants_nature_p65",
+      "description": "Plants/nature preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "plants_nature": 1.0
+      }
+    },
+    {
+      "name": "plants_nature_p85",
+      "description": "Plants/nature preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "plants_nature": 1.0
+      }
+    },
+    {
+      "name": "science_math_p10",
+      "description": "Science/math preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "science_math": 1.0
+      }
+    },
+    {
+      "name": "science_math_p25",
+      "description": "Science/math preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "science_math": 1.0
+      }
+    },
+    {
+      "name": "science_math_p45",
+      "description": "Science/math preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "science_math": 1.0
+      }
+    },
+    {
+      "name": "science_math_p65",
+      "description": "Science/math preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "science_math": 1.0
+      }
+    },
+    {
+      "name": "science_math_p85",
+      "description": "Science/math preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "science_math": 1.0
+      }
+    },
+    {
+      "name": "shopping_money_p10",
+      "description": "Shopping/money preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "shopping_money": 1.0
+      }
+    },
+    {
+      "name": "shopping_money_p25",
+      "description": "Shopping/money preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "shopping_money": 1.0
+      }
+    },
+    {
+      "name": "shopping_money_p45",
+      "description": "Shopping/money preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "shopping_money": 1.0
+      }
+    },
+    {
+      "name": "shopping_money_p65",
+      "description": "Shopping/money preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "shopping_money": 1.0
+      }
+    },
+    {
+      "name": "shopping_money_p85",
+      "description": "Shopping/money preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "shopping_money": 1.0
+      }
+    },
+    {
+      "name": "sports_fitness_p10",
+      "description": "Sports/fitness preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "sports_fitness": 1.0
+      }
+    },
+    {
+      "name": "sports_fitness_p25",
+      "description": "Sports/fitness preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "sports_fitness": 1.0
+      }
+    },
+    {
+      "name": "sports_fitness_p45",
+      "description": "Sports/fitness preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "sports_fitness": 1.0
+      }
+    },
+    {
+      "name": "sports_fitness_p65",
+      "description": "Sports/fitness preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "sports_fitness": 1.0
+      }
+    },
+    {
+      "name": "sports_fitness_p85",
+      "description": "Sports/fitness preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "sports_fitness": 1.0
+      }
+    },
+    {
+      "name": "travel_places_transport_p10",
+      "description": "Travel/places/transport preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "travel_places_transport": 1.0
+      }
+    },
+    {
+      "name": "travel_places_transport_p25",
+      "description": "Travel/places/transport preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "travel_places_transport": 1.0
+      }
+    },
+    {
+      "name": "travel_places_transport_p45",
+      "description": "Travel/places/transport preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "travel_places_transport": 1.0
+      }
+    },
+    {
+      "name": "travel_places_transport_p65",
+      "description": "Travel/places/transport preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "travel_places_transport": 1.0
+      }
+    },
+    {
+      "name": "travel_places_transport_p85",
+      "description": "Travel/places/transport preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "travel_places_transport": 1.0
+      }
+    },
+    {
+      "name": "work_office_p10",
+      "description": "Work/office preference at beginner stress level; topic preference must not overpower readiness.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "work_office": 1.0
+      }
+    },
+    {
+      "name": "work_office_p25",
+      "description": "Work/office preference at upper-beginner level; should surface only approachable topic words.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "work_office": 1.0
+      }
+    },
+    {
+      "name": "work_office_p45",
+      "description": "Work/office preference at intermediate main-use level; expected to show clear topic movement.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "work_office": 1.0
+      }
+    },
+    {
+      "name": "work_office_p65",
+      "description": "Work/office preference at N1-ish/post-pedagogical transition; should expose more specialized topic words.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "work_office": 1.0
+      }
+    },
+    {
+      "name": "work_office_p85",
+      "description": "Work/office preference at advanced-tail level; should separate useful domain words from recondite leftovers.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "work_office": 1.0
+      }
+    },
+    {
+      "name": "mixed_hard_topics_p10",
+      "description": "Arts/literature plus law/politics at beginner level; adversarial guardrail check for hard topics.",
+      "proficiency": 0.1,
+      "topic_weights": {
+        "arts_literature_humanities": 0.8,
+        "law_politics_civics": 0.8
+      }
+    },
+    {
+      "name": "mixed_science_medicine_p20",
+      "description": "Science plus medicine at upper-beginner level; checks whether technical interests back off safely.",
+      "proficiency": 0.2,
+      "topic_weights": {
+        "science_math": 0.8,
+        "medicine_health": 0.7
+      }
+    },
+    {
+      "name": "mixed_work_computing_p25",
+      "description": "Work plus computing at upper-beginner level; realistic but potentially sparse early-domain profile.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "work_office": 0.7,
+        "computing_internet": 0.8
+      }
+    },
+    {
+      "name": "mixed_arts_games_p45",
+      "description": "Arts/literature plus games at intermediate level; tests heterogeneous topic blending.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "arts_literature_humanities": 0.6,
+        "games": 0.8
+      }
+    },
+    {
+      "name": "mixed_entertainment_cluster_p45",
+      "description": "Anime/manga, games, and hobbies at intermediate level; checks distribution across adjacent entertainment topics.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "anime_manga_pop_culture": 0.7,
+        "games": 0.7,
+        "hobbies_crafts": 0.5
+      }
+    },
+    {
+      "name": "mixed_professional_practical_p50",
+      "description": "Work, computing, and shopping/money at upper-intermediate level; product-like professional profile.",
+      "proficiency": 0.5,
+      "topic_weights": {
+        "work_office": 0.7,
+        "computing_internet": 0.7,
+        "shopping_money": 0.5
+      }
+    },
+    {
+      "name": "mixed_food_animals_p65",
+      "description": "Food plus animals at post-N1 transition; checks shallow-topic behavior when learner is already advanced.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "food_cooking": 0.8,
+        "animals": 0.7
+      }
+    },
+    {
+      "name": "mixed_music_travel_p65",
+      "description": "Music/media plus travel at post-N1 transition; checks medium-topic continuation beyond the learner core.",
+      "proficiency": 0.65,
+      "topic_weights": {
+        "music_media_entertainment": 0.7,
+        "travel_places_transport": 0.7
+      }
+    },
+    {
+      "name": "mixed_food_shopping_p85",
+      "description": "Food plus shopping/money at advanced-tail level; checks that shallow practical interests do not trap the queue.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "food_cooking": 0.8,
+        "shopping_money": 0.6
+      }
+    },
+    {
+      "name": "mixed_entertainment_cluster_p85",
+      "description": "Anime/manga, games, and hobbies at advanced-tail level; checks whether deeper on-topic terms remain coherent.",
+      "proficiency": 0.85,
+      "topic_weights": {
+        "anime_manga_pop_culture": 0.7,
+        "games": 0.7,
+        "hobbies_crafts": 0.5
+      }
+    }
+  ]
+}

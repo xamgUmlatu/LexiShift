@@ -66,7 +66,6 @@ def _inject_core_path() -> None:
 
 try:
     _inject_core_path()
-
     from lexishift_core.helper.engine import (
         SetAdmissionPreviewJobConfig,
         get_srs_runtime_diagnostics,
@@ -79,6 +78,7 @@ try:
         apply_srs_rebalance,
         apply_exposure,
         apply_feedback,
+        build_srs_browsing_source_index,
         get_srs_item_rule_details,
         ingest_browsing_admission_signals,
         initialize_srs_set,
@@ -124,15 +124,13 @@ try:
         default_jmdict_path,
         default_translation_dictionary_path,
     )
+    from lexishift_native_host_seed_cache import handle_srs_seed_cache_request
 except Exception as exc:  # noqa: BLE001
     _log_native_host_failure("startup_import", exc)
     raise
 
-
-PROTOCOL_VERSION = 1
-HELPER_VERSION = "0.1.0"
-OPEN_RESOURCE_SETTINGS_FLAG = "--open-resource-settings"
-RESOURCE_PAIR_FLAG = "--resource-pair"
+PROTOCOL_VERSION, HELPER_VERSION = 1, "0.1.1"
+OPEN_RESOURCE_SETTINGS_FLAG, RESOURCE_PAIR_FLAG = "--open-resource-settings", "--resource-pair"
 
 
 def _native_host_log_line(message: str) -> None:
@@ -145,10 +143,6 @@ def _native_host_log_line(message: str) -> None:
             handle.write(f"[{timestamp}] {message}\n")
     except OSError:
         return
-
-
-def _payload_pair(payload: dict) -> str:
-    return str(payload.get("pair", "") or "").strip()
 
 
 def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list[str], str]:
@@ -169,7 +163,7 @@ def _open_resource_settings(payload: dict) -> dict:
     request_started_at = utc_timestamp()
     request_start = time.perf_counter()
     session_id = str(payload.get("startup_session_id") or "").strip() or new_startup_session_id()
-    pair = _payload_pair(payload)
+    pair = str(payload.get("pair", "") or "").strip()
     _native_host_log_line(
         f"resource_settings_request_received session={session_id} pair={pair} source=native_host"
     )
@@ -265,12 +259,7 @@ def _write_message(payload: dict) -> None:
 
 
 def _error_response(request_id: str, message: str, code: str = "invalid_request") -> dict:
-    return {
-        "id": request_id,
-        "ok": False,
-        "data": None,
-        "error": {"code": code, "message": message},
-    }
+    return {"id": request_id, "ok": False, "data": None, "error": dict(code=code, message=message)}
 
 
 def _optional_int(payload: Dict[str, Any], key: str) -> Optional[int]:
@@ -304,9 +293,7 @@ def _optional_bool(payload: Dict[str, Any], key: str) -> Optional[bool]:
     normalized = str(value).strip().lower()
     if normalized in {"1", "true", "yes", "on"}:
         return True
-    if normalized in {"0", "false", "no", "off"}:
-        return False
-    return None
+    return False if normalized in {"0", "false", "no", "off"} else None
 
 
 def _optional_string_list(payload: Dict[str, Any], key: str) -> Optional[list[str]]:
@@ -324,8 +311,7 @@ def _optional_string_list(payload: Dict[str, Any], key: str) -> Optional[list[st
 
 
 def _optional_profile_id(payload: Dict[str, Any]) -> Optional[str]:
-    profile_id = str(payload.get("profile_id", "")).strip()
-    return profile_id or None
+    return str(payload.get("profile_id", "")).strip() or None
 
 
 def _optional_path(payload: Dict[str, Any], key: str) -> Optional[Path]:
@@ -345,16 +331,14 @@ def _resolve_pair_resource_paths(
     translation_dict_path = _optional_path(payload, "translation_dict_path")
     if translation_dict_path is None:
         translation_dict_path = default_translation_dictionary_path(
-            pair,
-            language_packs_dir=paths.language_packs_dir,
+            pair, language_packs_dir=paths.language_packs_dir
         )
     set_source_db = _optional_path(payload, "frequency_pack_path")
     if set_source_db is None:
         set_source_db = _optional_path(payload, "set_source_db")
     if set_source_db is None:
         set_source_db = default_frequency_db_path(
-            pair,
-            frequency_packs_dir=paths.frequency_packs_dir,
+            pair, frequency_packs_dir=paths.frequency_packs_dir
         )
     return jmdict_path, translation_dict_path, set_source_db
 
@@ -381,6 +365,7 @@ def _handle_install_semantic_pack(payload: Dict[str, Any]) -> dict[str, object]:
             pack_id=str(payload.get("pack_id", DEFAULT_PACK_ID)).strip() or DEFAULT_PACK_ID,
             generated_at=str(payload.get("generated_at", "")).strip(),
             copy_pack=copy_pack,
+            copy_only=_optional_bool(payload, "copy_only") is True,
             dry_run=_optional_bool(payload, "dry_run") is True,
             rule_source=str(payload.get("rule_source", "semantic_pack_install")).strip()
             or "semantic_pack_install",
@@ -433,7 +418,14 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         return get_srs_runtime_diagnostics(paths, pair=pair, profile_id=profile_id or "default")
     if msg_type == "srs_items_list":
         pair = str(payload.get("pair", "en-ja"))
-        return list_srs_items(paths, pair=pair, profile_id=profile_id or "default")
+        return list_srs_items(
+            paths,
+            pair=pair,
+            profile_id=profile_id or "default",
+            compact=_optional_bool(payload, "compact") is True,
+        )
+    if msg_type in {"srs_seed_cache_status", "srs_seed_cache_prepare"}:
+        return handle_srs_seed_cache_request(paths, msg_type, payload)
     if msg_type == "srs_item_rule_details":
         pair = str(payload.get("pair", "en-ja"))
         return get_srs_item_rule_details(
@@ -504,6 +496,17 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             profile_id=profile_id or "default",
             captured_at=str(payload.get("captured_at", "")).strip() or None,
             opt_in=opt_in,
+        )
+    if msg_type == "srs_browsing_source_index":
+        return build_srs_browsing_source_index(
+            paths,
+            pair=str(payload.get("pair", "en-ja")).strip() or "en-ja",
+            profile_id=profile_id or "default",
+            top_n=_optional_int(payload, "top_n"),
+            max_targets=_optional_int(payload, "max_targets"),
+            max_rules=_optional_int(payload, "max_rules"),
+            allow_generate=_optional_bool(payload, "allow_generate") is not False,
+            force_refresh=_optional_bool(payload, "force_refresh") is True,
         )
     if msg_type == "trigger_rulegen":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
@@ -764,11 +767,9 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             paths,
             pair=pair,
             profile_id=profile_id or "default",
-            preserve_lifecycle_metadata=_optional_bool(
-                payload,
-                "preserve_lifecycle_metadata",
-            )
-            is True,
+            preserve_lifecycle_metadata=bool(
+                _optional_bool(payload, "preserve_lifecycle_metadata")
+            ),
         )
     if msg_type == "open_data_dir":
         open_path(paths.data_root)

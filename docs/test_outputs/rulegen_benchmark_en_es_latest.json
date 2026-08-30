@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-06-02T01:30:35.111317+00:00",
-  "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
+  "generated_at": "2026-08-27T02:08:50.837192+00:00",
+  "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift-beta-integration/docs/test_inputs/rulegen_benchmark_cases",
   "dataset_metadata": {
     "version": 1,
     "name": "LexiShift Rulegen Benchmark Cases",
     "description": "Merged rulegen benchmark dataset loaded from LP-specific source files.",
     "source_layout": "directory",
-    "source_directory": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
+    "source_directory": "/Users/takeyayuki/Documents/projects/LexiShift-beta-integration/docs/test_inputs/rulegen_benchmark_cases",
     "source_files": [
-      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_de.json",
-      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
-      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_ja.json",
-      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/es_en.json"
+      "/Users/takeyayuki/Documents/projects/LexiShift-beta-integration/docs/test_inputs/rulegen_benchmark_cases/en_de.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift-beta-integration/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift-beta-integration/docs/test_inputs/rulegen_benchmark_cases/en_ja.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift-beta-integration/docs/test_inputs/rulegen_benchmark_cases/es_en.json"
     ],
     "pairs": [
       "en-de",
@@ -50,45 +50,45 @@
       "reverse_translation_pack_id": "wiktionary_en_es",
       "reverse_translation_pack_provider": "wiktionary",
       "reverse_translation_pack_pos_source_profile": "wiktionary",
-      "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
-      "source_frequency_pack_id": "freq-en-coca",
-      "source_frequency_pack_provider": "freq-en-coca",
-      "source_frequency_pack_pos_source_profile": "compact-latin",
+      "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-leipzig-default/main.sqlite",
+      "source_frequency_pack_id": "freq-en-leipzig-default",
+      "source_frequency_pack_provider": "leipzig wortschatz",
+      "source_frequency_pack_pos_source_profile": "generic",
       "checksums": {
         "jmdict_sha256": null,
         "translation_dict_sha256": "sha256:38ab44f0fa7fbe72208d9171235e39e9daf03abb06070e27f2752861e13e550c",
         "reverse_translation_dict_sha256": "sha256:7db2b7689be0d0b0b3f8c7f914ea49bd8ecaddd953c05163a78f5b5e0a5876f7",
-        "source_frequency_db_sha256": "sha256:1ebec1aaea89f24129218aaf6a3e4198fa1b668654b2c83a50be111303d478f4"
+        "source_frequency_db_sha256": "sha256:f966817ef1565543539f01f72ca046405661c740a7cc88a07df7e53c86db6b6e"
       }
     }
   },
   "timing": {
-    "total_recorded_seconds": 1.0929598840593826,
+    "total_recorded_seconds": 0.5797447107033804,
     "phases": {
       "build_resource_payload": {
-        "total_seconds": 0.060985250005614944,
+        "total_seconds": 0.0004913340089842677,
         "count": 1,
-        "avg_seconds": 0.060985250005614944
+        "avg_seconds": 0.0004913340089842677
       },
       "build_sweep_configs": {
-        "total_seconds": 0.0006664579996140674,
+        "total_seconds": 0.0005131659563630819,
         "count": 1,
-        "avg_seconds": 0.0006664579996140674
+        "avg_seconds": 0.0005131659563630819
       },
       "build_word_packages": {
-        "total_seconds": 0.00023912500182632357,
+        "total_seconds": 0.00012541597243398428,
         "count": 1,
-        "avg_seconds": 0.00023912500182632357
+        "avg_seconds": 0.00012541597243398428
       },
       "compile_pair_context": {
-        "total_seconds": 0.11686637499951757,
+        "total_seconds": 0.10336262499913573,
         "count": 1,
-        "avg_seconds": 0.11686637499951757
+        "avg_seconds": 0.10336262499913573
       },
       "evaluate_cases": {
-        "total_seconds": 0.02035812914255075,
+        "total_seconds": 0.01652362709864974,
         "count": 144,
-        "avg_seconds": 0.0001413758968232691
+        "avg_seconds": 0.00011474741040728986
       },
       "group_rules": {
         "total_seconds": 0.0,
@@ -96,82 +96,82 @@
         "avg_seconds": 0.0
       },
       "load_dataset": {
-        "total_seconds": 0.02421466598752886,
+        "total_seconds": 0.0015909589710645378,
         "count": 1,
-        "avg_seconds": 0.02421466598752886
+        "avg_seconds": 0.0015909589710645378
       },
       "load_store": {
-        "total_seconds": 0.002758582995738834,
+        "total_seconds": 0.0024030000204220414,
         "count": 1,
-        "avg_seconds": 0.002758582995738834
+        "avg_seconds": 0.0024030000204220414
       },
       "preload_translation_gloss_records": {
-        "total_seconds": 0.601184833998559,
+        "total_seconds": 0.20222400000784546,
         "count": 1,
-        "avg_seconds": 0.601184833998559
+        "avg_seconds": 0.20222400000784546
       },
       "prepare_compiled_sweep_inputs": {
-        "total_seconds": 0.236720917004277,
+        "total_seconds": 0.22924974997295067,
         "count": 1,
-        "avg_seconds": 0.236720917004277
+        "avg_seconds": 0.22924974997295067
       },
       "rehydrate_best_run_case_results": {
-        "total_seconds": 0.0004770420055137947,
+        "total_seconds": 0.0004609999596141279,
         "count": 1,
-        "avg_seconds": 0.0004770420055137947
+        "avg_seconds": 0.0004609999596141279
       },
       "render_html": {
-        "total_seconds": 0.0030681670032208785,
+        "total_seconds": 0.0018770829774439335,
         "count": 1,
-        "avg_seconds": 0.0030681670032208785
+        "avg_seconds": 0.0018770829774439335
       },
       "render_markdown": {
-        "total_seconds": 5.5415992392227054e-05,
+        "total_seconds": 4.654197255149484e-05,
         "count": 1,
-        "avg_seconds": 5.5415992392227054e-05
+        "avg_seconds": 4.654197255149484e-05
       },
       "resolve_resources": {
-        "total_seconds": 0.0006417919939849526,
+        "total_seconds": 0.0006650830036960542,
         "count": 1,
-        "avg_seconds": 0.0006417919939849526
+        "avg_seconds": 0.0006650830036960542
       },
       "run_config": {
-        "total_seconds": 0.023083880005287938,
+        "total_seconds": 0.01866237702779472,
         "count": 144,
-        "avg_seconds": 0.000160304722258944
+        "avg_seconds": 0.00012959984047079665
       },
       "sort_pair_runs": {
-        "total_seconds": 6.695800402667373e-05,
+        "total_seconds": 4.7416018787771463e-05,
         "count": 1,
-        "avg_seconds": 6.695800402667373e-05
+        "avg_seconds": 4.7416018787771463e-05
       },
       "summarize_run": {
-        "total_seconds": 0.001572291919728741,
+        "total_seconds": 0.0015013327356427908,
         "count": 144,
-        "avg_seconds": 1.0918693887005145e-05
+        "avg_seconds": 1.0425921775297158e-05
       }
     },
     "pairs": {
       "en-es": {
         "build_resource_payload": {
-          "total_seconds": 0.060985250005614944,
+          "total_seconds": 0.0004913340089842677,
           "count": 1,
-          "avg_seconds": 0.060985250005614944
+          "avg_seconds": 0.0004913340089842677
         },
         "build_word_packages": {
-          "total_seconds": 0.00023912500182632357,
+          "total_seconds": 0.00012541597243398428,
           "count": 1,
-          "avg_seconds": 0.00023912500182632357
+          "avg_seconds": 0.00012541597243398428
         },
         "compile_pair_context": {
-          "total_seconds": 0.11686637499951757,
+          "total_seconds": 0.10336262499913573,
           "count": 1,
-          "avg_seconds": 0.11686637499951757
+          "avg_seconds": 0.10336262499913573
         },
         "evaluate_cases": {
-          "total_seconds": 0.02035812914255075,
+          "total_seconds": 0.01652362709864974,
           "count": 144,
-          "avg_seconds": 0.0001413758968232691
+          "avg_seconds": 0.00011474741040728986
         },
         "group_rules": {
           "total_seconds": 0.0,
@@ -179,43 +179,43 @@
           "avg_seconds": 0.0
         },
         "preload_translation_gloss_records": {
-          "total_seconds": 0.601184833998559,
+          "total_seconds": 0.20222400000784546,
           "count": 1,
-          "avg_seconds": 0.601184833998559
+          "avg_seconds": 0.20222400000784546
         },
         "prepare_compiled_sweep_inputs": {
-          "total_seconds": 0.236720917004277,
+          "total_seconds": 0.22924974997295067,
           "count": 1,
-          "avg_seconds": 0.236720917004277
+          "avg_seconds": 0.22924974997295067
         },
         "rehydrate_best_run_case_results": {
-          "total_seconds": 0.0004770420055137947,
+          "total_seconds": 0.0004609999596141279,
           "count": 1,
-          "avg_seconds": 0.0004770420055137947
+          "avg_seconds": 0.0004609999596141279
         },
         "resolve_resources": {
-          "total_seconds": 0.0006417919939849526,
+          "total_seconds": 0.0006650830036960542,
           "count": 1,
-          "avg_seconds": 0.0006417919939849526
+          "avg_seconds": 0.0006650830036960542
         },
         "run_config": {
-          "total_seconds": 0.023083880005287938,
+          "total_seconds": 0.01866237702779472,
           "count": 144,
-          "avg_seconds": 0.000160304722258944
+          "avg_seconds": 0.00012959984047079665
         },
         "sort_pair_runs": {
-          "total_seconds": 6.695800402667373e-05,
+          "total_seconds": 4.7416018787771463e-05,
           "count": 1,
-          "avg_seconds": 6.695800402667373e-05
+          "avg_seconds": 4.7416018787771463e-05
         },
         "summarize_run": {
-          "total_seconds": 0.001572291919728741,
+          "total_seconds": 0.0015013327356427908,
           "count": 144,
-          "avg_seconds": 1.0918693887005145e-05
+          "avg_seconds": 1.0425921775297158e-05
         }
       }
     },
-    "wall_clock_seconds": 1.098795625002822
+    "wall_clock_seconds": 0.5855509589891881
   },
   "pairs": {
     "en-es": {
@@ -231,15 +231,15 @@
         "reverse_translation_pack_id": "wiktionary_en_es",
         "reverse_translation_pack_provider": "wiktionary",
         "reverse_translation_pack_pos_source_profile": "wiktionary",
-        "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-coca.sqlite",
-        "source_frequency_pack_id": "freq-en-coca",
-        "source_frequency_pack_provider": "freq-en-coca",
-        "source_frequency_pack_pos_source_profile": "compact-latin",
+        "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-leipzig-default/main.sqlite",
+        "source_frequency_pack_id": "freq-en-leipzig-default",
+        "source_frequency_pack_provider": "leipzig wortschatz",
+        "source_frequency_pack_pos_source_profile": "generic",
         "checksums": {
           "jmdict_sha256": null,
           "translation_dict_sha256": "sha256:38ab44f0fa7fbe72208d9171235e39e9daf03abb06070e27f2752861e13e550c",
           "reverse_translation_dict_sha256": "sha256:7db2b7689be0d0b0b3f8c7f914ea49bd8ecaddd953c05163a78f5b5e0a5876f7",
-          "source_frequency_db_sha256": "sha256:1ebec1aaea89f24129218aaf6a3e4198fa1b668654b2c83a50be111303d478f4"
+          "source_frequency_db_sha256": "sha256:f966817ef1565543539f01f72ca046405661c740a7cc88a07df7e53c86db6b6e"
         }
       },
       "word_package_snapshot": {
@@ -588,9 +588,10 @@
           "kaikki_policy_late_sense_penalty": 0.1,
           "exact_gloss_demotion_enabled": false,
           "source_frequency_prior_enabled": false,
-          "cleaner_later_competition_penalty": 0.0
+          "cleaner_later_competition_penalty": 0.0,
+          "sense_defaultness_competition_penalty": 0.0
         },
-        "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+        "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
         "summary": {
           "pair": "en-es",
           "case_count": 73,
@@ -2682,9 +2683,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -2747,9 +2749,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -2812,9 +2815,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -2877,9 +2881,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -2942,9 +2947,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3007,9 +3013,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3072,9 +3079,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3137,9 +3145,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3202,9 +3211,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3267,9 +3277,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3332,9 +3343,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3397,9 +3409,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3462,9 +3475,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3527,9 +3541,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3592,9 +3607,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3657,9 +3673,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3722,9 +3739,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3787,9 +3805,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3852,9 +3871,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3917,9 +3937,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -3982,9 +4003,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4047,9 +4069,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4112,9 +4135,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4177,9 +4201,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4242,9 +4267,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4307,9 +4333,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4372,9 +4399,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4437,9 +4465,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4502,9 +4531,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4567,9 +4597,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4632,9 +4663,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4697,9 +4729,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4762,9 +4795,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4827,9 +4861,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4892,9 +4927,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -4957,9 +4993,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5022,9 +5059,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5087,9 +5125,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5152,9 +5191,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5217,9 +5257,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5282,9 +5323,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5347,9 +5389,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5412,9 +5455,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5477,9 +5521,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5542,9 +5587,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5607,9 +5653,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5672,9 +5719,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5737,9 +5785,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5802,9 +5851,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5867,9 +5917,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5932,9 +5983,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -5997,9 +6049,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6062,9 +6115,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6127,9 +6181,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6192,9 +6247,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6257,9 +6313,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6322,9 +6379,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6387,9 +6445,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6452,9 +6511,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6517,9 +6577,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6582,9 +6643,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6647,9 +6709,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6712,9 +6775,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6777,9 +6841,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6842,9 +6907,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6907,9 +6973,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -6972,9 +7039,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7037,9 +7105,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7102,9 +7171,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7167,9 +7237,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7232,9 +7303,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7297,9 +7369,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7362,9 +7435,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7427,9 +7501,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7492,9 +7567,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7557,9 +7633,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7622,9 +7699,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7687,9 +7765,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7752,9 +7831,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7817,9 +7897,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7882,9 +7963,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -7947,9 +8029,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8012,9 +8095,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8077,9 +8161,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8142,9 +8227,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8207,9 +8293,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8272,9 +8359,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8337,9 +8425,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8402,9 +8491,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8467,9 +8557,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8532,9 +8623,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8597,9 +8689,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8662,9 +8755,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8727,9 +8821,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8792,9 +8887,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8857,9 +8953,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=off xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8922,9 +9019,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -8987,9 +9085,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9052,9 +9151,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9117,9 +9217,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9182,9 +9283,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9247,9 +9349,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9312,9 +9415,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9377,9 +9481,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9442,9 +9547,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9507,9 +9613,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9572,9 +9679,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9637,9 +9745,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9702,9 +9811,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9767,9 +9877,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9832,9 +9943,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9897,9 +10009,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -9962,9 +10075,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10027,9 +10141,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10092,9 +10207,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10157,9 +10273,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10222,9 +10339,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10287,9 +10405,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10352,9 +10471,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10417,9 +10537,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=off pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10482,9 +10603,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10547,9 +10669,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10612,9 +10735,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10677,9 +10801,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10742,9 +10867,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10807,9 +10933,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10872,9 +10999,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -10937,9 +11065,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11002,9 +11131,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11067,9 +11197,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11132,9 +11263,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11197,9 +11329,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11262,9 +11395,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11327,9 +11461,10 @@
             "kaikki_policy_late_sense_penalty": 0.1,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.10",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11392,9 +11527,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11457,9 +11593,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11522,9 +11659,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11587,9 +11725,10 @@
             "kaikki_policy_late_sense_penalty": 0.2,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=on kfam=mg+gl+hft+rr+aef kprov=0.20",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11652,9 +11791,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11717,9 +11857,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11782,9 +11923,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=on rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11847,9 +11989,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11912,9 +12055,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.10 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,
@@ -11977,9 +12121,10 @@
             "kaikki_policy_late_sense_penalty": 0.0,
             "exact_gloss_demotion_enabled": false,
             "source_frequency_prior_enabled": false,
-            "cleaner_later_competition_penalty": 0.0
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
           },
-          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
+          "config_label": "md=3 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=off sfreq=off clcmp=off sdef=off var=on pos=off rev=on xamb=off xspec=0.20 w_pos=0.100 kreg=off kdem=off kfam=mg+gl+hft+rr+aef kprov=off",
           "summary": {
             "pair": "en-es",
             "case_count": 73,

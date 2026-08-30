@@ -1,0 +1,2294 @@
+{
+  "decision": "topic_overlay_approved_candidate_ready",
+  "findings": [
+    {
+      "code": "overlay_rows_present",
+      "level": "PASS",
+      "message": "Accepted en-ja topic review labels produced overlay rows."
+    },
+    {
+      "code": "review_rows_labeled",
+      "level": "PASS",
+      "message": "All review rows have decision labels."
+    }
+  ],
+  "generated_at": "2026-06-10T00:46:55+00:00",
+  "inputs": {
+    "labels_state": "approved_by_user",
+    "review_packet_decision": "srs_jmdict_topic_review_packet_ready",
+    "review_packet_json": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+  },
+  "overlay_id": "srs_jmdict_topic_overlay_en_ja_approved_candidate_v1",
+  "overlay_policy": {
+    "light_labels_runtime_effective": false,
+    "membership_from_decision": {
+      "accept_light_topic": 0.65,
+      "accept_strong_topic": 1.0
+    },
+    "profile_injection_min_membership": 1.0,
+    "promotion_state": "approved_product_candidate_not_default",
+    "rejected_decisions_excluded": {
+      "reject_secondary_or_obscure_sense": 16,
+      "reject_wrong_topic": 63
+    },
+    "runtime_policy_change": "none",
+    "strong_labels_runtime_effective": true
+  },
+  "rows": [
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "たまご",
+          "卵"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 2845.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "卵",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "zoology",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Egg is animal/biology-adjacent, but also food/general vocabulary.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-002",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "zoology"
+      ],
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "びーえすいー",
+          "ＢＳＥ"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 7789.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "ＢＳＥ",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "veterinary terms",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Veterinary disease vocabulary is animal-adjacent but not an animal term.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-001",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "veterinary terms"
+      ],
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "ふぁんでーしょん"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 9024.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "ファンデーション",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "art, aesthetics",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Underpainting/art sense is real, but makeup/organization senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-123",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "art, aesthetics"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "まざー"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 2100.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "マザー",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "Christianity",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Religious Mother title is real, but mother/motherboard senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-121",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "Christianity"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "せかい",
+          "世界"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 217.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "世界",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "Buddhism",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Buddhist/world/universe sense is humanities-relevant but broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-120",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "Buddhism"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "しゅ",
+          "主"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 1809.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "主",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "Christianity",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Lord/master religious sense is real, but the word is broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-007",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "Christianity"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "こと",
+          "事"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 18.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "事",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "Buddhism",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Buddhist/philosophical concrete-phenomenon sense is real but abstract and polysemous.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-006",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "Buddhism"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "つけ",
+          "付け"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 3162.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "付け",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "kabuki",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Kabuki contact-play sense is real, but specialized and polysemous.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-010",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "kabuki"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "さ",
+          "差"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 1092.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "差",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "noh",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Noh recitative sense is real, but secondary against the general difference/gap meaning.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-011",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "noh"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "ほんたい",
+          "本体"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 1315.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "本体",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "philosophy",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Philosophy noumenon sense is real, but main body/unit meaning dominates.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-126",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "philosophy"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "しゅく",
+          "祝"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 7282.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "祝",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "Shinto",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Shinto priest/celebration sense is cultural but specialized.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-122",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "Shinto"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "そうごう",
+          "総合"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 460.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "総合",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "philosophy",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Philosophical synthesis/composite sense is plausible but broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-012",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "philosophy"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "ほくろ",
+          "黒子"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 3607.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "黒子",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "kabuki",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Kabuki stagehand sense is cultural/theater vocabulary, but mole/spot senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-124",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "kabuki"
+      ],
+      "topic": "arts_literature_humanities"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "すとっく"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 3402.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "ストック",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "economics",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Stock finance/economics sense is real, but soup stock and other senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-134",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "economics",
+        "finance"
+      ],
+      "topic": "finance_business"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "ぷーる"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 3023.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "プール",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "economics",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Economic pooling sense is real, but pool is highly polysemous.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-021",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "economics"
+      ],
+      "topic": "finance_business"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "あげる",
+          "上げる"
+        ],
+        "pos": "動詞-非自立可能",
+        "pos_bucket": "verb",
+        "rank": 268.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "上げる",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "finance",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Price/status increase can support finance, but the verb is very general.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-022",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "finance"
+      ],
+      "topic": "finance_business"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence": {
+        "jmdict_match_modes": [
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "さいけん"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 1338.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "債権",
+      "match_strength": "reading_only",
+      "membership": 1.0,
+      "primary_source_label": "finance",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Direct finance/legal claim or bond vocabulary.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-enja-topic-138",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "finance"
+      ],
+      "topic": "finance_business"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence": {
+        "jmdict_match_modes": [
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "しょうひょう"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 8378.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "商標",
+      "match_strength": "reading_only",
+      "membership": 1.0,
+      "primary_source_label": "business",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Trademark is directly business/legal-commercial vocabulary despite weak source alignment.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-enja-topic-024",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "business",
+        "finance"
+      ],
+      "topic": "finance_business"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "ば",
+          "場"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 957.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "場",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "stock market",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Market/venue sense is relevant but broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-023",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "stock market"
+      ],
+      "topic": "finance_business"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "てんかい",
+          "展開"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 795.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "展開",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "business",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Business development/expansion sense is useful but broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-020",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "business"
+      ],
+      "topic": "finance_business"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "みおくる",
+          "見送る"
+        ],
+        "pos": "動詞-一般",
+        "pos_bucket": "verb",
+        "rank": 4408.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "見送る",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "stock market",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Stock-market wait/pass sense is real, but the verb is broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-136",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "stock market"
+      ],
+      "topic": "finance_business"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "えーびーしー",
+          "ＡＢＣ"
+        ],
+        "pos": "名詞-固有名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 8378.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "ＡＢＣ",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "business",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "ABC guide/business sense is possible, but acronym/basic-letters senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-133",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "business"
+      ],
+      "topic": "finance_business"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "すてーじ"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 2551.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "ステージ",
+      "match_strength": "strong",
+      "membership": 1.0,
+      "primary_source_label": "video games",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Video-game level/stage sense is direct and useful.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-enja-topic-035",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "video games"
+      ],
+      "topic": "games"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "なか",
+          "中"
+        ],
+        "pos": "名詞-普通名詞-副詞可能",
+        "pos_bucket": "noun",
+        "rank": 96.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "中",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "mahjong",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Mahjong tile/use is real, but 中 is extremely broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-033",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "mahjong"
+      ],
+      "topic": "games"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "する",
+          "為る"
+        ],
+        "pos": "動詞-非自立可能",
+        "pos_bucket": "verb",
+        "rank": 8.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "為る",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "shogi",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Shogi promotion sense is real, but the verb is broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-034",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "shogi"
+      ],
+      "topic": "games"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "め",
+          "目"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 213.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "目",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "go (game)",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Go counter/point sense is real, but eye/ordinal senses dominate.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-031",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "go (game)"
+      ],
+      "topic": "games"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "はな",
+          "花"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 997.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "花",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "hanafuda",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Hanafuda association is real, but flower is the dominant meaning.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-032",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "hanafuda"
+      ],
+      "topic": "games"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "おや",
+          "親"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 337.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "親",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "card games",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Dealer/banker game sense is real, but parent/owner senses dominate.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-030",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "card games",
+        "mahjong"
+      ],
+      "topic": "games"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "あいだ",
+          "間"
+        ],
+        "pos": "名詞-普通名詞-副詞可能",
+        "pos_bucket": "noun",
+        "rank": 317.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "間",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "go (game)",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Go connection/joining sense is real, but between/interval dominates.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-143",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "go (game)"
+      ],
+      "topic": "games"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "さくせん",
+          "作戦"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 1625.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "作戦",
+      "match_strength": "strong",
+      "membership": 1.0,
+      "primary_source_label": "military",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Military operation/strategy vocabulary is directly civics/military.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-enja-topic-043",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "military"
+      ],
+      "topic": "law_politics_civics"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "ひょうじ",
+          "表示"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 944.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "表示",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "law",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Legal display/representation sense is plausible but broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-042",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "law"
+      ],
+      "topic": "law_politics_civics"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "きゃりあ"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 5551.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "キャリア",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "pathology",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Carrier of disease sense is real, but career/carrier senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-049",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "pathology"
+      ],
+      "topic": "medicine_health"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "くらうん"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 7282.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "クラウン",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "dentistry",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Dental crown sense is relevant, but crown/clown senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-047",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "dentistry"
+      ],
+      "topic": "medicine_health"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "きんちょう",
+          "緊張"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 2551.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "緊張",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "physiology",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Muscle tone/stress physiology sense is relevant but broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-050",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "physiology"
+      ],
+      "topic": "medicine_health"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "のう",
+          "脳"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 1625.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "脳",
+      "match_strength": "strong",
+      "membership": 1.0,
+      "primary_source_label": "anatomy",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Direct anatomy/health vocabulary.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-enja-topic-046",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "anatomy"
+      ],
+      "topic": "medicine_health"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "あっぷ"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 1022.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "アップ",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "film",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Close-up media sense is real, but the loanword is broader.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-057",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "film",
+        "television"
+      ],
+      "topic": "music_media_entertainment"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "まるち"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 6126.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "マルチ",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "gardening, horticulture",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Mulch/gardening sense is real, but multi/chain-referral senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-061",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "gardening, horticulture"
+      ],
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "いんしゅりん"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 8691.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "インシュリン",
+      "match_strength": "strong",
+      "membership": 1.0,
+      "primary_source_label": "biochemistry",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Direct biochemistry/medical science vocabulary.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-enja-topic-066",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "biochemistry"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "とっぷ"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 1053.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "トップ",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "Internet",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Homepage/top sense is technology-adjacent but polysemous.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-064",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "Internet"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "ぶろーどばんど"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 4257.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "ブロードバンド",
+      "match_strength": "strong",
+      "membership": 1.0,
+      "primary_source_label": "telecommunications",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Direct telecommunications vocabulary.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-enja-topic-078",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "telecommunications"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "ぷれーと"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 7789.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "プレート",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "electronics",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Tectonic/electronics plate senses are science-relevant, but the loanword is broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-071",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "electronics",
+        "geology"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "よ",
+          "世"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 4911.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "世",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "geology",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Geological age/epoch sense is real but secondary.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-074",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "geology"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "こうりゅう",
+          "交流"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 929.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "交流",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "electricity, elec. eng.",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Alternating-current sense is real, but exchange/interchange senses dominate.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-070",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "electricity, elec. eng."
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "しごと",
+          "仕事"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 256.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "仕事",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "physics",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Physics work sense is real, but job/work dominates.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-077",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "physics"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "こうりつ"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 1147.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "効率",
+      "match_strength": "reading_only",
+      "membership": 0.65,
+      "primary_source_label": "physics",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Efficiency is technical/science-adjacent, though broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-094",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "physics"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "あんてい",
+          "安定"
+        ],
+        "pos": "名詞-普通名詞-サ変形状詞可能",
+        "pos_bucket": "noun",
+        "rank": 718.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "安定",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "chemistry",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Equilibrium/stability is science-relevant but broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-068",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "chemistry",
+        "physics"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "そこ",
+          "底"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 3953.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "底",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "geometry",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Mathematical base sense is real, but bottom/base is broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-075",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "geometry",
+        "mathematics"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "じょうほう"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 102.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "情報",
+      "match_strength": "reading_only",
+      "membership": 0.65,
+      "primary_source_label": "mathematics",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Information is technology-adjacent despite weak mathematics evidence.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-092",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "mathematics"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "かくさん"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 2225.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "拡散",
+      "match_strength": "reading_only",
+      "membership": 0.65,
+      "primary_source_label": "biochemistry",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Diffusion/spread is science-relevant even though the biochemistry evidence is reading-only.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-081",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "biochemistry"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "かける",
+          "掛ける"
+        ],
+        "pos": "動詞-非自立可能",
+        "pos_bucket": "verb",
+        "rank": 263.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "掛ける",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "mathematics",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Multiplication sense is real, but the verb is very broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-076",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "mathematics"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "ほう",
+          "法"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 234.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "法",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "engineering",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Method/law sense can be technical, but the word is very broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-072",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "engineering"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "め",
+          "目"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 213.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "目",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "biology",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Biology eye sense is real, but the word is broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-067",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "biology"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "れんさ",
+          "連鎖"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 7282.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "連鎖",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "genetics",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Genetic linkage/chain sense is relevant but also general.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-073",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "genetics"
+      ],
+      "topic": "science_technology"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "さーびす"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 323.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "サービス",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "sports",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Serve/service sports sense is real, but service/discount senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-104",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "sports"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "せんたー"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 404.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "センター",
+      "match_strength": "strong",
+      "membership": 1.0,
+      "primary_source_label": "baseball",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Center fielder/baseball sense is direct.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-enja-topic-096",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "baseball"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "たぐ"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 841.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "タグ",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "professional wrestling",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Tag-team wrestling sense is real, but tag/label senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-102",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "professional wrestling"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "ふりー"
+        ],
+        "pos": "名詞-普通名詞-形状詞可能",
+        "pos_bucket": "noun",
+        "rank": 1008.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "フリー",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "figure skating",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Free-skating sense is relevant, but the loanword is broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-098",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "figure skating"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "ほーる"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 1458.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "ホール",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "golf",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Golf hole/cup sense is relevant, but hall/hole senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-099",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "golf"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "ぼでぃー"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 922.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "ボディー",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "boxing",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Body blow sense is boxing-relevant, but body is broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-097",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "boxing"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "きる"
+        ],
+        "pos": "動詞-非自立可能",
+        "pos_bucket": "verb",
+        "rank": 366.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "切る",
+      "match_strength": "reading_only",
+      "membership": 0.65,
+      "primary_source_label": "sports",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Spike/smash sports sense is real, but the verb is very broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-111",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "sports"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "かいてん",
+          "回転"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 3023.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "回転",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "skiing",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Skiing turn sense is real, but rotation is broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-103",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "skiing"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "しどう",
+          "指導"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 465.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "指導",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "martial arts",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Coaching/instruction is sports-adjacent but broad.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-101",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "martial arts"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact",
+          "reading"
+        ],
+        "jmdict_matched_terms": [
+          "しょうがい",
+          "障害"
+        ],
+        "pos": "名詞-普通名詞-サ変可能",
+        "pos_bucket": "noun",
+        "rank": 175.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "障害",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "horse racing",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Horse-racing obstacle sense is real, but disability/obstacle meanings are broader.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-100",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "horse racing"
+      ],
+      "topic": "sports_fitness"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "ばんく"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 3307.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "バンク",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "aviation",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Aviation banking sense is real, but bank is highly polysemous.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-113",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "aviation"
+      ],
+      "topic": "travel_places_transport"
+    },
+    {
+      "confidence_label": "light",
+      "evidence": {
+        "jmdict_match_modes": [
+          "exact"
+        ],
+        "jmdict_matched_terms": [
+          "ほーむ"
+        ],
+        "pos": "名詞-普通名詞-一般",
+        "pos_bucket": "noun",
+        "rank": 635.0
+      },
+      "language_pair": "en-ja",
+      "lemma": "ホーム",
+      "match_strength": "strong",
+      "membership": 0.65,
+      "primary_source_label": "railway",
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_jmdict_topic_review_labels_en_ja.json",
+        "notes": "Railway platform sense is useful, but home/base senses compete.",
+        "promotion_state": "approved_product_candidate_not_default",
+        "review_packet": "docs/test_outputs/srs_jmdict_topic_review_packet_en_ja_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-enja-topic-114",
+      "review_state": "approved_by_user",
+      "reviewer": "codex_agent_user_approved",
+      "source_labels": [
+        "railway"
+      ],
+      "topic": "travel_places_transport"
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "counts_by_confidence": {
+      "light": 57,
+      "strong": 8
+    },
+    "counts_by_topic": {
+      "animals": 2,
+      "arts_literature_humanities": 11,
+      "finance_business": 9,
+      "games": 7,
+      "law_politics_civics": 2,
+      "medicine_health": 4,
+      "music_media_entertainment": 1,
+      "plants_nature": 1,
+      "science_technology": 16,
+      "sports_fitness": 10,
+      "travel_places_transport": 2
+    },
+    "review_state_counts": {
+      "approved_by_user": 144
+    },
+    "row_count": 65,
+    "runtime_effective_row_count": 8,
+    "unlabeled_review_row_count": 0
+  }
+}

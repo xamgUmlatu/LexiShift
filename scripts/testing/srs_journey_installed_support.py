@@ -12,6 +12,7 @@ from lexishift_core.helper.pair_resources import (
     resolve_pair_translation_packs,
 )
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths
+from lexishift_core.srs.pos_overlay import resolve_pair_pos_overlay
 
 ROLE_REF_STABLE_1 = "@stable_1"
 ROLE_REF_STABLE_2 = "@stable_2"
@@ -176,6 +177,7 @@ def stage_installed_pair_resources(paths: HelperPaths, *, pair: str) -> dict[str
         pair=pair,
         set_source_db=frequency_db,
     )
+    pos_overlay = resolve_pair_pos_overlay(installed_paths, pair=pair)
     stopwords_path = resolve_helper_stopwords_path(installed_paths, pair=pair)
     resources: dict[str, Path | None] = {
         "frequency_db": _stage_optional_pack_artifact(
@@ -190,6 +192,10 @@ def stage_installed_pair_resources(paths: HelperPaths, *, pair: str) -> dict[str
         "reverse_translation_dict_path": _stage_optional_pack_artifact(
             reverse_translation_pack.path if reverse_translation_pack else None,
             paths.language_packs_dir,
+        ),
+        "pos_overlay_path": _stage_optional_pack_artifact(
+            pos_overlay.path if pos_overlay else None,
+            paths.data_root / "pos_packs",
         ),
     }
     if stopwords_path is not None:

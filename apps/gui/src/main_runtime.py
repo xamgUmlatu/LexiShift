@@ -31,7 +31,11 @@ class StartupLogger:
         start_time: float | None = None,
         argv: list[str] | None = None,
     ) -> None:
-        self._paths = list(paths)
+        self._paths = list(
+            dict.fromkeys(
+                Path(os.path.abspath(os.path.expanduser(os.fspath(path)))) for path in paths
+            )
+        )
         self._start_time = start_time if start_time is not None else time.perf_counter()
         self._last_time = self._start_time
         self._session_id = startup_session_id()
@@ -264,7 +268,13 @@ def bind_activation_handler(
                 )
             client.disconnectFromServer()
             if should_open_resources:
-                QTimer.singleShot(0, lambda: window._open_settings_resources(pair=resource_pair))
+                QTimer.singleShot(
+                    0,
+                    lambda: window._open_settings_resources(
+                        pair=resource_pair,
+                        activation_session=activation_session,
+                    ),
+                )
 
     server.newConnection.connect(handle_activation)
 

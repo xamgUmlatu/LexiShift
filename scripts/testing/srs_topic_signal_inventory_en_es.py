@@ -63,7 +63,9 @@ normalize_topic_string_list_with_origins = (
 
 
 DEFAULT_DATA_ROOT = Path.home() / "Library/Application Support/LexiShift/LexiShift"
-DEFAULT_KAIKKI_FORWARD_DB = DEFAULT_DATA_ROOT / "language_packs" / "wiktionary-es-en.sqlite"
+DEFAULT_KAIKKI_FORWARD_DB = (
+    DEFAULT_DATA_ROOT / "language_packs" / "wiktionary-es-en" / "main.sqlite"
+)
 DEFAULT_JSON_OUT = (
     PROJECT_ROOT / "docs" / "test_outputs" / "srs_topic_signal_inventory_en_es_current_latest.json"
 )

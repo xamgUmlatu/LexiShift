@@ -4,6 +4,9 @@
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
+    const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object"
+      ? opts.settingsManager
+      : null;
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const i18n = opts.i18n && typeof opts.i18n === "object" ? opts.i18n : null;
@@ -59,6 +62,26 @@
     const refreshSrsProfiles = typeof opts.refreshSrsProfiles === "function"
       ? opts.refreshSrsProfiles
       : (() => Promise.resolve());
+    const saveSrsBrowsingAdmissionSignalsSetting = () => {
+      if (!settingsManager || typeof settingsManager.save !== "function") {
+        return Promise.resolve();
+      }
+      const enabled = elements.srsBrowsingAdmissionSignalsInput
+        ? elements.srsBrowsingAdmissionSignalsInput.checked === true
+        : false;
+      return settingsManager.save({ srsBrowsingAdmissionSignalsEnabled: enabled })
+        .then(() => {
+          if (!elements.srsBrowsingAdmissionSignalsInput || typeof settingsManager.load !== "function") {
+            return null;
+          }
+          return settingsManager.load().then((items) => {
+            elements.srsBrowsingAdmissionSignalsInput.checked =
+              items && items.srsBrowsingAdmissionSignalsEnabled === true;
+            return items;
+          });
+        })
+        .then(() => setStatus(translate("status_srs_saved", null, "Practice settings saved."), ui.COLORS.SUCCESS));
+    };
     const applyTargetLanguagePrefsLocalization = typeof opts.applyTargetLanguagePrefsLocalization === "function"
       ? opts.applyTargetLanguagePrefsLocalization
       : (() => {});
@@ -149,6 +172,7 @@
         helperActionsController,
         srsActionsController,
         saveSrsSettings,
+        saveSrsBrowsingAdmissionSignalsSetting,
         saveSrsProfileId,
         refreshSrsProfiles,
         elements

@@ -20,6 +20,7 @@ from lexishift_core.helper.lp_capabilities import (  # noqa: E402
     default_reverse_translation_dictionary_path,
     resolve_pair_capability,
 )
+from lexishift_core.helper.frequency_packs import build_frequency_pack_ref  # noqa: E402
 from lexishift_core.helper.pair_resources import (  # noqa: E402
     resolve_pair_resources,
     resolve_stopwords_path,
@@ -368,6 +369,10 @@ def build_full_srs_admissible_rows(
     selected_frequency_db = (
         Path(frequency_db).expanduser() if frequency_db else resolved_frequency_db
     )
+    selected_frequency_pack = build_frequency_pack_ref(
+        capability.pair,
+        selected_frequency_db,
+    )
     stopwords_path = resolve_stopwords_path(paths, pair=normalized_pair)
     inputs: dict[str, object] = {
         "status": "ok",
@@ -376,6 +381,11 @@ def build_full_srs_admissible_rows(
         "frequency_db": _repo_path(selected_frequency_db),
         "frequency_db_exists": bool(selected_frequency_db and selected_frequency_db.exists()),
         "frequency_db_source": "override" if frequency_db else "installed_default",
+        "frequency_pack_id": selected_frequency_pack.pack_id if selected_frequency_pack else "",
+        "frequency_provider": selected_frequency_pack.provider if selected_frequency_pack else "",
+        "frequency_pos_source_profile": (
+            selected_frequency_pack.pos_source_profile if selected_frequency_pack else ""
+        ),
         "default_frequency_db": _repo_path(resolved_frequency_db),
         "jmdict_path": _repo_path(jmdict_path),
         "requires_jmdict_for_seed": bool(capability.requires_jmdict_for_seed),
@@ -404,6 +414,7 @@ def build_full_srs_admissible_rows(
             jmdict_path=jmdict_path,
             require_jmdict=bool(capability.requires_jmdict_for_seed),
             stopwords_path=stopwords_path,
+            source_label=selected_frequency_pack.provider if selected_frequency_pack else None,
             admission_pos_weights=resolve_default_pos_weights(language_pair=capability.pair),
         ),
     )

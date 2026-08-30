@@ -201,7 +201,11 @@ class TestSrsAdmissionLabServer(unittest.TestCase):
         )
         self.assertEqual(
             topic_by_id["plants_nature"]["mvp_picker_visibility"],
-            "future_beta_hidden",
+            "strict_mvp_visible",
+        )
+        self.assertEqual(
+            topic_by_id["travel_places_transport"]["mvp_picker_visibility"],
+            "strict_mvp_visible",
         )
         self.assertIn("medicine", topic_by_id["medicine_health"]["runtime_aliases"])
 
@@ -279,19 +283,23 @@ class TestSrsAdmissionLabServer(unittest.TestCase):
         self.assertTrue(response["ok"])
         self.assertEqual(response["neutral"]["top_lemmas"][0], "alpha")
         self.assertEqual(response["preference"]["top_lemmas"][0], "beta")
-        self.assertEqual(response["preference"]["admitted_words"][0]["difficulty_estimate"], 0.004)
+        self.assertAlmostEqual(
+            response["preference"]["admitted_words"][0]["difficulty_estimate"],
+            0.475,
+            places=3,
+        )
         self.assertEqual(response["preference"]["admitted_words"][0]["pos_raw"], "n")
         self.assertEqual(response["preference"]["admitted_words"][0]["pos_canonical"], "noun")
         self.assertEqual(
             response["preference"]["admitted_words"][0]["pos_matched_rule"],
             "freq-es-cde_compact:n",
         )
-        self.assertEqual(response["preference"]["admitted_words"][0]["proficiency_fit"], 1.0)
-        self.assertLess(response["preference"]["admitted_words"][0]["readiness_multiplier"], 0.20)
-        self.assertEqual(
-            response["preference"]["admitted_words"][0]["penalties"],
-            ["readiness_gate"],
+        self.assertGreater(
+            response["preference"]["admitted_words"][0]["proficiency_fit"],
+            0.95,
         )
+        self.assertEqual(response["preference"]["admitted_words"][0]["readiness_multiplier"], 1.0)
+        self.assertEqual(response["preference"]["admitted_words"][0]["penalties"], [])
         self.assertEqual(response["preference"]["topic_mover_count"], 1)
         self.assertEqual(
             response["preference"]["profile_topic_overlay"]["application_status"],

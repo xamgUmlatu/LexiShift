@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-08-27T04:03:02.696315+00:00",
+  "fixture": {
+    "kind": "generated_yomitan_format_3",
+    "bank_count": 8,
+    "terms_per_bank": 25000,
+    "term_count": 200000,
+    "archive_bytes": 2095367,
+    "third_party_data": false
+  },
+  "environment": {
+    "python": "3.10.16",
+    "platform": "macOS-26.6-arm64-arm-64bit"
+  },
+  "timings_ms": {
+    "fixture_generation": 286.015,
+    "initial_import": 1263.685,
+    "repeat_import": 2.287,
+    "lookup": {
+      "repetitions": 100,
+      "median": 0.142,
+      "p95": 0.228,
+      "maximum": 0.536
+    },
+    "cancel_after_first_bank": 150.541
+  },
+  "correctness": {
+    "term_count_matches": true,
+    "all_banks_reported": true,
+    "repeat_import_reused_pack": true,
+    "lookups_succeeded": true,
+    "cancellation_observed": true,
+    "cancellation_cleaned_up": true
+  },
+  "diagnostics": {
+    "lookup_failures": [],
+    "cancellation_leftovers": []
+  },
+  "performance_budget_failures": []
+}

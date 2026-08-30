@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-05-14
-Last verified: 2026-05-14 metadata-only Lane 1 normalization; preflight command not rerun
+Last updated: 2026-08-31
+Last verified: 2026-08-31 Chrome Web Store production ID wiring and preflight rerun
 Purpose: define the mandatory lightweight gate before a Chrome Web Store upload
 Source-of-truth: operational runbook; current command behavior lives in `scripts/package.json` and the preflight implementation.
 
@@ -30,6 +30,15 @@ What it checks:
 - literal remote URL presence warnings
 - package noise (`.DS_Store`, temp files)
 
+After the gate passes, build the upload package:
+
+```bash
+npm --prefix scripts run package:cws -- --version 0.1.1
+```
+
+The command emits a deterministic ZIP and adjacent `.sha256` file under
+`dist/cws/`. Upload the ZIP, not the containing directory.
+
 Report output:
 - Markdown report under:
   - `docs/runbooks/cws_preflight_reports/`
@@ -47,10 +56,13 @@ Before upload, confirm all:
 - [ ] Privacy policy and store listing text match actual data behavior (especially local sensitive data handling).
 - [ ] Helper onboarding was tested in both states: helper available and helper unavailable.
 - [ ] Final package is clean (no debug artifacts, no temporary/system files).
+- [ ] Final package SHA-256 is recorded from the adjacent generated checksum file.
 
 ## Notes for current project state
 
-- Fixed helper extension IDs in `apps/gui/resources/helper_extension_ids.json` must be non-placeholder for production upload.
+- Chrome and Brave production helper connections use the same Chrome Web Store
+  package ID in `apps/gui/resources/helper_extension_ids.json`; unpacked
+  development connections continue to accept user-supplied IDs.
 - Sentence-history data policy is currently conservative:
   - default OFF
   - no URL retention in sentence/history records

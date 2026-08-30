@@ -59,21 +59,32 @@ def resolve_configured_frequency_pack(
     if default_db_path is None:
         return None, "no_default_declared"
 
-    default_name = default_db_path.name
-    default_pack_id = (
-        Path(capability.default_frequency_db).stem if capability.default_frequency_db else ""
+    declared_filenames = tuple(
+        name
+        for name in (
+            capability.default_frequency_db,
+            *tuple(getattr(capability, "fallback_frequency_dbs", ()) or ()),
+        )
+        if name
     )
     managed_pack_ids = {str(value).strip() for value in tuple(managed_frequency_pack_ids) if value}
 
-    if default_pack_id and default_pack_id in managed_pack_ids:
-        managed = resolve_installed_pack_artifact(frequency_packs_dir, default_pack_id)
+    for declared_filename in declared_filenames:
+        pack_id = Path(declared_filename).stem
+        if not pack_id or pack_id not in managed_pack_ids:
+            continue
+        managed = resolve_installed_pack_artifact(frequency_packs_dir, pack_id)
         if managed is not None and managed.is_file():
-            return build_frequency_pack_ref(capability.pair, managed), f"managed:{default_pack_id}"
+            return build_frequency_pack_ref(capability.pair, managed), f"managed:{pack_id}"
 
     lookup_keys: list[str] = []
-    if default_name.endswith(".sqlite"):
-        lookup_keys.append(default_name[: -len(".sqlite")])
-    lookup_keys.append(default_name)
+    for declared_filename in declared_filenames or (default_db_path.name,):
+        name = str(declared_filename or "").strip()
+        if not name:
+            continue
+        if name.endswith(".sqlite"):
+            lookup_keys.append(name[: -len(".sqlite")])
+        lookup_keys.append(name)
 
     configured_paths = dict(settings_frequency_pack_paths or {})
     for key in lookup_keys:
@@ -84,14 +95,31 @@ def resolve_configured_frequency_pack(
         if candidate.is_file():
             return build_frequency_pack_ref(capability.pair, candidate), f"linked:{key}"
         if candidate.is_dir():
-            nested = candidate / default_name
-            if nested.is_file():
-                return build_frequency_pack_ref(capability.pair, nested), f"linked_dir:{key}"
+            for nested_name in _candidate_nested_frequency_names(
+                default_db_path=default_db_path,
+                declared_filenames=declared_filenames,
+            ):
+                nested = candidate / nested_name
+                if nested.is_file():
+                    return build_frequency_pack_ref(capability.pair, nested), f"linked_dir:{key}"
 
     fallback = default_db_path.expanduser().resolve(strict=False)
     if fallback.is_file():
         return build_frequency_pack_ref(capability.pair, fallback), "fallback_default"
     return None, "missing"
+
+
+def _candidate_nested_frequency_names(
+    *,
+    default_db_path: Path,
+    declared_filenames: Sequence[str],
+) -> tuple[str, ...]:
+    names: list[str] = []
+    for name in ("main.sqlite", default_db_path.name, *tuple(declared_filenames)):
+        normalized = str(name or "").strip()
+        if normalized and normalized not in names:
+            names.append(normalized)
+    return tuple(names)
 
 
 def _infer_frequency_pack_id(path: Path, *, manifest_pack_id: str | None = None) -> str:
@@ -115,7 +143,14 @@ def _infer_frequency_pack_provider(
     if manifest_provider:
         return str(manifest_provider).strip().lower()
     normalized = str(pack_id or "").strip().lower()
-    if normalized in {"freq-en-coca", "freq-ja-bccwj", "freq-es-cde", "freq-de-default"}:
+    if normalized in {
+        "freq-en-coca",
+        "freq-ja-bccwj",
+        "freq-es-cde",
+        "freq-es-spalex-v1",
+        "freq-de-default",
+        "freq-en-leipzig-default",
+    }:
         return normalized
     return normalized or "frequency"
 
@@ -128,6 +163,10 @@ def _infer_frequency_pos_source_profile(pack_id: str, *, provider: str) -> str:
         return "compact-latin"
     if normalized == "freq-es-cde":
         return "freq-es-cde"
+    if normalized == "freq-es-spalex-v1":
+        return "spalex_only_v1"
     if normalized == "freq-de-default":
         return "freq-de-default"
+    if normalized == "freq-en-leipzig-default":
+        return "generic"
     return provider

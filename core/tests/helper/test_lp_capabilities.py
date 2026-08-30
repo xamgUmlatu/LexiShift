@@ -12,6 +12,10 @@ if PROJECT_ROOT not in sys.path:
 
 from lexishift_core.helper.lp_capabilities import (  # noqa: E402
     default_frequency_db_path,
+    default_japanese_lesson_vocabulary_path,
+    default_jmdict_path,
+    default_jlpt_vocabulary_path,
+    default_kanjivg_path,
     default_reverse_translation_dictionary_path,
     default_translation_dictionary_path,
     known_pairs,
@@ -146,6 +150,115 @@ class TestLpCapabilities(unittest.TestCase):
 
         self.assertTrue(requirements["requires_translation_dictionary_for_rulegen"])
 
+    def test_en_ja_default_jmdict_prefers_managed_installed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            artifact = language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_text("<JMdict/>", encoding="utf-8")
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="jmdict-ja-en",
+                pack_kind="language",
+                provider="jmdict",
+                local_kind="file",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="JMdict_e.gz",
+                required_files=("JMdict_e",),
+            )
+
+            resolved = default_jmdict_path("en-ja", language_packs_dir=language_packs_dir)
+
+        self.assertEqual(resolved, artifact)
+
+    def test_en_ja_default_jmdict_finds_manifestless_managed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            artifact = language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_text("<JMdict/>", encoding="utf-8")
+
+            resolved = default_jmdict_path("en-ja", language_packs_dir=language_packs_dir)
+
+        self.assertEqual(resolved, artifact)
+
+    def test_en_ja_default_jmdict_keeps_legacy_root_fallback(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            resolved = default_jmdict_path("en-ja", language_packs_dir=language_packs_dir)
+
+        self.assertEqual(resolved, language_packs_dir / "JMdict_e")
+
+    def test_en_ja_default_kanjivg_prefers_managed_installed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            artifact = language_packs_dir / "kanjivg-ja" / "kanjivg-20250816.xml"
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_text("<kanjivg/>", encoding="utf-8")
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="kanjivg-ja",
+                pack_kind="language",
+                provider="kanjivg",
+                local_kind="dir",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="kanjivg-20250816.xml.gz",
+                required_files=("kanjivg-20250816.xml",),
+            )
+
+            resolved = default_kanjivg_path("en-ja", language_packs_dir=language_packs_dir)
+
+        self.assertEqual(resolved, artifact)
+
+    def test_en_ja_default_jlpt_vocab_prefers_managed_installed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            artifact = language_packs_dir / "jlpt-tanos-vocab-ja" / "JLPT_vocab_ALL.csv"
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_text("Kanji,Reading,Level\n猫,ねこ,5\n", encoding="utf-8")
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="jlpt-tanos-vocab-ja",
+                pack_kind="language",
+                provider="tanos",
+                local_kind="file",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="JLPT_vocab_ALL.csv",
+            )
+
+            resolved = default_jlpt_vocabulary_path(
+                "en-ja",
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertEqual(resolved, artifact)
+
+    def test_en_ja_default_lesson_vocab_prefers_managed_installed_pack_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            artifact = language_packs_dir / "sbsjapanese1-ja"
+            (artifact / "EPUB").mkdir(parents=True, exist_ok=True)
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="sbsjapanese1-ja",
+                pack_kind="language",
+                provider="utsa_pressbooks",
+                local_kind="dir",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="sbsjapanese1.zip",
+            )
+
+            resolved = default_japanese_lesson_vocabulary_path(
+                "en-ja",
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertEqual(resolved, artifact)
+
     def test_en_de_default_reverse_dictionary_uses_english_headword_direction(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)
@@ -255,22 +368,22 @@ class TestLpCapabilities(unittest.TestCase):
             )
         self.assertEqual(resolved, artifact)
 
-    def test_en_en_default_frequency_db_prefers_manifest_backed_pack_artifact(self) -> None:
+    def test_en_en_default_frequency_db_prefers_manifest_backed_leipzig_pack_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             frequency_packs_dir = Path(tmp)
-            pack_root = frequency_packs_dir / "freq-en-coca"
+            pack_root = frequency_packs_dir / "freq-en-leipzig-default"
             pack_root.mkdir(parents=True, exist_ok=True)
             artifact = pack_root / "main.sqlite"
             artifact.write_bytes(b"SQLite format 3\x00")
             write_installed_pack_manifest(
                 frequency_packs_dir,
-                pack_id="freq-en-coca",
+                pack_id="freq-en-leipzig-default",
                 pack_kind="frequency",
-                provider="wordfrequency",
+                provider="leipzig wortschatz",
                 local_kind="file",
-                build_mode="convert_archive",
+                build_mode="en_frequency_pipeline",
                 artifact_path=artifact,
-                source_filename="lemmas_60k.txt",
+                source_filename="eng_news_2025_1M.tar.gz",
                 sqlite_filename="main.sqlite",
             )
             resolved = default_frequency_db_path(
@@ -313,7 +426,50 @@ class TestLpCapabilities(unittest.TestCase):
                 "en-en",
                 frequency_packs_dir=frequency_packs_dir,
             )
-        self.assertEqual(resolved, frequency_packs_dir / "freq-en-coca.sqlite")
+        self.assertEqual(resolved, frequency_packs_dir / "freq-en-leipzig-default.sqlite")
+
+    def test_en_en_default_frequency_db_uses_coca_fallback_when_present(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            frequency_packs_dir = Path(tmp)
+            fallback = frequency_packs_dir / "freq-en-coca.sqlite"
+            fallback.write_bytes(b"SQLite format 3\x00")
+            resolved = default_frequency_db_path(
+                "en-en",
+                frequency_packs_dir=frequency_packs_dir,
+            )
+        self.assertEqual(resolved, fallback)
+
+    def test_en_es_default_frequency_db_uses_spalex_candidate_filename(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            frequency_packs_dir = Path(tmp)
+            resolved = default_frequency_db_path(
+                "en-es",
+                frequency_packs_dir=frequency_packs_dir,
+            )
+        self.assertEqual(resolved, frequency_packs_dir / "freq-es-spalex-v1.sqlite")
+
+    def test_en_es_default_frequency_db_ignores_installed_legacy_cde(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            frequency_packs_dir = Path(tmp)
+            cde_pack_root = frequency_packs_dir / "freq-es-cde"
+            cde_pack_root.mkdir(parents=True, exist_ok=True)
+            cde_artifact = cde_pack_root / "main.sqlite"
+            cde_artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                frequency_packs_dir,
+                pack_id="freq-es-cde",
+                pack_kind="frequency",
+                provider="freq-es-cde",
+                local_kind="file",
+                build_mode="convert_archive",
+                artifact_path=cde_artifact,
+                sqlite_filename="main.sqlite",
+            )
+            resolved = default_frequency_db_path(
+                "en-es",
+                frequency_packs_dir=frequency_packs_dir,
+            )
+        self.assertEqual(resolved, frequency_packs_dir / "freq-es-spalex-v1.sqlite")
 
 
 if __name__ == "__main__":

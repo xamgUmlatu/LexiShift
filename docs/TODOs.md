@@ -2,8 +2,8 @@
 
 Status: Active backlog
 Role: Planning / WIP
-Last updated: 2026-03-26
-Last verified: 2026-05-14 metadata-only Lane 1 normalization; backlog content not re-audited
+Last updated: 2026-08-27
+Last verified: 2026-08-27 beta integration, Python/build-install health tooling, and full typecheck-gate restoration; older backlog content not globally re-audited
 Purpose: consolidated product and architecture backlog retained after root README cleanup
 Source-of-truth: backlog planning only; current implementation truth lives in source code, tests, and `docs/developer/feature_state_matrix.md`.
 
@@ -95,6 +95,209 @@ Acceptance criteria:
 - Interactive SRS controls fail fast with actionable error text while helper is down.
 - Feedback generated during helper downtime is retained and eventually synced after recovery.
 - Service worker wake/idle cycles do not lose queued feedback.
+
+## Post-Current-Workstream Beta Infrastructure And Dictionary Follow-Ups
+
+Captured on 2026-08-26 after implementing local Yomitan dictionary import,
+per-language-pair ordered lookup stacks, acquisition guidance, and packaged GUI
+validation. The dictionary branch was integrated with the SRS beta checkpoint
+on 2026-08-27; the remaining tasks can now resume from the combined beta branch.
+
+### Highest-priority infrastructure
+
+#### INFRA-01: Make the Python development and hook environment reproducible — completed 2026-08-27
+
+Problem:
+- Repository launchers currently fall through to the first available `python3`
+  when no repository virtual environment is present.
+- A verified dictionary change hit a false-negative pre-push failure because
+  Homebrew Python 3.14 did not have the project's `fsrs` dependency, while the
+  focused suite and packaged build passed under the supported Python 3.10
+  environment.
+
+Completed work:
+- Declared Python 3.10.16 as the preferred repository patch and Python 3.10.x
+  as the supported workflow line, matching hosted CI.
+- Added one-command development/build `.venv` setup and read-only checks with
+  exact direct dependency pins.
+- Made Python-backed npm workflows and the feature-state hook use the same
+  version-gated launcher instead of silently selecting an unrelated system
+  interpreter.
+- Verified a real clean build-environment bootstrap and full packaged build.
+
+Acceptance criteria:
+- A fresh contributor setup creates the supported environment with one
+  documented command.
+- `npm --prefix scripts run check` and the pre-push hook select the same Python
+  environment.
+- Interpreter drift no longer requires `--no-verify`; the repository typecheck
+  gate is green under the same environment.
+
+#### INFRA-02: Finish packaged GUI startup diagnosis and remove blocking work — completed 2026-08-27
+
+Owning plan:
+- `docs/developer/packaged_gui_startup_performance_plan.md`
+
+Resolved problem:
+- Recent packaged resource-settings launches recorded approximately 224 and
+  487 seconds inside `MainWindow` construction. Fine-grained checkpoints and a
+  process stack sample isolated the current-machine hang to synchronous
+  `QPixmap` file opening for an active custom-theme image under `~/Downloads`;
+  installed dictionary/resource inventory construction was not the blocker.
+
+Completed work:
+- Added fine-grained startup checkpoints around `MainWindow` construction and
+  resource-panel initialization, plus structured checkpoint extraction in the
+  packaged measurement artifact.
+- Moved custom-theme image file reads and decoding to a shared daemon loader so
+  protected, unavailable, or slow external image paths cannot block the GUI
+  thread. Requests are deduplicated, stale results are ignored, and source
+  payloads are bounded at 64 MiB.
+- Reused and focused an already-visible Settings dialog for repeated
+  resource-settings activation instead of constructing nested modal dialogs.
+- Added exact app-PID cleanup, p95 reporting, and optional median/p95 budget
+  enforcement to repeatable packaged measurements.
+- Rebuilt and installed both app bundles without replacing Application Support.
+  Three installed cold launches to `settings_dialog.shown` passed at 1573.5 ms
+  median / 2313.8 ms measured p95; three already-running activations passed at
+  254.4 ms median / 743.3 ms measured p95.
+
+Acceptance criteria:
+- The responsible blocking operation is identified with checkpoint evidence.
+- Resource Settings meets the targets in the owning startup-performance plan,
+  or a current-machine exception is explicitly documented.
+- Large installed dictionaries do not make the application appear dead.
+
+Verification evidence:
+- `docs/test_outputs/dev_workflow/gui_startup_performance_open_latest.json`
+- `docs/test_outputs/dev_workflow/gui_startup_performance_activation_latest.json`
+- Installed-bundle build/validation and 66 focused GUI/startup tests passed.
+
+#### INFRA-03: Add one-command macOS build, install, verify, and relaunch — completed 2026-08-27
+
+Problem:
+- The current manual PyInstaller, quit, `ditto`, comparison, and relaunch flow
+  is error-prone; macOS can retain the previous application process during a
+  bundle replacement.
+
+Implemented work:
+- Added supported package commands that build and validate both bundles, stop
+  only executables running from the selected install directory, wait for clean
+  exit, stage replacements, validate the installed copies, and optionally
+  relaunch the main app.
+- Kept app-bundle replacement separate from Application Support so user data is
+  not part of the install operation.
+- Added focused process-targeting, replacement, user-data preservation, and
+  workflow-contract tests; the pinned-environment packaged build passes.
+
+Acceptance criteria:
+- One documented command produces and launches the same bundle that passed
+  validation.
+- The command detects a stale running process and reports each lifecycle step.
+- Verification does not rely on recursive directory comparison that follows
+  framework symlink loops.
+
+Completed verification:
+- Ran the install workflow repeatedly against `/Applications`; installed bundle
+  validation passed, the live app opened with the existing custom theme and
+  dictionary data, and the user confirmed the preserved-data smoke.
+
+#### INFRA-04: Restore a fully green repository typecheck gate — completed 2026-08-27
+
+Problem:
+- The pinned, supported environment removed interpreter/tool-version drift and
+  exposed 8 mypy errors at NumPy `.tolist()` boundaries in two `en-es`
+  compiled-scoring files.
+
+Completed work:
+- Added explicit, runtime-neutral narrowing for arrays whose one-dimensional
+  shapes and scalar dtypes were already established by construction.
+- Ran the required `en-es` benchmark, quality gate, triage extraction, and
+  focused scoring tests. Benchmark metrics remained at the known baseline; the
+  separately tracked rulegen quality-floor policy remains red.
+- Verified the full repository safety gate, including all 838 tests, mypy over
+  188 source files, strict style, Windows parity, docs, and LP conformance.
+
+Acceptance criteria:
+- `npm --prefix scripts run check` completes normally in the bootstrapped
+  environment.
+- Ordinary pre-push operation no longer needs a type-debt exception.
+
+### Dictionary resilience and maintainability
+
+#### DICT-01: Add a redistributable large-dictionary performance fixture — completed 2026-08-27
+
+Implementation TODO:
+- Generate a synthetic Yomitan format-3 archive large enough to exercise
+  multi-bank import, indexing, repeat import, lookup, and cancellation costs.
+- Add bounded import/lookup performance reporting without committing commercial
+  dictionary data or using local Daijirin files as CI inputs.
+
+Completed work:
+- Added a deterministic Yomitan format-3 generator and local quality command
+  covering multi-bank import/indexing, exact repeat import, lookup latency,
+  cancellation, and partial-install cleanup.
+- Kept correctness failures unconditional while making machine-sensitive timing
+  budgets explicit opt-ins for stable local or CI runners.
+- Documented the command and retained-artifact option in
+  `docs/developer/yomitan_dictionary_performance.md`.
+
+#### DICT-02: Add dictionary health, recovery, and source visibility — completed 2026-08-27
+
+Implementation TODO:
+- Detect missing, incompatible, or corrupt installed dictionary artifacts and
+  offer a clear reimport/repair path.
+- Preserve the compact dictionary title already shown with displayed
+  definitions, and add clearer source/health details where recovery requires
+  them without exposing local filesystem paths.
+- Consider exporting/importing dictionary-stack assignments while explicitly
+  excluding dictionary contents.
+
+Completed work:
+- Added bounded metadata, manifest, path, schema, and SQLite readability probes.
+  Settings starts them only after the panel renders, on a daemon worker; normal
+  popup lookup and app startup do not hash archives, walk dictionary trees, or
+  run database integrity scans.
+- Added learner-facing Healthy, Needs repair, and Incompatible states without
+  showing managed filesystem paths. Broken configured dictionaries are removed
+  from the usable stack after the check and continue to fall through safely.
+- Added a confirmed Reimport flow that requires the same original ZIP, rebuilds
+  and validates a staged local copy, atomically replaces managed files, keeps
+  all language-pair assignments, and never changes the user's source ZIP.
+- Kept compact popup source-title behavior unchanged. Export/import of stack
+  assignments remains a separate backup/portability UX decision; dictionary
+  contents would remain excluded if that workflow is added.
+
+### Completed integration checkpoint
+
+#### INTEGRATION-01: Merge the dictionary work into the beta line while fresh — completed 2026-08-27
+
+Completed work:
+- Merged the coherent dictionary history into `codex/beta-integration` with the
+  SRS beta checkpoint as the other parent.
+- Passed the combined focused dictionary/word-info/extension suite, changed-file
+  gate, feature-state audit, SRS quality harness, and validated packaged build.
+- Preserved prior real-extension testing of import, per-pair ordering,
+  first-match fallback, and displayed source identity; final release-candidate
+  smoke remains part of the CWS upload checklist.
+
+Recorded outcome:
+- Dictionary, popup, sentence-density, and beta-release work coexist on one
+  tested integration branch.
+- The single feature-state merge conflict was resolved from current product
+  intent, and the missing cited SRS evidence artifact was regenerated and
+  committed.
+
+### Deliberately deferred dictionary expansion
+
+Do not treat the following as beta blockers unless testing reveals a concrete
+need:
+- merging definitions from multiple dictionaries instead of first-match
+  fallback;
+- Yomitan image/media import;
+- per-profile dictionary stacks instead of the current global-per-pair model;
+- a full curated in-app dictionary catalogue or automatic commercial-data
+  download flow.
 
 ## Backlog Migrated From README
 

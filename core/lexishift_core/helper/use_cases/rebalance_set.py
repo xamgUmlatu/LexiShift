@@ -9,6 +9,9 @@ from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput
+from lexishift_core.helper.use_cases.rule_availability import (
+    reconcile_active_items_without_enabled_rules,
+)
 from lexishift_core.lexicon.word_package import (
     normalize_word_package,
     resolve_language_tag_from_pair,
@@ -26,6 +29,11 @@ from lexishift_core.srs import (
     set_active_item_ids,
 )
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
+from lexishift_core.srs.pos_overlay import (
+    PosOverlayRef,
+    pos_overlay_resource_payload,
+    resolve_pair_pos_overlay,
+)
 from lexishift_core.srs.rebalance import (
     SOURCE_KIND_NEW_SEED,
     SrsRebalancePlan,
@@ -48,12 +56,14 @@ class _RebalanceContext(TypedDict):
     inventory_source: str
     active_item_ids_before: tuple[str, ...]
     existing_items_for_pair: int
-    resolved_set_top_n: int
+    resolved_set_top_n: Optional[int]
     resolved_jmdict_path: Path | None
     resolved_translation_dict_path: Path | None
     resolved_set_source_db: Path
     resolved_frequency_pack: FrequencyPackRef | None
+    resolved_pos_overlay: PosOverlayRef | None
     stopwords_path: Path | None
+    seed_cache_dir: Path
     signal_summary: Mapping[str, object]
     plan_payload: Mapping[str, object]
     max_active_items: int
@@ -87,7 +97,7 @@ def plan_srs_rebalance(
     paths: HelperPaths,
     *,
     config,
-    resolve_pair_set_top_n_fn: Callable[..., int],
+    resolve_pair_set_top_n_fn: Callable[..., Optional[int]],
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
@@ -124,7 +134,7 @@ def apply_srs_rebalance(
     paths: HelperPaths,
     *,
     config,
-    resolve_pair_set_top_n_fn: Callable[..., int],
+    resolve_pair_set_top_n_fn: Callable[..., Optional[int]],
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
@@ -194,6 +204,8 @@ def apply_srs_rebalance(
 
     inventory_updated_at = None
     published_rulegen = None
+    rule_availability_reconciliation = None
+    reconciled_active_item_ids = tuple(rebalance_plan.proposed_active_item_ids)
     applied = bool(inventory_changed or inserted_items)
     if applied:
         inventory_updated_at = now_utc().isoformat()
@@ -220,6 +232,9 @@ def apply_srs_rebalance(
                 max_definitions_per_target=effective_rulegen_tuning.max_definitions_per_target,
                 max_rules_per_target=effective_rulegen_tuning.max_rules_per_target,
                 semantic_demotion_scale=effective_rulegen_tuning.semantic_demotion_scale,
+                enable_source_frequency_prior=(
+                    effective_rulegen_tuning.source_frequency_prior_enabled
+                ),
                 include_variants=effective_rulegen_tuning.include_variants,
                 allow_multiword_glosses=effective_rulegen_tuning.allow_multiword_glosses,
                 scoring=effective_rulegen_tuning.scoring,
@@ -232,6 +247,22 @@ def apply_srs_rebalance(
             initialize_if_empty=False,
             persist_store=False,
         )
+        (
+            updated_store,
+            updated_inventory,
+            rule_availability_reconciliation,
+        ) = reconcile_active_items_without_enabled_rules(
+            store=updated_store,
+            inventory=updated_inventory,
+            pair=context["pair"],
+            active_item_ids=rebalance_plan.proposed_active_item_ids,
+            rules=rulegen_output.rules,
+            last_rebalanced_at=inventory_updated_at,
+        )
+        if rule_availability_reconciliation.changed:
+            reconciled_active_item_ids = rule_availability_reconciliation.active_item_ids_after
+            save_srs_store(updated_store, paths.srs_store_path_for(context["profile_id"]))
+            save_srs_inventory(updated_inventory, context["inventory_path"])
         write_rulegen_outputs_fn(
             paths=paths,
             pair=context["pair"],
@@ -274,6 +305,11 @@ def apply_srs_rebalance(
                 if getattr(rulegen_output, "semantic_inventory", None) is not None
                 else None
             ),
+            "rule_availability_reconciliation": (
+                rule_availability_reconciliation.to_dict()
+                if rule_availability_reconciliation is not None
+                else None
+            ),
         }
     preview_payload["applied"] = applied
     preview_payload["inserted_items"] = inserted_items
@@ -284,7 +320,7 @@ def apply_srs_rebalance(
     preview_payload["inventory"] = {
         "path": str(context["inventory_path"]),
         "exists": bool(applied or context["inventory_path"].exists()),
-        "active_items_for_pair": len(rebalance_plan.proposed_active_item_ids),
+        "active_items_for_pair": len(reconciled_active_item_ids),
         "source": context["inventory_source"],
         "updated_at": inventory_updated_at,
     }
@@ -296,7 +332,7 @@ def _prepare_rebalance_context(
     *,
     paths: HelperPaths,
     config,
-    resolve_pair_set_top_n_fn: Callable[..., int],
+    resolve_pair_set_top_n_fn: Callable[..., Optional[int]],
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
@@ -342,6 +378,7 @@ def _prepare_rebalance_context(
         pair=pair,
         set_source_db=resolved_set_source_db,
     )
+    resolved_pos_overlay = resolve_pair_pos_overlay(paths, pair=pair)
 
     profile_id = resolve_profile_id_fn(
         paths,
@@ -393,7 +430,9 @@ def _prepare_rebalance_context(
         "resolved_translation_dict_path": resolved_translation_dict_path,
         "resolved_set_source_db": resolved_set_source_db,
         "resolved_frequency_pack": resolved_frequency_pack,
+        "resolved_pos_overlay": resolved_pos_overlay,
         "stopwords_path": stopwords_path,
+        "seed_cache_dir": paths.srs_seed_frontier_cache_dir(),
         "signal_summary": signal_summary,
         "plan_payload": plan_payload,
         "max_active_items": max_active_items,
@@ -412,12 +451,14 @@ def _build_rebalance_preview_payload(
     inventory_source: str,
     active_item_ids_before: Sequence[str],
     existing_items_for_pair: int,
-    resolved_set_top_n: int,
+    resolved_set_top_n: Optional[int],
     resolved_jmdict_path: Optional[Path],
     resolved_translation_dict_path: Optional[Path],
     resolved_set_source_db: Path,
     resolved_frequency_pack: FrequencyPackRef | None,
+    resolved_pos_overlay: PosOverlayRef | None,
     stopwords_path: Optional[Path],
+    seed_cache_dir: Path,
     signal_summary: Mapping[str, object],
     plan_payload: Mapping[str, object],
     max_active_items: int,
@@ -429,6 +470,7 @@ def _build_rebalance_preview_payload(
         resolved_set_source_db=resolved_set_source_db,
         resolved_frequency_pack=resolved_frequency_pack,
     )
+    frequency_resource_payload.update(pos_overlay_resource_payload(resolved_pos_overlay))
     plan_payload_dict = dict(plan_payload)
     payload: dict[str, object] = {
         "pair": pair,
@@ -487,6 +529,9 @@ def _build_rebalance_preview_payload(
             jmdict_path=resolved_jmdict_path,
             stopwords_path=stopwords_path,
             require_jmdict=resolve_pair_capability(pair).requires_jmdict_for_seed,
+            source_label=resolved_frequency_pack.provider if resolved_frequency_pack else None,
+            pos_overlay_path=resolved_pos_overlay.path if resolved_pos_overlay else None,
+            cache_dir=seed_cache_dir,
         ),
     )
     rebalance_plan = build_rebalance_plan(

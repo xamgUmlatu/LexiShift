@@ -55,6 +55,12 @@
     return { startWordIndex: startIndex, endWordIndex: bestEnd, rule: bestRule };
   }
 
+  function titleCaseReplacement(replacement) {
+    return String(replacement).replace(/(^|[^\p{L}\p{M}\p{N}_])(\p{L})/gu, (_match, prefix, letter) => (
+      `${prefix}${letter.toUpperCase()}`
+    ));
+  }
+
   function applyCase(replacement, sourceWords, policy) {
     if (policy === "as-is") {
       return replacement;
@@ -66,7 +72,7 @@
       return replacement.toUpperCase();
     }
     if (policy === "title") {
-      return replacement.replace(/\b\w/g, (m) => m.toUpperCase());
+      return titleCaseReplacement(replacement);
     }
     if (policy === "match") {
       const sourceText = sourceWords.join(" ");
@@ -74,7 +80,7 @@
         return replacement.toUpperCase();
       }
       if (sourceWords.length && sourceWords[0][0] && sourceWords[0][0] === sourceWords[0][0].toUpperCase()) {
-        return replacement.replace(/\b\w/g, (m) => m.toUpperCase());
+        return titleCaseReplacement(replacement);
       }
     }
     return replacement;
@@ -93,5 +99,5 @@
     }));
   }
 
-  root.matcher = { buildTrie, findLongestMatch, applyCase, normalizeRules };
+  root.matcher = { buildTrie, findLongestMatch, applyCase, normalizeRules, titleCaseReplacement };
 })();

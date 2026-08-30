@@ -13,6 +13,9 @@
     const setCurrentSettings = typeof opts.setCurrentSettings === "function"
       ? opts.setCurrentSettings
       : (() => {});
+    const setActiveRules = typeof opts.setActiveRules === "function"
+      ? opts.setActiveRules
+      : (() => {});
     const resetProcessedNodes = typeof opts.resetProcessedNodes === "function"
       ? opts.resetProcessedNodes
       : (() => {});
@@ -140,6 +143,7 @@
       if (!isTokenCurrent()) {
         return { stale: true };
       }
+      setActiveRules(activeRules);
 
       const focusWord = getFocusWord(nextSettings);
       const focusRulesCount = focusWord

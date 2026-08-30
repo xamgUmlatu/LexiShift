@@ -35,15 +35,28 @@ class LanguagePackPanelLayoutMixin:
         description.setWordWrap(True)
         layout.addWidget(description)
 
-        add_row = QHBoxLayout()
-        self._learning_pair_combo = QComboBox(tab)
+        add_row_container = QWidget(tab)
+        add_row = QHBoxLayout(add_row_container)
+        add_row.setContentsMargins(0, 0, 0, 0)
+        self._learning_pair_add_row_container = add_row_container
+        self._learning_pair_combo = QComboBox(add_row_container)
         self._populate_learning_pair_combo()
         add_row.addWidget(self._learning_pair_combo, 1)
-        add_button = QPushButton(t("language_packs.learning_pairs.add_pair"), tab)
+        add_button = QPushButton(t("language_packs.learning_pairs.add_pair"), add_row_container)
         add_button.clicked.connect(self._add_selected_learning_pair)
         self._learning_pair_add_button = add_button
+        self._sync_learning_pair_add_controls()
         add_row.addWidget(add_button)
-        layout.addLayout(add_row)
+        layout.addWidget(add_row_container)
+
+        self._learning_pair_add_status_label = QLabel(
+            t("language_packs.learning_pairs.all_pairs_added"),
+            tab,
+        )
+        self._learning_pair_add_status_label.setProperty("resourceDescription", True)
+        self._learning_pair_add_status_label.setWordWrap(True)
+        layout.addWidget(self._learning_pair_add_status_label)
+        self._sync_learning_pair_add_controls()
 
         self._learning_pair_empty_label = QLabel(
             t("language_packs.learning_pairs.empty"),

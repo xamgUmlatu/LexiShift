@@ -1,43 +1,39 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const helperErrorCopy = root.helperErrorCopy;
+  const sourceIndexCache = root.helperSourceIndexCache;
+  const sourceIndexCacheFns = ["requestOptions", "optionsKey", "withMetadata", "isUsable"];
+  const missingSourceIndexCache = !sourceIndexCache
+    || sourceIndexCacheFns.some((name) => typeof sourceIndexCache[name] !== "function");
 
   if (
     !helperErrorCopy
     || typeof helperErrorCopy.normalizeHelperErrorMessage !== "function"
     || typeof helperErrorCopy.normalizeHelperThrownErrorMessage !== "function"
+    || missingSourceIndexCache
   ) {
-    throw new Error("[LexiShift][Content] Missing shared helper error copy.");
+    throw new Error("[LexiShift][Content] Missing shared helper runtime dependencies.");
   }
 
   function createRuntime(options) {
     const opts = options && typeof options === "object" ? options : {};
-    const getHelperClient = typeof opts.getHelperClient === "function"
-      ? opts.getHelperClient
-      : (() => null);
-    const helperCache = opts.helperCache && typeof opts.helperCache === "object"
-      ? opts.helperCache
-      : null;
+    const getHelperClient = typeof opts.getHelperClient === "function" ? opts.getHelperClient : (() => null);
+    const helperCache = opts.helperCache && typeof opts.helperCache === "object" ? opts.helperCache : null;
     const normalizeProfileId = typeof opts.normalizeProfileId === "function"
-      ? opts.normalizeProfileId
-      : (value) => String(value || "").trim() || "default";
+      ? opts.normalizeProfileId : (value) => String(value || "").trim() || "default";
     const tagRulesWithOrigin = typeof opts.tagRulesWithOrigin === "function"
-      ? opts.tagRulesWithOrigin
-      : (rules) => (Array.isArray(rules) ? rules : []);
+      ? opts.tagRulesWithOrigin : (rules) => (Array.isArray(rules) ? rules : []);
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const helperRulesCache = new Map();
     const helperSemanticInventoryCache = new Map();
+    const helperBrowsingSourceIndexCache = new Map();
 
     function normalizeHelperMessage(error, fallbackText) {
-      return helperErrorCopy.normalizeHelperErrorMessage(error, {
-        fallbackText
-      });
+      return helperErrorCopy.normalizeHelperErrorMessage(error, { fallbackText });
     }
 
     function normalizeThrownHelperMessage(error, fallbackText) {
-      return helperErrorCopy.normalizeHelperThrownErrorMessage(error, {
-        fallbackText
-      });
+      return helperErrorCopy.normalizeHelperThrownErrorMessage(error, { fallbackText });
     }
 
     function rulesCacheKey(pair, profileId) {
@@ -70,6 +66,19 @@
       helperSemanticInventoryCache.set(key, inventory);
       if (helperCache && typeof helperCache.saveSemanticInventory === "function") {
         helperCache.saveSemanticInventory(pair, inventory, { profileId: normalizedProfileId });
+      }
+    }
+
+    function cacheBrowsingSourceIndex(pair, index, profileId, optionsKey) {
+      const key = rulesCacheKey(pair, profileId);
+      if (!key || !index || typeof index !== "object" || !Array.isArray(index.rules)) {
+        return;
+      }
+      const normalizedProfileId = normalizeProfileId(profileId);
+      const payload = sourceIndexCache.withMetadata(index, optionsKey);
+      helperBrowsingSourceIndexCache.set(key, payload);
+      if (helperCache && typeof helperCache.saveBrowsingSourceIndex === "function") {
+        helperCache.saveBrowsingSourceIndex(pair, payload, { profileId: normalizedProfileId });
       }
     }
 
@@ -115,6 +124,32 @@
         return { inventory: null, error: message };
       }
       return { inventory: response.data || null, error: null };
+    }
+
+    async function fetchBrowsingSourceIndex(pair, profileId, options) {
+      const helperClient = getHelperClient();
+      if (!helperClient || typeof helperClient.getSrsBrowsingSourceIndex !== "function") {
+        return {
+          index: null,
+          error: normalizeHelperMessage(
+            { code: "helper_missing", message: "Helper client unavailable." },
+            "Failed to load helper browsing source index."
+          )
+        };
+      }
+      const response = await helperClient.getSrsBrowsingSourceIndex(
+        pair,
+        profileId,
+        sourceIndexCache.requestOptions(options)
+      );
+      if (!response || response.ok === false) {
+        const message = normalizeHelperMessage(
+          response && response.error,
+          "Failed to load helper browsing source index."
+        );
+        return { index: null, error: message };
+      }
+      return { index: response.data || null, error: null };
     }
 
     async function requestSemanticAdmitBatch(payload, timeoutMs) {
@@ -172,6 +207,29 @@
           { profileId: normalizeProfileId(profileId) }
         );
         if (cachedPersisted && typeof cachedPersisted === "object") {
+          return cachedPersisted;
+        }
+      }
+      return null;
+    }
+
+    async function loadCachedBrowsingSourceIndex(pair, profileId, options, allowStale) {
+      const key = rulesCacheKey(pair, profileId);
+      if (!key) {
+        return null;
+      }
+      const optionsKey = sourceIndexCache.optionsKey(options);
+      const cachedInMemory = helperBrowsingSourceIndexCache.get(key);
+      if (sourceIndexCache.isUsable(cachedInMemory, optionsKey, options, allowStale)) {
+        return cachedInMemory;
+      }
+      if (helperCache && typeof helperCache.loadBrowsingSourceIndex === "function") {
+        const cachedPersisted = await helperCache.loadBrowsingSourceIndex(
+          pair,
+          { profileId: normalizeProfileId(profileId) }
+        );
+        if (sourceIndexCache.isUsable(cachedPersisted, optionsKey, options, allowStale)) {
+          helperBrowsingSourceIndexCache.set(key, cachedPersisted);
           return cachedPersisted;
         }
       }
@@ -272,6 +330,93 @@
       };
     }
 
+    async function resolveBrowsingSourceIndex(pair, profileId, options) {
+      const normalizedPair = String(pair || "").trim();
+      const normalizedProfileId = normalizeProfileId(profileId);
+      if (!normalizedPair) {
+        return { rules: [], source: "none", error: null };
+      }
+
+      let rules = [];
+      let sourceIndexError = null;
+      let source = "none";
+      const sourceIndexOptions = options && typeof options === "object" ? options : {};
+      const optionsKey = sourceIndexCache.optionsKey(sourceIndexOptions);
+
+      const cached = await loadCachedBrowsingSourceIndex(
+        normalizedPair,
+        normalizedProfileId,
+        sourceIndexOptions,
+        false
+      );
+      if (cached && Array.isArray(cached.rules)) {
+        return {
+          rules: tagRulesWithOrigin(cached.rules, ruleOriginSrs),
+          source: "helper-cache",
+          error: null
+        };
+      }
+
+      try {
+        const helperFetch = await fetchBrowsingSourceIndex(
+          normalizedPair,
+          normalizedProfileId,
+          sourceIndexOptions,
+        );
+        const helperIndex = helperFetch && typeof helperFetch === "object"
+          ? helperFetch.index
+          : null;
+        sourceIndexError = helperFetch && typeof helperFetch === "object"
+          ? helperFetch.error
+          : null;
+        if (
+          helperIndex
+          && helperIndex.status !== "not_ready"
+          && Array.isArray(helperIndex.rules)
+          && helperIndex.rules.length
+        ) {
+          rules = tagRulesWithOrigin(helperIndex.rules, ruleOriginSrs);
+          source = "helper";
+          cacheBrowsingSourceIndex(normalizedPair, helperIndex, normalizedProfileId, optionsKey);
+        } else {
+          if (helperIndex && helperIndex.status === "not_ready") {
+            sourceIndexError = String(helperIndex.reason || "source_index_not_ready");
+          }
+          const fallback = await loadCachedBrowsingSourceIndex(
+            normalizedPair,
+            normalizedProfileId,
+            sourceIndexOptions,
+            true
+          );
+          if (fallback && Array.isArray(fallback.rules)) {
+            rules = tagRulesWithOrigin(fallback.rules, ruleOriginSrs);
+            source = "helper-cache";
+          }
+        }
+      } catch (error) {
+        sourceIndexError = normalizeThrownHelperMessage(
+          error,
+          "Failed to fetch helper browsing source index."
+        );
+        const fallback = await loadCachedBrowsingSourceIndex(
+          normalizedPair,
+          normalizedProfileId,
+          sourceIndexOptions,
+          true
+        );
+        if (fallback && Array.isArray(fallback.rules)) {
+          rules = tagRulesWithOrigin(fallback.rules, ruleOriginSrs);
+          source = "helper-cache";
+        }
+      }
+
+      return {
+        rules,
+        source,
+        error: sourceIndexError
+      };
+    }
+
     async function semanticAdmitBatch(payload, timeoutMs) {
       try {
         return await requestSemanticAdmitBatch(payload, timeoutMs);
@@ -288,6 +433,7 @@
 
     return {
       resolveHelperRules,
+      resolveBrowsingSourceIndex,
       resolveSemanticInventory,
       semanticAdmitBatch
     };

@@ -16,13 +16,34 @@
     normalizeResultOverride: () => null
   };
   const RULE_ORIGIN_SRS = "srs";
-  const MAX_CONTEXT_WORDS = 15;
+  const assignSentenceKeys = typeof replacementSelection.assignSentenceKeys === "function"
+    ? replacementSelection.assignSentenceKeys
+    : ((matches) => matches);
   const createSelectionSeed = typeof replacementSelection.createSelectionSeed === "function"
     ? replacementSelection.createSelectionSeed
     : (() => 0);
   const filterMatchesByPolicy = typeof replacementSelection.filterMatches === "function"
     ? replacementSelection.filterMatches
     : ((matches) => matches);
+  const buildContextExcerpt = typeof semanticDebug.buildContextExcerpt === "function"
+    ? semanticDebug.buildContextExcerpt
+    : (() => "");
+
+  function translateMessage(key, substitutions, fallback) {
+    try {
+      if (typeof chrome !== "undefined"
+        && chrome.i18n
+        && typeof chrome.i18n.getMessage === "function") {
+        const message = chrome.i18n.getMessage(key, substitutions);
+        if (message) {
+          return message;
+        }
+      }
+    } catch (_error) {
+      // Ignore i18n runtime errors and use the stable fallback text.
+    }
+    return String(fallback || "");
+  }
 
   function normalizeDisplayScript(value) {
     const normalized = String(value || "").trim().toLowerCase();
@@ -180,6 +201,7 @@
       span.classList.add("lexishift-highlight");
     }
     span.textContent = payload.displayReplacement;
+    span.dataset.lexishiftScanSkip = "true";
     span.dataset.original = originalText;
     span.dataset.replacement = payload.canonicalReplacement;
     span.dataset.displayReplacement = payload.displayReplacement;
@@ -215,55 +237,38 @@
       semanticDebug.applyToSpan(span, metadata);
     }
 
-    let tooltip = "Click to toggle original";
+    const toggleTooltip = translateMessage(
+      "replacement_tooltip_toggle_original",
+      null,
+      "Click to toggle original"
+    );
+    const detailsTooltip = translateMessage(
+      "replacement_tooltip_details_feedback",
+      null,
+      "Right-click (or Ctrl+Click on macOS) for details and feedback."
+    );
+    const toggleWithDetailsTooltip = translateMessage(
+      "replacement_tooltip_toggle_original_with_details",
+      null,
+      `${toggleTooltip}. ${detailsTooltip}`
+    );
+    const originalTooltip = translateMessage(
+      "replacement_tooltip_original",
+      [originalText],
+      `Original: ${originalText}`
+    );
+    let tooltip = toggleTooltip;
     if (payload.scriptForms && Object.keys(payload.scriptForms).length > 1) {
-      tooltip = "Click to toggle original. Right-click (or Ctrl+Click on macOS) for details and feedback.";
+      tooltip = toggleWithDetailsTooltip;
     }
     if (rule && rule.metadata && rule.metadata.description) {
-      tooltip = `${rule.metadata.description}\n\n(Original: ${originalText})`;
+      tooltip = `${rule.metadata.description}\n\n(${originalTooltip})`;
       if (payload.scriptForms && Object.keys(payload.scriptForms).length > 1) {
-        tooltip += "\n(Right-click or Ctrl+Click on macOS for details and feedback.)";
+        tooltip += `\n(${detailsTooltip})`;
       }
     }
     span.title = tooltip;
     return span;
-  }
-
-  function normalizeWhitespace(text) {
-    return String(text || "").replace(/\s+/g, " ").trim();
-  }
-
-  function buildContextExcerpt(text, focusText) {
-    const normalizedText = normalizeWhitespace(text);
-    if (!normalizedText) {
-      return "";
-    }
-    const words = normalizedText.split(" ").filter(Boolean);
-    if (!words.length) {
-      return "";
-    }
-    let focusWordIndex = 0;
-    const focus = normalizeWhitespace(focusText);
-    if (focus) {
-      const loweredText = normalizedText.toLowerCase();
-      const loweredFocus = focus.toLowerCase();
-      const charIndex = loweredText.indexOf(loweredFocus);
-      if (charIndex >= 0) {
-        const before = loweredText.slice(0, charIndex).trim();
-        focusWordIndex = before ? before.split(/\s+/).length : 0;
-      }
-    }
-    const halfWindow = Math.floor(MAX_CONTEXT_WORDS / 2);
-    let start = Math.max(0, focusWordIndex - halfWindow);
-    let end = Math.min(words.length, start + MAX_CONTEXT_WORDS);
-    if (end - start < MAX_CONTEXT_WORDS) {
-      start = Math.max(0, end - MAX_CONTEXT_WORDS);
-    }
-    const excerptWords = words.slice(start, end);
-    if (!excerptWords.length) {
-      return "";
-    }
-    return `... ${excerptWords.join(" ")} ...`;
   }
 
   async function buildReplacementFragment(
@@ -281,6 +286,10 @@
     const trackDetails = settings.debugEnabled === true;
     const details = trackDetails ? [] : null;
     const budgetKeys = budget ? [] : null;
+    const budgetEntries = budget ? [] : null;
+    const budgetRejections = budget
+      ? { page: 0, sentence: 0, lemma: 0 }
+      : null;
     const tokens = tokenize(text);
     const wordPositions = [];
     const wordTexts = [];
@@ -307,7 +316,7 @@
     }
 
     const selectionSeed = createSelectionSeed(text, settings);
-    let finalMatches = filterMatchesByPolicy(matches, settings, gapOk, budget, selectionSeed);
+    let finalMatches = matches;
     let semanticDecisionMap = null;
     let semanticDecisionBySignature = semanticResultOverride
       ? semanticResultOverride.decisionBySignature
@@ -350,8 +359,30 @@
         semanticResultOverride: semanticOverride.buildResultOverride(finalMatches, semanticDecisionMap)
       };
     }
+    if (budget && Number(budget.maxPerSentence || 0) > 0) {
+      assignSentenceKeys(
+        finalMatches,
+        tokens,
+        wordPositions,
+        semanticContextResolver,
+        buildOptions.sentenceFallbackKey
+      );
+    }
+    finalMatches = filterMatchesByPolicy(
+      finalMatches,
+      settings,
+      gapOk,
+      budget,
+      selectionSeed,
+      budgetRejections
+    );
     if (!finalMatches.length) {
-      if (!semanticSummary) {
+      const hasBudgetRejections = budgetRejections && (
+        budgetRejections.page > 0
+        || budgetRejections.sentence > 0
+        || budgetRejections.lemma > 0
+      );
+      if (!semanticSummary && !hasBudgetRejections) {
         return null;
       }
       return {
@@ -359,6 +390,7 @@
         replacements: 0,
         details,
         budgetKeys,
+        budgetRejections,
         semanticSummary
       };
     }
@@ -394,14 +426,24 @@
       if (budgetKeys) {
         budgetKeys.push(displayPayload.canonicalReplacement);
       }
-      fragment.appendChild(createReplacementSpan(
+      if (budgetEntries) {
+        budgetEntries.push({
+          lemma: displayPayload.canonicalReplacement,
+          sentenceKey: String(match.sentenceKey || "").trim()
+        });
+      }
+      const replacementSpan = createReplacementSpan(
         originalText,
         displayPayload,
         match.rule,
         settings.highlightEnabled,
         origin,
         semanticDebugMetadata
-      ));
+      );
+      if (match.sentenceKey) {
+        replacementSpan.dataset.sentenceKey = String(match.sentenceKey);
+      }
+      fragment.appendChild(replacementSpan);
       if (details) {
         details.push({
           original: originalText,
@@ -418,6 +460,7 @@
             ? String(displayPayload.wordPackage.language_tag || "")
             : "",
           word_package: displayPayload.wordPackage || null,
+          sentence_key: String(match.sentenceKey || ""),
           semantic_decision: semanticDebug.copyDecision(semanticDecision)
         });
       }
@@ -436,6 +479,8 @@
       replacements: finalMatches.length,
       details,
       budgetKeys,
+      budgetEntries,
+      budgetRejections,
       semanticSummary
     };
   }

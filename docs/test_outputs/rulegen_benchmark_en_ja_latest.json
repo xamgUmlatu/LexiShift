@@ -1,0 +1,1752 @@
+{
+  "generated_at": "2026-06-09T16:37:39.294391+00:00",
+  "dataset_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
+  "dataset_metadata": {
+    "version": 1,
+    "name": "LexiShift Rulegen Benchmark Cases",
+    "description": "Merged rulegen benchmark dataset loaded from LP-specific source files.",
+    "source_layout": "directory",
+    "source_directory": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases",
+    "source_files": [
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_de.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_es.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/en_ja.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_cases/es_en.json"
+    ],
+    "pairs": [
+      "en-de",
+      "en-es",
+      "en-ja",
+      "es-en"
+    ]
+  },
+  "profile_id": "default",
+  "data_root": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift",
+  "sweep": {
+    "pair_filter": [
+      "en-ja"
+    ],
+    "configuration_count": 1,
+    "jobs": 1,
+    "word_package_snapshot_json": null,
+    "preset": {
+      "name": "en_ja_canonical_matrix",
+      "description": "Current advisory en-ja benchmark lane for the JMDict-backed Japanese target path. It fixes the observed best compact setup: max definitions 2, exact generic-gloss demotion on, POS scoring on, variants/reverse/source-frequency prior off.",
+      "preset_file": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_benchmark_presets.json",
+      "args": [
+        "--pairs",
+        "en-ja",
+        "--max-definitions-values",
+        "2",
+        "--max-rules-values",
+        "none",
+        "--confidence-threshold-values",
+        "0.0",
+        "--semantic-demotion-scale-values",
+        "1.0",
+        "--exact-gloss-demotion-values",
+        "true",
+        "--source-frequency-prior-values",
+        "false",
+        "--cleaner-later-competition-penalty-values",
+        "0.0",
+        "--sense-defaultness-competition-penalty-values",
+        "0.0",
+        "--include-variants-values",
+        "false",
+        "--pos-scoring-values",
+        "true",
+        "--pos-exact-values",
+        "1.0",
+        "--pos-compatible-values",
+        "0.5",
+        "--score-weight-dict-values",
+        "0.8",
+        "--score-weight-frequency-values",
+        "0.0",
+        "--score-weight-pos-values",
+        "0.1",
+        "--score-weight-variant-values",
+        "0.1",
+        "--score-weight-phrase-values",
+        "0.1",
+        "--score-weight-embedding-values",
+        "0.2",
+        "--reverse-check-enabled-values",
+        "false",
+        "--reverse-check-match-bonus-values",
+        "0.0",
+        "--reverse-check-near-bonus-values",
+        "0.0",
+        "--reverse-check-near-rank-max-values",
+        "0",
+        "--reverse-check-far-hit-penalty-values",
+        "0.0",
+        "--reverse-check-miss-penalty-values",
+        "0.0",
+        "--reverse-check-exact-hit-ambiguity-threshold-values",
+        "0",
+        "--reverse-check-exact-hit-ambiguity-penalty-values",
+        "0.0",
+        "--reverse-check-exact-hit-specificity-bonus-values",
+        "0.0",
+        "--kaikki-policy-register-demotion-values",
+        "false",
+        "--kaikki-policy-live-demotion-values",
+        "false",
+        "--kaikki-policy-risk-family-sets",
+        "none",
+        "--kaikki-policy-late-sense-penalty-values",
+        "0.0",
+        "--objective-top1-weight",
+        "1.0",
+        "--objective-top3-weight",
+        "3.0",
+        "--objective-forbidden-top1-weight",
+        "8.0",
+        "--objective-forbidden-any-weight",
+        "1.0",
+        "--objective-avg-rules-weight",
+        "0.0",
+        "--max-configurations",
+        "1"
+      ]
+    },
+    "objective_weights": {
+      "top1_accuracy": 1.0,
+      "top3_recall": 3.0,
+      "forbidden_top1_rate": 8.0,
+      "forbidden_any_rate": 1.0,
+      "avg_rules_per_target": 0.0,
+      "variant_top1_rate": 10.0
+    }
+  },
+  "resources": {
+    "en-ja": {
+      "jmdict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/JMdict_e",
+      "translation_dict_path": null,
+      "translation_pack_id": null,
+      "translation_pack_provider": null,
+      "translation_pack_pos_source_profile": null,
+      "reverse_translation_dict_path": null,
+      "reverse_translation_pack_id": null,
+      "reverse_translation_pack_provider": null,
+      "reverse_translation_pack_pos_source_profile": null,
+      "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-leipzig-default/main.sqlite",
+      "source_frequency_pack_id": "freq-en-leipzig-default",
+      "source_frequency_pack_provider": "leipzig wortschatz",
+      "source_frequency_pack_pos_source_profile": "generic",
+      "checksums": {
+        "jmdict_sha256": "sha256:925b12d235dcaa263187a57c62e979ed4f6364b0902f967eb5de699dfbdcd2e8",
+        "translation_dict_sha256": null,
+        "reverse_translation_dict_sha256": null,
+        "source_frequency_db_sha256": "sha256:f966817ef1565543539f01f72ca046405661c740a7cc88a07df7e53c86db6b6e"
+      }
+    }
+  },
+  "timing": {
+    "total_recorded_seconds": 7.6017916648997925,
+    "phases": {
+      "build_resource_payload": {
+        "total_seconds": 0.000871917000040412,
+        "count": 1,
+        "avg_seconds": 0.000871917000040412
+      },
+      "build_sweep_configs": {
+        "total_seconds": 4.33750101365149e-05,
+        "count": 1,
+        "avg_seconds": 4.33750101365149e-05
+      },
+      "build_word_packages": {
+        "total_seconds": 0.0008027500007301569,
+        "count": 1,
+        "avg_seconds": 0.0008027500007301569
+      },
+      "compile_pair_context": {
+        "total_seconds": 1.0409858077764511e-06,
+        "count": 1,
+        "avg_seconds": 1.0409858077764511e-06
+      },
+      "evaluate_cases": {
+        "total_seconds": 0.00026591698406264186,
+        "count": 1,
+        "avg_seconds": 0.00026591698406264186
+      },
+      "group_rules": {
+        "total_seconds": 0.0,
+        "count": 1,
+        "avg_seconds": 0.0
+      },
+      "load_dataset": {
+        "total_seconds": 0.00198712496785447,
+        "count": 1,
+        "avg_seconds": 0.00198712496785447
+      },
+      "load_store": {
+        "total_seconds": 0.002561040979344398,
+        "count": 1,
+        "avg_seconds": 0.002561040979344398
+      },
+      "preload_translation_gloss_records": {
+        "total_seconds": 9.958981536328793e-06,
+        "count": 1,
+        "avg_seconds": 9.958981536328793e-06
+      },
+      "resolve_resources": {
+        "total_seconds": 6.816600216552615e-05,
+        "count": 1,
+        "avg_seconds": 6.816600216552615e-05
+      },
+      "run_config": {
+        "total_seconds": 7.595161458011717,
+        "count": 1,
+        "avg_seconds": 7.595161458011717
+      },
+      "sort_pair_runs": {
+        "total_seconds": 1.8749851733446121e-06,
+        "count": 1,
+        "avg_seconds": 1.8749851733446121e-06
+      },
+      "summarize_run": {
+        "total_seconds": 1.7040991224348545e-05,
+        "count": 1,
+        "avg_seconds": 1.7040991224348545e-05
+      }
+    },
+    "pairs": {
+      "en-ja": {
+        "build_resource_payload": {
+          "total_seconds": 0.000871917000040412,
+          "count": 1,
+          "avg_seconds": 0.000871917000040412
+        },
+        "build_word_packages": {
+          "total_seconds": 0.0008027500007301569,
+          "count": 1,
+          "avg_seconds": 0.0008027500007301569
+        },
+        "compile_pair_context": {
+          "total_seconds": 1.0409858077764511e-06,
+          "count": 1,
+          "avg_seconds": 1.0409858077764511e-06
+        },
+        "evaluate_cases": {
+          "total_seconds": 0.00026591698406264186,
+          "count": 1,
+          "avg_seconds": 0.00026591698406264186
+        },
+        "group_rules": {
+          "total_seconds": 0.0,
+          "count": 1,
+          "avg_seconds": 0.0
+        },
+        "preload_translation_gloss_records": {
+          "total_seconds": 9.958981536328793e-06,
+          "count": 1,
+          "avg_seconds": 9.958981536328793e-06
+        },
+        "resolve_resources": {
+          "total_seconds": 6.816600216552615e-05,
+          "count": 1,
+          "avg_seconds": 6.816600216552615e-05
+        },
+        "run_config": {
+          "total_seconds": 7.595161458011717,
+          "count": 1,
+          "avg_seconds": 7.595161458011717
+        },
+        "sort_pair_runs": {
+          "total_seconds": 1.8749851733446121e-06,
+          "count": 1,
+          "avg_seconds": 1.8749851733446121e-06
+        },
+        "summarize_run": {
+          "total_seconds": 1.7040991224348545e-05,
+          "count": 1,
+          "avg_seconds": 1.7040991224348545e-05
+        }
+      }
+    },
+    "wall_clock_seconds": 7.604847041948233
+  },
+  "pairs": {
+    "en-ja": {
+      "case_count": 33,
+      "run_count": 1,
+      "resources": {
+        "jmdict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/JMdict_e",
+        "translation_dict_path": null,
+        "translation_pack_id": null,
+        "translation_pack_provider": null,
+        "translation_pack_pos_source_profile": null,
+        "reverse_translation_dict_path": null,
+        "reverse_translation_pack_id": null,
+        "reverse_translation_pack_provider": null,
+        "reverse_translation_pack_pos_source_profile": null,
+        "source_frequency_db_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-en-leipzig-default/main.sqlite",
+        "source_frequency_pack_id": "freq-en-leipzig-default",
+        "source_frequency_pack_provider": "leipzig wortschatz",
+        "source_frequency_pack_pos_source_profile": "generic",
+        "checksums": {
+          "jmdict_sha256": "sha256:925b12d235dcaa263187a57c62e979ed4f6364b0902f967eb5de699dfbdcd2e8",
+          "translation_dict_sha256": null,
+          "reverse_translation_dict_sha256": null,
+          "source_frequency_db_sha256": "sha256:f966817ef1565543539f01f72ca046405661c740a7cc88a07df7e53c86db6b6e"
+        }
+      },
+      "word_package_snapshot": {
+        "世界": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "世界",
+          "reading": "せかい",
+          "script_forms": {
+            "kanji": "世界",
+            "kana": "せかい",
+            "romaji": "sekai"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "人": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "人",
+          "reading": "ひと",
+          "script_forms": {
+            "kanji": "人",
+            "kana": "ひと",
+            "romaji": "hito"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "仕事": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "仕事",
+          "reading": "しごと",
+          "script_forms": {
+            "kanji": "仕事",
+            "kana": "しごと",
+            "romaji": "shigoto"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "会社": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "会社",
+          "reading": "かいしゃ",
+          "script_forms": {
+            "kanji": "会社",
+            "kana": "かいしゃ",
+            "romaji": "kaisha"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "先生": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "先生",
+          "reading": "せんせい",
+          "script_forms": {
+            "kanji": "先生",
+            "kana": "せんせい",
+            "romaji": "sensei"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "友達": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "友達",
+          "reading": "ともだち",
+          "script_forms": {
+            "kanji": "友達",
+            "kana": "ともだち",
+            "romaji": "tomodachi"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "名前": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "名前",
+          "reading": "なまえ",
+          "script_forms": {
+            "kanji": "名前",
+            "kana": "なまえ",
+            "romaji": "namae"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "国": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "国",
+          "reading": "くに",
+          "script_forms": {
+            "kanji": "国",
+            "kana": "くに",
+            "romaji": "kuni"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "子供": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "子供",
+          "reading": "こども",
+          "script_forms": {
+            "kanji": "子供",
+            "kana": "こども",
+            "romaji": "kodomo"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "学校": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "学校",
+          "reading": "がっこう",
+          "script_forms": {
+            "kanji": "学校",
+            "kana": "がっこう",
+            "romaji": "gakkou"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "学生": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "学生",
+          "reading": "がくせい",
+          "script_forms": {
+            "kanji": "学生",
+            "kana": "がくせい",
+            "romaji": "gakusei"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "家": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "家",
+          "reading": "いえ",
+          "script_forms": {
+            "kanji": "家",
+            "kana": "いえ",
+            "romaji": "ie"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "山": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "山",
+          "reading": "やま",
+          "script_forms": {
+            "kanji": "山",
+            "kana": "やま",
+            "romaji": "yama"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "川": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "川",
+          "reading": "かわ",
+          "script_forms": {
+            "kanji": "川",
+            "kana": "かわ",
+            "romaji": "kawa"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "年": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "年",
+          "reading": "とし",
+          "script_forms": {
+            "kanji": "年",
+            "kana": "とし",
+            "romaji": "toshi"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "愛": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "愛",
+          "reading": "あい",
+          "script_forms": {
+            "kanji": "愛",
+            "kana": "あい",
+            "romaji": "ai"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "時": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "時",
+          "reading": "とき",
+          "script_forms": {
+            "kanji": "時",
+            "kana": "とき",
+            "romaji": "toki"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "本": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "本",
+          "reading": "ほん",
+          "script_forms": {
+            "kanji": "本",
+            "kana": "ほん",
+            "romaji": "hon"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "様": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "様",
+          "reading": "よう",
+          "script_forms": {
+            "kanji": "様",
+            "kana": "よう",
+            "romaji": "you"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "母": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "母",
+          "reading": "はは",
+          "script_forms": {
+            "kanji": "母",
+            "kana": "はは",
+            "romaji": "haha"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "水": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "水",
+          "reading": "みず",
+          "script_forms": {
+            "kanji": "水",
+            "kana": "みず",
+            "romaji": "mizu"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "海": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "海",
+          "reading": "うみ",
+          "script_forms": {
+            "kanji": "海",
+            "kana": "うみ",
+            "romaji": "umi"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "父": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "父",
+          "reading": "ちち",
+          "script_forms": {
+            "kanji": "父",
+            "kana": "ちち",
+            "romaji": "chichi"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "猫": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "猫",
+          "reading": "ねこ",
+          "script_forms": {
+            "kanji": "猫",
+            "kana": "ねこ",
+            "romaji": "neko"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "町": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "町",
+          "reading": "まち",
+          "script_forms": {
+            "kanji": "町",
+            "kana": "まち",
+            "romaji": "machi"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "病院": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "病院",
+          "reading": "びょういん",
+          "script_forms": {
+            "kanji": "病院",
+            "kana": "びょういん",
+            "romaji": "byouin"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "花": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "花",
+          "reading": "はな",
+          "script_forms": {
+            "kanji": "花",
+            "kana": "はな",
+            "romaji": "hana"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "言葉": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "言葉",
+          "reading": "ことば",
+          "script_forms": {
+            "kanji": "言葉",
+            "kana": "ことば",
+            "romaji": "kotoba"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "車": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "車",
+          "reading": "くるま",
+          "script_forms": {
+            "kanji": "車",
+            "kana": "くるま",
+            "romaji": "kuruma"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "道": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "道",
+          "reading": "みち",
+          "script_forms": {
+            "kanji": "道",
+            "kana": "みち",
+            "romaji": "michi"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "電車": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "電車",
+          "reading": "でんしゃ",
+          "script_forms": {
+            "kanji": "電車",
+            "kana": "でんしゃ",
+            "romaji": "densha"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "食べ物": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "食べ物",
+          "reading": "たべもの",
+          "script_forms": {
+            "kanji": "食べ物",
+            "kana": "たべもの",
+            "romaji": "tabemono"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        },
+        "魚": {
+          "version": 1,
+          "language_tag": "ja",
+          "surface": "魚",
+          "reading": "さかな",
+          "script_forms": {
+            "kanji": "魚",
+            "kana": "さかな",
+            "romaji": "sakana"
+          },
+          "source": {
+            "provider": "rulegen_benchmark"
+          }
+        }
+      },
+      "best_run": {
+        "pair": "en-ja",
+        "run_index": 1,
+        "config": {
+          "max_definitions_per_target": 2,
+          "max_rules_per_target": null,
+          "interleave_definition_groups": false,
+          "sense_representative_selection": false,
+          "confidence_threshold": 0.0,
+          "semantic_demotion_scale": 1.0,
+          "include_variants": false,
+          "pos_scoring_enabled": true,
+          "pos_exact_match_bonus": 1.0,
+          "pos_compatible_match_bonus": 0.5,
+          "score_weight_dict_priority": 0.8,
+          "score_weight_frequency_weight": 0.0,
+          "score_weight_pos_match": 0.1,
+          "score_weight_variant_penalty": 0.1,
+          "score_weight_phrase_penalty": 0.1,
+          "score_weight_embedding": 0.2,
+          "reverse_check_enabled": false,
+          "reverse_check_match_bonus": 0.0,
+          "reverse_check_near_bonus": 0.0,
+          "reverse_check_near_rank_max": 0,
+          "reverse_check_far_hit_penalty": 0.0,
+          "reverse_check_miss_penalty": 0.0,
+          "reverse_check_exact_hit_ambiguity_threshold": 0,
+          "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+          "kaikki_policy_register_demotion": false,
+          "kaikki_policy_live_demotion": false,
+          "kaikki_policy_risk_families": [],
+          "reverse_check_exact_hit_specificity_bonus": 0.0,
+          "kaikki_policy_late_sense_penalty": 0.0,
+          "exact_gloss_demotion_enabled": true,
+          "source_frequency_prior_enabled": false,
+          "cleaner_later_competition_penalty": 0.0,
+          "sense_defaultness_competition_penalty": 0.0
+        },
+        "config_label": "md=2 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=on sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=none kprov=off",
+        "summary": {
+          "pair": "en-ja",
+          "case_count": 33,
+          "top1_correct_count": 32,
+          "top3_contains_expected_count": 33,
+          "forbidden_top1_count": 0,
+          "forbidden_any_count": 1,
+          "avg_rules_per_target": 1.7575757575757576,
+          "avg_top1_confidence": 0.6400000000000001,
+          "variant_rule_count": 0,
+          "total_rule_count": 58,
+          "variant_top1_count": 0,
+          "top1_accuracy": 0.9696969696969697,
+          "top3_recall": 1.0,
+          "forbidden_top1_rate": 0.0,
+          "forbidden_any_rate": 0.030303030303030304,
+          "variant_rule_rate": 0.0,
+          "variant_top1_rate": 0.0,
+          "objective_score": 3.9393939393939394
+        },
+        "case_results": [
+          {
+            "case_id": "en-ja:様",
+            "pair": "en-ja",
+            "target": "様",
+            "rule_count": 2,
+            "top1_source": "form",
+            "top3_sources": [
+              "form",
+              "style"
+            ],
+            "all_sources": [
+              "form",
+              "style"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "form",
+              "style"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:時",
+            "pair": "en-ja",
+            "target": "時",
+            "rule_count": 2,
+            "top1_source": "time",
+            "top3_sources": [
+              "time",
+              "hour"
+            ],
+            "all_sources": [
+              "time",
+              "hour"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "time",
+              "hour"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:仕事",
+            "pair": "en-ja",
+            "target": "仕事",
+            "rule_count": 2,
+            "top1_source": "work",
+            "top3_sources": [
+              "work",
+              "job"
+            ],
+            "all_sources": [
+              "work",
+              "job"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "work",
+              "job"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:家",
+            "pair": "en-ja",
+            "target": "家",
+            "rule_count": 2,
+            "top1_source": "house",
+            "top3_sources": [
+              "house",
+              "residence"
+            ],
+            "all_sources": [
+              "house",
+              "residence"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "house"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:友達",
+            "pair": "en-ja",
+            "target": "友達",
+            "rule_count": 2,
+            "top1_source": "friend",
+            "top3_sources": [
+              "friend",
+              "companion"
+            ],
+            "all_sources": [
+              "friend",
+              "companion"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "friend",
+              "companion"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:学校",
+            "pair": "en-ja",
+            "target": "学校",
+            "rule_count": 1,
+            "top1_source": "school",
+            "top3_sources": [
+              "school"
+            ],
+            "all_sources": [
+              "school"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "school"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:先生",
+            "pair": "en-ja",
+            "target": "先生",
+            "rule_count": 2,
+            "top1_source": "teacher",
+            "top3_sources": [
+              "teacher",
+              "instructor"
+            ],
+            "all_sources": [
+              "teacher",
+              "instructor"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "teacher",
+              "instructor"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:学生",
+            "pair": "en-ja",
+            "target": "学生",
+            "rule_count": 1,
+            "top1_source": "student",
+            "top3_sources": [
+              "student"
+            ],
+            "all_sources": [
+              "student"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "student"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:水",
+            "pair": "en-ja",
+            "target": "水",
+            "rule_count": 2,
+            "top1_source": "water",
+            "top3_sources": [
+              "water",
+              "fluid"
+            ],
+            "all_sources": [
+              "water",
+              "fluid"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "water"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:山",
+            "pair": "en-ja",
+            "target": "山",
+            "rule_count": 2,
+            "top1_source": "mountain",
+            "top3_sources": [
+              "mountain",
+              "hill"
+            ],
+            "all_sources": [
+              "mountain",
+              "hill"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mountain",
+              "hill"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:川",
+            "pair": "en-ja",
+            "target": "川",
+            "rule_count": 2,
+            "top1_source": "river",
+            "top3_sources": [
+              "river",
+              "stream"
+            ],
+            "all_sources": [
+              "river",
+              "stream"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "river",
+              "stream"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:道",
+            "pair": "en-ja",
+            "target": "道",
+            "rule_count": 2,
+            "top1_source": "road",
+            "top3_sources": [
+              "road",
+              "path"
+            ],
+            "all_sources": [
+              "road",
+              "path"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "road",
+              "path"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:世界",
+            "pair": "en-ja",
+            "target": "世界",
+            "rule_count": 2,
+            "top1_source": "society",
+            "top3_sources": [
+              "society",
+              "sphere"
+            ],
+            "all_sources": [
+              "society",
+              "sphere"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": false,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": true,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "society"
+            ],
+            "forbidden_matches": [
+              "sphere"
+            ]
+          },
+          {
+            "case_id": "en-ja:言葉",
+            "pair": "en-ja",
+            "target": "言葉",
+            "rule_count": 2,
+            "top1_source": "language",
+            "top3_sources": [
+              "language",
+              "dialect"
+            ],
+            "all_sources": [
+              "language",
+              "dialect"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "language"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:愛",
+            "pair": "en-ja",
+            "target": "愛",
+            "rule_count": 2,
+            "top1_source": "love",
+            "top3_sources": [
+              "love",
+              "affection"
+            ],
+            "all_sources": [
+              "love",
+              "affection"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "love",
+              "affection"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:父",
+            "pair": "en-ja",
+            "target": "父",
+            "rule_count": 1,
+            "top1_source": "father",
+            "top3_sources": [
+              "father"
+            ],
+            "all_sources": [
+              "father"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "father"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:母",
+            "pair": "en-ja",
+            "target": "母",
+            "rule_count": 1,
+            "top1_source": "mother",
+            "top3_sources": [
+              "mother"
+            ],
+            "all_sources": [
+              "mother"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "mother"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:人",
+            "pair": "en-ja",
+            "target": "人",
+            "rule_count": 2,
+            "top1_source": "person",
+            "top3_sources": [
+              "person",
+              "someone"
+            ],
+            "all_sources": [
+              "person",
+              "someone"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "person",
+              "someone"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:国",
+            "pair": "en-ja",
+            "target": "国",
+            "rule_count": 2,
+            "top1_source": "country",
+            "top3_sources": [
+              "country",
+              "state"
+            ],
+            "all_sources": [
+              "country",
+              "state"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "country",
+              "state"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:年",
+            "pair": "en-ja",
+            "target": "年",
+            "rule_count": 2,
+            "top1_source": "year",
+            "top3_sources": [
+              "year",
+              "age"
+            ],
+            "all_sources": [
+              "year",
+              "age"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "year",
+              "age"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:子供",
+            "pair": "en-ja",
+            "target": "子供",
+            "rule_count": 2,
+            "top1_source": "child",
+            "top3_sources": [
+              "child",
+              "children"
+            ],
+            "all_sources": [
+              "child",
+              "children"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "child",
+              "children"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:車",
+            "pair": "en-ja",
+            "target": "車",
+            "rule_count": 2,
+            "top1_source": "car",
+            "top3_sources": [
+              "car",
+              "automobile"
+            ],
+            "all_sources": [
+              "car",
+              "automobile"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "car",
+              "automobile"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:電車",
+            "pair": "en-ja",
+            "target": "電車",
+            "rule_count": 1,
+            "top1_source": "train",
+            "top3_sources": [
+              "train"
+            ],
+            "all_sources": [
+              "train"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "train"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:本",
+            "pair": "en-ja",
+            "target": "本",
+            "rule_count": 2,
+            "top1_source": "book",
+            "top3_sources": [
+              "book",
+              "volume"
+            ],
+            "all_sources": [
+              "book",
+              "volume"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "book",
+              "volume"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:名前",
+            "pair": "en-ja",
+            "target": "名前",
+            "rule_count": 1,
+            "top1_source": "name",
+            "top3_sources": [
+              "name"
+            ],
+            "all_sources": [
+              "name"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "name"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:食べ物",
+            "pair": "en-ja",
+            "target": "食べ物",
+            "rule_count": 1,
+            "top1_source": "food",
+            "top3_sources": [
+              "food"
+            ],
+            "all_sources": [
+              "food"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "food"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:会社",
+            "pair": "en-ja",
+            "target": "会社",
+            "rule_count": 2,
+            "top1_source": "company",
+            "top3_sources": [
+              "company",
+              "corporation"
+            ],
+            "all_sources": [
+              "company",
+              "corporation"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "company",
+              "corporation"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:病院",
+            "pair": "en-ja",
+            "target": "病院",
+            "rule_count": 2,
+            "top1_source": "hospital",
+            "top3_sources": [
+              "hospital",
+              "clinic"
+            ],
+            "all_sources": [
+              "hospital",
+              "clinic"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "hospital",
+              "clinic"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:町",
+            "pair": "en-ja",
+            "target": "町",
+            "rule_count": 2,
+            "top1_source": "town",
+            "top3_sources": [
+              "town",
+              "block"
+            ],
+            "all_sources": [
+              "town",
+              "block"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "town",
+              "block"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:海",
+            "pair": "en-ja",
+            "target": "海",
+            "rule_count": 2,
+            "top1_source": "sea",
+            "top3_sources": [
+              "sea",
+              "ocean"
+            ],
+            "all_sources": [
+              "sea",
+              "ocean"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "sea",
+              "ocean"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:花",
+            "pair": "en-ja",
+            "target": "花",
+            "rule_count": 2,
+            "top1_source": "flower",
+            "top3_sources": [
+              "flower",
+              "blossom"
+            ],
+            "all_sources": [
+              "flower",
+              "blossom"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "flower",
+              "blossom"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:猫",
+            "pair": "en-ja",
+            "target": "猫",
+            "rule_count": 2,
+            "top1_source": "cat",
+            "top3_sources": [
+              "cat",
+              "feline"
+            ],
+            "all_sources": [
+              "cat",
+              "feline"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "cat",
+              "feline"
+            ],
+            "forbidden_matches": []
+          },
+          {
+            "case_id": "en-ja:魚",
+            "pair": "en-ja",
+            "target": "魚",
+            "rule_count": 1,
+            "top1_source": "fish",
+            "top3_sources": [
+              "fish"
+            ],
+            "all_sources": [
+              "fish"
+            ],
+            "top1_confidence": 0.6400000000000001,
+            "top1_correct": true,
+            "top3_contains_expected": true,
+            "top1_forbidden": false,
+            "forbidden_any_present": false,
+            "variant_rule_count": 0,
+            "top1_is_variant": false,
+            "expected_matches": [
+              "fish"
+            ],
+            "forbidden_matches": []
+          }
+        ]
+      },
+      "runs": [
+        {
+          "pair": "en-ja",
+          "run_index": 1,
+          "config": {
+            "max_definitions_per_target": 2,
+            "max_rules_per_target": null,
+            "interleave_definition_groups": false,
+            "sense_representative_selection": false,
+            "confidence_threshold": 0.0,
+            "semantic_demotion_scale": 1.0,
+            "include_variants": false,
+            "pos_scoring_enabled": true,
+            "pos_exact_match_bonus": 1.0,
+            "pos_compatible_match_bonus": 0.5,
+            "score_weight_dict_priority": 0.8,
+            "score_weight_frequency_weight": 0.0,
+            "score_weight_pos_match": 0.1,
+            "score_weight_variant_penalty": 0.1,
+            "score_weight_phrase_penalty": 0.1,
+            "score_weight_embedding": 0.2,
+            "reverse_check_enabled": false,
+            "reverse_check_match_bonus": 0.0,
+            "reverse_check_near_bonus": 0.0,
+            "reverse_check_near_rank_max": 0,
+            "reverse_check_far_hit_penalty": 0.0,
+            "reverse_check_miss_penalty": 0.0,
+            "reverse_check_exact_hit_ambiguity_threshold": 0,
+            "reverse_check_exact_hit_ambiguity_penalty": 0.0,
+            "kaikki_policy_register_demotion": false,
+            "kaikki_policy_live_demotion": false,
+            "kaikki_policy_risk_families": [],
+            "reverse_check_exact_hit_specificity_bonus": 0.0,
+            "kaikki_policy_late_sense_penalty": 0.0,
+            "exact_gloss_demotion_enabled": true,
+            "source_frequency_prior_enabled": false,
+            "cleaner_later_competition_penalty": 0.0,
+            "sense_defaultness_competition_penalty": 0.0
+          },
+          "config_label": "md=2 mr=none ig=off srep=off thr=0.000 sd=1.00 xdem=on sfreq=off clcmp=off sdef=off var=off pos=on rev=off xamb=off xspec=off w_pos=0.100 kreg=off kdem=off kfam=none kprov=off",
+          "summary": {
+            "pair": "en-ja",
+            "case_count": 33,
+            "top1_correct_count": 32,
+            "top3_contains_expected_count": 33,
+            "forbidden_top1_count": 0,
+            "forbidden_any_count": 1,
+            "avg_rules_per_target": 1.7575757575757576,
+            "avg_top1_confidence": 0.6400000000000001,
+            "variant_rule_count": 0,
+            "total_rule_count": 58,
+            "variant_top1_count": 0,
+            "top1_accuracy": 0.9696969696969697,
+            "top3_recall": 1.0,
+            "forbidden_top1_rate": 0.0,
+            "forbidden_any_rate": 0.030303030303030304,
+            "variant_rule_rate": 0.0,
+            "variant_top1_rate": 0.0,
+            "objective_score": 3.9393939393939394
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,49 +1,10 @@
-const { spawnSync } = require("child_process");
-const path = require("path");
+"use strict";
+
+const { spawnSync } = require("node:child_process");
+const path = require("node:path");
+const { formatVersion, resolvePython } = require("./python_environment");
 
 const SCRIPT_ROOT = path.resolve(__dirname, "..");
-
-function resolveCandidates() {
-	const candidates = [];
-	const repoVenvCandidates = [
-		path.resolve(SCRIPT_ROOT, "..", ".venv", "Scripts", "python.exe"),
-		path.resolve(SCRIPT_ROOT, "..", ".venv", "bin", "python"),
-	];
-	for (const value of repoVenvCandidates) {
-		candidates.push({ command: value, prefixArgs: [] });
-	}
-	const envCandidates = [
-		process.env.LEXISHIFT_PYTHON,
-		process.env.PYTHON,
-		process.env.PYTHON3,
-	].filter(Boolean);
-	for (const value of envCandidates) {
-		candidates.push({ command: value, prefixArgs: [] });
-	}
-	candidates.push({ command: "python3", prefixArgs: [] });
-	candidates.push({ command: "python", prefixArgs: [] });
-	candidates.push({ command: "py", prefixArgs: ["-3"] });
-	return candidates;
-}
-
-function commandExists(candidate) {
-	const probe = spawnSync(candidate.command, [...candidate.prefixArgs, "--version"], {
-		stdio: "ignore",
-	});
-	if (probe.error) {
-		return false;
-	}
-	return probe.status === 0;
-}
-
-function resolvePython() {
-	for (const candidate of resolveCandidates()) {
-		if (commandExists(candidate)) {
-			return candidate;
-		}
-	}
-	return null;
-}
 
 function main() {
 	const scriptArgs = process.argv.slice(2);
@@ -52,17 +13,23 @@ function main() {
 		process.exit(2);
 	}
 
-	const python = resolvePython();
-	if (!python) {
+	const allowSystemFallback = Boolean(process.env.CI);
+	const resolution = resolvePython({ includeSystem: allowSystemFallback });
+	if (!resolution.command) {
 		console.error(
-			"Unable to locate a Python 3 interpreter. Set LEXISHIFT_PYTHON or ensure python3/python/py -3 is available."
+			"Unable to locate the supported Python 3.10 environment. Run `npm --prefix scripts run setup:python`, activate a Python 3.10 virtualenv, or set LEXISHIFT_PYTHON explicitly."
 		);
+		for (const rejected of resolution.rejected || []) {
+			console.error(
+				`Rejected ${rejected.version.executable}: Python ${formatVersion(rejected.version)} (requires 3.10.x).`
+			);
+		}
 		process.exit(1);
 	}
 
 	const result = spawnSync(
-		python.command,
-		[...python.prefixArgs, ...scriptArgs],
+		resolution.command,
+		[...resolution.prefixArgs, ...scriptArgs],
 		{
 			cwd: SCRIPT_ROOT,
 			stdio: "inherit",
@@ -75,4 +42,8 @@ function main() {
 	process.exit(result.status === null ? 1 : result.status);
 }
 
-main();
+if (require.main === module) {
+	main();
+}
+
+module.exports = { main };

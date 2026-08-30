@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "config_id": "srs_browsing_admission_implicit_configs_en_ja_v1",
+  "language_pair": "en-ja",
+  "purpose": "Synthetic en-ja implicit browsing-admission scenarios. These fixtures test bounded backend personalization from already-resolved target lemmas; they do not test live page text extraction.",
+  "defaults": {
+    "set_top_n": 5000,
+    "admission_budget": 8,
+    "max_active_items": 20,
+    "row_limit": 40
+  },
+  "scenarios": [
+    {
+      "name": "no_history_neutral_p30",
+      "description": "Empty implicit store must preserve neutral profile-growth admission.",
+      "proficiency": 0.30,
+      "signals": [],
+      "expectations": {
+        "empty_store_preserves_neutral": true
+      }
+    },
+    {
+      "name": "implicit_food_only_p20",
+      "description": "Food reading trend without explicit topic preference should create a bounded browsing lane.",
+      "proficiency": 0.20,
+      "signals": [
+        {"target_lemma": "料理", "side": "target", "count": 80},
+        {"target_lemma": "野菜", "side": "target", "count": 40},
+        {"target_lemma": "食べる", "side": "target", "count": 30},
+        {"target_lemma": "飲む", "side": "target", "count": 20}
+      ],
+      "expectations": {
+        "matching_signals": true,
+        "strong_has_browsing_lane": true
+      }
+    },
+    {
+      "name": "explicit_food_only_p20",
+      "description": "Explicit food topic without implicit history is the control for topic preference.",
+      "proficiency": 0.20,
+      "topic_weights": {"food_cooking": 1.0},
+      "signals": [],
+      "expectations": {
+        "empty_store_preserves_neutral": true
+      }
+    },
+    {
+      "name": "explicit_food_plus_food_p20",
+      "description": "Explicit food preference and implicit food trend agree.",
+      "proficiency": 0.20,
+      "topic_weights": {"food_cooking": 1.0},
+      "signals": [
+        {"target_lemma": "料理", "side": "target", "count": 80},
+        {"target_lemma": "野菜", "side": "target", "count": 40},
+        {"target_lemma": "食べる", "side": "target", "count": 30},
+        {"target_lemma": "飲む", "side": "target", "count": 20}
+      ],
+      "expectations": {
+        "matching_signals": true,
+        "strong_has_browsing_lane": true
+      }
+    },
+    {
+      "name": "explicit_food_conflict_medicine_p20",
+      "description": "Explicit food preference with conflicting medical browsing trend.",
+      "proficiency": 0.20,
+      "topic_weights": {"food_cooking": 1.0},
+      "signals": [
+        {"target_lemma": "病院", "side": "target", "count": 80},
+        {"target_lemma": "治療", "side": "target", "count": 40},
+        {"target_lemma": "診断", "side": "target", "count": 30}
+      ],
+      "expectations": {
+        "matching_signals": true,
+        "strong_has_browsing_lane": true
+      }
+    },
+    {
+      "name": "implicit_medicine_only_p45",
+      "description": "Medical reading trend without explicit topic preference.",
+      "proficiency": 0.45,
+      "signals": [
+        {"target_lemma": "病院", "side": "target", "count": 80},
+        {"target_lemma": "治療", "side": "target", "count": 40},
+        {"target_lemma": "診断", "side": "target", "count": 30},
+        {"target_lemma": "医者", "side": "target", "count": 20}
+      ],
+      "expectations": {
+        "matching_signals": true,
+        "strong_has_browsing_lane": true
+      }
+    },
+    {
+      "name": "suppressed_signal_guard_p30",
+      "description": "A strong implicit signal must not select an explicitly blocked lemma.",
+      "proficiency": 0.30,
+      "signals": [
+        {"target_lemma": "料理", "side": "target", "count": 120},
+        {"target_lemma": "野菜", "side": "target", "count": 40}
+      ],
+      "blocked_lemmas": ["料理"],
+      "expectations": {
+        "matching_signals": true,
+        "blocked_lemmas_not_selected": true
+      }
+    }
+  ]
+}

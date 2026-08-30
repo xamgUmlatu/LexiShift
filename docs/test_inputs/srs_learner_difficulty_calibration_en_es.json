@@ -1,0 +1,2560 @@
+{
+  "calibration_id": "srs_learner_difficulty_calibration_en_es_v1",
+  "created_at": "2026-07-04T18:34:09Z",
+  "created_from": "docs/test_outputs/srs_learner_difficulty_calibration_review_pack_en_es_balanced_proposed_labels_latest.json",
+  "difficulty_bands": {
+    "advanced": "Expected learner difficulty from 0.60 through below 0.80.",
+    "beginner": "Expected learner difficulty below 0.20.",
+    "core": "Expected learner difficulty from 0.20 through below 0.40.",
+    "intermediate": "Expected learner difficulty from 0.40 through below 0.60.",
+    "recondite": "Expected learner difficulty at or above 0.94.",
+    "tail": "Expected learner difficulty from 0.80 through below 0.94."
+  },
+  "difficulty_target_scale": "expected_learner_difficulty is a reviewed continuous 0.00-1.00 English-speaker Spanish-learner difficulty target. It is presentation priority/proficiency level, not pure native rarity and not topic preference. Function words, loanwords, regional terms, and restricted-admission rows may keep numeric difficulty labels while being flagged separately for admission policy.",
+  "labels": [
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.07,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "que",
+      "rationale": "Ultra-common connector/complementizer; early but grammar-heavy.",
+      "review_confidence": 0.75,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 1,
+      "review_treatment": "vocab",
+      "source_pos": "pronoun",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "function_anchor"
+      ],
+      "source_spalex_rank": 1.0,
+      "source_translations": [
+        "that",
+        "than",
+        "indicates reason; because, for"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.05,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "los",
+      "rationale": "Core plural article/pronoun form.",
+      "review_confidence": 0.75,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 2,
+      "review_treatment": "vocab",
+      "source_pos": "determiner",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "function_anchor"
+      ],
+      "source_spalex_rank": 2.0,
+      "source_translations": [
+        "plural masculine or neuter pronoun"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.05,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "las",
+      "rationale": "Core feminine plural article/pronoun form.",
+      "review_confidence": 0.75,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 4,
+      "review_treatment": "vocab",
+      "source_pos": "determiner",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "function_anchor"
+      ],
+      "source_spalex_rank": 4.0,
+      "source_translations": [
+        "feminine plural definite article; the",
+        "feminine plural pronoun"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "por",
+      "rationale": "Very common preposition with several hard senses.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 5,
+      "review_treatment": "vocab",
+      "source_pos": "adposition",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "function_anchor"
+      ],
+      "source_spalex_rank": 5.0,
+      "source_translations": [
+        "by",
+        "for (indicates something given in an exchange)",
+        "through, out, via (indicating movement)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.04,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "una",
+      "rationale": "Core article/number form.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 7,
+      "review_treatment": "vocab",
+      "source_pos": "determiner",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "function_anchor"
+      ],
+      "source_spalex_rank": 7.0,
+      "source_translations": [
+        "one (an indefinite plural pronoun using a singular feminine item, used for females)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.14,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "para",
+      "rationale": "Very common preposition; early but semantically broad.",
+      "review_confidence": 0.75,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 8,
+      "review_treatment": "vocab",
+      "source_pos": "adposition",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "function_anchor"
+      ],
+      "source_spalex_rank": 8.0,
+      "source_translations": [
+        "for, to (expressing a recipient)",
+        "to, in order to, so, for (expressing the intended purpose of an action)",
+        "by, due, due on, due by (expressing a deadline)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "sus",
+      "rationale": "Common possessive; needs grammar but early.",
+      "review_confidence": 0.7,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 10,
+      "review_treatment": "vocab",
+      "source_pos": "determiner",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "function_anchor"
+      ],
+      "source_spalex_rank": 11.0,
+      "source_translations": [
+        "your (with plural possessee)",
+        "c'mon; attaboy",
+        "sus"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.09,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "este",
+      "rationale": "Common demonstrative; east sense is secondary noise.",
+      "review_confidence": 0.75,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 11,
+      "review_treatment": "vocab",
+      "source_pos": "determiner",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "function_anchor"
+      ],
+      "source_spalex_rank": 12.0,
+      "source_translations": [
+        "this",
+        "uh, well (space filler in a conversation)",
+        "east"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.07,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "más",
+      "rationale": "Core comparator/adverb.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 13,
+      "review_treatment": "vocab",
+      "source_pos": "adverb",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "core_content_low_rank",
+        "content_band_0.1_0.2"
+      ],
+      "source_spalex_rank": 10.0,
+      "source_translations": [
+        "more; -er (used to make comparisons)",
+        "most; -est (used to make superlatives)",
+        "furthermore"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "también",
+      "rationale": "Common adverb.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 14,
+      "review_treatment": "vocab",
+      "source_pos": "adverb",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "core_content_low_rank",
+        "content_band_0.1_0.2"
+      ],
+      "source_spalex_rank": 13.0,
+      "source_translations": [
+        "also, too, as well",
+        "so"
+      ]
+    },
+    {
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.12,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "inflected_or_nonlemma_form",
+      "lemma": "son",
+      "rationale": "Likely inflected ser form as an SRS row; useful form but not ideal standalone lemma.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "bad_standalone_srs_item",
+        "grammar_or_function_word",
+        "needs_display_or_rule_restriction"
+      ],
+      "review_number": 16,
+      "review_treatment": "restrict_admission",
+      "source_pos": "verb",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "core_content_low_rank"
+      ],
+      "source_spalex_rank": 17.0,
+      "source_translations": [
+        "tone (pleasant sound)",
+        "son (afro-cuban musical form)",
+        "musical composition in this form"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.24,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "parte",
+      "rationale": "Common abstract/basic noun with multiple senses.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 17,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank"
+      ],
+      "source_spalex_rank": 24.0,
+      "source_translations": [
+        "part; section; portion; share; piece; bit; cut; proportion",
+        "place; somewhere",
+        "side"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.2,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "vez",
+      "rationale": "Common noun in repeated phrases like una vez.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 19,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank"
+      ],
+      "source_spalex_rank": 26.0,
+      "source_translations": [
+        "time, instance",
+        "place (in a queue)",
+        "turn (a chance to use (something) shared in sequence with others)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.15,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "presidente",
+      "rationale": "Common transparent role noun.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 20,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank",
+        "content_band_0.2_0.3",
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 28.0,
+      "source_translations": [
+        "president"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "señor",
+      "rationale": "Common address/person noun.",
+      "review_confidence": 0.75,
+      "review_flags": [],
+      "review_number": 22,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank",
+        "content_band_0.2_0.3"
+      ],
+      "source_spalex_rank": 35.0,
+      "source_translations": [
+        "mister, sir, lord (title conferred on a married or older male)",
+        "gentleman",
+        "master"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "tiempo",
+      "rationale": "Core time noun.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 23,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank",
+        "content_band_0.2_0.3"
+      ],
+      "source_spalex_rank": 36.0,
+      "source_translations": [
+        "time",
+        "a while, period of time, long time, length of time, indeterminate amount of time",
+        "tense"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.22,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "tanto",
+      "rationale": "Common quantifier/adverb but grammar-heavy.",
+      "review_confidence": 0.68,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 25,
+      "review_treatment": "vocab",
+      "source_pos": "adverb",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "core_content_low_rank",
+        "content_band_0.2_0.3"
+      ],
+      "source_spalex_rank": 39.0,
+      "source_translations": [
+        "so much; as much; that much",
+        "so many, as many, that many",
+        "so much, long, hard, often, etc."
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "bien",
+      "rationale": "Core adverb/adjective-family word.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 26,
+      "review_treatment": "vocab",
+      "source_pos": "adverb",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "core_content_low_rank",
+        "content_band_0.2_0.3"
+      ],
+      "source_spalex_rank": 40.0,
+      "source_translations": [
+        "well (adverbial form of bueno)",
+        "well; fine; okay (state of being satisfied with the status quo)",
+        "properly"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "país",
+      "rationale": "Common country noun.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 28,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank"
+      ],
+      "source_spalex_rank": 46.0,
+      "source_translations": [
+        "country (the territory of a nation)",
+        "country, land (a set region of land having particular human occupation or agreed limits)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.12,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "vida",
+      "rationale": "Core life noun.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 29,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank"
+      ],
+      "source_spalex_rank": 47.0,
+      "source_translations": [
+        "life",
+        "lifestyle",
+        "livelihood; living"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.24,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "gobierno",
+      "rationale": "Common civic noun, a little later than first beginner set.",
+      "review_confidence": 0.75,
+      "review_flags": [],
+      "review_number": 31,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank"
+      ],
+      "source_spalex_rank": 49.0,
+      "source_translations": [
+        "government"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.26,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "estado",
+      "rationale": "Common abstract noun with several senses.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 32,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank"
+      ],
+      "source_spalex_rank": 50.0,
+      "source_translations": [
+        "country, land (any broad area or territory)",
+        "state (a province, particularly a fairly autonomous one within a federation)",
+        "state, status (a condition)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.22,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "forma",
+      "rationale": "Common noun with concrete and abstract senses.",
+      "review_confidence": 0.75,
+      "review_flags": [],
+      "review_number": 34,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "core_content_low_rank"
+      ],
+      "source_spalex_rank": 52.0,
+      "source_translations": [
+        "shape; form; figure",
+        "way; manner",
+        "basis; method"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.28,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "mayor",
+      "rationale": "Common adjective/noun with several abstract senses.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 35,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "core_content_low_rank"
+      ],
+      "source_spalex_rank": 53.0,
+      "source_translations": [
+        "of age; adult; grown-up",
+        "major; main",
+        "head; boss"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "agua",
+      "rationale": "Core concrete noun.",
+      "review_confidence": 0.8,
+      "review_flags": [],
+      "review_number": 37,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.3_0.4"
+      ],
+      "source_spalex_rank": 178.0,
+      "source_translations": [
+        "water",
+        "body of water",
+        "rain (condensed water falling from a cloud)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "sur",
+      "rationale": "Basic direction noun.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 38,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.3_0.4"
+      ],
+      "source_spalex_rank": 174.0,
+      "source_translations": [
+        "south"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "familia",
+      "rationale": "Core transparent family noun.",
+      "review_confidence": 0.8,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 40,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.3_0.4"
+      ],
+      "source_spalex_rank": 179.0,
+      "source_translations": [
+        "family (group of people related to each other)",
+        "family (grouping of things possessing common characteristics)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.28,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "relación",
+      "rationale": "Common abstract cognate.",
+      "review_confidence": 0.75,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 41,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.3_0.4"
+      ],
+      "source_spalex_rank": 173.0,
+      "source_translations": [
+        "relation",
+        "relationship"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.34,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "par",
+      "rationale": "Useful but polysemous noun/adjective.",
+      "review_confidence": 0.7,
+      "review_flags": [],
+      "review_number": 43,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.4_0.5"
+      ],
+      "source_spalex_rank": 790.0,
+      "source_translations": [
+        "even (divisible by two)",
+        "pair (two of the same or similar items that go together)",
+        "couple (two of the same or similar items)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "actor",
+      "rationale": "Transparent common noun.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 44,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.4_0.5"
+      ],
+      "source_spalex_rank": 781.0,
+      "source_translations": [
+        "actor (person who performs in a theatrical play or movie)",
+        "defendant"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "fiesta",
+      "rationale": "Common event/party word.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 46,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.4_0.5"
+      ],
+      "source_spalex_rank": 821.0,
+      "source_translations": [
+        "party",
+        "feast",
+        "feast day (of a saint)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.36,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "destino",
+      "rationale": "Useful but abstract/polysemous noun.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 47,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.4_0.5"
+      ],
+      "source_spalex_rank": 782.0,
+      "source_translations": [
+        "destiny, fate",
+        "destination",
+        "purpose, end use"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "seriamente",
+      "rationale": "Transparent adverb, not core beginner.",
+      "review_confidence": 0.7,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 49,
+      "review_treatment": "vocab",
+      "source_pos": "adverb",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "content_band_0.5_0.6"
+      ],
+      "source_spalex_rank": 2930.0,
+      "source_translations": [
+        "seriously"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "lecho",
+      "rationale": "Literary/less common bed word.",
+      "review_confidence": 0.68,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 50,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.5_0.6"
+      ],
+      "source_spalex_rank": 2834.0,
+      "source_translations": [
+        "bed",
+        "bed (garden plot)",
+        "riverbed (path where a river runs)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "testamento",
+      "rationale": "Transparent but specific legal/religious noun.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "cognate_easy_for_english_speaker",
+        "domain_or_register_specific"
+      ],
+      "review_number": 52,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.5_0.6"
+      ],
+      "source_spalex_rank": 2904.0,
+      "source_translations": [
+        "will, testament",
+        "testament",
+        "an exceedingly long text"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "lana",
+      "rationale": "Concrete noun, not beginner-core.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 53,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.5_0.6"
+      ],
+      "source_spalex_rank": 3015.0,
+      "source_translations": [
+        "wool",
+        "cash, money, dough",
+        "moss"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "clarificar",
+      "rationale": "Transparent verb, useful but later than aclarar.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 55,
+      "review_treatment": "vocab",
+      "source_pos": "verb",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "content_band_0.6_0.7"
+      ],
+      "source_spalex_rank": 8554.0,
+      "source_translations": [
+        "to clarify"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "moraleja",
+      "rationale": "Specific literary/lesson moral noun.",
+      "review_confidence": 0.7,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 56,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.6_0.7"
+      ],
+      "source_spalex_rank": 9126.0,
+      "source_translations": [
+        "moral"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.52,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "carpa",
+      "rationale": "Concrete word with region/sense variation.",
+      "review_confidence": 0.68,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 58,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.6_0.7"
+      ],
+      "source_spalex_rank": 8737.0,
+      "source_translations": [
+        "tent (for events, party, circus)",
+        "tent (for camping)",
+        "a kind of comedic and musical theatre, under a tent"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "almidón",
+      "rationale": "Concrete food/science noun.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 59,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.6_0.7"
+      ],
+      "source_spalex_rank": 9036.0,
+      "source_translations": [
+        "starch"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.54,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "reexaminar",
+      "rationale": "Transparent re- verb, not common beginner.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 61,
+      "review_treatment": "vocab",
+      "source_pos": "verb",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "content_band_0.7_0.8"
+      ],
+      "source_spalex_rank": 20044.0,
+      "source_translations": [
+        "to reexamine"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.36,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "limpiador",
+      "rationale": "Cleaner/cleaning word; useful and concrete.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 62,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.7_0.8"
+      ],
+      "source_spalex_rank": 22420.0,
+      "source_translations": [
+        "cleaning",
+        "cleaner (cleansing product)",
+        "windscreen wiper, windshield wiper"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.72,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "aciago",
+      "rationale": "Literary adjective for ill-fated.",
+      "review_confidence": 0.66,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 64,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "content_band_0.7_0.8"
+      ],
+      "source_spalex_rank": 16638.0,
+      "source_translations": [
+        "unlucky, ill-fated, unfortunate",
+        "misfortune"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.62,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "rótula",
+      "rationale": "Anatomy word, concrete but specialized.",
+      "review_confidence": 0.68,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 65,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.7_0.8"
+      ],
+      "source_spalex_rank": 21855.0,
+      "source_translations": [
+        "kneecap, patella"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.86,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "lustral",
+      "rationale": "Rare/literary adjective.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "marked_rare_or_regional",
+        "domain_or_register_specific"
+      ],
+      "review_number": 67,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "content_band_0.8_0.9"
+      ],
+      "source_spalex_rank": 31076.0,
+      "source_translations": [
+        "lustral"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.78,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "casquivano",
+      "rationale": "Uncommon personality adjective.",
+      "review_confidence": 0.65,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 68,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "content_band_0.8_0.9"
+      ],
+      "source_spalex_rank": 32083.0,
+      "source_translations": [
+        "birdbrained",
+        "birdbrain"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.9,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "semis",
+      "rationale": "Ancient coin term.",
+      "review_confidence": 0.55,
+      "review_flags": [
+        "domain_or_register_specific",
+        "marked_rare_or_regional"
+      ],
+      "review_number": 70,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_band_0.8_0.9"
+      ],
+      "source_spalex_rank": 27248.0,
+      "source_translations": [
+        "semis (a roman coin worth half an as)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.64,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "abalanzar",
+      "rationale": "Advanced verb, but still semantically useful.",
+      "review_confidence": 0.68,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 71,
+      "review_treatment": "vocab",
+      "source_pos": "verb",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "content_band_0.8_0.9",
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 34049.0,
+      "source_translations": [
+        "to propel",
+        "to balance, compensate",
+        "[with sobre ‘something’] to pounce on, swoop down on"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.88,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "ahincar",
+      "rationale": "Rare verb; likely literary.",
+      "review_confidence": 0.55,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 73,
+      "review_treatment": "vocab",
+      "source_pos": "verb",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "content_band_0.9_1.0",
+        "ordinary_content_high"
+      ],
+      "source_spalex_rank": 40473.0,
+      "source_translations": [
+        "to urge",
+        "to hurry up"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.68,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "open",
+      "rationale": "English loan/domain word, not core Spanish.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "foreign_or_borrowed_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 74,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 3958.0,
+      "source_translations": [
+        "open"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "loan_or_foreign_form",
+      "lemma": "récord",
+      "rationale": "Common transparent loan/cognate.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "cognate_easy_for_english_speaker",
+        "foreign_or_borrowed_form"
+      ],
+      "review_number": 76,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 2253.0,
+      "source_translations": [
+        "record (the most extreme known value of some achievement)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.12,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "hospital",
+      "rationale": "Core transparent noun.",
+      "review_confidence": 0.82,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 77,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 877.0,
+      "source_translations": [
+        "hospital"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.22,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "decisión",
+      "rationale": "Common abstract cognate.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 79,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 345.0,
+      "source_translations": [
+        "decision"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "social",
+      "rationale": "Common transparent adjective.",
+      "review_confidence": 0.8,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 80,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 144.0,
+      "source_translations": [
+        "social"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.25,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "presidenta",
+      "rationale": "Transparent female role noun.",
+      "review_confidence": 0.75,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 82,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 617.0,
+      "source_translations": [
+        "president's wife"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "idea",
+      "rationale": "Core transparent noun.",
+      "review_confidence": 0.82,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 83,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 301.0,
+      "source_translations": [
+        "idea"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "test",
+      "rationale": "Useful loan but not core Spanish.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "foreign_or_borrowed_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 85,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 5127.0,
+      "source_translations": [
+        "test",
+        "multiple-choice test, multiple-choice question"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.24,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "similar",
+      "rationale": "Common transparent adjective.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 86,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 810.0,
+      "source_translations": [
+        "similar"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.12,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "hotel",
+      "rationale": "Common travel noun.",
+      "review_confidence": 0.8,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 88,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 1335.0,
+      "source_translations": [
+        "hotel"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.22,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "festival",
+      "rationale": "Transparent event noun.",
+      "review_confidence": 0.76,
+      "review_flags": [
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 89,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_lower_content"
+      ],
+      "source_spalex_rank": 912.0,
+      "source_translations": [
+        "festival"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.8,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "chapar",
+      "rationale": "Regional/polysemous verb.",
+      "review_confidence": 0.58,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 91,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 33592.0,
+      "source_translations": [
+        "to veneer",
+        "to plate (as with metal)",
+        "to say a hard truth"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "culero",
+      "rationale": "Vulgar/regional adjective/noun.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 92,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 35340.0,
+      "source_translations": [
+        "shitty, ugly",
+        "mean",
+        "badly"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.8,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "cerote",
+      "rationale": "Vulgar/regional word.",
+      "review_confidence": 0.58,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 94,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 29949.0,
+      "source_translations": [
+        "a turd, excrement",
+        "asshole, a reprehensible person",
+        "assholey; reprehensible"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.65,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "guiri",
+      "rationale": "Common in Spain but region-specific slang.",
+      "review_confidence": 0.65,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 95,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 30473.0,
+      "source_translations": [
+        "gorse, furze",
+        "a supporter of queen isabella ii of spain",
+        "a pale-skinned germanic tourist."
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.9,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "vaco",
+      "rationale": "Rare/unclear row with weak standalone confidence.",
+      "review_confidence": 0.48,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 97,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 30533.0,
+      "source_translations": [
+        "vacant; blank",
+        "bull"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.82,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "californio",
+      "rationale": "Element/demonym ambiguity; specialized.",
+      "review_confidence": 0.6,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 98,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 32517.0,
+      "source_translations": [
+        "californium",
+        "californian"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "chingar",
+      "rationale": "Very common regional vulgar verb, but not neutral vocabulary.",
+      "review_confidence": 0.68,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 100,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 32336.0,
+      "source_translations": [
+        "to bother, to fuck with",
+        "to engage in sexual intercourse, to fuck",
+        "to be wrong; to screw up, to fuck up"
+      ]
+    },
+    {
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.82,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "variant_or_restricted_form",
+      "lemma": "respectar",
+      "rationale": "Suspicious/rare variant beside more normal respetar/respecto family.",
+      "review_confidence": 0.55,
+      "review_flags": [
+        "marked_rare_or_regional",
+        "needs_display_or_rule_restriction"
+      ],
+      "review_number": 101,
+      "review_treatment": "restrict_admission",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 31787.0,
+      "source_translations": [
+        "to relate to; to be concerned or involved with",
+        "to respect (to have respect or consideration toward)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "pedorro",
+      "rationale": "Colloquial/vulgar-ish adjective/noun.",
+      "review_confidence": 0.64,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 103,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 38624.0,
+      "source_translations": [
+        "farty (someone or something that farts)",
+        "low-quality, crappy, especially if disappointingly",
+        "farter (someone or something that farts)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.52,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "mocasín",
+      "rationale": "Concrete noun, not beginner-core.",
+      "review_confidence": 0.7,
+      "review_flags": [],
+      "review_number": 104,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 33126.0,
+      "source_translations": [
+        "moccasin (native north american shoe)",
+        "laceless medium or low-heeled shoe",
+        "pit viper belonging to the genus agkistrodon"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "palta",
+      "rationale": "Very common regional avocado word, but not universal.",
+      "review_confidence": 0.68,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 106,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 22308.0,
+      "source_translations": [
+        "avocado (fruit)",
+        "embarrassment, fear",
+        "palta (extinct language)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.78,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "jato",
+      "rationale": "Highly regional/polysemous word.",
+      "review_confidence": 0.55,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 107,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_guard_raise_marked"
+      ],
+      "source_spalex_rank": 23345.0,
+      "source_translations": [
+        "calf (young cow or bull)",
+        "house; home; crib",
+        "asleep"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.88,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "gandinga",
+      "rationale": "Rare/offal-related noun.",
+      "review_confidence": 0.48,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 109,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "ordinary_content_high"
+      ],
+      "source_spalex_rank": 39795.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.93,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "rebolludo",
+      "rationale": "Very obscure-looking tail word.",
+      "review_confidence": 0.42,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 110,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "ordinary_content_high"
+      ],
+      "source_spalex_rank": 41021.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.82,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "pajolero",
+      "rationale": "Colloquial/rare adjective.",
+      "review_confidence": 0.52,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 112,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "ordinary_content_high"
+      ],
+      "source_spalex_rank": 40756.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.86,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "sopicaldo",
+      "rationale": "Obscure concrete noun.",
+      "review_confidence": 0.48,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 113,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "ordinary_content_high"
+      ],
+      "source_spalex_rank": 36471.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.88,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "mondejo",
+      "rationale": "Rare regional/specific noun.",
+      "review_confidence": 0.48,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 115,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "ordinary_content_high"
+      ],
+      "source_spalex_rank": 35691.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.75,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "pelmaza",
+      "rationale": "Colloquial noun for annoying person.",
+      "review_confidence": 0.6,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 116,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "ordinary_content_high"
+      ],
+      "source_spalex_rank": 40289.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.88,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "sofoquina",
+      "rationale": "Rare noun.",
+      "review_confidence": 0.48,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 118,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "ordinary_content_high"
+      ],
+      "source_spalex_rank": 36392.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.72,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "adulatorio",
+      "rationale": "Transparent formal adjective.",
+      "review_confidence": 0.7,
+      "review_flags": [
+        "cognate_easy_for_english_speaker",
+        "domain_or_register_specific"
+      ],
+      "review_number": 119,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "ordinary_content_high",
+        "technical_or_long_tail_content"
+      ],
+      "source_spalex_rank": 40227.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.78,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "desmazalado",
+      "rationale": "Uncommon adjective.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 121,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "technical_or_long_tail_content"
+      ],
+      "source_spalex_rank": 33936.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.82,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "excrescencia",
+      "rationale": "Technical/formal cognate noun.",
+      "review_confidence": 0.7,
+      "review_flags": [
+        "domain_or_register_specific",
+        "cognate_easy_for_english_speaker"
+      ],
+      "review_number": 122,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "technical_or_long_tail_content"
+      ],
+      "source_spalex_rank": 36333.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.78,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "cerería",
+      "rationale": "Specific trade/place noun.",
+      "review_confidence": 0.6,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 124,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "technical_or_long_tail_content"
+      ],
+      "source_spalex_rank": 34949.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.8,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "tomavistas",
+      "rationale": "Specific object/technology noun.",
+      "review_confidence": 0.58,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 125,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "technical_or_long_tail_content"
+      ],
+      "source_spalex_rank": 34915.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.76,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "guardacoches",
+      "rationale": "Compound occupation noun.",
+      "review_confidence": 0.6,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 127,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "technical_or_long_tail_content"
+      ],
+      "source_spalex_rank": 38634.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "tail",
+      "expected_learner_difficulty": 0.83,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "proper_or_demonym_specific",
+      "lemma": "sabadellense",
+      "rationale": "Demonym; specific to Sabadell.",
+      "review_confidence": 0.6,
+      "review_flags": [
+        "proper_name_or_entity",
+        "domain_or_register_specific"
+      ],
+      "review_number": 128,
+      "review_treatment": "vocab",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "technical_or_long_tail_content"
+      ],
+      "source_spalex_rank": 32536.0
+    },
+    {
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.72,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "variant_or_restricted_form",
+      "lemma": "parapléjica",
+      "rationale": "Feminine adjective form; useful concept but prefer base parapléjico for SRS.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "domain_or_register_specific",
+        "needs_display_or_rule_restriction"
+      ],
+      "review_number": 130,
+      "review_treatment": "restrict_admission",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "technical_or_long_tail_content"
+      ],
+      "source_spalex_rank": 38593.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.78,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "sagú",
+      "rationale": "Specific food/plant starch noun.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 131,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "technical_or_long_tail_content"
+      ],
+      "source_spalex_rank": 26788.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "recondite",
+      "expected_learner_difficulty": 0.99,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "erraj",
+      "rationale": "Absolute corpus tail; no gloss, treat as recondite anchor.",
+      "review_confidence": 0.4,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 133,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "absolute_tail_anchor"
+      ],
+      "source_spalex_rank": 44853.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "recondite",
+      "expected_learner_difficulty": 0.99,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "mavorcio",
+      "rationale": "Absolute corpus tail; no gloss, treat as recondite anchor.",
+      "review_confidence": 0.4,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 134,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "absolute_tail_anchor"
+      ],
+      "source_spalex_rank": 44852.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "recondite",
+      "expected_learner_difficulty": 0.97,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "numulites",
+      "rationale": "Specialized fossil/mineral-like technical noun.",
+      "review_confidence": 0.58,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 136,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "absolute_tail_anchor"
+      ],
+      "source_spalex_rank": 44850.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "recondite",
+      "expected_learner_difficulty": 0.98,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "turcople",
+      "rationale": "Recondite historical/specialized word.",
+      "review_confidence": 0.5,
+      "review_flags": [
+        "marked_rare_or_regional",
+        "domain_or_register_specific"
+      ],
+      "review_number": 137,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "absolute_tail_anchor"
+      ],
+      "source_spalex_rank": 44849.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "recondite",
+      "expected_learner_difficulty": 0.99,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "juardoso",
+      "rationale": "Absolute corpus tail; no gloss, treat as recondite anchor.",
+      "review_confidence": 0.4,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 139,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "absolute_tail_anchor"
+      ],
+      "source_spalex_rank": 44847.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "recondite",
+      "expected_learner_difficulty": 0.97,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "rascle",
+      "rationale": "Absolute corpus tail; rare/unclear form.",
+      "review_confidence": 0.45,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 140,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "absolute_tail_anchor"
+      ],
+      "source_spalex_rank": 44846.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "recondite",
+      "expected_learner_difficulty": 0.98,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "taled",
+      "rationale": "Absolute corpus tail; rare/unclear form.",
+      "review_confidence": 0.42,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 142,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "absolute_tail_anchor"
+      ],
+      "source_spalex_rank": 44844.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "recondite",
+      "expected_learner_difficulty": 0.98,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "marked_rare_or_regional",
+      "lemma": "nioto",
+      "rationale": "Absolute corpus tail; rare/unclear form.",
+      "review_confidence": 0.42,
+      "review_flags": [
+        "marked_rare_or_regional"
+      ],
+      "review_number": 143,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "absolute_tail_anchor"
+      ],
+      "source_spalex_rank": 44843.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "damasco",
+      "rationale": "Damask/apricot/Damascus-family word; specific but real.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 145,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_boundary"
+      ],
+      "source_spalex_rank": 4758.0,
+      "source_translations": [
+        "damask",
+        "apricot",
+        "an apricot tree"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.28,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "ahorrar",
+      "rationale": "Useful everyday verb; model currently places it too late.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 146,
+      "review_treatment": "vocab",
+      "source_pos": "verb",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "content_boundary"
+      ],
+      "source_spalex_rank": 5306.0,
+      "source_translations": [
+        "to save (to store for future use)",
+        "to save (to conserve or prevent the wasting of)",
+        "to avoid"
+      ]
+    },
+    {
+      "expected_candidate_state": "deprioritized_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "variant_or_restricted_form",
+      "lemma": "loca",
+      "rationale": "Feminine/derived loco form; common but not ideal base SRS row.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "needs_display_or_rule_restriction"
+      ],
+      "review_number": 148,
+      "review_treatment": "restrict_admission",
+      "source_pos": "adjective",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "content_boundary"
+      ],
+      "source_spalex_rank": 3388.0,
+      "source_translations": [
+        "a madwoman, female equivalent of loco",
+        "slut (usually said of a woman...)",
+        "an effeminate man or boy"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.56,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "pasantía",
+      "rationale": "Internship/apprenticeship word, region/domain specific.",
+      "review_confidence": 0.65,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 149,
+      "review_treatment": "vocab",
+      "source_pos": "noun",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "content_boundary"
+      ],
+      "source_spalex_rank": 25632.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.38,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "normal_vocab",
+      "lemma": "bañar",
+      "rationale": "Common useful verb for bathing/soaking; learner-source A1 rescue is directionally right, but not first-core.",
+      "review_confidence": 0.74,
+      "review_flags": [],
+      "review_number": 151,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "learner_source_rescue"
+      ],
+      "source_spalex_rank": 14583.0,
+      "source_translations": [
+        "to bathe (to clean a person by immersion in water or using water; to give someone a bath)",
+        "to soak, to dip in",
+        "to bathe oneself"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "pipí",
+      "rationale": "Childish/register-specific body-fluid word; learner source supports existence, but weak dictionary support argues for late placement.",
+      "review_confidence": 0.62,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 152,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "learner_source_rescue"
+      ],
+      "source_spalex_rank": 26311.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.56,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "chancla",
+      "rationale": "Concrete footwear word; useful but specific and less core than broad clothing/body vocabulary.",
+      "review_confidence": 0.68,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 154,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "learner_source_rescue"
+      ],
+      "source_spalex_rank": 34593.0,
+      "source_translations": [
+        "slipper",
+        "flip-flop",
+        "old shoe"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.38,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "tostada",
+      "rationale": "Learnable food word with learner-source support; specific, but common enough to sit near the core/intermediate boundary.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 155,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "learner_source_rescue"
+      ],
+      "source_spalex_rank": 13024.0,
+      "source_translations": [
+        "toast (toasted bread)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.74,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "variant_or_restricted_form",
+      "lemma": "gafa",
+      "rationale": "Singular form is awkward beside common plural gafas; keep late unless a plural-aware model or display policy handles it.",
+      "review_confidence": 0.58,
+      "review_flags": [
+        "needs_display_or_rule_restriction"
+      ],
+      "review_number": 157,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "learner_source_rescue"
+      ],
+      "source_spalex_rank": 31599.0
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.45,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "domain_or_register_specific",
+      "lemma": "nevar",
+      "rationale": "Normal useful weather verb; not first-core, but learner-source rescue to intermediate is appropriate.",
+      "review_confidence": 0.7,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 158,
+      "review_treatment": "vocab",
+      "source_pos": "other",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "learner_source_rescue"
+      ],
+      "source_spalex_rank": 19916.0,
+      "source_translations": [
+        "to snow",
+        "to whiten, add white colour to something"
+      ]
+    }
+  ],
+  "language_pair": "en-es",
+  "purpose": "Reviewed v1 calibration set for en-es learner-difficulty formula sweeps. The split was assigned before tuning from the balanced review pack.",
+  "schema_version": 1,
+  "state": "reviewed_v1_from_balanced_pack"
+}

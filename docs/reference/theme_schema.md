@@ -2,7 +2,7 @@
 
 Status: draft reference with implemented subset
 Role: Planning / WIP plus current theme-loader contract
-Last updated: 2026-06-02
+Last updated: 2026-08-27
 Purpose: preserve the target GUI theme schema while documenting the customization surface currently accepted by the GUI loader
 Source-of-truth: current GUI theme behavior verifies in source code and GUI tests; future-only sections remain marked as planned.
 
@@ -69,6 +69,11 @@ Notes:
 - Image paths in `theme.json` are resolved relative to that file’s folder.
 - A shared `themes/sample_images/` folder can be used for example assets; themes can reference it via `../sample_images/...`.
 - The app seeds `themes/sample_images/` from bundled resources on first run (if the files are missing).
+- Absolute external image paths remain supported. Image file reads and decoding
+  are asynchronous, so an unavailable, protected, or slow external path cannot
+  block GUI startup; the color/gradient background remains usable while the
+  image is loading or if it fails.
+- A single theme image source is limited to 64 MiB in the current loader.
 
 ## Screen overrides (planned)
 Themes should be able to override colors and backgrounds per GUI screen. This keeps a consistent base palette

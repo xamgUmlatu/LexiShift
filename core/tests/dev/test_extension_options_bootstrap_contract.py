@@ -14,6 +14,15 @@ CONTROLLER_GRAPH_JS = (
 LOCALIZATION_SERVICE_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/localization_service.js"
 )
+TRANSLATE_RESOLVER_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/bootstrap/translate_resolver.js"
+)
+EVENT_WIRING_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/page/event_wiring_controller.js"
+)
+SRS_BINDINGS_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/page/events/srs_bindings.js"
+)
 
 
 def _run_node(script: str) -> None:
@@ -34,6 +43,83 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionOptionsBootstrapContract(unittest.TestCase):
+    def test_browsing_admission_toggle_save_reads_back_persisted_storage_truth(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const translateResolverPath = {json.dumps(str(TRANSLATE_RESOLVER_JS))};
+const eventWiringPath = {json.dumps(str(EVENT_WIRING_JS))};
+const srsBindingsPath = {json.dumps(str(SRS_BINDINGS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(translateResolverPath, "utf8"), context, {{ filename: translateResolverPath }});
+vm.runInContext(fs.readFileSync(srsBindingsPath, "utf8"), context, {{ filename: srsBindingsPath }});
+vm.runInContext(fs.readFileSync(eventWiringPath, "utf8"), context, {{ filename: eventWiringPath }});
+
+const createController = context.LexiShift.optionsEventWiring.createController;
+const savedPayloads = [];
+const statuses = [];
+let persisted = {{ srsBrowsingAdmissionSignalsEnabled: true }};
+let changeListener = null;
+const srsBrowsingAdmissionSignalsInput = {{
+  checked: true,
+  addEventListener(eventName, listener) {{
+    assert.equal(eventName, "change");
+    changeListener = listener;
+  }}
+}};
+
+const controller = createController({{
+  t: (_key, _subs, fallback) => fallback || "",
+  settingsManager: {{
+    async save(payload) {{
+      savedPayloads.push(payload);
+      // Simulate storage truth differing from the optimistic DOM state.
+      persisted = {{ srsBrowsingAdmissionSignalsEnabled: false }};
+    }},
+    async load() {{
+      return {{ ...persisted }};
+    }}
+  }},
+  setStatus(message, color) {{
+    statuses.push([message, color]);
+  }},
+  log() {{}},
+  ui: {{
+    COLORS: {{
+      SUCCESS: "success",
+      ERROR: "error",
+      DEFAULT: "default"
+    }},
+    LINKS: {{}}
+  }},
+  elements: {{
+    srsBrowsingAdmissionSignalsInput
+  }}
+}});
+
+(async () => {{
+  controller.bind();
+  assert.equal(typeof changeListener, "function");
+  srsBrowsingAdmissionSignalsInput.checked = true;
+  changeListener();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(
+    JSON.stringify(savedPayloads),
+    JSON.stringify([{{ srsBrowsingAdmissionSignalsEnabled: true }}])
+  );
+  assert.equal(srsBrowsingAdmissionSignalsInput.checked, false);
+  assert.deepEqual(statuses, [["Practice settings saved.", "success"]]);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_localization_service_preserves_static_text_when_explicit_empty_fallback_is_requested(
         self,
     ) -> None:
@@ -166,7 +252,9 @@ assert.throws(
 """
         _run_node(script)
 
-    def test_options_root_binds_events_before_page_init_after_bootstrap(self) -> None:
+    def test_options_root_applies_initial_settings_before_binding_events_after_bootstrap(
+        self,
+    ) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -271,17 +359,25 @@ context.LexiShift = {{
 
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
-const bindIndex = calls.indexOf("event.bind");
-const loadIndex = calls.indexOf("page.load");
-assert.notEqual(bindIndex, -1);
-assert.notEqual(loadIndex, -1);
-assert.ok(bindIndex < loadIndex);
+(async () => {{
+  await Promise.resolve();
+  await Promise.resolve();
+  await Promise.resolve();
+  const bindIndex = calls.indexOf("event.bind");
+  const loadIndex = calls.indexOf("page.load");
+  assert.notEqual(bindIndex, -1);
+  assert.notEqual(loadIndex, -1);
+  assert.ok(loadIndex < bindIndex);
 
-const graphCall = calls.find((entry) => Array.isArray(entry) && entry[0] === "controllerGraph");
-assert.deepEqual(
-  graphCall,
-  ["controllerGraph", true, true, "function", "function", "function", true]
-);
+  const graphCall = calls.find((entry) => Array.isArray(entry) && entry[0] === "controllerGraph");
+  assert.deepEqual(
+    graphCall,
+    ["controllerGraph", true, true, "function", "function", "function", true]
+  );
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
 """
         _run_node(script)
 

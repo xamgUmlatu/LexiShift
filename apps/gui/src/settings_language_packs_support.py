@@ -68,6 +68,7 @@ def pack_source_override_value(
 def is_pack_download_disabled(
     overrides: Mapping[str, object] | None,
     pack_id: str,
+    pack=None,
 ) -> bool:
     raw = pack_source_override_value(overrides, pack_id, "disabled")
     if isinstance(raw, bool):
@@ -77,14 +78,17 @@ def is_pack_download_disabled(
     if isinstance(raw, str):
         normalized = raw.strip().lower()
         return normalized in {"1", "true", "yes", "on"}
+    if str(getattr(pack, "distribution_mode", "") or "").strip() == "manual-supply":
+        return True
     return False
 
 
 def pack_download_disabled_reason(
     overrides: Mapping[str, object] | None,
     pack_id: str,
+    pack=None,
 ) -> str | None:
-    if not is_pack_download_disabled(overrides, pack_id):
+    if not is_pack_download_disabled(overrides, pack_id, pack):
         return None
     raw = pack_source_override_value(overrides, pack_id, "disabled_reason")
     if raw is None:
@@ -97,7 +101,7 @@ def pack_download_disabled_tooltip(
     overrides: Mapping[str, object] | None,
     pack,
 ) -> str:
-    reason = pack_download_disabled_reason(overrides, pack.pack_id)
+    reason = pack_download_disabled_reason(overrides, pack.pack_id, pack)
     if reason:
         return reason
     return t("language_packs.download_failed_source_unavailable", name=pack.display_name())
@@ -136,13 +140,30 @@ def is_sqlite_db_file(path: str | Path) -> bool:
 
 
 def has_frequency_table(path: str | Path) -> bool:
+    return has_sqlite_table(path, "frequency")
+
+
+def has_pos_overlay_table(path: str | Path) -> bool:
+    return has_sqlite_table(path, "pos_overlay")
+
+
+def has_sqlite_table(path: str | Path, table_name: str) -> bool:
     target = Path(path)
     if not target.exists() or not target.is_file():
+        return False
+    normalized_table = str(table_name or "").strip()
+    if not normalized_table:
         return False
     try:
         with sqlite3.connect(str(target)) as conn:
             row = conn.execute(
-                "SELECT name FROM sqlite_master WHERE type='table' AND lower(name)=lower('frequency') LIMIT 1;"
+                """
+                SELECT name
+                FROM sqlite_master
+                WHERE type='table' AND lower(name)=lower(?)
+                LIMIT 1;
+                """,
+                (normalized_table,),
             ).fetchone()
     except sqlite3.Error:
         return False
@@ -217,6 +238,37 @@ class EmbeddingConversionThread(QThread):
             self.failed.emit(self._pack_id, str(exc))
 
 
+class SeedFrontierCachePrepareThread(QThread):
+    completed = Signal(str, object)
+    failed = Signal(str, str)
+
+    def __init__(
+        self,
+        *,
+        pack_id: str,
+        data_root: str | Path,
+        parent=None,
+    ) -> None:
+        super().__init__(parent)
+        self._pack_id = str(pack_id or "").strip()
+        self._data_root = Path(data_root)
+
+    def run(self) -> None:
+        try:
+            from lexishift_core.helper.paths import build_helper_paths
+            from lexishift_core.helper.use_cases.seed_cache import (
+                prepare_srs_seed_frontier_caches_for_pack,
+            )
+
+            payload = prepare_srs_seed_frontier_caches_for_pack(
+                build_helper_paths(self._data_root),
+                pack_id=self._pack_id,
+            )
+            self.completed.emit(self._pack_id, payload)
+        except Exception as exc:  # noqa: BLE001
+            self.failed.emit(self._pack_id, str(exc))
+
+
 def language_pack_dir() -> str:
     base = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
     if not base:
@@ -240,5 +292,23 @@ def frequency_pack_dir() -> str:
     if not base:
         base = str(Path.home() / ".lexishift")
     path = Path(base) / "frequency_packs"
+    path.mkdir(parents=True, exist_ok=True)
+    return str(path)
+
+
+def pos_overlay_pack_dir() -> str:
+    base = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
+    if not base:
+        base = str(Path.home() / ".lexishift")
+    path = Path(base) / "pos_packs"
+    path.mkdir(parents=True, exist_ok=True)
+    return str(path)
+
+
+def lookup_dictionary_pack_dir() -> str:
+    base = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
+    if not base:
+        base = str(Path.home() / ".lexishift")
+    path = Path(base) / "lookup_dictionaries"
     path.mkdir(parents=True, exist_ok=True)
     return str(path)

@@ -93,7 +93,8 @@ const output = context.LexiShift.optionsSrsActionFormatters.buildRefreshResultOu
       share: 0.5,
       lemmas: ["perro"]
     }},
-    selected_lemmas: ["perro", "gato"],
+    selected_lemmas: ["perro", "descartado"],
+    effective_selected_lemmas: ["perro", "gato"],
     feedback_window: {{
       feedback_count: 12,
       retention_ratio: 0.83
@@ -115,6 +116,7 @@ assert.equal(output.includes("- capacity_budget: 20"), true);
 assert.equal(output.includes("- admission_budget: 2"), true);
 assert.equal(output.includes("- selected_preferred_topic_share: 0.5 (1/2)"), true);
 assert.equal(output.includes("- selected_lemmas: perro, gato"), true);
+assert.equal(output.includes("descartado"), false);
 assert.equal(output.includes("- browsing_preview_status: ok"), true);
 assert.equal(output.includes("- browsing_signal_matches: 2 / 5"), true);
 assert.equal(output.includes("- browsing_balanced_selected: perro, ave"), true);
@@ -146,6 +148,8 @@ const formatter = context.LexiShift.optionsSrsAdmissionPreviewFormatter;
 const text = formatter.buildAdmissionPreviewOutput({{
   srsPair: "en-es",
   profileId: "default",
+  bootstrapTopN: 5000,
+  previewFrontierCapApplied: true,
   plan: {{
     can_execute: true,
     strategy_requested: "profile_bootstrap",
@@ -200,6 +204,8 @@ const text = formatter.buildAdmissionPreviewOutput({{
 const view = formatter.buildAdmissionPreviewView({{
   srsPair: "en-es",
   profileId: "default",
+  bootstrapTopN: 5000,
+  previewFrontierCapApplied: true,
   plan: {{
     can_execute: true,
     strategy_requested: "profile_bootstrap",
@@ -262,6 +268,7 @@ assert.match(text, /scope: admission_preview_only/);
 assert.match(text, /active_topics: animals/);
 assert.match(text, /applied_seed_count: 1/);
 assert.match(text, /applied_row_count: 1/);
+assert.match(text, /bootstrap_top_n: 5000 \\(preview cap\\)/);
 assert.equal(text.includes("source_path:"), false);
 assert.equal(text.includes("/tmp/topic-overlays/animals-plants.json"), false);
 assert.equal(view.text, text);
@@ -276,6 +283,82 @@ assert.ok(!view.html.split("<details")[0].includes("score="));
 assert.ok(view.html.split("<details")[1].includes("score=0.689"));
 assert.equal(view.html.includes("source_path:"), false);
 assert.equal(view.html.includes("/tmp/topic-overlays/animals-plants.json"), false);
+"""
+        _run_node(script)
+
+    def test_admission_preview_view_uses_localized_copy(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(ADMISSION_PREVIEW_FORMATTER_JS))};
+const messages = {{
+  topic_srs_animals: "動物",
+  topic_srs_general: "一般",
+  note_srs_admission_preview_sample_only: "サンプルのみです。単語は追加されていません。",
+  label_srs_admission_preview_advanced_details: "詳細情報",
+  label_srs_admission_preview_sampled_words: "サンプル語:",
+  label_srs_admission_preview_sample_details: "サンプル詳細:",
+  label_srs_admission_preview_effective_profile_context: "有効なプロフィール条件:",
+  label_srs_admission_preview_topic_overlay: "トピック補助データ:",
+  summary_srs_admission_preview_selected_topics: "選択トピック: $1。",
+  summary_srs_admission_preview_sampled_topic_words: "トピック一致のサンプル語: $1語。",
+  summary_srs_admission_preview_matched_candidates: "プレビュー候補内で一致した候補: $1件。",
+  summary_srs_admission_preview_showing: "$3 で $2語中 $1語を表示しています。"
+}};
+function translate(key, args, fallback) {{
+  let message = messages[key] || fallback || "";
+  (Array.isArray(args) ? args : []).forEach((value, index) => {{
+    message = message.replace(`$${{index + 1}}`, String(value));
+  }});
+  return message;
+}}
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(candidate) {{ return typeof candidate === "function" ? candidate : translate; }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const formatter = context.LexiShift.optionsSrsAdmissionPreviewFormatter;
+const payload = {{
+  translate,
+  srsPair: "en-ja",
+  profileId: "default",
+  plan: {{ can_execute: true, strategy_requested: "profile_bootstrap", strategy_effective: "profile_bootstrap" }},
+  preview: {{
+    sample_count_effective: 1,
+    admitted_count: 2,
+    selected_unique_count: 2,
+    profile_bootstrap: {{
+      profile_context: {{ interests: ["animals"] }},
+      active_topic_support: {{ topics: [{{ topic: "animals", candidate_count: 4 }}] }},
+      profile_topic_overlay: {{ status: "active", application_status: "applied", active_topics: ["animals"] }}
+    }},
+    admitted_words: [{{ lemma: "猫", signals: {{ topic_affinity_source: "topic_hint:animals" }} }}]
+  }}
+}};
+const text = formatter.buildAdmissionPreviewOutput(payload);
+const view = formatter.buildAdmissionPreviewView(payload);
+
+assert.match(text, /サンプル語:/);
+assert.match(text, /サンプル詳細:/);
+assert.match(text, /有効なプロフィール条件:/);
+assert.match(text, /トピック補助データ:/);
+assert.equal(text.includes("Sampled words:"), false);
+assert.equal(text.includes("Sample details:"), false);
+assert.match(view.html, /サンプルのみです。単語は追加されていません。/);
+assert.match(view.html, /en-ja で 2語中 1語を表示しています。/);
+assert.match(view.html, /選択トピック: 動物。/);
+assert.match(view.html, /トピック一致のサンプル語: 1語。/);
+assert.match(view.html, /プレビュー候補内で一致した候補: 4件。/);
+assert.match(view.html, /<summary>詳細情報<\\/summary>/);
+assert.match(view.html, /<span class="srs-admission-word-topic is-topic">動物<\\/span>/);
+assert.equal(view.html.includes("Sample only."), false);
+assert.equal(view.html.includes("Advanced details"), false);
 """
         _run_node(script)
 
@@ -406,6 +489,20 @@ const diagnosticsText = formatters.buildRuntimeDiagnosticsOutput({{
       semantic_decision_policy_id: "en_es_sentence_veto_v3",
       semantic_inventory_error: "",
       helper_rules_error: "",
+      replacement_budget_scope: "frame_document",
+      replacement_budget_active: true,
+      replacement_budget_max_total: 20,
+      replacement_budget_max_per_sentence: 2,
+      replacement_budget_max_per_lemma: 1,
+      replacement_budget_used_total: 18,
+      replacement_budget_tracked_sentence_count: 12,
+      replacement_budget_tracked_lemma_count: 15,
+      replacement_budget_page_exhausted: false,
+      replacement_budget_sentence_cap_reached_count: 4,
+      replacement_budget_lemma_cap_reached_count: 7,
+      replacement_budget_rejected_page: 0,
+      replacement_budget_rejected_sentence: 3,
+      replacement_budget_rejected_lemma: 8,
       frame_type: "top"
     }}
   }}
@@ -432,6 +529,13 @@ assert.match(diagnosticsText, /semantic_ready_rule_count: 4/);
 assert.match(diagnosticsText, /semantic_matches_ready: 4/);
 assert.match(diagnosticsText, /semantic_policy_soft_affordances: 1/);
 assert.match(diagnosticsText, /semantic_fallback_soft_affordances: 1/);
+assert.match(diagnosticsText, /replacement_budget_scope: frame_document/);
+assert.match(diagnosticsText, /replacement_budget_max_total: 20/);
+assert.match(diagnosticsText, /replacement_budget_used_total: 18/);
+assert.match(diagnosticsText, /replacement_budget_tracked_sentence_count: 12/);
+assert.match(diagnosticsText, /replacement_budget_tracked_lemma_count: 15/);
+assert.match(diagnosticsText, /replacement_budget_rejected_sentence: 3/);
+assert.match(diagnosticsText, /replacement_budget_rejected_lemma: 8/);
 assert.match(
   diagnosticsText,
   /semantic_fallback_reason_counts: \\{{"decision_service_error":1,"semantic_status_pending":1\\}}/

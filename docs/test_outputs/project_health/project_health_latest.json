@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-05-14T19:12:47.676Z",
-  "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
+  "generated_at_utc": "2026-08-30T19:24:14.269Z",
+  "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift-beta-integration",
   "options": {
     "advisory": true,
     "changed_only": false,
@@ -14,9 +14,9 @@
     "enforce_all": false
   },
   "summary": {
-    "files_checked": 693,
-    "violations": 0,
-    "warnings": 0,
+    "files_checked": 1024,
+    "violations": 75,
+    "warnings": 41,
     "changed_only": false,
     "changed_file_count": null,
     "baseline_path": "",
@@ -28,7 +28,3050 @@
     "baseline_warning_regressions": null,
     "advisory": true
   },
-  "violations": [],
-  "warnings": [],
+  "violations": [
+    {
+      "file": "apps/gui/src/settings_language_packs.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1230,
+        "imports": 23,
+        "domainBreadth": 0,
+        "functions": 40
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 330,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "apps/gui/src/settings_language_packs_pair_setup_mixin.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1124,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 47
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 224,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "core/lexishift_core/srs/profile_bootstrap.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1705,
+        "imports": 13,
+        "domainBreadth": 1,
+        "functions": 59
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 805,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "core/lexishift_core/rulegen/semantic_publication.py",
+      "language": "python",
+      "metrics": {
+        "lines": 945,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 33
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 45,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "core/lexishift_core/helper/engine.py",
+      "language": "python",
+      "metrics": {
+        "lines": 871,
+        "imports": 26,
+        "domainBreadth": 1,
+        "functions": 42
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 2,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "imports"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "core/lexishift_core/frequency/es/spalex.py",
+      "language": "python",
+      "metrics": {
+        "lines": 976,
+        "imports": 13,
+        "domainBreadth": 1,
+        "functions": 40
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 76,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/build_aozora_lexical_context_features_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1138,
+        "imports": 6,
+        "domainBreadth": 0,
+        "functions": 36
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 238,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/fetch_aozora_word_frequency_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1253,
+        "imports": 7,
+        "domainBreadth": 0,
+        "functions": 35
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 353,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/fetch_aozora_work_audience_metadata_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2933,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 93
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 2033,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 43
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_admission_frontier_gaussian_config_compare_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 939,
+        "imports": 18,
+        "domainBreadth": 1,
+        "functions": 23
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 39,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_admission_preference_sample_pack_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1151,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 39
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 251,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_admission_random_ux_sample_pack_en_de.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1268,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 43
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 368,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_admission_random_ux_sample_pack_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1226,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 44
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 326,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_admission_veto_candidate_review_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1110,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 44
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 210,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_jmdict_topic_source_readiness_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1122,
+        "imports": 11,
+        "domainBreadth": 1,
+        "functions": 45
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 222,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_aozora_context_review_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 962,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 62,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_aozora_tail_bakeoff_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1409,
+        "imports": 13,
+        "domainBreadth": 0,
+        "functions": 39
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 509,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_assumption_review_pack_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1006,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 35
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 106,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1601,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 57
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 701,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 7
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_band_expert_stitch_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1653,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 40
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 753,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_bounded_hybrid_search_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1107,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 27
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 207,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_bounded_hybrid_stability_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1104,
+        "imports": 13,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 204,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_compound_leak_sweep_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1868,
+        "imports": 8,
+        "domainBreadth": 0,
+        "functions": 85
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 968,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 35
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_constituent_transparency_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1693,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 79
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 793,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 29
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_contender_samples_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1092,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 35
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 192,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_curve_search_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1643,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 42
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 743,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_disagreement_review_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1161,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 47
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 261,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_early_exact_support_gate_bakeoff_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1327,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 31
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 427,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_external_source_audit_en_de.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1024,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 38
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 124,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_formula_probe_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2046,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 60
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 1146,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 10
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_formula_sweep_en_de.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2657,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 60
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 1757,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 10
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_formula_sweep_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1439,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 45
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 539,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_holdout_eval_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1199,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 36
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 299,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_jlpt_reference_compare_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1520,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 47
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 620,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_learner_source_audit_en_de.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1073,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 39
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 173,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_learner_source_audit_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 924,
+        "imports": 16,
+        "domainBreadth": 1,
+        "functions": 35
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 24,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_model_family_meta_search_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1796,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 60
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 896,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 10
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_model_family_search_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2255,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 58
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 1355,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 8
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_model_tree_search_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1987,
+        "imports": 9,
+        "domainBreadth": 0,
+        "functions": 55
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 1087,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_monotone_calibration_en_de.py",
+      "language": "python",
+      "metrics": {
+        "lines": 911,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 43
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 11,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_piecewise_search_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1422,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 49
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 522,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_polysemy_sweep_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 971,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 45
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 71,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_proficiency_ordering_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1528,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 59
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 628,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 9
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_proficiency_ordering_search_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1263,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 363,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_proficiency_ordering_stability_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1059,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 31
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 159,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_reading_form_sample_eval_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1616,
+        "imports": 13,
+        "domainBreadth": 0,
+        "functions": 47
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 716,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_reading_specific_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1253,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 55
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 353,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_residual_gate_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1026,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 32
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 126,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_residual_patterns_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 994,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 94,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_residual_shape_atlas_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1527,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 37
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 627,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_review_batch_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 980,
+        "imports": 7,
+        "domainBreadth": 0,
+        "functions": 35
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 80,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_score_warp_sweep_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1248,
+        "imports": 14,
+        "domainBreadth": 0,
+        "functions": 62
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 348,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 12
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_signal_endpoint_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1019,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 35
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 119,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_signal_palette_en_de.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1285,
+        "imports": 15,
+        "domainBreadth": 1,
+        "functions": 38
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 385,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_signal_palette_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1503,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 47
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 603,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_signal_palette_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1092,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 21
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 192,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_signal_sweep_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 5661,
+        "imports": 22,
+        "domainBreadth": 1,
+        "functions": 172
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 4761,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 122
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_source_arbitration_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 6228,
+        "imports": 13,
+        "domainBreadth": 0,
+        "functions": 131
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 5328,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 81
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_source_shape_breadth_sweep_en_de.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1615,
+        "imports": 9,
+        "domainBreadth": 0,
+        "functions": 54
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 715,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 4
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_standalone_independence_broad_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1087,
+        "imports": 7,
+        "domainBreadth": 0,
+        "functions": 39
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 187,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_stitch_validation_pack_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 953,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 36
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 53,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_structured_failure_groups_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1935,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 63
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 1035,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 13
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_tail_external_signal_probe_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1173,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 55
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 273,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 5
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_tail_partition_search_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1092,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 192,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_target_curve_bakeoff_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 914,
+        "imports": 13,
+        "domainBreadth": 0,
+        "functions": 25
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 14,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_targeted_signal_bakeoff_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1358,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 47
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 458,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_transparent_wago_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1193,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 57
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 293,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 7
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_validation_failure_group_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1248,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 37
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 348,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_topic_autotag_evidence_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 2783,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 100
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 1883,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 50
+      },
+      "violation_metrics": [
+        "lines",
+        "functions"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_topic_autotag_ndl_authority_probe_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 938,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 38
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 38,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_topic_autotag_promotion_overlay_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1205,
+        "imports": 9,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 305,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_topic_autotag_wikidata_claim_probe_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1116,
+        "imports": 14,
+        "domainBreadth": 0,
+        "functions": 44
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 216,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_topic_autotag_wikidata_list_extractor_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 952,
+        "imports": 15,
+        "domainBreadth": 0,
+        "functions": 36
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 52,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_topic_family_depth_audit_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 902,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 37
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 2,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    },
+    {
+      "file": "scripts/testing/srs_topic_translation_bridge_overlay_en_de.py",
+      "language": "python",
+      "metrics": {
+        "lines": 1699,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 41
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 799,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [
+        "lines"
+      ],
+      "warning_metrics": []
+    }
+  ],
+  "warnings": [
+    {
+      "file": "apps/chrome-extension/content_script.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 452,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 35
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/content/processing/replacements.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 490,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 15
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 460,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 14
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/content/runtime/dom_scan_runtime.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 470,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 38
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/content/runtime/dom_scan/semantic_context.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 494,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 43
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines",
+        "functions"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 486,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 34
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/content/ui/feedback_popup_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 493,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 495,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 41
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines",
+        "functions"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/content/ui/ui.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 490,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 32
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/learning_dashboard.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 490,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 41
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines",
+        "functions"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/options/controllers/srs/profile_runtime_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 496,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 23
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/options/controllers/srs/story_flow_controller.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 483,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 36
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/chrome-extension/options/core/settings/srs_profile_methods.js",
+      "language": "javascript",
+      "metrics": {
+        "lines": 474,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 17
+      },
+      "limits": {
+        "maxLines": 500,
+        "maxImports": 16,
+        "maxDomainBreadth": 6,
+        "maxFunctions": 45
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/gui/src/helper_installer.py",
+      "language": "python",
+      "metrics": {
+        "lines": 824,
+        "imports": 15,
+        "domainBreadth": 0,
+        "functions": 36
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "apps/gui/src/main.py",
+      "language": "python",
+      "metrics": {
+        "lines": 870,
+        "imports": 23,
+        "domainBreadth": 1,
+        "functions": 38
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines",
+        "imports"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/helper/rulegen.py",
+      "language": "python",
+      "metrics": {
+        "lines": 695,
+        "imports": 24,
+        "domainBreadth": 1,
+        "functions": 18
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "imports"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/helper/use_cases/admission_candidate_index.py",
+      "language": "python",
+      "metrics": {
+        "lines": 747,
+        "imports": 22,
+        "domainBreadth": 1,
+        "functions": 19
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "imports"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/helper/use_cases/admission_preview.py",
+      "language": "python",
+      "metrics": {
+        "lines": 657,
+        "imports": 22,
+        "domainBreadth": 1,
+        "functions": 16
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "imports"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/helper/use_cases/rebalance_set.py",
+      "language": "python",
+      "metrics": {
+        "lines": 622,
+        "imports": 21,
+        "domainBreadth": 1,
+        "functions": 10
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "imports"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/helper/use_cases/refresh_set.py",
+      "language": "python",
+      "metrics": {
+        "lines": 852,
+        "imports": 23,
+        "domainBreadth": 1,
+        "functions": 15
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines",
+        "imports"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/helper/use_cases/word_info.py",
+      "language": "python",
+      "metrics": {
+        "lines": 898,
+        "imports": 19,
+        "domainBreadth": 1,
+        "functions": 36
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/rulegen/pairs/en_de_gloss_processing.py",
+      "language": "python",
+      "metrics": {
+        "lines": 845,
+        "imports": 10,
+        "domainBreadth": 1,
+        "functions": 34
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/rulegen/semantic_routing_runtime_policy.py",
+      "language": "python",
+      "metrics": {
+        "lines": 891,
+        "imports": 4,
+        "domainBreadth": 1,
+        "functions": 14
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/srs/admission_refresh.py",
+      "language": "python",
+      "metrics": {
+        "lines": 829,
+        "imports": 14,
+        "domainBreadth": 1,
+        "functions": 29
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/srs/browsing_admission.py",
+      "language": "python",
+      "metrics": {
+        "lines": 820,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 27
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "core/lexishift_core/srs/profile_bootstrap_support.py",
+      "language": "python",
+      "metrics": {
+        "lines": 813,
+        "imports": 10,
+        "domainBreadth": 1,
+        "functions": 21
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/helper/lexishift_helper.py",
+      "language": "python",
+      "metrics": {
+        "lines": 885,
+        "imports": 13,
+        "domainBreadth": 1,
+        "functions": 21
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/semantic_veto_srs_source_stack_audit_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 857,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 28
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/semantic_veto_srs_zipf_bridge_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 782,
+        "imports": 21,
+        "domainBreadth": 1,
+        "functions": 20
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "imports"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_browsing_admission_runtime_smoke.py",
+      "language": "python",
+      "metrics": {
+        "lines": 851,
+        "imports": 9,
+        "domainBreadth": 1,
+        "functions": 19
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_jmdict_topic_overlay_poc_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 837,
+        "imports": 12,
+        "domainBreadth": 1,
+        "functions": 31
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_aozora_source_void_tiebreak_bakeoff_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 848,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 15
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_calibration_review_pack_en_es.py",
+      "language": "python",
+      "metrics": {
+        "lines": 891,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 34
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_constituent_transparency_label_eval_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 814,
+        "imports": 7,
+        "domainBreadth": 0,
+        "functions": 27
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_current_best_band_review_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 833,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 27
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_final_ranking_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 858,
+        "imports": 12,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_gairaigo_curve_sweep_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 843,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 35
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_same_surface_floor_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 884,
+        "imports": 10,
+        "domainBreadth": 0,
+        "functions": 26
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_source_pair_validation_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 894,
+        "imports": 15,
+        "domainBreadth": 0,
+        "functions": 30
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_learner_difficulty_source_quality_guardrail_audit_en_ja.py",
+      "language": "python",
+      "metrics": {
+        "lines": 892,
+        "imports": 11,
+        "domainBreadth": 0,
+        "functions": 23
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    },
+    {
+      "file": "scripts/testing/srs_quality_harness_support.py",
+      "language": "python",
+      "metrics": {
+        "lines": 813,
+        "imports": 20,
+        "domainBreadth": 1,
+        "functions": 32
+      },
+      "limits": {
+        "maxLines": 900,
+        "maxImports": 24,
+        "maxDomainBreadth": 8,
+        "maxFunctions": 50
+      },
+      "overages": {
+        "lines": 0,
+        "imports": 0,
+        "domainBreadth": 0,
+        "functions": 0
+      },
+      "violation_metrics": [],
+      "warning_metrics": [
+        "lines"
+      ]
+    }
+  ],
   "baseline_delta": null
 }

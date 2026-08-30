@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
-from typing import TYPE_CHECKING, Mapping, Optional, Sequence
+from typing import TYPE_CHECKING, Mapping, Optional, Sequence, cast
 
 import numpy as np
 
@@ -291,10 +291,11 @@ def _materialize_compiled_candidate_score_table_batch(
         dtype=np.int64,
     )
     phrase_penalty_values_tuple = tuple(
-        float(value) for value in phrase_penalty_values_by_row.tolist()
+        float(value) for value in cast(list[float], phrase_penalty_values_by_row.tolist())
     )
     reverse_hygiene_anchor_allowed_flags_tuple = tuple(
-        bool(value) for value in reverse_hygiene_anchor_allowed_flags_by_row.tolist()
+        bool(value)
+        for value in cast(list[bool], reverse_hygiene_anchor_allowed_flags_by_row.tolist())
     )
     base_gloss_score_values = np.zeros(row_count, dtype=np.float64)
     non_negative_gloss_mask = gloss_indices_array >= 0
@@ -404,9 +405,9 @@ def _materialize_compiled_candidate_score_table_batch(
         ranking_scores = ranking_scores_matrix[projection_index]
         row_sort_keys = tuple(
             zip(
-                (-ranking_scores).tolist(),
-                (-confidence_scores).tolist(),
-                normalized_source_phrase_order_ids_array.tolist(),
+                cast(list[float], (-ranking_scores).tolist()),
+                cast(list[float], (-confidence_scores).tolist()),
+                cast(list[int], normalized_source_phrase_order_ids_array.tolist()),
             )
         )
         ranked_candidate_row_ids_by_target_id = {

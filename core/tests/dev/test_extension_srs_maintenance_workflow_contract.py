@@ -111,7 +111,7 @@ let rulesetUpdatedCount = 0;
 const workflows = createMaintenanceWorkflows({{
   settingsManager: {{
     defaults: {{
-      srsBootstrapTopN: 800,
+      srsBootstrapTopN: null,
       srsInitialActiveCount: 40,
       srsMaxActive: 20
     }},
@@ -133,7 +133,7 @@ const workflows = createMaintenanceWorkflows({{
   syncSelectedProfile: async (items) => ({{ items, profileId: "travel" }}),
   resolvePlanningState: () => ({{
     profile: {{
-      srsBootstrapTopN: 900,
+      srsBootstrapTopN: null,
       srsInitialActiveCount: 33,
       srsMaxActive: 24
     }},
@@ -142,7 +142,7 @@ const workflows = createMaintenanceWorkflows({{
       profile_id: "travel",
       interests: ["animals", "travel"],
       constraints: {{ max_active_items: 24 }},
-      sizing: {{ bootstrap_top_n: 900, initial_active_count: 33 }}
+      sizing: {{ bootstrap_top_n: null, initial_active_count: 33 }}
     }},
     contextMeta: {{
       source: "current_form",
@@ -177,7 +177,6 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(helperCalls.length, 1);
   assert.equal(helperCalls[0].pair, "en-ja");
   assert.deepEqual(normalize(helperCalls[0].sizing), {{
-    bootstrapTopN: 900,
     initialActiveCount: 33,
     maxActiveItemsHint: 24
   }});
@@ -190,7 +189,7 @@ const workflows = createMaintenanceWorkflows({{
     profile_id: "travel",
     interests: ["animals", "travel"],
     constraints: {{ max_active_items: 24 }},
-    sizing: {{ bootstrap_top_n: 900, initial_active_count: 33 }}
+    sizing: {{ bootstrap_top_n: null, initial_active_count: 33 }}
   }});
   assert.equal(outputs[0], "Starting practice…");
   assert.equal(outputs[1], "init:true:4:true");
@@ -256,7 +255,7 @@ let rulesetUpdatedCount = 0;
 const workflows = createMaintenanceWorkflows({{
   settingsManager: {{
     defaults: {{
-      srsBootstrapTopN: 800,
+      srsBootstrapTopN: null,
       srsMaxActive: 40
     }},
     async load() {{
@@ -288,7 +287,7 @@ const workflows = createMaintenanceWorkflows({{
   syncSelectedProfile: async (items) => ({{ items, profileId: "travel" }}),
   resolvePlanningState: () => ({{
     profile: {{
-      srsBootstrapTopN: 900,
+      srsBootstrapTopN: null,
       srsMaxActive: 24
     }},
     profileContext: {{
@@ -355,7 +354,7 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(helperCalls.length, 1);
   assert.equal(helperCalls[0].pair, "en-ja");
   assert.equal(helperCalls[0].options.profileId, "travel");
-  assert.equal(helperCalls[0].options.setTopN, 900);
+  assert.equal(helperCalls[0].options.setTopN, undefined);
   assert.equal(helperCalls[0].options.maxActiveItems, 24);
   assert.equal(helperCalls[0].options.strategy, "profile_growth");
   assert.equal(helperCalls[0].options.trigger, "options_refresh_set_button");
@@ -410,6 +409,7 @@ const statuses = [];
 const confirmMessages = [];
 const helperCalls = [];
 let loadCount = 0;
+let collapseCount = 0;
 const responses = [false, true, false, true, true];
 
 const workflows = createMaintenanceWorkflows({{
@@ -445,6 +445,9 @@ const workflows = createMaintenanceWorkflows({{
   }},
   output,
   resetButton,
+  collapseSrsStoryCardsAfterDelete: () => {{
+    collapseCount += 1;
+  }},
   setOutputText: (text) => {{
     output.textContent = text;
   }}
@@ -455,11 +458,13 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(loadCount, 0);
   assert.equal(helperCalls.length, 0);
   assert.equal(resetButton.disabled, false);
+  assert.equal(collapseCount, 0);
 
   await workflows.resetSrsData();
   assert.equal(loadCount, 0);
   assert.equal(helperCalls.length, 0);
   assert.equal(resetButton.disabled, false);
+  assert.equal(collapseCount, 0);
 
   await workflows.resetSrsData();
   assert.equal(loadCount, 1);
@@ -467,9 +472,10 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(helperCalls[0].pair, "en-ja");
   assert.equal(helperCalls[0].options.profileId, "travel");
   assert.equal(resetButton.disabled, false);
+  assert.equal(collapseCount, 0);
   assert.equal(
     statuses[0].message,
-    "Deleting Vocabulary Practice…"
+    "Deleting this Vocabulary Practice…"
   );
   assert.equal(
     statuses[1].message,
@@ -478,11 +484,11 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(statuses[1].color, "#b42318");
   assert.equal(output.textContent, "stale output");
   assert.deepEqual(confirmMessages, [
-    "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone.",
-    "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone.",
-    "Really delete this practice's learning words, review history, and discard data?",
-    "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone.",
-    "Really delete this practice's learning words, review history, and discard data?"
+    "Delete this Vocabulary Practice for the current profile and language pair? This cannot be undone.",
+    "Delete this Vocabulary Practice for the current profile and language pair? This cannot be undone.",
+    "Really delete this Vocabulary Practice's learning words, review history, and discard data?",
+    "Delete this Vocabulary Practice for the current profile and language pair? This cannot be undone.",
+    "Really delete this Vocabulary Practice's learning words, review history, and discard data?"
   ]);
 }})().catch((error) => {{
   console.error(error);
@@ -524,6 +530,7 @@ const publishCalls = [];
 const reloadCalls = [];
 const normalize = (value) => JSON.parse(JSON.stringify(value));
 let loadCount = 0;
+let collapseCount = 0;
 
 const workflows = createMaintenanceWorkflows({{
   settingsManager: {{
@@ -566,6 +573,9 @@ const workflows = createMaintenanceWorkflows({{
   }},
   loadSrsProfileForPair: async (items, pair, options) => {{
     reloadCalls.push({{ items, pair, options }});
+  }},
+  collapseSrsStoryCardsAfterDelete: () => {{
+    collapseCount += 1;
   }}
 }});
 
@@ -595,9 +605,10 @@ const workflows = createMaintenanceWorkflows({{
       options: {{ profileId: "suisui", forceHelperRefresh: true }}
     }}
   ]);
-  assert.equal(statuses[0].message, "Deleting Vocabulary Practice…");
-  assert.equal(statuses[1].message, "Vocabulary Practice deleted.");
+  assert.equal(statuses[0].message, "Deleting this Vocabulary Practice…");
+  assert.equal(statuses[1].message, "This Vocabulary Practice was deleted.");
   assert.equal(statuses[1].color, "#3c5a2a");
+  assert.equal(collapseCount, 1);
   assert.equal(output.textContent, "");
 }})().catch((error) => {{
   console.error(error);

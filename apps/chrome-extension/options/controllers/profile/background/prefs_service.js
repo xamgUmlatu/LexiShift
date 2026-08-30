@@ -10,12 +10,6 @@
     const updateOpacityLabel = typeof opts.updateOpacityLabel === "function"
       ? opts.updateOpacityLabel
       : (() => {});
-    const setApplyState = typeof opts.setApplyState === "function"
-      ? opts.setApplyState
-      : (() => {});
-    const hasPendingApply = typeof opts.hasPendingApply === "function"
-      ? opts.hasPendingApply
-      : (() => false);
 
     async function loadActiveProfileUiPrefs() {
       if (!settingsManager || typeof settingsManager.load !== "function") {
@@ -48,8 +42,6 @@
         ui.updateProfileBackgroundInputs(normalized);
       }
       updateOpacityLabel((normalized.backgroundOpacity || 0.18) * 100);
-      // Apply button is only for committing pending file uploads.
-      setApplyState(Boolean(hasPendingApply()), false);
       return normalized;
     }
 

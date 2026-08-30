@@ -10,6 +10,9 @@ repos:
         stages: [pre-commit]
       - id: check-toml
         stages: [pre-commit]
+      - id: check-added-large-files
+        args: [--maxkb=95000]
+        stages: [pre-commit]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.11
     hooks:
@@ -34,7 +37,7 @@ repos:
         stages: [pre-commit]
       - id: feature-state-audit
         name: feature-state-audit
-        entry: python3 scripts/dev/feature_state_audit.py --compare-ref HEAD
+        entry: node scripts/dev/run_python.js dev/feature_state_audit.py --compare-ref HEAD
         language: system
         pass_filenames: false
         files: ^docs/developer/feature_state_matrix\.md$

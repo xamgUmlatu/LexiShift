@@ -47,8 +47,27 @@
       normalizeProfileId(payload.profile_id),
       normalizePair(payload.pair),
       normalizeText(payload.lemma).toLowerCase(),
-      normalizeText(payload.display).toLowerCase()
+      normalizeText(payload.display).toLowerCase(),
+      wordPackageCacheIdentity(payload.word_package)
     ].join("::");
+  }
+
+  function wordPackageCacheIdentity(wordPackage) {
+    const packageValue = wordPackage && typeof wordPackage === "object"
+      ? wordPackage
+      : {};
+    const source = packageValue.source && typeof packageValue.source === "object"
+      ? packageValue.source
+      : {};
+    return [
+      normalizeText(packageValue.surface).toLowerCase(),
+      normalizeText(packageValue.reading).toLowerCase(),
+      normalizeText(
+        packageValue.candidate_identity_key || source.candidate_identity_key
+      ).toLowerCase(),
+      normalizeText(packageValue.row_index ?? packageValue.row_rank),
+      normalizeText(packageValue.pos_canonical || packageValue.pos).toLowerCase()
+    ].join("|");
   }
 
   function defaultErrorResponse(code, message) {
@@ -59,6 +78,8 @@
         message
       },
       glosses: [],
+      senses: [],
+      dictionary_results: [],
       source_phrases: [],
       srs: { present: false },
       external_links: []
@@ -83,7 +104,8 @@
         return defaultErrorResponse("invalid_request", "Missing pair or lemma.");
       }
       const key = cacheKey(payload);
-      if (cache.has(key)) {
+      const bypassCache = lookupOptions && lookupOptions.bypassCache === true;
+      if (!bypassCache && cache.has(key)) {
         return cache.get(key);
       }
       if (!helperClient || typeof helperClient.lookupWordInfo !== "function") {

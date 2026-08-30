@@ -1,0 +1,986 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-03T02:13:56Z",
+  "status": "pass",
+  "pair": "en-ja",
+  "runtime_scope": "saved_page_to_browsing_aggregate",
+  "policy": {
+    "version": "saved_page_browsing_en_ja_v1",
+    "max_count_per_signal": 5.0,
+    "max_source_candidates_per_term": 2,
+    "max_source_ambiguity_candidates": 6,
+    "max_target_surface_candidates": 80,
+    "max_signal_rows": 240,
+    "min_target_surface_length": 2,
+    "source_mapping": "English page tokens are matched only to exact JMDict glosses.",
+    "target_mapping": "Japanese ruby pairs are treated as exact readings; non-ruby surface matches fall back to JMDict with confidence damped by ambiguity."
+  },
+  "inputs": {
+    "manifest_json": "docs/test_inputs/srs_browsing_admission_saved_pages_en_ja.json",
+    "jmdict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/jmdict-ja-en/JMdict_e",
+    "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-ja-bccwj/main.sqlite",
+    "output_json": "docs/test_outputs/srs_browsing_admission_saved_page_pack_en_ja_latest.json",
+    "documents": [
+      {
+        "document_id": "en_rabbit_wikipedia_summary",
+        "side": "source",
+        "path": "docs/test_inputs/srs_browsing_admission_saved_pages_en_ja/en_rabbit_wikipedia_summary.json",
+        "source_url": "https://en.wikipedia.org/api/rest_v1/page/summary/Rabbit",
+        "license_note": "Wikipedia REST summary content; CC BY-SA/GFDL terms apply upstream.",
+        "sha256": "45dc3f598aaa874b4dc51dc4baafd303d81dfd3a4366183d6d1f566e08a5e105",
+        "text_char_count": 38,
+        "ruby_pair_count": 0,
+        "raw_text_stored": false
+      },
+      {
+        "document_id": "ja_chuumon_no_ooi_ryouriten_aozora",
+        "side": "target",
+        "path": "docs/test_inputs/srs_browsing_admission_saved_pages_en_ja/ja_chuumon_no_ooi_ryouriten_aozora.html",
+        "source_url": "https://www.aozora.gr.jp/cards/000081/files/43754_17659.html",
+        "license_note": "Aozora Bunko page for Miyazawa Kenji's public-domain text.",
+        "sha256": "7add6054faf2f74d376949483e9fc8151c118c154f2478ad26f0f264173c42e0",
+        "text_char_count": 6090,
+        "ruby_pair_count": 106,
+        "raw_text_stored": false
+      }
+    ]
+  },
+  "privacy": {
+    "saved_fixture_files_contain_page_content": true,
+    "aggregate_report_stores_raw_text": false,
+    "helper_store_stores_raw_text": false,
+    "runtime_browser_capture": false,
+    "runtime_srs_mutation": false
+  },
+  "jmdict": {
+    "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/jmdict-ja-en/JMdict_e",
+    "entry_count": 217464,
+    "source_lookup_term_count": 3,
+    "target_surface_lookup_count": 442,
+    "exact_surface_reading_pair_count": 624481,
+    "frequency_db_used": true
+  },
+  "extraction": {
+    "source_terms": [
+      {
+        "value": "rabbit",
+        "count": 1
+      },
+      {
+        "value": "mammal",
+        "count": 1
+      },
+      {
+        "value": "family",
+        "count": 1
+      },
+      {
+        "value": "leporidae",
+        "count": 1
+      }
+    ],
+    "ruby_pair_count": 106,
+    "top_ruby_pairs": [
+      {
+        "surface": "扉",
+        "reading": "と",
+        "count": 3
+      },
+      {
+        "surface": "斯",
+        "reading": "こ",
+        "count": 3
+      },
+      {
+        "surface": "室",
+        "reading": "へや",
+        "count": 3
+      },
+      {
+        "surface": "白熊",
+        "reading": "しろくま",
+        "count": 2
+      },
+      {
+        "surface": "疋",
+        "reading": "ひき",
+        "count": 2
+      },
+      {
+        "surface": "戻",
+        "reading": "もど",
+        "count": 2
+      },
+      {
+        "surface": "吹",
+        "reading": "ふ",
+        "count": 2
+      },
+      {
+        "surface": "硝子",
+        "reading": "がらす",
+        "count": 2
+      },
+      {
+        "surface": "押",
+        "reading": "お",
+        "count": 2
+      },
+      {
+        "surface": "家",
+        "reading": "うち",
+        "count": 2
+      },
+      {
+        "surface": "靴",
+        "reading": "くつ",
+        "count": 2
+      },
+      {
+        "surface": "財布",
+        "reading": "さいふ",
+        "count": 2
+      },
+      {
+        "surface": "紳士",
+        "reading": "しんし",
+        "count": 1
+      },
+      {
+        "surface": "鉄砲",
+        "reading": "てっぽう",
+        "count": 1
+      },
+      {
+        "surface": "山奥",
+        "reading": "やまおく",
+        "count": 1
+      },
+      {
+        "surface": "云",
+        "reading": "い",
+        "count": 1
+      },
+      {
+        "surface": "怪",
+        "reading": "け",
+        "count": 1
+      },
+      {
+        "surface": "獣",
+        "reading": "けもの",
+        "count": 1
+      },
+      {
+        "surface": "鹿",
+        "reading": "しか",
+        "count": 1
+      },
+      {
+        "surface": "見舞",
+        "reading": "みまい",
+        "count": 1
+      }
+    ]
+  },
+  "signals": {
+    "count": 130,
+    "source_mapping_count": 4,
+    "target_surface_count": 126,
+    "top": [
+      {
+        "target_key": "ラビット",
+        "target_lemma": "ラビット",
+        "target_reading": "ラビット",
+        "side": "source",
+        "count": 1,
+        "confidence": 0.57735,
+        "observation_source": "source_mapping",
+        "evidence": "rabbit",
+        "frequency_rank": 26169,
+        "frequency_known": true,
+        "priority_rank": null,
+        "glosses": [
+          "rabbit"
+        ]
+      },
+      {
+        "target_key": "兎|うさぎ",
+        "target_lemma": "兎",
+        "target_reading": "うさぎ",
+        "side": "source",
+        "count": 1,
+        "confidence": 0.57735,
+        "observation_source": "source_mapping",
+        "evidence": "rabbit",
+        "frequency_rank": 11065,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "rabbit",
+          "hare",
+          "coney"
+        ]
+      },
+      {
+        "target_key": "哺乳類|ほにゅうるい",
+        "target_lemma": "哺乳類",
+        "target_reading": "ほにゅうるい",
+        "side": "source",
+        "count": 1,
+        "confidence": 0.57735,
+        "observation_source": "source_mapping",
+        "evidence": "mammal",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 2,
+        "glosses": [
+          "mammal",
+          "mammalian"
+        ]
+      },
+      {
+        "target_key": "獣類|じゅうるい",
+        "target_lemma": "獣類",
+        "target_reading": "じゅうるい",
+        "side": "source",
+        "count": 1,
+        "confidence": 0.57735,
+        "observation_source": "source_mapping",
+        "evidence": "mammal",
+        "frequency_rank": 70792,
+        "frequency_known": true,
+        "priority_rank": null,
+        "glosses": [
+          "beasts",
+          "mammals"
+        ]
+      },
+      {
+        "target_key": "二人|ふたり",
+        "target_lemma": "二人",
+        "target_reading": "ふたり",
+        "side": "target",
+        "count": 22,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "二人",
+        "frequency_rank": 302,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "two persons",
+          "two people",
+          "pair"
+        ]
+      },
+      {
+        "target_key": "いらっしゃい",
+        "target_lemma": "いらっしゃい",
+        "target_reading": "いらっしゃい",
+        "side": "target",
+        "count": 11,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "いらっしゃい",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 21,
+        "glosses": [
+          "come",
+          "go",
+          "stay"
+        ]
+      },
+      {
+        "target_key": "がたがた|ガタガタ",
+        "target_lemma": "がたがた",
+        "target_reading": "ガタガタ",
+        "side": "target",
+        "count": 9,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "がたがた",
+        "frequency_rank": 16094,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "rattling",
+          "clattering",
+          "trembling"
+        ]
+      },
+      {
+        "target_key": "ください",
+        "target_lemma": "ください",
+        "target_reading": "ください",
+        "side": "target",
+        "count": 9,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "ください",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
+        "glosses": [
+          "please (give me)",
+          "please (do for me)"
+        ]
+      },
+      {
+        "target_key": "早く|はやく",
+        "target_lemma": "早く",
+        "target_reading": "はやく",
+        "side": "target",
+        "count": 9,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "早く",
+        "frequency_rank": 12560,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "early",
+          "soon",
+          "quickly"
+        ]
+      },
+      {
+        "target_key": "クリーム",
+        "target_lemma": "クリーム",
+        "target_reading": "クリーム",
+        "side": "target",
+        "count": 8,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "クリーム",
+        "frequency_rank": 2904,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "cream",
+          "ice cream"
+        ]
+      },
+      {
+        "target_key": "それから",
+        "target_lemma": "それから",
+        "target_reading": "それから",
+        "side": "target",
+        "count": 6,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "それから",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
+        "glosses": [
+          "and then",
+          "after that"
+        ]
+      },
+      {
+        "target_key": "何か|なにか",
+        "target_lemma": "何か",
+        "target_reading": "なにか",
+        "side": "target",
+        "count": 6,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "何か",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
+        "glosses": [
+          "something",
+          "some",
+          "any"
+        ]
+      },
+      {
+        "target_key": "料理店|りょうりてん",
+        "target_lemma": "料理店",
+        "target_reading": "りょうりてん",
+        "side": "target",
+        "count": 6,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "料理店",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
+        "glosses": [
+          "restaurant"
+        ]
+      },
+      {
+        "target_key": "注文|ちゅうもん",
+        "target_lemma": "注文",
+        "target_reading": "ちゅうもん",
+        "side": "target",
+        "count": 6,
+        "confidence": 0.707107,
+        "observation_source": "target_surface",
+        "evidence": "注文",
+        "frequency_rank": 2664,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "order (for an item)",
+          "request",
+          "demand"
+        ]
+      },
+      {
+        "target_key": "注文の多い|ちゅうもんのおおい",
+        "target_lemma": "注文の多い",
+        "target_reading": "ちゅうもんのおおい",
+        "side": "target",
+        "count": 5,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "注文の多い",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
+        "glosses": [
+          "demanding",
+          "difficult",
+          "strict"
+        ]
+      },
+      {
+        "target_key": "裏側|うらがわ",
+        "target_lemma": "裏側",
+        "target_reading": "うらがわ",
+        "side": "target",
+        "count": 5,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "裏側",
+        "frequency_rank": 14690,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "the reverse (side)",
+          "back (side)",
+          "other side"
+        ]
+      },
+      {
+        "target_key": "香水|こうすい",
+        "target_lemma": "香水",
+        "target_reading": "こうすい",
+        "side": "target",
+        "count": 5,
+        "confidence": 0.707107,
+        "observation_source": "target_surface",
+        "evidence": "香水",
+        "frequency_rank": 9898,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "perfume",
+          "scent"
+        ]
+      },
+      {
+        "target_key": "あんまり|あまり",
+        "target_lemma": "あんまり",
+        "target_reading": "あまり",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "あんまり",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
+        "glosses": [
+          "remainder",
+          "remnant",
+          "rest"
+        ]
+      },
+      {
+        "target_key": "ざわざわ",
+        "target_lemma": "ざわざわ",
+        "target_reading": "ざわざわ",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "ざわざわ",
+        "frequency_rank": 23544,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "noisily (from many people talking)",
+          "in a commotion",
+          "with a rustling sound (of leaves, branches, etc.)"
+        ]
+      },
+      {
+        "target_key": "じゃないか",
+        "target_lemma": "じゃないか",
+        "target_reading": "じゃないか",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "じゃないか",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 21,
+        "glosses": [
+          "isn't it?",
+          "let's ...",
+          "why don't we ..."
+        ]
+      },
+      {
+        "target_key": "たいもん",
+        "target_lemma": "たいもん",
+        "target_reading": "たいもん",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "たいもん",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
+        "glosses": [
+          "consonant (in the Siddham script)"
+        ]
+      },
+      {
+        "target_key": "というのは",
+        "target_lemma": "というのは",
+        "target_reading": "というのは",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "というのは",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
+        "glosses": [
+          "because ...",
+          "for ...",
+          "the reason being ..."
+        ]
+      },
+      {
+        "target_key": "ませんでした",
+        "target_lemma": "ませんでした",
+        "target_reading": "ませんでした",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "ませんでした",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
+        "glosses": [
+          "suffix used to negate a verb in the past tense"
+        ]
+      },
+      {
+        "target_key": "東京|とうきょう",
+        "target_lemma": "東京",
+        "target_reading": "とうきょう",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "東京",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
+        "glosses": [
+          "Tokyo"
+        ]
+      },
+      {
+        "target_key": "立派|りっぱ",
+        "target_lemma": "立派",
+        "target_reading": "りっぱ",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "立派",
+        "frequency_rank": 4083,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "splendid",
+          "fine",
+          "handsome"
+        ]
+      },
+      {
+        "target_key": "行き|いき",
+        "target_lemma": "行き",
+        "target_reading": "いき",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "行き",
+        "frequency_rank": 7282,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "the way there",
+          "outbound leg",
+          "outbound trip"
+        ]
+      },
+      {
+        "target_key": "西洋料理|せいようりょうり",
+        "target_lemma": "西洋料理",
+        "target_reading": "せいようりょうり",
+        "side": "target",
+        "count": 4,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "西洋料理",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": null,
+        "glosses": [
+          "Western food",
+          "Western cooking",
+          "Western cuisine"
+        ]
+      },
+      {
+        "target_key": "おかしい",
+        "target_lemma": "おかしい",
+        "target_reading": "おかしい",
+        "side": "target",
+        "count": 3,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "おかしい",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
+        "glosses": [
+          "funny",
+          "amusing",
+          "comical"
+        ]
+      },
+      {
+        "target_key": "かさかさ|カサカサ",
+        "target_lemma": "かさかさ",
+        "target_reading": "カサカサ",
+        "side": "target",
+        "count": 3,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "かさかさ",
+        "frequency_rank": 24414,
+        "frequency_known": true,
+        "priority_rank": 1,
+        "glosses": [
+          "dry and rough",
+          "desiccated",
+          "rustling"
+        ]
+      },
+      {
+        "target_key": "たくさん",
+        "target_lemma": "たくさん",
+        "target_reading": "たくさん",
+        "side": "target",
+        "count": 3,
+        "confidence": 1.0,
+        "observation_source": "target_surface",
+        "evidence": "たくさん",
+        "frequency_rank": null,
+        "frequency_known": false,
+        "priority_rank": 1,
+        "glosses": [
+          "a lot",
+          "lots",
+          "plenty"
+        ]
+      }
+    ]
+  },
+  "helper_ingest": {
+    "status": "ok",
+    "pair": "en-ja",
+    "profile_id": "saved_page_probe",
+    "runtime_srs_mutation": false,
+    "privacy": {
+      "raw_text_stored": false,
+      "url_stored": false,
+      "runtime_srs_mutation": false,
+      "private_payload_fields_ignored": 0
+    },
+    "policy": {
+      "version": "browsing_signal_aggregate_v1",
+      "max_signals_per_packet": 300,
+      "max_count_per_signal": 5.0,
+      "max_items_per_store": 500,
+      "prune_signal_below": 0.01,
+      "half_life_days": 30.0,
+      "browsing_signal_cap": 16.0,
+      "replacement_exposure_weight": 0.35
+    },
+    "ingest_result": {
+      "input_signal_count": 130,
+      "accepted_signal_count": 130,
+      "dropped_signal_count": 0,
+      "capped_signal_count": 0,
+      "pruned_item_count": 0,
+      "retained_item_count": 129
+    },
+    "aggregate_store": {
+      "pair": "en-ja",
+      "profile_id": "saved_page_probe",
+      "updated_at": "2026-07-03T00:00:00Z",
+      "item_count": 129,
+      "top_items": [
+        {
+          "target_key": "いらっしゃい",
+          "target_lemma": "いらっしゃい",
+          "target_reading": "いらっしゃい",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        },
+        {
+          "target_key": "がたがた|ガタガタ",
+          "target_lemma": "がたがた",
+          "target_reading": "ガタガタ",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        },
+        {
+          "target_key": "ください",
+          "target_lemma": "ください",
+          "target_reading": "ください",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        },
+        {
+          "target_key": "それから",
+          "target_lemma": "それから",
+          "target_reading": "それから",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        },
+        {
+          "target_key": "クリーム",
+          "target_lemma": "クリーム",
+          "target_reading": "クリーム",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        },
+        {
+          "target_key": "二人|ふたり",
+          "target_lemma": "二人",
+          "target_reading": "ふたり",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        },
+        {
+          "target_key": "何か|なにか",
+          "target_lemma": "何か",
+          "target_reading": "なにか",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        },
+        {
+          "target_key": "料理店|りょうりてん",
+          "target_lemma": "料理店",
+          "target_reading": "りょうりてん",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        },
+        {
+          "target_key": "早く|はやく",
+          "target_lemma": "早く",
+          "target_reading": "はやく",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        },
+        {
+          "target_key": "注文の多い|ちゅうもんのおおい",
+          "target_lemma": "注文の多い",
+          "target_reading": "ちゅうもんのおおい",
+          "source_hit_count": 0.0,
+          "target_hit_count": 5.0,
+          "replacement_exposure_count": 0.0,
+          "source_mapping_confidence": 0.0,
+          "reading_confidence": 1.0,
+          "observation_sources": [
+            "target_surface"
+          ],
+          "raw_browsing": 5.0,
+          "browsing_signal": 0.632412,
+          "last_seen_at": "2026-07-03T00:00:00Z"
+        }
+      ]
+    }
+  },
+  "findings": [
+    {
+      "name": "source_mapping_signals_present",
+      "status": "pass",
+      "details": {
+        "count": 4
+      }
+    },
+    {
+      "name": "target_surface_signals_present",
+      "status": "pass",
+      "details": {
+        "count": 126
+      }
+    },
+    {
+      "name": "required_observation_source:source_mapping",
+      "status": "pass",
+      "details": {
+        "observed_sources": [
+          "source_mapping",
+          "target_surface"
+        ]
+      }
+    },
+    {
+      "name": "required_observation_source:target_surface",
+      "status": "pass",
+      "details": {
+        "observed_sources": [
+          "source_mapping",
+          "target_surface"
+        ]
+      }
+    },
+    {
+      "name": "helper_aggregate_store_populated",
+      "status": "pass",
+      "details": {
+        "count": 129
+      }
+    },
+    {
+      "name": "target_ruby_pairs_detected",
+      "status": "pass",
+      "details": {
+        "count": 106
+      }
+    },
+    {
+      "name": "helper_privacy_contract",
+      "status": "pass",
+      "details": {
+        "raw_text_stored": false,
+        "url_stored": false,
+        "runtime_srs_mutation": false,
+        "private_payload_fields_ignored": 0
+      }
+    }
+  ],
+  "summary": {
+    "pass": 7,
+    "warn": 0,
+    "fail": 0
+  },
+  "limitations": [
+    "Saved-page extraction is deterministic and local; browser DOM timing is not tested.",
+    "English source mapping uses exact JMDict gloss matches only, so it favors precision over recall.",
+    "Japanese non-ruby surface fallback uses simple string counts and JMDict ambiguity damping.",
+    "The helper aggregate store is temporary in this harness; no live SRS state is mutated."
+  ]
+}

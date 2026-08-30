@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "config_id": "srs_admission_product_acceptance_configs_en_ja_v1",
+  "language_pair": "en-ja",
+  "purpose": "Product-style SRS admission acceptance pass using one scalar learner proficiency plus representative topic preferences.",
+  "defaults": {
+    "set_top_n": 10000,
+    "initial_active_count": 80,
+    "preview_count": 80,
+    "preview_sampling_mode": "reserved_topic_lane",
+    "preview_seed": 314159
+  },
+  "scenarios": [
+    {
+      "name": "neutral_p00",
+      "description": "No topic preference, absolute beginner proficiency.",
+      "proficiency": 0.0
+    },
+    {
+      "name": "neutral_p10",
+      "description": "No topic preference, early beginner proficiency.",
+      "proficiency": 0.1
+    },
+    {
+      "name": "neutral_p20",
+      "description": "No topic preference, upper beginner proficiency.",
+      "proficiency": 0.2
+    },
+    {
+      "name": "neutral_p30",
+      "description": "No topic preference, lower-intermediate proficiency.",
+      "proficiency": 0.3
+    },
+    {
+      "name": "neutral_p40",
+      "description": "No topic preference, intermediate proficiency.",
+      "proficiency": 0.4
+    },
+    {
+      "name": "neutral_p50",
+      "description": "No topic preference, upper-intermediate proficiency.",
+      "proficiency": 0.5
+    },
+    {
+      "name": "neutral_p60",
+      "description": "No topic preference, N1-ish proficiency.",
+      "proficiency": 0.6
+    },
+    {
+      "name": "neutral_p70",
+      "description": "No topic preference, post-N1 / early advanced proficiency.",
+      "proficiency": 0.7
+    },
+    {
+      "name": "neutral_p80",
+      "description": "No topic preference, advanced-tail proficiency.",
+      "proficiency": 0.8
+    },
+    {
+      "name": "neutral_p90",
+      "description": "No topic preference, very advanced proficiency.",
+      "proficiency": 0.9
+    },
+    {
+      "name": "neutral_p100",
+      "description": "No topic preference, full-range / recondite-tail proficiency.",
+      "proficiency": 1.0
+    },
+    {
+      "name": "shopping_money_p45",
+      "description": "Shopping/money preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "shopping_money": 1.0
+      }
+    },
+    {
+      "name": "work_office_p45",
+      "description": "Work/office preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "work_office": 1.0
+      }
+    },
+    {
+      "name": "science_math_p45",
+      "description": "Science/math preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "science_math": 1.0
+      }
+    },
+    {
+      "name": "computing_internet_p45",
+      "description": "Computing/internet preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "computing_internet": 1.0
+      }
+    },
+    {
+      "name": "medicine_health_p45",
+      "description": "Medicine/health preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "medicine_health": 1.0
+      }
+    },
+    {
+      "name": "sports_fitness_p25",
+      "description": "Sports preference at low proficiency; topic items should still respect readiness.",
+      "proficiency": 0.25,
+      "topic_weights": {
+        "sports_fitness": 1.0
+      }
+    },
+    {
+      "name": "games_p45",
+      "description": "Games preference at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "games": 1.0
+      }
+    },
+    {
+      "name": "anime_manga_p45",
+      "description": "Anime/manga/pop-culture preference at intermediate proficiency; documents current overlay coverage.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "anime_manga_pop_culture": 1.0
+      }
+    },
+    {
+      "name": "hobbies_crafts_p45",
+      "description": "Hobbies/crafts preference at intermediate proficiency; documents current overlay coverage.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "hobbies_crafts": 1.0
+      }
+    },
+    {
+      "name": "mixed_work_computing_p50",
+      "description": "Weighted mixed professional and computing interests.",
+      "proficiency": 0.5,
+      "topic_weights": {
+        "computing_internet": 0.8,
+        "work_office": 0.6
+      }
+    },
+    {
+      "name": "mixed_food_travel_p35",
+      "description": "Weighted food/travel interests at lower-intermediate proficiency.",
+      "proficiency": 0.35,
+      "topic_weights": {
+        "food_cooking": 0.8,
+        "travel_places_transport": 0.6
+      }
+    },
+    {
+      "name": "mixed_science_medicine_p50",
+      "description": "Weighted science/medicine interests at upper-intermediate proficiency.",
+      "proficiency": 0.5,
+      "topic_weights": {
+        "science_math": 0.8,
+        "medicine_health": 0.6
+      }
+    },
+    {
+      "name": "mixed_anime_games_hobbies_p45",
+      "description": "Weighted entertainment, games, and hobbies interests at intermediate proficiency.",
+      "proficiency": 0.45,
+      "topic_weights": {
+        "anime_manga_pop_culture": 0.7,
+        "games": 0.7,
+        "hobbies_crafts": 0.5
+      }
+    },
+    {
+      "name": "arts_literature_p72",
+      "description": "Arts/literature/humanities preference at advanced proficiency; documents current overlay coverage.",
+      "proficiency": 0.72,
+      "topic_weights": {
+        "arts_literature_humanities": 1.0
+      }
+    },
+    {
+      "name": "food_cooking_p20",
+      "description": "Food/cooking preference at upper beginner proficiency; documents current overlay coverage.",
+      "proficiency": 0.2,
+      "topic_weights": {
+        "food_cooking": 1.0
+      }
+    },
+    {
+      "name": "music_media_p35",
+      "description": "Music/media/entertainment preference at lower-intermediate proficiency.",
+      "proficiency": 0.35,
+      "topic_weights": {
+        "music_media_entertainment": 1.0
+      }
+    },
+    {
+      "name": "law_politics_p60",
+      "description": "Law/politics/civics preference at N1-ish proficiency.",
+      "proficiency": 0.60,
+      "topic_weights": {
+        "law_politics_civics": 1.0
+      }
+    },
+    {
+      "name": "animals_p30",
+      "description": "Animals preference at lower-intermediate proficiency.",
+      "proficiency": 0.30,
+      "topic_weights": {
+        "animals": 1.0
+      }
+    },
+    {
+      "name": "plants_nature_p40",
+      "description": "Plants/nature preference at intermediate proficiency.",
+      "proficiency": 0.40,
+      "topic_weights": {
+        "plants_nature": 1.0
+      }
+    }
+  ]
+}

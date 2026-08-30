@@ -8,6 +8,10 @@ ADMISSION_PROFILE_FEATURES_VERSION = "admission_profile_features_v1"
 ADMISSION_CANDIDATE_FEATURES_VERSION = "admission_candidate_features_v1"
 ADMISSION_UTILITY_SIGNALS_VERSION = "admission_utility_signals_v1"
 TOPIC_FAMILY_NORMALIZATION_VERSION = "topic_family_v1"
+ADMISSION_CANDIDATE_FEATURES_METADATA_KEY = "admission_candidate_features"
+ADMISSION_CANDIDATE_FEATURES_PRECOMPUTE_VERSION_KEY = (
+    "admission_candidate_features_profile_policy_version"
+)
 
 _TOPIC_CANONICAL_ALIASES = {
     "animal": "animals",
@@ -100,29 +104,49 @@ class AdmissionProfileFeatures:
 @dataclass(frozen=True)
 class AdmissionCandidateFeatures:
     version: str = ADMISSION_CANDIDATE_FEATURES_VERSION
+    candidate_identity_key: str = ""
     lemma: str = ""
     lexical_commonness: float = 0.0
+    coverage_gain: float = 0.0
     difficulty_estimate: float = 0.0
     difficulty_proxy: str = ""
+    difficulty_sources: Sequence[str] = field(default_factory=tuple)
+    candidate_state: str = "normal_vocab"
+    presentation_mode: str = "vocab"
+    problem_class: str = "normal_vocab"
+    classification_confidence: str = "review"
+    classification_reasons: Sequence[str] = field(default_factory=tuple)
+    admission_suitability: float = 1.0
     lexical_forms: Sequence[str] = field(default_factory=tuple)
+    learner_signals: Mapping[str, object] = field(default_factory=dict)
     raw_topic_hints: Sequence[str] = field(default_factory=tuple)
     topic_hints: Sequence[str] = field(default_factory=tuple)
     topic_hint_origins: Mapping[str, Sequence[str]] = field(default_factory=dict)
 
     @property
     def base_freq(self) -> float:
-        return self.lexical_commonness
+        return self.coverage_gain
 
     def to_dict(self) -> dict[str, object]:
         return {
             "version": self.version,
             "topic_normalization_version": TOPIC_FAMILY_NORMALIZATION_VERSION,
+            "candidate_identity_key": self.candidate_identity_key,
             "lemma": self.lemma,
             "lexical_commonness": rounded_or_none(self.lexical_commonness),
-            "base_freq": rounded_or_none(self.lexical_commonness),
+            "coverage_gain": rounded_or_none(self.coverage_gain),
+            "base_freq": rounded_or_none(self.coverage_gain),
             "difficulty_estimate": rounded_or_none(self.difficulty_estimate),
             "difficulty_proxy": self.difficulty_proxy,
+            "difficulty_sources": list(self.difficulty_sources),
+            "candidate_state": self.candidate_state,
+            "presentation_mode": self.presentation_mode,
+            "problem_class": self.problem_class,
+            "classification_confidence": self.classification_confidence,
+            "classification_reasons": list(self.classification_reasons),
+            "admission_suitability": rounded_or_none(self.admission_suitability),
             "lexical_forms": list(self.lexical_forms),
+            "learner_signals": dict(self.learner_signals),
             "raw_topic_hints": list(self.raw_topic_hints),
             "topic_hints": list(self.topic_hints),
             "topic_hint_origins": {
@@ -131,10 +155,58 @@ class AdmissionCandidateFeatures:
         }
 
 
+def admission_candidate_features_from_mapping(
+    value: object,
+) -> Optional[AdmissionCandidateFeatures]:
+    if not isinstance(value, Mapping):
+        return None
+    if str(value.get("version") or "").strip() != ADMISSION_CANDIDATE_FEATURES_VERSION:
+        return None
+    topic_hint_origins: dict[str, tuple[str, ...]] = {}
+    origins = value.get("topic_hint_origins")
+    if isinstance(origins, Mapping):
+        for key, raw_values in origins.items():
+            normalized_key = str(key or "").strip()
+            if not normalized_key:
+                continue
+            topic_hint_origins[normalized_key] = tuple(normalize_string_list(raw_values))
+    learner_signals = value.get("learner_signals")
+    coverage_gain = safe_optional_float(value.get("coverage_gain"))
+    if coverage_gain is None:
+        coverage_gain = safe_optional_float(value.get("base_freq"))
+    admission_suitability = safe_optional_float(value.get("admission_suitability"))
+    admission_suitability_clamped = clamp01(admission_suitability)
+    return AdmissionCandidateFeatures(
+        candidate_identity_key=str(value.get("candidate_identity_key") or "").strip(),
+        lemma=str(value.get("lemma") or "").strip(),
+        lexical_commonness=clamp01(safe_optional_float(value.get("lexical_commonness"))) or 0.0,
+        coverage_gain=clamp01(coverage_gain) or 0.0,
+        difficulty_estimate=clamp01(safe_optional_float(value.get("difficulty_estimate"))) or 0.0,
+        difficulty_proxy=str(value.get("difficulty_proxy") or "").strip(),
+        difficulty_sources=tuple(normalize_string_list(value.get("difficulty_sources"))),
+        candidate_state=str(value.get("candidate_state") or "normal_vocab").strip()
+        or "normal_vocab",
+        presentation_mode=str(value.get("presentation_mode") or "vocab").strip() or "vocab",
+        problem_class=str(value.get("problem_class") or "normal_vocab").strip() or "normal_vocab",
+        classification_confidence=str(value.get("classification_confidence") or "review").strip()
+        or "review",
+        classification_reasons=tuple(normalize_string_list(value.get("classification_reasons"))),
+        admission_suitability=(
+            admission_suitability_clamped if admission_suitability_clamped is not None else 1.0
+        ),
+        lexical_forms=tuple(normalize_string_list(value.get("lexical_forms"))),
+        learner_signals=learner_signals if isinstance(learner_signals, Mapping) else {},
+        raw_topic_hints=tuple(normalize_string_list(value.get("raw_topic_hints"))),
+        topic_hints=tuple(normalize_string_list(value.get("topic_hints"))),
+        topic_hint_origins=topic_hint_origins,
+    )
+
+
 @dataclass(frozen=True)
 class AdmissionUtilitySignals:
     version: str = ADMISSION_UTILITY_SIGNALS_VERSION
     coverage_gain: float = 0.0
+    admission_suitability: float = 1.0
     preference_affinity: float = 0.0
     preference_affinity_source: Optional[str] = None
     scarcity_bonus: float = 0.0
@@ -145,6 +217,8 @@ class AdmissionUtilitySignals:
     proficiency_fit: float = 0.0
     challenge_fit: float = 0.0
     readiness_multiplier: float = 1.0
+    readiness_center: Optional[float] = None
+    readiness_center_source: Optional[str] = None
     readiness_lower_bound: float = 0.0
     readiness_upper_bound: float = 1.0
     readiness_topic_strength: float = 0.0
@@ -171,6 +245,7 @@ class AdmissionUtilitySignals:
         return {
             "version": self.version,
             "coverage_gain": rounded_or_none(self.coverage_gain),
+            "admission_suitability": rounded_or_none(self.admission_suitability),
             "preference_affinity": rounded_or_none(self.preference_affinity),
             "preference_affinity_source": self.preference_affinity_source,
             "scarcity_bonus": rounded_or_none(self.scarcity_bonus),
@@ -181,6 +256,8 @@ class AdmissionUtilitySignals:
             "proficiency_fit": rounded_or_none(self.proficiency_fit),
             "challenge_fit": rounded_or_none(self.challenge_fit),
             "readiness_multiplier": rounded_or_none(self.readiness_multiplier),
+            "readiness_center": rounded_or_none(self.readiness_center),
+            "readiness_center_source": self.readiness_center_source,
             "readiness_lower_bound": rounded_or_none(self.readiness_lower_bound),
             "readiness_upper_bound": rounded_or_none(self.readiness_upper_bound),
             "readiness_topic_strength": rounded_or_none(self.readiness_topic_strength),

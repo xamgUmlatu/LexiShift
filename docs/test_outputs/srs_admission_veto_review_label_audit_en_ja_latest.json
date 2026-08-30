@@ -1,0 +1,304 @@
+{
+  "by_analysis_band": [
+    {
+      "analysis_band": "0.00-0.20",
+      "row_count": 10,
+      "productive_count": 1,
+      "productive_rate": 0.1,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 9,
+        "partial_positive": 1
+      },
+      "action_counts": {
+        "no_action": 9,
+        "raise_score_or_floor": 1
+      }
+    },
+    {
+      "analysis_band": "0.20-0.40",
+      "row_count": 34,
+      "productive_count": 27,
+      "productive_rate": 0.7941,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 7,
+        "partial_positive": 6,
+        "true_positive": 21
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 12,
+        "display_only_or_kana_preferred": 3,
+        "keep_current_restriction": 9,
+        "no_action": 7,
+        "raise_score_or_floor": 3
+      }
+    },
+    {
+      "analysis_band": "0.40-0.60",
+      "row_count": 85,
+      "productive_count": 79,
+      "productive_rate": 0.9294,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 6,
+        "partial_positive": 9,
+        "true_positive": 70
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 56,
+        "display_only_or_kana_preferred": 1,
+        "keep_current_restriction": 12,
+        "no_action": 6,
+        "raise_score_or_floor": 10
+      }
+    },
+    {
+      "analysis_band": "0.60-0.80",
+      "row_count": 3,
+      "productive_count": 3,
+      "productive_rate": 1.0,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "true_positive": 3
+      },
+      "action_counts": {
+        "keep_current_restriction": 3
+      }
+    }
+  ],
+  "by_candidate_shape": [
+    {
+      "candidate_shape": "hiragana",
+      "row_count": 7,
+      "productive_count": 7,
+      "productive_rate": 1.0,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "true_positive": 7
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 7
+      }
+    },
+    {
+      "candidate_shape": "kanji_compound_or_phrase",
+      "row_count": 32,
+      "productive_count": 23,
+      "productive_rate": 0.7188,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 9,
+        "partial_positive": 5,
+        "true_positive": 18
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 15,
+        "keep_current_restriction": 2,
+        "no_action": 9,
+        "raise_score_or_floor": 6
+      }
+    },
+    {
+      "candidate_shape": "single_kanji",
+      "row_count": 93,
+      "productive_count": 80,
+      "productive_rate": 0.8602,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 13,
+        "partial_positive": 11,
+        "true_positive": 69
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 46,
+        "display_only_or_kana_preferred": 4,
+        "keep_current_restriction": 22,
+        "no_action": 13,
+        "raise_score_or_floor": 8
+      }
+    }
+  ],
+  "by_source_category": [
+    {
+      "source_category": "active_hard_veto",
+      "row_count": 24,
+      "productive_count": 24,
+      "productive_rate": 1.0,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "true_positive": 24
+      },
+      "action_counts": {
+        "keep_current_restriction": 24
+      }
+    },
+    {
+      "source_category": "kana_preferred_kanji_display",
+      "row_count": 24,
+      "productive_count": 22,
+      "productive_rate": 0.9167,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 2,
+        "partial_positive": 5,
+        "true_positive": 17
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 16,
+        "no_action": 2,
+        "raise_score_or_floor": 6
+      }
+    },
+    {
+      "source_category": "low_support_early_rows",
+      "row_count": 10,
+      "productive_count": 9,
+      "productive_rate": 0.9,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 1,
+        "true_positive": 9
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 9,
+        "no_action": 1
+      }
+    },
+    {
+      "source_category": "manual_watchlist",
+      "row_count": 2,
+      "productive_count": 1,
+      "productive_rate": 0.5,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 1,
+        "true_positive": 1
+      },
+      "action_counts": {
+        "display_only_or_kana_preferred": 1,
+        "no_action": 1
+      }
+    },
+    {
+      "source_category": "same_surface_rare_reading",
+      "row_count": 24,
+      "productive_count": 22,
+      "productive_rate": 0.9167,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 2,
+        "partial_positive": 2,
+        "true_positive": 20
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 20,
+        "no_action": 2,
+        "raise_score_or_floor": 2
+      }
+    },
+    {
+      "source_category": "single_kanji_component_like",
+      "row_count": 24,
+      "productive_count": 22,
+      "productive_rate": 0.9167,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 2,
+        "partial_positive": 2,
+        "true_positive": 20
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 20,
+        "no_action": 2,
+        "raise_score_or_floor": 2
+      }
+    },
+    {
+      "source_category": "unhandled_review_flags",
+      "row_count": 24,
+      "productive_count": 10,
+      "productive_rate": 0.4167,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 14,
+        "partial_positive": 7,
+        "true_positive": 3
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 3,
+        "display_only_or_kana_preferred": 3,
+        "no_action": 14,
+        "raise_score_or_floor": 4
+      }
+    }
+  ],
+  "by_visibility_match_mode": [
+    {
+      "visibility_match_mode": "lemma_any_reading",
+      "row_count": 11,
+      "productive_count": 11,
+      "productive_rate": 1.0,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "partial_positive": 2,
+        "true_positive": 9
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 3,
+        "keep_current_restriction": 5,
+        "raise_score_or_floor": 3
+      }
+    },
+    {
+      "visibility_match_mode": "not_observed",
+      "row_count": 121,
+      "productive_count": 99,
+      "productive_rate": 0.8182,
+      "needs_user_count": 0,
+      "decision_counts": {
+        "false_positive": 22,
+        "partial_positive": 14,
+        "true_positive": 85
+      },
+      "action_counts": {
+        "add_or_keep_restricted_admission": 65,
+        "display_only_or_kana_preferred": 4,
+        "keep_current_restriction": 19,
+        "no_action": 22,
+        "raise_score_or_floor": 11
+      }
+    }
+  ],
+  "generated_at": "2026-07-02T21:49:34+00:00",
+  "labels_json": "docs/test_inputs/srs_admission_veto_review_labels_en_ja.json",
+  "schema_version": 1,
+  "source_review_pack": "docs/test_outputs/srs_admission_veto_candidate_review_en_ja_latest.json",
+  "summary": {
+    "counts_by_action": {
+      "add_or_keep_restricted_admission": 68,
+      "display_only_or_kana_preferred": 4,
+      "keep_current_restriction": 24,
+      "no_action": 22,
+      "raise_score_or_floor": 14
+    },
+    "counts_by_confidence": {
+      "high": 89,
+      "medium": 43
+    },
+    "counts_by_decision": {
+      "false_positive": 22,
+      "partial_positive": 16,
+      "true_positive": 94
+    },
+    "label_count": 132,
+    "updated_label_count": 3,
+    "updated_labels": [
+      "直/あたい",
+      "気/け",
+      "徒/あだ"
+    ],
+    "user_review_needed_count": 0
+  },
+  "user_review_rows": []
+}

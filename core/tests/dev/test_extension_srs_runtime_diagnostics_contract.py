@@ -126,7 +126,21 @@ reporter.report({{
 	      recordReuses: 4,
 	      usableReuses: 5,
 	      bypasses: 0
-	    }}
+	    }},
+      replacementBudgetScope: "frame_document",
+      replacementBudgetActive: true,
+      replacementBudgetMaxTotal: 12,
+      replacementBudgetMaxPerSentence: 2,
+      replacementBudgetMaxPerLemma: 1,
+      replacementBudgetUsedTotal: 12,
+      replacementBudgetTrackedSentenceCount: 8,
+      replacementBudgetTrackedLemmaCount: 10,
+      replacementBudgetPageExhausted: true,
+      replacementBudgetSentenceCapReachedCount: 3,
+      replacementBudgetLemmaCapReachedCount: 4,
+      replacementBudgetRejectedPage: 5,
+      replacementBudgetRejectedSentence: 2,
+      replacementBudgetRejectedLemma: 6
 	  }},
   timings: {{
     applyTotalMs: 512.5,
@@ -186,6 +200,20 @@ assert.equal(persisted[0].semantic_context_cache_container_builds, 1);
 assert.equal(persisted[0].semantic_context_cache_record_reuses, 4);
 assert.equal(persisted[0].semantic_context_cache_usable_reuses, 5);
 assert.equal(persisted[0].semantic_context_cache_bypasses, 0);
+assert.equal(persisted[0].replacement_budget_scope, "frame_document");
+assert.equal(persisted[0].replacement_budget_active, true);
+assert.equal(persisted[0].replacement_budget_max_total, 12);
+assert.equal(persisted[0].replacement_budget_max_per_sentence, 2);
+assert.equal(persisted[0].replacement_budget_max_per_lemma, 1);
+assert.equal(persisted[0].replacement_budget_used_total, 12);
+assert.equal(persisted[0].replacement_budget_tracked_sentence_count, 8);
+assert.equal(persisted[0].replacement_budget_tracked_lemma_count, 10);
+assert.equal(persisted[0].replacement_budget_page_exhausted, true);
+assert.equal(persisted[0].replacement_budget_sentence_cap_reached_count, 3);
+assert.equal(persisted[0].replacement_budget_lemma_cap_reached_count, 4);
+assert.equal(persisted[0].replacement_budget_rejected_page, 5);
+assert.equal(persisted[0].replacement_budget_rejected_sentence, 2);
+assert.equal(persisted[0].replacement_budget_rejected_lemma, 6);
 assert.equal(persisted[0].apply_total_ms, 512.5);
 assert.equal(persisted[0].first_replacement_latency_ms, 203.25);
 assert.equal(persisted[0].first_visible_replacement_latency_ms, 110.5);
@@ -328,6 +356,20 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
 	    semantic_context_cache_record_reuses: 4,
 	    semantic_context_cache_usable_reuses: 5,
 	    semantic_context_cache_bypasses: 0,
+	    replacement_budget_scope: "frame_document",
+	    replacement_budget_active: true,
+	    replacement_budget_max_total: 8,
+	    replacement_budget_max_per_sentence: 2,
+	    replacement_budget_max_per_lemma: 1,
+	    replacement_budget_used_total: 7,
+	    replacement_budget_tracked_sentence_count: 5,
+	    replacement_budget_tracked_lemma_count: 6,
+	    replacement_budget_page_exhausted: false,
+	    replacement_budget_sentence_cap_reached_count: 2,
+	    replacement_budget_lemma_cap_reached_count: 3,
+	    replacement_budget_rejected_page: 0,
+	    replacement_budget_rejected_sentence: 4,
+	    replacement_budget_rejected_lemma: 2,
 	    apply_total_ms: 480,
     first_replacement_latency_ms: 215,
     first_visible_replacement_latency_ms: 125
@@ -369,6 +411,20 @@ const runtimeDiagnostics = context.LexiShift.srsRuntimeDiagnostics;
 	  assert.equal(loaded.semantic_context_cache_record_reuses, 4);
 	  assert.equal(loaded.semantic_context_cache_usable_reuses, 5);
 	  assert.equal(loaded.semantic_context_cache_bypasses, 0);
+	  assert.equal(loaded.replacement_budget_scope, "frame_document");
+	  assert.equal(loaded.replacement_budget_active, true);
+	  assert.equal(loaded.replacement_budget_max_total, 8);
+	  assert.equal(loaded.replacement_budget_max_per_sentence, 2);
+	  assert.equal(loaded.replacement_budget_max_per_lemma, 1);
+	  assert.equal(loaded.replacement_budget_used_total, 7);
+	  assert.equal(loaded.replacement_budget_tracked_sentence_count, 5);
+	  assert.equal(loaded.replacement_budget_tracked_lemma_count, 6);
+	  assert.equal(loaded.replacement_budget_page_exhausted, false);
+	  assert.equal(loaded.replacement_budget_sentence_cap_reached_count, 2);
+	  assert.equal(loaded.replacement_budget_lemma_cap_reached_count, 3);
+	  assert.equal(loaded.replacement_budget_rejected_page, 0);
+	  assert.equal(loaded.replacement_budget_rejected_sentence, 4);
+	  assert.equal(loaded.replacement_budget_rejected_lemma, 2);
 	  assert.equal(loaded.apply_total_ms, 480);
   assert.equal(loaded.first_replacement_latency_ms, 215);
   assert.equal(loaded.first_visible_replacement_latency_ms, 125);

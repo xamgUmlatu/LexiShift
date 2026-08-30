@@ -1,13 +1,19 @@
 # SRS Quality Harness
 
 - Status: PASS
-- Findings: pass=22 warn=0 fail=0
+- Findings: pass=29 warn=0 fail=0
 - Fail on warn: no
-- Synthetic pairs: en-ja, en-de
+- Synthetic pairs: en-ja, en-es, en-de
 
 ## Bootstrap Scenarios
 
 ### en-ja
+- Store/Due/Published targets: 48/48/48
+- Ruleset unique targets: 48
+- SRS due metadata/runtime-active targets: 48/48
+- Runtime artifacts: store=yes ruleset=yes snapshot=yes
+
+### en-es
 - Store/Due/Published targets: 48/48/48
 - Ruleset unique targets: 48
 - SRS due metadata/runtime-active targets: 48/48

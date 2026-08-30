@@ -1,12 +1,47 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from datetime import datetime
 import json
 import math
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
 
+from lexishift_core.srs.browsing_context import (
+    aggregate_context_count as browsing_context_count,
+    aggregate_evidence_value as browsing_evidence_value,
+    aggregate_weighted_evidence_value as browsing_weighted_evidence_value,
+    context_evidence_from_dicts,
+    decay_context_evidence,
+    merge_context_evidence,
+    normalize_context_key,
+)
+from lexishift_core.srs.browsing_identity import (
+    aggregate_reading_confidence,
+    aggregate_target_key,
+    build_browsing_target_key,
+    candidate_target_key,
+    merge_observation_sources,
+    normalize_observation_sources,
+    observation_source_for_side,
+    resolve_reading_confidence,
+)
+from lexishift_core.srs.browsing_models import (
+    BrowsingAdmissionCandidate,
+    BrowsingAdmissionSimulationResult,
+    BrowsingAdmissionSimulationRow,
+    BrowsingAdmissionStrength,
+    BrowsingSignalAggregate,
+    BrowsingSignalContextEvidence,  # noqa: F401 - compatibility re-export.
+    BrowsingSignalIngestPolicy,
+    BrowsingSignalIngestResult,
+    BrowsingSignalPacket,
+    BrowsingSignalPacketEntry,  # noqa: F401 - compatibility re-export.
+    BrowsingSignalStore,
+)
+from lexishift_core.srs.browsing_probability import (
+    combined_probability,
+    lane_probability_by_key,
+)
 from lexishift_core.srs.time import format_ts, now_utc, parse_ts
 
 BROWSING_SIGNAL_SOURCE = "source"
@@ -19,229 +54,12 @@ BROWSING_SIGNAL_SIDES = frozenset(
         BROWSING_SIGNAL_REPLACEMENT_EXPOSURE,
     }
 )
-
 BROWSING_STRENGTH_OFF = "off"
 BROWSING_STRENGTH_BALANCED = "balanced"
 BROWSING_STRENGTH_STRONG = "strong"
-
-
-@dataclass(frozen=True)
-class BrowsingSignalIngestPolicy:
-    version: str = "browsing_signal_aggregate_v1"
-    max_signals_per_packet: int = 200
-    max_count_per_signal: float = 5.0
-    max_items_per_store: int = 5000
-    prune_signal_below: float = 0.01
-    half_life_days: float = 30.0
-    browsing_signal_cap: float = 16.0
-    replacement_exposure_weight: float = 0.35
-
-
-@dataclass(frozen=True)
-class BrowsingAdmissionStrength:
-    name: str
-    browsing_alpha: float
-    max_browsing_boost: float
-    browsing_budget_share: float
-    volume_tau: float = 2.0
-    min_browsing_signal: float = 0.05
-    preference_alignment_weight: float = 0.25
-    min_fractional_browsing_budget: float = 1.0
-
-
-@dataclass(frozen=True)
-class BrowsingSignalAggregate:
-    target_lemma: str
-    source_hit_count: float = 0.0
-    target_hit_count: float = 0.0
-    replacement_exposure_count: float = 0.0
-    source_mapping_confidence: float = 0.0
-    last_seen_at: Optional[str] = None
-    decayed_at: Optional[str] = None
-
-    def to_dict(self) -> dict[str, object]:
-        payload: dict[str, object] = {
-            "target_lemma": self.target_lemma,
-            "source_hit_count": round(float(self.source_hit_count), 6),
-            "target_hit_count": round(float(self.target_hit_count), 6),
-            "replacement_exposure_count": round(float(self.replacement_exposure_count), 6),
-            "source_mapping_confidence": round(float(self.source_mapping_confidence), 6),
-        }
-        if self.last_seen_at:
-            payload["last_seen_at"] = self.last_seen_at
-        if self.decayed_at:
-            payload["decayed_at"] = self.decayed_at
-        return payload
-
-
-@dataclass(frozen=True)
-class BrowsingSignalStore:
-    pair: str
-    profile_id: str = "default"
-    items: Mapping[str, BrowsingSignalAggregate] = field(default_factory=dict)
-    version: int = 1
-    updated_at: Optional[str] = None
-    policy_version: str = "browsing_signal_aggregate_v1"
-
-    def to_dict(self) -> dict[str, object]:
-        return {
-            "version": self.version,
-            "pair": self.pair,
-            "profile_id": self.profile_id,
-            "updated_at": self.updated_at,
-            "policy_version": self.policy_version,
-            "items": {
-                lemma: self.items[lemma].to_dict()
-                for lemma in sorted(self.items)
-                if self.items[lemma].target_lemma
-            },
-        }
-
-
-@dataclass(frozen=True)
-class BrowsingSignalPacketEntry:
-    target_lemma: str
-    side: str
-    count: float = 1.0
-    source_mapping_confidence: float = 1.0
-
-
-@dataclass(frozen=True)
-class BrowsingSignalPacket:
-    pair: str
-    profile_id: str = "default"
-    signals: Sequence[BrowsingSignalPacketEntry] = field(default_factory=tuple)
-    captured_at: Optional[str] = None
-
-
-@dataclass(frozen=True)
-class BrowsingSignalIngestResult:
-    store: BrowsingSignalStore
-    input_signal_count: int
-    accepted_signal_count: int
-    dropped_signal_count: int
-    capped_signal_count: int
-    pruned_item_count: int
-    retained_item_count: int
-
-    def to_dict(self) -> dict[str, object]:
-        return {
-            "input_signal_count": self.input_signal_count,
-            "accepted_signal_count": self.accepted_signal_count,
-            "dropped_signal_count": self.dropped_signal_count,
-            "capped_signal_count": self.capped_signal_count,
-            "pruned_item_count": self.pruned_item_count,
-            "retained_item_count": self.retained_item_count,
-        }
-
-
-@dataclass(frozen=True)
-class BrowsingAdmissionCandidate:
-    lemma: str
-    neutral_score: float
-    readiness_multiplier: float = 1.0
-    explicit_preference_fit: float = 0.0
-    source_confidence: float = 1.0
-
-
-@dataclass(frozen=True)
-class BrowsingAdmissionSimulationRow:
-    lemma: str
-    neutral_rank: int
-    final_rank: int
-    neutral_score: float
-    final_score: float
-    browsing_signal: float
-    browsing_boost: float
-    selected: bool
-    selected_lane: str = "not_selected"
-    neutral_selected: bool = False
-    suppressed_reason: Optional[str] = None
-    deterministic_selection_probability: float = 0.0
-    browsing_lane_probability: float = 0.0
-    general_lane_probability: float = 0.0
-    approximate_selection_probability: float = 0.0
-
-    def to_dict(self) -> dict[str, object]:
-        payload = {
-            "lemma": self.lemma,
-            "neutral_rank": self.neutral_rank,
-            "final_rank": self.final_rank,
-            "neutral_score": round(self.neutral_score, 6),
-            "final_score": round(self.final_score, 6),
-            "browsing_signal": round(self.browsing_signal, 6),
-            "browsing_boost": round(self.browsing_boost, 6),
-            "selected": self.selected,
-            "selected_lane": self.selected_lane,
-            "neutral_selected": self.neutral_selected,
-            "deterministic_selection_probability": round(
-                self.deterministic_selection_probability, 6
-            ),
-            "browsing_lane_probability": round(self.browsing_lane_probability, 6),
-            "general_lane_probability": round(self.general_lane_probability, 6),
-            "approximate_selection_probability": round(self.approximate_selection_probability, 6),
-        }
-        if self.suppressed_reason:
-            payload["suppressed_reason"] = self.suppressed_reason
-        return payload
-
-
-@dataclass(frozen=True)
-class BrowsingAdmissionSimulationResult:
-    strength: str
-    admission_budget: int
-    browsing_budget: int
-    general_budget: int
-    signal_volume: float
-    volume_factor: float
-    selected_lemmas: Sequence[str]
-    neutral_selected_lemmas: Sequence[str]
-    browsing_lane_count: int
-    browsing_relevant_selected_count: int
-    browsing_driven_count: int
-    suppressed_count: int
-    rows: Sequence[BrowsingAdmissionSimulationRow]
-
-    def to_dict(self) -> dict[str, object]:
-        selected_count = len(self.selected_lemmas)
-        return {
-            "strength": self.strength,
-            "admission_budget": self.admission_budget,
-            "browsing_budget": self.browsing_budget,
-            "general_budget": self.general_budget,
-            "signal_volume": round(self.signal_volume, 6),
-            "volume_factor": round(self.volume_factor, 6),
-            "selected_lemmas": list(self.selected_lemmas),
-            "neutral_selected_lemmas": list(self.neutral_selected_lemmas),
-            "browsing_lane_count": self.browsing_lane_count,
-            "browsing_relevant_selected_count": self.browsing_relevant_selected_count,
-            "browsing_driven_count": self.browsing_driven_count,
-            "suppressed_count": self.suppressed_count,
-            "browsing_lane_share": _safe_share(self.browsing_lane_count, selected_count),
-            "browsing_relevant_share": _safe_share(
-                self.browsing_relevant_selected_count,
-                selected_count,
-            ),
-            "browsing_driven_share": _safe_share(self.browsing_driven_count, selected_count),
-            "probability_semantics": {
-                "deterministic_selection_probability": (
-                    "Exact for the current deterministic two-lane simulation."
-                ),
-                "browsing_lane_probability": (
-                    "Approximate inclusion probability if the browsing lane "
-                    "uses weighted sampling without replacement."
-                ),
-                "general_lane_probability": (
-                    "Approximate inclusion probability if the general lane "
-                    "uses weighted sampling without replacement."
-                ),
-                "approximate_selection_probability": (
-                    "Approximate combined inclusion probability under the "
-                    "planned smoother weighted selection model."
-                ),
-            },
-            "rows": [row.to_dict() for row in self.rows],
-        }
+MIN_BROWSING_EVIDENCE_MASS = 3.0
+MIN_BROWSING_EVIDENCE_CONTEXTS = 2
+COMMONNESS_SALIENCE_EXTRA_MASS = 18.0
 
 
 def browsing_strength_presets() -> dict[str, BrowsingAdmissionStrength]:
@@ -257,6 +75,7 @@ def browsing_strength_presets() -> dict[str, BrowsingAdmissionStrength]:
             browsing_alpha=0.22,
             max_browsing_boost=1.35,
             browsing_budget_share=0.30,
+            min_browsing_signal=0.25,
             min_fractional_browsing_budget=0.50,
         ),
         BROWSING_STRENGTH_STRONG: BrowsingAdmissionStrength(
@@ -264,6 +83,7 @@ def browsing_strength_presets() -> dict[str, BrowsingAdmissionStrength]:
             browsing_alpha=0.45,
             max_browsing_boost=1.65,
             browsing_budget_share=0.55,
+            min_browsing_signal=0.25,
             min_fractional_browsing_budget=0.35,
         ),
     }
@@ -276,9 +96,13 @@ def browsing_signal_store_from_dict(data: Mapping[str, object]) -> BrowsingSigna
         for key, value in raw_items.items():
             if not isinstance(value, Mapping):
                 continue
-            aggregate = browsing_signal_aggregate_from_dict(value, fallback_lemma=str(key))
+            aggregate = browsing_signal_aggregate_from_dict(
+                value,
+                fallback_key=str(key),
+                fallback_lemma=str(key),
+            )
             if aggregate.target_lemma:
-                items[aggregate.target_lemma] = aggregate
+                items[aggregate_target_key(aggregate)] = aggregate
     return BrowsingSignalStore(
         pair=str(data.get("pair", "") or ""),
         profile_id=str(data.get("profile_id", "") or "default"),
@@ -292,10 +116,22 @@ def browsing_signal_store_from_dict(data: Mapping[str, object]) -> BrowsingSigna
 def browsing_signal_aggregate_from_dict(
     data: Mapping[str, object],
     *,
+    fallback_key: str = "",
     fallback_lemma: str = "",
 ) -> BrowsingSignalAggregate:
+    target_lemma = str(data.get("target_lemma", "") or fallback_lemma).strip()
+    target_reading = str(
+        data.get("target_reading") or data.get("targetReading") or data.get("reading") or ""
+    ).strip()
+    target_key = build_browsing_target_key(
+        target_lemma=target_lemma,
+        target_reading=target_reading,
+        target_key=data.get("target_key") or data.get("targetKey") or fallback_key,
+    )
     return BrowsingSignalAggregate(
-        target_lemma=str(data.get("target_lemma", "") or fallback_lemma).strip(),
+        target_lemma=target_lemma,
+        target_key=target_key,
+        target_reading=target_reading,
         source_hit_count=max(0.0, _safe_float(data.get("source_hit_count")) or 0.0),
         target_hit_count=max(0.0, _safe_float(data.get("target_hit_count")) or 0.0),
         replacement_exposure_count=max(
@@ -303,6 +139,13 @@ def browsing_signal_aggregate_from_dict(
             _safe_float(data.get("replacement_exposure_count")) or 0.0,
         ),
         source_mapping_confidence=_clamp01(data.get("source_mapping_confidence")),
+        reading_confidence=resolve_reading_confidence(data.get("reading_confidence")),
+        observation_sources=normalize_observation_sources(data.get("observation_sources")),
+        context_evidence=context_evidence_from_dicts(
+            data.get("context_evidence") or data.get("contextEvidence") or data.get("contexts"),
+            safe_float_fn=_safe_float,
+            optional_str_fn=_optional_str,
+        ),
         last_seen_at=_optional_str(data.get("last_seen_at")),
         decayed_at=_optional_str(data.get("decayed_at")),
     )
@@ -328,6 +171,31 @@ def save_browsing_signal_store(store: BrowsingSignalStore, path: Path) -> None:
     )
 
 
+def maintain_browsing_signal_store(
+    store: BrowsingSignalStore,
+    *,
+    policy: Optional[BrowsingSignalIngestPolicy] = None,
+    now: Optional[datetime] = None,
+) -> BrowsingSignalStore:
+    policy = policy or BrowsingSignalIngestPolicy()
+    now = now or now_utc()
+    if not store.pair and not store.items:
+        return store
+    decayed_items = {
+        aggregate_target_key(item): _decay_aggregate(item, policy=policy, now=now)
+        for item in store.items.values()
+    }
+    retained = _prune_aggregates(decayed_items, policy=policy)
+    return BrowsingSignalStore(
+        pair=store.pair,
+        profile_id=store.profile_id,
+        items=retained,
+        version=store.version,
+        updated_at=format_ts(now),
+        policy_version=policy.version,
+    )
+
+
 def ingest_browsing_signal_packet(
     store: BrowsingSignalStore,
     packet: BrowsingSignalPacket,
@@ -341,7 +209,8 @@ def ingest_browsing_signal_packet(
     pair = str(packet.pair or store.pair or "").strip()
     profile_id = str(packet.profile_id or store.profile_id or "default").strip() or "default"
     decayed_items = {
-        lemma: _decay_aggregate(item, policy=policy, now=now) for lemma, item in store.items.items()
+        aggregate_target_key(item): _decay_aggregate(item, policy=policy, now=now)
+        for item in store.items.values()
     }
 
     capped_signal_count = 0
@@ -363,25 +232,66 @@ def ingest_browsing_signal_packet(
         capped_count = min(raw_count, max(0.0, float(policy.max_count_per_signal)))
         if capped_count < raw_count:
             capped_signal_count += 1
-        current = decayed_items.get(lemma) or BrowsingSignalAggregate(target_lemma=lemma)
+        target_key = build_browsing_target_key(
+            target_lemma=lemma,
+            target_reading=signal.target_reading,
+            target_key=signal.target_key,
+        )
+        current = decayed_items.get(target_key) or BrowsingSignalAggregate(
+            target_lemma=lemma,
+            target_key=target_key,
+            target_reading=str(signal.target_reading or "").strip(),
+            reading_confidence=_clamp01(signal.reading_confidence),
+        )
         source_count = current.source_hit_count
         target_count = current.target_hit_count
         replacement_count = current.replacement_exposure_count
         mapping_confidence = current.source_mapping_confidence
+        reading_confidence = max(
+            aggregate_reading_confidence(current),
+            _clamp01(signal.reading_confidence),
+        )
+        observation_sources = merge_observation_sources(
+            current.observation_sources,
+            (
+                observation_source_for_side(
+                    explicit=signal.observation_source,
+                    side=signal.side,
+                ),
+            ),
+        )
         if side == BROWSING_SIGNAL_SOURCE:
             confidence = _clamp01(signal.source_mapping_confidence)
             source_count += capped_count * confidence
             mapping_confidence = max(mapping_confidence, confidence)
+            context_count = capped_count * confidence
         elif side == BROWSING_SIGNAL_TARGET:
             target_count += capped_count
+            context_count = capped_count
         elif side == BROWSING_SIGNAL_REPLACEMENT_EXPOSURE:
             replacement_count += capped_count
-        decayed_items[lemma] = BrowsingSignalAggregate(
+            context_count = capped_count
+        else:
+            context_count = 0.0
+        context_evidence = merge_context_evidence(
+            current.context_evidence,
+            context_key=normalize_context_key(signal.context_key),
+            side=side,
+            count=context_count,
+            policy=policy,
+            now_text=now_text,
+        )
+        decayed_items[target_key] = BrowsingSignalAggregate(
             target_lemma=lemma,
+            target_key=target_key,
+            target_reading=str(signal.target_reading or current.target_reading or "").strip(),
             source_hit_count=source_count,
             target_hit_count=target_count,
             replacement_exposure_count=replacement_count,
             source_mapping_confidence=mapping_confidence,
+            reading_confidence=reading_confidence,
+            observation_sources=observation_sources,
+            context_evidence=context_evidence,
             last_seen_at=now_text,
             decayed_at=now_text,
         )
@@ -416,12 +326,13 @@ def browsing_raw_value(
     policy = policy or BrowsingSignalIngestPolicy()
     if aggregate is None:
         return 0.0
-    return (
+    raw = (
         max(0.0, aggregate.source_hit_count)
         + max(0.0, aggregate.target_hit_count)
         + max(0.0, aggregate.replacement_exposure_count)
         * max(0.0, policy.replacement_exposure_weight)
     )
+    return raw * aggregate_reading_confidence(aggregate)
 
 
 def browsing_signal_value(
@@ -430,7 +341,7 @@ def browsing_signal_value(
     policy: Optional[BrowsingSignalIngestPolicy] = None,
 ) -> float:
     policy = policy or BrowsingSignalIngestPolicy()
-    raw = browsing_raw_value(aggregate, policy=policy)
+    raw = browsing_weighted_evidence_value(aggregate, policy=policy)
     if raw <= 0.0:
         return 0.0
     return _clamp01(math.log1p(raw) / math.log1p(max(0.01, policy.browsing_signal_cap)))
@@ -468,8 +379,10 @@ def simulate_browsing_admission(
     strength: BrowsingAdmissionStrength,
     policy: Optional[BrowsingSignalIngestPolicy] = None,
     suppressed_lemmas: Optional[Mapping[str, str]] = None,
+    now: Optional[datetime] = None,
 ) -> BrowsingAdmissionSimulationResult:
     policy = policy or BrowsingSignalIngestPolicy()
+    store = maintain_browsing_signal_store(store, policy=policy, now=now)
     budget = max(0, int(admission_budget))
     suppressed = {
         str(lemma or "").strip(): str(reason or "").strip() or "suppressed"
@@ -480,29 +393,60 @@ def simulate_browsing_admission(
         candidates,
         key=lambda item: (-float(item.neutral_score), item.lemma),
     )
-    neutral_rank_by_lemma = {
-        candidate.lemma: index + 1 for index, candidate in enumerate(neutral_ranked)
+    neutral_rank_by_key = {
+        candidate_target_key(candidate): index + 1 for index, candidate in enumerate(neutral_ranked)
     }
     active_neutral_ranked = [
-        candidate for candidate in neutral_ranked if candidate.lemma not in suppressed
+        candidate
+        for candidate in neutral_ranked
+        if _suppressed_reason_for_candidate(candidate, suppressed) is None
     ]
     neutral_selected_lemmas = tuple(candidate.lemma for candidate in active_neutral_ranked[:budget])
-    neutral_selected = set(neutral_selected_lemmas)
+    neutral_selected_keys = {
+        candidate_target_key(candidate) for candidate in active_neutral_ranked[:budget]
+    }
 
     scored_rows: list[dict[str, object]] = []
     for candidate in neutral_ranked:
-        aggregate = store.items.get(candidate.lemma)
+        target_key = candidate_target_key(candidate)
+        aggregate = _aggregate_for_candidate(store, candidate)
         signal = browsing_signal_value(aggregate, policy=policy)
-        boost = browsing_boost_value(signal, candidate=candidate, strength=strength)
-        suppressed_reason = suppressed.get(candidate.lemma)
+        evidence = browsing_evidence_value(aggregate, policy=policy)
+        context_count = browsing_context_count(aggregate, policy=policy)
+        quality_multiplier = browsing_quality_multiplier(candidate)
+        count_multiplier = browsing_count_multiplier(aggregate, policy=policy)
+        salience_multiplier = browsing_salience_multiplier(
+            aggregate,
+            candidate=candidate,
+            policy=policy,
+        )
+        specificity_multiplier = browsing_specificity_multiplier(candidate)
+        effective_signal = browsing_effective_signal_value(
+            signal,
+            quality_multiplier=quality_multiplier,
+            count_multiplier=count_multiplier,
+            salience_multiplier=salience_multiplier,
+            specificity_multiplier=specificity_multiplier,
+        )
+        boost = browsing_boost_value(effective_signal, candidate=candidate, strength=strength)
+        suppressed_reason = _suppressed_reason_for_candidate(candidate, suppressed)
         final_score = 0.0 if suppressed_reason else float(candidate.neutral_score) * boost
         scored_rows.append(
             {
                 "candidate": candidate,
                 "lemma": candidate.lemma,
-                "neutral_rank": neutral_rank_by_lemma[candidate.lemma],
+                "target_key": target_key,
+                "target_reading": candidate.target_reading,
+                "neutral_rank": neutral_rank_by_key[target_key],
                 "neutral_score": float(candidate.neutral_score),
                 "browsing_signal": signal,
+                "browsing_evidence": evidence,
+                "browsing_context_count": context_count,
+                "effective_browsing_signal": effective_signal,
+                "browsing_quality_multiplier": quality_multiplier,
+                "browsing_count_multiplier": count_multiplier,
+                "browsing_salience_multiplier": salience_multiplier,
+                "browsing_specificity_multiplier": specificity_multiplier,
                 "browsing_boost": boost,
                 "final_score": final_score,
                 "suppressed_reason": suppressed_reason,
@@ -510,7 +454,9 @@ def simulate_browsing_admission(
         )
 
     active_rows = [row for row in scored_rows if not row.get("suppressed_reason")]
-    signal_volume = sum(_safe_float(row.get("browsing_signal")) or 0.0 for row in active_rows)
+    signal_volume = sum(
+        _safe_float(row.get("effective_browsing_signal")) or 0.0 for row in active_rows
+    )
     volume_factor = 0.0
     if signal_volume > 0.0 and strength.volume_tau > 0.0:
         volume_factor = 1.0 - math.exp(-signal_volume / strength.volume_tau)
@@ -521,7 +467,7 @@ def simulate_browsing_admission(
     browsing_pool = [
         row
         for row in active_rows
-        if (_safe_float(row.get("browsing_signal")) or 0.0)
+        if (_safe_float(row.get("effective_browsing_signal")) or 0.0)
         >= max(0.0, strength.min_browsing_signal)
     ]
     if (
@@ -541,7 +487,7 @@ def simulate_browsing_admission(
             str(row["lemma"]),
         ),
     )[:browsing_budget]
-    selected_lemmas = {str(row["lemma"]) for row in selected_browsing}
+    selected_keys = {str(row["target_key"]) for row in selected_browsing}
     general_budget = max(0, budget - len(selected_browsing))
     selected_general = [
         row
@@ -553,17 +499,17 @@ def simulate_browsing_admission(
                 str(item["lemma"]),
             ),
         )
-        if str(row["lemma"]) not in selected_lemmas
+        if str(row["target_key"]) not in selected_keys
     ][:general_budget]
-    selected_lemmas.update(str(row["lemma"]) for row in selected_general)
-    lane_by_lemma = {str(row["lemma"]): "browsing" for row in selected_browsing}
-    lane_by_lemma.update({str(row["lemma"]): "general" for row in selected_general})
-    browsing_probability_by_lemma = _lane_probability_by_lemma(
+    selected_keys.update(str(row["target_key"]) for row in selected_general)
+    lane_by_key = {str(row["target_key"]): "browsing" for row in selected_browsing}
+    lane_by_key.update({str(row["target_key"]): "general" for row in selected_general})
+    browsing_probability_by_key = lane_probability_by_key(
         browsing_pool,
         budget=browsing_budget,
         mass_key="final_score",
     )
-    general_probability_by_lemma = _lane_probability_by_lemma(
+    general_probability_by_key = lane_probability_by_key(
         active_rows,
         budget=general_budget,
         mass_key="neutral_score",
@@ -577,30 +523,51 @@ def simulate_browsing_admission(
             str(row["lemma"]),
         ),
     )
-    final_rank_by_lemma = {str(row["lemma"]): index + 1 for index, row in enumerate(final_ranked)}
+    final_rank_by_key = {
+        str(row["target_key"]): index + 1 for index, row in enumerate(final_ranked)
+    }
     rows = [
         BrowsingAdmissionSimulationRow(
             lemma=str(row["lemma"]),
+            target_key=str(row["target_key"]),
+            target_reading=str(row.get("target_reading") or ""),
             neutral_rank=_safe_int(row.get("neutral_rank")),
-            final_rank=final_rank_by_lemma[str(row["lemma"])],
+            final_rank=final_rank_by_key[str(row["target_key"])],
             neutral_score=_safe_float(row.get("neutral_score")) or 0.0,
             final_score=_safe_float(row.get("final_score")) or 0.0,
             browsing_signal=_safe_float(row.get("browsing_signal")) or 0.0,
+            browsing_evidence=_safe_float(row.get("browsing_evidence")) or 0.0,
+            browsing_context_count=_safe_int(row.get("browsing_context_count")),
+            effective_browsing_signal=_safe_float(row.get("effective_browsing_signal")) or 0.0,
+            browsing_quality_multiplier=_safe_float(row.get("browsing_quality_multiplier")) or 0.0,
+            browsing_count_multiplier=_safe_float(row.get("browsing_count_multiplier")) or 0.0,
+            browsing_salience_multiplier=(
+                _safe_float(row.get("browsing_salience_multiplier")) or 0.0
+            ),
+            browsing_specificity_multiplier=(
+                _safe_float(row.get("browsing_specificity_multiplier")) or 0.0
+            ),
             browsing_boost=_safe_float(row.get("browsing_boost")) or 0.0,
-            selected=str(row["lemma"]) in selected_lemmas,
-            selected_lane=lane_by_lemma.get(str(row["lemma"]), "not_selected"),
-            neutral_selected=str(row["lemma"]) in neutral_selected,
+            selected=str(row["target_key"]) in selected_keys,
+            selected_lane=lane_by_key.get(str(row["target_key"]), "not_selected"),
+            neutral_selected=str(row["target_key"]) in neutral_selected_keys,
             suppressed_reason=(
                 str(row["suppressed_reason"]) if row.get("suppressed_reason") else None
             ),
             deterministic_selection_probability=(
-                1.0 if str(row["lemma"]) in selected_lemmas else 0.0
+                1.0 if str(row["target_key"]) in selected_keys else 0.0
             ),
-            browsing_lane_probability=browsing_probability_by_lemma.get(str(row["lemma"]), 0.0),
-            general_lane_probability=general_probability_by_lemma.get(str(row["lemma"]), 0.0),
-            approximate_selection_probability=_combined_probability(
-                browsing_probability_by_lemma.get(str(row["lemma"]), 0.0),
-                general_probability_by_lemma.get(str(row["lemma"]), 0.0),
+            browsing_lane_probability=browsing_probability_by_key.get(
+                str(row["target_key"]),
+                0.0,
+            ),
+            general_lane_probability=general_probability_by_key.get(
+                str(row["target_key"]),
+                0.0,
+            ),
+            approximate_selection_probability=combined_probability(
+                browsing_probability_by_key.get(str(row["target_key"]), 0.0),
+                general_probability_by_key.get(str(row["target_key"]), 0.0),
             ),
         )
         for row in final_ranked
@@ -611,7 +578,7 @@ def simulate_browsing_admission(
     browsing_relevant_selected_count = sum(
         1
         for row in rows
-        if row.selected and row.browsing_signal >= max(0.0, strength.min_browsing_signal)
+        if row.selected and row.effective_browsing_signal >= max(0.0, strength.min_browsing_signal)
     )
     browsing_driven_count = sum(1 for row in rows if row.selected and not row.neutral_selected)
     return BrowsingAdmissionSimulationResult(
@@ -631,6 +598,72 @@ def simulate_browsing_admission(
     )
 
 
+def browsing_effective_signal_value(
+    signal_value: float,
+    *,
+    quality_multiplier: float = 1.0,
+    count_multiplier: float = 1.0,
+    salience_multiplier: float = 1.0,
+    specificity_multiplier: float = 1.0,
+) -> float:
+    return _clamp01(
+        _clamp01(signal_value)
+        * _clamp01(quality_multiplier)
+        * _clamp01(count_multiplier)
+        * _clamp01(salience_multiplier)
+        * max(0.0, min(1.25, float(specificity_multiplier))),
+    )
+
+
+def browsing_count_multiplier(
+    aggregate: BrowsingSignalAggregate | None,
+    *,
+    policy: Optional[BrowsingSignalIngestPolicy] = None,
+) -> float:
+    evidence = browsing_evidence_value(aggregate, policy=policy)
+    if evidence < MIN_BROWSING_EVIDENCE_MASS:
+        return 0.0
+    if aggregate is not None and aggregate.context_evidence:
+        if browsing_context_count(aggregate, policy=policy) < MIN_BROWSING_EVIDENCE_CONTEXTS:
+            return 0.0
+    return 1.0
+
+
+def browsing_salience_multiplier(
+    aggregate: BrowsingSignalAggregate | None,
+    *,
+    candidate: Optional[BrowsingAdmissionCandidate] = None,
+    policy: Optional[BrowsingSignalIngestPolicy] = None,
+) -> float:
+    if aggregate is None:
+        return 1.0
+    evidence = browsing_evidence_value(aggregate, policy=policy)
+    if evidence <= 0.0 or candidate is None or not bool(candidate.lexical_commonness_known):
+        return 1.0
+    commonness = _clamp01(candidate.lexical_commonness)
+    if commonness <= 0.0:
+        return 1.0
+    required_mass = MIN_BROWSING_EVIDENCE_MASS + (
+        COMMONNESS_SALIENCE_EXTRA_MASS * commonness * commonness
+    )
+    return _clamp01(evidence / max(MIN_BROWSING_EVIDENCE_MASS, required_mass))
+
+
+def browsing_quality_multiplier(candidate: Optional[BrowsingAdmissionCandidate]) -> float:
+    if candidate is None:
+        return 1.0
+    return _clamp01(candidate.admission_suitability)
+
+
+def browsing_specificity_multiplier(candidate: Optional[BrowsingAdmissionCandidate]) -> float:
+    if candidate is None:
+        return 1.0
+    if not bool(candidate.lexical_commonness_known):
+        return 0.75
+    commonness = _clamp01(candidate.lexical_commonness)
+    return max(0.65, min(1.15, 1.15 - (0.50 * commonness)))
+
+
 def simulate_browsing_admission_presets(
     candidates: Sequence[BrowsingAdmissionCandidate],
     *,
@@ -638,6 +671,7 @@ def simulate_browsing_admission_presets(
     admission_budget: int,
     policy: Optional[BrowsingSignalIngestPolicy] = None,
     suppressed_lemmas: Optional[Mapping[str, str]] = None,
+    now: Optional[datetime] = None,
 ) -> dict[str, BrowsingAdmissionSimulationResult]:
     return {
         name: simulate_browsing_admission(
@@ -647,6 +681,7 @@ def simulate_browsing_admission_presets(
             strength=strength,
             policy=policy,
             suppressed_lemmas=suppressed_lemmas,
+            now=now,
         )
         for name, strength in browsing_strength_presets().items()
     }
@@ -667,10 +702,18 @@ def _decay_aggregate(
     multiplier = 0.5 ** (elapsed_days / half_life_days)
     return BrowsingSignalAggregate(
         target_lemma=aggregate.target_lemma,
+        target_key=aggregate_target_key(aggregate),
+        target_reading=aggregate.target_reading,
         source_hit_count=max(0.0, aggregate.source_hit_count) * multiplier,
         target_hit_count=max(0.0, aggregate.target_hit_count) * multiplier,
         replacement_exposure_count=max(0.0, aggregate.replacement_exposure_count) * multiplier,
         source_mapping_confidence=aggregate.source_mapping_confidence,
+        reading_confidence=aggregate_reading_confidence(aggregate),
+        observation_sources=aggregate.observation_sources,
+        context_evidence=decay_context_evidence(
+            aggregate.context_evidence,
+            multiplier=multiplier,
+        ),
         last_seen_at=aggregate.last_seen_at,
         decayed_at=format_ts(now),
     )
@@ -691,18 +734,49 @@ def _prune_aggregates(
         key=lambda item: (
             -browsing_raw_value(item, policy=policy),
             str(item.last_seen_at or ""),
-            item.target_lemma,
+            aggregate_target_key(item),
         )
     )
     retained = candidates[: max(0, int(policy.max_items_per_store))]
     return {
-        item.target_lemma: item for item in sorted(retained, key=lambda item: item.target_lemma)
+        aggregate_target_key(item): item
+        for item in sorted(retained, key=lambda item: aggregate_target_key(item))
     }
 
 
 def _normalize_signal_side(value: object) -> str:
     side = str(value or "").strip().lower()
     return side if side in BROWSING_SIGNAL_SIDES else ""
+
+
+def _aggregate_for_candidate(
+    store: BrowsingSignalStore,
+    candidate: BrowsingAdmissionCandidate,
+) -> BrowsingSignalAggregate | None:
+    target_key = candidate_target_key(candidate)
+    for key in _candidate_browsing_lookup_keys(target_key, candidate.lemma):
+        if key in store.items:
+            return store.items[key]
+    return None
+
+
+def _candidate_browsing_lookup_keys(*values: object) -> tuple[str, ...]:
+    keys: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        text = str(value or "").strip()
+        for key in (text, text.casefold()):
+            if key and key not in seen:
+                keys.append(key)
+                seen.add(key)
+    return tuple(keys)
+
+
+def _suppressed_reason_for_candidate(
+    candidate: BrowsingAdmissionCandidate,
+    suppressed: Mapping[str, str],
+) -> str | None:
+    return suppressed.get(candidate_target_key(candidate)) or suppressed.get(candidate.lemma)
 
 
 def _optional_str(value: object) -> Optional[str]:
@@ -743,52 +817,3 @@ def _clamp01(value: object) -> float:
     if parsed is None:
         return 0.0
     return max(0.0, min(1.0, parsed))
-
-
-def _safe_share(count: int, total: int) -> float:
-    if total <= 0:
-        return 0.0
-    return round(count / total, 6)
-
-
-def _lane_probability_by_lemma(
-    rows: Sequence[Mapping[str, object]],
-    *,
-    budget: int,
-    mass_key: str,
-) -> dict[str, float]:
-    if budget <= 0 or not rows:
-        return {}
-    masses = {
-        str(row.get("lemma") or ""): max(0.0, _safe_float(row.get(mass_key)) or 0.0)
-        for row in rows
-        if str(row.get("lemma") or "")
-    }
-    total_mass = sum(masses.values())
-    if total_mass <= 0.0:
-        return {}
-    return {
-        lemma: _approx_without_replacement_inclusion_probability(
-            mass=mass,
-            total_mass=total_mass,
-            budget=budget,
-        )
-        for lemma, mass in masses.items()
-    }
-
-
-def _approx_without_replacement_inclusion_probability(
-    *,
-    mass: float,
-    total_mass: float,
-    budget: int,
-) -> float:
-    if mass <= 0.0 or total_mass <= 0.0 or budget <= 0:
-        return 0.0
-    return _clamp01(1.0 - math.exp(-(max(0, int(budget)) * mass / total_mass)))
-
-
-def _combined_probability(browsing_probability: float, general_probability: float) -> float:
-    browsing = _clamp01(browsing_probability)
-    general = _clamp01(general_probability)
-    return _clamp01(browsing + ((1.0 - browsing) * general))

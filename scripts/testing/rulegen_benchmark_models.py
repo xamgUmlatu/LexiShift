@@ -94,6 +94,7 @@ class SweepConfig:
     exact_gloss_demotion_enabled: bool = False
     source_frequency_prior_enabled: bool = False
     cleaner_later_competition_penalty: float = 0.0
+    sense_defaultness_competition_penalty: float = 0.0
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -135,6 +136,7 @@ class SweepConfig:
             "exact_gloss_demotion_enabled": self.exact_gloss_demotion_enabled,
             "source_frequency_prior_enabled": self.source_frequency_prior_enabled,
             "cleaner_later_competition_penalty": self.cleaner_later_competition_penalty,
+            "sense_defaultness_competition_penalty": (self.sense_defaultness_competition_penalty),
         }
 
     def label(self) -> str:
@@ -151,6 +153,7 @@ class SweepConfig:
             f"xdem={'on' if self.exact_gloss_demotion_enabled else 'off'} "
             f"sfreq={'on' if self.source_frequency_prior_enabled else 'off'} "
             f"clcmp={'off' if self.cleaner_later_competition_penalty <= 0.0 else f'{self.cleaner_later_competition_penalty:.2f}'} "
+            f"sdef={'off' if self.sense_defaultness_competition_penalty <= 0.0 else f'{self.sense_defaultness_competition_penalty:.2f}'} "
             f"var={'on' if self.include_variants else 'off'} "
             f"pos={'on' if self.pos_scoring_enabled else 'off'} "
             f"rev={'on' if self.reverse_check_enabled else 'off'} "

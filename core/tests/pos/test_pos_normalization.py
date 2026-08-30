@@ -26,8 +26,16 @@ class TestPosNormalization(unittest.TestCase):
             "freq-es-cde",
         )
         self.assertEqual(
+            resolve_pos_source_profile(source_provider="freq-es-spalex-v1"),
+            "spalex_only_v1",
+        )
+        self.assertEqual(
             resolve_pos_source_profile(source_provider="freq-de-default"),
             "freq-de-default",
+        )
+        self.assertEqual(
+            resolve_pos_source_profile(source_provider="universal-dependencies-ud-ancora"),
+            "universal-dependencies",
         )
         self.assertEqual(
             resolve_pos_source_profile(source_provider="freedict-es-en"),
@@ -161,6 +169,38 @@ class TestPosNormalization(unittest.TestCase):
         self.assertEqual(pos.canonical, "noun")
         self.assertEqual(pos.bucket, "noun")
         self.assertTrue(pos.mapped)
+
+    def test_universal_dependencies_upos_tags(self) -> None:
+        proper_noun = normalize_pos(
+            "PROPN",
+            language_pair="en-es",
+            source_provider="universal-dependencies-ud-ancora",
+            source_kind="pos_overlay",
+        )
+        self.assertEqual(proper_noun.source_profile, "universal-dependencies")
+        self.assertEqual(proper_noun.canonical, "noun")
+        self.assertEqual(proper_noun.bucket, "noun")
+        self.assertTrue(proper_noun.mapped)
+
+        auxiliary = normalize_pos(
+            "AUX",
+            language_pair="en-es",
+            source_provider="universal-dependencies-ud-ancora",
+            source_kind="pos_overlay",
+        )
+        self.assertEqual(auxiliary.canonical, "verb")
+        self.assertEqual(auxiliary.bucket, "verb")
+        self.assertTrue(auxiliary.mapped)
+
+        subordinate_conjunction = normalize_pos(
+            "SCONJ",
+            language_pair="en-es",
+            source_provider="universal-dependencies-ud-ancora",
+            source_kind="pos_overlay",
+        )
+        self.assertEqual(subordinate_conjunction.canonical, "conjunction")
+        self.assertEqual(subordinate_conjunction.bucket, "other")
+        self.assertTrue(subordinate_conjunction.mapped)
 
     def test_wiktionary_pos_uses_generic_and_compact_hits(self) -> None:
         adjective = normalize_pos(

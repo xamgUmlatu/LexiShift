@@ -1,9 +1,9 @@
 # Packaged GUI Startup Performance Plan
 
-Status: active plan
+Status: implemented and locally verified; signed-release verification remains
 Role: Planning / WIP
-Last updated: 2026-06-01
-Last verified: 2026-06-01 Phase 1/2 PyInstaller onedir payload split, installed-bundle rebuild, focused startup/build tests, and installed launch measurements
+Last updated: 2026-08-27
+Last verified: 2026-08-27 installed-bundle rebuild, blocking theme-I/O diagnosis and fix, 3-run cold/activation budget measurements, and focused GUI/startup tests
 Purpose: make the packaged LexiShift GUI open quickly enough from extension-driven language-data recovery flows without changing the architecture stack prematurely
 Source-of-truth: planning doc only; current behavior lives in `scripts/helper/lexishift_native_host.py`, `core/lexishift_core/helper/gui_app_launch.py`, `apps/gui/src/main.py`, `apps/gui/src/main_runtime.py`, `apps/gui/packaging/pyinstaller.spec`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
 
@@ -54,15 +54,17 @@ Secondary targets:
 
 ## Current Evidence
 
-These observations were refreshed locally on 2026-06-01.
+These observations were refreshed locally on 2026-08-27.
 
 | Evidence | Current observation | Interpretation |
 | --- | --- | --- |
-| User-perceived launch | after the PyInstaller payload split, warm installed relaunch through `open /Applications/LexiShift.app` measured about `1041.5 ms` | within target on the current machine after the first post-install launch; still needs release-candidate and tester-machine confirmation |
-| Native-host latest resource launch log | `[2026-06-01T01:24:39.912473+00:00] opened_resource_settings mode=macos_installed_bundle pair=en-es` | native host selected the installed `/Applications/LexiShift.app` path |
-| Latest startup log mtime | `Jun 1 10:24:52 2026` local time | suggests a large gap between native-host fire-and-forget launch and app startup completion for that observed launch |
-| Startup log, latest slow packaged block | `main() begin` to `window shown` was `2486.4 ms` | Python/Qt/app code after `main()` can already fit the target on that run |
-| Other startup blocks | some runs were about `432 ms`, `449 ms`, `1341 ms`, `3344 ms`, and `3443 ms` after `main()` | startup code cost varies and needs better session IDs before conclusions |
+| Previously intermittent hang | fine-grained checkpoints stopped after `main_window.window_state_restored`; a process stack sample showed the GUI thread in `QPixmap::load -> QFile::open` for the active custom-theme background under `~/Downloads` | the multi-minute stall was external theme-image file I/O, not installed dictionary inventory |
+| Theme-image fix | background file reads and `QImage` decoding now run through a shared daemon loader; GUI-thread `QPixmap` creation occurs only after a decoded result arrives | slow, protected, or unavailable custom image paths no longer block first paint or Resource Settings |
+| Cold installed bundle to Resource Settings | three `open /Applications/LexiShift.app` runs reached `settings_dialog.shown` at `1515.1-2396.0 ms`, median `1573.5 ms`, measured p95 `2313.8 ms` | passes the `3500 ms` median and `6000 ms` p95 resource-settings budgets on the current machine |
+| Cold timing split | pre-entry median `559.5 ms`; process-entry-to-dialog median `1014.0 ms` | both macOS/bootloader and application work are bounded; no current multi-minute in-process block remains |
+| Existing-GUI activation to visible Resource Settings | three runs measured `107.9-797.6 ms`, median `254.4 ms`, measured p95 `743.3 ms` | passes the `500 ms` median and `1000 ms` p95 activation budgets while including first dialog construction plus subsequent dialog reuse |
+| Resource panel construction | instrumented live runs complete Language Pack panel construction in tens of milliseconds and the full Settings dialog in roughly `0.6-0.8 s` after it is requested | the installed large dictionary state is not the current blocker |
+| Repeatability tooling | measurement output now includes structured checkpoints, p95, optional budget failure, and exact session app-PID cleanup for cold repetitions | cold samples no longer accidentally become singleton activation samples |
 | Installed main app size | `/Applications/LexiShift.app` is `185M` after the onedir EXE payload split | down from `692M`; the prior executable/data duplication was a real packaging defect |
 | Installed helper app size | `/Applications/LexiShift Helper.app` is `115M` after the onedir EXE payload split | down from `494M`; dual-bundle runtime remains a size concern, but much less urgent |
 | Installed main app file count | `809` files | down from `1258`; file-count pressure is lower, but release signing/notarization still needs measurement |
@@ -72,12 +74,12 @@ These observations were refreshed locally on 2026-06-01.
 | Current launch command | native host calls `open /Applications/LexiShift.app --args --open-resource-settings --resource-pair en-es` | product-correct path, but `open`/LaunchServices overhead must be measured against direct executable launch |
 | Process list | parent/child main-app and helper processes appear | likely PyInstaller parent/child behavior, but duplicate cold-launch behavior must be distinguished from normal bootloader process structure |
 
-The important current read: `2-3` seconds is realistic without abandoning
-PyInstaller or the current architecture. After the payload split, warm
-installed relaunches measured about `1.0-1.1` seconds across `open`,
-bundle-id, and direct executable launch modes. The remaining uncertainty is the
-first launch after reinstall/rebuild, which still showed a slower one-off sample
-in local console output and must be rechecked with release signing/notarization.
+The important current read: the current architecture meets the local beta
+targets. The measured pathological block was a synchronous custom-theme image
+open, and moving that work off the GUI thread restored bounded startup without
+removing theme support or changing dictionary ownership. The remaining
+uncertainty is release signing/notarization and tester-machine behavior, not a
+known in-process startup blocker.
 
 ## Working Hypotheses
 
@@ -106,6 +108,12 @@ Ranked by likely product impact:
 7. **Signing/notarization posture affects real user launches.** Ad-hoc local
    signing may behave differently from a properly signed/notarized release
    artifact.
+
+2026-08-27 diagnosis result: hypothesis 5 contained the current pathological
+case, but the blocking work was specifically synchronous custom-theme image
+opening inside `_apply_theme()`, not rules, embeddings, or resource inventory.
+Hypotheses 1 and 7 remain relevant to release-candidate variance; the latest
+local measurements are within budget.
 
 ## Non-Goals
 
@@ -152,6 +160,19 @@ Implementation checkpoint:
   process-entry-to-window), bundle-id launch at about `1050.9 ms`, direct
   executable launch at about `1065.0 ms`, and existing-GUI activation at about
   `196.5 ms`.
+- 2026-08-27: structured checkpoints were added across `MainWindow`, Settings,
+  and the Language Pack panel. A previously reproducible timeout stopped at
+  theme application, and a stack sample isolated the GUI thread in Qt file-open
+  code for an active external theme image.
+- 2026-08-27: theme image reads/decoding moved to a shared background loader;
+  startup log paths are deduplicated; repeated resource activation reuses and
+  focuses the visible Settings dialog; and activation-session checkpoints now
+  continue through `settings_dialog.shown`.
+- 2026-08-27: the measurement command gained exact measured-app PID cleanup,
+  structured checkpoint capture, p95 reporting, and optional median/p95 budget
+  enforcement. Three installed cold runs and three activation runs passed the
+  owning budgets; canonical artifacts are under
+  `docs/test_outputs/dev_workflow/gui_startup_performance_{open,activation}_latest.*`.
 
 Implementation plan:
 
@@ -192,9 +213,13 @@ Implementation plan:
 ```bash
 python3 scripts/dev/packaged_gui_startup_measure.py \
   --app /Applications/LexiShift.app \
-  --pair en-es \
-  --json-out docs/test_outputs/dev_workflow/gui_startup_performance_latest.json \
-  --markdown-out docs/test_outputs/dev_workflow/gui_startup_performance_latest.md
+  --pair en-ja \
+  --repetitions 3 \
+  --terminate-launched-app \
+  --max-median-ms 3500 \
+  --max-p95-ms 6000 \
+  --json-out docs/test_outputs/dev_workflow/gui_startup_performance_open_latest.json \
+  --markdown-out docs/test_outputs/dev_workflow/gui_startup_performance_open_latest.md
 ```
 
 The measurement command should support:
@@ -283,6 +308,11 @@ Measurement checkpoint:
   normal Dock/focus semantics and is no longer materially slower, keep the
   native-host launch route on the installed app bundle unless release-candidate
   measurements regress.
+- 2026-08-27: existing-GUI measurement now ends at the visible Resource
+  Settings outcome rather than the earlier socket-receipt checkpoint. The
+  current installed app passed three runs at `254.4 ms` median / `743.3 ms`
+  measured p95; repeated requests focus the existing modal instead of nesting
+  additional Settings dialogs.
 
 ## Phase 2: Bundle Audit And Slimming
 
@@ -353,6 +383,15 @@ PYTHONPATH=core python3 -m pytest core/tests/dev/test_validate_app_bundle.py cor
 
 Goal: make the first useful GUI screen appear before nonessential main-window
 work.
+
+Implementation checkpoint:
+
+- 2026-08-27: the proven blocking first-paint work was removed without broader
+  UI deferral: custom-theme file I/O and image decoding no longer execute on the
+  GUI thread. Main-window construction, resource inventory, and Settings
+  construction are now separately checkpointed and the current installed app
+  meets both cold and activation targets. The remaining deferral options below
+  are optional optimization work unless release-candidate measurements regress.
 
 Implementation options:
 
@@ -448,6 +487,8 @@ Recommended sequence:
    Current result: canonical onedir payload split is complete; UPX comparison
    is now optional follow-up rather than the main launch blocker.
 4. Phase 3 first-paint/resource-settings deferral.
+   Current result: the targeted async theme-image fix was sufficient for the
+   current machine; broader workspace deferral is not a beta blocker.
 5. Phase 4 signed/notarized release measurement.
 6. Phase 5 only if the target is still out of reach.
 
@@ -474,9 +515,10 @@ include one manual resource-data recovery smoke:
 6. install app-managed dictionary resources;
 7. retry SRS initialization from the extension.
 
-If startup performance is not yet under the target, the beta can still proceed
-only if the delay is explicitly accepted as a known packaging-performance gap
-for family testers and is not hidden as an ordinary user experience.
+Current local installed-bundle evidence is under both cold and activation
+targets. Beta can proceed on startup performance after the manual extension to
+Resource Settings smoke; signed/notarized and tester-machine measurements remain
+release-hardening follow-up rather than a known local blocker.
 
 ## Related Docs
 

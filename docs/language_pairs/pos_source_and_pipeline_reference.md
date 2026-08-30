@@ -2,8 +2,8 @@
 
 Status: active reference for POS behavior across SRS, rulegen, converters, and audits.
 Role: Canonical current
-Last updated: 2026-03-22
-Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; POS claims not fully re-audited
+Last updated: 2026-06-08
+Last verified: 2026-06-08 Spanish UD AnCora POS overlay builder tests plus installed helper admission preview smoke
 Source-of-truth: POS source and pipeline reference; executable truth remains in POS normalization, SRS admission, rulegen, converter code, tests, and generated POS audits.
 
 ## Purpose
@@ -54,6 +54,7 @@ Implementation:
 | `freq-en-coca` | EN | `frequency.pos` | provider=`freq-en-coca`, profile=`compact-latin` | `scripts/data/convert_frequency_to_sqlite.py` and GUI path in `apps/gui/src/language_packs.py` | `meta.metadata.unknown_pos_inventory_*` |
 | `freq-ja-bccwj` | JA | `frequency.pos` | provider=`freq-ja-bccwj`, profile=`bccwj` | `scripts/data/convert_bccwj_frequency_to_sqlite.py` and GUI path in `apps/gui/src/language_packs.py` | `meta.metadata.unknown_pos_inventory_*` |
 | `freq-es-cde` | ES | `frequency.pos` | provider=`freq-es-cde`, profile=`freq-es-cde` | `scripts/data/convert_cde_frequency_to_sqlite.py` and GUI path in `apps/gui/src/language_packs.py` | `meta.metadata.unknown_pos_inventory_*` |
+| `freq-es-spalex-v1` + `pos-es-ud-ancora-v1` overlay | ES | `pos_overlay.raw_pos` (`UPOS`) keyed by Spanish word form | provider=`universal-dependencies-ud-ancora`, profile=`universal-dependencies` | `scripts/data/build_spalex_frequency_pack_en_es.py` plus `scripts/data/build_ud_ancora_pos_overlay_es.py` | `pos_overlay.pos_counts_json`; pack metadata/provenance sidecars |
 | `freq-de-default` | DE | `frequency.pos` (from compiled POS lexicon join) | provider=`freq-de-default`, profile=`freq-de-default` | `core/lexishift_core/frequency/de/build.py` and `core/lexishift_core/frequency/de/pipeline.py` | `meta.metadata.pos_inventory.unknown_pos_inventory_*` |
 | FreeDict translation SQLite | EN/DE/ES pair pipelines | `entries.pos` (TEI `gramGrp/pos`) | provider includes `freedict`, profile=`freedict` | `scripts/data/convert_freedict_tei_to_sqlite.py` | `meta.metadata.unknown_pos_inventory_*` |
 | Kaikki/Wiktionary compatibility SQLite (`wiktionary-es-en`) | EN/ES pair pipelines | `entries.pos` (derived from Kaikki record `pos`; native `pos_title` preserved in auxiliary metadata) | provider includes `wiktionary` / `kaikki`, profile=`wiktionary` | `scripts/data/convert_kaikki_glosses_to_sqlite.py` and GUI path in `apps/gui/src/language_packs.py` | converter metadata in `meta.metadata`; runtime unknown-tag behavior visible through the `wiktionary` normalization profile |
@@ -64,6 +65,8 @@ Implementation:
 
 - file: `core/lexishift_core/srs/seed.py`
 - reads raw POS from `pos` column
+- when a configured/installed POS overlay exists, fills missing or unmapped
+  frequency POS from `core/lexishift_core/srs/pos_overlay.py`
 - calls `normalize_pos(...)`
 - stores:
   - `pos_raw`
@@ -189,6 +192,17 @@ Current Wiktionary profile note:
 - `wiktionary` is now a first-class source profile in `core/lexishift_core/pos/normalization.py`.
 - It intentionally uses generic + compact token matching rather than reusing the `freedict` profile by name.
 - This keeps Kaikki/Wiktionary POS provenance explicit in candidate metadata and future audits.
+
+Current Spanish SPALEX overlay note:
+
+- `freq-es-spalex-v1` is a clean frequency source but does not carry POS.
+- `pos-es-ud-ancora-v1` is a separate, swappable POS overlay built from UD
+  Spanish AnCora (`CC BY 4.0`).
+- The overlay is keyed by UD token form, not UD lemma, because SPALEX rows are
+  word spellings/forms. This avoids false POS joins for forms such as `una`.
+- Runtime seed metadata marks overlay-filled rows with
+  `pos_source_kind=pos_overlay`, `pos_overlay_id`, and overlay confidence/count
+  fields.
 
 ## Audit Commands
 

@@ -1,15 +1,59 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 from pathlib import Path
 import shlex
 import subprocess
+import struct
 import sys
 from typing import Callable, Optional, Sequence
 
 
 WORKSPACE_WRAPPER_NAME = "lexishift_native_host_workspace.sh"
+
+
+def probe_native_host(host_path: Path, *, timeout_seconds: float = 20.0) -> tuple[bool, str]:
+    request = json.dumps(
+        {"id": "native-host-smoke", "type": "hello", "version": 1, "payload": {}}
+    ).encode("utf-8")
+    framed_request = struct.pack("<I", len(request)) + request
+    try:
+        completed = subprocess.run(
+            [str(host_path)],
+            input=framed_request,
+            capture_output=True,
+            check=False,
+            timeout=timeout_seconds,
+            env={
+                **os.environ,
+                "HOME": os.environ.get("HOME", str(Path.home())),
+                "PATH": os.environ.get("PATH", ""),
+            },
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        return False, str(exc)
+    output = completed.stdout or b""
+    if completed.returncode != 0:
+        detail = (completed.stderr or b"").decode("utf-8", errors="replace").strip()
+        return False, detail or f"native host exited with code {completed.returncode}"
+    if len(output) < 4:
+        return False, "native host returned no framed response"
+    response_length = struct.unpack("<I", output[:4])[0]
+    response_bytes = output[4 : 4 + response_length]
+    if len(response_bytes) != response_length:
+        return False, "native host returned an incomplete framed response"
+    try:
+        response = json.loads(response_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        return False, f"native host returned invalid JSON: {exc}"
+    if not isinstance(response, dict) or response.get("ok") is not True:
+        return False, f"native host smoke request failed: {response!r}"
+    data = response.get("data")
+    if not isinstance(data, dict) or int(data.get("protocol_version", 0) or 0) < 1:
+        return False, "native host hello response is missing its protocol version"
+    return True, ""
 
 
 def resolve_workspace_host_script() -> Optional[Path]:

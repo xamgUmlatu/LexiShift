@@ -2,12 +2,14 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import platform
+import shutil
+import signal
 import subprocess
 import sys
-import shutil
-import json
+import time
 from pathlib import Path
 from typing import Sequence, Tuple
 
@@ -92,10 +94,98 @@ def _find_macos_app(dist_path: str, app_name: str) -> Path:
 def _install_macos_app(app_path: Path, install_dir: Path) -> Path:
     install_dir.mkdir(parents=True, exist_ok=True)
     target = install_dir / app_path.name
-    if target.exists():
-        shutil.rmtree(target, ignore_errors=True)
-    shutil.copytree(app_path, target, symlinks=True)
+    staging = install_dir / f".{app_path.name}.lexishift-new-{os.getpid()}"
+    backup = install_dir / f".{app_path.name}.lexishift-old-{os.getpid()}"
+    if staging.exists() or backup.exists():
+        raise SystemExit(
+            f"Refusing to overwrite an existing LexiShift install staging path: "
+            f"{staging if staging.exists() else backup}"
+        )
+    try:
+        shutil.copytree(app_path, staging, symlinks=True)
+        if target.exists():
+            target.rename(backup)
+        try:
+            staging.rename(target)
+        except Exception:
+            if backup.exists() and not target.exists():
+                backup.rename(target)
+            raise
+    finally:
+        if staging.exists():
+            shutil.rmtree(staging, ignore_errors=True)
+    if backup.exists():
+        shutil.rmtree(backup, ignore_errors=True)
     return target
+
+
+def _macos_installed_executable_paths(install_dir: Path) -> tuple[Path, Path]:
+    return (
+        install_dir / MAIN_APP_BUNDLE / "Contents" / "MacOS" / "LexiShift",
+        install_dir / HELPER_APP_BUNDLE / "Contents" / "MacOS" / "LexiShiftHelper",
+    )
+
+
+def _list_macos_installed_processes(install_dir: Path) -> list[tuple[int, str]]:
+    if platform.system() != "Darwin":
+        return []
+    result = subprocess.run(
+        ["ps", "-axo", "pid=,command="],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return []
+    executable_paths = tuple(str(path) for path in _macos_installed_executable_paths(install_dir))
+    rows: list[tuple[int, str]] = []
+    for raw_line in result.stdout.splitlines():
+        parts = raw_line.strip().split(maxsplit=1)
+        if len(parts) != 2:
+            continue
+        try:
+            pid = int(parts[0])
+        except ValueError:
+            continue
+        command = parts[1]
+        if any(command == path or command.startswith(f"{path} ") for path in executable_paths):
+            rows.append((pid, command))
+    return rows
+
+
+def _terminate_macos_installed_processes(
+    install_dir: Path, *, timeout_seconds: float = 10.0
+) -> None:
+    processes = _list_macos_installed_processes(install_dir)
+    if not processes:
+        return
+    for pid, command in processes:
+        try:
+            os.kill(pid, signal.SIGTERM)
+            print(f"Stopping installed process {pid}: {command}")
+        except ProcessLookupError:
+            continue
+        except PermissionError as exc:
+            raise SystemExit(f"Cannot stop installed LexiShift process {pid}: {exc}") from exc
+
+    deadline = time.monotonic() + max(0.0, timeout_seconds)
+    remaining = _list_macos_installed_processes(install_dir)
+    while remaining and time.monotonic() < deadline:
+        time.sleep(0.1)
+        remaining = _list_macos_installed_processes(install_dir)
+    if remaining:
+        pids = ", ".join(str(pid) for pid, _command in remaining)
+        raise SystemExit(
+            f"Installed LexiShift processes did not stop within {timeout_seconds:.1f}s "
+            f"(PIDs: {pids}). Installation was not started."
+        )
+
+
+def _relaunch_macos_app(app_path: Path) -> None:
+    result = subprocess.run(["open", str(app_path)], check=False)
+    if result.returncode != 0:
+        raise SystemExit(f"Installed app could not be relaunched: {app_path}")
+    print(f"Relaunched: {app_path}")
 
 
 def _run_validation(repo_root: str, dist_path: str) -> None:
@@ -270,8 +360,23 @@ def main() -> int:
         default="/Applications",
         help="Install directory for macOS app bundle (default: /Applications).",
     )
+    parser.add_argument(
+        "--relaunch",
+        action="store_true",
+        help="Relaunch the installed main app after --install completes (macOS only).",
+    )
+    parser.add_argument(
+        "--stop-timeout-seconds",
+        type=float,
+        default=10.0,
+        help="Seconds to wait for installed app processes to stop before --install (default: 10).",
+    )
 
     args = parser.parse_args()
+    if args.relaunch and not args.install:
+        parser.error("--relaunch requires --install")
+    if args.stop_timeout_seconds < 0:
+        parser.error("--stop-timeout-seconds must be non-negative")
     spec_path = os.path.abspath(os.path.expanduser(args.spec))
     dist_path = os.path.abspath(os.path.expanduser(args.distpath))
     work_path = os.path.abspath(os.path.expanduser(args.workpath))
@@ -337,9 +442,19 @@ def main() -> int:
             print("Install step skipped: --install is only supported on macOS.")
         elif app_paths:
             install_dir = Path(args.install_dir)
+            _terminate_macos_installed_processes(
+                install_dir,
+                timeout_seconds=args.stop_timeout_seconds,
+            )
+            installed_paths: list[Path] = []
             for app_path in app_paths:
                 install_target = _install_macos_app(app_path, install_dir)
+                installed_paths.append(install_target)
                 print(f"Installed to: {install_target}")
+            _run_validation(repo_root, str(install_dir))
+            print(f"Installed bundle validation passed: {install_dir}")
+            if args.relaunch:
+                _relaunch_macos_app(installed_paths[0])
 
     return 0
 

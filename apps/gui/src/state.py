@@ -34,6 +34,7 @@ _EMBEDDING_PAIR_KEY_BY_PACK_ID: dict[str, str] = {
     for pack in (*EMBEDDING_PACKS, *CROSS_EMBEDDING_PACKS)
     if str(getattr(pack, "pack_id", "")).strip() and str(getattr(pack, "pair_key", "")).strip()
 }
+_RETIRED_MANAGED_FREQUENCY_PACK_IDS = frozenset({"freq-es-cde"})
 
 
 def _normalize_profile_path(path: Optional[str], *, base_dir: Path) -> Optional[str]:
@@ -134,6 +135,7 @@ def _normalize_synonym_pack_settings(
         base_dir=app_data_dir / "frequency_packs",
         configured_paths=settings.frequency_pack_paths,
         configured_ids=settings.managed_frequency_pack_ids,
+        retired_pack_ids=_RETIRED_MANAGED_FREQUENCY_PACK_IDS,
     )
     embedding_pack_paths, embedding_pair_pack_ids, embedding_pair_paths, embedding_pair_enabled = (
         _normalize_embedding_pack_settings(
@@ -252,15 +254,23 @@ def _split_managed_pack_paths(
     base_dir: Path,
     configured_paths: object,
     configured_ids: object,
+    retired_pack_ids: object = (),
 ) -> tuple[tuple[str, ...], dict[str, str]]:
+    retired_ids = {
+        str(pack_id).strip() for pack_id in tuple(retired_pack_ids or ()) if str(pack_id).strip()
+    }
     managed_ids: set[str] = {
-        str(pack_id).strip() for pack_id in tuple(configured_ids or ()) if str(pack_id).strip()
+        str(pack_id).strip()
+        for pack_id in tuple(configured_ids or ())
+        if str(pack_id).strip() and str(pack_id).strip() not in retired_ids
     }
     manual_paths: dict[str, str] = {}
     for pack_id, raw_path in dict(configured_paths or {}).items():
         pack_key = str(pack_id or "").strip()
         path_text = str(raw_path or "").strip()
         if not pack_key or not path_text:
+            continue
+        if pack_key in retired_ids:
             continue
         if _is_managed_pack_path(base_dir=base_dir, pack_id=pack_key, raw_path=path_text):
             managed_ids.add(pack_key)

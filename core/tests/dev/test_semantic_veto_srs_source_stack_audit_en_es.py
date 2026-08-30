@@ -100,7 +100,10 @@ class SemanticVetoSrsSourceStackAuditTests(unittest.TestCase):
                 {finding["code"] for finding in report["findings"]},
             )
             markdown = render_source_stack_markdown(report)
-            self.assertIn("freq-es-cde`: keep as the current seed/baseline", markdown)
+            self.assertIn(
+                "freq-es-cde`: keep only as the current manual-supply/internal benchmark",
+                markdown,
+            )
 
     def test_missing_spalex_input_marks_report_error(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -12,6 +12,7 @@ from lexishift_core.srs.browsing_admission import (
     BrowsingAdmissionSimulationResult,
     BrowsingSignalIngestPolicy,
     BrowsingSignalStore,
+    build_browsing_target_key,
     simulate_browsing_admission_presets,
 )
 from lexishift_core.srs.growth import SrsGrowthConfig, grow_srs_store, plan_srs_growth
@@ -162,10 +163,7 @@ def preview_browsing_admission_refresh(
             "simulations": {},
         }
 
-    effective_candidates = _apply_lifecycle_filter(
-        _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos),
-        blocked_lemmas=blocked_lemmas,
-    )
+    allowed_candidates = _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos)
     growth_config = SrsGrowthConfig(
         selector_config=policy.selector_config,
         coverage_scalar=1.0,
@@ -177,7 +175,7 @@ def preview_browsing_admission_refresh(
         confidence_min=None,
     )
     growth_plan = plan_srs_growth(
-        effective_candidates,
+        allowed_candidates,
         store=store,
         settings=settings,
         config=growth_config,
@@ -189,13 +187,16 @@ def preview_browsing_admission_refresh(
         _browsing_candidate_from_scored(entry) for entry in growth_plan.scored
     )
     matching_signal_count = sum(
-        1 for candidate in simulation_candidates if candidate.lemma in browsing_store.items
+        1
+        for candidate in simulation_candidates
+        if _browsing_store_has_candidate_signal(candidate, browsing_store)
     )
     simulations = simulate_browsing_admission_presets(
         simulation_candidates,
         store=browsing_store,
         admission_budget=decision.admission_budget,
         policy=browsing_policy,
+        now=now,
     )
     return {
         "status": "ok",
@@ -401,8 +402,9 @@ def apply_admission_refresh(
         policy=policy,
         now=now,
     )
+    allowed_candidates = _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos)
     effective_candidates = _apply_lifecycle_filter(
-        _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos),
+        allowed_candidates,
         blocked_lemmas=blocked_lemmas,
     )
     if decision.admission_budget <= 0:
@@ -435,7 +437,7 @@ def apply_admission_refresh(
         confidence_min=None,
     )
     updated_store, growth_plan = grow_srs_store(
-        effective_candidates,
+        allowed_candidates,
         store=store,
         settings=settings,
         config=growth_config,
@@ -673,13 +675,63 @@ def _count_blocked_by_lifecycle(
 
 def _browsing_candidate_from_scored(entry) -> BrowsingAdmissionCandidate:
     metadata = entry.candidate.metadata if isinstance(entry.candidate.metadata, Mapping) else {}
+    target_reading = _candidate_target_reading(metadata)
+    target_key = build_browsing_target_key(
+        target_lemma=entry.candidate.lemma,
+        target_reading=target_reading,
+        target_key=metadata.get("browsing_target_key") or metadata.get("target_key"),
+    )
+    suitability = _safe_signal_float(entry.candidate.admission_suitability, default=1.0)
     return BrowsingAdmissionCandidate(
         lemma=entry.candidate.lemma,
+        target_key=target_key,
+        target_reading=target_reading,
         neutral_score=max(0.0, float(entry.breakdown.final_score)),
         readiness_multiplier=_safe_signal_float(metadata.get("readiness_multiplier"), default=1.0),
         explicit_preference_fit=max(0.0, float(entry.candidate.topic_bias)),
         source_confidence=max(0.0, float(entry.candidate.confidence or 0.0)) or 1.0,
+        admission_suitability=max(0.0, min(1.0, suitability)),
+        lexical_commonness=max(0.0, float(entry.candidate.base_freq or 0.0)),
+        lexical_commonness_known=float(entry.candidate.base_freq or 0.0) > 0.0,
     )
+
+
+def _browsing_store_has_candidate_signal(
+    candidate: BrowsingAdmissionCandidate,
+    store: BrowsingSignalStore,
+) -> bool:
+    return any(
+        key in store.items for key in _browsing_lookup_keys(candidate.target_key, candidate.lemma)
+    )
+
+
+def _browsing_lookup_keys(*values: object) -> tuple[str, ...]:
+    keys: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        text = str(value or "").strip()
+        for key in (text, text.casefold()):
+            if key and key not in seen:
+                keys.append(key)
+                seen.add(key)
+    return tuple(keys)
+
+
+def _candidate_target_reading(metadata: Mapping[str, object]) -> str:
+    explicit = str(
+        metadata.get("target_reading") or metadata.get("reading") or metadata.get("lform_raw") or ""
+    ).strip()
+    if explicit:
+        return explicit
+    word_package = metadata.get("word_package")
+    if isinstance(word_package, Mapping):
+        return str(
+            word_package.get("reading")
+            or word_package.get("lform_raw")
+            or word_package.get("surface")
+            or ""
+        ).strip()
+    return ""
 
 
 def _simulation_preview(
@@ -730,11 +782,7 @@ def _safe_signal_float(value: object, *, default: float) -> float:
 
 
 def _count_unknown_pos(candidates: Sequence[SelectorCandidate]) -> int:
-    count = 0
-    for candidate in candidates:
-        if _is_unknown_candidate_pos(candidate):
-            count += 1
-    return count
+    return sum(1 for candidate in candidates if _is_unknown_candidate_pos(candidate))
 
 
 def _is_unknown_candidate_pos(candidate: SelectorCandidate) -> bool:

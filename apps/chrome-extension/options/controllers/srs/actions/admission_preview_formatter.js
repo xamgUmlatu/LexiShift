@@ -1,18 +1,5 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const TOPIC_LABELS = {
-    arts_literature_humanities: "arts & literature",
-    animals: "animals",
-    finance_business: "finance & business",
-    food_cooking: "food & cooking",
-    games: "games",
-    law_politics_civics: "law & civics",
-    medicine_health: "medicine & health",
-    music_media_entertainment: "music & media",
-    plants_nature: "plants & nature",
-    science_technology: "science & technology",
-    sports_fitness: "sports & fitness"
-  };
 
   function escapeHtml(value) {
     return String(value ?? "")
@@ -112,15 +99,18 @@
     return topic && topic !== "none" ? topic : "general";
   }
 
-  function formatTopicLabel(topic) {
+  function formatTopicLabel(topic, translate) {
     const normalized = String(topic || "general").trim() || "general";
-    if (normalized === "general") {
-      return "general";
+    const fallback = normalized.replace(/_/g, " ");
+    if (typeof translate === "function") {
+      return translate(`topic_srs_${normalized}`, null, fallback);
     }
-    return TOPIC_LABELS[normalized] || normalized.replace(/_/g, " ");
+    return fallback;
   }
 
-  function buildSimpleWordsHtml(admittedWords) {
+  function buildSimpleWordsHtml(admittedWords, options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const items = admittedWords
       .map((entry) => {
         const lemma = String(entry && entry.lemma ? entry.lemma : "").trim();
@@ -128,7 +118,7 @@
           return "";
         }
         const topic = topicForAdmissionEntry(entry);
-        const topicLabel = formatTopicLabel(topic);
+        const topicLabel = formatTopicLabel(topic, translate);
         const topicClass = topic === "general" ? "is-general" : "is-topic";
         return [
           '<li class="srs-admission-word-item">',
@@ -141,6 +131,42 @@
     return items.length ? `<ul class="srs-admission-word-list">${items.join("")}</ul>` : "";
   }
 
+  function buildTopicSummaryHtml(options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
+    const interests = Array.isArray(opts.interests) ? opts.interests : [];
+    const admittedWords = Array.isArray(opts.admittedWords) ? opts.admittedWords : [];
+    const activeTopicSupportEntries = Array.isArray(opts.activeTopicSupportEntries)
+      ? opts.activeTopicSupportEntries
+      : [];
+    const profileTopicOverlay = opts.profileTopicOverlay && typeof opts.profileTopicOverlay === "object"
+      ? opts.profileTopicOverlay
+      : {};
+    const selectedLabels = interests.map((topic) => formatTopicLabel(topic, translate));
+    const sampledTopicWords = admittedWords.filter((entry) => topicForAdmissionEntry(entry) !== "general").length;
+    const candidateCount = activeTopicSupportEntries.reduce((total, entry) => {
+      const count = Number(entry && entry.candidate_count);
+      return total + (Number.isFinite(count) ? count : 0);
+    }, 0);
+    const appliedSeedCount = Number(profileTopicOverlay.applied_seed_count);
+    const overlayStatus = String(profileTopicOverlay.application_status || profileTopicOverlay.status || "").trim();
+    const parts = [];
+    if (selectedLabels.length) {
+      parts.push(translate("summary_srs_admission_preview_selected_topics", [selectedLabels.join(", ")], `Selected topics: ${selectedLabels.join(", ")}.`));
+      parts.push(translate("summary_srs_admission_preview_sampled_topic_words", [sampledTopicWords], `${sampledTopicWords} sampled topic ${sampledTopicWords === 1 ? "word" : "words"}.`));
+      if (candidateCount > 0) {
+        parts.push(translate("summary_srs_admission_preview_matched_candidates", [candidateCount], `${candidateCount} matched candidates in the preview frontier.`));
+      } else if (Number.isFinite(appliedSeedCount) && appliedSeedCount === 0) {
+        parts.push(translate("summary_srs_admission_preview_no_topic_candidates", null, "No matching candidates for those topics in this preview window."));
+      } else if (overlayStatus) {
+        parts.push(translate("summary_srs_admission_preview_overlay_status", [overlayStatus], `Overlay status: ${overlayStatus}.`));
+      }
+    } else {
+      parts.push(translate("summary_srs_admission_preview_no_topic_priorities", null, "No topic priorities reached the helper for this sample."));
+    }
+    return `<p class="srs-admission-preview-topic-summary">${escapeHtml(parts.join(" "))}</p>`;
+  }
+
   function buildAdmissionPreviewOutput(options) {
     const opts = options && typeof options === "object" ? options : {};
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
@@ -148,6 +174,18 @@
     const profileId = String(opts.profileId || "default");
     const plan = opts.plan && typeof opts.plan === "object" ? opts.plan : {};
     const preview = opts.preview && typeof opts.preview === "object" ? opts.preview : {};
+    const bootstrapTopN = Number.isFinite(Number(opts.bootstrapTopN))
+      ? Number(opts.bootstrapTopN)
+      : (
+          Number.isFinite(Number(preview.preview_bootstrap_top_n_default))
+            ? Number(preview.preview_bootstrap_top_n_default)
+            : (preview.selected_unique_count ?? "n/a")
+        );
+    const bootstrapTopNDetail = `${bootstrapTopN}${
+      opts.previewFrontierCapApplied || preview.preview_frontier_cap_applied
+        ? " (preview cap)"
+        : ""
+    }`;
     const requestProfileContextMeta = (
       opts.requestProfileContextMeta && typeof opts.requestProfileContextMeta === "object"
     )
@@ -209,7 +247,7 @@
     ];
     if (plan.can_execute && admittedWords.length) {
       lines.push("");
-      lines.push("Sampled words:");
+      lines.push(translate("label_srs_admission_preview_sampled_words", null, "Sampled words:"));
       admittedWords.forEach((entry) => {
         const lemma = String(entry && entry.lemma ? entry.lemma : "").trim();
         if (!lemma) {
@@ -247,13 +285,13 @@
       });
     }
     lines.push("");
-    lines.push("Sample details:");
+    lines.push(translate("label_srs_admission_preview_sample_details", null, "Sample details:"));
     lines.push(
       `- profile_id: ${profileId}`,
       `- strategy_requested: ${plan.strategy_requested || "n/a"}`,
       `- strategy_effective: ${plan.strategy_effective || "n/a"}`,
       `- execution_mode: ${plan.execution_mode || "n/a"}`,
-      `- bootstrap_top_n: ${preview.selected_unique_count ?? "n/a"}`,
+      `- bootstrap_top_n: ${bootstrapTopNDetail}`,
       `- initial_active_count: ${preview.admitted_count ?? "n/a"}`,
       `- sample_count_requested: ${preview.sample_count_requested ?? "n/a"}`,
       `- sample_count_effective: ${preview.sample_count_effective ?? admittedWords.length}`,
@@ -264,7 +302,7 @@
       `- missing_signals: ${missingSignals.length ? missingSignals.join(", ") : "none"}`
     );
     lines.push("");
-    lines.push("Effective profile context:");
+    lines.push(translate("label_srs_admission_preview_effective_profile_context", null, "Effective profile context:"));
     lines.push(`- context_source: ${requestProfileContextMeta.source || "saved_profile"}`);
     lines.push(
       `- pending_form_overrides: ${
@@ -285,7 +323,7 @@
     lines.push(`- signal_sources: ${formatSignalSourcesSummary(signalSources)}`);
     if (profileTopicOverlay.status || profileTopicOverlay.application_status) {
       lines.push("");
-      lines.push("Topic overlay:");
+      lines.push(translate("label_srs_admission_preview_topic_overlay", null, "Topic overlay:"));
       lines.push(`- status: ${profileTopicOverlay.status || "unknown"}`);
       lines.push(`- application_status: ${profileTopicOverlay.application_status || "n/a"}`);
       lines.push(`- scope: ${profileTopicOverlay.runtime_scope || "admission_preview_only"}`);
@@ -299,7 +337,7 @@
     }
     if (activeTopicSupportEntries.length) {
       lines.push("");
-      lines.push("Neutral frontier topic support:");
+      lines.push(translate("label_srs_admission_preview_neutral_topic_support", null, "Neutral frontier topic support:"));
       activeTopicSupportEntries
         .slice(0, 8)
         .map((entry) => formatTopicSupportLine(entry))
@@ -317,7 +355,7 @@
       );
       if (notes.length) {
         lines.push("");
-        lines.push("Plan notes:");
+        lines.push(translate("label_srs_admission_preview_plan_notes", null, "Plan notes:"));
         notes.forEach((note) => lines.push(`- ${note}`));
       }
       return lines.join("\n");
@@ -333,7 +371,7 @@
       );
       if (notes.length) {
         lines.push("");
-        lines.push("Plan notes:");
+        lines.push(translate("label_srs_admission_preview_plan_notes", null, "Plan notes:"));
         notes.forEach((note) => lines.push(`- ${note}`));
       }
       return lines.join("\n");
@@ -343,6 +381,7 @@
 
   function buildAdmissionPreviewView(options) {
     const opts = options && typeof options === "object" ? options : {};
+    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
     const srsPair = String(opts.srsPair || "en-en");
     const plan = opts.plan && typeof opts.plan === "object" ? opts.plan : {};
     const preview = opts.preview && typeof opts.preview === "object" ? opts.preview : {};
@@ -350,21 +389,43 @@
     const advancedText = buildAdmissionPreviewOutput(options);
     const shownCount = preview.sample_count_effective ?? admittedWords.length;
     const possibleCount = preview.admitted_count ?? 0;
-    const summary = `Showing ${shownCount} of ${possibleCount} possible words for ${srsPair}.`;
+    const summary = translate("summary_srs_admission_preview_showing", [shownCount, possibleCount, srsPair], `Showing ${shownCount} of ${possibleCount} possible words for ${srsPair}.`);
     const bodyHtml = plan.can_execute && admittedWords.length
-      ? buildSimpleWordsHtml(admittedWords)
+      ? buildSimpleWordsHtml(admittedWords, { translate })
       : `<p class="srs-admission-preview-empty">${escapeHtml(
           plan.can_execute
-            ? `No admission sample is available for ${srsPair}.`
-            : "Preview unavailable for the selected strategy."
+            ? translate("status_srs_admission_preview_empty", [srsPair], `No admission sample is available for ${srsPair}.`)
+            : translate("status_srs_admission_preview_plan_only", null, "Preview unavailable for the selected strategy.")
         )}</p>`;
+    const profileBootstrap = preview.profile_bootstrap && typeof preview.profile_bootstrap === "object"
+      ? preview.profile_bootstrap
+      : {};
+    const profileContext = profileBootstrap.profile_context && typeof profileBootstrap.profile_context === "object"
+      ? profileBootstrap.profile_context
+      : {};
+    const activeTopicSupport = profileBootstrap.active_topic_support
+      && typeof profileBootstrap.active_topic_support === "object"
+      ? profileBootstrap.active_topic_support
+      : {};
+    const profileTopicOverlay = profileBootstrap.profile_topic_overlay
+      && typeof profileBootstrap.profile_topic_overlay === "object"
+      ? profileBootstrap.profile_topic_overlay
+      : {};
+    const topicSummaryHtml = buildTopicSummaryHtml({
+      translate,
+      interests: Array.isArray(profileContext.interests) ? profileContext.interests : [],
+      admittedWords,
+      activeTopicSupportEntries: Array.isArray(activeTopicSupport.topics) ? activeTopicSupport.topics : [],
+      profileTopicOverlay
+    });
     const html = [
       '<div class="srs-admission-preview-view">',
-      '<p class="srs-admission-preview-note">Sample only. No words were added.</p>',
+      `<p class="srs-admission-preview-note">${escapeHtml(translate("note_srs_admission_preview_sample_only", null, "Sample only. No words were added."))}</p>`,
       `<p class="srs-admission-preview-summary">${escapeHtml(summary)}</p>`,
+      topicSummaryHtml,
       bodyHtml,
       '<details class="srs-admission-preview-advanced">',
-      '<summary>Advanced details</summary>',
+      `<summary>${escapeHtml(translate("label_srs_admission_preview_advanced_details", null, "Advanced details"))}</summary>`,
       `<pre>${escapeHtml(advancedText)}</pre>`,
       "</details>",
       "</div>"

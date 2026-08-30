@@ -19,6 +19,8 @@
     && typeof root.contentDomScanRuntime.createRuntime === "function"
     && root.contentHelperRulesRuntime
     && typeof root.contentHelperRulesRuntime.createRuntime === "function"
+    && root.contentBrowsingSourceIndexRuntime
+    && typeof root.contentBrowsingSourceIndexRuntime.createController === "function"
     && root.contentActiveRulesRuntime
     && typeof root.contentActiveRulesRuntime.createRuntime === "function"
     && root.contentSemanticGateRuntime
@@ -33,15 +35,24 @@
     && typeof root.contentApplySettingsPipeline.createPipeline === "function"
     && root.contentSettingsChangeRouter
     && typeof root.contentSettingsChangeRouter.createRouter === "function"
+    && root.contentBrowsingMutationMiningRuntime
+    && typeof root.contentBrowsingMutationMiningRuntime.createController === "function"
+    && root.srsBrowsingPageMining
+    && typeof root.srsBrowsingPageMining.createMiner === "function"
+    && root.srsBrowsingSourceMining
+    && typeof root.srsBrowsingSourceMining.buildSourceMappingSignals === "function"
     && root.popupModulesRegistry
     && root.popupModuleHistoryStore
+    && root.uiPopupLayoutStyles
+    && root.uiPopupLayoutMeasurement
+    && root.uiQuickDefinitionResultSupport
+    && root.uiQuickDefinitionDictionarySections
     && root.wordInfoApi
   );
   if (!requiredModulesLoaded) {
     console.warn("[LexiShift] Content modules not loaded.");
     return;
   }
-
   const { textHasToken } = root.tokenizer;
   const { buildTrie, normalizeRules } = root.matcher;
   const { buildReplacementFragment } = root.replacements;
@@ -61,6 +72,7 @@
   const lemmatizer = root.lemmatizer;
   const srsMetrics = root.srsMetrics;
   const srsBrowsingAdmissionSignals = root.srsBrowsingAdmissionSignals;
+  const srsBrowsingPageMining = root.srsBrowsingPageMining;
   const HelperClient = root.helperClient;
   const helperFeedbackSyncModule = root.helperFeedbackSync;
   const helperTransport = root.helperTransportExtension;
@@ -69,30 +81,25 @@
   const popupModuleHistoryStore = root.popupModuleHistoryStore;
   const popupModulesRegistry = root.popupModulesRegistry;
   const wordInfoApi = root.wordInfoApi;
-  const RULE_ORIGIN_SRS = "srs";
-  const RULE_ORIGIN_RULESET = "ruleset";
-
+  const RULE_ORIGIN_SRS = "srs", RULE_ORIGIN_RULESET = "ruleset";
   let processedNodes = new WeakMap();
   let currentSettings = { ...defaults };
-  let currentTrie = null;
+  let currentTrie = null, currentActiveRules = [];
   let applyingChanges = false;
   let applyToken = 0;
   let helperClient = HelperClient && helperTransport ? new HelperClient(helperTransport) : null;
   if (wordInfoApi && typeof wordInfoApi.configure === "function") {
     wordInfoApi.configure({ helperClient });
   }
-
   function normalizeProfileId(value) {
     const normalized = String(value || "").trim();
     return normalized || "default";
   }
-
   function normalizeRuleOrigin(origin) {
     return String(origin || "").toLowerCase() === RULE_ORIGIN_SRS
       ? RULE_ORIGIN_SRS
       : RULE_ORIGIN_RULESET;
   }
-
   function isPopupModuleEnabled(moduleId, settings, targetLanguage) {
     const runtimeSettings = settings && typeof settings === "object" ? settings : currentSettings;
     const language = String(targetLanguage || runtimeSettings.targetLanguage || "").trim().toLowerCase();
@@ -105,11 +112,9 @@
       language
     );
   }
-
   function getRuleOrigin(rule) {
     return normalizeRuleOrigin(rule && rule.metadata ? rule.metadata.lexishift_origin : "");
   }
-
   function tagRulesWithOrigin(rules, origin) {
     const taggedOrigin = normalizeRuleOrigin(origin);
     if (!Array.isArray(rules) || !rules.length) {
@@ -127,7 +132,6 @@
       };
     });
   }
-
   function persistRuntimeState(payload) {
     if (!isTopFrameWindow()) {
       return;
@@ -137,7 +141,6 @@
     }
     runtimeDiagnostics.saveLastState(payload).catch(() => {});
   }
-
   function clearRuntimeState() {
     if (!isTopFrameWindow()) {
       return;
@@ -147,14 +150,12 @@
     }
     runtimeDiagnostics.clearLastState().catch(() => {});
   }
-
   function log(...args) {
     if (!currentSettings.debugEnabled) {
       return;
     }
     console.log("[LexiShift]", ...args);
   }
-
   function getFrameInfo() {
     let frameType = "top";
     try {
@@ -176,7 +177,6 @@
       topHref
     };
   }
-
   function isTopFrameWindow() {
     try {
       return window.top === window;
@@ -184,12 +184,10 @@
       return false;
     }
   }
-
   function getFocusWord(settings) {
     const raw = settings && settings.debugFocusWord ? String(settings.debugFocusWord).trim() : "";
     return raw ? raw.toLowerCase() : "";
   }
-
   function getFocusInfo(text, focusWord) {
     if (!focusWord || !text) {
       return { substring: false, token: false, index: -1 };
@@ -201,8 +199,8 @@
     }
     return { substring: true, token: textHasToken(text, focusWord), index };
   }
-
   const helperRulesRuntimeFactory = root.contentHelperRulesRuntime.createRuntime;
+  const browsingSourceIndexRuntimeFactory = root.contentBrowsingSourceIndexRuntime.createController;
   const activeRulesRuntimeFactory = root.contentActiveRulesRuntime.createRuntime;
   const semanticGateRuntimeFactory = root.contentSemanticGateRuntime.createRuntime;
   const domScanRuntimeFactory = root.contentDomScanRuntime.createRuntime;
@@ -211,6 +209,7 @@
   const applyRuntimeActionsFactory = root.contentApplyRuntimeActions.createRunner;
   const applySettingsPipelineFactory = root.contentApplySettingsPipeline.createPipeline;
   const settingsChangeRouterFactory = root.contentSettingsChangeRouter.createRouter;
+  const browsingMutationMiningRuntimeFactory = root.contentBrowsingMutationMiningRuntime.createController;
   const browsingAdmissionSignalSender = srsBrowsingAdmissionSignals
     && typeof srsBrowsingAdmissionSignals.createSender === "function"
       ? srsBrowsingAdmissionSignals.createSender({
@@ -219,13 +218,32 @@
           log
         })
       : null;
-
+  const browsingPageMiner = srsBrowsingPageMining.createMiner({
+    getCurrentSettings: () => currentSettings,
+    getCurrentRules: () => currentActiveRules,
+    getSourceMiningRules: () => browsingSourceIndexRuntime.sourceRulesFor(currentActiveRules),
+    browsingAdmissionSignals: browsingAdmissionSignalSender,
+    log
+  });
+  const browsingMutationMiningRuntime = browsingMutationMiningRuntimeFactory({
+    getCurrentSettings: () => currentSettings,
+    browsingPageMiner,
+    shouldMine: () => !browsingSourceIndexRuntime.isRefreshPending(),
+    log
+  });
   const helperRulesRuntime = helperRulesRuntimeFactory({
     getHelperClient: () => helperClient,
     helperCache,
     normalizeProfileId,
     tagRulesWithOrigin,
     ruleOriginSrs: RULE_ORIGIN_SRS
+  });
+  const browsingSourceIndexRuntime = browsingSourceIndexRuntimeFactory({
+    getCurrentSettings: () => currentSettings, getHelperClient: () => helperClient,
+    helperRulesRuntime, normalizeProfileId, clearSeen: () => browsingPageMiner.clearSeen(),
+    mineBrowsingPage: (reason) => browsingMutationMiningRuntime.mineDocument(document, reason),
+    afterRefresh: (reason) => browsingMutationMiningRuntime.flushPending(reason),
+    isTopFrameWindow, log
   });
   const activeRulesRuntime = activeRulesRuntimeFactory({
     normalizeRules,
@@ -326,6 +344,7 @@
         ? nextSettings
         : currentSettings;
     },
+    setActiveRules: (rules) => { currentActiveRules = Array.isArray(rules) ? rules.slice() : []; },
     resetProcessedNodes: () => {
       processedNodes = new WeakMap();
     },
@@ -356,9 +375,16 @@
     onFeedback: (payload, focusWord) => {
       feedbackRuntime.handleFeedback(payload, focusWord);
     },
+    browsingAdmissionSignals: browsingAdmissionSignalSender,
     applySettings: (nextSettings) => {
-      applySettings(nextSettings);
-    }
+      applySettings(nextSettings)
+        .then(() => browsingSourceIndexRuntime.refresh("settings changed"))
+        .catch((error) => currentSettings.debugEnabled
+          && log("Settings application failed before browsing source index refresh.", error));
+    },
+    onBrowsingSourceIndexRefresh: (_settings, reason) => (
+      browsingSourceIndexRuntime.refresh(reason || "settings changed")
+    )
   });
 
   async function applySettings(settings) {
@@ -379,14 +405,18 @@
     feedbackRuntime.ensureSync();
     const settings = await loadSettings();
     await applySettings(settings);
+    browsingMutationMiningRuntime.observeChanges();
     domScanRuntime.observeChanges();
     window.addEventListener("load", () => {
+      browsingMutationMiningRuntime.ensureObserver();
       domScanRuntime.ensureObserver();
       domScanRuntime.rescanDocument("window load");
+      browsingMutationMiningRuntime.mineDocument(document, "window load");
     });
     setTimeout(() => {
       domScanRuntime.ensureObserver();
       domScanRuntime.rescanDocument("post-load timeout");
+      browsingMutationMiningRuntime.mineDocument(document, "post-load timeout");
     }, 1500);
     window.addEventListener("beforeunload", () => {
       if (
@@ -395,14 +425,27 @@
       ) {
         browsingAdmissionSignalSender.flush().catch(() => {});
       }
+      browsingMutationMiningRuntime.disconnect();
       feedbackRuntime.stop();
       domScanRuntime.disconnect();
     });
+    await browsingSourceIndexRuntime.refresh("boot");
   }
 
   boot();
 
   chrome.storage.onChanged.addListener((changes, area) => {
     settingsChangeRouter.handleStorageChange(changes, area);
+    if (
+      area === "local"
+      && (
+        changes.srsBrowsingAdmissionSignalsEnabled
+        || changes.srsPair
+        || changes.srsProfileId
+      )
+    ) {
+      browsingPageMiner.clearSeen();
+      browsingMutationMiningRuntime.mineDocument(document, "settings changed");
+    }
   });
 })();

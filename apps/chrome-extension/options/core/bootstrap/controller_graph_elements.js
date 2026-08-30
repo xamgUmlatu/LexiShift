@@ -6,12 +6,10 @@
     return {
       profileBackground: {
         profileBgBackdropColorInput: dom.profileBgBackdropColorInput,
-        profileBgEnabledInput: dom.profileBgEnabledInput,
         profileBgOpacityInput: dom.profileBgOpacityInput,
         profileBgOpacityValueOutput: dom.profileBgOpacityValueOutput,
         profileBgFileInput: dom.profileBgFileInput,
         profileBgRemoveButton: dom.profileBgRemoveButton,
-        profileBgApplyButton: dom.profileBgApplyButton,
         profileBgStatusOutput: dom.profileBgStatusOutput,
         profileBgPreviewWrap: dom.profileBgPreviewWrap,
         profileBgPreviewImage: dom.profileBgPreviewImage,
@@ -85,9 +83,7 @@
         mainTopicInterestChipButtons: dom.srsTopicInterestChipButtons,
         mainMaxActiveInput: dom.srsMaxActiveInput,
         mainBootstrapTopNInput: dom.srsBootstrapTopNInput,
-        mainInitialActiveCountInput: dom.srsInitialActiveCountInput,
-        mainSamplingCurtain: dom.srsStorySamplingCurtain,
-        mainAdmissionPreviewOutput: dom.srsAdmissionPreviewOutput
+        mainInitialActiveCountInput: dom.srsInitialActiveCountInput
       },
       rulesShare: {
         rulesInput: dom.rulesInput,
@@ -167,6 +163,7 @@
         srsAutoRefreshRepeatMinGoodEasyInput: dom.srsAutoRefreshRepeatMinGoodEasyInput,
         srsAutoRefreshCooldownInput: dom.srsAutoRefreshCooldownInput,
         srsExposureLoggingInput: dom.srsExposureLoggingInput,
+        srsBrowsingAdmissionSignalsInput: dom.srsBrowsingAdmissionSignalsInput,
         srsProfileIdInput: dom.srsProfileIdInput,
         srsProfileRefreshButton: dom.srsProfileRefreshButton
       },
@@ -178,6 +175,7 @@
         maxOnePerBlockInput: dom.maxOnePerBlockInput,
         allowAdjacentInput: dom.allowAdjacentInput,
         maxReplacementsPerPageInput: dom.maxReplacementsPerPageInput,
+        maxReplacementsPerSentenceInput: dom.maxReplacementsPerSentenceInput,
         maxReplacementsPerLemmaPageInput: dom.maxReplacementsPerLemmaPageInput
       },
       pageInit: {
@@ -188,6 +186,7 @@
         maxOnePerBlockInput: dom.maxOnePerBlockInput,
         allowAdjacentInput: dom.allowAdjacentInput,
         maxReplacementsPerPageInput: dom.maxReplacementsPerPageInput,
+        maxReplacementsPerSentenceInput: dom.maxReplacementsPerSentenceInput,
         maxReplacementsPerLemmaPageInput: dom.maxReplacementsPerLemmaPageInput,
         debugEnabledInput: dom.debugEnabledInput,
         debugFocusInput: dom.debugFocusInput,
@@ -197,7 +196,8 @@
         languageSelect: dom.languageSelect,
         rulesInput: dom.rulesInput,
         fileStatus: dom.fileStatus,
-        customRulesetEnabledInput: dom.customRulesetEnabledInput
+        customRulesetEnabledInput: dom.customRulesetEnabledInput,
+        srsBrowsingAdmissionSignalsInput: dom.srsBrowsingAdmissionSignalsInput
       },
       eventWiring: {
         saveButton: dom.saveButton,
@@ -211,16 +211,15 @@
         maxOnePerBlockInput: dom.maxOnePerBlockInput,
         allowAdjacentInput: dom.allowAdjacentInput,
         maxReplacementsPerPageInput: dom.maxReplacementsPerPageInput,
+        maxReplacementsPerSentenceInput: dom.maxReplacementsPerSentenceInput,
         maxReplacementsPerLemmaPageInput: dom.maxReplacementsPerLemmaPageInput,
         srsEnabledInput: dom.srsEnabledInput,
         srsProfileIdInput: dom.srsProfileIdInput,
         srsProfileRefreshButton: dom.srsProfileRefreshButton,
-        profileBgEnabledInput: dom.profileBgEnabledInput,
         profileBgBackdropColorInput: dom.profileBgBackdropColorInput,
         profileBgOpacityInput: dom.profileBgOpacityInput,
         profileBgFileInput: dom.profileBgFileInput,
         profileBgRemoveButton: dom.profileBgRemoveButton,
-        profileBgApplyButton: dom.profileBgApplyButton,
         profileBgPositionResetButton: dom.profileBgPositionResetButton,
         profileCardThemeHueInput: dom.profileCardThemeHueInput,
         profileCardThemeSaturationInput: dom.profileCardThemeSaturationInput,
@@ -248,6 +247,7 @@
         srsAutoRefreshRepeatMinGoodEasyInput: dom.srsAutoRefreshRepeatMinGoodEasyInput,
         srsAutoRefreshCooldownInput: dom.srsAutoRefreshCooldownInput,
         srsExposureLoggingInput: dom.srsExposureLoggingInput,
+        srsBrowsingAdmissionSignalsInput: dom.srsBrowsingAdmissionSignalsInput,
         srsAdmissionPreviewButton: dom.srsAdmissionPreviewButton,
         srsInitializeSetButton: dom.srsInitializeSetButton,
         srsRebalancePreviewButton: dom.srsRebalancePreviewButton,
@@ -263,6 +263,7 @@
         debugOpenDataDirButton: dom.debugOpenDataDirButton,
         debugEnabledInput: dom.debugEnabledInput,
         debugFocusInput: dom.debugFocusInput,
+        srsBrowsingAdmissionSignalsInput: dom.srsBrowsingAdmissionSignalsInput,
         enabledInput: dom.enabledInput,
         languageSelect: dom.languageSelect,
         sourceLanguageInput: dom.sourceLanguageInput,

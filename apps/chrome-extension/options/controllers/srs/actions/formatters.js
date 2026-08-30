@@ -135,6 +135,9 @@
     const plan = opts.plan && typeof opts.plan === "object" ? opts.plan : {};
     const result = opts.result && typeof opts.result === "object" ? opts.result : {};
     const bootstrapTopN = Number(opts.bootstrapTopN || 0);
+    const bootstrapTopNDisplay = formatBootstrapTopN(
+      result.bootstrap_top_n ?? result.set_top_n ?? bootstrapTopN
+    );
     const initialActiveCount = Number(opts.initialActiveCount || 0);
     const maxActiveItemsHint = Number(opts.maxActiveItemsHint || 0);
     const bootstrapDiagnostics = opts.bootstrapDiagnostics && typeof opts.bootstrapDiagnostics === "object"
@@ -169,7 +172,7 @@
       `- applied: ${applied}`,
       `- strategy_requested: ${plan.strategy_requested || "n/a"}`,
       `- strategy_effective: ${plan.strategy_effective || "n/a"}`,
-      `- bootstrap_top_n: ${result.bootstrap_top_n ?? result.set_top_n ?? bootstrapTopN}`,
+      `- bootstrap_top_n: ${bootstrapTopNDisplay}`,
       `- initial_active_count: ${result.initial_active_count ?? initialActiveCount}`,
       `- max_active_items_hint: ${result.max_active_items_hint ?? maxActiveItemsHint}`,
       `- source_type: ${result.source_type || "initial_set"}`,
@@ -195,6 +198,14 @@
       noteLines.length ? "Plan notes:" : null,
       ...noteLines
     ].filter(Boolean).join("\n");
+  }
+
+  function formatBootstrapTopN(value) {
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric) || numeric <= 0) {
+      return "all";
+    }
+    return String(Math.round(numeric));
   }
 
   function buildRuntimeDiagnosticsOutput(options) {
@@ -245,6 +256,20 @@
       ["semantic_decision_policy_id", runtimeState ? runtimeState.semantic_decision_policy_id || "none" : "n/a"],
       ["semantic_inventory_error", runtimeState ? runtimeState.semantic_inventory_error || "none" : "n/a"],
       ["helper_rules_error", runtimeState ? runtimeState.helper_rules_error || "none" : "n/a"],
+      ["replacement_budget_scope", runtimeState ? runtimeState.replacement_budget_scope || "n/a" : "n/a"],
+      ["replacement_budget_active", runtimeState ? runtimeState.replacement_budget_active === true : "n/a"],
+      ["replacement_budget_max_total", runtimeState ? runtimeState.replacement_budget_max_total ?? "n/a" : "n/a"],
+      ["replacement_budget_max_per_sentence", runtimeState ? runtimeState.replacement_budget_max_per_sentence ?? "n/a" : "n/a"],
+      ["replacement_budget_max_per_lemma", runtimeState ? runtimeState.replacement_budget_max_per_lemma ?? "n/a" : "n/a"],
+      ["replacement_budget_used_total", runtimeState ? runtimeState.replacement_budget_used_total ?? "n/a" : "n/a"],
+      ["replacement_budget_tracked_sentence_count", runtimeState ? runtimeState.replacement_budget_tracked_sentence_count ?? "n/a" : "n/a"],
+      ["replacement_budget_tracked_lemma_count", runtimeState ? runtimeState.replacement_budget_tracked_lemma_count ?? "n/a" : "n/a"],
+      ["replacement_budget_page_exhausted", runtimeState ? runtimeState.replacement_budget_page_exhausted === true : "n/a"],
+      ["replacement_budget_sentence_cap_reached_count", runtimeState ? runtimeState.replacement_budget_sentence_cap_reached_count ?? "n/a" : "n/a"],
+      ["replacement_budget_lemma_cap_reached_count", runtimeState ? runtimeState.replacement_budget_lemma_cap_reached_count ?? "n/a" : "n/a"],
+      ["replacement_budget_rejected_page", runtimeState ? runtimeState.replacement_budget_rejected_page ?? "n/a" : "n/a"],
+      ["replacement_budget_rejected_sentence", runtimeState ? runtimeState.replacement_budget_rejected_sentence ?? "n/a" : "n/a"],
+      ["replacement_budget_rejected_lemma", runtimeState ? runtimeState.replacement_budget_rejected_lemma ?? "n/a" : "n/a"],
       ["frame_type", runtimeState ? runtimeState.frame_type || "n/a" : "n/a"]
     ].map(([key, value]) => `- ${key}: ${value}`);
     return [

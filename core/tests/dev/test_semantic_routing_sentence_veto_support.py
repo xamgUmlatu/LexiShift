@@ -61,6 +61,36 @@ class SemanticRoutingSentenceVetoSupportTests(unittest.TestCase):
         rescued = [row for row in report["row_results"] if bool(row.get("active_rescue_applied"))]
         self.assertEqual([row["case_id"] for row in rescued], ["en-es:sentence-veto:plant:002"])
 
+    def test_en_ja_breadth_active_only_phrase_scope_has_no_harmful_replacements(self) -> None:
+        report = build_sentence_veto_report(
+            dataset_path=REPO_ROOT
+            / "docs"
+            / "test_inputs"
+            / "semantic_routing_cases"
+            / "en_ja_sentence_veto_breadth_v1.json",
+            scorer_id="tfidf_cosine",
+            context_view="masked_window",
+            evidence_view="all_evidence_text",
+            min_active_score=0.0,
+            min_margin=0.02,
+            phrase_control_mode="noun_family_frame_guard",
+            phrase_guard_pos_scope="active_only",
+            active_rescue_mode="sense_label_near_tie_active_rescue",
+        )
+        summary = report["summary"]
+        self.assertEqual(summary["harmful_replace_count"], 0)
+        self.assertEqual(summary["false_abstain_count"], 3)
+        phrase_hits = {
+            row["case_id"]: row["phrase_reason_code"]
+            for row in report["row_results"]
+            if bool(row.get("phrase_preemption_hit"))
+        }
+        self.assertEqual(
+            phrase_hits["en-ja:sentence-veto:ball:005"],
+            "idiom_in_determiner_noun_frame",
+        )
+        self.assertEqual(phrase_hits["en-ja:sentence-veto:park:005"], "modal_trigger_frame")
+
 
 if __name__ == "__main__":
     unittest.main()

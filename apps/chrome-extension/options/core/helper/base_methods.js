@@ -24,11 +24,16 @@
       const rawSizing = (sizingOrTopN && typeof sizingOrTopN === "object")
         ? sizingOrTopN
         : {};
-      const rawTopN = Number.parseInt(
-        rawSizing.bootstrapTopN !== undefined ? rawSizing.bootstrapTopN : sizingOrTopN,
-        10
-      );
-      const bootstrapTopN = Number.isFinite(rawTopN) ? Math.max(200, rawTopN) : 800;
+      const rawBootstrapTopN = rawSizing.bootstrapTopN !== undefined
+        ? rawSizing.bootstrapTopN
+        : (sizingOrTopN && typeof sizingOrTopN === "object" ? undefined : sizingOrTopN);
+      const hasExplicitBootstrapTopN = rawBootstrapTopN !== undefined
+        && rawBootstrapTopN !== null
+        && String(rawBootstrapTopN).trim() !== "";
+      const parsedBootstrapTopN = Number.parseInt(rawBootstrapTopN, 10);
+      const bootstrapTopN = hasExplicitBootstrapTopN && Number.isFinite(parsedBootstrapTopN)
+        ? Math.max(200, parsedBootstrapTopN)
+        : null;
       const rawInitial = Number.parseInt(
         rawSizing.initialActiveCount !== undefined
           ? rawSizing.initialActiveCount
@@ -36,8 +41,8 @@
         10
       );
       const initialActiveCount = Number.isFinite(rawInitial)
-        ? Math.max(1, Math.min(rawInitial, bootstrapTopN))
-        : Math.min(40, bootstrapTopN);
+        ? Math.max(1, rawInitial)
+        : 40;
       const rawHint = Number.parseInt(
         rawSizing.maxActiveItemsHint !== undefined
           ? rawSizing.maxActiveItemsHint

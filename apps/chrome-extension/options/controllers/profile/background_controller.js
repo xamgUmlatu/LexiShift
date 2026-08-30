@@ -11,13 +11,11 @@
       return {
         syncForLoadedPrefs: () => Promise.resolve(),
         renderProfileBgStatus: () => {},
-        onEnabledChange: () => Promise.resolve(),
         onOpacityInput: () => {},
         onOpacityChange: () => Promise.resolve(),
         onBackdropColorChange: () => Promise.resolve(),
         onFileChange: () => {},
         onRemove: () => Promise.resolve(),
-        onApply: () => Promise.resolve(),
         onPositionReset: () => Promise.resolve(),
         onCardThemeInput: () => {},
         onCardThemeChange: () => Promise.resolve(),
@@ -35,12 +33,10 @@
       colors,
       maxUploadBytes,
       profileBgBackdropColorInput,
-      profileBgEnabledInput,
       profileBgOpacityInput,
       profileBgOpacityValueOutput,
       profileBgFileInput,
       profileBgRemoveButton,
-      profileBgApplyButton,
       profileBgStatusOutput,
       profileBgPositionResetButton,
       profileCardThemeResetButton,
@@ -59,9 +55,6 @@
       pageBackgroundManager,
       cardThemeManager
     } = context;
-
-    let profileBgPendingFile = null;
-    let profileBgHasPendingApply = false;
 
     function updateProfileBgOpacityLabel(value) {
       if (!profileBgOpacityValueOutput) {
@@ -111,27 +104,11 @@
       renderProfileBgStatus();
     }
 
-    function setProfileBgApplyState(hasPendingApply, forceDisable) {
-      profileBgHasPendingApply = hasPendingApply === true;
-      if (!profileBgApplyButton) {
-        return;
-      }
-      if (forceDisable === true) {
-        profileBgApplyButton.disabled = true;
-        return;
-      }
-      profileBgApplyButton.disabled = !profileBgHasPendingApply;
-    }
-
     const prefsService = prefsServiceFactory
       ? prefsServiceFactory({
           settingsManager,
           ui,
-          updateOpacityLabel: updateProfileBgOpacityLabel,
-          setApplyState: (hasPendingApply, forceDisable) => {
-            setProfileBgApplyState(hasPendingApply, forceDisable);
-          },
-          hasPendingApply: () => profileBgPendingFile
+          updateOpacityLabel: updateProfileBgOpacityLabel
         })
       : null;
 
@@ -152,11 +129,6 @@
           updateProfileCardThemeLabels: (values) => cardThemePresenter.updateLabels(values),
           setProfileBgStatus,
           setProfileBgStatusLocalized,
-          setProfileBgApplyState,
-          getPendingFile: () => profileBgPendingFile,
-          setPendingFile: (file) => {
-            profileBgPendingFile = file;
-          },
           clearFileInput: () => {
             if (profileBgFileInput) {
               profileBgFileInput.value = "";
@@ -286,17 +258,14 @@
           translate,
           colors,
           maxUploadBytes,
-          profileBgEnabledInput,
           profileBgBackdropColorInput,
           profileBgOpacityInput,
           profileBgFileInput,
           profileBgRemoveButton,
-          profileBgApplyButton,
           profileMediaStore,
           setStatus,
           setProfileBgStatus,
           setProfileBgStatusLocalized,
-          setProfileBgApplyState,
           updateProfileBgOpacityLabel,
           clampProfileBackgroundOpacity,
           normalizeProfileBackgroundBackdropColor,
@@ -306,21 +275,14 @@
           saveProfileUiPrefsForCurrentProfile,
           publishProfileUiPrefsForCurrentProfile,
           applyOptionsPageBackgroundFromPrefs,
-          resolveBackgroundPositionFromSource,
-          getPendingFile: () => profileBgPendingFile,
-          setPendingFile: (file) => {
-            profileBgPendingFile = file;
-          },
-          hasPendingApply: () => profileBgHasPendingApply
+          resolveBackgroundPositionFromSource
         })
       : {
-          onEnabledChange: () => Promise.resolve(),
           onOpacityInput: () => {},
           onOpacityChange: () => Promise.resolve(),
           onBackdropColorChange: () => Promise.resolve(),
           onFileChange: () => {},
-          onRemove: () => Promise.resolve(),
-          onApply: () => Promise.resolve()
+          onRemove: () => Promise.resolve()
         };
 
     const cardThemeActions = cardThemeActionsFactory
@@ -373,13 +335,11 @@
       syncForLoadedPrefs,
       applyOptionsPageBackgroundFromPrefs,
       renderProfileBgStatus,
-      onEnabledChange: backgroundActions.onEnabledChange,
       onOpacityInput: backgroundActions.onOpacityInput,
       onOpacityChange: backgroundActions.onOpacityChange,
       onBackdropColorChange: backgroundActions.onBackdropColorChange,
       onFileChange: backgroundActions.onFileChange,
       onRemove: backgroundActions.onRemove,
-      onApply: backgroundActions.onApply,
       onPositionReset,
       onCardThemeInput: cardThemeActions.onInput,
       onCardThemeChange: cardThemeActions.onChange,

@@ -28,6 +28,11 @@ from semantic_routing_sentence_veto_common import (  # noqa: E402,F401
     build_sentence_veto_report,
     load_sentence_veto_dataset,
 )
+from lexishift_core.rulegen.semantic_routing_runtime_scoring import (  # noqa: E402,F401
+    SENTENCE_VETO_CONTEXT_VIEWS,
+    SENTENCE_VETO_EVIDENCE_VIEWS,
+    SENTENCE_VETO_SCORERS,
+)
 from semantic_routing_sentence_veto_ladder_support import (  # noqa: E402,F401
     build_sentence_veto_ladder_case_rows,
     build_sentence_veto_ladder_report,
@@ -64,6 +69,9 @@ __all__ = [
     "DEFAULT_SENTENCE_VETO_PHRASE_LEAK_JSON_OUT",
     "DEFAULT_SENTENCE_VETO_PHRASE_LEAK_MARKDOWN_OUT",
     "SENTENCE_VETO_PHRASE_GUARD_POS_SCOPES",
+    "SENTENCE_VETO_CONTEXT_VIEWS",
+    "SENTENCE_VETO_EVIDENCE_VIEWS",
+    "SENTENCE_VETO_SCORERS",
     "_resolve_sentence_veto_phrase_guard_pos_tags",
     "load_sentence_veto_dataset",
     "build_sentence_veto_report",

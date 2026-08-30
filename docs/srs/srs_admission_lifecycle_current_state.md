@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-31 by source audit, active-capacity refresh tests, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata and signal-queue tests, lifecycle-aware scheduler/growth/rulegen tests, admitted-at persistence tests, SRS quality harness with seeded browsing signal and encounter-watch scenario, changed-file gate, and feature-state audit
+Last verified: 2026-07-03 by explicit en-ja admission preference/product/random UX packs, surfaced-auto topic review pack, focused profile-bootstrap/selector tests, SRS quality harness, and diff check; earlier 2026-07-02 coverage included the topic-proficiency grid pack, hard admission-suitability selector tests, initial-bootstrap and refresh no-rule refill tests, source audit, active-capacity refresh tests, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata and signal-queue tests, lifecycle-aware scheduler/growth/rulegen tests, admitted-at persistence tests, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -51,24 +51,58 @@ requirements before mutating state.
 
 Sizing is centralized in `core/lexishift_core/srs/set_policy.py`:
 
-- default `bootstrap_top_n`: `800`
+- default `bootstrap_top_n`: omitted/null, meaning all available seed rows
 - default `initial_active_count`: `40`
-- `bootstrap_top_n` clamp: `200..50000`
+- explicit finite `bootstrap_top_n` clamp: `200..50000`
 - `initial_active_count` clamp: `1..5000`
-- `initial_active_count` is capped by effective `bootstrap_top_n`
+- `initial_active_count` is capped by effective `bootstrap_top_n` only when a finite bootstrap override is supplied
 
 Bootstrap selection is in `core/lexishift_core/helper/rulegen.py`:
 
 - `frequency_bootstrap` is the no-strategy native-host baseline.
 - `profile_bootstrap` is executable when requested; options initialize and
   admission preview request it with current profile context.
+- Helper-driven bootstrap, preview, refresh, rebalance, and rulegen-job flows
+  use a local seed-frontier cache under `srs/cache/seed_frontiers/` when
+  building source-normalized seed rows. The cache does not store profile scores
+  and does not change admission order; corrupt or stale cache files fall back to
+  rebuilding the full configured frontier.
+- Cache lifecycle is also explicit: helper CLI/native-host expose
+  seed-frontier cache status/prepare commands, and the desktop resource flow
+  starts a background cache warmup after relevant language, frequency, or
+  POS-overlay pack download/link/import. Warmup is a latency optimization only;
+  missing companion resources block cache preparation without changing
+  admission eligibility or scoring.
 - Admission preview is read-only. When Options sends a preview seed, the helper
   samples the learner-visible returned words from the planned active pool rather
   than showing only the deterministic prefix of that pool.
+- `profile_bootstrap_policy_v5` treats the corrected learner-difficulty score
+  as the main scalar ordering authority for profile admission. Its selector
+  weights make proficiency/readiness fit dominant, keep topic affinity strong
+  enough for the reserved topic lane to feel active, retain source commonness
+  only as a small tie-breaker, and compute challenge fit without assigning it
+  score weight in the default one-slider profile path.
 - Selection policy defaults to deterministic `top_n`; weighted without
   replacement is supported only when explicitly requested by config.
+- The shared selector treats `admission_suitability=0.0` as a hard admission
+  ineligibility gate for actual selection. Those rows can still appear in
+  ranking diagnostics with zero score and an `admission_suitability` penalty,
+  but top-n, reserved-topic-lane, and weighted selection do not admit them.
+  Low nonzero suitability values remain soft penalties.
 - The helper writes store rows, writes active inventory ids, then publishes
   rulegen outputs for active ids.
+- After rulegen output is available, mutation paths reconcile active items
+  without enabled runtime rules. Items that remain active candidates but have no
+  enabled generated rule are marked discarded with reason `no_enabled_rules` and
+  removed from active inventory.
+- Initial bootstrap and manual refresh then perform bounded no-rule refill
+  passes: they block the discarded lemmas plus the still-active lemmas, select
+  replacement candidates within the original active/budget target, rerun
+  rulegen, and keep only candidates that survive the same enabled-rule
+  reconciliation. Responses report both the aggregate
+  `rule_availability_reconciliation` and a `rule_availability_refill` payload.
+  Rebalance currently remains reconciliation-only; extending refill there is a
+  separate capacity-policy decision.
 
 Browsing signals should not affect initial bootstrap for MVP. Bootstrap is too
 coarse and too sticky for passive browsing history.

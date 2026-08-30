@@ -6,7 +6,7 @@
 - Pair: `en-ja`
 - Lane: `real_publication_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-03-21T02:48:06.981118+00:00`
+- Generated at: `2026-06-09T16:49:26.388505+00:00`
 
 ## Phases
 

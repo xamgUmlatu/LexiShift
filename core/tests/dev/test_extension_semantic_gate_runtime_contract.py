@@ -1033,7 +1033,7 @@ const readyMatch = {{
 """
         _run_node(script)
 
-    def test_gate_abstains_by_default_when_inventory_is_unavailable(self) -> None:
+    def test_gate_fails_closed_by_default_when_inventory_is_unavailable(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -1147,7 +1147,7 @@ const readyMatch = {{
 """
         _run_node(script)
 
-    def test_gate_abstains_by_default_when_helper_semantic_batch_throws(self) -> None:
+    def test_gate_fails_closed_by_default_when_helper_semantic_batch_throws(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -1233,6 +1233,7 @@ const readyMatch = {{
   assert.equal(calls.filter((entry) => entry.kind === "batch").length, 1);
   assert.equal(result.summary.eligible, 1);
   assert.equal(result.summary.ready, 1);
+  assert.equal(result.summary.fallbackReplaces, 0);
   assert.equal(result.summary.fallbackAbstains, 1);
   assert.equal(result.summary.helperError, "semantic route crashed");
   assert.equal(result.summary.helperBatchCalls, 1);
@@ -1258,7 +1259,7 @@ const readyMatch = {{
 """
         _run_node(script)
 
-    def test_gate_abstains_by_default_when_inventory_resolution_throws(self) -> None:
+    def test_gate_fails_closed_by_default_when_inventory_resolution_throws(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -1334,6 +1335,7 @@ const readyMatch = {{
   assert.equal(calls.some((entry) => entry.kind === "batch"), false);
   assert.equal(result.summary.eligible, 1);
   assert.equal(result.summary.ready, 1);
+  assert.equal(result.summary.fallbackReplaces, 0);
   assert.equal(result.summary.fallbackAbstains, 1);
   assert.equal(result.summary.inventoryError, "inventory route crashed");
   assert.deepEqual(

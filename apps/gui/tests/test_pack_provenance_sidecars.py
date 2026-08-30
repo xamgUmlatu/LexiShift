@@ -74,6 +74,35 @@ def test_language_pack_manifest_write_creates_provenance_sidecar() -> None:
         assert payload["artifact"]["artifact_relpath"] == "main.sqlite"
 
 
+def test_verified_language_pack_manifest_writes_confirmed_license_status() -> None:
+    with TemporaryDirectory() as temp_dir:
+        pack_root = Path(temp_dir) / "language_packs" / "kanjidic2-ja"
+        artifact = pack_root / "kanjidic2.xml"
+        artifact.parent.mkdir(parents=True)
+        artifact.write_text("<kanjidic2 />", encoding="utf-8")
+        pack = LanguagePackInfo(
+            pack_id="kanjidic2-ja",
+            name="KANJIDIC2",
+            language="Japanese kanji",
+            source="EDRDG",
+            size="1 MB",
+            url="https://www.edrdg.org/kanjidic/kanjidic2.xml.gz",
+            wayback_url="https://web.archive.org/web/*/https://www.edrdg.org/kanjidic/kanjidic2.xml.gz",
+            filename="kanjidic2.xml.gz",
+            local_kind="dir",
+            required_files=("kanjidic2.xml",),
+            license_status="verified-from-upstream",
+        )
+
+        thread = LanguagePackDownloadThread(pack, str(pack_root / pack.filename))
+        thread._write_manifest(str(pack_root))
+        provenance_path = pack_root / PACK_PROVENANCE_FILENAME
+        payload = json.loads(provenance_path.read_text(encoding="utf-8"))
+
+        assert validate_pack_provenance_file(provenance_path) == ()
+        assert payload["source"]["license_status"] == "confirmed"
+
+
 def test_file_checksums_records_sha1_and_sha256() -> None:
     with TemporaryDirectory() as temp_dir:
         source = Path(temp_dir) / "source.txt"

@@ -15,28 +15,88 @@
     }
   }
 
+  function ensureSchema(db, transaction) {
+    if (!db || typeof db !== "object") {
+      return;
+    }
+    let store = null;
+    if (!db.objectStoreNames.contains(STORE_ASSETS)) {
+      store = db.createObjectStore(STORE_ASSETS, { keyPath: "asset_id" });
+    } else if (transaction && typeof transaction.objectStore === "function") {
+      store = transaction.objectStore(STORE_ASSETS);
+    }
+    if (store && !store.indexNames.contains(INDEX_PROFILE_ID)) {
+      store.createIndex(INDEX_PROFILE_ID, "profile_id", { unique: false });
+    }
+  }
+
+  function needsSchemaRepair(db) {
+    if (!db || typeof db !== "object" || !db.objectStoreNames.contains(STORE_ASSETS)) {
+      return true;
+    }
+    try {
+      const tx = db.transaction(STORE_ASSETS, "readonly");
+      const store = tx.objectStore(STORE_ASSETS);
+      return !store.indexNames.contains(INDEX_PROFILE_ID);
+    } catch (_err) {
+      return true;
+    }
+  }
+
+  function closeDb(db) {
+    try {
+      if (db && typeof db.close === "function") {
+        db.close();
+      }
+    } catch (_err) {}
+  }
+
+  function openDbOnce(version) {
+    return new Promise((resolve, reject) => {
+      const request = Number.isFinite(Number(version))
+        ? indexedDB.open(DB_NAME, Number(version))
+        : indexedDB.open(DB_NAME);
+      request.onupgradeneeded = () => {
+        ensureSchema(request.result, request.transaction);
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error || new Error("Failed to open media store."));
+      request.onblocked = () => reject(new Error("Media store upgrade is blocked by another open tab."));
+    });
+  }
+
+  function bindConnectionLifecycle(db) {
+    if (db && typeof db === "object") {
+      db.onversionchange = () => {
+        closeDb(db);
+        dbPromise = null;
+      };
+    }
+    return db;
+  }
+
   function openDb() {
     requireIndexedDb();
     if (dbPromise) {
       return dbPromise;
     }
-    dbPromise = new Promise((resolve, reject) => {
-      const request = indexedDB.open(DB_NAME, DB_VERSION);
-      request.onupgradeneeded = () => {
-        const db = request.result;
-        if (!db.objectStoreNames.contains(STORE_ASSETS)) {
-          const store = db.createObjectStore(STORE_ASSETS, { keyPath: "asset_id" });
-          store.createIndex(INDEX_PROFILE_ID, "profile_id", { unique: false });
-          return;
-        }
-        const store = request.transaction.objectStore(STORE_ASSETS);
-        if (!store.indexNames.contains(INDEX_PROFILE_ID)) {
-          store.createIndex(INDEX_PROFILE_ID, "profile_id", { unique: false });
-        }
-      };
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error || new Error("Failed to open media store."));
-      request.onblocked = () => reject(new Error("Media store upgrade is blocked by another open tab."));
+    dbPromise = (async () => {
+      const db = await openDbOnce();
+      if (!needsSchemaRepair(db)) {
+        return bindConnectionLifecycle(db);
+      }
+      const currentVersion = Number.isFinite(Number(db.version)) ? Number(db.version) : DB_VERSION;
+      const repairVersion = Math.max(DB_VERSION, currentVersion) + 1;
+      closeDb(db);
+      const repairedDb = await openDbOnce(repairVersion);
+      if (needsSchemaRepair(repairedDb)) {
+        closeDb(repairedDb);
+        throw new Error("Failed to initialize media store schema.");
+      }
+      return bindConnectionLifecycle(repairedDb);
+    })().catch((error) => {
+      dbPromise = null;
+      throw error;
     });
     return dbPromise;
   }
@@ -44,8 +104,15 @@
   async function withStore(mode, fn) {
     const db = await openDb();
     return new Promise((resolve, reject) => {
-      const tx = db.transaction(STORE_ASSETS, mode);
-      const store = tx.objectStore(STORE_ASSETS);
+      let tx = null;
+      let store = null;
+      try {
+        tx = db.transaction(STORE_ASSETS, mode);
+        store = tx.objectStore(STORE_ASSETS);
+      } catch (err) {
+        reject(err || new Error("IndexedDB transaction failed."));
+        return;
+      }
       let result;
       tx.oncomplete = () => resolve(result);
       tx.onerror = () => reject(tx.error || new Error("IndexedDB transaction failed."));

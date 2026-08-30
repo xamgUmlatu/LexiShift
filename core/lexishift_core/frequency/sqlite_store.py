@@ -122,7 +122,7 @@ class SqliteFrequencyStore:
     def iter_top_by_rank(
         self,
         *,
-        limit: int,
+        limit: Optional[int],
         rank_column: Optional[str] = None,
         pmw_column: Optional[str] = None,
         columns: Optional[Iterable[str]] = None,
@@ -167,8 +167,13 @@ class SqliteFrequencyStore:
         if resolved_pmw_column:
             order_terms.append(f"{resolved_pmw_column} DESC")
         order_sql = f" ORDER BY {', '.join(order_terms)}" if order_terms else ""
-        query = f"SELECT {col_sql} FROM {self._config.table}{order_sql} LIMIT ?;"
-        for row in self._conn.execute(query, (limit,)):
+        if limit is None:
+            query = f"SELECT {col_sql} FROM {self._config.table}{order_sql};"
+            cursor = self._conn.execute(query)
+        else:
+            query = f"SELECT {col_sql} FROM {self._config.table}{order_sql} LIMIT ?;"
+            cursor = self._conn.execute(query, (max(0, int(limit)),))
+        for row in cursor:
             yield row
 
     def resolve_column(

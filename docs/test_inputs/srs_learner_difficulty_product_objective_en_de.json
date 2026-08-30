@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "language_pair": "en-de",
+  "objective_id": "en_de_product_slider_objective_v1",
+  "status": "development_diagnostic",
+  "rationale": "Soft product objective for en-de difficulty-sweep selection. It teaches sidecar sweeps about full-corpus slider shape and reviewed failure cohorts without replacing calibration or holdout labels.",
+  "distribution": {
+    "curve_id": "en_ja_en_es_informed_soft_decile_v1",
+    "basis": "Rounded soft target informed by accepted en-ja/en-es full-ranking distributions, not a hard linguistic truth.",
+    "cdf_tolerance": 0.2,
+    "target_decile_weights": [
+      0.004,
+      0.013,
+      0.026,
+      0.057,
+      0.098,
+      0.119,
+      0.11,
+      0.198,
+      0.24,
+      0.135
+    ]
+  },
+  "selection_weight": 0.2,
+  "objective_weights": {
+    "distribution": 0.45,
+    "sentinel": 0.55
+  },
+  "default_sentinel_margin": 0.1,
+  "sentinel_policy": {
+    "component_weights": {
+      "mean": 0.4,
+      "cohort_balanced": 0.3,
+      "severe_violation": 0.15,
+      "worst_violation": 0.15
+    },
+    "severe_threshold": 1.0,
+    "severe_violation_budget": 4.0,
+    "worst_violation_tolerance": 2.0
+  },
+  "sentinels": [
+    {
+      "lemma": "katze",
+      "cohort": "beginner_rescue",
+      "ceiling": 0.18,
+      "rationale": "Concrete beginner noun should not be stranded in mid-intermediate territory."
+    },
+    {
+      "lemma": "malen",
+      "cohort": "beginner_rescue",
+      "ceiling": 0.28,
+      "rationale": "Common learner verb; current contender placed it too high."
+    },
+    {
+      "lemma": "fünf",
+      "cohort": "beginner_rescue",
+      "ceiling": 0.1,
+      "rationale": "Cardinal number should stay in the early beginner zone."
+    },
+    {
+      "lemma": "film",
+      "cohort": "beginner_rescue",
+      "ceiling": 0.24,
+      "rationale": "Transparent, common learner word."
+    },
+    {
+      "lemma": "spielplatz",
+      "cohort": "transparent_compound_rescue",
+      "ceiling": 0.34,
+      "rationale": "Longer compound, but transparent and everyday."
+    },
+    {
+      "lemma": "drinnen",
+      "cohort": "ordinary_word_rescue",
+      "ceiling": 0.34,
+      "rationale": "Ordinary location adverb should not be late intermediate."
+    },
+    {
+      "lemma": "million",
+      "cohort": "transparent_cognate_rescue",
+      "ceiling": 0.25,
+      "rationale": "Transparent high-frequency number/cognate; protects against over-compression upward."
+    },
+    {
+      "lemma": "person",
+      "cohort": "transparent_cognate_rescue",
+      "ceiling": 0.28,
+      "rationale": "Common transparent noun."
+    },
+    {
+      "lemma": "team",
+      "cohort": "transparent_cognate_rescue",
+      "ceiling": 0.28,
+      "rationale": "Common transparent loan/cognate."
+    },
+    {
+      "lemma": "starten",
+      "cohort": "transparent_cognate_rescue",
+      "ceiling": 0.32,
+      "rationale": "Transparent verb should remain approachable."
+    },
+    {
+      "lemma": "beliebt",
+      "cohort": "ordinary_intermediate_anchor",
+      "ceiling": 0.44,
+      "rationale": "Useful ordinary adjective; should not drift into advanced tail."
+    },
+    {
+      "lemma": "betonen",
+      "cohort": "ordinary_intermediate_anchor",
+      "ceiling": 0.52,
+      "rationale": "Common academic/news verb; intermediate, not deep tail."
+    },
+    {
+      "lemma": "gebaut",
+      "cohort": "ordinary_intermediate_anchor",
+      "ceiling": 0.42,
+      "rationale": "Common participial form; should not be treated as highly advanced."
+    },
+    {
+      "lemma": "erfüllt",
+      "cohort": "ordinary_intermediate_anchor",
+      "ceiling": 0.48,
+      "rationale": "Useful participial/adjectival form that current model slightly over-raises."
+    },
+    {
+      "lemma": "tagen",
+      "cohort": "lemma_pos_sense_artifact_guard",
+      "floor": 0.42,
+      "rationale": "Meeting/session sense should not inherit early-day-word ease."
+    },
+    {
+      "lemma": "stellen",
+      "cohort": "lemma_pos_sense_artifact_guard",
+      "floor": 0.22,
+      "rationale": "Polysemous/nominal row was much too easy in residuals."
+    },
+    {
+      "lemma": "ausmachen",
+      "cohort": "lemma_pos_sense_artifact_guard",
+      "floor": 0.34,
+      "rationale": "Separable verb/polysemy row should not collapse into early beginner."
+    },
+    {
+      "lemma": "zwar",
+      "cohort": "grammar_function_guard",
+      "floor": 0.3,
+      "rationale": "Grammar-heavy connector should not be as early as core concrete words."
+    },
+    {
+      "lemma": "einsatz",
+      "cohort": "polysemy_guard",
+      "floor": 0.38,
+      "rationale": "Useful but polysemous noun; current model placed it too early."
+    },
+    {
+      "lemma": "unternehmen",
+      "cohort": "polysemy_guard",
+      "floor": 0.3,
+      "rationale": "Useful but polysemous noun/verb row should not be ultra-early."
+    },
+    {
+      "lemma": "platzen",
+      "cohort": "ordinary_intermediate_anchor",
+      "floor": 0.32,
+      "ceiling": 0.52,
+      "rationale": "Ordinary but not beginner-core verb."
+    },
+    {
+      "lemma": "mittwochmorgen",
+      "cohort": "transparent_compound_rescue",
+      "ceiling": 0.5,
+      "rationale": "Transparent day/time compound should not be high-tail material."
+    },
+    {
+      "lemma": "bundesverfassungsgericht",
+      "cohort": "domain_compound_tail_guard",
+      "floor": 0.7,
+      "rationale": "Institutional/domain compound should stay advanced."
+    },
+    {
+      "lemma": "verteidigungsministerium",
+      "cohort": "domain_compound_tail_guard",
+      "floor": 0.68,
+      "rationale": "Domain compound; protects against global compression that lowers all long compounds."
+    },
+    {
+      "lemma": "überraschungsangriff",
+      "cohort": "domain_compound_tail_guard",
+      "floor": 0.7,
+      "ceiling": 0.92,
+      "rationale": "Advanced transparent compound, but not necessarily absolute ceiling."
+    },
+    {
+      "lemma": "übertragungsweg",
+      "cohort": "domain_compound_tail_guard",
+      "floor": 0.76,
+      "ceiling": 0.94,
+      "rationale": "Specialized compound should remain advanced."
+    },
+    {
+      "lemma": "überschallgeschwindigkeit",
+      "cohort": "domain_compound_tail_guard",
+      "floor": 0.78,
+      "ceiling": 0.96,
+      "rationale": "Long technical compound; advanced but not necessarily beyond all useful learning."
+    },
+    {
+      "lemma": "biogasanlage",
+      "cohort": "domain_compound_tail_guard",
+      "floor": 0.7,
+      "rationale": "Domain compound should not be pulled too low by transparency alone."
+    },
+    {
+      "lemma": "ämterwechsel",
+      "cohort": "tail_guard",
+      "floor": 0.8,
+      "rationale": "Rare/formal compound anchor."
+    },
+    {
+      "lemma": "überwälzen",
+      "cohort": "tail_guard",
+      "floor": 0.78,
+      "rationale": "Advanced verb anchor."
+    },
+    {
+      "lemma": "übername",
+      "cohort": "tail_guard",
+      "floor": 0.86,
+      "rationale": "Rare row should remain near-tail."
+    },
+    {
+      "lemma": "zögerer",
+      "cohort": "tail_guard",
+      "floor": 0.76,
+      "rationale": "Uncommon derived noun should stay advanced."
+    }
+  ]
+}

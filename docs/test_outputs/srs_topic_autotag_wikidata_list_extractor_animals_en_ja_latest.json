@@ -1,0 +1,62 @@
+{
+  "candidate_summary": {
+    "collection_count": 1,
+    "covered_overlay_key_count": 3752,
+    "eligible_label_count": 70336,
+    "loaded_count": 73752
+  },
+  "collection_summary": {},
+  "decision": "wikidata_exact_label_list_needs_more_roots_or_sampling",
+  "evidence_rows": [],
+  "filter_summary": {},
+  "findings": [
+    {
+      "code": "wikidata_list_evidence_empty",
+      "level": "WARN",
+      "message": "No exact-label Wikidata list rows matched the selected candidate universe."
+    },
+    {
+      "code": "wikidata_list_partial_due_to_endpoint_errors",
+      "level": "WARN",
+      "message": "1 SPARQL batch query/queries failed after retries."
+    }
+  ],
+  "generated_at": "2026-07-01T03:06:21+00:00",
+  "inputs": {
+    "batch_size": 250,
+    "cache_json": "docs/test_outputs/srs_topic_autotag_wikidata_list_cache_en_ja.json",
+    "candidates_csv": "core/lexishift_core/resources/srs/en_ja/learner_difficulty_corrected.csv",
+    "collection_ids": [
+      "animals_birds"
+    ],
+    "existing_overlay_json": "docs/test_outputs/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
+    "include_aliases": false,
+    "max_root_rows": 5000,
+    "offline_only": false,
+    "policy_json": "docs/test_inputs/srs_topic_autotag_policy_en_ja.json",
+    "query_mode": "root_enumeration",
+    "top_n": 73752
+  },
+  "language_pair": "en-ja",
+  "limitations": [
+    "This is exact-label list evidence only; it is not a complete Wikidata topic inventory.",
+    "Japanese aliases are disabled by default because aliases tend to reintroduce broad-sense noise.",
+    "Rows generated here are mining evidence only; promotion should follow sample review and source-specific guards."
+  ],
+  "method": {
+    "identity_gate": "exact Japanese label plus existing single-reading verification; ambiguous multi-reading surfaces are rejected unless the surface itself is kana-exact",
+    "promotion_state": "evidence_only_not_product_overlay",
+    "query_shape": "candidate Japanese labels are sent as SPARQL VALUES, then matched only when a Wikidata item with that exact Japanese label is an instance or subclass of a configured narrow topic root",
+    "source": "wikidata_exact_label_list"
+  },
+  "review_sample": [],
+  "schema_version": 1,
+  "source_summary": {},
+  "status": "review",
+  "topic_summary": {},
+  "wikidata_summary": {
+    "sparql_cache_size": 79,
+    "sparql_failed_query_count": 1,
+    "sparql_transport_error_count": 3
+  }
+}

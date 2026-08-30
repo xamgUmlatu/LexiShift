@@ -175,6 +175,9 @@
             : setOutputText,
           markRulesetUpdatedNow,
           preflightSrsPairResources,
+          activateSrsStoryPair: typeof opts.activateSrsStoryPair === "function"
+            ? opts.activateSrsStoryPair
+            : null,
           loadSrsProfileForPair: typeof opts.loadSrsProfileForPair === "function"
             ? opts.loadSrsProfileForPair
             : null,
@@ -198,7 +201,10 @@
             : (_options) => "",
           buildSampledRulegenTargetsOutput: typeof opts.buildSampledRulegenTargetsOutput === "function"
             ? opts.buildSampledRulegenTargetsOutput
-            : (_options) => ""
+            : (_options) => "",
+          collapseSrsStoryCardsAfterDelete: typeof opts.collapseSrsStoryCardsAfterDelete === "function"
+            ? opts.collapseSrsStoryCardsAfterDelete
+            : null
         })
       : {
           initializeSet: async () => {},

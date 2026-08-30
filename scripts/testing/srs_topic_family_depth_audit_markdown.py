@@ -5,6 +5,8 @@ from typing import Mapping
 
 def render_markdown(report: Mapping[str, object]) -> str:
     summary = _as_mapping(report.get("summary"))
+    methodology = _as_mapping(report.get("methodology"))
+    difficulty_ranking = _as_mapping(report.get("difficulty_ranking"))
     lines = [
         "# en-es SRS Topic Family Depth Audit",
         "",
@@ -21,6 +23,11 @@ def render_markdown(report: Mapping[str, object]) -> str:
             "topic/register taxonomy. It does not download sources, write overlays, "
             "mutate SRS state, or enable admission lift."
         ),
+        "",
+        f"- Difficulty source: `{methodology.get('difficulty_source', '')}`",
+        f"- Difficulty proxy: `{methodology.get('difficulty_proxy', '')}`",
+        f"- Ranking CSV loaded: `{difficulty_ranking.get('exists', False)}`",
+        f"- Ranking scores: `{difficulty_ranking.get('score_count', 0)}`",
         "",
         "## Findings",
         "",
@@ -41,6 +48,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"- status: `{item.get('status', '')}`",
                 f"- seeds measured: `{item.get('seed_count', 0)}`",
                 f"- unique lemmas: `{item.get('unique_lemma_count', 0)}`",
+                f"- difficulty source counts: `{item.get('difficulty_source_counts', {})}`",
                 "",
             ]
         )

@@ -12,6 +12,7 @@ from lexishift_core.resources.japanese_script import (
     kana_to_romaji,
 )
 from lexishift_core.resources.dict_gloss_metadata import build_auxiliary_gloss_metadata
+from lexishift_core.resources.jmdict_records import JmdictReadingRecord, JmdictSenseRecord
 from lexishift_core.resources.dict_sqlite_support import (
     load_auxiliary_sqlite_gloss_base_forms as _load_auxiliary_sqlite_gloss_base_forms,
     load_auxiliary_sqlite_gloss_records_ordered as _load_auxiliary_sqlite_gloss_records_ordered,
@@ -32,6 +33,8 @@ class JmdictEntryRecord:
     kana_forms: tuple[str, ...]
     glosses: tuple[str, ...]
     pos_values: tuple[str, ...] = ()
+    senses: tuple[JmdictSenseRecord, ...] = ()
+    reading_records: tuple[JmdictReadingRecord, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -430,7 +433,12 @@ def load_freedict_sqlite_gloss_records_ordered(
             ).fetchone()
             if not has_entries:
                 return mapping
-            query = "SELECT headword, translation, pos FROM entries"
+            entries_columns = _sqlite_table_columns(conn, "entries")
+            metadata_columns = tuple(
+                column for column in ("rank", "entry_ord", "gloss_ord") if column in entries_columns
+            )
+            selected_columns = ("headword", "translation", "pos", *metadata_columns)
+            query = f"SELECT {', '.join(selected_columns)} FROM entries"
             parameters: tuple[object, ...] = ()
             if headword_filter is not None:
                 placeholders = ", ".join("?" for _ in headword_filter)
@@ -439,7 +447,8 @@ def load_freedict_sqlite_gloss_records_ordered(
             query += " ORDER BY headword_lc, rank, headword"
             cursor = conn.execute(query, parameters)
             try:
-                for headword, translation, pos_raw in cursor:
+                for row in cursor:
+                    headword, translation, pos_raw, *metadata_values = row
                     headword_text = str(headword or "").strip()
                     translation_text = str(translation or "").strip()
                     if not headword_text or not translation_text:
@@ -451,11 +460,13 @@ def load_freedict_sqlite_gloss_records_ordered(
                     )
                     existing_index = index_by_translation.get(translation_text)
                     normalized_pos_raw = str(pos_raw or "").strip()
+                    metadata = _sqlite_entry_metadata(metadata_columns, metadata_values)
                     if existing_index is None:
                         bucket.append(
                             FreedictGlossRecord(
                                 translation=translation_text,
                                 pos_raw=normalized_pos_raw,
+                                metadata=metadata,
                             )
                         )
                         index_by_translation[translation_text] = len(bucket) - 1
@@ -464,6 +475,7 @@ def load_freedict_sqlite_gloss_records_ordered(
                         bucket[existing_index] = FreedictGlossRecord(
                             translation=translation_text,
                             pos_raw=normalized_pos_raw,
+                            metadata=bucket[existing_index].metadata,
                         )
             finally:
                 cursor.close()
@@ -472,6 +484,43 @@ def load_freedict_sqlite_gloss_records_ordered(
     except sqlite3.Error:
         return {}
     return mapping
+
+
+def _sqlite_table_columns(conn: sqlite3.Connection, table_name: str) -> set[str]:
+    try:
+        rows = conn.execute(f"PRAGMA table_info({table_name})").fetchall()
+    except sqlite3.Error:
+        return set()
+    return {str(row[1] or "").strip() for row in rows if len(row) > 1 and row[1]}
+
+
+def _sqlite_entry_metadata(
+    columns: Iterable[str],
+    values: Iterable[object],
+) -> dict[str, object]:
+    metadata: dict[str, object] = {}
+    for column, value in zip(columns, values):
+        _set_sqlite_entry_metadata_value(metadata, column, value)
+    return metadata
+
+
+def _set_sqlite_entry_metadata_value(
+    metadata: dict[str, object],
+    key: str,
+    value: object,
+) -> None:
+    if value is None:
+        return
+    if isinstance(value, int):
+        metadata[key] = value
+        return
+    text = str(value).strip()
+    if not text:
+        return
+    try:
+        metadata[key] = int(text)
+    except ValueError:
+        metadata[key] = text
 
 
 def _collect_sqlite_headwords(cursor: sqlite3.Cursor) -> tuple[str, ...]:

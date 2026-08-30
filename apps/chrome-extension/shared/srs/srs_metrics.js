@@ -27,14 +27,23 @@
     };
   }
 
+  function normalizeExposurePayload(entries) {
+    return (entries || []).filter((entry) => entry && entry.lemma);
+  }
+
   function recordExposureBatch(entries) {
-    const payload = (entries || []).filter((entry) => entry && entry.lemma);
+    const payload = normalizeExposurePayload(entries);
     if (!payload.length) {
       return Promise.resolve([]);
     }
     return new Promise((resolve) => {
       try {
-        if (!chrome || !chrome.storage || !chrome.runtime || !chrome.runtime.id) {
+        if (
+          typeof chrome === "undefined"
+          || !chrome.storage
+          || !chrome.runtime
+          || !chrome.runtime.id
+        ) {
           resolve([]);
           return;
         }
@@ -54,9 +63,22 @@
 
   function recordExposureBatchWithStore(entries, options) {
     const opts = options && typeof options === "object" ? options : {};
-    return recordExposureBatch(entries).then((payload) => {
-      if (payload.length && root.srsStore && typeof root.srsStore.recordExposureBatch === "function") {
-        root.srsStore.recordExposureBatch(payload);
+    const payload = normalizeExposurePayload(entries);
+    if (!payload.length) {
+      return Promise.resolve([]);
+    }
+    const shouldRecordLocalExposure = opts.recordLocalExposureLog !== false;
+    const localWrite = shouldRecordLocalExposure
+      ? recordExposureBatch(payload)
+      : Promise.resolve([]);
+    return localWrite.then((savedPayload) => {
+      if (
+        shouldRecordLocalExposure
+        && savedPayload.length
+        && root.srsStore
+        && typeof root.srsStore.recordExposureBatch === "function"
+      ) {
+        root.srsStore.recordExposureBatch(savedPayload);
       }
       if (
         payload.length
@@ -71,7 +93,7 @@
           }
         });
       }
-      return payload;
+      return savedPayload;
     });
   }
 

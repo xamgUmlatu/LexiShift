@@ -89,16 +89,35 @@ Module layout
   - Owns DOM text-node scanning, mutation observer updates, and page budget enforcement orchestration.
   - Delegates node filtering, budget tracking, counter construction, and text-node replacement handling to `content/runtime/dom_scan/*`.
 - `apps/chrome-extension/content/runtime/dom_scan/node_filters.js`
-  - Central node guards for editable fields, excluded tags, and already-replaced LexiShift spans.
+  - Central node guards for editable fields, excluded tags, non-rendered
+    ancestor subtrees, and already-replaced LexiShift spans.
 - `apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js`
-  - Builds and updates page-level replacement budget state (`maxReplacementsPerPage`, per-lemma cap).
+  - Builds and updates unified replacement budget state (page-total,
+    per-sentence, and per-lemma caps) from existing and newly committed spans.
 - `apps/chrome-extension/content/runtime/dom_scan/scan_order.js`
   - Prioritizes visible and near-viewport text nodes during full scans.
   - When page budgets are active, deterministically redistributes node order within viewport bands by page/profile seed.
+- `apps/chrome-extension/content/runtime/dom_scan/semantic_context_support.js`
+  - Clips helper semantic-admission input to the sentence containing the match.
+  - Prefers locale-aware `Intl.Segmenter` sentence/word segmentation and keeps a
+    deterministic fallback for unsupported runtimes.
+  - The fallback preserves common non-terminal title abbreviations, decimal and
+    embedded periods, closing sentence punctuation, Unicode terminators, and a
+    hard 48-word / 1200-character context budget.
+- `apps/chrome-extension/content/runtime/dom_scan/semantic_context.js`
+  - Reconstructs semantic context across inline text nodes within bounded
+    paragraph/list/table/heading-style containers.
+  - Excludes hidden, editable, skipped, and already-replaced content.
+  - Preserves explicit `<br>` and DOM/CSS block transitions as context
+    boundaries while retaining match-offset mapping and scan-local block-cache
+    reuse.
+  - Assigns scan-stable, best-effort sentence identities from container identity
+    plus sentence ordinal so split inline nodes share the same sentence budget.
 - `apps/chrome-extension/content/runtime/dom_scan/semantic_node_scheduler.js`
   - Batches semantic text-node preflight work, including the two-phase path that preserves ordered page-budget rendering.
 - `apps/chrome-extension/content/runtime/dom_scan/scan_counters.js`
-  - Constructs scan diagnostics counters for full scans and mutation scans.
+  - Constructs scan diagnostics counters for full scans and mutation scans,
+    including aggregate page/sentence/lemma budget rejection counts.
 - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
   - Executes per-node replacement, exposure logging, and focus-word diagnostics.
 - `apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js`
@@ -120,6 +139,7 @@ Module layout
   - Owns feedback entry persistence and helper feedback-sync queue integration.
 - `apps/chrome-extension/content/runtime/settings_change_router.js`
   - Routes `chrome.storage.onChanged` keys to targeted runtime actions (rebuild/highlight/debug/feedback updates).
+  - Rebuilds source language, target language, automatic-pair mode, and the pair mirror together so profile language changes take effect in already-open tabs.
 - `apps/chrome-extension/content/ui/ui.js`
   - Composition layer for highlight styles, click-to-toggle behavior, and cleanup.
   - Delegates feedback popup behavior to `content/ui/feedback_popup_controller.js`.
@@ -256,14 +276,16 @@ SRS settings (extension)
   - `srsProfiles.<profile_id>.srsSignalsByPair.<pair>` stores planner/profile-context signals.
   - `srsProfiles.<profile_id>.uiPrefs` stores profile UI preferences (`backgroundAssetId`, `backgroundEnabled`, `backgroundOpacity`, `backgroundBackdropColor`).
 - `srsProfileId` (string): runtime mirror key consumed by content script and feedback sync.
+- `srsSemanticAdmissionFallbackPolicy` (string): derived fail-closed runtime mirror (`abstain_on_unavailable`); the lower-level gate still recognizes explicit legacy compatibility input, but normal defaults and profile publication do not select it.
 - `targetDisplayScript` (string): runtime mirror for selected target display script (`kanji` | `kana` | `romaji` for Japanese target UI).
 - `profileBackgroundEnabled` (bool): runtime background toggle for selected profile.
 - `profileBackgroundAssetId` (string): selected profile background asset id (IndexedDB reference).
   - Background runtime mirrors are now used by the options page flow only (not injected into general web pages).
 - `profileBackgroundOpacity` (float): selected profile background opacity (0..1).
 - `profileBackgroundBackdropColor` (hex): selected profile backdrop color for options page (`#RRGGBB`).
-- `maxReplacementsPerPage` (int): hard cap for total replacements on a page (standard default `20`; `0` = unlimited).
-- `maxReplacementsPerLemmaPerPage` (int): cap for each replacement lemma on a page (standard default `2`; `0` = unlimited).
+- `maxReplacementsPerPage` (int): hard cap for total replacements in each frame document (standard default `0`; `0` = unlimited).
+- `maxReplacementsPerSentence` (int): best-effort cap for replacements in one reconstructed sentence (standard default `0`; `0` = unlimited).
+- `maxReplacementsPerLemmaPerPage` (int): cap for each replacement lemma on a page (standard default `0`; `0` = unlimited).
 
 Replacement pipeline (content script)
 1. Load and normalize settings from storage.
@@ -274,17 +296,24 @@ Replacement pipeline (content script)
 6. Collect all text nodes using a TreeWalker.
 7. If page budgets are active, deterministically reorder the full-scan node list by page/profile seed before processing.
 8. For each node:
-   - Skip if empty, whitespace-only, in editable fields, excluded tags, or already replaced.
+   - Skip if empty, whitespace-only, in editable fields, excluded tags,
+     non-rendered by `hidden`, `display:none`, `visibility:hidden/collapse`, or
+     `content-visibility:hidden`, or already replaced.
    - Tokenize and find longest matches via the trie.
+   - Run semantic admission, when active, against all lexical candidates.
    - Optionally filter matches:
      - `maxOnePerTextBlock`: keep only the first match in the text node.
      - `allowAdjacentReplacements=false`: skip back-to-back word matches.
      - `maxReplacementsPerPage`: stop replacing when page budget is exhausted.
+     - `maxReplacementsPerSentence`: skip candidates after the reconstructed
+       sentence reaches its cap.
      - `maxReplacementsPerLemmaPerPage`: skip lemmas that reached per-page cap.
      - When helper SRS metadata is present and replacement-load constraints
        apply, prefer new/learning/lower-stability due SRS items before mature
        or future-due SRS items.
    - Replace the node with a fragment containing spans and text nodes.
+   - After the fragment is committed, increment the page-total, sentence, and
+     lemma counters for exactly the spans that were rendered.
    - For Japanese targets, replacement display uses selected primary script when rule metadata includes script forms.
    - For morphology-tagged rules, display can use `metadata.morphology.target_surface` while canonical lemma remains `rule.replacement` for gating/feedback keys.
    - Each replacement span is tagged with `data-origin` (`srs` or `ruleset`).
@@ -364,15 +393,32 @@ Debug tooling
 
 Settings added for page replacement density
 - `maxOnePerTextBlock` (default: false)
-  - Limits each text node to a single replacement.
-- `allowAdjacentReplacements` (default: false)
+  - Legacy compatibility control that limits each text node to a single
+    replacement. It remains runtime-supported for existing configurations but
+    is de-emphasized under Advanced settings; use
+    `maxReplacementsPerSentence = 1` for the learner-facing behavior.
+- `allowAdjacentReplacements` (default: true)
   - When disabled, prevents replacements that occur on immediately adjacent words.
-- `maxReplacementsPerPage` (default: 20)
-  - Caps the total number of replacements per page scan/session (`0` means unlimited).
-- `maxReplacementsPerLemmaPerPage` (default: 2)
+- `maxReplacementsPerPage` (default: 0)
+  - Caps the total number of replacements per frame-document scan/session
+    (`0` means unlimited). The top document and embedded frames have independent
+    budgets because the content runtime executes in every frame.
+- `maxReplacementsPerSentence` (default: 0)
+  - Caps replacements within a best-effort reconstructed sentence (`0` means
+    unlimited); a multi-word phrase counts as one replacement.
+- `maxReplacementsPerLemmaPerPage` (default: 0)
   - Caps repeated replacements of the same lemma on a page (`0` means unlimited).
   - When replacement-load constraints are active, SRS candidates are selected
     with scheduler metadata-aware priority before deterministic tie-breaking.
+- Density limits share one post-semantic selection pass. Semantic abstentions do
+  not consume a slot, and counters advance only after the replacement fragment
+  is attached to the page.
+- Density settings are global extension settings. Debug runtime diagnostics
+  expose the `frame_document` scope, configured limits, committed total usage,
+  cap-exhaustion counts, and aggregate page/sentence/lemma rejection counts;
+  lemma and sentence identifiers are not persisted.
+- Visibility-related `class`, `hidden`, and `style` mutations trigger a targeted
+  subtree rescan so content skipped while hidden can be processed when revealed.
 - The defaults are declared as `replacementDensityDefaults.standard` in the
   extension settings defaults so the MVP density policy has one explicit tuning
   point.
@@ -383,4 +429,9 @@ Known issue (not fixed yet)
 - The act of replacing text nodes splits the original text into multiple nodes.
 - This means `maxOnePerTextBlock` can no longer refer to the original text block,
   because the subsequent scan sees newly created nodes and treats them as separate.
-- This is a behavior-level bug; do not fix yet.
+- The control is therefore retained only as explicitly labeled legacy
+  text-node compatibility. No automatic storage migration is performed.
+- Sentence reconstruction is deliberately best effort. Malformed DOM,
+  punctuation-free prose, shadow DOM boundaries, and unusually large/truncated
+  containers can fall back to text-node-local identity; the cap remains safe
+  but may be conservative or split one visible sentence.

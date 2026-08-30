@@ -179,7 +179,9 @@
         ? shareCenterController.syncForProfile(optionsArg)
         : Promise.resolve()),
       clearProfileCache: () => srsProfileSelectorController.clearCache(),
-      syncProfileBackgroundForPrefs: (uiPrefs) => profileBackgroundController.syncForLoadedPrefs(uiPrefs),
+      syncProfileBackgroundForPrefs: (uiPrefs, optionsArg) => (
+        profileBackgroundController.syncForLoadedPrefs(uiPrefs, optionsArg)
+      ),
       setProfileStatusLocalized: (key, substitutions, fallback) => {
         profileStatusController.setLocalized(key, substitutions, fallback);
       },
@@ -190,6 +192,14 @@
       colors: ui.COLORS,
       elements: graphElements.srsProfileRuntime
     });
+    if (ui && typeof ui.setSrsStoryPairSwitchHandler === "function") {
+      ui.setSrsStoryPairSwitchHandler((pairKey) => (
+        srsProfileRuntimeController
+        && typeof srsProfileRuntimeController.activateSrsStoryPair === "function"
+          ? srsProfileRuntimeController.activateSrsStoryPair(pairKey)
+          : Promise.resolve()
+      ));
+    }
 
     const srsActionsController = requireControllerFactory("optionsSrsActions")({
       settingsManager,
@@ -197,6 +207,9 @@
       t,
       setStatus: uiBridge.setStatus,
       resolvePair: languagePrefsAdapter.resolvePairFromInputs,
+      activateSrsStoryPair: (pairKey) => (
+        srsProfileRuntimeController.activateSrsStoryPair(pairKey)
+      ),
       syncSelectedProfile: (items, options) => srsProfileSelectorController.syncSelected(items, options),
       resolveEffectiveSrsPlanningState: (items, pairKey, options) => (
         srsProfileRuntimeController.resolveEffectiveSrsPlanningState(items, pairKey, options)
@@ -206,6 +219,11 @@
       ),
       refreshSemanticAdmissionStatus: (pairKey, profileId) => (
         srsProfileRuntimeController.refreshSemanticAdmissionStatus(pairKey, profileId)
+      ),
+      collapseSrsStoryCardsAfterDelete: () => (
+        ui && typeof ui.collapseSrsStoryCardsAfterDelete === "function"
+          ? ui.collapseSrsStoryCardsAfterDelete()
+          : undefined
       ),
       log: logOptions,
       confirm: (message) => globalThis.confirm(message),
@@ -234,6 +252,7 @@
 
     const srsStoryFlowController = requireControllerFactory("optionsSrsStoryFlow")({
       t,
+      settingsManager,
       setStatus: uiBridge.setStatus,
       saveLanguageSettings: controllerAdapters.saveLanguageSettings,
       saveSrsSettings: controllerAdapters.saveSrsSettings,
@@ -265,6 +284,7 @@
 
     const eventWiringController = requireControllerFactory("optionsEventWiring")({
       t,
+      settingsManager,
       setStatus: uiBridge.setStatus,
       log: logOptions,
       i18n,

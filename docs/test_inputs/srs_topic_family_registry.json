@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "registry_id": "srs_topic_family_registry_v1",
+  "status": "canonical_internal_ids",
+  "purpose": "Canonical SRS topic/register family ids and semantics shared by language-pair-specific topic taxonomies.",
+  "lifecycle_policy": {
+    "family_ids_are_append_only": true,
+    "semantic_contract": "A family id must keep the same user-intent meaning across language pairs. Per-pair availability may differ, but an id cannot be reused for a narrower or different meaning.",
+    "pair_support_policy": "Language pairs declare picker, hidden-overlay, planned, register, and not-applicable support in srs_topic_pair_support_matrix.json."
+  },
+  "families": [
+    {
+      "id": "medicine_health",
+      "display_name": "Medicine & Health",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Health, medicine, anatomy, disease, treatment, and care."
+    },
+    {
+      "id": "finance_business",
+      "display_name": "Finance & Business",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Business, markets, finance, money systems, companies, and professional commerce.",
+      "split_children": [
+        "shopping_money",
+        "work_office"
+      ]
+    },
+    {
+      "id": "shopping_money",
+      "display_name": "Shopping & Money",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "parent_family": "finance_business",
+      "semantic_summary": "Payments, purchases, prices, banking, and everyday money."
+    },
+    {
+      "id": "work_office",
+      "display_name": "Work & Office",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "parent_family": "finance_business",
+      "semantic_summary": "Workplaces, office activity, employment, meetings, and administrative work."
+    },
+    {
+      "id": "sports_fitness",
+      "display_name": "Sports & Fitness",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Sports, athletic activity, exercise, competition, and fitness."
+    },
+    {
+      "id": "games",
+      "display_name": "Games",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Board games, video games, game mechanics, and competitive play."
+    },
+    {
+      "id": "music_media_entertainment",
+      "display_name": "Music, Media & Entertainment",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Music, film, television, media production, and entertainment."
+    },
+    {
+      "id": "law_politics_civics",
+      "display_name": "Law, Politics & Civics",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Law, government, elections, public administration, military, and civic institutions."
+    },
+    {
+      "id": "science_technology",
+      "display_name": "Science & Technology",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Science, applied technology, engineering, and technical domains.",
+      "split_children": [
+        "science_math",
+        "computing_internet"
+      ]
+    },
+    {
+      "id": "science_math",
+      "display_name": "Science & Math",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "parent_family": "science_technology",
+      "semantic_summary": "Mathematics, natural sciences, statistics, physics, chemistry, biology, and research."
+    },
+    {
+      "id": "computing_internet",
+      "display_name": "Computing & Internet",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "parent_family": "science_technology",
+      "semantic_summary": "Computers, software, internet, electronics, telecommunications, and digital tools."
+    },
+    {
+      "id": "travel_places_transport",
+      "display_name": "Travel, Places & Transport",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Travel, geography, places, transportation, transit, and vehicles."
+    },
+    {
+      "id": "arts_literature_humanities",
+      "display_name": "Arts, Literature & Humanities",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Arts, literature, philosophy, religion, history, language, and humanities."
+    },
+    {
+      "id": "animals",
+      "display_name": "Animals",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Animals, zoology, pets, wildlife, and animal-related terms."
+    },
+    {
+      "id": "plants_nature",
+      "display_name": "Plants & Nature",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Plants, botany, gardening, natural environments, and nature terms."
+    },
+    {
+      "id": "food_cooking",
+      "display_name": "Food & Cooking",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Food, drink, cooking, ingredients, dishes, and kitchen activity."
+    },
+    {
+      "id": "anime_manga_pop_culture",
+      "display_name": "Anime, Manga & Pop Culture",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Anime, manga, fandom, internet pop culture, and related entertainment subculture."
+    },
+    {
+      "id": "hobbies_crafts",
+      "display_name": "Hobbies & Crafts",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Hobbies, crafts, creative activities, tools, materials, and leisure skills."
+    },
+    {
+      "id": "casual_slang_register",
+      "display_name": "Casual & Slang",
+      "axis": "register",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Casual, colloquial, slang, internet-slang, and informal-register terms."
+    },
+    {
+      "id": "formal_professional_register",
+      "display_name": "Formal & Professional",
+      "axis": "register",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "semantic_summary": "Formal, literary, professional, official, or elevated-register terms."
+    },
+    {
+      "id": "sat_toefl_exam_prep",
+      "display_name": "SAT & TOEFL Prep",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "target_language:en",
+      "semantic_summary": "English exam-prep vocabulary for target-English learning pairs only."
+    }
+  ]
+}

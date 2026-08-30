@@ -60,6 +60,16 @@ class TestMainRuntimeStartupLogging(unittest.TestCase):
         self.assertEqual(startup_session_from_activation_message(message), "session-abc")
         self.assertIsNone(startup_session_from_activation_message("ACTIVATE"))
 
+    def test_startup_logger_deduplicates_equivalent_log_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            log_path = Path(tmpdir) / "startup.log"
+            logger = StartupLogger([log_path, Path(tmpdir) / "." / "startup.log"])
+
+            logger.log("one checkpoint")
+
+            lines = log_path.read_text(encoding="utf-8").splitlines()
+            self.assertEqual(len(lines), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

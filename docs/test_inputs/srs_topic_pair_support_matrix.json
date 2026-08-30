@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "matrix_id": "srs_topic_pair_support_matrix_v1",
+  "status": "product_support_contract",
+  "purpose": "Language-pair-specific SRS topic availability. Picker support controls which user-facing topic chips are enabled; hidden overlay support means rows can exist in data but the topic is not yet a visible product choice.",
+  "support_states": {
+    "picker_supported_topics": "Visible and enabled in the current topic picker for this pair.",
+    "hidden_overlay_topics": "Runtime topic rows may exist, but the topic remains hidden until coverage/provenance/product review is strong enough.",
+    "planned_source_required_topics": "Canonical topic id exists, but this pair still needs safe source coverage or reviewed overlay work before product support.",
+    "future_register_topics": "Canonical register id exists, but register preferences are not exposed in the current topic picker.",
+    "not_applicable_topics": "Canonical id is intentionally out of scope for this pair."
+  },
+  "pairs": {
+    "en-ja": {
+      "picker_supported_topics": [
+        "animals",
+        "anime_manga_pop_culture",
+        "arts_literature_humanities",
+        "computing_internet",
+        "finance_business",
+        "food_cooking",
+        "games",
+        "hobbies_crafts",
+        "law_politics_civics",
+        "medicine_health",
+        "music_media_entertainment",
+        "plants_nature",
+        "science_math",
+        "science_technology",
+        "shopping_money",
+        "sports_fitness",
+        "travel_places_transport",
+        "work_office"
+      ],
+      "hidden_overlay_topics": [],
+      "planned_source_required_topics": [],
+      "future_register_topics": [
+        "casual_slang_register",
+        "formal_professional_register"
+      ],
+      "not_applicable_topics": [
+        "sat_toefl_exam_prep"
+      ],
+      "notes": "en-ja has product-safe reviewed topic coverage across the current canonical topic palette; register preferences remain hidden."
+    },
+    "en-es": {
+      "picker_supported_topics": [
+        "medicine_health",
+        "finance_business",
+        "shopping_money",
+        "work_office",
+        "sports_fitness",
+        "games",
+        "music_media_entertainment",
+        "law_politics_civics",
+        "science_technology",
+        "science_math",
+        "computing_internet",
+        "travel_places_transport",
+        "arts_literature_humanities",
+        "animals",
+        "plants_nature",
+        "food_cooking",
+        "hobbies_crafts"
+      ],
+      "hidden_overlay_topics": [
+        "anime_manga_pop_culture"
+      ],
+      "planned_source_required_topics": [],
+      "future_register_topics": [
+        "casual_slang_register",
+        "formal_professional_register"
+      ],
+      "not_applicable_topics": [
+        "sat_toefl_exam_prep"
+      ],
+      "notes": "en-es exposes the rich strict-MVP picker set. Anime/manga/pop-culture remains hidden despite reviewed rows; register preferences remain hidden."
+    },
+    "en-de": {
+      "picker_supported_topics": [
+        "arts_literature_humanities",
+        "finance_business",
+        "games",
+        "law_politics_civics",
+        "medicine_health",
+        "music_media_entertainment",
+        "science_technology",
+        "sports_fitness",
+        "travel_places_transport"
+      ],
+      "hidden_overlay_topics": [
+        "computing_internet",
+        "hobbies_crafts",
+        "plants_nature",
+        "science_math",
+        "shopping_money",
+        "work_office"
+      ],
+      "planned_source_required_topics": [
+        "animals",
+        "anime_manga_pop_culture",
+        "food_cooking"
+      ],
+      "future_register_topics": [
+        "casual_slang_register",
+        "formal_professional_register"
+      ],
+      "not_applicable_topics": [
+        "sat_toefl_exam_prep"
+      ],
+      "notes": "en-de keeps the current extension-supported picker set; supplied product-owned seed lists now provide hidden overlay coverage for several follow-up topic families while review/promotion remains pending."
+    }
+  }
+}

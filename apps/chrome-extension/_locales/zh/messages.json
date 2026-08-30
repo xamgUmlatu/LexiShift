@@ -1,9 +1,9 @@
 {
   "app_name": {
-    "message": "LexiShift"
+    "message": "LexiShift Beta"
   },
   "app_description": {
-    "message": "使用可配置规则替换可见文本，并可选高亮。"
+    "message": "BETA 测试版。使用本地 LexiShift 数据，在浏览网页时练习词汇。"
   },
   "options_title": {
     "message": "LexiShift 选项"
@@ -57,13 +57,16 @@
     "message": "页面替换密度"
   },
   "hint_replacement_behavior_scope": {
-    "message": "在词汇练习和手动规则合并后，应用于页面显示。"
+    "message": "这些全局设置会在词汇练习与手动规则合并后应用。页面限制会分别应用于顶层页面和每个嵌入式框架。"
+  },
+  "summary_legacy_replacement_compatibility": {
+    "message": "旧版替换设置兼容性"
   },
   "toggle_max_one": {
-    "message": "每个文本块最多替换 1 个词"
+    "message": "旧版设置：每个文本节点最多替换 1 处"
   },
   "hint_max_one": {
-    "message": "限制每个文本节点只进行一次替换。"
+    "message": "为兼容现有配置而保留。若要按阅读体验限制密度，请将“每句最大替换数”设为 1。"
   },
   "toggle_allow_adjacent": {
     "message": "允许替换相邻词"
@@ -75,19 +78,40 @@
     "message": "每页最大替换数"
   },
   "hint_max_replacements_page": {
-    "message": "标准默认值为 20。仅在需要无限替换时使用 0。"
+    "message": "标准默认值为 0（不限制）。"
+  },
+  "label_max_replacements_sentence": {
+    "message": "每句最大替换数"
+  },
+  "hint_max_replacements_sentence": {
+    "message": "标准默认值为 0（不限制）。多词短语计为一次替换。"
   },
   "label_max_replacements_lemma_page": {
     "message": "每个词每页上限"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "标准默认值为 2。防止单个词在页面中过度出现。"
+    "message": "标准默认值为 0（不限制）。防止单个词在页面中过度出现。"
   },
   "section_srs": {
     "message": "词汇练习"
   },
   "badge_srs_active_story": {
     "message": "活跃"
+  },
+  "badge_srs_ready_story": {
+    "message": "就绪"
+  },
+  "badge_srs_paused_story": {
+    "message": "已暂停"
+  },
+  "button_srs_story_switch": {
+    "message": "切换"
+  },
+  "heading_srs_practice_settings": {
+    "message": "练习设置"
+  },
+  "label_srs_active_words": {
+    "message": "$1 个活跃词"
   },
   "summary_srs_story_sampling": {
     "message": "抽样下一批词"
@@ -197,12 +221,6 @@
   "hint_srs_max_active": {
     "message": "LexiShift 同时保留在练习轮换中的学习词数量。"
   },
-  "label_srs_bootstrap_top_n": {
-    "message": "词汇搜索范围"
-  },
-  "hint_srs_bootstrap_top_n": {
-    "message": "扩大用于抽样和新词选择的排序词池。除非样本感觉太窄，否则请保持默认值。"
-  },
   "label_srs_initial_active_count": {
     "message": "起始词数"
   },
@@ -218,11 +236,23 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "覆盖因语言对而异"
   },
+  "tooltip_srs_topic_not_covered": {
+    "message": "$1 尚未覆盖"
+  },
+  "topic_srs_general": {
+    "message": "通用"
+  },
   "topic_srs_medicine_health": {
     "message": "医学与健康"
   },
   "topic_srs_finance_business": {
     "message": "金融与商业"
+  },
+  "topic_srs_shopping_money": {
+    "message": "购物与金钱"
+  },
+  "topic_srs_work_office": {
+    "message": "工作与办公"
   },
   "topic_srs_sports_fitness": {
     "message": "运动与健身"
@@ -239,6 +269,12 @@
   "topic_srs_science_technology": {
     "message": "科学与技术"
   },
+  "topic_srs_science_math": {
+    "message": "科学与数学"
+  },
+  "topic_srs_computing_internet": {
+    "message": "计算机与互联网"
+  },
   "topic_srs_arts_literature_humanities": {
     "message": "艺术与文学"
   },
@@ -250,6 +286,15 @@
   },
   "topic_srs_plants_nature": {
     "message": "植物与自然"
+  },
+  "topic_srs_travel_places_transport": {
+    "message": "旅行与交通"
+  },
+  "topic_srs_anime_manga_pop_culture": {
+    "message": "动画、漫画与流行文化"
+  },
+  "topic_srs_hobbies_crafts": {
+    "message": "爱好与手工"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高级标签"
@@ -362,6 +407,12 @@
   "toggle_srs_sound": {
     "message": "播放反馈音效"
   },
+  "toggle_srs_browsing_admission": {
+    "message": "使用浏览内容调整词汇练习"
+  },
+  "hint_srs_browsing_admission": {
+    "message": "适用于所有词汇练习。支持的语言对可以在本机保存页面词汇趋势，并用于选择之后的新词。"
+  },
   "label_helper_status": {
     "message": "Helper 状态"
   },
@@ -434,6 +485,66 @@
   "button_srs_admission_preview": {
     "message": "抽样 10 个匹配偏好的词…"
   },
+  "status_srs_admission_preview_running": {
+    "message": "正在抽样可能的下一个词（$1）…"
+  },
+  "status_srs_admission_preview_failed": {
+    "message": "词语抽样失败。"
+  },
+  "status_srs_admission_preview_header": {
+    "message": "下一批词抽样：$3 中 $2 个候选里显示 $1 个。"
+  },
+  "status_srs_admission_preview_plan_only": {
+    "message": "当前选择的策略无法预览。"
+  },
+  "status_srs_admission_preview_empty": {
+    "message": "$1 没有可显示的准入抽样。"
+  },
+  "note_srs_admission_preview_sample_only": {
+    "message": "仅为抽样。没有添加任何词。"
+  },
+  "label_srs_admission_preview_sampled_words": {
+    "message": "抽样词："
+  },
+  "label_srs_admission_preview_sample_details": {
+    "message": "抽样详情："
+  },
+  "label_srs_admission_preview_effective_profile_context": {
+    "message": "生效的个人资料条件："
+  },
+  "label_srs_admission_preview_topic_overlay": {
+    "message": "主题补充数据："
+  },
+  "label_srs_admission_preview_neutral_topic_support": {
+    "message": "中性候选中的主题覆盖："
+  },
+  "label_srs_admission_preview_plan_notes": {
+    "message": "计划备注："
+  },
+  "label_srs_admission_preview_advanced_details": {
+    "message": "高级详情"
+  },
+  "summary_srs_admission_preview_selected_topics": {
+    "message": "已选主题：$1。"
+  },
+  "summary_srs_admission_preview_sampled_topic_words": {
+    "message": "主题匹配抽样词：$1 个。"
+  },
+  "summary_srs_admission_preview_matched_candidates": {
+    "message": "预览候选中匹配 $1 个。"
+  },
+  "summary_srs_admission_preview_no_topic_candidates": {
+    "message": "此预览范围内没有匹配这些主题的候选。"
+  },
+  "summary_srs_admission_preview_overlay_status": {
+    "message": "补充数据状态：$1。"
+  },
+  "summary_srs_admission_preview_no_topic_priorities": {
+    "message": "本次抽样中没有主题优先级传到 helper。"
+  },
+  "summary_srs_admission_preview_showing": {
+    "message": "$3 中 $2 个候选里正在显示 $1 个。"
+  },
   "button_srs_initialize": {
     "message": "开始练习"
   },
@@ -453,7 +564,7 @@
     "message": "运行采样规则生成（5）…"
   },
   "button_srs_delete_story": {
-    "message": "删除词汇练习"
+    "message": "删除此词汇练习"
   },
   "heading_srs_words_dashboard": {
     "message": "学习词"
@@ -681,10 +792,10 @@
     "message": "末页"
   },
   "confirm_srs_reset_1": {
-    "message": "删除当前配置档和语言对的词汇练习？此操作无法撤销。"
+    "message": "删除当前配置档中此语言对的词汇练习？此操作无法撤销。"
   },
   "confirm_srs_reset_2": {
-    "message": "真的要删除这个练习的学习词、复习历史和丢弃数据吗？"
+    "message": "真的要删除此词汇练习的学习词、复习历史和丢弃数据吗？"
   },
   "status_srs_sampling": {
     "message": "正在抽样…"
@@ -783,13 +894,13 @@
     "message": "修复："
   },
   "status_srs_resetting": {
-    "message": "正在删除词汇练习…"
+    "message": "正在删除此词汇练习…"
   },
   "status_srs_reset_success": {
-    "message": "词汇练习已删除。"
+    "message": "此词汇练习已删除。"
   },
   "status_srs_reset_failed": {
-    "message": "词汇练习删除失败。"
+    "message": "此词汇练习删除失败。"
   },
   "status_srs_reset_outdated": {
     "message": "删除失败：找不到 Helper 命令。要重启 Helper 吗？"
@@ -1334,6 +1445,18 @@
   "popup_definition_error": {
     "message": "无法加载定义。"
   },
+  "popup_pos_noun": { "message": "名词" },
+  "popup_pos_adjective": { "message": "形容词" },
+  "popup_pos_verb": { "message": "动词" },
+  "popup_pos_adverb": { "message": "副词" },
+  "popup_pos_pronoun": { "message": "代词" },
+  "popup_pos_determiner": { "message": "限定词" },
+  "popup_pos_adposition": { "message": "介词" },
+  "popup_pos_conjunction": { "message": "连词" },
+  "popup_pos_interjection": { "message": "感叹词" },
+  "popup_pos_numeral": { "message": "数词" },
+  "popup_pos_punctuation": { "message": "标点符号" },
+  "popup_pos_other": { "message": "其他" },
   "popup_feedback_history_loading": {
     "message": "评分历史（加载中...）"
   },
@@ -1436,9 +1559,6 @@
   "hint_profile_bg_scope": {
     "message": "仅更改该配置在选项页中的界面外观。"
   },
-  "toggle_profile_bg_enabled": {
-    "message": "启用选项页背景图片"
-  },
   "label_profile_bg_backdrop_color": {
     "message": "选项页底色"
   },
@@ -1450,9 +1570,6 @@
   },
   "button_profile_bg_remove": {
     "message": "移除"
-  },
-  "button_profile_bg_apply": {
-    "message": "应用选项页背景"
   },
   "button_profile_bg_position_reset": {
     "message": "重置图片位置"
@@ -1606,5 +1723,68 @@
   },
   "status_srs_discard_failed": {
     "message": "无法丢弃学习词。"
+  },
+  "label_language_pair": {
+    "message": "$1 -> $2"
+  },
+  "replacement_tooltip_toggle_original": {
+    "message": "点击切换为原文"
+  },
+  "replacement_tooltip_details_feedback": {
+    "message": "右键点击（macOS 上 Ctrl+点击）查看详情和反馈。"
+  },
+  "replacement_tooltip_toggle_original_with_details": {
+    "message": "点击切换为原文。右键点击（macOS 上 Ctrl+点击）查看详情和反馈。"
+  },
+  "replacement_tooltip_original": {
+    "message": "原文：$1"
+  },
+  "manual_source_prompt_title": {
+    "message": "LexiShift 数据源"
+  },
+  "dictionary_source_prompt_title": {
+    "message": "LexiShift 弹窗词典"
+  },
+  "dictionary_source_prompt_body": {
+    "message": "LexiShift 可以从这个由社区维护的目录中导入兼容的 Yomitan 格式 3 术语词典 ZIP。获取前请查看每本词典的许可证或使用条款。"
+  },
+  "dictionary_source_prompt_after_download": {
+    "message": "下载可用的 ZIP 后请返回 LexiShift。桌面应用会验证该文件并提供本地导入选项。"
+  },
+  "dictionary_source_prompt_recommended": {
+    "message": "日语推荐：$1"
+  },
+  "dictionary_source_prompt_format": {
+    "message": "格式：$1"
+  },
+  "dictionary_source_prompt_show_entry": {
+    "message": "显示推荐条目"
+  },
+  "dictionary_source_prompt_entry_found": {
+    "message": "已突出显示推荐条目。请使用此页面上的下载链接，完成后返回 LexiShift。"
+  },
+  "dictionary_source_prompt_entry_missing": {
+    "message": "页面已发生变化，无法找到推荐条目。请在此页面中搜索“$1”。"
+  },
+  "manual_source_prompt_body": {
+    "message": "此页面托管 $2 所需的 $1。请先查看提供方条款，然后下载所需源文件。"
+  },
+  "manual_source_prompt_file": {
+    "message": "所需文件：$1"
+  },
+  "manual_source_prompt_terms": {
+    "message": "查看此页面上的条款"
+  },
+  "manual_source_prompt_download": {
+    "message": "下载源文件"
+  },
+  "manual_source_prompt_after_download": {
+    "message": "下载完成后，请返回 LexiShift 并导入文件。"
+  },
+  "manual_source_prompt_download_opened": {
+    "message": "已打开下载。完成后请返回 LexiShift。"
+  },
+  "manual_source_prompt_dismiss": {
+    "message": "关闭"
   }
 }

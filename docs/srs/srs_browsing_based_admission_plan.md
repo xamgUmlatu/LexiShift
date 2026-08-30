@@ -410,12 +410,76 @@ Current prototype evidence:
   code-backed audit for initial admission, refresh growth, rebalance,
   feedback/exposure caveats, and release/discard/suspend gaps.
 - `scripts/testing/srs_browsing_admission_backend_simulation.py` renders a
-  synthetic helper-persisted report without runtime SRS mutation.
+  pair-driven synthetic helper-persisted report without runtime SRS mutation;
+  the default fixture now exercises `en-ja` Unicode target lemmas, and `--pair
+  en-es` remains available for older comparison.
 - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
-  records the current fixture: helper ingest succeeds only with opt-in, packet
-  caps apply, stale/low-signal rows prune, suppressed lemmas receive zero
-  admission probability, and `Off < Balanced < Strong` browsing-lane share is
-  monotonic.
+  records the current default `en-ja` fixture: helper ingest succeeds only with
+  opt-in, packet caps apply, stale/low-signal rows prune, suppressed lemmas
+  receive zero admission probability, `Off` preserves neutral ordering, and
+  `Off < Balanced < Strong` browsing-lane share is monotonic.
+- Pair-specific fixtures are also rendered at
+  `docs/test_outputs/srs_browsing_admission_backend_simulation_en_ja_latest.md`
+  and
+  `docs/test_outputs/srs_browsing_admission_backend_simulation_en_es_latest.md`.
+- `scripts/testing/srs_browsing_admission_implicit_sample_pack_en_ja.py`
+  renders a product-profile-shaped en-ja sidecar for implicit personalization:
+  neutral/no-history, explicit topic only, implicit history only, agreeing
+  explicit+implicit signals, conflicting explicit+implicit signals, and
+  blocked-lemma guard scenarios. The fixture uses already-resolved target lemma
+  aggregates and `preview_browsing_admission_refresh`; it does not test live
+  page-text extraction or mutate production SRS state.
+- `docs/test_outputs/srs_browsing_admission_implicit_sample_pack_en_ja_latest.md`
+  records the current sample result: all seven scenarios pass, no-history rows
+  preserve neutral selection, implicit history creates a bounded browsing lane,
+  conflict scenarios reserve some admission budget for browsing history, and
+  explicitly blocked lemmas remain excluded.
+- `scripts/testing/srs_browsing_admission_signal_gradient_en_ja.py` renders a
+  count-gradient sidecar over the same en-ja profile-growth frontier. It varies
+  already-resolved target-lemma aggregate counts from weak to saturated so we
+  can see the thresholds where `Balanced` and `Strong` begin reserving browsing
+  slots.
+- `docs/test_outputs/srs_browsing_admission_signal_gradient_en_ja_latest.md`
+  records the current gradient result: all 36 scenarios pass; one target-side
+  food signal first affects `Strong` at count `1` and `Balanced` at count `4`;
+  four target-side food signals first affect `Strong` at count `0.25` and
+  `Balanced` at count `0.5`; replacement-exposure signals are weaker as
+  intended, first affecting `Balanced` at count `2`.
+
+## Aggregate Shape
+
+Browsing aggregates are keyed by target identity, not by raw page text. The
+current persisted shape is:
+
+```json
+{
+  "target_key": "辛い|つらい",
+  "target_lemma": "辛い",
+  "target_reading": "つらい",
+  "source_hit_count": 0.0,
+  "target_hit_count": 4.0,
+  "replacement_exposure_count": 0.0,
+  "source_mapping_confidence": 1.0,
+  "reading_confidence": 0.6,
+  "observation_sources": ["target_surface"],
+  "last_seen_at": "2026-05-23T00:00:00Z",
+  "decayed_at": "2026-05-23T00:00:00Z"
+}
+```
+
+Notes:
+
+- `target_key` is the admission join key. For en-ja, the preferred semantic key
+  is `surface|reading` when reading is known, such as `辛い|つらい`. LPs that do
+  not need reading disambiguation can use the lemma as the key.
+- `target_lemma` and `target_reading` are metadata/debug fields, not the primary
+  join contract.
+- Replacement exposure is exact when LexiShift already knows the admitted target
+  item. Source-language observations are dictionary-mapped and confidence
+  weighted. Target-language surface observations can use a most-common-reading
+  heuristic, but should set `reading_confidence < 1.0` when reading is inferred.
+- Legacy lemma-only stores remain readable. If no `target_key` exists, the
+  loader falls back to `target_lemma`.
 
 ## Probability Model
 
@@ -425,10 +489,16 @@ For candidate `i`:
 
 ```text
 raw_browsing_i =
-  source_hit_count_i * source_mapping_confidence_i
-  + target_hit_count_i
-  + replacement_exposure_count_i * replacement_exposure_weight
+  reading_confidence_i
+  * (
+      source_hit_count_i
+      + target_hit_count_i
+      + replacement_exposure_count_i * replacement_exposure_weight
+    )
 ```
+
+`source_hit_count` is already weighted by `source_mapping_confidence` during
+ingest; the confidence value is retained for audit/debug output.
 
 Normalize with a saturating function:
 
@@ -460,26 +530,50 @@ The curve is intentionally logarithmic in raw browsing count and linear only in
 the normalized browsing signal. A true exponential boost is deferred because it
 can become all-or-nothing quickly in a sticky SRS setting.
 
-Optional fit-aware extension:
+Implemented preview/simulation interpretation:
 
 ```text
+raw_browsing_i =
+  source_hit_count_i
+  + target_hit_count_i
+  + replacement_exposure_count_i * replacement_exposure_weight
+
+browsing_signal_i =
+  log1p(raw_browsing_i * reading_confidence_i)
+  / log1p(browsing_signal_cap)
+
+effective_browsing_signal_i =
+  browsing_signal_i
+  * admission_quality_multiplier_i
+  * bounded_specificity_multiplier_i
+
 browsing_boost_i =
   1
   + min(
       max_browsing_boost - 1,
       browsing_alpha
-      * browsing_signal_i
-      * proficiency_fit_i
-      * explicit_preference_fit_i
-      * source_mapping_confidence_i
+      * effective_browsing_signal_i
+      * readiness_multiplier_i
+      * source_confidence_i
+      * (1 + preference_alignment_weight * explicit_preference_fit_i)
     )
 ```
 
-The current research harness models the conservative base boost. Before runtime
-admission uses browsing, preview/simulation should compare the base formula
-against the fit-aware extension. The product goal is that browsing helps most
-when the word is repeatedly encountered, level-appropriate, source-supported,
-and aligned with explicit preferences.
+`admission_quality_multiplier_i` reuses the existing admission suitability
+signal. Browsing therefore cannot make a candidate with `exclude_standalone_srs`
+or effectively zero suitability occupy a browsing lane. This is deliberately an
+admission-side interpretation, not an aggregation-side deletion: the aggregate
+store still records observed evidence.
+
+`bounded_specificity_multiplier_i` uses global corpus/commonness evidence to
+reduce the interest value of ubiquitous words and slightly preserve contentful
+less-ubiquitous words. It is bounded so rare/no-frequency junk cannot dominate:
+known commonness maps into roughly `0.65..1.15`, while unknown commonness is
+treated conservatively at `0.75`.
+
+The product goal is that browsing helps most when the word is repeatedly
+encountered, level-appropriate, source-supported, admissible as an SRS item, and
+aligned with explicit preferences.
 
 Suggested strength presets:
 
@@ -493,7 +587,7 @@ Boost:
 
 ```text
 browsing_boost_i =
-  1 + min(max_browsing_boost - 1, browsing_alpha * browsing_signal_i)
+  1 + min(max_browsing_boost - 1, browsing_alpha * effective_browsing_signal_i * fit_i)
 ```
 
 Candidate score integration:
@@ -523,6 +617,7 @@ r_i = readiness multiplier for candidate i
 p_i = explicit preference affinity for candidate i
 q_i = source/mapping confidence for candidate i
 b_i = normalized browsing signal for candidate i
+e_i = effective browsing signal after admission quality and specificity
 ```
 
 Hard filters and budget are outside the browsing model:
@@ -1000,9 +1095,30 @@ Harness checks:
 
 - SRS quality harness for scheduling/admission boundaries;
 - changed-file workflow check;
-- offline page/text fixture probe via
+- pair-general backend simulation via
+  `scripts/testing/srs_browsing_admission_backend_simulation.py --pair ...`;
+- en-ja profile-shaped implicit browsing sample pack via
+  `scripts/testing/srs_browsing_admission_implicit_sample_pack_en_ja.py`;
+- en-ja count-gradient sensitivity pack via
+  `scripts/testing/srs_browsing_admission_signal_gradient_en_ja.py`;
+- en-ja saved-page extraction and helper aggregation pack via
+  `scripts/testing/srs_browsing_admission_saved_page_pack_en_ja.py`. This is
+  the preferred pre-runtime harness: it consumes local downloaded page fixtures,
+  maps English source terms and Japanese target surfaces/ruby pairs to
+  reading-aware `target_key` signal rows, and verifies the helper aggregate
+  store without live browser capture or SRS mutation. Its signal rows include
+  frequency-rank and JMDict-priority diagnostics so mined noise can be reviewed
+  before runtime capture is enabled;
+- en-ja saved-page admission preview pack via
+  `scripts/testing/srs_browsing_admission_saved_page_admission_pack_en_ja.py`.
+  This consumes the same saved-page aggregate, compares `off`, `balanced`, and
+  `strong` browsing admission presets against the real profile-growth candidate
+  frontier, and writes a JSON/Markdown review pack without mutating runtime SRS
+  state;
+- offline page/text extraction research probe via
   `scripts/testing/srs_browsing_admission_research_en_es.py`, including its
-  canonical helper/core probe section;
+  canonical helper/core probe section. This extraction probe is still
+  en-es/Latin-token specific and should not be treated as the en-ja extractor;
 - browser smoke for opt-in/off state and clear-data control when UI lands.
 
 ## Lifecycle Audit Result

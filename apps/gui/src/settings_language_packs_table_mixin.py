@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (
     QHeaderView,
     QPushButton,
     QSizePolicy,
+    QStyle,
     QTableWidget,
     QTableWidgetItem,
 )
@@ -32,6 +33,7 @@ _LANGUAGE_RESOURCE_COLUMN_WIDTHS = {
     5: 112,
     6: 112,
     7: 86,
+    8: 76,
 }
 _EMBEDDING_RESOURCE_COLUMN_WIDTHS = {
     0: 260,
@@ -42,6 +44,7 @@ _EMBEDDING_RESOURCE_COLUMN_WIDTHS = {
     5: 116,
     6: 112,
     7: 86,
+    8: 76,
 }
 
 
@@ -104,6 +107,17 @@ class LanguagePackPanelTableMixin:
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         return button
 
+    def _resource_table_info_button(self, pack, handler) -> QPushButton:
+        button = self._resource_table_button("")
+        button.setIcon(self.style().standardIcon(QStyle.SP_MessageBoxInformation))
+        button.setMaximumWidth(42)
+        button.setToolTip(
+            t("language_packs.source_license.button_tooltip", name=pack.display_name())
+        )
+        button.setAccessibleName(t("language_packs.source_license.button"))
+        button.clicked.connect(lambda checked=False, pack_id=pack.pack_id: handler(pack_id))
+        return button
+
     def _configure_language_resource_table(self, table: QTableWidget) -> None:
         self._configure_resource_table_columns(
             table,
@@ -154,7 +168,11 @@ class LanguagePackPanelTableMixin:
             download_button.setText(t("buttons.redownload"))
         else:
             download_button.setText(t("buttons.download"))
-        if is_pack_download_disabled(getattr(self, "_pack_source_overrides", {}), pack.pack_id):
+        if is_pack_download_disabled(
+            getattr(self, "_pack_source_overrides", {}),
+            pack.pack_id,
+            pack,
+        ):
             download_button.setEnabled(False)
             download_button.setToolTip(
                 pack_download_disabled_tooltip(getattr(self, "_pack_source_overrides", {}), pack)
@@ -219,7 +237,11 @@ class LanguagePackPanelTableMixin:
                     row.status_item.setText(t("language_packs.status.invalid"))
                     self._set_status_item_tone(row.status_item, "error")
                     row.status_item.setToolTip(message)
-            elif is_pack_download_disabled(getattr(self, "_pack_source_overrides", {}), pack_id):
+            elif is_pack_download_disabled(
+                getattr(self, "_pack_source_overrides", {}),
+                pack_id,
+                pack,
+            ):
                 row.status_item.setText(t("rules_table.disabled"))
                 self._set_status_item_tone(row.status_item, "error")
                 row.status_item.setToolTip(
@@ -275,7 +297,11 @@ class LanguagePackPanelTableMixin:
                     row.status_item.setText(t("language_packs.status.invalid"))
                     self._set_status_item_tone(row.status_item, "error")
                     row.status_item.setToolTip(message)
-            elif is_pack_download_disabled(getattr(self, "_pack_source_overrides", {}), pack_id):
+            elif is_pack_download_disabled(
+                getattr(self, "_pack_source_overrides", {}),
+                pack_id,
+                pack,
+            ):
                 row.status_item.setText(t("rules_table.disabled"))
                 self._set_status_item_tone(row.status_item, "error")
                 row.status_item.setToolTip(
@@ -351,7 +377,11 @@ class LanguagePackPanelTableMixin:
                 row.status_item.setText(t("language_packs.status.installed"))
                 self._set_status_item_tone(row.status_item, "success")
                 row.status_item.setToolTip(resolved_path)
-            elif is_pack_download_disabled(getattr(self, "_pack_source_overrides", {}), pack_id):
+            elif is_pack_download_disabled(
+                getattr(self, "_pack_source_overrides", {}),
+                pack_id,
+                pack,
+            ):
                 row.status_item.setText(t("rules_table.disabled"))
                 self._set_status_item_tone(row.status_item, "error")
                 row.status_item.setToolTip(
@@ -397,6 +427,9 @@ class LanguagePackPanelTableMixin:
             delete_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._delete_language_pack(pack_id)
             )
+            info_button = self._resource_table_info_button(
+                pack, self._show_language_pack_source_license
+            )
             size_item = QTableWidgetItem(pack.size)
             size_item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
@@ -408,6 +441,7 @@ class LanguagePackPanelTableMixin:
             self.language_pack_table.setCellWidget(row, 5, local_button)
             self.language_pack_table.setCellWidget(row, 6, delete_button)
             self.language_pack_table.setItem(row, 7, size_item)
+            self.language_pack_table.setCellWidget(row, 8, info_button)
 
             self._language_pack_rows[pack.pack_id] = LanguagePackRow(
                 row=row,
@@ -439,6 +473,9 @@ class LanguagePackPanelTableMixin:
             delete_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._delete_frequency_pack(pack_id)
             )
+            info_button = self._resource_table_info_button(
+                pack, self._show_frequency_pack_source_license
+            )
             size_item = QTableWidgetItem(pack.size)
             size_item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
@@ -450,6 +487,7 @@ class LanguagePackPanelTableMixin:
             self.frequency_pack_table.setCellWidget(row, 5, local_button)
             self.frequency_pack_table.setCellWidget(row, 6, delete_button)
             self.frequency_pack_table.setItem(row, 7, size_item)
+            self.frequency_pack_table.setCellWidget(row, 8, info_button)
 
             self._frequency_pack_rows[pack.pack_id] = FrequencyPackRow(
                 row=row,
@@ -462,7 +500,7 @@ class LanguagePackPanelTableMixin:
     def _populate_embedding_packs(self) -> None:
         self._embedding_pack_rows.clear()
         self.embedding_pack_table = ResourcePackTable()
-        self.embedding_pack_table.setColumnCount(8)
+        self.embedding_pack_table.setColumnCount(9)
         self.embedding_pack_table.setHorizontalHeaderLabels(
             [
                 t("language_packs.headers.pack"),
@@ -473,6 +511,7 @@ class LanguagePackPanelTableMixin:
                 t("language_packs.headers.use"),
                 t("language_packs.headers.delete"),
                 t("language_packs.headers.size"),
+                t("language_packs.headers.info"),
             ]
         )
         self.embedding_pack_table.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -505,6 +544,9 @@ class LanguagePackPanelTableMixin:
             delete_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._delete_embedding_pack(pack_id)
             )
+            info_button = self._resource_table_info_button(
+                pack, self._show_embedding_pack_source_license
+            )
             size_item = QTableWidgetItem(pack.size)
             size_item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
@@ -516,6 +558,7 @@ class LanguagePackPanelTableMixin:
             self.embedding_pack_table.setCellWidget(row, 5, use_button)
             self.embedding_pack_table.setCellWidget(row, 6, delete_button)
             self.embedding_pack_table.setItem(row, 7, size_item)
+            self.embedding_pack_table.setCellWidget(row, 8, info_button)
 
             self._embedding_pack_rows[pack.pack_id] = EmbeddingPackRow(
                 row=row,
@@ -529,7 +572,7 @@ class LanguagePackPanelTableMixin:
     def _populate_cross_embedding_packs(self) -> None:
         self._cross_embedding_pack_rows.clear()
         self.cross_embedding_pack_table = ResourcePackTable()
-        self.cross_embedding_pack_table.setColumnCount(8)
+        self.cross_embedding_pack_table.setColumnCount(9)
         self.cross_embedding_pack_table.setHorizontalHeaderLabels(
             [
                 t("language_packs.headers.pack"),
@@ -540,6 +583,7 @@ class LanguagePackPanelTableMixin:
                 t("language_packs.headers.use"),
                 t("language_packs.headers.delete"),
                 t("language_packs.headers.size"),
+                t("language_packs.headers.info"),
             ]
         )
         self.cross_embedding_pack_table.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -572,6 +616,9 @@ class LanguagePackPanelTableMixin:
             delete_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._delete_embedding_pack(pack_id)
             )
+            info_button = self._resource_table_info_button(
+                pack, self._show_embedding_pack_source_license
+            )
             size_item = QTableWidgetItem(pack.size)
             size_item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
@@ -583,6 +630,7 @@ class LanguagePackPanelTableMixin:
             self.cross_embedding_pack_table.setCellWidget(row, 5, use_button)
             self.cross_embedding_pack_table.setCellWidget(row, 6, delete_button)
             self.cross_embedding_pack_table.setItem(row, 7, size_item)
+            self.cross_embedding_pack_table.setCellWidget(row, 8, info_button)
 
             self._cross_embedding_pack_rows[pack.pack_id] = EmbeddingPackRow(
                 row=row,

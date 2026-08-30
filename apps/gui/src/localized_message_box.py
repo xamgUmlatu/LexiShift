@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from PySide6.QtWidgets import QMessageBox
+from PySide6.QtCore import QTimer
+from PySide6.QtWidgets import QMessageBox, QPushButton
 
 from i18n import t
+from theme_manager import build_base_styles, resolve_current_theme
 
 
 _STANDARD_BUTTON_TEXT_KEYS = {
@@ -16,11 +18,50 @@ _STANDARD_BUTTON_TEXT_KEYS = {
 }
 
 
+def apply_message_box_theme(dialog: QMessageBox, *, screen_id: str = "settings_dialog") -> None:
+    theme = resolve_current_theme(screen_id=screen_id)
+    dialog.setStyleSheet(build_base_styles(theme))
+
+
 def localize_standard_buttons(dialog: QMessageBox) -> None:
     for standard_button, key in _STANDARD_BUTTON_TEXT_KEYS.items():
         button = dialog.button(standard_button)
         if button is not None:
             button.setText(t(key))
+    _localize_detail_buttons(dialog)
+
+
+def prepare_message_box(dialog: QMessageBox, *, screen_id: str = "settings_dialog") -> None:
+    apply_message_box_theme(dialog, screen_id=screen_id)
+    localize_standard_buttons(dialog)
+
+
+def _localize_detail_buttons(dialog: QMessageBox) -> None:
+    for button in dialog.findChildren(QPushButton):
+        if _localize_detail_button(button) and not button.property(
+            "lexishiftDetailLocalizationHooked"
+        ):
+            button.setProperty("lexishiftDetailLocalizationHooked", True)
+            button.clicked.connect(
+                lambda checked=False, target=button: QTimer.singleShot(
+                    0, lambda: _localize_detail_button(target)
+                )
+            )
+
+
+def _localize_detail_button(button: QPushButton) -> bool:
+    normalized = button.text().replace("&", "").strip().lower()
+    if normalized.startswith("show details"):
+        button.setText(t("buttons.show_details"))
+        return True
+    if normalized.startswith("hide details"):
+        button.setText(t("buttons.hide_details"))
+        return True
+    return False
+
+
+def relocalize_message_box_details(dialog: QMessageBox) -> None:
+    _localize_detail_buttons(dialog)
 
 
 def localized_question(
@@ -37,5 +78,5 @@ def localized_question(
     dialog.setStandardButtons(buttons)
     if default_button != QMessageBox.StandardButton.NoButton:
         dialog.setDefaultButton(default_button)
-    localize_standard_buttons(dialog)
+    prepare_message_box(dialog)
     return QMessageBox.StandardButton(dialog.exec())

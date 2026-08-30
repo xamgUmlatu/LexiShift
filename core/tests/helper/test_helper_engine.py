@@ -53,8 +53,12 @@ from lexishift_core.srs.browsing_admission import (  # noqa: E402
     save_browsing_signal_store,
 )
 from lexishift_core.srs.signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
-from lexishift_core.srs.topic_overlay import ANIMALS_PLANTS_OVERLAY_FILENAME  # noqa: E402
+from lexishift_core.srs.topic_overlay import (  # noqa: E402
+    ANIMALS_PLANTS_OVERLAY_FILENAME,
+    EN_JA_JMDICT_OVERLAY_FILENAME,
+)
 from lexishift_core.srs import (
+    SRS_LIFECYCLE_DISCARDED,
     SrsInventory,
     SrsHistoryEntry,
     SrsItem,
@@ -180,21 +184,87 @@ def _create_frequency_db(
     return path
 
 
+def _write_minimal_jmdict(path: Path, entries: tuple[tuple[str, str], ...]) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    body = "\n".join(
+        (f"  <entry><k_ele><keb>{lemma}</keb></k_ele><r_ele><reb>{reading}</reb></r_ele></entry>")
+        for lemma, reading in entries
+    )
+    path.write_text(
+        f'<?xml version="1.0" encoding="UTF-8"?>\n<JMdict>\n{body}\n</JMdict>\n',
+        encoding="utf-8",
+    )
+    return path
+
+
+def _rulegen_output_for_active_items(*, store, pair, active_item_ids=None, **_kwargs):
+    lemmas_by_id = {item.item_id: item.lemma for item in store.items if item.language_pair == pair}
+    target_lemmas = [
+        lemmas_by_id[item_id] for item_id in (active_item_ids or ()) if item_id in lemmas_by_id
+    ]
+    rules = tuple(
+        VocabRule(source_phrase=f"{lemma}-source", replacement=lemma) for lemma in target_lemmas
+    )
+    return store, SimpleNamespace(
+        rules=rules,
+        snapshot={
+            "version": 1,
+            "pair": pair,
+            "targets": [
+                {"lemma": lemma, "sources": [f"{lemma}-source"]} for lemma in target_lemmas
+            ],
+            "stats": {
+                "target_count": len(target_lemmas),
+                "rule_count": len(rules),
+                "source_count": len(rules),
+            },
+        },
+        target_count=len(target_lemmas),
+        semantic_inventory={
+            "schema_version": 1,
+            "pair": pair,
+            "profile_id": "default",
+            "generated_at": "2026-04-10T00:00:00Z",
+            "triggers": {},
+            "senses": {},
+            "competition_sets": {},
+            "phrase_sets": {},
+        },
+    )
+
+
 def _write_animals_plants_topic_overlay(
     paths: HelperPaths,
     *,
     rows: tuple[dict[str, object], ...],
 ) -> Path:
-    overlay_path = paths.srs_dir / "topic_overlays" / ANIMALS_PLANTS_OVERLAY_FILENAME
+    return _write_profile_topic_overlay(
+        paths,
+        filename=ANIMALS_PLANTS_OVERLAY_FILENAME,
+        overlay_id="unit_animals_plants_overlay",
+        promotion_state="poc_candidate_not_product_overlay",
+        rows=rows,
+    )
+
+
+def _write_profile_topic_overlay(
+    paths: HelperPaths,
+    *,
+    filename: str,
+    overlay_id: str,
+    promotion_state: str,
+    rows: tuple[dict[str, object], ...],
+) -> Path:
+    overlay_path = paths.srs_dir / "topic_overlays" / filename
     overlay_path.parent.mkdir(parents=True, exist_ok=True)
     overlay_path.write_text(
         json.dumps(
             {
                 "schema_version": 1,
                 "status": "ok",
-                "overlay_id": "unit_animals_plants_overlay",
+                "overlay_id": overlay_id,
                 "overlay_policy": {
-                    "promotion_state": "poc_candidate_not_product_overlay",
+                    "promotion_state": promotion_state,
                 },
                 "summary": {"row_count": len(rows)},
                 "rows": list(rows),
@@ -1220,10 +1290,10 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
             self.assertTrue(
                 payload["translation_pack_path"].endswith("/wiktionary-es-en/main.sqlite")
             )
-            self.assertTrue(payload["set_source_db"].endswith("freq-es-cde.sqlite"))
-            self.assertEqual(payload["frequency_pack_id"], "freq-es-cde")
-            self.assertEqual(payload["frequency_pack_provider"], "freq-es-cde")
-            self.assertEqual(payload["frequency_pos_source_profile"], "freq-es-cde")
+            self.assertTrue(payload["set_source_db"].endswith("freq-es-spalex-v1.sqlite"))
+            self.assertEqual(payload["frequency_pack_id"], "freq-es-spalex-v1")
+            self.assertEqual(payload["frequency_pack_provider"], "freq-es-spalex-v1")
+            self.assertEqual(payload["frequency_pos_source_profile"], "spalex_only_v1")
             self.assertEqual(payload["reverse_translation_dict_provider"], "wiktionary")
             self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
             self.assertEqual(payload["reverse_translation_pos_source_profile"], "wiktionary")
@@ -1361,6 +1431,20 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             )
             self.assertEqual(payload["reverse_translation_pack_id"], "freedict_en_de")
             self.assertEqual(payload["reverse_translation_dict_provider"], "freedict")
+            self.assertEqual(payload["source_stack_id"], "en-de-default-v1")
+            self.assertEqual(payload["requirements"]["source_stack_id"], "en-de-default-v1")
+            source_stack = payload["source_stack"]
+            self.assertEqual(source_stack["stack_id"], "en-de-default-v1")
+            stack_pack_ids = [resource["pack_id"] for resource in source_stack["resources"]]
+            self.assertIn("freq-de-default", stack_pack_ids)
+            self.assertIn("freedict-de-en", stack_pack_ids)
+            self.assertIn("freedict-en-de", stack_pack_ids)
+            missing_stack_roles = {
+                resource["role"] for resource in payload["source_stack_missing_required"]
+            }
+            self.assertIn("target_frequency", missing_stack_roles)
+            self.assertIn("forward_translation", missing_stack_roles)
+            self.assertIn("reverse_translation", missing_stack_roles)
             self.assertTrue(payload["stopwords_path"].endswith("stopwords/stopwords-de.json"))
             self.assertTrue(payload["stopwords_exists"])
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
@@ -1376,13 +1460,13 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["pair"], "en-es")
             self.assertIn("pair_policy", payload)
             self.assertEqual(payload["pair_policy"]["pair"], "en-es")
-            self.assertTrue(payload["set_source_db"].endswith("freq-es-cde.sqlite"))
+            self.assertTrue(payload["set_source_db"].endswith("freq-es-spalex-v1.sqlite"))
             self.assertFalse(payload["set_source_db_exists"])
-            self.assertTrue(payload["frequency_pack_path"].endswith("freq-es-cde.sqlite"))
+            self.assertTrue(payload["frequency_pack_path"].endswith("freq-es-spalex-v1.sqlite"))
             self.assertFalse(payload["frequency_pack_exists"])
-            self.assertEqual(payload["frequency_pack_id"], "freq-es-cde")
-            self.assertEqual(payload["frequency_pack_provider"], "freq-es-cde")
-            self.assertEqual(payload["frequency_pos_source_profile"], "freq-es-cde")
+            self.assertEqual(payload["frequency_pack_id"], "freq-es-spalex-v1")
+            self.assertEqual(payload["frequency_pack_provider"], "freq-es-spalex-v1")
+            self.assertEqual(payload["frequency_pos_source_profile"], "spalex_only_v1")
             self.assertTrue(
                 payload["translation_dict_path"].endswith("language_packs/wiktionary-es-en.sqlite")
             )
@@ -1401,6 +1485,23 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             )
             self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
             self.assertEqual(payload["reverse_translation_dict_provider"], "wiktionary")
+            self.assertEqual(payload["source_stack_id"], "en-es-default-v2")
+            self.assertEqual(payload["requirements"]["source_stack_id"], "en-es-default-v2")
+            self.assertFalse(payload["pos_overlay_exists"])
+            self.assertIsNone(payload["pos_overlay_id"])
+            source_stack = payload["source_stack"]
+            self.assertEqual(source_stack["stack_id"], "en-es-default-v2")
+            overlay_resource = next(
+                resource
+                for resource in source_stack["resources"]
+                if resource["role"] == "target_pos_overlay"
+            )
+            self.assertEqual(overlay_resource["pack_id"], "pos-es-ud-ancora-v1")
+            self.assertFalse(overlay_resource["exists"])
+            missing_recommended_roles = {
+                resource["role"] for resource in payload["source_stack_missing_recommended"]
+            }
+            self.assertIn("target_pos_overlay", missing_recommended_roles)
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("set_source_db", missing_types)
             self.assertIn("translation_dict_path", missing_types)
@@ -1418,6 +1519,31 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertFalse(payload["jmdict_exists"])
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("jmdict_path", missing_types)
+
+    def test_runtime_diagnostics_uses_managed_en_ja_jmdict_pack(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            artifact = paths.language_packs_dir / "jmdict-ja-en" / "JMdict_e"
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_text("<JMdict/>", encoding="utf-8")
+            write_installed_pack_manifest(
+                paths.language_packs_dir,
+                pack_id="jmdict-ja-en",
+                pack_kind="language",
+                provider="jmdict",
+                local_kind="file",
+                build_mode="download_only",
+                artifact_path=artifact,
+                source_filename="JMdict_e.gz",
+                required_files=("JMdict_e",),
+            )
+
+            payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
+
+            self.assertEqual(payload["jmdict_path"], str(artifact))
+            self.assertTrue(payload["jmdict_exists"])
+            missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
+            self.assertNotIn("jmdict_path", missing_types)
 
     def test_runtime_diagnostics_with_existing_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -1715,19 +1841,25 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 version=1,
             )
 
-            with patch(
-                "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
-                return_value=(
-                    updated_store,
-                    SimpleNamespace(
-                        selected_count=2,
-                        selected_unique_count=2,
-                        admitted_count=1,
-                        inserted_count=1,
-                        updated_count=1,
-                        selected_preview=("alpha", "gamma"),
-                        initial_active_preview=("alpha",),
+            with (
+                patch(
+                    "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                    return_value=(
+                        updated_store,
+                        SimpleNamespace(
+                            selected_count=2,
+                            selected_unique_count=2,
+                            admitted_count=1,
+                            inserted_count=1,
+                            updated_count=1,
+                            selected_preview=("alpha", "gamma"),
+                            initial_active_preview=("alpha",),
+                        ),
                     ),
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_rulegen_output_for_active_items,
                 ),
             ):
                 result = initialize_srs_set(
@@ -1798,19 +1930,25 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 version=1,
             )
 
-            with patch(
-                "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
-                return_value=(
-                    replaced_store,
-                    SimpleNamespace(
-                        selected_count=1,
-                        selected_unique_count=1,
-                        admitted_count=1,
-                        inserted_count=1,
-                        updated_count=0,
-                        selected_preview=("gamma",),
-                        initial_active_preview=("gamma",),
+            with (
+                patch(
+                    "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                    return_value=(
+                        replaced_store,
+                        SimpleNamespace(
+                            selected_count=1,
+                            selected_unique_count=1,
+                            admitted_count=1,
+                            inserted_count=1,
+                            updated_count=0,
+                            selected_preview=("gamma",),
+                            initial_active_preview=("gamma",),
+                        ),
                     ),
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_rulegen_output_for_active_items,
                 ),
             ):
                 result = initialize_srs_set(
@@ -1835,6 +1973,202 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
             self.assertEqual(result["added_items"], 1)
             self.assertEqual(result["total_items_for_pair"], 1)
             self.assertEqual(result["replace_pair"], True)
+
+    def test_initialize_set_discards_active_items_without_enabled_rules(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            initialized_store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-ja:ii",
+                        lemma="ii",
+                        language_pair="en-ja",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+            init_report = SimpleNamespace(
+                selected_count=1,
+                selected_unique_count=1,
+                admitted_count=1,
+                inserted_count=1,
+                updated_count=0,
+                selected_preview=("ii",),
+                initial_active_preview=("ii",),
+                selected_unique_lemmas=("ii",),
+            )
+            rulegen_output = SimpleNamespace(
+                rules=tuple(),
+                snapshot={
+                    "version": 1,
+                    "pair": "en-ja",
+                    "targets": [],
+                    "stats": {"target_count": 0, "rule_count": 0, "source_count": 0},
+                },
+                target_count=0,
+                semantic_inventory=None,
+            )
+
+            with (
+                patch(
+                    "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                    return_value=(initialized_store, init_report),
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    return_value=(initialized_store, rulegen_output),
+                ),
+            ):
+                result = initialize_srs_set(
+                    paths,
+                    config=SetInitializationJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                    ),
+                )
+
+            persisted = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
+            item = persisted.items[0]
+            self.assertEqual(item.lifecycle_state, SRS_LIFECYCLE_DISCARDED)
+            self.assertEqual(item.lifecycle_reason, "no_enabled_rules")
+            self.assertEqual(tuple(inventory.pairs["en-ja"].active_item_ids), ())
+            self.assertEqual(result["inventory"]["active_items_for_pair"], 0)
+            reconciliation = result["rule_availability_reconciliation"]
+            self.assertTrue(reconciliation["changed"])
+            self.assertEqual(reconciliation["discarded_lemmas"], ["ii"])
+
+    def test_initialize_set_refills_after_no_rule_candidate_is_discarded(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            first_store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-ja:ii",
+                        lemma="ii",
+                        language_pair="en-ja",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+            refill_store = SrsStore(
+                items=(
+                    SrsItem(
+                        item_id="en-ja:ii",
+                        lemma="ii",
+                        language_pair="en-ja",
+                        source_type="initial_set",
+                        lifecycle_state=SRS_LIFECYCLE_DISCARDED,
+                        lifecycle_reason="no_enabled_rules",
+                    ),
+                    SrsItem(
+                        item_id="en-ja:alpha",
+                        lemma="alpha",
+                        language_pair="en-ja",
+                        source_type="initial_set",
+                    ),
+                ),
+                version=1,
+            )
+            first_report = SimpleNamespace(
+                selected_count=2,
+                selected_unique_count=2,
+                admitted_count=1,
+                inserted_count=1,
+                updated_count=0,
+                selected_preview=("ii", "alpha"),
+                initial_active_preview=("ii",),
+                selected_unique_lemmas=("ii", "alpha"),
+            )
+            refill_report = SimpleNamespace(
+                selected_count=2,
+                selected_unique_count=1,
+                admitted_count=1,
+                inserted_count=1,
+                updated_count=0,
+                selected_preview=("alpha",),
+                initial_active_preview=("alpha",),
+                selected_unique_lemmas=("alpha",),
+                blocked_lemmas=("ii",),
+            )
+            no_rule_output = SimpleNamespace(
+                rules=tuple(),
+                snapshot={
+                    "version": 1,
+                    "pair": "en-ja",
+                    "targets": [],
+                    "stats": {"target_count": 0, "rule_count": 0, "source_count": 0},
+                },
+                target_count=0,
+                semantic_inventory=None,
+            )
+            alpha_rule_output = SimpleNamespace(
+                rules=(VocabRule(source_phrase="alpha-source", replacement="alpha"),),
+                snapshot={
+                    "version": 1,
+                    "pair": "en-ja",
+                    "targets": ["alpha"],
+                    "stats": {"target_count": 1, "rule_count": 1, "source_count": 1},
+                },
+                target_count=1,
+                semantic_inventory=None,
+            )
+            init_calls = []
+
+            def init_side_effect(store, *, config):
+                init_calls.append(config)
+                if len(init_calls) == 1:
+                    return first_store, first_report
+                self.assertIn("ii", tuple(config.blocked_lemmas))
+                return refill_store, refill_report
+
+            with (
+                patch(
+                    "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                    side_effect=init_side_effect,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=((first_store, no_rule_output), (refill_store, alpha_rule_output)),
+                ) as run_rulegen_patch,
+            ):
+                result = initialize_srs_set(
+                    paths,
+                    config=SetInitializationJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        initial_active_count=1,
+                    ),
+                )
+
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
+            self.assertEqual(tuple(inventory.pairs["en-ja"].active_item_ids), ("en-ja:alpha",))
+            self.assertEqual(result["inventory"]["active_items_for_pair"], 1)
+            reconciliation = result["rule_availability_reconciliation"]
+            self.assertTrue(reconciliation["changed"])
+            self.assertEqual(reconciliation["discarded_lemmas"], ["ii"])
+            refill = result["rule_availability_refill"]
+            self.assertTrue(refill["attempted"])
+            self.assertEqual(refill["attempt_count"], 1)
+            self.assertEqual(refill["shortfall_count"], 0)
+            self.assertEqual(refill["attempts"][0]["added_lemmas"], ["alpha"])
+            self.assertEqual(run_rulegen_patch.call_count, 2)
 
     def test_initialize_set_uses_pair_policy_defaults(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -1883,7 +2217,7 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 )
 
             set_init_config = init_patch.call_args.kwargs["config"]
-            self.assertEqual(set_init_config.top_n, 800)
+            self.assertIsNone(set_init_config.top_n)
             self.assertEqual(set_init_config.initial_active_count, 40)
             rulegen_config = run_rulegen_patch.call_args.kwargs["rulegen_config"]
             rulegen_defaults = resolve_pair_rulegen_tuning("en-ja")
@@ -1903,7 +2237,9 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 rulegen_config.reverse_check.enabled,
                 rulegen_defaults.reverse_check.enabled,
             )
-            self.assertEqual(result["set_top_n"], 800)
+            self.assertIsNone(result["set_top_n"])
+            self.assertIsNone(result["plan"]["diagnostics"]["bootstrap_top_n"])
+            self.assertEqual(result["plan"]["diagnostics"]["candidate_frontier"], "all")
             self.assertEqual(result["initial_active_count"], 40)
             self.assertEqual(result["pair_policy"]["pair"], "en-ja")
 
@@ -1946,7 +2282,10 @@ class TestHelperEngineInitializeSrsSet(unittest.TestCase):
                 "phrase_sets": {},
             }
             rulegen_output = SimpleNamespace(
-                rules=tuple(),
+                rules=(
+                    VocabRule(source_phrase="alpha-source", replacement="alpha"),
+                    VocabRule(source_phrase="gamma-source", replacement="gamma"),
+                ),
                 snapshot={"stats": {"target_count": 2, "rule_count": 0}},
                 target_count=2,
                 semantic_inventory=semantic_inventory,
@@ -2166,7 +2505,9 @@ class TestHelperEnginePlanSrsSet(unittest.TestCase):
                 ),
             )
 
-            self.assertEqual(plan_payload["set_top_n"], 800)
+            self.assertIsNone(plan_payload["set_top_n"])
+            self.assertIsNone(plan_payload["plan"]["diagnostics"]["bootstrap_top_n"])
+            self.assertEqual(plan_payload["plan"]["diagnostics"]["candidate_frontier"], "all")
             self.assertEqual(plan_payload["initial_active_count"], 40)
             self.assertEqual(plan_payload["pair_policy"]["pair"], "en-de")
 
@@ -2263,9 +2604,15 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
                     metadata={},
                 ),
             ]
-            with patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                return_value=selected,
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=selected,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_rulegen_output_for_active_items,
+                ),
             ):
                 result = refresh_srs_set(
                     paths,
@@ -2292,6 +2639,171 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             self.assertEqual(result["admission_refresh"]["reason_code"], "normal")
             self.assertIn("admission_weight", result["admission_refresh"]["weight_terms"])
             self.assertIn("serving_priority", result["admission_refresh"]["weight_terms"])
+
+    def test_refresh_refills_after_no_rule_candidate_is_discarded(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            save_srs_settings(
+                SrsSettings(max_active_items=2, max_new_items_per_day=1),
+                paths.srs_settings_path,
+            )
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+            save_signal_events(
+                paths.srs_signal_queue_path,
+                [
+                    SrsSignalEvent(
+                        event_type="feedback",
+                        pair="en-ja",
+                        lemma=f"lemma{i}",
+                        source_type="extension",
+                        rating="good",
+                    )
+                    for i in range(12)
+                ],
+            )
+
+            selected = [
+                SimpleNamespace(
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    core_rank=1.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=100.0,
+                    base_weight=0.95,
+                    admission_weight=0.95,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="ii",
+                    language_pair="en-ja",
+                    core_rank=2.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=95.0,
+                    base_weight=0.90,
+                    admission_weight=0.90,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="beta",
+                    language_pair="en-ja",
+                    core_rank=3.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=90.0,
+                    base_weight=0.85,
+                    admission_weight=0.85,
+                    metadata={},
+                ),
+            ]
+
+            def rulegen_without_ii(*, store, pair, active_item_ids=None, **_kwargs):
+                lemmas_by_id = {
+                    item.item_id: item.lemma for item in store.items if item.language_pair == pair
+                }
+                target_lemmas = [
+                    lemmas_by_id[item_id]
+                    for item_id in (active_item_ids or ())
+                    if item_id in lemmas_by_id
+                ]
+                viable_lemmas = [lemma for lemma in target_lemmas if lemma != "ii"]
+                rules = tuple(
+                    VocabRule(source_phrase=f"{lemma}-source", replacement=lemma)
+                    for lemma in viable_lemmas
+                )
+                return store, SimpleNamespace(
+                    rules=rules,
+                    snapshot={
+                        "version": 1,
+                        "pair": pair,
+                        "targets": [
+                            {"lemma": lemma, "sources": [f"{lemma}-source"]}
+                            for lemma in viable_lemmas
+                        ],
+                        "stats": {
+                            "target_count": len(viable_lemmas),
+                            "rule_count": len(rules),
+                            "source_count": len(rules),
+                        },
+                    },
+                    target_count=len(viable_lemmas),
+                    semantic_inventory=None,
+                )
+
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=selected,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=rulegen_without_ii,
+                ) as run_rulegen_patch,
+            ):
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        strategy="frequency_bootstrap",
+                        feedback_window_size=100,
+                        persist_store=True,
+                    ),
+                )
+
+            persisted = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
+            by_lemma = {
+                item.lemma: item for item in persisted.items if item.language_pair == "en-ja"
+            }
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:alpha", "en-ja:beta"),
+            )
+            self.assertEqual(by_lemma["ii"].lifecycle_state, SRS_LIFECYCLE_DISCARDED)
+            self.assertEqual(by_lemma["ii"].lifecycle_reason, "no_enabled_rules")
+            self.assertEqual(result["inventory"]["active_items_for_pair"], 2)
+            self.assertEqual(run_rulegen_patch.call_count, 2)
+            self.assertEqual(result["admission_refresh"]["effective_selected_lemmas"], ["beta"])
+            self.assertEqual(result["admission_refresh"]["effective_admitted_count"], 1)
+
+            rulegen_payload = result["rulegen"]
+            reconciliation = rulegen_payload["rule_availability_reconciliation"]
+            self.assertTrue(reconciliation["changed"])
+            self.assertEqual(reconciliation["discarded_lemmas"], ["ii"])
+            refill = rulegen_payload["rule_availability_refill"]
+            self.assertTrue(refill["attempted"])
+            self.assertEqual(refill["attempt_count"], 1)
+            self.assertEqual(refill["shortfall_count"], 0)
+            self.assertEqual(refill["attempts"][0]["added_lemmas"], ["beta"])
+            self.assertEqual(
+                result["admission_refresh"]["rule_availability_refill"]["shortfall_count"],
+                0,
+            )
 
     def test_refresh_applies_profile_growth_scoring(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -2394,9 +2906,15 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
                     },
                 ),
             ]
-            with patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                return_value=selected,
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=selected,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_rulegen_output_for_active_items,
+                ),
             ):
                 result = refresh_srs_set(
                     paths,
@@ -2420,7 +2938,7 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             self.assertEqual(refresh_payload["selection_policy"], "reserved_topic_lane")
             self.assertEqual(
                 refresh_payload["profile_growth"]["selector_version"],
-                "profile_bootstrap_v5",
+                "profile_bootstrap_v6",
             )
             self.assertEqual(refresh_payload["selected_lemmas"], ["madre", "beta"])
 
@@ -2487,9 +3005,15 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
                     metadata={},
                 ),
             ]
-            with patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                return_value=selected,
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=selected,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_rulegen_output_for_active_items,
+                ),
             ):
                 result = refresh_srs_set(
                     paths,
@@ -2608,9 +3132,15 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
                 )
                 for index, lemma in enumerate(("beta", "gamma", "delta", "epsilon"), start=1)
             ]
-            with patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                return_value=selected,
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=selected,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_rulegen_output_for_active_items,
+                ),
             ):
                 result = refresh_srs_set(
                     paths,
@@ -2722,9 +3252,15 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
                     metadata={},
                 ),
             ]
-            with patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                return_value=selected,
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=selected,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_rulegen_output_for_active_items,
+                ),
             ):
                 result = refresh_srs_set(
                     paths,
@@ -2844,9 +3380,15 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
                     metadata={},
                 ),
             ]
-            with patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                return_value=selected,
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=selected,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_rulegen_output_for_active_items,
+                ),
             ):
                 result = refresh_srs_set(
                     paths,
@@ -2988,9 +3530,15 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
                     metadata={},
                 ),
             ]
-            with patch(
-                "lexishift_core.helper.engine.build_seed_candidates",
-                return_value=selected,
+            with (
+                patch(
+                    "lexishift_core.helper.engine.build_seed_candidates",
+                    return_value=selected,
+                ),
+                patch(
+                    "lexishift_core.helper.engine.run_rulegen_for_pair",
+                    side_effect=_rulegen_output_for_active_items,
+                ),
             ):
                 result = refresh_srs_set(
                     paths,
@@ -3283,37 +3831,6 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
                 ),
             ]
 
-            def _stub_run_rulegen_for_pair(*, store, pair, **_kwargs):
-                rules = (
-                    VocabRule(source_phrase="matter", replacement="事"),
-                    VocabRule(source_phrase="thing", replacement="物"),
-                )
-                snapshot = {
-                    "version": 1,
-                    "pair": pair,
-                    "targets": [
-                        {"lemma": "事", "sources": ["matter"]},
-                        {"lemma": "物", "sources": ["thing"]},
-                    ],
-                    "stats": {"target_count": 2, "rule_count": 2, "source_count": 2},
-                }
-                semantic_inventory = {
-                    "schema_version": 1,
-                    "pair": pair,
-                    "profile_id": "default",
-                    "generated_at": "2026-04-10T00:00:00Z",
-                    "triggers": {},
-                    "senses": {},
-                    "competition_sets": {},
-                    "phrase_sets": {},
-                }
-                return store, SimpleNamespace(
-                    rules=rules,
-                    snapshot=snapshot,
-                    target_count=2,
-                    semantic_inventory=semantic_inventory,
-                )
-
             with (
                 patch(
                     "lexishift_core.helper.engine.build_seed_candidates",
@@ -3321,7 +3838,7 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
                 ),
                 patch(
                     "lexishift_core.helper.engine.run_rulegen_for_pair",
-                    side_effect=_stub_run_rulegen_for_pair,
+                    side_effect=_rulegen_output_for_active_items,
                 ) as run_rulegen_patch,
             ):
                 result = refresh_srs_set(
@@ -3377,8 +3894,8 @@ class TestHelperEngineFeedbackCycle(unittest.TestCase):
             rulegen_payload = result.get("rulegen")
             self.assertIsNotNone(rulegen_payload)
             self.assertTrue(rulegen_payload.get("published"))
-            self.assertEqual(rulegen_payload.get("targets"), 2)
-            self.assertEqual(rulegen_payload.get("rules"), 2)
+            self.assertEqual(rulegen_payload.get("targets"), 3)
+            self.assertEqual(rulegen_payload.get("rules"), 3)
             snapshot_path = Path(rulegen_payload.get("snapshot_path"))
             ruleset_path = Path(rulegen_payload.get("ruleset_path"))
             semantic_inventory_path = Path(rulegen_payload.get("semantic_inventory_path"))
@@ -3796,6 +4313,89 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
             self.assertEqual(overlay["applied_row_count"], 1)
             self.assertEqual(overlay["applied_topics"], {"animals": 1})
 
+    def test_preview_applies_en_ja_topic_overlay_for_supported_interest(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            source_db = root / "freq-ja.sqlite"
+            _create_frequency_db(
+                source_db,
+                rows=(
+                    ("事", 1.0, 100.0, "名詞", "こと", None, None, None, None, None, None),
+                    ("脳", 2.0, 98.0, "名詞", "のう", None, None, None, None, None, None),
+                    ("展開", 3.0, 96.0, "名詞", "てんかい", None, None, None, None, None, None),
+                ),
+            )
+            _write_minimal_jmdict(
+                paths.language_packs_dir / "JMdict_e",
+                (("事", "こと"), ("脳", "のう"), ("展開", "てんかい")),
+            )
+            overlay_path = _write_profile_topic_overlay(
+                paths,
+                filename=EN_JA_JMDICT_OVERLAY_FILENAME,
+                overlay_id="unit_en_ja_jmdict_overlay",
+                promotion_state="approved_product_candidate_not_default",
+                rows=(
+                    {
+                        "lemma": "脳",
+                        "language_pair": "en-ja",
+                        "topic": "medicine_health",
+                        "membership": 1.0,
+                        "review_id": "unit-strong-medicine",
+                        "confidence_label": "strong",
+                    },
+                    {
+                        "lemma": "展開",
+                        "language_pair": "en-ja",
+                        "topic": "finance_business",
+                        "membership": 0.65,
+                        "review_id": "unit-light-finance",
+                        "confidence_label": "light",
+                    },
+                ),
+            )
+
+            payload = preview_srs_admission(
+                paths,
+                config=SetAdmissionPreviewJobConfig(
+                    pair="en-ja",
+                    set_source_db=source_db,
+                    strategy="profile_bootstrap",
+                    preview_count=2,
+                    initial_active_count=2,
+                    profile_context={"interests": ["medicine_health"]},
+                ),
+            )
+
+            preview = payload["preview"]
+            self.assertEqual(preview["selection_strategy"], "profile_bootstrap")
+            admitted_lemmas = [row["lemma"] for row in preview["admitted_words"]]
+            self.assertIn("脳", admitted_lemmas)
+            brain_row = next(row for row in preview["admitted_words"] if row["lemma"] == "脳")
+            self.assertEqual(
+                brain_row["signals"]["topic_affinity_source"],
+                "topic_hint:medicine_health",
+            )
+            self.assertIn("profile_score", brain_row)
+            self.assertNotIn("candidate_traits", brain_row)
+            self.assertNotIn("admission_candidate_features", brain_row)
+            self.assertNotIn("utility_signals", brain_row)
+            overlay = preview["profile_bootstrap"]["profile_topic_overlay"]
+            self.assertEqual(overlay["status"], "active")
+            self.assertEqual(overlay["reason"], "overlay_artifact_ready")
+            self.assertEqual(overlay["application_status"], "applied")
+            self.assertEqual(overlay["runtime_scope"], "admission_preview_only")
+            self.assertEqual(overlay["source_path"], str(overlay_path))
+            self.assertEqual(overlay["active_topics"], ["medicine_health"])
+            self.assertEqual(overlay["supported_topics"], ["medicine_health"])
+            self.assertEqual(overlay["promotion_state"], "approved_product_candidate_not_default")
+            self.assertEqual(overlay["applicable_row_count"], 1)
+            self.assertEqual(overlay["eligible_row_count"], 1)
+            self.assertEqual(overlay["matched_seed_count"], 1)
+            self.assertEqual(overlay["applied_seed_count"], 1)
+            self.assertEqual(overlay["applied_row_count"], 1)
+            self.assertEqual(overlay["applied_topics"], {"medicine_health": 1})
+
     def test_preview_omits_large_ranking_preview_from_helper_payload(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -3868,15 +4468,25 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
 
 class TestHelperEngineRebalanceSrsSet(unittest.TestCase):
     def _stub_rulegen_output(self) -> SimpleNamespace:
+        target_lemmas = ("alpha", "delta", "epsilon")
+        rules = tuple(
+            VocabRule(source_phrase=f"{lemma}-source", replacement=lemma) for lemma in target_lemmas
+        )
         return SimpleNamespace(
-            rules=(),
+            rules=rules,
             snapshot={
                 "version": 1,
                 "pair": "en-ja",
-                "targets": [],
-                "stats": {"target_count": 0, "rule_count": 0, "source_count": 0},
+                "targets": [
+                    {"lemma": lemma, "sources": [f"{lemma}-source"]} for lemma in target_lemmas
+                ],
+                "stats": {
+                    "target_count": len(target_lemmas),
+                    "rule_count": len(rules),
+                    "source_count": len(rules),
+                },
             },
-            target_count=0,
+            target_count=len(target_lemmas),
             semantic_inventory={
                 "schema_version": 1,
                 "pair": "en-ja",

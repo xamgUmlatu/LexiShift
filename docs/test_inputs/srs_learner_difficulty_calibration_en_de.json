@@ -1,0 +1,2584 @@
+{
+  "calibration_id": "srs_learner_difficulty_calibration_en_de_v1",
+  "created_at": "2026-07-06T04:40:00Z",
+  "created_from": "docs/test_outputs/srs_learner_difficulty_calibration_review_pack_en_de_latest.json",
+  "difficulty_bands": {
+    "advanced": "Expected learner difficulty from 0.60 through below 0.80.",
+    "beginner": "Expected learner difficulty below 0.20.",
+    "core": "Expected learner difficulty from 0.20 through below 0.40.",
+    "intermediate": "Expected learner difficulty from 0.40 through below 0.60.",
+    "recondite": "Expected learner difficulty at or above 0.94.",
+    "tail": "Expected learner difficulty from 0.80 through below 0.94."
+  },
+  "difficulty_target_scale": "expected_learner_difficulty is a reviewed continuous 0.00-1.00 English-speaker German-learner difficulty target. It is presentation priority/proficiency level, not pure native rarity and not topic preference. Function words, compounds, transparent forms, and restricted-admission rows are flagged separately for admission policy.",
+  "labels": [
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.02,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "sein",
+      "rationale": "Fundamental German verb to be; dictionary glosses include nominal senses but the learner-facing item is core.",
+      "review_confidence": 0.9,
+      "review_flags": [],
+      "review_number": 1,
+      "review_treatment": "vocab",
+      "source_core_rank": 1.0,
+      "source_frequency_blend": 0.03419,
+      "source_pos": "PRO:POS:AKK:SIN:NEU:BEG|PRO:POS:NOM:SIN:MAS:BEG|PRO:POS:NOM:SIN:NEU:BEG|SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:NOM:SIN:NEU|VER:AUX:INF|VER:INF:NON",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.0_0.1",
+        "early_content_anchor"
+      ],
+      "source_translations": [
+        "existence",
+        "being",
+        "be or not to be"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.12,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "ihr",
+      "rationale": "Very common pronoun/possessive form, but inflection and you-plural/her/their readings make it more grammar-heavy than first-lesson nouns.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 2,
+      "review_treatment": "vocab",
+      "source_core_rank": 2.0,
+      "source_frequency_blend": 0.079729,
+      "source_pos": "PRO:PER:DAT:SIN:FEM|PRO:PER:NOM:PLU:ALG:2:B|PRO:POS:AKK:SIN:NEU:BEG|PRO:POS:NOM:SIN:MAS:BEG|PRO:POS:NOM:SIN:NEU:BEG",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "base_band_0.0_0.1",
+        "early_other_anchor"
+      ],
+      "source_translations": [
+        "yours",
+        "your",
+        "you"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.05,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "machen",
+      "rationale": "Fundamental make/do verb; source glosses include extra constructions but the form itself is very early.",
+      "review_confidence": 0.9,
+      "review_flags": [],
+      "review_number": 4,
+      "review_treatment": "vocab",
+      "source_core_rank": 8.0,
+      "source_frequency_blend": 0.150066,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.1_0.2",
+        "early_content_anchor",
+        "common_english_gloss"
+      ],
+      "source_translations": [
+        "make",
+        "put in",
+        "send in"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "alle",
+      "rationale": "Very common all/every form; slightly grammatical but clearly early.",
+      "review_confidence": 0.82,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 5,
+      "review_treatment": "vocab",
+      "source_core_rank": 9.0,
+      "source_frequency_blend": 0.156135,
+      "source_pos": "PRO:IND:AKK:PLU:FEM:B/S|PRO:IND:AKK:PLU:MAS:B/S|PRO:IND:AKK:PLU:NEU:B/S|PRO:IND:AKK:SIN:FEM:B/S|PRO:IND:NOM:PLU:FEM:B/S|PRO:IND:NOM:PLU:MAS:B/S|PRO:IND:NOM:PLU:",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "base_band_0.1_0.2",
+        "early_other_anchor",
+        "translation_ambiguity"
+      ],
+      "source_translations": [
+        "all",
+        "all-in-one",
+        "that's all"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.13,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "stehen",
+      "rationale": "Common core verb stand/be located, but broader and less first-lesson than kommen or machen.",
+      "review_confidence": 0.82,
+      "review_flags": [],
+      "review_number": 7,
+      "review_treatment": "vocab",
+      "source_core_rank": 10.0,
+      "source_frequency_blend": 0.162504,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|VER:3:PLU:KJ1:NON|VER:3:PLU:PRÄ:NON|VER:INF:NON|ZUS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.1_0.2",
+        "early_content_anchor"
+      ],
+      "source_translations": [
+        "standing position",
+        "be on",
+        "say"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.12,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "werden",
+      "rationale": "Essential become/future-passive auxiliary, but the learner difficulty is grammar-heavy.",
+      "review_confidence": 0.8,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 8,
+      "review_treatment": "vocab",
+      "source_core_rank": 11.0,
+      "source_frequency_blend": 0.167251,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|VER:3:PLU:KJ1:NON|VER:3:PLU:PRÄ:NON|VER:AUX:1:PLU:KJ1|VER:AUX:1:",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.1_0.2",
+        "early_content_anchor"
+      ],
+      "source_translations": [
+        "development",
+        "becoming",
+        "be in (a state of) development"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.17,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "sollen",
+      "rationale": "Important modal verb, but normally learned after the most basic lexical verbs.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 10,
+      "review_treatment": "vocab",
+      "source_core_rank": 12.0,
+      "source_frequency_blend": 0.172053,
+      "source_pos": "VER:MOD:1:PLU:KJ1|VER:MOD:1:PLU:PRÄ|VER:MOD:3:PLU:KJ1|VER:MOD:3:PLU:PRÄ|VER:MOD:INF",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "base_band_0.1_0.2",
+        "early_content_anchor"
+      ],
+      "source_translations": [
+        "shall",
+        "should",
+        "you should have seen it!"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.09,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "können",
+      "rationale": "Very important modal can/be able to; dictionary nominal senses are noise for the target item.",
+      "review_confidence": 0.84,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 11,
+      "review_treatment": "vocab",
+      "source_core_rank": 5.0,
+      "source_frequency_blend": 0.119999,
+      "source_pos": "SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:NOM:SIN:NEU|VER:MOD:1:PLU:KJ1|VER:MOD:1:PLU:PRÄ|VER:MOD:3:PLU:KJ1|VER:MOD:3:PLU:PRÄ|VER:MOD:INF",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.1_0.2",
+        "early_content_anchor"
+      ],
+      "source_translations": [
+        "workmanship",
+        "proficiency",
+        "demonstrate your proficiency (in sth.)"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.55,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "frequency_or_gloss_noise",
+      "lemma": "tagen",
+      "rationale": "Convene/be in session is much later than its raw frequency rank suggests; likely contaminated by inflected/common-looking forms.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "false_friend_or_translation_noise"
+      ],
+      "review_number": 13,
+      "review_treatment": "vocab",
+      "source_core_rank": 36.0,
+      "source_frequency_blend": 0.250938,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:MAS|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.2_0.3"
+      ],
+      "source_translations": [
+        "be in session",
+        "be sitting",
+        "meet"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.05,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_adverb",
+      "lemma": "hier",
+      "rationale": "Fundamental here.",
+      "review_confidence": 0.9,
+      "review_flags": [],
+      "review_number": 14,
+      "review_treatment": "vocab",
+      "source_core_rank": 34.0,
+      "source_frequency_blend": 0.247739,
+      "source_pos": "ADV:LOK",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "base_band_0.2_0.3"
+      ],
+      "source_translations": [
+        "here",
+        "here and now",
+        "hic et nunc"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.19,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "liegen",
+      "rationale": "Common lie/be located verb; useful but less immediate than first-beginner verbs.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 16,
+      "review_treatment": "vocab",
+      "source_core_rank": 38.0,
+      "source_frequency_blend": 0.254105,
+      "source_pos": "SUB:AKK:PLU:FEM|SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:FEM|SUB:DAT:SIN:NEU:INF|SUB:GEN:PLU:FEM|SUB:NOM:PLU:FEM|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.2_0.3"
+      ],
+      "source_translations": [
+        "recumbency",
+        "lie",
+        "be located"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.09,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "müssen",
+      "rationale": "Very important modal must/have to.",
+      "review_confidence": 0.84,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 17,
+      "review_treatment": "vocab",
+      "source_core_rank": 33.0,
+      "source_frequency_blend": 0.245789,
+      "source_pos": "VER:MOD:1:PLU:KJ1|VER:MOD:1:PLU:PRÄ|VER:MOD:3:PLU:KJ1|VER:MOD:3:PLU:PRÄ|VER:MOD:INF",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "base_band_0.2_0.3"
+      ],
+      "source_translations": [
+        "want",
+        "have got to",
+        "have to"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.11,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_quantifier",
+      "lemma": "wenig",
+      "rationale": "Common little/few adjective/adverb-like item.",
+      "review_confidence": 0.84,
+      "review_flags": [],
+      "review_number": 19,
+      "review_treatment": "vocab",
+      "source_core_rank": 32.0,
+      "source_frequency_blend": 0.243691,
+      "source_pos": "ADJ:PRD:GRU",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "base_band_0.2_0.3"
+      ],
+      "source_translations": [
+        "little",
+        "as little as possible",
+        "scant"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.32,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_or_abstract_core",
+      "lemma": "erhalten",
+      "rationale": "Common receive/maintain/get, but more formal and abstract than bekommen.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 20,
+      "review_treatment": "vocab",
+      "source_core_rank": 134.0,
+      "source_frequency_blend": 0.350123,
+      "source_pos": "PA2:PRD:GRU|SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|VER:3:PLU:KJ1:NON|VER:3:PLU:PRÄ:NON|VER:INF:NON|VER:",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.3_0.4"
+      ],
+      "source_translations": [
+        "receipt",
+        "maintain",
+        "maintained"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_adjective",
+      "lemma": "gemeinsam",
+      "rationale": "Common together/shared/joint, but more conceptual than early beginner adjectives.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 22,
+      "review_treatment": "vocab",
+      "source_core_rank": 133.0,
+      "source_frequency_blend": 0.348758,
+      "source_pos": "ADJ:PRD:GRU",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "base_band_0.3_0.4"
+      ],
+      "source_translations": [
+        "common",
+        "have a lot in common",
+        "have nothing in common"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.38,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "zwar",
+      "rationale": "Useful discourse word, but normally later than simple lexical core vocabulary.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 23,
+      "review_treatment": "vocab",
+      "source_core_rank": 136.0,
+      "source_frequency_blend": 0.351375,
+      "source_pos": "ADV:CAU",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "base_band_0.3_0.4"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.32,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "davon",
+      "rationale": "Common pronominal adverb of it/from that, but grammar-heavy for learners.",
+      "review_confidence": 0.74,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 25,
+      "review_treatment": "vocab",
+      "source_core_rank": 137.0,
+      "source_frequency_blend": 0.352079,
+      "source_pos": "ADV:PRO|ZUS",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "base_band_0.3_0.4"
+      ],
+      "source_translations": [
+        "of them",
+        "of it",
+        "more than 50,000 employees worldwide, of whom 20,000 in europe"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.22,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_or_cognate_core_verb",
+      "lemma": "starten",
+      "rationale": "Common transparent starten/start verb, easier than its raw band.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "transparent_or_cognate_easy_for_english_speaker"
+      ],
+      "review_number": 26,
+      "review_treatment": "vocab",
+      "source_core_rank": 131.0,
+      "source_frequency_blend": 0.347645,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.3_0.4"
+      ],
+      "source_translations": [
+        "launching",
+        "launching of aircraft",
+        "take off"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.22,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "warten",
+      "rationale": "Common wait verb; source noun/control-room glosses are not the target learner sense.",
+      "review_confidence": 0.82,
+      "review_flags": [],
+      "review_number": 28,
+      "review_treatment": "vocab",
+      "source_core_rank": 432.0,
+      "source_frequency_blend": 0.450069,
+      "source_pos": "SUB:AKK:PLU:FEM|SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:FEM|SUB:DAT:PLU:MAS|SUB:DAT:SIN:NEU:INF|SUB:GEN:PLU:FEM|SUB:NOM:PLU:FEM|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.4_0.5"
+      ],
+      "source_translations": [
+        "control rooms",
+        "waiting",
+        "three years is a long time to wait."
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.24,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_noun",
+      "lemma": "gebäude",
+      "rationale": "Common building noun; core but not first-lesson.",
+      "review_confidence": 0.82,
+      "review_flags": [],
+      "review_number": 29,
+      "review_treatment": "vocab",
+      "source_core_rank": 431.0,
+      "source_frequency_blend": 0.449881,
+      "source_pos": "SUB:AKK:PLU:NEU|SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:GEN:PLU:NEU|SUB:NOM:PLU:NEU|SUB:NOM:SIN:NEU",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.4_0.5"
+      ],
+      "source_translations": [
+        "building",
+        "listed building",
+        "industrial building"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.2,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_or_cognate_core_noun",
+      "lemma": "programm",
+      "rationale": "Common program/programme cognate.",
+      "review_confidence": 0.84,
+      "review_flags": [
+        "transparent_or_cognate_easy_for_english_speaker"
+      ],
+      "review_number": 31,
+      "review_treatment": "vocab",
+      "source_core_rank": 434.0,
+      "source_frequency_blend": 0.450407,
+      "source_pos": "SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:NOM:SIN:NEU",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.4_0.5"
+      ],
+      "source_translations": [
+        "program",
+        "programme",
+        "start / launch a new program"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.36,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_discourse_adverb",
+      "lemma": "inzwischen",
+      "rationale": "Common meanwhile/in the meantime adverb, but discourse-oriented and later than simple lexical core.",
+      "review_confidence": 0.74,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 32,
+      "review_treatment": "vocab",
+      "source_core_rank": 430.0,
+      "source_frequency_blend": 0.449546,
+      "source_pos": "ADV:TMP",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "base_band_0.4_0.5"
+      ],
+      "source_translations": [
+        "meanwhile",
+        "in the meanwhile",
+        "in the meantime"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "danken",
+      "rationale": "Useful thank verb, early but after the absolute basics.",
+      "review_confidence": 0.82,
+      "review_flags": [],
+      "review_number": 34,
+      "review_treatment": "vocab",
+      "source_core_rank": 435.0,
+      "source_frequency_blend": 0.450742,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.4_0.5"
+      ],
+      "source_translations": [
+        "say thanks",
+        "give thanks"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.02,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "nicht",
+      "rationale": "Fundamental negator not; raw rank is clearly too high.",
+      "review_confidence": 0.92,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 35,
+      "review_treatment": "vocab",
+      "source_core_rank": 436.0,
+      "source_frequency_blend": 0.450855,
+      "source_pos": "NEG",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "base_band_0.4_0.5"
+      ],
+      "source_translations": [
+        "not",
+        "not to say",
+        "noddies"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.4,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "compound_or_domain_noun",
+      "lemma": "lebensmittel",
+      "rationale": "Food/foodstuff is useful, but compound-like and grocery/domain leaning.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "compound_or_long_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 37,
+      "review_treatment": "vocab",
+      "source_core_rank": 1234.0,
+      "source_frequency_blend": 0.550028,
+      "source_pos": "SUB:AKK:PLU:NEU|SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:GEN:PLU:NEU|SUB:NOM:PLU:NEU|SUB:NOM:SIN:NEU",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.5_0.6"
+      ],
+      "source_translations": [
+        "food",
+        "foodstuff",
+        "organic food"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "polysemous_or_false_friend_core_noun",
+      "lemma": "see",
+      "rationale": "German See is useful lake/sea vocabulary, but spelling collides with English see and gender/sense ambiguity.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "false_friend_or_translation_noise"
+      ],
+      "review_number": 38,
+      "review_treatment": "vocab",
+      "source_core_rank": 1235.0,
+      "source_frequency_blend": 0.550068,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:AKK:SIN:MAS|SUB:DAT:SIN:FEM|SUB:DAT:SIN:MAS|SUB:GEN:SIN:FEM|SUB:GEN:SIN:MAS|SUB:NOM:SIN:FEM|SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.5_0.6"
+      ],
+      "source_translations": [
+        "inland lake",
+        "lake",
+        "pondlet"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.28,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "passieren",
+      "rationale": "Common happen/occur verb.",
+      "review_confidence": 0.8,
+      "review_flags": [],
+      "review_number": 40,
+      "review_treatment": "vocab",
+      "source_core_rank": 1232.0,
+      "source_frequency_blend": 0.549804,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.5_0.6"
+      ],
+      "source_translations": [
+        "happen",
+        "occur",
+        "that was bound to happen."
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "inflected_or_participle_form",
+      "lemma": "gebaut",
+      "rationale": "Built/constructed participial form is useful, but ideally should be watched against the base verb bauen.",
+      "review_confidence": 0.68,
+      "review_flags": [],
+      "review_number": 41,
+      "review_treatment": "vocab",
+      "source_core_rank": 1231.0,
+      "source_frequency_blend": 0.549764,
+      "source_pos": "PA2:PRD:GRU:VER|VER:PA2:SFT",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "base_band_0.5_0.6"
+      ],
+      "source_translations": [
+        "constructed",
+        "built",
+        "built up"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.26,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_direction_noun",
+      "lemma": "osten",
+      "rationale": "Direction noun east; common core geography word.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 43,
+      "review_treatment": "vocab",
+      "source_core_rank": 1230.0,
+      "source_frequency_blend": 0.549628,
+      "source_pos": "SUB:AKK:SIN:MAS|SUB:DAT:SIN:MAS|SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.5_0.6"
+      ],
+      "source_translations": [
+        "east",
+        "orient"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.54,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "inflected_or_participle_form",
+      "lemma": "beantragt",
+      "rationale": "Applied for/requested participle-like form, useful but formal and later.",
+      "review_confidence": 0.68,
+      "review_flags": [],
+      "review_number": 44,
+      "review_treatment": "vocab",
+      "source_core_rank": 3126.0,
+      "source_frequency_blend": 0.650003,
+      "source_pos": "PA2:PRD:GRU:VER|VER:2:PLU:PRÄ:SFT|VER:3:SIN:PRÄ:SFT|VER:IMP:PLU:SFT|VER:PA2:SFT",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "base_band_0.6_0.7"
+      ],
+      "source_translations": [
+        "applied for",
+        "applies for",
+        "requested"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.44,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_directional_adverb",
+      "lemma": "hinein",
+      "rationale": "Common directional hinein, but grammar-heavy for learners.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 46,
+      "review_treatment": "vocab",
+      "source_core_rank": 3128.0,
+      "source_frequency_blend": 0.650034,
+      "source_pos": "ADV:LOK|ZUS",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "base_band_0.6_0.7"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.62,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "advanced_abstract_verb",
+      "lemma": "rechtfertigen",
+      "rationale": "Abstract justify verb; advanced.",
+      "review_confidence": 0.74,
+      "review_flags": [
+        "compound_or_long_form"
+      ],
+      "review_number": 47,
+      "review_treatment": "vocab",
+      "source_core_rank": 3129.0,
+      "source_frequency_blend": 0.65005,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.6_0.7"
+      ],
+      "source_translations": [
+        "justify",
+        "back up"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.46,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_or_temporal_adjective",
+      "lemma": "vorig",
+      "rationale": "Previous/last adjective, useful but a bit formal as a standalone lemma.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 49,
+      "review_treatment": "vocab",
+      "source_core_rank": 3131.0,
+      "source_frequency_blend": 0.650081,
+      "source_pos": "ADJ:PRD:GRU",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "base_band_0.6_0.7"
+      ],
+      "source_translations": [
+        "previous",
+        "this talk was just as boring as the previous one.",
+        "the past"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.64,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "advanced_prefix_verb",
+      "lemma": "zurückführen",
+      "rationale": "Lead back/attribute back separable-prefix verb, advanced.",
+      "review_confidence": 0.74,
+      "review_flags": [
+        "compound_or_long_form"
+      ],
+      "review_number": 50,
+      "review_treatment": "vocab",
+      "source_core_rank": 3132.0,
+      "source_frequency_blend": 0.650097,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT:NEB|VER:1:PLU:KJ2:NON:NEB|VER:1:PLU:PRÄ:SFT:NEB|VER:3:PLU:KJ1:SFT:NEB|VER:3:PLU:KJ2:NON:NEB|VER:3:PLU:PRÄ:SFT:NEB|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.6_0.7"
+      ],
+      "source_translations": [
+        "lead back"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "specific_normal_noun",
+      "lemma": "engländer",
+      "rationale": "Englishman/English person is normal vocabulary, but source gloss has wrench noise.",
+      "review_confidence": 0.74,
+      "review_flags": [
+        "false_friend_or_translation_noise"
+      ],
+      "review_number": 52,
+      "review_treatment": "vocab",
+      "source_core_rank": 7583.0,
+      "source_frequency_blend": 0.75,
+      "source_pos": "SUB:AKK:PLU:MAS|SUB:AKK:SIN:MAS|SUB:DAT:SIN:MAS|SUB:GEN:PLU:MAS|SUB:NOM:PLU:MAS|SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.7_0.8"
+      ],
+      "source_translations": [
+        "rack spanner",
+        "gas grips",
+        "monkey wrench"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.68,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "advanced_prefix_verb",
+      "lemma": "einläuten",
+      "rationale": "Ring in/herald is useful but advanced and prefix-heavy.",
+      "review_confidence": 0.74,
+      "review_flags": [
+        "compound_or_long_form"
+      ],
+      "review_number": 53,
+      "review_treatment": "vocab",
+      "source_core_rank": 7582.0,
+      "source_frequency_blend": 0.749994,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT:NEB|VER:1:PLU:PRÄ:SFT:NEB|VER:3:PLU:KJ1:SFT:NEB|VER:3:PLU:PRÄ:SFT:NEB|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.7_0.8"
+      ],
+      "source_translations": [
+        "ring in",
+        "sound the bell"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.48,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "inflected_or_participle_form",
+      "lemma": "einbezogen",
+      "rationale": "Included/involved participial form, common but formal-ish and should trail the base verb einbeziehen.",
+      "review_confidence": 0.7,
+      "review_flags": [],
+      "review_number": 55,
+      "review_treatment": "vocab",
+      "source_core_rank": 7581.0,
+      "source_frequency_blend": 0.749987,
+      "source_pos": "PA2:PRD:GRU:VER|VER:1:PLU:PRT:NON:NEB|VER:3:PLU:PRT:NON:NEB|VER:PA2:NON",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "base_band_0.7_0.8"
+      ],
+      "source_translations": [
+        "included",
+        "involved",
+        "engaged in"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.68,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "literary_or_register_specific_verb",
+      "lemma": "erklingen",
+      "rationale": "Sound/resound/echo is valid but literary-ish compared with simpler sound verbs.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 56,
+      "review_treatment": "vocab",
+      "source_core_rank": 7585.0,
+      "source_frequency_blend": 0.750013,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|VER:3:PLU:KJ1:NON|VER:3:PLU:PRÄ:NON|VER:INF:NON",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.7_0.8"
+      ],
+      "source_translations": [
+        "sound",
+        "echo",
+        "resound"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.52,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "ordinary_mid_frequency_verb",
+      "lemma": "ermutigen",
+      "rationale": "Encourage is useful but not core beginner vocabulary.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 58,
+      "review_treatment": "vocab",
+      "source_core_rank": 7586.0,
+      "source_frequency_blend": 0.75002,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.7_0.8"
+      ],
+      "source_translations": [
+        "give hope",
+        "encourage sb.",
+        "elate"
+      ]
+    },
+    {
+      "expected_candidate_state": "restricted_admission",
+      "expected_difficulty_band": null,
+      "expected_learner_difficulty": null,
+      "expected_presentation_mode": "restrict_admission",
+      "expected_problem_class": "bad_standalone_or_foreign_form",
+      "lemma": "beach",
+      "rationale": "English-looking Beach row is poor standalone German SRS vocabulary compared with Strand.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "bad_standalone_srs_item",
+        "needs_display_or_rule_restriction"
+      ],
+      "review_number": 59,
+      "review_treatment": "restrict_admission",
+      "source_core_rank": 7579.0,
+      "source_frequency_blend": 0.749974,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:AKK:SIN:MAS|SUB:DAT:SIN:FEM|SUB:DAT:SIN:MAS|SUB:GEN:SIN:FEM|SUB:GEN:SIN:MAS|SUB:NOM:SIN:FEM|SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.7_0.8"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_specific_noun",
+      "lemma": "bikini",
+      "rationale": "Transparent clothing word, specific but easy for English speakers.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "transparent_or_cognate_easy_for_english_speaker"
+      ],
+      "review_number": 61,
+      "review_treatment": "vocab",
+      "source_core_rank": 18809.0,
+      "source_frequency_blend": 0.850002,
+      "source_pos": "SUB:AKK:SIN:MAS|SUB:DAT:SIN:MAS|SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.8_0.9"
+      ],
+      "source_translations": [
+        "bikini"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "abstract_noun",
+      "lemma": "bewunderung",
+      "rationale": "Admiration is an abstract noun, useful but later.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 62,
+      "review_treatment": "vocab",
+      "source_core_rank": 18807.0,
+      "source_frequency_blend": 0.849997,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:DAT:SIN:FEM|SUB:GEN:SIN:FEM|SUB:NOM:SIN:FEM",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.8_0.9"
+      ],
+      "source_translations": [
+        "admiration"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.72,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_or_advanced_verb",
+      "lemma": "bewerkstelligen",
+      "rationale": "Formal accomplish/manage-to-do verb.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 64,
+      "review_treatment": "vocab",
+      "source_core_rank": 18806.0,
+      "source_frequency_blend": 0.849994,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.8_0.9"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.62,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "occupation_or_specific_noun",
+      "lemma": "brauer",
+      "rationale": "Brewer is a valid but specific occupation noun.",
+      "review_confidence": 0.74,
+      "review_flags": [
+        "domain_or_register_specific"
+      ],
+      "review_number": 65,
+      "review_treatment": "vocab",
+      "source_core_rank": 18811.0,
+      "source_frequency_blend": 0.850008,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "base_band_0.8_0.9"
+      ],
+      "source_translations": [
+        "brewer",
+        "brewer and maltster",
+        "brewers"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.62,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "polysemous_mid_tail_word",
+      "lemma": "brausen",
+      "rationale": "Roar/hum/shower is valid but polysemous and not core.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 67,
+      "review_treatment": "vocab",
+      "source_core_rank": 18812.0,
+      "source_frequency_blend": 0.85001,
+      "source_pos": "SUB:AKK:PLU:FEM|SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:FEM|SUB:DAT:SIN:NEU:INF|SUB:GEN:PLU:FEM|SUB:NOM:PLU:FEM|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.8_0.9"
+      ],
+      "source_translations": [
+        "hum",
+        "take a shower",
+        "have a shower"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.72,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "specific_noun",
+      "lemma": "überzug",
+      "rationale": "Coating/cover is useful but specific.",
+      "review_confidence": 0.74,
+      "review_flags": [],
+      "review_number": 68,
+      "review_treatment": "vocab",
+      "source_core_rank": 45368.0,
+      "source_frequency_blend": 0.948314,
+      "source_pos": "SUB:AKK:SIN:MAS|SUB:DAT:SIN:MAS|SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "base_band_0.9_1.0"
+      ],
+      "source_translations": [
+        "coating",
+        "lagging",
+        "lustre"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.86,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "advanced_participle_or_verb_form",
+      "lemma": "überstrahlt",
+      "rationale": "Outshone/overpowered participle is advanced and specific.",
+      "review_confidence": 0.74,
+      "review_flags": [],
+      "review_number": 70,
+      "review_treatment": "vocab",
+      "source_core_rank": 45366.0,
+      "source_frequency_blend": 0.948312,
+      "source_pos": "PA2:PRD:GRU:VER|VER:2:PLU:PRÄ:SFT|VER:3:SIN:PRÄ:SFT|VER:IMP:PLU:SFT|VER:PA2:SFT",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "base_band_0.9_1.0"
+      ],
+      "source_translations": [
+        "overpowered",
+        "outshined",
+        "outshone"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.82,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "specific_participle_or_verb_form",
+      "lemma": "überstimmt",
+      "rationale": "Outvoted participle is specific and later.",
+      "review_confidence": 0.74,
+      "review_flags": [],
+      "review_number": 71,
+      "review_treatment": "vocab",
+      "source_core_rank": 45365.0,
+      "source_frequency_blend": 0.948311,
+      "source_pos": "PA2:PRD:GRU:VER|VER:2:PLU:PRÄ:SFT|VER:3:SIN:PRÄ:SFT|VER:IMP:PLU:SFT|VER:PA2:SFT",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "base_band_0.9_1.0"
+      ],
+      "source_translations": [
+        "outvoted",
+        "outvotes"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.86,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "technical_compound_noun",
+      "lemma": "überschallgeschwindigkeit",
+      "rationale": "Supersonic speed is a long technical compound.",
+      "review_confidence": 0.82,
+      "review_flags": [
+        "compound_or_long_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 73,
+      "review_treatment": "vocab",
+      "source_core_rank": 45363.0,
+      "source_frequency_blend": 0.948309,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "base_band_0.9_1.0"
+      ],
+      "source_translations": [
+        "supersonic speed"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.78,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "specific_compound_noun",
+      "lemma": "überraschungsangriff",
+      "rationale": "Surprise attack is transparent as a compound but specific.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "compound_or_long_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 74,
+      "review_treatment": "vocab",
+      "source_core_rank": 45362.0,
+      "source_frequency_blend": 0.948308,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "base_band_0.9_1.0"
+      ],
+      "source_translations": [
+        "swoop",
+        "swoop (on)",
+        "surprise attack"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.03,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb_or_auxiliary",
+      "lemma": "haben",
+      "rationale": "Fundamental have verb and auxiliary.",
+      "review_confidence": 0.9,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 76,
+      "review_treatment": "vocab",
+      "source_core_rank": 13.0,
+      "source_frequency_blend": 0.181244,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|VER:3:PLU:KJ1:NON|VER:3:PLU:PRÄ:NON|VER:AUX:1:PLU:KJ1|VER:AUX:1:PLU:PRÄ|VER:AUX:3:PLU:KJ1|VER:AUX:3:PLU:PRÄ|VER:AUX:INF|VER:INF:NON",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "early_content_anchor"
+      ],
+      "source_translations": [
+        "hold",
+        "have",
+        "own"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.04,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_adjective",
+      "lemma": "gut",
+      "rationale": "Basic good adjective.",
+      "review_confidence": 0.92,
+      "review_flags": [],
+      "review_number": 77,
+      "review_treatment": "vocab",
+      "source_core_rank": 14.0,
+      "source_frequency_blend": 0.184798,
+      "source_pos": "ADJ:PRD:GRU|SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:NOM:SIN:NEU|ZUS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "early_content_anchor",
+        "translation_ambiguity"
+      ],
+      "source_translations": [
+        "cum laude",
+        "good",
+        "non-rivalrous good"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.04,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "der",
+      "rationale": "Core article/pronoun form.",
+      "review_confidence": 0.88,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 79,
+      "review_treatment": "vocab",
+      "source_core_rank": 19.0,
+      "source_frequency_blend": 0.206377,
+      "source_pos": "ART:DEF:DAT:SIN:FEM|ART:DEF:GEN:PLU:FEM|ART:DEF:GEN:PLU:MAS|ART:DEF:GEN:PLU:NEU|ART:DEF:GEN:SIN:FEM|ART:DEF:NOM:SIN:MAS|PRO:DEM:DAT:SIN:FEM|PRO:DEM:NOM:SIN:MAS|PRO:PER:NOM:SIN:MAS",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "early_other_anchor"
+      ],
+      "source_translations": [
+        "the",
+        "that",
+        "who"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.03,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "er",
+      "rationale": "Core pronoun he.",
+      "review_confidence": 0.9,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 80,
+      "review_treatment": "vocab",
+      "source_core_rank": 26.0,
+      "source_frequency_blend": 0.230275,
+      "source_pos": "PRO:PER:NOM:SIN:MAS",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "early_other_anchor"
+      ],
+      "source_translations": [
+        "he",
+        "he and his"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "spielen",
+      "rationale": "Basic play verb.",
+      "review_confidence": 0.86,
+      "review_flags": [
+        "topic_documented"
+      ],
+      "review_number": 82,
+      "review_treatment": "vocab",
+      "source_core_rank": 18.0,
+      "source_frequency_blend": 0.203803,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:NEU|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "topic_documented"
+      ],
+      "source_translations": [
+        "play",
+        "watch sb. at play",
+        "the role of play in a child's development"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.36,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "abstract_or_polysemous_core_word",
+      "lemma": "unternehmen",
+      "rationale": "Undertake/company is useful but abstract and polysemous.",
+      "review_confidence": 0.74,
+      "review_flags": [
+        "topic_documented"
+      ],
+      "review_number": 83,
+      "review_treatment": "vocab",
+      "source_core_rank": 77.0,
+      "source_frequency_blend": 0.306698,
+      "source_pos": "SUB:AKK:PLU:NEU|SUB:AKK:SIN:NEU|SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:NEU|SUB:DAT:SIN:NEU|SUB:DAT:SIN:NEU:INF|SUB:GEN:PLU:NEU|SUB:NOM:PLU:NEU|SUB:NOM:SIN:NEU|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|VER:3:PLU:KJ1:NON|VER:3:PLU:PRÄ:NON|VER:INF:NON",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "topic_documented"
+      ],
+      "source_translations": [
+        "concern",
+        "first concern",
+        "a going concern"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.34,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "polysemous_core_verb",
+      "lemma": "ziehen",
+      "rationale": "Common pull/move/draw verb, but broad and polysemous.",
+      "review_confidence": 0.76,
+      "review_flags": [
+        "topic_documented"
+      ],
+      "review_number": 85,
+      "review_treatment": "vocab",
+      "source_core_rank": 149.0,
+      "source_frequency_blend": 0.359006,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|VER:3:PLU:KJ1:NON|VER:3:PLU:PRÄ:NON|VER:INF:NON",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "topic_documented"
+      ],
+      "source_translations": [
+        "wrench",
+        "drag",
+        "pull"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "teilen",
+      "rationale": "Common divide/share verb.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "topic_documented"
+      ],
+      "review_number": 86,
+      "review_treatment": "vocab",
+      "source_core_rank": 160.0,
+      "source_frequency_blend": 0.363847,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:MAS|SUB:DAT:PLU:NEU|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "topic_documented"
+      ],
+      "source_translations": [
+        "partition",
+        "divide",
+        "divide sth. by sth."
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.22,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "polysemous_core_verb_or_noun",
+      "lemma": "kosten",
+      "rationale": "Common cost/taste item, slightly polysemous.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "topic_documented"
+      ],
+      "review_number": 88,
+      "review_treatment": "vocab",
+      "source_core_rank": 185.0,
+      "source_frequency_blend": 0.375237,
+      "source_pos": "SUB:AKK:PLU:NOG|SUB:DAT:PLU:NOG|SUB:GEN:PLU:NOG|SUB:NOM:PLU:NOG|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "topic_documented"
+      ],
+      "source_translations": [
+        "outlay",
+        "fees",
+        "charges"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.48,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "abstract_polysemous_noun",
+      "lemma": "einsatz",
+      "rationale": "Application/deployment/effort is abstract and polysemous.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "topic_documented"
+      ],
+      "review_number": 89,
+      "review_treatment": "vocab",
+      "source_core_rank": 190.0,
+      "source_frequency_blend": 0.37749,
+      "source_pos": "SUB:AKK:SIN:MAS|SUB:DAT:SIN:MAS|SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "topic_documented"
+      ],
+      "source_translations": [
+        "onset",
+        "effort",
+        "application"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb_false_friend_caution",
+      "lemma": "fallen",
+      "rationale": "Common fall verb; English-looking form should not be blindly treated as an easy cognate.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "false_friend_or_translation_noise"
+      ],
+      "review_number": 91,
+      "review_treatment": "vocab",
+      "source_core_rank": 79.0,
+      "source_frequency_blend": 0.308984,
+      "source_pos": "SUB:AKK:PLU:FEM|SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:FEM|SUB:DAT:SIN:NEU:INF|SUB:GEN:PLU:FEM|SUB:NOM:PLU:FEM|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|VER:3:PLU:KJ1:NON|VER:3:PLU:PRÄ:NON|VER:INF:NON",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_or_transparent"
+      ],
+      "source_translations": [
+        "drop",
+        "traps",
+        "pitfalls"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_loanword_core_noun",
+      "lemma": "team",
+      "rationale": "Transparent common team loanword.",
+      "review_confidence": 0.86,
+      "review_flags": [
+        "transparent_or_cognate_easy_for_english_speaker"
+      ],
+      "review_number": 92,
+      "review_treatment": "vocab",
+      "source_core_rank": 130.0,
+      "source_frequency_blend": 0.346382,
+      "source_pos": "SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:NOM:SIN:NEU",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_or_transparent"
+      ],
+      "source_translations": [
+        "panel",
+        "sports team",
+        "team"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_noun_false_friend_caution",
+      "lemma": "land",
+      "rationale": "Common country/land/state noun; English-looking but not purely an ease signal.",
+      "review_confidence": 0.8,
+      "review_flags": [
+        "false_friend_or_translation_noise"
+      ],
+      "review_number": 94,
+      "review_treatment": "vocab",
+      "source_core_rank": 165.0,
+      "source_frequency_blend": 0.36584,
+      "source_pos": "SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:NOM:SIN:NEU",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_or_transparent"
+      ],
+      "source_translations": [
+        "federal state",
+        "land",
+        "by land and by sea"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_core_noun",
+      "lemma": "auto",
+      "rationale": "Very common transparent car word.",
+      "review_confidence": 0.9,
+      "review_flags": [
+        "transparent_or_cognate_easy_for_english_speaker"
+      ],
+      "review_number": 95,
+      "review_treatment": "vocab",
+      "source_core_rank": 175.0,
+      "source_frequency_blend": 0.369727,
+      "source_pos": "SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:NOM:SIN:NEU",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_or_transparent"
+      ],
+      "source_translations": [
+        "car",
+        "automobile",
+        "a car with a capital c"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.16,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_core_noun",
+      "lemma": "minute",
+      "rationale": "Transparent common time-unit noun.",
+      "review_confidence": 0.86,
+      "review_flags": [
+        "transparent_or_cognate_easy_for_english_speaker"
+      ],
+      "review_number": 97,
+      "review_treatment": "vocab",
+      "source_core_rank": 179.0,
+      "source_frequency_blend": 0.372376,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:DAT:SIN:FEM|SUB:GEN:SIN:FEM|SUB:NOM:SIN:FEM",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "cognate_or_transparent"
+      ],
+      "source_translations": [
+        "minute",
+        "last-minute",
+        "be within 30 minutes of …"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.28,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "polysemous_core_verb",
+      "lemma": "stellen",
+      "rationale": "Very common put/place/provide verb, but broad enough to be harder than a simple gloss suggests.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 98,
+      "review_treatment": "vocab",
+      "source_core_rank": 31.0,
+      "source_frequency_blend": 0.24212,
+      "source_pos": "SUB:AKK:PLU:FEM|SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:FEM|SUB:DAT:SIN:NEU:INF|SUB:GEN:PLU:FEM|SUB:NOM:PLU:FEM|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "common_english_gloss"
+      ],
+      "source_translations": [
+        "positions of employment",
+        "positions",
+        "posts"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_grammar_word",
+      "lemma": "was",
+      "rationale": "Core what pronoun/adverb, grammar-heavy.",
+      "review_confidence": 0.86,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 100,
+      "review_treatment": "vocab",
+      "source_core_rank": 90.0,
+      "source_frequency_blend": 0.319472,
+      "source_pos": "ADV:MOD|PRO:IND:SIN:ALG:3:B/S|PRO:RIN:AKK:NEU|PRO:RIN:NOM:NEU",
+      "source_pos_bucket": "adverb",
+      "source_selection_reasons": [
+        "common_english_gloss"
+      ],
+      "source_translations": [
+        "what",
+        "what about me?",
+        "whatever"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.1,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_adjective_or_adverb",
+      "lemma": "einfach",
+      "rationale": "Basic simple/easy/just item; raw glosses miss the beginner sense.",
+      "review_confidence": 0.86,
+      "review_flags": [],
+      "review_number": 101,
+      "review_treatment": "vocab",
+      "source_core_rank": 117.0,
+      "source_frequency_blend": 0.338272,
+      "source_pos": "ADJ:PRD:GRU",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "common_english_gloss"
+      ],
+      "source_translations": [
+        "unpretentious",
+        "frugal",
+        "conveniently"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_adjective",
+      "lemma": "weit",
+      "rationale": "Common wide/far adjective/adverb, slightly later than the most basic adjectives.",
+      "review_confidence": 0.82,
+      "review_flags": [],
+      "review_number": 103,
+      "review_treatment": "vocab",
+      "source_core_rank": 16.0,
+      "source_frequency_blend": 0.194123,
+      "source_pos": "ADJ:PRD:GRU",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "translation_ambiguity"
+      ],
+      "source_translations": [
+        "ample",
+        "extensive",
+        "an ample garden"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "function_or_discourse_adverb",
+      "lemma": "erst",
+      "rationale": "Only just/not until is useful but grammar/discourse-heavy.",
+      "review_confidence": 0.76,
+      "review_flags": [
+        "grammar_or_function_word"
+      ],
+      "review_number": 104,
+      "review_treatment": "vocab",
+      "source_core_rank": 17.0,
+      "source_frequency_blend": 0.199316,
+      "source_pos": "ADJ:PRD:GRU|ADV:MOD",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "translation_ambiguity"
+      ],
+      "source_translations": [
+        "only just",
+        "only",
+        "barely"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.74,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_compound_noun",
+      "lemma": "verteidigungsminister",
+      "rationale": "Defense minister is a formal political compound, transparent but specific.",
+      "review_confidence": 0.76,
+      "review_flags": [
+        "compound_or_long_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 106,
+      "review_treatment": "vocab",
+      "source_core_rank": 2742.0,
+      "source_frequency_blend": 0.634782,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "long_or_compound"
+      ],
+      "source_translations": [
+        "minister of defence",
+        "ministers of defence"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.84,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "institutional_compound_noun",
+      "lemma": "bundesverfassungsgericht",
+      "rationale": "Federal Constitutional Court is institutional/proper-ish but meaningful vocabulary.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "compound_or_long_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 107,
+      "review_treatment": "vocab",
+      "source_core_rank": 3847.0,
+      "source_frequency_blend": 0.673336,
+      "source_pos": "SUB:AKK:SIN:NEU|SUB:DAT:SIN:NEU|SUB:NOM:SIN:NEU",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "long_or_compound"
+      ],
+      "source_translations": [
+        "federal constitutional court in germany"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.8,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "specific_political_compound_noun",
+      "lemma": "bundesinnenministerin",
+      "rationale": "Federal interior minister feminine form is a specific political compound.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "compound_or_long_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 109,
+      "review_treatment": "vocab",
+      "source_core_rank": 4078.0,
+      "source_frequency_blend": 0.679803,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:DAT:SIN:FEM|SUB:GEN:SIN:FEM|SUB:NOM:SIN:FEM",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "long_or_compound"
+      ],
+      "source_translations": [
+        "federal minister of the interior"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.7,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_compound_adjective",
+      "lemma": "öffentlich-rechtlich",
+      "rationale": "Public-law/public-broadcasting adjective is formal and compound-like.",
+      "review_confidence": 0.76,
+      "review_flags": [
+        "compound_or_long_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 110,
+      "review_treatment": "vocab",
+      "source_core_rank": 4103.0,
+      "source_frequency_blend": 0.680301,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "long_or_compound"
+      ],
+      "source_translations": [
+        "under public law",
+        "public-law body",
+        "public service broadcasting institutions"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.74,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_legal_compound_noun",
+      "lemma": "ermittlungsverfahren",
+      "rationale": "Investigation proceedings is formal/legal vocabulary.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "compound_or_long_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 112,
+      "review_treatment": "vocab",
+      "source_core_rank": 4440.0,
+      "source_frequency_blend": 0.689586,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "long_or_compound"
+      ],
+      "source_translations": [
+        "preliminary investigation",
+        "preliminary inquiry",
+        "be under investigation"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.86,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "advanced_or_obscure_verb",
+      "lemma": "überwälzen",
+      "rationale": "Shift/pass on a burden is an obscure advanced verb.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 113,
+      "review_treatment": "vocab",
+      "source_core_rank": 69575.0,
+      "source_frequency_blend": 0.987622,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_no_translation"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "recondite",
+      "expected_learner_difficulty": 0.94,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "recondite_or_odd_tail_word",
+      "lemma": "übername",
+      "rationale": "Very rare or odd word, near-recondite; keep as a tail anchor unless later product samples argue for restriction.",
+      "review_confidence": 0.62,
+      "review_flags": [],
+      "review_number": 115,
+      "review_treatment": "vocab",
+      "source_core_rank": 69542.0,
+      "source_frequency_blend": 0.987599,
+      "source_pos": "SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "tail_no_translation"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.64,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "idiomatic_advanced_verb",
+      "lemma": "übelnehmen",
+      "rationale": "Take offense is useful idiomatic vocabulary, substantially easier than its tail rank.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 116,
+      "review_treatment": "vocab",
+      "source_core_rank": 69514.0,
+      "source_frequency_blend": 0.987579,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON:NEB|VER:1:PLU:PRÄ:NON:NEB|VER:3:PLU:KJ1:NON:NEB|VER:3:PLU:PRÄ:NON:NEB|VER:INF:NON",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "tail_no_translation"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.88,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "rare_formal_compound_noun",
+      "lemma": "ämterwechsel",
+      "rationale": "Change of offices/official turnover is a rare formal compound.",
+      "review_confidence": 0.68,
+      "review_flags": [
+        "compound_or_long_form",
+        "domain_or_register_specific"
+      ],
+      "review_number": 118,
+      "review_treatment": "vocab",
+      "source_core_rank": 69493.0,
+      "source_frequency_blend": 0.987564,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_no_translation"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "advanced",
+      "expected_learner_difficulty": 0.82,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "rare_agent_noun",
+      "lemma": "zögerer",
+      "rationale": "Hesitator/procrastinator is rare but understandable.",
+      "review_confidence": 0.68,
+      "review_flags": [],
+      "review_number": 119,
+      "review_treatment": "vocab",
+      "source_core_rank": 69483.0,
+      "source_frequency_blend": 0.987557,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "tail_no_translation"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.08,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_noun",
+      "lemma": "katze",
+      "rationale": "Basic cat noun; raw boundary rank is clearly too high.",
+      "review_confidence": 0.9,
+      "review_flags": [],
+      "review_number": 121,
+      "review_treatment": "vocab",
+      "source_core_rank": 1980.0,
+      "source_frequency_blend": 0.599989,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:DAT:SIN:FEM|SUB:GEN:SIN:FEM|SUB:NOM:SIN:FEM",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "boundary"
+      ],
+      "source_translations": [
+        "cat",
+        "feline",
+        "tortoiseshell cat"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "inflected_or_participle_form",
+      "lemma": "verlängert",
+      "rationale": "Extended/prolonged participle is useful but should trail the base verb verlängern.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 122,
+      "review_treatment": "vocab",
+      "source_core_rank": 1981.0,
+      "source_frequency_blend": 0.600014,
+      "source_pos": "PA2:PRD:GRU:VER|VER:2:PLU:KJ1:SFT|VER:2:PLU:PRÄ:SFT|VER:3:SIN:PRÄ:SFT|VER:IMP:PLU:SFT|VER:PA2:SFT",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "boundary"
+      ],
+      "source_translations": [
+        "extended",
+        "lengthened",
+        "prolonged"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.46,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_participle_or_adjective",
+      "lemma": "verpflichtet",
+      "rationale": "Obligated/committed participle is common but formal.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 124,
+      "review_treatment": "vocab",
+      "source_core_rank": 1982.0,
+      "source_frequency_blend": 0.600039,
+      "source_pos": "PA2:PRD:GRU:VER|VER:2:PLU:KJ1:SFT|VER:2:PLU:PRÄ:SFT|VER:3:SIN:PRÄ:SFT|VER:IMP:PLU:SFT|VER:PA2:SFT",
+      "source_pos_bucket": "verb",
+      "source_selection_reasons": [
+        "boundary"
+      ],
+      "source_translations": [
+        "engaged",
+        "signed",
+        "signed up"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.56,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "intermediate_verb",
+      "lemma": "ausstatten",
+      "rationale": "Equip/furnish is useful but intermediate.",
+      "review_confidence": 0.74,
+      "review_flags": [],
+      "review_number": 125,
+      "review_treatment": "vocab",
+      "source_core_rank": 1978.0,
+      "source_frequency_blend": 0.599939,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT:NEB|VER:1:PLU:PRÄ:SFT:NEB|VER:3:PLU:KJ1:SFT:NEB|VER:3:PLU:PRÄ:SFT:NEB|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "boundary"
+      ],
+      "source_translations": [
+        "accoutre sb./sth.",
+        "accouter sb./sth.",
+        "configurate"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.44,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "abstract_noun",
+      "lemma": "ankündigung",
+      "rationale": "Announcement/notice is useful but abstract.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 127,
+      "review_treatment": "vocab",
+      "source_core_rank": 1977.0,
+      "source_frequency_blend": 0.599914,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:DAT:SIN:FEM|SUB:GEN:SIN:FEM|SUB:NOM:SIN:FEM",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "boundary"
+      ],
+      "source_translations": [
+        "notice",
+        "on reasonable notice",
+        "advertisement"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "beginner",
+      "expected_learner_difficulty": 0.18,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "core_verb",
+      "lemma": "malen",
+      "rationale": "Paint/draw is a common learner word.",
+      "review_confidence": 0.86,
+      "review_flags": [],
+      "review_number": 128,
+      "review_treatment": "vocab",
+      "source_core_rank": 1983.0,
+      "source_frequency_blend": 0.600145,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:NEU|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "boundary"
+      ],
+      "source_translations": [
+        "picture",
+        "paint"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.34,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "abstract_core_noun",
+      "lemma": "wahl",
+      "rationale": "Choice/election is a common abstract noun.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 130,
+      "review_treatment": "vocab",
+      "source_core_rank": 466.0,
+      "source_frequency_blend": 0.457288,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:DAT:SIN:FEM|SUB:GEN:SIN:FEM|SUB:NOM:SIN:FEM",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "ballot",
+        "choice",
+        "make a choice"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.44,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_intermediate_adjective",
+      "lemma": "massiv",
+      "rationale": "Massive/solid is transparent but not basic.",
+      "review_confidence": 0.76,
+      "review_flags": [
+        "transparent_or_cognate_easy_for_english_speaker"
+      ],
+      "review_number": 131,
+      "review_treatment": "vocab",
+      "source_core_rank": 699.0,
+      "source_frequency_blend": 0.495554,
+      "source_pos": "ADJ:PRD:GRU",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "massif",
+        "one-piece",
+        "single-piece"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.46,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "polysemous_intermediate_verb",
+      "lemma": "treiben",
+      "rationale": "Drive/push/do/carry on is broad and polysemous.",
+      "review_confidence": 0.74,
+      "review_flags": [],
+      "review_number": 133,
+      "review_treatment": "vocab",
+      "source_core_rank": 1165.0,
+      "source_frequency_blend": 0.5448,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:NON|VER:1:PLU:PRÄ:NON|VER:3:PLU:KJ1:NON|VER:3:PLU:PRÄ:NON|VER:INF:NON",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "send sth.",
+        "hustle",
+        "propel"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.42,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "intermediate_verb",
+      "lemma": "trennen",
+      "rationale": "Separate is a useful intermediate verb.",
+      "review_confidence": 0.78,
+      "review_flags": [],
+      "review_number": 134,
+      "review_treatment": "vocab",
+      "source_core_rank": 1397.0,
+      "source_frequency_blend": 0.562371,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "disconnection",
+        "disengagement",
+        "hive off sb."
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.48,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_abstract_noun",
+      "lemma": "beschluss",
+      "rationale": "Decision/resolution is a formal-ish abstract noun.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 136,
+      "review_treatment": "vocab",
+      "source_core_rank": 1863.0,
+      "source_frequency_blend": 0.592842,
+      "source_pos": "SUB:AKK:SIN:MAS|SUB:DAT:SIN:MAS|SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "decision",
+        "make a decision involving yourself",
+        "amend a decision"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "polysemous_common_noun",
+      "lemma": "bar",
+      "rationale": "Bar/cash/bare senses make this common but polysemous.",
+      "review_confidence": 0.76,
+      "review_flags": [],
+      "review_number": 137,
+      "review_treatment": "vocab",
+      "source_core_rank": 2095.0,
+      "source_frequency_blend": 0.606056,
+      "source_pos": "ADJ:PRD:GRU|SUB:AKK:SIN:FEM|SUB:DAT:SIN:FEM|SUB:GEN:SIN:FEM|SUB:NOM:SIN:FEM",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "bar",
+        "nightclub",
+        "cocktail lounge"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.34,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_specific_noun",
+      "lemma": "mission",
+      "rationale": "Mission is transparent and understandable, though specific.",
+      "review_confidence": 0.78,
+      "review_flags": [
+        "transparent_or_cognate_easy_for_english_speaker"
+      ],
+      "review_number": 139,
+      "review_treatment": "vocab",
+      "source_core_rank": 2561.0,
+      "source_frequency_blend": 0.62722,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:DAT:SIN:FEM|SUB:GEN:SIN:FEM|SUB:NOM:SIN:FEM",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "mission"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.46,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "polysemous_separable_verb",
+      "lemma": "ausmachen",
+      "rationale": "Turn off/constitute/make out is a very polysemous separable verb.",
+      "review_confidence": 0.74,
+      "review_flags": [
+        "compound_or_long_form"
+      ],
+      "review_number": 140,
+      "review_treatment": "vocab",
+      "source_core_rank": 2793.0,
+      "source_frequency_blend": 0.637008,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT:NEB|VER:1:PLU:PRÄ:SFT:NEB|VER:3:PLU:KJ1:SFT:NEB|VER:3:PLU:PRÄ:SFT:NEB|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "turn off sth.",
+        "put out",
+        "douse"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.5,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "specific_loanlike_verb",
+      "lemma": "modeln",
+      "rationale": "Work as a model is loan-like and specific.",
+      "review_confidence": 0.72,
+      "review_flags": [
+        "transparent_or_cognate_easy_for_english_speaker",
+        "domain_or_register_specific"
+      ],
+      "review_number": 142,
+      "review_treatment": "vocab",
+      "source_core_rank": 3259.0,
+      "source_frequency_blend": 0.65436,
+      "source_pos": "SUB:AKK:SIN:NEU:INF|SUB:DAT:PLU:NEU|SUB:DAT:SIN:NEU:INF|SUB:NOM:SIN:NEU:INF|VER:1:PLU:KJ1:SFT|VER:1:PLU:PRÄ:SFT|VER:3:PLU:KJ1:SFT|VER:3:PLU:PRÄ:SFT|VER:INF:SFT",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "model",
+        "work as a model"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.22,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_core_compound_noun",
+      "lemma": "spielplatz",
+      "rationale": "Playground is a transparent and useful compound.",
+      "review_confidence": 0.84,
+      "review_flags": [
+        "compound_or_long_form"
+      ],
+      "review_number": 143,
+      "review_treatment": "vocab",
+      "source_core_rank": 3492.0,
+      "source_frequency_blend": 0.662066,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "playground",
+        "children's playground",
+        "children's play area"
+      ]
+    },
+    {
+      "expected_candidate_state": "restricted_admission",
+      "expected_difficulty_band": null,
+      "expected_learner_difficulty": null,
+      "expected_presentation_mode": "restrict_admission",
+      "expected_problem_class": "foreign_or_entity_like_form",
+      "lemma": "king",
+      "rationale": "English/proper-name-like row, not good general German vocabulary.",
+      "review_confidence": 0.82,
+      "review_flags": [
+        "proper_name_or_entity",
+        "needs_display_or_rule_restriction"
+      ],
+      "review_number": 145,
+      "review_treatment": "restrict_admission",
+      "source_core_rank": 3957.0,
+      "source_frequency_blend": 0.676396,
+      "source_pos": "SUB:AKK:SIN:MAS|SUB:DAT:SIN:MAS|SUB:NOM:SIN:MAS",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "core",
+      "expected_learner_difficulty": 0.3,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "transparent_time_compound_noun",
+      "lemma": "mittwochmorgen",
+      "rationale": "Wednesday morning is a transparent time compound.",
+      "review_confidence": 0.82,
+      "review_flags": [
+        "compound_or_long_form"
+      ],
+      "review_number": 146,
+      "review_treatment": "vocab",
+      "source_core_rank": 4190.0,
+      "source_frequency_blend": 0.682731,
+      "source_pos": "",
+      "source_pos_bucket": "other",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": []
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.58,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_abstract_noun",
+      "lemma": "anhebung",
+      "rationale": "Increase/raising is a formal noun.",
+      "review_confidence": 0.74,
+      "review_flags": [],
+      "review_number": 148,
+      "review_treatment": "vocab",
+      "source_core_rank": 4655.0,
+      "source_frequency_blend": 0.695079,
+      "source_pos": "SUB:AKK:SIN:FEM|SUB:DAT:SIN:FEM|SUB:GEN:SIN:FEM|SUB:NOM:SIN:FEM",
+      "source_pos_bucket": "noun",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "raising",
+        "boosting",
+        "emphasis"
+      ]
+    },
+    {
+      "expected_candidate_state": "normal_vocab",
+      "expected_difficulty_band": "intermediate",
+      "expected_learner_difficulty": 0.52,
+      "expected_presentation_mode": "vocab",
+      "expected_problem_class": "formal_or_temporal_adjective",
+      "lemma": "gestrig",
+      "rationale": "Yesterday's/of yesterday adjective is useful but somewhat formal as a standalone lemma.",
+      "review_confidence": 0.72,
+      "review_flags": [],
+      "review_number": 149,
+      "review_treatment": "vocab",
+      "source_core_rank": 4888.0,
+      "source_frequency_blend": 0.700365,
+      "source_pos": "ADJ:PRD:GRU",
+      "source_pos_bucket": "adjective",
+      "source_selection_reasons": [
+        "deterministic_fill"
+      ],
+      "source_translations": [
+        "of yesterday",
+        "yesterday's",
+        "yester"
+      ]
+    }
+  ],
+  "language_pair": "en-de",
+  "purpose": "Reviewed v1 calibration rows for en-de learner-difficulty formula sweeps. The split was assigned before tuning from the en-de review pack.",
+  "schema_version": 1,
+  "state": "partial_reviewed_v1_from_initial_pack"
+}

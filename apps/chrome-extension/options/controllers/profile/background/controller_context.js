@@ -25,12 +25,10 @@
 
     const elements = opts.elements && typeof opts.elements === "object" ? opts.elements : {};
     const profileBgBackdropColorInput = elements.profileBgBackdropColorInput || null;
-    const profileBgEnabledInput = elements.profileBgEnabledInput || null;
     const profileBgOpacityInput = elements.profileBgOpacityInput || null;
     const profileBgOpacityValueOutput = elements.profileBgOpacityValueOutput || null;
     const profileBgFileInput = elements.profileBgFileInput || null;
     const profileBgRemoveButton = elements.profileBgRemoveButton || null;
-    const profileBgApplyButton = elements.profileBgApplyButton || null;
     const profileBgStatusOutput = elements.profileBgStatusOutput || null;
     const profileBgPreviewWrap = elements.profileBgPreviewWrap || null;
     const profileBgPreviewImage = elements.profileBgPreviewImage || null;
@@ -260,12 +258,10 @@
       colors,
       maxUploadBytes,
       profileBgBackdropColorInput,
-      profileBgEnabledInput,
       profileBgOpacityInput,
       profileBgOpacityValueOutput,
       profileBgFileInput,
       profileBgRemoveButton,
-      profileBgApplyButton,
       profileBgStatusOutput,
       profileBgPositionResetButton,
       profileCardThemeResetButton,

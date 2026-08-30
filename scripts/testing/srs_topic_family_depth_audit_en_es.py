@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 from collections import Counter
 from datetime import datetime, timezone
 import json
@@ -12,6 +13,7 @@ from typing import Mapping, Sequence
 
 from srs_topic_family_depth_audit_config import (  # noqa: E402
     DEFAULT_CURRENT_FREQUENCY_DB,
+    DEFAULT_DIFFICULTY_RANKING_CSV,
     DEFAULT_JSON_OUT,
     DEFAULT_KAIKKI_FORWARD_DB,
     DEFAULT_MARKDOWN_OUT,
@@ -57,6 +59,16 @@ def _parse_args() -> argparse.Namespace:
         help="Candidate frontier as LABEL=PATH. May be repeated. Defaults to current CDE plus the prior SPALEX research path if known.",
     )
     parser.add_argument("--top-n", type=int, default=DEFAULT_TOP_N)
+    parser.add_argument(
+        "--difficulty-ranking-csv",
+        type=Path,
+        default=DEFAULT_DIFFICULTY_RANKING_CSV,
+        help=(
+            "Optional final learner-difficulty ranking CSV with lemma and score columns. "
+            "When present, topic depth bands use that calibrated score instead of "
+            "1 - admission_weight."
+        ),
+    )
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     parser.add_argument("--fail-on-review", action="store_true")
@@ -73,6 +85,7 @@ def main() -> int:
     report = build_report(
         taxonomy_path=args.taxonomy_json,
         kaikki_forward_db=args.kaikki_forward_db,
+        difficulty_ranking_csv=args.difficulty_ranking_csv,
         frontiers=frontiers,
         top_n=max(1, int(args.top_n)),
     )
@@ -94,6 +107,7 @@ def build_report(
     *,
     taxonomy_path: Path = DEFAULT_TAXONOMY,
     kaikki_forward_db: Path | None = None,
+    difficulty_ranking_csv: Path | None = None,
     frontiers: Sequence[tuple[str, Path, bool]] | None = None,
     top_n: int = DEFAULT_TOP_N,
     generated_at: str | None = None,
@@ -104,6 +118,7 @@ def build_report(
     source_mappings = trusted_source_mappings(taxonomy)
     source_exclusions = trusted_source_exclusions(taxonomy)
     signal_index = load_kaikki_topic_signal_index(signal_db)
+    difficulty_index = _load_difficulty_ranking_index(difficulty_ranking_csv)
     frontier_specs = list(frontiers) if frontiers is not None else _default_frontiers()
     audits = [
         audit_frontier(
@@ -114,6 +129,7 @@ def build_report(
             source_mappings=source_mappings,
             source_exclusions=source_exclusions,
             signal_index=signal_index,
+            difficulty_scores=_as_mapping(difficulty_index.get("_scores")),
             top_n=top_n,
         )
         for label, path, required in frontier_specs
@@ -132,6 +148,11 @@ def build_report(
         "inputs": {
             "taxonomy_json": str(Path(taxonomy_path).expanduser().resolve(strict=False)),
             "kaikki_forward_db": str(Path(signal_db).expanduser().resolve(strict=False)),
+            "difficulty_ranking_csv": str(
+                Path(difficulty_ranking_csv).expanduser().resolve(strict=False)
+            )
+            if difficulty_ranking_csv is not None
+            else "",
             "top_n": int(top_n),
             "frontiers": [
                 {"label": label, "frequency_db": str(path), "required": required}
@@ -144,7 +165,8 @@ def build_report(
             "source_download": "none",
             "trusted_topic_policy": "taxonomy source_label_mappings over Kaikki/Wiktionary sense_topics and pack topic columns, minus taxonomy source-topic exclusions",
             "register_policy": "review-only allowlisted tag/category inventory; no admission lift",
-            "difficulty_proxy": "1_minus_admission_weight",
+            "difficulty_source": str(difficulty_index.get("source") or "admission_weight_proxy"),
+            "difficulty_proxy": str(difficulty_index.get("proxy") or "1_minus_admission_weight"),
         },
         "taxonomy": {
             "taxonomy_id": str(taxonomy.get("taxonomy_id") or ""),
@@ -155,6 +177,9 @@ def build_report(
             "path": str(Path(signal_db).expanduser().resolve(strict=False)),
             "exists": bool(signal_index.get("exists")),
         },
+        "difficulty_ranking": {
+            key: value for key, value in difficulty_index.items() if not key.startswith("_")
+        },
         "frontiers": audits,
         "findings": findings,
         "summary": _summary(audits, findings),
@@ -162,7 +187,11 @@ def build_report(
             "This audit is read-only and does not create overlays, mutate packs, or publish SRS sets.",
             "Trusted family coverage uses explicit sense-topic-style evidence only.",
             "Register/style rows are inventoried as review-only candidates and are not profile-admission proof.",
-            "Difficulty depth uses the current admission-weight proxy, not a calibrated CEFR or learner-level model.",
+            (
+                "Difficulty depth uses the final learner-difficulty ranking when "
+                "a ranking CSV is available; otherwise it falls back to the "
+                "admission-weight proxy."
+            ),
             "Optional research frontiers are reported as unavailable if their local SQLite path is absent; the audit does not download or rebuild them.",
         ],
     }
@@ -177,6 +206,7 @@ def audit_frontier(
     source_mappings: Mapping[str, Sequence[Mapping[str, object]]],
     source_exclusions: Sequence[Mapping[str, object]],
     signal_index: Mapping[str, object],
+    difficulty_scores: Mapping[str, object],
     top_n: int,
 ) -> dict[str, object]:
     resolved = Path(frequency_db).expanduser().resolve(strict=False)
@@ -202,11 +232,17 @@ def audit_frontier(
         ),
     )
     by_channel = _as_mapping(signal_index.get("_by_channel"))
+    difficulty_source_counts: Counter[str] = Counter()
     family_accumulators = {
         family_id: _new_family_accumulator(family) for family_id, family in family_rows.items()
     }
     for seed_index, seed in enumerate(seeds, start=1):
-        seed_info = source_seed_info(seed, seed_index)
+        seed_info = _seed_info_with_difficulty(
+            seed,
+            seed_index,
+            difficulty_scores=difficulty_scores,
+        )
+        difficulty_source_counts[str(seed_info.get("difficulty_source") or "unknown")] += 1
         lemma = seed_info["lemma"]
         trusted_labels = trusted_labels_for_seed(seed, lemma=lemma, by_channel=by_channel)
         trusted_matches_by_family: dict[str, dict[str, object]] = {}
@@ -285,6 +321,7 @@ def audit_frontier(
         "status": "ok",
         "seed_count": len(seeds),
         "unique_lemma_count": len({str(getattr(seed, "lemma", "") or "") for seed in seeds}),
+        "difficulty_source_counts": dict(difficulty_source_counts),
         "families": family_reports,
     }
 
@@ -578,6 +615,66 @@ def _empty_family_reports(
     ]
 
 
+def _seed_info_with_difficulty(
+    seed: object,
+    seed_rank: int,
+    *,
+    difficulty_scores: Mapping[str, object],
+) -> dict[str, object]:
+    seed_info = source_seed_info(seed, seed_rank)
+    lemma = _normalize_lemma(seed_info.get("lemma"))
+    calibrated = _optional_float(difficulty_scores.get(lemma))
+    if calibrated is None:
+        seed_info["difficulty_source"] = "admission_weight_proxy"
+        return seed_info
+    seed_info["admission_difficulty"] = seed_info.get("difficulty")
+    seed_info["difficulty"] = round(max(0.0, min(1.0, calibrated)), 6)
+    seed_info["difficulty_source"] = "corrected_learner_difficulty_ranking"
+    return seed_info
+
+
+def _load_difficulty_ranking_index(path: Path | None) -> dict[str, object]:
+    if path is None:
+        return {
+            "source": "admission_weight_proxy",
+            "proxy": "1_minus_admission_weight",
+            "exists": False,
+            "path": "",
+            "score_count": 0,
+            "_scores": {},
+        }
+    resolved = Path(path).expanduser().resolve(strict=False)
+    if not resolved.exists():
+        return {
+            "source": "admission_weight_proxy",
+            "proxy": "1_minus_admission_weight",
+            "exists": False,
+            "path": str(resolved),
+            "score_count": 0,
+            "_scores": {},
+        }
+    scores: dict[str, float] = {}
+    malformed_rows = 0
+    with resolved.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            lemma = _normalize_lemma(row.get("lemma"))
+            score = _optional_float(row.get("score"))
+            if not lemma or score is None:
+                malformed_rows += 1
+                continue
+            scores[lemma] = max(0.0, min(1.0, score))
+    return {
+        "source": "corrected_learner_difficulty_ranking",
+        "proxy": "final_ranking_score",
+        "exists": True,
+        "path": str(resolved),
+        "score_count": len(scores),
+        "malformed_row_count": malformed_rows,
+        "_scores": scores,
+    }
+
+
 def _build_findings(
     *,
     audits: Sequence[Mapping[str, object]],
@@ -729,6 +826,8 @@ def _public_hit(row: Mapping[str, object]) -> dict[str, object]:
         "lemma": row.get("lemma"),
         "seed_rank": row.get("seed_rank"),
         "difficulty": row.get("difficulty"),
+        "difficulty_source": row.get("difficulty_source"),
+        "admission_difficulty": row.get("admission_difficulty"),
         "admission_weight": row.get("admission_weight"),
         "pos_bucket": row.get("pos_bucket"),
         "source_labels": list(row.get("source_labels") or []),
@@ -767,6 +866,21 @@ def _float(value: object) -> float:
         except ValueError:
             return 0.0
     return 0.0
+
+
+def _optional_float(value: object) -> float | None:
+    if isinstance(value, (float, int)):
+        return float(value)
+    if isinstance(value, str):
+        try:
+            return float(value.strip())
+        except ValueError:
+            return None
+    return None
+
+
+def _normalize_lemma(value: object) -> str:
+    return str(value or "").strip().lower()
 
 
 def _ratio(numerator: int, denominator: int) -> float:

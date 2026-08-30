@@ -7,6 +7,7 @@ from typing import Optional
 
 from lexishift_core.helper.engine import RulegenJobConfig, run_rulegen_job
 from lexishift_core.helper.paths import build_helper_paths
+from lexishift_core.helper.profiles import resolve_active_profile_id
 from lexishift_core.helper.status import HelperStatus, load_status, save_status
 from lexishift_core.helper.lp_capabilities import (
     default_frequency_db_path,
@@ -15,8 +16,15 @@ from lexishift_core.helper.lp_capabilities import (
     resolve_pair_capability,
     supported_rulegen_pairs,
 )
-from lexishift_core.srs import SrsSettings, load_srs_settings
+from lexishift_core.srs import (
+    SrsSettings,
+    load_srs_inventory,
+    load_srs_settings,
+    load_srs_store,
+    srs_item_is_active,
+)
 from lexishift_core.srs.growth import resolve_allowed_pairs
+from lexishift_core.srs.inventory import active_item_ids_for_pair
 from lexishift_core.srs.time import now_utc
 
 
@@ -39,7 +47,13 @@ def _supported_pairs() -> tuple[str, ...]:
     return supported_rulegen_pairs()
 
 
-def _build_job_config(pair: str, paths, config: DaemonConfig) -> RulegenJobConfig | None:
+def _build_job_config(
+    pair: str,
+    paths,
+    config: DaemonConfig,
+    *,
+    profile_id: str = "default",
+) -> RulegenJobConfig | None:
     if pair not in _supported_pairs():
         return None
     capability = resolve_pair_capability(pair)
@@ -67,11 +81,56 @@ def _build_job_config(pair: str, paths, config: DaemonConfig) -> RulegenJobConfi
         snapshot_targets=config.snapshot_targets,
         snapshot_sources=config.snapshot_sources,
         initialize_if_empty=True,
+        profile_id=profile_id,
     )
 
 
-def _update_status_error(paths, error: str) -> None:
-    status = load_status(paths.srs_status_path)
+def _profile_pairs_from_inventory(paths, profile_id: str) -> tuple[str, ...]:
+    inventory_path = paths.srs_inventory_path_for(profile_id)
+    if not inventory_path.exists():
+        return tuple()
+    try:
+        inventory = load_srs_inventory(inventory_path)
+    except Exception:  # noqa: BLE001
+        return tuple()
+    pairs: list[str] = []
+    for pair in dict(inventory.pairs or {}):
+        if active_item_ids_for_pair(inventory, pair):
+            pairs.append(pair)
+    return tuple(pairs)
+
+
+def _profile_pairs_from_store(paths, profile_id: str) -> tuple[str, ...]:
+    store_path = paths.srs_store_path_for(profile_id)
+    if not store_path.exists():
+        return tuple()
+    try:
+        store = load_srs_store(store_path)
+    except Exception:  # noqa: BLE001
+        return tuple()
+    pairs = {
+        str(item.language_pair or "").strip()
+        for item in store.items
+        if str(item.language_pair or "").strip() and srs_item_is_active(item)
+    }
+    return tuple(sorted(pairs))
+
+
+def _resolve_daemon_pairs(settings: SrsSettings, paths, profile_id: str) -> tuple[str, ...]:
+    if not settings.enabled:
+        return tuple()
+    configured_pairs = tuple(resolve_allowed_pairs(settings))
+    if configured_pairs:
+        return configured_pairs
+    inventory_pairs = _profile_pairs_from_inventory(paths, profile_id)
+    if inventory_pairs:
+        return inventory_pairs
+    return _profile_pairs_from_store(paths, profile_id)
+
+
+def _update_status_error(paths, error: str, *, profile_id: str) -> None:
+    status_path = paths.srs_status_path_for(profile_id)
+    status = load_status(status_path)
     status = HelperStatus(
         version=status.version,
         helper_version=status.helper_version,
@@ -81,28 +140,28 @@ def _update_status_error(paths, error: str) -> None:
         last_rule_count=status.last_rule_count,
         last_target_count=status.last_target_count,
     )
-    save_status(status, paths.srs_status_path)
+    save_status(status, status_path)
 
 
 def run_daemon(config: DaemonConfig) -> None:
     paths = build_helper_paths()
+    profile_id = resolve_active_profile_id(paths)
     save_status(
         HelperStatus(last_run_at=now_utc().isoformat(), last_error=None),
-        paths.srs_status_path,
+        paths.srs_status_path_for(profile_id),
     )
     while True:
         try:
+            profile_id = resolve_active_profile_id(paths)
             settings = _load_settings(paths)
-            pairs = resolve_allowed_pairs(settings)
-            if not pairs:
-                pairs = _supported_pairs()
+            pairs = _resolve_daemon_pairs(settings, paths, profile_id)
             for pair in pairs:
-                job = _build_job_config(pair, paths, config)
+                job = _build_job_config(pair, paths, config, profile_id=profile_id)
                 if not job:
                     continue
                 run_rulegen_job(paths, config=job)
         except Exception as exc:  # noqa: BLE001
-            _update_status_error(paths, str(exc))
+            _update_status_error(paths, str(exc), profile_id=profile_id)
         time.sleep(max(10, int(config.interval_seconds)))
 
 

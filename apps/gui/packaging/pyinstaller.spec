@@ -46,8 +46,8 @@ APP_NAME = "LexiShift"
 APP_DISPLAY_NAME = "LexiShift"
 APP_DESCRIPTION = "LexiShift desktop app"
 APP_BUNDLE_ID = "com.lexishift.app"
-APP_VERSION = "0.1.0"
-APP_BUILD = "0.1.0"
+APP_VERSION = "0.1.1"
+APP_BUILD = "0.1.1"
 APP_COMPANY_NAME = "LexiShift"
 APP_PRODUCT_NAME = "LexiShift"
 APP_COPYRIGHT = "髮ｻ蟄舌Ξ繝ｳ繧ｸ"
@@ -117,8 +117,8 @@ if MACOS_MIN_SYSTEM_VERSION:
     HELPER_MACOS_INFO_PLIST["LSMinimumSystemVersion"] = MACOS_MIN_SYSTEM_VERSION
 
 # Windows version resource (explicit for easy editing)
-WIN_FILE_VERSION = (0, 1, 0, 0)
-WIN_PRODUCT_VERSION = (0, 1, 0, 0)
+WIN_FILE_VERSION = (0, 1, 1, 0)
+WIN_PRODUCT_VERSION = (0, 1, 1, 0)
 WIN_VERSION_STR = APP_VERSION
 WIN_VERSION_FILE = os.path.join(spec_dir, "windows_version_info.txt")
 WIN_MANIFEST_FILE = None
@@ -167,6 +167,60 @@ common_pathex = [
     os.path.join(repo_root, "core"),
     repo_root,
 ]
+LEXISHIFT_HELPER_USE_CASE_HIDDEN_IMPORTS = [
+    "lexishift_core.helper.use_cases",
+    "lexishift_core.helper.use_cases.admission_preview",
+    "lexishift_core.helper.use_cases.admission_suppression",
+    "lexishift_core.helper.use_cases.auto_refresh_set",
+    "lexishift_core.helper.use_cases.browsing_admission",
+    "lexishift_core.helper.use_cases.initialize_set",
+    "lexishift_core.helper.use_cases.rebalance_set",
+    "lexishift_core.helper.use_cases.refresh_set",
+    "lexishift_core.helper.use_cases.reset",
+    "lexishift_core.helper.use_cases.rule_availability",
+    "lexishift_core.helper.use_cases.rulegen_job",
+    "lexishift_core.helper.use_cases.runtime_diagnostics",
+    "lexishift_core.helper.use_cases.semantic_admission",
+    "lexishift_core.helper.use_cases.semantic_pack_install",
+    "lexishift_core.helper.use_cases.set_planning",
+    "lexishift_core.helper.use_cases.signals",
+    "lexishift_core.helper.use_cases.srs_items",
+    "lexishift_core.helper.use_cases.word_info",
+]
+LEXISHIFT_CORE_HIDDEN_IMPORTS = [
+    *LEXISHIFT_HELPER_USE_CASE_HIDDEN_IMPORTS,
+    "lexishift_core.frequency.sqlite_store",
+    "lexishift_core.helper.lookup_dictionary_settings",
+    "lexishift_core.helper.yomitan_lookup_dictionaries",
+    "lexishift_core.rulegen.semantic_publication",
+    "lexishift_core.srs.seed",
+    "lexishift_core.srs.topic_overlay",
+    "fsrs",
+]
+PYINSTALLER_OPTIONAL_EXCLUDES = [
+    # Optional research/scorer stacks. Production runtime defaults use the
+    # lightweight TF-IDF veto path, and these packages add hundreds of MB via
+    # PyInstaller hooks when left discoverable.
+    "accelerate",
+    "cv2",
+    "datasets",
+    "diffusers",
+    "fsrs.optimizer",
+    "jieba",
+    "matplotlib",
+    "pandas",
+    "peft",
+    "scipy",
+    "sentence_transformers",
+    "sklearn",
+    "spacy",
+    "sudachidict_core",
+    "sudachipy",
+    "torch",
+    "torchvision",
+    "transformers",
+    "yt_dlp",
+]
 
 main_datas = [
     (os.path.join(repo_root, "apps", "gui", "resources"), "resources"),
@@ -180,10 +234,10 @@ main_a = Analysis(
     pathex=common_pathex,
     binaries=[],
     datas=main_datas,
-    hiddenimports=["lexishift_core"],
+    hiddenimports=LEXISHIFT_CORE_HIDDEN_IMPORTS,
     hookspath=[],
     runtime_hooks=[],
-    excludes=[],
+    excludes=PYINSTALLER_OPTIONAL_EXCLUDES,
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
@@ -221,10 +275,10 @@ helper_a = Analysis(
     pathex=common_pathex,
     binaries=[],
     datas=[(os.path.join(repo_root, "apps", "gui", "resources"), "resources")],
-    hiddenimports=["lexishift_core"],
+    hiddenimports=LEXISHIFT_CORE_HIDDEN_IMPORTS,
     hookspath=[],
     runtime_hooks=[],
-    excludes=[],
+    excludes=PYINSTALLER_OPTIONAL_EXCLUDES,
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
@@ -258,11 +312,16 @@ if sys.platform == "win32":
         [os.path.join(repo_root, "scripts", "helper", "lexishift_native_host.py")],
         pathex=common_pathex + [os.path.join(repo_root, "scripts", "helper")],
         binaries=[],
-        datas=[],
-        hiddenimports=["lexishift_core"],
+        datas=[
+            (
+                os.path.join(repo_root, "core", "lexishift_core", "resources"),
+                os.path.join("lexishift_core", "resources"),
+            )
+        ],
+        hiddenimports=LEXISHIFT_CORE_HIDDEN_IMPORTS,
         hookspath=[],
         runtime_hooks=[],
-        excludes=[],
+        excludes=PYINSTALLER_OPTIONAL_EXCLUDES,
         win_no_prefer_redirects=False,
         win_private_assemblies=False,
         cipher=block_cipher,
@@ -296,11 +355,60 @@ if sys.platform == "win32":
     )
 
 if sys.platform == "darwin":
+    host_a = Analysis(
+        [os.path.join(repo_root, "scripts", "helper", "lexishift_native_host.py")],
+        pathex=common_pathex + [os.path.join(repo_root, "scripts", "helper")],
+        binaries=[],
+        datas=[
+            (
+                os.path.join(repo_root, "core", "lexishift_core", "resources"),
+                os.path.join("lexishift_core", "resources"),
+            )
+        ],
+        hiddenimports=LEXISHIFT_CORE_HIDDEN_IMPORTS,
+        hookspath=[],
+        runtime_hooks=[],
+        excludes=PYINSTALLER_OPTIONAL_EXCLUDES,
+        win_no_prefer_redirects=False,
+        win_private_assemblies=False,
+        cipher=block_cipher,
+    )
+
+    host_pyz = PYZ(host_a.pure, host_a.zipped_data, cipher=block_cipher)
+
+    # Chrome launches this executable directly. It has its own analyzed module
+    # graph while sharing unpacked bundle dependencies for fast cold startup.
+    host_exe = EXE(
+        host_pyz,
+        host_a.scripts,
+        [],
+        exclude_binaries=True,
+        name=NATIVE_HOST_WINDOWS_EXE_NAME,
+        debug=False,
+        bootloader_ignore_signals=False,
+        strip=False,
+        upx=PYINSTALLER_UPX_ENABLED,
+        upx_exclude=[],
+        runtime_tmpdir=None,
+        console=True,
+        disable_windowed_traceback=False,
+        argv_emulation=False,
+        target_arch=None,
+        codesign_identity=MACOS_CODESIGN_IDENTITY,
+        entitlements_file=MACOS_ENTITLEMENTS_FILE,
+        icon=None,
+    )
+
+if sys.platform == "darwin":
     main_coll = COLLECT(
         main_exe,
+        host_exe,
         main_a.binaries,
         main_a.zipfiles,
         main_a.datas,
+        host_a.binaries,
+        host_a.zipfiles,
+        host_a.datas,
         strip=False,
         upx=PYINSTALLER_UPX_ENABLED,
         name=COLLECT_NAME,

@@ -1,0 +1,762 @@
+{
+  "candidate_summary": {
+    "covered_lemma_count": 2845,
+    "loaded_count": 73752,
+    "selected_by_band": {
+      "0.10-0.15": 1,
+      "0.20-0.25": 4,
+      "0.35-0.40": 1
+    },
+    "selected_candidate_sample": [
+      {
+        "band": "0.20-0.25",
+        "lemma": "寿司",
+        "rank": 2501,
+        "reading": "すし",
+        "score": 0.233497
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "野球",
+        "rank": 2680,
+        "reading": "やきゅう",
+        "score": 0.240826
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "癌",
+        "rank": 2272,
+        "reading": "がん",
+        "score": 0.224555
+      },
+      {
+        "band": "0.20-0.25",
+        "lemma": "桜",
+        "rank": 2242,
+        "reading": "さくら",
+        "score": 0.223369
+      },
+      {
+        "band": "0.10-0.15",
+        "lemma": "漫画",
+        "rank": 567,
+        "reading": "まんが",
+        "score": 0.123432
+      },
+      {
+        "band": "0.35-0.40",
+        "lemma": "将棋",
+        "rank": 7581,
+        "reading": "しょうぎ",
+        "score": 0.381788
+      }
+    ],
+    "selected_label_count": 6
+  },
+  "decision": "wikidata_claim_probe_has_topic_evidence",
+  "evidence_rows": [
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.76,
+      "core_rank": 2447.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 漫画 -> comics",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 0,
+        "wikidata_description": "絵や文章で物語などの情報を伝える創作物",
+        "wikidata_label": "漫画",
+        "wikidata_path": [
+          "Q1004"
+        ],
+        "wikidata_qid": "Q1004",
+        "wikidata_root_label": "comics",
+        "wikidata_root_qid": "Q1004",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "漫画",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "漫画",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.8,
+      "rank": 567,
+      "reading": "まんが",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.123432,
+      "source": "wikidata_claim_probe",
+      "source_label": "comics",
+      "topic": "anime_manga_pop_culture",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.78,
+      "core_rank": 11065.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 寿司 -> food",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 3,
+        "wikidata_description": "米飯と主に魚介類を組み合わせた日本料理",
+        "wikidata_label": "寿司",
+        "wikidata_path": [
+          "Q46383",
+          "Q11559422",
+          "Q746549",
+          "Q2095"
+        ],
+        "wikidata_qid": "Q46383",
+        "wikidata_root_label": "food",
+        "wikidata_root_qid": "Q2095",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "寿司",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "寿司",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.82,
+      "rank": 2501,
+      "reading": "すし",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.233497,
+      "source": "wikidata_claim_probe",
+      "source_label": "food",
+      "topic": "food_cooking",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.35-0.40",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.74,
+      "core_rank": 8378.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 将棋 -> board game",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 2,
+        "wikidata_description": "2人で行うボードゲームの一つ",
+        "wikidata_label": "将棋",
+        "wikidata_path": [
+          "Q131375",
+          "Q18703581",
+          "Q131436"
+        ],
+        "wikidata_qid": "Q131375",
+        "wikidata_root_label": "board game",
+        "wikidata_root_qid": "Q131436",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "将棋",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "将棋",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.78,
+      "rank": 7581,
+      "reading": "しょうぎ",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.381788,
+      "source": "wikidata_claim_probe",
+      "source_label": "board game",
+      "topic": "games",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 1413.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 悪性腫瘍 -> disease",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "無目的無秩序に無限増殖し、周囲の正常組織に浸潤・転移して悪影響を及ぼす進行性腫瘍",
+        "wikidata_label": "悪性腫瘍",
+        "wikidata_path": [
+          "Q12078",
+          "Q12136"
+        ],
+        "wikidata_qid": "Q12078",
+        "wikidata_root_label": "disease",
+        "wikidata_root_qid": "Q12136",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "癌",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "癌",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.76,
+      "rank": 2272,
+      "reading": "がん",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.224555,
+      "source": "wikidata_claim_probe",
+      "source_label": "disease",
+      "topic": "medicine_health",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.74,
+      "core_rank": 2007.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: サクラ -> flower",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "サクラ"
+        ],
+        "wikidata_depth": 1,
+        "wikidata_description": "バラ目バラ科の樹木、およびその花",
+        "wikidata_label": "サクラ",
+        "wikidata_path": [
+          "Q871991",
+          "Q506"
+        ],
+        "wikidata_qid": "Q871991",
+        "wikidata_root_label": "flower",
+        "wikidata_root_qid": "Q506",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "桜",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "桜",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.78,
+      "rank": 2242,
+      "reading": "さくら",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.223369,
+      "source": "wikidata_claim_probe",
+      "source_label": "flower",
+      "topic": "plants_nature",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.74,
+      "core_rank": 1911.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 野球 -> sport",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "チームスポーツの一つ",
+        "wikidata_label": "野球",
+        "wikidata_path": [
+          "Q5369",
+          "Q349"
+        ],
+        "wikidata_qid": "Q5369",
+        "wikidata_root_label": "sport",
+        "wikidata_root_qid": "Q349",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "野球",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "野球",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.78,
+      "rank": 2680,
+      "reading": "やきゅう",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.240826,
+      "source": "wikidata_claim_probe",
+      "source_label": "sport",
+      "topic": "sports_fitness",
+      "topic_stretch_allowed": ""
+    }
+  ],
+  "findings": [
+    {
+      "code": "wikidata_claim_probe_completed",
+      "level": "PASS",
+      "message": "Checked 6 exact labels, found 6 exact entities, mapped 6, missed roots for 0. Reading identity gate: accepted_exact_source_reading=1, accepted_unique_surface_reading=5."
+    },
+    {
+      "code": "wikidata_claim_evidence_generated",
+      "level": "PASS",
+      "message": "Generated 6 Wikidata claim evidence rows."
+    }
+  ],
+  "generated_at": "2026-06-30T22:06:37+00:00",
+  "inputs": {
+    "cache_json": "docs/test_outputs/srs_topic_autotag_wikidata_claim_probe_cache_en_ja.json",
+    "candidates_csv": "core/lexishift_core/resources/srs/en_ja/learner_difficulty_corrected.csv",
+    "existing_overlay_json": "docs/test_outputs/srs_topic_autotag_promotion_overlay_en_ja_latest.json",
+    "explicit_lemmas": [
+      "寿司",
+      "野球",
+      "癌",
+      "桜",
+      "漫画",
+      "将棋"
+    ],
+    "include_covered": false,
+    "label_lookup": "jawikipedia_pageprops",
+    "max_depth": 4,
+    "max_entity_requests": 350,
+    "max_labels": 6,
+    "offline_only": false,
+    "policy_json": "docs/test_inputs/srs_topic_autotag_policy_en_ja.json",
+    "top_n": 73752
+  },
+  "language_pair": "en-ja",
+  "limitations": [
+    "This probe samples exact labels only; it does not measure full Wikidata coverage.",
+    "Wikidata labels identify entities/concepts, not SRS sense suitability by themselves.",
+    "Claim ancestry can miss useful rows when Wikidata models a term through properties outside P31/P279/P171.",
+    "Rows generated here are mining evidence only; promotion requires source-specific guards and review."
+  ],
+  "method": {
+    "claim_properties": [
+      "P31",
+      "P279",
+      "P171"
+    ],
+    "identity_gate": "exact Japanese label/alias search plus existing single-reading or source-reading verification; ambiguous multi-reading surfaces are rejected",
+    "promotion_state": "evidence_only_not_product_overlay",
+    "query_shape": "Japanese Wikipedia pageprops title-to-QID lookup, then Wikidata Special:EntityData cached claim ancestry",
+    "source": "wikidata_claim_probe"
+  },
+  "review_sample": [
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.10-0.15",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.76,
+      "core_rank": 2447.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 漫画 -> comics",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 0,
+        "wikidata_description": "絵や文章で物語などの情報を伝える創作物",
+        "wikidata_label": "漫画",
+        "wikidata_path": [
+          "Q1004"
+        ],
+        "wikidata_qid": "Q1004",
+        "wikidata_root_label": "comics",
+        "wikidata_root_qid": "Q1004",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "漫画",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "漫画",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.8,
+      "rank": 567,
+      "reading": "まんが",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.123432,
+      "source": "wikidata_claim_probe",
+      "source_label": "comics",
+      "topic": "anime_manga_pop_culture",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.78,
+      "core_rank": 11065.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 寿司 -> food",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 3,
+        "wikidata_description": "米飯と主に魚介類を組み合わせた日本料理",
+        "wikidata_label": "寿司",
+        "wikidata_path": [
+          "Q46383",
+          "Q11559422",
+          "Q746549",
+          "Q2095"
+        ],
+        "wikidata_qid": "Q46383",
+        "wikidata_root_label": "food",
+        "wikidata_root_qid": "Q2095",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "寿司",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "寿司",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.82,
+      "rank": 2501,
+      "reading": "すし",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.233497,
+      "source": "wikidata_claim_probe",
+      "source_label": "food",
+      "topic": "food_cooking",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.35-0.40",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.74,
+      "core_rank": 8378.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 将棋 -> board game",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 2,
+        "wikidata_description": "2人で行うボードゲームの一つ",
+        "wikidata_label": "将棋",
+        "wikidata_path": [
+          "Q131375",
+          "Q18703581",
+          "Q131436"
+        ],
+        "wikidata_qid": "Q131375",
+        "wikidata_root_label": "board game",
+        "wikidata_root_qid": "Q131436",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "将棋",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "将棋",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.78,
+      "rank": 7581,
+      "reading": "しょうぎ",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.381788,
+      "source": "wikidata_claim_probe",
+      "source_label": "board game",
+      "topic": "games",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.72,
+      "core_rank": 1413.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 悪性腫瘍 -> disease",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "無目的無秩序に無限増殖し、周囲の正常組織に浸潤・転移して悪影響を及ぼす進行性腫瘍",
+        "wikidata_label": "悪性腫瘍",
+        "wikidata_path": [
+          "Q12078",
+          "Q12136"
+        ],
+        "wikidata_qid": "Q12078",
+        "wikidata_root_label": "disease",
+        "wikidata_root_qid": "Q12136",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "癌",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "癌",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.76,
+      "rank": 2272,
+      "reading": "がん",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.224555,
+      "source": "wikidata_claim_probe",
+      "source_label": "disease",
+      "topic": "medicine_health",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.74,
+      "core_rank": 2007.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: サクラ -> flower",
+      "extra": {
+        "reading_identity": "external_exact_source_reading",
+        "source_readings": [
+          "サクラ"
+        ],
+        "wikidata_depth": 1,
+        "wikidata_description": "バラ目バラ科の樹木、およびその花",
+        "wikidata_label": "サクラ",
+        "wikidata_path": [
+          "Q871991",
+          "Q506"
+        ],
+        "wikidata_qid": "Q871991",
+        "wikidata_root_label": "flower",
+        "wikidata_root_qid": "Q506",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "桜",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "桜",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_exact_source_reading",
+      "membership": 0.78,
+      "rank": 2242,
+      "reading": "さくら",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.223369,
+      "source": "wikidata_claim_probe",
+      "source_label": "flower",
+      "topic": "plants_nature",
+      "topic_stretch_allowed": ""
+    },
+    {
+      "admission_override": "",
+      "ambiguity_flags": [
+        "surface_only_unique_reading"
+      ],
+      "band": "0.20-0.25",
+      "candidate_state": "normal_vocab",
+      "confidence": 0.74,
+      "core_rank": 1911.0,
+      "correction_types": "",
+      "evidence_label": "Wikidata claim path: 野球 -> sport",
+      "extra": {
+        "reading_identity": "external_unique_surface_reading",
+        "source_readings": [],
+        "wikidata_depth": 1,
+        "wikidata_description": "チームスポーツの一つ",
+        "wikidata_label": "野球",
+        "wikidata_path": [
+          "Q5369",
+          "Q349"
+        ],
+        "wikidata_qid": "Q5369",
+        "wikidata_root_label": "sport",
+        "wikidata_root_qid": "Q349",
+        "wikidata_search_match": {
+          "language": "ja",
+          "text": "野球",
+          "type": "jawikipedia_pageprops"
+        }
+      },
+      "glosses": [],
+      "jmdict_ent_seq": "",
+      "jmdict_fields": [],
+      "jmdict_misc": [],
+      "jmdict_pos": [],
+      "jmdict_sense_index": null,
+      "language_pair": "en-ja",
+      "lemma": "野球",
+      "license_note": "Wikidata structured data is CC0. Online probes are build-time only and cached.",
+      "match_mode": "external_unique_surface_reading",
+      "membership": 0.78,
+      "rank": 2680,
+      "reading": "やきゅう",
+      "review_posture": "bounded_online_candidate_generation",
+      "score": 0.240826,
+      "source": "wikidata_claim_probe",
+      "source_label": "sport",
+      "topic": "sports_fitness",
+      "topic_stretch_allowed": ""
+    }
+  ],
+  "schema_version": 1,
+  "source_summary": {
+    "wikidata_claim_probe": {
+      "ambiguity_flag_count": 5,
+      "avg_confidence": 0.746667,
+      "avg_membership": 0.786667,
+      "lemma_count": 6,
+      "row_count": 6,
+      "topic_count": 6
+    }
+  },
+  "status": "ok",
+  "topic_summary": {
+    "anime_manga_pop_culture": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "food_cooking": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "games": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "medicine_health": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "plants_nature": {
+      "lemma_count": 1,
+      "row_count": 1
+    },
+    "sports_fitness": {
+      "lemma_count": 1,
+      "row_count": 1
+    }
+  },
+  "wikidata_summary": {
+    "entity_cache_hit": 354,
+    "entity_cache_size": 197,
+    "pageprops_cache_hit": 6,
+    "pageprops_cache_size": 6,
+    "search_cache_size": 2
+  }
+}

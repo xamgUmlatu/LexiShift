@@ -131,6 +131,10 @@ _PHRASE_CONTROL_PROGRESSIVE_OBJECT_TRIGGERS = {
 _PHRASE_CONTROL_NOUN_OF_PHRASE_TRIGGERS = {
     "rest": "alternate_noun_of_phrase_frame",
 }
+_PHRASE_CONTROL_BE_TOKENS = frozenset({"are", "be", "is", "was", "were"})
+_PHRASE_CONTROL_IN_DETERMINER_NOUN_IDIOMS = {
+    ("ball", "court"): "idiom_in_determiner_noun_frame",
+}
 
 
 @dataclass(frozen=True)
@@ -304,6 +308,7 @@ def extract_runtime_phrase_control_signals(
         _normalize_surface_token(tokens[start_index - 2]) if start_index > 1 else ""
     )
     following_token = _normalize_surface_token(tokens[end_index]) if end_index < len(tokens) else ""
+    tail_tokens = [_normalize_surface_token(token) for token in tokens[end_index : end_index + 4]]
 
     if not normalized_family_pos_tags or any(
         tag not in _NOUN_LIKE_POS_TAGS for tag in normalized_family_pos_tags
@@ -401,6 +406,24 @@ def extract_runtime_phrase_control_signals(
                 f"{preceding_token} {normalized_source_phrase} {following_token}",
             )
         )
+    if len(tail_tokens) >= 4 and tail_tokens[0] in _PHRASE_CONTROL_BE_TOKENS:
+        idiom_reason = _PHRASE_CONTROL_IN_DETERMINER_NOUN_IDIOMS.get(
+            (normalized_source_phrase, tail_tokens[3])
+        )
+        if (
+            idiom_reason
+            and tail_tokens[1] == "in"
+            and tail_tokens[2] in _PHRASE_CONTROL_DETERMINER_TOKENS
+        ):
+            strong_signal_rows.append(
+                (
+                    idiom_reason,
+                    (
+                        f"{normalized_source_phrase} {tail_tokens[0]} "
+                        f"{tail_tokens[1]} {tail_tokens[2]} {tail_tokens[3]}"
+                    ),
+                )
+            )
     if following_token in _PHRASE_CONTROL_PARTICLE_TOKENS and strong_signal_rows:
         register_signal(
             reason_code="trigger_particle_frame",

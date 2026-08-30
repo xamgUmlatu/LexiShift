@@ -32,6 +32,44 @@ class ReadinessGate:
     too_hard_gap: float
 
 
+@dataclass(frozen=True)
+class FrontierGaussianFit:
+    difficulty: float
+    proficiency: Optional[float]
+    target: Optional[float]
+    sigma_low: Optional[float]
+    sigma_high: Optional[float]
+    topic_sigma_low: Optional[float]
+    topic_sigma_high: Optional[float]
+    topic_affinity: float
+    frontier_fit: float
+    topic_fit: float
+    trail_fit: float
+    below_frontier_gap: float
+    above_frontier_gap: float
+    trail_band_fit: float
+    trail_floor: float
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "difficulty": rounded_or_none(self.difficulty),
+            "proficiency": rounded_or_none(self.proficiency),
+            "target": rounded_or_none(self.target),
+            "sigma_low": rounded_or_none(self.sigma_low),
+            "sigma_high": rounded_or_none(self.sigma_high),
+            "topic_sigma_low": rounded_or_none(self.topic_sigma_low),
+            "topic_sigma_high": rounded_or_none(self.topic_sigma_high),
+            "topic_affinity": rounded_or_none(self.topic_affinity),
+            "frontier_fit": rounded_or_none(self.frontier_fit),
+            "topic_fit": rounded_or_none(self.topic_fit),
+            "trail_fit": rounded_or_none(self.trail_fit),
+            "below_frontier_gap": rounded_or_none(self.below_frontier_gap),
+            "above_frontier_gap": rounded_or_none(self.above_frontier_gap),
+            "trail_band_fit": rounded_or_none(self.trail_band_fit),
+            "trail_floor": rounded_or_none(self.trail_floor),
+        }
+
+
 def build_policy_summary(policy: ProfileBootstrapPolicy) -> dict[str, object]:
     return {
         "version": policy.version,
@@ -67,6 +105,37 @@ def build_policy_summary(policy: ProfileBootstrapPolicy) -> dict[str, object]:
         "scarcity_bonus_mass_smoothing": rounded_or_none(policy.scarcity_bonus_mass_smoothing),
         "scarcity_bonus_mass_exponent": rounded_or_none(policy.scarcity_bonus_mass_exponent),
         "scarcity_bonus_max_extra": rounded_or_none(policy.scarcity_bonus_max_extra),
+        "frontier_gaussian": {
+            "target_offset": rounded_or_none(policy.frontier_target_offset),
+            "sigma_low_beginner": rounded_or_none(policy.frontier_sigma_low_beginner),
+            "sigma_low_advanced": rounded_or_none(policy.frontier_sigma_low_advanced),
+            "sigma_high_beginner": rounded_or_none(policy.frontier_sigma_high_beginner),
+            "sigma_high_advanced": rounded_or_none(policy.frontier_sigma_high_advanced),
+            "topic_lower_widen": rounded_or_none(policy.frontier_topic_lower_widen),
+            "topic_upper_widen": rounded_or_none(policy.frontier_topic_upper_widen),
+            "trail_center": rounded_or_none(policy.trail_center),
+            "trail_sigma": rounded_or_none(policy.trail_sigma),
+            "trail_minimum_difficulty": rounded_or_none(policy.trail_minimum_difficulty),
+            "trail_floor_width": rounded_or_none(policy.trail_floor_width),
+            "frontier_lane_share": rounded_or_none(policy.frontier_lane_share),
+            "trail_lane_share": rounded_or_none(policy.trail_lane_share),
+            "topic_lane_share": rounded_or_none(policy.topic_lane_share),
+            "hybrid_beginner_core_threshold": rounded_or_none(
+                policy.hybrid_beginner_core_threshold
+            ),
+            "hybrid_beginner_core_lane_share": rounded_or_none(
+                policy.hybrid_beginner_core_lane_share
+            ),
+            "hybrid_trail_lane_share": rounded_or_none(policy.hybrid_trail_lane_share),
+            "hybrid_topic_min_share": rounded_or_none(policy.hybrid_topic_min_share),
+            "hybrid_topic_max_share": rounded_or_none(policy.hybrid_topic_max_share),
+            "hybrid_topic_depth_saturation": rounded_or_none(policy.hybrid_topic_depth_saturation),
+            "hybrid_topic_min_lane_score": rounded_or_none(policy.hybrid_topic_min_lane_score),
+            "hybrid_topic_lower_margin": rounded_or_none(policy.hybrid_topic_lower_margin),
+            "hybrid_topic_lower_penalty_sigma": rounded_or_none(
+                policy.hybrid_topic_lower_penalty_sigma
+            ),
+        },
         "utility_shape": {
             "positive_terms": [
                 "proficiency_fit",
@@ -77,7 +146,7 @@ def build_policy_summary(policy: ProfileBootstrapPolicy) -> dict[str, object]:
             ],
             "negative_terms": ["lexical_risk", "redundancy"],
             "exploration_terms": ["exploration_bonus"],
-            "multipliers": ["readiness_multiplier"],
+            "multipliers": ["readiness_multiplier", "admission_suitability"],
         },
     }
 
@@ -262,11 +331,23 @@ def compute_proficiency_fit(
     *,
     policy: ProfileBootstrapPolicy,
 ) -> float:
-    if proficiency_estimate is None:
+    proficiency = clamp01(safe_optional_float(proficiency_estimate))
+    if proficiency is None:
         return 0.0
-    if difficulty_estimate <= proficiency_estimate:
-        return 1.0
-    gap = difficulty_estimate - proficiency_estimate
+    difficulty = clamp01(safe_optional_float(difficulty_estimate)) or 0.0
+    if difficulty <= proficiency:
+        lower_bound = clamp01(proficiency - float(policy.readiness_base_lower_margin)) or 0.0
+        if difficulty >= lower_bound:
+            return 1.0
+        if lower_bound <= 0.0:
+            return 1.0
+        easy_gap = lower_bound - difficulty
+        easy_spread = max(
+            float(policy.challenge_min_spread),
+            float(policy.challenge_default_spread),
+        )
+        return clamp01(math.exp(-0.5 * ((easy_gap / easy_spread) ** 2))) or 0.0
+    gap = difficulty - proficiency
     return clamp01(1.0 - (gap / policy.proficiency_taper_width)) or 0.0
 
 
@@ -331,6 +412,95 @@ def compute_readiness_gate(
     )
 
 
+def compute_frontier_gaussian_fit(
+    difficulty_estimate: float,
+    proficiency_estimate: Optional[float],
+    topic_affinity: float = 0.0,
+    *,
+    policy: ProfileBootstrapPolicy,
+) -> FrontierGaussianFit:
+    difficulty = clamp01(safe_optional_float(difficulty_estimate)) or 0.0
+    proficiency = clamp01(safe_optional_float(proficiency_estimate))
+    affinity = clamp01(safe_optional_float(topic_affinity)) or 0.0
+    if proficiency is None:
+        return FrontierGaussianFit(
+            difficulty=difficulty,
+            proficiency=None,
+            target=None,
+            sigma_low=None,
+            sigma_high=None,
+            topic_sigma_low=None,
+            topic_sigma_high=None,
+            topic_affinity=affinity,
+            frontier_fit=0.0,
+            topic_fit=0.0,
+            trail_fit=0.0,
+            below_frontier_gap=0.0,
+            above_frontier_gap=0.0,
+            trail_band_fit=0.0,
+            trail_floor=0.0,
+        )
+
+    target = clamp01(proficiency + float(policy.frontier_target_offset)) or 0.0
+    sigma_low = _lerp(
+        float(policy.frontier_sigma_low_beginner),
+        float(policy.frontier_sigma_low_advanced),
+        proficiency,
+    )
+    sigma_high = _lerp(
+        float(policy.frontier_sigma_high_beginner),
+        float(policy.frontier_sigma_high_advanced),
+        proficiency,
+    )
+    topic_sigma_low = sigma_low * (
+        1.0 + affinity * max(0.0, float(policy.frontier_topic_lower_widen))
+    )
+    topic_sigma_high = sigma_high * (
+        1.0 + affinity * max(0.0, float(policy.frontier_topic_upper_widen))
+    )
+    frontier_fit = _asymmetric_gaussian(
+        difficulty,
+        target=target,
+        sigma_low=sigma_low,
+        sigma_high=sigma_high,
+    )
+    topic_fit = _asymmetric_gaussian(
+        difficulty,
+        target=target,
+        sigma_low=topic_sigma_low,
+        sigma_high=topic_sigma_high,
+    )
+    below_frontier_gap = max(0.0, target - difficulty)
+    above_frontier_gap = max(0.0, difficulty - target)
+    trail_band_fit = _gaussian_distance(
+        below_frontier_gap,
+        center=max(0.0, float(policy.trail_center)),
+        sigma=max(1e-6, float(policy.trail_sigma)),
+    )
+    trail_floor = _sigmoid(
+        (difficulty - float(policy.trail_minimum_difficulty))
+        / max(1e-6, float(policy.trail_floor_width))
+    )
+    trail_fit = trail_band_fit * trail_floor if below_frontier_gap > 0.0 else 0.0
+    return FrontierGaussianFit(
+        difficulty=difficulty,
+        proficiency=proficiency,
+        target=target,
+        sigma_low=sigma_low,
+        sigma_high=sigma_high,
+        topic_sigma_low=topic_sigma_low,
+        topic_sigma_high=topic_sigma_high,
+        topic_affinity=affinity,
+        frontier_fit=clamp01(frontier_fit) or 0.0,
+        topic_fit=clamp01(topic_fit) or 0.0,
+        trail_fit=clamp01(trail_fit) or 0.0,
+        below_frontier_gap=below_frontier_gap,
+        above_frontier_gap=above_frontier_gap,
+        trail_band_fit=clamp01(trail_band_fit) or 0.0,
+        trail_floor=clamp01(trail_floor) or 0.0,
+    )
+
+
 def build_preview_entry(
     *,
     reranked_rank: int,
@@ -367,6 +537,7 @@ def build_preview_entry(
         has_coverage_support=has_coverage_support,
     )
     return {
+        "candidate_identity_key": traits.candidate_identity_key,
         "lemma": str(getattr(seed, "lemma", "") or "").strip(),
         "base_rank": base_rank,
         "reranked_rank": reranked_rank,
@@ -526,6 +697,36 @@ def _compute_topic_scarcity_multiplier(
     extra = max(0.0, (ratio ** float(policy.scarcity_bonus_mass_exponent)) - 1.0)
     bounded_extra = min(float(policy.scarcity_bonus_max_extra), extra)
     return max(1.0, 1.0 + bounded_extra)
+
+
+def _asymmetric_gaussian(
+    value: float,
+    *,
+    target: float,
+    sigma_low: float,
+    sigma_high: float,
+) -> float:
+    sigma = sigma_low if value < target else sigma_high
+    return _gaussian_distance(value, center=target, sigma=sigma)
+
+
+def _gaussian_distance(value: float, *, center: float, sigma: float) -> float:
+    safe_sigma = max(1e-6, float(sigma))
+    return math.exp(-0.5 * (((float(value) - float(center)) / safe_sigma) ** 2))
+
+
+def _lerp(start: float, end: float, factor: float) -> float:
+    bounded = clamp01(safe_optional_float(factor)) or 0.0
+    return float(start) + ((float(end) - float(start)) * bounded)
+
+
+def _sigmoid(value: float) -> float:
+    parsed = float(value)
+    if parsed >= 60.0:
+        return 1.0
+    if parsed <= -60.0:
+        return 0.0
+    return 1.0 / (1.0 + math.exp(-parsed))
 
 
 def _compute_topic_specificity_for_topic(

@@ -44,6 +44,7 @@ node_modules/
 # Ignore the generated build/dist folders from your packaging scripts
 /packaging/output/
 /packaging/build/
+/apps/gui/installers/*.dmg
 
 # Ignore generated Jekyll/GitHub Pages build artifacts
 docs/_site/
@@ -53,6 +54,11 @@ docs/.jekyll-metadata
 docs/.bundle/
 docs/vendor/bundle/
 docs/test_outputs/landing_visual_mocks/
+
+# Keep only reviewed Chrome Web Store deliverables; local captures and crop
+# intermediates are reproducible working files.
+/release-assets/chrome-web-store/screenshots/source/
+/release-assets/chrome-web-store/screenshots/working/
 
 # Ignore local test vocabulary exports (prevent leaking personal word lists)
 TestVocabPool.json

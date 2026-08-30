@@ -221,6 +221,66 @@ class TestRulegenQualityGateValidators(unittest.TestCase):
         )
         self.assertTrue(all(finding.level == "WARN" for finding in findings))
 
+    def test_validate_saturation_single_run_pair_scope_is_non_strict_warning(self) -> None:
+        findings = []
+        validate_saturation(
+            benchmark_payload={
+                "pairs": {
+                    "en-ja": {
+                        "runs": [
+                            {
+                                "summary": {
+                                    "objective_score": 1.0,
+                                    "top1_accuracy": 0.9,
+                                    "top3_recall": 1.0,
+                                    "forbidden_top1_rate": 0.0,
+                                    "forbidden_any_rate": 0.0,
+                                    "avg_rules_per_target": 2.0,
+                                }
+                            }
+                        ]
+                    },
+                    "en-es": {
+                        "runs": [
+                            {
+                                "summary": {
+                                    "objective_score": 1.0,
+                                    "top1_accuracy": 1.0,
+                                    "top3_recall": 1.0,
+                                    "forbidden_top1_rate": 0.0,
+                                    "forbidden_any_rate": 0.0,
+                                    "avg_rules_per_target": 1.0,
+                                }
+                            },
+                            {
+                                "summary": {
+                                    "objective_score": 1.0,
+                                    "top1_accuracy": 1.0,
+                                    "top3_recall": 1.0,
+                                    "forbidden_top1_rate": 0.0,
+                                    "forbidden_any_rate": 0.0,
+                                    "avg_rules_per_target": 1.0,
+                                }
+                            },
+                        ]
+                    },
+                }
+            },
+            policy_payload={
+                "saturation": {
+                    "warn_if_top_metric_vector_share_gte": 0.75,
+                    "fail_if_top_metric_vector_share_gt": 0.9,
+                    "warn_if_unique_metric_vectors_lt": 2,
+                }
+            },
+            findings=findings,
+            strict_saturation=False,
+            pair_scope="en-ja",
+        )
+
+        self.assertEqual([finding.code for finding in findings], ["SATURATION_SINGLE_RUN_WARN"])
+        self.assertEqual(findings[0].level, "WARN")
+
     def test_validate_pos_guardrails_reports_matching_probe_and_inventory(self) -> None:
         findings = []
         validate_pos_guardrails(

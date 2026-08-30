@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "config_id": "srs_browsing_admission_signal_gradient_en_ja_v1",
+  "language_pair": "en-ja",
+  "purpose": "Count-gradient sensitivity check for en-ja implicit browsing admission. This tests how weak, medium, and saturated target-lemma aggregates affect preview admission.",
+  "defaults": {
+    "set_top_n": 5000,
+    "admission_budget": 8,
+    "max_active_items": 20,
+    "row_limit": 40,
+    "counts": [0, 0.25, 0.5, 1, 2, 4, 8, 16, 32]
+  },
+  "gradient_groups": [
+    {
+      "name": "single_food_target_p20",
+      "description": "One target-side food signal at beginner proficiency.",
+      "proficiency": 0.20,
+      "side": "target",
+      "lemmas": ["料理"]
+    },
+    {
+      "name": "four_food_target_p20",
+      "description": "Four target-side food signals at beginner proficiency.",
+      "proficiency": 0.20,
+      "side": "target",
+      "lemmas": ["料理", "野菜", "食べる", "飲む"]
+    },
+    {
+      "name": "four_food_replacement_exposure_p20",
+      "description": "Four replacement-exposure food signals, using the lower replacement-exposure weight.",
+      "proficiency": 0.20,
+      "side": "replacement_exposure",
+      "lemmas": ["料理", "野菜", "食べる", "飲む"]
+    },
+    {
+      "name": "explicit_food_four_target_p20",
+      "description": "Four target-side food signals when explicit food preference already exists.",
+      "proficiency": 0.20,
+      "topic_weights": {"food_cooking": 1.0},
+      "side": "target",
+      "lemmas": ["料理", "野菜", "食べる", "飲む"]
+    }
+  ]
+}

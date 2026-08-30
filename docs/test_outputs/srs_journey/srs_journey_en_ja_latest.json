@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at": "2026-03-21T02:48:05.818817+00:00",
+  "generated_at": "2026-06-09T16:49:26.300480+00:00",
   "plan_doc": "/Users/takeyayuki/Documents/projects/LexiShift/docs/srs/srs_journey_harness_workstream.md",
   "scenario": {
     "id": "en-ja_core_journey_v1",
@@ -14,6 +14,8 @@
       "max_active_items": 8,
       "max_new_items_per_day": 2
     },
+    "strategy": "frequency_bootstrap",
+    "profile_context": {},
     "bootstrap": {
       "set_top_n": 7,
       "bootstrap_top_n": 7,
@@ -27,7 +29,8 @@
         "base_weight": 0.97,
         "admission_weight": 0.97,
         "core_rank": 1.0,
-        "source_gloss": "eng_alpha"
+        "source_gloss": "eng_alpha",
+        "topics": []
       },
       {
         "lemma": "beta",
@@ -35,7 +38,8 @@
         "base_weight": 0.93,
         "admission_weight": 0.93,
         "core_rank": 2.0,
-        "source_gloss": "eng_beta"
+        "source_gloss": "eng_beta",
+        "topics": []
       },
       {
         "lemma": "gamma",
@@ -43,7 +47,8 @@
         "base_weight": 0.9,
         "admission_weight": 0.9,
         "core_rank": 3.0,
-        "source_gloss": "eng_gamma"
+        "source_gloss": "eng_gamma",
+        "topics": []
       },
       {
         "lemma": "delta",
@@ -51,7 +56,8 @@
         "base_weight": 0.86,
         "admission_weight": 0.86,
         "core_rank": 4.0,
-        "source_gloss": "eng_delta"
+        "source_gloss": "eng_delta",
+        "topics": []
       },
       {
         "lemma": "epsilon",
@@ -59,7 +65,8 @@
         "base_weight": 0.82,
         "admission_weight": 0.82,
         "core_rank": 5.0,
-        "source_gloss": "eng_epsilon"
+        "source_gloss": "eng_epsilon",
+        "topics": []
       },
       {
         "lemma": "zeta",
@@ -67,7 +74,8 @@
         "base_weight": 0.78,
         "admission_weight": 0.78,
         "core_rank": 6.0,
-        "source_gloss": "eng_zeta"
+        "source_gloss": "eng_zeta",
+        "topics": []
       },
       {
         "lemma": "eta",
@@ -75,7 +83,8 @@
         "base_weight": 0.74,
         "admission_weight": 0.74,
         "core_rank": 7.0,
-        "source_gloss": "eng_eta"
+        "source_gloss": "eng_eta",
+        "topics": []
       }
     ],
     "cohorts": {
@@ -129,8 +138,13 @@
     "replace_pair": true,
     "added_items": 3,
     "total_items_for_pair": 3,
-    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
     "stopwords_path": null,
+    "pos_overlay_path": null,
+    "pos_overlay_exists": false,
+    "pos_overlay_id": null,
+    "pos_overlay_provider": null,
+    "pos_overlay_resolution": "missing",
     "bootstrap_diagnostics": {
       "selected_count": 7,
       "selected_unique_count": 7,
@@ -183,14 +197,38 @@
           "pos_weight": 1.0,
           "admission_weight": 0.861654
         }
-      ]
+      ],
+      "selection_strategy": "frequency_bootstrap",
+      "selection_policy": "top_n",
+      "selection_seed": null,
+      "selector_version": null
+    },
+    "inventory": {
+      "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+      "exists": true,
+      "active_items_for_pair": 3,
+      "source": "initialized",
+      "backfilled_from_store": false,
+      "updated_at": "2026-06-09T16:49:26.252307+00:00"
+    },
+    "rule_availability_reconciliation": {
+      "reason": "no_enabled_rules",
+      "changed": false,
+      "active_count_before": 3,
+      "active_count_after": 3,
+      "discarded_count": 0,
+      "discarded_item_ids": [],
+      "discarded_lemmas": [],
+      "enabled_rule_lemma_count": 3
     },
     "rulegen": {
       "published": true,
       "targets": 3,
       "rules": 3,
-      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json"
+      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
+      "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_publication_manifest_en-ja.json",
+      "semantic_inventory_path": null
     },
     "applied": true,
     "plan": {
@@ -447,14 +485,186 @@
           "profile_id": "default",
           "requirements": {
             "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "rulegen_mode": "en_ja",
             "supports_rulegen": true,
             "srs_selectable": true,
             "default_frequency_db": "freq-ja-bccwj.sqlite",
             "requires_jmdict_for_seed": true,
             "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "requires_translation_dictionary_for_rulegen": false,
+            "source_stack_id": "en-ja-default-v1",
+            "source_stack_resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ]
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": []
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ]
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ]
+              }
+            ]
           },
+          "source_stack": {
+            "pair": "en-ja",
+            "stack_id": "en-ja-default-v1",
+            "label_key": "language_packs.learning_pairs.pairs.en_ja",
+            "resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ],
+                "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+                "exists": true
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": [],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ],
+                "path": null,
+                "exists": false
+              }
+            ]
+          },
+          "source_stack_id": "en-ja-default-v1",
+          "source_stack_missing_required": [
+            {
+              "role": "forward_translation",
+              "family": "language",
+              "pack_id": "jmdict-ja-en",
+              "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+              "required_for": [
+                "srs_seed_validation",
+                "rulegen",
+                "semantic_publication"
+              ],
+              "optional_for": [],
+              "pair_setup": true,
+              "wired": true,
+              "joins_on": "target_headword",
+              "notes": [],
+              "path": null,
+              "exists": false
+            }
+          ],
+          "source_stack_missing_recommended": [],
           "pair_policy": {
             "pair": "en-ja",
             "bootstrap_top_n_default": 800,
@@ -464,32 +674,87 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/language_packs/JMdict_e",
           "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/frequency_packs/freq-ja-bccwj.sqlite",
+          "translation_dict_path": null,
+          "translation_dict_exists": false,
+          "translation_pack_path": null,
+          "translation_pack_exists": false,
+          "translation_dict_provider": null,
+          "translation_pack_id": null,
+          "translation_pos_source_profile": null,
+          "reverse_translation_dict_path": null,
+          "reverse_translation_dict_exists": false,
+          "reverse_translation_pack_path": null,
+          "reverse_translation_pack_exists": false,
+          "reverse_translation_dict_provider": null,
+          "reverse_translation_pack_id": null,
+          "reverse_translation_pos_source_profile": null,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-ja-bccwj",
+          "frequency_pack_provider": "freq-ja-bccwj",
+          "frequency_pos_source_profile": "bccwj",
           "stopwords_path": null,
           "stopwords_exists": false,
+          "pos_overlay_path": null,
+          "pos_overlay_exists": false,
+          "pos_overlay_id": null,
+          "pos_overlay_provider": null,
+          "pos_overlay_resolution": "missing",
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 3,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-06-09T16:49:26.252307+00:00",
+          "inventory_last_refreshed_at": null,
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 3,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
+          "snapshot_generation_id": "en-ja:default:9c0de54104d83d5a",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_semantic_inventory_en-ja.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_publication_manifest_en-ja.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-ja:default:9c0de54104d83d5a",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -500,12 +765,31 @@
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_sources": [
+          "journey_src_alpha",
+          "journey_src_beta",
+          "journey_src_gamma"
+        ],
         "ruleset_sources_preview": [
           "journey_src_alpha",
           "journey_src_beta",
           "journey_src_gamma"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_alpha",
+            "target": "alpha"
+          },
+          {
+            "source": "journey_src_beta",
+            "target": "beta"
+          },
+          {
+            "source": "journey_src_gamma",
+            "target": "gamma"
+          }
         ],
         "snapshot_targets": [
           "alpha",
@@ -684,14 +968,186 @@
           "profile_id": "default",
           "requirements": {
             "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "rulegen_mode": "en_ja",
             "supports_rulegen": true,
             "srs_selectable": true,
             "default_frequency_db": "freq-ja-bccwj.sqlite",
             "requires_jmdict_for_seed": true,
             "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "requires_translation_dictionary_for_rulegen": false,
+            "source_stack_id": "en-ja-default-v1",
+            "source_stack_resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ]
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": []
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ]
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ]
+              }
+            ]
           },
+          "source_stack": {
+            "pair": "en-ja",
+            "stack_id": "en-ja-default-v1",
+            "label_key": "language_packs.learning_pairs.pairs.en_ja",
+            "resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ],
+                "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+                "exists": true
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": [],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ],
+                "path": null,
+                "exists": false
+              }
+            ]
+          },
+          "source_stack_id": "en-ja-default-v1",
+          "source_stack_missing_required": [
+            {
+              "role": "forward_translation",
+              "family": "language",
+              "pack_id": "jmdict-ja-en",
+              "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+              "required_for": [
+                "srs_seed_validation",
+                "rulegen",
+                "semantic_publication"
+              ],
+              "optional_for": [],
+              "pair_setup": true,
+              "wired": true,
+              "joins_on": "target_headword",
+              "notes": [],
+              "path": null,
+              "exists": false
+            }
+          ],
+          "source_stack_missing_recommended": [],
           "pair_policy": {
             "pair": "en-ja",
             "bootstrap_top_n_default": 800,
@@ -701,32 +1157,87 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/language_packs/JMdict_e",
           "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/frequency_packs/freq-ja-bccwj.sqlite",
+          "translation_dict_path": null,
+          "translation_dict_exists": false,
+          "translation_pack_path": null,
+          "translation_pack_exists": false,
+          "translation_dict_provider": null,
+          "translation_pack_id": null,
+          "translation_pos_source_profile": null,
+          "reverse_translation_dict_path": null,
+          "reverse_translation_dict_exists": false,
+          "reverse_translation_pack_path": null,
+          "reverse_translation_pack_exists": false,
+          "reverse_translation_dict_provider": null,
+          "reverse_translation_pack_id": null,
+          "reverse_translation_pos_source_profile": null,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-ja-bccwj",
+          "frequency_pack_provider": "freq-ja-bccwj",
+          "frequency_pos_source_profile": "bccwj",
           "stopwords_path": null,
           "stopwords_exists": false,
+          "pos_overlay_path": null,
+          "pos_overlay_exists": false,
+          "pos_overlay_id": null,
+          "pos_overlay_provider": null,
+          "pos_overlay_resolution": "missing",
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 3,
           "store_items_for_pair": 3,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 3,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-06-09T16:49:26.252307+00:00",
+          "inventory_last_refreshed_at": null,
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 3,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
           "snapshot_target_count": 3,
+          "snapshot_generation_id": "en-ja:default:9c0de54104d83d5a",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_semantic_inventory_en-ja.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_publication_manifest_en-ja.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-ja:default:9c0de54104d83d5a",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -737,12 +1248,31 @@
             "last_target_count": 3
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_sources": [
+          "journey_src_alpha",
+          "journey_src_beta",
+          "journey_src_gamma"
+        ],
         "ruleset_sources_preview": [
           "journey_src_alpha",
           "journey_src_beta",
           "journey_src_gamma"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_alpha",
+            "target": "alpha"
+          },
+          {
+            "source": "journey_src_beta",
+            "target": "beta"
+          },
+          {
+            "source": "journey_src_gamma",
+            "target": "gamma"
+          }
         ],
         "snapshot_targets": [
           "alpha",
@@ -967,6 +1497,8 @@
         "payload": {
           "pair": "en-ja",
           "profile_id": "default",
+          "strategy_requested": "profile_growth",
+          "strategy_effective": "profile_growth",
           "set_top_n": 7,
           "feedback_window_size": 8,
           "allowed_pos": [],
@@ -983,15 +1515,25 @@
           "max_new_items_per_day": 2,
           "added_items": 2,
           "total_items_for_pair": 5,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
+          "pos_overlay_path": null,
+          "pos_overlay_exists": false,
+          "pos_overlay_id": null,
+          "pos_overlay_provider": null,
+          "pos_overlay_resolution": "missing",
           "admission_refresh": {
             "pair": "en-ja",
             "max_active_items": 8,
             "max_new_items_per_day": 2,
+            "active_count": 3,
+            "active_zero_exposure_zero_feedback": 1,
+            "active_zero_exposure_zero_feedback_age_unknown": 0,
+            "active_stale_zero_exposure_zero_feedback": 0,
+            "stale_active_age_days": 7,
             "due_count": 1,
             "due_pressure": 0.125,
-            "capacity_budget": 7,
+            "capacity_budget": 5,
             "base_admission_budget": 2,
             "admission_budget": 2,
             "reason_code": "normal",
@@ -1016,6 +1558,8 @@
             ],
             "diagnostics": {
               "filtered_by_pos": 0,
+              "blocked_by_lifecycle": 0,
+              "blocked_lemmas": [],
               "admitted_by_pos_bucket": {
                 "noun": 2
               },
@@ -1024,17 +1568,416 @@
               "candidate_pool_effective": 7
             },
             "applied": true,
+            "active_rotation_release": {
+              "pair": "en-ja",
+              "active_count_before": 3,
+              "active_count_after": 3,
+              "released_count": 0,
+              "released_item_ids": [],
+              "released_lemmas": [],
+              "policy": {
+                "min_history_count": 4,
+                "min_future_due_days": 7,
+                "require_review_state": true
+              }
+            },
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth",
+            "selection_policy": "reserved_topic_lane",
+            "profile_growth": {
+              "selector_version": "profile_bootstrap_v5",
+              "selector_policy_version": "profile_bootstrap_policy_v4",
+              "selection_weights": {
+                "base_freq": 0.55,
+                "topic_bias": 0.15,
+                "scarcity_bonus": 0.05,
+                "user_pref": 0.1,
+                "confidence": 0.0,
+                "difficulty_target": 0.1
+              },
+              "selection_policy": "reserved_topic_lane",
+              "utility_weights": {
+                "coverage_gain": 0.55,
+                "topic_affinity": 0.15,
+                "scarcity_bonus": 0.05,
+                "proficiency_fit": 0.1,
+                "challenge_fit": 0.1,
+                "lexical_risk": 0.0,
+                "redundancy": 0.0,
+                "exploration_bonus": 0.0
+              },
+              "profile_context": {
+                "version": "admission_profile_features_v1",
+                "topic_normalization_version": "topic_family_v1",
+                "raw_profile_keys": [],
+                "interests": [],
+                "explicit_topic_weights": {},
+                "implicit_topic_weights": {},
+                "topic_weights": {},
+                "topic_weight_sources": {},
+                "proficiency_estimate": null,
+                "challenge_target": null,
+                "challenge_spread": null,
+                "goal_mode": null,
+                "active_signals": [],
+                "missing_signals": [
+                  "interests",
+                  "proficiency",
+                  "challenge_preference"
+                ],
+                "signal_sources": {}
+              }
+            },
             "weight_terms": {
               "admission_weight": "Entry/growth score for adding words into S.",
               "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
             }
           },
+          "inventory": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+            "exists": true,
+            "active_items_for_pair": 5,
+            "source": "refreshed",
+            "backfilled_from_store": false,
+            "updated_at": "2026-03-22T09:00:00+00:00"
+          },
+          "suppression": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_admission_suppression.json",
+            "exists": false,
+            "active_suppressed_lemmas": {},
+            "active_suppressed_count": 0
+          },
+          "browsing_admission_preview": {
+            "status": "ok",
+            "scope": "refresh_candidate_preview_only",
+            "applied_to_actual_admission": false,
+            "runtime_srs_mutation": false,
+            "admission_budget": 2,
+            "candidate_pool_effective": 4,
+            "aggregate_item_count": 0,
+            "matching_signal_count": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
+            "neutral_selected_lemmas": [
+              "delta",
+              "epsilon"
+            ],
+            "simulations": {
+              "off": {
+                "strength": "off",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "delta",
+                  "epsilon"
+                ],
+                "neutral_selected_lemmas": [
+                  "delta",
+                  "epsilon"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "delta",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.473,
+                    "final_score": 0.473,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.415793,
+                    "approximate_selection_probability": 0.415793
+                  },
+                  {
+                    "lemma": "epsilon",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.451,
+                    "final_score": 0.451,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.401004,
+                    "approximate_selection_probability": 0.401004
+                  },
+                  {
+                    "lemma": "zeta",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.429,
+                    "final_score": 0.429,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.38584,
+                    "approximate_selection_probability": 0.38584
+                  },
+                  {
+                    "lemma": "eta",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.407,
+                    "final_score": 0.407,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.370293,
+                    "approximate_selection_probability": 0.370293
+                  }
+                ],
+                "row_count": 4,
+                "row_preview_count": 4
+              },
+              "balanced": {
+                "strength": "balanced",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "delta",
+                  "epsilon"
+                ],
+                "neutral_selected_lemmas": [
+                  "delta",
+                  "epsilon"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "delta",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.473,
+                    "final_score": 0.473,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.415793,
+                    "approximate_selection_probability": 0.415793
+                  },
+                  {
+                    "lemma": "epsilon",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.451,
+                    "final_score": 0.451,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.401004,
+                    "approximate_selection_probability": 0.401004
+                  },
+                  {
+                    "lemma": "zeta",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.429,
+                    "final_score": 0.429,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.38584,
+                    "approximate_selection_probability": 0.38584
+                  },
+                  {
+                    "lemma": "eta",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.407,
+                    "final_score": 0.407,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.370293,
+                    "approximate_selection_probability": 0.370293
+                  }
+                ],
+                "row_count": 4,
+                "row_preview_count": 4
+              },
+              "strong": {
+                "strength": "strong",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "delta",
+                  "epsilon"
+                ],
+                "neutral_selected_lemmas": [
+                  "delta",
+                  "epsilon"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "delta",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.473,
+                    "final_score": 0.473,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.415793,
+                    "approximate_selection_probability": 0.415793
+                  },
+                  {
+                    "lemma": "epsilon",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.451,
+                    "final_score": 0.451,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.401004,
+                    "approximate_selection_probability": 0.401004
+                  },
+                  {
+                    "lemma": "zeta",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.429,
+                    "final_score": 0.429,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.38584,
+                    "approximate_selection_probability": 0.38584
+                  },
+                  {
+                    "lemma": "eta",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.407,
+                    "final_score": 0.407,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.370293,
+                    "approximate_selection_probability": 0.370293
+                  }
+                ],
+                "row_count": 4,
+                "row_preview_count": 4
+              }
+            },
+            "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_browsing_signals_en-ja.json",
+            "store_exists": false,
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth"
+          },
           "rulegen": {
             "published": true,
             "targets": 5,
             "rules": 5,
-            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json"
+            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
+            "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_publication_manifest_en-ja.json",
+            "semantic_inventory_path": null,
+            "rule_availability_reconciliation": {
+              "reason": "no_enabled_rules",
+              "changed": false,
+              "active_count_before": 5,
+              "active_count_after": 5,
+              "discarded_count": 0,
+              "discarded_item_ids": [],
+              "discarded_lemmas": [],
+              "enabled_rule_lemma_count": 5
+            }
           },
           "applied": true,
           "persisted": true,
@@ -1171,6 +2114,7 @@
               "selector_components": {
                 "base_freq": 0.688,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.172,
                 "difficulty_target": 0.0
@@ -1202,6 +2146,7 @@
               "selector_components": {
                 "base_freq": 0.656,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.164,
                 "difficulty_target": 0.0
@@ -1233,6 +2178,7 @@
               "selector_components": {
                 "base_freq": 0.624,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.156,
                 "difficulty_target": 0.0
@@ -1264,6 +2210,7 @@
               "selector_components": {
                 "base_freq": 0.592,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.148,
                 "difficulty_target": 0.0
@@ -1285,14 +2232,186 @@
           "profile_id": "default",
           "requirements": {
             "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "rulegen_mode": "en_ja",
             "supports_rulegen": true,
             "srs_selectable": true,
             "default_frequency_db": "freq-ja-bccwj.sqlite",
             "requires_jmdict_for_seed": true,
             "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "requires_translation_dictionary_for_rulegen": false,
+            "source_stack_id": "en-ja-default-v1",
+            "source_stack_resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ]
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": []
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ]
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ]
+              }
+            ]
           },
+          "source_stack": {
+            "pair": "en-ja",
+            "stack_id": "en-ja-default-v1",
+            "label_key": "language_packs.learning_pairs.pairs.en_ja",
+            "resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ],
+                "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+                "exists": true
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": [],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ],
+                "path": null,
+                "exists": false
+              }
+            ]
+          },
+          "source_stack_id": "en-ja-default-v1",
+          "source_stack_missing_required": [
+            {
+              "role": "forward_translation",
+              "family": "language",
+              "pack_id": "jmdict-ja-en",
+              "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+              "required_for": [
+                "srs_seed_validation",
+                "rulegen",
+                "semantic_publication"
+              ],
+              "optional_for": [],
+              "pair_setup": true,
+              "wired": true,
+              "joins_on": "target_headword",
+              "notes": [],
+              "path": null,
+              "exists": false
+            }
+          ],
+          "source_stack_missing_recommended": [],
           "pair_policy": {
             "pair": "en-ja",
             "bootstrap_top_n_default": 800,
@@ -1302,32 +2421,87 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/language_packs/JMdict_e",
           "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/frequency_packs/freq-ja-bccwj.sqlite",
+          "translation_dict_path": null,
+          "translation_dict_exists": false,
+          "translation_pack_path": null,
+          "translation_pack_exists": false,
+          "translation_dict_provider": null,
+          "translation_pack_id": null,
+          "translation_pos_source_profile": null,
+          "reverse_translation_dict_path": null,
+          "reverse_translation_dict_exists": false,
+          "reverse_translation_pack_path": null,
+          "reverse_translation_pack_exists": false,
+          "reverse_translation_dict_provider": null,
+          "reverse_translation_pack_id": null,
+          "reverse_translation_pos_source_profile": null,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-ja-bccwj",
+          "frequency_pack_provider": "freq-ja-bccwj",
+          "frequency_pos_source_profile": "bccwj",
           "stopwords_path": null,
           "stopwords_exists": false,
+          "pos_overlay_path": null,
+          "pos_overlay_exists": false,
+          "pos_overlay_id": null,
+          "pos_overlay_provider": null,
+          "pos_overlay_resolution": "missing",
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 5,
           "store_items_for_pair": 5,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 5,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-06-09T16:49:26.252307+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 5,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
           "snapshot_target_count": 5,
+          "snapshot_generation_id": "en-ja:default:a72918eb13b2db20",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_semantic_inventory_en-ja.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_publication_manifest_en-ja.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-ja:default:a72918eb13b2db20",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -1338,14 +2512,43 @@
             "last_target_count": 5
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_sources": [
+          "journey_src_alpha",
+          "journey_src_beta",
+          "journey_src_delta",
+          "journey_src_epsilon",
+          "journey_src_gamma"
+        ],
         "ruleset_sources_preview": [
           "journey_src_alpha",
           "journey_src_beta",
           "journey_src_delta",
           "journey_src_epsilon",
           "journey_src_gamma"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_alpha",
+            "target": "alpha"
+          },
+          {
+            "source": "journey_src_beta",
+            "target": "beta"
+          },
+          {
+            "source": "journey_src_delta",
+            "target": "delta"
+          },
+          {
+            "source": "journey_src_epsilon",
+            "target": "epsilon"
+          },
+          {
+            "source": "journey_src_gamma",
+            "target": "gamma"
+          }
         ],
         "snapshot_targets": [
           "alpha",
@@ -1679,6 +2882,8 @@
         "payload": {
           "pair": "en-ja",
           "profile_id": "default",
+          "strategy_requested": "profile_growth",
+          "strategy_effective": "profile_growth",
           "set_top_n": 7,
           "feedback_window_size": 8,
           "allowed_pos": [],
@@ -1695,15 +2900,25 @@
           "max_new_items_per_day": 2,
           "added_items": 0,
           "total_items_for_pair": 5,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
+          "pos_overlay_path": null,
+          "pos_overlay_exists": false,
+          "pos_overlay_id": null,
+          "pos_overlay_provider": null,
+          "pos_overlay_resolution": "missing",
           "admission_refresh": {
             "pair": "en-ja",
             "max_active_items": 8,
             "max_new_items_per_day": 2,
+            "active_count": 5,
+            "active_zero_exposure_zero_feedback": 2,
+            "active_zero_exposure_zero_feedback_age_unknown": 0,
+            "active_stale_zero_exposure_zero_feedback": 0,
+            "stale_active_age_days": 7,
             "due_count": 2,
             "due_pressure": 0.25,
-            "capacity_budget": 6,
+            "capacity_budget": 3,
             "base_admission_budget": 2,
             "admission_budget": 0,
             "reason_code": "retention_low",
@@ -1727,16 +2942,105 @@
             "selected_lemmas": [],
             "diagnostics": {
               "filtered_by_pos": 0,
+              "blocked_by_lifecycle": 0,
+              "blocked_lemmas": [],
               "admitted_by_pos_bucket": {},
               "unknown_pos_seen": 7,
               "allowed_pos": [],
               "candidate_pool_effective": 7
             },
             "applied": false,
+            "active_rotation_release": {
+              "pair": "en-ja",
+              "active_count_before": 5,
+              "active_count_after": 5,
+              "released_count": 0,
+              "released_item_ids": [],
+              "released_lemmas": [],
+              "policy": {
+                "min_history_count": 4,
+                "min_future_due_days": 7,
+                "require_review_state": true
+              }
+            },
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth",
+            "selection_policy": "reserved_topic_lane",
+            "profile_growth": {
+              "selector_version": "profile_bootstrap_v5",
+              "selector_policy_version": "profile_bootstrap_policy_v4",
+              "selection_weights": {
+                "base_freq": 0.55,
+                "topic_bias": 0.15,
+                "scarcity_bonus": 0.05,
+                "user_pref": 0.1,
+                "confidence": 0.0,
+                "difficulty_target": 0.1
+              },
+              "selection_policy": "reserved_topic_lane",
+              "utility_weights": {
+                "coverage_gain": 0.55,
+                "topic_affinity": 0.15,
+                "scarcity_bonus": 0.05,
+                "proficiency_fit": 0.1,
+                "challenge_fit": 0.1,
+                "lexical_risk": 0.0,
+                "redundancy": 0.0,
+                "exploration_bonus": 0.0
+              },
+              "profile_context": {
+                "version": "admission_profile_features_v1",
+                "topic_normalization_version": "topic_family_v1",
+                "raw_profile_keys": [],
+                "interests": [],
+                "explicit_topic_weights": {},
+                "implicit_topic_weights": {},
+                "topic_weights": {},
+                "topic_weight_sources": {},
+                "proficiency_estimate": null,
+                "challenge_target": null,
+                "challenge_spread": null,
+                "goal_mode": null,
+                "active_signals": [],
+                "missing_signals": [
+                  "interests",
+                  "proficiency",
+                  "challenge_preference"
+                ],
+                "signal_sources": {}
+              }
+            },
             "weight_terms": {
               "admission_weight": "Entry/growth score for adding words into S.",
               "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
             }
+          },
+          "inventory": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+            "exists": true,
+            "active_items_for_pair": 5,
+            "source": "inventory",
+            "backfilled_from_store": false,
+            "updated_at": null
+          },
+          "suppression": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_admission_suppression.json",
+            "exists": false,
+            "active_suppressed_lemmas": {},
+            "active_suppressed_count": 0
+          },
+          "browsing_admission_preview": {
+            "status": "skipped",
+            "reason": "retention_low",
+            "applied_to_actual_admission": false,
+            "runtime_srs_mutation": false,
+            "admission_budget": 0,
+            "aggregate_item_count": 0,
+            "simulations": {},
+            "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_browsing_signals_en-ja.json",
+            "store_exists": false,
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth"
           },
           "rulegen": null,
           "applied": false,
@@ -1926,6 +3230,7 @@
               "selector_components": {
                 "base_freq": 0.624,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.156,
                 "difficulty_target": 0.0
@@ -1957,6 +3262,7 @@
               "selector_components": {
                 "base_freq": 0.592,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.148,
                 "difficulty_target": 0.0
@@ -1975,14 +3281,186 @@
           "profile_id": "default",
           "requirements": {
             "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "rulegen_mode": "en_ja",
             "supports_rulegen": true,
             "srs_selectable": true,
             "default_frequency_db": "freq-ja-bccwj.sqlite",
             "requires_jmdict_for_seed": true,
             "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "requires_translation_dictionary_for_rulegen": false,
+            "source_stack_id": "en-ja-default-v1",
+            "source_stack_resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ]
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": []
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ]
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ]
+              }
+            ]
           },
+          "source_stack": {
+            "pair": "en-ja",
+            "stack_id": "en-ja-default-v1",
+            "label_key": "language_packs.learning_pairs.pairs.en_ja",
+            "resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ],
+                "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+                "exists": true
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": [],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ],
+                "path": null,
+                "exists": false
+              }
+            ]
+          },
+          "source_stack_id": "en-ja-default-v1",
+          "source_stack_missing_required": [
+            {
+              "role": "forward_translation",
+              "family": "language",
+              "pack_id": "jmdict-ja-en",
+              "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+              "required_for": [
+                "srs_seed_validation",
+                "rulegen",
+                "semantic_publication"
+              ],
+              "optional_for": [],
+              "pair_setup": true,
+              "wired": true,
+              "joins_on": "target_headword",
+              "notes": [],
+              "path": null,
+              "exists": false
+            }
+          ],
+          "source_stack_missing_recommended": [],
           "pair_policy": {
             "pair": "en-ja",
             "bootstrap_top_n_default": 800,
@@ -1992,32 +3470,87 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/language_packs/JMdict_e",
           "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/frequency_packs/freq-ja-bccwj.sqlite",
+          "translation_dict_path": null,
+          "translation_dict_exists": false,
+          "translation_pack_path": null,
+          "translation_pack_exists": false,
+          "translation_dict_provider": null,
+          "translation_pack_id": null,
+          "translation_pos_source_profile": null,
+          "reverse_translation_dict_path": null,
+          "reverse_translation_dict_exists": false,
+          "reverse_translation_pack_path": null,
+          "reverse_translation_pack_exists": false,
+          "reverse_translation_dict_provider": null,
+          "reverse_translation_pack_id": null,
+          "reverse_translation_pos_source_profile": null,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-ja-bccwj",
+          "frequency_pack_provider": "freq-ja-bccwj",
+          "frequency_pos_source_profile": "bccwj",
           "stopwords_path": null,
           "stopwords_exists": false,
+          "pos_overlay_path": null,
+          "pos_overlay_exists": false,
+          "pos_overlay_id": null,
+          "pos_overlay_provider": null,
+          "pos_overlay_resolution": "missing",
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 5,
           "store_items_for_pair": 5,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 5,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-06-09T16:49:26.252307+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 5,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
           "snapshot_target_count": 5,
+          "snapshot_generation_id": "en-ja:default:a72918eb13b2db20",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_semantic_inventory_en-ja.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_publication_manifest_en-ja.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-ja:default:a72918eb13b2db20",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -2028,14 +3561,43 @@
             "last_target_count": 5
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_sources": [
+          "journey_src_alpha",
+          "journey_src_beta",
+          "journey_src_delta",
+          "journey_src_epsilon",
+          "journey_src_gamma"
+        ],
         "ruleset_sources_preview": [
           "journey_src_alpha",
           "journey_src_beta",
           "journey_src_delta",
           "journey_src_epsilon",
           "journey_src_gamma"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_alpha",
+            "target": "alpha"
+          },
+          {
+            "source": "journey_src_beta",
+            "target": "beta"
+          },
+          {
+            "source": "journey_src_delta",
+            "target": "delta"
+          },
+          {
+            "source": "journey_src_epsilon",
+            "target": "epsilon"
+          },
+          {
+            "source": "journey_src_gamma",
+            "target": "gamma"
+          }
         ],
         "snapshot_targets": [
           "alpha",
@@ -2376,6 +3938,8 @@
         "payload": {
           "pair": "en-ja",
           "profile_id": "default",
+          "strategy_requested": "profile_growth",
+          "strategy_effective": "profile_growth",
           "set_top_n": 7,
           "feedback_window_size": 8,
           "allowed_pos": [],
@@ -2392,15 +3956,25 @@
           "max_new_items_per_day": 2,
           "added_items": 2,
           "total_items_for_pair": 7,
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
           "stopwords_path": null,
+          "pos_overlay_path": null,
+          "pos_overlay_exists": false,
+          "pos_overlay_id": null,
+          "pos_overlay_provider": null,
+          "pos_overlay_resolution": "missing",
           "admission_refresh": {
             "pair": "en-ja",
             "max_active_items": 8,
             "max_new_items_per_day": 2,
+            "active_count": 5,
+            "active_zero_exposure_zero_feedback": 0,
+            "active_zero_exposure_zero_feedback_age_unknown": 0,
+            "active_stale_zero_exposure_zero_feedback": 0,
+            "stale_active_age_days": 7,
             "due_count": 1,
             "due_pressure": 0.125,
-            "capacity_budget": 7,
+            "capacity_budget": 3,
             "base_admission_budget": 2,
             "admission_budget": 2,
             "reason_code": "normal",
@@ -2425,6 +3999,8 @@
             ],
             "diagnostics": {
               "filtered_by_pos": 0,
+              "blocked_by_lifecycle": 0,
+              "blocked_lemmas": [],
               "admitted_by_pos_bucket": {
                 "noun": 2
               },
@@ -2433,17 +4009,320 @@
               "candidate_pool_effective": 7
             },
             "applied": true,
+            "active_rotation_release": {
+              "pair": "en-ja",
+              "active_count_before": 5,
+              "active_count_after": 5,
+              "released_count": 0,
+              "released_item_ids": [],
+              "released_lemmas": [],
+              "policy": {
+                "min_history_count": 4,
+                "min_future_due_days": 7,
+                "require_review_state": true
+              }
+            },
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth",
+            "selection_policy": "reserved_topic_lane",
+            "profile_growth": {
+              "selector_version": "profile_bootstrap_v5",
+              "selector_policy_version": "profile_bootstrap_policy_v4",
+              "selection_weights": {
+                "base_freq": 0.55,
+                "topic_bias": 0.15,
+                "scarcity_bonus": 0.05,
+                "user_pref": 0.1,
+                "confidence": 0.0,
+                "difficulty_target": 0.1
+              },
+              "selection_policy": "reserved_topic_lane",
+              "utility_weights": {
+                "coverage_gain": 0.55,
+                "topic_affinity": 0.15,
+                "scarcity_bonus": 0.05,
+                "proficiency_fit": 0.1,
+                "challenge_fit": 0.1,
+                "lexical_risk": 0.0,
+                "redundancy": 0.0,
+                "exploration_bonus": 0.0
+              },
+              "profile_context": {
+                "version": "admission_profile_features_v1",
+                "topic_normalization_version": "topic_family_v1",
+                "raw_profile_keys": [],
+                "interests": [],
+                "explicit_topic_weights": {},
+                "implicit_topic_weights": {},
+                "topic_weights": {},
+                "topic_weight_sources": {},
+                "proficiency_estimate": null,
+                "challenge_target": null,
+                "challenge_spread": null,
+                "goal_mode": null,
+                "active_signals": [],
+                "missing_signals": [
+                  "interests",
+                  "proficiency",
+                  "challenge_preference"
+                ],
+                "signal_sources": {}
+              }
+            },
             "weight_terms": {
               "admission_weight": "Entry/growth score for adding words into S.",
               "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
             }
           },
+          "inventory": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+            "exists": true,
+            "active_items_for_pair": 7,
+            "source": "refreshed",
+            "backfilled_from_store": false,
+            "updated_at": "2026-03-22T09:00:00+00:00"
+          },
+          "suppression": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_admission_suppression.json",
+            "exists": false,
+            "active_suppressed_lemmas": {},
+            "active_suppressed_count": 0
+          },
+          "browsing_admission_preview": {
+            "status": "ok",
+            "scope": "refresh_candidate_preview_only",
+            "applied_to_actual_admission": false,
+            "runtime_srs_mutation": false,
+            "admission_budget": 2,
+            "candidate_pool_effective": 2,
+            "aggregate_item_count": 0,
+            "matching_signal_count": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
+            "neutral_selected_lemmas": [
+              "zeta",
+              "eta"
+            ],
+            "simulations": {
+              "off": {
+                "strength": "off",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "zeta",
+                  "eta"
+                ],
+                "neutral_selected_lemmas": [
+                  "zeta",
+                  "eta"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "zeta",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.429,
+                    "final_score": 0.429,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.641675,
+                    "approximate_selection_probability": 0.641675
+                  },
+                  {
+                    "lemma": "eta",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.407,
+                    "final_score": 0.407,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.622311,
+                    "approximate_selection_probability": 0.622311
+                  }
+                ],
+                "row_count": 2,
+                "row_preview_count": 2
+              },
+              "balanced": {
+                "strength": "balanced",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "zeta",
+                  "eta"
+                ],
+                "neutral_selected_lemmas": [
+                  "zeta",
+                  "eta"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "zeta",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.429,
+                    "final_score": 0.429,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.641675,
+                    "approximate_selection_probability": 0.641675
+                  },
+                  {
+                    "lemma": "eta",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.407,
+                    "final_score": 0.407,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.622311,
+                    "approximate_selection_probability": 0.622311
+                  }
+                ],
+                "row_count": 2,
+                "row_preview_count": 2
+              },
+              "strong": {
+                "strength": "strong",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "zeta",
+                  "eta"
+                ],
+                "neutral_selected_lemmas": [
+                  "zeta",
+                  "eta"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "zeta",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.429,
+                    "final_score": 0.429,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.641675,
+                    "approximate_selection_probability": 0.641675
+                  },
+                  {
+                    "lemma": "eta",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.407,
+                    "final_score": 0.407,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.622311,
+                    "approximate_selection_probability": 0.622311
+                  }
+                ],
+                "row_count": 2,
+                "row_preview_count": 2
+              }
+            },
+            "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_browsing_signals_en-ja.json",
+            "store_exists": false,
+            "selection_strategy_requested": "profile_growth",
+            "selection_strategy_effective": "profile_growth"
+          },
           "rulegen": {
             "published": true,
             "targets": 7,
             "rules": 7,
-            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
-            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json"
+            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
+            "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_publication_manifest_en-ja.json",
+            "semantic_inventory_path": null,
+            "rule_availability_reconciliation": {
+              "reason": "no_enabled_rules",
+              "changed": false,
+              "active_count_before": 7,
+              "active_count_after": 7,
+              "discarded_count": 0,
+              "discarded_item_ids": [],
+              "discarded_lemmas": [],
+              "enabled_rule_lemma_count": 7
+            }
           },
           "applied": true,
           "persisted": true,
@@ -2632,6 +4511,7 @@
               "selector_components": {
                 "base_freq": 0.624,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.156,
                 "difficulty_target": 0.0
@@ -2663,6 +4543,7 @@
               "selector_components": {
                 "base_freq": 0.592,
                 "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
                 "user_pref": 0.0,
                 "confidence": 0.148,
                 "difficulty_target": 0.0
@@ -2684,14 +4565,186 @@
           "profile_id": "default",
           "requirements": {
             "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "rulegen_mode": "en_ja",
             "supports_rulegen": true,
             "srs_selectable": true,
             "default_frequency_db": "freq-ja-bccwj.sqlite",
             "requires_jmdict_for_seed": true,
             "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "requires_translation_dictionary_for_rulegen": false,
+            "source_stack_id": "en-ja-default-v1",
+            "source_stack_resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ]
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": []
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ]
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ]
+              }
+            ]
           },
+          "source_stack": {
+            "pair": "en-ja",
+            "stack_id": "en-ja-default-v1",
+            "label_key": "language_packs.learning_pairs.pairs.en_ja",
+            "resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ],
+                "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+                "exists": true
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": [],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ],
+                "path": null,
+                "exists": false
+              }
+            ]
+          },
+          "source_stack_id": "en-ja-default-v1",
+          "source_stack_missing_required": [
+            {
+              "role": "forward_translation",
+              "family": "language",
+              "pack_id": "jmdict-ja-en",
+              "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+              "required_for": [
+                "srs_seed_validation",
+                "rulegen",
+                "semantic_publication"
+              ],
+              "optional_for": [],
+              "pair_setup": true,
+              "wired": true,
+              "joins_on": "target_headword",
+              "notes": [],
+              "path": null,
+              "exists": false
+            }
+          ],
+          "source_stack_missing_recommended": [],
           "pair_policy": {
             "pair": "en-ja",
             "bootstrap_top_n_default": 800,
@@ -2701,32 +4754,87 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/language_packs/JMdict_e",
           "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/frequency_packs/freq-ja-bccwj.sqlite",
+          "translation_dict_path": null,
+          "translation_dict_exists": false,
+          "translation_pack_path": null,
+          "translation_pack_exists": false,
+          "translation_dict_provider": null,
+          "translation_pack_id": null,
+          "translation_pos_source_profile": null,
+          "reverse_translation_dict_path": null,
+          "reverse_translation_dict_exists": false,
+          "reverse_translation_pack_path": null,
+          "reverse_translation_pack_exists": false,
+          "reverse_translation_dict_provider": null,
+          "reverse_translation_pack_id": null,
+          "reverse_translation_pos_source_profile": null,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-ja-bccwj",
+          "frequency_pack_provider": "freq-ja-bccwj",
+          "frequency_pos_source_profile": "bccwj",
           "stopwords_path": null,
           "stopwords_exists": false,
+          "pos_overlay_path": null,
+          "pos_overlay_exists": false,
+          "pos_overlay_id": null,
+          "pos_overlay_provider": null,
+          "pos_overlay_resolution": "missing",
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 7,
           "store_items_for_pair": 7,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 7,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-06-09T16:49:26.252307+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 7,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
           "snapshot_target_count": 7,
+          "snapshot_generation_id": "en-ja:default:e40896bf1d0b5f66",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_semantic_inventory_en-ja.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_publication_manifest_en-ja.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-ja:default:e40896bf1d0b5f66",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -2737,14 +4845,53 @@
             "last_target_count": 7
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_sources": [
+          "journey_src_alpha",
+          "journey_src_beta",
+          "journey_src_delta",
+          "journey_src_epsilon",
+          "journey_src_eta",
+          "journey_src_gamma",
+          "journey_src_zeta"
+        ],
         "ruleset_sources_preview": [
           "journey_src_alpha",
           "journey_src_beta",
           "journey_src_delta",
           "journey_src_epsilon",
           "journey_src_eta"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_alpha",
+            "target": "alpha"
+          },
+          {
+            "source": "journey_src_beta",
+            "target": "beta"
+          },
+          {
+            "source": "journey_src_delta",
+            "target": "delta"
+          },
+          {
+            "source": "journey_src_epsilon",
+            "target": "epsilon"
+          },
+          {
+            "source": "journey_src_eta",
+            "target": "eta"
+          },
+          {
+            "source": "journey_src_gamma",
+            "target": "gamma"
+          },
+          {
+            "source": "journey_src_zeta",
+            "target": "zeta"
+          }
         ],
         "snapshot_targets": [
           "alpha",
@@ -3126,14 +5273,186 @@
           "profile_id": "default",
           "requirements": {
             "pair": "en-ja",
-            "rulegen_mode": "ja_en",
+            "rulegen_mode": "en_ja",
             "supports_rulegen": true,
             "srs_selectable": true,
             "default_frequency_db": "freq-ja-bccwj.sqlite",
             "requires_jmdict_for_seed": true,
             "requires_jmdict_for_rulegen": true,
-            "requires_freedict_de_en_for_rulegen": false
+            "requires_translation_dictionary_for_rulegen": false,
+            "source_stack_id": "en-ja-default-v1",
+            "source_stack_resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ]
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": []
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ]
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ]
+              }
+            ]
           },
+          "source_stack": {
+            "pair": "en-ja",
+            "stack_id": "en-ja-default-v1",
+            "label_key": "language_packs.learning_pairs.pairs.en_ja",
+            "resources": [
+              {
+                "role": "target_frequency",
+                "family": "frequency",
+                "pack_id": "freq-ja-bccwj",
+                "label_key": "language_packs.learning_pairs.resources.freq_ja_bccwj",
+                "required_for": [
+                  "srs_admission",
+                  "srs_bootstrap"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "manual_supply_quality_preferred"
+                ],
+                "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+                "exists": true
+              },
+              {
+                "role": "forward_translation",
+                "family": "language",
+                "pack_id": "jmdict-ja-en",
+                "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+                "required_for": [
+                  "srs_seed_validation",
+                  "rulegen",
+                  "semantic_publication"
+                ],
+                "optional_for": [],
+                "pair_setup": true,
+                "wired": true,
+                "joins_on": "target_headword",
+                "notes": [],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "source_frequency_prior",
+                "family": "frequency",
+                "pack_id": "freq-en-leipzig-default",
+                "label_key": "language_packs.learning_pairs.resources.freq_en_leipzig_default",
+                "required_for": [],
+                "optional_for": [
+                  "rulegen_source_frequency_prior_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "source_lemma",
+                "notes": [
+                  "en_ja_adapter_does_not_wire_sqlite_source_prior_yet",
+                  "current_probe_no_ordering_gain"
+                ],
+                "path": null,
+                "exists": false
+              },
+              {
+                "role": "target_monolingual_wordnet",
+                "family": "language",
+                "pack_id": "jp-wordnet-sqlite",
+                "label_key": "language_packs.learning_pairs.resources.jp_wordnet_sqlite",
+                "required_for": [],
+                "optional_for": [
+                  "semantic_evidence_enrichment_experiment"
+                ],
+                "pair_setup": false,
+                "wired": false,
+                "joins_on": "target_lemma",
+                "notes": [
+                  "candidate_overlay_not_in_default_algorithm"
+                ],
+                "path": null,
+                "exists": false
+              }
+            ]
+          },
+          "source_stack_id": "en-ja-default-v1",
+          "source_stack_missing_required": [
+            {
+              "role": "forward_translation",
+              "family": "language",
+              "pack_id": "jmdict-ja-en",
+              "label_key": "language_packs.learning_pairs.resources.jmdict_ja_en",
+              "required_for": [
+                "srs_seed_validation",
+                "rulegen",
+                "semantic_publication"
+              ],
+              "optional_for": [],
+              "pair_setup": true,
+              "wired": true,
+              "joins_on": "target_headword",
+              "notes": [],
+              "path": null,
+              "exists": false
+            }
+          ],
+          "source_stack_missing_recommended": [],
           "pair_policy": {
             "pair": "en-ja",
             "bootstrap_top_n_default": 800,
@@ -3143,32 +5462,87 @@
             "max_new_items_per_day_default": null,
             "notes": []
           },
-          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/language_packs/JMdict_e",
+          "jmdict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/language_packs/JMdict_e",
           "jmdict_exists": true,
-          "freedict_de_en_path": null,
-          "freedict_de_en_exists": false,
-          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/frequency_packs/freq-ja-bccwj.sqlite",
+          "translation_dict_path": null,
+          "translation_dict_exists": false,
+          "translation_pack_path": null,
+          "translation_pack_exists": false,
+          "translation_dict_provider": null,
+          "translation_pack_id": null,
+          "translation_pos_source_profile": null,
+          "reverse_translation_dict_path": null,
+          "reverse_translation_dict_exists": false,
+          "reverse_translation_pack_path": null,
+          "reverse_translation_pack_exists": false,
+          "reverse_translation_dict_provider": null,
+          "reverse_translation_pack_id": null,
+          "reverse_translation_pos_source_profile": null,
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
           "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/frequency_packs/freq-ja-bccwj.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-ja-bccwj",
+          "frequency_pack_provider": "freq-ja-bccwj",
+          "frequency_pos_source_profile": "bccwj",
           "stopwords_path": null,
           "stopwords_exists": false,
+          "pos_overlay_path": null,
+          "pos_overlay_exists": false,
+          "pos_overlay_id": null,
+          "pos_overlay_provider": null,
+          "pos_overlay_resolution": "missing",
           "missing_inputs": [],
-          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_store.json",
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_store.json",
           "store_exists": true,
           "store_items_total": 7,
           "store_items_for_pair": 7,
           "store_items_with_word_package_total": 3,
           "store_items_with_word_package_for_pair": 3,
           "store_error": null,
-          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 7,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-06-09T16:49:26.252307+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
           "ruleset_exists": true,
           "ruleset_rules_count": 7,
           "ruleset_rules_with_script_forms": 0,
           "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
           "ruleset_error": null,
-          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
           "snapshot_exists": true,
           "snapshot_target_count": 7,
+          "snapshot_generation_id": "en-ja:default:e40896bf1d0b5f66",
           "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_semantic_inventory_en-ja.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_publication_manifest_en-ja.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-ja:default:e40896bf1d0b5f66",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
           "status": {
             "version": 1,
             "helper_version": "0.1.0",
@@ -3179,14 +5553,53 @@
             "last_target_count": 7
           }
         },
-        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_ruleset_en-ja.json",
-        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmp86h3fqha/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_ruleset_en-ja.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpm2l_tcyy/srs/profiles/default/srs_rulegen_snapshot_en-ja.json",
+        "ruleset_sources": [
+          "journey_src_alpha",
+          "journey_src_beta",
+          "journey_src_delta",
+          "journey_src_epsilon",
+          "journey_src_eta",
+          "journey_src_gamma",
+          "journey_src_zeta"
+        ],
         "ruleset_sources_preview": [
           "journey_src_alpha",
           "journey_src_beta",
           "journey_src_delta",
           "journey_src_epsilon",
           "journey_src_eta"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_alpha",
+            "target": "alpha"
+          },
+          {
+            "source": "journey_src_beta",
+            "target": "beta"
+          },
+          {
+            "source": "journey_src_delta",
+            "target": "delta"
+          },
+          {
+            "source": "journey_src_epsilon",
+            "target": "epsilon"
+          },
+          {
+            "source": "journey_src_eta",
+            "target": "eta"
+          },
+          {
+            "source": "journey_src_gamma",
+            "target": "gamma"
+          },
+          {
+            "source": "journey_src_zeta",
+            "target": "zeta"
+          }
         ],
         "snapshot_targets": [
           "alpha",

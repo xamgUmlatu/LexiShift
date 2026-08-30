@@ -43,11 +43,21 @@ Purpose:
   - Longest-match phrase replacement with highlight and click-to-toggle behavior.
   - Supports morphology-aware display surfaces via rule metadata (`metadata.morphology.target_surface`) while keeping canonical replacement lemma identity for SRS keys.
   - Runtime replacement controls:
-    - `maxOnePerTextBlock` (standard default: `false`)
-    - `allowAdjacentReplacements` (standard default: `false`)
-    - `maxReplacementsPerPage` (standard default: `20`; `0` = unlimited)
-    - `maxReplacementsPerLemmaPerPage` (standard default: `2`; `0` = unlimited)
-  - Works on all matching frames/pages and skips editable inputs/contenteditable areas.
+    - `maxOnePerTextBlock` (legacy text-node compatibility; standard default: `false`)
+    - `allowAdjacentReplacements` (standard default: `true`)
+    - `maxReplacementsPerPage` (standard default: `0`; `0` = unlimited; applied independently per frame document)
+    - `maxReplacementsPerSentence` (standard default: `0`; `0` = unlimited)
+    - `maxReplacementsPerLemmaPerPage` (standard default: `0`; `0` = unlimited)
+  - Page, sentence, and per-lemma limits are enforced together after semantic
+    admission; only replacements successfully committed to the DOM consume the
+    shared page budget.
+  - Density settings are global; runtime diagnostics report aggregate budget
+    usage and rejection reasons for the current frame document.
+  - For a learner-facing one-replacement limit, use
+    `maxReplacementsPerSentence = 1`; the older text-node control remains in
+    Advanced only so existing configurations can still be inspected or disabled.
+  - Works on all matching frames/pages and skips editable inputs/contenteditable
+    areas plus explicitly non-rendered subtrees.
 
 - Rule source model
   - Uses local rules from extension storage.

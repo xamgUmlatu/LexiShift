@@ -21,35 +21,20 @@
     const applyLanguagePrefsToInputs = typeof opts.applyLanguagePrefsToInputs === "function"
       ? opts.applyLanguagePrefsToInputs
       : (() => resolvePair());
-    const syncSelectedProfile = typeof opts.syncSelectedProfile === "function"
-      ? opts.syncSelectedProfile
-      : ((items) => Promise.resolve({ items, profileId: "default" }));
-    const syncProfileRulesetsForProfile = typeof opts.syncProfileRulesetsForProfile === "function"
-      ? opts.syncProfileRulesetsForProfile
-      : (() => Promise.resolve());
-    const syncShareCenterForProfile = typeof opts.syncShareCenterForProfile === "function"
-      ? opts.syncShareCenterForProfile
-      : (() => Promise.resolve());
+    const optionFn = (name, fallback) => (typeof opts[name] === "function" ? opts[name] : fallback);
+    const syncSelectedProfile = optionFn("syncSelectedProfile", (items) => Promise.resolve({ items, profileId: "default" }));
+    const syncProfileRulesetsForProfile = optionFn("syncProfileRulesetsForProfile", () => Promise.resolve());
+    const syncShareCenterForProfile = optionFn("syncShareCenterForProfile", () => Promise.resolve());
     const clearProfileCache = typeof opts.clearProfileCache === "function"
       ? opts.clearProfileCache
       : (() => {});
-    const syncProfileBackgroundForPrefs = typeof opts.syncProfileBackgroundForPrefs === "function"
-      ? opts.syncProfileBackgroundForPrefs
-      : (() => Promise.resolve());
-    const setProfileStatusLocalized = typeof opts.setProfileStatusLocalized === "function"
-      ? opts.setProfileStatusLocalized
-      : (() => {});
-    const setProfileStatusMessage = typeof opts.setProfileStatusMessage === "function"
-      ? opts.setProfileStatusMessage
-      : (() => {});
+    const syncProfileBackgroundForPrefs = optionFn("syncProfileBackgroundForPrefs", () => Promise.resolve());
+    const setProfileStatusLocalized = optionFn("setProfileStatusLocalized", () => {});
+    const setProfileStatusMessage = optionFn("setProfileStatusMessage", () => {});
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const colors = opts.colors && typeof opts.colors === "object"
       ? opts.colors
-      : {
-          SUCCESS: "#3c5a2a",
-          ERROR: "#b42318",
-          DEFAULT: "#6c675f"
-        };
+      : { SUCCESS: "#3c5a2a", ERROR: "#b42318", DEFAULT: "#6c675f" };
     const elements = opts.elements && typeof opts.elements === "object" ? opts.elements : {};
     const srsEnabledInput = elements.srsEnabledInput || null;
     const srsMaxActiveInput = elements.srsMaxActiveInput || null;
@@ -122,7 +107,12 @@
       : (() => null);
 
     async function loadSrsProfileForPair(items, pairKey, options) {
-      const synced = await syncSelectedProfile(items, options);
+      const localOptions = options && typeof options === "object" ? options : {};
+      const visualOnly = localOptions.visualOnly === true;
+      const syncOptions = visualOnly
+        ? { ...localOptions, skipHelperProfiles: true }
+        : localOptions;
+      const synced = await syncSelectedProfile(items, syncOptions);
       const profile = settingsManager.getSrsProfile(synced.items, pairKey, {
         profileId: synced.profileId
       });
@@ -132,11 +122,30 @@
       const uiPrefs = settingsManager.getProfileUiPrefs(synced.items, {
         profileId: synced.profileId
       });
+      if (ui && typeof ui.updateSrsStoryPairList === "function"
+        && typeof settingsManager.listSrsProfilePairs === "function") {
+        ui.updateSrsStoryPairList(settingsManager.listSrsProfilePairs(synced.items, {
+          profileId: synced.profileId,
+          activePair: pairKey
+        }));
+      }
       ui.updateSrsInputs(profile, signals);
       ui.updateProfileBackgroundInputs(uiPrefs);
-      await syncProfileBackgroundForPrefs(uiPrefs);
+      const backgroundSyncOptions = visualOnly
+        ? { eagerBackdrop: true, skipImageAsset: true, skipPreviewAsset: true }
+        : (localOptions.skipPageImageAsset === true ? { skipPageImageAsset: true } : {});
+      await syncProfileBackgroundForPrefs(uiPrefs, backgroundSyncOptions);
       if (srsEnabledInput) {
         srsEnabledInput.checked = profile.srsEnabled === true;
+      }
+      if (visualOnly) {
+        log("Loaded initial SRS profile visuals.", {
+          pair: pairKey,
+          profileId: synced.profileId,
+          signals,
+          profileUiPrefs: uiPrefs
+        });
+        return { profile, signals, uiPrefs, profileId: synced.profileId, items: synced.items };
       }
       await settingsManager.publishSrsRuntimeProfile(pairKey, profile, {
         sourceLanguage: currentSourceLanguage(),
@@ -170,6 +179,18 @@
         profileUiPrefs: uiPrefs
       });
       return { profile, signals, uiPrefs, profileId: synced.profileId, items: synced.items };
+    }
+
+    async function refreshSrsStoryPairList(profileId, activePair) {
+      if (!ui || typeof ui.updateSrsStoryPairList !== "function"
+        || typeof settingsManager.listSrsProfilePairs !== "function") {
+        return;
+      }
+      const items = await settingsManager.load();
+      ui.updateSrsStoryPairList(settingsManager.listSrsProfilePairs(items, {
+        profileId,
+        activePair
+      }));
     }
 
     async function saveSrsSettings() {
@@ -230,7 +251,7 @@
         const sourceLanguage = currentSourceLanguage();
         const targetLanguage = currentTargetLanguage();
         srsMaxActiveInput.value = String(srsMaxActive);
-        if (srsBootstrapTopNInput) srsBootstrapTopNInput.value = String(sizing.srsBootstrapTopN);
+        if (srsBootstrapTopNInput) srsBootstrapTopNInput.value = "";
         if (srsInitialActiveCountInput) srsInitialActiveCountInput.value = String(sizing.srsInitialActiveCount);
         if (srsHighlightInput) srsHighlightInput.value = srsHighlightColor;
         if (srsHighlightTextInput) srsHighlightTextInput.value = srsHighlightColor;
@@ -311,6 +332,7 @@
         }, {
           profileId: selectedProfileId
         });
+        await refreshSrsStoryPairList(selectedProfileId, pairKey);
 
         setStatus(translate("status_srs_saved", null, "Practice settings saved."), colors.SUCCESS);
         log("SRS settings saved.", {
@@ -375,6 +397,34 @@
       }
     }
 
+    async function activateSrsStoryPair(pairKey) {
+      const normalizedPair = settingsManager._normalizePairKey(pairKey);
+      const parts = normalizedPair.split("-");
+      const sourceLanguage = parts[0] || currentSourceLanguage();
+      const targetLanguage = parts[1] || currentTargetLanguage();
+      const items = await settingsManager.load();
+      const profileId = settingsManager.getSelectedSrsProfileId(items);
+      const languagePrefs = {
+        sourceLanguage,
+        targetLanguage,
+        srsPairAuto: true,
+        srsPair: normalizedPair
+      };
+      const activated = typeof settingsManager.activateSrsProfilePair === "function"
+        ? await settingsManager.activateSrsProfilePair(normalizedPair, { profileId })
+        : await settingsManager.updateProfileLanguagePrefs(languagePrefs, { profileId });
+      applyLanguagePrefsToInputs({
+        ...languagePrefs,
+        ...activated
+      });
+      const refreshed = await settingsManager.load();
+      await loadSrsProfileForPair(refreshed, normalizedPair, { profileId });
+      setStatus(
+        translate("status_srs_story_pair_activated", [normalizedPair], `Active Vocabulary Practice story: ${normalizedPair}.`),
+        colors.SUCCESS
+      );
+    }
+
     async function saveSrsProfileId() {
       if (!srsProfileIdInput) {
         return;
@@ -432,6 +482,7 @@
       refreshSemanticAdmissionStatus,
       saveSrsSettings,
       saveLanguageSettings,
+      activateSrsStoryPair,
       saveSrsProfileId,
       refreshSrsProfiles,
       resolveEffectiveSrsPlanningState

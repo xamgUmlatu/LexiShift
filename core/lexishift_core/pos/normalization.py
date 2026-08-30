@@ -41,7 +41,9 @@ POS_BUCKET_TAGS = (
 
 PROFILE_BCCWJ = "bccwj"
 PROFILE_FREQ_ES_CDE = "freq-es-cde"
+PROFILE_SPALEX_ONLY = "spalex_only_v1"
 PROFILE_FREQ_DE_DEFAULT = "freq-de-default"
+PROFILE_UNIVERSAL_DEPENDENCIES = "universal-dependencies"
 PROFILE_COMPACT_LATIN = "compact-latin"
 PROFILE_FREEDICT = "freedict"
 PROFILE_WIKTIONARY = "wiktionary"
@@ -50,7 +52,9 @@ PROFILE_GENERIC = "generic"
 KNOWN_SOURCE_PROFILES = (
     PROFILE_BCCWJ,
     PROFILE_FREQ_ES_CDE,
+    PROFILE_SPALEX_ONLY,
     PROFILE_FREQ_DE_DEFAULT,
+    PROFILE_UNIVERSAL_DEPENDENCIES,
     PROFILE_COMPACT_LATIN,
     PROFILE_FREEDICT,
     PROFILE_WIKTIONARY,
@@ -187,6 +191,8 @@ def normalize_pos(
         canonical, rule, mapped = _normalize_compact_latin(raw_text, rule_prefix="freq-es-cde")
     elif resolved_profile == PROFILE_FREQ_DE_DEFAULT:
         canonical, rule, mapped = _normalize_de_frequency(raw_text)
+    elif resolved_profile == PROFILE_UNIVERSAL_DEPENDENCIES:
+        canonical, rule, mapped = _normalize_universal_dependencies(raw_text)
     elif resolved_profile == PROFILE_FREEDICT:
         canonical, rule, mapped = _normalize_freedict(raw_text)
     elif resolved_profile == PROFILE_WIKTIONARY:
@@ -241,8 +247,14 @@ def resolve_pos_source_profile(
         return PROFILE_BCCWJ
     if "freq-es-cde" in provider:
         return PROFILE_FREQ_ES_CDE
+    if "spalex" in provider:
+        return PROFILE_SPALEX_ONLY
     if "freq-de-default" in provider:
         return PROFILE_FREQ_DE_DEFAULT
+    if "universaldependencies" in provider or "universal-dependencies" in provider:
+        return PROFILE_UNIVERSAL_DEPENDENCIES
+    if "ud-ancora" in provider or "ud_ancora" in provider:
+        return PROFILE_UNIVERSAL_DEPENDENCIES
     if "freq-en-coca" in provider:
         return PROFILE_COMPACT_LATIN
     if "freedict" in provider:
@@ -254,6 +266,8 @@ def resolve_pos_source_profile(
         return PROFILE_FREEDICT
     if "wiktionary" in kind:
         return PROFILE_WIKTIONARY
+    if kind in {"pos-overlay", "pos_overlay"} and target == "es":
+        return PROFILE_UNIVERSAL_DEPENDENCIES
     if "frequency" in kind:
         if target == "ja":
             return PROFILE_BCCWJ
@@ -365,6 +379,38 @@ def _normalize_de_frequency(raw: str) -> tuple[str, str, bool]:
             hits.append((CANONICAL_POS_PUNCTUATION, f"de_token:{token}", index))
             continue
     return _select_hit(hits, fallback_rule=f"de_unmapped:{raw}")
+
+
+def _normalize_universal_dependencies(raw: str) -> tuple[str, str, bool]:
+    tokens = _split_tokens(raw, lower=False)
+    if not tokens and raw.strip():
+        tokens = [raw.strip()]
+    hits: list[tuple[str, str, int]] = []
+    mapping = {
+        "ADJ": CANONICAL_POS_ADJECTIVE,
+        "ADP": CANONICAL_POS_ADPOSITION,
+        "ADV": CANONICAL_POS_ADVERB,
+        "AUX": CANONICAL_POS_VERB,
+        "CCONJ": CANONICAL_POS_CONJUNCTION,
+        "DET": CANONICAL_POS_DETERMINER,
+        "INTJ": CANONICAL_POS_INTERJECTION,
+        "NOUN": CANONICAL_POS_NOUN,
+        "NUM": CANONICAL_POS_NUMERAL,
+        "PART": CANONICAL_POS_OTHER,
+        "PRON": CANONICAL_POS_PRONOUN,
+        "PROPN": CANONICAL_POS_NOUN,
+        "PUNCT": CANONICAL_POS_PUNCTUATION,
+        "SCONJ": CANONICAL_POS_CONJUNCTION,
+        "SYM": CANONICAL_POS_PUNCTUATION,
+        "VERB": CANONICAL_POS_VERB,
+        "X": CANONICAL_POS_OTHER,
+    }
+    for index, token_raw in enumerate(tokens):
+        token = token_raw.upper()
+        canonical = mapping.get(token)
+        if canonical:
+            hits.append((canonical, f"ud_upos:{token}", index))
+    return _select_hit(hits, fallback_rule=f"ud_unmapped:{raw}")
 
 
 def _normalize_compact_latin(raw: str, *, rule_prefix: str) -> tuple[str, str, bool]:

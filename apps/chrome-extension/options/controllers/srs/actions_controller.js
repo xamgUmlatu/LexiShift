@@ -23,6 +23,9 @@
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.t);
     const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
     const resolvePair = typeof opts.resolvePair === "function" ? opts.resolvePair : (() => "en-en");
+    const activateSrsStoryPair = typeof opts.activateSrsStoryPair === "function"
+      ? opts.activateSrsStoryPair
+      : null;
     const syncSelectedProfile = typeof opts.syncSelectedProfile === "function"
       ? opts.syncSelectedProfile
       : ((items) => Promise.resolve({
@@ -137,6 +140,7 @@
           translate,
           setStatus,
           resolvePair,
+          activateSrsStoryPair,
           syncSelectedProfile,
           confirmFn,
           log,
@@ -202,7 +206,8 @@
           buildSampledRulegenSamplingLines,
           buildSampledRulegenHeader,
           buildSampledRulegenEmptyOutput,
-          buildSampledRulegenTargetsOutput
+          buildSampledRulegenTargetsOutput,
+          collapseSrsStoryCardsAfterDelete: opts.collapseSrsStoryCardsAfterDelete
         })
       : {
           previewAdmission: async () => {},

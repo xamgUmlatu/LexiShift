@@ -50,8 +50,8 @@ from srs_quality_harness_support import (  # noqa: E402
     stub_run_rulegen_for_pair as _stub_run_rulegen_for_pair,
 )
 
-SUPPORTED_SYNTHETIC_PAIRS = {"en-ja", "en-de"}
-DEFAULT_PAIRS = ("en-ja", "en-de")
+SUPPORTED_SYNTHETIC_PAIRS = {"en-ja", "en-es", "en-de"}
+DEFAULT_PAIRS = ("en-ja", "en-es", "en-de")
 
 
 def _count_items_for_pair(paths: HelperPaths, *, pair: str, profile_id: str) -> int:

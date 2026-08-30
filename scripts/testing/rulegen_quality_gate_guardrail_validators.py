@@ -27,6 +27,7 @@ def validate_saturation(
     policy_payload: Mapping[str, object],
     findings: list[QualityFinding],
     strict_saturation: bool,
+    pair_scope: str | None = None,
 ) -> None:
     saturation = policy_payload.get("saturation")
     if not isinstance(saturation, Mapping):
@@ -45,8 +46,11 @@ def validate_saturation(
     if not isinstance(pairs_payload, Mapping):
         return
 
+    scoped_pair = str(pair_scope or "").strip().lower()
     for pair, pair_payload in pairs_payload.items():
         pair_key = str(pair).strip().lower()
+        if scoped_pair and pair_key != scoped_pair:
+            continue
         if not isinstance(pair_payload, Mapping):
             continue
         runs = pair_payload.get("runs")
@@ -69,6 +73,19 @@ def validate_saturation(
         top_count = max(metric_counts.values()) if metric_counts else 0
         top_share = float(top_count) / float(run_count)
         unique_vectors = len(metric_counts)
+
+        if run_count < 2:
+            record(
+                findings,
+                level=("FAIL" if strict_saturation else "WARN"),
+                code="SATURATION_SINGLE_RUN_WARN",
+                message=(
+                    f"Pair '{pair_key}' has one benchmark run; metric-vector saturation "
+                    "cannot be evaluated."
+                ),
+                details=f"run_count={run_count} unique_vectors={unique_vectors} top_count={top_count}",
+            )
+            continue
 
         if top_share > fail_share:
             record(
