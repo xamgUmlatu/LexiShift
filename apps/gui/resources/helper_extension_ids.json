@@ -5,7 +5,7 @@
       "key": "chrome_prod",
       "label": "Chrome (Web Store)",
       "browser": "chrome",
-      "extension_id": "__FILL_ME__",
+      "extension_id": "mgalgndncinhfceghjbpjonmgkfbfkgk",
       "fixed": true
     },
     {
@@ -19,7 +19,7 @@
       "key": "brave_prod",
       "label": "Brave (Web Store)",
       "browser": "brave",
-      "extension_id": "__FILL_ME__",
+      "extension_id": "mgalgndncinhfceghjbpjonmgkfbfkgk",
       "fixed": true
     },
     {

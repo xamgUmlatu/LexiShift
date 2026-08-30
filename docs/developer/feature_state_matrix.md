@@ -871,11 +871,12 @@ Use this file when:
 ## Browser Helper Connection Management
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-08-27` resource-settings startup telemetry now continues through the visible dialog, structured checkpoints cover main-window/settings/resource-panel construction, slow external theme-image reads and decoding are off the GUI thread, repeated activation reuses the visible Settings dialog, and repeatable cold/activation measurements enforce optional median/p95 budgets with exact measured-app cleanup. The earlier browser-connections, pinned workspace host, onedir bundle split, stable transport errors, and narrow auto-repair behavior remain active.
-- Last verified: `2026-08-27` installed `/Applications` bundle rebuild/validation, three-run cold Resource Settings budget (`1573.5 ms` median / `2313.8 ms` measured p95), three-run visible activation budget (`254.4 ms` median / `743.3 ms` measured p95), preserved Application Support/user-data smoke, and 66 focused GUI/startup tests. Earlier native-host, extension transport/localization, build-spec, and changed-scope evidence remains applicable.
+- Last documented checkpoint: `2026-08-31` the real Chrome Web Store extension ID is bundled for both Chrome and Brave production connections. The `2026-08-27` resource-settings startup telemetry, browser-connections, pinned workspace host, onedir bundle split, stable transport errors, and narrow auto-repair behavior remain active.
+- Last verified: `2026-08-31` Chrome Web Store preflight, helper connection tests, feature-state audit, and repo safety gate. The `2026-08-27` installed-bundle startup measurements and preserved-user-data smoke remain applicable.
 - Default behavior:
   - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
   - Fixed-ID production browsers keep a one-click connect/repair path.
+  - Chrome and Brave production connections use the real Chrome Web Store package ID; both browsers install the same Web Store item while retaining browser-specific native-messaging manifests.
   - Unpacked development extensions are managed separately through a narrow dialog that captures only browser + unpacked extension ID; the app uses the current workspace helper automatically for that browser.
   - Workspace-host installs now target a generated wrapper script that pins the repo interpreter, so browser launches from Finder/GUI shells do not depend on whichever `python3` happens to be on `PATH`.
   - Saved bundled/workspace browser connections now auto-repair a narrow set of deterministic stale states on startup and when `Connections...` opens: unreadable manifests, missing host paths, missing expected origins, stale bundled copies, and pre-wrapper/stale workspace-wrapper states.
@@ -932,7 +933,7 @@ Use this file when:
   - `docs/test_outputs/dev_workflow/gui_startup_performance_direct_latest.json`
 - Known gaps:
   - Native messaging still uses one host manifest per browser name, so same-browser prod and unpacked-dev origins still share one host path.
-  - Fixed-ID production rows only work in builds where `apps/gui/resources/helper_extension_ids.json` contains real non-placeholder production IDs.
+  - The bundled fixed ID identifies the current Chrome Web Store listing; any future separate store listing must be added deliberately rather than inferred from the browser name.
   - The desktop app can verify manifest/origin/host freshness, but it still cannot prove that the browser extension is currently installed and active.
   - First launch immediately after reinstall/rebuild can still be slower than
     later warm launches, although the latest local sample remained within the

@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-05-14
-Last verified: 2026-05-14 metadata-only Lane 1 normalization; preflight command not rerun
+Last updated: 2026-08-31
+Last verified: 2026-08-31 Chrome Web Store production ID wiring and preflight rerun
 Purpose: define the mandatory lightweight gate before a Chrome Web Store upload
 Source-of-truth: operational runbook; current command behavior lives in `scripts/package.json` and the preflight implementation.
 
@@ -50,7 +50,9 @@ Before upload, confirm all:
 
 ## Notes for current project state
 
-- Fixed helper extension IDs in `apps/gui/resources/helper_extension_ids.json` must be non-placeholder for production upload.
+- Chrome and Brave production helper connections use the same Chrome Web Store
+  package ID in `apps/gui/resources/helper_extension_ids.json`; unpacked
+  development connections continue to accept user-supplied IDs.
 - Sentence-history data policy is currently conservative:
   - default OFF
   - no URL retention in sentence/history records
