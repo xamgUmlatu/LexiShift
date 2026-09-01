@@ -871,8 +871,8 @@ Use this file when:
 ## Chrome Web Store Release Packaging
 
 - Status: `implemented`, `verified`; `default-on` = `no` (operator release command)
-- Last documented checkpoint: `2026-08-31` release version `0.1.1` aligns the extension, desktop bundles, native helper, installer defaults, and Windows metadata; deterministic CWS ZIP packaging is a first-class command.
-- Last verified: `2026-08-31` focused package/version tests, CWS preflight, deterministic rebuild comparison, archive inspection, and repo safety/build gates.
+- Last documented checkpoint: `2026-09-02` release version `0.1.1` was submitted for Chrome Web Store review as an unlisted beta, and the matching macOS installer, checksum, and release manifest were published through the private download gate.
+- Last verified: `2026-09-02` dashboard package version `0.1.1`, final ZIP inspection, live download manifest/checksum, gated installer redirect, R2 round-trip SHA-256, and `hdiutil verify`. The `2026-08-31` focused package/version tests, CWS preflight, deterministic rebuild comparison, and repo safety/build gates remain applicable.
 - Default behavior:
   - `npm --prefix scripts run package:cws -- --version <version>` packages the current extension runtime into a root-manifest ZIP under `dist/cws/`.
   - The package excludes developer-only README content, rejects package noise and symlinks, validates exact archive membership and version, normalizes ZIP metadata, and emits an adjacent SHA-256 file.
@@ -885,8 +885,8 @@ Use this file when:
   - `docs/runbooks/cws_upload_gate.md`
   - `docs/developer/build_and_release.md`
 - Known gaps:
-  - Chrome Web Store dashboard upload, privacy declarations, distribution selection, reviewer instructions, and submission remain explicit maintainer actions.
-  - The package command produces the upload artifact but does not publish it or mutate the Web Store draft.
+  - Chrome Web Store review and the final approved listing URL remain external pending steps.
+  - The package command produces the upload artifact but does not publish it or mutate the Web Store item; submission remains an explicit maintainer action for future versions.
 
 ## Browser Helper Connection Management
 

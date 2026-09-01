@@ -6,19 +6,20 @@ title: LexiShift Beta
 <!--
 Status: active beta entrypoint
 Role: Beta entrypoint
-Last updated: 2026-06-06
+Last updated: 2026-09-02
 Purpose: provide the public beta entrypoint for tester-facing install and support links while hosted distribution is live.
 -->
 
 <div class="beta-page" markdown="1">
   <section class="beta-hero">
     <div class="beta-hero__copy">
-      <p class="beta-kicker">Desktop beta</p>
+      <p class="beta-kicker">Connected beta</p>
       <h1>Try LexiShift before the production release.</h1>
       <p class="beta-lede">
-        LexiShift is a local-first desktop app for language-learning workflows.
-        This first beta is informal: directly invited testers can install the
-        app, try the setup flow, and send back plain-language feedback.
+        LexiShift combines a local-first desktop app with a Chrome extension for
+        vocabulary practice while browsing. This beta is informal: directly
+        invited testers can install both parts, try the main learning flow, and
+        send back plain-language feedback.
       </p>
       <div class="beta-actions">
         <a class="beta-button beta-button--primary" href="{{ '/download/' | relative_url }}">Download beta app</a>
@@ -28,12 +29,12 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
     <div class="beta-release-card" aria-label="Beta release status">
       <div class="beta-release-card__header">
         <span>Current beta</span>
-        <strong>0.1.0</strong>
+        <strong>0.1.1</strong>
       </div>
       <dl>
         <div>
           <dt>Download status</dt>
-          <dd>macOS beta live behind password gate</dd>
+          <dd>macOS 0.1.1 live behind password gate</dd>
         </div>
         <div>
           <dt>Primary platform</dt>
@@ -41,7 +42,7 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
         </div>
         <div>
           <dt>Distribution</dt>
-          <dd>Cloudflare Worker plus private R2</dd>
+          <dd>Gated desktop app plus unlisted Chrome extension</dd>
         </div>
         <div>
           <dt>Update model</dt>
@@ -82,18 +83,18 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
       <h2>What this beta is for</h2>
       <p>
         The beta should prove that a directly invited tester can install the
-        app, open it, follow the first setup path, and say where the experience
-        becomes unclear.
+        app, connect the extension, start vocabulary practice, and say where
+        the experience becomes unclear.
       </p>
     </div>
     <div class="beta-check-grid">
       <div class="beta-check">
         <strong>Install flow</strong>
-        <span>Download, open, and complete the first setup pass.</span>
+        <span>Download 0.1.1, open it, and complete the first setup pass.</span>
       </div>
       <div class="beta-check">
-        <strong>Local behavior</strong>
-        <span>Confirm the app works without accounts, sync, or cloud state.</span>
+        <strong>Browser connection</strong>
+        <span>Connect the extension and confirm replacements appear on a page.</span>
       </div>
       <div class="beta-check">
         <strong>Release trust</strong>
@@ -109,13 +110,16 @@ Purpose: provide the public beta entrypoint for tester-facing install and suppor
 3. Enter the shared beta password from your invite.
 4. Download the macOS installer.
 5. Use Control-click > Open if macOS blocks the unsigned app.
-6. Follow the short [tester notes]({{ '/tester-notes/' | relative_url }}) or the full [LexiShift guide]({{ '/guide/' | relative_url }}).
-7. Send feedback through the same private thread where you received the link.
+6. After Chrome Web Store review is complete, install the unlisted extension
+   from the link in your invitation.
+7. Follow the short [tester notes]({{ '/tester-notes/' | relative_url }}) or the full [LexiShift guide]({{ '/guide/' | relative_url }}).
+8. Send feedback through the same private thread where you received the link.
 
 ## Before You Install
 
 - Beta builds may change quickly and may require manual replacement.
-- Hosted installer links point to versioned files on `downloads.lexishift.app`.
+- Hosted installer links point to versioned files on `downloads.lexishift.app`;
+  the current macOS build is `0.1.1`.
 - A shared password is acceptable only as a server-side beta gate, not as static
   JavaScript on GitHub Pages.
 - The current macOS beta is unsigned and not notarized; macOS may require

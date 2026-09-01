@@ -6,7 +6,7 @@ title: LexiShift Support
 <!--
 Status: active beta support route
 Role: Public support page
-Last updated: 2026-06-06
+Last updated: 2026-09-02
 Purpose: provide a stable support route for beta testers, users, release manifests, and store listings.
 -->
 
@@ -46,7 +46,8 @@ happened during install or first launch.
 
 ## Known Beta Boundaries
 
-- macOS beta downloads are live behind the private beta gate.
+- macOS 0.1.1 beta downloads are live behind the private beta gate.
+- The matching unlisted Chrome extension is awaiting Chrome Web Store review.
 - The current macOS app is unsigned and not notarized, so macOS may require
   Control-click > Open or an allow action in System Settings.
 - Manual updates are expected during beta.
@@ -59,6 +60,7 @@ happened during install or first launch.
 - [Guide]({{ '/guide/' | relative_url }})
 - [Download LexiShift]({{ '/download/' | relative_url }})
 - [Tester Notes]({{ '/tester-notes/' | relative_url }})
+- [Five-word Test Set]({{ '/test-sets/' | relative_url }})
 - [Privacy]({{ '/privacy/' | relative_url }})
 - [Releases]({{ '/releases/' | relative_url }})
 

@@ -1,4 +1,8 @@
-# Chrome Web Store 0.1.1 draft handoff
+# Chrome Web Store 0.1.1 submission handoff
+
+Current status: submitted for review on September 2, 2026 as an unlisted beta.
+Dashboard package version `0.1.1` and production item ID were confirmed before
+submission. Approval and the final Store install smoke remain pending.
 
 This checklist begins after the repository preflight and release package build.
 The Chrome Web Store dashboard remains a manual maintainer surface. Stop after
@@ -33,9 +37,9 @@ Production extension ID: `mgalgndncinhfceghjbpjonmgkfbfkgk`
 8. Choose the beta visibility. `Unlisted` is the lowest-friction family/friends
    option; `Private` requires explicit trusted tester accounts.
 9. Verify the publisher contact email.
-10. Save the completed draft. When the coordinated beta release is ready,
-    submit with deferred publishing so approval can be aligned with the matching
-    desktop download and website update.
+10. Save and submit the completed draft when the coordinated beta release is
+    ready. For this release, submission is complete and the matching desktop
+    download is live; wait for the review result before sending tester invites.
 
 Do not upload the old `0.1.0` draft ZIP: it predates the production native
 messaging ID and the integrated beta fixes.
