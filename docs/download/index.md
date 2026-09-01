@@ -6,7 +6,7 @@ title: Download LexiShift
 <!--
 Status: active beta access
 Role: Public download page
-Last updated: 2026-06-06
+Last updated: 2026-09-02
 Purpose: route testers to beta access, installer assets, checksums, and release metadata while private distribution is active.
 -->
 
@@ -28,7 +28,7 @@ Purpose: route testers to beta access, installer assets, checksums, and release 
     </div>
     <div class="download-status__badge">
       <strong>Invited testers only</strong>
-      <span>macOS 0.1.0 is live; password required</span>
+      <span>macOS 0.1.1 is live; password required</span>
     </div>
   </section>
 
@@ -66,13 +66,13 @@ Purpose: route testers to beta access, installer assets, checksums, and release 
         <tbody>
           <tr>
             <td>macOS</td>
-            <td><code>LexiShift-0.1.0.dmg</code></td>
+            <td><code>LexiShift-0.1.1.dmg</code></td>
             <td><span class="status-pill status-pill--live">Live beta</span></td>
             <td>Gated download, SHA-256 checksum, unsigned, not notarized</td>
           </tr>
           <tr>
             <td>Windows</td>
-            <td><code>LexiShift-0.1.0.exe</code></td>
+            <td>Not published</td>
             <td><span class="status-pill">Planned</span></td>
             <td>Gate, SHA-256, and signing status pending</td>
           </tr>
@@ -85,13 +85,13 @@ Purpose: route testers to beta access, installer assets, checksums, and release 
     <div>
       <h2>Before installing a beta build</h2>
       <p>
-        The current macOS beta is unsigned and not notarized. That is expected
+        The current macOS 0.1.1 beta is unsigned and not notarized. That is expected
         for this first casual test, but it means macOS may show a warning the
         first time the app is opened.
       </p>
     </div>
     <ol class="download-steps">
-      <li>Download <code>LexiShift-0.1.0.dmg</code> from the beta gate.</li>
+      <li>Download <code>LexiShift-0.1.1.dmg</code> from the beta gate.</li>
       <li>Open the DMG and drag LexiShift into Applications if prompted.</li>
       <li>If macOS blocks the app, Control-click LexiShift and choose Open.</li>
       <li>If it still will not open, check System Settings -> Privacy &amp; Security for the allow/open option.</li>
@@ -125,6 +125,13 @@ Purpose: route testers to beta access, installer assets, checksums, and release 
     </div>
   </section>
 </div>
+
+## Browser Extension
+
+The matching Chrome extension version is `0.1.1`. It has been submitted to the
+Chrome Web Store as an unlisted family-and-friends beta. Invited testers will
+receive the Store link after review is complete. Install the desktop app first
+so the extension can connect to its local helper.
 
 The beta release manifest is:
 
@@ -163,6 +170,7 @@ opens and the setup flow is understandable.
 
 - [Beta]({{ '/beta/' | relative_url }})
 - [Releases]({{ '/releases/' | relative_url }})
+- [0.1.1 release notes]({{ '/releases/0.1.1/' | relative_url }})
 - [Guide]({{ '/guide/' | relative_url }})
 - [Tester Notes]({{ '/tester-notes/' | relative_url }})
 - [Support]({{ '/support/' | relative_url }})

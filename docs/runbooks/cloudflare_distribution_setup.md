@@ -7,8 +7,8 @@ title: Cloudflare Distribution Setup
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-06-05
-Last verified: 2026-06-05 live `downloads.lexishift.app` Worker/R2 gate smoke with a macOS 0.1.0 beta artifact
+Last updated: 2026-09-02
+Last verified: 2026-09-02 live `downloads.lexishift.app` Worker/R2 gate smoke with the macOS 0.1.1 beta artifact, public manifest/checksum checks, R2 round-trip SHA-256, and `hdiutil verify`
 Purpose: define the low-cost Cloudflare lane for LexiShift installer downloads, release metadata, and future hosted app data
 Source-of-truth: operational runbook; live Cloudflare resource names, DNS records, and billing state must be checked in the Cloudflare dashboard before deployment.
 Related docs:
@@ -60,9 +60,9 @@ Use object paths that keep immutable versioned assets separate from mutable
 channel pointers:
 
 ```text
-installers/beta/0.1.0/macos/LexiShift-0.1.0.dmg
-installers/beta/0.1.0/windows/LexiShift-0.1.0.exe
-checksums/beta/0.1.0/SHA256SUMS.txt
+installers/beta/0.1.1/macos/LexiShift-0.1.1.dmg
+installers/beta/0.1.1/windows/LexiShift-0.1.1.exe
+checksums/beta/0.1.1/SHA256SUMS.txt
 releases/beta/latest.json
 releases/stable/latest.json
 packs/en-es/2026-06-03/manifest.json
@@ -99,19 +99,19 @@ Initial manifest schema:
 {
   "schema_version": 1,
   "channel": "beta",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "published_at": "2026-06-03T00:00:00Z",
-  "release_notes_url": "https://lexishift.app/releases/0.1.0",
+  "release_notes_url": "https://lexishift.app/releases/0.1.1/",
   "platforms": {
     "macos": {
-      "url": "https://downloads.lexishift.app/installers/beta/0.1.0/macos/LexiShift-0.1.0.dmg",
+      "url": "https://downloads.lexishift.app/installers/beta/0.1.1/macos/LexiShift-0.1.1.dmg",
       "sha256": "<sha256>",
       "size_bytes": 0,
       "signed": false,
       "notarized": false
     },
     "windows": {
-      "url": "https://downloads.lexishift.app/installers/beta/0.1.0/windows/LexiShift-0.1.0.exe",
+      "url": "https://downloads.lexishift.app/installers/beta/0.1.1/windows/LexiShift-0.1.1.exe",
       "sha256": "<sha256>",
       "size_bytes": 0,
       "signed": false
@@ -198,8 +198,8 @@ Upload an installer:
 
 ```bash
 npx wrangler r2 object put \
-  lexishift-distribution/installers/beta/0.1.0/macos/LexiShift-0.1.0.dmg \
-  --file apps/gui/dist/installers/LexiShift-0.1.0.dmg \
+  lexishift-distribution/installers/beta/0.1.1/macos/LexiShift-0.1.1.dmg \
+  --file dist/beta/0.1.1/macos/LexiShift-0.1.1.dmg \
   --remote
 ```
 
@@ -216,9 +216,9 @@ Generate a real manifest and checksum file from installer artifacts:
 
 ```bash
 npm --prefix scripts run release:manifest -- \
-  --version 0.1.0 \
+  --version 0.1.1 \
   --channel beta \
-  --asset macos=apps/gui/dist/installers/LexiShift-0.1.0.dmg \
+  --asset macos=dist/beta/0.1.1/macos/LexiShift-0.1.1.dmg \
   --print-wrangler-commands
 ```
 

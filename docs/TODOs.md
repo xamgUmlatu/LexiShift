@@ -2,7 +2,7 @@
 
 Status: Active backlog
 Role: Planning / WIP
-Last updated: 2026-08-27
+Last updated: 2026-09-02
 Last verified: 2026-08-27 beta integration, Python/build-install health tooling, and full typecheck-gate restoration; older backlog content not globally re-audited
 Purpose: consolidated product and architecture backlog retained after root README cleanup
 Source-of-truth: backlog planning only; current implementation truth lives in source code, tests, and `docs/developer/feature_state_matrix.md`.
@@ -48,7 +48,13 @@ Acceptance criteria:
 - SRS helper-required actions fail fast with a clear reason and recovery path.
 - Handcrafted local JSON rules continue functioning when helper is unavailable.
 
-### 2) Sensitive sentence history hardening (default OFF, no URL retention)
+### 2) Sensitive sentence history hardening (planned default OFF; current default ON)
+
+Current-state note (verified 2026-09-02): the encounter-history popup module is
+enabled by default and may retain a short latest sentence excerpt for a practiced
+word. Those encounter records do not retain the page URL. Separate local
+replacement-exposure and feedback records may retain page URLs and are disclosed
+in the public privacy policy.
 
 Product intent:
 - Sentence history can include sensitive text and must be treated as high-risk data.
@@ -64,8 +70,11 @@ Implementation TODO:
 
 Open questions:
 - Final retention window and minimization policy (for opted-in users).
-- Final wording for privacy disclosure and reviewer notes.
 - Whether sentence excerpt storage remains enabled behind opt-in after additional research.
+
+Completed for the 0.1.1 beta:
+- Privacy and reviewer-facing wording now disclose the current local URL and
+  sentence-excerpt behavior.
 
 Acceptance criteria:
 - Fresh install has sentence-history capture OFF.

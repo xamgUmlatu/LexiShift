@@ -6,8 +6,8 @@ title: LexiShift
 <!--
 Status: active Pages entrypoint
 Role: Public landing page
-Last updated: 2026-06-05
-Last verified: 2026-06-05 landing-page Jekyll build, repo checks, desktop/mobile previews, and generated visual mocks
+Last updated: 2026-09-02
+Last verified: 2026-09-02 coordinated 0.1.1 beta content and Jekyll build
 Purpose: present LexiShift as the public beta front door and route visitors to downloads, extension status, setup, support, privacy, and release pages
 Source-of-truth: Pages navigation entrypoint only; implementation truth remains in source code, canonical developer docs, architecture docs, and feature-state evidence.
 -->
@@ -91,15 +91,15 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
     <div class="landing-status-band__inner">
       <article>
         <span>Desktop app</span>
-        <strong>macOS 0.1.0 beta live</strong>
+        <strong>macOS 0.1.1 beta live</strong>
       </article>
       <article>
         <span>Downloads</span>
         <strong>Gated artifact plus checksum</strong>
       </article>
       <article>
-        <span>Runtime</span>
-        <strong>Chrome extension plus local helper</strong>
+        <span>Chrome extension</span>
+        <strong>0.1.1 submitted for unlisted review</strong>
       </article>
       <article>
         <span>Data posture</span>
@@ -122,7 +122,6 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
             Create profiles, rulesets, and language-pair resources in the desktop
             app before sending anything into a runtime surface.
           </p>
-        </article>
         <article class="landing-feature">
           <span class="landing-feature__index">02</span>
           <h3>Read with replacements</h3>
@@ -147,11 +146,11 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
     <div class="landing-section__inner">
       <div class="landing-section__header">
         <p class="landing-kicker">Beta access</p>
-        <h2>Install paths stay separate on purpose.</h2>
+        <h2>Two parts, one local learning flow.</h2>
         <p>
-          The desktop app, Chrome extension, and optional community plugin have
-          different distribution rules. This page routes each one without hiding
-          the current beta status.
+          The desktop app supplies local language data and the browser extension
+          applies it while you read. They install separately, then connect on
+          your machine.
         </p>
       </div>
       <div class="landing-install-grid">
@@ -165,14 +164,13 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
           <a href="{{ '/download/' | relative_url }}">Open download page</a>
         </article>
         <article class="landing-install-card">
-          <span class="landing-badge">Extension</span>
+          <span class="landing-badge">Review pending</span>
           <h3>Chrome Extension</h3>
           <p>
-            The normal install path should become a Chrome Web Store beta or
-            unlisted tester link. The repository path remains useful for status
-            and implementation review.
+            Version 0.1.1 has been submitted as an unlisted Chrome Web Store
+            beta. Invited testers receive the installation link after approval.
           </p>
-          <a href="https://github.com/xamgUmlatu/LexiShift/tree/main/apps/chrome-extension">View extension status</a>
+          <a href="{{ '/tester-notes/' | relative_url }}">Read connected setup steps</a>
           <a href="{{ '/test-sets/' | relative_url }}">Try a language-pair test set</a>
         </article>
       </div>
@@ -218,8 +216,8 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
           <span class="landing-badge">Primary runtime</span>
           <h3>Chrome Extension</h3>
           <p>
-            Best fit for normal web reading once the beta distribution link is
-            available.
+            Best fit for normal web reading once the unlisted beta review is
+            approved.
           </p>
         </article>
         <article>

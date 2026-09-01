@@ -6,8 +6,8 @@ title: LexiShift Guide
 <!--
 Status: active Pages user guide
 Role: Runbook / operational
-Last updated: 2026-06-06
-Last verified: 2026-06-06 user-facing journey pass; screenshot capture still pending
+Last updated: 2026-09-02
+Last verified: 2026-09-02 coordinated 0.1.1 beta onboarding pass; screenshot capture still pending
 Purpose: present the rendered interactive guide for LexiShift users and beta testers
 Source-of-truth: user-facing guide only; current GUI, extension, plugin, and SRS behavior truth lives in source code, tests, and canonical developer/domain docs.
 -->
@@ -176,17 +176,19 @@ Source-of-truth: user-facing guide only; current GUI, extension, plugin, and SRS
       <h2>1. Install LexiShift</h2>
       <p>
         Start from the download page or the private beta link you were given.
-        The beta build is still unsigned, so your operating system may ask for
-        one extra confirmation the first time you open it.
+        Install the 0.1.1 desktop app first, then install the matching unlisted
+        Chrome extension from your invitation after Store approval. The macOS
+        beta is still unsigned, so the operating system may ask for one extra
+        confirmation the first time you open it.
       </p>
       <div class="guide-card-grid">
         <div class="guide-card">
           <strong>macOS</strong>
-          <span>Download the app, open the file, move LexiShift into Applications if prompted, then open it from Applications.</span>
+          <span>Download LexiShift 0.1.1, open the DMG, move LexiShift into Applications if prompted, then open it from Applications.</span>
         </div>
         <div class="guide-card">
           <strong>Windows</strong>
-          <span>Download the Windows build, unzip or run it, then allow the beta app if SmartScreen asks you to confirm.</span>
+          <span>A Windows installer is not published in this family-and-friends beta yet.</span>
         </div>
       </div>
       <div class="guide-callout">
@@ -195,11 +197,6 @@ Source-of-truth: user-facing guide only; current GUI, extension, plugin, and SRS
           verified, Control-click the app and choose Open. If that option does
           not appear, open System Settings -> Privacy &amp; Security and use the
           allow/open option near the bottom of the page.
-        </p>
-        <p>
-          <strong>Windows beta note:</strong> if SmartScreen appears, choose
-          More info, then Run anyway. This is expected for an unsigned early
-          beta and should go away once release signing is in place.
         </p>
       </div>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for install flow">
@@ -294,7 +291,8 @@ Source-of-truth: user-facing guide only; current GUI, extension, plugin, and SRS
         LexiShift actually changes words while you browse.
       </p>
       <ol>
-        <li>Install or enable the LexiShift Chrome extension from the beta link you were given.</li>
+        <li>Install the unlisted LexiShift Chrome extension from the Store link in your invitation after review is complete.</li>
+        <li>Open the desktop app and use its Chrome browser-connection action if the helper is not connected yet.</li>
         <li>Open the extension Options page.</li>
         <li>Choose the profile you created in the desktop app.</li>
         <li>Confirm Vocabulary Practice is enabled for the language pair you want to test.</li>
@@ -341,6 +339,14 @@ Source-of-truth: user-facing guide only; current GUI, extension, plugin, and SRS
         whether the replacements appear, feel readable, and make you want to
         keep browsing.
       </p>
+      <div class="guide-callout">
+        <p>
+          If you need to separate extension setup from the full story flow, use
+          the <a href="{{ '/test-sets/' | relative_url }}">five-word test-set tool</a>.
+          It verifies manual replacement behavior without requiring the helper;
+          LR stories and Vocabulary Practice remain the intended experience.
+        </p>
+      </div>
       <div class="guide-screenshot" role="img" aria-label="Screenshot placeholder for browsing feedback">
         <p class="guide-screenshot__label">Screenshot Coming Soon: Browsing Feedback</p>
         <p class="guide-screenshot__note">This slot will show a normal web page with a replacement and feedback controls.</p>
@@ -438,6 +444,10 @@ Source-of-truth: user-facing guide only; current GUI, extension, plugin, and SRS
         <div class="guide-check">
           <strong>No replacements appear</strong>
           <span>Make sure the extension is enabled, the right profile is selected, and Vocabulary Practice is active.</span>
+        </div>
+        <div class="guide-check">
+          <strong>The helper is disconnected</strong>
+          <span>Open the desktop app, use its Chrome browser-connection action, then reopen or reload extension Options.</span>
         </div>
         <div class="guide-check">
           <strong>Practice setup is blocked</strong>
