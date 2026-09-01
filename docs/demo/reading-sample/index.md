@@ -44,7 +44,8 @@ LexiShift extension can demonstrate a replacement and its popup.
     </article>
 
     <footer class="reading-sample-footer">
-      Original sample text · Designed for browser-reading demonstrations
+      Original sample text · Designed for browser-reading demonstrations ·
+      <a href="{{ '/test-sets/' | relative_url }}">Build a test ruleset</a>
     </footer>
   </div>
 </div>
