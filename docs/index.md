@@ -173,6 +173,7 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
             and implementation review.
           </p>
           <a href="https://github.com/xamgUmlatu/LexiShift/tree/main/apps/chrome-extension">View extension status</a>
+          <a href="{{ '/test-sets/' | relative_url }}">Try a language-pair test set</a>
         </article>
       </div>
     </div>
