@@ -20,6 +20,13 @@
       };
     };
 
+    SettingsManager.prototype._runtimeDifficultyPreferences = function _runtimeDifficultyPreferences(raw) {
+      const preferences = { ...(this._isObject(raw) ? raw : {}) };
+      delete preferences.target_challenge_center;
+      delete preferences.target_challenge_spread;
+      return preferences;
+    };
+
     SettingsManager.prototype._pruneSignals = function _pruneSignals(rawSignals) {
       const normalized = this._normalizeSignals(rawSignals);
       const pruneObject = (value) => {

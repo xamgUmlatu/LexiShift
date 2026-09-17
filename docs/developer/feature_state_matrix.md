@@ -891,8 +891,8 @@ Use this file when:
 ## Browser Helper Connection Management
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-08-31` the real Chrome Web Store extension ID is bundled for both Chrome and Brave production connections. The `2026-08-27` resource-settings startup telemetry, browser-connections, pinned workspace host, onedir bundle split, stable transport errors, and narrow auto-repair behavior remain active.
-- Last verified: `2026-08-31` Chrome Web Store preflight, helper connection tests, feature-state audit, and repo safety gate. The `2026-08-27` installed-bundle startup measurements and preserved-user-data smoke remain applicable.
+- Last documented checkpoint: `2026-09-18` Windows helper packaging filters foreign native-dependency directories from the PyInstaller `PATH`, native-host replies enforce Chrome's 1 MiB message limit with a bounded structured error, and SQLite-backed build/helper paths close their connections before atomic replacement or temporary-directory cleanup. The real Chrome Web Store extension ID remains bundled for both Chrome and Brave production connections.
+- Last verified: `2026-09-18` full repository safety gate (`849` tests, `4` skipped), strict Windows parity (`9` pass), production build report, Chrome Web Store preflight (`6` pass, `2` expected warnings), packaged and registered native-host hash equality, and a framed `hello` probe against the installed host. The GUI and helper tray also remained running after launch from the rebuilt onedir bundles; a real post-reboot tray launch and browser Options click-through remain manual release checks.
 - Default behavior:
   - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
   - Fixed-ID production browsers keep a one-click connect/repair path.
@@ -915,6 +915,12 @@ Use this file when:
     `settings_dialog.shown` and focuses/reuses an already-visible Settings
     dialog instead of constructing nested modal dialogs.
   - The packaged GUI uses PyInstaller onedir bundles with `EXE(..., exclude_binaries=True)` and `COLLECT`-owned binaries/zipfiles/datas, so installed main/helper app size and warm relaunch latency are no longer dominated by duplicated executable payloads.
+  - Windows builds remove foreign native-dependency directories from the
+    PyInstaller process `PATH`, preventing unrelated ICU DLLs from being
+    collected ahead of the PySide6/Qt runtime shipped with LexiShift.
+  - Native-host replies larger than Chrome's 1 MiB native-messaging limit are
+    replaced with a bounded `response_too_large` result instead of letting the
+    browser observe an unexplained host exit.
   - Native-messaging manifests now merge all allowed origins for the same browser into one manifest instead of assuming only one extension ID.
   - Same-browser prod and unpacked-dev entries still share one host path; the GUI only surfaces that as a targeted warning when an unpacked-dev change would switch a configured browser to the workspace host.
   - Helper install inspection now distinguishes `Configured`, `Needs repair`, and `Not configured`, including stale bundled-helper copies and legacy direct-script workspace manifests.
@@ -934,6 +940,7 @@ Use this file when:
   - `apps/gui/src/dialogs.py`
   - `apps/gui/src/helper_connections_dialog.py`
   - `core/lexishift_core/helper/gui_startup_telemetry.py`
+  - `core/lexishift_core/helper/native_messaging.py`
   - `scripts/helper/lexishift_native_host.py`
   - `scripts/dev/packaged_gui_startup_measure.py`
   - `apps/chrome-extension/background.js`
@@ -946,6 +953,7 @@ Use this file when:
   - `core/tests/dev/test_native_host_resource_settings.py`
   - `core/tests/dev/test_packaged_gui_startup_measure.py`
   - `core/tests/dev/test_gui_app_build.py`
+  - `core/tests/dev/test_native_host_message_size.py`
   - `apps/gui/tests/test_main_runtime_startup_logging.py`
   - `docs/test_outputs/dev_workflow/gui_startup_performance_open_latest.json`
   - `docs/test_outputs/dev_workflow/gui_startup_performance_activation_latest.json`
@@ -955,6 +963,8 @@ Use this file when:
   - Native messaging still uses one host manifest per browser name, so same-browser prod and unpacked-dev origins still share one host path.
   - The bundled fixed ID identifies the current Chrome Web Store listing; any future separate store listing must be added deliberately rather than inferred from the browser name.
   - The desktop app can verify manifest/origin/host freshness, but it still cannot prove that the browser extension is currently installed and active.
+  - The rebuilt Windows helper still needs one real post-reboot autostart check;
+    the current session proves direct bundle launch but not the login task path.
   - First launch immediately after reinstall/rebuild can still be slower than
     later warm launches, although the latest local sample remained within the
     Resource Settings p95 budget; release signing/notarization and tester-machine
@@ -1696,8 +1706,8 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `guided Options setup`
   - `profile_growth`: `implemented`, `default-on` for refresh, `verified`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-07-12` profile-bootstrap admission now uses the deterministic hard frontier-Gaussian hybrid lane selector (`profile_bootstrap_frontier_gaussian_hybrid_policy_v2`) for helper initialization, admission preview, and profile-growth refresh candidate formation. The base `profile_bootstrap_policy_v5` utility model remains the signal/core-score source and no-proficiency fallback. Offline comparison keeps the first frontier prototype and soft-topic v3 diagnostic available; hard v2 is preferred because it preserved topic visibility while keeping severe below-target leakage at zero in the 22-scenario en-ja comparison pack. `2026-07-03` `profile_bootstrap_policy_v5` made corrected learner difficulty the main scalar admission authority: source commonness is a small tie-breaker, challenge fit remains computed but unweighted in the default one-slider profile path, proficiency/readiness fit is dominant, and topic affinity plus bounded scarcity remain topic-UX helpers. `2026-06-11` seed-frontier cache lifecycle now includes explicit status/prepare APIs, single-flight locking, stale-cache cleanup, native-host/CLI entrypoints, and desktop resource-flow background warmup after relevant pack download/link/import. Full-frontier SRS bootstrap/admission now omits `bootstrap_top_n` by default and helper-driven initialize, preview, refresh, rebalance, and rulegen-job flows cache source-normalized seed rows under `srs/cache/seed_frontiers/` without caching profile scores. `2026-06-02` Options admission preview remains read-only but now returns a seed-controlled sampled subset from the planned active pool instead of the deterministic prefix, so repeated user-facing samples can vary while advanced diagnostics retain the full planned pool and seed. `2026-05-27` refresh admission defaults to `profile_growth`, preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. Refresh payloads now report realized preferred-topic share for selected new admissions, and automatic post-feedback refresh triggers `profile_growth` only after helper-persisted feedback thresholds are met.
-- Last verified: `2026-07-12` frontier-Gaussian comparison artifact refreshed for en-ja (`current/frontier v1/hard hybrid v2/soft hybrid v3`), focused profile-bootstrap/product-loop/helper preview tests passed, Ruff passed for touched SRS admission modules, doc-reference check passed, and SRS quality harness passed across en-ja/en-es/en-de (`pass=29 warn=0 fail=0`). Earlier `2026-07-03` en-ja product admission artifacts (`srs_admission_product_acceptance_en_ja_latest`: `PASS`, `srs_admission_random_ux_sample_pack_en_ja_latest`: `PASS`) show all `19` topic scenarios with movers, zero sampled `restricted_admission` rows, zero neutral non-topic rows more than `0.10` above proficiency, and surfaced-auto topic review `row_count=0`; focused profile-bootstrap/selector tests passed and SRS quality harness passed (`pass=22 warn=0 fail=0`). Earlier `2026-07-02` coverage included en-ja explicit admission artifacts (`srs_admission_preference_sample_pack_en_ja_latest`: `PASS`, `srs_admission_topic_proficiency_grid_en_ja_latest`: `WARN` with only sparse-topic no-mover warnings), hard admission-suitability selector tests, focused initial-bootstrap and refresh no-rule refill tests, and SRS quality harness. Earlier `2026-06-11` coverage included focused seed-cache lifecycle/use-case tests (`21 passed`) plus syntax/style checks for the helper/native-host/GUI cache-prep entrypoints, focused SRS/helper/options contract test set (`177 passed`), en-ja learner-difficulty audit regeneration (`72,758` deduped unique lemmas), local installed en-ja seed-cache timing probe (`10.379s` first full-frontier seed build, `2.497s` repeat cache hit, same `78,316` raw normalized seed rows), and local installed en-ja profile-bootstrap timing probe (`17.201s` first initialization, `8.326s` repeat cached initialization, same `72,758` selected unique count).
+- Last documented checkpoint: `2026-09-05` extension-authored preview and runtime contexts keep persisted challenge-center experiments inert while the challenge control is hidden; null/blank stored values remain blank instead of becoming zero, and hard hybrid lane selection no longer admits exact-zero lane scores. The `2026-07-12` checkpoint established the deterministic hard frontier-Gaussian hybrid lane selector (`profile_bootstrap_frontier_gaussian_hybrid_policy_v2`) for helper initialization, admission preview, and profile-growth refresh candidate formation. The base `profile_bootstrap_policy_v5` utility model remains the signal/core-score source and no-proficiency fallback. Offline comparison keeps the first frontier prototype and soft-topic v3 diagnostic available; hard v2 is preferred because it preserved topic visibility while keeping severe below-target leakage at zero in the 22-scenario en-ja comparison pack. `2026-07-03` `profile_bootstrap_policy_v5` made corrected learner difficulty the main scalar admission authority: source commonness is a small tie-breaker, challenge fit remains computed but unweighted in the default one-slider profile path, proficiency/readiness fit is dominant, and topic affinity plus bounded scarcity remain topic-UX helpers. `2026-06-11` seed-frontier cache lifecycle added explicit status/prepare APIs, single-flight locking, stale-cache cleanup, native-host/CLI entrypoints, and desktop resource-flow background warmup after relevant pack download/link/import. Full-frontier SRS bootstrap/admission omits `bootstrap_top_n` by default and helper-driven flows cache source-normalized seed rows under `srs/cache/seed_frontiers/` without caching profile scores. `2026-06-02` Options admission preview became a seed-controlled sampled subset from the planned active pool while retaining the full planned pool and seed in diagnostics. `2026-05-27` refresh admission defaulted to `profile_growth`, preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates.
+- Last verified: `2026-09-05` focused Options/profile-bootstrap tests passed (`82 passed`), targeted Ruff passed, and the synthetic SRS quality harness passed across en-ja/en-es/en-de (`pass=29 warn=0 fail=0`). Earlier `2026-07-12` verification refreshed the frontier-Gaussian comparison artifact for en-ja (`current/frontier v1/hard hybrid v2/soft hybrid v3`), passed focused profile-bootstrap/product-loop/helper preview tests, Ruff, doc-reference checks, and the SRS quality harness (`pass=29 warn=0 fail=0`). Earlier `2026-07-03` en-ja product admission artifacts (`srs_admission_product_acceptance_en_ja_latest`: `PASS`, `srs_admission_random_ux_sample_pack_en_ja_latest`: `PASS`) showed all `19` topic scenarios with movers, zero sampled `restricted_admission` rows, zero neutral non-topic rows more than `0.10` above proficiency, and surfaced-auto topic review `row_count=0`; focused profile-bootstrap/selector tests and the SRS quality harness passed. Earlier `2026-06-11` coverage included focused seed-cache lifecycle/use-case tests (`21 passed`), syntax/style checks for helper/native-host/GUI cache-prep entrypoints, focused SRS/helper/options contract tests (`177 passed`), and local installed en-ja cache/timing probes.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, corrected-difficulty-first utility weights, and the hard hybrid frontier-lane selector over the frequency seed frontier before initial active selection.
@@ -1724,6 +1734,12 @@ Use this file when:
   - Options admission preview sends a fresh seed per sample request and displays
     a sampled subset of the planned active pool; it does not initialize,
     persist, or publish SRS words.
+  - Extension-authored preview and runtime contexts omit persisted challenge
+    center/spread values while advanced challenge tuning remains hidden. Saved
+    values are preserved for possible future experiments, but they cannot
+    replace proficiency as the active product-planning center.
+  - Hard hybrid lane selection requires a positive lane score; zero-score rows
+    do not fill trail, frontier, core, or topic capacity.
   - The ordinary options-page topic picker exposes only en-es taxonomy families
     marked `mvp_picker_visibility=strict_mvp_visible`; beta, hidden,
     legal-gated, and register families stay out of that picker while remaining
@@ -1774,6 +1790,8 @@ Use this file when:
   - `core/lexishift_core/srs/selector.py`
   - `docs/test_inputs/srs_topic_preference_taxonomy_en_es.json`
   - `apps/chrome-extension/options.html`
+  - `apps/chrome-extension/options/core/settings/srs_profile_methods.js`
+  - `apps/chrome-extension/options/controllers/srs/planning_state.js`
   - `scripts/dev/srs_admission_lab_server.py`
   - `scripts/dev/srs_admission_lab_static.html`
   - `core/lexishift_core/helper/use_cases/rebalance_set.py`

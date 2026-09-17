@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 import io
 import os
 import sqlite3
@@ -39,7 +40,7 @@ class TestEnglishFrequencyPipeline(unittest.TestCase):
 
             self.assertEqual(result.output_path.resolve(), output.resolve())
             self.assertIn("eng_news_2025_1M.tar.gz", captured)
-            with sqlite3.connect(output) as conn:
+            with closing(sqlite3.connect(output)) as conn:
                 rows = conn.execute(
                     "select lemma, core_rank from frequency order by core_rank"
                 ).fetchall()

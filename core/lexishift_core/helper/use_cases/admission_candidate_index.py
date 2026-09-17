@@ -195,14 +195,14 @@ def _ensure_admission_candidate_index(
 def _index_is_ready(index_path: Path, *, fingerprint: str) -> bool:
     if not index_path.exists():
         return False
+    conn = sqlite3.connect(index_path)
     try:
-        with sqlite3.connect(index_path) as conn:
-            row = conn.execute("SELECT value FROM metadata WHERE key = 'fingerprint'").fetchone()
-            version = conn.execute(
-                "SELECT value FROM metadata WHERE key = 'schema_version'"
-            ).fetchone()
+        row = conn.execute("SELECT value FROM metadata WHERE key = 'fingerprint'").fetchone()
+        version = conn.execute("SELECT value FROM metadata WHERE key = 'schema_version'").fetchone()
     except sqlite3.Error:
         return False
+    finally:
+        conn.close()
     return (
         row is not None
         and str(row[0]) == fingerprint
@@ -226,71 +226,75 @@ def _write_admission_candidate_index(
         delete=False,
     ) as handle:
         temp_path = Path(handle.name)
+    conn: sqlite3.Connection | None = None
     try:
-        with sqlite3.connect(temp_path) as conn:
-            _create_schema(conn)
-            conn.executemany(
-                "INSERT INTO metadata(key, value) VALUES (?, ?)",
-                (
-                    ("kind", ADMISSION_CANDIDATE_INDEX_KIND),
-                    ("schema_version", str(ADMISSION_CANDIDATE_INDEX_SCHEMA_VERSION)),
-                    ("fingerprint", fingerprint),
-                    ("candidate_count", str(len(seeds))),
-                ),
-            )
-            candidate_rows = []
-            topic_rows = []
-            for ordinal, seed in enumerate(seeds):
-                traits = extract_profile_bootstrap_candidate_traits(
-                    seed,
-                    policy=FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY,
-                )
-                identity_key = traits.candidate_identity_key or candidate_identity_key_from_seed(
-                    seed
-                )
-                if not identity_key:
-                    continue
-                seed_row = seed_to_cache_row(seed)
-                traits_payload = traits.to_dict()
-                candidate_rows.append(
+        conn = sqlite3.connect(temp_path)
+        try:
+            with conn:
+                _create_schema(conn)
+                conn.executemany(
+                    "INSERT INTO metadata(key, value) VALUES (?, ?)",
                     (
-                        identity_key,
-                        str(getattr(seed, "language_pair", "") or "").strip(),
-                        traits.lemma,
-                        ordinal,
-                        _safe_float(getattr(seed, "core_rank", None)),
-                        float(traits.difficulty_estimate),
-                        float(traits.lexical_commonness),
-                        float(traits.admission_suitability),
-                        str(traits.candidate_state or ""),
-                        str(traits.presentation_mode or ""),
-                        str(traits.problem_class or ""),
-                        json.dumps(seed_row, ensure_ascii=False, sort_keys=True),
-                        json.dumps(traits_payload, ensure_ascii=False, sort_keys=True),
-                    )
+                        ("kind", ADMISSION_CANDIDATE_INDEX_KIND),
+                        ("schema_version", str(ADMISSION_CANDIDATE_INDEX_SCHEMA_VERSION)),
+                        ("fingerprint", fingerprint),
+                        ("candidate_count", str(len(seeds))),
+                    ),
                 )
-                for topic in traits.topic_hints:
-                    normalized_topic = canonicalize_topic_token(topic)
-                    if normalized_topic:
-                        topic_rows.append((normalized_topic, identity_key, 1.0, "seed_traits"))
-            conn.executemany(
-                """
+                candidate_rows = []
+                topic_rows = []
+                for ordinal, seed in enumerate(seeds):
+                    traits = extract_profile_bootstrap_candidate_traits(
+                        seed,
+                        policy=FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY,
+                    )
+                    identity_key = (
+                        traits.candidate_identity_key or candidate_identity_key_from_seed(seed)
+                    )
+                    if not identity_key:
+                        continue
+                    seed_row = seed_to_cache_row(seed)
+                    traits_payload = traits.to_dict()
+                    candidate_rows.append(
+                        (
+                            identity_key,
+                            str(getattr(seed, "language_pair", "") or "").strip(),
+                            traits.lemma,
+                            ordinal,
+                            _safe_float(getattr(seed, "core_rank", None)),
+                            float(traits.difficulty_estimate),
+                            float(traits.lexical_commonness),
+                            float(traits.admission_suitability),
+                            str(traits.candidate_state or ""),
+                            str(traits.presentation_mode or ""),
+                            str(traits.problem_class or ""),
+                            json.dumps(seed_row, ensure_ascii=False, sort_keys=True),
+                            json.dumps(traits_payload, ensure_ascii=False, sort_keys=True),
+                        )
+                    )
+                    for topic in traits.topic_hints:
+                        normalized_topic = canonicalize_topic_token(topic)
+                        if normalized_topic:
+                            topic_rows.append((normalized_topic, identity_key, 1.0, "seed_traits"))
+                conn.executemany(
+                    """
                 INSERT OR REPLACE INTO candidates(
                     identity_key, language_pair, lemma, ordinal, core_rank, difficulty,
                     lexical_commonness, admission_suitability, candidate_state,
                     presentation_mode, problem_class, seed_json, traits_json
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
-                candidate_rows,
-            )
-            conn.executemany(
-                """
+                    candidate_rows,
+                )
+                conn.executemany(
+                    """
                 INSERT OR IGNORE INTO candidate_topics(topic, identity_key, membership, source)
                 VALUES (?, ?, ?, ?)
                 """,
-                topic_rows,
-            )
-            conn.commit()
+                    topic_rows,
+                )
+        finally:
+            conn.close()
         os.replace(temp_path, index_path)
     except Exception:
         try:

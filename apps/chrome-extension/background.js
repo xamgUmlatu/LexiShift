@@ -1,15 +1,17 @@
 (() => {
   const HOST_NAME = "com.lexishift.helper";
   const BRIDGE_KIND = "lexishift_helper_request_v1";
+  const DEFAULT_TIMEOUT_MS = 4000;
+  const MAX_TIMEOUT_MS = 10 * 60 * 1000;
   const pendingNativeRequests = new Map();
   let nativePort = null;
 
   function normalizeTimeoutMs(timeoutMs) {
     const parsed = Number(timeoutMs);
     if (!Number.isFinite(parsed)) {
-      return 4000;
+      return DEFAULT_TIMEOUT_MS;
     }
-    return Math.max(250, Math.min(Math.trunc(parsed), 60000));
+    return Math.max(250, Math.min(Math.trunc(parsed), MAX_TIMEOUT_MS));
   }
 
   function makeInvalidRequest(message) {

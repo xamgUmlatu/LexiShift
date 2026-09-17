@@ -100,6 +100,7 @@ try:
     from lexishift_core.helper.gui_activation import (
         activate_resource_settings as activate_gui_resource_settings,
     )
+    from lexishift_core.helper import native_messaging
     from lexishift_core.helper.gui_app_launch import (
         resource_settings_launch_command as build_resource_settings_launch_command,
     )
@@ -160,14 +161,12 @@ def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list
 
 
 def _open_resource_settings(payload: dict) -> dict:
-    request_started_at = utc_timestamp()
-    request_start = time.perf_counter()
+    request_started_at, request_start = utc_timestamp(), time.perf_counter()
     session_id = str(payload.get("startup_session_id") or "").strip() or new_startup_session_id()
     pair = str(payload.get("pair", "") or "").strip()
     _native_host_log_line(
         f"resource_settings_request_received session={session_id} pair={pair} source=native_host"
     )
-
     activation_start = time.perf_counter()
     _native_host_log_line(f"resource_settings_activation_started session={session_id} pair={pair}")
     try:
@@ -252,9 +251,8 @@ def _read_message() -> Optional[dict]:
 
 
 def _write_message(payload: dict) -> None:
-    data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
-    sys.stdout.buffer.write(struct.pack("<I", len(data)))
-    sys.stdout.buffer.write(data)
+    data = native_messaging.encode_message(payload, _error_response, _native_host_log_line)
+    sys.stdout.buffer.write(struct.pack("<I", len(data)) + data)
     sys.stdout.buffer.flush()
 
 

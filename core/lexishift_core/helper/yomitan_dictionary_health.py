@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 from dataclasses import dataclass
 import json
 import os
@@ -282,7 +283,7 @@ def _lookup_dictionary_sqlite_issue(
 ) -> tuple[str, str] | None:
     try:
         uri = artifact_path.resolve().as_uri() + "?mode=ro&immutable=1"
-        with sqlite3.connect(uri, uri=True, timeout=0.25) as conn:
+        with closing(sqlite3.connect(uri, uri=True, timeout=0.25)) as conn:
             tables = {
                 str(row[0])
                 for row in conn.execute(

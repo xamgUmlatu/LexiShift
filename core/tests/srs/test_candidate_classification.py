@@ -71,6 +71,48 @@ class TestCandidateClassification(unittest.TestCase):
                     places=6,
                 )
 
+    def test_suppresses_explicit_ja_fillers_from_default_vocab(self) -> None:
+        classification = classify_srs_candidate(
+            language_pair="en-ja",
+            lemma="えーと",
+            raw_pos="感動詞-フィラー",
+        )
+
+        self.assertEqual(classification.candidate_state, "suppressed_default")
+        self.assertEqual(classification.presentation_mode, "suppress")
+        self.assertEqual(classification.problem_class, "interjection_or_filler")
+        self.assertEqual(classification.confidence, "high")
+        self.assertIn("ja_pos_interjection_filler", classification.reasons)
+        self.assertAlmostEqual(classification.admission_suitability, 0.0, places=6)
+
+    def test_suppresses_nonlexical_ja_interjection_fragments(self) -> None:
+        classification = classify_srs_candidate(
+            language_pair="en-ja",
+            lemma="あっ",
+            raw_pos="感動詞-一般",
+        )
+
+        self.assertEqual(classification.candidate_state, "suppressed_default")
+        self.assertEqual(classification.presentation_mode, "suppress")
+        self.assertEqual(classification.problem_class, "interjection_or_filler")
+        self.assertEqual(classification.confidence, "high")
+        self.assertIn("ja_nonlexical_interjection_fragment", classification.reasons)
+        self.assertAlmostEqual(classification.admission_suitability, 0.0, places=6)
+
+    def test_deprioritizes_lexical_ja_interjections_without_suppressing_them(self) -> None:
+        classification = classify_srs_candidate(
+            language_pair="en-ja",
+            lemma="もしもし",
+            raw_pos="感動詞-一般",
+        )
+
+        self.assertEqual(classification.candidate_state, "deprioritized_vocab")
+        self.assertEqual(classification.presentation_mode, "vocab")
+        self.assertEqual(classification.problem_class, "interjection_or_filler")
+        self.assertEqual(classification.confidence, "review")
+        self.assertIn("ja_pos_interjection_deprioritized", classification.reasons)
+        self.assertAlmostEqual(classification.admission_suitability, 0.15, places=6)
+
     def test_classifies_core_ja_country_names_as_normal_vocab(self) -> None:
         classification = classify_srs_candidate(
             language_pair="en-ja",

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 import hashlib
 from mmap import ACCESS_READ, mmap
 import os
@@ -142,7 +143,7 @@ def _indexed_entry_spans(
         if not _index_matches_source(index_path, source_path, source_stat):
             return None
         placeholders = ",".join("?" for _value in requested)
-        with sqlite3.connect(index_path) as connection:
+        with closing(sqlite3.connect(index_path)) as connection:
             rows = connection.execute(
                 f"SELECT entry_start, entry_end FROM forms "
                 f"WHERE term IN ({placeholders}) ORDER BY entry_start",
@@ -161,7 +162,7 @@ def _index_matches_source(
     if not index_path.exists():
         return False
     try:
-        with sqlite3.connect(index_path) as connection:
+        with closing(sqlite3.connect(index_path)) as connection:
             metadata = dict(connection.execute("SELECT key, value FROM metadata"))
         return metadata == {
             "index_version": str(JMDICT_DEFINITION_INDEX_VERSION),
@@ -188,7 +189,7 @@ def _build_definition_index(
     os.close(descriptor)
     temp_path = Path(temp_name)
     try:
-        with sqlite3.connect(temp_path) as connection:
+        with closing(sqlite3.connect(temp_path)) as connection, connection:
             connection.executescript(
                 "PRAGMA journal_mode=OFF;"
                 "PRAGMA synchronous=OFF;"

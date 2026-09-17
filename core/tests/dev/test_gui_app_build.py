@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 from pathlib import Path
 import sys
@@ -16,6 +17,7 @@ from gui_app import _cleanup_windows_collect_duplicates  # noqa: E402
 from gui_app import _build_command  # noqa: E402
 from gui_app import _install_macos_app  # noqa: E402
 from gui_app import _list_macos_installed_processes  # noqa: E402
+from gui_app import _sanitize_windows_pyinstaller_path  # noqa: E402
 from gui_app import _terminate_macos_installed_processes  # noqa: E402
 from gui_app import _terminate_windows_dist_processes  # noqa: E402
 
@@ -100,6 +102,34 @@ class TestGuiAppBuild(unittest.TestCase):
 
         self.assertEqual(
             command[-3:], ["/repo/apps/gui/packaging/pyinstaller.spec", "--log-level", "WARN"]
+        )
+
+    def test_windows_build_path_excludes_external_icu_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            python_prefix = root / "python"
+            python_bin = python_prefix / "Scripts"
+            external_bin = root / "external" / "bin"
+            safe_bin = root / "safe" / "bin"
+            windows_bin = root / "Windows" / "System32"
+            for directory in (python_bin, external_bin, safe_bin, windows_bin):
+                directory.mkdir(parents=True)
+            (external_bin / "icuuc.dll").write_bytes(b"external")
+            (windows_bin / "icuuc.dll").write_bytes(b"system")
+
+            with mock.patch("gui_app.platform.system", return_value="Windows"):
+                sanitized, removed = _sanitize_windows_pyinstaller_path(
+                    os.pathsep.join(
+                        (str(python_bin), str(external_bin), str(safe_bin), str(windows_bin))
+                    ),
+                    python_prefix=str(python_prefix),
+                    windows_root=str(root / "Windows"),
+                )
+
+        self.assertEqual(removed, [str(external_bin)])
+        self.assertEqual(
+            sanitized.split(os.pathsep),
+            [str(python_bin), str(safe_bin), str(windows_bin)],
         )
 
     def test_cleanup_windows_collect_duplicates_removes_root_exes_when_collected_layout_exists(

@@ -474,6 +474,12 @@ def _build_helper_preview_profile_bootstrap_payload(
     payload = dict(profile_bootstrap_diagnostics or {})
     payload.pop("ranking_preview", None)
     payload.pop("initial_active_diagnostic_preview", None)
+    base_profile_bootstrap = payload.get("base_profile_bootstrap")
+    if isinstance(base_profile_bootstrap, Mapping):
+        compact_base_profile_bootstrap = dict(base_profile_bootstrap)
+        compact_base_profile_bootstrap.pop("ranking_preview", None)
+        compact_base_profile_bootstrap.pop("initial_active_diagnostic_preview", None)
+        payload["base_profile_bootstrap"] = compact_base_profile_bootstrap
     return payload
 
 

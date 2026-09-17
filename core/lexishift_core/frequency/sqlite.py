@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from contextlib import closing
 import json
 import sqlite3
 from dataclasses import dataclass, field
@@ -65,7 +66,7 @@ def convert_frequency_to_sqlite(
     rows_without_pos = 0
     row_count = 0
 
-    with sqlite3.connect(output_path) as conn:
+    with closing(sqlite3.connect(output_path)) as conn, conn:
         conn.execute("PRAGMA journal_mode=WAL;")
         conn.execute("PRAGMA synchronous=NORMAL;")
         columns_sql = ", ".join(

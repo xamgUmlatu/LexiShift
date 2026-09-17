@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 from pathlib import Path
 import sqlite3
 from typing import Mapping
@@ -17,7 +18,7 @@ def sqlite_artifact_metrics_for_pack(
     if not path.is_file():
         return {}
     try:
-        with sqlite3.connect(str(path)) as conn:
+        with closing(sqlite3.connect(str(path))) as conn:
             conn.execute("PRAGMA query_only = ON;")
             if not _table_exists(conn, "frequency"):
                 return {}

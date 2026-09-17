@@ -4,6 +4,7 @@ import os
 import sys
 import tempfile
 import unittest
+from dataclasses import replace
 from types import SimpleNamespace
 from unittest import mock
 
@@ -407,6 +408,34 @@ class TestProfileBootstrapFrontierGaussianMath(unittest.TestCase):
         self.assertEqual(lemmas.count("duplicate"), 1)
         self.assertEqual(diagnostics["selected_candidate_count"], 4)
 
+    def test_frontier_gaussian_hybrid_does_not_fill_lanes_with_zero_scores(self) -> None:
+        policy = replace(
+            FRONTIER_GAUSSIAN_HYBRID_PROFILE_BOOTSTRAP_POLICY,
+            hybrid_beginner_core_lane_share=0.0,
+            hybrid_trail_lane_share=0.5,
+        )
+        seeds = [
+            _seed_with_difficulty("zero", 0.0),
+            _seed_with_difficulty("near_zero", 0.01),
+            _seed_with_difficulty("easy", 0.02),
+            _seed_with_difficulty("less_easy", 0.03),
+        ]
+
+        selected, diagnostics = score_seed_words_for_frontier_gaussian_hybrid_profile(
+            seeds,
+            profile_context={
+                "proficiency": {"estimated_value": 0.41},
+                "difficulty_preferences": {"target_challenge_center": 0.0},
+            },
+            selection_count=4,
+            preview_limit=4,
+            policy=policy,
+        )
+
+        self.assertEqual(diagnostics["lane_targets"]["trail"], 2)
+        self.assertEqual(diagnostics["filled_lane_counts"]["trail"], 0)
+        self.assertNotIn("trail", [entry.selected_lane for entry in selected])
+
     def test_frontier_gaussian_lane_selector_fills_deterministic_quotas(self) -> None:
         seeds = [
             _seed_with_difficulty("topic_near", 0.78, topics=["animals"]),
@@ -564,6 +593,23 @@ class TestProfileBootstrapTraits(unittest.TestCase):
         self.assertEqual(traits.candidate_state, "suppressed_default")
         self.assertEqual(traits.presentation_mode, "suppress")
         self.assertEqual(traits.problem_class, "numeral_or_counter")
+        self.assertAlmostEqual(traits.admission_suitability, 0.0, places=6)
+
+    def test_nonlexical_ja_interjection_is_not_suitable_for_default_admission(self) -> None:
+        traits = extract_profile_bootstrap_candidate_traits(
+            SimpleNamespace(
+                lemma="あっ",
+                language_pair="en-ja",
+                pos="感動詞-一般",
+                base_weight=0.70,
+                admission_weight=0.28,
+                metadata={},
+            )
+        )
+
+        self.assertEqual(traits.candidate_state, "suppressed_default")
+        self.assertEqual(traits.presentation_mode, "suppress")
+        self.assertEqual(traits.problem_class, "interjection_or_filler")
         self.assertAlmostEqual(traits.admission_suitability, 0.0, places=6)
 
     def test_reuses_precomputed_candidate_traits_when_policy_version_matches(self) -> None:

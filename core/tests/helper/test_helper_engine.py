@@ -1287,9 +1287,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
             self.assertEqual(payload["translation_dict_provider"], "wiktionary")
             self.assertEqual(payload["translation_pack_id"], "wiktionary_es_en")
             self.assertEqual(payload["translation_pos_source_profile"], "wiktionary")
-            self.assertTrue(
-                payload["translation_pack_path"].endswith("/wiktionary-es-en/main.sqlite")
-            )
+            self.assertEqual(Path(payload["translation_pack_path"]), forward_artifact)
             self.assertTrue(payload["set_source_db"].endswith("freq-es-spalex-v1.sqlite"))
             self.assertEqual(payload["frequency_pack_id"], "freq-es-spalex-v1")
             self.assertEqual(payload["frequency_pack_provider"], "freq-es-spalex-v1")
@@ -1297,9 +1295,7 @@ class TestHelperEnginePairGeneralization(unittest.TestCase):
             self.assertEqual(payload["reverse_translation_dict_provider"], "wiktionary")
             self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
             self.assertEqual(payload["reverse_translation_pos_source_profile"], "wiktionary")
-            self.assertTrue(
-                payload["reverse_translation_pack_path"].endswith("/wiktionary-en-es/main.sqlite")
-            )
+            self.assertEqual(Path(payload["reverse_translation_pack_path"]), reverse_artifact)
 
     def test_initialize_en_de_disables_jmdict_requirement_for_seed_selection(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -1413,21 +1409,22 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["frequency_pack_id"], "freq-de-default")
             self.assertEqual(payload["frequency_pack_provider"], "freq-de-default")
             self.assertEqual(payload["frequency_pos_source_profile"], "freq-de-default")
-            self.assertTrue(
-                payload["translation_dict_path"].endswith("language_packs/freedict-de-en.sqlite")
+            self.assertEqual(
+                Path(payload["translation_dict_path"]),
+                paths.language_packs_dir / "freedict-de-en.sqlite",
             )
             self.assertFalse(payload["translation_dict_exists"])
             self.assertEqual(payload["translation_dict_provider"], "freedict")
             self.assertEqual(payload["translation_pack_id"], "freedict_de_en")
             self.assertEqual(payload["translation_pos_source_profile"], "freedict")
-            self.assertTrue(
-                payload["translation_pack_path"].endswith("language_packs/freedict-de-en.sqlite")
+            self.assertEqual(
+                Path(payload["translation_pack_path"]),
+                paths.language_packs_dir / "freedict-de-en.sqlite",
             )
             self.assertFalse(payload["translation_pack_exists"])
-            self.assertTrue(
-                payload["reverse_translation_pack_path"].endswith(
-                    "language_packs/freedict-en-de.sqlite"
-                )
+            self.assertEqual(
+                Path(payload["reverse_translation_pack_path"]),
+                paths.language_packs_dir / "freedict-en-de.sqlite",
             )
             self.assertEqual(payload["reverse_translation_pack_id"], "freedict_en_de")
             self.assertEqual(payload["reverse_translation_dict_provider"], "freedict")
@@ -1445,7 +1442,10 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertIn("target_frequency", missing_stack_roles)
             self.assertIn("forward_translation", missing_stack_roles)
             self.assertIn("reverse_translation", missing_stack_roles)
-            self.assertTrue(payload["stopwords_path"].endswith("stopwords/stopwords-de.json"))
+            self.assertEqual(
+                Path(payload["stopwords_path"]).parts[-2:],
+                ("stopwords", "stopwords-de.json"),
+            )
             self.assertTrue(payload["stopwords_exists"])
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("set_source_db", missing_types)
@@ -1467,21 +1467,22 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             self.assertEqual(payload["frequency_pack_id"], "freq-es-spalex-v1")
             self.assertEqual(payload["frequency_pack_provider"], "freq-es-spalex-v1")
             self.assertEqual(payload["frequency_pos_source_profile"], "spalex_only_v1")
-            self.assertTrue(
-                payload["translation_dict_path"].endswith("language_packs/wiktionary-es-en.sqlite")
+            self.assertEqual(
+                Path(payload["translation_dict_path"]),
+                paths.language_packs_dir / "wiktionary-es-en.sqlite",
             )
             self.assertFalse(payload["translation_dict_exists"])
             self.assertEqual(payload["translation_dict_provider"], "wiktionary")
             self.assertEqual(payload["translation_pack_id"], "wiktionary_es_en")
             self.assertEqual(payload["translation_pos_source_profile"], "wiktionary")
-            self.assertTrue(
-                payload["translation_pack_path"].endswith("language_packs/wiktionary-es-en.sqlite")
+            self.assertEqual(
+                Path(payload["translation_pack_path"]),
+                paths.language_packs_dir / "wiktionary-es-en.sqlite",
             )
             self.assertFalse(payload["translation_pack_exists"])
-            self.assertTrue(
-                payload["reverse_translation_pack_path"].endswith(
-                    "language_packs/wiktionary-en-es.sqlite"
-                )
+            self.assertEqual(
+                Path(payload["reverse_translation_pack_path"]),
+                paths.language_packs_dir / "wiktionary-en-es.sqlite",
             )
             self.assertEqual(payload["reverse_translation_pack_id"], "wiktionary_en_es")
             self.assertEqual(payload["reverse_translation_dict_provider"], "wiktionary")
@@ -1515,7 +1516,7 @@ class TestHelperEngineRuntimeDiagnostics(unittest.TestCase):
             paths = build_helper_paths(Path(tmp))
             payload = get_srs_runtime_diagnostics(paths, pair="en-ja")
             self.assertEqual(payload["pair"], "en-ja")
-            self.assertTrue(payload["jmdict_path"].endswith("language_packs/JMdict_e"))
+            self.assertEqual(Path(payload["jmdict_path"]), paths.language_packs_dir / "JMdict_e")
             self.assertFalse(payload["jmdict_exists"])
             missing_types = [entry.get("type") for entry in payload.get("missing_inputs", [])]
             self.assertIn("jmdict_path", missing_types)
@@ -4442,6 +4443,10 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
                 profile_bootstrap_diagnostics={
                     "profile_context": {"active_signals": ["interests"]},
                     "ranking_preview": ranking_preview,
+                    "base_profile_bootstrap": {
+                        "selection_policy": "frontier_gaussian_hybrid_v1",
+                        "ranking_preview": ranking_preview,
+                    },
                 },
             )
 
@@ -4463,6 +4468,10 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
 
             preview = payload["preview"]
             self.assertNotIn("ranking_preview", preview["profile_bootstrap"])
+            self.assertNotIn(
+                "ranking_preview",
+                preview["profile_bootstrap"]["base_profile_bootstrap"],
+            )
             self.assertLess(len(json.dumps(payload).encode("utf-8")), 50_000)
 
 

@@ -28,6 +28,7 @@ def _run_node(script: str) -> None:
         ["node"],
         input=script,
         text=True,
+        encoding="utf-8",
         capture_output=True,
         cwd=PROJECT_ROOT,
         check=False,
@@ -148,6 +149,7 @@ const optionFiles = [
 let bridgeListener = null;
 const nativeRequests = [];
 const bridgeMessages = [];
+const backgroundTimeouts = [];
 
 const backgroundChrome = {{
   runtime: {{
@@ -166,7 +168,10 @@ const backgroundChrome = {{
 const backgroundContext = vm.createContext({{
   console,
   chrome: backgroundChrome,
-  setTimeout: () => 1,
+  setTimeout: (_callback, timeoutMs) => {{
+    backgroundTimeouts.push(timeoutMs);
+    return 1;
+  }},
   clearTimeout: () => {{}},
   Date,
   Math
@@ -290,10 +295,11 @@ const profileContext = {{
   assert.deepEqual(bridgeMessages.map((message) => message.timeoutMs), [
     30000,
     15000,
-    60000,
+    600000,
     30000,
     4000
   ]);
+  assert.deepEqual(backgroundTimeouts, [30000, 15000, 600000, 30000, 4000]);
   assert.deepEqual(nativeRequests.map((entry) => entry.host), [
     "com.lexishift.helper",
     "com.lexishift.helper",

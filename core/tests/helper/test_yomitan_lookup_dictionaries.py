@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 import json
 from pathlib import Path
 import sqlite3
@@ -496,7 +497,7 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
                 structured_lookup.glosses[0]["text"],
                 "to see\n• to observe",
             )
-            with sqlite3.connect(result.artifact_path) as conn:
+            with closing(sqlite3.connect(result.artifact_path)) as conn:
                 raw_glossary = conn.execute(
                     "SELECT glossary_json FROM terms WHERE expression = '見る'"
                 ).fetchone()[0]
@@ -637,7 +638,7 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
                 source,
                 dictionaries_dir=dictionaries_dir,
             )
-            with sqlite3.connect(imported.artifact_path) as conn:
+            with closing(sqlite3.connect(imported.artifact_path)) as conn:
                 stored = conn.execute("SELECT glossary_json FROM terms").fetchone()[0]
             self.assertIsInstance(stored, bytes)
             self.assertTrue(stored.startswith(b"LSZ1"))
@@ -671,7 +672,7 @@ class TestYomitanLookupDictionaries(unittest.TestCase):
                 dictionaries_dir=root / "lookup_dictionaries",
             )
             self.assertEqual(imported.dictionary.term_count, 1)
-            with sqlite3.connect(imported.artifact_path) as conn:
+            with closing(sqlite3.connect(imported.artifact_path)) as conn:
                 skipped = json.loads(
                     conn.execute(
                         "SELECT value_json FROM metadata WHERE key = 'skipped_term_count'"

@@ -195,7 +195,7 @@
     "message": "Training starten"
   },
   "status_srs_story_flow_previewing": {
-    "message": "Einstellungen werden gespeichert und mögliche Wörter getestet…"
+    "message": "Einstellungen werden gespeichert und ein Wortbeispiel wird vorbereitet… Der erste Durchlauf für dieses Sprachpaar kann mehrere Minuten dauern."
   },
   "status_srs_story_flow_sampled": {
     "message": "Probe aktualisiert."
@@ -486,7 +486,10 @@
     "message": "10 passende Wörter testen…"
   },
   "status_srs_admission_preview_running": {
-    "message": "Mögliche nächste Wörter werden getestet ($1)…"
+    "message": "Wortbeispiel wird vorbereitet ($1)… Beim ersten Durchlauf für dieses Sprachpaar werden möglicherweise lokale Caches erstellt; dies kann mehrere Minuten dauern."
+  },
+  "status_srs_admission_preview_still_preparing": {
+    "message": "Das Wortbeispiel wird noch vorbereitet ($1 Sekunden vergangen). Lassen Sie diese Seite geöffnet; der erstmalige Cache-Aufbau kann mehrere Minuten dauern."
   },
   "status_srs_admission_preview_failed": {
     "message": "Wortstichprobe fehlgeschlagen."

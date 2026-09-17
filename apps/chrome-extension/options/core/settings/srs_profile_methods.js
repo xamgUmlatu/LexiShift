@@ -442,7 +442,7 @@
         interests: normalizedSignals.interests,
         objectives: normalizedSignals.objectives,
         proficiency: normalizedSignals.proficiency,
-        difficulty_preferences: normalizedSignals.difficultyPreferences,
+        difficulty_preferences: this._runtimeDifficultyPreferences(normalizedSignals.difficultyPreferences),
         empirical_trends: normalizedSignals.empiricalTrends,
         source_preferences: normalizedSignals.sourcePreferences,
         constraints: {

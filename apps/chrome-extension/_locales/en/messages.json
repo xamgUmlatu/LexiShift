@@ -198,7 +198,7 @@
     "message": "Start practice"
   },
   "status_srs_story_flow_previewing": {
-    "message": "Saving settings and sampling possible words…"
+    "message": "Saving settings and preparing a word sample… The first run for this language pair may take several minutes."
   },
   "status_srs_story_flow_sampled": {
     "message": "Sample updated."
@@ -489,7 +489,10 @@
     "message": "Sample 10 preference-matched words…"
   },
   "status_srs_admission_preview_running": {
-    "message": "Sampling possible next words ($1)…"
+    "message": "Preparing a word sample ($1)… The first run for this language pair may build local caches and take several minutes."
+  },
+  "status_srs_admission_preview_still_preparing": {
+    "message": "Still preparing the word sample ($1 seconds elapsed). Keep this page open; first-run cache building can take several minutes."
   },
   "status_srs_admission_preview_failed": {
     "message": "Word sample failed."

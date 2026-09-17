@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 import gzip
 import json
 import os
@@ -136,7 +137,7 @@ class TestKaikkiSqliteConversion(unittest.TestCase):
                 ["movement"],
             )
             self.assertEqual(records_by_headword["movimiento"][0].pos_raw, "noun")
-            with sqlite3.connect(output_path) as conn:
+            with closing(sqlite3.connect(output_path)) as conn:
                 tables = {
                     row[0]
                     for row in conn.execute(
@@ -296,7 +297,7 @@ class TestKaikkiSqliteConversion(unittest.TestCase):
                     "Capta el mensaje al instante.",
                 ],
             )
-            with sqlite3.connect(output_path) as conn:
+            with closing(sqlite3.connect(output_path)) as conn:
                 row = conn.execute(
                     "SELECT examples_json FROM sense_glosses "
                     "WHERE headword_lc = 'captar' AND sense_ord = 0 AND gloss_ord = 0"
@@ -372,7 +373,7 @@ class TestKaikkiSqliteConversion(unittest.TestCase):
                 ["hola", "buenos días", "aló"],
             )
             self.assertEqual(records_by_headword["hello"][0].pos_raw, "intj")
-            with sqlite3.connect(output_path) as conn:
+            with closing(sqlite3.connect(output_path)) as conn:
                 row = conn.execute(
                     "SELECT sense_text, tags_json, lang_code FROM translation_meta "
                     "WHERE entry_ord = 1 AND sense_ord = 1 AND gloss_ord = 0"
