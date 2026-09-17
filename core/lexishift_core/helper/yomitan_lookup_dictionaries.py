@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 from dataclasses import dataclass
 from datetime import datetime, timezone
 import hashlib
@@ -144,7 +145,7 @@ def import_yomitan_dictionary_zip(
         skipped_term_count = 0
         total_banks = len(bank_members)
         try:
-            with sqlite3.connect(str(artifact_path)) as conn:
+            with closing(sqlite3.connect(str(artifact_path))) as conn, conn:
                 _create_dictionary_schema(conn)
                 _write_dictionary_metadata(
                     conn,
@@ -379,7 +380,7 @@ def lookup_yomitan_dictionary(
         LIMIT 100
     """
     try:
-        with sqlite3.connect(str(path)) as conn:
+        with closing(sqlite3.connect(str(path))) as conn:
             rows = conn.execute(query, parameters).fetchall()
             metadata = _read_dictionary_metadata(conn)
     except (OSError, sqlite3.Error, json.JSONDecodeError):

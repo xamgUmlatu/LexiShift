@@ -61,7 +61,6 @@
     const srsInitialActiveCountInput = opts.srsInitialActiveCountInput || null;
     const srsTopicInterestsInput = opts.srsTopicInterestsInput || null;
     const srsProficiencyEstimateInput = opts.srsProficiencyEstimateInput || null;
-    const srsChallengeTargetInput = opts.srsChallengeTargetInput || null;
 
     function resolveInterests(storedSignals) {
       if (srsTopicInterestsInput) {
@@ -111,10 +110,6 @@
         srsProficiencyEstimateInput,
         storedSignals.proficiency && storedSignals.proficiency.estimated_value
       );
-      const challengeTarget = resolveNormalizedValue(
-        srsChallengeTargetInput,
-        storedSignals.difficultyPreferences && storedSignals.difficultyPreferences.target_challenge_center
-      );
       const effectiveProfile = {
         ...storedProfile,
         srsMaxActive,
@@ -129,15 +124,14 @@
       )
         ? { ...storedSignals.difficultyPreferences }
         : {};
+      // Challenge tuning remains persisted for possible future use, but the hidden
+      // control must not affect current product planning or preview requests.
+      delete effectiveDifficultyPreferences.target_challenge_center;
+      delete effectiveDifficultyPreferences.target_challenge_spread;
       if (proficiencyEstimate === null) {
         delete effectiveProficiency.estimated_value;
       } else {
         effectiveProficiency.estimated_value = Number(proficiencyEstimate.toFixed(2));
-      }
-      if (challengeTarget === null) {
-        delete effectiveDifficultyPreferences.target_challenge_center;
-      } else {
-        effectiveDifficultyPreferences.target_challenge_center = Number(challengeTarget.toFixed(2));
       }
       const effectiveSignals = {
         ...storedSignals,
@@ -165,15 +159,6 @@
         )
       ) {
         pendingOverrides.push("proficiency_estimate");
-      }
-      if (
-        !stableScalarEquals(
-          storedSignals.difficultyPreferences && storedSignals.difficultyPreferences.target_challenge_center,
-          effectiveSignals.difficultyPreferences
-          && effectiveSignals.difficultyPreferences.target_challenge_center
-        )
-      ) {
-        pendingOverrides.push("challenge_target");
       }
       return {
         profileId: storedProfile.profileId,

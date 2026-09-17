@@ -195,7 +195,7 @@
     "message": "开始练习"
   },
   "status_srs_story_flow_previewing": {
-    "message": "正在保存设置并抽样可能出现的词…"
+    "message": "正在保存设置并准备单词样本… 首次处理此语言对时可能需要几分钟。"
   },
   "status_srs_story_flow_sampled": {
     "message": "抽样已更新。"
@@ -486,7 +486,10 @@
     "message": "抽样 10 个匹配偏好的词…"
   },
   "status_srs_admission_preview_running": {
-    "message": "正在抽样可能的下一个词（$1）…"
+    "message": "正在准备单词样本（$1 个）… 首次处理此语言对时可能需要构建本地缓存，可能需要几分钟。"
+  },
+  "status_srs_admission_preview_still_preparing": {
+    "message": "仍在准备单词样本（已用 $1 秒）。请保持此页面打开；首次构建缓存可能需要几分钟。"
   },
   "status_srs_admission_preview_failed": {
     "message": "词语抽样失败。"

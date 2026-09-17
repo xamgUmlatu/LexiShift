@@ -12,6 +12,6 @@ def open_path(path: Path) -> None:
         subprocess.run(["open", str(target)], check=False)
         return
     if sys.platform.startswith("win"):
-        os.startfile(str(target))  # type: ignore[attr-defined]
+        os.startfile(str(target))
         return
     subprocess.run(["xdg-open", str(target)], check=False)

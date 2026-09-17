@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 from pathlib import Path
 import sqlite3
 import sys
@@ -20,7 +21,7 @@ class TestPackArtifactMetrics(unittest.TestCase):
     def test_frequency_sqlite_metrics_include_rows_lemmas_pos_and_topics(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "frequency.sqlite"
-            with sqlite3.connect(db_path) as conn:
+            with closing(sqlite3.connect(db_path)) as conn:
                 conn.execute(
                     """
                     CREATE TABLE frequency (

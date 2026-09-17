@@ -90,6 +90,7 @@ def _run_node(script: str) -> None:
         ["node"],
         input=script,
         text=True,
+        encoding="utf-8",
         capture_output=True,
         cwd=PROJECT_ROOT,
         check=False,
@@ -2177,6 +2178,65 @@ const manager = new SettingsManager();
 """
         _run_node(script)
 
+    def test_srs_plan_context_keeps_saved_challenge_tuning_inert(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const settingsBasePath = {json.dumps(str(SETTINGS_BASE_JS))};
+const signalsPath = {json.dumps(str(SIGNALS_METHODS_JS))};
+const settingsProfilePath = {json.dumps(str(SETTINGS_SRS_PROFILE_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(settingsBasePath, "utf8"), context, {{ filename: settingsBasePath }});
+vm.runInContext(fs.readFileSync(signalsPath, "utf8"), context, {{ filename: signalsPath }});
+vm.runInContext(fs.readFileSync(settingsProfilePath, "utf8"), context, {{ filename: settingsProfilePath }});
+
+const installBaseMethods = context.LexiShift.optionsSettingsInstallBaseMethods;
+const installSignalsMethods = context.LexiShift.optionsSettingsInstallSignalsMethods;
+const installSrsProfileMethods = context.LexiShift.optionsSettingsInstallSrsProfileMethods;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+
+function SettingsManager() {{}}
+SettingsManager.prototype.DEFAULT_PROFILE_ID = "default";
+SettingsManager.prototype.defaults = {{
+  srsPair: "en-en",
+  srsMaxActive: 40,
+  srsInitialActiveCount: 40
+}};
+installBaseMethods(SettingsManager);
+installSignalsMethods(SettingsManager);
+installSrsProfileMethods(SettingsManager);
+
+const manager = new SettingsManager();
+const signals = {{
+  interests: ["music_media_entertainment"],
+  proficiency: {{ estimated_value: 0.41 }},
+  difficultyPreferences: {{
+    target_challenge_center: 0,
+    target_challenge_spread: 0.18,
+    goal_mode: "growth"
+  }}
+}};
+const result = manager.composeSrsPlanContext(
+  "en-ja",
+  {{ profileId: "suisui", srsMaxActive: 20, srsInitialActiveCount: 40 }},
+  signals,
+  {{ profileId: "suisui" }}
+);
+
+assert.deepEqual(normalize(result.difficulty_preferences), {{ goal_mode: "growth" }});
+assert.deepEqual(normalize(signals.difficultyPreferences), {{
+  target_challenge_center: 0,
+  target_challenge_spread: 0.18,
+  goal_mode: "growth"
+}});
+assert.equal(result.proficiency.estimated_value, 0.41);
+"""
+        _run_node(script)
+
     def test_activate_srs_profile_pair_makes_selected_story_the_only_active_runtime_story(
         self,
     ) -> None:
@@ -2482,6 +2542,51 @@ const ui = new context.__UIManager();
 	assert.equal(storyCard.hidden, false);
 	assert.equal(storyCard.open, false);
 	"""
+        _run_node(script)
+
+    def test_srs_challenge_target_renders_null_and_blank_as_blank(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const viewModelPath = {json.dumps(str(SRS_STORY_VIEW_MODEL_JS))};
+const uiManagerDomIdsPath = {json.dumps(str(UI_MANAGER_DOM_IDS_JS))};
+const uiManagerProfileBackgroundPath = {json.dumps(str(UI_MANAGER_PROFILE_BACKGROUND_JS))};
+const uiManagerPath = {json.dumps(str(UI_MANAGER_JS))};
+const challengeInput = {{ value: "unexpected" }};
+const context = vm.createContext({{
+  console,
+  document: {{
+    getElementById(id) {{
+      return id === "srs-challenge-target" ? challengeInput : null;
+    }},
+    querySelectorAll() {{
+      return [];
+    }}
+  }},
+  setTimeout(callback) {{
+    callback();
+  }}
+}});
+context.globalThis = context;
+vm.runInContext(fs.readFileSync(viewModelPath, "utf8"), context, {{ filename: viewModelPath }});
+vm.runInContext(fs.readFileSync(uiManagerDomIdsPath, "utf8"), context, {{ filename: uiManagerDomIdsPath }});
+vm.runInContext(fs.readFileSync(uiManagerProfileBackgroundPath, "utf8"), context, {{ filename: uiManagerProfileBackgroundPath }});
+vm.runInContext(
+  `${{fs.readFileSync(uiManagerPath, "utf8")}}\nglobalThis.__UIManager = UIManager;`,
+  context,
+  {{ filename: uiManagerPath }}
+);
+
+const ui = new context.__UIManager();
+ui.updateSrsInputs({{}}, {{ difficultyPreferences: {{ target_challenge_center: null }} }});
+assert.equal(challengeInput.value, "");
+ui.updateSrsInputs({{}}, {{ difficultyPreferences: {{ target_challenge_center: "" }} }});
+assert.equal(challengeInput.value, "");
+ui.updateSrsInputs({{}}, {{ difficultyPreferences: {{ target_challenge_center: 0.65 }} }});
+assert.equal(challengeInput.value, "65");
+"""
         _run_node(script)
 
     def test_srs_story_card_collapse_after_delete_closes_nested_details(self) -> None:

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import csv
+from contextlib import closing
 import json
 import sqlite3
 from collections import defaultdict
@@ -407,7 +408,7 @@ def write_frequency_db(
 
     ranked = sorted(lemma_counts.items(), key=lambda item: (-item[1], item[0]))
 
-    with sqlite3.connect(str(output_path)) as conn:
+    with closing(sqlite3.connect(str(output_path))) as conn, conn:
         conn.execute("PRAGMA journal_mode=WAL;")
         conn.execute("PRAGMA synchronous=NORMAL;")
         conn.execute("DROP TABLE IF EXISTS frequency;")
@@ -488,7 +489,7 @@ def write_frequency_db(
 
 
 def sanity_check_db(path: Path) -> tuple[int, float]:
-    with sqlite3.connect(str(path)) as conn:
+    with closing(sqlite3.connect(str(path))) as conn:
         row_count = int(conn.execute("SELECT COUNT(*) FROM frequency;").fetchone()[0])
         if row_count <= 0:
             raise ValueError("frequency table is empty.")

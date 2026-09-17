@@ -379,6 +379,7 @@ class UIManager {
       ? Math.round(Math.min(1, Math.max(0, Number(signalState.proficiency.estimated_value))) * 100)
       : 50;
     const challengeTarget = signalState.difficultyPreferences
+      && String(signalState.difficultyPreferences.target_challenge_center ?? "").trim() !== ""
       && Number.isFinite(Number(signalState.difficultyPreferences.target_challenge_center))
       ? Math.round(Math.min(1, Math.max(0, Number(signalState.difficultyPreferences.target_challenge_center))) * 100)
       : "";

@@ -23,6 +23,7 @@ def _run_node(script: str) -> None:
         ["node"],
         input=script,
         text=True,
+        encoding="utf-8",
         capture_output=True,
         cwd=PROJECT_ROOT,
         check=False,
@@ -122,7 +123,6 @@ assert.equal(result.contextMeta.source, "current_form");
 assert.deepEqual(
   normalize(result.contextMeta.pendingOverrides).sort(),
   [
-    "challenge_target",
     "initial_active_count",
     "interests",
     "max_active_items",
@@ -137,10 +137,88 @@ assert.deepEqual(normalize(result.profileContext), {{
   profile_id: "default",
   interests: ["animals", "travel"],
   proficiency: {{ estimated_value: 0.55 }},
-  difficulty_preferences: {{ target_challenge_center: 0.65 }},
+  difficulty_preferences: {{}},
   constraints: {{ max_active_items: 24 }},
   sizing: {{ bootstrap_top_n: null, initial_active_count: 33 }}
 }});
+"""
+        _run_node(script)
+
+    def test_planning_state_keeps_legacy_null_challenge_target_inert(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(PLANNING_STATE_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createResolver = context.LexiShift.optionsSrsPlanningState.createResolver;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+const settingsManager = {{
+  defaults: {{ srsMaxActive: 20, srsBootstrapTopN: null, srsInitialActiveCount: 40 }},
+  getSrsProfile() {{
+    return {{
+      profileId: "suisui",
+      srsMaxActive: 20,
+      srsBootstrapTopN: null,
+      srsInitialActiveCount: 40
+    }};
+  }},
+  getSrsProfileSignals() {{
+    return {{
+      interests: ["music_media_entertainment"],
+      objectives: [],
+      proficiency: {{ estimated_value: 0.41 }},
+      difficultyPreferences: {{
+        target_challenge_center: null,
+        target_challenge_spread: 0.18,
+        goal_mode: "growth"
+      }},
+      empiricalTrends: {{}},
+      sourcePreferences: {{}}
+    }};
+  }},
+  resolveSrsSetSizing() {{
+    return {{ srsBootstrapTopN: null, srsInitialActiveCount: 40 }};
+  }},
+  composeSrsPlanContext(pairKey, profile, signals, options) {{
+    return {{
+      pair: pairKey,
+      profile_id: options.profileId,
+      interests: signals.interests,
+      proficiency: signals.proficiency,
+      difficulty_preferences: signals.difficultyPreferences,
+      constraints: {{ max_active_items: profile.srsMaxActive }},
+      sizing: {{ bootstrap_top_n: null, initial_active_count: profile.srsInitialActiveCount }}
+    }};
+  }}
+}};
+
+const resolver = createResolver({{
+  settingsManager,
+  parseInterestList: (value) => String(value || "").split(",").filter(Boolean),
+  parseOptionalPercent: (value) => {{
+    const trimmed = String(value || "").trim();
+    return trimmed ? Number.parseFloat(trimmed) / 100 : null;
+  }},
+  srsMaxActiveInput: {{ value: "20" }},
+  srsInitialActiveCountInput: {{ value: "40" }},
+  srsTopicInterestsInput: {{ value: "music_media_entertainment" }},
+  srsProficiencyEstimateInput: {{ value: "41" }},
+  srsChallengeTargetInput: {{ value: "0" }}
+}});
+
+const result = resolver({{}}, "en-ja", {{ profileId: "suisui" }});
+
+assert.equal(result.contextMeta.source, "saved_profile");
+assert.deepEqual(normalize(result.contextMeta.pendingOverrides), []);
+assert.deepEqual(normalize(result.signals.difficultyPreferences), {{ goal_mode: "growth" }});
+assert.deepEqual(normalize(result.profileContext.difficulty_preferences), {{ goal_mode: "growth" }});
+assert.equal(result.profileContext.proficiency.estimated_value, 0.41);
 """
         _run_node(script)
 
@@ -175,6 +253,10 @@ const createAdmissionPreviewWorkflow =
 const normalize = (value) => JSON.parse(JSON.stringify(value));
 const request = {{}};
 const admissionPreviewButton = {{ disabled: false }};
+const outputMessages = [];
+const clearedProgressTimers = [];
+let progressCallback = null;
+let nowMs = 0;
 const workflow = createAdmissionPreviewWorkflow({{
   settingsManager: {{
     async load() {{
@@ -186,6 +268,8 @@ const workflow = createAdmissionPreviewWorkflow({{
       request.pair = pair;
       request.sizing = sizing;
       request.options = options;
+      nowMs = 15000;
+      progressCallback();
       return {{
         profile_id: "default",
         plan: {{ strategy: "profile_bootstrap" }},
@@ -216,9 +300,19 @@ const workflow = createAdmissionPreviewWorkflow({{
     }}
   }}),
   preflightSrsPairResources: async () => true,
-  buildAdmissionPreviewOutput: () => "",
+  buildAdmissionPreviewOutput: () => "Preview ready.",
   admissionPreviewButton,
-  setAdmissionPreviewOutputText: () => {{}},
+  setAdmissionPreviewOutputText: (message) => outputMessages.push(message),
+  now: () => nowMs,
+  progressIntervalMs: 15000,
+  setIntervalFn(callback, intervalMs) {{
+    assert.equal(intervalMs, 15000);
+    progressCallback = callback;
+    return 73;
+  }},
+  clearIntervalFn(timerId) {{
+    clearedProgressTimers.push(timerId);
+  }},
   log: () => {{}}
 }});
 
@@ -238,6 +332,10 @@ const workflow = createAdmissionPreviewWorkflow({{
   assert.equal(request.options.previewCount, 10);
   assert.equal(request.options.previewSamplingMode, "reserved_topic_lane");
   assert.equal(request.options.previewSeed, 424242);
+  assert.match(outputMessages[0], /first run.*several minutes/i);
+  assert.match(outputMessages[2], /15 seconds elapsed/i);
+  assert.equal(outputMessages.at(-1), "Preview ready.");
+  assert.deepEqual(clearedProgressTimers, [73]);
   assert.deepEqual(normalize(request.options.profileContext), {{
     pair: "en-ja",
     profile_id: "default",

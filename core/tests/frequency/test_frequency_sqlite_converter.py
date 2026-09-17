@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 import json
 import os
 import sqlite3
@@ -55,7 +56,7 @@ class TestFrequencySqliteConverter(unittest.TestCase):
             self.assertEqual(metadata["unknown_pos_inventory_size"], 1)
             self.assertEqual(metadata["unknown_pos_inventory_top"], [{"tag": "x", "count": 1}])
 
-            with sqlite3.connect(output_path) as conn:
+            with closing(sqlite3.connect(output_path)) as conn:
                 row = conn.execute("SELECT value FROM meta WHERE key='metadata'").fetchone()
             self.assertIsNotNone(row)
             payload = json.loads(str(row[0]))

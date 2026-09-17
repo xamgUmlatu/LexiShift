@@ -1,5 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const ADMISSION_PREVIEW_TIMEOUT_MS = 10 * 60 * 1000;
 
   function installHelperSrsSetMethods(proto) {
     if (!proto || typeof proto !== "object") {
@@ -118,7 +119,7 @@
         trigger,
         profile_context: profileContext
       }, sizing);
-      const response = await client.previewSrsAdmission(payload, 60000);
+      const response = await client.previewSrsAdmission(payload, ADMISSION_PREVIEW_TIMEOUT_MS);
       if (!response || response.ok === false) {
         throw new Error(
           this.normalizeHelperErrorMessage(

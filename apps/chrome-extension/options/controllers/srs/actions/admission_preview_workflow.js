@@ -37,6 +37,21 @@
       ? opts.setAdmissionPreviewOutputText
       : (() => {});
     const log = typeof opts.log === "function" ? opts.log : (() => {});
+    const now = typeof opts.now === "function" ? opts.now : (() => Date.now());
+    const setProgressInterval = typeof opts.setIntervalFn === "function"
+      ? opts.setIntervalFn
+      : (typeof globalThis.setInterval === "function"
+          ? ((callback, intervalMs) => globalThis.setInterval(callback, intervalMs))
+          : null);
+    const clearProgressInterval = typeof opts.clearIntervalFn === "function"
+      ? opts.clearIntervalFn
+      : (typeof globalThis.clearInterval === "function"
+          ? ((timerId) => globalThis.clearInterval(timerId))
+          : null);
+    const configuredProgressIntervalMs = Number(opts.progressIntervalMs);
+    const progressIntervalMs = Number.isFinite(configuredProgressIntervalMs)
+      ? Math.max(1000, Math.round(configuredProgressIntervalMs))
+      : 15000;
 
     return async function previewAdmission(optionsArg) {
       const previewOptions = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
@@ -51,11 +66,19 @@
       const previewCount = Number.isFinite(requestedPreviewCount) && requestedPreviewCount > 0
         ? Math.round(requestedPreviewCount)
         : 10;
+      let progressTimer = null;
+      let progressStartedAt = null;
+      const stopProgressUpdates = () => {
+        if (progressTimer !== null && clearProgressInterval) {
+          clearProgressInterval(progressTimer);
+        }
+        progressTimer = null;
+      };
       admissionPreviewButton.disabled = true;
       outputWriter(translate(
         "status_srs_admission_preview_running",
         [previewCount],
-        `Sampling possible next words (${previewCount})…`
+        `Preparing a word sample (${previewCount})… The first run for this language pair may build local caches and take several minutes.`
       ));
 
       try {
@@ -83,6 +106,22 @@
         if (!canProceed) {
           return;
         }
+        progressStartedAt = now();
+        outputWriter(translate(
+          "status_srs_admission_preview_running",
+          [previewCount],
+          `Preparing a word sample (${previewCount})… The first run for this language pair may build local caches and take several minutes.`
+        ));
+        if (setProgressInterval) {
+          progressTimer = setProgressInterval(() => {
+            const elapsedSeconds = Math.max(0, Math.round((now() - progressStartedAt) / 1000));
+            outputWriter(translate(
+              "status_srs_admission_preview_still_preparing",
+              [elapsedSeconds],
+              `Still preparing the word sample (${elapsedSeconds} seconds elapsed). Keep this page open; first-run cache building can take several minutes.`
+            ));
+          }, progressIntervalMs);
+        }
         const planningState = previewOptions.planningState && typeof previewOptions.planningState === "object"
           ? previewOptions.planningState
           : resolvePlanningState(synced.items, srsPair, profileId);
@@ -106,6 +145,7 @@
             profileContext
           }
         );
+        stopProgressUpdates();
         outputWriter(buildAdmissionPreviewOutput({
           translate,
           srsPair,
@@ -126,12 +166,14 @@
           plan: previewPayload.plan || null
         });
       } catch (err) {
+        stopProgressUpdates();
         const msg = err && err.message
           ? err.message
           : translate("status_srs_admission_preview_failed", null, "Word sample failed.");
         outputWriter(msg);
         log("SRS admission preview failed.", err);
       } finally {
+        stopProgressUpdates();
         admissionPreviewButton.disabled = false;
       }
     };

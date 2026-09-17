@@ -24,11 +24,12 @@ PROBLEM_CLASS_PREFIX_OR_SUFFIX = "prefix_or_suffix"
 PROBLEM_CLASS_PROPER_NOUN = "proper_noun"
 PROBLEM_CLASS_SYMBOL_OR_PUNCTUATION = "symbol_or_punctuation"
 PROBLEM_CLASS_ACRONYM_OR_CODE = "acronym_or_code"
+PROBLEM_CLASS_INTERJECTION_OR_FILLER = "interjection_or_filler"
 
 CLASSIFICATION_CONFIDENCE_HIGH = "high"
 CLASSIFICATION_CONFIDENCE_REVIEW = "review"
 
-CANDIDATE_CLASSIFICATION_VERSION = "candidate_classification_v5"
+CANDIDATE_CLASSIFICATION_VERSION = "candidate_classification_v6"
 
 _CANDIDATE_STATES = frozenset(
     {
@@ -65,6 +66,15 @@ _JA_CORE_PROPER_NOUN_VOCAB = frozenset(
     }
 )
 _JA_EXACT_FUNCTION_ITEMS = frozenset({"で", "が", "より", "そして", "及び"})
+_JA_NONLEXICAL_INTERJECTION_FRAGMENTS = frozenset(
+    {
+        "あっ",
+        "えっ",
+        "おっ",
+        "うっ",
+        "んっ",
+    }
+)
 _DE_EXACT_GRAMMAR_ITEMS = frozenset(
     {
         "am",
@@ -237,6 +247,29 @@ def _classify_ja_candidate(
             confidence=CLASSIFICATION_CONFIDENCE_HIGH,
             reasons=(f"ja_pos_head:{pos_head}",),
             admission_suitability=0.02,
+        )
+    if pos_head == "感動詞":
+        if "フィラー" in raw_pos_text or text in _JA_NONLEXICAL_INTERJECTION_FRAGMENTS:
+            reason = (
+                "ja_pos_interjection_filler"
+                if "フィラー" in raw_pos_text
+                else "ja_nonlexical_interjection_fragment"
+            )
+            return CandidateClassification(
+                candidate_state=CANDIDATE_STATE_SUPPRESSED_DEFAULT,
+                presentation_mode=PRESENTATION_MODE_SUPPRESS,
+                problem_class=PROBLEM_CLASS_INTERJECTION_OR_FILLER,
+                confidence=CLASSIFICATION_CONFIDENCE_HIGH,
+                reasons=(reason,),
+                admission_suitability=0.0,
+            )
+        return CandidateClassification(
+            candidate_state=CANDIDATE_STATE_DEPRIORITIZED_VOCAB,
+            presentation_mode=PRESENTATION_MODE_VOCAB,
+            problem_class=PROBLEM_CLASS_INTERJECTION_OR_FILLER,
+            confidence=CLASSIFICATION_CONFIDENCE_REVIEW,
+            reasons=("ja_pos_interjection_deprioritized",),
+            admission_suitability=0.15,
         )
     if "固有名詞" in raw_pos_text:
         if text in _JA_CORE_PROPER_NOUN_VOCAB:

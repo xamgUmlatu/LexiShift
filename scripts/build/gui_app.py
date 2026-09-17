@@ -57,6 +57,49 @@ def _build_command(
     return cmd
 
 
+def _sanitize_windows_pyinstaller_path(
+    path_value: str,
+    *,
+    python_prefix: str,
+    windows_root: str | None = None,
+) -> tuple[str, list[str]]:
+    """Exclude foreign binary directories that can contaminate PySide6 collection."""
+    if platform.system() != "Windows":
+        return path_value, []
+    prefix = Path(python_prefix).resolve(strict=False)
+    resolved_windows_root = Path(
+        windows_root or os.environ.get("SystemRoot") or "C:/Windows"
+    ).resolve(strict=False)
+    kept: list[str] = []
+    removed: list[str] = []
+    for raw_entry in path_value.split(os.pathsep):
+        entry = raw_entry.strip()
+        if not entry:
+            continue
+        candidate = Path(entry).resolve(strict=False)
+        inside_python = candidate == prefix or candidate.is_relative_to(prefix)
+        inside_windows = candidate == resolved_windows_root or candidate.is_relative_to(
+            resolved_windows_root
+        )
+        lowered_parts = tuple(part.lower() for part in candidate.parts)
+        inside_codex_native_dependencies = (
+            "codex-runtimes" in lowered_parts
+            and "dependencies" in lowered_parts
+            and "native" in lowered_parts
+        )
+        try:
+            contains_external_icu = (
+                not inside_python and not inside_windows and (candidate / "icuuc.dll").exists()
+            )
+        except OSError:
+            contains_external_icu = False
+        if inside_codex_native_dependencies or contains_external_icu:
+            removed.append(entry)
+        else:
+            kept.append(entry)
+    return os.pathsep.join(kept), removed
+
+
 def _default_paths(repo_root: str) -> Tuple[str, str, str]:
     default_spec = os.path.join(repo_root, "apps", "gui", "packaging", "pyinstaller.spec")
     default_dist = os.path.join(repo_root, "apps", "gui", "dist")
@@ -137,7 +180,9 @@ def _list_macos_installed_processes(install_dir: Path) -> list[tuple[int, str]]:
     )
     if result.returncode != 0:
         return []
-    executable_paths = tuple(str(path) for path in _macos_installed_executable_paths(install_dir))
+    executable_paths = tuple(
+        str(path).replace("\\", "/") for path in _macos_installed_executable_paths(install_dir)
+    )
     rows: list[tuple[int, str]] = []
     for raw_line in result.stdout.splitlines():
         parts = raw_line.strip().split(maxsplit=1)
@@ -417,6 +462,14 @@ def main() -> int:
     print("Running:", " ".join(cmd))
 
     env = os.environ.copy()
+    sanitized_path, removed_path_entries = _sanitize_windows_pyinstaller_path(
+        env.get("PATH", ""),
+        python_prefix=sys.prefix,
+        windows_root=env.get("SystemRoot"),
+    )
+    env["PATH"] = sanitized_path
+    for removed_entry in removed_path_entries:
+        print(f"Excluded foreign binary directory from PyInstaller PATH: {removed_entry}")
     env["PYTHONUNBUFFERED"] = "1"
     env.setdefault("LEXISHIFT_REPO_ROOT", repo_root)
     env.setdefault("LEXISHIFT_SPEC_PATH", spec_path)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import closing
 import json
 import os
 import sqlite3
@@ -627,7 +628,7 @@ class TestSrsSeedStopwords(unittest.TestCase):
             first = build_seed_candidates(frequency_db=db_path, config=config)
             self.assertNotIn("山", [item.lemma for item in first])
 
-            with sqlite3.connect(db_path) as conn:
+            with closing(sqlite3.connect(db_path)) as conn, conn:
                 conn.execute(
                     "INSERT INTO frequency (lemma, core_rank, pmw) VALUES (?, ?, ?)",
                     ("山", 0.5, 2000.0),
@@ -667,7 +668,7 @@ class TestSrsSeedStopwords(unittest.TestCase):
             root = Path(tmp)
             db_path = root / "freq.sqlite"
             cache_dir = root / "cache"
-            with sqlite3.connect(db_path) as conn:
+            with closing(sqlite3.connect(db_path)) as conn, conn:
                 conn.execute(
                     "CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL, pos TEXT)"
                 )

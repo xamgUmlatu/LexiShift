@@ -195,7 +195,7 @@
     "message": "練習を開始"
   },
   "status_srs_story_flow_previewing": {
-    "message": "設定を保存して候補語をサンプルしています…"
+    "message": "設定を保存して単語サンプルを準備しています… この言語ペアの初回実行には数分かかる場合があります。"
   },
   "status_srs_story_flow_sampled": {
     "message": "サンプルを更新しました。"
@@ -486,7 +486,10 @@
     "message": "好みに合う10語をサンプル…"
   },
   "status_srs_admission_preview_running": {
-    "message": "次に出せる単語をサンプル中（$1）…"
+    "message": "単語サンプルを準備しています（$1語）… この言語ペアの初回実行ではローカルキャッシュを構築するため、数分かかる場合があります。"
+  },
+  "status_srs_admission_preview_still_preparing": {
+    "message": "単語サンプルを準備中です（経過 $1 秒）。このページを開いたままお待ちください。初回のキャッシュ構築には数分かかる場合があります。"
   },
   "status_srs_admission_preview_failed": {
     "message": "単語サンプルに失敗しました。"

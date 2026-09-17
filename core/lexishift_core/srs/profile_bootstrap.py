@@ -1128,12 +1128,11 @@ def select_frontier_gaussian_hybrid_lane_entries(
         ):
             if filled_counts[lane_name] >= lane_target:
                 break
-            lane_score = _hybrid_lane_score(
-                entry,
+            lane_score = _hybrid_lane_score(entry, lane_name, policy=policy)
+            if lane_score <= 0.0 or lane_score < _hybrid_lane_minimum_score(
                 lane_name,
                 policy=policy,
-            )
-            if lane_score < _hybrid_lane_minimum_score(lane_name, policy=policy):
+            ):
                 break
             identity_key = _frontier_lane_identity_key(entry)
             if identity_key in selected_keys:
@@ -1159,12 +1158,11 @@ def select_frontier_gaussian_hybrid_lane_entries(
         ):
             if len(selected) >= target:
                 break
-            lane_score = _hybrid_lane_score(
-                entry,
+            lane_score = _hybrid_lane_score(entry, lane_name, policy=policy)
+            if lane_score <= 0.0 or lane_score < _hybrid_lane_minimum_score(
                 lane_name,
                 policy=policy,
-            )
-            if lane_score < _hybrid_lane_minimum_score(lane_name, policy=policy):
+            ):
                 break
             identity_key = _frontier_lane_identity_key(entry)
             if identity_key in selected_keys:

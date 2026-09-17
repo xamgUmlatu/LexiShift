@@ -312,7 +312,7 @@
       }
       setActionBusy(true);
       setPreviewText(
-        translate("status_srs_story_flow_previewing", null, "Saving settings and sampling possible words…"),
+        translate("status_srs_story_flow_previewing", null, "Preparing a word sample…"),
         colors.DEFAULT
       );
       try {
